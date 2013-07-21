@@ -54,8 +54,10 @@ import org.springframework.web.servlet.mvc.AbstractController;
 @Deprecated
 public class BatchReportListController extends AbstractController {
 
+    /** The m_report list service. */
     private DatabaseReportListService m_reportListService;
 
+    /** The m_page size. */
     private int m_pageSize;
 
     /** {@inheritDoc} */
@@ -81,6 +83,7 @@ public class BatchReportListController extends AbstractController {
      * <p>
      * getDatabaseReportListService
      * </p>
+     * .
      *
      * @return a {@link org.opennms.web.svclayer.DatabaseReportListService}
      *         object.
@@ -93,6 +96,7 @@ public class BatchReportListController extends AbstractController {
      * <p>
      * setDatabaseReportListService
      * </p>
+     * .
      *
      * @param listService
      *            a {@link org.opennms.web.svclayer.DatabaseReportListService}
@@ -106,6 +110,7 @@ public class BatchReportListController extends AbstractController {
      * <p>
      * getPageSize
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -117,6 +122,7 @@ public class BatchReportListController extends AbstractController {
      * <p>
      * setPageSize
      * </p>
+     * .
      *
      * @param pageSize
      *            a int.

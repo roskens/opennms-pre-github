@@ -47,22 +47,36 @@ import com.sun.jersey.spi.container.servlet.ServletContainer;
 import com.sun.jersey.spi.spring.container.servlet.SpringServlet;
 
 /**
+ * The Class SpringWebflowContextTest.
+ *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  */
 public class SpringWebflowContextTest extends TestCase {
 
+    /** The context path. */
     private String contextPath = "/opennms/rest";
 
+    /** The dispatcher. */
     private ServletContainer dispatcher;
 
+    /** The servlet config. */
     private MockServletConfig servletConfig;
 
+    /** The servlet context. */
     private MockServletContext servletContext;
 
+    /** The context listener. */
     private ContextLoaderListener contextListener;
 
+    /** The filter. */
     private Filter filter;
 
+    /**
+     * Test load context.
+     *
+     * @throws Throwable
+     *             the throwable
+     */
     public void testLoadContext() throws Throwable {
 
         DaoTestConfigBean bean = new DaoTestConfigBean();

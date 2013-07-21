@@ -55,8 +55,10 @@ import org.springframework.web.servlet.mvc.SimpleFormController;
 @SuppressWarnings("deprecation")
 public class AdminRancidCloginDeleteController extends SimpleFormController {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(AdminRancidCloginDeleteController.class);
 
+    /** The m_inventory service. */
     InventoryService m_inventoryService;
 
     /** {@inheritDoc} */
@@ -88,6 +90,7 @@ public class AdminRancidCloginDeleteController extends SimpleFormController {
      * <p>
      * getInventoryService
      * </p>
+     * .
      *
      * @return a {@link org.opennms.web.svclayer.inventory.InventoryService}
      *         object.
@@ -100,6 +103,7 @@ public class AdminRancidCloginDeleteController extends SimpleFormController {
      * <p>
      * setInventoryService
      * </p>
+     * .
      *
      * @param inventoryService
      *            a {@link org.opennms.web.svclayer.inventory.InventoryService}

@@ -51,8 +51,10 @@ import org.springframework.web.servlet.mvc.AbstractCommandController;
  */
 public class LocationMonitorDetailsController extends AbstractCommandController implements InitializingBean {
 
+    /** The m_distributed poller service. */
     private DistributedPollerService m_distributedPollerService;
 
+    /** The m_success view. */
     private String m_successView;
 
     /** {@inheritDoc} */
@@ -75,6 +77,7 @@ public class LocationMonitorDetailsController extends AbstractCommandController 
      * <p>
      * getDistributedPollerService
      * </p>
+     * .
      *
      * @return a {@link org.opennms.web.svclayer.DistributedPollerService}
      *         object.
@@ -87,6 +90,7 @@ public class LocationMonitorDetailsController extends AbstractCommandController 
      * <p>
      * setDistributedPollerService
      * </p>
+     * .
      *
      * @param distributedPollerService
      *            a {@link org.opennms.web.svclayer.DistributedPollerService}
@@ -100,6 +104,7 @@ public class LocationMonitorDetailsController extends AbstractCommandController 
      * <p>
      * getSuccessView
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -111,6 +116,7 @@ public class LocationMonitorDetailsController extends AbstractCommandController 
      * <p>
      * setSuccessView
      * </p>
+     * .
      *
      * @param successView
      *            a {@link java.lang.String} object.
@@ -123,9 +129,10 @@ public class LocationMonitorDetailsController extends AbstractCommandController 
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @Override
     public final void afterPropertiesSet() throws Exception {

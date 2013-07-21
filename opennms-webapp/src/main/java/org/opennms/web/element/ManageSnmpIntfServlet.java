@@ -70,26 +70,30 @@ import org.slf4j.LoggerFactory;
  * @since 1.8.1
  */
 public final class ManageSnmpIntfServlet extends HttpServlet {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(ManageSnmpIntfServlet.class);
 
-    /**
-     *
-     */
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 996461881276250543L;
 
+    /** The snmp service id. */
     protected int snmpServiceId;
 
+    /** The snmp peer factory. */
     protected SnmpPeerFactory snmpPeerFactory;
 
+    /** The page to redirect. */
     protected String pageToRedirect;
 
     /**
      * <p>
      * init
      * </p>
+     * .
      *
-     * @throws javax.servlet.ServletException
-     *             if any.
+     * @throws ServletException
+     *             the servlet exception
      */
     @Override
     public void init() throws ServletException {
@@ -174,6 +178,16 @@ public final class ManageSnmpIntfServlet extends HttpServlet {
         }
     }
 
+    /**
+     * Redirect.
+     *
+     * @param request
+     *            the request
+     * @param response
+     *            the response
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     private void redirect(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String redirectURL = request.getHeader("Referer");
         response.sendRedirect(redirectURL);

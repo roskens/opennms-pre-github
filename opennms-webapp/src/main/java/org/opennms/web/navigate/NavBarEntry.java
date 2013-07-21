@@ -30,11 +30,16 @@ package org.opennms.web.navigate;
 
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * The Interface NavBarEntry.
+ */
 public interface NavBarEntry {
+
     /**
      * <p>
      * getName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -44,6 +49,7 @@ public interface NavBarEntry {
      * <p>
      * getUrl
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -53,6 +59,7 @@ public interface NavBarEntry {
      * <p>
      * evaluate
      * </p>
+     * .
      *
      * @param request
      *            a {@link javax.servlet.http.HttpServletRequest} object.

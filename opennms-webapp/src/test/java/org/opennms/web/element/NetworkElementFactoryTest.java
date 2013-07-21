@@ -53,6 +53,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
+ * The Class NetworkElementFactoryTest.
+ *
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
@@ -64,31 +66,48 @@ import org.springframework.transaction.annotation.Transactional;
 @JUnitTemporaryDatabase
 public class NetworkElementFactoryTest implements InitializingBean {
 
+    /** The m_db populator. */
     @Autowired
     DatabasePopulator m_dbPopulator;
 
+    /** The m_app context. */
     @Autowired
     ApplicationContext m_appContext;
 
+    /** The m_data source. */
     @Autowired
     DataSource m_dataSource;
 
+    /** The m_jdbc template. */
     @Autowired
     SimpleJdbcTemplate m_jdbcTemplate;
 
+    /** The m_node dao. */
     @Autowired
     NodeDao m_nodeDao;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Sets the up.
+     */
     @Before
     public void setUp() {
         m_dbPopulator.populateDatabase();
     }
 
+    /**
+     * Test get node label.
+     *
+     * @throws SQLException
+     *             the sQL exception
+     */
     @Test
     @Transactional
     @JUnitTemporaryDatabase
@@ -98,6 +117,12 @@ public class NetworkElementFactoryTest implements InitializingBean {
         assertEquals(nodeLabel, "node1");
     }
 
+    /**
+     * Test get ip primary address.
+     *
+     * @throws SQLException
+     *             the sQL exception
+     */
     @Test
     @JUnitTemporaryDatabase
     public void testGetIpPrimaryAddress() throws SQLException {
@@ -109,6 +134,12 @@ public class NetworkElementFactoryTest implements InitializingBean {
         assertEquals(ipAddr, "172.168.1.1");
     }
 
+    /**
+     * Test get nodes with ip like one interface.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @Transactional
     @JUnitTemporaryDatabase
@@ -127,6 +158,12 @@ public class NetworkElementFactoryTest implements InitializingBean {
     }
 
     // bug introduced in revision 2932
+    /**
+     * Test get nodes with ip like two interfaces.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @JUnitTemporaryDatabase
     public void testGetNodesWithIpLikeTwoInterfaces() throws Exception {
@@ -144,6 +181,12 @@ public class NetworkElementFactoryTest implements InitializingBean {
         assertEquals("node count", 1, nodes.size());
     }
 
+    /**
+     * Test get interfaces with ip address.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @Transactional
     @JUnitTemporaryDatabase
@@ -160,6 +203,9 @@ public class NetworkElementFactoryTest implements InitializingBean {
         assertEquals("interface count", 0, interfaces.length);
     }
 
+    /**
+     * Test get active interfaces on node.
+     */
     @Test
     @Transactional
     @JUnitTemporaryDatabase
@@ -169,6 +215,9 @@ public class NetworkElementFactoryTest implements InitializingBean {
 
     }
 
+    /**
+     * Test get data links on interface.
+     */
     @Test
     @Transactional
     @JUnitTemporaryDatabase
@@ -182,6 +231,12 @@ public class NetworkElementFactoryTest implements InitializingBean {
         assertEquals(0, dlis2.size());
     }
 
+    /**
+     * Test get at interfaces.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @Transactional
     @JUnitTemporaryDatabase
@@ -194,6 +249,12 @@ public class NetworkElementFactoryTest implements InitializingBean {
         assertEquals(1, nodes.size());
     }
 
+    /**
+     * Test get data links on node.
+     *
+     * @throws SQLException
+     *             the sQL exception
+     */
     @Test
     @Transactional
     @JUnitTemporaryDatabase
@@ -205,6 +266,9 @@ public class NetworkElementFactoryTest implements InitializingBean {
         assertEquals(0, dlis2.size());
     }
 
+    /**
+     * Test get services on interface.
+     */
     @Test
     @JUnitTemporaryDatabase
     public void testGetServicesOnInterface() {

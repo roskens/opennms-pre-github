@@ -100,58 +100,95 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
 @Transactional(readOnly = true)
 public class NetworkElementFactory implements InitializingBean, NetworkElementFactoryInterface {
 
+    /** The m_node dao. */
     @Autowired
     private NodeDao m_nodeDao;
 
+    /** The m_ip interface dao. */
     @Autowired
     private IpInterfaceDao m_ipInterfaceDao;
 
+    /** The m_snmp interface dao. */
     @Autowired
     private SnmpInterfaceDao m_snmpInterfaceDao;
 
+    /** The m_data link interface dao. */
     @Autowired
     private DataLinkInterfaceDao m_dataLinkInterfaceDao;
 
+    /** The m_ip route interface dao. */
     @Autowired
     private IpRouteInterfaceDao m_ipRouteInterfaceDao;
 
+    /** The m_stp node dao. */
     @Autowired
     private StpNodeDao m_stpNodeDao;
 
+    /** The m_stp interface dao. */
     @Autowired
     private StpInterfaceDao m_stpInterfaceDao;
 
+    /** The m_vlan dao. */
     @Autowired
     private VlanDao m_vlanDao;
 
+    /** The m_mon svc dao. */
     @Autowired
     private MonitoredServiceDao m_monSvcDao;
 
+    /** The m_service type dao. */
     @Autowired
     private ServiceTypeDao m_serviceTypeDao;
 
+    /** The m_category dao. */
     @Autowired
     private CategoryDao m_categoryDao;
 
+    /** The m_transaction manager. */
     @Autowired
     private PlatformTransactionManager m_transactionManager;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Gets the single instance of NetworkElementFactory.
+     *
+     * @param servletContext
+     *            the servlet context
+     * @return single instance of NetworkElementFactory
+     */
     public static NetworkElementFactoryInterface getInstance(ServletContext servletContext) {
         return getInstance(WebApplicationContextUtils.getWebApplicationContext(servletContext));
     }
 
+    /**
+     * Gets the single instance of NetworkElementFactory.
+     *
+     * @param appContext
+     *            the app context
+     * @return single instance of NetworkElementFactory
+     */
     public static NetworkElementFactoryInterface getInstance(ApplicationContext appContext) {
         return appContext.getBean(NetworkElementFactoryInterface.class);
     }
 
+    /** The Constant INTERFACE_COMPARATOR. */
     private static final Comparator<Interface> INTERFACE_COMPARATOR = new InterfaceComparator();
 
+    /**
+     * The Class InterfaceComparator.
+     */
     public static class InterfaceComparator implements Comparator<Interface> {
+
+        /* (non-Javadoc)
+         * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
+         */
         @Override
         public int compare(Interface o1, Interface o2) {
 
@@ -394,16 +431,29 @@ public class NetworkElementFactory implements InitializingBean, NetworkElementFa
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.web.element.NetworkElementFactoryInterface#getIfIndex(int)
+     */
     @Override
     public Integer getIfIndex(int ipinterfaceid) {
         return getIfIndex(m_ipInterfaceDao.get(ipinterfaceid));
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.web.element.NetworkElementFactoryInterface#getIfIndex(int, java.lang.String)
+     */
     @Override
     public Integer getIfIndex(int nodeID, String ipaddr) {
         return getIfIndex(m_ipInterfaceDao.get(m_nodeDao.get(nodeID), ipaddr));
     }
 
+    /**
+     * Gets the if index.
+     *
+     * @param ipinterface
+     *            the ipinterface
+     * @return the if index
+     */
     private Integer getIfIndex(OnmsIpInterface ipinterface) {
         if (ipinterface != null && ipinterface.getIfIndex() != null)
             return ipinterface.getIfIndex();
@@ -553,6 +603,13 @@ public class NetworkElementFactory implements InitializingBean, NetworkElementFa
         return onmsSnmpInterfaces2InterfaceArray(m_snmpInterfaceDao.findMatching(criteria));
     }
 
+    /**
+     * Onms snmp interfaces2 interface array.
+     *
+     * @param snmpIfaces
+     *            the snmp ifaces
+     * @return the interface[]
+     */
     private Interface[] onmsSnmpInterfaces2InterfaceArray(List<OnmsSnmpInterface> snmpIfaces) {
         List<Interface> intfs = new LinkedList<Interface>();
 
@@ -777,6 +834,13 @@ public class NetworkElementFactory implements InitializingBean, NetworkElementFa
         return getServiceArray(m_monSvcDao.findMatching(criteria));
     }
 
+    /**
+     * Gets the service array.
+     *
+     * @param monSvcs
+     *            the mon svcs
+     * @return the service array
+     */
     private static Service[] getServiceArray(List<OnmsMonitoredService> monSvcs) {
         List<Service> svcs = new LinkedList<Service>();
         for (OnmsMonitoredService monSvc : monSvcs) {
@@ -959,20 +1023,28 @@ public class NetworkElementFactory implements InitializingBean, NetworkElementFa
      * <p>
      * getAtInterface
      * </p>
+     * .
      *
-     * @param nodeID
-     *            a int.
-     * @param ipaddr
-     *            a {@link java.lang.String} object.
+     * @param nodeId
+     *            the node id
+     * @param ipAddr
+     *            the ip addr
      * @return a {@link org.opennms.web.element.AtInterface} object.
-     * @throws java.sql.SQLException
-     *             if any.
      */
     @Override
     public AtInterface getAtInterface(int nodeId, String ipAddr) {
         return getAtInterfaceForOnmsNode(m_nodeDao.get(nodeId), ipAddr);
     }
 
+    /**
+     * Gets the at interface for onms node.
+     *
+     * @param onmsNode
+     *            the onms node
+     * @param ipAddr
+     *            the ip addr
+     * @return the at interface for onms node
+     */
     private AtInterface getAtInterfaceForOnmsNode(final OnmsNode onmsNode, final String ipAddr) {
         for (final OnmsArpInterface iface : onmsNode.getArpInterfaces()) {
             final String ifaceAddress = iface.getIpAddress();
@@ -987,13 +1059,12 @@ public class NetworkElementFactory implements InitializingBean, NetworkElementFa
      * <p>
      * getIpRoute
      * </p>
+     * .
      *
      * @param nodeID
      *            a int.
      * @return an array of {@link org.opennms.web.element.IpRouteInterface}
      *         objects.
-     * @throws java.sql.SQLException
-     *             if any.
      */
     @Override
     public IpRouteInterface[] getIpRoute(int nodeID) {
@@ -1003,6 +1074,13 @@ public class NetworkElementFactory implements InitializingBean, NetworkElementFa
         return nodes.toArray(new IpRouteInterface[nodes.size()]);
     }
 
+    /**
+     * Gets the ip route interface array.
+     *
+     * @param iproutes
+     *            the iproutes
+     * @return the ip route interface array
+     */
     private List<IpRouteInterface> getIpRouteInterfaceArray(List<OnmsIpRouteInterface> iproutes) {
         List<IpRouteInterface> routes = new ArrayList<IpRouteInterface>();
         for (OnmsIpRouteInterface iproute : iproutes) {
@@ -1032,12 +1110,11 @@ public class NetworkElementFactory implements InitializingBean, NetworkElementFa
      * <p>
      * isBridgeNode
      * </p>
+     * .
      *
      * @param nodeID
      *            a int.
      * @return a boolean.
-     * @throws java.sql.SQLException
-     *             if any.
      */
     @Override
     public boolean isBridgeNode(int nodeID) {
@@ -1054,12 +1131,11 @@ public class NetworkElementFactory implements InitializingBean, NetworkElementFa
      * <p>
      * isRouteInfoNode
      * </p>
+     * .
      *
      * @param nodeID
      *            a int.
      * @return a boolean.
-     * @throws java.sql.SQLException
-     *             if any.
      */
     @Override
     public boolean isRouteInfoNode(int nodeID) {
@@ -1077,12 +1153,11 @@ public class NetworkElementFactory implements InitializingBean, NetworkElementFa
      * <p>
      * getLinkedNodeIdOnNode
      * </p>
+     * .
      *
      * @param nodeID
      *            a int.
      * @return a {@link java.util.Set} object.
-     * @throws java.sql.SQLException
-     *             if any.
      */
     @Override
     public Set<Integer> getLinkedNodeIdOnNode(int nodeID) {
@@ -1132,6 +1207,9 @@ public class NetworkElementFactory implements InitializingBean, NetworkElementFa
 
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.web.element.NetworkElementFactoryInterface#getDataLinksOnInterface(int, java.lang.String)
+     */
     @Override
     public List<LinkInterface> getDataLinksOnInterface(int nodeId, String ipAddress) {
         Interface iface = getInterface(nodeId, ipAddress);
@@ -1141,6 +1219,9 @@ public class NetworkElementFactory implements InitializingBean, NetworkElementFa
         return new ArrayList<LinkInterface>();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.web.element.NetworkElementFactoryInterface#getDataLinksOnInterface(int)
+     */
     @Override
     public List<LinkInterface> getDataLinksOnInterface(int id) {
         Interface iface = getInterface(id);
@@ -1177,6 +1258,15 @@ public class NetworkElementFactory implements InitializingBean, NetworkElementFa
 
     }
 
+    /**
+     * Gets the data link interface.
+     *
+     * @param dlifaces
+     *            the dlifaces
+     * @param nodeId
+     *            the node id
+     * @return the data link interface
+     */
     private List<LinkInterface> getDataLinkInterface(List<DataLinkInterface> dlifaces, int nodeId) {
         List<LinkInterface> lifaces = new ArrayList<LinkInterface>();
         for (DataLinkInterface dliface : dlifaces) {
@@ -1196,6 +1286,15 @@ public class NetworkElementFactory implements InitializingBean, NetworkElementFa
      * altrimenti non la associamo
      * 2) node ha ip interface e node parent has SNMP interface
      * 3) node ha una interfaccia SNMP e node parent pure
+     */
+    /**
+     * Creates a new NetworkElement object.
+     *
+     * @param dliface
+     *            the dliface
+     * @param isParent
+     *            the is parent
+     * @return the link interface
      */
     private LinkInterface createLinkInterface(DataLinkInterface dliface, boolean isParent) {
 
@@ -1219,6 +1318,15 @@ public class NetworkElementFactory implements InitializingBean, NetworkElementFa
         return new LinkInterface(dliface, isParent, iface, linkedIface);
     }
 
+    /**
+     * Gets the interface for link.
+     *
+     * @param nodeid
+     *            the nodeid
+     * @param ifindex
+     *            the ifindex
+     * @return the interface for link
+     */
     private Interface getInterfaceForLink(int nodeid, int ifindex) {
         Interface iface = null;
         if (ifindex > 0) {
@@ -1250,12 +1358,11 @@ public class NetworkElementFactory implements InitializingBean, NetworkElementFa
      * <p>
      * getVlansOnNode
      * </p>
+     * .
      *
      * @param nodeID
      *            a int.
      * @return an array of {@link org.opennms.web.element.Vlan} objects.
-     * @throws java.sql.SQLException
-     *             if any.
      */
     @Override
     public Vlan[] getVlansOnNode(int nodeID) {
@@ -1272,6 +1379,13 @@ public class NetworkElementFactory implements InitializingBean, NetworkElementFa
         return vlans.toArray(new Vlan[vlans.size()]);
     }
 
+    /**
+     * Gets the vlans.
+     *
+     * @param onmsvlans
+     *            the onmsvlans
+     * @return the vlans
+     */
     private List<Vlan> getVlans(List<OnmsVlan> onmsvlans) {
         List<Vlan> vlans = new ArrayList<Vlan>();
         for (OnmsVlan onmsvlan : onmsvlans) {
@@ -1284,12 +1398,11 @@ public class NetworkElementFactory implements InitializingBean, NetworkElementFa
      * <p>
      * getStpInterface
      * </p>
+     * .
      *
      * @param nodeID
      *            a int.
      * @return an array of {@link org.opennms.web.element.StpInterface} objects.
-     * @throws java.sql.SQLException
-     *             if any.
      */
     @Override
     public StpInterface[] getStpInterface(int nodeID) {
@@ -1326,14 +1439,13 @@ public class NetworkElementFactory implements InitializingBean, NetworkElementFa
      * <p>
      * getStpInterface
      * </p>
+     * .
      *
      * @param nodeID
      *            a int.
      * @param ifindex
      *            a int.
      * @return an array of {@link org.opennms.web.element.StpInterface} objects.
-     * @throws java.sql.SQLException
-     *             if any.
      */
     @Override
     public StpInterface[] getStpInterface(int nodeID, int ifindex) {
@@ -1371,12 +1483,11 @@ public class NetworkElementFactory implements InitializingBean, NetworkElementFa
      * <p>
      * getStpNode
      * </p>
+     * .
      *
      * @param nodeID
      *            a int.
      * @return an array of {@link org.opennms.web.element.StpNode} objects.
-     * @throws java.sql.SQLException
-     *             if any.
      */
     @Override
     public StpNode[] getStpNode(int nodeID) {
@@ -1400,6 +1511,13 @@ public class NetworkElementFactory implements InitializingBean, NetworkElementFa
         return nodes.toArray(new StpNode[nodes.size()]);
     }
 
+    /**
+     * Gets the stp node from stp root identifier.
+     *
+     * @param baseaddress
+     *            the baseaddress
+     * @return the stp node from stp root identifier
+     */
     private Integer getStpNodeFromStpRootIdentifier(String baseaddress) {
 
         final OnmsCriteria criteria = new OnmsCriteria(OnmsStpNode.class);
@@ -1411,6 +1529,13 @@ public class NetworkElementFactory implements InitializingBean, NetworkElementFa
         return null;
     }
 
+    /**
+     * Gets the stp interface.
+     *
+     * @param onmsStpInterface
+     *            the onms stp interface
+     * @return the stp interface
+     */
     private StpInterface getStpInterface(OnmsStpInterface onmsStpInterface) {
         StpInterface stpIf = new StpInterface(onmsStpInterface);
         if (stpIf.get_stpdesignatedbridge() != null) {
@@ -1425,6 +1550,10 @@ public class NetworkElementFactory implements InitializingBean, NetworkElementFa
     /**
      * This class converts data from the result set into {@link StpNode}
      * objects.
+     *
+     * @param node
+     *            the node
+     * @return the stp node
      */
     private StpNode getStpNode(OnmsStpNode node) {
         StpNode stpNode = new StpNode(node);
@@ -1441,14 +1570,13 @@ public class NetworkElementFactory implements InitializingBean, NetworkElementFa
      * <p>
      * getIpAddress
      * </p>
+     * .
      *
      * @param nodeid
      *            a int.
      * @param ifindex
      *            a int.
      * @return a {@link java.lang.String} object.
-     * @throws java.sql.SQLException
-     *             if any.
      */
     @Transactional
     private String getIpAddress(int nodeid, int ifindex) {
@@ -1524,6 +1652,13 @@ public class NetworkElementFactory implements InitializingBean, NetworkElementFa
         return ourNodes;
     }
 
+    /**
+     * Gets the nodes in categories.
+     *
+     * @param categoryStrings
+     *            the category strings
+     * @return the nodes in categories
+     */
     private List<OnmsNode> getNodesInCategories(String[] categoryStrings) {
         List<OnmsCategory> categories = new ArrayList<OnmsCategory>();
         for (String categoryString : categoryStrings) {
@@ -1599,6 +1734,13 @@ public class NetworkElementFactory implements InitializingBean, NetworkElementFa
         return ourNodes;
     }
 
+    /**
+     * Gets the interface array.
+     *
+     * @param ipIfaces
+     *            the ip ifaces
+     * @return the interface array
+     */
     private Interface[] getInterfaceArray(List<OnmsIpInterface> ipIfaces) {
         List<Interface> intfs = new LinkedList<Interface>();
         for (OnmsIpInterface iface : ipIfaces) {
@@ -1609,6 +1751,13 @@ public class NetworkElementFactory implements InitializingBean, NetworkElementFa
         return intfs.toArray(new Interface[intfs.size()]);
     }
 
+    /**
+     * Gets the interface array with snmp data.
+     *
+     * @param ipIfaces
+     *            the ip ifaces
+     * @return the interface array with snmp data
+     */
     private Interface[] getInterfaceArrayWithSnmpData(List<OnmsIpInterface> ipIfaces) {
         List<Interface> intfs = new LinkedList<Interface>();
         for (OnmsIpInterface iface : ipIfaces) {

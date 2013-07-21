@@ -52,12 +52,16 @@ import org.opennms.web.map.view.VMap;
 import org.opennms.web.map.view.VMapInfo;
 import org.opennms.web.map.view.VProperties;
 
+/**
+ * The Class ResponseAssembler.
+ */
 public class ResponseAssembler {
 
     /**
      * <p>
      * getRefreshResponse
      * </p>
+     * .
      *
      * @param map
      *            a {@link org.opennms.web.map.view.VMap} object.
@@ -74,6 +78,7 @@ public class ResponseAssembler {
      * <p>
      * getAddElementResponse
      * </p>
+     * .
      *
      * @param mapsWithLoopInfo
      *            a {@link java.util.List} object.
@@ -96,6 +101,7 @@ public class ResponseAssembler {
      * <p>
      * getDeleteElementsResponse
      * </p>
+     * .
      *
      * @param velemsids
      *            a {@link java.util.List} object.
@@ -109,6 +115,7 @@ public class ResponseAssembler {
      * <p>
      * getLoadNodesResponse
      * </p>
+     * .
      *
      * @param elemInfos
      *            a {@link java.util.List} object.
@@ -122,6 +129,7 @@ public class ResponseAssembler {
      * <p>
      * getLoadMapsResponse
      * </p>
+     * .
      *
      * @param vmapinfos
      *            a {@link java.util.List} object.
@@ -135,6 +143,7 @@ public class ResponseAssembler {
      * <p>
      * getLoadDefaultMapResponse
      * </p>
+     * .
      *
      * @param vmapinfo
      *            a {@link org.opennms.web.map.view.VMapInfo} object.
@@ -148,6 +157,7 @@ public class ResponseAssembler {
      * <p>
      * getSaveMapResponse
      * </p>
+     * .
      *
      * @param map
      *            a {@link org.opennms.web.map.view.VMap} object.
@@ -179,6 +189,7 @@ public class ResponseAssembler {
      * <p>
      * getMapResponse
      * </p>
+     * .
      *
      * @param map
      *            a {@link org.opennms.web.map.view.VMap} object.
@@ -204,12 +215,13 @@ public class ResponseAssembler {
      * <p>
      * getStartupResponse
      * </p>
+     * .
      *
      * @param initObj
      *            a {@link org.opennms.web.map.view.VProperties} object.
      * @return a {@link java.lang.String} object.
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     protected static String getStartupResponse(VProperties initObj) throws Exception {
         return JSONSerializer.toJSON(initObj).toString();
@@ -219,6 +231,7 @@ public class ResponseAssembler {
      * <p>
      * getLoadLabelMapResponse
      * </p>
+     * .
      *
      * @param labelMap
      *            a {@link java.util.Map} object.
@@ -232,6 +245,7 @@ public class ResponseAssembler {
      * <p>
      * getActionOKMapResponse
      * </p>
+     * .
      *
      * @param action
      *            a {@link java.lang.String} object.
@@ -245,6 +259,7 @@ public class ResponseAssembler {
      * <p>
      * getMapErrorResponse
      * </p>
+     * .
      *
      * @param action
      *            a {@link java.lang.String} object.

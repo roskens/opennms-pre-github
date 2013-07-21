@@ -54,14 +54,18 @@ import org.springframework.validation.ObjectError;
  * @since 1.8.1
  */
 public class DefaultDistributedPollerService implements DistributedPollerService {
+
+    /** The m_location monitor dao. */
     private LocationMonitorDao m_locationMonitorDao;
 
+    /** The m_comparator. */
     private OnmsLocationMonitorAreaNameComparator m_comparator = new OnmsLocationMonitorAreaNameComparator();
 
     /**
      * <p>
      * getLocationMonitorList
      * </p>
+     * .
      *
      * @return a {@link org.opennms.web.svclayer.LocationMonitorListModel}
      *         object.
@@ -85,6 +89,7 @@ public class DefaultDistributedPollerService implements DistributedPollerService
      * <p>
      * getLocationMonitorDao
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.dao.api.LocationMonitorDao} object.
      */
@@ -96,6 +101,7 @@ public class DefaultDistributedPollerService implements DistributedPollerService
      * <p>
      * setLocationMonitorDao
      * </p>
+     * .
      *
      * @param locationMonitorDao
      *            a {@link org.opennms.netmgt.dao.api.LocationMonitorDao}
@@ -113,6 +119,10 @@ public class DefaultDistributedPollerService implements DistributedPollerService
      * @author djgregor
      */
     public class OnmsLocationMonitorAreaNameComparator implements Comparator<OnmsLocationMonitor> {
+
+        /* (non-Javadoc)
+         * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
+         */
         @Override
         public final int compare(final OnmsLocationMonitor o1, final OnmsLocationMonitor o2) {
             OnmsMonitoringLocationDefinition def1 = null;
@@ -238,11 +248,17 @@ public class DefaultDistributedPollerService implements DistributedPollerService
         m_locationMonitorDao.delete(monitor);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.web.svclayer.DistributedPollerService#pauseAllLocationMonitors()
+     */
     @Override
     public final void pauseAllLocationMonitors() {
         m_locationMonitorDao.pauseAll();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.web.svclayer.DistributedPollerService#resumeAllLocationMonitors()
+     */
     @Override
     public final void resumeAllLocationMonitors() {
         m_locationMonitorDao.resumeAll();

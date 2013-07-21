@@ -61,6 +61,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * The Class AlarmRepositoryTest.
+ */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
         "classpath:/META-INF/opennms/applicationContext-dao.xml", "classpath*:/META-INF/opennms/component-dao.xml",
@@ -70,25 +73,37 @@ import org.springframework.transaction.annotation.Transactional;
 @JUnitTemporaryDatabase
 public class AlarmRepositoryTest implements InitializingBean {
 
+    /** The m_db populator. */
     @Autowired
     DatabasePopulator m_dbPopulator;
 
+    /** The m_alarm repo. */
     @Autowired
     AlarmRepository m_alarmRepo;
 
+    /** The m_alarm dao. */
     @Autowired
     AlarmDao m_alarmDao;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public final void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Sets the up.
+     */
     @Before
     public final void setUp() {
         m_dbPopulator.populateDatabase();
     }
 
+    /**
+     * Test get alarm by id.
+     */
     @Test
     @Transactional
     @JUnitTemporaryDatabase
@@ -104,6 +119,9 @@ public class AlarmRepositoryTest implements InitializingBean {
 
     }
 
+    /**
+     * Test count matching alarms.
+     */
     @Test
     @JUnitTemporaryDatabase
     public final void testCountMatchingAlarms() {
@@ -114,6 +132,9 @@ public class AlarmRepositoryTest implements InitializingBean {
         assertEquals(0, alarms);
     }
 
+    /**
+     * Test count matching alarms by severity.
+     */
     @Test
     @Transactional
     @JUnitTemporaryDatabase
@@ -133,6 +154,9 @@ public class AlarmRepositoryTest implements InitializingBean {
         assertEquals(0, matchingAlarms[OnmsSeverity.MAJOR.getId()]);
     }
 
+    /**
+     * Test get matching alarms.
+     */
     @Test
     @JUnitTemporaryDatabase
     public final void testGetMatchingAlarms() {
@@ -151,6 +175,9 @@ public class AlarmRepositoryTest implements InitializingBean {
         assertEquals(0, alarms.length);
     }
 
+    /**
+     * Test get unacknowledged alarms.
+     */
     @Test
     @JUnitTemporaryDatabase
     public final void testGetUnacknowledgedAlarms() {
@@ -185,6 +212,9 @@ public class AlarmRepositoryTest implements InitializingBean {
 
     }
 
+    /**
+     * Test acknowledge unacknowledge.
+     */
     @Test
     @JUnitTemporaryDatabase
     public final void testAcknowledgeUnacknowledge() {
@@ -209,6 +239,9 @@ public class AlarmRepositoryTest implements InitializingBean {
         assertEquals(0, matchingAlarmCount);
     }
 
+    /**
+     * Test sort.
+     */
     @Test
     @Transactional
     @JUnitTemporaryDatabase
@@ -221,6 +254,9 @@ public class AlarmRepositoryTest implements InitializingBean {
         }
     }
 
+    /**
+     * Test sort and search by same property.
+     */
     @Test
     @Transactional
     @JUnitTemporaryDatabase
@@ -233,6 +269,9 @@ public class AlarmRepositoryTest implements InitializingBean {
         assertTrue("Failed to sort with style " + SortStyle.NODE, alarms.length > 0);
     }
 
+    /**
+     * Test acknowledge unacknowledge all alarms.
+     */
     @Test
     @Transactional
     @JUnitTemporaryDatabase
@@ -253,6 +292,9 @@ public class AlarmRepositoryTest implements InitializingBean {
         assertEquals(0, matchingAlarmCount);
     }
 
+    /**
+     * Test count matching by severity.
+     */
     @Test
     @Transactional
     @JUnitTemporaryDatabase
@@ -263,6 +305,9 @@ public class AlarmRepositoryTest implements InitializingBean {
         assertEquals(8, matchingAlarmCount.length);
     }
 
+    /**
+     * Test escalate alarms.
+     */
     @Test
     @JUnitTemporaryDatabase
     public final void testEscalateAlarms() {
@@ -278,6 +323,9 @@ public class AlarmRepositoryTest implements InitializingBean {
         assertEquals(OnmsSeverity.WARNING.getId(), alarms[0].getSeverity().getId());
     }
 
+    /**
+     * Test clear alarms.
+     */
     @Test
     @JUnitTemporaryDatabase
     public final void testClearAlarms() {
@@ -294,6 +342,9 @@ public class AlarmRepositoryTest implements InitializingBean {
         assertEquals(OnmsSeverity.CLEARED.getId(), alarm.getSeverity().getId());
     }
 
+    /**
+     * Test acknowledgements.
+     */
     @Test
     @JUnitTemporaryDatabase
     public final void testAcknowledgements() {

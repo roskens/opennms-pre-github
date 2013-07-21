@@ -48,6 +48,7 @@ public interface SurveillanceService extends RemoteService {
      * <p>
      * getSurveillanceData
      * </p>
+     * .
      *
      * @return a {@link org.opennms.dashboard.client.SurveillanceData} object.
      */
@@ -57,6 +58,7 @@ public interface SurveillanceService extends RemoteService {
      * <p>
      * getAlarmsForSet
      * </p>
+     * .
      *
      * @param set
      *            a {@link org.opennms.dashboard.client.SurveillanceSet} object.
@@ -68,6 +70,7 @@ public interface SurveillanceService extends RemoteService {
      * <p>
      * getNotificationsForSet
      * </p>
+     * .
      *
      * @param set
      *            a {@link org.opennms.dashboard.client.SurveillanceSet} object.
@@ -80,6 +83,7 @@ public interface SurveillanceService extends RemoteService {
      * <p>
      * getNodeNames
      * </p>
+     * .
      *
      * @param set
      *            a {@link org.opennms.dashboard.client.SurveillanceSet} object.
@@ -91,6 +95,7 @@ public interface SurveillanceService extends RemoteService {
      * <p>
      * getResources
      * </p>
+     * .
      *
      * @param set
      *            a {@link org.opennms.dashboard.client.SurveillanceSet} object.
@@ -102,6 +107,7 @@ public interface SurveillanceService extends RemoteService {
      * <p>
      * getChildResources
      * </p>
+     * .
      *
      * @param resourceId
      *            a {@link java.lang.String} object.
@@ -113,6 +119,7 @@ public interface SurveillanceService extends RemoteService {
      * <p>
      * getPrefabGraphs
      * </p>
+     * .
      *
      * @param resourceId
      *            a {@link java.lang.String} object.
@@ -124,6 +131,7 @@ public interface SurveillanceService extends RemoteService {
      * <p>
      * getRtcForSet
      * </p>
+     * .
      *
      * @param set
      *            a {@link org.opennms.dashboard.client.SurveillanceSet} object.

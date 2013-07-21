@@ -43,9 +43,17 @@ import org.opennms.web.filter.SQLType;
  * @since 1.8.1
  */
 public class EventIdListFilter extends InFilter<Integer> {
-    /** Constant <code>TYPE="eventIdList"</code> */
+
+    /** Constant <code>TYPE="eventIdList"</code>. */
     public static final String TYPE = "eventIdList";
 
+    /**
+     * Box.
+     *
+     * @param values
+     *            the values
+     * @return the integer[]
+     */
     private static Integer[] box(int[] values) {
         if (values == null) {
             return null;
@@ -87,6 +95,7 @@ public class EventIdListFilter extends InFilter<Integer> {
      * <p>
      * getTextDescription
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

@@ -42,18 +42,25 @@ import java.util.Collection;
  */
 public class StatusCategory {
 
+    /** The m_label. */
     private String m_label;
 
+    /** The m_comment. */
     private String m_comment;
 
+    /** The m_normal. */
     private Float m_normal;
 
+    /** The m_warning. */
     private Integer m_warning;
 
+    /** The m_outagestatus. */
     private Boolean m_outagestatus;
 
+    /** The m_filter. */
     private String m_filter;
 
+    /** The m_nodelist. */
     private Collection<StatusNode> m_nodelist;
 
     /**
@@ -71,6 +78,7 @@ public class StatusCategory {
      * <p>
      * getFilter
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -84,6 +92,7 @@ public class StatusCategory {
      * <p>
      * setFilter
      * </p>
+     * .
      *
      * @param filter
      *            a {@link java.lang.String} object.
@@ -98,6 +107,7 @@ public class StatusCategory {
      * <p>
      * getNodes
      * </p>
+     * .
      *
      * @return a {@link java.util.Collection} object.
      */
@@ -111,6 +121,7 @@ public class StatusCategory {
      * <p>
      * addNode
      * </p>
+     * .
      *
      * @param NewNode
      *            a {@link org.opennms.web.svclayer.catstatus.model.StatusNode}
@@ -126,6 +137,7 @@ public class StatusCategory {
      * <p>
      * getOutageStatus
      * </p>
+     * .
      *
      * @return a {@link java.lang.Boolean} object.
      */
@@ -137,6 +149,7 @@ public class StatusCategory {
      * <p>
      * setOutageStatus
      * </p>
+     * .
      *
      * @param OutageStatus
      *            a {@link java.lang.Boolean} object.
@@ -149,6 +162,7 @@ public class StatusCategory {
      * <p>
      * getComment
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -160,6 +174,7 @@ public class StatusCategory {
      * <p>
      * setComment
      * </p>
+     * .
      *
      * @param m_comment
      *            a {@link java.lang.String} object.
@@ -172,6 +187,7 @@ public class StatusCategory {
      * <p>
      * getLabel
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -183,6 +199,7 @@ public class StatusCategory {
      * <p>
      * setLabel
      * </p>
+     * .
      *
      * @param m_label
      *            a {@link java.lang.String} object.
@@ -195,6 +212,7 @@ public class StatusCategory {
      * <p>
      * getNormal
      * </p>
+     * .
      *
      * @return a {@link java.lang.Float} object.
      */
@@ -206,6 +224,7 @@ public class StatusCategory {
      * <p>
      * setNormal
      * </p>
+     * .
      *
      * @param m_normal
      *            a {@link java.lang.Float} object.
@@ -218,6 +237,7 @@ public class StatusCategory {
      * <p>
      * getWarning
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -229,6 +249,7 @@ public class StatusCategory {
      * <p>
      * setWarning
      * </p>
+     * .
      *
      * @param m_warning
      *            a {@link java.lang.Integer} object.

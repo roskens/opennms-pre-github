@@ -36,30 +36,66 @@ import com.google.gwt.uibinder.client.UiConstructor;
 import com.google.gwt.user.client.ui.PasswordTextBox;
 
 /**
- * @author <a href="mailto:MarkusNeumannMarkus@gmail.com">Markus Neumann</a>
- *         <br/> {@link FieldSet} for displaying and editing passwords as a
+ * The Class FieldSetPasswordBox.
+ *
+ * @author <a href="mailto:MarkusNeumannMarkus@gmail.com">Markus Neumann</a> <br/>
+ *         {@link FieldSet} for displaying and editing passwords as a
  *         PasswordTextBox.
  */
 public class FieldSetPasswordBox extends AbstractFieldSet implements FieldSet, KeyUpHandler {
 
+    /** The pass box. */
     protected PasswordTextBox passBox = new PasswordTextBox();
 
+    /**
+     * Instantiates a new field set password box.
+     *
+     * @param name
+     *            the name
+     * @param value
+     *            the value
+     * @param helpText
+     *            the help text
+     */
     public FieldSetPasswordBox(String name, String value, String helpText) {
         super(name, helpText);
         init(value, -1);
     }
 
+    /**
+     * Instantiates a new field set password box.
+     *
+     * @param name
+     *            the name
+     * @param value
+     *            the value
+     * @param helpText
+     *            the help text
+     * @param maxLength
+     *            the max length
+     */
     @UiConstructor
     public FieldSetPasswordBox(String name, String value, String helpText, int maxLength) {
         super(name, helpText);
         init(value, maxLength);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.gwt.web.ui.asset.client.tools.fieldsets.FieldSet#getValue()
+     */
     @Override
     public String getValue() {
         return passBox.getText();
     }
 
+    /**
+     * Inits the.
+     *
+     * @param value
+     *            the value
+     * @param maxLength
+     *            the max length
+     */
     private void init(String value, int maxLength) {
         if (maxLength > 0) {
             addErrorValidator(new StringMaxLengthValidator(maxLength));
@@ -74,16 +110,25 @@ public class FieldSetPasswordBox extends AbstractFieldSet implements FieldSet, K
         panel.add(passBox);
     }
 
+    /* (non-Javadoc)
+     * @see com.google.gwt.event.dom.client.KeyUpHandler#onKeyUp(com.google.gwt.event.dom.client.KeyUpEvent)
+     */
     @Override
     public void onKeyUp(KeyUpEvent event) {
         checkField();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.gwt.web.ui.asset.client.tools.fieldsets.FieldSet#setEnabled(java.lang.Boolean)
+     */
     @Override
     public void setEnabled(Boolean enabled) {
         passBox.setEnabled(enabled);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.gwt.web.ui.asset.client.tools.fieldsets.FieldSet#setValue(java.lang.String)
+     */
     @Override
     public void setValue(String value) {
         passBox.setText(value);

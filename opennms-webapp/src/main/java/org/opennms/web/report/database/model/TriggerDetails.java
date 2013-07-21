@@ -41,14 +41,17 @@ import java.io.Serializable;
  */
 public class TriggerDetails implements Serializable {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 3258199709023045243L;
 
+    /** The m_cron expression. */
     String m_cronExpression;
 
     /**
      * <p>
      * getCronExpression
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -60,6 +63,7 @@ public class TriggerDetails implements Serializable {
      * <p>
      * setCronExpression
      * </p>
+     * .
      *
      * @param cronExpression
      *            a {@link java.lang.String} object.

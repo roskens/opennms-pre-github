@@ -62,7 +62,7 @@ import com.sun.jersey.api.core.ResourceContext;
 import com.sun.jersey.spi.resource.PerRequest;
 
 /**
- * Basic Web Service using REST for OnmsGroup entity
+ * Basic Web Service using REST for OnmsGroup entity.
  *
  * @author <a href="mailto:ranger@opennms.org">Benjamin Reed</a>
  * @since 1.9.93
@@ -74,17 +74,26 @@ import com.sun.jersey.spi.resource.PerRequest;
 @Transactional
 public class GroupRestService extends OnmsRestService {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(GroupRestService.class);
 
+    /** The m_group manager. */
     @Autowired
     private GroupManager m_groupManager;
 
+    /** The m_uri info. */
     @Context
     UriInfo m_uriInfo;
 
+    /** The m_context. */
     @Context
     ResourceContext m_context;
 
+    /**
+     * Gets the groups.
+     *
+     * @return the groups
+     */
     @GET
     @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON, MediaType.APPLICATION_ATOM_XML })
     public OnmsGroupList getGroups() {
@@ -107,6 +116,13 @@ public class GroupRestService extends OnmsRestService {
         }
     }
 
+    /**
+     * Gets the group.
+     *
+     * @param groupName
+     *            the group name
+     * @return the group
+     */
     @GET
     @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON, MediaType.APPLICATION_ATOM_XML })
     @Path("{groupName}")
@@ -128,6 +144,13 @@ public class GroupRestService extends OnmsRestService {
         }
     }
 
+    /**
+     * Adds the group.
+     *
+     * @param group
+     *            the group
+     * @return the response
+     */
     @POST
     @Consumes(MediaType.APPLICATION_XML)
     public Response addGroup(final OnmsGroup group) {
@@ -144,6 +167,15 @@ public class GroupRestService extends OnmsRestService {
         }
     }
 
+    /**
+     * Update group.
+     *
+     * @param groupName
+     *            the group name
+     * @param params
+     *            the params
+     * @return the response
+     */
     @PUT
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Path("{groupName}")
@@ -182,6 +214,13 @@ public class GroupRestService extends OnmsRestService {
         }
     }
 
+    /**
+     * Delete group.
+     *
+     * @param groupName
+     *            the group name
+     * @return the response
+     */
     @DELETE
     @Path("{groupName}")
     public Response deleteGroup(@PathParam("groupName")
@@ -199,6 +238,15 @@ public class GroupRestService extends OnmsRestService {
         }
     }
 
+    /**
+     * Adds the user.
+     *
+     * @param groupName
+     *            the group name
+     * @param userName
+     *            the user name
+     * @return the response
+     */
     @PUT
     @Path("{groupName}/users/{userName}")
     public Response addUser(@PathParam("groupName")
@@ -217,6 +265,15 @@ public class GroupRestService extends OnmsRestService {
         }
     }
 
+    /**
+     * Removes the user.
+     *
+     * @param groupName
+     *            the group name
+     * @param userName
+     *            the user name
+     * @return the response
+     */
     @DELETE
     @Path("{groupName}/users/{userName}")
     public Response removeUser(@PathParam("groupName")
@@ -241,6 +298,13 @@ public class GroupRestService extends OnmsRestService {
         }
     }
 
+    /**
+     * Gets the onms group.
+     *
+     * @param groupName
+     *            the group name
+     * @return the onms group
+     */
     protected OnmsGroup getOnmsGroup(final String groupName) {
         OnmsGroup group = null;
         try {

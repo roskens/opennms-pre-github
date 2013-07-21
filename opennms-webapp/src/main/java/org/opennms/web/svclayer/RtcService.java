@@ -43,10 +43,12 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Transactional(readOnly = true)
 public interface RtcService {
+
     /**
      * <p>
      * getNodeList
      * </p>
+     * .
      *
      * @return a {@link org.opennms.web.svclayer.support.RtcNodeModel} object.
      */
@@ -56,6 +58,7 @@ public interface RtcService {
      * <p>
      * getNodeListForCriteria
      * </p>
+     * .
      *
      * @param serviceCriteria
      *            a {@link org.opennms.netmgt.model.OnmsCriteria} object.
@@ -69,6 +72,7 @@ public interface RtcService {
      * <p>
      * createServiceCriteria
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.OnmsCriteria} object.
      */
@@ -78,6 +82,7 @@ public interface RtcService {
      * <p>
      * createOutageCriteria
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.OnmsCriteria} object.
      */

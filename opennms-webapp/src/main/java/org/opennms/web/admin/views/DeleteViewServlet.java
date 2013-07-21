@@ -38,15 +38,14 @@ import javax.servlet.http.HttpServletResponse;
 import org.opennms.netmgt.config.ViewFactory;
 
 /**
- * A servlet that handles deleting an existing view
+ * A servlet that handles deleting an existing view.
  *
  * @author <A HREF="mailto:jason@opennms.org">Jason Johns </A>
  * @author <A HREF="http://www.opennms.org/">OpenNMS </A>
  */
 public class DeleteViewServlet extends HttpServlet {
-    /**
-     *
-     */
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 5700775415816346802L;
 
     /** {@inheritDoc} */

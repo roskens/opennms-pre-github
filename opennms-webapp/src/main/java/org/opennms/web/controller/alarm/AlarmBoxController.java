@@ -47,10 +47,14 @@ import org.springframework.web.servlet.mvc.AbstractController;
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 public class AlarmBoxController extends AbstractController implements InitializingBean {
+
+    /** The Constant ROWS. */
     public static final int ROWS = 16;
 
+    /** The m_web alarm repository. */
     private AlarmRepository m_webAlarmRepository;
 
+    /** The m_success view. */
     private String m_successView;
 
     /** {@inheritDoc} */
@@ -81,6 +85,11 @@ public class AlarmBoxController extends AbstractController implements Initializi
 
     }
 
+    /**
+     * Gets the success view.
+     *
+     * @return the success view
+     */
     private String getSuccessView() {
         return m_successView;
     }
@@ -89,6 +98,7 @@ public class AlarmBoxController extends AbstractController implements Initializi
      * <p>
      * setSuccessView
      * </p>
+     * .
      *
      * @param successView
      *            a {@link java.lang.String} object.
@@ -101,6 +111,7 @@ public class AlarmBoxController extends AbstractController implements Initializi
      * <p>
      * setWebAlarmRepository
      * </p>
+     * .
      *
      * @param webAlarmRepository
      *            a {@link org.opennms.netmgt.dao.api.AlarmRepository} object.
@@ -113,6 +124,7 @@ public class AlarmBoxController extends AbstractController implements Initializi
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      */
     @Override
     public final void afterPropertiesSet() {

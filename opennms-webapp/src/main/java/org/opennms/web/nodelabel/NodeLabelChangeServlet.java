@@ -64,20 +64,20 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
  */
 public class NodeLabelChangeServlet extends HttpServlet {
 
-    /**
-     *
-     */
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -7766362068448931124L;
 
+    /** The proxy. */
     protected EventProxy proxy;
 
     /**
      * <p>
      * init
      * </p>
+     * .
      *
-     * @throws javax.servlet.ServletException
-     *             if any.
+     * @throws ServletException
+     *             the servlet exception
      */
     @Override
     public void init() throws ServletException {
@@ -159,6 +159,7 @@ public class NodeLabelChangeServlet extends HttpServlet {
      * <p>
      * sendLabelChangeEvent
      * </p>
+     * .
      *
      * @param nodeId
      *            a int.
@@ -166,8 +167,8 @@ public class NodeLabelChangeServlet extends HttpServlet {
      *            a {@link org.opennms.netmgt.utils.NodeLabel} object.
      * @param newNodeLabel
      *            a {@link org.opennms.netmgt.utils.NodeLabel} object.
-     * @throws org.opennms.netmgt.model.events.EventProxyException
-     *             if any.
+     * @throws EventProxyException
+     *             the event proxy exception
      */
     protected void sendLabelChangeEvent(int nodeId, NodeLabel oldNodeLabel, NodeLabel newNodeLabel)
             throws EventProxyException {

@@ -44,13 +44,23 @@ import org.opennms.netmgt.provision.persist.ForeignSourceService;
 import org.opennms.netmgt.provision.persist.foreignsource.ForeignSource;
 import org.opennms.netmgt.provision.persist.foreignsource.PluginConfig;
 
+/**
+ * The Class DefaultForeignSourceServiceTest.
+ */
 public class DefaultForeignSourceServiceTest {
+
+    /** The m_deployed. */
     private FilesystemForeignSourceRepository m_deployed;
 
+    /** The m_pending. */
     private FilesystemForeignSourceRepository m_pending;
 
+    /** The m_service. */
     private ForeignSourceService m_service;
 
+    /**
+     * Sets the up.
+     */
     @Before
     public void setUp() {
         FileUtils.deleteQuietly(new File("target/foreign-sources"));
@@ -69,6 +79,12 @@ public class DefaultForeignSourceServiceTest {
         m_service.setPendingForeignSourceRepository(m_pending);
     }
 
+    /**
+     * Integration test.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void integrationTest() throws Exception {
         assertTrue(m_deployed.getForeignSources().isEmpty());

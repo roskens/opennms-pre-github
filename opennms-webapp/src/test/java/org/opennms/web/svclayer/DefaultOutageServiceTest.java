@@ -52,18 +52,32 @@ import org.opennms.netmgt.model.OnmsNode;
 import org.opennms.netmgt.model.OnmsOutage;
 import org.opennms.web.svclayer.outage.DefaultOutageService;
 
+/**
+ * The Class DefaultOutageServiceTest.
+ */
 public class DefaultOutageServiceTest {
 
+    /** The outage service. */
     DefaultOutageService outageService = new DefaultOutageService();
 
+    /** The outage dao. */
     private OutageDao outageDao;
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
         outageDao = createMock(OutageDao.class);
         outageService.setDao(outageDao);
     }
 
+    /**
+     * Test load one outage.
+     */
     @Test
     public void testLoadOneOutage() {
         assertNotNull(outageService);
@@ -83,6 +97,9 @@ public class DefaultOutageServiceTest {
 
     }
 
+    /**
+     * Test get current outage count.
+     */
     @Test
     public void testGetCurrentOutageCount() {
         assertNotNull(outageService);
@@ -98,6 +115,9 @@ public class DefaultOutageServiceTest {
 
     }
 
+    /**
+     * Test suppressed outage count.
+     */
     @Ignore("The features here have yet been implemented")
     public void testSuppressedOutageCount() {
 
@@ -113,6 +133,9 @@ public class DefaultOutageServiceTest {
 
     }
 
+    /**
+     * Test current outages.
+     */
     @Test
     public void testCurrentOutages() {
         assertNotNull(outageService);
@@ -132,6 +155,9 @@ public class DefaultOutageServiceTest {
         assertTrue("Current Outages", current.equals(expectedOutages));
     }
 
+    /**
+     * Test suppressed outages.
+     */
     @Ignore("The features here have yet been implemented")
     public void testSuppressedOutages() {
 
@@ -150,6 +176,9 @@ public class DefaultOutageServiceTest {
         // assertTrue("Current Outages", suppressed.equals(expectedOutages));
     }
 
+    /**
+     * Test open and resolved.
+     */
     @Ignore("The features here have yet been implemented")
     public void testOpenAndResolved() {
 
@@ -169,6 +198,9 @@ public class DefaultOutageServiceTest {
 
     }
 
+    /**
+     * Test current by range.
+     */
     @Test
     public void testCurrentByRange() {
         assertNotNull(outageService);
@@ -193,6 +225,9 @@ public class DefaultOutageServiceTest {
         assertTrue("Current Outages", outages.equals(expectedOutages));
     }
 
+    /**
+     * Test suppressed by range.
+     */
     @Ignore("The features here have yet been implemented")
     public void testSuppressedByRange() {
 
@@ -213,6 +248,9 @@ public class DefaultOutageServiceTest {
 
     }
 
+    /**
+     * Test get open and resolved by range.
+     */
     @Ignore("The features here have yet been implemented")
     public void testGetOpenAndResolvedByRange() {
 

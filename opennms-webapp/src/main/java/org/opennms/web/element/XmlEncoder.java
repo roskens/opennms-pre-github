@@ -48,10 +48,12 @@ package org.opennms.web.element;
  * @since 1.8.1
  */
 public final class XmlEncoder {
+
     /**
      * <p>
      * encode
      * </p>
+     * .
      *
      * @param str
      *            a {@link java.lang.String} object.

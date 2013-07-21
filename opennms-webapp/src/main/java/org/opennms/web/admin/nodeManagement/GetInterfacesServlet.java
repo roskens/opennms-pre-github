@@ -49,17 +49,21 @@ import org.opennms.core.utils.WebSecurityUtils;
 
 /**
  * A servlet that handles querying the database for node, interface, service
- * combinations
+ * combinations.
  *
  * @author <A HREF="mailto:jamesz@opennms.com">James Zuo </A>
  * @author <A HREF="http://www.opennms.org/">OpenNMS </A>
  */
 public class GetInterfacesServlet extends HttpServlet {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 6768576652872631928L;
 
+    /** The Constant INTERFACE_QUERY. */
     private static final String INTERFACE_QUERY = "SELECT ipaddr, isManaged FROM ipinterface " + "WHERE nodeid=? "
             + "AND ismanaged IN ('M','A','U','F') " + "AND ipaddr <> '0.0.0.0' " + "ORDER BY inet(ipaddr)";
 
+    /** The Constant SERVICE_QUERY. */
     private static final String SERVICE_QUERY = "SELECT ifservices.serviceid, servicename, status FROM ifservices, service "
             + "WHERE nodeid=? AND ipaddr=? AND status IN ('A','U','F', 'S', 'R') "
             + "AND ifservices.serviceid = service.serviceid ORDER BY servicename";
@@ -68,9 +72,10 @@ public class GetInterfacesServlet extends HttpServlet {
      * <p>
      * init
      * </p>
+     * .
      *
-     * @throws javax.servlet.ServletException
-     *             if any.
+     * @throws ServletException
+     *             the servlet exception
      */
     @Override
     public void init() throws ServletException {
@@ -123,6 +128,9 @@ public class GetInterfacesServlet extends HttpServlet {
      *            Current user working session
      * @param nodeId
      *            Id of the node to manage
+     * @return the interfaces
+     * @throws SQLException
+     *             the sQL exception
      */
     private List<ManagedInterface> getInterfaces(HttpSession userSession, int nodeId) throws SQLException {
         Connection connection = null;

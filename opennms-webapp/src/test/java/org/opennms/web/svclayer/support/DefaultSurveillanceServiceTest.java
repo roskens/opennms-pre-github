@@ -47,16 +47,29 @@ import org.opennms.netmgt.model.OnmsCategory;
 import org.opennms.netmgt.model.OnmsNode;
 import org.opennms.test.mock.EasyMockUtils;
 
+/**
+ * The Class DefaultSurveillanceServiceTest.
+ */
 public class DefaultSurveillanceServiceTest {
 
+    /** The m_mock utils. */
     private EasyMockUtils m_mockUtils;
 
+    /** The m_node dao. */
     private NodeDao m_nodeDao;
 
+    /** The m_category dao. */
     private CategoryDao m_categoryDao;
 
+    /** The m_surveillance view config dao. */
     private SurveillanceViewConfigDao m_surveillanceViewConfigDao;
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public final void setUp() throws Exception {
         m_mockUtils = new EasyMockUtils();
@@ -66,6 +79,9 @@ public class DefaultSurveillanceServiceTest {
         m_surveillanceViewConfigDao = m_mockUtils.createMock(SurveillanceViewConfigDao.class);
     }
 
+    /**
+     * Test create surveillance table.
+     */
     @Test
     public final void testCreateSurveillanceTable() {
 
@@ -93,11 +109,25 @@ public class DefaultSurveillanceServiceTest {
 
     }
 
+    /**
+     * Creates the categories.
+     *
+     * @param catNames
+     *            the cat names
+     * @return the collection
+     */
     public final Collection<OnmsCategory> createCategories(final List<String> catNames) {
         Collection<OnmsCategory> categories = createCategoryNameCollection(catNames);
         return categories;
     }
 
+    /**
+     * Creates the category name collection.
+     *
+     * @param categoryNames
+     *            the category names
+     * @return the collection
+     */
     private Collection<OnmsCategory> createCategoryNameCollection(final List<String> categoryNames) {
 
         Collection<OnmsCategory> categories = new ArrayList<OnmsCategory>();
@@ -107,12 +137,22 @@ public class DefaultSurveillanceServiceTest {
         return categories;
     }
 
+    /**
+     * Test url maker.
+     */
     @Test
     public final void testUrlMaker() {
         System.err.println(createNodePageUrl("1 of 10"));
 
     }
 
+    /**
+     * Creates the node page url.
+     *
+     * @param label
+     *            the label
+     * @return the string
+     */
     private String createNodePageUrl(String label) {
         OnmsNode m_foundDownNode = new OnmsNode();
         m_foundDownNode.setId(1);

@@ -45,7 +45,8 @@ import org.opennms.netmgt.config.users.DutySchedule;
 import org.opennms.netmgt.config.users.User;
 
 /**
- * A servlet that handles adding new duty schedules to a users notification info
+ * A servlet that handles adding new duty schedules to a users notification
+ * info.
  *
  * @author <A HREF="mailto:jason@opennms.org">Jason Johns </A>
  * @author <A HREF="http://www.opennms.org/">OpenNMS </A>
@@ -55,8 +56,11 @@ import org.opennms.netmgt.config.users.User;
  * @since 1.8.1
  */
 public class AddDutySchedulesServlet extends HttpServlet {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 4112359172139681476L;
 
+    /** The Constant FALSE_LIST. */
     private static final List<Boolean> FALSE_LIST;
 
     static {

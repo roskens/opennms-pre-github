@@ -43,8 +43,10 @@ import java.util.List;
  */
 public class PaletteCategory {
 
+    /** The m_label. */
     private String m_label;
 
+    /** The m_items. */
     private List<PaletteItem> m_items = new LinkedList<PaletteItem>();
 
     /**
@@ -72,6 +74,7 @@ public class PaletteCategory {
      * <p>
      * getLabel
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -83,6 +86,7 @@ public class PaletteCategory {
      * <p>
      * setLabel
      * </p>
+     * .
      *
      * @param label
      *            a {@link java.lang.String} object.
@@ -95,6 +99,7 @@ public class PaletteCategory {
      * <p>
      * getItems
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -106,6 +111,7 @@ public class PaletteCategory {
      * <p>
      * addItem
      * </p>
+     * .
      *
      * @param item
      *            a {@link org.opennms.web.svclayer.PaletteItem} object.

@@ -70,8 +70,8 @@ public interface Filter {
      * @param parameterIndex
      *            a int.
      * @return a int.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     public int bindParam(PreparedStatement ps, int parameterIndex) throws SQLException;
 
@@ -111,7 +111,7 @@ public interface Filter {
     public String getTextDescription();
 
     /**
-     * Criterion used to construction an OnmsCritieria
+     * Criterion used to construction an OnmsCritieria.
      *
      * @return A Criterion that represents a criteria restriction
      *         imposed by this filter

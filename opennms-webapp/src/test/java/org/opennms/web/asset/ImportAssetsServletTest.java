@@ -49,14 +49,24 @@ import org.slf4j.LoggerFactory;
 
 public class ImportAssetsServletTest {
 
+    /** The logger. */
     private Logger logger = LoggerFactory.getLogger(ImportAssetsServletTest.class);
 
+    /** The m_import asset servlet. */
     private ImportAssetsServlet m_importAssetServlet;
 
+    /** The m_assets as cvs. */
     private List<String> m_assetsAsCvs;
 
+    /** The m_test cvs. */
     private String m_testCvs = "";
 
+    /**
+     * Sets the up.
+     *
+     * @throws InterruptedException
+     *             the interrupted exception
+     */
     @Before
     public void setUp() throws InterruptedException {
         m_importAssetServlet = new ImportAssetsServlet();
@@ -72,6 +82,12 @@ public class ImportAssetsServletTest {
         }
     }
 
+    /**
+     * Test decode assets text.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testDecodeAssetsText() throws Exception {
         List<Asset> decodedAssets;

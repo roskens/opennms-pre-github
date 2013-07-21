@@ -33,20 +33,33 @@ import java.util.TimeZone;
 
 import junit.framework.TestCase;
 
+/**
+ * The Class ISO8601DateEditorTest.
+ */
 public class ISO8601DateEditorTest extends TestCase {
 
+    /** The editor. */
     private ISO8601DateEditor editor;
 
+    /* (non-Javadoc)
+     * @see junit.framework.TestCase#setUp()
+     */
     @Override
     protected void setUp() throws Exception {
         super.setUp();
         editor = new ISO8601DateEditor();
     }
 
+    /**
+     * Test is paintable.
+     */
     public void testIsPaintable() {
         assertFalse("IsPaintable must be false", editor.isPaintable());
     }
 
+    /**
+     * Test set as text long.
+     */
     public void testSetAsTextLong() {
         assertNull(editor.getValue());
         editor.setAsText("1");
@@ -56,6 +69,9 @@ public class ISO8601DateEditorTest extends TestCase {
         assertEquals(1, dateValue.getTime());
     }
 
+    /**
+     * Test set as text full date string.
+     */
     public void testSetAsTextFullDateString() {
         assertNull(editor.getValue());
         editor.setAsText("1970-01-01T00:00:00.000+00:00");
@@ -65,6 +81,9 @@ public class ISO8601DateEditorTest extends TestCase {
         assertEquals(0, dateValue.getTime());
     }
 
+    /**
+     * Test set as text full date string2.
+     */
     public void testSetAsTextFullDateString2() {
         assertNull(editor.getValue());
         editor.setAsText("1970-01-02T00:00:00.000+00:00");
@@ -74,6 +93,9 @@ public class ISO8601DateEditorTest extends TestCase {
         assertEquals(86400000, dateValue.getTime());
     }
 
+    /**
+     * Test get as text1.
+     */
     public void testGetAsText1() {
         editor.setValue(new Date(1));
         TimeZone.setDefault(TimeZone.getTimeZone("UTC"));

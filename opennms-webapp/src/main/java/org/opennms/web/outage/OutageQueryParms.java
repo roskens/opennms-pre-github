@@ -43,14 +43,20 @@ import org.opennms.web.filter.Filter;
  * @since 1.8.1
  */
 public class OutageQueryParms extends Object {
+
+    /** The sort style. */
     public SortStyle sortStyle;
 
+    /** The outage type. */
     public OutageType outageType;
 
+    /** The filters. */
     public List<Filter> filters;
 
+    /** The limit. */
     public int limit;
 
+    /** The multiple. */
     public int multiple;
 
     /**

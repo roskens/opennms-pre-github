@@ -46,7 +46,7 @@ import org.opennms.netmgt.config.groups.Group;
 import org.opennms.netmgt.config.users.DutySchedule;
 
 /**
- * A servlet that handles saving a group
+ * A servlet that handles saving a group.
  *
  * @author <A HREF="mailto:jason@opennms.org">Jason Johns </A>
  * @author <A HREF="http://www.opennms.org/">OpenNMS </A>
@@ -56,6 +56,8 @@ import org.opennms.netmgt.config.users.DutySchedule;
  * @since 1.8.1
  */
 public class UpdateGroupServlet extends HttpServlet {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -4328190323404240442L;
 
     /** {@inheritDoc} */
@@ -114,6 +116,13 @@ public class UpdateGroupServlet extends HttpServlet {
         dispatcher.forward(request, response);
     }
 
+    /**
+     * Gets the duty schedules for group.
+     *
+     * @param group
+     *            the group
+     * @return the duty schedules for group
+     */
     private List<String> getDutySchedulesForGroup(Group group) {
         return (List<String>) group.getDutyScheduleCollection();
     }

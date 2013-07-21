@@ -39,7 +39,7 @@ import org.opennms.netmgt.config.GroupFactory;
 import org.opennms.netmgt.config.GroupManager;
 
 /**
- * A servlet that handles renaming an existing group
+ * A servlet that handles renaming an existing group.
  *
  * @author <A HREF="mailto:jason@opennms.org">Jason Johns </A>
  * @author <A HREF="http://www.opennms.org/">OpenNMS </A>
@@ -49,6 +49,8 @@ import org.opennms.netmgt.config.GroupManager;
  * @since 1.8.1
  */
 public class RenameGroupServlet extends HttpServlet {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -607871783547629551L;
 
     /** {@inheritDoc} */

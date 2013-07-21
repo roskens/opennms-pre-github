@@ -42,20 +42,26 @@ package org.opennms.web.svclayer;
  */
 public class ProgressMonitor {
 
+    /** The m_phase count. */
     private int m_phaseCount = 1;
 
+    /** The m_phase. */
     private int m_phase = 0;
 
+    /** The m_phase label. */
     private String m_phaseLabel = "Loading";
 
+    /** The m_result. */
     private Object m_result = null;
 
+    /** The m_throwable. */
     private Throwable m_throwable = null;
 
     /**
      * <p>
      * getPhaseCount
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -67,6 +73,7 @@ public class ProgressMonitor {
      * <p>
      * setPhaseCount
      * </p>
+     * .
      *
      * @param phaseCount
      *            a int.
@@ -79,6 +86,7 @@ public class ProgressMonitor {
      * <p>
      * getPhaseLabel
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -90,6 +98,7 @@ public class ProgressMonitor {
      * <p>
      * getPhase
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -101,6 +110,7 @@ public class ProgressMonitor {
      * <p>
      * beginNextPhase
      * </p>
+     * .
      *
      * @param phaseLabel
      *            a {@link java.lang.String} object.
@@ -114,6 +124,7 @@ public class ProgressMonitor {
      * <p>
      * finished
      * </p>
+     * .
      *
      * @param result
      *            a {@link java.lang.Object} object.
@@ -128,6 +139,7 @@ public class ProgressMonitor {
      * <p>
      * isFinished
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -139,6 +151,7 @@ public class ProgressMonitor {
      * <p>
      * getResult
      * </p>
+     * .
      *
      * @return a {@link java.lang.Object} object.
      */
@@ -150,6 +163,7 @@ public class ProgressMonitor {
      * <p>
      * isError
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -161,6 +175,7 @@ public class ProgressMonitor {
      * <p>
      * getThrowable
      * </p>
+     * .
      *
      * @return a {@link java.lang.Throwable} object.
      */
@@ -172,6 +187,7 @@ public class ProgressMonitor {
      * <p>
      * errorOccurred
      * </p>
+     * .
      *
      * @param t
      *            a {@link java.lang.Throwable} object.

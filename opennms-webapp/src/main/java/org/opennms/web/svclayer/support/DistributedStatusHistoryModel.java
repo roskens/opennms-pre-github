@@ -51,26 +51,38 @@ import org.opennms.web.graph.RelativeTimePeriod;
  * @since 1.8.1
  */
 public class DistributedStatusHistoryModel {
+
+    /** The m_locations. */
     private List<OnmsMonitoringLocationDefinition> m_locations;
 
+    /** The m_applications. */
     private List<OnmsApplication> m_applications;
 
+    /** The m_chosen location. */
     private OnmsMonitoringLocationDefinition m_chosenLocation;
 
+    /** The m_chosen application. */
     private OnmsApplication m_chosenApplication;
 
+    /** The m_chosen application member services. */
     private Collection<OnmsMonitoredService> m_chosenApplicationMemberServices;
 
+    /** The m_errors. */
     private List<String> m_errors;
 
+    /** The m_periods. */
     private List<RelativeTimePeriod> m_periods;
 
+    /** The m_chosen period. */
     private RelativeTimePeriod m_chosenPeriod;
 
+    /** The m_monitors. */
     private List<OnmsLocationMonitor> m_monitors;
 
+    /** The m_chosen monitor. */
     private OnmsLocationMonitor m_chosenMonitor;
 
+    /** The m_service graphs. */
     private SortedSet<ServiceGraph> m_serviceGraphs;
 
     /**
@@ -88,8 +100,6 @@ public class DistributedStatusHistoryModel {
      *            a {@link java.util.List} object.
      * @param chosenLocation
      *            a
-     *            {@link org.opennms.netmgt.model.OnmsMonitoringLocationDefinition}
-     *            object.
      * @param chosenApplication
      *            a {@link org.opennms.netmgt.model.OnmsApplication} object.
      * @param chosenApplicationMemberServices
@@ -100,6 +110,8 @@ public class DistributedStatusHistoryModel {
      *            a {@link org.opennms.web.graph.RelativeTimePeriod} object.
      * @param errors
      *            a {@link java.util.List} object.
+     *            {@link org.opennms.netmgt.model.OnmsMonitoringLocationDefinition}
+     *            object.
      */
     public DistributedStatusHistoryModel(final List<OnmsMonitoringLocationDefinition> locations,
             final List<OnmsApplication> applications, final List<OnmsLocationMonitor> monitors,
@@ -124,6 +136,7 @@ public class DistributedStatusHistoryModel {
      * <p>
      * getApplications
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -135,6 +148,7 @@ public class DistributedStatusHistoryModel {
      * <p>
      * getLocations
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -146,6 +160,7 @@ public class DistributedStatusHistoryModel {
      * <p>
      * getChosenApplication
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.OnmsApplication} object.
      */
@@ -157,6 +172,7 @@ public class DistributedStatusHistoryModel {
      * <p>
      * getChosenApplicationMemberServices
      * </p>
+     * .
      *
      * @return a {@link java.util.Collection} object.
      */
@@ -168,6 +184,7 @@ public class DistributedStatusHistoryModel {
      * <p>
      * getChosenLocation
      * </p>
+     * .
      *
      * @return a
      *         {@link org.opennms.netmgt.model.OnmsMonitoringLocationDefinition}
@@ -181,6 +198,7 @@ public class DistributedStatusHistoryModel {
      * <p>
      * getErrors
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -192,6 +210,7 @@ public class DistributedStatusHistoryModel {
      * <p>
      * getChosenPeriod
      * </p>
+     * .
      *
      * @return a {@link org.opennms.web.graph.RelativeTimePeriod} object.
      */
@@ -203,6 +222,7 @@ public class DistributedStatusHistoryModel {
      * <p>
      * getPeriods
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -214,6 +234,7 @@ public class DistributedStatusHistoryModel {
      * <p>
      * getChosenMonitor
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.OnmsLocationMonitor} object.
      */
@@ -225,6 +246,7 @@ public class DistributedStatusHistoryModel {
      * <p>
      * getMonitors
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -236,6 +258,7 @@ public class DistributedStatusHistoryModel {
      * <p>
      * getServiceGraphs
      * </p>
+     * .
      *
      * @return a {@link java.util.SortedSet} object.
      */
@@ -247,6 +270,7 @@ public class DistributedStatusHistoryModel {
      * <p>
      * setServiceGraphs
      * </p>
+     * .
      *
      * @param serviceGraphs
      *            a {@link java.util.SortedSet} object.
@@ -255,33 +279,71 @@ public class DistributedStatusHistoryModel {
         m_serviceGraphs = serviceGraphs;
     }
 
+    /**
+     * The Class ServiceGraph.
+     */
     public static class ServiceGraph {
+
+        /** The m_service. */
         private OnmsMonitoredService m_service;
 
+        /** The m_url. */
         private String m_url;
 
+        /** The m_errors. */
         private String[] m_errors;
 
+        /**
+         * Instantiates a new service graph.
+         *
+         * @param service
+         *            the service
+         * @param url
+         *            the url
+         */
         public ServiceGraph(final OnmsMonitoredService service, final String url) {
             m_service = service;
             m_url = url;
             m_errors = new String[0];
         }
 
+        /**
+         * Instantiates a new service graph.
+         *
+         * @param service
+         *            the service
+         * @param errors
+         *            the errors
+         */
         public ServiceGraph(final OnmsMonitoredService service, final String[] errors) {
             m_service = service;
             m_url = null;
             m_errors = errors;
         }
 
+        /**
+         * Gets the errors.
+         *
+         * @return the errors
+         */
         public final String[] getErrors() {
             return m_errors;
         }
 
+        /**
+         * Gets the service.
+         *
+         * @return the service
+         */
         public final OnmsMonitoredService getService() {
             return m_service;
         }
 
+        /**
+         * Gets the url.
+         *
+         * @return the url
+         */
         public final String getUrl() {
             return m_url;
         }

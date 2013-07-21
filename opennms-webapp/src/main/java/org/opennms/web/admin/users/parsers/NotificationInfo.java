@@ -33,7 +33,7 @@ import java.util.Calendar;
 import java.util.List;
 
 /**
- * This class stores notification information for a user
+ * This class stores notification information for a user.
  *
  * @author <A HREF="mailto:jason@opennms.org">Jason Johns </A>
  * @author <A HREF="http://www.opennms.org/">OpenNMS </A>
@@ -43,14 +43,13 @@ import java.util.List;
  * @since 1.8.1
  */
 public class NotificationInfo implements Cloneable {
-    /**
-     * The email address of the user
-     */
+
+    /** The email address of the user. */
     private String m_email;
 
     /**
      * The email address for a pager (in case there is no analog modem to dial
-     * out with a page request
+     * out with a page request.
      */
     private String m_pagerEmail;
 
@@ -59,33 +58,23 @@ public class NotificationInfo implements Cloneable {
      */
     private String m_xmppAddress;
 
-    /**
-     * The service to use for numerical pages
-     */
+    /** The service to use for numerical pages. */
     private String m_numericalService;
 
-    /**
-     * The pin to use for numerical pages
-     */
+    /** The pin to use for numerical pages. */
     private String m_numericalPin;
 
-    /**
-     * The service to use for text pages
-     */
+    /** The service to use for text pages. */
     private String m_textService;
 
-    /**
-     * The pin to use for text pages
-     */
+    /** The pin to use for text pages. */
     private String m_textPin;
 
-    /**
-     * The list of duty schedules associated with this user
-     */
+    /** The list of duty schedules associated with this user. */
     private List<DutySchedule> m_dutySchedules;
 
     /**
-     * Default constructor, initializes the member variables
+     * Default constructor, initializes the member variables.
      */
     public NotificationInfo() {
         m_email = "";
@@ -102,6 +91,7 @@ public class NotificationInfo implements Cloneable {
      * <p>
      * clone
      * </p>
+     * .
      *
      * @return a {@link java.lang.Object} object.
      */
@@ -131,7 +121,7 @@ public class NotificationInfo implements Cloneable {
     }
 
     /**
-     * Sets the email address
+     * Sets the email address.
      *
      * @param anEmail
      *            the email address
@@ -141,7 +131,7 @@ public class NotificationInfo implements Cloneable {
     }
 
     /**
-     * Sets the pager email address
+     * Sets the pager email address.
      *
      * @param anEmail
      *            the new email address
@@ -151,7 +141,7 @@ public class NotificationInfo implements Cloneable {
     }
 
     /**
-     * Sets the XMPP address
+     * Sets the XMPP address.
      *
      * @param anAddress
      *            the new XMPP address
@@ -161,7 +151,7 @@ public class NotificationInfo implements Cloneable {
     }
 
     /**
-     * Sets the numerical service string
+     * Sets the numerical service string.
      *
      * @param aService
      *            the numerical service
@@ -171,7 +161,7 @@ public class NotificationInfo implements Cloneable {
     }
 
     /**
-     * Sets the numerical pin
+     * Sets the numerical pin.
      *
      * @param aPin
      *            the numerical pin
@@ -181,7 +171,7 @@ public class NotificationInfo implements Cloneable {
     }
 
     /**
-     * Sets the text service string
+     * Sets the text service string.
      *
      * @param aService
      *            the text service
@@ -191,7 +181,7 @@ public class NotificationInfo implements Cloneable {
     }
 
     /**
-     * Sets the text pin string
+     * Sets the text pin string.
      *
      * @param aPin
      *            the text pin
@@ -201,7 +191,7 @@ public class NotificationInfo implements Cloneable {
     }
 
     /**
-     * This method adds a duty schedule
+     * This method adds a duty schedule.
      *
      * @param aSchedule
      *            a new duty schedule to associate with a user
@@ -211,7 +201,7 @@ public class NotificationInfo implements Cloneable {
     }
 
     /**
-     * This method sets a full list of duty schedules for a user
+     * This method sets a full list of duty schedules for a user.
      *
      * @param someSchedules
      *            a list of DutySchedule objects for a user
@@ -221,7 +211,7 @@ public class NotificationInfo implements Cloneable {
     }
 
     /**
-     * Returns the email address
+     * Returns the email address.
      *
      * @return the email address
      */
@@ -230,7 +220,7 @@ public class NotificationInfo implements Cloneable {
     }
 
     /**
-     * Returns the pager email address
+     * Returns the pager email address.
      *
      * @return the pager email address
      */
@@ -239,7 +229,7 @@ public class NotificationInfo implements Cloneable {
     }
 
     /**
-     * Returns the XMPP address
+     * Returns the XMPP address.
      *
      * @return the XMPP address
      */
@@ -248,7 +238,7 @@ public class NotificationInfo implements Cloneable {
     }
 
     /**
-     * Returns the numerical service string
+     * Returns the numerical service string.
      *
      * @return the numerical service
      */
@@ -257,7 +247,7 @@ public class NotificationInfo implements Cloneable {
     }
 
     /**
-     * Returns the numerical pin string
+     * Returns the numerical pin string.
      *
      * @return the numerical pin
      */
@@ -266,7 +256,7 @@ public class NotificationInfo implements Cloneable {
     }
 
     /**
-     * Returns the text service string
+     * Returns the text service string.
      *
      * @return the text service
      */
@@ -275,7 +265,7 @@ public class NotificationInfo implements Cloneable {
     }
 
     /**
-     * Returns the text pin string
+     * Returns the text pin string.
      *
      * @return the text pin
      */
@@ -284,7 +274,7 @@ public class NotificationInfo implements Cloneable {
     }
 
     /**
-     * Returns the number of DutySchedule object for a user
+     * Returns the number of DutySchedule object for a user.
      *
      * @return the number of DutySchedules
      */
@@ -293,7 +283,7 @@ public class NotificationInfo implements Cloneable {
     }
 
     /**
-     * Returns the full list of DutySchedules
+     * Returns the full list of DutySchedules.
      *
      * @return the full list of DutySchedules
      */

@@ -75,24 +75,36 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import com.sun.jersey.spi.spring.container.servlet.SpringServlet;
 
+/**
+ * The Class RemotePollerAvailabilityRestServiceTest.
+ */
 public class RemotePollerAvailabilityRestServiceTest extends AbstractSpringJerseyRestTestCase {
 
+    /** The m_application dao. */
     @Autowired
     ApplicationDao m_applicationDao;
 
+    /** The m_location monitor dao. */
     @Autowired
     LocationMonitorDao m_locationMonitorDao;
 
+    /** The m_mon service dao. */
     @Autowired
     MonitoredServiceDao m_monServiceDao;
 
+    /** The m_database populator. */
     @Autowired
     DatabasePopulator m_databasePopulator;
 
+    /** The Constant BASE_REST_URL. */
     public static final String BASE_REST_URL = "/remotelocations/availability";
 
+    /** The Constant USE_EXISTING. */
     public static final boolean USE_EXISTING = false;
 
+    /* (non-Javadoc)
+     * @see org.opennms.web.rest.AbstractSpringJerseyRestTestCase#setUp()
+     */
     @Before
     @Override
     public void setUp() throws Throwable {
@@ -158,6 +170,9 @@ public class RemotePollerAvailabilityRestServiceTest extends AbstractSpringJerse
         System.err.println("------------------------------------------------------------------------------");
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.web.rest.AbstractSpringJerseyRestTestCase#afterServletStart()
+     */
     @Override
     protected final void afterServletStart() {
         MockLogAppender.setupLogging();
@@ -180,6 +195,9 @@ public class RemotePollerAvailabilityRestServiceTest extends AbstractSpringJerse
         }
     }
 
+    /**
+     * Test get availability.
+     */
     @Test
     public final void testGetAvailability() {
 
@@ -216,6 +234,12 @@ public class RemotePollerAvailabilityRestServiceTest extends AbstractSpringJerse
 
     }
 
+    /**
+     * Test get locations.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public final void testGetLocations() throws Exception {
         String url = "/remotelocations";
@@ -224,6 +248,12 @@ public class RemotePollerAvailabilityRestServiceTest extends AbstractSpringJerse
         assertTrue(responseString != null);
     }
 
+    /**
+     * Test get participants.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public final void testGetParticipants() throws Exception {
         String url = "/remotelocations/participants";
@@ -232,6 +262,12 @@ public class RemotePollerAvailabilityRestServiceTest extends AbstractSpringJerse
         assertTrue(responseString != null);
     }
 
+    /**
+     * Test remote poller availability.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public final void testRemotePollerAvailability() throws Exception {
         long startTime = System.currentTimeMillis();
@@ -270,6 +306,12 @@ public class RemotePollerAvailabilityRestServiceTest extends AbstractSpringJerse
                 + "UptimeCalculator.count = " + UptimeCalculator.count);
     }
 
+    /**
+     * Test remote poller availability single location.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public final void testRemotePollerAvailabilitySingleLocation() throws Exception {
         long startTime = System.currentTimeMillis();
@@ -291,6 +333,12 @@ public class RemotePollerAvailabilityRestServiceTest extends AbstractSpringJerse
         System.err.println("total time taken: " + (System.currentTimeMillis() - startTime));
     }
 
+    /**
+     * Adds the end time.
+     *
+     * @param parameters
+     *            the parameters
+     */
     private void addEndTime(final Map<String, String> parameters) {
         if (USE_EXISTING) {
             parameters.put("endTime", "" + 1307101853449L);
@@ -299,6 +347,12 @@ public class RemotePollerAvailabilityRestServiceTest extends AbstractSpringJerse
         }
     }
 
+    /**
+     * Adds the start time.
+     *
+     * @param parameters
+     *            the parameters
+     */
     private void addStartTime(final Map<String, String> parameters) {
         if (USE_EXISTING) {
             parameters.put("startTime", "" + 1306943136422L);
@@ -307,6 +361,12 @@ public class RemotePollerAvailabilityRestServiceTest extends AbstractSpringJerse
         }
     }
 
+    /**
+     * Test remote poller availability five minutes.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public final void testRemotePollerAvailabilityFiveMinutes() throws Exception {
         String url = BASE_REST_URL;
@@ -322,6 +382,12 @@ public class RemotePollerAvailabilityRestServiceTest extends AbstractSpringJerse
 
     }
 
+    /**
+     * Creates the location monitors.
+     *
+     * @throws InterruptedException
+     *             the interrupted exception
+     */
     private void createLocationMonitors() throws InterruptedException {
         TransactionTemplate txTemplate = getBean("transactionTemplate", TransactionTemplate.class);
         txTemplate.execute(new TransactionCallbackWithoutResult() {

@@ -44,12 +44,15 @@ import java.util.Vector;
  * @since 1.8.1
  */
 public class SurveillanceListenerCollection extends Vector<SurveillanceListener> {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 5693264759623736384L;
 
     /**
      * <p>
      * fireAllClicked
      * </p>
+     * .
      *
      * @param viewer
      *            a {@link org.opennms.dashboard.client.Dashlet} object.
@@ -65,6 +68,7 @@ public class SurveillanceListenerCollection extends Vector<SurveillanceListener>
      * <p>
      * fireSurveillanceGroupClicked
      * </p>
+     * .
      *
      * @param viewer
      *            a {@link org.opennms.dashboard.client.Dashlet} object.
@@ -83,6 +87,7 @@ public class SurveillanceListenerCollection extends Vector<SurveillanceListener>
      * <p>
      * fireIntersectionClicked
      * </p>
+     * .
      *
      * @param viewer
      *            a {@link org.opennms.dashboard.client.Dashlet} object.

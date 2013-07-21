@@ -80,6 +80,7 @@ public class DefaultViewDisplayDao implements ViewDisplayDao {
      * <p>
      * getView
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.config.viewsdisplay.View} object.
      */

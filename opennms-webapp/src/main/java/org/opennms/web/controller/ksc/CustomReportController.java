@@ -58,10 +58,13 @@ import org.springframework.web.servlet.mvc.AbstractController;
  */
 public class CustomReportController extends AbstractController implements InitializingBean {
 
+    /** The m_ksc report factory. */
     private KSC_PerformanceReportFactory m_kscReportFactory;
 
+    /** The m_ksc report service. */
     private KscReportService m_kscReportService;
 
+    /** The m_resource service. */
     private ResourceService m_resourceService;
 
     /** {@inheritDoc} */
@@ -109,6 +112,7 @@ public class CustomReportController extends AbstractController implements Initia
      * <p>
      * getKscReportFactory
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.config.KSC_PerformanceReportFactory}
      *         object.
@@ -121,6 +125,7 @@ public class CustomReportController extends AbstractController implements Initia
      * <p>
      * setKscReportFactory
      * </p>
+     * .
      *
      * @param kscReportFactory
      *            a
@@ -135,6 +140,7 @@ public class CustomReportController extends AbstractController implements Initia
      * <p>
      * getKscReportService
      * </p>
+     * .
      *
      * @return a {@link org.opennms.web.svclayer.KscReportService} object.
      */
@@ -146,6 +152,7 @@ public class CustomReportController extends AbstractController implements Initia
      * <p>
      * setKscReportService
      * </p>
+     * .
      *
      * @param kscReportService
      *            a {@link org.opennms.web.svclayer.KscReportService} object.
@@ -158,6 +165,7 @@ public class CustomReportController extends AbstractController implements Initia
      * <p>
      * getResourceService
      * </p>
+     * .
      *
      * @return a {@link org.opennms.web.svclayer.ResourceService} object.
      */
@@ -169,6 +177,7 @@ public class CustomReportController extends AbstractController implements Initia
      * <p>
      * setResourceService
      * </p>
+     * .
      *
      * @param resourceService
      *            a {@link org.opennms.web.svclayer.ResourceService} object.
@@ -181,9 +190,10 @@ public class CustomReportController extends AbstractController implements Initia
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @Override
     public void afterPropertiesSet() throws Exception {

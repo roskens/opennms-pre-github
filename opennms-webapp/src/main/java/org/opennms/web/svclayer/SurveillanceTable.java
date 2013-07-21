@@ -55,18 +55,25 @@ import org.opennms.netmgt.model.OnmsNode;
  */
 public class SurveillanceTable {
 
+    /** The m_label. */
     String m_label = null;
 
+    /** The m_status table. */
     AggregateStatus[][] m_statusTable = null;
 
+    /** The m_row nodes. */
     Set<OnmsNode>[] m_rowNodes = null;
 
+    /** The m_column nodes. */
     Set<OnmsNode>[] m_columnNodes = null;
 
+    /** The m_row headers. */
     String[] m_rowHeaders = null;
 
+    /** The m_column headers. */
     String[] m_columnHeaders = null;
 
+    /** The m_web table. */
     private SimpleWebTable m_webTable;
 
     /**
@@ -102,6 +109,7 @@ public class SurveillanceTable {
      * <p>
      * setWebTable
      * </p>
+     * .
      *
      * @param webTable
      *            a {@link org.opennms.web.svclayer.SimpleWebTable} object.
@@ -114,6 +122,7 @@ public class SurveillanceTable {
      * <p>
      * getWebTable
      * </p>
+     * .
      *
      * @return a {@link org.opennms.web.svclayer.SimpleWebTable} object.
      */
@@ -125,6 +134,7 @@ public class SurveillanceTable {
      * <p>
      * setStatus
      * </p>
+     * .
      *
      * @param row
      *            a int.
@@ -141,6 +151,7 @@ public class SurveillanceTable {
      * <p>
      * getStatus
      * </p>
+     * .
      *
      * @param row
      *            a int.
@@ -156,6 +167,7 @@ public class SurveillanceTable {
      * <p>
      * getRowCount
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -167,6 +179,7 @@ public class SurveillanceTable {
      * <p>
      * getColumnCount
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -178,6 +191,7 @@ public class SurveillanceTable {
      * <p>
      * getStatusRow
      * </p>
+     * .
      *
      * @param row
      *            a int.
@@ -267,6 +281,7 @@ public class SurveillanceTable {
      * <p>
      * getRowHeader
      * </p>
+     * .
      *
      * @param row
      *            a int.
@@ -280,6 +295,7 @@ public class SurveillanceTable {
      * <p>
      * setRowHeader
      * </p>
+     * .
      *
      * @param row
      *            a int.
@@ -294,6 +310,7 @@ public class SurveillanceTable {
      * <p>
      * getRowHeaders
      * </p>
+     * .
      *
      * @return an array of {@link java.lang.String} objects.
      */
@@ -305,6 +322,7 @@ public class SurveillanceTable {
      * <p>
      * getRowHeaderList
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -316,6 +334,7 @@ public class SurveillanceTable {
      * <p>
      * setColumnHeader
      * </p>
+     * .
      *
      * @param col
      *            a int.
@@ -330,6 +349,7 @@ public class SurveillanceTable {
      * <p>
      * getColumnHeaders
      * </p>
+     * .
      *
      * @return an array of {@link java.lang.String} objects.
      */
@@ -341,6 +361,7 @@ public class SurveillanceTable {
      * <p>
      * getColumnHeaderList
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -352,6 +373,7 @@ public class SurveillanceTable {
      * <p>
      * getLabel
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -363,6 +385,7 @@ public class SurveillanceTable {
      * <p>
      * setLabel
      * </p>
+     * .
      *
      * @param label
      *            a {@link java.lang.String} object.
@@ -375,6 +398,7 @@ public class SurveillanceTable {
      * <p>
      * getStatusTable
      * </p>
+     * .
      *
      * @return an array of {@link org.opennms.web.svclayer.AggregateStatus}
      *         objects.
@@ -383,6 +407,13 @@ public class SurveillanceTable {
         return m_statusTable;
     }
 
+    /**
+     * As linked list.
+     *
+     * @param headers
+     *            the headers
+     * @return the list
+     */
     private List<String> asLinkedList(String[] headers) {
         List<String> headerList = new LinkedList<String>();
         for (int i = 0; i < m_rowHeaders.length; i++) {
@@ -395,6 +426,7 @@ public class SurveillanceTable {
      * <p>
      * getRowNodes
      * </p>
+     * .
      *
      * @return an array of {@link java.util.Set} objects.
      */
@@ -406,6 +438,7 @@ public class SurveillanceTable {
      * <p>
      * setRowNodes
      * </p>
+     * .
      *
      * @param rowNodes
      *            an array of {@link java.util.Set} objects.
@@ -418,6 +451,7 @@ public class SurveillanceTable {
      * <p>
      * setRowHeaders
      * </p>
+     * .
      *
      * @param rowHeaders
      *            an array of {@link java.lang.String} objects.
@@ -430,6 +464,7 @@ public class SurveillanceTable {
      * <p>
      * getColumnNodes
      * </p>
+     * .
      *
      * @return an array of {@link java.util.Set} objects.
      */
@@ -441,6 +476,7 @@ public class SurveillanceTable {
      * <p>
      * setColumnNodes
      * </p>
+     * .
      *
      * @param columnNodes
      *            an array of {@link java.util.Set} objects.
@@ -453,6 +489,7 @@ public class SurveillanceTable {
      * <p>
      * setColumnHeaders
      * </p>
+     * .
      *
      * @param columnHeaders
      *            an array of {@link java.lang.String} objects.
@@ -465,6 +502,7 @@ public class SurveillanceTable {
      * <p>
      * setStatusTable
      * </p>
+     * .
      *
      * @param statusTable
      *            an array of {@link org.opennms.web.svclayer.AggregateStatus}
@@ -478,6 +516,7 @@ public class SurveillanceTable {
      * <p>
      * getNodesForRow
      * </p>
+     * .
      *
      * @param row
      *            a int.
@@ -491,6 +530,7 @@ public class SurveillanceTable {
      * <p>
      * setNodesForRow
      * </p>
+     * .
      *
      * @param row
      *            a int.
@@ -505,6 +545,7 @@ public class SurveillanceTable {
      * <p>
      * getNodesForColumn
      * </p>
+     * .
      *
      * @param col
      *            a int.
@@ -518,6 +559,7 @@ public class SurveillanceTable {
      * <p>
      * setNodesForColumn
      * </p>
+     * .
      *
      * @param col
      *            a int.

@@ -40,19 +40,33 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
+ * The Class ServiceController.
+ *
  * @author <a href="mailto:galea.melania@gmail.com">Melania Galea</a>
  */
 @Controller
 @RequestMapping("/element/service.htm")
 public class ServiceController implements InitializingBean {
+
+    /** The m_monitored service dao. */
     @Autowired
     private MonitoredServiceDao m_monitoredServiceDao;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Handle service.
+     *
+     * @param ifServiceId
+     *            the if service id
+     * @return the model and view
+     */
     @RequestMapping(method = RequestMethod.GET, params = { "ifserviceid" })
     public ModelAndView handleService(@RequestParam("ifserviceid")
     int ifServiceId) {
@@ -64,6 +78,17 @@ public class ServiceController implements InitializingBean {
         }
     }
 
+    /**
+     * Handle service.
+     *
+     * @param node
+     *            the node
+     * @param intf
+     *            the intf
+     * @param serviceId
+     *            the service id
+     * @return the model and view
+     */
     @RequestMapping(method = RequestMethod.GET, params = { "node", "intf", "service" })
     public ModelAndView handleService(@RequestParam("node")
     int node, @RequestParam("intf")
@@ -77,6 +102,13 @@ public class ServiceController implements InitializingBean {
         }
     }
 
+    /**
+     * Creates the error model and view.
+     *
+     * @param ifServiceId
+     *            the if service id
+     * @return the model and view
+     */
     private ModelAndView createErrorModelAndView(int ifServiceId) {
         ModelAndView modelAndView = new ModelAndView("element/errorPageOneKeyService");
         modelAndView.addObject("ifServiceId", ifServiceId);
@@ -84,6 +116,17 @@ public class ServiceController implements InitializingBean {
         return modelAndView;
     }
 
+    /**
+     * Creates the error model and view.
+     *
+     * @param node
+     *            the node
+     * @param intf
+     *            the intf
+     * @param serviceId
+     *            the service id
+     * @return the model and view
+     */
     private ModelAndView createErrorModelAndView(int node, String intf, int serviceId) {
         ModelAndView modelAndView = new ModelAndView("element/errorPageService");
         modelAndView.addObject("node", node);
@@ -93,6 +136,13 @@ public class ServiceController implements InitializingBean {
         return modelAndView;
     }
 
+    /**
+     * Creates the success model and view.
+     *
+     * @param service
+     *            the service
+     * @return the model and view
+     */
     private ModelAndView createSuccessModelAndView(OnmsMonitoredService service) {
         ModelAndView modelAndView = new ModelAndView("element/service");
         modelAndView.addObject("service", service);

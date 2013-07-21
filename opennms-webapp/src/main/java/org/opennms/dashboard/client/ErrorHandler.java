@@ -43,6 +43,7 @@ public interface ErrorHandler {
      * <p>
      * error
      * </p>
+     * .
      *
      * @param e
      *            a {@link java.lang.Throwable} object.

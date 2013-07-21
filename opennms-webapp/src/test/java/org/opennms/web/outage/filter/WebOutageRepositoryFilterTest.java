@@ -58,6 +58,9 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 
+/**
+ * The Class WebOutageRepositoryFilterTest.
+ */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
         "classpath:/META-INF/opennms/applicationContext-dao.xml", "classpath*:/META-INF/opennms/component-dao.xml",
@@ -68,20 +71,27 @@ import org.springframework.test.context.ContextConfiguration;
 @JUnitTemporaryDatabase
 public class WebOutageRepositoryFilterTest implements InitializingBean {
 
+    /** The m_db populator. */
     @Autowired
     DatabasePopulator m_dbPopulator;
 
+    /** The m_dao outage repo. */
     @Autowired
     @Qualifier("dao")
     WebOutageRepository m_daoOutageRepo;
 
+    /** The m_jdbc outage repo. */
     @Autowired
     @Qualifier("jdbc")
     WebOutageRepository m_jdbcOutageRepo;
 
+    /** The m_app context. */
     @Autowired
     ApplicationContext m_appContext;
 
+    /**
+     * Setup logging.
+     */
     @BeforeClass
     public static void setupLogging() {
         Properties props = new Properties();
@@ -92,6 +102,9 @@ public class WebOutageRepositoryFilterTest implements InitializingBean {
         MockLogAppender.setupLogging(props);
     }
 
+    /**
+     * Sets the up.
+     */
     @Before
     public void setUp() {
         m_dbPopulator.populateDatabase();
@@ -106,11 +119,17 @@ public class WebOutageRepositoryFilterTest implements InitializingBean {
         m_dbPopulator.getOutageDao().flush();
     }
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Test outage id filter.
+     */
     @Test
     @JUnitTemporaryDatabase
     // Relies on specific IDs so we need a fresh database
@@ -125,6 +144,9 @@ public class WebOutageRepositoryFilterTest implements InitializingBean {
         assertEquals(1, outages.length);
     }
 
+    /**
+     * Test lost service date before filter.
+     */
     @Test
     @JUnitTemporaryDatabase
     // Relies on records created in @Before so we need a fresh database
@@ -139,6 +161,9 @@ public class WebOutageRepositoryFilterTest implements InitializingBean {
         assertEquals(3, outages.length);
     }
 
+    /**
+     * Test lost service date after filter.
+     */
     @Test
     @JUnitTemporaryDatabase
     // Relies on records created in @Before so we need a fresh database
@@ -153,6 +178,9 @@ public class WebOutageRepositoryFilterTest implements InitializingBean {
         assertEquals(3, outages.length);
     }
 
+    /**
+     * Test regained service date before filter.
+     */
     @Test
     @JUnitTemporaryDatabase
     // Relies on records created in @Before so we need a fresh database
@@ -167,6 +195,9 @@ public class WebOutageRepositoryFilterTest implements InitializingBean {
         assertEquals(1, outages.length);
     }
 
+    /**
+     * Test regained service date after filter.
+     */
     @Test
     @JUnitTemporaryDatabase
     // Relies on records created in @Before so we need a fresh database
@@ -181,12 +212,20 @@ public class WebOutageRepositoryFilterTest implements InitializingBean {
         assertEquals(1, outages.length);
     }
 
+    /**
+     * Yesterday.
+     *
+     * @return the date
+     */
     private static Date yesterday() {
         Calendar cal = new GregorianCalendar();
         cal.add(Calendar.DATE, -1);
         return cal.getTime();
     }
 
+    /**
+     * Test recent outages filter.
+     */
     @Test
     @JUnitTemporaryDatabase
     // Relies on records created in @Before so we need a fresh database
@@ -201,6 +240,9 @@ public class WebOutageRepositoryFilterTest implements InitializingBean {
         assertEquals(3, outages.length);
     }
 
+    /**
+     * Test negative interface filter.
+     */
     @Test
     @JUnitTemporaryDatabase
     // Relies on records created in @Before so we need a fresh database
@@ -215,6 +257,9 @@ public class WebOutageRepositoryFilterTest implements InitializingBean {
         assertEquals(2, outages.length);
     }
 
+    /**
+     * Test negative node filter.
+     */
     @Test
     @JUnitTemporaryDatabase
     // Relies on records created in @Before so we need a fresh database
@@ -239,6 +284,9 @@ public class WebOutageRepositoryFilterTest implements InitializingBean {
         // assertEquals(1, outages.length);
     }
 
+    /**
+     * Test negative service filter.
+     */
     @Test
     @JUnitTemporaryDatabase
     // Relies on specific IDs so we need a fresh database
@@ -253,6 +301,9 @@ public class WebOutageRepositoryFilterTest implements InitializingBean {
         assertEquals(1, outages.length);
     }
 
+    /**
+     * Test node filter.
+     */
     @Test
     @JUnitTemporaryDatabase
     // Relies on records created in @Before so we need a fresh database
@@ -277,6 +328,9 @@ public class WebOutageRepositoryFilterTest implements InitializingBean {
         // assertEquals(1, outages.length);
     }
 
+    /**
+     * Test interface filter.
+     */
     @Test
     @JUnitTemporaryDatabase
     // Relies on records created in @Before so we need a fresh database
@@ -300,6 +354,9 @@ public class WebOutageRepositoryFilterTest implements InitializingBean {
         assertEquals(1, outages.length);
     }
 
+    /**
+     * Test service filter.
+     */
     @Test
     @JUnitTemporaryDatabase
     // Relies on specific IDs so we need a fresh database

@@ -41,36 +41,52 @@ import java.sql.Timestamp;
  */
 public class DbMap {
 
+    /** The id. */
     private int id;
 
+    /** The name. */
     private String name;
 
+    /** The background. */
     private String background;
 
+    /** The owner. */
     private String owner;
 
+    /** The group. */
     private String group;
 
+    /** The access mode. */
     private String accessMode;
 
+    /** The user last modifies. */
     private String userLastModifies;
 
+    /** The create time. */
     private Timestamp createTime;
 
+    /** The last modified time. */
     private Timestamp lastModifiedTime;
 
+    /** The scale. */
     private float scale;
 
+    /** The offset x. */
     private int offsetX;
 
+    /** The offset y. */
     private int offsetY;
 
+    /** The type. */
     private String type;
 
+    /** The width. */
     private int width;
 
+    /** The height. */
     private int height;
 
+    /** The is new. */
     private boolean isNew = false;
 
     /**
@@ -475,6 +491,7 @@ public class DbMap {
      * <p>
      * isNew
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -486,6 +503,7 @@ public class DbMap {
      * <p>
      * setAsNew
      * </p>
+     * .
      *
      * @param v
      *            a boolean.

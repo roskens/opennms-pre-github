@@ -55,22 +55,23 @@ import org.slf4j.LoggerFactory;
  */
 public class RTCPostServlet extends HttpServlet {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(RTCPostServlet.class);
 
-    /**
-     *
-     */
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 5550051932055498432L;
 
+    /** The model. */
     protected CategoryModel model;
 
     /**
      * <p>
      * init
      * </p>
+     * .
      *
-     * @throws javax.servlet.ServletException
-     *             if any.
+     * @throws ServletException
+     *             the servlet exception
      */
     @Override
     public void init() throws ServletException {

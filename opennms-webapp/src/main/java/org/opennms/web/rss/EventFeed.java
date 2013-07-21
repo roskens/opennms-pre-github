@@ -61,13 +61,17 @@ import com.sun.syndication.feed.synd.SyndFeedImpl;
  */
 public class EventFeed extends AbstractFeed {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(EventFeed.class);
 
     /**
      * <p>
      * getFeed
      * </p>
+     * .
      *
+     * @param servletContext
+     *            the servlet context
      * @return a {@link com.sun.syndication.feed.synd.SyndFeed} object.
      */
     public SyndFeed getFeed(ServletContext servletContext) {

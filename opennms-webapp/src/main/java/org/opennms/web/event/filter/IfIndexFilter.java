@@ -39,7 +39,8 @@ import org.opennms.web.filter.SQLType;
  * @since 1.8.1
  */
 public class IfIndexFilter extends EqualsFilter<Integer> {
-    /** Constant <code>TYPE="ifindex"</code> */
+
+    /** Constant <code>TYPE="ifindex"</code>. */
     public static final String TYPE = "ifindex";
 
     /**
@@ -58,6 +59,7 @@ public class IfIndexFilter extends EqualsFilter<Integer> {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -70,6 +72,7 @@ public class IfIndexFilter extends EqualsFilter<Integer> {
      * <p>
      * getIfIndex
      * </p>
+     * .
      *
      * @return a int.
      */

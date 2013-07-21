@@ -55,12 +55,15 @@ import org.springframework.web.servlet.mvc.AbstractController;
  * @since 1.8.1
  */
 public class NavBarController extends AbstractController implements InitializingBean, OnmsHeaderProvider {
+
+    /** The m_nav bar items. */
     private List<NavBarEntry> m_navBarItems;
 
     /**
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      */
     @Override
     public final void afterPropertiesSet() {
@@ -74,6 +77,13 @@ public class NavBarController extends AbstractController implements Initializing
         return new ModelAndView("navBar", "model", createNavBarModel(request));
     }
 
+    /**
+     * Creates the nav bar model.
+     *
+     * @param request
+     *            the request
+     * @return the nav bar model
+     */
     private NavBarModel createNavBarModel(final HttpServletRequest request) {
         Map<NavBarEntry, DisplayStatus> navBar = new LinkedHashMap<NavBarEntry, DisplayStatus>();
 
@@ -88,6 +98,7 @@ public class NavBarController extends AbstractController implements Initializing
      * <p>
      * getNavBarItems
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -99,6 +110,7 @@ public class NavBarController extends AbstractController implements Initializing
      * <p>
      * setNavBarItems
      * </p>
+     * .
      *
      * @param navBarItems
      *            a {@link java.util.List} object.
@@ -107,11 +119,21 @@ public class NavBarController extends AbstractController implements Initializing
         m_navBarItems = navBarItems;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.web.api.OnmsHeaderProvider#getHeaderHtml(javax.servlet.http.HttpServletRequest)
+     */
     @Override
     public final String getHeaderHtml(final HttpServletRequest request) {
         return createHeaderHtml(request);
     }
 
+    /**
+     * Creates the header html.
+     *
+     * @param request
+     *            the request
+     * @return the string
+     */
     private String createHeaderHtml(final HttpServletRequest request) {
         return "<div id='header'>"
                 + "<h1 id='headerlogo'><a href='index.jsp'><img src=\"../images/logo.png\" alt='OpenNMS Web Console Home'></a></h1>"
@@ -123,6 +145,11 @@ public class NavBarController extends AbstractController implements Initializing
                 + "</div>" + "<div class='spacer'><!-- --></div>" + "</div>";
     }
 
+    /**
+     * Gets the notice status.
+     *
+     * @return the notice status
+     */
     private String getNoticeStatus() {
         String noticeStatus;
         try {
@@ -138,6 +165,13 @@ public class NavBarController extends AbstractController implements Initializing
         return noticeStatus;
     }
 
+    /**
+     * Creates the nav bar html.
+     *
+     * @param request
+     *            the request
+     * @return the string
+     */
     private String createNavBarHtml(final HttpServletRequest request) {
         StringBuilder strBuilder = new StringBuilder();
         strBuilder.append("<ul>");

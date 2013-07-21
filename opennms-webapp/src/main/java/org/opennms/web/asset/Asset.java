@@ -41,182 +41,247 @@ import java.util.Date;
  */
 public class Asset extends Object {
 
-    /** Constant <code>UNSPECIFIED_CATEGORY="Unspecified"</code> */
+    /** Constant <code>UNSPECIFIED_CATEGORY="Unspecified"</code>. */
     public static final String UNSPECIFIED_CATEGORY = "Unspecified";
 
-    /** Constant <code>INFRASTRUCTURE_CATEGORY="Infrastructure"</code> */
+    /** Constant <code>INFRASTRUCTURE_CATEGORY="Infrastructure"</code>. */
     public static final String INFRASTRUCTURE_CATEGORY = "Infrastructure";
 
-    /** Constant <code>SERVER_CATEGORY="Server"</code> */
+    /** Constant <code>SERVER_CATEGORY="Server"</code>. */
     public static final String SERVER_CATEGORY = "Server";
 
-    /** Constant <code>DESKTOP_CATEGORY="Desktop"</code> */
+    /** Constant <code>DESKTOP_CATEGORY="Desktop"</code>. */
     public static final String DESKTOP_CATEGORY = "Desktop";
 
-    /** Constant <code>LAPTOP_CATEGORY="Laptop"</code> */
+    /** Constant <code>LAPTOP_CATEGORY="Laptop"</code>. */
     public static final String LAPTOP_CATEGORY = "Laptop";
 
-    /** Constant <code>PRINTER_CATEGORY="Printer"</code> */
+    /** Constant <code>PRINTER_CATEGORY="Printer"</code>. */
     public static final String PRINTER_CATEGORY = "Printer";
 
-    /** Constant <code>TELEPHONY_CATEGORY="Telephony"</code> */
+    /** Constant <code>TELEPHONY_CATEGORY="Telephony"</code>. */
     public static final String TELEPHONY_CATEGORY = "Telephony";
 
-    /** Constant <code>OTHER_CATEGORY="Other"</code> */
+    /** Constant <code>OTHER_CATEGORY="Other"</code>. */
     public static final String OTHER_CATEGORY = "Other";
 
     /**
      * Constant
      * <code>CATEGORIES="new String[] { UNSPECIFIED_CATEGORY, IN"{trunked}</code>
+     * .
      */
     public static final String[] CATEGORIES = new String[] { UNSPECIFIED_CATEGORY, INFRASTRUCTURE_CATEGORY,
             SERVER_CATEGORY, DESKTOP_CATEGORY, LAPTOP_CATEGORY, PRINTER_CATEGORY, TELEPHONY_CATEGORY, OTHER_CATEGORY };
 
-    /** Constant <code>AUTOENABLE="A"</code> */
+    /** Constant <code>AUTOENABLE="A"</code>. */
     public static final String AUTOENABLE = "A";
 
-    /** Constant <code>AUTOENABLES="new String[] { AUTOENABLE }"</code> */
+    /** Constant <code>AUTOENABLES="new String[] { AUTOENABLE }"</code>. */
     public static final String[] AUTOENABLES = new String[] { AUTOENABLE };
 
-    /** Constant <code>TELNET_CONNECTION="telnet"</code> */
+    /** Constant <code>TELNET_CONNECTION="telnet"</code>. */
     public static final String TELNET_CONNECTION = "telnet";
 
-    /** Constant <code>SSH_CONNECTION="ssh"</code> */
+    /** Constant <code>SSH_CONNECTION="ssh"</code>. */
     public static final String SSH_CONNECTION = "ssh";
 
-    /** Constant <code>RSH_CONNECTION="rsh"</code> */
+    /** Constant <code>RSH_CONNECTION="rsh"</code>. */
     public static final String RSH_CONNECTION = "rsh";
 
     /**
      * Constant
      * <code>CONNECTIONS="new String[] { TELNET_CONNECTION,SSH_CO"{trunked}</code>
+     * .
      */
     public static final String[] CONNECTIONS = new String[] { TELNET_CONNECTION, SSH_CONNECTION, RSH_CONNECTION };
 
+    /** The node id. */
     protected int nodeId;
 
+    /** The last modified date. */
     protected Date lastModifiedDate;
 
+    /** The user last modified. */
     protected String userLastModified = "";
 
+    /** The category. */
     protected String category = UNSPECIFIED_CATEGORY;
 
+    /** The manufacturer. */
     protected String manufacturer = "";
 
+    /** The vendor. */
     protected String vendor = "";
 
+    /** The model number. */
     protected String modelNumber = "";
 
+    /** The serial number. */
     protected String serialNumber = "";
 
+    /** The description. */
     protected String description = "";
 
+    /** The circuit id. */
     protected String circuitId = "";
 
+    /** The asset number. */
     protected String assetNumber = "";
 
+    /** The operating system. */
     protected String operatingSystem = "";
 
+    /** The rack. */
     protected String rack = "";
 
+    /** The slot. */
     protected String slot = "";
 
+    /** The port. */
     protected String port = "";
 
+    /** The region. */
     protected String region = "";
 
+    /** The division. */
     protected String division = "";
 
+    /** The department. */
     protected String department = "";
 
+    /** The address1. */
     protected String address1 = "";
 
+    /** The address2. */
     protected String address2 = "";
 
+    /** The city. */
     protected String city = "";
 
+    /** The state. */
     protected String state = "";
 
+    /** The zip. */
     protected String zip = "";
 
+    /** The country. */
     protected String country = "";
 
+    /** The longitude. */
     protected String longitude = "";
 
+    /** The latitude. */
     protected String latitude = "";
 
+    /** The building. */
     protected String building = "";
 
+    /** The floor. */
     protected String floor = "";
 
+    /** The room. */
     protected String room = "";
 
+    /** The vendor phone. */
     protected String vendorPhone = "";
 
+    /** The vendor fax. */
     protected String vendorFax = "";
 
+    /** The date installed. */
     protected String dateInstalled = "";
 
+    /** The lease. */
     protected String lease = "";
 
+    /** The lease expires. */
     protected String leaseExpires = "";
 
+    /** The support phone. */
     protected String supportPhone = "";
 
+    /** The maint contract. */
     protected String maintContract = "";
 
+    /** The vendor asset number. */
     protected String vendorAssetNumber = "";
 
+    /** The maint contract expires. */
     protected String maintContractExpires = "";
 
+    /** The display category. */
     protected String displayCategory = "";
 
+    /** The notify category. */
     protected String notifyCategory = "";
 
+    /** The poller category. */
     protected String pollerCategory = "";
 
+    /** The threshold category. */
     protected String thresholdCategory = "";
 
+    /** The comments. */
     protected String comments = "";
 
+    /** The username. */
     protected String username = "";
 
+    /** The password. */
     protected String password = "";
 
+    /** The enable. */
     protected String enable = "";
 
+    /** The connection. */
     protected String connection = "";
 
+    /** The autoenable. */
     protected String autoenable = "";
 
+    /** The cpu. */
     protected String cpu = "";
 
+    /** The ram. */
     protected String ram = "";
 
+    /** The storagectrl. */
     protected String storagectrl = "";
 
+    /** The hdd1. */
     protected String hdd1 = "";
 
+    /** The hdd2. */
     protected String hdd2 = "";
 
+    /** The hdd3. */
     protected String hdd3 = "";
 
+    /** The hdd4. */
     protected String hdd4 = "";
 
+    /** The hdd5. */
     protected String hdd5 = "";
 
+    /** The hdd6. */
     protected String hdd6 = "";
 
+    /** The numpowersupplies. */
     protected String numpowersupplies = "";
 
+    /** The inputpower. */
     protected String inputpower = "";
 
+    /** The additionalhardware. */
     protected String additionalhardware = "";
 
+    /** The admin. */
     protected String admin = "";
 
+    /** The snmpcommunity. */
     protected String snmpcommunity = "";
 
+    /** The rackunitheight. */
     protected String rackunitheight = "";
 
     /**
@@ -1912,6 +1977,9 @@ public class Asset extends Object {
         }
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();

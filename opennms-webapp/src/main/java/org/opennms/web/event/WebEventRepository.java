@@ -47,6 +47,7 @@ public interface WebEventRepository {
      * <p>
      * countMatchingEvents
      * </p>
+     * .
      *
      * @param criteria
      *            a {@link org.opennms.web.event.filter.EventCriteria} object.
@@ -58,6 +59,7 @@ public interface WebEventRepository {
      * <p>
      * countMatchingEventsBySeverity
      * </p>
+     * .
      *
      * @param criteria
      *            a {@link org.opennms.web.event.filter.EventCriteria} object.
@@ -69,6 +71,7 @@ public interface WebEventRepository {
      * <p>
      * getEvent
      * </p>
+     * .
      *
      * @param eventId
      *            a int.
@@ -80,6 +83,7 @@ public interface WebEventRepository {
      * <p>
      * getMatchingEvents
      * </p>
+     * .
      *
      * @param criteria
      *            a {@link org.opennms.web.event.filter.EventCriteria} object.
@@ -91,6 +95,7 @@ public interface WebEventRepository {
      * <p>
      * acknowledgeMatchingEvents
      * </p>
+     * .
      *
      * @param user
      *            a {@link java.lang.String} object.
@@ -105,6 +110,7 @@ public interface WebEventRepository {
      * <p>
      * acknowledgeAll
      * </p>
+     * .
      *
      * @param user
      *            a {@link java.lang.String} object.
@@ -117,6 +123,7 @@ public interface WebEventRepository {
      * <p>
      * unacknowledgeMatchingEvents
      * </p>
+     * .
      *
      * @param criteria
      *            a {@link org.opennms.web.event.filter.EventCriteria} object.
@@ -127,6 +134,7 @@ public interface WebEventRepository {
      * <p>
      * unacknowledgeAll
      * </p>
+     * .
      */
     public abstract void unacknowledgeAll();
 }

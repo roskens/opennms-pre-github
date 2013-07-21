@@ -43,11 +43,14 @@ import org.springframework.context.ApplicationContext;
  * @since 1.8.1
  */
 public class NodeFilter extends EqualsFilter<Integer> {
-    /** Constant <code>TYPE="node"</code> */
+
+    /** Constant <code>TYPE="node"</code>. */
     public static final String TYPE = "node";
 
+    /** The m_servlet context. */
     private ServletContext m_servletContext;
 
+    /** The m_app context. */
     private ApplicationContext m_appContext;
 
     /**
@@ -57,12 +60,22 @@ public class NodeFilter extends EqualsFilter<Integer> {
      *
      * @param nodeId
      *            a int.
+     * @param servletContext
+     *            the servlet context
      */
     public NodeFilter(int nodeId, ServletContext servletContext) {
         super(TYPE, SQLType.INT, "EVENTS.NODEID", "node.id", nodeId);
         m_servletContext = servletContext;
     }
 
+    /**
+     * Instantiates a new node filter.
+     *
+     * @param nodeId
+     *            the node id
+     * @param appContext
+     *            the app context
+     */
     public NodeFilter(int nodeId, ApplicationContext appContext) {
         super(TYPE, SQLType.INT, "EVENTS.NODEID", "node.id", nodeId);
         m_appContext = appContext;
@@ -72,6 +85,7 @@ public class NodeFilter extends EqualsFilter<Integer> {
      * <p>
      * getTextDescription
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -86,6 +100,11 @@ public class NodeFilter extends EqualsFilter<Integer> {
         return (TYPE + "=" + nodeName);
     }
 
+    /**
+     * Gets the node label.
+     *
+     * @return the node label
+     */
     private String getNodeLabel() {
         return m_servletContext != null ? NetworkElementFactory.getInstance(m_servletContext).getNodeLabel(getNodeId())
             : NetworkElementFactory.getInstance(m_appContext).getNodeLabel(getNodeId());
@@ -95,6 +114,7 @@ public class NodeFilter extends EqualsFilter<Integer> {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -107,6 +127,7 @@ public class NodeFilter extends EqualsFilter<Integer> {
      * <p>
      * getNodeId
      * </p>
+     * .
      *
      * @return a int.
      */

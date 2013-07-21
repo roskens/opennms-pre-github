@@ -62,7 +62,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 
 /**
- * GroupController
+ * GroupController.
  *
  * @author brozow
  * @version $Id: $
@@ -70,20 +70,28 @@ import org.springframework.web.servlet.mvc.AbstractController;
  */
 public class GroupController extends AbstractController implements InitializingBean {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(GroupController.class);
 
+    /** The m_onms map dao. */
     @Autowired
     private OnmsMapDao m_onmsMapDao;
 
+    /** The m_category dao. */
     @Autowired
     private CategoryDao m_categoryDao;
 
+    /** The m_user manager. */
     @Autowired
     private UserManager m_userManager;
 
+    /** The m_group repository. */
     @Autowired
     private WebGroupRepository m_groupRepository;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public final void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
@@ -126,11 +134,33 @@ public class GroupController extends AbstractController implements InitializingB
         }
     }
 
+    /**
+     * List groups.
+     *
+     * @param request
+     *            the request
+     * @param response
+     *            the response
+     * @return the model and view
+     * @throws Exception
+     *             the exception
+     */
     private ModelAndView listGroups(final HttpServletRequest request, final HttpServletResponse response)
             throws Exception {
         return new ModelAndView("redirect:/admin/userGroupView/groups/list.htm");
     }
 
+    /**
+     * Show group.
+     *
+     * @param request
+     *            the request
+     * @param response
+     *            the response
+     * @return the model and view
+     * @throws Exception
+     *             the exception
+     */
     private ModelAndView showGroup(final HttpServletRequest request, final HttpServletResponse response)
             throws Exception {
 
@@ -144,6 +174,17 @@ public class GroupController extends AbstractController implements InitializingB
         return new ModelAndView("/admin/userGroupView/groups/groupDetail", "group", group);
     }
 
+    /**
+     * Delete group.
+     *
+     * @param request
+     *            the request
+     * @param response
+     *            the response
+     * @return the model and view
+     * @throws Exception
+     *             the exception
+     */
     private ModelAndView deleteGroup(final HttpServletRequest request, final HttpServletResponse response)
             throws Exception {
 
@@ -156,6 +197,17 @@ public class GroupController extends AbstractController implements InitializingB
         return listGroups(request, response);
     }
 
+    /**
+     * Rename group.
+     *
+     * @param request
+     *            the request
+     * @param response
+     *            the response
+     * @return the model and view
+     * @throws Exception
+     *             the exception
+     */
     private ModelAndView renameGroup(final HttpServletRequest request, final HttpServletResponse response)
             throws Exception {
 
@@ -169,6 +221,17 @@ public class GroupController extends AbstractController implements InitializingB
         return listGroups(request, response);
     }
 
+    /**
+     * Adds the duty schedules.
+     *
+     * @param request
+     *            the request
+     * @param response
+     *            the response
+     * @return the model and view
+     * @throws Exception
+     *             the exception
+     */
     private ModelAndView addDutySchedules(final HttpServletRequest request, final HttpServletResponse response)
             throws Exception {
         HttpSession userSession = request.getSession(true);
@@ -204,6 +267,17 @@ public class GroupController extends AbstractController implements InitializingB
 
     }
 
+    /**
+     * Removes the duty schedules.
+     *
+     * @param request
+     *            the request
+     * @param response
+     *            the response
+     * @return the model and view
+     * @throws Exception
+     *             the exception
+     */
     private ModelAndView removeDutySchedules(final HttpServletRequest request, final HttpServletResponse response)
             throws Exception {
         HttpSession userSession = request.getSession(true);
@@ -222,6 +296,17 @@ public class GroupController extends AbstractController implements InitializingB
 
     }
 
+    /**
+     * Edits the group.
+     *
+     * @param request
+     *            the request
+     * @param response
+     *            the response
+     * @return the model and view
+     * @throws Exception
+     *             the exception
+     */
     private ModelAndView editGroup(final HttpServletRequest request, final HttpServletResponse response)
             throws Exception {
 
@@ -230,6 +315,21 @@ public class GroupController extends AbstractController implements InitializingB
         return editGroup(request, group);
     }
 
+    /**
+     * Edits the group.
+     *
+     * @param request
+     *            the request
+     * @param group
+     *            the group
+     * @return the model and view
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     */
     private ModelAndView editGroup(final HttpServletRequest request, final WebGroup group) throws IOException,
             MarshalException, ValidationException {
         HttpSession userSession = request.getSession(true);
@@ -242,6 +342,13 @@ public class GroupController extends AbstractController implements InitializingB
         return new ModelAndView("admin/userGroupView/groups/modifyGroup");
     }
 
+    /**
+     * Gets the visible maps name.
+     *
+     * @param group
+     *            the group
+     * @return the visible maps name
+     */
     private Collection<String> getVisibleMapsName(final WebGroup group) {
 
         Collection<OnmsMap> maps = m_onmsMapDao.findVisibleMapsByGroup(group.getName());
@@ -252,6 +359,17 @@ public class GroupController extends AbstractController implements InitializingB
         return mapnames;
     }
 
+    /**
+     * Save group.
+     *
+     * @param request
+     *            the request
+     * @param response
+     *            the response
+     * @return the model and view
+     * @throws Exception
+     *             the exception
+     */
     private ModelAndView saveGroup(final HttpServletRequest request, final HttpServletResponse response)
             throws Exception {
 
@@ -267,6 +385,17 @@ public class GroupController extends AbstractController implements InitializingB
         return cancel(request, response);
     }
 
+    /**
+     * Cancel.
+     *
+     * @param request
+     *            the request
+     * @param response
+     *            the response
+     * @return the model and view
+     * @throws Exception
+     *             the exception
+     */
     private ModelAndView cancel(final HttpServletRequest request, final HttpServletResponse response) throws Exception {
 
         HttpSession session = request.getSession(false);
@@ -281,6 +410,14 @@ public class GroupController extends AbstractController implements InitializingB
 
     }
 
+    /**
+     * Update group.
+     *
+     * @param request
+     *            the request
+     * @param newGroup
+     *            the new group
+     */
     private void updateGroup(final HttpServletRequest request, final WebGroup newGroup) {
         // get the rest of the group information from the form
         String defaultMap = request.getParameter("groupDefaultMap");
@@ -331,11 +468,33 @@ public class GroupController extends AbstractController implements InitializingB
         }
     }
 
+    /**
+     * Creates the group.
+     *
+     * @param request
+     *            the request
+     * @param response
+     *            the response
+     * @return the model and view
+     * @throws Exception
+     *             the exception
+     */
     private ModelAndView createGroup(final HttpServletRequest request, final HttpServletResponse response)
             throws Exception {
         return new ModelAndView("admin/userGroupView/groups/newGroup");
     }
 
+    /**
+     * Adds the group.
+     *
+     * @param request
+     *            the request
+     * @param response
+     *            the response
+     * @return the model and view
+     * @throws Exception
+     *             the exception
+     */
     private ModelAndView addGroup(final HttpServletRequest request, final HttpServletResponse response)
             throws Exception {
 

@@ -50,7 +50,7 @@ import org.opennms.netmgt.model.events.EventBuilder;
 import org.opennms.web.api.Util;
 
 /**
- * A servlet that handles adding a new interface
+ * A servlet that handles adding a new interface.
  *
  * @author <A HREF="mailto:jamesz@opennms.com">James Zuo </A>
  * @author <A HREF="http://www.opennms.org/">OpenNMS </A>
@@ -60,23 +60,25 @@ import org.opennms.web.api.Util;
  * @since 1.8.1
  */
 public class AddNewInterfaceServlet extends HttpServlet {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 8246413657214969476L;
 
+    /** The Constant SQL_INTERFACE_EXIST. */
     private static final String SQL_INTERFACE_EXIST = "SELECT nodeid FROM ipinterface WHERE ipaddr = ? "
             + "AND ismanaged in ('M', 'A', 'U', 'F')";
 
-    /**
-     * The value used as the source of the event
-     */
+    /** The value used as the source of the event. */
     static final String EVENT_SOURCE_VALUE = "Web UI";
 
     /**
      * <p>
      * init
      * </p>
+     * .
      *
-     * @throws javax.servlet.ServletException
-     *             if any.
+     * @throws ServletException
+     *             the servlet exception
      */
     @Override
     public void init() throws ServletException {
@@ -112,6 +114,14 @@ public class AddNewInterfaceServlet extends HttpServlet {
         }
     }
 
+    /**
+     * Creates the and send new suspect interface event.
+     *
+     * @param ipaddr
+     *            the ipaddr
+     * @throws ServletException
+     *             the servlet exception
+     */
     private void createAndSendNewSuspectInterfaceEvent(String ipaddr) throws ServletException {
         EventBuilder bldr = new EventBuilder(EventConstants.NEW_SUSPECT_INTERFACE_EVENT_UEI, EVENT_SOURCE_VALUE);
         bldr.setInterface(addr(ipaddr));
@@ -124,6 +134,15 @@ public class AddNewInterfaceServlet extends HttpServlet {
         }
     }
 
+    /**
+     * Gets the node id.
+     *
+     * @param ipaddr
+     *            the ipaddr
+     * @return the node id
+     * @throws SQLException
+     *             the sQL exception
+     */
     private int getNodeId(String ipaddr) throws SQLException {
         int nodeId = -1;
 

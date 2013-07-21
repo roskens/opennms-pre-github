@@ -48,8 +48,10 @@ import org.springframework.validation.Validator;
  */
 public class DistributedStatusDetailsValidator implements Validator, InitializingBean {
 
+    /** The m_location monitor dao. */
     private LocationMonitorDao m_locationMonitorDao;
 
+    /** The m_application dao. */
     private ApplicationDao m_applicationDao;
 
     /** {@inheritDoc} */
@@ -89,6 +91,7 @@ public class DistributedStatusDetailsValidator implements Validator, Initializin
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      */
     @Override
     public final void afterPropertiesSet() {
@@ -104,6 +107,7 @@ public class DistributedStatusDetailsValidator implements Validator, Initializin
      * <p>
      * getApplicationDao
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.dao.api.ApplicationDao} object.
      */
@@ -115,6 +119,7 @@ public class DistributedStatusDetailsValidator implements Validator, Initializin
      * <p>
      * setApplicationDao
      * </p>
+     * .
      *
      * @param applicationDao
      *            a {@link org.opennms.netmgt.dao.api.ApplicationDao} object.
@@ -127,6 +132,7 @@ public class DistributedStatusDetailsValidator implements Validator, Initializin
      * <p>
      * getLocationMonitorDao
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.dao.api.LocationMonitorDao} object.
      */
@@ -138,6 +144,7 @@ public class DistributedStatusDetailsValidator implements Validator, Initializin
      * <p>
      * setLocationMonitorDao
      * </p>
+     * .
      *
      * @param locationMonitorDao
      *            a {@link org.opennms.netmgt.dao.api.LocationMonitorDao}

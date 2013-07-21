@@ -36,6 +36,8 @@ import org.hibernate.criterion.Restrictions;
  * Abstract BetweenFilter class.
  * </p>
  *
+ * @param <T>
+ *            the generic type
  * @author ranger
  * @version $Id: $
  * @since 1.8.1
@@ -59,8 +61,6 @@ public abstract class BetweenFilter<T> extends MultiArgFilter<T> {
      *            a T object.
      * @param last
      *            a T object.
-     * @param <T>
-     *            a T object.
      */
     public BetweenFilter(String filterType, SQLType<T> type, String fieldName, String propertyName, T first, T last) {
         super(filterType, type, fieldName, propertyName, type.createArray(first, last));
@@ -70,6 +70,7 @@ public abstract class BetweenFilter<T> extends MultiArgFilter<T> {
      * <p>
      * getFirst
      * </p>
+     * .
      *
      * @return a T object.
      */
@@ -81,6 +82,7 @@ public abstract class BetweenFilter<T> extends MultiArgFilter<T> {
      * <p>
      * getLast
      * </p>
+     * .
      *
      * @return a T object.
      */

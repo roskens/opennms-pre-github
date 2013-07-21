@@ -52,6 +52,7 @@ public interface SchedulerService {
      * <p>
      * getTriggerDescriptions
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -61,6 +62,7 @@ public interface SchedulerService {
      * <p>
      * removeTrigger
      * </p>
+     * .
      *
      * @param triggerName
      *            a {@link java.lang.String} object.
@@ -72,6 +74,7 @@ public interface SchedulerService {
      * <p>
      * removeTriggers
      * </p>
+     * .
      *
      * @param triggerNames
      *            an array of {@link java.lang.String} objects.
@@ -83,6 +86,7 @@ public interface SchedulerService {
      * <p>
      * exists
      * </p>
+     * .
      *
      * @param triggerName
      *            a {@link java.lang.String} object.
@@ -94,6 +98,7 @@ public interface SchedulerService {
      * <p>
      * addCronTrigger
      * </p>
+     * .
      *
      * @param id
      *            a {@link java.lang.String} object.
@@ -117,6 +122,7 @@ public interface SchedulerService {
      * <p>
      * execute
      * </p>
+     * .
      *
      * @param id
      *            a {@link java.lang.String} object.

@@ -46,8 +46,11 @@ import org.springframework.web.servlet.mvc.AbstractController;
  * @since 1.8.1
  */
 public class LocationMonitorPauseAllController extends AbstractController implements InitializingBean {
+
+    /** The m_distributed poller service. */
     private DistributedPollerService m_distributedPollerService;
 
+    /** The m_success view. */
     private String m_successView;
 
     /** {@inheritDoc} */
@@ -63,6 +66,7 @@ public class LocationMonitorPauseAllController extends AbstractController implem
      * <p>
      * getDistributedPollerService
      * </p>
+     * .
      *
      * @return a {@link org.opennms.web.svclayer.DistributedPollerService}
      *         object.
@@ -75,6 +79,7 @@ public class LocationMonitorPauseAllController extends AbstractController implem
      * <p>
      * setDistributedPollerService
      * </p>
+     * .
      *
      * @param distributedPollerService
      *            a {@link org.opennms.web.svclayer.DistributedPollerService}
@@ -85,6 +90,8 @@ public class LocationMonitorPauseAllController extends AbstractController implem
     }
 
     /**
+     * Sets the success view.
+     *
      * @param successView
      *            the successView to set
      */
@@ -93,6 +100,8 @@ public class LocationMonitorPauseAllController extends AbstractController implem
     }
 
     /**
+     * Gets the success view.
+     *
      * @return the successView
      */
     public String getSuccessView() {
@@ -103,9 +112,10 @@ public class LocationMonitorPauseAllController extends AbstractController implem
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @Override
     public void afterPropertiesSet() throws Exception {

@@ -48,6 +48,7 @@ public interface CategoryConfigService {
      * <p>
      * getCategories
      * </p>
+     * .
      *
      * @return a {@link java.util.Collection} object.
      */
@@ -57,6 +58,7 @@ public interface CategoryConfigService {
      * <p>
      * getCategoriesList
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */

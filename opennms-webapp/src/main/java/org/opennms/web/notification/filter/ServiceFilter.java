@@ -42,7 +42,8 @@ import org.opennms.web.filter.SQLType;
  * @since 1.8.1
  */
 public class ServiceFilter extends EqualsFilter<Integer> {
-    /** Constant <code>TYPE="service"</code> */
+
+    /** Constant <code>TYPE="service"</code>. */
     public static final String TYPE = "service";
 
     /**
@@ -61,7 +62,10 @@ public class ServiceFilter extends EqualsFilter<Integer> {
      * <p>
      * getTextDescription
      * </p>
+     * .
      *
+     * @param servletContext
+     *            the servlet context
      * @return a {@link java.lang.String} object.
      */
     public String getTextDescription(ServletContext servletContext) {
@@ -75,6 +79,7 @@ public class ServiceFilter extends EqualsFilter<Integer> {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -87,6 +92,7 @@ public class ServiceFilter extends EqualsFilter<Integer> {
      * <p>
      * getServiceId
      * </p>
+     * .
      *
      * @return a int.
      */

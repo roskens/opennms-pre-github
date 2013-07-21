@@ -57,14 +57,17 @@ import org.springframework.util.Assert;
  */
 public class DefaultManualProvisioningDao implements ManualProvisioningDao {
 
+    /** The Constant XML_FILE_PATTERN. */
     private static final Pattern XML_FILE_PATTERN = Pattern.compile("^(.*)\\.xml$");
 
+    /** The m_import file dir. */
     private File m_importFileDir;
 
     /**
      * <p>
      * setImportFileDirectory
      * </p>
+     * .
      *
      * @param importFileDir
      *            a {@link java.io.File} object.
@@ -97,6 +100,12 @@ public class DefaultManualProvisioningDao implements ManualProvisioningDao {
         return CastorUtils.unmarshalWithTranslatedExceptions(Requisition.class, new FileSystemResource(importFile));
     }
 
+    /**
+     * Check group name.
+     *
+     * @param name
+     *            the name
+     */
     private void checkGroupName(final String name) {
         Assert.hasLength(name, "Group name must not be null or the empty string");
     }
@@ -105,6 +114,7 @@ public class DefaultManualProvisioningDao implements ManualProvisioningDao {
      * <p>
      * getProvisioningGroupNames
      * </p>
+     * .
      *
      * @return a {@link java.util.Collection} object.
      */
@@ -146,6 +156,13 @@ public class DefaultManualProvisioningDao implements ManualProvisioningDao {
         CastorUtils.marshalWithTranslatedExceptions(group, writer);
     }
 
+    /**
+     * Gets the import file.
+     *
+     * @param groupName
+     *            the group name
+     * @return the import file
+     */
     private File getImportFile(final String groupName) {
         checkGroupName(groupName);
         return new File(m_importFileDir, groupName + ".xml");
@@ -155,6 +172,7 @@ public class DefaultManualProvisioningDao implements ManualProvisioningDao {
      * <p>
      * getImportFilenameFilter
      * </p>
+     * .
      *
      * @return a {@link java.io.FilenameFilter} object.
      */
@@ -169,6 +187,13 @@ public class DefaultManualProvisioningDao implements ManualProvisioningDao {
         };
     }
 
+    /**
+     * Gets the group name for import file name.
+     *
+     * @param filename
+     *            the filename
+     * @return the group name for import file name
+     */
     private String getGroupNameForImportFileName(final String filename) {
         final Matcher matcher = XML_FILE_PATTERN.matcher(filename);
         if (!matcher.matches()) {

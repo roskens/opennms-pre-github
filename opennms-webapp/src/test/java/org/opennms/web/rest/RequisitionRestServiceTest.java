@@ -47,6 +47,9 @@ import org.opennms.test.JUnitConfigurationEnvironment;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.context.ContextConfiguration;
 
+/**
+ * The Class RequisitionRestServiceTest.
+ */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/opennms/component-dao.xml",
         "classpath:/META-INF/opennms/applicationContext-soa.xml",
@@ -54,6 +57,12 @@ import org.springframework.test.context.ContextConfiguration;
 @JUnitConfigurationEnvironment
 public class RequisitionRestServiceTest extends AbstractSpringJerseyRestTestCase {
 
+    /**
+     * Test requisition.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testRequisition() throws Exception {
         createRequisition();
@@ -67,6 +76,12 @@ public class RequisitionRestServiceTest extends AbstractSpringJerseyRestTestCase
         xml = sendRequest(GET, url, 204);
     }
 
+    /**
+     * Test duplicate nodes.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testDuplicateNodes() throws Exception {
         MockLogAppender.setupLogging(true, "DEBUG");
@@ -81,6 +96,12 @@ public class RequisitionRestServiceTest extends AbstractSpringJerseyRestTestCase
                    response.getContentAsString().contains("Duplicate nodes found on foreign source test: c (2 found)"));
     }
 
+    /**
+     * Test nodes.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testNodes() throws Exception {
         createRequisition();
@@ -114,6 +135,12 @@ public class RequisitionRestServiceTest extends AbstractSpringJerseyRestTestCase
         xml = sendRequest(GET, url, 404);
     }
 
+    /**
+     * Test add existing node.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testAddExistingNode() throws Exception {
         createRequisition();
@@ -133,6 +160,12 @@ public class RequisitionRestServiceTest extends AbstractSpringJerseyRestTestCase
 
     }
 
+    /**
+     * Test node interfaces.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testNodeInterfaces() throws Exception {
         createRequisition();
@@ -177,6 +210,12 @@ public class RequisitionRestServiceTest extends AbstractSpringJerseyRestTestCase
         assertTrue(xml, xml.contains("count=\"2\""));
     }
 
+    /**
+     * Test node interface services.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testNodeInterfaceServices() throws Exception {
         createRequisition();
@@ -207,6 +246,12 @@ public class RequisitionRestServiceTest extends AbstractSpringJerseyRestTestCase
         assertTrue(xml.contains("count=\"2\""));
     }
 
+    /**
+     * Test node categories.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testNodeCategories() throws Exception {
         createRequisition();
@@ -245,6 +290,12 @@ public class RequisitionRestServiceTest extends AbstractSpringJerseyRestTestCase
         xml = sendRequest(GET, base + "/New%20Category", 404);
     }
 
+    /**
+     * Test node assets.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testNodeAssets() throws Exception {
         createRequisition();
@@ -276,6 +327,12 @@ public class RequisitionRestServiceTest extends AbstractSpringJerseyRestTestCase
         assertTrue(xml, xml.contains("count=\"2\""));
     }
 
+    /**
+     * Test create requisition no namespace.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testCreateRequisitionNoNamespace() throws Exception {
         String req = "<model-import date-stamp=\"2006-03-09T00:03:09\" foreign-source=\"test\">"
@@ -293,6 +350,12 @@ public class RequisitionRestServiceTest extends AbstractSpringJerseyRestTestCase
         sendPost("/requisitions", req, 303, "/requisitions/test");
     }
 
+    /**
+     * Test bad requisition.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @Ignore
     // Ignore this test while XML validation is disabled
@@ -319,6 +382,12 @@ public class RequisitionRestServiceTest extends AbstractSpringJerseyRestTestCase
         assertTrue("validator should expect only elements", ex.getMessage().contains("content type is element-only"));
     }
 
+    /**
+     * Test import.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testImport() throws Exception {
         createRequisition();
@@ -331,6 +400,12 @@ public class RequisitionRestServiceTest extends AbstractSpringJerseyRestTestCase
         assertEquals(1, eventProxy.getEvents().size());
     }
 
+    /**
+     * Test import no rescan.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testImportNoRescan() throws Exception {
         createRequisition();
@@ -347,6 +422,12 @@ public class RequisitionRestServiceTest extends AbstractSpringJerseyRestTestCase
         assertEquals("false", parms.get(1).getValue().getContent());
     }
 
+    /**
+     * Creates the requisition.
+     *
+     * @throws Exception
+     *             the exception
+     */
     private void createRequisition() throws Exception {
         String req = "<model-import xmlns=\"http://xmlns.opennms.org/xsd/config/model-import\" date-stamp=\"2006-03-09T00:03:09\" foreign-source=\"test\">"
                 + "<node node-label=\"david\" parent-node-label=\"apknd\" foreign-id=\"4243\">"
@@ -368,6 +449,11 @@ public class RequisitionRestServiceTest extends AbstractSpringJerseyRestTestCase
         sendPost("/requisitions", req, 303, "/requisitions/test");
     }
 
+    /**
+     * Gets the event proxy.
+     *
+     * @return the event proxy
+     */
     private MockEventProxy getEventProxy() {
         return getBean("eventProxy", MockEventProxy.class);
     }

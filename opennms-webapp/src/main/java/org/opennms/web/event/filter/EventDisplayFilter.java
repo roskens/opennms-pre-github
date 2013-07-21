@@ -41,7 +41,8 @@ import org.opennms.web.filter.SQLType;
  * @since 1.8.1
  */
 public class EventDisplayFilter extends EqualsFilter<String> {
-    /** Constant <code>TYPE="eventDisplay"</code> */
+
+    /** Constant <code>TYPE="eventDisplay"</code>. */
     public static final String TYPE = "eventDisplay";
 
     /**

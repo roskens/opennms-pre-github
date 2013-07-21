@@ -44,16 +44,20 @@ import com.google.gwt.user.client.rpc.IsSerializable;
  */
 public class SurveillanceIntersection extends SurveillanceSet implements IsSerializable {
 
+    /** The m_row group. */
     private SurveillanceGroup m_rowGroup;
 
+    /** The m_column group. */
     private SurveillanceGroup m_columnGroup;
 
+    /** The m_data. */
     private String m_data;
 
+    /** The m_status. */
     private String m_status;
 
     /**
-     * Default constructor used for serialization
+     * Default constructor used for serialization.
      */
     public SurveillanceIntersection() {
         this(null, null);
@@ -80,6 +84,7 @@ public class SurveillanceIntersection extends SurveillanceSet implements IsSeria
      * <p>
      * getColumnGroup
      * </p>
+     * .
      *
      * @return a {@link org.opennms.dashboard.client.SurveillanceGroup} object.
      */
@@ -91,6 +96,7 @@ public class SurveillanceIntersection extends SurveillanceSet implements IsSeria
      * <p>
      * setColumnGroup
      * </p>
+     * .
      *
      * @param columnGroup
      *            a {@link org.opennms.dashboard.client.SurveillanceGroup}
@@ -104,6 +110,7 @@ public class SurveillanceIntersection extends SurveillanceSet implements IsSeria
      * <p>
      * getRowGroup
      * </p>
+     * .
      *
      * @return a {@link org.opennms.dashboard.client.SurveillanceGroup} object.
      */
@@ -115,6 +122,7 @@ public class SurveillanceIntersection extends SurveillanceSet implements IsSeria
      * <p>
      * setRowGroup
      * </p>
+     * .
      *
      * @param rowGroup
      *            a {@link org.opennms.dashboard.client.SurveillanceGroup}
@@ -128,6 +136,7 @@ public class SurveillanceIntersection extends SurveillanceSet implements IsSeria
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -146,6 +155,7 @@ public class SurveillanceIntersection extends SurveillanceSet implements IsSeria
      * <p>
      * getData
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -157,6 +167,7 @@ public class SurveillanceIntersection extends SurveillanceSet implements IsSeria
      * <p>
      * setData
      * </p>
+     * .
      *
      * @param data
      *            a {@link java.lang.String} object.
@@ -169,6 +180,7 @@ public class SurveillanceIntersection extends SurveillanceSet implements IsSeria
      * <p>
      * getStatus
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -180,6 +192,7 @@ public class SurveillanceIntersection extends SurveillanceSet implements IsSeria
      * <p>
      * setStatus
      * </p>
+     * .
      *
      * @param status
      *            a {@link java.lang.String} object.

@@ -39,9 +39,8 @@ import org.opennms.web.map.MapsException;
  * @since 1.8.1
  */
 public class VElementNotChildException extends MapsException {
-    /**
-     *
-     */
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 1534658567478899130L;
 
     /**

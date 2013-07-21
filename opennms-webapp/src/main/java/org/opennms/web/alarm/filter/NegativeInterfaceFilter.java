@@ -42,7 +42,8 @@ import org.opennms.web.filter.SQLType;
  * @since 1.8.1
  */
 public class NegativeInterfaceFilter extends NotEqualOrNullFilter<String> {
-    /** Constant <code>TYPE="interfacenot"</code> */
+
+    /** Constant <code>TYPE="interfacenot"</code>. */
     public static final String TYPE = "interfacenot";
 
     /**
@@ -61,6 +62,7 @@ public class NegativeInterfaceFilter extends NotEqualOrNullFilter<String> {
      * <p>
      * getTextDescription
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -73,6 +75,7 @@ public class NegativeInterfaceFilter extends NotEqualOrNullFilter<String> {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -85,6 +88,7 @@ public class NegativeInterfaceFilter extends NotEqualOrNullFilter<String> {
      * <p>
      * getIpAddress
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

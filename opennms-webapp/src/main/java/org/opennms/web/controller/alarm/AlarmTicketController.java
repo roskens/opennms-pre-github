@@ -54,8 +54,10 @@ import org.springframework.web.servlet.mvc.multiaction.MultiActionController;
  */
 public class AlarmTicketController extends MultiActionController {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(AlarmTicketController.class);
 
+    /** The m_trouble ticket proxy. */
     private TroubleTicketProxy m_troubleTicketProxy;
 
     /**
@@ -76,23 +78,51 @@ public class AlarmTicketController extends MultiActionController {
         return super.handleRequestInternal(request, response);
     }
 
+    /**
+     * The Class CommandBean.
+     */
     static class CommandBean {
+
+        /** The alarm. */
         Integer alarm;
 
+        /** The redirect. */
         String redirect;
 
+        /**
+         * Gets the alarm.
+         *
+         * @return the alarm
+         */
         public Integer getAlarm() {
             return alarm;
         }
 
+        /**
+         * Sets the alarm.
+         *
+         * @param alarm
+         *            the new alarm
+         */
         public void setAlarm(final Integer alarm) {
             this.alarm = alarm;
         }
 
+        /**
+         * Gets the redirect.
+         *
+         * @return the redirect
+         */
         public String getRedirect() {
             return redirect;
         }
 
+        /**
+         * Sets the redirect.
+         *
+         * @param redirect
+         *            the new redirect
+         */
         public void setRedirect(final String redirect) {
             this.redirect = redirect;
         }
@@ -103,6 +133,7 @@ public class AlarmTicketController extends MultiActionController {
      * <p>
      * create
      * </p>
+     * .
      *
      * @param request
      *            a {@link javax.servlet.http.HttpServletRequest} object.
@@ -110,11 +141,11 @@ public class AlarmTicketController extends MultiActionController {
      *            a {@link javax.servlet.http.HttpServletResponse} object.
      * @param bean
      *            a
-     *            {@link org.opennms.web.controller.alarm.AlarmTicketController.CommandBean}
-     *            object.
      * @return a {@link org.springframework.web.servlet.ModelAndView} object.
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
+     *             {@link org.opennms.web.controller.alarm.AlarmTicketController.CommandBean}
+     *             object.
      */
     public final ModelAndView create(final HttpServletRequest request, final HttpServletResponse response,
             final CommandBean bean) throws Exception {
@@ -136,6 +167,7 @@ public class AlarmTicketController extends MultiActionController {
      * <p>
      * update
      * </p>
+     * .
      *
      * @param request
      *            a {@link javax.servlet.http.HttpServletRequest} object.
@@ -143,9 +175,9 @@ public class AlarmTicketController extends MultiActionController {
      *            a {@link javax.servlet.http.HttpServletResponse} object.
      * @param bean
      *            a
-     *            {@link org.opennms.web.controller.alarm.AlarmTicketController.CommandBean}
-     *            object.
      * @return a {@link org.springframework.web.servlet.ModelAndView} object.
+     *         {@link org.opennms.web.controller.alarm.AlarmTicketController.CommandBean}
+     *         object.
      */
     public final ModelAndView update(final HttpServletRequest request, final HttpServletResponse response,
             final CommandBean bean) {
@@ -157,6 +189,7 @@ public class AlarmTicketController extends MultiActionController {
      * <p>
      * close
      * </p>
+     * .
      *
      * @param request
      *            a {@link javax.servlet.http.HttpServletRequest} object.
@@ -164,9 +197,9 @@ public class AlarmTicketController extends MultiActionController {
      *            a {@link javax.servlet.http.HttpServletResponse} object.
      * @param bean
      *            a
-     *            {@link org.opennms.web.controller.alarm.AlarmTicketController.CommandBean}
-     *            object.
      * @return a {@link org.springframework.web.servlet.ModelAndView} object.
+     *         {@link org.opennms.web.controller.alarm.AlarmTicketController.CommandBean}
+     *         object.
      */
     public final ModelAndView close(final HttpServletRequest request, final HttpServletResponse response,
             final CommandBean bean) {
@@ -178,6 +211,7 @@ public class AlarmTicketController extends MultiActionController {
      * <p>
      * setTroubleTicketProxy
      * </p>
+     * .
      *
      * @param troubleTicketProxy
      *            a {@link org.opennms.web.svclayer.TroubleTicketProxy} object.

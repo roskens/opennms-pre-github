@@ -39,14 +39,19 @@ package org.opennms.web.map.view;
  */
 public class VElementInfo implements Cloneable {
 
+    /** The id. */
     private final int id;
 
+    /** The uei. */
     private String uei;
 
+    /** The severity. */
     private int severity;
 
+    /** The label. */
     private String label;
 
+    /** The ipaddr. */
     private String ipaddr;
 
     /**
@@ -111,9 +116,9 @@ public class VElementInfo implements Cloneable {
      *
      * @param id
      *            a int.
-     * @param label
-     *            a {@link java.lang.String} object.
      * @param ipaddr
+     *            a {@link java.lang.String} object.
+     * @param label
      *            a {@link java.lang.String} object.
      */
     public VElementInfo(int id, String ipaddr, String label) {

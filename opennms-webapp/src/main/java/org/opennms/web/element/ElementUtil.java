@@ -106,6 +106,7 @@ public abstract class ElementUtil {
 
     }
 
+    /** The Constant IFTYPES. */
     static final String[] IFTYPES = new String[] { "&nbsp;", // 0 (not
                                                              // supported)
             "other", // 1
@@ -360,6 +361,7 @@ public abstract class ElementUtil {
             "gpon", // 250
     };
 
+    /** The Constant OPER_ADMIN_STATUS. */
     static final String[] OPER_ADMIN_STATUS = new String[] { "&nbsp;", // 0 (not
                                                                        // supported)
             "Up", // 1
@@ -371,6 +373,7 @@ public abstract class ElementUtil {
             "LowerLayerDown" // 7
     };
 
+    /** The Constant IP_ROUTE_TYPE. */
     static final String[] IP_ROUTE_TYPE = new String[] { "&nbsp;", // 0 (not
                                                                    // supported)
             "Other", // 1
@@ -379,6 +382,7 @@ public abstract class ElementUtil {
             "Indirect", // 4
     };
 
+    /** The Constant IP_ROUTE_PROTO. */
     static final String[] IP_ROUTE_PROTO = new String[] { "&nbsp;", // 0 (not
                                                                     // supported)
             "Other", // 1
@@ -397,18 +401,39 @@ public abstract class ElementUtil {
             "bgp", // 14
     };
 
+    /**
+     * Gets the ip route protocol string.
+     *
+     * @param iprouteprotocol
+     *            the iprouteprotocol
+     * @return the ip route protocol string
+     */
     public static String getIpRouteProtocolString(int iprouteprotocol) {
         if (IP_ROUTE_PROTO.length > iprouteprotocol)
             return IP_ROUTE_PROTO[iprouteprotocol];
         return IP_ROUTE_PROTO[0];
     }
 
+    /**
+     * Gets the ip route type string.
+     *
+     * @param iproutetype
+     *            the iproutetype
+     * @return the ip route type string
+     */
     public static String getIpRouteTypeString(int iproutetype) {
         if (IP_ROUTE_TYPE.length > iproutetype)
             return IP_ROUTE_TYPE[iproutetype];
         return IP_ROUTE_TYPE[0];
     }
 
+    /**
+     * Gets the if status string.
+     *
+     * @param ifStatusNum
+     *            the if status num
+     * @return the if status string
+     */
     public static String getIfStatusString(int ifStatusNum) {
         if (ifStatusNum < OPER_ADMIN_STATUS.length) {
             return OPER_ADMIN_STATUS[ifStatusNum];
@@ -421,7 +446,8 @@ public abstract class ElementUtil {
      * Return the human-readable name for a interface type, should never be
      * null.
      *
-     * @param int ifTypeNum.
+     * @param ifTypeNum
+     *            the if type num
      * @return a {@link java.lang.String} object.
      */
     public static String getIfTypeString(int ifTypeNum) {
@@ -537,6 +563,7 @@ public abstract class ElementUtil {
      * <p>
      * hasLocallyMonitoredServices
      * </p>
+     * .
      *
      * @param svcs
      *            an array of {@link org.opennms.web.element.Service} objects.
@@ -552,13 +579,14 @@ public abstract class ElementUtil {
         return false;
     }
 
-    /** Constant <code>DEFAULT_TRUNCATE_THRESHOLD=28</code> */
+    /** Constant <code>DEFAULT_TRUNCATE_THRESHOLD=28</code>. */
     public static final int DEFAULT_TRUNCATE_THRESHOLD = 28;
 
     /**
      * <p>
      * truncateLabel
      * </p>
+     * .
      *
      * @param label
      *            a {@link java.lang.String} object.
@@ -572,6 +600,7 @@ public abstract class ElementUtil {
      * <p>
      * truncateLabel
      * </p>
+     * .
      *
      * @param label
      *            a {@link java.lang.String} object.
@@ -597,14 +626,17 @@ public abstract class ElementUtil {
      * <p>
      * getNodeByParams
      * </p>
+     * .
      *
      * @param request
      *            a {@link javax.servlet.http.HttpServletRequest} object.
+     * @param servletContext
+     *            the servlet context
      * @return a {@link OnmsNode} object.
-     * @throws javax.servlet.ServletException
-     *             if any.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws ServletException
+     *             the servlet exception
+     * @throws SQLException
+     *             the sQL exception
      */
     public static OnmsNode getNodeByParams(HttpServletRequest request, ServletContext servletContext)
             throws ServletException, SQLException {
@@ -615,16 +647,19 @@ public abstract class ElementUtil {
      * <p>
      * getNodeByParams
      * </p>
+     * .
      *
      * @param request
      *            a {@link javax.servlet.http.HttpServletRequest} object.
      * @param nodeIdParam
      *            a {@link java.lang.String} object.
+     * @param servletContext
+     *            the servlet context
      * @return a {@link OnmsNode} object.
-     * @throws javax.servlet.ServletException
-     *             if any.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws ServletException
+     *             the servlet exception
+     * @throws SQLException
+     *             the sQL exception
      */
     public static OnmsNode getNodeByParams(HttpServletRequest request, String nodeIdParam, ServletContext servletContext)
             throws ServletException, SQLException {
@@ -654,11 +689,31 @@ public abstract class ElementUtil {
         return node;
     }
 
+    /**
+     * Gets the ip route by params.
+     *
+     * @param request
+     *            the request
+     * @param servletContext
+     *            the servlet context
+     * @return the ip route by params
+     */
     public static IpRouteInterface[] getIpRouteByParams(HttpServletRequest request, ServletContext servletContext) {
         return getIpRouteInterfaceByParams(request, "node", servletContext);
 
     }
 
+    /**
+     * Gets the ip route interface by params.
+     *
+     * @param request
+     *            the request
+     * @param nodeIdParam
+     *            the node id param
+     * @param servletContext
+     *            the servlet context
+     * @return the ip route interface by params
+     */
     public static IpRouteInterface[] getIpRouteInterfaceByParams(HttpServletRequest request, String nodeIdParam,
             ServletContext servletContext) {
         if (request.getParameter(nodeIdParam) == null) {
@@ -687,14 +742,17 @@ public abstract class ElementUtil {
      * <p>
      * getInterfaceByParams
      * </p>
+     * .
      *
      * @param request
      *            a {@link javax.servlet.http.HttpServletRequest} object.
+     * @param servletContext
+     *            the servlet context
      * @return a {@link org.opennms.web.element.Interface} object.
-     * @throws javax.servlet.ServletException
-     *             if any.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws ServletException
+     *             the servlet exception
+     * @throws SQLException
+     *             the sQL exception
      */
     public static Interface getInterfaceByParams(HttpServletRequest request, ServletContext servletContext)
             throws ServletException, SQLException {
@@ -705,6 +763,7 @@ public abstract class ElementUtil {
      * <p>
      * getInterfaceByParams
      * </p>
+     * .
      *
      * @param request
      *            a {@link javax.servlet.http.HttpServletRequest} object.
@@ -714,13 +773,13 @@ public abstract class ElementUtil {
      *            a {@link java.lang.String} object.
      * @param ipAddrParam
      *            a {@link java.lang.String} object.
-     * @param ifIndexParam
-     *            a {@link java.lang.String} object.
+     * @param servletContext
+     *            the servlet context
      * @return a {@link org.opennms.web.element.Interface} object.
-     * @throws javax.servlet.ServletException
-     *             if any.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws ServletException
+     *             the servlet exception
+     * @throws SQLException
+     *             the sQL exception
      */
     public static Interface getInterfaceByParams(HttpServletRequest request, String ipInterfaceIdParam,
             String nodeIdParam, String ipAddrParam, ServletContext servletContext) throws ServletException,
@@ -784,13 +843,15 @@ public abstract class ElementUtil {
      * Return interface from snmpinterface table given a servlet request.
      * Intended for use with non-ip interfaces.
      *
-     * @return Interface
-     * @throws javax.servlet.ServletException
-     *             , SQLException
      * @param request
      *            a {@link javax.servlet.http.HttpServletRequest} object.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @param servletContext
+     *            the servlet context
+     * @return Interface
+     * @throws ServletException
+     *             the servlet exception
+     * @throws SQLException
+     *             the sQL exception
      */
     public static Interface getSnmpInterfaceByParams(HttpServletRequest request, ServletContext servletContext)
             throws ServletException, SQLException {
@@ -802,17 +863,19 @@ public abstract class ElementUtil {
      * param name and ifIndex param name. Intended for use with non-ip
      * interfaces.
      *
-     * @return Interface
-     * @throws javax.servlet.ServletException
-     *             , SQLException
      * @param request
      *            a {@link javax.servlet.http.HttpServletRequest} object.
      * @param nodeIdParam
      *            a {@link java.lang.String} object.
      * @param ifIndexParam
      *            a {@link java.lang.String} object.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @param servletContext
+     *            the servlet context
+     * @return Interface
+     * @throws ServletException
+     *             the servlet exception
+     * @throws SQLException
+     *             the sQL exception
      */
     public static Interface getSnmpInterfaceByParams(HttpServletRequest request, String nodeIdParam,
             String ifIndexParam, ServletContext servletContext) throws ServletException, SQLException {
@@ -862,14 +925,17 @@ public abstract class ElementUtil {
      * <p>
      * getServiceByParams
      * </p>
+     * .
      *
      * @param request
      *            a {@link javax.servlet.http.HttpServletRequest} object.
+     * @param servletContext
+     *            the servlet context
      * @return a {@link org.opennms.web.element.Service} object.
-     * @throws javax.servlet.ServletException
-     *             if any.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws ServletException
+     *             the servlet exception
+     * @throws SQLException
+     *             the sQL exception
      */
     public static Service getServiceByParams(HttpServletRequest request, ServletContext servletContext)
             throws ServletException, SQLException {
@@ -880,6 +946,7 @@ public abstract class ElementUtil {
      * <p>
      * getServiceByParams
      * </p>
+     * .
      *
      * @param request
      *            a {@link javax.servlet.http.HttpServletRequest} object.
@@ -891,11 +958,13 @@ public abstract class ElementUtil {
      *            a {@link java.lang.String} object.
      * @param serviceIdParam
      *            a {@link java.lang.String} object.
+     * @param servletContext
+     *            the servlet context
      * @return a {@link org.opennms.web.element.Service} object.
-     * @throws javax.servlet.ServletException
-     *             if any.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws ServletException
+     *             the servlet exception
+     * @throws SQLException
+     *             the sQL exception
      */
     public static Service getServiceByParams(HttpServletRequest request, String ifServiceIdParam, String nodeIdParam,
             String ipAddrParam, String serviceIdParam, ServletContext servletContext) throws ServletException,
@@ -968,14 +1037,17 @@ public abstract class ElementUtil {
      * <p>
      * getServicesOnNodeByParams
      * </p>
+     * .
      *
      * @param request
      *            a {@link javax.servlet.http.HttpServletRequest} object.
      * @param serviceId
      *            a int.
+     * @param servletContext
+     *            the servlet context
      * @return an array of {@link org.opennms.web.element.Service} objects.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     public static Service[] getServicesOnNodeByParams(HttpServletRequest request, int serviceId,
             ServletContext servletContext) throws SQLException {
@@ -993,6 +1065,19 @@ public abstract class ElementUtil {
         return services;
     }
 
+    /**
+     * Gets the services on interface.
+     *
+     * @param nodeId
+     *            the node id
+     * @param ipAddr
+     *            the ip addr
+     * @param servletContext
+     *            the servlet context
+     * @return the services on interface
+     * @throws SQLException
+     *             the sQL exception
+     */
     public static Service[] getServicesOnInterface(int nodeId, String ipAddr, ServletContext servletContext)
             throws java.sql.SQLException {
 
@@ -1011,12 +1096,15 @@ public abstract class ElementUtil {
      * <p>
      * isRouteInfoNodeByParams
      * </p>
+     * .
      *
      * @param request
      *            a {@link javax.servlet.http.HttpServletRequest} object.
+     * @param servletContext
+     *            the servlet context
      * @return a boolean.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     public static boolean isRouteInfoNodeByParams(HttpServletRequest request, ServletContext servletContext)
             throws SQLException {
@@ -1032,6 +1120,13 @@ public abstract class ElementUtil {
         return NetworkElementFactory.getInstance(servletContext).isRouteInfoNode(nodeId);
     }
 
+    /**
+     * Encode url.
+     *
+     * @param in
+     *            the in
+     * @return the string
+     */
     @SuppressWarnings("unused")
     private static String encodeUrl(String in) {
         String out = "";

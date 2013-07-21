@@ -50,14 +50,19 @@ import com.sun.syndication.io.SyndFeedOutput;
  */
 public class AbstractFeed implements Feed {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(AbstractFeed.class);
 
+    /** The m_max entries. */
     protected int m_maxEntries = 20;
 
+    /** The m_feed type. */
     protected String m_feedType = "rss_2.0";
 
+    /** The m_url base. */
     protected String m_urlBase = "";
 
+    /** The m_servlet request. */
     protected ServletRequest m_servletRequest;
 
     /**
@@ -84,6 +89,7 @@ public class AbstractFeed implements Feed {
      * <p>
      * getUrlBase
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -102,6 +108,7 @@ public class AbstractFeed implements Feed {
      * <p>
      * getFeedType
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -120,6 +127,7 @@ public class AbstractFeed implements Feed {
      * <p>
      * getMaxEntries
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -138,6 +146,7 @@ public class AbstractFeed implements Feed {
      * <p>
      * getRequest
      * </p>
+     * .
      *
      * @return a {@link javax.servlet.ServletRequest} object.
      */
@@ -156,6 +165,7 @@ public class AbstractFeed implements Feed {
      * <p>
      * getFeed
      * </p>
+     * .
      *
      * @return a {@link com.sun.syndication.feed.synd.SyndFeed} object.
      */
@@ -167,6 +177,7 @@ public class AbstractFeed implements Feed {
      * <p>
      * render
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -190,6 +201,7 @@ public class AbstractFeed implements Feed {
      * <p>
      * sanitizeTitle
      * </p>
+     * .
      *
      * @param title
      *            a {@link java.lang.String} object.

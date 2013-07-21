@@ -46,18 +46,34 @@ import com.google.gwt.user.client.ui.VerticalPanel;
  */
 public abstract class PageableTableView extends DashletView implements Pageable {
 
+    /** The m_panel. */
     private VerticalPanel m_panel = new VerticalPanel();
 
+    /** The m_table. */
     private FlexTable m_table = new FlexTable();
 
+    /** The m_pager. */
     private Pager m_pager;
 
+    /** The m_headings. */
     private String[] m_headings;
 
+    /** The m_page size. */
     private int m_pageSize = 5;
 
+    /** The m_current index. */
     private int m_currentIndex = 0;
 
+    /**
+     * Instantiates a new pageable table view.
+     *
+     * @param dashlet
+     *            the dashlet
+     * @param pageSize
+     *            the page size
+     * @param headings
+     *            the headings
+     */
     PageableTableView(Dashlet dashlet, int pageSize, String[] headings) {
         super(dashlet);
         m_pageSize = pageSize;
@@ -76,6 +92,7 @@ public abstract class PageableTableView extends DashletView implements Pageable 
      * <p>
      * onDashLoad
      * </p>
+     * .
      */
     @Override
     public void onDashLoad() {
@@ -83,7 +100,7 @@ public abstract class PageableTableView extends DashletView implements Pageable 
     }
 
     /**
-     * Override this to set the details of the individual rows
+     * Override this to set the details of the individual rows.
      *
      * @param table
      *            the table to set the data into
@@ -95,7 +112,7 @@ public abstract class PageableTableView extends DashletView implements Pageable 
     protected abstract void setRow(FlexTable table, int row, int elementIndex);
 
     /**
-     * The total number of elements being deplayed in this table
+     * The total number of elements being deplayed in this table.
      *
      * @return a int.
      */
@@ -106,6 +123,7 @@ public abstract class PageableTableView extends DashletView implements Pageable 
      * <p>
      * initializeTable
      * </p>
+     * .
      *
      * @param headings
      *            an array of {@link java.lang.String} objects.
@@ -119,6 +137,12 @@ public abstract class PageableTableView extends DashletView implements Pageable 
         }
     }
 
+    /**
+     * Sets the headings.
+     *
+     * @param headings
+     *            the new headings
+     */
     private void setHeadings(String[] headings) {
         m_headings = headings;
         for (int i = 0; i < headings.length; i++) {
@@ -128,10 +152,21 @@ public abstract class PageableTableView extends DashletView implements Pageable 
         m_table.getRowFormatter().setStyleName(0, "header");
     }
 
+    /**
+     * Gets the column count.
+     *
+     * @return the column count
+     */
     private int getColumnCount() {
         return m_headings == null ? 0 : m_headings.length;
     }
 
+    /**
+     * Clear row.
+     *
+     * @param row
+     *            the row
+     */
     private void clearRow(int row) {
         if (row >= m_table.getRowCount()) {
             return;
@@ -153,6 +188,7 @@ public abstract class PageableTableView extends DashletView implements Pageable 
      * <p>
      * refresh
      * </p>
+     * .
      */
     protected void refresh() {
 
@@ -174,6 +210,7 @@ public abstract class PageableTableView extends DashletView implements Pageable 
      * <p>
      * formatCells
      * </p>
+     * .
      *
      * @param table
      *            a {@link com.google.gwt.user.client.ui.FlexTable} object.
@@ -190,6 +227,7 @@ public abstract class PageableTableView extends DashletView implements Pageable 
      * <p>
      * getCurrentElement
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -202,6 +240,7 @@ public abstract class PageableTableView extends DashletView implements Pageable 
      * <p>
      * getPageSize
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -214,6 +253,7 @@ public abstract class PageableTableView extends DashletView implements Pageable 
      * <p>
      * setPageSize
      * </p>
+     * .
      *
      * @param pageSize
      *            a int.

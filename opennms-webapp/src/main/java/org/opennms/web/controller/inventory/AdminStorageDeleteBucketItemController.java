@@ -52,14 +52,17 @@ import org.springframework.web.servlet.mvc.Controller;
  */
 public class AdminStorageDeleteBucketItemController implements Controller {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(AdminStorageDeleteBucketItemController.class);
 
+    /** The m_inventory service. */
     InventoryService m_inventoryService;
 
     /**
      * <p>
      * getInventoryService
      * </p>
+     * .
      *
      * @return a {@link org.opennms.web.svclayer.inventory.InventoryService}
      *         object.
@@ -72,6 +75,7 @@ public class AdminStorageDeleteBucketItemController implements Controller {
      * <p>
      * setInventoryService
      * </p>
+     * .
      *
      * @param inventoryService
      *            a {@link org.opennms.web.svclayer.inventory.InventoryService}

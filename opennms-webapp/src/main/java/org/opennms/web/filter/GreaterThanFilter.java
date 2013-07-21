@@ -36,6 +36,8 @@ import org.hibernate.criterion.Restrictions;
  * Abstract GreaterThanFilter class.
  * </p>
  *
+ * @param <T>
+ *            the generic type
  * @author ranger
  * @version $Id: $
  * @since 1.8.1
@@ -56,8 +58,6 @@ public abstract class GreaterThanFilter<T> extends OneArgFilter<T> {
      * @param propertyName
      *            a {@link java.lang.String} object.
      * @param value
-     *            a T object.
-     * @param <T>
      *            a T object.
      */
     public GreaterThanFilter(String filterType, SQLType<T> type, String fieldName, String propertyName, T value) {

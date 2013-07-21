@@ -117,21 +117,39 @@ import com.sun.jersey.spi.resource.PerRequest;
 @Path("sched-outages")
 public class ScheduledOutagesRestService extends OnmsRestService {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(ScheduledOutagesRestService.class);
 
+    /**
+     * The Enum ConfigAction.
+     */
     private enum ConfigAction {
-        ADD, REMOVE, REMOVE_FROM_ALL
+
+        /** The add. */
+        ADD,
+ /** The remove. */
+ REMOVE,
+ /** The remove from all. */
+ REMOVE_FROM_ALL
     };
 
+    /** The m_uri info. */
     @Context
     UriInfo m_uriInfo;
 
+    /** The m_config factory. */
     @Autowired
     protected PollOutagesConfigFactory m_configFactory;
 
+    /** The m_event proxy. */
     @Autowired
     protected EventProxy m_eventProxy;
 
+    /**
+     * Gets the outages.
+     *
+     * @return the outages
+     */
     @GET
     @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON, MediaType.APPLICATION_ATOM_XML })
     public Outages getOutages() {
@@ -145,6 +163,15 @@ public class ScheduledOutagesRestService extends OnmsRestService {
         }
     }
 
+    /**
+     * Gets the outage.
+     *
+     * @param outageName
+     *            the outage name
+     * @return the outage
+     * @throws IllegalArgumentException
+     *             the illegal argument exception
+     */
     @GET
     @Path("{outageName}")
     @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON, MediaType.APPLICATION_ATOM_XML })
@@ -161,6 +188,13 @@ public class ScheduledOutagesRestService extends OnmsRestService {
         }
     }
 
+    /**
+     * Save or update outage.
+     *
+     * @param newOutage
+     *            the new outage
+     * @return the response
+     */
     @POST
     @Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
     public Response saveOrUpdateOutage(final Outage newOutage) {
@@ -187,6 +221,13 @@ public class ScheduledOutagesRestService extends OnmsRestService {
         }
     }
 
+    /**
+     * Delete outage.
+     *
+     * @param outageName
+     *            the outage name
+     * @return the response
+     */
     @DELETE
     @Path("{outageName}")
     public Response deleteOutage(@PathParam("outageName")
@@ -210,6 +251,15 @@ public class ScheduledOutagesRestService extends OnmsRestService {
         }
     }
 
+    /**
+     * Adds the outage to collector.
+     *
+     * @param outageName
+     *            the outage name
+     * @param packageName
+     *            the package name
+     * @return the response
+     */
     @PUT
     @Path("{outageName}/collectd/{packageName}")
     public Response addOutageToCollector(@PathParam("outageName")
@@ -228,6 +278,15 @@ public class ScheduledOutagesRestService extends OnmsRestService {
         }
     }
 
+    /**
+     * Removes the outage from collector.
+     *
+     * @param outageName
+     *            the outage name
+     * @param packageName
+     *            the package name
+     * @return the response
+     */
     @DELETE
     @Path("{outageName}/collectd/{packageName}")
     public Response removeOutageFromCollector(@PathParam("outageName")
@@ -246,6 +305,15 @@ public class ScheduledOutagesRestService extends OnmsRestService {
         }
     }
 
+    /**
+     * Adds the outage to poller.
+     *
+     * @param outageName
+     *            the outage name
+     * @param packageName
+     *            the package name
+     * @return the response
+     */
     @PUT
     @Path("{outageName}/pollerd/{packageName}")
     public Response addOutageToPoller(@PathParam("outageName")
@@ -265,6 +333,15 @@ public class ScheduledOutagesRestService extends OnmsRestService {
         }
     }
 
+    /**
+     * Removes the outage from poller.
+     *
+     * @param outageName
+     *            the outage name
+     * @param packageName
+     *            the package name
+     * @return the response
+     */
     @DELETE
     @Path("{outageName}/pollerd/{packageName}")
     public Response removeOutageFromPoller(@PathParam("outageName")
@@ -283,6 +360,15 @@ public class ScheduledOutagesRestService extends OnmsRestService {
         }
     }
 
+    /**
+     * Adds the outage to thresholder.
+     *
+     * @param outageName
+     *            the outage name
+     * @param packageName
+     *            the package name
+     * @return the response
+     */
     @PUT
     @Path("{outageName}/threshd/{packageName}")
     public Response addOutageToThresholder(@PathParam("outageName")
@@ -301,6 +387,15 @@ public class ScheduledOutagesRestService extends OnmsRestService {
         }
     }
 
+    /**
+     * Removes the outage from thresholder.
+     *
+     * @param outageName
+     *            the outage name
+     * @param packageName
+     *            the package name
+     * @return the response
+     */
     @DELETE
     @Path("{outageName}/threshd/{packageName}")
     public Response removeOutageFromThresholder(@PathParam("outageName")
@@ -319,6 +414,13 @@ public class ScheduledOutagesRestService extends OnmsRestService {
         }
     }
 
+    /**
+     * Adds the outage to notifications.
+     *
+     * @param outageName
+     *            the outage name
+     * @return the response
+     */
     @PUT
     @Path("{outageName}/notifd")
     public Response addOutageToNotifications(@PathParam("outageName")
@@ -336,6 +438,13 @@ public class ScheduledOutagesRestService extends OnmsRestService {
         }
     }
 
+    /**
+     * Removes the outage from notifications.
+     *
+     * @param outageName
+     *            the outage name
+     * @return the response
+     */
     @DELETE
     @Path("{outageName}/notifd")
     public Response removeOutageFromNotifications(@PathParam("outageName")
@@ -353,6 +462,15 @@ public class ScheduledOutagesRestService extends OnmsRestService {
         }
     }
 
+    /**
+     * Checks if is node in outage.
+     *
+     * @param outageName
+     *            the outage name
+     * @param nodeId
+     *            the node id
+     * @return the string
+     */
     @GET
     @Path("{outageName}/nodeInOutage/{nodeId}")
     @Produces(MediaType.TEXT_PLAIN)
@@ -370,6 +488,13 @@ public class ScheduledOutagesRestService extends OnmsRestService {
         }
     }
 
+    /**
+     * Checks if is node in outage.
+     *
+     * @param nodeId
+     *            the node id
+     * @return the string
+     */
     @GET
     @Path("nodeInOutage/{nodeId}")
     @Produces(MediaType.TEXT_PLAIN)
@@ -388,6 +513,15 @@ public class ScheduledOutagesRestService extends OnmsRestService {
         }
     }
 
+    /**
+     * Checks if is interface in outage.
+     *
+     * @param outageName
+     *            the outage name
+     * @param ipAddr
+     *            the ip addr
+     * @return the string
+     */
     @GET
     @Path("{outageName}/interfaceInOutage/{ipAddr}")
     @Produces(MediaType.TEXT_PLAIN)
@@ -406,6 +540,13 @@ public class ScheduledOutagesRestService extends OnmsRestService {
         }
     }
 
+    /**
+     * Checks if is interface in outage.
+     *
+     * @param ipAddr
+     *            the ip addr
+     * @return the string
+     */
     @GET
     @Path("interfaceInOutage/{ipAddr}")
     @Produces(MediaType.TEXT_PLAIN)
@@ -424,6 +565,12 @@ public class ScheduledOutagesRestService extends OnmsRestService {
         }
     }
 
+    /**
+     * Validate address.
+     *
+     * @param ipAddress
+     *            the ip address
+     */
     private void validateAddress(String ipAddress) {
         boolean valid = false;
         try {
@@ -436,6 +583,18 @@ public class ScheduledOutagesRestService extends OnmsRestService {
         }
     }
 
+    /**
+     * Update collectd.
+     *
+     * @param action
+     *            the action
+     * @param outageName
+     *            the outage name
+     * @param packageName
+     *            the package name
+     * @throws Exception
+     *             the exception
+     */
     private void updateCollectd(ConfigAction action, String outageName, String packageName) throws Exception {
         getOutage(outageName); // Validate if outageName exists.
         if (action.equals(ConfigAction.ADD)) {
@@ -455,6 +614,15 @@ public class ScheduledOutagesRestService extends OnmsRestService {
         CollectdConfigFactory.getInstance().saveCurrent();
     }
 
+    /**
+     * Gets the collectd package.
+     *
+     * @param packageName
+     *            the package name
+     * @return the collectd package
+     * @throws IllegalArgumentException
+     *             the illegal argument exception
+     */
     private CollectdPackage getCollectdPackage(String packageName) throws IllegalArgumentException {
         CollectdPackage pkg = CollectdConfigFactory.getInstance().getPackage(packageName);
         if (pkg == null)
@@ -462,6 +630,18 @@ public class ScheduledOutagesRestService extends OnmsRestService {
         return pkg;
     }
 
+    /**
+     * Update pollerd.
+     *
+     * @param action
+     *            the action
+     * @param outageName
+     *            the outage name
+     * @param packageName
+     *            the package name
+     * @throws Exception
+     *             the exception
+     */
     private void updatePollerd(ConfigAction action, String outageName, String packageName) throws Exception {
         getOutage(outageName); // Validate if outageName exists.
         if (action.equals(ConfigAction.ADD)) {
@@ -481,6 +661,15 @@ public class ScheduledOutagesRestService extends OnmsRestService {
         PollerConfigFactory.getInstance().save();
     }
 
+    /**
+     * Gets the pollerd package.
+     *
+     * @param packageName
+     *            the package name
+     * @return the pollerd package
+     * @throws IllegalArgumentException
+     *             the illegal argument exception
+     */
     private org.opennms.netmgt.config.poller.Package getPollerdPackage(String packageName)
             throws IllegalArgumentException {
         org.opennms.netmgt.config.poller.Package pkg = PollerConfigFactory.getInstance().getPackage(packageName);
@@ -489,6 +678,18 @@ public class ScheduledOutagesRestService extends OnmsRestService {
         return pkg;
     }
 
+    /**
+     * Update threshd.
+     *
+     * @param action
+     *            the action
+     * @param outageName
+     *            the outage name
+     * @param packageName
+     *            the package name
+     * @throws Exception
+     *             the exception
+     */
     private void updateThreshd(ConfigAction action, String outageName, String packageName) throws Exception {
         getOutage(outageName); // Validate if outageName exists.
         if (action.equals(ConfigAction.ADD)) {
@@ -508,6 +709,15 @@ public class ScheduledOutagesRestService extends OnmsRestService {
         ThreshdConfigFactory.getInstance().saveCurrent();
     }
 
+    /**
+     * Gets the threshd package.
+     *
+     * @param packageName
+     *            the package name
+     * @return the threshd package
+     * @throws IllegalArgumentException
+     *             the illegal argument exception
+     */
     private org.opennms.netmgt.config.threshd.Package getThreshdPackage(String packageName)
             throws IllegalArgumentException {
         org.opennms.netmgt.config.threshd.Package pkg = ThreshdConfigFactory.getInstance().getPackage(packageName);
@@ -516,6 +726,16 @@ public class ScheduledOutagesRestService extends OnmsRestService {
         return pkg;
     }
 
+    /**
+     * Update notifd.
+     *
+     * @param action
+     *            the action
+     * @param outageName
+     *            the outage name
+     * @throws Exception
+     *             the exception
+     */
     private void updateNotifd(ConfigAction action, String outageName) throws Exception {
         getOutage(outageName); // Validate if outageName exists.
         NotifdConfigFactory factory = NotifdConfigFactory.getInstance();
@@ -528,6 +748,9 @@ public class ScheduledOutagesRestService extends OnmsRestService {
         factory.saveCurrent();
     }
 
+    /**
+     * Send config changed event.
+     */
     private void sendConfigChangedEvent() {
         EventBuilder builder = new EventBuilder(EventConstants.SCHEDOUTAGES_CHANGED_EVENT_UEI, "Web UI");
         try {

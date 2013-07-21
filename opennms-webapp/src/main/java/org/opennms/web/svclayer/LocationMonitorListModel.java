@@ -53,12 +53,17 @@ import org.springframework.validation.Errors;
  * @since 1.8.1
  */
 public class LocationMonitorListModel {
+
+    /** The Constant HOST_ADDRESS_KEY. */
     private static final String HOST_ADDRESS_KEY = "org.opennms.netmgt.poller.remote.hostAddress";
 
+    /** The Constant HOST_NAME_KEY. */
     private static final String HOST_NAME_KEY = "org.opennms.netmgt.poller.remote.hostName";
 
+    /** The m_errors. */
     private Errors m_errors;
 
+    /** The m_location monitors. */
     private List<LocationMonitorModel> m_locationMonitors;
 
     /**
@@ -73,6 +78,7 @@ public class LocationMonitorListModel {
      * <p>
      * getLocationMonitors
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -84,6 +90,7 @@ public class LocationMonitorListModel {
      * <p>
      * setLocationMonitors
      * </p>
+     * .
      *
      * @param locationMonitors
      *            a {@link java.util.List} object.
@@ -96,6 +103,7 @@ public class LocationMonitorListModel {
      * <p>
      * addLocationMonitor
      * </p>
+     * .
      *
      * @param locationMonitor
      *            a
@@ -113,6 +121,7 @@ public class LocationMonitorListModel {
      * <p>
      * getErrors
      * </p>
+     * .
      *
      * @return a {@link org.springframework.validation.Errors} object.
      */
@@ -124,6 +133,7 @@ public class LocationMonitorListModel {
      * <p>
      * setErrors
      * </p>
+     * .
      *
      * @param errors
      *            a {@link org.springframework.validation.Errors} object.
@@ -132,25 +142,41 @@ public class LocationMonitorListModel {
         m_errors = errors;
     }
 
+    /**
+     * The Class LocationMonitorModel.
+     */
     public static class LocationMonitorModel {
+
+        /** The m_area. */
         private String m_area;
 
+        /** The m_definition name. */
         private String m_definitionName;
 
+        /** The m_id. */
         private int m_id;
 
+        /** The m_name. */
         private String m_name;
 
+        /** The m_host name. */
         private String m_hostName;
 
+        /** The m_ip address. */
         private String m_ipAddress;
 
+        /** The m_status. */
         private MonitorStatus m_status;
 
+        /** The m_last check in time. */
         private Date m_lastCheckInTime;
 
+        /** The m_additional details. */
         private Map<String, String> m_additionalDetails;
 
+        /**
+         * Instantiates a new location monitor model.
+         */
         public LocationMonitorModel() {
         }
 
@@ -196,14 +222,33 @@ public class LocationMonitorListModel {
             }
         }
 
+        /**
+         * Gets the additional details.
+         *
+         * @return the additional details
+         */
         public Map<String, String> getAdditionalDetails() {
             return m_additionalDetails;
         }
 
+        /**
+         * Sets the additional details.
+         *
+         * @param additionalDetails
+         *            the additional details
+         */
         public void setAdditionalDetails(Map<String, String> additionalDetails) {
             m_additionalDetails = additionalDetails;
         }
 
+        /**
+         * Adds the additional detail.
+         *
+         * @param key
+         *            the key
+         * @param value
+         *            the value
+         */
         public void addAdditionalDetail(String key, String value) {
             if (m_additionalDetails == null) {
                 m_additionalDetails = new LinkedHashMap<String, String>();
@@ -211,66 +256,154 @@ public class LocationMonitorListModel {
             m_additionalDetails.put(key, value);
         }
 
+        /**
+         * Gets the area.
+         *
+         * @return the area
+         */
         public String getArea() {
             return m_area;
         }
 
+        /**
+         * Sets the area.
+         *
+         * @param area
+         *            the new area
+         */
         public void setArea(String area) {
             m_area = area;
         }
 
+        /**
+         * Gets the definition name.
+         *
+         * @return the definition name
+         */
         public String getDefinitionName() {
             return m_definitionName;
         }
 
+        /**
+         * Sets the definition name.
+         *
+         * @param definitionName
+         *            the new definition name
+         */
         public void setDefinitionName(String definitionName) {
             m_definitionName = definitionName;
         }
 
+        /**
+         * Gets the host name.
+         *
+         * @return the host name
+         */
         public String getHostName() {
             return m_hostName;
         }
 
+        /**
+         * Sets the host name.
+         *
+         * @param hostName
+         *            the new host name
+         */
         public void setHostName(String hostName) {
             m_hostName = hostName;
         }
 
+        /**
+         * Gets the id.
+         *
+         * @return the id
+         */
         public int getId() {
             return m_id;
         }
 
+        /**
+         * Sets the id.
+         *
+         * @param id
+         *            the new id
+         */
         public void setId(int id) {
             m_id = id;
         }
 
+        /**
+         * Gets the ip address.
+         *
+         * @return the ip address
+         */
         public String getIpAddress() {
             return m_ipAddress;
         }
 
+        /**
+         * Sets the ip address.
+         *
+         * @param ipAddress
+         *            the new ip address
+         */
         public void setIpAddress(String ipAddress) {
             m_ipAddress = ipAddress;
         }
 
+        /**
+         * Gets the last check in time.
+         *
+         * @return the last check in time
+         */
         public Date getLastCheckInTime() {
             return m_lastCheckInTime;
         }
 
+        /**
+         * Sets the last check in time.
+         *
+         * @param lastcheckInTime
+         *            the new last check in time
+         */
         public void setLastCheckInTime(Date lastcheckInTime) {
             m_lastCheckInTime = lastcheckInTime;
         }
 
+        /**
+         * Gets the name.
+         *
+         * @return the name
+         */
         public String getName() {
             return m_name;
         }
 
+        /**
+         * Sets the name.
+         *
+         * @param name
+         *            the new name
+         */
         public void setName(String name) {
             m_name = name;
         }
 
+        /**
+         * Gets the status.
+         *
+         * @return the status
+         */
         public MonitorStatus getStatus() {
             return m_status;
         }
 
+        /**
+         * Sets the status.
+         *
+         * @param status
+         *            the new status
+         */
         public void setStatus(MonitorStatus status) {
             m_status = status;
         }

@@ -42,15 +42,14 @@ import org.opennms.netmgt.config.views.View;
 
 /**
  * A servlet that handles putting the View object into the request and
- * forwarding on to a particular jsp
+ * forwarding on to a particular jsp.
  *
  * @author <A HREF="mailto:larry@opennms.org">Lawrence Karnowski </A>
  * @author <A HREF="http://www.opennms.org/">OpenNMS </A>
  */
 public class ModifyViewServlet extends HttpServlet {
-    /**
-     *
-     */
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 5165340338794356376L;
 
     /** {@inheritDoc} */

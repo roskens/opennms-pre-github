@@ -60,17 +60,29 @@ import org.springframework.transaction.annotation.Transactional;
  */
 public class DaoWebNotificationRepository implements WebNotificationRepository, InitializingBean {
 
+    /** The m_notification dao. */
     @Autowired
     NotificationDao m_notificationDao;
 
+    /** The m_ack dao. */
     @Autowired
     AcknowledgmentDao m_ackDao;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Gets the onms criteria.
+     *
+     * @param notificationCriteria
+     *            the notification criteria
+     * @return the onms criteria
+     */
     private static final OnmsCriteria getOnmsCriteria(final NotificationCriteria notificationCriteria) {
         final OnmsCriteria criteria = new OnmsCriteria(OnmsNotification.class);
         criteria.createAlias("node", "node", OnmsCriteria.LEFT_JOIN);
@@ -156,6 +168,13 @@ public class DaoWebNotificationRepository implements WebNotificationRepository, 
         return criteria;
     }
 
+    /**
+     * Map onms notification to notification.
+     *
+     * @param onmsNotification
+     *            the onms notification
+     * @return the notification
+     */
     private Notification mapOnmsNotificationToNotification(OnmsNotification onmsNotification) {
         if (onmsNotification != null) {
             Notification notif = new Notification();
@@ -224,6 +243,13 @@ public class DaoWebNotificationRepository implements WebNotificationRepository, 
         return mapOnmsNotificationToNotification(m_notificationDao.get(noticeId));
     }
 
+    /**
+     * Query for int.
+     *
+     * @param onmsCriteria
+     *            the onms criteria
+     * @return the int
+     */
     private int queryForInt(OnmsCriteria onmsCriteria) {
         return m_notificationDao.countMatching(onmsCriteria);
     }

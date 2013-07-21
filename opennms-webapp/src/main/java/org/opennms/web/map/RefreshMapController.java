@@ -58,8 +58,10 @@ import org.springframework.web.servlet.ModelAndView;
  */
 public class RefreshMapController extends MapsLoggingController {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(RefreshMapController.class);
 
+    /** The manager. */
     private Manager manager;
 
     /**

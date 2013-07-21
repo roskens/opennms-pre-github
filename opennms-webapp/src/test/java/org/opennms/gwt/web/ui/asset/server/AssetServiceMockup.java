@@ -40,22 +40,34 @@ import org.opennms.gwt.web.ui.asset.shared.AssetSuggCommand;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 /**
+ * The Class AssetServiceMockup.
+ *
  * @author <a href="mailto:MarkusNeumannMarkus@gmail.com">Markus Neumann</a>
  */
 public class AssetServiceMockup extends RemoteServiceServlet implements AssetService {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 386558445935186134L;
 
+    /** The asset. */
     private AssetCommand asset = new AssetCommand();
 
+    /** The onms formatter. */
     private SimpleDateFormat onmsFormatter = new SimpleDateFormat("yyyy-MM-dd");
 
+    /** The asset sugg. */
     private AssetSuggCommand assetSugg = new AssetSuggCommand();
 
+    /**
+     * Instantiates a new asset service mockup.
+     */
     public AssetServiceMockup() {
         setData();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.gwt.web.ui.asset.client.AssetService#getAssetByNodeId(int)
+     */
     @Override
     public final AssetCommand getAssetByNodeId(final int nodeId) throws Exception {
         if (nodeId == 666) {
@@ -64,6 +76,9 @@ public class AssetServiceMockup extends RemoteServiceServlet implements AssetSer
         return asset;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.gwt.web.ui.asset.client.AssetService#saveOrUpdateAssetByNodeId(int, org.opennms.gwt.web.ui.asset.shared.AssetCommand)
+     */
     @Override
     public final Boolean saveOrUpdateAssetByNodeId(final int nodeId, final AssetCommand asset) throws Exception {
         if (nodeId == 999) {
@@ -77,6 +92,11 @@ public class AssetServiceMockup extends RemoteServiceServlet implements AssetSer
         return true;
     }
 
+    /**
+     * Sets the data.
+     *
+     * @return the asset command
+     */
     public final AssetCommand setData() {
         asset.setNodeId("23");
         asset.setNodeLabel("Cronojon");
@@ -94,6 +114,9 @@ public class AssetServiceMockup extends RemoteServiceServlet implements AssetSer
         return asset;
     }
 
+    /**
+     * Save data snmp.
+     */
     private void saveDataSNMP() {
         asset.setSnmpSysObjectId(".1.3.6.1.4.1.8072.3.2.10");
         // asset.setSnmpSysObjectId("");
@@ -103,6 +126,9 @@ public class AssetServiceMockup extends RemoteServiceServlet implements AssetSer
         asset.setSnmpSysDescription("Linux tak-ThinkPad-X200s 2.6.35-28-generic #50-Ubuntu SMP Fri Mar 18 18:42:20 UTC 2011 x86_64");
     }
 
+    /**
+     * Save data config categories.
+     */
     private void saveDataConfigCategories() {
         asset.setDisplayCategory("DisplayCategory");
         asset.setNotifyCategory("NotifyCategory");
@@ -110,6 +136,9 @@ public class AssetServiceMockup extends RemoteServiceServlet implements AssetSer
         asset.setThresholdCategory("ThresholdCategory");
     }
 
+    /**
+     * Save data identification.
+     */
     private void saveDataIdentification() {
         asset.setDescription("Description");
         asset.setCategory("Category");
@@ -128,6 +157,9 @@ public class AssetServiceMockup extends RemoteServiceServlet implements AssetSer
         asset.setDateInstalled(onmsFormatter.format(installDate));
     }
 
+    /**
+     * Save data location.
+     */
     private void saveDataLocation() {
         asset.setRegion("Region");
         asset.setDivision("Division");
@@ -149,6 +181,9 @@ public class AssetServiceMockup extends RemoteServiceServlet implements AssetSer
         asset.setCircuitId("CircuitId");
     }
 
+    /**
+     * Save data vendor.
+     */
     private void saveDataVendor() {
         asset.setVendor("Vendor");
         asset.setVendorPhone("VendorPhone");
@@ -171,6 +206,9 @@ public class AssetServiceMockup extends RemoteServiceServlet implements AssetSer
         asset.setSupportPhone("SupportPhone");
     }
 
+    /**
+     * Save data authentication.
+     */
     private void saveDataAuthentication() {
         asset.setUsername("Username");
         asset.setPassword("Password");
@@ -192,6 +230,9 @@ public class AssetServiceMockup extends RemoteServiceServlet implements AssetSer
 
     }
 
+    /**
+     * Save data hardware.
+     */
     private void saveDataHardware() {
         asset.setCpu("Intel Centrino2");
         asset.setRam("8GB DDR3");
@@ -208,10 +249,16 @@ public class AssetServiceMockup extends RemoteServiceServlet implements AssetSer
         asset.setHdd6("for failing");
     }
 
+    /**
+     * Save data comments.
+     */
     private void saveDataComments() {
         asset.setComment("Es soll manchen Dichter geben, der muss dichten, um zu leben.Ist das immer so? Mitnichten,manche leben um zu dichten.");
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.gwt.web.ui.asset.client.AssetService#getAssetSuggestions()
+     */
     @Override
     public final AssetSuggCommand getAssetSuggestions() throws Exception {
 

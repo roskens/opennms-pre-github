@@ -54,6 +54,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * The Class JdbcWebEventRepositoryTest.
+ */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
         "classpath:/META-INF/opennms/applicationContext-dao.xml", "classpath*:/META-INF/opennms/component-dao.xml",
@@ -63,22 +66,33 @@ import org.springframework.transaction.annotation.Transactional;
 @JUnitTemporaryDatabase
 public class JdbcWebEventRepositoryTest implements InitializingBean {
 
+    /** The m_db populator. */
     @Autowired
     DatabasePopulator m_dbPopulator;
 
+    /** The m_event repo. */
     @Autowired
     WebEventRepository m_eventRepo;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Sets the up.
+     */
     @Before
     public void setUp() {
         m_dbPopulator.populateDatabase();
     }
 
+    /**
+     * Test count matching events.
+     */
     @Test
     @Transactional
     public void testCountMatchingEvents() {
@@ -88,6 +102,9 @@ public class JdbcWebEventRepositoryTest implements InitializingBean {
         assertEquals(1, event);
     }
 
+    /**
+     * Test count matching events by severity.
+     */
     @Test
     @Transactional
     public void testCountMatchingEventsBySeverity() {
@@ -105,6 +122,9 @@ public class JdbcWebEventRepositoryTest implements InitializingBean {
         assertEquals(0, matchingEvents[OnmsSeverity.WARNING.getId()]);
     }
 
+    /**
+     * Test get event.
+     */
     @Test
     @JUnitTemporaryDatabase
     // Relies on specific IDs so we need a fresh database
@@ -113,6 +133,9 @@ public class JdbcWebEventRepositoryTest implements InitializingBean {
         assertNotNull(event);
     }
 
+    /**
+     * Test acknowledge unacknowledge matching alarms.
+     */
     @Test
     @JUnitTemporaryDatabase
     // Relies on specific IDs so we need a fresh database
@@ -128,6 +151,9 @@ public class JdbcWebEventRepositoryTest implements InitializingBean {
         assertEquals(0, matchingEventCount);
     }
 
+    /**
+     * Test acknowledge unacknowledge all alarms.
+     */
     @Test
     @Transactional
     public void testAcknowledgeUnacknowledgeAllAlarms() {
@@ -142,6 +168,9 @@ public class JdbcWebEventRepositoryTest implements InitializingBean {
         assertEquals(0, matchingEventCount);
     }
 
+    /**
+     * Test count matching by severity.
+     */
     @Test
     @Transactional
     public void testCountMatchingBySeverity() {
@@ -150,6 +179,9 @@ public class JdbcWebEventRepositoryTest implements InitializingBean {
         assertEquals(8, matchingEventCount.length);
     }
 
+    /**
+     * Test filter by severity.
+     */
     @Test
     @Transactional
     public void testFilterBySeverity() {
@@ -166,6 +198,9 @@ public class JdbcWebEventRepositoryTest implements InitializingBean {
 
     }
 
+    /**
+     * Test double filter test.
+     */
     @Test
     @JUnitTemporaryDatabase
     // Relies on specific IDs so we need a fresh database

@@ -32,14 +32,17 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 /**
- * OneArgFilter
+ * OneArgFilter.
  *
+ * @param <T>
+ *            the generic type
  * @author brozow
  * @version $Id: $
  * @since 1.8.1
  */
 public abstract class OneArgFilter<T> extends BaseFilter<T> {
 
+    /** The m_value. */
     private T m_value;
 
     /**
@@ -57,8 +60,6 @@ public abstract class OneArgFilter<T> extends BaseFilter<T> {
      *            a {@link java.lang.String} object.
      * @param value
      *            a T object.
-     * @param <T>
-     *            a T object.
      */
     public OneArgFilter(String filterType, SQLType<T> sqlType, String fieldName, String propertyName, T value) {
         super(filterType, sqlType, fieldName, propertyName);
@@ -69,6 +70,7 @@ public abstract class OneArgFilter<T> extends BaseFilter<T> {
      * <p>
      * getValue
      * </p>
+     * .
      *
      * @return a T object.
      */
@@ -80,6 +82,7 @@ public abstract class OneArgFilter<T> extends BaseFilter<T> {
      * <p>
      * getSQLTemplate
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -89,6 +92,7 @@ public abstract class OneArgFilter<T> extends BaseFilter<T> {
      * <p>
      * getBoundValue
      * </p>
+     * .
      *
      * @param value
      *            a T object.
@@ -123,6 +127,9 @@ public abstract class OneArgFilter<T> extends BaseFilter<T> {
         return String.format(getSQLTemplate(), formatValue(m_value));
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.web.filter.BaseFilter#getTextDescription()
+     */
     @Override
     public String getTextDescription() {
         return getDescription();

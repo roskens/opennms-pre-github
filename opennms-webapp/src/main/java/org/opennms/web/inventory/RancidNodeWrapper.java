@@ -41,20 +41,28 @@ import java.util.Date;
  */
 public class RancidNodeWrapper {
 
+    /** The device name. */
     private String deviceName;
 
+    /** The group. */
     private String group;
 
+    /** The device type. */
     private String deviceType;
 
+    /** The comment. */
     private String comment;
 
+    /** The head revision. */
     private String headRevision;
 
+    /** The total revisions. */
     private int totalRevisions;
 
+    /** The creation date. */
     private Date creationDate;
 
+    /** The root configuration url. */
     private String rootConfigurationUrl;
 
     /**

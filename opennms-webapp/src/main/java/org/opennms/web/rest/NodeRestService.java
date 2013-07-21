@@ -72,7 +72,7 @@ import com.sun.jersey.api.core.ResourceContext;
 import com.sun.jersey.spi.resource.PerRequest;
 
 /**
- * Basic Web Service using REST for OnmsNode entity
+ * Basic Web Service using REST for OnmsNode entity.
  *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  * @version $Id: $
@@ -85,17 +85,22 @@ import com.sun.jersey.spi.resource.PerRequest;
 @Transactional
 public class NodeRestService extends OnmsRestService {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(NodeRestService.class);
 
+    /** The m_node dao. */
     @Autowired
     private NodeDao m_nodeDao;
 
+    /** The m_event proxy. */
     @Autowired
     private EventProxy m_eventProxy;
 
+    /** The m_uri info. */
     @Context
     UriInfo m_uriInfo;
 
+    /** The m_context. */
     @Context
     ResourceContext m_context;
 
@@ -103,6 +108,7 @@ public class NodeRestService extends OnmsRestService {
      * <p>
      * getNodes
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.OnmsNodeList} object.
      */
@@ -149,6 +155,7 @@ public class NodeRestService extends OnmsRestService {
      * <p>
      * getNode
      * </p>
+     * .
      *
      * @param nodeCriteria
      *            a {@link java.lang.String} object.
@@ -171,6 +178,7 @@ public class NodeRestService extends OnmsRestService {
      * <p>
      * addNode
      * </p>
+     * .
      *
      * @param node
      *            a {@link org.opennms.netmgt.model.OnmsNode} object.
@@ -199,6 +207,7 @@ public class NodeRestService extends OnmsRestService {
      * <p>
      * updateNode
      * </p>
+     * .
      *
      * @param nodeCriteria
      *            a {@link java.lang.String} object.
@@ -243,6 +252,7 @@ public class NodeRestService extends OnmsRestService {
      * <p>
      * deleteNode
      * </p>
+     * .
      *
      * @param nodeCriteria
      *            a {@link java.lang.String} object.
@@ -276,6 +286,7 @@ public class NodeRestService extends OnmsRestService {
      * <p>
      * getIpInterfaceResource
      * </p>
+     * .
      *
      * @return a {@link org.opennms.web.rest.OnmsIpInterfaceResource} object.
      */
@@ -288,6 +299,7 @@ public class NodeRestService extends OnmsRestService {
      * <p>
      * getSnmpInterfaceResource
      * </p>
+     * .
      *
      * @return a {@link org.opennms.web.rest.OnmsSnmpInterfaceResource} object.
      */
@@ -300,6 +312,7 @@ public class NodeRestService extends OnmsRestService {
      * <p>
      * getCategoryResource
      * </p>
+     * .
      *
      * @return a {@link org.opennms.web.rest.OnmsCategoryResource} object.
      */
@@ -312,6 +325,7 @@ public class NodeRestService extends OnmsRestService {
      * <p>
      * getAssetRecordResource
      * </p>
+     * .
      *
      * @return a {@link org.opennms.web.rest.AssetRecordResource} object.
      */
@@ -320,6 +334,18 @@ public class NodeRestService extends OnmsRestService {
         return m_context.getResource(AssetRecordResource.class);
     }
 
+    /**
+     * Send event.
+     *
+     * @param uei
+     *            the uei
+     * @param nodeId
+     *            the node id
+     * @param nodeLabel
+     *            the node label
+     * @throws EventProxyException
+     *             the event proxy exception
+     */
     private void sendEvent(final String uei, final int nodeId, String nodeLabel) throws EventProxyException {
         final EventBuilder bldr = new EventBuilder(uei, getClass().getName());
         bldr.setNodeid(nodeId);

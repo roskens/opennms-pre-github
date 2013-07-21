@@ -49,6 +49,7 @@ import org.opennms.netmgt.model.OnmsOutage;
  */
 public class DefaultOutageService implements OutageService {
 
+    /** The m_dao. */
     private OutageDao m_dao;
 
     /**
@@ -76,6 +77,7 @@ public class DefaultOutageService implements OutageService {
      * <p>
      * getDao
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.dao.api.OutageDao} object.
      */
@@ -87,6 +89,7 @@ public class DefaultOutageService implements OutageService {
      * <p>
      * setDao
      * </p>
+     * .
      *
      * @param dao
      *            a {@link org.opennms.netmgt.dao.api.OutageDao} object.
@@ -99,6 +102,7 @@ public class DefaultOutageService implements OutageService {
      * <p>
      * getCurrentOutageCount
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -124,6 +128,7 @@ public class DefaultOutageService implements OutageService {
      * <p>
      * getCurrentOutages
      * </p>
+     * .
      *
      * @return a {@link java.util.Collection} object.
      */
@@ -136,6 +141,7 @@ public class DefaultOutageService implements OutageService {
      * <p>
      * getCurrentOutagesOrdered
      * </p>
+     * .
      *
      * @param orderBy
      *            a {@link java.lang.String} object.
@@ -170,6 +176,7 @@ public class DefaultOutageService implements OutageService {
      * <p>
      * getOutagesForInterface
      * </p>
+     * .
      *
      * @param nodeId
      *            a int.
@@ -196,6 +203,7 @@ public class DefaultOutageService implements OutageService {
      * <p>
      * getOutagesForNode
      * </p>
+     * .
      *
      * @param nodeId
      *            a int.
@@ -221,6 +229,7 @@ public class DefaultOutageService implements OutageService {
      * <p>
      * getOutagesForService
      * </p>
+     * .
      *
      * @param nodeId
      *            a int.
@@ -243,6 +252,7 @@ public class DefaultOutageService implements OutageService {
      * <p>
      * getSuppressedOutageCount
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -255,6 +265,7 @@ public class DefaultOutageService implements OutageService {
      * <p>
      * getSuppressedOutages
      * </p>
+     * .
      *
      * @return a {@link java.util.Collection} object.
      */
@@ -267,6 +278,7 @@ public class DefaultOutageService implements OutageService {
      * <p>
      * getOpenAndResolved
      * </p>
+     * .
      *
      * @return a {@link java.util.Collection} object.
      */
@@ -304,6 +316,15 @@ public class DefaultOutageService implements OutageService {
         return m_dao.findMatching(criteria);
     }
 
+    /**
+     * Gets the hibernate order.
+     *
+     * @param orderProperty
+     *            the order property
+     * @param direction
+     *            the direction
+     * @return the hibernate order
+     */
     private Order getHibernateOrder(final String orderProperty, final String direction) {
         if (orderProperty == null) {
             return null;
@@ -339,6 +360,7 @@ public class DefaultOutageService implements OutageService {
      * <p>
      * getSuppressedOutagesByRange
      * </p>
+     * .
      *
      * @param Offset
      *            a {@link java.lang.Integer} object.
@@ -354,6 +376,7 @@ public class DefaultOutageService implements OutageService {
      * <p>
      * getOpenAndResolved
      * </p>
+     * .
      *
      * @param Offset
      *            a {@link java.lang.Integer} object.
@@ -388,6 +411,7 @@ public class DefaultOutageService implements OutageService {
      * <p>
      * getOutagesByRange
      * </p>
+     * .
      *
      * @param offset
      *            a {@link java.lang.Integer} object.
@@ -408,6 +432,7 @@ public class DefaultOutageService implements OutageService {
      * <p>
      * getOutagesByRange
      * </p>
+     * .
      *
      * @param offset
      *            a {@link java.lang.Integer} object.
@@ -431,6 +456,7 @@ public class DefaultOutageService implements OutageService {
      * <p>
      * getOutageCount
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */

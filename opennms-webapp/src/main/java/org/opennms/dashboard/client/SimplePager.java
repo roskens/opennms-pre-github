@@ -48,8 +48,11 @@ import com.google.gwt.user.client.ui.Widget;
  * @since 1.8.1
  */
 public class SimplePager extends Composite {
+
+    /** The m_pageable. */
     private SimplePageable m_pageable;
 
+    /** The m_pager. */
     private DockPanel m_pager = new DockPanel();
 
     /**
@@ -71,19 +74,43 @@ public class SimplePager extends Composite {
         initWidget(m_pager);
     }
 
+    /**
+     * Creates the right page control.
+     *
+     * @return the widget
+     */
     private Widget createRightPageControl() {
         return new PageControl(">>", 1);
     }
 
+    /**
+     * Creates the left page control.
+     *
+     * @return the widget
+     */
     private Widget createLeftPageControl() {
         return new PageControl("<<", -1);
     }
 
+    /**
+     * The Class PageControl.
+     */
     private class PageControl extends Composite {
+
+        /** The m_label. */
         Label m_label;
 
+        /** The m_direction. */
         int m_direction;
 
+        /**
+         * Instantiates a new page control.
+         *
+         * @param text
+         *            the text
+         * @param direction
+         *            the direction
+         */
         PageControl(String text, int direction) {
             m_label = new Label(text);
             m_label.addStyleName(direction > 0 ? "pagerRight" : "pagerLeft");

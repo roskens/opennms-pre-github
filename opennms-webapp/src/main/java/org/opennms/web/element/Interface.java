@@ -47,61 +47,100 @@ import org.opennms.web.api.Util;
  * @since 1.8.1
  */
 public class Interface {
+
+    /** The m_id. */
     int m_id;
 
+    /** The m_node id. */
     int m_nodeId;
 
+    /** The m_if index. */
     int m_ifIndex;
 
+    /** The m_ip status. */
     int m_ipStatus;
 
+    /** The m_ip host name. */
     String m_ipHostName;
 
+    /** The m_ip addr. */
     String m_ipAddr;
 
+    /** The m_is managed. */
     char m_isManaged;
 
+    /** The m_ip last capsd poll. */
     String m_ipLastCapsdPoll;
 
+    /** The m_snmp ip ad ent net mask. */
     String m_snmpIpAdEntNetMask;
 
+    /** The m_snmp phys addr. */
     String m_snmpPhysAddr;
 
+    /** The m_snmp if descr. */
     String m_snmpIfDescr;
 
+    /** The m_snmp if name. */
     String m_snmpIfName;
 
+    /** The m_snmp if index. */
     int m_snmpIfIndex;
 
+    /** The m_snmp if type. */
     int m_snmpIfType;
 
+    /** The m_snmp if oper status. */
     int m_snmpIfOperStatus;
 
+    /** The m_snmp if speed. */
     long m_snmpIfSpeed;
 
+    /** The m_snmp if admin status. */
     int m_snmpIfAdminStatus;
 
+    /** The m_snmp if alias. */
     String m_snmpIfAlias;
 
+    /** The m_is snmp primary. */
     String m_isSnmpPrimary;
 
+    /** The m_is snmp poll. */
     char m_isSnmpPoll;
 
+    /** The m_snmp last snmp poll. */
     String m_snmpLastSnmpPoll;
 
+    /** The m_snmp last capsd poll. */
     String m_snmpLastCapsdPoll;
 
+    /** The ipaddresses. */
     List<String> ipaddresses = null;
 
+    /**
+     * Instantiates a new interface.
+     */
     Interface() {
 
     }
 
+    /**
+     * Instantiates a new interface.
+     *
+     * @param snmpIface
+     *            the snmp iface
+     */
     Interface(OnmsSnmpInterface snmpIface) {
         m_id = snmpIface.getId();
         createSnmpInterface(snmpIface);
     }
 
+    /**
+     * Creates the snmp interface.
+     *
+     * @param snmpIface
+     *            the snmp iface
+     */
     public void createSnmpInterface(OnmsSnmpInterface snmpIface) {
         if (snmpIface.getNode() != null) {
             m_nodeId = snmpIface.getNode().getId();
@@ -141,11 +180,23 @@ public class Interface {
         }
     }
 
+    /**
+     * Instantiates a new interface.
+     *
+     * @param ipIface
+     *            the ip iface
+     */
     Interface(OnmsIpInterface ipIface) {
         m_id = ipIface.getId();
         createIpInterface(ipIface);
     }
 
+    /**
+     * Creates the ip interface.
+     *
+     * @param ipIface
+     *            the ip iface
+     */
     public void createIpInterface(OnmsIpInterface ipIface) {
         if (ipIface.getNode() != null) {
             m_nodeId = ipIface.getNode().getId();
@@ -163,14 +214,30 @@ public class Interface {
         }
     }
 
+    /**
+     * Gets the ipaddresses.
+     *
+     * @return the ipaddresses
+     */
     public List<String> getIpaddresses() {
         return ipaddresses;
     }
 
+    /**
+     * Sets the ipaddresses.
+     *
+     * @param ipaddresses
+     *            the new ipaddresses
+     */
     public void setIpaddresses(List<String> ipaddresses) {
         this.ipaddresses = ipaddresses;
     }
 
+    /**
+     * Checks for ip addresses.
+     *
+     * @return true, if successful
+     */
     public boolean hasIpAddresses() {
         return !(ipaddresses == null);
     }
@@ -179,6 +246,7 @@ public class Interface {
      * <p>
      * getId
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -190,6 +258,7 @@ public class Interface {
      * <p>
      * getNodeId
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -201,6 +270,7 @@ public class Interface {
      * <p>
      * getIfIndex
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -212,6 +282,7 @@ public class Interface {
      * <p>
      * getIpStatus
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -223,6 +294,7 @@ public class Interface {
      * <p>
      * getHostname
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -234,6 +306,7 @@ public class Interface {
      * <p>
      * getIpAddress
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -245,6 +318,7 @@ public class Interface {
      * <p>
      * isManagedChar
      * </p>
+     * .
      *
      * @return a char.
      */
@@ -256,6 +330,7 @@ public class Interface {
      * <p>
      * getLastCapsdPoll
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -267,6 +342,7 @@ public class Interface {
      * <p>
      * getSnmpIfIndex
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -278,6 +354,7 @@ public class Interface {
      * <p>
      * getSnmpIpAdEntNetMask
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -289,6 +366,7 @@ public class Interface {
      * <p>
      * getPhysicalAddress
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -300,6 +378,7 @@ public class Interface {
      * <p>
      * getSnmpIfDescription
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -311,6 +390,7 @@ public class Interface {
      * <p>
      * getSnmpIfName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -322,6 +402,7 @@ public class Interface {
      * <p>
      * getSnmpIfType
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -333,6 +414,7 @@ public class Interface {
      * <p>
      * getSnmpIfOperStatus
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -344,6 +426,7 @@ public class Interface {
      * <p>
      * getSnmpIfSpeed
      * </p>
+     * .
      *
      * @return a long.
      */
@@ -355,6 +438,7 @@ public class Interface {
      * <p>
      * getSnmpIfAdminStatus
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -366,6 +450,7 @@ public class Interface {
      * <p>
      * isSnmpPollChar
      * </p>
+     * .
      *
      * @return a char.
      */
@@ -377,6 +462,7 @@ public class Interface {
      * <p>
      * getSnmpLastSnmpPoll
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -388,6 +474,7 @@ public class Interface {
      * <p>
      * getSnmpLastCapsdPoll
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -399,6 +486,7 @@ public class Interface {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -411,6 +499,7 @@ public class Interface {
      * <p>
      * isManaged
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -422,6 +511,7 @@ public class Interface {
      * <p>
      * isSnmpPoll
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -433,6 +523,7 @@ public class Interface {
      * <p>
      * getSnmpIfAlias
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -444,6 +535,7 @@ public class Interface {
      * <p>
      * getIsSnmpPrimary
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -455,6 +547,7 @@ public class Interface {
      * <p>
      * getName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

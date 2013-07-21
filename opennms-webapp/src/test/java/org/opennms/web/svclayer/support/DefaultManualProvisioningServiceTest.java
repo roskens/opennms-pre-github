@@ -42,16 +42,26 @@ import org.opennms.netmgt.provision.persist.requisition.RequisitionCategory;
 import org.opennms.netmgt.provision.persist.requisition.RequisitionInterface;
 import org.opennms.netmgt.provision.persist.requisition.RequisitionMonitoredService;
 
+/**
+ * The Class DefaultManualProvisioningServiceTest.
+ */
 public class DefaultManualProvisioningServiceTest extends TestCase {
 
+    /** The m_provisioning service. */
     private DefaultManualProvisioningService m_provisioningService;
 
+    /** The m_test data. */
     private Requisition m_testData;
 
+    /** The m_active repository. */
     private ForeignSourceRepository m_activeRepository = new MockForeignSourceRepository();
 
+    /** The m_pending repository. */
     private ForeignSourceRepository m_pendingRepository = new MockForeignSourceRepository();
 
+    /* (non-Javadoc)
+     * @see junit.framework.TestCase#setUp()
+     */
     @Override
     protected final void setUp() throws Exception {
         m_testData = m_activeRepository.importResourceRequisition(ConfigurationTestUtils.getSpringResourceForResource(this,
@@ -62,6 +72,9 @@ public class DefaultManualProvisioningServiceTest extends TestCase {
         m_provisioningService.setPendingForeignSourceRepository(m_pendingRepository);
     }
 
+    /**
+     * Test get provisioning group names.
+     */
     public final void testGetProvisioningGroupNames() {
         Set<String> expected = new TreeSet<String>();
         expected.add("matt:");
@@ -69,6 +82,9 @@ public class DefaultManualProvisioningServiceTest extends TestCase {
         assertEquals(expected, groupNames);
     }
 
+    /**
+     * Test get provisioning group.
+     */
     public final void testGetProvisioningGroup() {
         String name = "matt:";
 
@@ -77,6 +93,9 @@ public class DefaultManualProvisioningServiceTest extends TestCase {
         assertEquals(expected, actual);
     }
 
+    /**
+     * Test add new node to group.
+     */
     public final void testAddNewNodeToGroup() {
         String groupName = "matt:";
         String nodeLabel = "david";
@@ -91,6 +110,9 @@ public class DefaultManualProvisioningServiceTest extends TestCase {
         assertEquals(nodeLabel, result.getNodes().get(0).getNodeLabel());
     }
 
+    /**
+     * Test add category to node.
+     */
     public final void testAddCategoryToNode() {
         String groupName = "matt:";
         String pathToNode = "node[0]";
@@ -109,6 +131,9 @@ public class DefaultManualProvisioningServiceTest extends TestCase {
         assertEquals(categoryName, newCategory.getName());
     }
 
+    /**
+     * Test add interface to node.
+     */
     public final void testAddInterfaceToNode() {
         String groupName = "matt:";
         String pathToNode = "node[0]";
@@ -127,6 +152,9 @@ public class DefaultManualProvisioningServiceTest extends TestCase {
         assertEquals(ipAddr, newIface.getIpAddr());
     }
 
+    /**
+     * Test add service to interface.
+     */
     public final void testAddServiceToInterface() {
         String groupName = "matt:";
         String pathToInterface = "node[0].interface[0]";
@@ -144,6 +172,9 @@ public class DefaultManualProvisioningServiceTest extends TestCase {
         assertEquals(serviceName, svc.getServiceName());
     }
 
+    /**
+     * Test delete path.
+     */
     public final void testDeletePath() {
         String groupName = "matt:";
         String pathToInterface = "node[0].interface[0]";

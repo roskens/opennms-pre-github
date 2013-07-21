@@ -49,28 +49,30 @@ import org.opennms.core.utils.DBUtils;
 
 /**
  * A servlet that handles querying the database for node, interface, service
- * combinations for use in setting up SNMP data collection per interface
+ * combinations for use in setting up SNMP data collection per interface.
  *
  * @author <A HREF="mailto:tarus@opennms.org">Tarus Balog </A>
  * @author <A HREF="http://www.opennms.org/">OpenNMS </A>
  */
 public class SnmpGetNodesServlet extends HttpServlet {
-    /**
-     *
-     */
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -9025129128736990895L;
 
+    /** The Constant SNMP_SERVICE_QUERY. */
     private static final String SNMP_SERVICE_QUERY = "SELECT serviceid FROM service WHERE servicename = 'SNMP'";
 
+    /** The Constant NODE_QUERY. */
     private static final String NODE_QUERY = "SELECT nodeid, nodelabel FROM node WHERE nodeid IN (SELECT nodeid FROM ifservices WHERE serviceid = ? ) AND nodeid IN (SELECT nodeid FROM ipinterface Where ismanaged != 'D') ORDER BY nodelabel, nodeid";
 
     /**
      * <p>
      * init
      * </p>
+     * .
      *
-     * @throws javax.servlet.ServletException
-     *             if any.
+     * @throws ServletException
+     *             the servlet exception
      */
     @Override
     public void init() throws ServletException {
@@ -96,6 +98,15 @@ public class SnmpGetNodesServlet extends HttpServlet {
         dispatcher.forward(request, response);
     }
 
+    /**
+     * Gets the all nodes.
+     *
+     * @param userSession
+     *            the user session
+     * @return the all nodes
+     * @throws SQLException
+     *             the sQL exception
+     */
     private List<SnmpManagedNode> getAllNodes(HttpSession userSession) throws SQLException {
         Connection connection = null;
         List<SnmpManagedNode> allNodes = new ArrayList<SnmpManagedNode>();

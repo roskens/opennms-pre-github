@@ -49,10 +49,14 @@ import org.springframework.web.servlet.view.RedirectView;
  * @since 1.8.1
  */
 public class NodeProvisioningController extends AbstractController implements InitializingBean {
+
+    /** The m_node provision service. */
     private NodeProvisionService m_nodeProvisionService;
 
+    /** The m_success view. */
     private String m_successView;
 
+    /** The m_redirect view. */
     private String m_redirectView;
 
     /**
@@ -117,6 +121,7 @@ public class NodeProvisioningController extends AbstractController implements In
      * <p>
      * setRedirectView
      * </p>
+     * .
      *
      * @param redirectView
      *            a {@link java.lang.String} object.
@@ -129,6 +134,7 @@ public class NodeProvisioningController extends AbstractController implements In
      * <p>
      * setSuccessView
      * </p>
+     * .
      *
      * @param successView
      *            a {@link java.lang.String} object.
@@ -141,6 +147,7 @@ public class NodeProvisioningController extends AbstractController implements In
      * <p>
      * setNodeProvisionService
      * </p>
+     * .
      *
      * @param nodeProvisionService
      *            a
@@ -155,9 +162,10 @@ public class NodeProvisioningController extends AbstractController implements In
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @Override
     public void afterPropertiesSet() throws Exception {

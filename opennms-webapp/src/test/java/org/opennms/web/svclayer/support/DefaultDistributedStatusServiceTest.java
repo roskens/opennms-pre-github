@@ -76,51 +76,80 @@ import org.springframework.validation.BindException;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ObjectError;
 
+/**
+ * The Class DefaultDistributedStatusServiceTest.
+ */
 public class DefaultDistributedStatusServiceTest extends TestCase {
+
+    /** The m_service. */
     private DefaultDistributedStatusService m_service = new DefaultDistributedStatusService();
 
+    /** The m_easy mock utils. */
     private EasyMockUtils m_easyMockUtils = new EasyMockUtils();
 
+    /** The m_monitored service dao. */
     private MonitoredServiceDao m_monitoredServiceDao = m_easyMockUtils.createMock(MonitoredServiceDao.class);
 
+    /** The m_location monitor dao. */
     private LocationMonitorDao m_locationMonitorDao = m_easyMockUtils.createMock(LocationMonitorDao.class);
 
+    /** The m_application dao. */
     private ApplicationDao m_applicationDao = m_easyMockUtils.createMock(ApplicationDao.class);
 
+    /** The m_resource dao. */
     private ResourceDao m_resourceDao = m_easyMockUtils.createMock(ResourceDao.class);
 
+    /** The m_graph dao. */
     private GraphDao m_graphDao = m_easyMockUtils.createMock(GraphDao.class);
 
+    /** The m_location definition1. */
     private OnmsMonitoringLocationDefinition m_locationDefinition1;
 
+    /** The m_location definition2. */
     private OnmsMonitoringLocationDefinition m_locationDefinition2;
 
+    /** The m_location definition3. */
     private OnmsMonitoringLocationDefinition m_locationDefinition3;
 
+    /** The m_location monitor1_1. */
     private OnmsLocationMonitor m_locationMonitor1_1;
 
+    /** The m_location monitor2_1. */
     private OnmsLocationMonitor m_locationMonitor2_1;
 
+    /** The m_location monitor2_2. */
     private OnmsLocationMonitor m_locationMonitor2_2;
 
+    /** The m_application1. */
     private OnmsApplication m_application1;
 
+    /** The m_application2. */
     private OnmsApplication m_application2;
 
+    /** The m_services. */
     private Collection<OnmsMonitoredService> m_services;
 
+    /** The m_node. */
     private OnmsNode m_node;
 
+    /** The m_ip. */
     private String m_ip;
 
+    /** The m_application services1. */
     private Set<OnmsMonitoredService> m_applicationServices1;
 
+    /** The m_application services2. */
     private Set<OnmsMonitoredService> m_applicationServices2;
 
+    /** The Constant s_dbDate. */
     private static final SimpleDateFormat s_dbDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.mmm");
 
+    /** The Constant IGNORE_MATCH. */
     public static final String IGNORE_MATCH = "**IGNORE*MATCH**";
 
+    /* (non-Javadoc)
+     * @see junit.framework.TestCase#setUp()
+     */
     @Override
     protected final void setUp() throws Exception {
         super.setUp();
@@ -201,6 +230,9 @@ public class DefaultDistributedStatusServiceTest extends TestCase {
 
     }
 
+    /**
+     * Test find location specific status null location.
+     */
     public final void testFindLocationSpecificStatusNullLocation() {
         DistributedStatusDetailsCommand command = new DistributedStatusDetailsCommand();
         Errors errors = new BindException(command, "command");
@@ -217,6 +249,9 @@ public class DefaultDistributedStatusServiceTest extends TestCase {
         ta.verifyAnticipated();
     }
 
+    /**
+     * Test find location specific status null application.
+     */
     public final void testFindLocationSpecificStatusNullApplication() {
         DistributedStatusDetailsCommand command = new DistributedStatusDetailsCommand();
         Errors errors = new BindException(command, "command");
@@ -233,6 +268,9 @@ public class DefaultDistributedStatusServiceTest extends TestCase {
         ta.verifyAnticipated();
     }
 
+    /**
+     * Test find location specific status invalid location.
+     */
     public final void testFindLocationSpecificStatusInvalidLocation() {
         DistributedStatusDetailsCommand command = new DistributedStatusDetailsCommand();
         Errors errors = new BindException(command, "command");
@@ -256,6 +294,9 @@ public class DefaultDistributedStatusServiceTest extends TestCase {
         ta.verifyAnticipated();
     }
 
+    /**
+     * Test find location specific status invalid application.
+     */
     public final void testFindLocationSpecificStatusInvalidApplication() {
         DistributedStatusDetailsCommand command = new DistributedStatusDetailsCommand();
         Errors errors = new BindException(command, "command");
@@ -280,6 +321,9 @@ public class DefaultDistributedStatusServiceTest extends TestCase {
         ta.verifyAnticipated();
     }
 
+    /**
+     * Test find location specific status.
+     */
     public final void testFindLocationSpecificStatus() {
         DistributedStatusDetailsCommand command = new DistributedStatusDetailsCommand();
         Errors errors = new BindException(command, "command");
@@ -300,6 +344,9 @@ public class DefaultDistributedStatusServiceTest extends TestCase {
         assertEquals("status list size", 2, status.size());
     }
 
+    /**
+     * Test create status.
+     */
     public final void testCreateStatus() {
         // We run five times to catch sorting differences (if we don't sort)
         for (int i = 0; i < 5; i++) {
@@ -307,6 +354,9 @@ public class DefaultDistributedStatusServiceTest extends TestCase {
         }
     }
 
+    /**
+     * Run test create status.
+     */
     public final void runTestCreateStatus() {
         DistributedStatusDetailsCommand command = new DistributedStatusDetailsCommand();
         Errors errors = new BindException(command, "command");
@@ -355,6 +405,9 @@ public class DefaultDistributedStatusServiceTest extends TestCase {
         assertTableEquals(expectedTable, table);
     }
 
+    /**
+     * Test create status put unreported services last.
+     */
     public final void testCreateStatusPutUnreportedServicesLast() {
         DistributedStatusDetailsCommand command = new DistributedStatusDetailsCommand();
         Errors errors = new BindException(command, "command");
@@ -414,6 +467,9 @@ public class DefaultDistributedStatusServiceTest extends TestCase {
         assertTableEquals(expectedTable, table);
     }
 
+    /**
+     * Test create status no location monitor.
+     */
     public final void testCreateStatusNoLocationMonitor() {
         DistributedStatusDetailsCommand command = new DistributedStatusDetailsCommand();
         Errors errors = new BindException(command, "command");
@@ -441,6 +497,9 @@ public class DefaultDistributedStatusServiceTest extends TestCase {
         m_easyMockUtils.verifyAll();
     }
 
+    /**
+     * Test create facility status table no start date.
+     */
     public final void testCreateFacilityStatusTableNoStartDate() {
         ThrowableAnticipator ta = new ThrowableAnticipator();
         ta.anticipate(new IllegalArgumentException("argument start cannot be null"));
@@ -455,6 +514,9 @@ public class DefaultDistributedStatusServiceTest extends TestCase {
         m_easyMockUtils.verifyAll();
     }
 
+    /**
+     * Test create facility status table no end date.
+     */
     public final void testCreateFacilityStatusTableNoEndDate() {
         ThrowableAnticipator ta = new ThrowableAnticipator();
         ta.anticipate(new IllegalArgumentException("argument end cannot be null"));
@@ -469,6 +531,9 @@ public class DefaultDistributedStatusServiceTest extends TestCase {
         m_easyMockUtils.verifyAll();
     }
 
+    /**
+     * Test create facility status table state date not before.
+     */
     public final void testCreateFacilityStatusTableStateDateNotBefore() {
         Date start = new Date();
         Date end = new Date(start.getTime() - 1000); // one second before start
@@ -488,6 +553,9 @@ public class DefaultDistributedStatusServiceTest extends TestCase {
         m_easyMockUtils.verifyAll();
     }
 
+    /**
+     * Test create facility status table dates equal.
+     */
     public final void testCreateFacilityStatusTableDatesEqual() {
         Date startAndEnd = new Date();
 
@@ -505,6 +573,9 @@ public class DefaultDistributedStatusServiceTest extends TestCase {
         m_easyMockUtils.verifyAll();
     }
 
+    /**
+     * Test create facility status table no applications.
+     */
     public final void testCreateFacilityStatusTableNoApplications() {
         expect(m_locationMonitorDao.findAllMonitoringLocationDefinitions()).andReturn(Collections.singletonList(m_locationDefinition1));
         expect(m_applicationDao.findAll()).andReturn(new ArrayList<OnmsApplication>());
@@ -526,6 +597,12 @@ public class DefaultDistributedStatusServiceTest extends TestCase {
         m_easyMockUtils.verifyAll();
     }
 
+    /**
+     * Test create facility status table.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public final void testCreateFacilityStatusTable() throws Exception {
         // No need to shuffle, since this is a list
         List<OnmsMonitoringLocationDefinition> locationDefinitions = new LinkedList<OnmsMonitoringLocationDefinition>();
@@ -620,6 +697,13 @@ public class DefaultDistributedStatusServiceTest extends TestCase {
     /*
      * XXX need to check sorting
      */
+    /**
+     * Test create facility status table one application one of two locations
+     * reporting.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public final void testCreateFacilityStatusTableOneApplicationOneOfTwoLocationsReporting() throws Exception {
         OnmsApplication app = m_application2;
 
@@ -676,6 +760,12 @@ public class DefaultDistributedStatusServiceTest extends TestCase {
 
     /*
      * XXX need to check sorting
+     */
+    /**
+     * Test create facility status table layout applications vertically.
+     *
+     * @throws Exception
+     *             the exception
      */
     public final void testCreateFacilityStatusTableLayoutApplicationsVertically() throws Exception {
         // No need to shuffle, since this is a list
@@ -762,6 +852,12 @@ public class DefaultDistributedStatusServiceTest extends TestCase {
         assertTableEquals(expectedTable, table);
     }
 
+    /**
+     * Test percentage calculation all available start in middle of day.
+     *
+     * @throws ParseException
+     *             the parse exception
+     */
     public final void testPercentageCalculationAllAvailableStartInMiddleOfDay() throws ParseException {
         OnmsMonitoredService httpService = findMonitoredService(m_services, m_ip, "HTTP");
         OnmsMonitoredService httpsService = findMonitoredService(m_services, m_ip, "HTTPS");
@@ -782,6 +878,13 @@ public class DefaultDistributedStatusServiceTest extends TestCase {
         assertEquals("percentage", "100.000%", percentage);
     }
 
+    /**
+     * Test percentage calculation one unavailable then availale in middle of
+     * day.
+     *
+     * @throws ParseException
+     *             the parse exception
+     */
     public final void testPercentageCalculationOneUnavailableThenAvailaleInMiddleOfDay() throws ParseException {
         OnmsMonitoredService httpService = findMonitoredService(m_services, m_ip, "HTTP");
         OnmsMonitoredService httpsService = findMonitoredService(m_services, m_ip, "HTTPS");
@@ -803,6 +906,9 @@ public class DefaultDistributedStatusServiceTest extends TestCase {
         assertEquals("percentage", "75.000%", percentage);
     }
 
+    /**
+     * Test details.
+     */
     public final void testDetails() {
         List<OnmsMonitoringLocationDefinition> locationDefinitions = new LinkedList<OnmsMonitoringLocationDefinition>();
         locationDefinitions.add(m_locationDefinition1);
@@ -871,6 +977,14 @@ public class DefaultDistributedStatusServiceTest extends TestCase {
         assertNotNull("graph 0 URL should not be null", summary.getServiceGraphs().iterator().next().getUrl());
     }
 
+    /**
+     * Expect resource dao call.
+     *
+     * @param monitor
+     *            the monitor
+     * @param services
+     *            the services
+     */
     private void expectResourceDaoCall(final OnmsLocationMonitor monitor,
             final Collection<OnmsMonitoredService> services) {
         PrefabGraph httpGraph = new PrefabGraph("http", "title", new String[] { "http" }, "command", new String[0],
@@ -892,6 +1006,9 @@ public class DefaultDistributedStatusServiceTest extends TestCase {
         expect(m_graphDao.getPrefabGraph(httpsGraph.getName())).andReturn(httpsGraph).atLeastOnce();
     }
 
+    /**
+     * Test wrong location details.
+     */
     public final void testWrongLocationDetails() {
         List<OnmsMonitoringLocationDefinition> locationDefinitions = new LinkedList<OnmsMonitoringLocationDefinition>();
         locationDefinitions.add(m_locationDefinition1);
@@ -960,6 +1077,9 @@ public class DefaultDistributedStatusServiceTest extends TestCase {
 
     }
 
+    /**
+     * Test wrong application details.
+     */
     public final void testWrongApplicationDetails() {
         List<OnmsMonitoringLocationDefinition> locationDefinitions = new LinkedList<OnmsMonitoringLocationDefinition>();
         locationDefinitions.add(m_locationDefinition1);
@@ -1029,6 +1149,19 @@ public class DefaultDistributedStatusServiceTest extends TestCase {
                      summary.getChosenApplication());
     }
 
+    /**
+     * Creates the status.
+     *
+     * @param locationMonitor
+     *            the location monitor
+     * @param service
+     *            the service
+     * @param status
+     *            the status
+     * @param timestamp
+     *            the timestamp
+     * @return the onms location specific status
+     */
     private OnmsLocationSpecificStatus createStatus(final OnmsLocationMonitor locationMonitor,
             final OnmsMonitoredService service, final PollStatus status, final String timestamp) {
 
@@ -1043,6 +1176,14 @@ public class DefaultDistributedStatusServiceTest extends TestCase {
         return new OnmsLocationSpecificStatus(locationMonitor, service, status);
     }
 
+    /**
+     * Assert table equals.
+     *
+     * @param expectedTable
+     *            the expected table
+     * @param table
+     *            the table
+     */
     public final void assertTableEquals(final SimpleWebTable expectedTable, final SimpleWebTable table) {
         assertEquals("table title", expectedTable.getTitle(), table.getTitle());
 
@@ -1083,6 +1224,9 @@ public class DefaultDistributedStatusServiceTest extends TestCase {
         }
     }
 
+    /**
+     * Expect everything.
+     */
     public final void expectEverything() {
         expect(m_applicationDao.findByName("Application 1")).andReturn(m_application1);
         expect(m_locationMonitorDao.findMonitoringLocationDefinition(m_locationDefinition1.getName())).andReturn(m_locationDefinition1);
@@ -1098,11 +1242,33 @@ public class DefaultDistributedStatusServiceTest extends TestCase {
         expect(m_locationMonitorDao.getMostRecentStatusChange(m_locationMonitor1_1, httpsService)).andReturn(null);
     }
 
+    /**
+     * Find monitored service.
+     *
+     * @param services
+     *            the services
+     * @param interfaceIp
+     *            the interface ip
+     * @param serviceName
+     *            the service name
+     * @return the onms monitored service
+     */
     public final OnmsMonitoredService findMonitoredService(final Collection<OnmsMonitoredService> services,
             final String interfaceIp, final String serviceName) {
         return findMonitoredService(services, addr(interfaceIp), serviceName);
     }
 
+    /**
+     * Find monitored service.
+     *
+     * @param services
+     *            the services
+     * @param ipaddr
+     *            the ipaddr
+     * @param serviceName
+     *            the service name
+     * @return the onms monitored service
+     */
     private OnmsMonitoredService findMonitoredService(final Collection<OnmsMonitoredService> services,
             final InetAddress ipaddr, final String serviceName) {
         for (OnmsMonitoredService service : services) {

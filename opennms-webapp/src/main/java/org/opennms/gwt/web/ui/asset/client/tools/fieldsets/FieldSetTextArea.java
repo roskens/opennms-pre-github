@@ -38,29 +38,65 @@ import com.google.gwt.uibinder.client.UiConstructor;
 import com.google.gwt.user.client.ui.TextArea;
 
 /**
- * @author <a href="mailto:MarkusNeumannMarkus@gmail.com">Markus Neumann</a>
- *         <br/> {@link FieldSet} for displaying and editing text as a textarea.
+ * The Class FieldSetTextArea.
+ *
+ * @author <a href="mailto:MarkusNeumannMarkus@gmail.com">Markus Neumann</a> <br/>
+ *         {@link FieldSet} for displaying and editing text as a textarea.
  */
 public class FieldSetTextArea extends AbstractFieldSet implements FieldSet, KeyUpHandler, MouseUpHandler {
 
+    /** The text area. */
     private TextArea textArea = new TextArea();
 
+    /**
+     * Instantiates a new field set text area.
+     *
+     * @param name
+     *            the name
+     * @param value
+     *            the value
+     * @param helpText
+     *            the help text
+     */
     public FieldSetTextArea(String name, String value, String helpText) {
         super(name, helpText);
         init(value, -1);
     }
 
+    /**
+     * Instantiates a new field set text area.
+     *
+     * @param name
+     *            the name
+     * @param value
+     *            the value
+     * @param helpText
+     *            the help text
+     * @param maxLength
+     *            the max length
+     */
     @UiConstructor
     public FieldSetTextArea(String name, String value, String helpText, int maxLength) {
         super(name, helpText);
         init(value, maxLength);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.gwt.web.ui.asset.client.tools.fieldsets.FieldSet#getValue()
+     */
     @Override
     public String getValue() {
         return textArea.getText();
     }
 
+    /**
+     * Inits the.
+     *
+     * @param value
+     *            the value
+     * @param maxLength
+     *            the max length
+     */
     private void init(String value, int maxLength) {
 
         if (maxLength > 0) {
@@ -100,11 +136,17 @@ public class FieldSetTextArea extends AbstractFieldSet implements FieldSet, KeyU
         checkField();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.gwt.web.ui.asset.client.tools.fieldsets.FieldSet#setEnabled(java.lang.Boolean)
+     */
     @Override
     public void setEnabled(Boolean enabled) {
         textArea.setEnabled(enabled);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.gwt.web.ui.asset.client.tools.fieldsets.FieldSet#setValue(java.lang.String)
+     */
     @Override
     public void setValue(String value) {
         textArea.setText(value);

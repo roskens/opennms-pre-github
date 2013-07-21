@@ -39,12 +39,14 @@ package org.opennms.web.command;
  */
 public class ManageDatabaseReportCommand {
 
+    /** The m_ids. */
     private Integer[] m_ids;
 
     /**
      * <p>
      * setIds
      * </p>
+     * .
      *
      * @param ids
      *            an array of {@link java.lang.Integer} objects.
@@ -57,6 +59,7 @@ public class ManageDatabaseReportCommand {
      * <p>
      * getIds
      * </p>
+     * .
      *
      * @return an array of {@link java.lang.Integer} objects.
      */

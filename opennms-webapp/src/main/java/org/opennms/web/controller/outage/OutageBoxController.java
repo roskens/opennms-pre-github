@@ -50,10 +50,14 @@ import org.springframework.web.servlet.mvc.AbstractController;
  * @since 1.8.1
  */
 public class OutageBoxController extends AbstractController implements InitializingBean {
+
+    /** The Constant ROWS. */
     public static final int ROWS = 12;
 
+    /** The m_web outage repository. */
     private WebOutageRepository m_webOutageRepository;
 
+    /** The m_success view. */
     private String m_successView;
 
     /** {@inheritDoc} */
@@ -79,6 +83,11 @@ public class OutageBoxController extends AbstractController implements Initializ
 
     }
 
+    /**
+     * Gets the success view.
+     *
+     * @return the success view
+     */
     private String getSuccessView() {
         return m_successView;
     }
@@ -87,6 +96,7 @@ public class OutageBoxController extends AbstractController implements Initializ
      * <p>
      * setSuccessView
      * </p>
+     * .
      *
      * @param successView
      *            a {@link java.lang.String} object.
@@ -99,6 +109,7 @@ public class OutageBoxController extends AbstractController implements Initializ
      * <p>
      * setWebOutageRepository
      * </p>
+     * .
      *
      * @param webOutageRepository
      *            a {@link org.opennms.web.outage.WebOutageRepository} object.
@@ -111,6 +122,7 @@ public class OutageBoxController extends AbstractController implements Initializ
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      */
     @Override
     public void afterPropertiesSet() {

@@ -38,21 +38,33 @@ import org.opennms.test.ThrowableAnticipator;
 import org.opennms.test.mock.EasyMockUtils;
 
 /**
+ * The Class DefaultRrdGraphServiceTest.
+ *
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  */
 public class DefaultRrdGraphServiceTest extends TestCase {
+
+    /** The m_mock utils. */
     private EasyMockUtils m_mockUtils;
 
+    /** The m_file anticipator. */
     private FileAnticipator m_fileAnticipator;
 
+    /** The m_service. */
     private DefaultRrdGraphService m_service;
 
+    /** The m_resource dao. */
     private ResourceDao m_resourceDao;
 
+    /** The m_graph dao. */
     private GraphDao m_graphDao;
 
+    /** The m_rrd dao. */
     private RrdDao m_rrdDao;
 
+    /* (non-Javadoc)
+     * @see junit.framework.TestCase#setUp()
+     */
     @Override
     protected void setUp() throws Exception {
         super.setUp();
@@ -62,15 +74,27 @@ public class DefaultRrdGraphServiceTest extends TestCase {
         m_service = new DefaultRrdGraphService();
     }
 
+    /* (non-Javadoc)
+     * @see junit.framework.TestCase#tearDown()
+     */
     @Override
     protected void tearDown() throws Exception {
         m_fileAnticipator.tearDown();
     }
 
+    /**
+     * Test after properties set.
+     */
     public void testAfterPropertiesSet() {
         setUpAll();
     }
 
+    /**
+     * Test no resource dao.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testNoResourceDao() throws Exception {
         setUpGraphDao();
         setUpRrdDao();
@@ -88,6 +112,9 @@ public class DefaultRrdGraphServiceTest extends TestCase {
         m_mockUtils.verifyAll();
     }
 
+    /**
+     * Test no graph dao.
+     */
     public void testNoGraphDao() {
         setUpResourceDao();
         setUpRrdDao();
@@ -105,6 +132,9 @@ public class DefaultRrdGraphServiceTest extends TestCase {
         m_mockUtils.verifyAll();
     }
 
+    /**
+     * Test no rrd dao.
+     */
     public void testNoRrdDao() {
         setUpResourceDao();
         setUpGraphDao();
@@ -184,6 +214,9 @@ public class DefaultRrdGraphServiceTest extends TestCase {
     // ta.verifyAnticipated();
     // }
 
+    /**
+     * Sets the up all.
+     */
     private void setUpAll() {
         setUpResourceDao();
         setUpGraphDao();
@@ -191,16 +224,25 @@ public class DefaultRrdGraphServiceTest extends TestCase {
         m_service.afterPropertiesSet();
     }
 
+    /**
+     * Sets the up resource dao.
+     */
     private void setUpResourceDao() {
         m_resourceDao = m_mockUtils.createMock(ResourceDao.class);
         m_service.setResourceDao(m_resourceDao);
     }
 
+    /**
+     * Sets the up graph dao.
+     */
     private void setUpGraphDao() {
         m_graphDao = m_mockUtils.createMock(GraphDao.class);
         m_service.setGraphDao(m_graphDao);
     }
 
+    /**
+     * Sets the up rrd dao.
+     */
     private void setUpRrdDao() {
         m_rrdDao = m_mockUtils.createMock(RrdDao.class);
         m_service.setRrdDao(m_rrdDao);

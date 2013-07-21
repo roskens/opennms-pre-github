@@ -58,9 +58,12 @@ public abstract class NoticeUtil extends Object {
      * <p>
      * getFilter
      * </p>
+     * .
      *
      * @param filterString
      *            a {@link java.lang.String} object.
+     * @param servletContext
+     *            the servlet context
      * @return a org$opennms$web$filter$Filter object.
      */
     public static org.opennms.web.filter.Filter getFilter(String filterString, ServletContext servletContext) {

@@ -33,14 +33,25 @@ import org.opennms.gwt.web.ui.asset.client.AssetPageConstants;
 import com.google.gwt.core.client.GWT;
 
 /**
+ * The Class StringRegexpValidator.
+ *
  * @author <a href="mailto:MarkusNeumannMarkus@gmail.com">Markus Neumann</a>
  *         Validates a String against a regexp.
  */
 public class StringRegexpValidator implements Validator {
+
+    /** The con. */
     private AssetPageConstants con = GWT.create(AssetPageConstants.class);
 
+    /** The regexp. */
     private String regexp;
 
+    /**
+     * Instantiates a new string regexp validator.
+     *
+     * @param regexp
+     *            the regexp
+     */
     public StringRegexpValidator(String regexp) {
         this.regexp = regexp;
     }
@@ -59,6 +70,8 @@ public class StringRegexpValidator implements Validator {
      * against <code>(String) object</code> so make sure to use a proper object.
      *
      * @param object
+     *            the object
+     * @return the string
      */
     @Override
     public String validate(Object object) {

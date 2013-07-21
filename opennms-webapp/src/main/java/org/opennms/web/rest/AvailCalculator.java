@@ -45,14 +45,23 @@ import org.opennms.netmgt.model.OnmsMonitoredService;
 import org.opennms.web.rest.support.TimeChunker;
 import org.opennms.web.rest.support.TimeChunker.TimeChunk;
 
+/**
+ * The Class AvailCalculator.
+ */
 public class AvailCalculator {
 
+    /**
+     * The Class UptimeCalculator.
+     */
     public static class UptimeCalculator {
 
+        /** The count. */
         public static int count = 0;
 
+        /** The m_time chunker. */
         private TimeChunker m_timeChunker;
 
+        /** The m_status changes. */
         SortedSet<OnmsLocationSpecificStatus> m_statusChanges = new TreeSet<OnmsLocationSpecificStatus>(
                                                                                                         new Comparator<OnmsLocationSpecificStatus>() {
 
@@ -65,6 +74,12 @@ public class AvailCalculator {
 
                                                                                                         });
 
+        /**
+         * Instantiates a new uptime calculator.
+         *
+         * @param timeChunker
+         *            the time chunker
+         */
         public UptimeCalculator(TimeChunker timeChunker) {
             m_timeChunker = timeChunker;
             // m_upIntervals = new
@@ -77,10 +92,23 @@ public class AvailCalculator {
             // }
         }
 
+        /**
+         * Timestamp.
+         *
+         * @param status
+         *            the status
+         * @return the date
+         */
         public Date timestamp(OnmsLocationSpecificStatus status) {
             return new Date(status.getPollResult().getTimestamp().getTime());
         }
 
+        /**
+         * On status change.
+         *
+         * @param statusChange
+         *            the status change
+         */
         public void onStatusChange(OnmsLocationSpecificStatus statusChange) {
 
             // Date startDate = m_lastChange == null ? new Date(0) :
@@ -107,6 +135,13 @@ public class AvailCalculator {
             m_statusChanges.add(statusChange);
         }
 
+        /**
+         * Gets the uptime percentage.
+         *
+         * @param index
+         *            the index
+         * @return the uptime percentage
+         */
         public double getUptimePercentage(int index) {
 
             // if (m_lastChange != null &&
@@ -154,6 +189,15 @@ public class AvailCalculator {
             return uptime(chunk, uptime);
         }
 
+        /**
+         * Uptime.
+         *
+         * @param chunk
+         *            the chunk
+         * @param uptime
+         *            the uptime
+         * @return the double
+         */
         private double uptime(TimeChunk chunk, TimeIntervalSequence uptime) {
             TimeIntervalSequence sequence = uptime;
             long uptimeMillis = 0;
@@ -169,15 +213,33 @@ public class AvailCalculator {
 
     }
 
+    /**
+     * The Class ServiceAvailCalculator.
+     */
     public static class ServiceAvailCalculator {
+
+        /** The m_uptime calculators. */
         Map<OnmsLocationMonitor, UptimeCalculator> m_uptimeCalculators = new HashMap<OnmsLocationMonitor, UptimeCalculator>();
 
+        /** The m_time chunker. */
         TimeChunker m_timeChunker;
 
+        /**
+         * Instantiates a new service avail calculator.
+         *
+         * @param timeChunker
+         *            the time chunker
+         */
         public ServiceAvailCalculator(TimeChunker timeChunker) {
             m_timeChunker = timeChunker;
         }
 
+        /**
+         * On status change.
+         *
+         * @param statusChange
+         *            the status change
+         */
         public void onStatusChange(OnmsLocationSpecificStatus statusChange) {
             UptimeCalculator calc = m_uptimeCalculators.get(statusChange.getLocationMonitor());
             if (calc == null) {
@@ -188,6 +250,13 @@ public class AvailCalculator {
             calc.onStatusChange(statusChange);
         }
 
+        /**
+         * Gets the availability.
+         *
+         * @param i
+         *            the i
+         * @return the availability
+         */
         public double getAvailability(int i) {
             double sum = 0.0;
             for (Map.Entry<OnmsLocationMonitor, UptimeCalculator> entry : m_uptimeCalculators.entrySet()) {
@@ -226,17 +295,37 @@ public class AvailCalculator {
 
     Map<OnmsMonitoredService, ServiceAvailCalculator> m_svcCalculators = new HashMap<OnmsMonitoredService, ServiceAvailCalculator>();
 
+    /** The m_time chunker. */
     TimeChunker m_timeChunker;
 
+    /**
+     * Instantiates a new avail calculator.
+     *
+     * @param timeChunker
+     *            the time chunker
+     */
     public AvailCalculator(TimeChunker timeChunker) {
         m_timeChunker = timeChunker;
     }
 
+    /**
+     * On status change.
+     *
+     * @param statusChange
+     *            the status change
+     */
     public void onStatusChange(OnmsLocationSpecificStatus statusChange) {
         ServiceAvailCalculator calc = getServiceAvailCalculator(statusChange.getMonitoredService());
         calc.onStatusChange(statusChange);
     }
 
+    /**
+     * Gets the service avail calculator.
+     *
+     * @param svc
+     *            the svc
+     * @return the service avail calculator
+     */
     private ServiceAvailCalculator getServiceAvailCalculator(OnmsMonitoredService svc) {
         ServiceAvailCalculator calc = m_svcCalculators.get(svc);
         if (calc == null) {
@@ -246,6 +335,15 @@ public class AvailCalculator {
         return calc;
     }
 
+    /**
+     * Gets the availability for.
+     *
+     * @param svcs
+     *            the svcs
+     * @param i
+     *            the i
+     * @return the availability for
+     */
     public double getAvailabilityFor(Collection<OnmsMonitoredService> svcs, int i) {
 
         double sum = 0.0;

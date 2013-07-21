@@ -39,7 +39,7 @@ import org.opennms.netmgt.config.UserFactory;
 import org.opennms.netmgt.config.UserManager;
 
 /**
- * A servlet that handles deleting an existing user
+ * A servlet that handles deleting an existing user.
  *
  * @author <A HREF="mailto:jason@opennms.org">Jason Johns </A>
  * @author <A HREF="http://www.opennms.org/">OpenNMS </A>
@@ -49,9 +49,8 @@ import org.opennms.netmgt.config.UserManager;
  * @since 1.8.1
  */
 public class DeleteUserServlet extends HttpServlet {
-    /**
-     *
-     */
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -7274547687183446773L;
 
     /** {@inheritDoc} */

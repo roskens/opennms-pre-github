@@ -36,6 +36,8 @@ import org.hibernate.criterion.Restrictions;
  * Abstract InFilter class.
  * </p>
  *
+ * @param <T>
+ *            the generic type
  * @author ranger
  * @version $Id: $
  * @since 1.8.1
@@ -57,8 +59,6 @@ public abstract class InFilter<T> extends MultiArgFilter<T> {
      *            a {@link java.lang.String} object.
      * @param values
      *            an array of T objects.
-     * @param <T>
-     *            a T object.
      */
     public InFilter(String filterType, SQLType<T> type, String fieldName, String propertyName, T[] values) {
         super(filterType, type, fieldName, propertyName, values);

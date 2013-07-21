@@ -33,7 +33,7 @@ import org.opennms.web.alarm.SortStyle;
 import org.opennms.web.filter.Filter;
 
 /**
- * AlarmCritiera
+ * AlarmCritiera.
  *
  * @author brozow
  * @version $Id: $
@@ -41,46 +41,113 @@ import org.opennms.web.filter.Filter;
  */
 public class AlarmCriteria {
 
+    /** The Constant NO_LIMIT. */
     public static final int NO_LIMIT = -1;
 
+    /** The Constant NO_OFFSET. */
     public static final int NO_OFFSET = -1;
 
+    /**
+     * The Interface AlarmCriteriaVisitor.
+     *
+     * @param <E>
+     *            the element type
+     */
     public static interface AlarmCriteriaVisitor<E extends Exception> {
+
+        /**
+         * Visit ack type.
+         *
+         * @param ackType
+         *            the ack type
+         * @throws E
+         *             the e
+         */
         public void visitAckType(AcknowledgeType ackType) throws E;
 
+        /**
+         * Visit filter.
+         *
+         * @param filter
+         *            the filter
+         * @throws E
+         *             the e
+         */
         public void visitFilter(Filter filter) throws E;
 
+        /**
+         * Visit sort style.
+         *
+         * @param sortStyle
+         *            the sort style
+         * @throws E
+         *             the e
+         */
         public void visitSortStyle(SortStyle sortStyle) throws E;
 
+        /**
+         * Visit limit.
+         *
+         * @param limit
+         *            the limit
+         * @param offset
+         *            the offset
+         * @throws E
+         *             the e
+         */
         public void visitLimit(int limit, int offset) throws E;
     }
 
+    /**
+     * The Class BaseAlarmCriteriaVisitor.
+     *
+     * @param <E>
+     *            the element type
+     */
     public static class BaseAlarmCriteriaVisitor<E extends Exception> implements AlarmCriteriaVisitor<E> {
+
+        /* (non-Javadoc)
+         * @see org.opennms.web.alarm.filter.AlarmCriteria.AlarmCriteriaVisitor#visitAckType(org.opennms.web.alarm.AcknowledgeType)
+         */
         @Override
         public void visitAckType(AcknowledgeType ackType) throws E {
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.web.alarm.filter.AlarmCriteria.AlarmCriteriaVisitor#visitFilter(org.opennms.web.filter.Filter)
+         */
         @Override
         public void visitFilter(Filter filter) throws E {
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.web.alarm.filter.AlarmCriteria.AlarmCriteriaVisitor#visitLimit(int, int)
+         */
         @Override
         public void visitLimit(int limit, int offset) throws E {
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.web.alarm.filter.AlarmCriteria.AlarmCriteriaVisitor#visitSortStyle(org.opennms.web.alarm.SortStyle)
+         */
         @Override
         public void visitSortStyle(SortStyle sortStyle) throws E {
         }
     }
 
+    /** The m_filters. */
     Filter[] m_filters = null;
 
+    /** The m_sort style. */
     SortStyle m_sortStyle = SortStyle.LASTEVENTTIME;
 
+    /** The m_ack type. */
     AcknowledgeType m_ackType = AcknowledgeType.UNACKNOWLEDGED;
 
+    /** The m_limit. */
     int m_limit = NO_LIMIT;
 
+    /** The m_offset. */
     int m_offset = NO_OFFSET;
 
     /**
@@ -137,15 +204,16 @@ public class AlarmCriteria {
      * <p>
      * visit
      * </p>
+     * .
      *
-     * @param visitor
-     *            a
-     *            {@link org.opennms.web.alarm.filter.AlarmCriteria.AlarmCriteriaVisitor}
-     *            object.
      * @param <E>
      *            a E object.
+     * @param visitor
+     *            a
      * @throws E
      *             if any.
+     *             {@link org.opennms.web.alarm.filter.AlarmCriteria.AlarmCriteriaVisitor}
+     *             object.
      */
     public <E extends Exception> void visit(AlarmCriteriaVisitor<E> visitor) throws E {
         if (m_ackType != null) {

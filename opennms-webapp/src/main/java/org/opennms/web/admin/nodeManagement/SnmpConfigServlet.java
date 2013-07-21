@@ -63,26 +63,53 @@ import com.google.common.io.Files;
  */
 public class SnmpConfigServlet extends HttpServlet {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(SnmpConfigServlet.class);
 
+    /**
+     * The Enum SnmpConfigServletAction.
+     */
     public static enum SnmpConfigServletAction {
-        Default("default"), GetConfigForIp("get"), Save("add");
 
+        /** The Default. */
+        Default("default"),
+ /** The Get config for ip. */
+ GetConfigForIp("get"),
+ /** The Save. */
+ Save("add");
+
+        /** The action name. */
         private final String actionName;
 
+        /**
+         * Instantiates a new snmp config servlet action.
+         *
+         * @param actionName
+         *            the action name
+         */
         private SnmpConfigServletAction(String actionName) {
             this.actionName = actionName;
         }
 
+        /**
+         * Gets the action name.
+         *
+         * @return the action name
+         */
         public String getActionName() {
             return actionName;
         }
     }
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -2298118339644843598L;
 
+    /** The Constant ACTION_PARAMETER_NAME. */
     private static final String ACTION_PARAMETER_NAME = "action";
 
+    /* (non-Javadoc)
+     * @see javax.servlet.http.HttpServlet#doGet(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         process(request, response);
@@ -96,6 +123,18 @@ public class SnmpConfigServlet extends HttpServlet {
 
     /*
      * Processes the request.
+     */
+    /**
+     * Process.
+     *
+     * @param request
+     *            the request
+     * @param response
+     *            the response
+     * @throws ServletException
+     *             the servlet exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     private void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         SnmpInfo snmpInfo = createFromRequest(request);
@@ -141,6 +180,13 @@ public class SnmpConfigServlet extends HttpServlet {
         dispatcher.forward(request, response);
     }
 
+    /**
+     * Parses the checkbox value.
+     *
+     * @param parameter
+     *            the parameter
+     * @return true, if successful
+     */
     private boolean parseCheckboxValue(String parameter) {
         if (Strings.isNullOrEmpty(parameter))
             return false;
@@ -254,6 +300,13 @@ public class SnmpConfigServlet extends HttpServlet {
         return snmpInfo;
     }
 
+    /**
+     * Determine action.
+     *
+     * @param request
+     *            the request
+     * @return the snmp config servlet action
+     */
     private SnmpConfigServletAction determineAction(HttpServletRequest request) {
         if (request.getParameter(ACTION_PARAMETER_NAME) == null)
             return SnmpConfigServletAction.Default;

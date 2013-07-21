@@ -107,6 +107,7 @@ public class FixedRowCompact extends AbstractHtmlView {
      * <p>
      * toolbar
      * </p>
+     * .
      *
      * @param html
      *            a {@link org.extremecomponents.util.HtmlBuilder} object.

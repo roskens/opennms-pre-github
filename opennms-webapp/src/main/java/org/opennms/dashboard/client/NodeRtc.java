@@ -41,26 +41,35 @@ import com.google.gwt.user.client.rpc.IsSerializable;
  */
 public class NodeRtc implements IsSerializable {
 
+    /** The m_node label. */
     private String m_nodeLabel;
 
+    /** The m_node id. */
     private String m_nodeId;
 
+    /** The m_availability. */
     private String m_availability;
 
+    /** The m_down service count. */
     private int m_downServiceCount;
 
+    /** The m_service count. */
     private int m_serviceCount;
 
+    /** The m_service style. */
     private String m_serviceStyle;
 
+    /** The m_availability style. */
     private String m_availabilityStyle;
 
+    /** The m_is dashboard role. */
     private boolean m_isDashboardRole;
 
     /**
      * <p>
      * setNodeLabel
      * </p>
+     * .
      *
      * @param label
      *            a {@link java.lang.String} object.
@@ -73,6 +82,7 @@ public class NodeRtc implements IsSerializable {
      * <p>
      * setAvailability
      * </p>
+     * .
      *
      * @param availability
      *            a {@link java.lang.String} object.
@@ -85,6 +95,7 @@ public class NodeRtc implements IsSerializable {
      * <p>
      * setDownServiceCount
      * </p>
+     * .
      *
      * @param downServiceCount
      *            a int.
@@ -97,6 +108,7 @@ public class NodeRtc implements IsSerializable {
      * <p>
      * setServiceCount
      * </p>
+     * .
      *
      * @param serviceCount
      *            a int.
@@ -109,6 +121,7 @@ public class NodeRtc implements IsSerializable {
      * <p>
      * getAvailability
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -120,6 +133,7 @@ public class NodeRtc implements IsSerializable {
      * <p>
      * getDownServiceCount
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -131,6 +145,7 @@ public class NodeRtc implements IsSerializable {
      * <p>
      * getNodeLabel
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -142,6 +157,7 @@ public class NodeRtc implements IsSerializable {
      * <p>
      * getServiceCount
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -153,6 +169,7 @@ public class NodeRtc implements IsSerializable {
      * <p>
      * getServiceStyle
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -164,6 +181,7 @@ public class NodeRtc implements IsSerializable {
      * <p>
      * getAvailabilityStyle
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -175,6 +193,7 @@ public class NodeRtc implements IsSerializable {
      * <p>
      * setServiceStyle
      * </p>
+     * .
      *
      * @param serviceStyle
      *            a {@link java.lang.String} object.
@@ -187,6 +206,7 @@ public class NodeRtc implements IsSerializable {
      * <p>
      * setAvailabilityStyle
      * </p>
+     * .
      *
      * @param availabilityStyle
      *            a {@link java.lang.String} object.
@@ -199,6 +219,7 @@ public class NodeRtc implements IsSerializable {
      * <p>
      * setIsDashboardRole
      * </p>
+     * .
      *
      * @param isDashboardRole
      *            a boolean.
@@ -211,6 +232,7 @@ public class NodeRtc implements IsSerializable {
      * <p>
      * getIsDashboardRole
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -222,6 +244,7 @@ public class NodeRtc implements IsSerializable {
      * <p>
      * setNodeId
      * </p>
+     * .
      *
      * @param nodeId
      *            a {@link java.lang.String} object.
@@ -234,6 +257,7 @@ public class NodeRtc implements IsSerializable {
      * <p>
      * getNodeId
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

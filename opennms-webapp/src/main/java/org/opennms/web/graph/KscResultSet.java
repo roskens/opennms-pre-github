@@ -40,15 +40,24 @@ import java.util.Date;
 import org.opennms.netmgt.model.OnmsResource;
 import org.opennms.netmgt.model.PrefabGraph;
 
+/**
+ * The Class KscResultSet.
+ */
 public class KscResultSet {
+
+    /** The m_title. */
     private final String m_title;
 
+    /** The m_start. */
     private final Date m_start;
 
+    /** The m_end. */
     private final Date m_end;
 
+    /** The m_resource. */
     private final OnmsResource m_resource;
 
+    /** The m_prefab graph. */
     private final PrefabGraph m_prefabGraph;
 
     /**
@@ -79,6 +88,7 @@ public class KscResultSet {
      * <p>
      * getTitle
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -90,6 +100,7 @@ public class KscResultSet {
      * <p>
      * getStart
      * </p>
+     * .
      *
      * @return a java$util$Date object.
      */
@@ -101,6 +112,7 @@ public class KscResultSet {
      * <p>
      * getEnd
      * </p>
+     * .
      *
      * @return a java$util$Date object.
      */
@@ -112,6 +124,7 @@ public class KscResultSet {
      * <p>
      * getResource
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.OnmsResource} object.
      */
@@ -123,6 +136,7 @@ public class KscResultSet {
      * <p>
      * getPrefabGraph
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.PrefabGraph} object.
      */

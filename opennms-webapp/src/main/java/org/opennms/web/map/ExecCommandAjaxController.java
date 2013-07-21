@@ -57,14 +57,27 @@ import org.springframework.web.servlet.ModelAndView;
  */
 public class ExecCommandAjaxController extends MapsLoggingController {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(ExecCommandAjaxController.class);
 
+    /** The manager. */
     private Manager manager;
 
+    /**
+     * Gets the manager.
+     *
+     * @return the manager
+     */
     public Manager getManager() {
         return manager;
     }
 
+    /**
+     * Sets the manager.
+     *
+     * @param manager
+     *            the new manager
+     */
     public void setManager(Manager manager) {
         this.manager = manager;
     }
@@ -134,6 +147,17 @@ public class ExecCommandAjaxController extends MapsLoggingController {
         return null;
     }
 
+    /**
+     * Gets the command to exec.
+     *
+     * @param request
+     *            the request
+     * @param command
+     *            the command
+     * @param address
+     *            the address
+     * @return the command to exec
+     */
     private String getCommandToExec(HttpServletRequest request, String command, String address) {
 
         String commandToExec = command;

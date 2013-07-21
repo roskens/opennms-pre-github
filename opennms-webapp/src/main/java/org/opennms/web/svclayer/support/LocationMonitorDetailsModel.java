@@ -44,14 +44,20 @@ import org.springframework.validation.Errors;
  * @since 1.8.1
  */
 public class LocationMonitorDetailsModel {
+
+    /** The m_errors. */
     private Errors m_errors;
 
+    /** The m_title. */
     private MessageSourceResolvable m_title;
 
+    /** The m_main details. */
     private Map<MessageSourceResolvable, MessageSourceResolvable> m_mainDetails;
 
+    /** The m_additional details title. */
     private MessageSourceResolvable m_additionalDetailsTitle;
 
+    /** The m_additional details. */
     private Map<MessageSourceResolvable, MessageSourceResolvable> m_additionalDetails;
 
     /**
@@ -66,6 +72,7 @@ public class LocationMonitorDetailsModel {
      * <p>
      * getAdditionalDetails
      * </p>
+     * .
      *
      * @return a {@link java.util.Map} object.
      */
@@ -77,6 +84,7 @@ public class LocationMonitorDetailsModel {
      * <p>
      * setAdditionalDetails
      * </p>
+     * .
      *
      * @param additionalDetails
      *            a {@link java.util.Map} object.
@@ -89,6 +97,7 @@ public class LocationMonitorDetailsModel {
      * <p>
      * addAdditionalDetail
      * </p>
+     * .
      *
      * @param key
      *            a {@link org.springframework.context.MessageSourceResolvable}
@@ -108,6 +117,7 @@ public class LocationMonitorDetailsModel {
      * <p>
      * getAdditionalDetailsTitle
      * </p>
+     * .
      *
      * @return a {@link org.springframework.context.MessageSourceResolvable}
      *         object.
@@ -120,6 +130,7 @@ public class LocationMonitorDetailsModel {
      * <p>
      * setAdditionalDetailsTitle
      * </p>
+     * .
      *
      * @param additionalDetailsTitle
      *            a {@link org.springframework.context.MessageSourceResolvable}
@@ -133,6 +144,7 @@ public class LocationMonitorDetailsModel {
      * <p>
      * getMainDetails
      * </p>
+     * .
      *
      * @return a {@link java.util.Map} object.
      */
@@ -144,6 +156,7 @@ public class LocationMonitorDetailsModel {
      * <p>
      * setMainDetails
      * </p>
+     * .
      *
      * @param mainDetails
      *            a {@link java.util.Map} object.
@@ -156,6 +169,7 @@ public class LocationMonitorDetailsModel {
      * <p>
      * addMainDetail
      * </p>
+     * .
      *
      * @param key
      *            a {@link org.springframework.context.MessageSourceResolvable}
@@ -175,6 +189,7 @@ public class LocationMonitorDetailsModel {
      * <p>
      * getTitle
      * </p>
+     * .
      *
      * @return a {@link org.springframework.context.MessageSourceResolvable}
      *         object.
@@ -187,6 +202,7 @@ public class LocationMonitorDetailsModel {
      * <p>
      * setTitle
      * </p>
+     * .
      *
      * @param title
      *            a {@link org.springframework.context.MessageSourceResolvable}
@@ -200,6 +216,7 @@ public class LocationMonitorDetailsModel {
      * <p>
      * getErrors
      * </p>
+     * .
      *
      * @return a {@link org.springframework.validation.Errors} object.
      */
@@ -211,6 +228,7 @@ public class LocationMonitorDetailsModel {
      * <p>
      * setErrors
      * </p>
+     * .
      *
      * @param errors
      *            a {@link org.springframework.validation.Errors} object.

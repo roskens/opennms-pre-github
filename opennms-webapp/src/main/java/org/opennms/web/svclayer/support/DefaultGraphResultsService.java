@@ -68,20 +68,28 @@ import org.springframework.util.Assert;
  */
 public class DefaultGraphResultsService implements GraphResultsService, InitializingBean {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(DefaultGraphResultsService.class);
 
+    /** The logger. */
     private static Logger logger = LoggerFactory.getLogger("OpenNMS.WEB." + DefaultGraphResultsService.class);
 
+    /** The m_resource dao. */
     private ResourceDao m_resourceDao;
 
+    /** The m_graph dao. */
     private GraphDao m_graphDao;
 
+    /** The m_node dao. */
     private NodeDao m_nodeDao;
 
+    /** The m_rrd dao. */
     private RrdDao m_rrdDao;
 
+    /** The m_event proxy. */
     private EventProxy m_eventProxy;
 
+    /** The m_periods. */
     private RelativeTimePeriod[] m_periods;
 
     /**
@@ -94,6 +102,9 @@ public class DefaultGraphResultsService implements GraphResultsService, Initiali
         m_periods = RelativeTimePeriod.getDefaultPeriods();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.web.svclayer.GraphResultsService#findResults(java.lang.String[], java.lang.String[], long, long, java.lang.String)
+     */
     @Override
     public final GraphResults findResults(final String[] resourceIds, final String[] reports, final long start,
             final long end, final String relativeTime) {
@@ -161,6 +172,7 @@ public class DefaultGraphResultsService implements GraphResultsService, Initiali
      * <p>
      * parseResourceId
      * </p>
+     * .
      *
      * @param resourceId
      *            a {@link java.lang.String} resource ID
@@ -184,6 +196,7 @@ public class DefaultGraphResultsService implements GraphResultsService, Initiali
      * <p>
      * createGraphResultSet
      * </p>
+     * .
      *
      * @param resourceId
      *            a {@link java.lang.String} object.
@@ -195,6 +208,8 @@ public class DefaultGraphResultsService implements GraphResultsService, Initiali
      *            a {@link org.opennms.web.graph.GraphResults} object.
      * @return a {@link org.opennms.web.graph.GraphResults.GraphResultSet}
      *         object.
+     * @throws IllegalArgumentException
+     *             the illegal argument exception
      */
     private GraphResultSet createGraphResultSet(final String resourceId, OnmsResource resource, String[] reports,
             GraphResults graphResults) throws IllegalArgumentException {
@@ -240,6 +255,12 @@ public class DefaultGraphResultsService implements GraphResultsService, Initiali
         return rs;
     }
 
+    /**
+     * Send event.
+     *
+     * @param filesToPromote
+     *            the files to promote
+     */
     private void sendEvent(final List<String> filesToPromote) {
 
         EventBuilder bldr = new EventBuilder(EventConstants.PROMOTE_QUEUE_DATA_UEI, "OpenNMS.Webapp");
@@ -253,6 +274,15 @@ public class DefaultGraphResultsService implements GraphResultsService, Initiali
 
     }
 
+    /**
+     * Gets the attribute files.
+     *
+     * @param graph
+     *            the graph
+     * @param filesToPromote
+     *            the files to promote
+     * @return the attribute files
+     */
     private void getAttributeFiles(final Graph graph, final List<String> filesToPromote) {
 
         Collection<RrdGraphAttribute> attrs = graph.getRequiredRrGraphdAttributes();
@@ -275,6 +305,7 @@ public class DefaultGraphResultsService implements GraphResultsService, Initiali
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      */
     @Override
     public final void afterPropertiesSet() {
@@ -288,6 +319,7 @@ public class DefaultGraphResultsService implements GraphResultsService, Initiali
      * <p>
      * getResourceDao
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.dao.api.ResourceDao} object.
      */
@@ -299,6 +331,7 @@ public class DefaultGraphResultsService implements GraphResultsService, Initiali
      * <p>
      * setResourceDao
      * </p>
+     * .
      *
      * @param resourceDao
      *            a {@link org.opennms.netmgt.dao.api.ResourceDao} object.
@@ -311,6 +344,7 @@ public class DefaultGraphResultsService implements GraphResultsService, Initiali
      * <p>
      * getNodeDao
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.dao.api.NodeDao} object.
      */
@@ -322,6 +356,7 @@ public class DefaultGraphResultsService implements GraphResultsService, Initiali
      * <p>
      * setNodeDao
      * </p>
+     * .
      *
      * @param nodeDao
      *            a {@link org.opennms.netmgt.dao.api.NodeDao} object.
@@ -334,6 +369,7 @@ public class DefaultGraphResultsService implements GraphResultsService, Initiali
      * <p>
      * getGraphDao
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.dao.api.GraphDao} object.
      */
@@ -345,6 +381,7 @@ public class DefaultGraphResultsService implements GraphResultsService, Initiali
      * <p>
      * setGraphDao
      * </p>
+     * .
      *
      * @param graphDao
      *            a {@link org.opennms.netmgt.dao.api.GraphDao} object.
@@ -357,6 +394,7 @@ public class DefaultGraphResultsService implements GraphResultsService, Initiali
      * <p>
      * getRrdDao
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.dao.api.RrdDao} object.
      */
@@ -368,6 +406,7 @@ public class DefaultGraphResultsService implements GraphResultsService, Initiali
      * <p>
      * setRrdDao
      * </p>
+     * .
      *
      * @param rrdDao
      *            a {@link org.opennms.netmgt.dao.api.RrdDao} object.
@@ -380,6 +419,7 @@ public class DefaultGraphResultsService implements GraphResultsService, Initiali
      * <p>
      * setEventProxy
      * </p>
+     * .
      *
      * @param eventProxy
      *            a {@link org.opennms.netmgt.model.events.EventProxy} object.

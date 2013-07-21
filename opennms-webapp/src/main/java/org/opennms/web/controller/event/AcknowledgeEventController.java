@@ -62,16 +62,20 @@ import org.springframework.web.servlet.view.RedirectView;
  */
 public class AcknowledgeEventController extends AbstractController implements InitializingBean {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(AcknowledgeEventController.class);
 
+    /** The m_web event repository. */
     private WebEventRepository m_webEventRepository;
 
+    /** The m_redirect view. */
     private String m_redirectView;
 
     /**
      * <p>
      * setRedirectView
      * </p>
+     * .
      *
      * @param redirectView
      *            a {@link java.lang.String} object.
@@ -84,6 +88,7 @@ public class AcknowledgeEventController extends AbstractController implements In
      * <p>
      * setWebEventRepository
      * </p>
+     * .
      *
      * @param webEventRepository
      *            a {@link org.opennms.web.event.WebEventRepository} object.
@@ -96,9 +101,10 @@ public class AcknowledgeEventController extends AbstractController implements In
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @Override
     public void afterPropertiesSet() throws Exception {

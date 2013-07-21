@@ -38,7 +38,8 @@ import org.opennms.web.filter.NoSubstringFilter;
  * @since 1.8.1
  */
 public class NegativePartialUEIFilter extends NoSubstringFilter {
-    /** Constant <code>TYPE="partialUeiNot"</code> */
+
+    /** Constant <code>TYPE="partialUeiNot"</code>. */
     public static final String TYPE = "partialUeiNot";
 
     /**
@@ -57,6 +58,7 @@ public class NegativePartialUEIFilter extends NoSubstringFilter {
      * <p>
      * getTextDescription
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -69,6 +71,7 @@ public class NegativePartialUEIFilter extends NoSubstringFilter {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -81,6 +84,7 @@ public class NegativePartialUEIFilter extends NoSubstringFilter {
      * <p>
      * getUEI
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

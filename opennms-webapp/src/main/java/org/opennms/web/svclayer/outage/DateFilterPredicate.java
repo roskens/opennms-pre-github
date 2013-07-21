@@ -53,6 +53,7 @@ import org.slf4j.LoggerFactory;
  */
 public class DateFilterPredicate implements Predicate {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(DateFilterPredicate.class);
 
     /** less than or equal. usage: <= 18-12-1997 */
@@ -67,13 +68,16 @@ public class DateFilterPredicate implements Predicate {
     /** date not equal. ussage: != 18-12-2004 */
     public static final String NOT_EQUAL = "!=";
 
-    /** delimiters */
+    /** delimiters. */
     public static final String DELIM = "\\s";
 
+    /** The Constant asterisk. */
     private static final String asterisk = "*";
 
+    /** The Constant emptyString. */
     private static final String emptyString = "";
 
+    /** The model. */
     private TableModel model;
 
     /**
@@ -136,6 +140,21 @@ public class DateFilterPredicate implements Predicate {
         return match;
     }
 
+    /**
+     * Checks if is search match.
+     *
+     * @param value
+     *            the value
+     * @param searchIn
+     *            the search in
+     * @param isDate
+     *            the is date
+     * @param format
+     *            the format
+     * @param locale
+     *            the locale
+     * @return true, if is search match
+     */
     private boolean isSearchMatch(final Object value, final String searchIn, final boolean isDate, final String format,
             final Locale locale) {
         String valueStr = value.toString().toLowerCase().trim();

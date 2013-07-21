@@ -47,12 +47,13 @@ public interface WebNotificationRepository {
      * <p>
      * countMatchingNotifications
      * </p>
+     * .
      *
      * @param criteria
      *            a
-     *            {@link org.opennms.web.notification.filter.NotificationCriteria}
-     *            object.
      * @return a int.
+     *         {@link org.opennms.web.notification.filter.NotificationCriteria}
+     *         object.
      */
     public abstract int countMatchingNotifications(NotificationCriteria criteria);
 
@@ -60,6 +61,7 @@ public interface WebNotificationRepository {
      * <p>
      * getNotification
      * </p>
+     * .
      *
      * @param noticeId
      *            a int.
@@ -71,13 +73,14 @@ public interface WebNotificationRepository {
      * <p>
      * getMatchingNotifications
      * </p>
+     * .
      *
      * @param criteria
      *            a
-     *            {@link org.opennms.web.notification.filter.NotificationCriteria}
-     *            object.
      * @return an array of {@link org.opennms.web.notification.Notification}
      *         objects.
+     *         {@link org.opennms.web.notification.filter.NotificationCriteria}
+     *         object.
      */
     public abstract Notification[] getMatchingNotifications(NotificationCriteria criteria);
 
@@ -85,6 +88,7 @@ public interface WebNotificationRepository {
      * <p>
      * acknowledgeMatchingNotification
      * </p>
+     * .
      *
      * @param user
      *            a {@link java.lang.String} object.

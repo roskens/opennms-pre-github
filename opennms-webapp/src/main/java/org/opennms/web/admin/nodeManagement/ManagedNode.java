@@ -32,7 +32,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * A servlet that stores node, interface, service information
+ * A servlet that stores node, interface, service information.
  *
  * @author <A HREF="mailto:jason@opennms.org">Jason Johns </A>
  * @author <A HREF="http://www.opennms.org/">OpenNMS </A>
@@ -42,17 +42,14 @@ import java.util.List;
  * @since 1.8.1
  */
 public class ManagedNode {
-    /**
-     */
+
+    /** The node id. */
     protected int nodeID;
 
-    /**
-     */
+    /** The node label. */
     protected String nodeLabel;
 
-    /**
-     *
-     */
+    /** The interfaces. */
     protected List<ManagedInterface> interfaces;
 
     /**
@@ -92,6 +89,7 @@ public class ManagedNode {
      * <p>
      * addInterface
      * </p>
+     * .
      *
      * @param newInterface
      *            a
@@ -106,6 +104,7 @@ public class ManagedNode {
      * <p>
      * getInterfaceCount
      * </p>
+     * .
      *
      * @return a int.
      */

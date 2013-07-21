@@ -55,19 +55,24 @@ import org.opennms.web.servlet.MissingParameterException;
  * @since 1.8.1
  */
 public class ModifyAssetServlet extends HttpServlet {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 1476437673416953289L;
 
+    /** The s_allow html fields. */
     private static Set<String> s_allowHtmlFields;
 
+    /** The model. */
     protected AssetModel model;
 
     /**
      * <p>
      * init
      * </p>
+     * .
      *
-     * @throws javax.servlet.ServletException
-     *             if any.
+     * @throws ServletException
+     *             the servlet exception
      */
     @Override
     public void init() throws ServletException {
@@ -75,6 +80,9 @@ public class ModifyAssetServlet extends HttpServlet {
         initAllowHtmlFields();
     }
 
+    /**
+     * Inits the allow html fields.
+     */
     private void initAllowHtmlFields() {
         s_allowHtmlFields = new HashSet<String>();
         String allowHtmlFieldNames = System.getProperty("opennms.assets.allowHtmlFields");
@@ -125,6 +133,7 @@ public class ModifyAssetServlet extends HttpServlet {
      * <p>
      * getRequestParameter
      * </p>
+     * .
      *
      * @param request
      *            a {@link javax.servlet.http.HttpServletRequest} object.
@@ -144,6 +153,7 @@ public class ModifyAssetServlet extends HttpServlet {
      * <p>
      * parms2Asset
      * </p>
+     * .
      *
      * @param request
      *            a {@link javax.servlet.http.HttpServletRequest} object.
@@ -222,6 +232,14 @@ public class ModifyAssetServlet extends HttpServlet {
         return (asset);
     }
 
+    /**
+     * Send event.
+     *
+     * @param event
+     *            the event
+     * @throws ServletException
+     *             the servlet exception
+     */
     private void sendEvent(Event event) throws ServletException {
         try {
             Util.createEventProxy().send(event);

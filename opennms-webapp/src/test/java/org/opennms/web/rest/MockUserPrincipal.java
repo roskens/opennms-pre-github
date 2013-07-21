@@ -30,24 +30,46 @@ package org.opennms.web.rest;
 
 import java.security.Principal;
 
+/**
+ * The Class MockUserPrincipal.
+ */
 public final class MockUserPrincipal implements Principal {
 
+    /** The m_instance. */
     private static MockUserPrincipal m_instance = null;
 
+    /** The m_name. */
     private static String m_name = "admin";
 
+    /**
+     * Instantiates a new mock user principal.
+     */
     private MockUserPrincipal() {
     }
 
+    /* (non-Javadoc)
+     * @see java.security.Principal#getName()
+     */
     @Override
     public String getName() {
         return m_name;
     }
 
+    /**
+     * Sets the name.
+     *
+     * @param name
+     *            the new name
+     */
     public static void setName(final String name) {
         m_name = name;
     }
 
+    /**
+     * Gets the single instance of MockUserPrincipal.
+     *
+     * @return single instance of MockUserPrincipal
+     */
     public static Principal getInstance() {
         if (m_instance == null) {
             m_instance = new MockUserPrincipal();

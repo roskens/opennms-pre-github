@@ -48,6 +48,9 @@ import org.springframework.transaction.annotation.Transactional;
 import com.sun.jersey.api.core.ResourceContext;
 import com.sun.jersey.spi.resource.PerRequest;
 
+/**
+ * The Class OnmsMapElementResource.
+ */
 @Component
 /**
  * <p>OnmsMapElementResource class.</p>
@@ -61,11 +64,14 @@ import com.sun.jersey.spi.resource.PerRequest;
 @Transactional
 public class OnmsMapElementResource extends OnmsRestService {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(OnmsMapElementResource.class);
 
+    /** The m_map dao. */
     @Autowired
     private OnmsMapDao m_mapDao;
 
+    /** The m_context. */
     @Context
     ResourceContext m_context;
 
@@ -73,6 +79,7 @@ public class OnmsMapElementResource extends OnmsRestService {
      * <p>
      * getMapElements
      * </p>
+     * .
      *
      * @param mapId
      *            a int.

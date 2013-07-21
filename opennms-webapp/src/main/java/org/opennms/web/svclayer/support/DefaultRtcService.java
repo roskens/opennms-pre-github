@@ -56,14 +56,18 @@ import org.springframework.util.Assert;
  * @since 1.8.1
  */
 public class DefaultRtcService implements RtcService, InitializingBean {
+
+    /** The m_monitored service dao. */
     private MonitoredServiceDao m_monitoredServiceDao;
 
+    /** The m_outage dao. */
     private OutageDao m_outageDao;
 
     /**
      * <p>
      * getNodeList
      * </p>
+     * .
      *
      * @return a {@link org.opennms.web.svclayer.support.RtcNodeModel} object.
      */
@@ -143,6 +147,7 @@ public class DefaultRtcService implements RtcService, InitializingBean {
      * <p>
      * createOutageCriteria
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.OnmsCriteria} object.
      */
@@ -164,6 +169,7 @@ public class DefaultRtcService implements RtcService, InitializingBean {
      * <p>
      * createServiceCriteria
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.OnmsCriteria} object.
      */
@@ -182,6 +188,17 @@ public class DefaultRtcService implements RtcService, InitializingBean {
         return serviceCriteria;
     }
 
+    /**
+     * Calculate service down time.
+     *
+     * @param periodEnd
+     *            the period end
+     * @param periodStart
+     *            the period start
+     * @param outages
+     *            the outages
+     * @return the map
+     */
     private Map<OnmsMonitoredService, Long> calculateServiceDownTime(final Date periodEnd, final Date periodStart,
             final List<OnmsOutage> outages) {
         Map<OnmsMonitoredService, Long> map = new HashMap<OnmsMonitoredService, Long>();
@@ -211,6 +228,15 @@ public class DefaultRtcService implements RtcService, InitializingBean {
         return map;
     }
 
+    /**
+     * Calculate availability.
+     *
+     * @param serviceCount
+     *            the service count
+     * @param downMillisCount
+     *            the down millis count
+     * @return the double
+     */
     private Double calculateAvailability(final int serviceCount, final long downMillisCount) {
         long upMillis = (serviceCount * (24 * 60 * 60 * 1000)) - downMillisCount;
 
@@ -221,6 +247,7 @@ public class DefaultRtcService implements RtcService, InitializingBean {
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      */
     @Override
     public final void afterPropertiesSet() {
@@ -232,6 +259,7 @@ public class DefaultRtcService implements RtcService, InitializingBean {
      * <p>
      * getMonitoredServiceDao
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.dao.api.MonitoredServiceDao} object.
      */
@@ -243,6 +271,7 @@ public class DefaultRtcService implements RtcService, InitializingBean {
      * <p>
      * setMonitoredServiceDao
      * </p>
+     * .
      *
      * @param monitoredServiceDao
      *            a {@link org.opennms.netmgt.dao.api.MonitoredServiceDao}
@@ -256,6 +285,7 @@ public class DefaultRtcService implements RtcService, InitializingBean {
      * <p>
      * getOutageDao
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.dao.api.OutageDao} object.
      */
@@ -267,6 +297,7 @@ public class DefaultRtcService implements RtcService, InitializingBean {
      * <p>
      * setOutageDao
      * </p>
+     * .
      *
      * @param outageDao
      *            a {@link org.opennms.netmgt.dao.api.OutageDao} object.

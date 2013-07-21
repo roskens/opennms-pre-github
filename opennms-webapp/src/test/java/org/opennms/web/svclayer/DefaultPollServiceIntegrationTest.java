@@ -47,6 +47,9 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 
+/**
+ * The Class DefaultPollServiceIntegrationTest.
+ */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:META-INF/opennms/applicationContext-soa.xml",
         "classpath:META-INF/opennms/applicationContext-dao.xml",
@@ -60,16 +63,20 @@ import org.springframework.test.context.ContextConfiguration;
 @JUnitTemporaryDatabase
 public class DefaultPollServiceIntegrationTest implements InitializingBean {
 
+    /** The m_demand poll service. */
     @Autowired
     private DemandPollService m_demandPollService;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
     /**
-     * this is a feature that has not been written yet
+     * this is a feature that has not been written yet.
      */
     @Test
     @Ignore

@@ -50,26 +50,41 @@ import org.opennms.web.snmpinfo.SnmpInfo;
  * 1. Need to figure it out how to create a Mock for EventProxy to validate events sent by RESTful service
  */
 
+/**
+ * The Class SnmpConfigRestServiceTest.
+ */
 public class SnmpConfigRestServiceTest extends AbstractSpringJerseyRestTestCase {
 
+    /** The Constant DEFAULT_PORT. */
     private static final int DEFAULT_PORT = 9161;
 
+    /** The Constant DEFAULT_RETRIES. */
     private static final int DEFAULT_RETRIES = 5;
 
+    /** The Constant DEFAULT_TIMEOUT. */
     private static final int DEFAULT_TIMEOUT = 2000;
 
+    /** The Constant DEFAULT_COMMUNITY. */
     private static final String DEFAULT_COMMUNITY = "myPublic";
 
+    /** The Constant DEFAULT_VERSION. */
     private static final String DEFAULT_VERSION = "v1";
 
+    /** The Constant DEFAULT_MAX_VARS_PER_PDU. */
     private static final int DEFAULT_MAX_VARS_PER_PDU = 100;
 
+    /** The Constant DEFAULT_MAX_REPETITIONS. */
     private static final int DEFAULT_MAX_REPETITIONS = 3;
 
+    /** The m_jaxb context. */
     private JAXBContext m_jaxbContext;
 
+    /** The m_snmp config file. */
     private File m_snmpConfigFile;
 
+    /* (non-Javadoc)
+     * @see org.opennms.web.rest.AbstractSpringJerseyRestTestCase#beforeServletStart()
+     */
     @Override
     protected final void beforeServletStart() throws Exception {
         File dir = new File("target/test-work-dir");
@@ -78,6 +93,11 @@ public class SnmpConfigRestServiceTest extends AbstractSpringJerseyRestTestCase 
         m_jaxbContext = JAXBContext.newInstance(SnmpInfo.class);
     }
 
+    /**
+     * Gets the snmp default config file for snmp v1.
+     *
+     * @return the snmp default config file for snmp v1
+     */
     private String getSnmpDefaultConfigFileForSnmpV1() {
         return String.format("<?xml version=\"1.0\"?>" + "<snmp-config port=\"%s\" retry=\"%s\" timeout=\"%s\"\n"
                                      + "             read-community=\"%s\" \n" + "				version=\"%s\" \n"
@@ -87,6 +107,11 @@ public class SnmpConfigRestServiceTest extends AbstractSpringJerseyRestTestCase 
                              DEFAULT_MAX_REPETITIONS);
     }
 
+    /**
+     * Gets the snmp default config file for snmp v3.
+     *
+     * @return the snmp default config file for snmp v3
+     */
     private String getSnmpDefaultConfigFileForSnmpV3() {
         return String.format("<?xml version=\"1.0\"?>" + "<snmp-config port=\"%s\" retry=\"%s\" timeout=\"%s\"\n"
                                      + "				version=\"%s\" \n"
@@ -95,6 +120,14 @@ public class SnmpConfigRestServiceTest extends AbstractSpringJerseyRestTestCase 
                              DEFAULT_MAX_REPETITIONS);
     }
 
+    /**
+     * Sets the snmp config file.
+     *
+     * @param snmpConfigContent
+     *            the new snmp config file
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     private void setSnmpConfigFile(final String snmpConfigContent) throws IOException {
         m_snmpConfigFile = File.createTempFile("snmp-config-", ".xml");
         m_snmpConfigFile.deleteOnExit();
@@ -109,6 +142,7 @@ public class SnmpConfigRestServiceTest extends AbstractSpringJerseyRestTestCase 
      * the SNMP version is v1.
      *
      * @throws Exception
+     *             the exception
      */
     @Test
     public final void testGetForUnknownIpSnmpV1() throws Exception {
@@ -127,6 +161,7 @@ public class SnmpConfigRestServiceTest extends AbstractSpringJerseyRestTestCase 
      * the SNMP version is v3.
      *
      * @throws Exception
+     *             the exception
      */
     @Test
     public final void testGetForUnknownIpSnmpV3() throws Exception {
@@ -144,6 +179,12 @@ public class SnmpConfigRestServiceTest extends AbstractSpringJerseyRestTestCase 
 
     }
 
+    /**
+     * Test set new value for snmp v2c.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public final void testSetNewValueForSnmpV2c() throws Exception {
         String url = "/snmpConfig/1.1.1.1";
@@ -212,6 +253,12 @@ public class SnmpConfigRestServiceTest extends AbstractSpringJerseyRestTestCase 
         dumpConfig();
     }
 
+    /**
+     * Test set new value for snmp v3.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public final void testSetNewValueForSnmpV3() throws Exception {
         String url = "/snmpConfig/1.1.1.1";
@@ -281,15 +328,33 @@ public class SnmpConfigRestServiceTest extends AbstractSpringJerseyRestTestCase 
         dumpConfig();
     }
 
+    /**
+     * Dump config.
+     *
+     * @throws Exception
+     *             the exception
+     */
     private void dumpConfig() throws Exception {
         IOUtils.copy(new FileInputStream(m_snmpConfigFile), System.out);
     }
 
+    /**
+     * Creates the snmp info with defaults for snmp v3.
+     *
+     * @param ipAddress
+     *            the ip address
+     * @return the snmp info
+     */
     private SnmpInfo createSnmpInfoWithDefaultsForSnmpV3(final String ipAddress) {
         SnmpAgentConfig agentConfig = SnmpPeerFactory.getInstance().getAgentConfig(InetAddressUtils.addr(ipAddress));
         return new SnmpInfo(agentConfig);
     }
 
+    /**
+     * Creates the snmp info with defaults for snmp v1.
+     *
+     * @return the snmp info
+     */
     private SnmpInfo createSnmpInfoWithDefaultsForSnmpV1() {
         SnmpAgentConfig defaults = new SnmpAgentConfig();
         SnmpInfo config = new SnmpInfo();
@@ -307,6 +372,14 @@ public class SnmpConfigRestServiceTest extends AbstractSpringJerseyRestTestCase 
         return config;
     }
 
+    /**
+     * Assert configuration.
+     *
+     * @param expectedConfig
+     *            the expected config
+     * @param actualConfig
+     *            the actual config
+     */
     private void assertConfiguration(final SnmpInfo expectedConfig, final SnmpInfo actualConfig) {
         assertNotNull(expectedConfig);
         assertNotNull(actualConfig);
@@ -319,6 +392,7 @@ public class SnmpConfigRestServiceTest extends AbstractSpringJerseyRestTestCase 
      * or v2c.
      *
      * @param config
+     *            the config
      */
     private void assertSnmpV3PropertiesHaveNotBeenSet(final SnmpInfo config) {
         assertEquals(false, config.hasSecurityLevel());
@@ -340,6 +414,7 @@ public class SnmpConfigRestServiceTest extends AbstractSpringJerseyRestTestCase 
      * v3.
      *
      * @param config
+     *            the config
      */
     private void assertSnmpV1PropertiesHaveNotBeenSet(final SnmpInfo config) {
         assertEquals(null, config.getReadCommunity()); // community String must

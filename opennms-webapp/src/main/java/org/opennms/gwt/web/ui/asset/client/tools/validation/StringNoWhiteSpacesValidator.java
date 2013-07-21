@@ -33,10 +33,14 @@ import org.opennms.gwt.web.ui.asset.client.AssetPageConstants;
 import com.google.gwt.core.client.GWT;
 
 /**
+ * The Class StringNoWhiteSpacesValidator.
+ *
  * @author <a href="mailto:MarkusNeumannMarkus@gmail.com">Markus Neumann</a>
  *         Validates that String doesn't contain whitespaces.
  */
 public class StringNoWhiteSpacesValidator implements Validator {
+
+    /** The con. */
     private AssetPageConstants con = GWT.create(AssetPageConstants.class);
 
     /**
@@ -45,6 +49,8 @@ public class StringNoWhiteSpacesValidator implements Validator {
      * against <code>(String) object</code> so make sure to use a proper object.
      *
      * @param object
+     *            the object
+     * @return the string
      */
     @Override
     public String validate(Object object) {

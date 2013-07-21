@@ -59,24 +59,34 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.sun.jersey.spi.resource.PerRequest;
 
+/**
+ * The Class EventRestService.
+ */
 @Component
 @PerRequest
 @Scope("prototype")
 @Path("events")
 public class EventRestService extends OnmsRestService {
+
+    /** The Constant ISO8601_FORMATTER_MILLIS. */
     private static final DateTimeFormatter ISO8601_FORMATTER_MILLIS = ISODateTimeFormat.dateTime();
 
+    /** The Constant ISO8601_FORMATTER. */
     private static final DateTimeFormatter ISO8601_FORMATTER = ISODateTimeFormat.dateTimeNoMillis();
 
+    /** The m_event dao. */
     @Autowired
     private EventDao m_eventDao;
 
+    /** The m_uri info. */
     @Context
     UriInfo m_uriInfo;
 
+    /** The m_headers. */
     @Context
     HttpHeaders m_headers;
 
+    /** The m_security context. */
     @Context
     SecurityContext m_securityContext;
 
@@ -84,6 +94,7 @@ public class EventRestService extends OnmsRestService {
      * <p>
      * getEvent
      * </p>
+     * .
      *
      * @param eventId
      *            a {@link java.lang.String} object.
@@ -104,7 +115,7 @@ public class EventRestService extends OnmsRestService {
     }
 
     /**
-     * returns a plaintext string being the number of events
+     * returns a plaintext string being the number of events.
      *
      * @return a {@link java.lang.String} object.
      */
@@ -123,11 +134,11 @@ public class EventRestService extends OnmsRestService {
 
     /**
      * Returns all the events which match the filter/query in the query
-     * parameters
+     * parameters.
      *
      * @return Collection of OnmsEvents (ready to be XML-ified)
-     * @throws java.text.ParseException
-     *             if any.
+     * @throws ParseException
+     *             the parse exception
      */
     @GET
     @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON, MediaType.APPLICATION_ATOM_XML })
@@ -151,11 +162,11 @@ public class EventRestService extends OnmsRestService {
 
     /**
      * Returns all the events which match the filter/query in the query
-     * parameters
+     * parameters.
      *
      * @return Collection of OnmsEvents (ready to be XML-ified)
-     * @throws java.text.ParseException
-     *             if any.
+     * @throws ParseException
+     *             the parse exception
      */
     @GET
     @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON, MediaType.APPLICATION_ATOM_XML })
@@ -218,12 +229,13 @@ public class EventRestService extends OnmsRestService {
     /**
      * Updates the event with id "eventid" If the "ack" parameter is "true",
      * then acks the events as the current logged in user, otherwise unacks
-     * the events
+     * the events.
      *
      * @param eventId
      *            a {@link java.lang.String} object.
      * @param ack
      *            a {@link java.lang.Boolean} object.
+     * @return the response
      */
     @PUT
     @Path("{eventId}")
@@ -253,6 +265,7 @@ public class EventRestService extends OnmsRestService {
      *
      * @param formProperties
      *            Map of the parameters passed in by form encoding
+     * @return the response
      */
     @PUT
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
@@ -280,6 +293,14 @@ public class EventRestService extends OnmsRestService {
         }
     }
 
+    /**
+     * Process event ack.
+     *
+     * @param event
+     *            the event
+     * @param ack
+     *            the ack
+     */
     private void processEventAck(final OnmsEvent event, final Boolean ack) {
         if (ack) {
             event.setEventAckTime(new Date());

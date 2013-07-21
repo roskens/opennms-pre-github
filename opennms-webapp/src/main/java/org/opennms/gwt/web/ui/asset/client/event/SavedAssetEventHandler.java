@@ -31,15 +31,18 @@ package org.opennms.gwt.web.ui.asset.client.event;
 import com.google.gwt.event.shared.EventHandler;
 
 /**
+ * The Interface SavedAssetEventHandler.
+ *
  * @author <a href="mailto:MarkusNeumannMarkus@gmail.com">Markus Neumann</a>
  *         Basic interface that defines a event to signal that asset is saved.
  */
 public interface SavedAssetEventHandler extends EventHandler {
+
     /**
      * Handle event on asset save...
      *
      * @param event
-     *            {@link event}
+     *            the event {@link event}
      */
     void onSavedAsset(SavedAssetEvent event);
 }

@@ -52,8 +52,10 @@ import org.springframework.web.servlet.mvc.AbstractCommandController;
  */
 public class NodeListController extends AbstractCommandController implements InitializingBean {
 
+    /** The m_success view. */
     private String m_successView;
 
+    /** The m_node list service. */
     private NodeListService m_nodeListService;
 
     /** {@inheritDoc} */
@@ -72,9 +74,10 @@ public class NodeListController extends AbstractCommandController implements Ini
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -86,6 +89,7 @@ public class NodeListController extends AbstractCommandController implements Ini
      * <p>
      * getSuccessView
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -97,6 +101,7 @@ public class NodeListController extends AbstractCommandController implements Ini
      * <p>
      * setSuccessView
      * </p>
+     * .
      *
      * @param successView
      *            a {@link java.lang.String} object.
@@ -109,6 +114,7 @@ public class NodeListController extends AbstractCommandController implements Ini
      * <p>
      * getNodeListService
      * </p>
+     * .
      *
      * @return a {@link org.opennms.web.svclayer.NodeListService} object.
      */
@@ -120,6 +126,7 @@ public class NodeListController extends AbstractCommandController implements Ini
      * <p>
      * setNodeListService
      * </p>
+     * .
      *
      * @param nodeListService
      *            a {@link org.opennms.web.svclayer.NodeListService} object.

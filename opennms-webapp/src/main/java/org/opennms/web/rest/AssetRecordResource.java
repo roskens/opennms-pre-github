@@ -58,6 +58,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.sun.jersey.spi.resource.PerRequest;
 
+/**
+ * The Class AssetRecordResource.
+ */
 @Component
 @PerRequest
 @Scope("prototype")
@@ -65,14 +68,18 @@ import com.sun.jersey.spi.resource.PerRequest;
 @Transactional
 public class AssetRecordResource extends OnmsRestService {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(AssetRecordResource.class);
 
+    /** The m_uri info. */
     @Context
     UriInfo m_uriInfo;
 
+    /** The m_node dao. */
     @Autowired
     private NodeDao m_nodeDao;
 
+    /** The m_event proxy. */
     @Autowired
     private EventProxy m_eventProxy;
 
@@ -80,6 +87,7 @@ public class AssetRecordResource extends OnmsRestService {
      * <p>
      * getAssetRecord
      * </p>
+     * .
      *
      * @param nodeCriteria
      *            a {@link java.lang.String} object.
@@ -105,6 +113,7 @@ public class AssetRecordResource extends OnmsRestService {
      * <p>
      * updateAssetRecord
      * </p>
+     * .
      *
      * @param nodeCriteria
      *            a {@link java.lang.String} object.
@@ -153,10 +162,27 @@ public class AssetRecordResource extends OnmsRestService {
         }
     }
 
+    /**
+     * Gets the asset record.
+     *
+     * @param node
+     *            the node
+     * @return the asset record
+     */
     private OnmsAssetRecord getAssetRecord(OnmsNode node) {
         return node.getAssetRecord();
     }
 
+    /**
+     * Send event.
+     *
+     * @param uei
+     *            the uei
+     * @param nodeId
+     *            the node id
+     * @throws EventProxyException
+     *             the event proxy exception
+     */
     private void sendEvent(String uei, int nodeId) throws EventProxyException {
         EventBuilder bldr = new EventBuilder(uei, getClass().getName());
         bldr.setNodeid(nodeId);

@@ -67,29 +67,45 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.sun.jersey.spi.resource.PerRequest;
 
+/**
+ * The Class KscRestService.
+ */
 @Component
 @PerRequest
 @Scope("prototype")
 @Path("ksc")
 public class KscRestService extends OnmsRestService {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(KscRestService.class);
 
+    /** The m_ksc report service. */
     @Autowired
     private KscReportService m_kscReportService;
 
+    /** The m_ksc report factory. */
     @Autowired
     private KSC_PerformanceReportFactory m_kscReportFactory;
 
+    /** The m_uri info. */
     @Context
     UriInfo m_uriInfo;
 
+    /** The m_headers. */
     @Context
     HttpHeaders m_headers;
 
+    /** The m_security context. */
     @Context
     SecurityContext m_securityContext;
 
+    /**
+     * Gets the reports.
+     *
+     * @return the reports
+     * @throws ParseException
+     *             the parse exception
+     */
     @GET
     @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON, MediaType.APPLICATION_ATOM_XML })
     @Transactional
@@ -105,6 +121,13 @@ public class KscRestService extends OnmsRestService {
         }
     }
 
+    /**
+     * Gets the report.
+     *
+     * @param reportId
+     *            the report id
+     * @return the report
+     */
     @GET
     @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON, MediaType.APPLICATION_ATOM_XML })
     @Path("{reportId}")
@@ -125,6 +148,11 @@ public class KscRestService extends OnmsRestService {
         }
     }
 
+    /**
+     * Gets the count.
+     *
+     * @return the count
+     */
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     @Path("count")
@@ -138,6 +166,21 @@ public class KscRestService extends OnmsRestService {
         }
     }
 
+    /**
+     * Adds the graph.
+     *
+     * @param kscReportId
+     *            the ksc report id
+     * @param title
+     *            the title
+     * @param reportName
+     *            the report name
+     * @param resourceId
+     *            the resource id
+     * @param timespan
+     *            the timespan
+     * @return the response
+     */
     @PUT
     @Path("{kscReportId}")
     @Transactional
@@ -188,33 +231,65 @@ public class KscRestService extends OnmsRestService {
         }
     }
 
+    /**
+     * The Class KscReportCollection.
+     */
     @Entity
     @XmlRootElement(name = "kscReports")
     @XmlAccessorType(XmlAccessType.NONE)
     public static final class KscReportCollection extends LinkedList<KscReport> {
+
+        /** The Constant serialVersionUID. */
         private static final long serialVersionUID = -4169259948312457702L;
 
+        /** The m_total count. */
         private int m_totalCount;
 
+        /**
+         * Instantiates a new ksc report collection.
+         */
         public KscReportCollection() {
             super();
         }
 
+        /**
+         * Instantiates a new ksc report collection.
+         *
+         * @param c
+         *            the c
+         */
         public KscReportCollection(final Collection<? extends KscReport> c) {
             super(c);
         }
 
+        /**
+         * Instantiates a new ksc report collection.
+         *
+         * @param reportList
+         *            the report list
+         */
         public KscReportCollection(final Map<Integer, String> reportList) {
             for (final Integer key : reportList.keySet()) {
                 add(new KscReport(key, reportList.get(key)));
             }
         }
 
+        /**
+         * Gets the ksc reports.
+         *
+         * @return the ksc reports
+         */
         @XmlElement(name = "kscReport")
         public List<KscReport> getKscReports() {
             return this;
         }
 
+        /**
+         * Sets the ksc reports.
+         *
+         * @param reports
+         *            the new ksc reports
+         */
         public void setKscReports(final List<KscReport> reports) {
             if (reports == this)
                 return;
@@ -222,51 +297,106 @@ public class KscRestService extends OnmsRestService {
             addAll(reports);
         }
 
+        /**
+         * Gets the count.
+         *
+         * @return the count
+         */
         @XmlAttribute(name = "count")
         public Integer getCount() {
             return this.size();
         }
 
+        /**
+         * Gets the total count.
+         *
+         * @return the total count
+         */
         @XmlAttribute(name = "totalCount")
         public int getTotalCount() {
             return m_totalCount;
         }
 
+        /**
+         * Sets the total count.
+         *
+         * @param count
+         *            the new total count
+         */
         public void setTotalCount(final int count) {
             m_totalCount = count;
         }
     }
 
+    /**
+     * The Class KscReport.
+     */
     @Entity
     @XmlRootElement(name = "kscReport")
     @XmlAccessorType(XmlAccessType.NONE)
     public static final class KscReport {
+
+        /** The m_id. */
         @XmlAttribute(name = "id", required = true)
         private Integer m_id;
 
+        /** The m_label. */
         @XmlAttribute(name = "label", required = true)
         private String m_label;
 
+        /**
+         * Instantiates a new ksc report.
+         */
         public KscReport() {
         }
 
+        /**
+         * Instantiates a new ksc report.
+         *
+         * @param reportId
+         *            the report id
+         * @param label
+         *            the label
+         */
         public KscReport(final Integer reportId, final String label) {
             m_id = reportId;
             m_label = label;
         }
 
+        /**
+         * Gets the id.
+         *
+         * @return the id
+         */
         public Integer getId() {
             return m_id;
         }
 
+        /**
+         * Sets the id.
+         *
+         * @param id
+         *            the new id
+         */
         public void setId(final Integer id) {
             m_id = id;
         }
 
+        /**
+         * Gets the label.
+         *
+         * @return the label
+         */
         public String getLabel() {
             return m_label;
         }
 
+        /**
+         * Sets the label.
+         *
+         * @param label
+         *            the new label
+         */
         public void setLabel(final String label) {
             m_label = label;
         }

@@ -33,22 +33,36 @@ import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
- * @author <a href="mailto:MarkusNeumannMarkus@gmail.com">Markus Neumann</a>
- *         <br/>
+ * The Class FlexTableFieldSet.
+ *
+ * @author <a href="mailto:MarkusNeumannMarkus@gmail.com">Markus Neumann</a> <br/>
  *         For later use. Don't use it jet!
  */
 public class FlexTableFieldSet extends FlexTable {
+
+    /** The activ row. */
     int activRow = -1;
 
+    /** The activ cell. */
     int activCell = -1;
 
+    /** The max cells. */
     int maxCells = 0;
 
+    /**
+     * Instantiates a new flex table field set.
+     */
     public FlexTableFieldSet() {
         super();
         this.setStylePrimaryName("FlexTableFieldSet");
     }
 
+    /**
+     * Adds the new row widget.
+     *
+     * @param wg
+     *            the wg
+     */
     public void addNewRowWidget(Widget wg) {
         activRow++;
         activCell = 0;
@@ -56,11 +70,25 @@ public class FlexTableFieldSet extends FlexTable {
         setWidget(activRow, activCell, wg);
     }
 
+    /**
+     * Adds the new row widget.
+     *
+     * @param wg
+     *            the wg
+     * @param colSpan
+     *            the col span
+     */
     public void addNewRowWidget(Widget wg, int colSpan) {
         addNewRowWidget(wg);
         getFlexCellFormatter().setColSpan(activRow, activCell, colSpan);
     }
 
+    /**
+     * Adds the new widget.
+     *
+     * @param wg
+     *            the wg
+     */
     public void addNewWidget(Widget wg) {
         activCell++;
         wg.setStyleDependentName("NewWidget", true);
@@ -70,11 +98,25 @@ public class FlexTableFieldSet extends FlexTable {
         }
     }
 
+    /**
+     * Adds the new widget.
+     *
+     * @param wg
+     *            the wg
+     * @param colSpan
+     *            the col span
+     */
     public void addNewWidget(Widget wg, int colSpan) {
         addNewWidget(wg);
         getFlexCellFormatter().setColSpan(activRow, activCell, colSpan);
     }
 
+    /**
+     * Adds the section header.
+     *
+     * @param wg
+     *            the wg
+     */
     public void addSectionHeader(Widget wg) {
         activRow++;
         wg.setStyleDependentName("SectionHeader", true);
@@ -84,18 +126,40 @@ public class FlexTableFieldSet extends FlexTable {
         activCell = -1;
     }
 
+    /**
+     * Gets the activ cell.
+     *
+     * @return the activ cell
+     */
     public int getActivCell() {
         return activCell;
     }
 
+    /**
+     * Gets the activ row.
+     *
+     * @return the activ row
+     */
     public int getActivRow() {
         return activRow;
     }
 
+    /**
+     * Sets the activ cell.
+     *
+     * @param activCell
+     *            the new activ cell
+     */
     public void setActivCell(int activCell) {
         this.activCell = activCell;
     }
 
+    /**
+     * Sets the activ row.
+     *
+     * @param activRow
+     *            the new activ row
+     */
     public void setActivRow(int activRow) {
         this.activRow = activRow;
     }

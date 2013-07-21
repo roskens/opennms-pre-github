@@ -36,8 +36,10 @@ import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
 /**
- * @author <a href="mailto:MarkusNeumannMarkus@gmail.com">Markus Neumann</a>
- *         <br/> Client side GWT Interface for remote procedure calls (RPC) at
+ * The Interface AssetService.
+ *
+ * @author <a href="mailto:MarkusNeumannMarkus@gmail.com">Markus Neumann</a> <br/>
+ *         Client side GWT Interface for remote procedure calls (RPC) at
  *         asset services.
  */
 @RemoteServiceRelativePath("asset")
@@ -67,15 +69,16 @@ public interface AssetService extends RemoteService {
     AssetSuggCommand getAssetSuggestions() throws Exception;
 
     /**
-     * Calling this method will save or update a OnmsAsset by the given
-     * {@link AssetCommand}. Problems will be thrown as exceptions.
+     * Calling this method will save or update a OnmsAsset by the given.
      *
      * @param nodeId
      *            related to OnmsNode.
-     * @param {@link AssetCommand}
+     * @param asset
+     *            the asset
      * @return If the operation went well result will be true, if not false.
      * @throws Exception
      *             , used asset service can throw all types of exception
+     *             {@link AssetCommand}. Problems will be thrown as exceptions.
      */
     Boolean saveOrUpdateAssetByNodeId(int nodeId, AssetCommand asset) throws Exception;
 }

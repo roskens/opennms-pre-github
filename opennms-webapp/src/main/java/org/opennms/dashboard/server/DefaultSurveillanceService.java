@@ -87,34 +87,47 @@ import org.springframework.util.Assert;
 @Transactional(readOnly = true)
 public class DefaultSurveillanceService implements SurveillanceService, InitializingBean {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(DefaultSurveillanceService.class);
 
+    /** The m_node dao. */
     private NodeDao m_nodeDao;
 
+    /** The m_resource dao. */
     private ResourceDao m_resourceDao;
 
+    /** The m_graph dao. */
     private GraphDao m_graphDao;
 
+    /** The m_notification dao. */
     private NotificationDao m_notificationDao;
 
+    /** The m_web surveillance service. */
     private org.opennms.web.svclayer.SurveillanceService m_webSurveillanceService;
 
+    /** The m_surveillance view config dao. */
     private SurveillanceViewConfigDao m_surveillanceViewConfigDao;
 
+    /** The m_category dao. */
     private CategoryDao m_categoryDao;
 
+    /** The m_alarm dao. */
     private AlarmDao m_alarmDao;
 
+    /** The m_rtc service. */
     private RtcService m_rtcService;
 
+    /** The m_group dao. */
     private GroupDao m_groupDao;
 
+    /** The m_outage dao. */
     private OutageDao m_outageDao;
 
     /**
      * <p>
      * getSurveillanceData
      * </p>
+     * .
      *
      * @return a {@link org.opennms.dashboard.client.SurveillanceData} object.
      */
@@ -280,6 +293,14 @@ public class DefaultSurveillanceService implements SurveillanceService, Initiali
         return labels.toArray(new String[labels.size()][]);
     }
 
+    /**
+     * Adds the criteria for surveillance set.
+     *
+     * @param criteria
+     *            the criteria
+     * @param set
+     *            the set
+     */
     private void addCriteriaForSurveillanceSet(OnmsCriteria criteria, SurveillanceSet set) {
         CriteriaAddingVisitor visitor = new CriteriaAddingVisitor(criteria);
         visitor.setView(getView());
@@ -289,6 +310,11 @@ public class DefaultSurveillanceService implements SurveillanceService, Initiali
         set.visit(visitor);
     }
 
+    /**
+     * Gets the view.
+     *
+     * @return the view
+     */
     private View getView() {
         String user = getUsername();
         LOG.debug("Looking for surveillance view that matches user '{}'", user);
@@ -326,6 +352,7 @@ public class DefaultSurveillanceService implements SurveillanceService, Initiali
      * <p>
      * getUsername
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -355,6 +382,7 @@ public class DefaultSurveillanceService implements SurveillanceService, Initiali
      * <p>
      * isDashboardRole
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -427,6 +455,17 @@ public class DefaultSurveillanceService implements SurveillanceService, Initiali
         return notifications.toArray(new Notification[notifications.size()]);
     }
 
+    /**
+     * Gets the notifications with criterion.
+     *
+     * @param set
+     *            the set
+     * @param severity
+     *            the severity
+     * @param criterions
+     *            the criterions
+     * @return the notifications with criterion
+     */
     private List<Notification> getNotificationsWithCriterion(SurveillanceSet set, String severity,
             Criterion... criterions) {
         OnmsCriteria criteria = new OnmsCriteria(OnmsNotification.class, "notification");
@@ -446,6 +485,15 @@ public class DefaultSurveillanceService implements SurveillanceService, Initiali
         return convertOnmsNotificationsToNotifications(notifications, severity);
     }
 
+    /**
+     * Convert onms notifications to notifications.
+     *
+     * @param notifications
+     *            the notifications
+     * @param severity
+     *            the severity
+     * @return the list
+     */
     private List<Notification> convertOnmsNotificationsToNotifications(List<OnmsNotification> notifications,
             String severity) {
         List<Notification> notifs = new ArrayList<Notification>(notifications.size());
@@ -456,6 +504,17 @@ public class DefaultSurveillanceService implements SurveillanceService, Initiali
         return notifs;
     }
 
+    /**
+     * Creates the notification.
+     *
+     * @param onmsNotif
+     *            the onms notif
+     * @param severity
+     *            the severity
+     * @param isDashboardRole
+     *            the is dashboard role
+     * @return the notification
+     */
     private Notification createNotification(OnmsNotification onmsNotif, String severity, boolean isDashboardRole) {
         Notification notif = new Notification();
         notif.setNodeLabel(onmsNotif.getNode().getLabel());
@@ -516,9 +575,10 @@ public class DefaultSurveillanceService implements SurveillanceService, Initiali
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -540,6 +600,7 @@ public class DefaultSurveillanceService implements SurveillanceService, Initiali
      * <p>
      * setNodeDao
      * </p>
+     * .
      *
      * @param nodeDao
      *            a {@link org.opennms.netmgt.dao.api.NodeDao} object.
@@ -552,6 +613,7 @@ public class DefaultSurveillanceService implements SurveillanceService, Initiali
      * <p>
      * setNotificationDao
      * </p>
+     * .
      *
      * @param notifDao
      *            a {@link org.opennms.netmgt.dao.api.NotificationDao} object.
@@ -564,6 +626,7 @@ public class DefaultSurveillanceService implements SurveillanceService, Initiali
      * <p>
      * setResourceDao
      * </p>
+     * .
      *
      * @param resourceDao
      *            a {@link org.opennms.netmgt.dao.api.ResourceDao} object.
@@ -576,6 +639,7 @@ public class DefaultSurveillanceService implements SurveillanceService, Initiali
      * <p>
      * setGraphDao
      * </p>
+     * .
      *
      * @param graphDao
      *            a {@link org.opennms.netmgt.dao.api.GraphDao} object.
@@ -588,6 +652,7 @@ public class DefaultSurveillanceService implements SurveillanceService, Initiali
      * <p>
      * getWebSurveillanceService
      * </p>
+     * .
      *
      * @return a {@link org.opennms.web.svclayer.SurveillanceService} object.
      */
@@ -599,6 +664,7 @@ public class DefaultSurveillanceService implements SurveillanceService, Initiali
      * <p>
      * setWebSurveillanceService
      * </p>
+     * .
      *
      * @param webSurveillanceService
      *            a {@link org.opennms.web.svclayer.SurveillanceService} object.
@@ -611,6 +677,7 @@ public class DefaultSurveillanceService implements SurveillanceService, Initiali
      * <p>
      * getSurveillanceViewConfigDao
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.dao.api.SurveillanceViewConfigDao}
      *         object.
@@ -623,6 +690,7 @@ public class DefaultSurveillanceService implements SurveillanceService, Initiali
      * <p>
      * setSurveillanceViewConfigDao
      * </p>
+     * .
      *
      * @param surveillanceViewConfigDao
      *            a {@link org.opennms.netmgt.dao.api.SurveillanceViewConfigDao}
@@ -636,6 +704,7 @@ public class DefaultSurveillanceService implements SurveillanceService, Initiali
      * <p>
      * getCategoryDao
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.dao.api.CategoryDao} object.
      */
@@ -647,6 +716,7 @@ public class DefaultSurveillanceService implements SurveillanceService, Initiali
      * <p>
      * setCategoryDao
      * </p>
+     * .
      *
      * @param categoryDao
      *            a {@link org.opennms.netmgt.dao.api.CategoryDao} object.
@@ -659,6 +729,7 @@ public class DefaultSurveillanceService implements SurveillanceService, Initiali
      * <p>
      * getAlarmDao
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.dao.api.AlarmDao} object.
      */
@@ -670,6 +741,7 @@ public class DefaultSurveillanceService implements SurveillanceService, Initiali
      * <p>
      * setAlarmDao
      * </p>
+     * .
      *
      * @param alarmDao
      *            a {@link org.opennms.netmgt.dao.api.AlarmDao} object.
@@ -682,6 +754,7 @@ public class DefaultSurveillanceService implements SurveillanceService, Initiali
      * <p>
      * getRtcService
      * </p>
+     * .
      *
      * @return a {@link org.opennms.web.svclayer.RtcService} object.
      */
@@ -693,6 +766,7 @@ public class DefaultSurveillanceService implements SurveillanceService, Initiali
      * <p>
      * setRtcService
      * </p>
+     * .
      *
      * @param rtcService
      *            a {@link org.opennms.web.svclayer.RtcService} object.
@@ -705,6 +779,7 @@ public class DefaultSurveillanceService implements SurveillanceService, Initiali
      * <p>
      * getGroupDao
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.config.GroupDao} object.
      */
@@ -716,6 +791,7 @@ public class DefaultSurveillanceService implements SurveillanceService, Initiali
      * <p>
      * setGroupDao
      * </p>
+     * .
      *
      * @param groupDao
      *            a {@link org.opennms.netmgt.config.GroupDao} object.
@@ -728,6 +804,7 @@ public class DefaultSurveillanceService implements SurveillanceService, Initiali
      * <p>
      * getOutageDao
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.dao.api.OutageDao} object.
      */
@@ -739,6 +816,7 @@ public class DefaultSurveillanceService implements SurveillanceService, Initiali
      * <p>
      * setOutageDao
      * </p>
+     * .
      *
      * @param outageDao
      *            a {@link org.opennms.netmgt.dao.api.OutageDao} object.

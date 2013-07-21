@@ -41,15 +41,56 @@ import org.springframework.util.Assert;
  * @since 1.8.1
  */
 public enum SortStyle {
-    SEVERITY("severity"), LASTEVENTTIME("lasteventtime"), FIRSTEVENTTIME("firsteventtime"), NODE("node"), INTERFACE(
-            "interface"), SERVICE("service"), POLLER("poller"), ID("id"), COUNT("count"), ACKUSER("ackuser"), REVERSE_SEVERITY(
-            "rev_severity"), REVERSE_LASTEVENTTIME("rev_lasteventtime"), REVERSE_FIRSTEVENTTIME("rev_firsteventtime"), REVERSE_NODE(
-            "rev_node"), REVERSE_INTERFACE("rev_interface"), REVERSE_SERVICE("rev_service"), REVERSE_POLLER(
-            "rev_poller"), REVERSE_ID("rev_id"), REVERSE_COUNT("rev_count"), REVERSE_ACKUSER("rev_ackuser");
 
-    /** Constant <code>m_sortStylesString</code> */
+    /** The severity. */
+    SEVERITY("severity"),
+ /** The lasteventtime. */
+ LASTEVENTTIME("lasteventtime"),
+ /** The firsteventtime. */
+ FIRSTEVENTTIME("firsteventtime"),
+ /** The node. */
+ NODE("node"),
+ /** The interface. */
+ INTERFACE(
+            "interface"),
+ /** The service. */
+ SERVICE("service"),
+ /** The poller. */
+ POLLER("poller"),
+ /** The id. */
+ ID("id"),
+ /** The count. */
+ COUNT("count"),
+ /** The ackuser. */
+ ACKUSER("ackuser"),
+ /** The reverse severity. */
+ REVERSE_SEVERITY(
+            "rev_severity"),
+ /** The reverse lasteventtime. */
+ REVERSE_LASTEVENTTIME("rev_lasteventtime"),
+ /** The reverse firsteventtime. */
+ REVERSE_FIRSTEVENTTIME("rev_firsteventtime"),
+ /** The reverse node. */
+ REVERSE_NODE(
+            "rev_node"),
+ /** The reverse interface. */
+ REVERSE_INTERFACE("rev_interface"),
+ /** The reverse service. */
+ REVERSE_SERVICE("rev_service"),
+ /** The reverse poller. */
+ REVERSE_POLLER(
+            "rev_poller"),
+ /** The reverse id. */
+ REVERSE_ID("rev_id"),
+ /** The reverse count. */
+ REVERSE_COUNT("rev_count"),
+ /** The reverse ackuser. */
+ REVERSE_ACKUSER("rev_ackuser");
+
+    /** Constant <code>m_sortStylesString</code>. */
     private static final Map<String, SortStyle> m_sortStylesString;
 
+    /** The m_short name. */
     private String m_shortName;
 
     static {
@@ -60,6 +101,12 @@ public enum SortStyle {
         }
     }
 
+    /**
+     * Instantiates a new sort style.
+     *
+     * @param shortName
+     *            the short name
+     */
     private SortStyle(String shortName) {
         m_shortName = shortName;
     }
@@ -68,6 +115,7 @@ public enum SortStyle {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -80,6 +128,7 @@ public enum SortStyle {
      * <p>
      * getName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -91,6 +140,7 @@ public enum SortStyle {
      * <p>
      * getShortName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -102,6 +152,7 @@ public enum SortStyle {
      * <p>
      * getSortStyle
      * </p>
+     * .
      *
      * @param sortStyleString
      *            a {@link java.lang.String} object.

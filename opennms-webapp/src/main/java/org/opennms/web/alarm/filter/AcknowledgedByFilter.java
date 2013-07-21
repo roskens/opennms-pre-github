@@ -39,7 +39,8 @@ import org.opennms.web.filter.SQLType;
  * @since 1.8.1
  */
 public class AcknowledgedByFilter extends EqualsFilter<String> {
-    /** Constant <code>TYPE="acknowledgedBy"</code> */
+
+    /** Constant <code>TYPE="acknowledgedBy"</code>. */
     public static final String TYPE = "acknowledgedBy";
 
     /**
@@ -58,6 +59,7 @@ public class AcknowledgedByFilter extends EqualsFilter<String> {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -70,6 +72,7 @@ public class AcknowledgedByFilter extends EqualsFilter<String> {
      * <p>
      * getAcknowledgedByFilter
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

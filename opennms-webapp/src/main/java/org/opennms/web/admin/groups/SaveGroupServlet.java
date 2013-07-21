@@ -52,6 +52,8 @@ import org.opennms.netmgt.config.groups.Group;
  * @since 1.8.1
  */
 public class SaveGroupServlet extends HttpServlet {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 3317351868889379965L;
 
     /** {@inheritDoc} */

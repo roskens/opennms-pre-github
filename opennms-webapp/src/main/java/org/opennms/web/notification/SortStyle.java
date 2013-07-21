@@ -41,16 +41,46 @@ import org.springframework.util.Assert;
  * @since 1.8.1
  */
 public enum SortStyle {
-    RESPONDER("responder"), PAGETIME("pagetime"), RESPONDTIME("respondtime"), NODE("node"), INTERFACE("interface"), SERVICE(
-            "service"), ID("id"), REVERSE_RESPONDER("rev_responder"), REVERSE_PAGETIME("rev_pagetime"), REVERSE_RESPONDTIME(
-            "rev_respondtime"), REVERSE_NODE("rev_node"), REVERSE_INTERFACE("rev_interface"), REVERSE_SERVICE(
-            "rev_service"), REVERSE_ID("rev_id");
 
-    /** Constant <code>DEFAULT_SORT_STYLE</code> */
+    /** The responder. */
+    RESPONDER("responder"),
+ /** The pagetime. */
+ PAGETIME("pagetime"),
+ /** The respondtime. */
+ RESPONDTIME("respondtime"),
+ /** The node. */
+ NODE("node"),
+ /** The interface. */
+ INTERFACE("interface"),
+ /** The service. */
+ SERVICE(
+            "service"),
+ /** The id. */
+ ID("id"),
+ /** The reverse responder. */
+ REVERSE_RESPONDER("rev_responder"),
+ /** The reverse pagetime. */
+ REVERSE_PAGETIME("rev_pagetime"),
+ /** The reverse respondtime. */
+ REVERSE_RESPONDTIME(
+            "rev_respondtime"),
+ /** The reverse node. */
+ REVERSE_NODE("rev_node"),
+ /** The reverse interface. */
+ REVERSE_INTERFACE("rev_interface"),
+ /** The reverse service. */
+ REVERSE_SERVICE(
+            "rev_service"),
+ /** The reverse id. */
+ REVERSE_ID("rev_id");
+
+    /** Constant <code>DEFAULT_SORT_STYLE</code>. */
     public static final SortStyle DEFAULT_SORT_STYLE = SortStyle.ID;
 
+    /** The Constant m_sortStylesString. */
     private static final Map<String, SortStyle> m_sortStylesString;
 
+    /** The m_short name. */
     private String m_shortName;
 
     static {
@@ -61,6 +91,12 @@ public enum SortStyle {
         }
     }
 
+    /**
+     * Instantiates a new sort style.
+     *
+     * @param shortName
+     *            the short name
+     */
     private SortStyle(String shortName) {
         m_shortName = shortName;
     }
@@ -69,6 +105,7 @@ public enum SortStyle {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -81,6 +118,7 @@ public enum SortStyle {
      * <p>
      * getName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -92,6 +130,7 @@ public enum SortStyle {
      * <p>
      * getShortName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -103,6 +142,7 @@ public enum SortStyle {
      * <p>
      * getSortStyle
      * </p>
+     * .
      *
      * @param sortStyleString
      *            a {@link java.lang.String} object.

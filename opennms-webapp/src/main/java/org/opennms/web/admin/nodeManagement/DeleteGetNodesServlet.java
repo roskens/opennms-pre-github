@@ -46,7 +46,7 @@ import javax.servlet.http.HttpSession;
 import org.opennms.core.db.DataSourceFactory;
 
 /**
- * A servlet that handles querying the database for node information
+ * A servlet that handles querying the database for node information.
  *
  * @author <A HREF="mailto:tarus@opennms.org">Tarus Balog </A>
  * @author <A HREF="http://www.opennms.org/">OpenNMS </A>
@@ -56,8 +56,11 @@ import org.opennms.core.db.DataSourceFactory;
  * @since 1.8.1
  */
 public class DeleteGetNodesServlet extends HttpServlet {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -34219022712246261L;
 
+    /** The Constant NODE_QUERY. */
     private static final String NODE_QUERY =
     // "SELECT nodeid, nodelabel FROM node ORDER BY nodelabel, nodeid";
     "SELECT nodeid, nodelabel FROM node WHERE nodetype != 'D' ORDER BY nodelabel, nodeid";
@@ -66,9 +69,10 @@ public class DeleteGetNodesServlet extends HttpServlet {
      * <p>
      * init
      * </p>
+     * .
      *
-     * @throws javax.servlet.ServletException
-     *             if any.
+     * @throws ServletException
+     *             the servlet exception
      */
     @Override
     public void init() throws ServletException {
@@ -95,6 +99,13 @@ public class DeleteGetNodesServlet extends HttpServlet {
     }
 
     /**
+     * Gets the all nodes.
+     *
+     * @param userSession
+     *            the user session
+     * @return the all nodes
+     * @throws SQLException
+     *             the sQL exception
      */
     private List<ManagedNode> getAllNodes(HttpSession userSession) throws SQLException {
         Connection connection = null;

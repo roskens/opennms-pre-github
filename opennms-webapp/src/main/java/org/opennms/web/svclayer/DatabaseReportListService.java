@@ -48,6 +48,7 @@ public interface DatabaseReportListService {
      * <p>
      * getAll
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -58,18 +59,41 @@ public interface DatabaseReportListService {
      * <p>
      * getAllOnline
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
     @Deprecated
     List<DatabaseReportDescription> getAllOnline();
 
+    /**
+     * Gets the active repositories.
+     *
+     * @return the active repositories
+     */
     List<ReportRepositoryDescription> getActiveRepositories();
 
+    /**
+     * Gets the online reports by repository id.
+     *
+     * @param repositoryId
+     *            the repository id
+     * @return the online reports by repository id
+     */
     @Deprecated
     List<DatabaseReportDescription> getOnlineReportsByRepositoryId(String repositoryId);
 
+    /**
+     * Gets the reports by repository id.
+     *
+     * @param repositoryId
+     *            the repository id
+     * @return the reports by repository id
+     */
     List<DatabaseReportDescription> getReportsByRepositoryId(String repositoryId);
 
+    /**
+     * Reload configuration files.
+     */
     void reloadConfigurationFiles();
 }

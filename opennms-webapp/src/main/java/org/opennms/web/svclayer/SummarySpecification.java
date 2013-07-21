@@ -38,18 +38,24 @@ package org.opennms.web.svclayer;
  * @since 1.8.1
  */
 public class SummarySpecification {
+
+    /** The m_filter rule. */
     private String m_filterRule;
 
+    /** The m_start time. */
     private long m_startTime;
 
+    /** The m_end time. */
     private long m_endTime;
 
+    /** The m_attribute sieve. */
     private String m_attributeSieve;
 
     /**
      * <p>
      * getFilterRule
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -61,6 +67,7 @@ public class SummarySpecification {
      * <p>
      * setFilterRule
      * </p>
+     * .
      *
      * @param filterRule
      *            a {@link java.lang.String} object.
@@ -73,6 +80,7 @@ public class SummarySpecification {
      * <p>
      * getStartTime
      * </p>
+     * .
      *
      * @return a long.
      */
@@ -84,6 +92,7 @@ public class SummarySpecification {
      * <p>
      * setStartTime
      * </p>
+     * .
      *
      * @param startTime
      *            a long.
@@ -96,6 +105,7 @@ public class SummarySpecification {
      * <p>
      * getEndTime
      * </p>
+     * .
      *
      * @return a long.
      */
@@ -107,6 +117,7 @@ public class SummarySpecification {
      * <p>
      * setEndTime
      * </p>
+     * .
      *
      * @param endTime
      *            a long.
@@ -119,6 +130,7 @@ public class SummarySpecification {
      * <p>
      * getAttributeSieve
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -130,6 +142,7 @@ public class SummarySpecification {
      * <p>
      * setAttributeSieve
      * </p>
+     * .
      *
      * @param attributeSieve
      *            a {@link java.lang.String} object.

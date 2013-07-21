@@ -70,14 +70,13 @@ import org.opennms.web.api.Util;
  * @since 1.8.1
  */
 public class NotificationWizardServlet extends HttpServlet {
-    /**
-     *
-     */
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -8394875468854510137L;
 
     // SOURCE_PAGE_EVENTS_VIEW is more of a tag than an actual page - can't be
     // used for navigation as is
-    /** Constant <code>SOURCE_PAGE_OTHER_WEBUI="eventslist"</code> */
+    /** Constant <code>SOURCE_PAGE_OTHER_WEBUI="eventslist"</code>. */
     public static final String SOURCE_PAGE_OTHER_WEBUI = "eventslist";
 
     /** Constant <code>SOURCE_PAGE_NOTICES="eventNotices.jsp"</code> */
@@ -110,8 +109,10 @@ public class NotificationWizardServlet extends HttpServlet {
     /** Constant <code>SOURCE_PAGE_NOTIFICATION_INDEX="../index.jsp"</code> */
     public static final String SOURCE_PAGE_NOTIFICATION_INDEX = "../index.jsp";
 
+    /** The Constant SQL_DELETE_CRITICAL_PATH. */
     private static final String SQL_DELETE_CRITICAL_PATH = "DELETE FROM pathoutage WHERE nodeid=?";
 
+    /** The Constant SQL_SET_CRITICAL_PATH. */
     private static final String SQL_SET_CRITICAL_PATH = "INSERT INTO pathoutage (nodeid, criticalpathip, criticalpathservicename) VALUES (?, ?, ?)";
 
     /** {@inheritDoc} */
@@ -167,6 +168,17 @@ public class NotificationWizardServlet extends HttpServlet {
         response.sendRedirect(redirect);
     }
 
+    /**
+     * Process notices.
+     *
+     * @param request
+     *            the request
+     * @param user
+     *            the user
+     * @return the string
+     * @throws ServletException
+     *             the servlet exception
+     */
     private String processNotices(HttpServletRequest request, HttpSession user) throws ServletException {
         String userAction = request.getParameter("userAction");
 
@@ -198,6 +210,15 @@ public class NotificationWizardServlet extends HttpServlet {
         }
     }
 
+    /**
+     * Process ueis.
+     *
+     * @param request
+     *            the request
+     * @param user
+     *            the user
+     * @return the string
+     */
     private String processUeis(HttpServletRequest request, HttpSession user) {
         Notification newNotice = (Notification) user.getAttribute("newNotice");
         newNotice.setUei(request.getParameter("uei"));
@@ -208,6 +229,15 @@ public class NotificationWizardServlet extends HttpServlet {
         return SOURCE_PAGE_RULE + makeQueryString(params);
     }
 
+    /**
+     * Process validate.
+     *
+     * @param request
+     *            the request
+     * @param user
+     *            the user
+     * @return the string
+     */
     private String processValidate(HttpServletRequest request, HttpSession user) {
         String userAction = request.getParameter("userAction");
 
@@ -229,6 +259,15 @@ public class NotificationWizardServlet extends HttpServlet {
         }
     }
 
+    /**
+     * Process rule.
+     *
+     * @param request
+     *            the request
+     * @param user
+     *            the user
+     * @return the string
+     */
     private String processRule(HttpServletRequest request, HttpSession user) {
         String ruleString = request.getParameter("newRule");
         ruleString = toSingleQuote(ruleString);
@@ -296,6 +335,17 @@ public class NotificationWizardServlet extends HttpServlet {
         return redirectPage + makeQueryString(params);
     }
 
+    /**
+     * Process path.
+     *
+     * @param request
+     *            the request
+     * @param user
+     *            the user
+     * @return the string
+     * @throws ServletException
+     *             the servlet exception
+     */
     private String processPath(HttpServletRequest request, HttpSession user) throws ServletException {
         Notification newNotice = (Notification) user.getAttribute("newNotice");
         newNotice.setDestinationPath(request.getParameter("path"));
@@ -362,6 +412,13 @@ public class NotificationWizardServlet extends HttpServlet {
         }
     }
 
+    /**
+     * Process path outage.
+     *
+     * @param request
+     *            the request
+     * @return the string
+     */
     private String processPathOutage(HttpServletRequest request) {
         String newRule = request.getParameter("newRule");
         newRule = toSingleQuote(newRule);
@@ -404,6 +461,13 @@ public class NotificationWizardServlet extends HttpServlet {
         return redirectPage + makeQueryString(params);
     }
 
+    /**
+     * Process validate path outage.
+     *
+     * @param request
+     *            the request
+     * @return the string
+     */
     private String processValidatePathOutage(HttpServletRequest request) {
         String redirectPage = SOURCE_PAGE_NOTIFICATION_INDEX;
         String userAction = request.getParameter("userAction");
@@ -435,6 +499,17 @@ public class NotificationWizardServlet extends HttpServlet {
         return redirectPage + makeQueryString(params);
     }
 
+    /**
+     * Process other web ui.
+     *
+     * @param request
+     *            the request
+     * @param user
+     *            the user
+     * @return the string
+     * @throws ServletException
+     *             the servlet exception
+     */
     private String processOtherWebUi(HttpServletRequest request, HttpSession user) throws ServletException {
         /*
          * We've come from elsewhere in the Web UI page, and will have a UEI.
@@ -474,6 +549,17 @@ public class NotificationWizardServlet extends HttpServlet {
         }
     }
 
+    /**
+     * Process notifications for uei.
+     *
+     * @param request
+     *            the request
+     * @param user
+     *            the user
+     * @return the string
+     * @throws ServletException
+     *             the servlet exception
+     */
     private String processNotificationsForUei(HttpServletRequest request, HttpSession user) throws ServletException {
         String userAction = request.getParameter("userAction");
         if ("edit".equals(userAction)) {
@@ -486,6 +572,15 @@ public class NotificationWizardServlet extends HttpServlet {
         }
     }
 
+    /**
+     * New notif with uei.
+     *
+     * @param request
+     *            the request
+     * @param user
+     *            the user
+     * @return the string
+     */
     private String newNotifWithUEI(HttpServletRequest request, HttpSession user) {
         String uei = request.getParameter("uei");
         Notification newNotice = buildNewNotification("on");
@@ -499,6 +594,13 @@ public class NotificationWizardServlet extends HttpServlet {
         return SOURCE_PAGE_RULE + makeQueryString(params);
     }
 
+    /**
+     * Builds the new notification.
+     *
+     * @param status
+     *            the status
+     * @return the notification
+     */
     private Notification buildNewNotification(String status) {
         Notification notice = new Notification();
         notice.setRule("IPADDR IPLIKE *.*.*.*");
@@ -509,7 +611,16 @@ public class NotificationWizardServlet extends HttpServlet {
     }
 
     /**
-     * Common code for two source pages that can't really be considered the same
+     * Common code for two source pages that can't really be considered the
+     * same.
+     *
+     * @param request
+     *            the request
+     * @param user
+     *            the user
+     * @return the string
+     * @throws ServletException
+     *             the servlet exception
      */
     private String edit(HttpServletRequest request, HttpSession user) throws ServletException {
         Notification oldNotice;
@@ -528,7 +639,11 @@ public class NotificationWizardServlet extends HttpServlet {
     }
 
     /**
+     * Copy notice.
      *
+     * @param oldNotice
+     *            the old notice
+     * @return the notification
      */
     private Notification copyNotice(Notification oldNotice) {
         Notification newNotice = new Notification();
@@ -559,6 +674,13 @@ public class NotificationWizardServlet extends HttpServlet {
     }
 
     // FIXME: Is this a duplicate of a similar method elsewhere?
+    /**
+     * Make query string.
+     *
+     * @param map
+     *            the map
+     * @return the string
+     */
     private String makeQueryString(Map<String, Object> map) {
         StringBuffer buffer = new StringBuffer();
         String separator = "?";
@@ -582,6 +704,13 @@ public class NotificationWizardServlet extends HttpServlet {
         return buffer.toString();
     }
 
+    /**
+     * To single quote.
+     *
+     * @param rule
+     *            the rule
+     * @return the string
+     */
     private static String toSingleQuote(String rule) {
         StringBuffer buffer = new StringBuffer(rule);
 
@@ -596,6 +725,13 @@ public class NotificationWizardServlet extends HttpServlet {
         return buffer.toString();
     }
 
+    /**
+     * Strip extra white.
+     *
+     * @param s
+     *            the s
+     * @return the string
+     */
     private static String stripExtraWhite(String s) {
         Pattern pattern1 = Pattern.compile("\\s+");
         Matcher matcher1 = pattern1.matcher(s);
@@ -610,6 +746,13 @@ public class NotificationWizardServlet extends HttpServlet {
         return matcher3.replaceAll("");
     }
 
+    /**
+     * Strip services.
+     *
+     * @param s
+     *            the s
+     * @return the string
+     */
     private static String stripServices(String s) {
         String myregex = "\\s*\\&\\s*\\(\\s*\\!?is.+";
         Pattern pattern = Pattern.compile(myregex);
@@ -618,6 +761,13 @@ public class NotificationWizardServlet extends HttpServlet {
         return matcher.replaceAll("");
     }
 
+    /**
+     * Check parens.
+     *
+     * @param rule
+     *            the rule
+     * @return the string
+     */
     private static String checkParens(String rule) {
         if (rule.length() == 0) {
             return rule;
@@ -628,6 +778,16 @@ public class NotificationWizardServlet extends HttpServlet {
         }
     }
 
+    /**
+     * Delete critical path.
+     *
+     * @param node
+     *            the node
+     * @param conn
+     *            the conn
+     * @throws SQLException
+     *             the sQL exception
+     */
     private void deleteCriticalPath(int node, Connection conn) throws SQLException {
         PreparedStatement stmt = null;
         final DBUtils d = new DBUtils(getClass());
@@ -641,6 +801,20 @@ public class NotificationWizardServlet extends HttpServlet {
         }
     }
 
+    /**
+     * Sets the critical path.
+     *
+     * @param node
+     *            the node
+     * @param criticalIp
+     *            the critical ip
+     * @param criticalSvc
+     *            the critical svc
+     * @param conn
+     *            the conn
+     * @throws SQLException
+     *             the sQL exception
+     */
     private void setCriticalPath(int node, String criticalIp, String criticalSvc, Connection conn) throws SQLException {
         PreparedStatement stmt = null;
         final DBUtils d = new DBUtils(getClass());
@@ -656,6 +830,20 @@ public class NotificationWizardServlet extends HttpServlet {
         }
     }
 
+    /**
+     * Update paths.
+     *
+     * @param rule
+     *            the rule
+     * @param criticalIp
+     *            the critical ip
+     * @param criticalSvc
+     *            the critical svc
+     * @throws FilterParseException
+     *             the filter parse exception
+     * @throws SQLException
+     *             the sQL exception
+     */
     private void updatePaths(String rule, String criticalIp, String criticalSvc) throws FilterParseException,
             SQLException {
         Connection conn = Vault.getDbConnection();
@@ -674,10 +862,20 @@ public class NotificationWizardServlet extends HttpServlet {
         }
     }
 
+    /**
+     * Gets the filter dao.
+     *
+     * @return the filter dao
+     */
     private FilterDao getFilterDao() {
         return FilterDaoFactory.getInstance();
     }
 
+    /**
+     * Gets the notification factory.
+     *
+     * @return the notification factory
+     */
     private NotificationFactory getNotificationFactory() {
         return NotificationFactory.getInstance();
     }

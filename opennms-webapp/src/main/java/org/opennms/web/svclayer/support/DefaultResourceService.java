@@ -61,18 +61,23 @@ import org.springframework.util.Assert;
  */
 public class DefaultResourceService implements ResourceService, InitializingBean {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(DefaultResourceService.class);
 
+    /** The m_resource dao. */
     private ResourceDao m_resourceDao;
 
+    /** The m_graph dao. */
     private GraphDao m_graphDao;
 
+    /** The m_event proxy. */
     private EventProxy m_eventProxy;
 
     /**
      * <p>
      * getResourceDao
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.dao.api.ResourceDao} object.
      */
@@ -84,6 +89,7 @@ public class DefaultResourceService implements ResourceService, InitializingBean
      * <p>
      * setResourceDao
      * </p>
+     * .
      *
      * @param resourceDao
      *            a {@link org.opennms.netmgt.dao.api.ResourceDao} object.
@@ -96,6 +102,7 @@ public class DefaultResourceService implements ResourceService, InitializingBean
      * <p>
      * getGraphDao
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.dao.api.GraphDao} object.
      */
@@ -107,6 +114,7 @@ public class DefaultResourceService implements ResourceService, InitializingBean
      * <p>
      * setGraphDao
      * </p>
+     * .
      *
      * @param graphDao
      *            a {@link org.opennms.netmgt.dao.api.GraphDao} object.
@@ -119,6 +127,7 @@ public class DefaultResourceService implements ResourceService, InitializingBean
      * <p>
      * setEventProxy
      * </p>
+     * .
      *
      * @param eventProxy
      *            a {@link org.opennms.netmgt.model.events.EventProxy} object.
@@ -131,9 +140,10 @@ public class DefaultResourceService implements ResourceService, InitializingBean
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @Override
     public final void afterPropertiesSet() throws Exception {
@@ -146,6 +156,7 @@ public class DefaultResourceService implements ResourceService, InitializingBean
      * <p>
      * getRrdDirectory
      * </p>
+     * .
      *
      * @return a {@link java.io.File} object.
      */
@@ -158,6 +169,7 @@ public class DefaultResourceService implements ResourceService, InitializingBean
      * <p>
      * findDomainResources
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -170,6 +182,7 @@ public class DefaultResourceService implements ResourceService, InitializingBean
      * <p>
      * findNodeSourceResources
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -182,6 +195,7 @@ public class DefaultResourceService implements ResourceService, InitializingBean
      * <p>
      * findNodeResources
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -194,6 +208,7 @@ public class DefaultResourceService implements ResourceService, InitializingBean
      * <p>
      * findTopLevelResources
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -243,6 +258,7 @@ public class DefaultResourceService implements ResourceService, InitializingBean
      * <p>
      * findChildResources
      * </p>
+     * .
      *
      * @param resource
      *            a {@link org.opennms.netmgt.model.OnmsResource} object.
@@ -277,6 +293,13 @@ public class DefaultResourceService implements ResourceService, InitializingBean
         return matchingChildResources;
     }
 
+    /**
+     * Check label for quotes.
+     *
+     * @param childResource
+     *            the child resource
+     * @return the onms resource
+     */
     private static OnmsResource checkLabelForQuotes(final OnmsResource childResource) {
 
         String lbl = Util.convertToJsSafeString(childResource.getLabel());
@@ -329,6 +352,7 @@ public class DefaultResourceService implements ResourceService, InitializingBean
      * <p>
      * promoteGraphAttributesForResource
      * </p>
+     * .
      *
      * @param resourceId
      *            a {@link java.lang.String} object.
@@ -342,6 +366,7 @@ public class DefaultResourceService implements ResourceService, InitializingBean
      * <p>
      * findPrefabGraphsForChildResources
      * </p>
+     * .
      *
      * @param resource
      *            a {@link org.opennms.netmgt.model.OnmsResource} object.

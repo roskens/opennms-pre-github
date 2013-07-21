@@ -44,36 +44,27 @@ import java.util.List;
  * @since 1.8.1
  */
 public class Group implements Cloneable {
-    /**
-     */
+
+    /** The Constant GROUP_NAME_PROPERTY. */
     public static final String GROUP_NAME_PROPERTY = "groupName";
 
-    /**
-     * The name of the group
-     */
+    /** The name of the group. */
     private String m_groupName;
 
-    /**
-     * The comments for the group
-     */
+    /** The comments for the group. */
     private String m_groupComments;
 
-    /**
-     * The group info for the group
-     */
+    /** The group info for the group. */
     private GroupInfo m_groupInfo;
 
-    /**
-     * The list of users in the group
-     */
+    /** The list of users in the group. */
     private List<String> m_users;
 
-    /**
-     */
+    /** The m_prop change. */
     private PropertyChangeSupport m_propChange;
 
     /**
-     * Default constructor, initializes the users list
+     * Default constructor, initializes the users list.
      */
     public Group() {
         m_propChange = new PropertyChangeSupport(this);
@@ -88,6 +79,7 @@ public class Group implements Cloneable {
      * <p>
      * clone
      * </p>
+     * .
      *
      * @return a {@link org.opennms.web.admin.groups.parsers.Group} object.
      */
@@ -115,6 +107,7 @@ public class Group implements Cloneable {
      * <p>
      * addPropertyChangeListener
      * </p>
+     * .
      *
      * @param listener
      *            a {@link java.beans.PropertyChangeListener} object.
@@ -127,6 +120,7 @@ public class Group implements Cloneable {
      * <p>
      * removePropertyChangeListener
      * </p>
+     * .
      *
      * @param listener
      *            a {@link java.beans.PropertyChangeListener} object.
@@ -136,7 +130,7 @@ public class Group implements Cloneable {
     }
 
     /**
-     * Returns the group information for this group
+     * Returns the group information for this group.
      *
      * @return the group info
      */
@@ -145,7 +139,7 @@ public class Group implements Cloneable {
     }
 
     /**
-     * Sets the group information for this group
+     * Sets the group information for this group.
      *
      * @param someInfo
      *            the group info
@@ -155,7 +149,7 @@ public class Group implements Cloneable {
     }
 
     /**
-     * Sets the group name
+     * Sets the group name.
      *
      * @param aName
      *            the name of the group
@@ -167,7 +161,7 @@ public class Group implements Cloneable {
     }
 
     /**
-     * Returns the group name
+     * Returns the group name.
      *
      * @return the name of the group
      */
@@ -176,7 +170,7 @@ public class Group implements Cloneable {
     }
 
     /**
-     * Sets the comments for the group
+     * Sets the comments for the group.
      *
      * @param someComments
      *            the comments for the group
@@ -186,7 +180,7 @@ public class Group implements Cloneable {
     }
 
     /**
-     * Returns the comments for the group
+     * Returns the comments for the group.
      *
      * @return the comments for the group
      */
@@ -195,18 +189,18 @@ public class Group implements Cloneable {
     }
 
     /**
-     * Returns whether the group has this user in its users list
+     * Returns whether the group has this user in its users list.
      *
-     * @return true if user is in list, false if not
      * @param aUser
      *            a {@link java.lang.String} object.
+     * @return true if user is in list, false if not
      */
     public boolean hasUser(String aUser) {
         return m_users.contains(aUser);
     }
 
     /**
-     * Adds a username to the list of users
+     * Adds a username to the list of users.
      *
      * @param aUser
      *            a new username
@@ -216,7 +210,7 @@ public class Group implements Cloneable {
     }
 
     /**
-     * Removes a username from the list of users
+     * Removes a username from the list of users.
      *
      * @param aUser
      *            the user to remove
@@ -233,7 +227,7 @@ public class Group implements Cloneable {
     }
 
     /**
-     * Returns the list of users
+     * Returns the list of users.
      *
      * @return the list of users
      */
@@ -242,7 +236,7 @@ public class Group implements Cloneable {
     }
 
     /**
-     * Returns a count of the users in the list
+     * Returns a count of the users in the list.
      *
      * @return how many users in this group
      */

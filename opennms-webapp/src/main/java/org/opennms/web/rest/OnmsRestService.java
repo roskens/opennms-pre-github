@@ -72,18 +72,46 @@ import com.sun.jersey.core.util.MultivaluedMapImpl;
  */
 public class OnmsRestService {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(OnmsRestService.class);
 
+    /** The m_global lock. */
     private final ReentrantReadWriteLock m_globalLock = new ReentrantReadWriteLock();
 
+    /** The m_read lock. */
     private final Lock m_readLock = m_globalLock.readLock();
 
+    /** The m_write lock. */
     private final Lock m_writeLock = m_globalLock.writeLock();
 
+    /** The Constant DEFAULT_LIMIT. */
     protected static final int DEFAULT_LIMIT = 10;
 
+    /**
+     * The Enum ComparisonOperation.
+     */
     protected enum ComparisonOperation {
-        EQ, NE, ILIKE, LIKE, IPLIKE, GT, LT, GE, LE, CONTAINS
+
+        /** The eq. */
+        EQ,
+ /** The ne. */
+ NE,
+ /** The ilike. */
+ ILIKE,
+ /** The like. */
+ LIKE,
+ /** The iplike. */
+ IPLIKE,
+ /** The gt. */
+ GT,
+ /** The lt. */
+ LT,
+ /** The ge. */
+ GE,
+ /** The le. */
+ LE,
+ /** The contains. */
+ CONTAINS
     }
 
     /**
@@ -95,16 +123,25 @@ public class OnmsRestService {
         super();
     }
 
+    /**
+     * Read lock.
+     */
     protected void readLock() {
         m_readLock.lock();
     }
 
+    /**
+     * Read unlock.
+     */
     protected void readUnlock() {
         if (m_globalLock.getReadHoldCount() > 0) {
             m_readLock.unlock();
         }
     }
 
+    /**
+     * Write lock.
+     */
     protected void writeLock() {
         if (m_globalLock.getWriteHoldCount() == 0) {
             while (m_globalLock.getReadHoldCount() > 0) {
@@ -114,12 +151,23 @@ public class OnmsRestService {
         }
     }
 
+    /**
+     * Write unlock.
+     */
     protected void writeUnlock() {
         if (m_globalLock.getWriteHoldCount() > 0) {
             m_writeLock.unlock();
         }
     }
 
+    /**
+     * Apply query filters.
+     *
+     * @param p
+     *            the p
+     * @param builder
+     *            the builder
+     */
     protected void applyQueryFilters(final MultivaluedMap<String, String> p, final CriteriaBuilder builder) {
         final MultivaluedMap<String, String> params = new MultivaluedMapImpl();
         params.putAll(p);
@@ -228,6 +276,13 @@ public class OnmsRestService {
         }
     }
 
+    /**
+     * Gets the bean wrapper for class.
+     *
+     * @param criteriaClass
+     *            the criteria class
+     * @return the bean wrapper for class
+     */
     protected BeanWrapper getBeanWrapperForClass(final Class<?> criteriaClass) {
         final BeanWrapper wrapper = new BeanWrapperImpl(criteriaClass);
         wrapper.registerCustomEditor(XMLGregorianCalendar.class, new StringXmlCalendarPropertyEditor());
@@ -239,6 +294,15 @@ public class OnmsRestService {
         return wrapper;
     }
 
+    /**
+     * Removes the parameter.
+     *
+     * @param params
+     *            the params
+     * @param key
+     *            the key
+     * @return the string
+     */
     protected String removeParameter(final MultivaluedMap<java.lang.String, java.lang.String> params, final String key) {
         if (params.containsKey(key)) {
             final String value = params.getFirst(key);
@@ -249,6 +313,17 @@ public class OnmsRestService {
         }
     }
 
+    /**
+     * Removes the parameter.
+     *
+     * @param params
+     *            the params
+     * @param key
+     *            the key
+     * @param defaultValue
+     *            the default value
+     * @return the string
+     */
     protected String removeParameter(final MultivaluedMap<java.lang.String, java.lang.String> params, final String key,
             final String defaultValue) {
         final String value = removeParameter(params, key);
@@ -263,14 +338,17 @@ public class OnmsRestService {
      * <p>
      * throwException
      * </p>
+     * .
      *
+     * @param <T>
+     *            a T object.
      * @param status
      *            a {@link javax.ws.rs.core.Response.Status} object.
      * @param msg
      *            a {@link java.lang.String} object.
-     * @param <T>
-     *            a T object.
      * @return a T object.
+     * @throws WebApplicationException
+     *             the web application exception
      */
     protected <T> WebApplicationException getException(final Status status, final String msg)
             throws WebApplicationException {
@@ -278,6 +356,19 @@ public class OnmsRestService {
         return new WebApplicationException(Response.status(status).type(MediaType.TEXT_PLAIN).entity(msg).build());
     }
 
+    /**
+     * Gets the exception.
+     *
+     * @param <T>
+     *            the generic type
+     * @param status
+     *            the status
+     * @param t
+     *            the t
+     * @return the exception
+     * @throws WebApplicationException
+     *             the web application exception
+     */
     protected <T> WebApplicationException getException(Status status, Throwable t) throws WebApplicationException {
         LOG.error(t.getMessage(), t);
         return new WebApplicationException(
@@ -319,6 +410,15 @@ public class OnmsRestService {
         return result.toString();
     }
 
+    /**
+     * Gets the redirect uri.
+     *
+     * @param m_uriInfo
+     *            the m_uri info
+     * @param pathComponents
+     *            the path components
+     * @return the redirect uri
+     */
     protected static URI getRedirectUri(final UriInfo m_uriInfo, final Object... pathComponents) {
         if (pathComponents != null && pathComponents.length == 0) {
             final URI requestUri = m_uriInfo.getRequestUri();
@@ -343,6 +443,7 @@ public class OnmsRestService {
      * <p>
      * setProperties
      * </p>
+     * .
      *
      * @param params
      *            a {@link org.opennms.web.rest.MultivaluedMapImpl} object.

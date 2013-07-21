@@ -31,12 +31,21 @@ package org.opennms.dashboard.client;
 import com.google.gwt.user.client.ui.FlexTable;
 
 /**
+ * The Class NotificationView.
+ *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  */
 class NotificationView extends PageableTableView {
 
+    /** The m_notifications. */
     private Notification[] m_notifications;
 
+    /**
+     * Instantiates a new notification view.
+     *
+     * @param dashlet
+     *            the dashlet
+     */
     NotificationView(Dashlet dashlet) {
         super(dashlet, 8, new String[] { "Node", "Service", "Message", "Sent Time", "Responder", "Response Time" });
     }
@@ -45,6 +54,7 @@ class NotificationView extends PageableTableView {
      * <p>
      * setNotifications
      * </p>
+     * .
      *
      * @param notifications
      *            an array of {@link org.opennms.dashboard.client.Notification}
@@ -78,6 +88,7 @@ class NotificationView extends PageableTableView {
      * <p>
      * getElementCount
      * </p>
+     * .
      *
      * @return a int.
      */

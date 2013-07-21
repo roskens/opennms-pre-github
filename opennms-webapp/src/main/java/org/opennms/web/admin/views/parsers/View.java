@@ -43,32 +43,26 @@ import java.util.Map;
  * @since 1.8.1
  */
 public class View implements Cloneable {
-    /**
-     */
+
+    /** The m_view name. */
     private String m_viewName;
 
-    /**
-     */
+    /** The m_view title. */
     private String m_viewTitle;
 
-    /**
-     */
+    /** The m_view comments. */
     private String m_viewComments;
 
-    /**
-     */
+    /** The m_common rule. */
     private String m_commonRule;
 
-    /**
-     */
+    /** The m_user members. */
     private List<String> m_userMembers;
 
-    /**
-     */
+    /** The m_group members. */
     private List<String> m_groupMembers;
 
-    /**
-     */
+    /** The m_categories. */
     private List<Category> m_categories;
 
     /**
@@ -86,6 +80,7 @@ public class View implements Cloneable {
      * <p>
      * clone
      * </p>
+     * .
      *
      * @return a {@link java.lang.Object} object.
      */
@@ -123,6 +118,7 @@ public class View implements Cloneable {
      * <p>
      * setViewName
      * </p>
+     * .
      *
      * @param aValue
      *            a {@link java.lang.String} object.
@@ -135,6 +131,7 @@ public class View implements Cloneable {
      * <p>
      * setViewTitle
      * </p>
+     * .
      *
      * @param aValue
      *            a {@link java.lang.String} object.
@@ -147,6 +144,7 @@ public class View implements Cloneable {
      * <p>
      * setViewComments
      * </p>
+     * .
      *
      * @param aValue
      *            a {@link java.lang.String} object.
@@ -156,7 +154,7 @@ public class View implements Cloneable {
     }
 
     /**
-     * This method sets the common rule for the view
+     * This method sets the common rule for the view.
      *
      * @param common
      *            the common rule.
@@ -166,7 +164,7 @@ public class View implements Cloneable {
     }
 
     /**
-     * This method returns the common rule for the view
+     * This method returns the common rule for the view.
      *
      * @return the common rule.
      */
@@ -178,6 +176,7 @@ public class View implements Cloneable {
      * <p>
      * addCategory
      * </p>
+     * .
      *
      * @param aCategory
      *            a {@link org.opennms.web.admin.views.parsers.Category} object.
@@ -190,6 +189,7 @@ public class View implements Cloneable {
      * <p>
      * getViewName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -201,6 +201,7 @@ public class View implements Cloneable {
      * <p>
      * getViewTitle
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -212,6 +213,7 @@ public class View implements Cloneable {
      * <p>
      * getViewComments
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -223,6 +225,7 @@ public class View implements Cloneable {
      * <p>
      * getUserMembers
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -234,6 +237,7 @@ public class View implements Cloneable {
      * <p>
      * setUserMembers
      * </p>
+     * .
      *
      * @param users
      *            a {@link java.util.List} object.
@@ -246,6 +250,7 @@ public class View implements Cloneable {
      * <p>
      * addUserMember
      * </p>
+     * .
      *
      * @param aMember
      *            a {@link java.lang.String} object.
@@ -258,6 +263,7 @@ public class View implements Cloneable {
      * <p>
      * removeUserMember
      * </p>
+     * .
      *
      * @param aMember
      *            a {@link java.lang.String} object.
@@ -270,6 +276,7 @@ public class View implements Cloneable {
      * <p>
      * clearUserMembers
      * </p>
+     * .
      */
     public void clearUserMembers() {
         m_userMembers.clear();
@@ -279,6 +286,7 @@ public class View implements Cloneable {
      * <p>
      * getGroupMembers
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -290,6 +298,7 @@ public class View implements Cloneable {
      * <p>
      * setGroupMembers
      * </p>
+     * .
      *
      * @param groups
      *            a {@link java.util.List} object.
@@ -302,6 +311,7 @@ public class View implements Cloneable {
      * <p>
      * getMembers
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -318,6 +328,7 @@ public class View implements Cloneable {
      * <p>
      * addGroupMember
      * </p>
+     * .
      *
      * @param aMember
      *            a {@link java.lang.String} object.
@@ -330,6 +341,7 @@ public class View implements Cloneable {
      * <p>
      * removeGroupMember
      * </p>
+     * .
      *
      * @param aMember
      *            a {@link java.lang.String} object.
@@ -342,6 +354,7 @@ public class View implements Cloneable {
      * <p>
      * clearGroupMembers
      * </p>
+     * .
      */
     public void clearGroupMembers() {
         m_groupMembers.clear();
@@ -351,6 +364,7 @@ public class View implements Cloneable {
      * <p>
      * hasUserMember
      * </p>
+     * .
      *
      * @param name
      *            a {@link java.lang.String} object.
@@ -364,6 +378,7 @@ public class View implements Cloneable {
      * <p>
      * hasGroupMember
      * </p>
+     * .
      *
      * @param name
      *            a {@link java.lang.String} object.
@@ -377,6 +392,7 @@ public class View implements Cloneable {
      * <p>
      * getCategories
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -388,6 +404,7 @@ public class View implements Cloneable {
      * <p>
      * getCategoriesMap
      * </p>
+     * .
      *
      * @return a {@link java.util.Map} object.
      */
@@ -405,6 +422,7 @@ public class View implements Cloneable {
      * <p>
      * setCategories
      * </p>
+     * .
      *
      * @param categories
      *            a {@link java.util.List} object.
@@ -417,6 +435,7 @@ public class View implements Cloneable {
      * <p>
      * setCategories
      * </p>
+     * .
      *
      * @param categories
      *            a {@link java.util.Map} object.
@@ -433,6 +452,7 @@ public class View implements Cloneable {
      * <p>
      * getCategoryCount
      * </p>
+     * .
      *
      * @return a int.
      */

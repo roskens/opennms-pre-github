@@ -45,6 +45,7 @@ public class TriggerDetailsValidator {
      * <p>
      * ValidateTriggerDetails
      * </p>
+     * .
      *
      * @param triggerDetails
      *            a {@link org.opennms.web.report.database.model.TriggerDetails}

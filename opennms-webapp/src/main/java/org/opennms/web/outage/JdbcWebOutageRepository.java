@@ -64,9 +64,13 @@ import org.springframework.jdbc.core.simple.SimpleJdbcTemplate;
  */
 public class JdbcWebOutageRepository implements WebOutageRepository, InitializingBean {
 
+    /** The m_simple jdbc template. */
     @Autowired
     SimpleJdbcTemplate m_simpleJdbcTemplate;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
@@ -152,16 +156,45 @@ public class JdbcWebOutageRepository implements WebOutageRepository, Initializin
         }
     }
 
+    /**
+     * Gets the outage summaries.
+     *
+     * @param sql
+     *            the sql
+     * @param setter
+     *            the setter
+     * @return the outage summaries
+     */
     private OutageSummary[] getOutageSummaries(String sql, PreparedStatementSetter setter) {
         List<OutageSummary> summaries = queryForList(sql, setter, new OutageSummaryMapper());
         return summaries.toArray(new OutageSummary[0]);
     }
 
+    /**
+     * Gets the outages.
+     *
+     * @param sql
+     *            the sql
+     * @param setter
+     *            the setter
+     * @return the outages
+     */
     private Outage[] getOutages(String sql, PreparedStatementSetter setter) {
         List<Outage> outages = queryForList(sql, setter, new OutageMapper());
         return outages.toArray(new Outage[0]);
     }
 
+    /**
+     * Gets the sql.
+     *
+     * @param selectClause
+     *            the select clause
+     * @param groupByClause
+     *            the group by clause
+     * @param criteria
+     *            the criteria
+     * @return the sql
+     */
     private String getSql(final String selectClause, final String groupByClause, final OutageCriteria criteria) {
         final StringBuilder buf = new StringBuilder(selectClause);
 
@@ -216,25 +249,78 @@ public class JdbcWebOutageRepository implements WebOutageRepository, Initializin
         return buf.toString();
     }
 
+    /**
+     * Query for int.
+     *
+     * @param sql
+     *            the sql
+     * @param setter
+     *            the setter
+     * @return the int
+     * @throws DataAccessException
+     *             the data access exception
+     */
     private int queryForInt(String sql, PreparedStatementSetter setter) throws DataAccessException {
         Integer number = queryForObject(sql, setter, new SingleColumnRowMapper<Integer>(Integer.class));
         return (number != null ? number.intValue() : 0);
     }
 
+    /**
+     * Query for object.
+     *
+     * @param <T>
+     *            the generic type
+     * @param sql
+     *            the sql
+     * @param setter
+     *            the setter
+     * @param rowMapper
+     *            the row mapper
+     * @return the t
+     * @throws DataAccessException
+     *             the data access exception
+     */
     private <T> T queryForObject(String sql, PreparedStatementSetter setter, RowMapper<T> rowMapper)
             throws DataAccessException {
         return DataAccessUtils.requiredSingleResult(jdbc().query(sql, setter,
                                                                  new RowMapperResultSetExtractor<T>(rowMapper, 1)));
     }
 
+    /**
+     * Query for list.
+     *
+     * @param <T>
+     *            the generic type
+     * @param sql
+     *            the sql
+     * @param setter
+     *            the setter
+     * @param rm
+     *            the rm
+     * @return the list
+     */
     private <T> List<T> queryForList(String sql, PreparedStatementSetter setter, ParameterizedRowMapper<T> rm) {
         return jdbc().query(sql, setter, new RowMapperResultSetExtractor<T>(rm));
     }
 
+    /**
+     * Jdbc.
+     *
+     * @return the jdbc operations
+     */
     private JdbcOperations jdbc() {
         return m_simpleJdbcTemplate.getJdbcOperations();
     }
 
+    /**
+     * Param setter.
+     *
+     * @param criteria
+     *            the criteria
+     * @param args
+     *            the args
+     * @return the prepared statement setter
+     */
     private PreparedStatementSetter paramSetter(final OutageCriteria criteria, final Object... args) {
         return new PreparedStatementSetter() {
             int paramIndex = 1;
@@ -255,7 +341,14 @@ public class JdbcWebOutageRepository implements WebOutageRepository, Initializin
         };
     }
 
+    /**
+     * The Class OutageSummaryMapper.
+     */
     private static class OutageSummaryMapper implements ParameterizedRowMapper<OutageSummary> {
+
+        /* (non-Javadoc)
+         * @see org.springframework.jdbc.core.RowMapper#mapRow(java.sql.ResultSet, int)
+         */
         @Override
         public OutageSummary mapRow(ResultSet rs, int rowNum) throws SQLException {
             return new OutageSummary(rs.getInt("nodeID"), rs.getString("nodeLabel"), getTimestamp("ifLostService", rs),
@@ -263,7 +356,14 @@ public class JdbcWebOutageRepository implements WebOutageRepository, Initializin
         }
     }
 
+    /**
+     * The Class OutageMapper.
+     */
     private static class OutageMapper implements ParameterizedRowMapper<Outage> {
+
+        /* (non-Javadoc)
+         * @see org.springframework.jdbc.core.RowMapper#mapRow(java.sql.ResultSet, int)
+         */
         @Override
         public Outage mapRow(ResultSet rs, int rowNum) throws SQLException {
             Outage outage = new Outage();
@@ -289,6 +389,17 @@ public class JdbcWebOutageRepository implements WebOutageRepository, Initializin
 
     }
 
+    /**
+     * Gets the timestamp.
+     *
+     * @param field
+     *            the field
+     * @param rs
+     *            the rs
+     * @return the timestamp
+     * @throws SQLException
+     *             the sQL exception
+     */
     private static Date getTimestamp(String field, ResultSet rs) throws SQLException {
         if (rs.getTimestamp(field) != null) {
             return new Date(rs.getTimestamp(field).getTime());

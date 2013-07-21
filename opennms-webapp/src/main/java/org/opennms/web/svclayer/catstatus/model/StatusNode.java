@@ -41,12 +41,17 @@ import java.util.Collection;
  * @since 1.8.1
  */
 public class StatusNode {
+
+    /** The m_label. */
     private String m_label;
 
+    /** The m_outagestatus. */
     private Boolean m_outagestatus;
 
+    /** The m_ipinterfaces. */
     private Collection<StatusInterface> m_ipinterfaces;
 
+    /** The m_nodeid. */
     private Integer m_nodeid;
 
     /**
@@ -64,6 +69,7 @@ public class StatusNode {
      * <p>
      * addIpInterface
      * </p>
+     * .
      *
      * @param ipInterface
      *            a
@@ -80,6 +86,7 @@ public class StatusNode {
      * <p>
      * getIpInterfaces
      * </p>
+     * .
      *
      * @return a {@link java.util.Collection} object.
      */
@@ -93,6 +100,7 @@ public class StatusNode {
      * <p>
      * getLabel
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -104,6 +112,7 @@ public class StatusNode {
      * <p>
      * setLabel
      * </p>
+     * .
      *
      * @param m_label
      *            a {@link java.lang.String} object.
@@ -116,6 +125,7 @@ public class StatusNode {
      * <p>
      * getOutagestatus
      * </p>
+     * .
      *
      * @return a {@link java.lang.Boolean} object.
      */
@@ -127,6 +137,7 @@ public class StatusNode {
      * <p>
      * setOutagestatus
      * </p>
+     * .
      *
      * @param m_outagestatus
      *            a {@link java.lang.Boolean} object.
@@ -139,6 +150,7 @@ public class StatusNode {
      * <p>
      * getNodeid
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -150,6 +162,7 @@ public class StatusNode {
      * <p>
      * setNodeid
      * </p>
+     * .
      *
      * @param nodeid
      *            a {@link java.lang.Integer} object.

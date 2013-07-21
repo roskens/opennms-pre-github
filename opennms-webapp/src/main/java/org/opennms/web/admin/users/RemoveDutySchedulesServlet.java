@@ -44,7 +44,7 @@ import org.opennms.web.admin.users.parsers.NotificationInfo;
 import org.opennms.web.admin.users.parsers.User;
 
 /**
- * A servlet that handles removing duties from a users notification information
+ * A servlet that handles removing duties from a users notification information.
  *
  * @author <A HREF="mailto:jason@opennms.org">Jason Johns </A>
  * @author <A HREF="http://www.opennms.org/">OpenNMS </A>
@@ -54,9 +54,8 @@ import org.opennms.web.admin.users.parsers.User;
  * @since 1.8.1
  */
 public class RemoveDutySchedulesServlet extends HttpServlet {
-    /**
-     *
-     */
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 7251657805301792512L;
 
     /** {@inheritDoc} */

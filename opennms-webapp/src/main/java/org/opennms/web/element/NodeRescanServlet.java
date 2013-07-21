@@ -55,20 +55,21 @@ import org.opennms.web.servlet.MissingParameterException;
  * @since 1.8.1
  */
 public class NodeRescanServlet extends HttpServlet {
-    /**
-     *
-     */
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -3183139374532183137L;
 
+    /** The proxy. */
     protected EventProxy proxy;
 
     /**
      * <p>
      * init
      * </p>
+     * .
      *
-     * @throws javax.servlet.ServletException
-     *             if any.
+     * @throws ServletException
+     *             the servlet exception
      */
     @Override
     public void init() throws ServletException {

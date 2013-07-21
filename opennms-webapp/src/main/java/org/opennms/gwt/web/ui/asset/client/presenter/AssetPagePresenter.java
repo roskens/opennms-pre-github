@@ -47,6 +47,8 @@ import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
+ * The Class AssetPagePresenter.
+ *
  * @author <a href="mailto:MarkusNeumannMarkus@gmail.com">Markus Neumann</a>
  *         Presenter to mangage asset page for displaying and editing assets.
  */
@@ -79,14 +81,14 @@ public class AssetPagePresenter implements Presenter {
         AssetCommand getData();
 
         /**
-         * get the reset button to add manage the related actions
+         * get the reset button to add manage the related actions.
          *
          * @return {@link HasClickHandlers}
          */
         HasClickHandlers getResetButton();
 
         /**
-         * get the save button to add manage the related actions
+         * get the save button to add manage the related actions.
          *
          * @return {@link HasClickHandlers}
          */
@@ -104,13 +106,17 @@ public class AssetPagePresenter implements Presenter {
          * Puts an {@link AssetCommand} to the display. To show all necessary
          * content into the ui. AssetCommand contains asset-data and additional.
          *
-         * @param {@link AssetCommand}
+         * @param asset
+         *            the new data
          */
         void setData(AssetCommand asset);
 
         /**
          * Puts an {@link AssetSuggCommand} to the display. That contains all
          * suggestions for all {@link FieldSetSuggestBox}es at Display.
+         *
+         * @param assetSugg
+         *            the new data sugg
          */
         void setDataSugg(AssetSuggCommand assetSugg);
 
@@ -136,26 +142,43 @@ public class AssetPagePresenter implements Presenter {
         /**
          * Sets status info to the display ui.
          *
-         * @param String
-         *            info what will be shown at the display ui.
+         * @param info
+         *            the new info
          */
         void setInfo(String info);
     }
 
+    /** The con. */
     private AssetPageConstants con = GWT.create(AssetPageConstants.class);
 
+    /** The rpc service. */
     private final AssetServiceAsync rpcService;
 
+    /** The event bus. */
     private final HandlerManager eventBus;
 
+    /** The display. */
     private final Display display;
 
+    /** The asset. */
     private AssetCommand asset;
 
+    /** The asset sugg. */
     private AssetSuggCommand assetSugg;
 
+    /** The node id. */
     private int nodeId;
 
+    /**
+     * Instantiates a new asset page presenter.
+     *
+     * @param rpcService
+     *            the rpc service
+     * @param eventBus
+     *            the event bus
+     * @param view
+     *            the view
+     */
     public AssetPagePresenter(AssetServiceAsync rpcService, HandlerManager eventBus, Display view) {
         this.rpcService = rpcService;
         this.eventBus = eventBus;
@@ -243,6 +266,9 @@ public class AssetPagePresenter implements Presenter {
 
     /**
      * start up the presenter.
+     *
+     * @param container
+     *            the container
      */
     @Override
     public void go(final HasWidgets container) {

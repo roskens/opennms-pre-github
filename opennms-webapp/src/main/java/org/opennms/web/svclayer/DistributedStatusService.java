@@ -46,18 +46,20 @@ import org.springframework.validation.Errors;
  */
 @Transactional(readOnly = true)
 public interface DistributedStatusService {
+
     /**
      * <p>
      * createStatusTable
      * </p>
+     * .
      *
      * @param command
      *            a
-     *            {@link org.opennms.web.command.DistributedStatusDetailsCommand}
-     *            object.
      * @param errors
      *            a {@link org.springframework.validation.Errors} object.
      * @return a {@link org.opennms.web.svclayer.SimpleWebTable} object.
+     *         {@link org.opennms.web.command.DistributedStatusDetailsCommand}
+     *         object.
      */
     public SimpleWebTable createStatusTable(DistributedStatusDetailsCommand command, Errors errors);
 
@@ -65,6 +67,7 @@ public interface DistributedStatusService {
      * <p>
      * createFacilityStatusTable
      * </p>
+     * .
      *
      * @param startDate
      *            a java$util$Date object.
@@ -78,6 +81,7 @@ public interface DistributedStatusService {
      * <p>
      * createHistoryModel
      * </p>
+     * .
      *
      * @param locationName
      *            a {@link java.lang.String} object.
@@ -100,6 +104,7 @@ public interface DistributedStatusService {
      * <p>
      * getApplicationCount
      * </p>
+     * .
      *
      * @return a int.
      */

@@ -38,6 +38,8 @@ package org.opennms.web.controller;
  * @since 1.8.1
  */
 public class DaemonStatusBinder {
+
+    /** The values. */
     private String[] values = new String[0];
 
     /**

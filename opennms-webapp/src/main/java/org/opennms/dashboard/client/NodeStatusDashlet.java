@@ -44,19 +44,37 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
  */
 public class NodeStatusDashlet extends Dashlet {
 
+    /** The m_view. */
     private NodeStatusView m_view = new NodeStatusView(this);
 
+    /** The m_loader. */
     private NodeStatusLoader m_loader = new NodeStatusLoader();
 
+    /**
+     * The Class NodeStatusLoader.
+     */
     class NodeStatusLoader extends DashletLoader implements AsyncCallback<NodeRtc[]> {
 
+        /** The m_suveillance service. */
         private SurveillanceServiceAsync m_suveillanceService;
 
+        /**
+         * Load.
+         *
+         * @param surveillanceSet
+         *            the surveillance set
+         */
         public void load(final SurveillanceSet surveillanceSet) {
             loading();
             m_suveillanceService.getRtcForSet(surveillanceSet, this);
         }
 
+        /**
+         * On data loaded.
+         *
+         * @param rtcs
+         *            the rtcs
+         */
         public void onDataLoaded(NodeRtc[] rtcs) {
             try {
                 m_view.setNodeRtc(rtcs);
@@ -65,16 +83,28 @@ public class NodeStatusDashlet extends Dashlet {
             }
         }
 
+        /**
+         * Sets the surveillance service.
+         *
+         * @param svc
+         *            the new surveillance service
+         */
         public void setSurveillanceService(SurveillanceServiceAsync svc) {
             m_suveillanceService = svc;
         }
 
+        /* (non-Javadoc)
+         * @see com.google.gwt.user.client.rpc.AsyncCallback#onFailure(java.lang.Throwable)
+         */
         @Override
         public void onFailure(Throwable caught) {
             loadError(caught);
             error(caught);
         }
 
+        /* (non-Javadoc)
+         * @see com.google.gwt.user.client.rpc.AsyncCallback#onSuccess(java.lang.Object)
+         */
         @Override
         public void onSuccess(NodeRtc[] result) {
             onDataLoaded(result);
@@ -106,6 +136,7 @@ public class NodeStatusDashlet extends Dashlet {
      * <p>
      * setSurveillanceService
      * </p>
+     * .
      *
      * @param svc
      *            a

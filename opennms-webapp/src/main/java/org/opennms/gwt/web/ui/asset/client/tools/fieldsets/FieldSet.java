@@ -32,6 +32,8 @@ import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.FocusHandler;
 
 /**
+ * The Interface FieldSet.
+ *
  * @author <a href="mailto:MarkusNeumannMarkus@gmail.com">Markus Neumann</a> A
  *         FieldSet is a pair of a describing label/name and a value/input. It's
  *         intended to make data-input and data-maintenance pages easier. It's
@@ -55,6 +57,8 @@ public interface FieldSet extends FocusHandler, ChangeHandler {
     public abstract void clearWarnings();
 
     /**
+     * Gets the enabled.
+     *
      * @return boolean enabled if writing/changes are allowed/active.
      */
     public abstract Boolean getEnabled();
@@ -74,6 +78,8 @@ public interface FieldSet extends FocusHandler, ChangeHandler {
     public abstract String getLabel();
 
     /**
+     * Gets the value.
+     *
      * @return actual value of {@link FieldSet}.
      */
     public abstract String getValue();
@@ -97,6 +103,7 @@ public interface FieldSet extends FocusHandler, ChangeHandler {
      * Set a error string to the {@link FieldSet}.
      *
      * @param error
+     *            the new error
      */
     public abstract void setError(String error);
 
@@ -104,6 +111,7 @@ public interface FieldSet extends FocusHandler, ChangeHandler {
      * Sets a text into the description/label of the {@link FieldSet}.
      *
      * @param label
+     *            the new label
      */
     public abstract void setLabel(String label);
 
@@ -111,6 +119,7 @@ public interface FieldSet extends FocusHandler, ChangeHandler {
      * Sets a value into the value/input of the {@link FieldSet}.
      *
      * @param value
+     *            the new value
      */
     public abstract void setValue(String value);
 
@@ -118,6 +127,7 @@ public interface FieldSet extends FocusHandler, ChangeHandler {
      * Set a warning string to the {@link FieldSet}.
      *
      * @param warning
+     *            the new warning
      */
     public abstract void setWarning(String warning);
 }

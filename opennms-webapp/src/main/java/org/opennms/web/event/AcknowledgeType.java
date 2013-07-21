@@ -41,11 +41,18 @@ import org.springframework.util.Assert;
  * @since 1.8.1
  */
 public enum AcknowledgeType {
-    ACKNOWLEDGED("ack"), UNACKNOWLEDGED("unack"), BOTH("both");
 
-    /** Constant <code>s_ackTypesString</code> */
+    /** The acknowledged. */
+    ACKNOWLEDGED("ack"),
+ /** The unacknowledged. */
+ UNACKNOWLEDGED("unack"),
+ /** The both. */
+ BOTH("both");
+
+    /** Constant <code>s_ackTypesString</code>. */
     private static final Map<String, AcknowledgeType> s_ackTypesString;
 
+    /** The m_short name. */
     private String m_shortName;
 
     static {
@@ -56,6 +63,12 @@ public enum AcknowledgeType {
         }
     }
 
+    /**
+     * Instantiates a new acknowledge type.
+     *
+     * @param shortName
+     *            the short name
+     */
     private AcknowledgeType(String shortName) {
         m_shortName = shortName;
     }
@@ -64,6 +77,7 @@ public enum AcknowledgeType {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -76,6 +90,7 @@ public enum AcknowledgeType {
      * <p>
      * getName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -87,6 +102,7 @@ public enum AcknowledgeType {
      * <p>
      * getShortName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -120,6 +136,7 @@ public enum AcknowledgeType {
      * <p>
      * getAcknowledgeType
      * </p>
+     * .
      *
      * @param ackTypeString
      *            a {@link java.lang.String} object.

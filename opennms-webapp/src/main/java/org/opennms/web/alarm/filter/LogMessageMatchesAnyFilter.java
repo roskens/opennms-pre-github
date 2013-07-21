@@ -40,7 +40,8 @@ import org.opennms.web.filter.SubstringFilter;
  * @since 1.8.1
  */
 public class LogMessageMatchesAnyFilter extends SubstringFilter {
-    /** Constant <code>TYPE="msgmatchany"</code> */
+
+    /** Constant <code>TYPE="msgmatchany"</code>. */
     public static final String TYPE = "msgmatchany";
 
     /**
@@ -59,6 +60,7 @@ public class LogMessageMatchesAnyFilter extends SubstringFilter {
      * <p>
      * getTextDescription
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -75,6 +77,7 @@ public class LogMessageMatchesAnyFilter extends SubstringFilter {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

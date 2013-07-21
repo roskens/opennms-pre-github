@@ -57,18 +57,29 @@ import org.opennms.netmgt.model.events.EventProxyException;
 import org.opennms.web.services.PollerService;
 import org.opennms.web.svclayer.support.DefaultDemandPollService;
 
+/**
+ * The Class DemandPollServiceTest.
+ */
 public class DemandPollServiceTest extends TestCase {
 
+    /** The m_demand poll service. */
     private DefaultDemandPollService m_demandPollService;
 
+    /** The m_demand poll dao. */
     private DemandPollDao m_demandPollDao;
 
+    /** The m_monitored service dao. */
     private MonitoredServiceDao m_monitoredServiceDao;
 
+    /** The m_poller service. */
     private PollerService m_pollerService;
 
+    /** The m_poll store. */
     private SingleDemandPollStore m_pollStore;
 
+    /* (non-Javadoc)
+     * @see junit.framework.TestCase#setUp()
+     */
     @Override
     protected final void setUp() throws Exception {
         m_demandPollDao = createMock(DemandPollDao.class);
@@ -82,29 +93,51 @@ public class DemandPollServiceTest extends TestCase {
         m_demandPollService.setMonitoredServiceDao(m_monitoredServiceDao);
     }
 
+    /* (non-Javadoc)
+     * @see junit.framework.TestCase#tearDown()
+     */
     @Override
     protected void tearDown() throws Exception {
     }
 
+    /**
+     * The Class SingleDemandPollStore.
+     */
     class SingleDemandPollStore implements DemandPollDao {
 
+        /** The m_id. */
         int m_id = 13;
 
+        /** The m_demand poll. */
         DemandPoll m_demandPoll = null;
 
+        /**
+         * Gets the expected id.
+         *
+         * @return the expected id
+         */
         public int getExpectedId() {
             return m_id;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.dao.api.OnmsDao#clear()
+         */
         @Override
         public void clear() {
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.dao.api.OnmsDao#countAll()
+         */
         @Override
         public int countAll() {
             return (m_demandPoll == null ? 0 : 1);
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.dao.api.OnmsDao#delete(java.io.Serializable)
+         */
         @Override
         public void delete(final Integer id) {
             if (id == m_demandPoll.getId()) {
@@ -112,6 +145,9 @@ public class DemandPollServiceTest extends TestCase {
             }
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.dao.api.OnmsDao#delete(java.lang.Object)
+         */
         @Override
         public void delete(final DemandPoll entity) {
             if (entity.getId() == m_demandPoll.getId()) {
@@ -119,15 +155,24 @@ public class DemandPollServiceTest extends TestCase {
             }
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.dao.api.OnmsDao#findAll()
+         */
         @Override
         public List<DemandPoll> findAll() {
             return Collections.singletonList(m_demandPoll);
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.dao.api.OnmsDao#flush()
+         */
         @Override
         public void flush() {
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.dao.api.OnmsDao#get(java.io.Serializable)
+         */
         @Override
         public DemandPoll get(final Integer id) {
             if (id.intValue() == m_id) {
@@ -136,11 +181,17 @@ public class DemandPollServiceTest extends TestCase {
             return null;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.dao.api.OnmsDao#load(java.io.Serializable)
+         */
         @Override
         public DemandPoll load(final Integer id) {
             return get(id);
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.dao.api.OnmsDao#saveOrUpdate(java.lang.Object)
+         */
         @Override
         public void saveOrUpdate(final DemandPoll entity) {
             if (entity.getId() == null) {
@@ -150,6 +201,9 @@ public class DemandPollServiceTest extends TestCase {
             }
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.dao.api.OnmsDao#update(java.lang.Object)
+         */
         @Override
         public void update(final DemandPoll entity) {
             if (entity.getId().intValue() == m_id) {
@@ -157,6 +211,9 @@ public class DemandPollServiceTest extends TestCase {
             }
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.dao.api.OnmsDao#save(java.lang.Object)
+         */
         @Override
         public void save(final DemandPoll entity) {
             if (entity.getId() == null) {
@@ -167,31 +224,49 @@ public class DemandPollServiceTest extends TestCase {
             }
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.dao.api.OnmsDao#initialize(java.lang.Object)
+         */
         @Override
         public void initialize(final Object obj) {
             // TODO Auto-generated method stub
 
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.dao.api.OnmsDao#lock()
+         */
         @Override
         public void lock() {
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.dao.api.OnmsDao#findMatching(org.opennms.core.criteria.Criteria)
+         */
         @Override
         public List<DemandPoll> findMatching(final Criteria criteria) {
             throw new UnsupportedOperationException("not yet implemeneted");
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.dao.api.OnmsDao#countMatching(org.opennms.core.criteria.Criteria)
+         */
         @Override
         public int countMatching(final Criteria criteria) {
             throw new UnsupportedOperationException("not yet implemented");
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.dao.api.OnmsDao#findMatching(org.opennms.netmgt.model.OnmsCriteria)
+         */
         @Override
         public List<DemandPoll> findMatching(final OnmsCriteria criteria) {
             throw new UnsupportedOperationException("not yet implemeneted");
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.dao.api.OnmsDao#countMatching(org.opennms.netmgt.model.OnmsCriteria)
+         */
         @Override
         public int countMatching(final OnmsCriteria criteria) {
             throw new UnsupportedOperationException("not yet implemented");
@@ -199,6 +274,12 @@ public class DemandPollServiceTest extends TestCase {
 
     }
 
+    /**
+     * Test poll monitored service.
+     *
+     * @throws EventProxyException
+     *             the event proxy exception
+     */
     public final void testPollMonitoredService() throws EventProxyException {
 
         final int expectedResultId = m_pollStore.getExpectedId();
@@ -245,6 +326,9 @@ public class DemandPollServiceTest extends TestCase {
 
     }
 
+    /**
+     * Test get updated results.
+     */
     public final void testGetUpdatedResults() {
 
         final int resultId = 3;

@@ -32,8 +32,14 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
+/**
+ * The Class CoreWebTest.
+ */
 public class CoreWebTest {
 
+    /**
+     * Test upper casing label.
+     */
     @Test
     public void testUpperCasingLabel() {
         UpperCasingLabel upperCasingLabel = new UpperCasingLabel();

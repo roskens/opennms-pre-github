@@ -45,6 +45,7 @@ public interface Feed {
      * <p>
      * getUrlBase
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -54,6 +55,7 @@ public interface Feed {
      * <p>
      * setUrlBase
      * </p>
+     * .
      *
      * @param base
      *            a {@link java.lang.String} object.
@@ -64,6 +66,7 @@ public interface Feed {
      * <p>
      * getFeedType
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -73,6 +76,7 @@ public interface Feed {
      * <p>
      * setFeedType
      * </p>
+     * .
      *
      * @param type
      *            a {@link java.lang.String} object.
@@ -83,6 +87,7 @@ public interface Feed {
      * <p>
      * getMaxEntries
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -92,6 +97,7 @@ public interface Feed {
      * <p>
      * setMaxEntries
      * </p>
+     * .
      *
      * @param maxEntries
      *            a int.
@@ -102,6 +108,7 @@ public interface Feed {
      * <p>
      * getRequest
      * </p>
+     * .
      *
      * @return a {@link javax.servlet.ServletRequest} object.
      */
@@ -111,6 +118,7 @@ public interface Feed {
      * <p>
      * setRequest
      * </p>
+     * .
      *
      * @param request
      *            a {@link javax.servlet.ServletRequest} object.
@@ -121,6 +129,7 @@ public interface Feed {
      * <p>
      * render
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

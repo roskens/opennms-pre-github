@@ -38,15 +38,14 @@ import javax.servlet.http.HttpServletResponse;
 import org.opennms.netmgt.config.ViewFactory;
 
 /**
- * A servlet that handles renaming an existing view
+ * A servlet that handles renaming an existing view.
  *
  * @author <A HREF="mailto:jason@opennms.org">Jason Johns </A>
  * @author <A HREF="http://www.opennms.org/">OpenNMS </A>
  */
 public class RenameViewServlet extends HttpServlet {
-    /**
-     *
-     */
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -2211626861486132823L;
 
     /** {@inheritDoc} */

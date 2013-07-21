@@ -38,19 +38,23 @@ package org.opennms.web.element;
  * @since 1.8.1
  */
 public class ElementNotFoundException extends RuntimeException {
-    /**
-     *
-     */
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -1707780508592264918L;
 
+    /** The message. */
     protected String message;
 
+    /** The elem type. */
     protected String elemType;
 
+    /** The detail uri. */
     protected String detailUri;
 
+    /** The detail param. */
     protected String detailParam;
 
+    /** The browse uri. */
     protected String browseUri;
 
     /**

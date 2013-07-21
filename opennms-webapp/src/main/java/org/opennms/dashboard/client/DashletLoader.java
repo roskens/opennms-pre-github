@@ -44,21 +44,27 @@ import com.google.gwt.user.client.ui.SimplePanel;
  */
 public class DashletLoader extends Composite {
 
-    /** Constant <code>COMPLETE=0</code> */
+    /** Constant <code>COMPLETE=0</code>. */
     public static final int COMPLETE = 0;
 
-    /** Constant <code>LOADING=1</code> */
+    /** Constant <code>LOADING=1</code>. */
     public static final int LOADING = 1;
 
-    /** Constant <code>ERROR=2</code> */
+    /** Constant <code>ERROR=2</code>. */
     public static final int ERROR = 2;
 
+    /** The m_panel. */
     SimplePanel m_panel = new SimplePanel();
 
+    /** The m_progress icon. */
     Image m_progressIcon = new Image(GWT.getHostPageBaseURL() + "images/progress.gif");
 
+    /** The m_error icon. */
     Image m_errorIcon = new Image(GWT.getHostPageBaseURL() + "images/error.png");
 
+    /**
+     * Instantiates a new dashlet loader.
+     */
     DashletLoader() {
         m_panel.addStyleName("dashletLoader");
         initWidget(m_panel);
@@ -68,6 +74,7 @@ public class DashletLoader extends Composite {
      * <p>
      * setStatus
      * </p>
+     * .
      *
      * @param status
      *            a int.
@@ -98,6 +105,7 @@ public class DashletLoader extends Composite {
      * <p>
      * loading
      * </p>
+     * .
      *
      * @param msg
      *            a {@link java.lang.String} object.
@@ -110,6 +118,7 @@ public class DashletLoader extends Composite {
      * <p>
      * loading
      * </p>
+     * .
      */
     public void loading() {
         loading("Loading...");
@@ -119,6 +128,7 @@ public class DashletLoader extends Composite {
      * <p>
      * loadError
      * </p>
+     * .
      *
      * @param caught
      *            a {@link java.lang.Throwable} object.
@@ -131,6 +141,7 @@ public class DashletLoader extends Composite {
      * <p>
      * complete
      * </p>
+     * .
      */
     public void complete() {
         setStatus(COMPLETE, "");

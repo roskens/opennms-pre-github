@@ -43,7 +43,7 @@ import org.opennms.netmgt.config.groups.Group;
 
 /**
  * A servlet that handles putting the Group object into the request and
- * forwarding on to a particular jsp
+ * forwarding on to a particular jsp.
  *
  * @author <A HREF="mailto:larry@opennms.org">Lawrence Karnowski </A>
  * @author <A HREF="http://www.opennms.org/">OpenNMS </A>
@@ -53,6 +53,8 @@ import org.opennms.netmgt.config.groups.Group;
  * @since 1.8.1
  */
 public class ModifyGroupServlet extends HttpServlet {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 7787268735574297494L;
 
     /** {@inheritDoc} */

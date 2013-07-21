@@ -33,7 +33,7 @@ import java.util.List;
 
 /**
  * A servlet that stores node, interface, service information for setting up
- * SNMP data collection
+ * SNMP data collection.
  *
  * @author <A HREF="mailto:tarus@opennms.org">Tarus Balog </A>
  * @author <A HREF="http://www.opennms.org/">OpenNMS </A>
@@ -43,17 +43,14 @@ import java.util.List;
  * @since 1.8.1
  */
 public class SnmpManagedNode {
-    /**
-     */
+
+    /** The node id. */
     protected int nodeID;
 
-    /**
-     */
+    /** The node label. */
     protected String nodeLabel;
 
-    /**
-     *
-     */
+    /** The interfaces. */
     protected List<SnmpManagedInterface> interfaces;
 
     /**
@@ -93,6 +90,7 @@ public class SnmpManagedNode {
      * <p>
      * addInterface
      * </p>
+     * .
      *
      * @param newInterface
      *            a
@@ -107,6 +105,7 @@ public class SnmpManagedNode {
      * <p>
      * getInterfaceCount
      * </p>
+     * .
      *
      * @return a int.
      */

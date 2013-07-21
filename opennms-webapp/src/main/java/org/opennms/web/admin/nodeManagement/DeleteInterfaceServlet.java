@@ -55,9 +55,7 @@ import org.opennms.web.api.Util;
  */
 public class DeleteInterfaceServlet extends HttpServlet {
 
-    /**
-     *
-     */
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -6492975646540210281L;
 
     /*
@@ -88,6 +86,14 @@ public class DeleteInterfaceServlet extends HttpServlet {
 
     }
 
+    /**
+     * Send event.
+     *
+     * @param event
+     *            the event
+     * @throws ServletException
+     *             the servlet exception
+     */
     private void sendEvent(Event event) throws ServletException {
         try {
             Util.createEventProxy().send(event);
@@ -100,6 +106,7 @@ public class DeleteInterfaceServlet extends HttpServlet {
      * <p>
      * checkParameters
      * </p>
+     * .
      *
      * @param request
      *            a {@link javax.servlet.http.HttpServletRequest} object.

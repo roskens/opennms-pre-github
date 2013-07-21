@@ -31,12 +31,21 @@ package org.opennms.dashboard.client;
 import com.google.gwt.user.client.ui.FlexTable;
 
 /**
+ * The Class NodeStatusView.
+ *
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  */
 class NodeStatusView extends PageableTableView {
 
+    /** The m_rtcs. */
     private NodeRtc[] m_rtcs;
 
+    /**
+     * Instantiates a new node status view.
+     *
+     * @param dashlet
+     *            the dashlet
+     */
     NodeStatusView(Dashlet dashlet) {
         super(dashlet, 5, new String[] { "Node", "Current Outages", "24 Hour Availability" });
     }
@@ -66,6 +75,7 @@ class NodeStatusView extends PageableTableView {
      * <p>
      * getElementCount
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -91,6 +101,7 @@ class NodeStatusView extends PageableTableView {
      * <p>
      * setNodeRtc
      * </p>
+     * .
      *
      * @param rtcs
      *            an array of {@link org.opennms.dashboard.client.NodeRtc}

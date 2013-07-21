@@ -39,12 +39,14 @@ package org.opennms.gwt.web.ui.client;
  */
 public class UpperCasingLabel {
 
+    /** The m_text. */
     private String m_text;
 
     /**
      * <p>
      * setText
      * </p>
+     * .
      *
      * @param string
      *            a {@link java.lang.String} object.
@@ -57,6 +59,7 @@ public class UpperCasingLabel {
      * <p>
      * getText
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

@@ -51,9 +51,13 @@ import org.springframework.web.servlet.mvc.AbstractController;
  */
 public class SaveGroupController extends AbstractController implements InitializingBean {
 
+    /** The m_group repository. */
     @Autowired
     WebGroupRepository m_groupRepository;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public final void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);

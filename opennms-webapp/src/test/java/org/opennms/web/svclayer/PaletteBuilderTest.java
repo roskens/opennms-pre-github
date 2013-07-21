@@ -31,12 +31,20 @@ package org.opennms.web.svclayer;
 import static org.opennms.web.svclayer.PaletteTestUtils.assertPaletteEquals;
 import junit.framework.TestCase;
 
+/**
+ * The Class PaletteBuilderTest.
+ */
 public class PaletteBuilderTest extends TestCase {
 
+    /** The m_palette. */
     private Palette m_palette;
 
+    /** The m_current cat. */
     private PaletteCategory m_currentCat;
 
+    /**
+     * Test building palatte.
+     */
     public final void testBuildingPalatte() {
 
         m_palette = new Palette("paletteLabel");
@@ -64,16 +72,33 @@ public class PaletteBuilderTest extends TestCase {
 
     }
 
+    /**
+     * Creates the spacer.
+     */
     private void createSpacer() {
         m_currentCat.addItem(PaletteItem.SPACER);
     }
 
+    /**
+     * Creates the category.
+     *
+     * @param label
+     *            the label
+     */
     private void createCategory(final String label) {
         PaletteCategory cat = new PaletteCategory(label);
         m_palette.addCategory(cat);
         m_currentCat = cat;
     }
 
+    /**
+     * Creates the item.
+     *
+     * @param id
+     *            the id
+     * @param label
+     *            the label
+     */
     private void createItem(final String id, final String label) {
         PaletteItem item = new PaletteItem(id, label);
         m_currentCat.addItem(item);

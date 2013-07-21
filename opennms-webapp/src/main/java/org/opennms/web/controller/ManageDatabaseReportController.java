@@ -53,8 +53,10 @@ import org.springframework.web.servlet.mvc.SimpleFormController;
  */
 public class ManageDatabaseReportController extends SimpleFormController {
 
+    /** The m_page size. */
     private int m_pageSize;
 
+    /** The m_report store service. */
     private ReportStoreService m_reportStoreService;
 
     /**
@@ -70,6 +72,7 @@ public class ManageDatabaseReportController extends SimpleFormController {
      * <p>
      * setReportStoreService
      * </p>
+     * .
      *
      * @param reportStoreService
      *            a
@@ -84,6 +87,7 @@ public class ManageDatabaseReportController extends SimpleFormController {
      * <p>
      * setPageSize
      * </p>
+     * .
      *
      * @param pageSize
      *            a int.

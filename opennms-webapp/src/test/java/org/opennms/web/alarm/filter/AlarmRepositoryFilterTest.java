@@ -58,6 +58,9 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * The Class AlarmRepositoryFilterTest.
+ */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
         "classpath:/META-INF/opennms/applicationContext-dao.xml", "classpath*:/META-INF/opennms/component-dao.xml",
@@ -67,30 +70,45 @@ import org.springframework.transaction.annotation.Transactional;
 @JUnitTemporaryDatabase
 public class AlarmRepositoryFilterTest implements InitializingBean {
 
+    /** The m_db populator. */
     @Autowired
     DatabasePopulator m_dbPopulator;
 
+    /** The m_dao alarm repo. */
     @Autowired
     AlarmRepository m_daoAlarmRepo;
 
+    /** The m_app context. */
     @Autowired
     ApplicationContext m_appContext;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public final void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Sets the up.
+     */
     @Before
     public final void setUp() {
         m_dbPopulator.populateDatabase();
     }
 
+    /**
+     * Tear down.
+     */
     @After
     public void tearDown() {
 
     }
 
+    /**
+     * Test alarm type filter.
+     */
     @Test
     @Transactional
     public final void testAlarmTypeFilter() {
@@ -103,6 +121,9 @@ public class AlarmRepositoryFilterTest implements InitializingBean {
         assertEquals(1, alarm.length);
     }
 
+    /**
+     * Test before first event time filter.
+     */
     @Test
     @Transactional
     public final void testBeforeFirstEventTimeFilter() {
@@ -117,6 +138,9 @@ public class AlarmRepositoryFilterTest implements InitializingBean {
         assertEquals(1, alarms.length);
     }
 
+    /**
+     * Test before last event time.
+     */
     @Test
     @Transactional
     public final void testBeforeLastEventTime() {
@@ -126,6 +150,9 @@ public class AlarmRepositoryFilterTest implements InitializingBean {
         assertEquals(1, alarms.length);
     }
 
+    /**
+     * Test exact uei filter.
+     */
     @Test
     @Transactional
     public final void testExactUeiFilter() {
@@ -140,6 +167,9 @@ public class AlarmRepositoryFilterTest implements InitializingBean {
         assertEquals(1, alarms.length);
     }
 
+    /**
+     * Test interface filter.
+     */
     @Test
     @Transactional
     public final void testInterfaceFilter() {
@@ -149,6 +179,9 @@ public class AlarmRepositoryFilterTest implements InitializingBean {
         assertEquals(1, alarms.length);
     }
 
+    /**
+     * Test negative acknowledge by filter.
+     */
     @Test
     @Transactional
     public final void testNegativeAcknowledgeByFilter() {
@@ -157,6 +190,9 @@ public class AlarmRepositoryFilterTest implements InitializingBean {
         assertEquals(1, alarms.length);
     }
 
+    /**
+     * Test ip like filter.
+     */
     @Test
     @Transactional
     public final void testIPLikeFilter() {
@@ -167,6 +203,9 @@ public class AlarmRepositoryFilterTest implements InitializingBean {
         assertEquals(addr("192.168.1.1"), alarms[0].getIpAddr());
     }
 
+    /**
+     * Test negative interface filter.
+     */
     @Test
     @Transactional
     public final void testNegativeInterfaceFilter() {
@@ -176,6 +215,9 @@ public class AlarmRepositoryFilterTest implements InitializingBean {
         assertEquals(1, alarms.length);
     }
 
+    /**
+     * Test negative node filter.
+     */
     @Test
     @Transactional
     public final void testNegativeNodeFilter() {
@@ -187,6 +229,9 @@ public class AlarmRepositoryFilterTest implements InitializingBean {
         assertEquals("node is not 11", filter.getTextDescription());
     }
 
+    /**
+     * Test negative exact uei filter.
+     */
     @Test
     @Transactional
     public final void testNegativeExactUeiFilter() {
@@ -195,6 +240,9 @@ public class AlarmRepositoryFilterTest implements InitializingBean {
         assertEquals(1, alarms.length);
     }
 
+    /**
+     * Test negative partial uei filter.
+     */
     @Test
     @Transactional
     public final void testNegativePartialUEIFilter() {
@@ -204,6 +252,9 @@ public class AlarmRepositoryFilterTest implements InitializingBean {
         assertEquals(0, alarms.length);
     }
 
+    /**
+     * Test negative service filter.
+     */
     @Test
     @Transactional
     public final void testNegativeServiceFilter() {
@@ -213,6 +264,9 @@ public class AlarmRepositoryFilterTest implements InitializingBean {
         assertEquals(1, alarms.length);
     }
 
+    /**
+     * Test negative severity filter.
+     */
     @Test
     @Transactional
     public final void testNegativeSeverityFilter() {
@@ -238,6 +292,9 @@ public class AlarmRepositoryFilterTest implements InitializingBean {
      * }
      */
 
+    /**
+     * Test node name like filter.
+     */
     @Test
     @Transactional
     public final void testNodeNameLikeFilter() {
@@ -247,6 +304,9 @@ public class AlarmRepositoryFilterTest implements InitializingBean {
         assertEquals(0, alarms.length);
     }
 
+    /**
+     * Test severity between filter.
+     */
     @Test
     @Transactional
     public final void testSeverityBetweenFilter() {
@@ -256,6 +316,9 @@ public class AlarmRepositoryFilterTest implements InitializingBean {
         assertEquals(1, alarms.length);
     }
 
+    /**
+     * Test service filter.
+     */
     @Test
     @Transactional
     public final void testServiceFilter() {
@@ -265,6 +328,9 @@ public class AlarmRepositoryFilterTest implements InitializingBean {
         assertEquals(0, alarms.length);
     }
 
+    /**
+     * Test after first event time.
+     */
     @Test
     @Transactional
     public final void testAfterFirstEventTime() {
@@ -274,6 +340,9 @@ public class AlarmRepositoryFilterTest implements InitializingBean {
         assertEquals(0, alarms.length);
     }
 
+    /**
+     * Test description substring filter.
+     */
     @Test
     @Transactional
     public final void testDescriptionSubstringFilter() {
@@ -287,6 +356,9 @@ public class AlarmRepositoryFilterTest implements InitializingBean {
         // assertEquals(1, alarms);
     }
 
+    /**
+     * Test log message substring filter.
+     */
     @Test
     @Transactional
     public final void testLogMessageSubstringFilter() {
@@ -300,6 +372,9 @@ public class AlarmRepositoryFilterTest implements InitializingBean {
         // assertEquals(1, alarms.length);
     }
 
+    /**
+     * Test log message match any filter.
+     */
     @Test
     @Transactional
     public final void testLogMessageMatchAnyFilter() {
@@ -309,6 +384,9 @@ public class AlarmRepositoryFilterTest implements InitializingBean {
         assertEquals(1, alarms.length);
     }
 
+    /**
+     * Test parms like filter.
+     */
     @Test
     @Transactional
     public final void testParmsLikeFilter() {
@@ -350,6 +428,9 @@ public class AlarmRepositoryFilterTest implements InitializingBean {
         assertEquals(1, alarms.length);
     }
 
+    /**
+     * Test parms not like filter.
+     */
     @Test
     @Transactional
     public final void testParmsNotLikeFilter() {
@@ -393,6 +474,13 @@ public class AlarmRepositoryFilterTest implements InitializingBean {
 
     }
 
+    /**
+     * Gets the criteria.
+     *
+     * @param filters
+     *            the filters
+     * @return the criteria
+     */
     private AlarmCriteria getCriteria(final Filter... filters) {
         return new AlarmCriteria(filters);
     }

@@ -49,8 +49,10 @@ import org.springframework.web.servlet.mvc.AbstractCommandController;
  */
 public class DistributedStatusDetailsController extends AbstractCommandController {
 
+    /** The m_distributed status service. */
     private DistributedStatusService m_distributedStatusService;
 
+    /** The m_success view. */
     private String m_successView;
 
     /** {@inheritDoc} */
@@ -66,6 +68,7 @@ public class DistributedStatusDetailsController extends AbstractCommandControlle
      * <p>
      * getDistributedStatusService
      * </p>
+     * .
      *
      * @return a {@link org.opennms.web.svclayer.DistributedStatusService}
      *         object.
@@ -78,6 +81,7 @@ public class DistributedStatusDetailsController extends AbstractCommandControlle
      * <p>
      * setDistributedStatusService
      * </p>
+     * .
      *
      * @param statusService
      *            a {@link org.opennms.web.svclayer.DistributedStatusService}
@@ -91,6 +95,7 @@ public class DistributedStatusDetailsController extends AbstractCommandControlle
      * <p>
      * getSuccessView
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -102,6 +107,7 @@ public class DistributedStatusDetailsController extends AbstractCommandControlle
      * <p>
      * setSuccessView
      * </p>
+     * .
      *
      * @param successView
      *            a {@link java.lang.String} object.

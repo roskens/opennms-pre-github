@@ -52,23 +52,28 @@ import org.opennms.netmgt.model.SurveillanceStatus;
  */
 public class AggregateStatus implements SurveillanceStatus {
 
+    /** The m_label. */
     private String m_label;
 
+    /** The m_total entity count. */
     private Integer m_totalEntityCount;
 
+    /** The m_down nodes. */
     private final List<OnmsNode> m_downNodes = new ArrayList<OnmsNode>();
 
+    /** The m_status. */
     private String m_status;
 
+    /** The m_link. */
     private String m_link;
 
-    /** Constant <code>NODES_ARE_DOWN="Critical"</code> */
+    /** Constant <code>NODES_ARE_DOWN="Critical"</code>. */
     public static final String NODES_ARE_DOWN = "Critical";
 
-    /** Constant <code>ONE_SERVICE_DOWN="Warning"</code> */
+    /** Constant <code>ONE_SERVICE_DOWN="Warning"</code>. */
     public static final String ONE_SERVICE_DOWN = "Warning";
 
-    /** Constant <code>ALL_NODES_UP="Normal"</code> */
+    /** Constant <code>ALL_NODES_UP="Normal"</code>. */
     public static final String ALL_NODES_UP = "Normal";
 
     /**
@@ -87,6 +92,7 @@ public class AggregateStatus implements SurveillanceStatus {
      * <p>
      * getStatus
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -95,6 +101,12 @@ public class AggregateStatus implements SurveillanceStatus {
         return m_status;
     }
 
+    /**
+     * Sets the status.
+     *
+     * @param color
+     *            the new status
+     */
     private void setStatus(String color) {
         m_status = color;
     }
@@ -103,6 +115,7 @@ public class AggregateStatus implements SurveillanceStatus {
      * <p>
      * getDownEntityCount
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -115,6 +128,7 @@ public class AggregateStatus implements SurveillanceStatus {
      * <p>
      * getDownNodes
      * </p>
+     * .
      *
      * @return a {@link java.util.Set} object.
      */
@@ -122,6 +136,12 @@ public class AggregateStatus implements SurveillanceStatus {
         return Collections.unmodifiableList(m_downNodes);
     }
 
+    /**
+     * Sets the down nodes.
+     *
+     * @param downNodes
+     *            the new down nodes
+     */
     private void setDownNodes(final Collection<OnmsNode> downNodes) {
         if (m_downNodes == downNodes)
             return;
@@ -133,6 +153,7 @@ public class AggregateStatus implements SurveillanceStatus {
      * <p>
      * getLabel
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -144,6 +165,7 @@ public class AggregateStatus implements SurveillanceStatus {
      * <p>
      * setLabel
      * </p>
+     * .
      *
      * @param label
      *            a {@link java.lang.String} object.
@@ -156,6 +178,7 @@ public class AggregateStatus implements SurveillanceStatus {
      * <p>
      * getTotalEntityCount
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -164,6 +187,12 @@ public class AggregateStatus implements SurveillanceStatus {
         return m_totalEntityCount;
     }
 
+    /**
+     * Sets the total entity count.
+     *
+     * @param totalEntityCount
+     *            the new total entity count
+     */
     private void setTotalEntityCount(Integer totalEntityCount) {
         m_totalEntityCount = totalEntityCount;
     }
@@ -180,20 +209,32 @@ public class AggregateStatus implements SurveillanceStatus {
         return sb.toString();
     }
 
+    /**
+     * The Class AggregateStatusVisitor.
+     */
     final class AggregateStatusVisitor extends AbstractEntityVisitor {
 
+        /** The m_down nodes. */
         Set<OnmsNode> m_downNodes = new LinkedHashSet<OnmsNode>();
 
+        /** The m_status. */
         String m_status = AggregateStatus.ALL_NODES_UP;
 
+        /** The m_is current node down. */
         boolean m_isCurrentNodeDown = true;
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.model.AbstractEntityVisitor#visitNode(org.opennms.netmgt.model.OnmsNode)
+         */
         @Override
         public void visitNode(OnmsNode node) {
             System.err.println("visitNode(" + node + ")");
             m_isCurrentNodeDown = true;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.model.AbstractEntityVisitor#visitNodeComplete(org.opennms.netmgt.model.OnmsNode)
+         */
         @Override
         public void visitNodeComplete(OnmsNode node) {
             System.err.println("visitNodeComplete(" + node + ") -- m_isCurrentNodeDown = " + m_isCurrentNodeDown);
@@ -204,6 +245,9 @@ public class AggregateStatus implements SurveillanceStatus {
 
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.model.AbstractEntityVisitor#visitMonitoredService(org.opennms.netmgt.model.OnmsMonitoredService)
+         */
         @Override
         public void visitMonitoredService(OnmsMonitoredService svc) {
             System.err.println("visitMonitoredService(" + svc + ") - currentOutages.isEmpty = "
@@ -217,16 +261,34 @@ public class AggregateStatus implements SurveillanceStatus {
             }
         }
 
+        /**
+         * Gets the status.
+         *
+         * @return the status
+         */
         public String getStatus() {
             return m_status;
         }
 
+        /**
+         * Gets the down nodes.
+         *
+         * @return the down nodes
+         */
         public Set<OnmsNode> getDownNodes() {
             return m_downNodes;
         }
 
     }
 
+    /**
+     * Visit nodes.
+     *
+     * @param nodes
+     *            the nodes
+     * @param statusVisitor
+     *            the status visitor
+     */
     private void visitNodes(Collection<OnmsNode> nodes, AggregateStatusVisitor statusVisitor) {
 
         if (nodes == null) {
@@ -238,6 +300,13 @@ public class AggregateStatus implements SurveillanceStatus {
         }
     }
 
+    /**
+     * Compute status values.
+     *
+     * @param nodes
+     *            the nodes
+     * @return the aggregate status
+     */
     private AggregateStatus computeStatusValues(Collection<OnmsNode> nodes) {
         AggregateStatusVisitor statusVisitor = new AggregateStatusVisitor();
         visitNodes(nodes, statusVisitor);
@@ -252,6 +321,7 @@ public class AggregateStatus implements SurveillanceStatus {
      * <p>
      * getLink
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -263,6 +333,7 @@ public class AggregateStatus implements SurveillanceStatus {
      * <p>
      * setLink
      * </p>
+     * .
      *
      * @param link
      *            a {@link java.lang.String} object.

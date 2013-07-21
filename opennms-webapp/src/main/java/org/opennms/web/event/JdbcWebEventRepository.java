@@ -65,14 +65,27 @@ import org.springframework.jdbc.core.simple.SimpleJdbcTemplate;
  */
 public class JdbcWebEventRepository implements WebEventRepository, InitializingBean {
 
+    /** The m_simple jdbc template. */
     @Autowired
     SimpleJdbcTemplate m_simpleJdbcTemplate;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Gets the sql.
+     *
+     * @param selectClause
+     *            the select clause
+     * @param criteria
+     *            the criteria
+     * @return the sql
+     */
     private String getSql(final String selectClause, final EventCriteria criteria) {
         final StringBuilder buf = new StringBuilder(selectClause);
 
@@ -117,6 +130,15 @@ public class JdbcWebEventRepository implements WebEventRepository, InitializingB
         return buf.toString();
     }
 
+    /**
+     * Param setter.
+     *
+     * @param criteria
+     *            the criteria
+     * @param args
+     *            the args
+     * @return the prepared statement setter
+     */
     private PreparedStatementSetter paramSetter(final EventCriteria criteria, final Object... args) {
         return new PreparedStatementSetter() {
             int paramIndex = 1;
@@ -138,8 +160,14 @@ public class JdbcWebEventRepository implements WebEventRepository, InitializingB
         };
     }
 
+    /**
+     * The Class EventMapper.
+     */
     public static class EventMapper implements ParameterizedRowMapper<Event> {
 
+        /* (non-Javadoc)
+         * @see org.springframework.jdbc.core.RowMapper#mapRow(java.sql.ResultSet, int)
+         */
         @Override
         public Event mapRow(ResultSet rs, int rowNum) throws SQLException {
             Event event = new Event();
@@ -189,6 +217,17 @@ public class JdbcWebEventRepository implements WebEventRepository, InitializingB
             return event;
         }
 
+        /**
+         * Gets the timestamp.
+         *
+         * @param field
+         *            the field
+         * @param rs
+         *            the rs
+         * @return the timestamp
+         * @throws SQLException
+         *             the sQL exception
+         */
         private Date getTimestamp(String field, ResultSet rs) throws SQLException {
             if (rs.getTimestamp(field) != null) {
                 return new Date(rs.getTimestamp(field).getTime());
@@ -250,11 +289,30 @@ public class JdbcWebEventRepository implements WebEventRepository, InitializingB
         return getEvents(sql, paramSetter(criteria));
     }
 
+    /**
+     * Gets the events.
+     *
+     * @param sql
+     *            the sql
+     * @param setter
+     *            the setter
+     * @return the events
+     */
     private Event[] getEvents(String sql, PreparedStatementSetter setter) {
         List<Event> events = queryForList(sql, setter, new EventMapper());
         return events.toArray(new Event[0]);
     }
 
+    /**
+     * Acknowledge events.
+     *
+     * @param user
+     *            the user
+     * @param timestamp
+     *            the timestamp
+     * @param eventIds
+     *            the event ids
+     */
     void acknowledgeEvents(String user, Date timestamp, int[] eventIds) {
         acknowledgeMatchingEvents(user, timestamp, new EventCriteria(new EventIdListFilter(eventIds)));
     }
@@ -277,6 +335,7 @@ public class JdbcWebEventRepository implements WebEventRepository, InitializingB
      * <p>
      * unacknowledgeAll
      * </p>
+     * .
      */
     @Override
     public void unacknowledgeAll() {
@@ -290,21 +349,65 @@ public class JdbcWebEventRepository implements WebEventRepository, InitializingB
         jdbc().update(sql, paramSetter(criteria));
     }
 
+    /**
+     * Query for int.
+     *
+     * @param sql
+     *            the sql
+     * @param setter
+     *            the setter
+     * @return the int
+     * @throws DataAccessException
+     *             the data access exception
+     */
     private int queryForInt(String sql, PreparedStatementSetter setter) throws DataAccessException {
         Integer number = queryForObject(sql, setter, new SingleColumnRowMapper<Integer>(Integer.class));
         return (number != null ? number.intValue() : 0);
     }
 
+    /**
+     * Query for object.
+     *
+     * @param <T>
+     *            the generic type
+     * @param sql
+     *            the sql
+     * @param setter
+     *            the setter
+     * @param rowMapper
+     *            the row mapper
+     * @return the t
+     * @throws DataAccessException
+     *             the data access exception
+     */
     private <T> T queryForObject(String sql, PreparedStatementSetter setter, RowMapper<T> rowMapper)
             throws DataAccessException {
         return DataAccessUtils.requiredSingleResult(jdbc().query(sql, setter,
                                                                  new RowMapperResultSetExtractor<T>(rowMapper, 1)));
     }
 
+    /**
+     * Query for list.
+     *
+     * @param <T>
+     *            the generic type
+     * @param sql
+     *            the sql
+     * @param setter
+     *            the setter
+     * @param rm
+     *            the rm
+     * @return the list
+     */
     private <T> List<T> queryForList(String sql, PreparedStatementSetter setter, ParameterizedRowMapper<T> rm) {
         return jdbc().query(sql, setter, new RowMapperResultSetExtractor<T>(rm));
     }
 
+    /**
+     * Jdbc.
+     *
+     * @return the jdbc operations
+     */
     private JdbcOperations jdbc() {
         return m_simpleJdbcTemplate.getJdbcOperations();
     }

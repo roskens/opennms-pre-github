@@ -42,7 +42,7 @@ import org.opennms.netmgt.config.views.Membership;
 import org.opennms.netmgt.config.views.View;
 
 /**
- * A servlet that handles saving a view
+ * A servlet that handles saving a view.
  *
  * @author <A HREF="mailto:jason@opennms.org">Jason Johns </A>
  * @author <A HREF="http://www.opennms.org/">OpenNMS </A>
@@ -52,9 +52,8 @@ import org.opennms.netmgt.config.views.View;
  * @since 1.8.1
  */
 public class UpdateViewServlet extends HttpServlet {
-    /**
-     *
-     */
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -29922796393463161L;
 
     /** {@inheritDoc} */

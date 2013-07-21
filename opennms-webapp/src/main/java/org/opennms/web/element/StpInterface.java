@@ -41,41 +41,66 @@ import org.opennms.web.api.Util;
  * @author <a href="mailto:antonio@opennms.it">Antonio Russo</a>
  */
 public class StpInterface {
+
+    /** The m_node id. */
     int m_nodeId;
 
+    /** The m_bridgeport. */
     int m_bridgeport;
 
+    /** The m_ifindex. */
     int m_ifindex;
 
+    /** The m_stpportstate. */
     String m_stpportstate = "";
 
+    /** The m_stpportpathcost. */
     String m_stpportpathcost = "";
 
+    /** The m_stpportdesignatedcost. */
     String m_stpportdesignatedcost = "";
 
+    /** The m_stpvlan. */
     int m_stpvlan;
 
+    /** The m_ipaddr. */
     String m_ipaddr = "";
 
+    /** The m_stpdesignatedroot. */
     String m_stpdesignatedroot = "";
 
+    /** The m_stpdesignatedbridge. */
     String m_stpdesignatedbridge = "";
 
+    /** The m_stpdesignatedport. */
     String m_stpdesignatedport = "";
 
+    /** The m_last poll time. */
     String m_lastPollTime;
 
+    /** The m_status. */
     String m_status;
 
+    /** The m_stprootnodeid. */
     int m_stprootnodeid;
 
+    /** The m_stpbridgenodeid. */
     int m_stpbridgenodeid;
 
     /* package-protected so only the NetworkElementFactory can instantiate */
+    /**
+     * Instantiates a new stp interface.
+     */
     StpInterface() {
     }
 
     /* package-protected so only the NetworkElementFactory can instantiate */
+    /**
+     * Instantiates a new stp interface.
+     *
+     * @param stpinterf
+     *            the stpinterf
+     */
     StpInterface(OnmsStpInterface stpinterf) {
         m_nodeId = stpinterf.getNode().getId();
         m_bridgeport = stpinterf.getBridgePort();
@@ -97,14 +122,32 @@ public class StpInterface {
             m_stpdesignatedport = stpinterf.getStpPortDesignatedPort();
     }
 
+    /**
+     * Sets the stp root nodeid.
+     *
+     * @param stprootnodeid
+     *            the new stp root nodeid
+     */
     public void setStpRootNodeid(Integer stprootnodeid) {
         m_stprootnodeid = stprootnodeid;
     }
 
+    /**
+     * Sets the stp bridge nodeid.
+     *
+     * @param stpbridgenodeid
+     *            the new stp bridge nodeid
+     */
     public void setStpBridgeNodeid(Integer stpbridgenodeid) {
         m_stpbridgenodeid = stpbridgenodeid;
     }
 
+    /**
+     * Sets the ip address.
+     *
+     * @param ipaddr
+     *            the new ip address
+     */
     public void setIpAddress(String ipaddr) {
         m_ipaddr = ipaddr;
     }
@@ -113,6 +156,7 @@ public class StpInterface {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -129,6 +173,7 @@ public class StpInterface {
      * <p>
      * get_bridgeport
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -140,6 +185,7 @@ public class StpInterface {
      * <p>
      * get_ifindex
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -151,6 +197,7 @@ public class StpInterface {
      * <p>
      * get_lastPollTime
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -162,6 +209,7 @@ public class StpInterface {
      * <p>
      * get_nodeId
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -173,6 +221,7 @@ public class StpInterface {
      * <p>
      * get_status
      * </p>
+     * .
      *
      * @return a char.
      */
@@ -184,6 +233,7 @@ public class StpInterface {
      * <p>
      * get_stpdesignatedbridge
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -195,6 +245,7 @@ public class StpInterface {
      * <p>
      * get_stpdesignatedport
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -206,6 +257,7 @@ public class StpInterface {
      * <p>
      * get_stpdesignatedroot
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -217,6 +269,7 @@ public class StpInterface {
      * <p>
      * get_stpportdesignatedcost
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -228,6 +281,7 @@ public class StpInterface {
      * <p>
      * get_stpportpathcost
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -239,6 +293,7 @@ public class StpInterface {
      * <p>
      * get_stpportstate
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -250,6 +305,7 @@ public class StpInterface {
      * <p>
      * getStpPortState
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -261,6 +317,7 @@ public class StpInterface {
      * <p>
      * get_stpvlan
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -272,6 +329,7 @@ public class StpInterface {
      * <p>
      * get_stpbridgenodeid
      * </p>
+     * .
      *
      * @return Returns the m_stpdesignatedbridgenodeid.
      */
@@ -283,6 +341,7 @@ public class StpInterface {
      * <p>
      * get_stprootnodeid
      * </p>
+     * .
      *
      * @return Returns the m_stpdesignatedrootnodeid.
      */
@@ -294,6 +353,7 @@ public class StpInterface {
      * <p>
      * get_ipaddr
      * </p>
+     * .
      *
      * @return Returns the m_ipaddr.
      */
@@ -305,6 +365,7 @@ public class StpInterface {
      * <p>
      * getStatusString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -316,6 +377,7 @@ public class StpInterface {
      * <p>
      * getVlanColorIdentifier
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

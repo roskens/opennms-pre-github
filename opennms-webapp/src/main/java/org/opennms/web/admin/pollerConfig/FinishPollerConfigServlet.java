@@ -40,7 +40,7 @@ import org.opennms.netmgt.model.events.EventProxy;
 import org.opennms.web.api.Util;
 
 /**
- * A servlet that handles signaling that the poller config has been updated
+ * A servlet that handles signaling that the poller config has been updated.
  *
  * @author <A HREF="mailto:jason@opennms.org">Jason Johns </A>
  * @author <A HREF="http://www.opennms.org/">OpenNMS </A>
@@ -50,18 +50,18 @@ import org.opennms.web.api.Util;
  * @since 1.8.1
  */
 public class FinishPollerConfigServlet extends HttpServlet {
-    /**
-     *
-     */
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -7110008476977279641L;
 
     /**
      * <p>
      * init
      * </p>
+     * .
      *
-     * @throws javax.servlet.ServletException
-     *             if any.
+     * @throws ServletException
+     *             the servlet exception
      */
     @Override
     public void init() throws ServletException {

@@ -95,6 +95,7 @@ public abstract class CustomizableTwoColumnRowLayout extends TwoColumnRowLayout 
      * <p>
      * startTable
      * </p>
+     * .
      *
      * @param html
      *            a {@link org.extremecomponents.util.HtmlBuilder} object.

@@ -34,15 +34,25 @@ import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HTML;
 
 /**
+ * The Class AlarmView.
+ *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  */
 class AlarmView extends PageableTableView {
 
+    /** The m_alarms. */
     private Alarm[] m_alarms;
 
+    /** The m_regex. */
     private RegExp m_regex = RegExp.compile("<(.|\n)*?>", "g");
 
+    /**
+     * Instantiates a new alarm view.
+     *
+     * @param dashlet
+     *            the dashlet
+     */
     AlarmView(Dashlet dashlet) {
         super(dashlet, 5, new String[] { "Node", "Log Msg", "Count", "First Time", "Last Time" });
     }
@@ -51,6 +61,7 @@ class AlarmView extends PageableTableView {
      * <p>
      * setAlarms
      * </p>
+     * .
      *
      * @param alarms
      *            an array of {@link org.opennms.dashboard.client.Alarm}
@@ -83,6 +94,13 @@ class AlarmView extends PageableTableView {
         table.getRowFormatter().setStyleName(row, alarm.getSeverity());
     }
 
+    /**
+     * Strip html tags.
+     *
+     * @param description
+     *            the description
+     * @return the string
+     */
     private String stripHtmlTags(String description) {
         return m_regex.replace(description, "");
     }
@@ -91,6 +109,7 @@ class AlarmView extends PageableTableView {
      * <p>
      * getElementCount
      * </p>
+     * .
      *
      * @return a int.
      */

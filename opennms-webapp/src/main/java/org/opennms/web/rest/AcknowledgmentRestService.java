@@ -56,6 +56,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.sun.jersey.spi.resource.PerRequest;
 
+/**
+ * The Class AcknowledgmentRestService.
+ */
 @Component
 @PerRequest
 @Scope("prototype")
@@ -68,18 +71,24 @@ import com.sun.jersey.spi.resource.PerRequest;
  * @since 1.8.1
  */
 public class AcknowledgmentRestService extends OnmsRestService {
+
+    /** The m_ack dao. */
     @Autowired
     private AcknowledgmentDao m_ackDao;
 
+    /** The m_alarm dao. */
     @Autowired
     private AlarmDao m_alarmDao;
 
+    /** The m_notification dao. */
     @Autowired
     private NotificationDao m_notificationDao;
 
+    /** The m_uri info. */
     @Context
     UriInfo m_uriInfo;
 
+    /** The m_security context. */
     @Context
     SecurityContext m_securityContext;
 
@@ -87,6 +96,7 @@ public class AcknowledgmentRestService extends OnmsRestService {
      * <p>
      * getAcknowledgment
      * </p>
+     * .
      *
      * @param alarmId
      *            a {@link java.lang.String} object.
@@ -111,6 +121,7 @@ public class AcknowledgmentRestService extends OnmsRestService {
      * <p>
      * getCount
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -131,6 +142,7 @@ public class AcknowledgmentRestService extends OnmsRestService {
      * <p>
      * getAcks
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.OnmsAcknowledgmentCollection}
      *         object.
@@ -162,11 +174,10 @@ public class AcknowledgmentRestService extends OnmsRestService {
      * <p>
      * acknowledgeAlarm
      * </p>
+     * .
      *
-     * @param alarmId
-     *            a {@link java.lang.String} object.
-     * @param action
-     *            a {@link java.lang.String} object.
+     * @param formParams
+     *            the form params
      * @return a {@link org.opennms.netmgt.model.OnmsAcknowledgment} object.
      */
     @POST
@@ -215,6 +226,13 @@ public class AcknowledgmentRestService extends OnmsRestService {
         }
     }
 
+    /**
+     * Gets the query filters.
+     *
+     * @param params
+     *            the params
+     * @return the query filters
+     */
     private CriteriaBuilder getQueryFilters(MultivaluedMap<String, String> params) {
         final CriteriaBuilder builder = new CriteriaBuilder(OnmsAcknowledgment.class);
         applyQueryFilters(params, builder);

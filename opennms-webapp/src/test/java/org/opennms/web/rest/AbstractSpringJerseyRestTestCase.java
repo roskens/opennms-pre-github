@@ -76,33 +76,54 @@ import com.sun.jersey.spi.container.servlet.ServletContainer;
 import com.sun.jersey.spi.spring.container.servlet.SpringServlet;
 
 /**
+ * The Class AbstractSpringJerseyRestTestCase.
+ *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  */
 public abstract class AbstractSpringJerseyRestTestCase {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(AbstractSpringJerseyRestTestCase.class);
 
+    /** The get. */
     public static String GET = "GET";
 
+    /** The post. */
     public static String POST = "POST";
 
+    /** The delete. */
     public static String DELETE = "DELETE";
 
+    /** The put. */
     public static String PUT = "PUT";
 
+    /** The context path. */
     String contextPath = "/opennms/rest";
 
+    /** The dispatcher. */
     private ServletContainer dispatcher;
 
+    /** The servlet config. */
     private MockServletConfig servletConfig;
 
+    /** The servlet context. */
     private MockServletContext servletContext;
 
+    /** The context listener. */
     private ContextLoaderListener contextListener;
 
+    /** The filter. */
     private Filter filter;
 
+    /** The m_web app context. */
     private WebApplicationContext m_webAppContext;
 
+    /**
+     * Sets the up.
+     *
+     * @throws Throwable
+     *             the throwable
+     */
     @Before
     public void setUp() throws Throwable {
         beforeServletStart();
@@ -162,22 +183,39 @@ public abstract class AbstractSpringJerseyRestTestCase {
         System.err.println("------------------------------------------------------------------------------");
     }
 
+    /**
+     * Gets the servlet context.
+     *
+     * @return the servlet context
+     */
     protected final MockServletContext getServletContext() {
         return servletContext;
     }
 
     /**
      * By default, don't do anything.
+     *
+     * @throws Exception
+     *             the exception
      */
     protected void beforeServletStart() throws Exception {
     }
 
     /**
      * By default, don't do anything.
+     *
+     * @throws Exception
+     *             the exception
      */
     protected void afterServletStart() throws Exception {
     }
 
+    /**
+     * Tear down.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @After
     public void tearDown() throws Exception {
         System.err.println("------------------------------------------------------------------------------");
@@ -191,16 +229,32 @@ public abstract class AbstractSpringJerseyRestTestCase {
 
     /**
      * By default, don't do anything.
+     *
+     * @throws Exception
+     *             the exception
      */
     protected void beforeServletDestroy() throws Exception {
     }
 
     /**
      * By default, don't do anything.
+     *
+     * @throws Exception
+     *             the exception
      */
     protected void afterServletDestroy() throws Exception {
     }
 
+    /**
+     * Dispatch.
+     *
+     * @param request
+     *            the request
+     * @param response
+     *            the response
+     * @throws Exception
+     *             the exception
+     */
     protected final void dispatch(final MockHttpServletRequest request, final MockHttpServletResponse response)
             throws Exception {
         final FilterChain filterChain = new FilterChain() {
@@ -215,10 +269,24 @@ public abstract class AbstractSpringJerseyRestTestCase {
         }
     }
 
+    /**
+     * Creates the response.
+     *
+     * @return the mock http servlet response
+     */
     protected final MockHttpServletResponse createResponse() {
         return new MockHttpServletResponse();
     }
 
+    /**
+     * Creates the request.
+     *
+     * @param requestType
+     *            the request type
+     * @param urlPath
+     *            the url path
+     * @return the mock http servlet request
+     */
     protected final MockHttpServletRequest createRequest(final String requestType, final String urlPath) {
         final MockHttpServletRequest request = new MockHttpServletRequest(getServletContext(), requestType, contextPath
                 + urlPath) {
@@ -237,8 +305,15 @@ public abstract class AbstractSpringJerseyRestTestCase {
     }
 
     /**
+     * Send post.
+     *
      * @param url
+     *            the url
      * @param xml
+     *            the xml
+     * @return the mock http servlet response
+     * @throws Exception
+     *             the exception
      * @deprecated use {@link #sendPost(String, String, int, String)} instead
      */
     protected final MockHttpServletResponse sendPost(final String url, final String xml) throws Exception {
@@ -249,9 +324,17 @@ public abstract class AbstractSpringJerseyRestTestCase {
     }
 
     /**
+     * Send post.
+     *
      * @param url
+     *            the url
      * @param xml
+     *            the xml
      * @param statusCode
+     *            the status code
+     * @return the mock http servlet response
+     * @throws Exception
+     *             the exception
      * @deprecated use {@link #sendPost(String, String, int, String)} instead
      */
     protected final MockHttpServletResponse sendPost(final String url, final String xml, final int statusCode)
@@ -260,9 +343,19 @@ public abstract class AbstractSpringJerseyRestTestCase {
     }
 
     /**
+     * Send post.
+     *
      * @param url
+     *            the url
      * @param xml
+     *            the xml
      * @param statusCode
+     *            the status code
+     * @param expectedUrlSuffix
+     *            the expected url suffix
+     * @return the mock http servlet response
+     * @throws Exception
+     *             the exception
      */
     protected final MockHttpServletResponse sendPost(final String url, final String xml, final int statusCode,
             final String expectedUrlSuffix) throws Exception {
@@ -279,8 +372,15 @@ public abstract class AbstractSpringJerseyRestTestCase {
     }
 
     /**
+     * Send put.
+     *
      * @param url
+     *            the url
      * @param formData
+     *            the form data
+     * @return the mock http servlet response
+     * @throws Exception
+     *             the exception
      * @deprecated use {@link #sendPut(String, String, int, String)} instead
      */
     protected final MockHttpServletResponse sendPut(final String url, final String formData) throws Exception {
@@ -294,9 +394,17 @@ public abstract class AbstractSpringJerseyRestTestCase {
     }
 
     /**
+     * Send put.
+     *
      * @param url
+     *            the url
      * @param formData
+     *            the form data
      * @param statusCode
+     *            the status code
+     * @return the mock http servlet response
+     * @throws Exception
+     *             the exception
      * @deprecated use {@link #sendPut(String, String, int, String)} instead
      */
     protected final MockHttpServletResponse sendPut(final String url, final String formData, final int statusCode)
@@ -305,10 +413,19 @@ public abstract class AbstractSpringJerseyRestTestCase {
     }
 
     /**
+     * Send put.
+     *
      * @param url
+     *            the url
      * @param formData
+     *            the form data
      * @param statusCode
+     *            the status code
      * @param expectedUrlSuffix
+     *            the expected url suffix
+     * @return the mock http servlet response
+     * @throws Exception
+     *             the exception
      */
     protected final MockHttpServletResponse sendPut(final String url, final String formData, final int statusCode,
             final String expectedUrlSuffix) throws Exception {
@@ -325,10 +442,19 @@ public abstract class AbstractSpringJerseyRestTestCase {
     }
 
     /**
+     * Send data.
+     *
      * @param requestType
+     *            the request type
      * @param contentType
+     *            the content type
      * @param url
+     *            the url
      * @param data
+     *            the data
+     * @return the mock http servlet response
+     * @throws Exception
+     *             the exception
      */
     protected final MockHttpServletResponse sendData(final String requestType, final String contentType,
             final String url, final String data) throws Exception {
@@ -336,11 +462,21 @@ public abstract class AbstractSpringJerseyRestTestCase {
     }
 
     /**
+     * Send data.
+     *
      * @param requestType
+     *            the request type
      * @param contentType
+     *            the content type
      * @param url
+     *            the url
      * @param data
+     *            the data
      * @param statusCode
+     *            the status code
+     * @return the mock http servlet response
+     * @throws Exception
+     *             the exception
      */
     protected final MockHttpServletResponse sendData(final String requestType, final String contentType,
             final String url, final String data, final int statusCode) throws Exception {
@@ -363,6 +499,13 @@ public abstract class AbstractSpringJerseyRestTestCase {
         return response;
     }
 
+    /**
+     * Stringify response.
+     *
+     * @param response
+     *            the response
+     * @return the string
+     */
     protected final String stringifyResponse(final MockHttpServletResponse response) {
         final StringBuilder string = new StringBuilder();
         try {
@@ -382,6 +525,15 @@ public abstract class AbstractSpringJerseyRestTestCase {
         return string.toString();
     }
 
+    /**
+     * Parses the param data.
+     *
+     * @param data
+     *            the data
+     * @return the map
+     * @throws UnsupportedEncodingException
+     *             the unsupported encoding exception
+     */
     protected static Map<String, String> parseParamData(final String data) throws UnsupportedEncodingException {
         Map<String, String> retVal = new HashMap<String, String>();
         for (String item : data.split("&")) {
@@ -393,11 +545,43 @@ public abstract class AbstractSpringJerseyRestTestCase {
         return retVal;
     }
 
+    /**
+     * Send request.
+     *
+     * @param requestType
+     *            the request type
+     * @param url
+     *            the url
+     * @param parameters
+     *            the parameters
+     * @param expectedStatus
+     *            the expected status
+     * @return the string
+     * @throws Exception
+     *             the exception
+     */
     protected final String sendRequest(final String requestType, final String url, final Map<?, ?> parameters,
             final int expectedStatus) throws Exception {
         return sendRequest(requestType, url, parameters, expectedStatus, null);
     }
 
+    /**
+     * Send request.
+     *
+     * @param requestType
+     *            the request type
+     * @param url
+     *            the url
+     * @param parameters
+     *            the parameters
+     * @param expectedStatus
+     *            the expected status
+     * @param expectedUrlSuffix
+     *            the expected url suffix
+     * @return the string
+     * @throws Exception
+     *             the exception
+     */
     protected final String sendRequest(final String requestType, final String url, final Map<?, ?> parameters,
             final int expectedStatus, final String expectedUrlSuffix) throws Exception {
         final MockHttpServletRequest request = createRequest(requestType, url);
@@ -406,6 +590,13 @@ public abstract class AbstractSpringJerseyRestTestCase {
         return sendRequest(request, expectedStatus, expectedUrlSuffix);
     }
 
+    /**
+     * Gets the query string.
+     *
+     * @param parameters
+     *            the parameters
+     * @return the query string
+     */
     protected final String getQueryString(final Map<?, ?> parameters) {
         final StringBuffer sb = new StringBuffer();
 
@@ -438,17 +629,58 @@ public abstract class AbstractSpringJerseyRestTestCase {
         return sb.toString();
     }
 
+    /**
+     * Send request.
+     *
+     * @param requestType
+     *            the request type
+     * @param url
+     *            the url
+     * @param expectedStatus
+     *            the expected status
+     * @return the string
+     * @throws Exception
+     *             the exception
+     */
     protected final String sendRequest(final String requestType, final String url, final int expectedStatus)
             throws Exception {
         final MockHttpServletRequest request = createRequest(requestType, url);
         return sendRequest(request, expectedStatus);
     }
 
+    /**
+     * Send request.
+     *
+     * @param request
+     *            the request
+     * @param expectedStatus
+     *            the expected status
+     * @return the string
+     * @throws Exception
+     *             the exception
+     * @throws UnsupportedEncodingException
+     *             the unsupported encoding exception
+     */
     protected final String sendRequest(final MockHttpServletRequest request, final int expectedStatus)
             throws Exception, UnsupportedEncodingException {
         return sendRequest(request, expectedStatus, null);
     }
 
+    /**
+     * Send request.
+     *
+     * @param request
+     *            the request
+     * @param expectedStatus
+     *            the expected status
+     * @param expectedUrlSuffix
+     *            the expected url suffix
+     * @return the string
+     * @throws Exception
+     *             the exception
+     * @throws UnsupportedEncodingException
+     *             the unsupported encoding exception
+     */
     protected final String sendRequest(final MockHttpServletRequest request, final int expectedStatus,
             final String expectedUrlSuffix) throws Exception, UnsupportedEncodingException {
         MockHttpServletResponse response = createResponse();
@@ -470,6 +702,23 @@ public abstract class AbstractSpringJerseyRestTestCase {
         return xml;
     }
 
+    /**
+     * Gets the xml object.
+     *
+     * @param <T>
+     *            the generic type
+     * @param context
+     *            the context
+     * @param url
+     *            the url
+     * @param expectedStatus
+     *            the expected status
+     * @param expectedClass
+     *            the expected class
+     * @return the xml object
+     * @throws Exception
+     *             the exception
+     */
     protected final <T> T getXmlObject(final JAXBContext context, final String url, final int expectedStatus,
             final Class<T> expectedClass) throws Exception {
         MockHttpServletRequest request = createRequest(GET, url);
@@ -489,6 +738,22 @@ public abstract class AbstractSpringJerseyRestTestCase {
 
     }
 
+    /**
+     * Put xml object.
+     *
+     * @param context
+     *            the context
+     * @param url
+     *            the url
+     * @param expectedStatus
+     *            the expected status
+     * @param object
+     *            the object
+     * @param expectedUrlSuffix
+     *            the expected url suffix
+     * @throws Exception
+     *             the exception
+     */
     protected final void putXmlObject(final JAXBContext context, final String url, final int expectedStatus,
             final Object object, final String expectedUrlSuffix) throws Exception {
         final ByteArrayOutputStream out = new ByteArrayOutputStream();
@@ -508,6 +773,12 @@ public abstract class AbstractSpringJerseyRestTestCase {
                    location.endsWith(expectedUrlSuffix));
     }
 
+    /**
+     * Creates the node.
+     *
+     * @throws Exception
+     *             the exception
+     */
     protected void createNode() throws Exception {
         String node = "<node label=\"TestMachine\">"
                 + "<labelSource>H</labelSource>"
@@ -519,6 +790,12 @@ public abstract class AbstractSpringJerseyRestTestCase {
         sendPost("/nodes", node, 303, "/nodes/1");
     }
 
+    /**
+     * Creates the ip interface.
+     *
+     * @throws Exception
+     *             the exception
+     */
     protected void createIpInterface() throws Exception {
         createNode();
         String ipInterface = "<ipInterface isManaged=\"M\" snmpPrimary=\"P\">" + "<ipAddress>10.10.10.10</ipAddress>"
@@ -526,6 +803,12 @@ public abstract class AbstractSpringJerseyRestTestCase {
         sendPost("/nodes/1/ipinterfaces", ipInterface, 303, "/nodes/1/ipinterfaces/10.10.10.10");
     }
 
+    /**
+     * Creates the snmp interface.
+     *
+     * @throws Exception
+     *             the exception
+     */
     protected final void createSnmpInterface() throws Exception {
         createIpInterface();
         String snmpInterface = "<snmpInterface ifIndex=\"6\">" + "<ifAdminStatus>1</ifAdminStatus>"
@@ -535,6 +818,12 @@ public abstract class AbstractSpringJerseyRestTestCase {
         sendPost("/nodes/1/snmpinterfaces", snmpInterface, 303, "/nodes/1/snmpinterfaces/6");
     }
 
+    /**
+     * Creates the service.
+     *
+     * @throws Exception
+     *             the exception
+     */
     protected final void createService() throws Exception {
         createIpInterface();
         String service = "<service source=\"P\" status=\"N\">" + "<notify>Y</notify>" + "<serviceType>"
@@ -543,56 +832,134 @@ public abstract class AbstractSpringJerseyRestTestCase {
                  "/nodes/1/ipinterfaces/10.10.10.10/services/ICMP");
     }
 
+    /**
+     * Creates the category.
+     *
+     * @throws Exception
+     *             the exception
+     */
     protected final void createCategory() throws Exception {
         createNode();
         String service = "<category name=\"Routers\">" + "<description>Core Routers</description>" + "</category>";
         sendPost("/nodes/1/categories", service, 303, "/nodes/1/categories/Routers");
     }
 
+    /**
+     * Sets the web app context.
+     *
+     * @param webAppContext
+     *            the new web app context
+     */
     public final void setWebAppContext(final WebApplicationContext webAppContext) {
         m_webAppContext = webAppContext;
     }
 
+    /**
+     * Gets the web app context.
+     *
+     * @return the web app context
+     */
     public final WebApplicationContext getWebAppContext() {
         return m_webAppContext;
     }
 
+    /**
+     * Gets the bean.
+     *
+     * @param <T>
+     *            the generic type
+     * @param name
+     *            the name
+     * @param beanClass
+     *            the bean class
+     * @return the bean
+     */
     public final <T> T getBean(final String name, final Class<T> beanClass) {
         return m_webAppContext.getBean(name, beanClass);
     }
 
+    /**
+     * Sets the servlet context.
+     *
+     * @param servletContext
+     *            the new servlet context
+     */
     public final void setServletContext(final MockServletContext servletContext) {
         this.servletContext = servletContext;
     }
 
+    /**
+     * Sets the context listener.
+     *
+     * @param contextListener
+     *            the new context listener
+     */
     public final void setContextListener(final ContextLoaderListener contextListener) {
         this.contextListener = contextListener;
     }
 
+    /**
+     * Gets the context listener.
+     *
+     * @return the context listener
+     */
     public final ContextLoaderListener getContextListener() {
         return contextListener;
     }
 
+    /**
+     * Sets the servlet config.
+     *
+     * @param servletConfig
+     *            the new servlet config
+     */
     public final void setServletConfig(final MockServletConfig servletConfig) {
         this.servletConfig = servletConfig;
     }
 
+    /**
+     * Gets the servlet config.
+     *
+     * @return the servlet config
+     */
     public final MockServletConfig getServletConfig() {
         return servletConfig;
     }
 
+    /**
+     * Sets the filter.
+     *
+     * @param filter
+     *            the new filter
+     */
     public final void setFilter(final Filter filter) {
         this.filter = filter;
     }
 
+    /**
+     * Gets the filter.
+     *
+     * @return the filter
+     */
     public final Filter getFilter() {
         return filter;
     }
 
+    /**
+     * Sets the dispatcher.
+     *
+     * @param dispatcher
+     *            the new dispatcher
+     */
     public final void setDispatcher(final ServletContainer dispatcher) {
         this.dispatcher = dispatcher;
     }
 
+    /**
+     * Gets the dispatcher.
+     *
+     * @return the dispatcher
+     */
     public final ServletContainer getDispatcher() {
         return dispatcher;
     }

@@ -78,22 +78,40 @@ import org.springframework.web.servlet.mvc.AbstractController;
  */
 public class CustomViewController extends AbstractController implements InitializingBean {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(CustomViewController.class);
 
+    /**
+     * The Enum Parameters.
+     */
     public enum Parameters {
-        report, type, timespan, graphtype
+
+        /** The report. */
+        report,
+ /** The type. */
+ type,
+ /** The timespan. */
+ timespan,
+ /** The graphtype. */
+ graphtype
     }
 
+    /** The m_ksc report factory. */
     private KSC_PerformanceReportFactory m_kscReportFactory;
 
+    /** The m_ksc report service. */
     private KscReportService m_kscReportService;
 
+    /** The m_resource service. */
     private ResourceService m_resourceService;
 
+    /** The m_default graphs per line. */
     private int m_defaultGraphsPerLine = 0;
 
+    /** The m_executor. */
     private Executor m_executor;
 
+    /** The m_resources pending promotion. */
     private Set<String> m_resourcesPendingPromotion = Collections.synchronizedSet(new HashSet<String>());
 
     /** {@inheritDoc} */
@@ -290,6 +308,12 @@ public class CustomViewController extends AbstractController implements Initiali
         return modelAndView;
     }
 
+    /**
+     * Removes the broken graphs from report.
+     *
+     * @param report
+     *            the report
+     */
     private void removeBrokenGraphsFromReport(Report report) {
         for (Iterator<Graph> itr = report.getGraphCollection().iterator(); itr.hasNext();) {
             Graph graph = itr.next();
@@ -306,6 +330,12 @@ public class CustomViewController extends AbstractController implements Initiali
         }
     }
 
+    /**
+     * Promote resource attributes if necessary.
+     *
+     * @param resource
+     *            the resource
+     */
     private void promoteResourceAttributesIfNecessary(final OnmsResource resource) {
         boolean needToSchedule = false;
         if (resource != null && resource.getId() != null) {
@@ -329,6 +359,7 @@ public class CustomViewController extends AbstractController implements Initiali
      * <p>
      * getKscReportFactory
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.config.KSC_PerformanceReportFactory}
      *         object.
@@ -341,6 +372,7 @@ public class CustomViewController extends AbstractController implements Initiali
      * <p>
      * setKscReportFactory
      * </p>
+     * .
      *
      * @param kscReportFactory
      *            a
@@ -355,6 +387,7 @@ public class CustomViewController extends AbstractController implements Initiali
      * <p>
      * getDefaultGraphsPerLine
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -366,6 +399,7 @@ public class CustomViewController extends AbstractController implements Initiali
      * <p>
      * setDefaultGraphsPerLine
      * </p>
+     * .
      *
      * @param defaultGraphsPerLine
      *            a int.
@@ -380,6 +414,7 @@ public class CustomViewController extends AbstractController implements Initiali
      * <p>
      * getKscReportService
      * </p>
+     * .
      *
      * @return a {@link org.opennms.web.svclayer.KscReportService} object.
      */
@@ -391,6 +426,7 @@ public class CustomViewController extends AbstractController implements Initiali
      * <p>
      * setKscReportService
      * </p>
+     * .
      *
      * @param kscReportService
      *            a {@link org.opennms.web.svclayer.KscReportService} object.
@@ -403,6 +439,7 @@ public class CustomViewController extends AbstractController implements Initiali
      * <p>
      * getResourceService
      * </p>
+     * .
      *
      * @return a {@link org.opennms.web.svclayer.ResourceService} object.
      */
@@ -414,6 +451,7 @@ public class CustomViewController extends AbstractController implements Initiali
      * <p>
      * setResourceService
      * </p>
+     * .
      *
      * @param resourceService
      *            a {@link org.opennms.web.svclayer.ResourceService} object.
@@ -426,9 +464,10 @@ public class CustomViewController extends AbstractController implements Initiali
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @Override
     public void afterPropertiesSet() throws Exception {

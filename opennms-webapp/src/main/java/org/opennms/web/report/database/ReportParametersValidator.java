@@ -56,6 +56,7 @@ public class ReportParametersValidator {
      * <p>
      * validateReportParameters
      * </p>
+     * .
      *
      * @param reportCriteria
      *            a {@link org.opennms.api.reporting.parameter.ReportParameters}

@@ -43,7 +43,7 @@ import org.opennms.netmgt.config.groups.Group;
 import org.opennms.netmgt.config.users.DutySchedule;
 
 /**
- * A servlet that handles adding new duty schedules to a group
+ * A servlet that handles adding new duty schedules to a group.
  *
  * @author <A HREF="mailto:jason@opennms.org">Jason Johns </A>
  * @author <A HREF="http://www.opennms.org/">OpenNMS </A>
@@ -53,6 +53,8 @@ import org.opennms.netmgt.config.users.DutySchedule;
  * @since 1.8.1
  */
 public class AddGroupDutySchedulesServlet extends HttpServlet {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -4167184420524735471L;
 
     /** {@inheritDoc} */

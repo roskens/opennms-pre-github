@@ -48,6 +48,7 @@ public interface ManualProvisioningService {
      * <p>
      * getProvisioningGroupNames
      * </p>
+     * .
      *
      * @return a {@link java.util.Collection} object.
      */
@@ -57,6 +58,7 @@ public interface ManualProvisioningService {
      * <p>
      * getProvisioningGroup
      * </p>
+     * .
      *
      * @param name
      *            a {@link java.lang.String} object.
@@ -70,6 +72,7 @@ public interface ManualProvisioningService {
      * <p>
      * createProvisioningGroup
      * </p>
+     * .
      *
      * @param name
      *            a {@link java.lang.String} object.
@@ -83,6 +86,7 @@ public interface ManualProvisioningService {
      * <p>
      * getServiceTypeNames
      * </p>
+     * .
      *
      * @param groupName
      *            finds the services that are defined in the foreignsource for
@@ -95,14 +99,15 @@ public interface ManualProvisioningService {
      * <p>
      * saveProvisioningGroup
      * </p>
+     * .
      *
      * @param groupName
      *            a {@link java.lang.String} object.
      * @param groupData
      *            a
-     *            {@link org.opennms.netmgt.provision.persist.requisition.Requisition}
-     *            object.
      * @return a
+     *         {@link org.opennms.netmgt.provision.persist.requisition.Requisition}
+     *         object.
      *         {@link org.opennms.netmgt.provision.persist.requisition.Requisition}
      *         object.
      */
@@ -112,6 +117,7 @@ public interface ManualProvisioningService {
      * <p>
      * addNewNodeToGroup
      * </p>
+     * .
      *
      * @param groupName
      *            a {@link java.lang.String} object.
@@ -127,6 +133,7 @@ public interface ManualProvisioningService {
      * <p>
      * addCategoryToNode
      * </p>
+     * .
      *
      * @param groupName
      *            a {@link java.lang.String} object.
@@ -144,6 +151,7 @@ public interface ManualProvisioningService {
      * <p>
      * addAssetFieldToNode
      * </p>
+     * .
      *
      * @param groupName
      *            a {@link java.lang.String} object.
@@ -163,6 +171,7 @@ public interface ManualProvisioningService {
      * <p>
      * addInterfaceToNode
      * </p>
+     * .
      *
      * @param groupName
      *            a {@link java.lang.String} object.
@@ -180,6 +189,7 @@ public interface ManualProvisioningService {
      * <p>
      * addServiceToInterface
      * </p>
+     * .
      *
      * @param groupName
      *            a {@link java.lang.String} object.
@@ -197,6 +207,7 @@ public interface ManualProvisioningService {
      * <p>
      * deletePath
      * </p>
+     * .
      *
      * @param groupName
      *            a {@link java.lang.String} object.
@@ -212,6 +223,7 @@ public interface ManualProvisioningService {
      * <p>
      * importProvisioningGroup
      * </p>
+     * .
      *
      * @param groupName
      *            a {@link java.lang.String} object.
@@ -222,6 +234,7 @@ public interface ManualProvisioningService {
      * <p>
      * getAllGroups
      * </p>
+     * .
      *
      * @return a {@link java.util.Collection} object.
      */
@@ -231,6 +244,7 @@ public interface ManualProvisioningService {
      * <p>
      * deleteProvisioningGroup
      * </p>
+     * .
      *
      * @param groupName
      *            a {@link java.lang.String} object.
@@ -241,6 +255,7 @@ public interface ManualProvisioningService {
      * <p>
      * deleteAllNodes
      * </p>
+     * .
      *
      * @param groupName
      *            a {@link java.lang.String} object.
@@ -251,6 +266,7 @@ public interface ManualProvisioningService {
      * <p>
      * getGroupDbNodeCounts
      * </p>
+     * .
      *
      * @return a java$util$Map object.
      */
@@ -260,6 +276,7 @@ public interface ManualProvisioningService {
      * <p>
      * getNodeCategoryNames
      * </p>
+     * .
      *
      * @return a {@link java.util.Collection} object.
      */
@@ -269,6 +286,7 @@ public interface ManualProvisioningService {
      * <p>
      * getAssetFieldNames
      * </p>
+     * .
      *
      * @return a {@link java.util.Collection} object.
      */

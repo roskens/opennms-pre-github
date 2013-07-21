@@ -45,16 +45,22 @@ import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 
+/**
+ * The Class ProvisioningGroupsController.
+ */
 public class ProvisioningGroupsController extends SimpleFormController {
 
+    /** The m_provisioning service. */
     private ManualProvisioningService m_provisioningService;
 
+    /** The m_foreign source service. */
     private ForeignSourceService m_foreignSourceService;
 
     /**
      * <p>
      * setProvisioningService
      * </p>
+     * .
      *
      * @param provisioningService
      *            a {@link org.opennms.web.svclayer.ManualProvisioningService}
@@ -68,6 +74,7 @@ public class ProvisioningGroupsController extends SimpleFormController {
      * <p>
      * setForeignSourceService
      * </p>
+     * .
      *
      * @param fss
      *            a
@@ -78,33 +85,73 @@ public class ProvisioningGroupsController extends SimpleFormController {
         m_foreignSourceService = fss;
     }
 
+    /**
+     * The Class GroupAction.
+     */
     public static class GroupAction {
+
+        /** The m_group name. */
         private String m_groupName;
 
+        /** The m_action. */
         private String m_action = "show";
 
+        /** The m_action target. */
         private String m_actionTarget;
 
+        /**
+         * Gets the action.
+         *
+         * @return the action
+         */
         public final String getAction() {
             return m_action;
         }
 
+        /**
+         * Sets the action.
+         *
+         * @param action
+         *            the new action
+         */
         public final void setAction(final String action) {
             m_action = action;
         }
 
+        /**
+         * Gets the group name.
+         *
+         * @return the group name
+         */
         public final String getGroupName() {
             return m_groupName;
         }
 
+        /**
+         * Sets the group name.
+         *
+         * @param groupName
+         *            the new group name
+         */
         public final void setGroupName(final String groupName) {
             m_groupName = groupName;
         }
 
+        /**
+         * Gets the action target.
+         *
+         * @return the action target
+         */
         public final String getActionTarget() {
             return m_actionTarget;
         }
 
+        /**
+         * Sets the action target.
+         *
+         * @param target
+         *            the new action target
+         */
         public final void setActionTarget(final String target) {
             m_actionTarget = target;
         }
@@ -147,11 +194,41 @@ public class ProvisioningGroupsController extends SimpleFormController {
 
     }
 
+    /**
+     * Do show.
+     *
+     * @param request
+     *            the request
+     * @param response
+     *            the response
+     * @param command
+     *            the command
+     * @param errors
+     *            the errors
+     * @return the model and view
+     * @throws Exception
+     *             the exception
+     */
     private ModelAndView doShow(final HttpServletRequest request, final HttpServletResponse response,
             final GroupAction command, final BindException errors) throws Exception {
         return showForm(request, response, errors);
     }
 
+    /**
+     * Do delete group.
+     *
+     * @param request
+     *            the request
+     * @param response
+     *            the response
+     * @param command
+     *            the command
+     * @param errors
+     *            the errors
+     * @return the model and view
+     * @throws Exception
+     *             the exception
+     */
     private ModelAndView doDeleteGroup(final HttpServletRequest request, final HttpServletResponse response,
             final GroupAction command, final BindException errors) throws Exception {
         m_provisioningService.deleteProvisioningGroup(command.getGroupName());
@@ -159,6 +236,21 @@ public class ProvisioningGroupsController extends SimpleFormController {
         return showForm(request, response, errors);
     }
 
+    /**
+     * Do import.
+     *
+     * @param request
+     *            the request
+     * @param response
+     *            the response
+     * @param command
+     *            the command
+     * @param errors
+     *            the errors
+     * @return the model and view
+     * @throws Exception
+     *             the exception
+     */
     private ModelAndView doImport(final HttpServletRequest request, final HttpServletResponse response,
             final GroupAction command, final BindException errors) throws Exception {
         m_provisioningService.importProvisioningGroup(command.getGroupName());
@@ -166,12 +258,42 @@ public class ProvisioningGroupsController extends SimpleFormController {
         return showForm(request, response, errors);
     }
 
+    /**
+     * Do delete nodes.
+     *
+     * @param request
+     *            the request
+     * @param response
+     *            the response
+     * @param command
+     *            the command
+     * @param errors
+     *            the errors
+     * @return the model and view
+     * @throws Exception
+     *             the exception
+     */
     private ModelAndView doDeleteNodes(final HttpServletRequest request, final HttpServletResponse response,
             final GroupAction command, final BindException errors) throws Exception {
         m_provisioningService.deleteAllNodes(command.getGroupName());
         return showForm(request, response, errors);
     }
 
+    /**
+     * Do add group.
+     *
+     * @param request
+     *            the request
+     * @param response
+     *            the response
+     * @param command
+     *            the command
+     * @param errors
+     *            the errors
+     * @return the model and view
+     * @throws Exception
+     *             the exception
+     */
     private ModelAndView doAddGroup(final HttpServletRequest request, final HttpServletResponse response,
             final GroupAction command, final BindException errors) throws Exception {
         String groupName = command.getGroupName();
@@ -183,12 +305,42 @@ public class ProvisioningGroupsController extends SimpleFormController {
         return showForm(request, response, errors);
     }
 
+    /**
+     * Do clone foreign source.
+     *
+     * @param request
+     *            the request
+     * @param response
+     *            the response
+     * @param command
+     *            the command
+     * @param errors
+     *            the errors
+     * @return the model and view
+     * @throws Exception
+     *             the exception
+     */
     private ModelAndView doCloneForeignSource(final HttpServletRequest request, final HttpServletResponse response,
             final GroupAction command, final BindException errors) throws Exception {
         m_foreignSourceService.cloneForeignSource(command.getGroupName(), command.getActionTarget());
         return showForm(request, response, errors);
     }
 
+    /**
+     * Do reset default foreign source.
+     *
+     * @param request
+     *            the request
+     * @param response
+     *            the response
+     * @param command
+     *            the command
+     * @param errors
+     *            the errors
+     * @return the model and view
+     * @throws Exception
+     *             the exception
+     */
     private ModelAndView doResetDefaultForeignSource(final HttpServletRequest request,
             final HttpServletResponse response, final GroupAction command, final BindException errors) throws Exception {
         m_foreignSourceService.deleteForeignSource("default");

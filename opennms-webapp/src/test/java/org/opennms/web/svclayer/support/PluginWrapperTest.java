@@ -36,8 +36,17 @@ import org.opennms.netmgt.provision.persist.policies.MatchingSnmpInterfacePolicy
 import org.opennms.netmgt.provision.persist.policies.NodeCategorySettingPolicy;
 import org.opennms.netmgt.provision.support.PluginWrapper;
 
+/**
+ * The Class PluginWrapperTest.
+ */
 public class PluginWrapperTest {
 
+    /**
+     * Test choices.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testChoices() throws Exception {
         PluginWrapper wrapper = new PluginWrapper(MatchingSnmpInterfacePolicy.class);
@@ -46,6 +55,12 @@ public class PluginWrapperTest {
                    wrapper.getRequiredItems().get("action").contains("DISABLE_COLLECTION"));
     }
 
+    /**
+     * Test required.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testRequired() throws Exception {
         PluginWrapper wrapper = new PluginWrapper(NodeCategorySettingPolicy.class);

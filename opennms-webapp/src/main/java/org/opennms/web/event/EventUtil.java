@@ -74,9 +74,12 @@ public abstract class EventUtil {
      * <p>
      * getFilter
      * </p>
+     * .
      *
      * @param filterString
      *            a {@link java.lang.String} object.
+     * @param servletContext
+     *            the servlet context
      * @return a org$opennms$web$filter$Filter object.
      */
     public static Filter getFilter(String filterString, ServletContext servletContext) {
@@ -149,6 +152,7 @@ public abstract class EventUtil {
      * <p>
      * getFilterString
      * </p>
+     * .
      *
      * @param filter
      *            a org$opennms$web$filter$Filter object.
@@ -162,31 +166,32 @@ public abstract class EventUtil {
         return filter.getDescription();
     }
 
-    /** Constant <code>LAST_HOUR_RELATIVE_TIME=1</code> */
+    /** Constant <code>LAST_HOUR_RELATIVE_TIME=1</code>. */
     public static final int LAST_HOUR_RELATIVE_TIME = 1;
 
-    /** Constant <code>LAST_FOUR_HOURS_RELATIVE_TIME=2</code> */
+    /** Constant <code>LAST_FOUR_HOURS_RELATIVE_TIME=2</code>. */
     public static final int LAST_FOUR_HOURS_RELATIVE_TIME = 2;
 
-    /** Constant <code>LAST_EIGHT_HOURS_RELATIVE_TIME=3</code> */
+    /** Constant <code>LAST_EIGHT_HOURS_RELATIVE_TIME=3</code>. */
     public static final int LAST_EIGHT_HOURS_RELATIVE_TIME = 3;
 
-    /** Constant <code>LAST_TWELVE_HOURS_RELATIVE_TIME=4</code> */
+    /** Constant <code>LAST_TWELVE_HOURS_RELATIVE_TIME=4</code>. */
     public static final int LAST_TWELVE_HOURS_RELATIVE_TIME = 4;
 
-    /** Constant <code>LAST_DAY_RELATIVE_TIME=5</code> */
+    /** Constant <code>LAST_DAY_RELATIVE_TIME=5</code>. */
     public static final int LAST_DAY_RELATIVE_TIME = 5;
 
-    /** Constant <code>LAST_WEEK_RELATIVE_TIME=6</code> */
+    /** Constant <code>LAST_WEEK_RELATIVE_TIME=6</code>. */
     public static final int LAST_WEEK_RELATIVE_TIME = 6;
 
-    /** Constant <code>LAST_MONTH_RELATIVE_TIME=7</code> */
+    /** Constant <code>LAST_MONTH_RELATIVE_TIME=7</code>. */
     public static final int LAST_MONTH_RELATIVE_TIME = 7;
 
     /**
      * <p>
      * getRelativeTimeFilter
      * </p>
+     * .
      *
      * @param relativeTime
      *            a int.

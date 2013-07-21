@@ -43,6 +43,7 @@ public interface Pageable {
      * <p>
      * getCurrentElement
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -52,6 +53,7 @@ public interface Pageable {
      * <p>
      * setCurrentElement
      * </p>
+     * .
      *
      * @param element
      *            a int.
@@ -62,6 +64,7 @@ public interface Pageable {
      * <p>
      * getPageSize
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -71,6 +74,7 @@ public interface Pageable {
      * <p>
      * getElementCount
      * </p>
+     * .
      *
      * @return a int.
      */

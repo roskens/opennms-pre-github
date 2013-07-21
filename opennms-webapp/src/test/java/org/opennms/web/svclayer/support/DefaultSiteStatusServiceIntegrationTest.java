@@ -66,6 +66,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * The Class DefaultSiteStatusServiceIntegrationTest.
+ */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
         "classpath:/META-INF/opennms/applicationContext-mockDao.xml",
@@ -79,34 +82,49 @@ import org.springframework.transaction.annotation.Transactional;
 @JUnitConfigurationEnvironment
 public class DefaultSiteStatusServiceIntegrationTest implements InitializingBean {
 
+    /** The m_aggregate service. */
     @Autowired
     private SiteStatusViewService m_aggregateService;
 
+    /** The m_database populator. */
     @Autowired
     private DatabasePopulator m_databasePopulator;
 
+    /** The m_outage dao. */
     @Autowired
     private OutageDao m_outageDao;
 
+    /** The m_event dao. */
     @Autowired
     private EventDao m_eventDao;
 
+    /** The m_node dao. */
     @Autowired
     private NodeDao m_nodeDao;
 
+    /** The m_category dao. */
     @Autowired
     private CategoryDao m_categoryDao;
 
+    /**
+     * Before class.
+     */
     @BeforeClass
     public static void beforeClass() {
         System.setProperty("distributed.layoutApplicationsVertically", "true");
     }
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public final void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Test create aggregate status view.
+     */
     @Test
     @Transactional
     public final void testCreateAggregateStatusView() {
@@ -118,6 +136,9 @@ public class DefaultSiteStatusServiceIntegrationTest implements InitializingBean
         assertFalse(view.getStatusDefinitions().isEmpty());
     }
 
+    /**
+     * Test create aggregate status using node id.
+     */
     @Test
     @Transactional
     public final void testCreateAggregateStatusUsingNodeId() {
@@ -128,6 +149,12 @@ public class DefaultSiteStatusServiceIntegrationTest implements InitializingBean
         assertNotNull(aggrStati);
     }
 
+    /**
+     * Creates the outage for node in category.
+     *
+     * @param categoryName
+     *            the category name
+     */
     private void createOutageForNodeInCategory(final String categoryName) {
         OnmsCategory category = m_categoryDao.findByName(categoryName);
         Collection<OnmsNode> nodes = m_nodeDao.findByCategory(category);
@@ -148,6 +175,12 @@ public class DefaultSiteStatusServiceIntegrationTest implements InitializingBean
 
     }
 
+    /**
+     * Creates the outage for service.
+     *
+     * @param monSvc
+     *            the mon svc
+     */
     protected final void createOutageForService(final OnmsMonitoredService monSvc) {
         OnmsEvent outageEvent = new OnmsEvent();
         outageEvent.setEventUei("TEST_UEI");
@@ -166,6 +199,9 @@ public class DefaultSiteStatusServiceIntegrationTest implements InitializingBean
         m_outageDao.flush();
     }
 
+    /**
+     * Test create aggregate status using building.
+     */
     @Test
     @Transactional
     public final void testCreateAggregateStatusUsingBuilding() {

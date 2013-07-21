@@ -51,10 +51,12 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Transactional(readOnly = true)
 public interface NodeListService {
+
     /**
      * <p>
      * createNodeList
      * </p>
+     * .
      *
      * @param command
      *            a {@link org.opennms.web.command.NodeListCommand} object.

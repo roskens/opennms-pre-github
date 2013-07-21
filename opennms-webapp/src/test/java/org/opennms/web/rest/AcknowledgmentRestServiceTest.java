@@ -42,7 +42,14 @@ import org.opennms.netmgt.dao.DatabasePopulator;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
+/**
+ * The Class AcknowledgmentRestServiceTest.
+ */
 public class AcknowledgmentRestServiceTest extends AbstractSpringJerseyRestTestCase {
+
+    /* (non-Javadoc)
+     * @see org.opennms.web.rest.AbstractSpringJerseyRestTestCase#afterServletStart()
+     */
     @Override
     protected void afterServletStart() {
         final WebApplicationContext context = WebApplicationContextUtils.getWebApplicationContext(getServletContext());
@@ -52,6 +59,12 @@ public class AcknowledgmentRestServiceTest extends AbstractSpringJerseyRestTestC
         // NotificationDao.class);
     }
 
+    /**
+     * Test acknowlege notification.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testAcknowlegeNotification() throws Exception {
         final Pattern p = Pattern.compile("^.*<answeredBy>(.*?)</answeredBy>.*$", Pattern.DOTALL & Pattern.MULTILINE);
@@ -66,6 +79,12 @@ public class AcknowledgmentRestServiceTest extends AbstractSpringJerseyRestTestC
         assertFalse(m.matches());
     }
 
+    /**
+     * Test acknowlege alarm.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testAcknowlegeAlarm() throws Exception {
         final Pattern p = Pattern.compile("^.*<ackTime>(.*?)</ackTime>.*$", Pattern.DOTALL & Pattern.MULTILINE);

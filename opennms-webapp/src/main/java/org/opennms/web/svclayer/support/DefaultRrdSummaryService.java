@@ -60,43 +60,90 @@ import org.springframework.util.Assert;
  */
 public class DefaultRrdSummaryService implements RrdSummaryService, InitializingBean {
 
+    /**
+     * The Class SummaryBuilder.
+     */
     static class SummaryBuilder {
+
+        /** The m_root. */
         private SummaryHolder m_root;
 
+        /** The m_current resource. */
         private ResourceHolder m_currentResource;
 
+        /** The m_curr attr. */
         private Attribute m_currAttr;
 
+        /**
+         * The Interface ResourceParent.
+         */
         interface ResourceParent {
+
+            /**
+             * Checks if is root.
+             *
+             * @return true, if is root
+             */
             boolean isRoot();
 
+            /**
+             * Adds the resource.
+             *
+             * @param resource
+             *            the resource
+             */
             void addResource(Resource resource);
 
+            /**
+             * Commit.
+             */
             void commit();
         }
 
+        /**
+         * The Class SummaryHolder.
+         */
         class SummaryHolder implements ResourceParent {
+
+            /** The m_summary. */
             Summary m_summary = new Summary();
 
+            /* (non-Javadoc)
+             * @see org.opennms.web.svclayer.support.DefaultRrdSummaryService.SummaryBuilder.ResourceParent#addResource(org.opennms.netmgt.config.attrsummary.Resource)
+             */
             @Override
             public void addResource(final Resource resource) {
                 m_summary.addResource(resource);
             }
 
+            /* (non-Javadoc)
+             * @see org.opennms.web.svclayer.support.DefaultRrdSummaryService.SummaryBuilder.ResourceParent#commit()
+             */
             @Override
             public void commit() {
 
             }
 
+            /**
+             * Gets the summary.
+             *
+             * @return the summary
+             */
             public Summary getSummary() {
                 return m_summary;
             }
 
+            /* (non-Javadoc)
+             * @see org.opennms.web.svclayer.support.DefaultRrdSummaryService.SummaryBuilder.ResourceParent#isRoot()
+             */
             @Override
             public boolean isRoot() {
                 return true;
             }
 
+            /* (non-Javadoc)
+             * @see java.lang.Object#toString()
+             */
             @Override
             public String toString() {
                 return "[root]";
@@ -104,13 +151,28 @@ public class DefaultRrdSummaryService implements RrdSummaryService, Initializing
 
         }
 
+        /**
+         * The Class ResourceHolder.
+         */
         class ResourceHolder implements ResourceParent {
+
+            /** The m_parent. */
             ResourceParent m_parent;
 
+            /** The m_commited. */
             boolean m_commited = false;
 
+            /** The m_resource. */
             Resource m_resource;
 
+            /**
+             * Instantiates a new resource holder.
+             *
+             * @param parent
+             *            the parent
+             * @param name
+             *            the name
+             */
             ResourceHolder(final ResourceParent parent, final String name) {
                 Assert.notNull(parent, "parent must not be null");
                 m_parent = parent;
@@ -118,14 +180,27 @@ public class DefaultRrdSummaryService implements RrdSummaryService, Initializing
                 m_resource.setName(name);
             }
 
+            /**
+             * Gets the parent.
+             *
+             * @return the parent
+             */
             public ResourceParent getParent() {
                 return m_parent;
             }
 
+            /**
+             * Checks if is commited.
+             *
+             * @return true, if is commited
+             */
             public boolean isCommited() {
                 return m_commited;
             }
 
+            /* (non-Javadoc)
+             * @see org.opennms.web.svclayer.support.DefaultRrdSummaryService.SummaryBuilder.ResourceParent#commit()
+             */
             @Override
             public void commit() {
                 if (isCommited()) {
@@ -138,11 +213,21 @@ public class DefaultRrdSummaryService implements RrdSummaryService, Initializing
                 m_commited = true;
             }
 
+            /* (non-Javadoc)
+             * @see org.opennms.web.svclayer.support.DefaultRrdSummaryService.SummaryBuilder.ResourceParent#addResource(org.opennms.netmgt.config.attrsummary.Resource)
+             */
             @Override
             public void addResource(final Resource resource) {
                 m_resource.addResource(resource);
             }
 
+            /**
+             * Adds the attribute.
+             *
+             * @param name
+             *            the name
+             * @return the attribute
+             */
             protected Attribute addAttribute(final String name) {
                 Attribute attr = new Attribute();
                 attr.setName(name);
@@ -151,6 +236,9 @@ public class DefaultRrdSummaryService implements RrdSummaryService, Initializing
                 return attr;
             }
 
+            /**
+             * Adds the self.
+             */
             protected void addSelf() {
                 if (getParent() == null) {
                     m_root.addResource(m_resource);
@@ -159,11 +247,17 @@ public class DefaultRrdSummaryService implements RrdSummaryService, Initializing
                 }
             }
 
+            /* (non-Javadoc)
+             * @see java.lang.Object#toString()
+             */
             @Override
             public String toString() {
                 return (getParent() == null ? "[root]" : getParent().toString()) + ".[" + m_resource.getName() + "]";
             }
 
+            /* (non-Javadoc)
+             * @see org.opennms.web.svclayer.support.DefaultRrdSummaryService.SummaryBuilder.ResourceParent#isRoot()
+             */
             @Override
             public boolean isRoot() {
                 return false;
@@ -171,44 +265,88 @@ public class DefaultRrdSummaryService implements RrdSummaryService, Initializing
 
         }
 
+        /**
+         * Instantiates a new summary builder.
+         */
         SummaryBuilder() {
             m_root = new SummaryHolder();
         }
 
+        /**
+         * Gets the summary.
+         *
+         * @return the summary
+         */
         Summary getSummary() {
             return m_root.getSummary();
         }
 
+        /**
+         * Adds the attribute.
+         *
+         * @param name
+         *            the name
+         */
         public void addAttribute(final String name) {
             Assert.state(m_currentResource != null, "addResource must be called before calling addAttribute");
             m_currAttr = m_currentResource.addAttribute(name);
         }
 
+        /**
+         * Sets the min.
+         *
+         * @param min
+         *            the new min
+         */
         public void setMin(final double min) {
             checkForCurrAttr();
             m_currAttr.setMin(min);
 
         }
 
+        /**
+         * Check for curr attr.
+         */
         private void checkForCurrAttr() {
             Assert.state(m_currAttr != null, "addAttribute must be called before calling setMin,setMax or setAverage");
         }
 
+        /**
+         * Sets the average.
+         *
+         * @param avg
+         *            the new average
+         */
         public void setAverage(final double avg) {
             checkForCurrAttr();
             m_currAttr.setAverage(avg);
         }
 
+        /**
+         * Sets the max.
+         *
+         * @param max
+         *            the new max
+         */
         public void setMax(final double max) {
             checkForCurrAttr();
             m_currAttr.setMax(max);
         }
 
+        /**
+         * Push resource.
+         *
+         * @param label
+         *            the label
+         */
         public void pushResource(final String label) {
             ResourceParent parent = (m_currentResource == null ? m_root : m_currentResource);
             m_currentResource = new ResourceHolder(parent, label);
         }
 
+        /**
+         * Pop resource.
+         */
         public void popResource() {
             Assert.state(m_currentResource != null, "you must push a resource before you can pop one");
             if (m_currentResource.getParent().isRoot()) {
@@ -219,34 +357,59 @@ public class DefaultRrdSummaryService implements RrdSummaryService, Initializing
         }
     }
 
+    /** The m_filter dao. */
     public FilterDao m_filterDao;
 
+    /** The m_resource dao. */
     public ResourceDao m_resourceDao;
 
+    /** The m_rrd dao. */
     public RrdDao m_rrdDao;
 
+    /** The m_node dao. */
     public NodeDao m_nodeDao;
 
+    /** The m_stats. */
     public Stats m_stats = new Stats();
 
+    /**
+     * The Class OpStats.
+     */
     static class OpStats {
+
+        /** The m_name. */
         private String m_name;
 
+        /** The m_count. */
         private int m_count = 0;
 
+        /** The m_total. */
         private long m_total = 0;
 
+        /** The m_last started. */
         private long m_lastStarted = -1;
 
+        /**
+         * Instantiates a new op stats.
+         *
+         * @param n
+         *            the n
+         */
         OpStats(final String n) {
             m_name = n;
         }
 
+        /**
+         * Begin.
+         */
         void begin() {
             m_count++;
             m_lastStarted = System.nanoTime();
         }
 
+        /**
+         * End.
+         */
         void end() {
             long ended = System.nanoTime();
             Assert.state(m_lastStarted >= 0, "must call begin before calling end");
@@ -254,6 +417,9 @@ public class DefaultRrdSummaryService implements RrdSummaryService, Initializing
             m_lastStarted = -1;
         }
 
+        /* (non-Javadoc)
+         * @see java.lang.Object#toString()
+         */
         @Override
         public String toString() {
             double total = (double) m_total;
@@ -263,9 +429,20 @@ public class DefaultRrdSummaryService implements RrdSummaryService, Initializing
 
     }
 
+    /**
+     * The Class Stats.
+     */
     static class Stats {
+
+        /** The map. */
         Map<String, OpStats> map = new LinkedHashMap<String, OpStats>();
 
+        /**
+         * Begin.
+         *
+         * @param operation
+         *            the operation
+         */
         public void begin(final String operation) {
             if (!map.containsKey(operation)) {
                 map.put(operation, new OpStats(operation));
@@ -273,10 +450,19 @@ public class DefaultRrdSummaryService implements RrdSummaryService, Initializing
             map.get(operation).begin();
         }
 
+        /**
+         * End.
+         *
+         * @param operation
+         *            the operation
+         */
         public void end(final String operation) {
             map.get(operation).end();
         }
 
+        /* (non-Javadoc)
+         * @see java.lang.Object#toString()
+         */
         @Override
         public String toString() {
             StringBuilder bldr = new StringBuilder(map.size() * 50);
@@ -293,6 +479,7 @@ public class DefaultRrdSummaryService implements RrdSummaryService, Initializing
      * <p>
      * getSummary
      * </p>
+     * .
      *
      * @param filterRule
      *            a {@link java.lang.String} object.
@@ -427,9 +614,10 @@ public class DefaultRrdSummaryService implements RrdSummaryService, Initializing
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @Override
     public final void afterPropertiesSet() throws Exception {
@@ -443,6 +631,7 @@ public class DefaultRrdSummaryService implements RrdSummaryService, Initializing
      * <p>
      * setFilterDao
      * </p>
+     * .
      *
      * @param filterDao
      *            a {@link org.opennms.netmgt.filter.FilterDao} object.
@@ -455,6 +644,7 @@ public class DefaultRrdSummaryService implements RrdSummaryService, Initializing
      * <p>
      * setResourceDao
      * </p>
+     * .
      *
      * @param resourceDao
      *            a {@link org.opennms.netmgt.dao.api.ResourceDao} object.
@@ -467,6 +657,7 @@ public class DefaultRrdSummaryService implements RrdSummaryService, Initializing
      * <p>
      * setRrdDao
      * </p>
+     * .
      *
      * @param rrdDao
      *            a {@link org.opennms.netmgt.dao.api.RrdDao} object.
@@ -476,6 +667,8 @@ public class DefaultRrdSummaryService implements RrdSummaryService, Initializing
     }
 
     /**
+     * Gets the node dao.
+     *
      * @return the nodeDao
      */
     public final NodeDao getNodeDao() {
@@ -483,6 +676,8 @@ public class DefaultRrdSummaryService implements RrdSummaryService, Initializing
     }
 
     /**
+     * Sets the node dao.
+     *
      * @param nodeDao
      *            the nodeDao to set
      */

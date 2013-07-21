@@ -37,22 +37,44 @@ import org.springframework.util.Assert;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 
+/**
+ * The Class MapsController.
+ */
 public class MapsController extends AbstractController implements InitializingBean {
+
+    /** The m_map menu entries. */
     private MenuDropdownNavBarEntry m_mapMenuEntries;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() {
         Assert.state(m_mapMenuEntries != null, "mapMenuEntries property has not been set");
     }
 
+    /**
+     * Gets the map menu entries.
+     *
+     * @return the map menu entries
+     */
     public MenuDropdownNavBarEntry getMapMenuEntries() {
         return m_mapMenuEntries;
     }
 
+    /**
+     * Sets the map menu entries.
+     *
+     * @param entries
+     *            the new map menu entries
+     */
     public void setMapMenuEntries(final MenuDropdownNavBarEntry entries) {
         m_mapMenuEntries = entries;
     }
 
+    /* (non-Javadoc)
+     * @see org.springframework.web.servlet.mvc.AbstractController#handleRequestInternal(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     */
     @Override
     protected ModelAndView handleRequestInternal(final HttpServletRequest request, final HttpServletResponse response)
             throws Exception {

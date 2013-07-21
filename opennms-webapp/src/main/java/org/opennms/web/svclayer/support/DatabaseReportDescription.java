@@ -39,24 +39,16 @@ package org.opennms.web.svclayer.support;
  */
 public class DatabaseReportDescription {
 
-    /**
-     * Id of a report template
-     */
+    /** Id of a report template. */
     private String m_id;
 
-    /**
-     * Id of the repository
-     */
+    /** Id of the repository. */
     private String m_repositoryId;
 
-    /**
-     * Display name for a report template
-     */
+    /** Display name for a report template. */
     private String m_displayName;
 
-    /**
-     * Description for a report template
-     */
+    /** Description for a report template. */
     private String m_description;
 
     /**
@@ -64,15 +56,14 @@ public class DatabaseReportDescription {
      */
     private boolean m_allowAccess;
 
-    /**
-     * Configuration as online report
-     */
+    /** Configuration as online report. */
     private boolean m_isOnline;
 
     /**
      * <p>
      * getId
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -84,6 +75,7 @@ public class DatabaseReportDescription {
      * <p>
      * setId
      * </p>
+     * .
      *
      * @param id
      *            a {@link java.lang.String} object.
@@ -96,6 +88,7 @@ public class DatabaseReportDescription {
      * <p>
      * getRepositoryId
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -107,6 +100,7 @@ public class DatabaseReportDescription {
      * <p>
      * setId
      * </p>
+     * .
      *
      * @param repositoryId
      *            a {@link java.lang.String} object.
@@ -119,6 +113,7 @@ public class DatabaseReportDescription {
      * <p>
      * getDisplayName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -130,6 +125,7 @@ public class DatabaseReportDescription {
      * <p>
      * setDisplayName
      * </p>
+     * .
      *
      * @param displayName
      *            a {@link java.lang.String} object.
@@ -142,6 +138,7 @@ public class DatabaseReportDescription {
      * <p>
      * getDescription
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -153,6 +150,7 @@ public class DatabaseReportDescription {
      * <p>
      * setDescription
      * </p>
+     * .
      *
      * @param description
      *            a {@link java.lang.String} object.

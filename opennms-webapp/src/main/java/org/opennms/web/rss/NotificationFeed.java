@@ -52,12 +52,14 @@ import com.sun.syndication.feed.synd.SyndFeedImpl;
  */
 public class NotificationFeed extends AbstractFeed {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(NotificationFeed.class);
 
     /**
      * <p>
      * getFeed
      * </p>
+     * .
      *
      * @return a {@link com.sun.syndication.feed.synd.SyndFeed} object.
      */

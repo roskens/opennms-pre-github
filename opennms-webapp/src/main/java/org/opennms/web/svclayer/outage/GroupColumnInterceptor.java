@@ -42,6 +42,8 @@ import org.extremecomponents.table.interceptor.ColumnInterceptor;
  * @since 1.8.1
  */
 public class GroupColumnInterceptor implements ColumnInterceptor {
+
+    /** The Constant LAST_VALUE. */
     private static final String LAST_VALUE = "lastValue";
 
     /** {@inheritDoc} */

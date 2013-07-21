@@ -43,7 +43,8 @@ import org.opennms.web.filter.SQLType;
  * @since 1.8.1
  */
 public class AfterFirstEventTimeFilter extends GreaterThanFilter<Date> {
-    /** Constant <code>TYPE="afterfirsteventtime"</code> */
+
+    /** Constant <code>TYPE="afterfirsteventtime"</code>. */
     public static final String TYPE = "afterfirsteventtime";
 
     /**
@@ -74,6 +75,7 @@ public class AfterFirstEventTimeFilter extends GreaterThanFilter<Date> {
      * <p>
      * getTextDescription
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -86,6 +88,7 @@ public class AfterFirstEventTimeFilter extends GreaterThanFilter<Date> {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -98,6 +101,7 @@ public class AfterFirstEventTimeFilter extends GreaterThanFilter<Date> {
      * <p>
      * getDate
      * </p>
+     * .
      *
      * @return a java$util$Date object.
      */

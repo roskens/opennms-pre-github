@@ -43,10 +43,13 @@ package org.opennms.web.map.view;
  */
 public final class VMapInfo {
 
+    /** The id. */
     private final int id;
 
+    /** The name. */
     private final String name;
 
+    /** The owner. */
     private final String owner;
 
     /**

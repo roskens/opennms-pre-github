@@ -47,6 +47,8 @@ import org.springframework.web.servlet.mvc.AbstractController;
  * @since 1.8.1
  */
 public class IncludeBoxController extends AbstractController implements InitializingBean {
+
+    /** The m_ksc report service. */
     private KscReportService m_kscReportService;
 
     /** {@inheritDoc} */
@@ -60,6 +62,7 @@ public class IncludeBoxController extends AbstractController implements Initiali
      * <p>
      * getKscReportService
      * </p>
+     * .
      *
      * @return a {@link org.opennms.web.svclayer.KscReportService} object.
      */
@@ -71,6 +74,7 @@ public class IncludeBoxController extends AbstractController implements Initiali
      * <p>
      * setKscReportService
      * </p>
+     * .
      *
      * @param kscReportService
      *            a {@link org.opennms.web.svclayer.KscReportService} object.
@@ -83,9 +87,10 @@ public class IncludeBoxController extends AbstractController implements Initiali
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @Override
     public void afterPropertiesSet() throws Exception {

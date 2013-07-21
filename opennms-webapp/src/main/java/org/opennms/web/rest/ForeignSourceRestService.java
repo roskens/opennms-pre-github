@@ -146,22 +146,28 @@ import com.sun.jersey.spi.resource.PerRequest;
 @Path("foreignSources")
 public class ForeignSourceRestService extends OnmsRestService {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(ForeignSourceRestService.class);
 
+    /** The m_pending foreign source repository. */
     @Autowired
     @Qualifier("pending")
     private ForeignSourceRepository m_pendingForeignSourceRepository;
 
+    /** The m_deployed foreign source repository. */
     @Autowired
     @Qualifier("deployed")
     private ForeignSourceRepository m_deployedForeignSourceRepository;
 
+    /** The m_uri info. */
     @Context
     UriInfo m_uriInfo;
 
+    /** The m_headers. */
     @Context
     HttpHeaders m_headers;
 
+    /** The m_security context. */
     @Context
     SecurityContext m_securityContext;
 
@@ -169,12 +175,13 @@ public class ForeignSourceRestService extends OnmsRestService {
      * <p>
      * getDefaultForeignSource
      * </p>
+     * .
      *
      * @return a
-     *         {@link org.opennms.netmgt.provision.persist.foreignsource.ForeignSource}
-     *         object.
-     * @throws java.text.ParseException
-     *             if any.
+     * @throws ParseException
+     *             the parse exception
+     *             {@link org.opennms.netmgt.provision.persist.foreignsource.ForeignSource}
+     *             object.
      */
     @GET
     @Path("default")
@@ -190,11 +197,11 @@ public class ForeignSourceRestService extends OnmsRestService {
     }
 
     /**
-     * Returns all the deployed foreign sources
+     * Returns all the deployed foreign sources.
      *
      * @return Collection of OnmsForeignSources (ready to be XML-ified)
-     * @throws java.text.ParseException
-     *             if any.
+     * @throws ParseException
+     *             the parse exception
      */
     @GET
     @Path("deployed")
@@ -209,7 +216,7 @@ public class ForeignSourceRestService extends OnmsRestService {
     }
 
     /**
-     * returns a plaintext string being the number of pending foreign sources
+     * returns a plaintext string being the number of pending foreign sources.
      *
      * @return a int.
      */
@@ -227,11 +234,11 @@ public class ForeignSourceRestService extends OnmsRestService {
     }
 
     /**
-     * Returns the union of deployed and pending foreign sources
+     * Returns the union of deployed and pending foreign sources.
      *
      * @return Collection of OnmsForeignSources (ready to be XML-ified)
-     * @throws java.text.ParseException
-     *             if any.
+     * @throws ParseException
+     *             the parse exception
      */
     @GET
     @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON, MediaType.APPLICATION_ATOM_XML })
@@ -250,11 +257,11 @@ public class ForeignSourceRestService extends OnmsRestService {
     }
 
     /**
-     * returns a plaintext string being the number of pending foreign sources
+     * returns a plaintext string being the number of pending foreign sources.
      *
      * @return a int.
-     * @throws java.text.ParseException
-     *             if any.
+     * @throws ParseException
+     *             the parse exception
      */
     @GET
     @Path("count")
@@ -269,7 +276,7 @@ public class ForeignSourceRestService extends OnmsRestService {
     }
 
     /**
-     * Returns the requested {@link ForeignSource}
+     * Returns the requested {@link ForeignSource}.
      *
      * @param foreignSource
      *            the foreign source name
@@ -292,6 +299,7 @@ public class ForeignSourceRestService extends OnmsRestService {
      * <p>
      * getDetectors
      * </p>
+     * .
      *
      * @param foreignSource
      *            a {@link java.lang.String} object.
@@ -316,6 +324,7 @@ public class ForeignSourceRestService extends OnmsRestService {
      * <p>
      * getDetector
      * </p>
+     * .
      *
      * @param foreignSource
      *            a {@link java.lang.String} object.
@@ -348,6 +357,7 @@ public class ForeignSourceRestService extends OnmsRestService {
      * <p>
      * getPolicies
      * </p>
+     * .
      *
      * @param foreignSource
      *            a {@link java.lang.String} object.
@@ -372,6 +382,7 @@ public class ForeignSourceRestService extends OnmsRestService {
      * <p>
      * getPolicy
      * </p>
+     * .
      *
      * @param foreignSource
      *            a {@link java.lang.String} object.
@@ -404,12 +415,13 @@ public class ForeignSourceRestService extends OnmsRestService {
      * <p>
      * addForeignSource
      * </p>
+     * .
      *
      * @param foreignSource
      *            a
-     *            {@link org.opennms.netmgt.provision.persist.foreignsource.ForeignSource}
-     *            object.
      * @return a {@link javax.ws.rs.core.Response} object.
+     *         {@link org.opennms.netmgt.provision.persist.foreignsource.ForeignSource}
+     *         object.
      */
     @POST
     @Consumes(MediaType.APPLICATION_XML)
@@ -429,14 +441,15 @@ public class ForeignSourceRestService extends OnmsRestService {
      * <p>
      * addDetector
      * </p>
+     * .
      *
      * @param foreignSource
      *            a {@link java.lang.String} object.
      * @param detector
      *            a
-     *            {@link org.opennms.netmgt.provision.persist.foreignsource.DetectorWrapper}
-     *            object.
      * @return a {@link javax.ws.rs.core.Response} object.
+     *         {@link org.opennms.netmgt.provision.persist.foreignsource.DetectorWrapper}
+     *         object.
      */
     @POST
     @Path("{foreignSource}/detectors")
@@ -460,14 +473,15 @@ public class ForeignSourceRestService extends OnmsRestService {
      * <p>
      * addPolicy
      * </p>
+     * .
      *
      * @param foreignSource
      *            a {@link java.lang.String} object.
      * @param policy
      *            a
-     *            {@link org.opennms.netmgt.provision.persist.foreignsource.PolicyWrapper}
-     *            object.
      * @return a {@link javax.ws.rs.core.Response} object.
+     *         {@link org.opennms.netmgt.provision.persist.foreignsource.PolicyWrapper}
+     *         object.
      */
     @POST
     @Path("{foreignSource}/policies")
@@ -491,6 +505,7 @@ public class ForeignSourceRestService extends OnmsRestService {
      * <p>
      * updateForeignSource
      * </p>
+     * .
      *
      * @param foreignSource
      *            a {@link java.lang.String} object.
@@ -530,6 +545,7 @@ public class ForeignSourceRestService extends OnmsRestService {
      * <p>
      * deletePendingForeignSource
      * </p>
+     * .
      *
      * @param foreignSource
      *            a {@link java.lang.String} object.
@@ -555,6 +571,7 @@ public class ForeignSourceRestService extends OnmsRestService {
      * <p>
      * deleteDeployedForeignSource
      * </p>
+     * .
      *
      * @param foreignSource
      *            a {@link java.lang.String} object.
@@ -580,6 +597,7 @@ public class ForeignSourceRestService extends OnmsRestService {
      * <p>
      * deleteDetector
      * </p>
+     * .
      *
      * @param foreignSource
      *            a {@link java.lang.String} object.
@@ -613,6 +631,7 @@ public class ForeignSourceRestService extends OnmsRestService {
      * <p>
      * deletePolicy
      * </p>
+     * .
      *
      * @param foreignSource
      *            a {@link java.lang.String} object.
@@ -642,6 +661,15 @@ public class ForeignSourceRestService extends OnmsRestService {
         }
     }
 
+    /**
+     * Removes the entry.
+     *
+     * @param plugins
+     *            the plugins
+     * @param name
+     *            the name
+     * @return the plugin config
+     */
     private PluginConfig removeEntry(List<PluginConfig> plugins, String name) {
         PluginConfig removed = null;
         java.util.Iterator<PluginConfig> i = plugins.iterator();
@@ -656,12 +684,24 @@ public class ForeignSourceRestService extends OnmsRestService {
         return removed;
     }
 
+    /**
+     * Gets the active foreign source names.
+     *
+     * @return the active foreign source names
+     */
     private Set<String> getActiveForeignSourceNames() {
         Set<String> fsNames = m_pendingForeignSourceRepository.getActiveForeignSourceNames();
         fsNames.addAll(m_deployedForeignSourceRepository.getActiveForeignSourceNames());
         return fsNames;
     }
 
+    /**
+     * Gets the active foreign source.
+     *
+     * @param foreignSourceName
+     *            the foreign source name
+     * @return the active foreign source
+     */
     private ForeignSource getActiveForeignSource(String foreignSourceName) {
         ForeignSource fs = m_pendingForeignSourceRepository.getForeignSource(foreignSourceName);
         if (fs.isDefault()) {

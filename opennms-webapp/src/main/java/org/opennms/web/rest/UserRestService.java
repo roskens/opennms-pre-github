@@ -62,7 +62,7 @@ import com.sun.jersey.api.core.ResourceContext;
 import com.sun.jersey.spi.resource.PerRequest;
 
 /**
- * Basic Web Service using REST for OnmsUser entity
+ * Basic Web Service using REST for OnmsUser entity.
  *
  * @author <a href="mailto:ranger@opennms.org">Benjamin Reed</a>
  * @since 1.9.93
@@ -74,17 +74,26 @@ import com.sun.jersey.spi.resource.PerRequest;
 @Transactional
 public class UserRestService extends OnmsRestService {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(UserRestService.class);
 
+    /** The m_user manager. */
     @Autowired
     private UserManager m_userManager;
 
+    /** The m_uri info. */
     @Context
     UriInfo m_uriInfo;
 
+    /** The m_context. */
     @Context
     ResourceContext m_context;
 
+    /**
+     * Gets the users.
+     *
+     * @return the users
+     */
     @GET
     @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON, MediaType.APPLICATION_ATOM_XML })
     public OnmsUserList getUsers() {
@@ -106,6 +115,13 @@ public class UserRestService extends OnmsRestService {
         }
     }
 
+    /**
+     * Gets the user.
+     *
+     * @param username
+     *            the username
+     * @return the user
+     */
     @GET
     @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON, MediaType.APPLICATION_ATOM_XML })
     @Path("{username}")
@@ -126,6 +142,13 @@ public class UserRestService extends OnmsRestService {
         }
     }
 
+    /**
+     * Adds the user.
+     *
+     * @param user
+     *            the user
+     * @return the response
+     */
     @POST
     @Consumes(MediaType.APPLICATION_XML)
     public Response addUser(final OnmsUser user) {
@@ -141,6 +164,15 @@ public class UserRestService extends OnmsRestService {
         }
     }
 
+    /**
+     * Update user.
+     *
+     * @param userCriteria
+     *            the user criteria
+     * @param params
+     *            the params
+     * @return the response
+     */
     @PUT
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Path("{userCriteria}")
@@ -178,6 +210,13 @@ public class UserRestService extends OnmsRestService {
         }
     }
 
+    /**
+     * Delete user.
+     *
+     * @param userCriteria
+     *            the user criteria
+     * @return the response
+     */
     @DELETE
     @Path("{userCriteria}")
     public Response deleteUser(@PathParam("userCriteria")

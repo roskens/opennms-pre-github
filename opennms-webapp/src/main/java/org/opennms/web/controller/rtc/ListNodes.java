@@ -48,6 +48,8 @@ import org.springframework.web.servlet.mvc.AbstractController;
  * @since 1.8.1
  */
 public class ListNodes extends AbstractController implements InitializingBean {
+
+    /** The m_rtc service. */
     private RtcService m_rtcService;
 
     /** {@inheritDoc} */
@@ -62,6 +64,7 @@ public class ListNodes extends AbstractController implements InitializingBean {
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      */
     @Override
     public void afterPropertiesSet() {
@@ -72,6 +75,7 @@ public class ListNodes extends AbstractController implements InitializingBean {
      * <p>
      * getRtcService
      * </p>
+     * .
      *
      * @return a {@link org.opennms.web.svclayer.RtcService} object.
      */
@@ -83,6 +87,7 @@ public class ListNodes extends AbstractController implements InitializingBean {
      * <p>
      * setRtcService
      * </p>
+     * .
      *
      * @param rtcService
      *            a {@link org.opennms.web.svclayer.RtcService} object.

@@ -55,6 +55,8 @@ import org.springframework.util.StringUtils;
  * @author <A HREF="http://www.opennms.org">OpenNMS </A>
  */
 public class OutageModel {
+
+    /** The d. */
     private final DBUtils d = new DBUtils(getClass());
 
     /**
@@ -68,9 +70,8 @@ public class OutageModel {
      *
      * @return An array of {@link Outage Outage}objects, or if there are none,
      *         an empty array.
-     * @throws java.sql.SQLException
-     *             If there is a problem getting a database connection or making
-     *             a query.
+     * @throws SQLException
+     *             the sQL exception
      */
     public Outage[] getCurrentOutages() throws SQLException {
         Outage[] outages = new Outage[0];
@@ -96,10 +97,11 @@ public class OutageModel {
      * <p>
      * getSuppressedOutages
      * </p>
+     * .
      *
      * @return an array of {@link org.opennms.web.outage.Outage} objects.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     public Outage[] getSuppressedOutages() throws SQLException {
         Outage[] outages = new Outage[0];
@@ -125,10 +127,11 @@ public class OutageModel {
      * <p>
      * getCurrentOutageCount
      * </p>
+     * .
      *
      * @return a int.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     public int getCurrentOutageCount() throws SQLException {
         int count = 0;
@@ -156,10 +159,11 @@ public class OutageModel {
      * <p>
      * getSuppressedOutageCount
      * </p>
+     * .
      *
      * @return a int.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     public int getSuppressedOutageCount() throws SQLException {
         int count = 0;
@@ -187,12 +191,13 @@ public class OutageModel {
      * <p>
      * getCurrentOutagesForNode
      * </p>
+     * .
      *
      * @param nodeId
      *            a int.
      * @return an array of {@link org.opennms.web.outage.Outage} objects.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     public Outage[] getCurrentOutagesForNode(int nodeId) throws SQLException {
         Outage[] outages = new Outage[0];
@@ -225,12 +230,13 @@ public class OutageModel {
      * <p>
      * getCurrentOutagesIdsForNode
      * </p>
+     * .
      *
      * @param nodeId
      *            a int.
      * @return a {@link java.util.Collection} object.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     public Collection<Integer> getCurrentOutagesIdsForNode(int nodeId) throws SQLException {
         List<Integer> outageIds = new ArrayList<Integer>();
@@ -259,12 +265,13 @@ public class OutageModel {
      * <p>
      * filterNodesWithCurrentOutages
      * </p>
+     * .
      *
      * @param nodes
      *            an array of {@link org.opennms.web.element.Node} objects.
      * @return an array of {@link org.opennms.web.element.Node} objects.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     public OnmsNode[] filterNodesWithCurrentOutages(List<OnmsNode> nodes) throws SQLException {
         HashMap<Integer, OnmsNode> nodeMap = new HashMap<Integer, OnmsNode>(nodes.size());
@@ -300,12 +307,13 @@ public class OutageModel {
      * <p>
      * getNonCurrentOutagesForNode
      * </p>
+     * .
      *
      * @param nodeId
      *            a int.
      * @return an array of {@link org.opennms.web.outage.Outage} objects.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     public Outage[] getNonCurrentOutagesForNode(int nodeId) throws SQLException {
         Outage[] outages = new Outage[0];
@@ -340,8 +348,8 @@ public class OutageModel {
      * @param nodeId
      *            a int.
      * @return an array of {@link org.opennms.web.outage.Outage} objects.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     public Outage[] getOutagesForNode(int nodeId) throws SQLException {
         Outage[] outages = new Outage[0];
@@ -377,8 +385,8 @@ public class OutageModel {
      *            no resolved outages older than this time will be returned
      * @return All current outages and resolved outages no older than
      *         <code>time</code>.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     public Outage[] getOutagesForNode(int nodeId, Date time) throws SQLException {
         if (time == null) {
@@ -415,14 +423,15 @@ public class OutageModel {
      * <p>
      * getOutagesForInterface
      * </p>
+     * .
      *
      * @param nodeId
      *            a int.
      * @param ipInterface
      *            a {@link java.lang.String} object.
      * @return an array of {@link org.opennms.web.outage.Outage} objects.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     public Outage[] getOutagesForInterface(int nodeId, String ipInterface) throws SQLException {
         Outage[] outages = new Outage[0];
@@ -462,8 +471,8 @@ public class OutageModel {
      *            no resolved outages older than this time will be returned
      * @return All current outages and resolved outages no older than
      *         <code>time</code>.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     public Outage[] getOutagesForInterface(int nodeId, String ipAddr, Date time) throws SQLException {
         if (ipAddr == null || time == null) {
@@ -501,6 +510,7 @@ public class OutageModel {
      * <p>
      * getOutagesForService
      * </p>
+     * .
      *
      * @param nodeId
      *            a int.
@@ -509,8 +519,8 @@ public class OutageModel {
      * @param serviceId
      *            a int.
      * @return an array of {@link org.opennms.web.outage.Outage} objects.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     public Outage[] getOutagesForService(int nodeId, String ipInterface, int serviceId) throws SQLException {
         Outage[] outages = new Outage[0];
@@ -553,8 +563,8 @@ public class OutageModel {
      *            no resolved outages older than this time will be returned
      * @return All current outages and resolved outages no older than
      *         <code>time</code>.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     public Outage[] getOutagesForService(int nodeId, String ipAddr, int serviceId, Date time) throws SQLException {
         if (ipAddr == null || time == null) {
@@ -598,8 +608,8 @@ public class OutageModel {
      *
      * @return an array of {@link org.opennms.netmgt.model.outage.OutageSummary}
      *         objects.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     public OutageSummary[] getCurrentOutageSummaries() throws SQLException {
         OutageSummary[] summaries = new OutageSummary[0];
@@ -650,8 +660,8 @@ public class OutageModel {
      *            the starting date for the query
      * @return an array of {@link org.opennms.netmgt.model.outage.OutageSummary}
      *         objects.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     public OutageSummary[] getAllOutageSummaries(Date date) throws SQLException {
         OutageSummary[] summaries = new OutageSummary[0];
@@ -710,8 +720,8 @@ public class OutageModel {
      *
      * @return an array of {@link org.opennms.netmgt.model.outage.OutageSummary}
      *         objects.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     public OutageSummary[] getCurrentSDSOutageSummaries() throws SQLException {
         OutageSummary[] summaries = new OutageSummary[0];
@@ -756,12 +766,13 @@ public class OutageModel {
      * <p>
      * rs2Outages
      * </p>
+     * .
      *
      * @param rs
      *            a {@link java.sql.ResultSet} object.
      * @return an array of {@link org.opennms.web.outage.Outage} objects.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     protected static Outage[] rs2Outages(ResultSet rs) throws SQLException {
         return rs2Outages(rs, true);
@@ -771,14 +782,15 @@ public class OutageModel {
      * <p>
      * rs2Outages
      * </p>
+     * .
      *
      * @param rs
      *            a {@link java.sql.ResultSet} object.
      * @param includesRegainedTime
      *            a boolean.
      * @return an array of {@link org.opennms.web.outage.Outage} objects.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     protected static Outage[] rs2Outages(ResultSet rs, boolean includesRegainedTime) throws SQLException {
         return rs2Outages(rs, includesRegainedTime, false);
@@ -792,6 +804,7 @@ public class OutageModel {
      * <p>
      * rs2Outages
      * </p>
+     * .
      *
      * @param rs
      *            a {@link java.sql.ResultSet} object.
@@ -800,8 +813,8 @@ public class OutageModel {
      * @param includesNotifications
      *            a boolean.
      * @return an array of {@link org.opennms.web.outage.Outage} objects.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     protected static Outage[] rs2Outages(ResultSet rs, boolean includesRegainedTime, boolean includesNotifications)
             throws SQLException {

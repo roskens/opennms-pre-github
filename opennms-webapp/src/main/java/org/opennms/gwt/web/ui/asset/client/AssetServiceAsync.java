@@ -34,8 +34,10 @@ import org.opennms.gwt.web.ui.asset.shared.AssetSuggCommand;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
 /**
- * @author <a href="mailto:MarkusNeumannMarkus@gmail.com">Markus Neumann</a>
- *         <br/> Client side GWT Interface for asynchronous remote procedure
+ * The Interface AssetServiceAsync.
+ *
+ * @author <a href="mailto:MarkusNeumannMarkus@gmail.com">Markus Neumann</a> <br/>
+ *         Client side GWT Interface for asynchronous remote procedure
  *         call (RPC) at asset services. Asynchronous version of
  *         {@link AssetService}. GWT requires this asynchronous version in
  *         addition to {@link AssetService}. All method signatures have an
@@ -43,17 +45,38 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
  *         AssetServiceAsync have to be in sync.
  */
 public interface AssetServiceAsync {
+
     /**
+     * Gets the asset by node id.
+     *
+     * @param nodeId
+     *            the node id
+     * @param callback
+     *            the callback
+     * @return the asset by node id
      * @see AssetService#getAssetByNodeId(int nodeId)
      */
     void getAssetByNodeId(int nodeId, AsyncCallback<AssetCommand> callback);
 
     /**
+     * Gets the asset suggestions.
+     *
+     * @param callback
+     *            the callback
+     * @return the asset suggestions
      * @see AssetService#getAssetSuggestions()
      */
     void getAssetSuggestions(AsyncCallback<AssetSuggCommand> callback);
 
     /**
+     * Save or update asset by node id.
+     *
+     * @param nodeId
+     *            the node id
+     * @param asset
+     *            the asset
+     * @param callback
+     *            the callback
      * @see AssetService#saveOrUpdateAssetByNodeId(int nodeId, AssetCommand
      *      asset)
      */

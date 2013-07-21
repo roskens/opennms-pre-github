@@ -35,13 +35,19 @@ import com.google.gwt.user.client.rpc.ServiceDefTarget;
 import com.google.gwt.user.client.ui.RootPanel;
 
 /**
+ * The Class AssetPage.
+ *
  * @author <a href="mailto:MarkusNeumannMarkus@gmail.com">Markus Neumann</a>
  *         EntryPoint of asset module. Following GWT MVP design.
  */
 public class AssetPage implements EntryPoint {
 
+    /** The m_asset service async. */
     private AssetServiceAsync m_assetServiceAsync;
 
+    /* (non-Javadoc)
+     * @see com.google.gwt.core.client.EntryPoint#onModuleLoad()
+     */
     @Override
     public void onModuleLoad() {
         AssetServiceAsync rpcService = getAssetService();
@@ -53,6 +59,11 @@ public class AssetPage implements EntryPoint {
         }
     }
 
+    /**
+     * Gets the asset service.
+     *
+     * @return the asset service
+     */
     private AssetServiceAsync getAssetService() {
         if (m_assetServiceAsync == null) {
             String serviceEntryPoint = GWT.getHostPageBaseURL() + "assetService.gwt";

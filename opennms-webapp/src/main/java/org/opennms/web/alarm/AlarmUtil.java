@@ -79,15 +79,23 @@ import org.opennms.web.filter.Filter;
  * @since 1.8.1
  */
 public abstract class AlarmUtil extends Object {
-    /** Constant <code>ANY_SERVICES_OPTION="Any"</code> */
+
+    /** Constant <code>ANY_SERVICES_OPTION="Any"</code>. */
     public static final String ANY_SERVICES_OPTION = "Any";
 
-    /** Constant <code>ANY_SEVERITIES_OPTION="Any"</code> */
+    /** Constant <code>ANY_SEVERITIES_OPTION="Any"</code>. */
     public static final String ANY_SEVERITIES_OPTION = "Any";
 
-    /** Constant <code>ANY_RELATIVE_TIMES_OPTION="Any"</code> */
+    /** Constant <code>ANY_RELATIVE_TIMES_OPTION="Any"</code>. */
     public static final String ANY_RELATIVE_TIMES_OPTION = "Any";
 
+    /**
+     * Gets the onms criteria.
+     *
+     * @param alarmCriteria
+     *            the alarm criteria
+     * @return the onms criteria
+     */
     public static OnmsCriteria getOnmsCriteria(final AlarmCriteria alarmCriteria) {
         final OnmsCriteria criteria = new OnmsCriteria(OnmsAlarm.class);
         criteria.createAlias("node", "node", OnmsCriteria.LEFT_JOIN);
@@ -191,9 +199,12 @@ public abstract class AlarmUtil extends Object {
      * <p>
      * getFilter
      * </p>
+     * .
      *
      * @param filterString
      *            a {@link java.lang.String} object.
+     * @param servletContext
+     *            the servlet context
      * @return a {@link org.opennms.web.filter.Filter} object.
      */
     public static Filter getFilter(String filterString, ServletContext servletContext) {
@@ -271,6 +282,7 @@ public abstract class AlarmUtil extends Object {
      * <p>
      * getFilterString
      * </p>
+     * .
      *
      * @param filter
      *            a {@link org.opennms.web.filter.Filter} object.
@@ -284,31 +296,32 @@ public abstract class AlarmUtil extends Object {
         return filter.getDescription();
     }
 
-    /** Constant <code>LAST_HOUR_RELATIVE_TIME=1</code> */
+    /** Constant <code>LAST_HOUR_RELATIVE_TIME=1</code>. */
     public static final int LAST_HOUR_RELATIVE_TIME = 1;
 
-    /** Constant <code>LAST_FOUR_HOURS_RELATIVE_TIME=2</code> */
+    /** Constant <code>LAST_FOUR_HOURS_RELATIVE_TIME=2</code>. */
     public static final int LAST_FOUR_HOURS_RELATIVE_TIME = 2;
 
-    /** Constant <code>LAST_EIGHT_HOURS_RELATIVE_TIME=3</code> */
+    /** Constant <code>LAST_EIGHT_HOURS_RELATIVE_TIME=3</code>. */
     public static final int LAST_EIGHT_HOURS_RELATIVE_TIME = 3;
 
-    /** Constant <code>LAST_TWELVE_HOURS_RELATIVE_TIME=4</code> */
+    /** Constant <code>LAST_TWELVE_HOURS_RELATIVE_TIME=4</code>. */
     public static final int LAST_TWELVE_HOURS_RELATIVE_TIME = 4;
 
-    /** Constant <code>LAST_DAY_RELATIVE_TIME=5</code> */
+    /** Constant <code>LAST_DAY_RELATIVE_TIME=5</code>. */
     public static final int LAST_DAY_RELATIVE_TIME = 5;
 
-    /** Constant <code>LAST_WEEK_RELATIVE_TIME=6</code> */
+    /** Constant <code>LAST_WEEK_RELATIVE_TIME=6</code>. */
     public static final int LAST_WEEK_RELATIVE_TIME = 6;
 
-    /** Constant <code>LAST_MONTH_RELATIVE_TIME=7</code> */
+    /** Constant <code>LAST_MONTH_RELATIVE_TIME=7</code>. */
     public static final int LAST_MONTH_RELATIVE_TIME = 7;
 
     /**
      * <p>
      * getRelativeTimeFilter
      * </p>
+     * .
      *
      * @param relativeTime
      *            a int.

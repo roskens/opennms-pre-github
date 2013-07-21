@@ -38,13 +38,14 @@ package org.opennms.web.controller.statisticsReports;
  * @since 1.8.1
  */
 public class StatisticsReportIdNotFoundException extends RuntimeException {
-    /**
-     *
-     */
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 481510407468988562L;
 
+    /** The bad id. */
     protected String badId;
 
+    /** The message. */
     protected String message;
 
     /**
@@ -78,6 +79,7 @@ public class StatisticsReportIdNotFoundException extends RuntimeException {
      * <p>
      * getBadID
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

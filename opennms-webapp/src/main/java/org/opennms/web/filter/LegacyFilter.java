@@ -48,6 +48,7 @@ public abstract class LegacyFilter implements Filter {
      * <p>
      * getCriterion
      * </p>
+     * .
      *
      * @return a {@link org.hibernate.criterion.Criterion} object.
      */

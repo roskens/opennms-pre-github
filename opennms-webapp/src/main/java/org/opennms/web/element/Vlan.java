@@ -44,21 +44,35 @@ import org.opennms.web.api.Util;
  * @since 1.8.1
  */
 public class Vlan {
+
+    /** The m_node id. */
     private final int m_nodeId;
 
+    /** The m_vlan id. */
     private final int m_vlanId;
 
+    /** The m_vlanname. */
     private final String m_vlanname;
 
+    /** The m_vlantype. */
     private final String m_vlantype;
 
+    /** The m_vlanstatus. */
     private final String m_vlanstatus;
 
+    /** The m_last poll time. */
     private final String m_lastPollTime;
 
+    /** The m_status. */
     private final String m_status;
 
     /* package-protected so only the NetworkElementFactory can instantiate */
+    /**
+     * Instantiates a new vlan.
+     *
+     * @param vlan
+     *            the vlan
+     */
     Vlan(OnmsVlan vlan) {
         m_nodeId = vlan.getNode().getId();
         m_vlanId = vlan.getVlanId();
@@ -73,6 +87,7 @@ public class Vlan {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -89,6 +104,7 @@ public class Vlan {
      * <p>
      * getLastPollTime
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -100,6 +116,7 @@ public class Vlan {
      * <p>
      * getNodeId
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -111,6 +128,7 @@ public class Vlan {
      * <p>
      * getStatus
      * </p>
+     * .
      *
      * @return a char.
      */
@@ -122,6 +140,7 @@ public class Vlan {
      * <p>
      * getStatusString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -133,6 +152,7 @@ public class Vlan {
      * <p>
      * getVlanColorIdentifier
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -163,6 +183,7 @@ public class Vlan {
      * <p>
      * getVlanId
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -174,6 +195,7 @@ public class Vlan {
      * <p>
      * getVlanName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -185,6 +207,7 @@ public class Vlan {
      * <p>
      * getVlanStatus
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -196,6 +219,7 @@ public class Vlan {
      * <p>
      * getVlanStatusString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -207,6 +231,7 @@ public class Vlan {
      * <p>
      * getVlanType
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -218,6 +243,7 @@ public class Vlan {
      * <p>
      * getVlanTypeString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

@@ -47,51 +47,115 @@ import org.springframework.validation.Errors;
  */
 public class SimpleWebTable {
 
+    /**
+     * The Class Cell.
+     */
     public static class Cell {
+
+        /** The m_content. */
         private Object m_content;
 
+        /** The m_style class. */
         private String m_styleClass;
 
+        /** The m_link. */
         private String m_link;
 
+        /**
+         * Instantiates a new cell.
+         */
         public Cell() {
         }
 
+        /**
+         * Instantiates a new cell.
+         *
+         * @param content
+         *            the content
+         * @param styleClass
+         *            the style class
+         */
         public Cell(Object content, String styleClass) {
             m_content = content;
             m_styleClass = styleClass;
         }
 
+        /**
+         * Instantiates a new cell.
+         *
+         * @param content
+         *            the content
+         * @param styleClass
+         *            the style class
+         * @param link
+         *            the link
+         */
         public Cell(Object content, String styleClass, String link) {
             m_content = content;
             m_styleClass = styleClass;
             m_link = link;
         }
 
+        /**
+         * Gets the content.
+         *
+         * @return the content
+         */
         public Object getContent() {
             return m_content;
         }
 
+        /**
+         * Sets the content.
+         *
+         * @param content
+         *            the new content
+         */
         public void setContent(Object content) {
             m_content = content;
         }
 
+        /**
+         * Gets the style class.
+         *
+         * @return the style class
+         */
         public String getStyleClass() {
             return m_styleClass;
         }
 
+        /**
+         * Sets the style class.
+         *
+         * @param styleClass
+         *            the new style class
+         */
         public void setStyleClass(String styleClass) {
             m_styleClass = styleClass;
         }
 
+        /**
+         * Gets the link.
+         *
+         * @return the link
+         */
         public String getLink() {
             return m_link;
         }
 
+        /**
+         * Sets the link.
+         *
+         * @param link
+         *            the new link
+         */
         public void setLink(String link) {
             m_link = link;
         }
 
+        /* (non-Javadoc)
+         * @see java.lang.Object#equals(java.lang.Object)
+         */
         @Override
         public boolean equals(Object o) {
             if (o == null || !(o instanceof Cell)) {
@@ -116,26 +180,35 @@ public class SimpleWebTable {
             return true;
         }
 
+        /* (non-Javadoc)
+         * @see java.lang.Object#toString()
+         */
         @Override
         public String toString() {
             return "Content: \"" + m_content + "\", styleClass: \"" + m_styleClass + "\", link: \"" + m_link + "\"";
         }
     }
 
+    /** The m_column headers. */
     private List<Cell> m_columnHeaders = new ArrayList<Cell>();
 
+    /** The m_rows. */
     private List<List<Cell>> m_rows = new ArrayList<List<Cell>>();
 
+    /** The m_current row. */
     private List<Cell> m_currentRow = null;
 
+    /** The m_title. */
     private String m_title = "";
 
+    /** The m_errors. */
     private Errors m_errors = null;
 
     /**
      * <p>
      * getColumnHeaders
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -147,6 +220,7 @@ public class SimpleWebTable {
      * <p>
      * getRows
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -158,6 +232,7 @@ public class SimpleWebTable {
      * <p>
      * getTitle
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -169,6 +244,7 @@ public class SimpleWebTable {
      * <p>
      * setTitle
      * </p>
+     * .
      *
      * @param title
      *            a {@link java.lang.String} object.
@@ -181,6 +257,7 @@ public class SimpleWebTable {
      * <p>
      * addColumn
      * </p>
+     * .
      *
      * @param headerContent
      *            a {@link java.lang.Object} object.
@@ -198,6 +275,7 @@ public class SimpleWebTable {
      * <p>
      * addColumn
      * </p>
+     * .
      *
      * @param headerContent
      *            a {@link java.lang.Object} object.
@@ -211,6 +289,7 @@ public class SimpleWebTable {
      * <p>
      * newRow
      * </p>
+     * .
      */
     public void newRow() {
         List<Cell> row = new ArrayList<Cell>();
@@ -222,6 +301,7 @@ public class SimpleWebTable {
      * <p>
      * addCell
      * </p>
+     * .
      *
      * @param cellContent
      *            a {@link java.lang.Object} object.
@@ -245,6 +325,7 @@ public class SimpleWebTable {
      * <p>
      * addCell
      * </p>
+     * .
      *
      * @param cellContent
      *            a {@link java.lang.Object} object.
@@ -260,6 +341,7 @@ public class SimpleWebTable {
      * <p>
      * addCell
      * </p>
+     * .
      *
      * @param cellContent
      *            a {@link java.lang.String} object.
@@ -273,6 +355,7 @@ public class SimpleWebTable {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -319,6 +402,7 @@ public class SimpleWebTable {
      * <p>
      * getErrors
      * </p>
+     * .
      *
      * @return a {@link org.springframework.validation.Errors} object.
      */
@@ -330,6 +414,7 @@ public class SimpleWebTable {
      * <p>
      * setErrors
      * </p>
+     * .
      *
      * @param errors
      *            a {@link org.springframework.validation.Errors} object.

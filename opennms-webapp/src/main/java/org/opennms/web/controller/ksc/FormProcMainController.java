@@ -52,10 +52,24 @@ import org.springframework.web.servlet.mvc.AbstractController;
  */
 public class FormProcMainController extends AbstractController implements InitializingBean {
 
+    /**
+     * The Enum Actions.
+     */
     public enum Actions {
-        View, Customize, CreateFrom, Delete, Create
+
+        /** The View. */
+        View,
+ /** The Customize. */
+ Customize,
+ /** The Create from. */
+ CreateFrom,
+ /** The Delete. */
+ Delete,
+ /** The Create. */
+ Create
     }
 
+    /** The m_ksc report factory. */
     private KSC_PerformanceReportFactory m_kscReportFactory;
 
     /** {@inheritDoc} */
@@ -97,6 +111,13 @@ public class FormProcMainController extends AbstractController implements Initia
         throw new ServletException("Invalid Parameter contents for report_action: " + action);
     }
 
+    /**
+     * Gets the report index.
+     *
+     * @param request
+     *            the request
+     * @return the report index
+     */
     private static int getReportIndex(HttpServletRequest request) {
         String report = WebSecurityUtils.sanitizeString(request.getParameter("report"));
         if (report == null) {
@@ -109,6 +130,7 @@ public class FormProcMainController extends AbstractController implements Initia
      * <p>
      * getKscReportFactory
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.config.KSC_PerformanceReportFactory}
      *         object.
@@ -121,6 +143,7 @@ public class FormProcMainController extends AbstractController implements Initia
      * <p>
      * setKscReportFactory
      * </p>
+     * .
      *
      * @param kscReportFactory
      *            a
@@ -135,9 +158,10 @@ public class FormProcMainController extends AbstractController implements Initia
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @Override
     public void afterPropertiesSet() throws Exception {

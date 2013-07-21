@@ -39,7 +39,8 @@ import org.opennms.web.filter.SQLType;
  * @since 1.8.1
  */
 public class OutageIdFilter extends EqualsFilter<Integer> {
-    /** Constant <code>TYPE="outage"</code> */
+
+    /** Constant <code>TYPE="outage"</code>. */
     public static final String TYPE = "outage";
 
     /**
@@ -58,6 +59,7 @@ public class OutageIdFilter extends EqualsFilter<Integer> {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -70,6 +72,7 @@ public class OutageIdFilter extends EqualsFilter<Integer> {
      * <p>
      * getOutage
      * </p>
+     * .
      *
      * @return a int.
      */

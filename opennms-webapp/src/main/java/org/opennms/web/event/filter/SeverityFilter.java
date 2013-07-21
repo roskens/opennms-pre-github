@@ -40,7 +40,8 @@ import org.opennms.web.filter.SQLType;
  * @since 1.8.1
  */
 public class SeverityFilter extends EqualsFilter<Integer> {
-    /** Constant <code>TYPE="severity"</code> */
+
+    /** Constant <code>TYPE="severity"</code>. */
     public static final String TYPE = "severity";
 
     /**
@@ -71,6 +72,7 @@ public class SeverityFilter extends EqualsFilter<Integer> {
      * <p>
      * getTextDescription
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -83,6 +85,7 @@ public class SeverityFilter extends EqualsFilter<Integer> {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -95,6 +98,7 @@ public class SeverityFilter extends EqualsFilter<Integer> {
      * <p>
      * getSeverity
      * </p>
+     * .
      *
      * @return a int.
      */

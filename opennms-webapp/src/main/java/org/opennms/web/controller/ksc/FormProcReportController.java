@@ -57,16 +57,44 @@ import org.springframework.web.servlet.mvc.AbstractController;
  */
 public class FormProcReportController extends AbstractController implements InitializingBean {
 
+    /**
+     * The Enum Parameters.
+     */
     public enum Parameters {
-        action, report_title, show_timespan, show_graphtype, graph_index, graphs_per_line
+
+        /** The action. */
+        action,
+ /** The report_title. */
+ report_title,
+ /** The show_timespan. */
+ show_timespan,
+ /** The show_graphtype. */
+ show_graphtype,
+ /** The graph_index. */
+ graph_index,
+ /** The graphs_per_line. */
+ graphs_per_line
     }
 
+    /**
+     * The Enum Actions.
+     */
     public enum Actions {
-        Save, AddGraph, DelGraph, ModGraph
+
+        /** The Save. */
+        Save,
+ /** The Add graph. */
+ AddGraph,
+ /** The Del graph. */
+ DelGraph,
+ /** The Mod graph. */
+ ModGraph
     }
 
+    /** The m_ksc report factory. */
     private KSC_PerformanceReportFactory m_kscReportFactory;
 
+    /** The m_ksc report service. */
     private KscReportService m_kscReportService;
 
     /** {@inheritDoc} */
@@ -160,6 +188,7 @@ public class FormProcReportController extends AbstractController implements Init
      * <p>
      * getKscReportFactory
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.config.KSC_PerformanceReportFactory}
      *         object.
@@ -172,6 +201,7 @@ public class FormProcReportController extends AbstractController implements Init
      * <p>
      * setKscReportFactory
      * </p>
+     * .
      *
      * @param kscReportFactory
      *            a
@@ -186,6 +216,7 @@ public class FormProcReportController extends AbstractController implements Init
      * <p>
      * getKscReportService
      * </p>
+     * .
      *
      * @return a {@link org.opennms.web.svclayer.KscReportService} object.
      */
@@ -197,6 +228,7 @@ public class FormProcReportController extends AbstractController implements Init
      * <p>
      * setKscReportService
      * </p>
+     * .
      *
      * @param kscReportService
      *            a {@link org.opennms.web.svclayer.KscReportService} object.
@@ -209,9 +241,7 @@ public class FormProcReportController extends AbstractController implements Init
      * <p>
      * afterPropertiesSet
      * </p>
-     *
-     * @throws java.lang.Exception
-     *             if any.
+     * .
      */
     @Override
     public void afterPropertiesSet() {

@@ -47,10 +47,12 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Transactional(readOnly = true)
 public interface KscReportService {
+
     /**
      * <p>
      * buildNodeReport
      * </p>
+     * .
      *
      * @param nodeId
      *            a int.
@@ -62,6 +64,7 @@ public interface KscReportService {
      * <p>
      * buildNodeSourceReport
      * </p>
+     * .
      *
      * @param nodeSource
      *            a String.
@@ -73,6 +76,7 @@ public interface KscReportService {
      * <p>
      * buildDomainReport
      * </p>
+     * .
      *
      * @param domain
      *            a {@link java.lang.String} object.
@@ -84,6 +88,7 @@ public interface KscReportService {
      * <p>
      * getResourceFromGraph
      * </p>
+     * .
      *
      * @param graph
      *            a {@link org.opennms.netmgt.config.kscReports.Graph} object.
@@ -95,6 +100,7 @@ public interface KscReportService {
      * <p>
      * getResourcesFromGraphs
      * </p>
+     * .
      *
      * @param graphs
      *            a {@link java.util.List} object.
@@ -106,6 +112,7 @@ public interface KscReportService {
      * <p>
      * getTimeSpans
      * </p>
+     * .
      *
      * @param includeNone
      *            a boolean.
@@ -117,6 +124,7 @@ public interface KscReportService {
      * <p>
      * getReportList
      * </p>
+     * .
      *
      * @return a java$util$Map object.
      */

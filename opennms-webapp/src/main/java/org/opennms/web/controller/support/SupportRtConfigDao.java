@@ -38,15 +38,25 @@ import org.opennms.netmgt.rt.ReadOnlyRtConfigDao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The Class SupportRtConfigDao.
+ */
 public class SupportRtConfigDao extends ReadOnlyRtConfigDao {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(SupportRtConfigDao.class);
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.rt.ReadOnlyRtConfigDao#getPrefix()
+     */
     @Override
     protected String getPrefix() {
         return "support";
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.rt.ReadOnlyRtConfigDao#save()
+     */
     @Override
     public void save() throws IOException {
         LOG.debug("saving configuration changes to {}", getFile());
@@ -90,15 +100,32 @@ public class SupportRtConfigDao extends ReadOnlyRtConfigDao {
         }
     }
 
+    /**
+     * Sets the username.
+     *
+     * @param username
+     *            the new username
+     */
     public void setUsername(final String username) {
         setProperty("support.username", username);
     }
 
+    /**
+     * Sets the password.
+     *
+     * @param password
+     *            the new password
+     */
     public void setPassword(final String password) {
         final String propertyName = "support.password";
         setProperty(propertyName, password);
     }
 
+    /**
+     * Gets the queue id.
+     *
+     * @return the queue id
+     */
     public Long getQueueId() {
         if (getProperties() == null) {
             return null;
@@ -110,10 +137,19 @@ public class SupportRtConfigDao extends ReadOnlyRtConfigDao {
         }
     }
 
+    /**
+     * Sets the queue id.
+     *
+     * @param queueId
+     *            the new queue id
+     */
     public void setQueueId(final long queueId) {
         setProperty("support.queueId", Long.valueOf(queueId));
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.rt.ReadOnlyRtConfigDao#getBaseURL()
+     */
     @Override
     public String getBaseURL() {
         final String baseUrl = getPrefix() + ".baseURL";
@@ -121,26 +157,59 @@ public class SupportRtConfigDao extends ReadOnlyRtConfigDao {
         return getStringProperty(baseUrl, defaultBaseUrl);
     }
 
+    /**
+     * Sets the ftp base url.
+     *
+     * @param url
+     *            the new ftp base url
+     */
     public void setFtpBaseURL(final String url) {
         setProperty("support.ftpBaseURL", url);
     }
 
+    /**
+     * Gets the ftp base url.
+     *
+     * @return the ftp base url
+     */
     public String getFtpBaseURL() {
         return getStringProperty("support.ftpBaseURL", "ftp://ftp.opennms.org/incoming");
     }
 
+    /**
+     * Sets the version field name.
+     *
+     * @param name
+     *            the new version field name
+     */
     public void setVersionFieldName(final String name) {
         setProperty("support.versionFieldName", name);
     }
 
+    /**
+     * Gets the version field name.
+     *
+     * @return the version field name
+     */
     public String getVersionFieldName() {
         return getStringProperty("support.versionFieldName", "OpenNMS Version");
     }
 
+    /**
+     * Sets the oS field name.
+     *
+     * @param name
+     *            the new oS field name
+     */
     public void setOSFieldName(final String name) {
         setProperty("support.osFieldName", name);
     }
 
+    /**
+     * Gets the oS field name.
+     *
+     * @return the oS field name
+     */
     public String getOSFieldName() {
         return getStringProperty("support.osFieldName", "Operating System");
     }

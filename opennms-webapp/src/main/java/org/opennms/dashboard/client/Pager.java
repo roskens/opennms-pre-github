@@ -49,12 +49,25 @@ import com.google.gwt.user.client.ui.Widget;
  */
 public class Pager extends Composite {
 
+    /**
+     * The Class PageControl.
+     */
     private class PageControl extends Composite {
 
+        /** The m_label. */
         Label m_label;
 
+        /** The m_direction. */
         int m_direction;
 
+        /**
+         * Instantiates a new page control.
+         *
+         * @param text
+         *            the text
+         * @param direction
+         *            the direction
+         */
         PageControl(String text, int direction) {
             m_label = new Label(text);
             m_label.addStyleName(direction > 0 ? "pagerRight" : "pagerLeft");
@@ -74,10 +87,13 @@ public class Pager extends Composite {
 
     }
 
+    /** The m_panel. */
     private DockPanel m_panel = new DockPanel();
 
+    /** The m_label. */
     private Label m_label = new Label();
 
+    /** The m_pageable. */
     private Pageable m_pageable;
 
     /**
@@ -102,6 +118,9 @@ public class Pager extends Composite {
         updateLabel();
     }
 
+    /**
+     * Update label.
+     */
     private void updateLabel() {
         int current = m_pageable.getCurrentElement();
         int pageSize = m_pageable.getPageSize();
@@ -114,14 +133,29 @@ public class Pager extends Composite {
 
     }
 
+    /**
+     * Creates the right page control.
+     *
+     * @return the widget
+     */
     private Widget createRightPageControl() {
         return new PageControl(">>", 1);
     }
 
+    /**
+     * Creates the left page control.
+     *
+     * @return the widget
+     */
     private Widget createLeftPageControl() {
         return new PageControl("<<", -1);
     }
 
+    /**
+     * Gets the page size.
+     *
+     * @return the page size
+     */
     private int getPageSize() {
         return Math.max(1, m_pageable.getPageSize());
     }
@@ -133,7 +167,7 @@ public class Pager extends Composite {
      * multiple of page size)
      * if max elements is a multiple of page size it ends up as max - pageSize
      *
-     * @return
+     * @return the max index
      */
     private int getMaxIndex() {
 
@@ -148,6 +182,12 @@ public class Pager extends Composite {
 
     }
 
+    /**
+     * Adjust page.
+     *
+     * @param direction
+     *            the direction
+     */
     private void adjustPage(int direction) {
 
         int adjustment = direction * getPageSize();
@@ -163,6 +203,7 @@ public class Pager extends Composite {
      * <p>
      * update
      * </p>
+     * .
      */
     public void update() {
         updateLabel();

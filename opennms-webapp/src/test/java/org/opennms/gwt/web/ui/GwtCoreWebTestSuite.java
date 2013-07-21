@@ -33,8 +33,16 @@ import junit.framework.TestSuite;
 
 import com.google.gwt.junit.tools.GWTTestSuite;
 
+/**
+ * The Class GwtCoreWebTestSuite.
+ */
 public class GwtCoreWebTestSuite extends GWTTestSuite {
 
+    /**
+     * Suite.
+     *
+     * @return the test
+     */
     public static Test suite() {
         TestSuite suite = new TestSuite("All GWT tests go here");
 

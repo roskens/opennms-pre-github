@@ -46,22 +46,26 @@ import com.google.gwt.user.client.ui.VerticalPanel;
  * @since 1.8.1
  */
 public class GraphDashlet extends Dashlet {
+
     /**
      * The offset from the current time (rounded by TIME_ROUNDING_INTERVAL) for
-     * the start time on graphs
+     * the start time on graphs.
      */
     private static final int TIME_START_OFFSET = -(7 * 24 * 60 * 60);
 
     /**
      * The interval on which we round the start and end times for graph
-     * timespans
+     * timespans.
      */
     private static final int TIME_ROUNDING_INTERVAL = (5 * 60);
 
+    /** The m_surveillance service. */
     private SurveillanceServiceAsync m_surveillanceService;
 
+    /** The m_view. */
     private GraphView m_view;
 
+    /** The m_loader. */
     private DashletLoader m_loader = new DashletLoader();
 
     /**
@@ -84,6 +88,7 @@ public class GraphDashlet extends Dashlet {
      * <p>
      * setSurveillanceService
      * </p>
+     * .
      *
      * @param surveillanceService
      *            a
@@ -100,9 +105,15 @@ public class GraphDashlet extends Dashlet {
         m_view.getTopLevelResourceLoader().load(set);
     }
 
+    /**
+     * The Class GraphView.
+     */
     public class GraphView extends DashletView {
+
+        /** The m_panel. */
         private VerticalPanel m_panel = new VerticalPanel();
 
+        /** The m_pager. */
         private SimplePager m_pager = new SimplePager(new SimplePageable() {
             @Override
             public void adjustPage(int direction) {
@@ -110,28 +121,45 @@ public class GraphDashlet extends Dashlet {
             }
         });
 
+        /** The m_top level resource list box. */
         private ValidatedListBox m_topLevelResourceListBox = new ValidatedListBox(GraphDashlet.this);
 
+        /** The m_child resource list box. */
         private ValidatedListBox m_childResourceListBox = new ValidatedListBox(GraphDashlet.this);
 
+        /** The m_prefab graph list box. */
         private ValidatedListBox m_prefabGraphListBox = new ValidatedListBox(GraphDashlet.this);
 
+        /** The m_graph. */
         private ResourceGraph m_graph = new ResourceGraph();
 
+        /** The m_top level resource loader. */
         private TopLevelResourceLoader m_topLevelResourceLoader;
 
+        /** The m_child resource loader. */
         private ChildResourceLoader m_childResourceLoader;
 
+        /** The m_prefab graph loader. */
         private PrefabGraphLoader m_prefabGraphLoader;
 
+        /** The m_top level resource handler. */
         private TopLevelResourceChangeHandler m_topLevelResourceHandler = new TopLevelResourceChangeHandler();
 
+        /** The m_child resource handler. */
         private ChildResourceChangeHandler m_childResourceHandler = new ChildResourceChangeHandler();
 
+        /** The m_prefab graph handler. */
         private PrefabGraphChangeHandler m_prefabGraphHandler = new PrefabGraphChangeHandler();
 
+        /** The m_selected resource id. */
         private String m_selectedResourceId = null;
 
+        /**
+         * Instantiates a new graph view.
+         *
+         * @param dashlet
+         *            the dashlet
+         */
         public GraphView(Dashlet dashlet) {
             super(dashlet);
             // m_panel.add(m_pager);
@@ -158,26 +186,53 @@ public class GraphDashlet extends Dashlet {
             initWidget(m_panel);
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.dashboard.client.DashletView#onDashLoad()
+         */
         @Override
         public void onDashLoad() {
             addToTitleBar(m_pager, DockPanel.CENTER);
         }
 
+        /**
+         * Gets the top level resource loader.
+         *
+         * @return the top level resource loader
+         */
         public TopLevelResourceLoader getTopLevelResourceLoader() {
             return m_topLevelResourceLoader;
         }
 
+        /**
+         * The Class TopLevelResourceLoader.
+         */
         public class TopLevelResourceLoader extends ListBoxCallback {
+
+            /**
+             * Instantiates a new top level resource loader.
+             *
+             * @param listBox
+             *            the list box
+             */
             public TopLevelResourceLoader(ListBox listBox) {
                 super(m_loader, listBox);
                 setEmptyListItem("No nodes found", "");
             }
 
+            /**
+             * Load.
+             *
+             * @param surveillanceSet
+             *            the surveillance set
+             */
             public void load(SurveillanceSet surveillanceSet) {
                 m_loader.loading();
                 m_surveillanceService.getResources(surveillanceSet, this);
             }
 
+            /* (non-Javadoc)
+             * @see org.opennms.dashboard.client.ListBoxCallback#onDataLoaded(java.lang.String[][])
+             */
             @Override
             public void onDataLoaded(String[][] resources) {
                 super.onDataLoaded(resources);
@@ -187,7 +242,14 @@ public class GraphDashlet extends Dashlet {
             }
         }
 
+        /**
+         * The Class TopLevelResourceChangeHandler.
+         */
         public class TopLevelResourceChangeHandler extends DirectionalChangeHandler {
+
+            /* (non-Javadoc)
+             * @see org.opennms.dashboard.client.DirectionalChangeHandler#onChange(com.google.gwt.event.dom.client.ChangeEvent, int)
+             */
             @Override
             public void onChange(ChangeEvent event, int direction) {
                 String resourceId = m_view.m_topLevelResourceListBox.getSelectedValue();
@@ -201,13 +263,31 @@ public class GraphDashlet extends Dashlet {
             }
         }
 
+        /**
+         * The Class ChildResourceLoader.
+         */
         public class ChildResourceLoader extends ListBoxCallback {
+
+            /**
+             * Instantiates a new child resource loader.
+             *
+             * @param listBox
+             *            the list box
+             */
             public ChildResourceLoader(ListBox listBox) {
                 super(m_loader, listBox);
                 setNullListItem("No parent resource", "");
                 setEmptyListItem("Parent resource has no child resources--parent resource selected", "");
             }
 
+            /**
+             * Load.
+             *
+             * @param resourceId
+             *            the resource id
+             * @param direction
+             *            the direction
+             */
             public void load(String resourceId, int direction) {
                 setDirection(direction);
 
@@ -215,6 +295,9 @@ public class GraphDashlet extends Dashlet {
                 m_surveillanceService.getChildResources(resourceId, this);
             }
 
+            /* (non-Javadoc)
+             * @see org.opennms.dashboard.client.ListBoxCallback#onDataLoaded(java.lang.String[][])
+             */
             @Override
             public void onDataLoaded(String[][] resources) {
                 super.onDataLoaded(resources);
@@ -225,7 +308,14 @@ public class GraphDashlet extends Dashlet {
 
         }
 
+        /**
+         * The Class ChildResourceChangeHandler.
+         */
         public class ChildResourceChangeHandler extends DirectionalChangeHandler {
+
+            /* (non-Javadoc)
+             * @see org.opennms.dashboard.client.DirectionalChangeHandler#onChange(com.google.gwt.event.dom.client.ChangeEvent, int)
+             */
             @Override
             public void onChange(ChangeEvent event, int direction) {
                 String resourceId = m_view.m_childResourceListBox.getSelectedValue();
@@ -244,13 +334,31 @@ public class GraphDashlet extends Dashlet {
             }
         }
 
+        /**
+         * The Class PrefabGraphLoader.
+         */
         public class PrefabGraphLoader extends ListBoxCallback {
+
+            /**
+             * Instantiates a new prefab graph loader.
+             *
+             * @param listBox
+             *            the list box
+             */
             public PrefabGraphLoader(ListBox listBox) {
                 super(m_loader, listBox);
                 setNullListItem("Nothing to graph", "");
                 setEmptyListItem("There are no graphs to display for this resource", "");
             }
 
+            /**
+             * Load.
+             *
+             * @param resourceId
+             *            the resource id
+             * @param direction
+             *            the direction
+             */
             public void load(String resourceId, int direction) {
                 setDirection(direction);
 
@@ -258,6 +366,9 @@ public class GraphDashlet extends Dashlet {
                 m_surveillanceService.getPrefabGraphs(resourceId, this);
             }
 
+            /* (non-Javadoc)
+             * @see org.opennms.dashboard.client.ListBoxCallback#onDataLoaded(java.lang.String[][])
+             */
             @Override
             public void onDataLoaded(String[][] prefabGraphs) {
                 super.onDataLoaded(prefabGraphs);
@@ -267,7 +378,14 @@ public class GraphDashlet extends Dashlet {
             }
         }
 
+        /**
+         * The Class PrefabGraphChangeHandler.
+         */
         public class PrefabGraphChangeHandler extends DirectionalChangeHandler {
+
+            /* (non-Javadoc)
+             * @see org.opennms.dashboard.client.DirectionalChangeHandler#onChange(com.google.gwt.event.dom.client.ChangeEvent, int)
+             */
             @Override
             public void onChange(ChangeEvent event, int direction) {
                 String name = m_view.m_prefabGraphListBox.getSelectedValue();
@@ -282,6 +400,12 @@ public class GraphDashlet extends Dashlet {
 
             }
 
+            /**
+             * Prefetch adjacent graphs.
+             *
+             * @param times
+             *            the times
+             */
             private void prefetchAdjacentGraphs(String[] times) {
                 String previousReport = m_view.m_prefabGraphListBox.getRelativeSelectedValue(-1);
                 if (previousReport != null) {
@@ -302,6 +426,8 @@ public class GraphDashlet extends Dashlet {
              * so when we prefetch graph images the URL will remain the same for
              * that
              * interval, allowing the browser to use the prefetched image.
+             *
+             * @return the times
              */
             public String[] getTimes() {
                 /*

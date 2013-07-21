@@ -42,7 +42,8 @@ import org.opennms.web.filter.SQLType;
  * @since 1.8.1
  */
 public class NegativeServiceFilter extends NotEqualOrNullFilter<Integer> {
-    /** Constant <code>TYPE="servicenot"</code> */
+
+    /** Constant <code>TYPE="servicenot"</code>. */
     public static final String TYPE = "servicenot";
 
     /**
@@ -61,7 +62,10 @@ public class NegativeServiceFilter extends NotEqualOrNullFilter<Integer> {
      * <p>
      * getTextDescription
      * </p>
+     * .
      *
+     * @param servletContext
+     *            the servlet context
      * @return a {@link java.lang.String} object.
      */
     public String getTextDescription(ServletContext servletContext) {
@@ -77,6 +81,7 @@ public class NegativeServiceFilter extends NotEqualOrNullFilter<Integer> {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -89,6 +94,7 @@ public class NegativeServiceFilter extends NotEqualOrNullFilter<Integer> {
      * <p>
      * getServiceId
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -102,6 +108,9 @@ public class NegativeServiceFilter extends NotEqualOrNullFilter<Integer> {
         return (this.toString().equals(obj.toString()));
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.web.filter.OneArgFilter#getTextDescription()
+     */
     @Override
     public String getTextDescription() {
         // TODO Auto-generated method stub

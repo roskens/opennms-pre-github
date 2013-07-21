@@ -35,8 +35,14 @@ import java.util.Date;
 import org.junit.Test;
 import org.opennms.web.rest.support.TimeChunker;
 
+/**
+ * The Class ResolutionTest.
+ */
 public class ResolutionTest {
 
+    /**
+     * Test resolution.
+     */
     @Test
     public void testResolution() {
         Date startDate = new Date(new Date().getTime() - 300000);
@@ -53,6 +59,9 @@ public class ResolutionTest {
         }
     }
 
+    /**
+     * Test get time index.
+     */
     @Test
     public void testGetTimeIndex() {
         Date startDate = new Date(new Date().getTime() - 300000);

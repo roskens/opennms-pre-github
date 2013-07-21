@@ -39,7 +39,7 @@ import org.opennms.netmgt.config.UserFactory;
 import org.opennms.netmgt.config.UserManager;
 
 /**
- * A servlet that handles renaming an existing user
+ * A servlet that handles renaming an existing user.
  *
  * @author <A HREF="mailto:jason@opennms.org">Jason Johns </A>
  * @author <A HREF="http://www.opennms.org/">OpenNMS </A>
@@ -49,9 +49,8 @@ import org.opennms.netmgt.config.UserManager;
  * @since 1.8.1
  */
 public class RenameUserServlet extends HttpServlet {
-    /**
-     *
-     */
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -560190996358287556L;
 
     /** {@inheritDoc} */

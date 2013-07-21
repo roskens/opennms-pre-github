@@ -42,19 +42,36 @@ import org.junit.Test;
 import org.opennms.core.test.MockLogAppender;
 import org.opennms.netmgt.config.KSC_PerformanceReportFactory;
 
+/**
+ * The Class KscRestServiceTest.
+ */
 public class KscRestServiceTest extends AbstractSpringJerseyRestTestCase {
+
+    /** The m_config file. */
     private File m_configFile = new File("target/test-classes/ksc-performance-reports.xml");
 
+    /* (non-Javadoc)
+     * @see org.opennms.web.rest.AbstractSpringJerseyRestTestCase#beforeServletStart()
+     */
     @Override
     protected void beforeServletStart() throws Exception {
         KSC_PerformanceReportFactory.setConfigFile(m_configFile);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.web.rest.AbstractSpringJerseyRestTestCase#afterServletStart()
+     */
     @Override
     protected void afterServletStart() throws Exception {
         MockLogAppender.setupLogging(true, "DEBUG");
     }
 
+    /**
+     * Test read only.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testReadOnly() throws Exception {
         // Testing GET Collection
@@ -67,6 +84,12 @@ public class KscRestServiceTest extends AbstractSpringJerseyRestTestCase {
         sendRequest(GET, "/ksc/3", 404);
     }
 
+    /**
+     * Test add graph.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testAddGraph() throws Exception {
         final Map<String, String> params = new HashMap<String, String>();
@@ -79,6 +102,15 @@ public class KscRestServiceTest extends AbstractSpringJerseyRestTestCase {
         assertTrue(xml.contains("title=\"foo\""));
     }
 
+    /**
+     * Slurp.
+     *
+     * @param file
+     *            the file
+     * @return the string
+     * @throws Exception
+     *             the exception
+     */
     private String slurp(final File file) throws Exception {
         Reader fileReader = null;
         BufferedReader reader = null;

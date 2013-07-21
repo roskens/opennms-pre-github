@@ -44,13 +44,17 @@ import org.springframework.context.ApplicationContext;
  * @since 1.8.1
  */
 public class NegativeServiceFilter extends NotEqualOrNullFilter<Integer> {
-    /** Constant <code>TYPE="servicenot"</code> */
+
+    /** Constant <code>TYPE="servicenot"</code>. */
     public static final String TYPE = "servicenot";
 
+    /** The m_servlet context. */
     private ServletContext m_servletContext;
 
+    /** The m_app context. */
     private ApplicationContext m_appContext;
 
+    /** The service id. */
     protected int serviceId;
 
     /**
@@ -61,6 +65,7 @@ public class NegativeServiceFilter extends NotEqualOrNullFilter<Integer> {
      * @param serviceId
      *            a int.
      * @param servletContext
+     *            the servlet context
      */
     public NegativeServiceFilter(int serviceId, ServletContext servletContext) {
         super(TYPE, SQLType.INT, "EVENTS.SERVICEID", "serviceType.id", serviceId);
@@ -75,6 +80,7 @@ public class NegativeServiceFilter extends NotEqualOrNullFilter<Integer> {
      * @param serviceId
      *            a int.
      * @param appContext
+     *            the app context
      */
     public NegativeServiceFilter(int serviceId, ApplicationContext appContext) {
         super(TYPE, SQLType.INT, "EVENTS.SERVICEID", "serviceType.id", serviceId);
@@ -85,6 +91,7 @@ public class NegativeServiceFilter extends NotEqualOrNullFilter<Integer> {
      * <p>
      * getTextDescription
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -101,6 +108,7 @@ public class NegativeServiceFilter extends NotEqualOrNullFilter<Integer> {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

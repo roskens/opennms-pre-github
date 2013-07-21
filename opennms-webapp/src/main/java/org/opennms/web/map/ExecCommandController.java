@@ -59,6 +59,7 @@ import org.springframework.web.servlet.ModelAndView;
  */
 public class ExecCommandController extends MapsLoggingController {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(ExecCommandController.class);
 
     /** {@inheritDoc} */
@@ -184,11 +185,27 @@ public class ExecCommandController extends MapsLoggingController {
         return null;
     }
 
+    /**
+     * The Class Command.
+     */
     private class Command {
+
+        /** The out. */
         private BufferedReader out;
 
+        /** The p. */
         private Process p;
 
+        /**
+         * Instantiates a new command.
+         *
+         * @param command
+         *            the command
+         * @throws IOException
+         *             Signals that an I/O exception has occurred.
+         * @throws IllegalStateException
+         *             the illegal state exception
+         */
         public Command(String command) throws IOException, IllegalStateException {
             if (command.startsWith("traceroute") || command.startsWith("ping") || command.startsWith("ipmitool")) {
                 p = Runtime.getRuntime().exec(command);
@@ -198,10 +215,21 @@ public class ExecCommandController extends MapsLoggingController {
             }
         }
 
+        /**
+         * Gets the buffered reader.
+         *
+         * @return the buffered reader
+         */
         public BufferedReader getBufferedReader() {
             return out;
         }
 
+        /**
+         * Wait for.
+         *
+         * @throws InterruptedException
+         *             the interrupted exception
+         */
         public void waitFor() throws InterruptedException {
             p.waitFor();
         }

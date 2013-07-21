@@ -61,19 +61,37 @@ public class AlarmDashlet extends Dashlet {
      * - Ideally be able to sort by any column
      */
 
+    /** The m_view. */
     private AlarmView m_view = new AlarmView(this);
 
+    /** The m_loader. */
     private AlarmLoader m_loader = new AlarmLoader();
 
+    /**
+     * The Class AlarmLoader.
+     */
     class AlarmLoader extends DashletLoader implements AsyncCallback<Alarm[]> {
 
+        /** The m_suveillance service. */
         private SurveillanceServiceAsync m_suveillanceService;
 
+        /**
+         * Load.
+         *
+         * @param surveillanceSet
+         *            the surveillance set
+         */
         public void load(final SurveillanceSet surveillanceSet) {
             loading();
             m_suveillanceService.getAlarmsForSet(surveillanceSet, this);
         }
 
+        /**
+         * On data loaded.
+         *
+         * @param alarms
+         *            the alarms
+         */
         public void onDataLoaded(Alarm[] alarms) {
             try {
                 m_view.setAlarms(alarms);
@@ -82,16 +100,28 @@ public class AlarmDashlet extends Dashlet {
             }
         }
 
+        /**
+         * Sets the surveillance service.
+         *
+         * @param svc
+         *            the new surveillance service
+         */
         public void setSurveillanceService(SurveillanceServiceAsync svc) {
             m_suveillanceService = svc;
         }
 
+        /* (non-Javadoc)
+         * @see com.google.gwt.user.client.rpc.AsyncCallback#onFailure(java.lang.Throwable)
+         */
         @Override
         public void onFailure(Throwable caught) {
             loadError(caught);
             error(caught);
         }
 
+        /* (non-Javadoc)
+         * @see com.google.gwt.user.client.rpc.AsyncCallback#onSuccess(java.lang.Object)
+         */
         @Override
         public void onSuccess(Alarm[] result) {
             onDataLoaded(result);
@@ -99,6 +129,12 @@ public class AlarmDashlet extends Dashlet {
 
     }
 
+    /**
+     * Instantiates a new alarm dashlet.
+     *
+     * @param dashboard
+     *            the dashboard
+     */
     AlarmDashlet(Dashboard dashboard) {
         super(dashboard, "Alarms");
         setLoader(m_loader);
@@ -115,6 +151,7 @@ public class AlarmDashlet extends Dashlet {
      * <p>
      * setSurveillanceService
      * </p>
+     * .
      *
      * @param svc
      *            a

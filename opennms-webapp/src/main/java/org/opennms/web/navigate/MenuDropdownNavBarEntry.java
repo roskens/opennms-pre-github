@@ -32,13 +32,21 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * The Class MenuDropdownNavBarEntry.
+ */
 public class MenuDropdownNavBarEntry implements NavBarEntry {
+
+    /** The m_name. */
     private String m_name = null;
 
+    /** The m_url. */
     private String m_url = null;
 
+    /** The m_contents. */
     private String m_contents = null;
 
+    /** The m_entries. */
     private List<NavBarEntry> m_entries = null;
 
     /**
@@ -46,11 +54,19 @@ public class MenuDropdownNavBarEntry implements NavBarEntry {
      * getUrl
      * </p>
      * The URL the name should link to.
+     *
+     * @return the url
      */
     public String getUrl() {
         return m_url;
     }
 
+    /**
+     * Sets the url.
+     *
+     * @param url
+     *            the new url
+     */
     public void setUrl(final String url) {
         m_url = url;
     }
@@ -59,6 +75,7 @@ public class MenuDropdownNavBarEntry implements NavBarEntry {
      * <p>
      * getName
      * </p>
+     * .
      *
      * @return The text containing the menu entry/entries.
      */
@@ -86,14 +103,31 @@ public class MenuDropdownNavBarEntry implements NavBarEntry {
         return sb.toString();
     }
 
+    /**
+     * Sets the name.
+     *
+     * @param name
+     *            the new name
+     */
     public void setName(final String name) {
         m_name = name;
     }
 
+    /**
+     * Gets the entries.
+     *
+     * @return the entries
+     */
     public List<NavBarEntry> getEntries() {
         return m_entries;
     }
 
+    /**
+     * Sets the entries.
+     *
+     * @param entries
+     *            the new entries
+     */
     public void setEntries(final List<NavBarEntry> entries) {
         m_entries = entries;
     }
@@ -101,7 +135,11 @@ public class MenuDropdownNavBarEntry implements NavBarEntry {
     /**
      * If there are any {@link NavBarEntry} objects in this
      * dropdown object, return DISPLAY_NO_LINK (since the
-     * individual entries will handle their own)
+     * individual entries will handle their own).
+     *
+     * @param request
+     *            the request
+     * @return the display status
      */
     public DisplayStatus evaluate(final HttpServletRequest request) {
         boolean display = false;

@@ -56,7 +56,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.webflow.test.MockRequestContext;
 
 /**
- * Unit tests for DefaultSchedulerService
+ * Unit tests for DefaultSchedulerService.
  *
  * @author <a href="mailto:jonathand@opennms.org">Jonathan Sartin</a>
  */
@@ -64,25 +64,36 @@ import org.springframework.webflow.test.MockRequestContext;
 @ContextConfiguration(locations = { "classpath:org/opennms/web/svclayer/schedulerServiceTest.xml" })
 public class DefaultSchedulerServiceTest implements InitializingBean {
 
+    /** The m_scheduler service. */
     @Autowired
     private DefaultSchedulerService m_schedulerService;
 
+    /** The m_scheduler factory. */
     @Autowired
     private SchedulerFactoryBean m_schedulerFactory;
 
+    /** The m_report wrapper service. */
     @Autowired
     private ReportWrapperService m_reportWrapperService;
 
+    /** The m_scheduler. */
     Scheduler m_scheduler;
 
+    /** The m_criteria. */
     private static ReportParameters m_criteria;
 
+    /** The report id. */
     private static String REPORT_ID = "test";
 
+    /** The cron expression. */
     private static String CRON_EXPRESSION = "0 * * * * ?";
 
+    /** The Constant TRIGGER_GROUP. */
     private static final String TRIGGER_GROUP = "reporting";
 
+    /**
+     * Sets the up.
+     */
     @BeforeClass
     public static void setUp() {
         MockLogAppender.setupLogging();
@@ -90,6 +101,9 @@ public class DefaultSchedulerServiceTest implements InitializingBean {
         m_criteria.setReportId(REPORT_ID);
     }
 
+    /**
+     * Reset report service.
+     */
     @Before
     public void resetReportService() {
         reset(m_reportWrapperService);
@@ -97,11 +111,20 @@ public class DefaultSchedulerServiceTest implements InitializingBean {
 
     }
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Test execute success.
+     *
+     * @throws InterruptedException
+     *             the interrupted exception
+     */
     @Test
     public void testExecuteSuccess() throws InterruptedException {
         //
@@ -117,6 +140,12 @@ public class DefaultSchedulerServiceTest implements InitializingBean {
         verify(m_reportWrapperService);
     }
 
+    /**
+     * Test execute failure.
+     *
+     * @throws InterruptedException
+     *             the interrupted exception
+     */
     @Test
     public void testExecuteFailure() throws InterruptedException {
         expect(m_reportWrapperService.validate(m_criteria, REPORT_ID)).andReturn(false);
@@ -130,6 +159,9 @@ public class DefaultSchedulerServiceTest implements InitializingBean {
         verify(m_reportWrapperService);
     }
 
+    /**
+     * Test schedule bad cron expression.
+     */
     @Test
     public void testScheduleBadCronExpression() {
         expect(m_reportWrapperService.validate(m_criteria, REPORT_ID)).andReturn(true);
@@ -142,6 +174,12 @@ public class DefaultSchedulerServiceTest implements InitializingBean {
         verify(m_reportWrapperService);
     }
 
+    /**
+     * Test schedule and remove.
+     *
+     * @throws SchedulerException
+     *             the scheduler exception
+     */
     @Test
     public void testScheduleAndRemove() throws SchedulerException {
         expect(m_reportWrapperService.validate(m_criteria, REPORT_ID)).andReturn(true);
@@ -159,6 +197,12 @@ public class DefaultSchedulerServiceTest implements InitializingBean {
         assertEquals(0, m_scheduler.getTriggerNames(TRIGGER_GROUP).length);
     }
 
+    /**
+     * Test multiple triggers.
+     *
+     * @throws SchedulerException
+     *             the scheduler exception
+     */
     @Test
     public void testMultipleTriggers() throws SchedulerException {
         expect(m_reportWrapperService.validate(m_criteria, REPORT_ID)).andReturn(true).times(2);
@@ -186,6 +230,14 @@ public class DefaultSchedulerServiceTest implements InitializingBean {
         assertEquals(0, m_scheduler.getTriggerNames(TRIGGER_GROUP).length);
     }
 
+    /**
+     * Test schedule and run.
+     *
+     * @throws SchedulerException
+     *             the scheduler exception
+     * @throws InterruptedException
+     *             the interrupted exception
+     */
     @Test
     public void testScheduleAndRun() throws SchedulerException, InterruptedException {
         DeliveryOptions deliveryOptions = new DeliveryOptions();
@@ -204,6 +256,9 @@ public class DefaultSchedulerServiceTest implements InitializingBean {
         assertEquals(0, m_scheduler.getTriggerNames(TRIGGER_GROUP).length);
     }
 
+    /**
+     * Test exists.
+     */
     @Test
     public void testExists() {
         expect(m_reportWrapperService.validate(m_criteria, REPORT_ID)).andReturn(true);
@@ -220,6 +275,9 @@ public class DefaultSchedulerServiceTest implements InitializingBean {
 
     }
 
+    /**
+     * Test get trigger descriptions.
+     */
     @Test
     public void testGetTriggerDescriptions() {
         expect(m_reportWrapperService.validate(m_criteria, REPORT_ID)).andReturn(true);

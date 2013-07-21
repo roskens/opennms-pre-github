@@ -53,30 +53,36 @@ import org.opennms.netmgt.config.groups.Schedule;
 import org.opennms.netmgt.config.groups.Time;
 
 /**
- * Servlet implementation class for Servlet: AdminRoleServlet
+ * Servlet implementation class for Servlet: AdminRoleServlet.
  *
  * @author ranger
  * @version $Id: $
  * @since 1.8.1
  */
 public class AdminRoleServlet extends HttpServlet implements Servlet {
-    /**
-     *
-     */
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 7805283401513004127L;
 
+    /** The Constant LIST. */
     private static final String LIST = "/admin/userGroupView/roles/list.jsp";
 
+    /** The Constant VIEW. */
     private static final String VIEW = "/admin/userGroupView/roles/view.jsp";
 
+    /** The Constant EDIT_DETAILS. */
     private static final String EDIT_DETAILS = "/admin/userGroupView/roles/editDetails.jsp";
 
+    /** The Constant ADD_ENTRY. */
     private static final String ADD_ENTRY = "/admin/userGroupView/roles/editSpecific.jsp";
 
+    /** The Constant EDIT_WEEKLY. */
     private static final String EDIT_WEEKLY = "/admin/userGroupView/roles/editWeekly.jsp";
 
+    /** The Constant EDIT_MONTHLY. */
     private static final String EDIT_MONTHLY = "/admin/userGroupView/roles/editMonthly.jsp";
 
+    /** The Constant EDIT_SPECIFIC. */
     private static final String EDIT_SPECIFIC = "/admin/userGroupView/roles/editSpecific.jsp";
 
     /**
@@ -88,18 +94,47 @@ public class AdminRoleServlet extends HttpServlet implements Servlet {
         super();
     }
 
+    /**
+     * The Interface Action.
+     */
     private interface Action {
+
+        /**
+         * Execute.
+         *
+         * @param request
+         *            the request
+         * @param response
+         *            the response
+         * @return the string
+         * @throws ServletException
+         *             the servlet exception
+         */
         public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException;
     }
 
+    /**
+     * The Class ListAction.
+     */
     private class ListAction implements Action {
+
+        /* (non-Javadoc)
+         * @see org.opennms.web.admin.roles.AdminRoleServlet.Action#execute(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+         */
         @Override
         public String execute(HttpServletRequest request, HttpServletResponse response) {
             return LIST;
         }
     }
 
+    /**
+     * The Class DeleteAction.
+     */
     private class DeleteAction implements Action {
+
+        /* (non-Javadoc)
+         * @see org.opennms.web.admin.roles.AdminRoleServlet.Action#execute(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+         */
         @Override
         public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException {
             getRoleManager().deleteRole(request.getParameter("role"));
@@ -108,8 +143,14 @@ public class AdminRoleServlet extends HttpServlet implements Servlet {
         }
     }
 
+    /**
+     * The Class ViewAction.
+     */
     private class ViewAction implements Action {
 
+        /* (non-Javadoc)
+         * @see org.opennms.web.admin.roles.AdminRoleServlet.Action#execute(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+         */
         @Override
         public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException {
             try {
@@ -130,8 +171,14 @@ public class AdminRoleServlet extends HttpServlet implements Servlet {
 
     }
 
+    /**
+     * The Class AddEntryAction.
+     */
     private class AddEntryAction implements Action {
 
+        /* (non-Javadoc)
+         * @see org.opennms.web.admin.roles.AdminRoleServlet.Action#execute(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+         */
         @Override
         public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException {
             try {
@@ -151,8 +198,14 @@ public class AdminRoleServlet extends HttpServlet implements Servlet {
 
     }
 
+    /**
+     * The Class EditEntryAction.
+     */
     private class EditEntryAction implements Action {
 
+        /* (non-Javadoc)
+         * @see org.opennms.web.admin.roles.AdminRoleServlet.Action#execute(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+         */
         @Override
         public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException {
             WebRole role = getRoleManager().getRole(request.getParameter("role"));
@@ -189,8 +242,14 @@ public class AdminRoleServlet extends HttpServlet implements Servlet {
 
     }
 
+    /**
+     * The Class SaveEntryAction.
+     */
     private class SaveEntryAction implements Action {
 
+        /* (non-Javadoc)
+         * @see org.opennms.web.admin.roles.AdminRoleServlet.Action#execute(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+         */
         @Override
         public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException {
             try {
@@ -236,6 +295,17 @@ public class AdminRoleServlet extends HttpServlet implements Servlet {
             }
         }
 
+        /**
+         * Gets the date parameters.
+         *
+         * @param prefix
+         *            the prefix
+         * @param request
+         *            the request
+         * @return the date parameters
+         * @throws ParseException
+         *             the parse exception
+         */
         private Date getDateParameters(String prefix, HttpServletRequest request) throws ParseException {
             StringBuffer buf = new StringBuffer();
             buf.append(request.getParameter(prefix + "Month"));
@@ -252,14 +322,29 @@ public class AdminRoleServlet extends HttpServlet implements Servlet {
             return new SimpleDateFormat("M-d-yyyy h:m a").parse(buf.toString());
         }
 
+        /**
+         * Gets the int parameter.
+         *
+         * @param name
+         *            the name
+         * @param request
+         *            the request
+         * @return the int parameter
+         */
         public int getIntParameter(String name, HttpServletRequest request) {
             return WebSecurityUtils.safeParseInt(request.getParameter(name));
         }
 
     }
 
+    /**
+     * The Class EditDetailsAction.
+     */
     private class EditDetailsAction implements Action {
 
+        /* (non-Javadoc)
+         * @see org.opennms.web.admin.roles.AdminRoleServlet.Action#execute(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+         */
         @Override
         public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException {
             WebRole role = getRoleManager().getRole(request.getParameter("role"));
@@ -269,8 +354,14 @@ public class AdminRoleServlet extends HttpServlet implements Servlet {
 
     }
 
+    /**
+     * The Class NewAction.
+     */
     private class NewAction implements Action {
 
+        /* (non-Javadoc)
+         * @see org.opennms.web.admin.roles.AdminRoleServlet.Action#execute(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+         */
         @Override
         public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException {
             WebRole role = getRoleManager().createRole();
@@ -281,8 +372,14 @@ public class AdminRoleServlet extends HttpServlet implements Servlet {
 
     }
 
+    /**
+     * The Class SaveDetailsAction.
+     */
     private class SaveDetailsAction implements Action {
 
+        /* (non-Javadoc)
+         * @see org.opennms.web.admin.roles.AdminRoleServlet.Action#execute(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+         */
         @Override
         public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException {
             if (request.getParameter("save") != null) {
@@ -311,15 +408,16 @@ public class AdminRoleServlet extends HttpServlet implements Servlet {
      * <p>
      * doIt
      * </p>
+     * .
      *
      * @param request
      *            a {@link javax.servlet.http.HttpServletRequest} object.
      * @param response
      *            a {@link javax.servlet.http.HttpServletResponse} object.
-     * @throws javax.servlet.ServletException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws ServletException
+     *             the servlet exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     protected void doIt(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String reqUrl = request.getServletPath();
@@ -330,6 +428,15 @@ public class AdminRoleServlet extends HttpServlet implements Servlet {
         dispatcher.forward(request, response);
     }
 
+    /**
+     * Gets the action.
+     *
+     * @param request
+     *            the request
+     * @param response
+     *            the response
+     * @return the action
+     */
     private Action getAction(HttpServletRequest request, HttpServletResponse response) {
         String op = request.getParameter("operation");
         if ("delete".equals(op))
@@ -379,9 +486,10 @@ public class AdminRoleServlet extends HttpServlet implements Servlet {
      * <p>
      * init
      * </p>
+     * .
      *
-     * @throws javax.servlet.ServletException
-     *             if any.
+     * @throws ServletException
+     *             the servlet exception
      */
     @Override
     public void init() throws ServletException {
@@ -399,14 +507,29 @@ public class AdminRoleServlet extends HttpServlet implements Servlet {
 
     }
 
+    /**
+     * Gets the role manager.
+     *
+     * @return the role manager
+     */
     private WebRoleManager getRoleManager() {
         return WebRoleContext.getWebRoleManager();
     }
 
+    /**
+     * Gets the user manager.
+     *
+     * @return the user manager
+     */
     private WebUserManager getUserManager() {
         return WebRoleContext.getWebUserManager();
     }
 
+    /**
+     * Gets the group manager.
+     *
+     * @return the group manager
+     */
     private WebGroupManager getGroupManager() {
         return WebRoleContext.getWebGroupManager();
     }

@@ -58,8 +58,10 @@ import org.springframework.web.servlet.ModelAndView;
  */
 public class SaveMapController extends MapsLoggingController {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(SaveMapController.class);
 
+    /** The manager. */
     private Manager manager;
 
     /**
@@ -85,6 +87,7 @@ public class SaveMapController extends MapsLoggingController {
         this.manager = manager;
     }
 
+    /** The elems. */
     private static List<VElement> elems = null;
 
     /** {@inheritDoc} */

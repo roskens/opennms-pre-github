@@ -61,11 +61,21 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 
 /**
+ * The Class DefaultSurveillanceServiceTest.
+ *
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  */
 public class DefaultSurveillanceServiceTest {
+
+    /** The m_service. */
     private DefaultSurveillanceService m_service;
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
 
@@ -78,6 +88,9 @@ public class DefaultSurveillanceServiceTest {
         SecurityContextHolder.clearContext();
     }
 
+    /**
+     * Test get username with user details.
+     */
     @Test
     public void testGetUsernameWithUserDetails() {
         UserDetails details = populateSecurityContext();
@@ -88,6 +101,9 @@ public class DefaultSurveillanceServiceTest {
     }
 
     // String Principal is not longer used in opennms
+    /**
+     * Test get username with string principal.
+     */
     @Test(expected = IllegalStateException.class)
     public void testGetUsernameWithStringPrincipal() {
         org.springframework.security.core.Authentication auth = new UsernamePasswordAuthenticationToken(
@@ -99,6 +115,9 @@ public class DefaultSurveillanceServiceTest {
         String user = m_service.getUsername();
     }
 
+    /**
+     * Test get username no authentication object.
+     */
     @Test
     public void testGetUsernameNoAuthenticationObject() {
         ThrowableAnticipator ta = new ThrowableAnticipator();
@@ -114,6 +133,9 @@ public class DefaultSurveillanceServiceTest {
         ta.verifyAnticipated();
     }
 
+    /**
+     * Test get username no principal object.
+     */
     @Test
     public void testGetUsernameNoPrincipalObject() {
         org.springframework.security.core.Authentication auth = new UsernamePasswordAuthenticationToken(
@@ -135,6 +157,9 @@ public class DefaultSurveillanceServiceTest {
         ta.verifyAnticipated();
     }
 
+    /**
+     * Test get rtc for set.
+     */
     @Test
     public void testGetRtcForSet() {
         UserDetails details = populateSecurityContext();
@@ -178,6 +203,11 @@ public class DefaultSurveillanceServiceTest {
         assertNotNull("rtcs should not be null", rtcs);
     }
 
+    /**
+     * Populate security context.
+     *
+     * @return the user details
+     */
     private UserDetails populateSecurityContext() {
         UserDetails details = new User("user", "password", true, true, true, true, new ArrayList<GrantedAuthority>());
         org.springframework.security.core.Authentication auth = new UsernamePasswordAuthenticationToken(

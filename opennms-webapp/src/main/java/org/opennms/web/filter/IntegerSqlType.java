@@ -46,6 +46,7 @@ public class IntegerSqlType implements SQLType<Integer> {
      * <p>
      * formatValue
      * </p>
+     * .
      *
      * @param value
      *            a {@link java.lang.Integer} object.
@@ -60,6 +61,7 @@ public class IntegerSqlType implements SQLType<Integer> {
      * <p>
      * getValueAsString
      * </p>
+     * .
      *
      * @param value
      *            a {@link java.lang.Integer} object.
@@ -74,6 +76,7 @@ public class IntegerSqlType implements SQLType<Integer> {
      * <p>
      * bindParam
      * </p>
+     * .
      *
      * @param ps
      *            a {@link java.sql.PreparedStatement} object.
@@ -81,8 +84,8 @@ public class IntegerSqlType implements SQLType<Integer> {
      *            a int.
      * @param value
      *            a {@link java.lang.Integer} object.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     @Override
     public void bindParam(PreparedStatement ps, int parameterIndex, Integer value) throws SQLException {
@@ -93,6 +96,7 @@ public class IntegerSqlType implements SQLType<Integer> {
      * <p>
      * createArray
      * </p>
+     * .
      *
      * @param value1
      *            a {@link java.lang.Integer} object.

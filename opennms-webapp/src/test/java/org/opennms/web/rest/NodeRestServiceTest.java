@@ -57,17 +57,32 @@ import org.springframework.mock.web.MockHttpServletRequest;
  * TODO
  * 1. Need to figure it out how to create a Mock for EventProxy to validate events sent by RESTful service
  */
+/**
+ * The Class NodeRestServiceTest.
+ */
 public class NodeRestServiceTest extends AbstractSpringJerseyRestTestCase {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(NodeRestServiceTest.class);
 
+    /** The m_node counter. */
     private static int m_nodeCounter = 0;
 
+    /* (non-Javadoc)
+     * @see org.opennms.web.rest.AbstractSpringJerseyRestTestCase#afterServletStart()
+     */
     @Override
     protected final void afterServletStart() throws Exception {
         MockLogAppender.setupLogging(true, "DEBUG");
         m_nodeCounter = 0;
     }
 
+    /**
+     * Test node.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public final void testNode() throws Exception {
         // Testing POST
@@ -131,6 +146,12 @@ public class NodeRestServiceTest extends AbstractSpringJerseyRestTestCase {
         sendRequest(GET, url, 204);
     }
 
+    /**
+     * Test put node.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public final void testPutNode() throws Exception {
         JAXBContext context = JAXBContext.newInstance(OnmsNodeList.class);
@@ -162,6 +183,12 @@ public class NodeRestServiceTest extends AbstractSpringJerseyRestTestCase {
         sendRequest(GET, url, 204);
     }
 
+    /**
+     * Test limits.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public final void testLimits() throws Exception {
         JAXBContext context = JAXBContext.newInstance(OnmsNodeList.class);
@@ -216,6 +243,12 @@ public class NodeRestServiceTest extends AbstractSpringJerseyRestTestCase {
         }
     }
 
+    /**
+     * Test ip interface.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public final void testIpInterface() throws Exception {
         createIpInterface();
@@ -230,6 +263,12 @@ public class NodeRestServiceTest extends AbstractSpringJerseyRestTestCase {
         sendRequest(GET, url, 204);
     }
 
+    /**
+     * Test ip interface limit.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public final void testIpInterfaceLimit() throws Exception {
         createTwoIpInterface();
@@ -245,6 +284,12 @@ public class NodeRestServiceTest extends AbstractSpringJerseyRestTestCase {
         sendRequest(GET, url, 204);
     }
 
+    /**
+     * Test ip interface by ip address.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public final void testIpInterfaceByIpAddress() throws Exception {
         createTwoIpInterface();
@@ -254,6 +299,12 @@ public class NodeRestServiceTest extends AbstractSpringJerseyRestTestCase {
 
     }
 
+    /**
+     * Test ip interface ip like filter.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public final void testIpInterfaceIpLikeFilter() throws Exception {
         createTwoIpInterface();
@@ -263,6 +314,12 @@ public class NodeRestServiceTest extends AbstractSpringJerseyRestTestCase {
 
     }
 
+    /**
+     * Test snmp interface.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public final void testSnmpInterface() throws Exception {
         createSnmpInterface();
@@ -277,6 +334,12 @@ public class NodeRestServiceTest extends AbstractSpringJerseyRestTestCase {
         sendRequest(GET, url, 204);
     }
 
+    /**
+     * Test monitored service.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public final void testMonitoredService() throws Exception {
         createService();
@@ -291,6 +354,12 @@ public class NodeRestServiceTest extends AbstractSpringJerseyRestTestCase {
         sendRequest(GET, url, 204);
     }
 
+    /**
+     * Test category.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public final void testCategory() throws Exception {
         createCategory();
@@ -305,6 +374,12 @@ public class NodeRestServiceTest extends AbstractSpringJerseyRestTestCase {
         sendRequest(GET, url, 204);
     }
 
+    /**
+     * Test node combo query.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public final void testNodeComboQuery() throws Exception {
         String url = "/nodes";
@@ -316,6 +391,12 @@ public class NodeRestServiceTest extends AbstractSpringJerseyRestTestCase {
         sendRequest(request, 200);
     }
 
+    /**
+     * Test i phone node search.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public final void testIPhoneNodeSearch() throws Exception {
         createIpInterface();
@@ -337,6 +418,9 @@ public class NodeRestServiceTest extends AbstractSpringJerseyRestTestCase {
         assertTrue(xml, xml.contains("totalCount=\"0\""));
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.web.rest.AbstractSpringJerseyRestTestCase#createNode()
+     */
     @Override
     protected void createNode() throws Exception {
         String node = "<node type=\"A\" label=\"TestMachine"
@@ -351,6 +435,9 @@ public class NodeRestServiceTest extends AbstractSpringJerseyRestTestCase {
         sendPost("/nodes", node, 303, null);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.web.rest.AbstractSpringJerseyRestTestCase#createIpInterface()
+     */
     @Override
     protected void createIpInterface() throws Exception {
         createNode();
@@ -359,6 +446,12 @@ public class NodeRestServiceTest extends AbstractSpringJerseyRestTestCase {
         sendPost("/nodes/1/ipinterfaces", ipInterface, 303, "/nodes/1/ipinterfaces/10.10.10.10");
     }
 
+    /**
+     * Creates the two ip interface.
+     *
+     * @throws Exception
+     *             the exception
+     */
     protected final void createTwoIpInterface() throws Exception {
         createNode();
         String ipInterface = "<ipInterface isManaged=\"M\" snmpPrimary=\"P\">" + "<ipAddress>10.10.10.10</ipAddress>"

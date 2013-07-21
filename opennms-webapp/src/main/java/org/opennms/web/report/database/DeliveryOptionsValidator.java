@@ -45,12 +45,14 @@ import org.springframework.binding.validation.ValidationContext;
  */
 public class DeliveryOptionsValidator {
 
+    /** The m_report scheduler service. */
     private SchedulerService m_reportSchedulerService;
 
     /**
      * <p>
      * validateDeliveryOptions
      * </p>
+     * .
      *
      * @param deliveryOptions
      *            a {@link org.opennms.reporting.core.DeliveryOptions} object.
@@ -81,6 +83,7 @@ public class DeliveryOptionsValidator {
      * <p>
      * setReportSchedulerService
      * </p>
+     * .
      *
      * @param reportSchedulerService
      *            a {@link org.opennms.web.svclayer.SchedulerService} object.

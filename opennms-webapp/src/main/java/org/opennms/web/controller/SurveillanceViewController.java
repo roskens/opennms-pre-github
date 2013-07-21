@@ -58,16 +58,21 @@ import org.springframework.web.servlet.mvc.AbstractController;
  * @since 1.8.1
  */
 public class SurveillanceViewController extends AbstractController implements InitializingBean {
+
+    /** The Constant VIEW_NAME_PARAMETER. */
     private static final String VIEW_NAME_PARAMETER = "viewName";
 
+    /** The Constant PROGRESS_MONITOR_KEY. */
     private static final String PROGRESS_MONITOR_KEY = "surveillanceViewProgressMonitor";
 
+    /** The m_service. */
     private SurveillanceService m_service;
 
     /**
      * <p>
      * setService
      * </p>
+     * .
      *
      * @param svc
      *            a {@link org.opennms.web.svclayer.SurveillanceService} object.
@@ -80,6 +85,7 @@ public class SurveillanceViewController extends AbstractController implements In
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      */
     @Override
     public final void afterPropertiesSet() {
@@ -125,6 +131,13 @@ public class SurveillanceViewController extends AbstractController implements In
 
     }
 
+    /**
+     * Creates the progress monitor.
+     *
+     * @param viewName
+     *            the view name
+     * @return the progress monitor
+     */
     private ProgressMonitor createProgressMonitor(final String viewName) {
         ProgressMonitor progressMonitor;
         final ProgressMonitor monitor = new ProgressMonitor();
@@ -146,6 +159,13 @@ public class SurveillanceViewController extends AbstractController implements In
         return progressMonitor;
     }
 
+    /**
+     * Creates the surveillance view error.
+     *
+     * @param viewName
+     *            the view name
+     * @return the surveillance view error
+     */
     private SurveillanceViewError createSurveillanceViewError(final String viewName) {
         SurveillanceViewError viewError = new SurveillanceViewError();
         if (viewName == null) {

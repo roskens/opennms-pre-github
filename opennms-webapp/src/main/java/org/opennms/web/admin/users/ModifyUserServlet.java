@@ -43,7 +43,7 @@ import org.opennms.netmgt.config.users.User;
 
 /**
  * A servlet that handles putting the User object into the request and
- * forwarding on to a particular jsp
+ * forwarding on to a particular jsp.
  *
  * @author <A HREF="mailto:larry@opennms.org">Lawrence Karnowski </A>
  * @author <A HREF="http://www.opennms.org/">OpenNMS </A>
@@ -53,9 +53,8 @@ import org.opennms.netmgt.config.users.User;
  * @since 1.8.1
  */
 public class ModifyUserServlet extends HttpServlet {
-    /**
-     *
-     */
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -1842417702112069134L;
 
     /** {@inheritDoc} */

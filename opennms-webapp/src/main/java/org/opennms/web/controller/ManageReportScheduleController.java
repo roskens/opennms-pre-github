@@ -52,8 +52,10 @@ import org.springframework.web.servlet.mvc.SimpleFormController;
  */
 public class ManageReportScheduleController extends SimpleFormController {
 
+    /** The m_report scheduler service. */
     private SchedulerService m_reportSchedulerService;
 
+    /** The m_page size. */
     private int m_pageSize;
 
     /**
@@ -69,6 +71,7 @@ public class ManageReportScheduleController extends SimpleFormController {
      * <p>
      * setReportSchedulerService
      * </p>
+     * .
      *
      * @param schedulerService
      *            a {@link org.opennms.web.svclayer.SchedulerService} object.
@@ -81,6 +84,7 @@ public class ManageReportScheduleController extends SimpleFormController {
      * <p>
      * setPageSize
      * </p>
+     * .
      *
      * @param pageSize
      *            a int.

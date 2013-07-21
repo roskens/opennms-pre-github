@@ -47,6 +47,7 @@ import org.opennms.web.svclayer.daemonstatus.DaemonStatusService;
  */
 public class DefaultDaemonStatusService implements DaemonStatusService {
 
+    /** The daemon status dao. */
     private DaemonStatusDao daemonStatusDao;
 
     /**
@@ -65,6 +66,7 @@ public class DefaultDaemonStatusService implements DaemonStatusService {
      * <p>
      * getCurrentDaemonStatus
      * </p>
+     * .
      *
      * @return a {@link java.util.Map} object.
      */
@@ -79,6 +81,7 @@ public class DefaultDaemonStatusService implements DaemonStatusService {
      * <p>
      * getCurrentDaemonStatusColl
      * </p>
+     * .
      *
      * @return a {@link java.util.Collection} object.
      */
@@ -93,6 +96,7 @@ public class DefaultDaemonStatusService implements DaemonStatusService {
      * <p>
      * performOperationOnDaemons
      * </p>
+     * .
      *
      * @param operation
      *            a {@link java.lang.String} object.

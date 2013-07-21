@@ -35,10 +35,23 @@ import org.opennms.netmgt.config.discovery.DiscoveryConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The Class GeneralSettingsLoader.
+ */
 class GeneralSettingsLoader {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(GeneralSettingsLoader.class);
 
-    /** Constant <code>log</code> */
+    /**
+     * Constant <code>log</code>.
+     *
+     * @param request
+     *            the request
+     * @param config
+     *            the config
+     * @return the discovery configuration
+     */
 
     /**
      * <p>

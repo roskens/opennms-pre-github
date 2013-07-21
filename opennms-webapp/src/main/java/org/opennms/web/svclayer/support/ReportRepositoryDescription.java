@@ -28,20 +28,28 @@
 
 package org.opennms.web.svclayer.support;
 
+/**
+ * The Class ReportRepositoryDescription.
+ */
 public class ReportRepositoryDescription {
 
+    /** The m_id. */
     private String m_id;
 
+    /** The m_display name. */
     private String m_displayName;
 
+    /** The m_description. */
     private String m_description;
 
+    /** The m_management url. */
     private String m_managementUrl;
 
     /**
      * <p>
      * getId
      * </p>
+     * .
      *
      * @return a {@link String} object.
      */
@@ -53,6 +61,7 @@ public class ReportRepositoryDescription {
      * <p>
      * setId
      * </p>
+     * .
      *
      * @param id
      *            a {@link String} object.
@@ -65,6 +74,7 @@ public class ReportRepositoryDescription {
      * <p>
      * getDisplayName
      * </p>
+     * .
      *
      * @return a {@link String} object.
      */
@@ -76,6 +86,7 @@ public class ReportRepositoryDescription {
      * <p>
      * setDisplayName
      * </p>
+     * .
      *
      * @param displayName
      *            a {@link String} object.
@@ -89,6 +100,7 @@ public class ReportRepositoryDescription {
      * <p>
      * getDescription
      * </p>
+     * .
      *
      * @return a {@link String} object.
      */
@@ -100,6 +112,7 @@ public class ReportRepositoryDescription {
      * <p>
      * setDescription
      * </p>
+     * .
      *
      * @param description
      *            a {@link String} object.
@@ -112,6 +125,7 @@ public class ReportRepositoryDescription {
      * <p>
      * getManagementUrl
      * </p>
+     * .
      *
      * @return a {@link String} object.
      */
@@ -123,6 +137,7 @@ public class ReportRepositoryDescription {
      * <p>
      * setManagementUrl
      * </p>
+     * .
      *
      * @param managementUrl
      *            a {@link String} object.

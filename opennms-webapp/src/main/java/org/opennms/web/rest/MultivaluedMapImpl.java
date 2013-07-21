@@ -46,15 +46,21 @@ import javax.ws.rs.core.MultivaluedMap;
  */
 public class MultivaluedMapImpl extends HashMap<String, List<String>> implements MultivaluedMap<String, String> {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 8520828454808579795L;
 
+    /**
+     * Instantiates a new multivalued map impl.
+     */
     public MultivaluedMapImpl() {
         super();
     }
 
     /**
-     * This constructor can be used as a convenience method to create populated
-     * {@link MultivaluedMapImpl} instances.
+     * This constructor can be used as a convenience method to create populated.
+     *
+     * @param keyValuePairs
+     *            the key value pairs {@link MultivaluedMapImpl} instances.
      */
     public MultivaluedMapImpl(String[][] keyValuePairs) {
         super();
@@ -67,6 +73,7 @@ public class MultivaluedMapImpl extends HashMap<String, List<String>> implements
      * <p>
      * add
      * </p>
+     * .
      *
      * @param key
      *            a {@link java.lang.String} object.
@@ -87,6 +94,7 @@ public class MultivaluedMapImpl extends HashMap<String, List<String>> implements
      * <p>
      * getFirst
      * </p>
+     * .
      *
      * @param key
      *            a {@link java.lang.String} object.
@@ -105,6 +113,7 @@ public class MultivaluedMapImpl extends HashMap<String, List<String>> implements
      * <p>
      * putSingle
      * </p>
+     * .
      *
      * @param key
      *            a {@link java.lang.String} object.
@@ -122,6 +131,7 @@ public class MultivaluedMapImpl extends HashMap<String, List<String>> implements
      * <p>
      * put
      * </p>
+     * .
      *
      * @param key
      *            a {@link java.lang.String} object.

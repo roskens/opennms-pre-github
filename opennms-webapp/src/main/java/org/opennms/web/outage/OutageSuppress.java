@@ -45,6 +45,7 @@ public class OutageSuppress {
      * <p>
      * SuppressOutage
      * </p>
+     * .
      *
      * @param outageID
      *            a {@link java.lang.Integer} object.
@@ -63,6 +64,7 @@ public class OutageSuppress {
      * <p>
      * UnSuppressOutage
      * </p>
+     * .
      *
      * @param outageID
      *            a {@link java.lang.Integer} object.
@@ -79,6 +81,7 @@ public class OutageSuppress {
      * <p>
      * SubmitOutageSuppressedEvent
      * </p>
+     * .
      *
      * @param outageID
      *            a {@link java.lang.Integer} object.
@@ -95,6 +98,7 @@ public class OutageSuppress {
      * <p>
      * SubmitUnSuppressedEvent
      * </p>
+     * .
      *
      * @param outageID
      *            a {@link java.lang.Integer} object.

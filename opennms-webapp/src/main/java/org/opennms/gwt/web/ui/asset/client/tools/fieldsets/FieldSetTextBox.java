@@ -36,29 +36,65 @@ import com.google.gwt.uibinder.client.UiConstructor;
 import com.google.gwt.user.client.ui.TextBox;
 
 /**
- * @author <a href="mailto:MarkusNeumannMarkus@gmail.com">Markus Neumann</a>
- *         <br/> {@link FieldSet} for displaying and editing text as a textbox.
+ * The Class FieldSetTextBox.
+ *
+ * @author <a href="mailto:MarkusNeumannMarkus@gmail.com">Markus Neumann</a> <br/>
+ *         {@link FieldSet} for displaying and editing text as a textbox.
  */
 public class FieldSetTextBox extends AbstractFieldSet implements FieldSet, KeyUpHandler {
 
+    /** The text box. */
     protected TextBox textBox = new TextBox();
 
+    /**
+     * Instantiates a new field set text box.
+     *
+     * @param name
+     *            the name
+     * @param value
+     *            the value
+     * @param helpText
+     *            the help text
+     */
     public FieldSetTextBox(String name, String value, String helpText) {
         super(name, helpText);
         init(value, -1);
     }
 
+    /**
+     * Instantiates a new field set text box.
+     *
+     * @param name
+     *            the name
+     * @param value
+     *            the value
+     * @param helpText
+     *            the help text
+     * @param maxLength
+     *            the max length
+     */
     @UiConstructor
     public FieldSetTextBox(String name, String value, String helpText, int maxLength) {
         super(name, helpText);
         init(value, maxLength);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.gwt.web.ui.asset.client.tools.fieldsets.FieldSet#getValue()
+     */
     @Override
     public String getValue() {
         return textBox.getText();
     }
 
+    /**
+     * Inits the.
+     *
+     * @param value
+     *            the value
+     * @param maxLength
+     *            the max length
+     */
     private void init(String value, int maxLength) {
         if (maxLength > 0) {
             addErrorValidator(new StringMaxLengthValidator(maxLength));
@@ -73,16 +109,25 @@ public class FieldSetTextBox extends AbstractFieldSet implements FieldSet, KeyUp
         panel.add(textBox);
     }
 
+    /* (non-Javadoc)
+     * @see com.google.gwt.event.dom.client.KeyUpHandler#onKeyUp(com.google.gwt.event.dom.client.KeyUpEvent)
+     */
     @Override
     public void onKeyUp(KeyUpEvent event) {
         checkField();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.gwt.web.ui.asset.client.tools.fieldsets.FieldSet#setEnabled(java.lang.Boolean)
+     */
     @Override
     public void setEnabled(Boolean enabled) {
         textBox.setEnabled(enabled);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.gwt.web.ui.asset.client.tools.fieldsets.FieldSet#setValue(java.lang.String)
+     */
     @Override
     public void setValue(String value) {
         textBox.setText(value);

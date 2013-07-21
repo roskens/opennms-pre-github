@@ -51,8 +51,10 @@ import org.springframework.web.servlet.mvc.AbstractController;
  */
 public class IndexController extends AbstractController implements InitializingBean {
 
+    /** The m_resource service. */
     private ResourceService m_resourceService;
 
+    /** The m_ksc report service. */
     private KscReportService m_kscReportService;
 
     /** {@inheritDoc} */
@@ -81,6 +83,7 @@ public class IndexController extends AbstractController implements InitializingB
      * <p>
      * getResourceService
      * </p>
+     * .
      *
      * @return a {@link org.opennms.web.svclayer.ResourceService} object.
      */
@@ -92,6 +95,7 @@ public class IndexController extends AbstractController implements InitializingB
      * <p>
      * setResourceService
      * </p>
+     * .
      *
      * @param resourceService
      *            a {@link org.opennms.web.svclayer.ResourceService} object.
@@ -104,6 +108,7 @@ public class IndexController extends AbstractController implements InitializingB
      * <p>
      * getKscReportService
      * </p>
+     * .
      *
      * @return a {@link org.opennms.web.svclayer.KscReportService} object.
      */
@@ -115,6 +120,7 @@ public class IndexController extends AbstractController implements InitializingB
      * <p>
      * setKscReportService
      * </p>
+     * .
      *
      * @param kscReportService
      *            a {@link org.opennms.web.svclayer.KscReportService} object.
@@ -127,9 +133,10 @@ public class IndexController extends AbstractController implements InitializingB
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @Override
     public void afterPropertiesSet() throws Exception {

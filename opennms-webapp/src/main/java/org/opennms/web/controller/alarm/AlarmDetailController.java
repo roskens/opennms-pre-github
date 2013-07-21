@@ -53,25 +53,20 @@ import org.springframework.web.servlet.view.RedirectView;
  */
 public class AlarmDetailController extends MultiActionController {
 
-    /**
-     * OpenNMS alarm repository
-     */
+    /** OpenNMS alarm repository. */
     private AlarmRepository m_webAlarmRepository;
 
-    /**
-     * Alarm to display
-     */
+    /** Alarm to display. */
     private OnmsAlarm m_alarm;
 
-    /**
-     * Logging
-     */
+    /** Logging. */
     private Logger logger = LoggerFactory.getLogger("OpenNMS.WEB." + AlarmDetailController.class.getName());
 
     /**
      * <p>
      * setWebAlarmRepository
      * </p>
+     * .
      *
      * @param webAlarmRepository
      *            a {@link org.opennms.netmgt.dao.api.AlarmRepository} object.
@@ -84,9 +79,10 @@ public class AlarmDetailController extends MultiActionController {
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     public final void afterPropertiesSet() throws Exception {
         Assert.notNull(m_webAlarmRepository, "webAlarmRepository must be set");
@@ -134,6 +130,17 @@ public class AlarmDetailController extends MultiActionController {
         return mv;
     }
 
+    /**
+     * Removes the sticky memo.
+     *
+     * @param httpServletRequest
+     *            the http servlet request
+     * @param httpServletResponse
+     *            the http servlet response
+     * @return the model and view
+     * @throws Exception
+     *             the exception
+     */
     public final ModelAndView removeStickyMemo(final HttpServletRequest httpServletRequest,
             final HttpServletResponse httpServletResponse) throws Exception {
         int alarmId;
@@ -153,6 +160,17 @@ public class AlarmDetailController extends MultiActionController {
         }
     }
 
+    /**
+     * Save sticky memo.
+     *
+     * @param httpServletRequest
+     *            the http servlet request
+     * @param httpServletResponse
+     *            the http servlet response
+     * @return the model and view
+     * @throws Exception
+     *             the exception
+     */
     public final ModelAndView saveStickyMemo(final HttpServletRequest httpServletRequest,
             final HttpServletResponse httpServletResponse) throws Exception {
         int alarmId;
@@ -172,6 +190,17 @@ public class AlarmDetailController extends MultiActionController {
         }
     }
 
+    /**
+     * Removes the journal memo.
+     *
+     * @param httpServletRequest
+     *            the http servlet request
+     * @param httpServletResponse
+     *            the http servlet response
+     * @return the model and view
+     * @throws Exception
+     *             the exception
+     */
     public final ModelAndView removeJournalMemo(final HttpServletRequest httpServletRequest,
             final HttpServletResponse httpServletResponse) throws Exception {
         int alarmId;
@@ -191,6 +220,17 @@ public class AlarmDetailController extends MultiActionController {
         }
     }
 
+    /**
+     * Save journal memo.
+     *
+     * @param httpServletRequest
+     *            the http servlet request
+     * @param httpServletResponse
+     *            the http servlet response
+     * @return the model and view
+     * @throws Exception
+     *             the exception
+     */
     public final ModelAndView saveJournalMemo(final HttpServletRequest httpServletRequest,
             final HttpServletResponse httpServletResponse) throws Exception {
         int alarmId;

@@ -31,15 +31,19 @@ package org.opennms.gwt.web.ui.asset.client.presenter;
 import com.google.gwt.user.client.ui.HasWidgets;
 
 /**
- * @author <a href="mailto:MarkusNeumannMarkus@gmail.com">Markus Neumann</a>
- *         <br/> Presenter interface recommended for GWT MVP design.
+ * The Interface Presenter.
+ *
+ * @author <a href="mailto:MarkusNeumannMarkus@gmail.com">Markus Neumann</a> <br/>
+ *         Presenter interface recommended for GWT MVP design.
  */
 public interface Presenter {
+
     /**
      * Start-up method for presenters recommended for GWT MVP design. First
      * method to start a presenter.
      *
-     * @param {@link HasWidgets}, the area that will be controlled by presenter.
+     * @param container
+     *            the container
      */
     public abstract void go(final HasWidgets container);
 }

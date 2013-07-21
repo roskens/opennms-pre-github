@@ -50,15 +50,14 @@ import org.opennms.netmgt.config.users.Password;
 import org.opennms.netmgt.config.users.User;
 
 /**
- * A servlet that handles saving a user
+ * A servlet that handles saving a user.
  *
  * @author <A HREF="mailto:jason@opennms.org">Jason Johns</A>
  * @author <A HREF="http://www.opennms.org/">OpenNMS</A>
  */
 public class UpdateUserServlet extends HttpServlet {
-    /**
-     *
-     */
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -945279264373810897L;
 
     /** {@inheritDoc} */
@@ -191,6 +190,13 @@ public class UpdateUserServlet extends HttpServlet {
         dispatcher.forward(request, response);
     }
 
+    /**
+     * Gets the duty schedules for user.
+     *
+     * @param newUser
+     *            the new user
+     * @return the duty schedules for user
+     */
     private List<String> getDutySchedulesForUser(User newUser) {
         return newUser.getDutyScheduleCollection();
     }

@@ -43,24 +43,35 @@ import org.opennms.web.api.Util;
  * @author <a href="mailto:antonio@opennms.it">Antonio Russo</a>
  */
 public class LinkInterface {
+
+    /** The m_iface. */
     private final Interface m_iface;
 
+    /** The m_linked interface. */
     private final Interface m_linkedInterface;
 
+    /** The m_last poll time. */
     private final String m_lastPollTime;
 
+    /** The m_status. */
     private final String m_status;
 
+    /** The m_linktypeid. */
     private final Integer m_linktypeid;
 
+    /** The m_node id. */
     private final Integer m_nodeId;
 
+    /** The m_ifindex. */
     private final Integer m_ifindex;
 
+    /** The m_linked node id. */
     private final Integer m_linkedNodeId;
 
+    /** The m_linked ifindex. */
     private final Integer m_linkedIfindex;
 
+    /** The Constant linktypeMap. */
     private static final Map<Integer, String> linktypeMap = new HashMap<Integer, String>();
 
     static {
@@ -69,6 +80,18 @@ public class LinkInterface {
         linktypeMap.put(1777, "Summary Link");
     }
 
+    /**
+     * Instantiates a new link interface.
+     *
+     * @param dl
+     *            the dl
+     * @param isParent
+     *            the is parent
+     * @param iface
+     *            the iface
+     * @param linkedIface
+     *            the linked iface
+     */
     LinkInterface(DataLinkInterface dl, boolean isParent, Interface iface, Interface linkedIface) {
         if (isParent) {
             m_nodeId = dl.getNodeParentId();
@@ -92,6 +115,7 @@ public class LinkInterface {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -105,18 +129,38 @@ public class LinkInterface {
         return str.toString();
     }
 
+    /**
+     * Gets the node id.
+     *
+     * @return the node id
+     */
     public Integer getNodeId() {
         return m_nodeId;
     }
 
+    /**
+     * Gets the ifindex.
+     *
+     * @return the ifindex
+     */
     public Integer getIfindex() {
         return m_ifindex;
     }
 
+    /**
+     * Gets the linked node id.
+     *
+     * @return the linked node id
+     */
     public Integer getLinkedNodeId() {
         return m_linkedNodeId;
     }
 
+    /**
+     * Gets the linked ifindex.
+     *
+     * @return the linked ifindex
+     */
     public Integer getLinkedIfindex() {
         return m_linkedIfindex;
     }
@@ -125,6 +169,7 @@ public class LinkInterface {
      * <p>
      * get_lastPollTime
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -136,7 +181,7 @@ public class LinkInterface {
      * <p>
      * get_status
      * </p>
-     * m
+     * m.
      *
      * @return a char.
      */
@@ -144,30 +189,60 @@ public class LinkInterface {
         return m_status;
     }
 
+    /**
+     * Gets the linktype id.
+     *
+     * @return the linktype id
+     */
     public Integer getLinktypeId() {
         return m_linktypeid;
     }
 
+    /**
+     * Gets the link type id string.
+     *
+     * @return the link type id string
+     */
     public String getLinkTypeIdString() {
         if (linktypeMap.containsKey(m_linktypeid))
             return linktypeMap.get(m_linktypeid);
         return null;
     }
 
+    /**
+     * Gets the linked interface.
+     *
+     * @return the linked interface
+     */
     public Interface getLinkedInterface() {
         return m_linkedInterface;
     }
 
+    /**
+     * Gets the interface.
+     *
+     * @return the interface
+     */
     public Interface getInterface() {
         return m_iface;
     }
 
+    /**
+     * Checks for interface.
+     *
+     * @return true, if successful
+     */
     public boolean hasInterface() {
         if (m_iface == null)
             return false;
         return true;
     }
 
+    /**
+     * Checks for linked interface.
+     *
+     * @return true, if successful
+     */
     public boolean hasLinkedInterface() {
         if (m_linkedInterface == null)
             return false;

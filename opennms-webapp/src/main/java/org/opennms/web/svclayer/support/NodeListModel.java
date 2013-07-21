@@ -45,8 +45,11 @@ import org.opennms.netmgt.model.OnmsSnmpInterface;
  * @since 1.8.1
  */
 public class NodeListModel {
+
+    /** The m_nodes. */
     private List<NodeModel> m_nodes;
 
+    /** The m_interface count. */
     private int m_interfaceCount;
 
     /**
@@ -68,6 +71,7 @@ public class NodeListModel {
      * <p>
      * getNodes
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -79,6 +83,7 @@ public class NodeListModel {
      * <p>
      * getNodesLeft
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -90,6 +95,7 @@ public class NodeListModel {
      * <p>
      * getNodesRight
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -101,6 +107,7 @@ public class NodeListModel {
      * <p>
      * getLastInLeftColumn
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -112,6 +119,7 @@ public class NodeListModel {
      * <p>
      * getNodeCount
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -123,6 +131,7 @@ public class NodeListModel {
      * <p>
      * getInterfaceCount
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -130,15 +139,35 @@ public class NodeListModel {
         return m_interfaceCount;
     }
 
+    /**
+     * The Class NodeModel.
+     */
     public static class NodeModel {
+
+        /** The m_node. */
         private OnmsNode m_node;
 
+        /** The m_interfaces. */
         private List<OnmsIpInterface> m_interfaces;
 
+        /** The m_arpinterfaces. */
         private List<OnmsArpInterface> m_arpinterfaces;
 
+        /** The m_snmpinterfaces. */
         private List<OnmsSnmpInterface> m_snmpinterfaces;
 
+        /**
+         * Instantiates a new node model.
+         *
+         * @param node
+         *            the node
+         * @param interfaces
+         *            the interfaces
+         * @param arpinterfaces
+         *            the arpinterfaces
+         * @param snmpinterfaces
+         *            the snmpinterfaces
+         */
         public NodeModel(final OnmsNode node, final List<OnmsIpInterface> interfaces,
                 final List<OnmsArpInterface> arpinterfaces, final List<OnmsSnmpInterface> snmpinterfaces) {
             m_node = node;
@@ -147,18 +176,38 @@ public class NodeListModel {
             m_snmpinterfaces = snmpinterfaces;
         }
 
+        /**
+         * Gets the node.
+         *
+         * @return the node
+         */
         public final OnmsNode getNode() {
             return m_node;
         }
 
+        /**
+         * Gets the interfaces.
+         *
+         * @return the interfaces
+         */
         public final List<OnmsIpInterface> getInterfaces() {
             return m_interfaces;
         }
 
+        /**
+         * Gets the arp interfaces.
+         *
+         * @return the arp interfaces
+         */
         public final List<OnmsArpInterface> getArpInterfaces() {
             return m_arpinterfaces;
         }
 
+        /**
+         * Gets the snmp interfaces.
+         *
+         * @return the snmp interfaces
+         */
         public final List<OnmsSnmpInterface> getSnmpInterfaces() {
             return m_snmpinterfaces;
         }

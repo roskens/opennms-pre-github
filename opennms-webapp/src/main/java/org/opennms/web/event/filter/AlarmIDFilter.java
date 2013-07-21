@@ -39,7 +39,8 @@ import org.opennms.web.filter.SQLType;
  * @since 1.8.1
  */
 public class AlarmIDFilter extends EqualsFilter<Integer> {
-    /** Constant <code>TYPE="alarm"</code> */
+
+    /** Constant <code>TYPE="alarm"</code>. */
     public static final String TYPE = "alarm";
 
     /**
@@ -58,6 +59,7 @@ public class AlarmIDFilter extends EqualsFilter<Integer> {
      * <p>
      * getTextDescription
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -70,6 +72,7 @@ public class AlarmIDFilter extends EqualsFilter<Integer> {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -82,6 +85,7 @@ public class AlarmIDFilter extends EqualsFilter<Integer> {
      * <p>
      * getAlarmId
      * </p>
+     * .
      *
      * @return a int.
      */

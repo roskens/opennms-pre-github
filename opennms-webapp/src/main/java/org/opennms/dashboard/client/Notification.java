@@ -46,28 +46,38 @@ import com.google.gwt.user.client.rpc.IsSerializable;
  */
 public class Notification implements IsSerializable {
 
+    /** The m_node label. */
     private String m_nodeLabel;
 
+    /** The m_node id. */
     private String m_nodeId;
 
+    /** The m_service name. */
     private String m_serviceName;
 
+    /** The m_severity. */
     private String m_severity;
 
+    /** The m_sent time. */
     private Date m_sentTime;
 
+    /** The m_responder. */
     private String m_responder;
 
+    /** The m_respond time. */
     private Date m_respondTime;
 
+    /** The m_text message. */
     private String m_textMessage;
 
+    /** The m_is dashboard role. */
     private boolean m_isDashboardRole;
 
     /**
      * <p>
      * getNodeLabel
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -79,6 +89,7 @@ public class Notification implements IsSerializable {
      * <p>
      * setNodeLabel
      * </p>
+     * .
      *
      * @param nodeLabel
      *            a {@link java.lang.String} object.
@@ -91,6 +102,7 @@ public class Notification implements IsSerializable {
      * <p>
      * getResponder
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -102,6 +114,7 @@ public class Notification implements IsSerializable {
      * <p>
      * setResponder
      * </p>
+     * .
      *
      * @param responder
      *            a {@link java.lang.String} object.
@@ -114,6 +127,7 @@ public class Notification implements IsSerializable {
      * <p>
      * getRespondTime
      * </p>
+     * .
      *
      * @return a java$util$Date object.
      */
@@ -125,6 +139,7 @@ public class Notification implements IsSerializable {
      * <p>
      * setRespondTime
      * </p>
+     * .
      *
      * @param respondTime
      *            a java$util$Date object.
@@ -137,6 +152,7 @@ public class Notification implements IsSerializable {
      * <p>
      * getSentTime
      * </p>
+     * .
      *
      * @return a java$util$Date object.
      */
@@ -148,6 +164,7 @@ public class Notification implements IsSerializable {
      * <p>
      * setSentTime
      * </p>
+     * .
      *
      * @param sentTime
      *            a java$util$Date object.
@@ -160,6 +177,7 @@ public class Notification implements IsSerializable {
      * <p>
      * getServiceName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -171,6 +189,7 @@ public class Notification implements IsSerializable {
      * <p>
      * setServiceName
      * </p>
+     * .
      *
      * @param serviceName
      *            a {@link java.lang.String} object.
@@ -183,6 +202,7 @@ public class Notification implements IsSerializable {
      * <p>
      * getSeverity
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -194,6 +214,7 @@ public class Notification implements IsSerializable {
      * <p>
      * setSeverity
      * </p>
+     * .
      *
      * @param severity
      *            a {@link java.lang.String} object.
@@ -206,6 +227,7 @@ public class Notification implements IsSerializable {
      * <p>
      * getTextMessage
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -217,6 +239,7 @@ public class Notification implements IsSerializable {
      * <p>
      * setTextMessage
      * </p>
+     * .
      *
      * @param message
      *            a {@link java.lang.String} object.
@@ -229,6 +252,7 @@ public class Notification implements IsSerializable {
      * <p>
      * setIsDashboardRole
      * </p>
+     * .
      *
      * @param isDashboardRole
      *            a boolean.
@@ -241,6 +265,7 @@ public class Notification implements IsSerializable {
      * <p>
      * getIsDashboardRole
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -252,6 +277,7 @@ public class Notification implements IsSerializable {
      * <p>
      * getNodeId
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -263,6 +289,7 @@ public class Notification implements IsSerializable {
      * <p>
      * setNodeId
      * </p>
+     * .
      *
      * @param nodeId
      *            a {@link java.lang.String} object.

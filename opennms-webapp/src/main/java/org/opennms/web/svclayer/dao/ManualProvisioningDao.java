@@ -47,6 +47,7 @@ public interface ManualProvisioningDao {
      * <p>
      * getProvisioningGroupNames
      * </p>
+     * .
      *
      * @return a {@link java.util.Collection} object.
      */
@@ -56,6 +57,7 @@ public interface ManualProvisioningDao {
      * <p>
      * get
      * </p>
+     * .
      *
      * @param name
      *            a {@link java.lang.String} object.
@@ -69,6 +71,7 @@ public interface ManualProvisioningDao {
      * <p>
      * save
      * </p>
+     * .
      *
      * @param groupName
      *            a {@link java.lang.String} object.
@@ -83,6 +86,7 @@ public interface ManualProvisioningDao {
      * <p>
      * getUrlForGroup
      * </p>
+     * .
      *
      * @param groupName
      *            a {@link java.lang.String} object.
@@ -94,6 +98,7 @@ public interface ManualProvisioningDao {
      * <p>
      * delete
      * </p>
+     * .
      *
      * @param groupName
      *            a {@link java.lang.String} object.

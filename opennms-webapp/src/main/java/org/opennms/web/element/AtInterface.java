@@ -39,21 +39,35 @@ import org.opennms.netmgt.model.OnmsArpInterface.StatusType;
  * @author <a href="mailto:antonio@opennms.it">Antonio Russo</a>
  */
 public class AtInterface {
+
+    /** The m_node id. */
     private final int m_nodeId;
 
+    /** The m_sourcenodeid. */
     private final int m_sourcenodeid;
 
+    /** The m_ifindex. */
     private final int m_ifindex;
 
+    /** The m_ipaddr. */
     private final String m_ipaddr;
 
+    /** The m_physaddr. */
     private final String m_physaddr;
 
+    /** The m_last poll time. */
     private final String m_lastPollTime;
 
+    /** The m_status. */
     private final String m_status;
 
     /* package-protected so only the NetworkElementFactory can instantiate */
+    /**
+     * Instantiates a new at interface.
+     *
+     * @param iface
+     *            the iface
+     */
     AtInterface(OnmsArpInterface iface) {
         m_nodeId = iface.getNode().getId();
         m_sourcenodeid = iface.getSourceNode().getId();
@@ -68,6 +82,7 @@ public class AtInterface {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -85,6 +100,7 @@ public class AtInterface {
      * <p>
      * get_ifindex
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -96,6 +112,7 @@ public class AtInterface {
      * <p>
      * get_ipaddr
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -107,6 +124,7 @@ public class AtInterface {
      * <p>
      * get_lastPollTime
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -118,6 +136,7 @@ public class AtInterface {
      * <p>
      * get_nodeId
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -129,6 +148,7 @@ public class AtInterface {
      * <p>
      * get_physaddr
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -140,6 +160,7 @@ public class AtInterface {
      * <p>
      * get_sourcenodeid
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -151,6 +172,7 @@ public class AtInterface {
      * <p>
      * get_status
      * </p>
+     * .
      *
      * @return a char.
      */

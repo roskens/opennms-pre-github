@@ -59,21 +59,26 @@ import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
 /**
- * A servlet that handles deleting nodes from the database
+ * A servlet that handles deleting nodes from the database.
  *
  * @author <A HREF="mailto:tarus@opennms.org">Tarus Balog </A>
  * @author <A HREF="http://www.opennms.org/">OpenNMS </A>
  */
 public class DeleteNodesServlet extends HttpServlet {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(DeleteNodesServlet.class);
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 573510937493956121L;
 
+    /** The m_snmp rrd directory. */
     private File m_snmpRrdDirectory;
 
+    /** The m_rt rrd directory. */
     private File m_rtRrdDirectory;
 
+    /** The m_resource service. */
     private ResourceService m_resourceService;
 
     /** {@inheritDoc} */
@@ -145,6 +150,15 @@ public class DeleteNodesServlet extends HttpServlet {
         dispatcher.forward(request, response);
     }
 
+    /**
+     * Gets the ip addrs for node.
+     *
+     * @param nodeId
+     *            the node id
+     * @return the ip addrs for node
+     * @throws ServletException
+     *             the servlet exception
+     */
     private List<String> getIpAddrsForNode(Integer nodeId) throws ServletException {
         List<String> ipAddrs = new ArrayList<String>();
         final DBUtils d = new DBUtils(getClass());
@@ -170,6 +184,14 @@ public class DeleteNodesServlet extends HttpServlet {
         return ipAddrs;
     }
 
+    /**
+     * Send delete node event.
+     *
+     * @param node
+     *            the node
+     * @throws ServletException
+     *             the servlet exception
+     */
     private void sendDeleteNodeEvent(int node) throws ServletException {
         EventBuilder bldr = new EventBuilder(EventConstants.DELETE_NODE_EVENT_UEI, "web ui");
         bldr.setNodeid(node);
@@ -179,6 +201,14 @@ public class DeleteNodesServlet extends HttpServlet {
         sendEvent(bldr.getEvent());
     }
 
+    /**
+     * Send event.
+     *
+     * @param event
+     *            the event
+     * @throws ServletException
+     *             the servlet exception
+     */
     private void sendEvent(Event event) throws ServletException {
         try {
             Util.createEventProxy().send(event);
@@ -187,6 +217,13 @@ public class DeleteNodesServlet extends HttpServlet {
         }
     }
 
+    /**
+     * Gets the list.
+     *
+     * @param array
+     *            the array
+     * @return the list
+     */
     private List<Integer> getList(String[] array) {
         if (array == null) {
             return new ArrayList<Integer>(0);
@@ -204,6 +241,8 @@ public class DeleteNodesServlet extends HttpServlet {
      * If a deletion fails, the method stops attempting to delete and returns
      * false.
      *
+     * @param file
+     *            the file
      * @return true if all deletions were successful, false otherwise.
      */
     private boolean deleteDir(File file) {

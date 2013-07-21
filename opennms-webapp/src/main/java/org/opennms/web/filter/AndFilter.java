@@ -33,7 +33,7 @@ import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
 
 /**
- * AndFilter
+ * AndFilter.
  *
  * @author brozow
  * @version $Id: $

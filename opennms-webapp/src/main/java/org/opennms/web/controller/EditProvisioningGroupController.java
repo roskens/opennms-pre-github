@@ -55,71 +55,150 @@ import org.springframework.web.servlet.mvc.SimpleFormController;
  */
 public class EditProvisioningGroupController extends SimpleFormController {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(EditProvisioningGroupController.class);
 
+    /**
+     * The Class TreeCommand.
+     */
     public static class TreeCommand {
+
+        /** The m_form path. */
         private String m_formPath;
 
+        /** The m_action. */
         private String m_action;
 
+        /** The m_form data. */
         private Requisition m_formData;
 
+        /** The m_current node. */
         private String m_currentNode;
 
+        /** The m_group name. */
         private String m_groupName = "hardcoded";
 
+        /**
+         * Gets the action.
+         *
+         * @return the action
+         */
         public final String getAction() {
             return m_action;
         }
 
+        /**
+         * Sets the action.
+         *
+         * @param action
+         *            the new action
+         */
         public final void setAction(final String action) {
             m_action = action;
         }
 
+        /**
+         * Gets the group name.
+         *
+         * @return the group name
+         */
         public final String getGroupName() {
             return m_groupName;
         }
 
+        /**
+         * Sets the group name.
+         *
+         * @param groupName
+         *            the new group name
+         */
         public final void setGroupName(final String groupName) {
             m_groupName = groupName;
         }
 
+        /**
+         * Gets the form data.
+         *
+         * @return the form data
+         */
         public final Requisition getFormData() {
             return m_formData;
         }
 
+        /**
+         * Sets the form data.
+         *
+         * @param importData
+         *            the new form data
+         */
         public final void setFormData(final Requisition importData) {
             m_formData = importData;
         }
 
+        /**
+         * Gets the form path.
+         *
+         * @return the form path
+         */
         public final String getFormPath() {
             return m_formPath;
         }
 
+        /**
+         * Sets the form path.
+         *
+         * @param target
+         *            the new form path
+         */
         public final void setFormPath(final String target) {
             m_formPath = target;
         }
 
+        /**
+         * Gets the current node.
+         *
+         * @return the current node
+         */
         public final String getCurrentNode() {
             return m_currentNode;
         }
 
+        /**
+         * Sets the current node.
+         *
+         * @param node
+         *            the new current node
+         */
         public final void setCurrentNode(final String node) {
             m_currentNode = node;
         }
 
+        /**
+         * Gets the data path.
+         *
+         * @return the data path
+         */
         public final String getDataPath() {
             // added nodeEditForm. to the formData. because somehow we are
             // getting that attached a prefix as well.
             return m_formPath.substring("nodeEditForm.formData.".length());
         }
 
+        /**
+         * Sets the data path.
+         *
+         * @param path
+         *            the new data path
+         */
         public final void setDataPath(final String path) {
             // added nodeEditForm. to the formData. because somehow we are
             // getting that attached a prefix as well.
             m_formPath = "nodeEditForm.formData." + path;
         }
 
+        /* (non-Javadoc)
+         * @see java.lang.Object#toString()
+         */
         @Override
         public final String toString() {
             return new ToStringBuilder(this).append("action", getAction()).append("currentNode", getCurrentNode()).append("dataPath",
@@ -130,12 +209,14 @@ public class EditProvisioningGroupController extends SimpleFormController {
         }
     }
 
+    /** The m_provisioning service. */
     private ManualProvisioningService m_provisioningService;
 
     /**
      * <p>
      * setProvisioningService
      * </p>
+     * .
      *
      * @param provisioningService
      *            a {@link org.opennms.web.svclayer.ManualProvisioningService}
@@ -196,16 +277,61 @@ public class EditProvisioningGroupController extends SimpleFormController {
 
     }
 
+    /**
+     * Done.
+     *
+     * @param request
+     *            the request
+     * @param response
+     *            the response
+     * @param treeCmd
+     *            the tree cmd
+     * @param errors
+     *            the errors
+     * @return the model and view
+     * @throws Exception
+     *             the exception
+     */
     private ModelAndView done(final HttpServletRequest request, final HttpServletResponse response,
             final TreeCommand treeCmd, final BindException errors) throws Exception {
         return new ModelAndView(getSuccessView());
     }
 
+    /**
+     * Do show.
+     *
+     * @param request
+     *            the request
+     * @param response
+     *            the response
+     * @param treeCmd
+     *            the tree cmd
+     * @param errors
+     *            the errors
+     * @return the model and view
+     * @throws Exception
+     *             the exception
+     */
     private ModelAndView doShow(final HttpServletRequest request, final HttpServletResponse response,
             final TreeCommand treeCmd, final BindException errors) throws Exception {
         return showForm(request, response, errors);
     }
 
+    /**
+     * Do cancel.
+     *
+     * @param request
+     *            the request
+     * @param response
+     *            the response
+     * @param treeCmd
+     *            the tree cmd
+     * @param errors
+     *            the errors
+     * @return the model and view
+     * @throws Exception
+     *             the exception
+     */
     private ModelAndView doCancel(final HttpServletRequest request, final HttpServletResponse response,
             final TreeCommand treeCmd, final BindException errors) throws Exception {
 
@@ -217,6 +343,21 @@ public class EditProvisioningGroupController extends SimpleFormController {
         return showForm(request, response, errors);
     }
 
+    /**
+     * Do import.
+     *
+     * @param request
+     *            the request
+     * @param response
+     *            the response
+     * @param treeCmd
+     *            the tree cmd
+     * @param errors
+     *            the errors
+     * @return the model and view
+     * @throws Exception
+     *             the exception
+     */
     private ModelAndView doImport(final HttpServletRequest request, final HttpServletResponse response,
             final TreeCommand treeCmd, final BindException errors) throws Exception {
 
@@ -225,6 +366,21 @@ public class EditProvisioningGroupController extends SimpleFormController {
 
     }
 
+    /**
+     * Do delete.
+     *
+     * @param request
+     *            the request
+     * @param response
+     *            the response
+     * @param treeCmd
+     *            the tree cmd
+     * @param errors
+     *            the errors
+     * @return the model and view
+     * @throws Exception
+     *             the exception
+     */
     private ModelAndView doDelete(final HttpServletRequest request, final HttpServletResponse response,
             final TreeCommand treeCmd, final BindException errors) throws Exception {
 
@@ -234,6 +390,21 @@ public class EditProvisioningGroupController extends SimpleFormController {
         return showForm(request, response, errors);
     }
 
+    /**
+     * Do add category.
+     *
+     * @param request
+     *            the request
+     * @param response
+     *            the response
+     * @param treeCmd
+     *            the tree cmd
+     * @param errors
+     *            the errors
+     * @return the model and view
+     * @throws Exception
+     *             the exception
+     */
     private ModelAndView doAddCategory(final HttpServletRequest request, final HttpServletResponse response,
             final TreeCommand treeCmd, final BindException errors) throws Exception {
 
@@ -246,6 +417,21 @@ public class EditProvisioningGroupController extends SimpleFormController {
         return showForm(request, response, errors);
     }
 
+    /**
+     * Do add asset field.
+     *
+     * @param request
+     *            the request
+     * @param response
+     *            the response
+     * @param treeCmd
+     *            the tree cmd
+     * @param errors
+     *            the errors
+     * @return the model and view
+     * @throws Exception
+     *             the exception
+     */
     private ModelAndView doAddAssetField(final HttpServletRequest request, final HttpServletResponse response,
             final TreeCommand treeCmd, final BindException errors) throws Exception {
         Requisition formData = m_provisioningService.addAssetFieldToNode(treeCmd.getGroupName(), treeCmd.getDataPath(),
@@ -257,6 +443,21 @@ public class EditProvisioningGroupController extends SimpleFormController {
         return showForm(request, response, errors);
     }
 
+    /**
+     * Do edit.
+     *
+     * @param request
+     *            the request
+     * @param response
+     *            the response
+     * @param treeCmd
+     *            the tree cmd
+     * @param errors
+     *            the errors
+     * @return the model and view
+     * @throws Exception
+     *             the exception
+     */
     private ModelAndView doEdit(final HttpServletRequest request, final HttpServletResponse response,
             final TreeCommand treeCmd, final BindException errors) throws Exception {
 
@@ -265,6 +466,21 @@ public class EditProvisioningGroupController extends SimpleFormController {
         return showForm(request, response, errors);
     }
 
+    /**
+     * Do save.
+     *
+     * @param request
+     *            the request
+     * @param response
+     *            the response
+     * @param treeCmd
+     *            the tree cmd
+     * @param errors
+     *            the errors
+     * @return the model and view
+     * @throws Exception
+     *             the exception
+     */
     private ModelAndView doSave(final HttpServletRequest request, final HttpServletResponse response,
             final TreeCommand treeCmd, final BindException errors) throws Exception {
         try {
@@ -280,6 +496,21 @@ public class EditProvisioningGroupController extends SimpleFormController {
         return showForm(request, response, errors);
     }
 
+    /**
+     * Do add service.
+     *
+     * @param request
+     *            the request
+     * @param response
+     *            the response
+     * @param treeCmd
+     *            the tree cmd
+     * @param errors
+     *            the errors
+     * @return the model and view
+     * @throws Exception
+     *             the exception
+     */
     private ModelAndView doAddService(final HttpServletRequest request, final HttpServletResponse response,
             final TreeCommand treeCmd, final BindException errors) throws Exception {
 
@@ -292,6 +523,21 @@ public class EditProvisioningGroupController extends SimpleFormController {
         return showForm(request, response, errors);
     }
 
+    /**
+     * Do add interface.
+     *
+     * @param request
+     *            the request
+     * @param response
+     *            the response
+     * @param treeCmd
+     *            the tree cmd
+     * @param errors
+     *            the errors
+     * @return the model and view
+     * @throws Exception
+     *             the exception
+     */
     private ModelAndView doAddInterface(final HttpServletRequest request, final HttpServletResponse response,
             final TreeCommand treeCmd, final BindException errors) throws Exception {
 
@@ -304,6 +550,21 @@ public class EditProvisioningGroupController extends SimpleFormController {
         return showForm(request, response, errors);
     }
 
+    /**
+     * Do add node.
+     *
+     * @param request
+     *            the request
+     * @param response
+     *            the response
+     * @param treeCmd
+     *            the tree cmd
+     * @param errors
+     *            the errors
+     * @return the model and view
+     * @throws Exception
+     *             the exception
+     */
     private ModelAndView doAddNode(final HttpServletRequest request, final HttpServletResponse response,
             final TreeCommand treeCmd, final BindException errors) throws Exception {
 
@@ -322,6 +583,16 @@ public class EditProvisioningGroupController extends SimpleFormController {
         return formCommand;
     }
 
+    /**
+     * Initialize tree command.
+     *
+     * @param request
+     *            the request
+     * @param formCommand
+     *            the form command
+     * @throws Exception
+     *             the exception
+     */
     private void initializeTreeCommand(final HttpServletRequest request, final TreeCommand formCommand)
             throws Exception {
         String groupName = request.getParameter("groupName");

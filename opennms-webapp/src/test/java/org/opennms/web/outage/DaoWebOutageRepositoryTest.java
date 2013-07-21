@@ -57,6 +57,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * The Class DaoWebOutageRepositoryTest.
+ */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
         "classpath:/META-INF/opennms/applicationContext-dao.xml", "classpath*:/META-INF/opennms/component-dao.xml",
@@ -66,17 +69,25 @@ import org.springframework.transaction.annotation.Transactional;
 @JUnitTemporaryDatabase
 public class DaoWebOutageRepositoryTest implements InitializingBean {
 
+    /** The m_db populator. */
     @Autowired
     DatabasePopulator m_dbPopulator;
 
+    /** The m_dao outage repo. */
     @Autowired
     WebOutageRepository m_daoOutageRepo;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Setup logging.
+     */
     @BeforeClass
     public static void setupLogging() {
 
@@ -88,6 +99,9 @@ public class DaoWebOutageRepositoryTest implements InitializingBean {
         MockLogAppender.setupLogging(props);
     }
 
+    /**
+     * Sets the up.
+     */
     @Before
     public void setUp() {
         m_dbPopulator.populateDatabase();
@@ -102,6 +116,9 @@ public class DaoWebOutageRepositoryTest implements InitializingBean {
 
     }
 
+    /**
+     * Test count matching outages.
+     */
     @Test
     @Transactional
     public void testCountMatchingOutages() {
@@ -112,6 +129,9 @@ public class DaoWebOutageRepositoryTest implements InitializingBean {
         assertEquals(1, count);
     }
 
+    /**
+     * Test get matching outages.
+     */
     @Test
     @JUnitTemporaryDatabase
     // Relies on specific IDs so we need a fresh database
@@ -131,6 +151,9 @@ public class DaoWebOutageRepositoryTest implements InitializingBean {
         assertEquals(2, outage[0].getId());
     }
 
+    /**
+     * Test get outage.
+     */
     @Test
     @JUnitTemporaryDatabase
     // Relies on specific IDs so we need a fresh database
@@ -139,6 +162,9 @@ public class DaoWebOutageRepositoryTest implements InitializingBean {
         assertNotNull(outage);
     }
 
+    /**
+     * Test get outage summaries.
+     */
     @Test
     @JUnitTemporaryDatabase
     // Relies on records created in @Before so we need a fresh database
@@ -148,6 +174,9 @@ public class DaoWebOutageRepositoryTest implements InitializingBean {
                      summaries.length);
     }
 
+    /**
+     * Test count matching summaries.
+     */
     @Test
     @JUnitTemporaryDatabase
     // Relies on records created in @Before so we need a fresh database

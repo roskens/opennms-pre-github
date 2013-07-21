@@ -41,39 +41,63 @@ import org.opennms.web.api.Util;
  * @author <a href="mailto:antonio@opennms.it">Antonio Russo</a>
  */
 public class IpRouteInterface {
+
+    /** The m_node id. */
     int m_nodeId;
 
+    /** The m_routeifindex. */
     int m_routeifindex;
 
+    /** The m_routemetric1. */
     int m_routemetric1;
 
+    /** The m_routemetric2. */
     int m_routemetric2;
 
+    /** The m_routemetric3. */
     int m_routemetric3;
 
+    /** The m_routemetric4. */
     int m_routemetric4;
 
+    /** The m_routemetric5. */
     int m_routemetric5;
 
+    /** The m_routetype. */
     String m_routetype;
 
+    /** The m_routeproto. */
     String m_routeproto;
 
+    /** The m_routedest. */
     String m_routedest;
 
+    /** The m_routemask. */
     String m_routemask;
 
+    /** The m_routenexthop. */
     String m_routenexthop;
 
+    /** The m_last poll time. */
     String m_lastPollTime;
 
+    /** The m_status. */
     String m_status;
 
     /* package-protected so only the NetworkElementFactory can instantiate */
+    /**
+     * Instantiates a new ip route interface.
+     */
     IpRouteInterface() {
     }
 
     /* package-protected so only the NetworkElementFactory can instantiate */
+    /**
+     * Instantiates a new ip route interface.
+     *
+     * @param iproute
+     *            the iproute
+     */
     IpRouteInterface(OnmsIpRouteInterface iproute) {
         m_nodeId = iproute.getNode().getId();
         m_routeifindex = iproute.getRouteIfIndex();
@@ -95,6 +119,7 @@ public class IpRouteInterface {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -110,6 +135,7 @@ public class IpRouteInterface {
      * <p>
      * get_ifindex
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -121,6 +147,7 @@ public class IpRouteInterface {
      * <p>
      * get_lastPollTime
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -132,6 +159,7 @@ public class IpRouteInterface {
      * <p>
      * get_nodeId
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -143,6 +171,7 @@ public class IpRouteInterface {
      * <p>
      * get_status
      * </p>
+     * .
      *
      * @return a char.
      */
@@ -154,6 +183,7 @@ public class IpRouteInterface {
      * <p>
      * get_routedest
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -165,6 +195,7 @@ public class IpRouteInterface {
      * <p>
      * get_routemask
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -176,6 +207,7 @@ public class IpRouteInterface {
      * <p>
      * get_routemetric1
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -187,6 +219,7 @@ public class IpRouteInterface {
      * <p>
      * get_routemetric2
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -198,6 +231,7 @@ public class IpRouteInterface {
      * <p>
      * get_routemetric3
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -209,6 +243,7 @@ public class IpRouteInterface {
      * <p>
      * get_routemetric4
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -220,6 +255,7 @@ public class IpRouteInterface {
      * <p>
      * get_routemetric5
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -231,6 +267,7 @@ public class IpRouteInterface {
      * <p>
      * get_routenexthop
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -242,6 +279,7 @@ public class IpRouteInterface {
      * <p>
      * get_routeproto
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -253,6 +291,7 @@ public class IpRouteInterface {
      * <p>
      * get_routetype
      * </p>
+     * .
      *
      * @return a int.
      */

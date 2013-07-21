@@ -61,14 +61,26 @@ public class NotificationDashlet extends Dashlet {
      * - Ideally be able to sort by any column
      */
 
+    /** The m_view. */
     private NotificationView m_view = new NotificationView(this);
 
+    /** The m_loader. */
     private NotificationLoader m_loader = new NotificationLoader();
 
+    /**
+     * The Class NotificationLoader.
+     */
     class NotificationLoader extends DashletLoader implements AsyncCallback<Notification[]> {
 
+        /** The m_suveillance service. */
         private SurveillanceServiceAsync m_suveillanceService;
 
+        /**
+         * Load.
+         *
+         * @param surveillanceSet
+         *            the surveillance set
+         */
         public void load(final SurveillanceSet surveillanceSet) {
             try {
                 loading();
@@ -78,6 +90,12 @@ public class NotificationDashlet extends Dashlet {
             }
         }
 
+        /**
+         * On data loaded.
+         *
+         * @param notifications
+         *            the notifications
+         */
         public void onDataLoaded(Notification[] notifications) {
             try {
                 m_view.setNotifications(notifications);
@@ -86,16 +104,28 @@ public class NotificationDashlet extends Dashlet {
             }
         }
 
+        /**
+         * Sets the surveillance service.
+         *
+         * @param svc
+         *            the new surveillance service
+         */
         public void setSurveillanceService(SurveillanceServiceAsync svc) {
             m_suveillanceService = svc;
         }
 
+        /* (non-Javadoc)
+         * @see com.google.gwt.user.client.rpc.AsyncCallback#onFailure(java.lang.Throwable)
+         */
         @Override
         public void onFailure(Throwable caught) {
             loadError(caught);
             error(caught);
         }
 
+        /* (non-Javadoc)
+         * @see com.google.gwt.user.client.rpc.AsyncCallback#onSuccess(java.lang.Object)
+         */
         @Override
         public void onSuccess(Notification[] result) {
             onDataLoaded(result);
@@ -103,6 +133,12 @@ public class NotificationDashlet extends Dashlet {
 
     }
 
+    /**
+     * Instantiates a new notification dashlet.
+     *
+     * @param dashboard
+     *            the dashboard
+     */
     NotificationDashlet(Dashboard dashboard) {
         super(dashboard, "Notifications");
         setLoader(m_loader);
@@ -119,6 +155,7 @@ public class NotificationDashlet extends Dashlet {
      * <p>
      * setSurveillanceService
      * </p>
+     * .
      *
      * @param svc
      *            a

@@ -33,13 +33,22 @@ import java.net.InetAddress;
 
 import org.opennms.core.utils.InetAddressUtils;
 
+/**
+ * The Class InetAddressTypeEditor.
+ */
 public class InetAddressTypeEditor extends PropertyEditorSupport {
 
+    /* (non-Javadoc)
+     * @see java.beans.PropertyEditorSupport#getAsText()
+     */
     @Override
     public String getAsText() {
         return InetAddressUtils.str((InetAddress) getValue());
     }
 
+    /* (non-Javadoc)
+     * @see java.beans.PropertyEditorSupport#setAsText(java.lang.String)
+     */
     @Override
     public void setAsText(String text) {
         InetAddress addr = InetAddressUtils.addr(text);

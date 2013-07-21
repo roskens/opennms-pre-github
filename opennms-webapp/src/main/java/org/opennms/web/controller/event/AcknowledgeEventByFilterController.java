@@ -56,14 +56,18 @@ import org.springframework.web.servlet.view.RedirectView;
  * @since 1.8.1
  */
 public class AcknowledgeEventByFilterController extends AbstractController implements InitializingBean {
+
+    /** The m_web event repository. */
     private WebEventRepository m_webEventRepository;
 
+    /** The m_redirect view. */
     private String m_redirectView;
 
     /**
      * <p>
      * setRedirectView
      * </p>
+     * .
      *
      * @param redirectView
      *            a {@link java.lang.String} object.
@@ -76,6 +80,7 @@ public class AcknowledgeEventByFilterController extends AbstractController imple
      * <p>
      * setWebEventRepository
      * </p>
+     * .
      *
      * @param webEventRepository
      *            a {@link org.opennms.web.event.WebEventRepository} object.
@@ -88,9 +93,10 @@ public class AcknowledgeEventByFilterController extends AbstractController imple
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @Override
     public void afterPropertiesSet() throws Exception {

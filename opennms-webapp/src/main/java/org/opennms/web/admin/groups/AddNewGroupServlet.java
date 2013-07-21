@@ -42,7 +42,7 @@ import org.opennms.netmgt.config.GroupManager;
 import org.opennms.netmgt.config.groups.Group;
 
 /**
- * A servlet that handles adding a new group
+ * A servlet that handles adding a new group.
  *
  * @author <A HREF="mailto:jason@opennms.org">Jason Johns </A>
  * @author <A HREF="http://www.opennms.org/">OpenNMS </A>
@@ -52,6 +52,8 @@ import org.opennms.netmgt.config.groups.Group;
  * @since 1.8.1
  */
 public class AddNewGroupServlet extends HttpServlet {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -8192400415788066048L;
 
     /** {@inheritDoc} */

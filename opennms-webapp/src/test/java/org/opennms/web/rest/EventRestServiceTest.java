@@ -36,9 +36,17 @@ import org.opennms.netmgt.dao.DatabasePopulator;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
+/**
+ * The Class EventRestServiceTest.
+ */
 public class EventRestServiceTest extends AbstractSpringJerseyRestTestCase {
+
+    /** The m_database populator. */
     private DatabasePopulator m_databasePopulator;
 
+    /* (non-Javadoc)
+     * @see org.opennms.web.rest.AbstractSpringJerseyRestTestCase#afterServletStart()
+     */
     @Override
     protected void afterServletStart() {
         MockLogAppender.setupLogging(true, "DEBUG");
@@ -47,6 +55,12 @@ public class EventRestServiceTest extends AbstractSpringJerseyRestTestCase {
         m_databasePopulator.populateDatabase();
     }
 
+    /**
+     * Test between.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testBetween() throws Exception {
         String xml;

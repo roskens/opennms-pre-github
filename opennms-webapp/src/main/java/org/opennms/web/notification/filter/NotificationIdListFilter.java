@@ -41,11 +41,19 @@ import org.opennms.web.filter.SQLType;
  * @since 1.8.1
  */
 public class NotificationIdListFilter extends InFilter<Integer> {
-    /** Constant <code>TYPE="notificationIdList"</code> */
+
+    /** Constant <code>TYPE="notificationIdList"</code>. */
     public static final String TYPE = "notificationIdList";
 
     // private int[] m_notificationIds;
 
+    /**
+     * Box.
+     *
+     * @param values
+     *            the values
+     * @return the integer[]
+     */
     private static Integer[] box(int[] values) {
         if (values == null) {
             return null;

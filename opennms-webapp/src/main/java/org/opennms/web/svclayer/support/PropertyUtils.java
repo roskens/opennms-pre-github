@@ -56,6 +56,7 @@ public abstract class PropertyUtils {
      * <p>
      * getProperties
      * </p>
+     * .
      *
      * @param bean
      *            a {@link java.lang.Object} object.
@@ -75,15 +76,16 @@ public abstract class PropertyUtils {
      * <p>
      * getPathValue
      * </p>
+     * .
      *
+     * @param <T>
+     *            a T object.
      * @param bean
      *            a {@link java.lang.Object} object.
      * @param path
      *            a {@link java.lang.String} object.
      * @param expectedClass
      *            a {@link java.lang.Class} object.
-     * @param <T>
-     *            a T object.
      * @return a T object.
      */
     @SuppressWarnings("unchecked")

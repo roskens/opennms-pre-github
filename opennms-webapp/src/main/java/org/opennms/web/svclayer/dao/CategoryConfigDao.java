@@ -55,6 +55,7 @@ public interface CategoryConfigDao {
      * <p>
      * getCategoryByLabel
      * </p>
+     * .
      *
      * @param label
      *            a {@link java.lang.String} object.
@@ -66,6 +67,7 @@ public interface CategoryConfigDao {
      * <p>
      * findAll
      * </p>
+     * .
      *
      * @return a {@link java.util.Collection} object.
      */

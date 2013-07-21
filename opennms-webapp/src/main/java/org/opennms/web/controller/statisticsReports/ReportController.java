@@ -48,8 +48,11 @@ import org.springframework.web.servlet.mvc.AbstractCommandController;
  * @since 1.8.1
  */
 public class ReportController extends AbstractCommandController implements InitializingBean {
+
+    /** The m_statistics report service. */
     private StatisticsReportService m_statisticsReportService;
 
+    /** The m_success view. */
     private String m_successView;
 
     /** {@inheritDoc} */
@@ -70,9 +73,10 @@ public class ReportController extends AbstractCommandController implements Initi
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -85,6 +89,7 @@ public class ReportController extends AbstractCommandController implements Initi
      * <p>
      * getStatisticsReportService
      * </p>
+     * .
      *
      * @return a {@link org.opennms.web.svclayer.StatisticsReportService}
      *         object.
@@ -97,6 +102,7 @@ public class ReportController extends AbstractCommandController implements Initi
      * <p>
      * setStatisticsReportService
      * </p>
+     * .
      *
      * @param statisticsReportService
      *            a {@link org.opennms.web.svclayer.StatisticsReportService}
@@ -110,6 +116,7 @@ public class ReportController extends AbstractCommandController implements Initi
      * <p>
      * getSuccessView
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -121,6 +128,7 @@ public class ReportController extends AbstractCommandController implements Initi
      * <p>
      * setSuccessView
      * </p>
+     * .
      *
      * @param successView
      *            a {@link java.lang.String} object.

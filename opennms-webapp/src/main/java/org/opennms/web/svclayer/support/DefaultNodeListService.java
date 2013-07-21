@@ -76,16 +76,23 @@ import org.springframework.util.Assert;
  * @author <a href="mailto:ayres@opennms.org">Bill Ayres</a>
  */
 public class DefaultNodeListService implements NodeListService, InitializingBean {
+
+    /** The Constant IP_INTERFACE_COMPARATOR. */
     private static final Comparator<OnmsIpInterface> IP_INTERFACE_COMPARATOR = new IpInterfaceComparator();
 
+    /** The Constant ARP_INTERFACE_COMPARATOR. */
     private static final Comparator<OnmsArpInterface> ARP_INTERFACE_COMPARATOR = new ArpInterfaceComparator();
 
+    /** The Constant SNMP_INTERFACE_COMPARATOR. */
     private static final Comparator<OnmsSnmpInterface> SNMP_INTERFACE_COMPARATOR = new SnmpInterfaceComparator();
 
+    /** The m_node dao. */
     private NodeDao m_nodeDao;
 
+    /** The m_category dao. */
     private CategoryDao m_categoryDao;
 
+    /** The m_site status view config dao. */
     private SiteStatusViewConfigDao m_siteStatusViewConfigDao;
 
     /** {@inheritDoc} */
@@ -120,6 +127,14 @@ public class DefaultNodeListService implements NodeListService, InitializingBean
         return createModelForNodes(command, onmsNodes);
     }
 
+    /**
+     * Adds the criteria for command.
+     *
+     * @param criteria
+     *            the criteria
+     * @param command
+     *            the command
+     */
     private void addCriteriaForCommand(final OnmsCriteria criteria, final NodeListCommand command) {
         if (command.hasNodename()) {
             addCriteriaForNodename(criteria, command.getNodename());
@@ -153,6 +168,18 @@ public class DefaultNodeListService implements NodeListService, InitializingBean
         }
     }
 
+    /**
+     * Adds the criteria for snmp parm.
+     *
+     * @param criteria
+     *            the criteria
+     * @param snmpParm
+     *            the snmp parm
+     * @param snmpParmValue
+     *            the snmp parm value
+     * @param snmpParmMatchType
+     *            the snmp parm match type
+     */
     private void addCriteriaForSnmpParm(final OnmsCriteria criteria, final String snmpParm, final String snmpParmValue,
             final String snmpParmMatchType) {
         criteria.createAlias("node.ipInterfaces", "ipInterface");
@@ -168,6 +195,12 @@ public class DefaultNodeListService implements NodeListService, InitializingBean
         }
     }
 
+    /**
+     * Adds the criteria for current outages.
+     *
+     * @param criteria
+     *            the criteria
+     */
     private void addCriteriaForCurrentOutages(final OnmsCriteria criteria) {
         /*
          * This doesn't work properly if ipInterfaces and/or
@@ -191,18 +224,50 @@ public class DefaultNodeListService implements NodeListService, InitializingBean
         criteria.add(Restrictions.sqlRestriction("{alias}.nodeId in (select o.nodeId from outages o where o.ifregainedservice is null and o.suppresstime is null or o.suppresstime < now())"));
     }
 
+    /**
+     * Adds the criteria for nodename.
+     *
+     * @param criteria
+     *            the criteria
+     * @param nodeName
+     *            the node name
+     */
     private void addCriteriaForNodename(final OnmsCriteria criteria, final String nodeName) {
         criteria.add(Restrictions.ilike("node.label", nodeName, MatchMode.ANYWHERE));
     }
 
+    /**
+     * Adds the criteria for node id.
+     *
+     * @param criteria
+     *            the criteria
+     * @param nodeId
+     *            the node id
+     */
     private void addCriteriaForNodeId(final OnmsCriteria criteria, final int nodeId) {
         criteria.add(Restrictions.idEq(nodeId));
     }
 
+    /**
+     * Adds the criteria for foreign source.
+     *
+     * @param criteria
+     *            the criteria
+     * @param foreignSource
+     *            the foreign source
+     */
     private void addCriteriaForForeignSource(final OnmsCriteria criteria, final String foreignSource) {
         criteria.add(Restrictions.ilike("node.foreignSource", foreignSource, MatchMode.ANYWHERE));
     }
 
+    /**
+     * Adds the criteria for ip like.
+     *
+     * @param criteria
+     *            the criteria
+     * @param iplike
+     *            the iplike
+     */
     private void addCriteriaForIpLike(final OnmsCriteria criteria, final String iplike) {
         OnmsCriteria ipInterface = criteria.createCriteria("node.ipInterfaces", "ipInterface");
         ipInterface.add(Restrictions.ne("isManaged", "D"));
@@ -210,6 +275,14 @@ public class DefaultNodeListService implements NodeListService, InitializingBean
         ipInterface.add(OnmsRestrictions.ipLike(iplike));
     }
 
+    /**
+     * Adds the criteria for service.
+     *
+     * @param criteria
+     *            the criteria
+     * @param serviceId
+     *            the service id
+     */
     private void addCriteriaForService(final OnmsCriteria criteria, final int serviceId) {
         criteria.createAlias("node.ipInterfaces", "ipInterface");
         criteria.add(Restrictions.ne("ipInterface.isManaged", "D"));
@@ -220,6 +293,14 @@ public class DefaultNodeListService implements NodeListService, InitializingBean
         criteria.add(Restrictions.ne("monitoredService.status", "D"));
     }
 
+    /**
+     * Adds the criteria for maclike.
+     *
+     * @param criteria
+     *            the criteria
+     * @param macLike
+     *            the mac like
+     */
     private void addCriteriaForMaclike(final OnmsCriteria criteria, final String macLike) {
         String macLikeStripped = macLike.replaceAll("[:-]", "");
 
@@ -275,6 +356,14 @@ public class DefaultNodeListService implements NodeListService, InitializingBean
      * }
      */
 
+    /**
+     * Adds the criteria for categories.
+     *
+     * @param criteria
+     *            the criteria
+     * @param categories
+     *            the categories
+     */
     private void addCriteriaForCategories(final OnmsCriteria criteria, final String[]... categories) {
         Assert.notNull(criteria, "criteria argument must not be null");
 
@@ -283,6 +372,18 @@ public class DefaultNodeListService implements NodeListService, InitializingBean
         }
     }
 
+    /**
+     * Adds the criteria for site status view.
+     *
+     * @param criteria
+     *            the criteria
+     * @param statusViewName
+     *            the status view name
+     * @param statusSite
+     *            the status site
+     * @param rowLabel
+     *            the row label
+     */
     private void addCriteriaForSiteStatusView(final OnmsCriteria criteria, final String statusViewName,
             final String statusSite, final String rowLabel) {
         View view = m_siteStatusViewConfigDao.getView(statusViewName);
@@ -295,6 +396,15 @@ public class DefaultNodeListService implements NodeListService, InitializingBean
         criteria.add(Restrictions.sqlRestriction(sql, statusSite, new StringType()));
     }
 
+    /**
+     * Gets the row def.
+     *
+     * @param view
+     *            the view
+     * @param rowLabel
+     *            the row label
+     * @return the row def
+     */
     private RowDef getRowDef(final View view, final String rowLabel) {
         Rows rows = view.getRows();
         Collection<RowDef> rowDefs = rows.getRowDefCollection();
@@ -308,6 +418,13 @@ public class DefaultNodeListService implements NodeListService, InitializingBean
                 + view.getName());
     }
 
+    /**
+     * Gets the category names for row def.
+     *
+     * @param rowDef
+     *            the row def
+     * @return the category names for row def
+     */
     private Set<String> getCategoryNamesForRowDef(final RowDef rowDef) {
         Set<String> categories = new LinkedHashSet<String>();
 
@@ -318,6 +435,15 @@ public class DefaultNodeListService implements NodeListService, InitializingBean
         return categories;
     }
 
+    /**
+     * Creates the model for nodes.
+     *
+     * @param command
+     *            the command
+     * @param onmsNodes
+     *            the onms nodes
+     * @return the node list model
+     */
     private NodeListModel createModelForNodes(final NodeListCommand command, final Collection<OnmsNode> onmsNodes) {
         int interfaceCount = 0;
         List<NodeModel> displayNodes = new LinkedList<NodeModel>();
@@ -421,6 +547,7 @@ public class DefaultNodeListService implements NodeListService, InitializingBean
      * <p>
      * getCategoryDao
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.dao.api.CategoryDao} object.
      */
@@ -432,6 +559,7 @@ public class DefaultNodeListService implements NodeListService, InitializingBean
      * <p>
      * setCategoryDao
      * </p>
+     * .
      *
      * @param categoryDao
      *            a {@link org.opennms.netmgt.dao.api.CategoryDao} object.
@@ -444,6 +572,7 @@ public class DefaultNodeListService implements NodeListService, InitializingBean
      * <p>
      * getNodeDao
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.dao.api.NodeDao} object.
      */
@@ -455,6 +584,7 @@ public class DefaultNodeListService implements NodeListService, InitializingBean
      * <p>
      * setNodeDao
      * </p>
+     * .
      *
      * @param nodeDao
      *            a {@link org.opennms.netmgt.dao.api.NodeDao} object.
@@ -467,6 +597,7 @@ public class DefaultNodeListService implements NodeListService, InitializingBean
      * <p>
      * getSiteStatusViewConfigDao
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.dao.api.SiteStatusViewConfigDao}
      *         object.
@@ -479,6 +610,7 @@ public class DefaultNodeListService implements NodeListService, InitializingBean
      * <p>
      * setSiteStatusViewConfigDao
      * </p>
+     * .
      *
      * @param siteStatusViewConfigDao
      *            a {@link org.opennms.netmgt.dao.api.SiteStatusViewConfigDao}
@@ -492,9 +624,10 @@ public class DefaultNodeListService implements NodeListService, InitializingBean
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @Override
     public final void afterPropertiesSet() throws Exception {
@@ -503,12 +636,17 @@ public class DefaultNodeListService implements NodeListService, InitializingBean
         Assert.state(m_siteStatusViewConfigDao != null, "siteStatusViewConfigDao property cannot be null");
     }
 
+    /**
+     * The Class IpInterfaceComparator.
+     */
     public static class IpInterfaceComparator implements Comparator<OnmsIpInterface>, Serializable {
-        /**
-         *
-         */
+
+        /** The Constant serialVersionUID. */
         private static final long serialVersionUID = 1538654897829381114L;
 
+        /* (non-Javadoc)
+         * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
+         */
         @Override
         public final int compare(final OnmsIpInterface o1, final OnmsIpInterface o2) {
             int diff;
@@ -575,11 +713,13 @@ public class DefaultNodeListService implements NodeListService, InitializingBean
      * non-ip interfaces).
      */
     public static class SnmpInterfaceComparator implements Comparator<OnmsSnmpInterface>, Serializable {
-        /**
-         *
-         */
+
+        /** The Constant serialVersionUID. */
         private static final long serialVersionUID = 3751865611949289845L;
 
+        /* (non-Javadoc)
+         * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
+         */
         @Override
         public final int compare(final OnmsSnmpInterface o1, final OnmsSnmpInterface o2) {
             int diff;
@@ -616,10 +756,17 @@ public class DefaultNodeListService implements NodeListService, InitializingBean
         }
     }
 
+    /**
+     * The Class ArpInterfaceComparator.
+     */
     public static class ArpInterfaceComparator implements Comparator<OnmsArpInterface>, Serializable {
 
+        /** The Constant serialVersionUID. */
         private static final long serialVersionUID = 2955682030166384496L;
 
+        /* (non-Javadoc)
+         * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
+         */
         @Override
         public final int compare(final OnmsArpInterface o1, final OnmsArpInterface o2) {
             int diff;

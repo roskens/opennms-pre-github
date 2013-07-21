@@ -62,22 +62,31 @@ import org.opennms.web.api.Util;
  */
 public class DestinationWizardServlet extends HttpServlet {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 836611092234429387L;
 
+    /** The session attribute new path. */
     private String SESSION_ATTRIBUTE_NEW_PATH = "newPath";
 
+    /** The session attribute old path. */
     private String SESSION_ATTRIBUTE_OLD_PATH = "oldPath";
 
+    /** The session attribute old path name. */
     private String SESSION_ATTRIBUTE_OLD_PATH_NAME = "oldName";
 
+    /** The source page paths. */
     private String SOURCE_PAGE_PATHS = "destinationPaths.jsp";
 
+    /** The source page outline. */
     private String SOURCE_PAGE_OUTLINE = "pathOutline.jsp";
 
+    /** The source page targets. */
     private String SOURCE_PAGE_TARGETS = "chooseTargets.jsp";
 
+    /** The source page intervals. */
     private String SOURCE_PAGE_INTERVALS = "groupIntervals.jsp";
 
+    /** The source page commands. */
     private String SOURCE_PAGE_COMMANDS = "chooseCommands.jsp";
 
     // FIXME: Unused
@@ -369,6 +378,14 @@ public class DestinationWizardServlet extends HttpServlet {
         response.sendRedirect(redirectString.toString());
     }
 
+    /**
+     * Save outline form.
+     *
+     * @param path
+     *            the path
+     * @param request
+     *            the request
+     */
     private static void saveOutlineForm(Path path, HttpServletRequest request) {
         path.setName(request.getParameter("name"));
         Escalate[] escalations = path.getEscalate();
@@ -378,11 +395,26 @@ public class DestinationWizardServlet extends HttpServlet {
         }
     }
 
+    /**
+     * Removes the escalation.
+     *
+     * @param path
+     *            the path
+     * @param index
+     *            the index
+     */
     private static void removeEscalation(Path path, int index) {
         Escalate escalate = path.getEscalate(index);
         path.removeEscalate(escalate);
     }
 
+    /**
+     * Make query string.
+     *
+     * @param map
+     *            the map
+     * @return the string
+     */
     private static String makeQueryString(Map<String, String> map) {
         StringBuffer buffer = new StringBuffer();
         String separator = "?";
@@ -399,6 +431,13 @@ public class DestinationWizardServlet extends HttpServlet {
 
     // have to copy a path field by field until we get a cloning method in the
     // Castor generated classes
+    /**
+     * Copy path.
+     *
+     * @param oldPath
+     *            the old path
+     * @return the path
+     */
     private static Path copyPath(Path oldPath) {
         Path newPath = new Path();
 
@@ -430,6 +469,13 @@ public class DestinationWizardServlet extends HttpServlet {
         return newPath;
     }
 
+    /**
+     * Copy target.
+     *
+     * @param target
+     *            the target
+     * @return the target
+     */
     private static Target copyTarget(Target target) {
         Target newTarget = new Target();
 

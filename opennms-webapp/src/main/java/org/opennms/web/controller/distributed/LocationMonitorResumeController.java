@@ -49,10 +49,13 @@ import org.springframework.web.servlet.mvc.AbstractCommandController;
  */
 public class LocationMonitorResumeController extends AbstractCommandController implements InitializingBean {
 
+    /** The m_distributed poller service. */
     private DistributedPollerService m_distributedPollerService;
 
+    /** The m_success view. */
     private String m_successView;
 
+    /** The m_error view. */
     private String m_errorView;
 
     /** {@inheritDoc} */
@@ -75,6 +78,7 @@ public class LocationMonitorResumeController extends AbstractCommandController i
      * <p>
      * getDistributedPollerService
      * </p>
+     * .
      *
      * @return a {@link org.opennms.web.svclayer.DistributedPollerService}
      *         object.
@@ -87,6 +91,7 @@ public class LocationMonitorResumeController extends AbstractCommandController i
      * <p>
      * setDistributedPollerService
      * </p>
+     * .
      *
      * @param distributedPollerService
      *            a {@link org.opennms.web.svclayer.DistributedPollerService}
@@ -100,6 +105,7 @@ public class LocationMonitorResumeController extends AbstractCommandController i
      * <p>
      * getSuccessView
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -111,6 +117,7 @@ public class LocationMonitorResumeController extends AbstractCommandController i
      * <p>
      * setSuccessView
      * </p>
+     * .
      *
      * @param successView
      *            a {@link java.lang.String} object.
@@ -123,6 +130,7 @@ public class LocationMonitorResumeController extends AbstractCommandController i
      * <p>
      * getErrorView
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -134,6 +142,7 @@ public class LocationMonitorResumeController extends AbstractCommandController i
      * <p>
      * setErrorView
      * </p>
+     * .
      *
      * @param errorView
      *            a {@link java.lang.String} object.
@@ -146,9 +155,10 @@ public class LocationMonitorResumeController extends AbstractCommandController i
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @Override
     public void afterPropertiesSet() throws Exception {

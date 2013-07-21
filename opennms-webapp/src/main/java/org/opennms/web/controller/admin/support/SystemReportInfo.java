@@ -35,21 +35,38 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 import org.opennms.systemreport.SystemReportFormatter;
 import org.opennms.systemreport.SystemReportPlugin;
 
+/**
+ * The Class SystemReportInfo.
+ */
 public class SystemReportInfo implements Serializable {
-    /**
-     *
-     */
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 4803853030354121419L;
 
+    /** The m_plugins. */
     private final List<SystemReportPlugin> m_plugins;
 
+    /** The m_formatters. */
     private final List<SystemReportFormatter> m_formatters;
 
+    /**
+     * Instantiates a new system report info.
+     *
+     * @param formatters
+     *            the formatters
+     * @param plugins
+     *            the plugins
+     */
     public SystemReportInfo(final List<SystemReportFormatter> formatters, final List<SystemReportPlugin> plugins) {
         m_formatters = formatters;
         m_plugins = plugins;
     }
 
+    /**
+     * Gets the formatter.
+     *
+     * @return the formatter
+     */
     public SystemReportFormatter getFormatter() {
         if (m_formatters != null && m_formatters.size() > 0) {
             return m_formatters.get(0);
@@ -57,14 +74,27 @@ public class SystemReportInfo implements Serializable {
         return null;
     }
 
+    /**
+     * Gets the formatters.
+     *
+     * @return the formatters
+     */
     public List<SystemReportFormatter> getFormatters() {
         return m_formatters;
     }
 
+    /**
+     * Gets the plugins.
+     *
+     * @return the plugins
+     */
     public List<SystemReportPlugin> getPlugins() {
         return m_plugins;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return new ToStringBuilder(this).append("formatters", m_formatters).append("plugins", m_plugins).toString();

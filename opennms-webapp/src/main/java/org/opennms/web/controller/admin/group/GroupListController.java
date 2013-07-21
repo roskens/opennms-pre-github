@@ -53,6 +53,7 @@ import org.springframework.web.servlet.mvc.AbstractController;
  */
 public class GroupListController extends AbstractController {
 
+    /** The m_group manager. */
     private GroupManager m_groupManager;
 
     /** {@inheritDoc} */
@@ -74,6 +75,7 @@ public class GroupListController extends AbstractController {
      * <p>
      * getGroupManager
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.config.GroupManager} object.
      */
@@ -85,6 +87,7 @@ public class GroupListController extends AbstractController {
      * <p>
      * setGroupManager
      * </p>
+     * .
      *
      * @param groupManager
      *            a {@link org.opennms.netmgt.config.GroupManager} object.

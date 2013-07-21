@@ -57,8 +57,10 @@ import org.springframework.web.servlet.ModelAndView;
  */
 public class LoadNodesController extends MapsLoggingController {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(LoadNodesController.class);
 
+    /** The manager. */
     private Manager manager;
 
     /**

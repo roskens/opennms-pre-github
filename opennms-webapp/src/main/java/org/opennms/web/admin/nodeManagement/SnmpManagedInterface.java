@@ -37,7 +37,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 
 /**
  * A servlet that stores interface information used in setting up SNMP Data
- * Collection
+ * Collection.
  *
  * @author <a href="mailto:tarus@opennms.org">Tarus Balog</a>
  * @author <a href="mailto:ranger@opennms.org">Benjamin Reed</a>
@@ -45,32 +45,44 @@ import org.apache.commons.lang.builder.ToStringBuilder;
  */
 public class SnmpManagedInterface implements Serializable, Comparable<SnmpManagedInterface> {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 7080084239250489410L;
 
+    /** The m_id. */
     protected int m_id;
 
+    /** The m_node id. */
     protected int m_nodeId;
 
+    /** The m_if index. */
     protected int m_ifIndex;
 
+    /** The m_ip hostname. */
     protected String m_ipHostname;
 
+    /** The m_snmp status. */
     protected String m_snmpStatus;
 
+    /** The m_if descr. */
     protected String m_ifDescr;
 
+    /** The m_if type. */
     protected int m_ifType;
 
+    /** The m_if name. */
     protected String m_ifName;
 
+    /** The m_if alias. */
     protected String m_ifAlias;
 
+    /** The m_collect flag. */
     protected String m_collectFlag;
 
     /**
      * <p>
      * setSnmpInterfaceId
      * </p>
+     * .
      *
      * @param newId
      *            a int.
@@ -83,6 +95,7 @@ public class SnmpManagedInterface implements Serializable, Comparable<SnmpManage
      * <p>
      * getSnmpInterfaceId
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -94,6 +107,7 @@ public class SnmpManagedInterface implements Serializable, Comparable<SnmpManage
      * <p>
      * setNodeid
      * </p>
+     * .
      *
      * @param id
      *            a int.
@@ -106,6 +120,7 @@ public class SnmpManagedInterface implements Serializable, Comparable<SnmpManage
      * <p>
      * getNodeid
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -117,6 +132,7 @@ public class SnmpManagedInterface implements Serializable, Comparable<SnmpManage
      * <p>
      * setIfIndex
      * </p>
+     * .
      *
      * @param index
      *            a int.
@@ -129,6 +145,7 @@ public class SnmpManagedInterface implements Serializable, Comparable<SnmpManage
      * <p>
      * getIfIndex
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -140,6 +157,7 @@ public class SnmpManagedInterface implements Serializable, Comparable<SnmpManage
      * <p>
      * setIpHostname
      * </p>
+     * .
      *
      * @param newIpHostname
      *            a {@link java.lang.String} object.
@@ -152,6 +170,7 @@ public class SnmpManagedInterface implements Serializable, Comparable<SnmpManage
      * <p>
      * getIpHostname
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -163,6 +182,7 @@ public class SnmpManagedInterface implements Serializable, Comparable<SnmpManage
      * <p>
      * setStatus
      * </p>
+     * .
      *
      * @param newStatus
      *            a {@link java.lang.String} object.
@@ -175,6 +195,7 @@ public class SnmpManagedInterface implements Serializable, Comparable<SnmpManage
      * <p>
      * getStatus
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -186,6 +207,7 @@ public class SnmpManagedInterface implements Serializable, Comparable<SnmpManage
      * <p>
      * setIfDescr
      * </p>
+     * .
      *
      * @param newIfDescr
      *            a {@link java.lang.String} object.
@@ -198,6 +220,7 @@ public class SnmpManagedInterface implements Serializable, Comparable<SnmpManage
      * <p>
      * getIfDescr
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -209,6 +232,7 @@ public class SnmpManagedInterface implements Serializable, Comparable<SnmpManage
      * <p>
      * setIfType
      * </p>
+     * .
      *
      * @param newIfType
      *            a int.
@@ -221,6 +245,7 @@ public class SnmpManagedInterface implements Serializable, Comparable<SnmpManage
      * <p>
      * getIfType
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -232,6 +257,7 @@ public class SnmpManagedInterface implements Serializable, Comparable<SnmpManage
      * <p>
      * setIfName
      * </p>
+     * .
      *
      * @param newIfName
      *            a {@link java.lang.String} object.
@@ -244,6 +270,7 @@ public class SnmpManagedInterface implements Serializable, Comparable<SnmpManage
      * <p>
      * getIfName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -255,6 +282,7 @@ public class SnmpManagedInterface implements Serializable, Comparable<SnmpManage
      * <p>
      * getIfAlias
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -266,6 +294,7 @@ public class SnmpManagedInterface implements Serializable, Comparable<SnmpManage
      * <p>
      * setIfAlias
      * </p>
+     * .
      *
      * @param newIfAlias
      *            a {@link java.lang.String} object.
@@ -278,6 +307,7 @@ public class SnmpManagedInterface implements Serializable, Comparable<SnmpManage
      * <p>
      * getCollectFlag
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -289,6 +319,7 @@ public class SnmpManagedInterface implements Serializable, Comparable<SnmpManage
      * <p>
      * setCollectFlag
      * </p>
+     * .
      *
      * @param newCollectFlag
      *            a {@link java.lang.String} object.
@@ -314,12 +345,13 @@ public class SnmpManagedInterface implements Serializable, Comparable<SnmpManage
      * <p>
      * compareTo
      * </p>
+     * .
      *
      * @param obj
      *            a
-     *            {@link org.opennms.web.admin.nodeManagement.SnmpManagedInterface}
-     *            object.
      * @return a int.
+     *         {@link org.opennms.web.admin.nodeManagement.SnmpManagedInterface}
+     *         object.
      */
     @Override
     public int compareTo(SnmpManagedInterface obj) {

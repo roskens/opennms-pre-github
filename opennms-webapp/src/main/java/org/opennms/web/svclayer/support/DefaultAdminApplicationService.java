@@ -51,8 +51,10 @@ import org.opennms.web.svclayer.AdminApplicationService;
  */
 public class DefaultAdminApplicationService implements AdminApplicationService {
 
+    /** The m_application dao. */
     private ApplicationDao m_applicationDao;
 
+    /** The m_monitored service dao. */
     private MonitoredServiceDao m_monitoredServiceDao;
 
     /** {@inheritDoc} */
@@ -77,6 +79,7 @@ public class DefaultAdminApplicationService implements AdminApplicationService {
      * <p>
      * findAllMonitoredServices
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -101,6 +104,7 @@ public class DefaultAdminApplicationService implements AdminApplicationService {
      * <p>
      * getApplicationDao
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.dao.api.ApplicationDao} object.
      */
@@ -112,6 +116,7 @@ public class DefaultAdminApplicationService implements AdminApplicationService {
      * <p>
      * setApplicationDao
      * </p>
+     * .
      *
      * @param dao
      *            a {@link org.opennms.netmgt.dao.api.ApplicationDao} object.
@@ -124,6 +129,7 @@ public class DefaultAdminApplicationService implements AdminApplicationService {
      * <p>
      * getMonitoredServiceDao
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.dao.api.MonitoredServiceDao} object.
      */
@@ -135,6 +141,7 @@ public class DefaultAdminApplicationService implements AdminApplicationService {
      * <p>
      * setMonitoredServiceDao
      * </p>
+     * .
      *
      * @param monitoredServiceDao
      *            a {@link org.opennms.netmgt.dao.api.MonitoredServiceDao}
@@ -148,6 +155,7 @@ public class DefaultAdminApplicationService implements AdminApplicationService {
      * <p>
      * performEdit
      * </p>
+     * .
      *
      * @param applicationIdString
      *            a {@link java.lang.String} object.
@@ -242,6 +250,7 @@ public class DefaultAdminApplicationService implements AdminApplicationService {
      * <p>
      * findAllApplications
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -279,6 +288,7 @@ public class DefaultAdminApplicationService implements AdminApplicationService {
      * <p>
      * performServiceEdit
      * </p>
+     * .
      *
      * @param ifServiceIdString
      *            a {@link java.lang.String} object.
@@ -378,6 +388,7 @@ public class DefaultAdminApplicationService implements AdminApplicationService {
      * <p>
      * findApplication
      * </p>
+     * .
      *
      * @param name
      *            a {@link java.lang.String} object.
@@ -399,6 +410,13 @@ public class DefaultAdminApplicationService implements AdminApplicationService {
         return application;
     }
 
+    /**
+     * Find service.
+     *
+     * @param ifServiceIdString
+     *            the if service id string
+     * @return the onms monitored service
+     */
     private OnmsMonitoredService findService(final String ifServiceIdString) {
         int ifServiceId;
 
@@ -417,33 +435,74 @@ public class DefaultAdminApplicationService implements AdminApplicationService {
         return service;
     }
 
+    /**
+     * The Class ApplicationAndMemberServices.
+     */
     public class ApplicationAndMemberServices {
+
+        /** The m_application. */
         private OnmsApplication m_application;
 
+        /** The m_member services. */
         private Collection<OnmsMonitoredService> m_memberServices;
 
+        /**
+         * Instantiates a new application and member services.
+         *
+         * @param application
+         *            the application
+         * @param memberServices
+         *            the member services
+         */
         public ApplicationAndMemberServices(final OnmsApplication application,
                 final Collection<OnmsMonitoredService> memberServices) {
             m_application = application;
             m_memberServices = memberServices;
         }
 
+        /**
+         * Gets the application.
+         *
+         * @return the application
+         */
         public final OnmsApplication getApplication() {
             return m_application;
         }
 
+        /**
+         * Gets the member services.
+         *
+         * @return the member services
+         */
         public final Collection<OnmsMonitoredService> getMemberServices() {
             return m_memberServices;
         }
     }
 
+    /**
+     * The Class EditModel.
+     */
     public class EditModel {
+
+        /** The m_application. */
         private OnmsApplication m_application;
 
+        /** The m_monitored services. */
         private List<OnmsMonitoredService> m_monitoredServices;
 
+        /** The m_sorted member services. */
         private List<OnmsMonitoredService> m_sortedMemberServices;
 
+        /**
+         * Instantiates a new edits the model.
+         *
+         * @param application
+         *            the application
+         * @param monitoredServices
+         *            the monitored services
+         * @param memberServices
+         *            the member services
+         */
         public EditModel(final OnmsApplication application, final List<OnmsMonitoredService> monitoredServices,
                 final Collection<OnmsMonitoredService> memberServices) {
             m_application = application;
@@ -455,27 +514,57 @@ public class DefaultAdminApplicationService implements AdminApplicationService {
             Collections.sort(m_sortedMemberServices);
         }
 
+        /**
+         * Gets the application.
+         *
+         * @return the application
+         */
         public final OnmsApplication getApplication() {
             return m_application;
         }
 
+        /**
+         * Gets the monitored services.
+         *
+         * @return the monitored services
+         */
         public final List<OnmsMonitoredService> getMonitoredServices() {
             return m_monitoredServices;
         }
 
+        /**
+         * Gets the sorted member services.
+         *
+         * @return the sorted member services
+         */
         public final List<OnmsMonitoredService> getSortedMemberServices() {
             return m_sortedMemberServices;
         }
 
     }
 
+    /**
+     * The Class ServiceEditModel.
+     */
     public class ServiceEditModel {
+
+        /** The m_service. */
         private OnmsMonitoredService m_service;
 
+        /** The m_applications. */
         private List<OnmsApplication> m_applications;
 
+        /** The m_sorted applications. */
         private List<OnmsApplication> m_sortedApplications;
 
+        /**
+         * Instantiates a new service edit model.
+         *
+         * @param service
+         *            the service
+         * @param applications
+         *            the applications
+         */
         public ServiceEditModel(final OnmsMonitoredService service, final List<OnmsApplication> applications) {
             m_service = service;
             m_applications = applications;
@@ -488,14 +577,29 @@ public class DefaultAdminApplicationService implements AdminApplicationService {
             Collections.sort(m_sortedApplications);
         }
 
+        /**
+         * Gets the service.
+         *
+         * @return the service
+         */
         public final OnmsMonitoredService getService() {
             return m_service;
         }
 
+        /**
+         * Gets the applications.
+         *
+         * @return the applications
+         */
         public final List<OnmsApplication> getApplications() {
             return m_applications;
         }
 
+        /**
+         * Gets the sorted applications.
+         *
+         * @return the sorted applications
+         */
         public final List<OnmsApplication> getSortedApplications() {
             return m_sortedApplications;
         }

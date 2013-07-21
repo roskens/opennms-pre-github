@@ -50,15 +50,17 @@ import org.opennms.core.utils.WebSecurityUtils;
 
 /**
  * A servlet that handles querying the database for node, interface, service
- * combinations for use in setting up SNMP data collection per interface
+ * combinations for use in setting up SNMP data collection per interface.
  *
  * @author <A HREF="mailto:tarus@opennms.org">Tarus Balog </A>
  * @author <A HREF="http://www.opennms.org/">OpenNMS </A>
  */
 public class SnmpGetInterfacesServlet extends HttpServlet {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -5538965497977581230L;
 
+    /** The Constant INTERFACE_QUERY. */
     private static final String INTERFACE_QUERY = "SELECT " + "snmpinterface.nodeid, " + "snmpinterface.snmpifindex, "
             + "ipinterface.iphostname, " + "ipinterface.issnmpprimary, " + "snmpinterface.snmpifdescr, "
             + "snmpinterface.snmpiftype, " + "snmpinterface.snmpifname, " + "snmpinterface.snmpifalias, "
@@ -69,9 +71,10 @@ public class SnmpGetInterfacesServlet extends HttpServlet {
      * <p>
      * init
      * </p>
+     * .
      *
-     * @throws javax.servlet.ServletException
-     *             if any.
+     * @throws ServletException
+     *             the servlet exception
      */
     @Override
     public void init() throws ServletException {
@@ -105,6 +108,17 @@ public class SnmpGetInterfacesServlet extends HttpServlet {
         dispatcher.forward(request, response);
     }
 
+    /**
+     * Gets the node interfaces.
+     *
+     * @param userSession
+     *            the user session
+     * @param nodeid
+     *            the nodeid
+     * @return the node interfaces
+     * @throws SQLException
+     *             the sQL exception
+     */
     private List<SnmpManagedInterface> getNodeInterfaces(HttpSession userSession, int nodeid) throws SQLException {
         Connection connection = null;
         List<SnmpManagedInterface> nodeInterfaces = new ArrayList<SnmpManagedInterface>();

@@ -44,13 +44,14 @@ import com.google.gwt.user.client.rpc.IsSerializable;
  */
 public abstract class SurveillanceSet implements IsSerializable {
 
-    /** Constant <code>DEFAULT</code> */
+    /** Constant <code>DEFAULT</code>. */
     public static final SurveillanceSet DEFAULT = new DefaultSurveillanceSet();
 
     /**
      * <p>
      * isDefault
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -62,24 +63,37 @@ public abstract class SurveillanceSet implements IsSerializable {
      * <p>
      * visit
      * </p>
+     * .
      *
      * @param v
      *            a {@link org.opennms.dashboard.client.Visitor} object.
      */
     public abstract void visit(Visitor v);
 
+    /**
+     * The Class DefaultSurveillanceSet.
+     */
     public static class DefaultSurveillanceSet extends SurveillanceSet {
 
+        /* (non-Javadoc)
+         * @see org.opennms.dashboard.client.SurveillanceSet#isDefault()
+         */
         @Override
         public boolean isDefault() {
             return true;
         }
 
+        /* (non-Javadoc)
+         * @see java.lang.Object#toString()
+         */
         @Override
         public String toString() {
             return "All Surveillance Nodes";
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.dashboard.client.SurveillanceSet#visit(org.opennms.dashboard.client.Visitor)
+         */
         @Override
         public void visit(Visitor v) {
             v.visitAll();

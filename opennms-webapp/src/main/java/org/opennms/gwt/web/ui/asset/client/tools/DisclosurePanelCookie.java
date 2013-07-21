@@ -42,6 +42,8 @@ import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
+ * The Class DisclosurePanelCookie.
+ *
  * @author <a href="mailto:MarkusNeumannMarkus@gmail.com">Markus Neumann</a>
  *         {@link DisclosurePanel} that stores if its collaped or not in a
  *         cookie.
@@ -49,8 +51,15 @@ import com.google.gwt.user.client.ui.Widget;
  */
 public class DisclosurePanelCookie extends Composite implements HasWidgets {
 
+    /** The panel. */
     private DisclosurePanel panel = new DisclosurePanel();
 
+    /**
+     * Instantiates a new disclosure panel cookie.
+     *
+     * @param cookieName
+     *            the cookie name
+     */
     @UiConstructor
     public DisclosurePanelCookie(final String cookieName) {
 

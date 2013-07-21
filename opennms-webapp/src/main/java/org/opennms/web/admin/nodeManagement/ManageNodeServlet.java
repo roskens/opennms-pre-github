@@ -65,7 +65,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * A servlet that handles managing or unmanaging interfaces and services on a
- * node
+ * node.
  *
  * @author <A HREF="mailto:jason@opennms.org">Jason Johns </A>
  * @author <A HREF="http://www.opennms.org/">OpenNMS </A>
@@ -73,30 +73,36 @@ import org.slf4j.LoggerFactory;
  */
 public class ManageNodeServlet extends HttpServlet {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(ManageNodeServlet.class);
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -544260517139205801L;
 
     // FIXME: Should this be deleted?
     // private static final String UPDATE_INTERFACE =
     // "UPDATE ipinterface SET isManaged = ? WHERE ipaddr IN (?)";
 
+    /** The Constant UPDATE_SERVICE. */
     private static final String UPDATE_SERVICE = "UPDATE ifservices SET status = ? WHERE ipaddr = ? AND nodeID = ? AND serviceid = ?";
 
+    /** The Constant DELETE_SERVICE_OUTAGES. */
     private static final String DELETE_SERVICE_OUTAGES = "DELETE FROM outages WHERE ipaddr = ? AND nodeID = ? AND serviceid = ? AND ifregainedservice IS NULL";
 
+    /** The Constant INCLUDE_FILE_NAME. */
     private static final String INCLUDE_FILE_NAME = "include";
 
-    /** Constant <code>NOTICE_NAME="Email-Reporting"</code> */
+    /** Constant <code>NOTICE_NAME="Email-Reporting"</code>. */
     public static final String NOTICE_NAME = "Email-Reporting";
 
     /**
      * <p>
      * init
      * </p>
+     * .
      *
-     * @throws javax.servlet.ServletException
-     *             if any.
+     * @throws ServletException
+     *             the servlet exception
      */
     @Override
     public void init() throws ServletException {
@@ -249,6 +255,13 @@ public class ManageNodeServlet extends HttpServlet {
         dispatcher.forward(request, response);
     }
 
+    /**
+     * Gets the managed interfaces from session.
+     *
+     * @param userSession
+     *            the user session
+     * @return the managed interfaces from session
+     */
     @SuppressWarnings("unchecked")
     private List<ManagedInterface> getManagedInterfacesFromSession(HttpSession userSession) {
         if (userSession == null) {
@@ -259,6 +272,14 @@ public class ManageNodeServlet extends HttpServlet {
     }
 
     /**
+     * Manage interfaces.
+     *
+     * @param interfaces
+     *            the interfaces
+     * @param connection
+     *            the connection
+     * @throws SQLException
+     *             the sQL exception
      */
     private void manageInterfaces(List<String> interfaces, Connection connection) throws SQLException {
         StringBuffer query = new StringBuffer("UPDATE ipinterface SET isManaged = ");
@@ -279,6 +300,14 @@ public class ManageNodeServlet extends HttpServlet {
     }
 
     /**
+     * Unmanage interfaces.
+     *
+     * @param interfaces
+     *            the interfaces
+     * @param connection
+     *            the connection
+     * @throws SQLException
+     *             the sQL exception
      */
     private void unmanageInterfaces(List<String> interfaces, Connection connection) throws SQLException {
         StringBuffer query = new StringBuffer("UPDATE ipinterface SET isManaged = ");
@@ -299,6 +328,10 @@ public class ManageNodeServlet extends HttpServlet {
     }
 
     /**
+     * Send scm restart event.
+     *
+     * @throws ServletException
+     *             the servlet exception
      */
     private void sendSCMRestartEvent() throws ServletException {
         EventBuilder bldr = new EventBuilder("uei.opennms.org/internal/restartSCM", "web ui");
@@ -308,6 +341,11 @@ public class ManageNodeServlet extends HttpServlet {
 
     /**
      * FIXME: This is totally the wrong place to be doing this.
+     *
+     * @param interfaceList
+     *            the interface list
+     * @throws ServletException
+     *             the servlet exception
      */
     private void writeURLFile(List<String> interfaceList) throws ServletException {
         String path = System.getProperty("opennms.home") + File.separator + "etc" + File.separator;
@@ -335,6 +373,11 @@ public class ManageNodeServlet extends HttpServlet {
     }
 
     /**
+     * Gets the list.
+     *
+     * @param array
+     *            the array
+     * @return the list
      */
     private List<String> getList(String[] array) {
         List<String> newList = new ArrayList<String>();
@@ -349,6 +392,12 @@ public class ManageNodeServlet extends HttpServlet {
     }
 
     /**
+     * Send event.
+     *
+     * @param event
+     *            the event
+     * @throws ServletException
+     *             the servlet exception
      */
     private void sendEvent(Event event) throws ServletException {
         try {

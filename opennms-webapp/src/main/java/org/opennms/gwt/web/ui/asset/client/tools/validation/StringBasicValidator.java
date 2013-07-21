@@ -33,12 +33,17 @@ import org.opennms.gwt.web.ui.asset.client.AssetPageConstants;
 import com.google.gwt.core.client.GWT;
 
 /**
+ * The Class StringBasicValidator.
+ *
  * @author <a href="mailto:MarkusNeumannMarkus@gmail.com">Markus Neumann</a>
  *         Validator just allows A-Z a-z 0-9 and - and _.
  */
 public class StringBasicValidator implements Validator {
+
+    /** The con. */
     private AssetPageConstants con = GWT.create(AssetPageConstants.class);
 
+    /** The regexp. */
     private String regexp = "[A-Za-z0-9_/-]*";
 
     /**
@@ -46,6 +51,8 @@ public class StringBasicValidator implements Validator {
      * against <code>(String) object</code> so make sure to use a proper object.
      *
      * @param object
+     *            the object
+     * @return the string
      */
     @Override
     public String validate(Object object) {

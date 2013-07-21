@@ -44,6 +44,8 @@ import org.springframework.validation.Validator;
  * @since 1.8.1
  */
 public class StatisticsReportCommandValidator implements Validator, InitializingBean {
+
+    /** The m_statistics report dao. */
     private StatisticsReportDao m_statisticsReportDao;
 
     /** {@inheritDoc} */
@@ -75,6 +77,7 @@ public class StatisticsReportCommandValidator implements Validator, Initializing
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      */
     @Override
     public final void afterPropertiesSet() {
@@ -87,6 +90,7 @@ public class StatisticsReportCommandValidator implements Validator, Initializing
      * <p>
      * getStatisticsReportDao
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.dao.api.StatisticsReportDao} object.
      */
@@ -98,6 +102,7 @@ public class StatisticsReportCommandValidator implements Validator, Initializing
      * <p>
      * setStatisticsReportDao
      * </p>
+     * .
      *
      * @param statisticsReportDao
      *            a {@link org.opennms.netmgt.dao.api.StatisticsReportDao}

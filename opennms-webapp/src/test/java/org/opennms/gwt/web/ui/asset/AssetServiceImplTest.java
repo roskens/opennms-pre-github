@@ -68,6 +68,9 @@ import org.springframework.test.context.support.DependencyInjectionTestExecution
 import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 
+/**
+ * The Class AssetServiceImplTest.
+ */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @TestExecutionListeners({ OpenNMSConfigurationExecutionListener.class, TemporaryDatabaseExecutionListener.class,
         DependencyInjectionTestExecutionListener.class, DirtiesContextTestExecutionListener.class,
@@ -77,20 +80,25 @@ import org.springframework.test.context.transaction.TransactionalTestExecutionLi
 @JUnitConfigurationEnvironment
 public class AssetServiceImplTest implements InitializingBean {
 
+    /** The m_dist poller dao. */
     @Autowired
     private DistPollerDao m_distPollerDao;
 
+    /** The m_node dao. */
     @Autowired
     private NodeDao m_nodeDao;
 
+    /** The m_asset record dao. */
     @Autowired
     private AssetRecordDao m_assetRecordDao;
 
+    /** The m_database populator. */
     @Autowired
     private DatabasePopulator m_databasePopulator;
 
     // private SecurityContextService m_securityContextService;
 
+    /** The role admin. */
     private final GrantedAuthority ROLE_ADMIN = new SimpleGrantedAuthority(Authentication.ROLE_ADMIN);
 
     /*
@@ -100,10 +108,13 @@ public class AssetServiceImplTest implements InitializingBean {
      * GrantedAuthorityImpl(Authentication.ROLE_USER);
      */
 
+    /** The username. */
     private final String USERNAME = "opennms";
 
+    /** The pass. */
     private final String PASS = "r0c|<Z";
 
+    /** The valid admin. */
     private User validAdmin;
 
     /*
@@ -116,15 +127,23 @@ public class AssetServiceImplTest implements InitializingBean {
      * private User invalidPower;
      */
 
+    /** The m_auth. */
     private org.springframework.security.core.Authentication m_auth;
 
+    /** The m_context. */
     private SecurityContext m_context;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         org.opennms.core.utils.BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Sets the up.
+     */
     @Before
     public void setUp() {
         m_databasePopulator.populateDatabase();
@@ -156,6 +175,9 @@ public class AssetServiceImplTest implements InitializingBean {
         // m_securityContextService = new SpringSecurityContextService();
     }
 
+    /**
+     * Tear down.
+     */
     @After
     public void tearDown() {
         for (final OnmsNode node : m_nodeDao.findAll()) {
@@ -164,6 +186,9 @@ public class AssetServiceImplTest implements InitializingBean {
         m_nodeDao.flush();
     }
 
+    /**
+     * Test create and gets.
+     */
     @Test
     public void testCreateAndGets() {
         OnmsNode onmsNode = new OnmsNode(m_distPollerDao.load("localhost"));
@@ -182,6 +207,9 @@ public class AssetServiceImplTest implements InitializingBean {
         assertEquals(7, m_assetRecordDao.countAll());
     }
 
+    /**
+     * Test asset service impl.
+     */
     @Test
     public void testAssetServiceImpl() {
         OnmsNode onmsNode = new OnmsNode(m_distPollerDao.load("localhost"));
@@ -244,6 +272,9 @@ public class AssetServiceImplTest implements InitializingBean {
     // assetServiceImpl.getAssetByNodeId(7).getAllowModify());
     // }
 
+    /**
+     * Test save or update.
+     */
     @Test
     public void testSaveOrUpdate() {
         OnmsNode onmsNode = new OnmsNode(m_distPollerDao.load("localhost"));
@@ -285,6 +316,9 @@ public class AssetServiceImplTest implements InitializingBean {
         assertEquals(assetRecord.getGeolocation().getLatitude(), updated.getGeolocation().getLatitude());
     }
 
+    /**
+     * Test asset suggestion.
+     */
     @Test
     public void testAssetSuggestion() {
         OnmsNode onmsNode = new OnmsNode(m_distPollerDao.load("localhost"));

@@ -38,9 +38,17 @@ import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
+/**
+ * The Class DataLinkInterfaceRestServiceTest.
+ */
 public class DataLinkInterfaceRestServiceTest extends AbstractSpringJerseyRestTestCase {
+
+    /** The m_database populator. */
     private DatabasePopulator m_databasePopulator;
 
+    /* (non-Javadoc)
+     * @see org.opennms.web.rest.AbstractSpringJerseyRestTestCase#afterServletStart()
+     */
     @Override
     protected void afterServletStart() {
         MockLogAppender.setupLogging(true, "DEBUG");
@@ -49,12 +57,24 @@ public class DataLinkInterfaceRestServiceTest extends AbstractSpringJerseyRestTe
         m_databasePopulator.populateDatabase();
     }
 
+    /**
+     * Test links.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testLinks() throws Exception {
         String xml = sendRequest(GET, "/links", 200);
         assertTrue(xml.contains("<links count=\"3\""));
     }
 
+    /**
+     * Test link.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testLink() throws Exception {
         String xml = sendRequest(GET, "/links/64", 200);
@@ -74,36 +94,72 @@ public class DataLinkInterfaceRestServiceTest extends AbstractSpringJerseyRestTe
 
     }
 
+    /**
+     * Test query with nodeid.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testQueryWithNodeid() throws Exception {
         String xml = sendRequest(GET, "/links", parseParamData("node.id=2"), 200);
         assertTrue(xml.contains("<links count=\"1\""));
     }
 
+    /**
+     * Test query with if index.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testQueryWithIfIndex() throws Exception {
         String xml = sendRequest(GET, "/links", parseParamData("ifIndex=1"), 200);
         assertTrue(xml.contains("<links count=\"2\""));
     }
 
+    /**
+     * Test query with parent nodeid.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testQueryWithParentNodeid() throws Exception {
         String xml = sendRequest(GET, "/links", parseParamData("nodeParentId=2"), 200);
         assertTrue(xml.contains("<links count=\"0\""));
     }
 
+    /**
+     * Test query with parent ifindex.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testQueryWithParentIfindex() throws Exception {
         String xml = sendRequest(GET, "/links", parseParamData("parentIfIndex=1"), 200);
         assertTrue(xml.contains("<links count=\"3\""));
     }
 
+    /**
+     * Test query with status.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testQueryWithStatus() throws Exception {
         String xml = sendRequest(GET, "/links", parseParamData("status=A"), 200);
         assertTrue(xml.contains("<links count=\"3\""));
     }
 
+    /**
+     * Test post.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testPost() throws Exception {
         final String xml = "  <link status=\"A\" source=\"monkey\">" + "    <ifIndex>1</ifIndex>"
@@ -118,6 +174,12 @@ public class DataLinkInterfaceRestServiceTest extends AbstractSpringJerseyRestTe
         assertTrue(newXml.contains("<links count=\"4\""));
     }
 
+    /**
+     * Test put.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testPut() throws Exception {
         String xml = sendRequest(GET, "/links/64", 200);
@@ -133,6 +195,12 @@ public class DataLinkInterfaceRestServiceTest extends AbstractSpringJerseyRestTe
         assertTrue(xml.contains("source=\"monkey\""));
     }
 
+    /**
+     * Test delete.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testDelete() throws Exception {
         String xml = sendRequest(GET, "/links/64", 200);

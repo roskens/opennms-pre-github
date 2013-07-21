@@ -77,10 +77,13 @@ import org.springframework.orm.ObjectRetrievalFailureException;
  */
 public class DefaultSiteStatusViewService implements SiteStatusViewService {
 
+    /** The m_node dao. */
     private NodeDao m_nodeDao;
 
+    /** The m_category dao. */
     private CategoryDao m_categoryDao;
 
+    /** The m_site status view config dao. */
     private SiteStatusViewConfigDao m_siteStatusViewConfigDao;
 
     /**
@@ -108,6 +111,13 @@ public class DefaultSiteStatusViewService implements SiteStatusViewService {
         return statusView;
     }
 
+    /**
+     * Gets the aggregate status definitions for view.
+     *
+     * @param view
+     *            the view
+     * @return the aggregate status definitions for view
+     */
     private Set<AggregateStatusDefinition> getAggregateStatusDefinitionsForView(final View view) {
         Set<AggregateStatusDefinition> statusDefs = new LinkedHashSet<AggregateStatusDefinition>();
         List<RowDef> rowDefs = view.getRows().getRowDefCollection();
@@ -125,6 +135,13 @@ public class DefaultSiteStatusViewService implements SiteStatusViewService {
         return statusDefs;
     }
 
+    /**
+     * Gets the categories for row def.
+     *
+     * @param rowDef
+     *            the row def
+     * @return the categories for row def
+     */
     private Set<OnmsCategory> getCategoriesForRowDef(final RowDef rowDef) {
         Set<OnmsCategory> categories = new LinkedHashSet<OnmsCategory>();
 
@@ -191,6 +208,7 @@ public class DefaultSiteStatusViewService implements SiteStatusViewService {
      * <p>
      * createAggregateStatusUsingAssetColumn
      * </p>
+     * .
      *
      * @param statusView
      *            a {@link org.opennms.netmgt.model.AggregateStatusView} object.
@@ -226,6 +244,15 @@ public class DefaultSiteStatusViewService implements SiteStatusViewService {
         return stati;
     }
 
+    /**
+     * Creates the node page url.
+     *
+     * @param statusView
+     *            the status view
+     * @param status
+     *            the status
+     * @return the string
+     */
     private String createNodePageUrl(final AggregateStatusView statusView, final AggregateStatus status) {
 
         if (status.getDownEntityCount() == 0) {
@@ -266,6 +293,7 @@ public class DefaultSiteStatusViewService implements SiteStatusViewService {
      * <p>
      * getNodeDao
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.dao.api.NodeDao} object.
      */
@@ -277,6 +305,7 @@ public class DefaultSiteStatusViewService implements SiteStatusViewService {
      * <p>
      * setNodeDao
      * </p>
+     * .
      *
      * @param nodeDao
      *            a {@link org.opennms.netmgt.dao.api.NodeDao} object.
@@ -289,6 +318,7 @@ public class DefaultSiteStatusViewService implements SiteStatusViewService {
      * <p>
      * setCategoryDao
      * </p>
+     * .
      *
      * @param dao
      *            a {@link org.opennms.netmgt.dao.api.CategoryDao} object.
@@ -301,6 +331,7 @@ public class DefaultSiteStatusViewService implements SiteStatusViewService {
      * <p>
      * setSiteStatusViewConfigDao
      * </p>
+     * .
      *
      * @param dao
      *            a {@link org.opennms.netmgt.dao.api.SiteStatusViewConfigDao}
@@ -350,6 +381,15 @@ public class DefaultSiteStatusViewService implements SiteStatusViewService {
         return m_nodeDao.findAllByVarCharAssetColumnCategoryList(view.getColumnName(), statusSite, categories);
     }
 
+    /**
+     * Gets the row def.
+     *
+     * @param view
+     *            the view
+     * @param rowLabel
+     *            the row label
+     * @return the row def
+     */
     private RowDef getRowDef(final View view, final String rowLabel) {
         Rows rows = view.getRows();
         Collection<RowDef> rowDefs = rows.getRowDefCollection();

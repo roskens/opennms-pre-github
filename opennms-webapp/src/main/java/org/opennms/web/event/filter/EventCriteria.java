@@ -46,43 +46,108 @@ import org.opennms.web.filter.Filter;
  */
 public class EventCriteria {
 
+    /**
+     * The Interface EventCriteriaVisitor.
+     *
+     * @param <E>
+     *            the element type
+     */
     public static interface EventCriteriaVisitor<E extends Exception> {
+
+        /**
+         * Visit ack type.
+         *
+         * @param ackType
+         *            the ack type
+         * @throws E
+         *             the e
+         */
         public void visitAckType(AcknowledgeType ackType) throws E;
 
+        /**
+         * Visit filter.
+         *
+         * @param filter
+         *            the filter
+         * @throws E
+         *             the e
+         */
         public void visitFilter(Filter filter) throws E;
 
+        /**
+         * Visit sort style.
+         *
+         * @param sortStyle
+         *            the sort style
+         * @throws E
+         *             the e
+         */
         public void visitSortStyle(SortStyle sortStyle) throws E;
 
+        /**
+         * Visit limit.
+         *
+         * @param limit
+         *            the limit
+         * @param offset
+         *            the offset
+         * @throws E
+         *             the e
+         */
         public void visitLimit(int limit, int offset) throws E;
     }
 
+    /**
+     * The Class BaseEventCriteriaVisitor.
+     *
+     * @param <E>
+     *            the element type
+     */
     public static class BaseEventCriteriaVisitor<E extends Exception> implements EventCriteriaVisitor<E> {
+
+        /* (non-Javadoc)
+         * @see org.opennms.web.event.filter.EventCriteria.EventCriteriaVisitor#visitAckType(org.opennms.web.event.AcknowledgeType)
+         */
         @Override
         public void visitAckType(AcknowledgeType ackType) throws E {
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.web.event.filter.EventCriteria.EventCriteriaVisitor#visitFilter(org.opennms.web.filter.Filter)
+         */
         @Override
         public void visitFilter(Filter filter) throws E {
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.web.event.filter.EventCriteria.EventCriteriaVisitor#visitLimit(int, int)
+         */
         @Override
         public void visitLimit(int limit, int offset) throws E {
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.web.event.filter.EventCriteria.EventCriteriaVisitor#visitSortStyle(org.opennms.web.event.SortStyle)
+         */
         @Override
         public void visitSortStyle(SortStyle sortStyle) throws E {
         }
 
     }
 
+    /** The m_filters. */
     Filter[] m_filters = null;
 
+    /** The m_sort style. */
     SortStyle m_sortStyle = SortStyle.TIME;
 
+    /** The m_ack type. */
     AcknowledgeType m_ackType = AcknowledgeType.UNACKNOWLEDGED;
 
+    /** The m_offset. */
     int m_offset = -1;
 
+    /** The m_limit. */
     int m_limit = -1;
 
     /**
@@ -139,15 +204,16 @@ public class EventCriteria {
      * <p>
      * visit
      * </p>
+     * .
      *
-     * @param visitor
-     *            a
-     *            {@link org.opennms.web.event.filter.EventCriteria.EventCriteriaVisitor}
-     *            object.
      * @param <E>
      *            a E object.
+     * @param visitor
+     *            a
      * @throws E
      *             if any.
+     *             {@link org.opennms.web.event.filter.EventCriteria.EventCriteriaVisitor}
+     *             object.
      */
     public <E extends Exception> void visit(EventCriteriaVisitor<E> visitor) throws E {
         if (m_ackType != null) {

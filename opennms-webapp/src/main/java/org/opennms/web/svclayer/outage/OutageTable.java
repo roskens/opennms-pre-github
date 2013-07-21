@@ -86,18 +86,23 @@ import org.opennms.netmgt.model.OnmsOutage;
  */
 public class OutageTable {
 
+    /** The m_cview. */
     OutageListBuilder m_cview = new OutageListBuilder();
 
+    /** The found outages. */
     Collection<OnmsOutage> foundOutages;
 
+    /** The view outages. */
     Collection<OnmsOutage> viewOutages;
 
+    /** The Constant ROW_LIMIT. */
     private static final int ROW_LIMIT = 25;
 
     /**
      * <p>
      * getResolvedOutageTable
      * </p>
+     * .
      *
      * @param request
      *            a {@link javax.servlet.http.HttpServletRequest} object.

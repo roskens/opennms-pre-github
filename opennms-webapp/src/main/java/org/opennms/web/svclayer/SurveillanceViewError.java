@@ -39,14 +39,17 @@ package org.opennms.web.svclayer;
  */
 public class SurveillanceViewError {
 
+    /** The m_short descr. */
     private String m_shortDescr;
 
+    /** The m_long descr. */
     private String m_longDescr;
 
     /**
      * <p>
      * getShortDescr
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -58,6 +61,7 @@ public class SurveillanceViewError {
      * <p>
      * setShortDescr
      * </p>
+     * .
      *
      * @param shortDescr
      *            a {@link java.lang.String} object.
@@ -70,6 +74,7 @@ public class SurveillanceViewError {
      * <p>
      * getLongDescr
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -81,6 +86,7 @@ public class SurveillanceViewError {
      * <p>
      * setLongDescr
      * </p>
+     * .
      *
      * @param longDescr
      *            a {@link java.lang.String} object.

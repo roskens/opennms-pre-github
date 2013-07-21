@@ -52,16 +52,23 @@ import org.opennms.web.map.MapsException;
  * @since 1.8.1
  */
 public class DbElement implements Cloneable {
+
+    /** The map id. */
     private int mapId;
 
+    /** The id. */
     private int id;
 
+    /** The type. */
     protected String type;
 
+    /** The label. */
     private String label;
 
+    /** The icon. */
     private String icon;
 
+    /** The sysoid. */
     private String sysoid;
 
     /**
@@ -87,8 +94,10 @@ public class DbElement implements Cloneable {
         this.sysoid = sysoid;
     }
 
+    /** The x. */
     private int x;
 
+    /** The y. */
     private int y;
 
     /**
@@ -107,8 +116,8 @@ public class DbElement implements Cloneable {
      *
      * @param e
      *            a {@link org.opennms.web.map.db.DbElement} object.
-     * @throws org.opennms.web.map.MapsException
-     *             if any.
+     * @throws MapsException
+     *             the maps exception
      */
     public DbElement(DbElement e) throws MapsException {
         this(e.mapId, e.id, e.type, e.label, e.sysoid, e.icon, e.x, e.y);
@@ -135,8 +144,8 @@ public class DbElement implements Cloneable {
      *            a int.
      * @param y
      *            a int.
-     * @throws org.opennms.web.map.MapsException
-     *             if any.
+     * @throws MapsException
+     *             the maps exception
      */
     public DbElement(int mapId, int id, String type, String label, String sysoid, String iconName, int x, int y)
             throws MapsException {
@@ -260,8 +269,8 @@ public class DbElement implements Cloneable {
      *
      * @param type
      *            The type to set.
-     * @throws org.opennms.web.map.MapsException
-     *             if any.
+     * @throws MapsException
+     *             the maps exception
      */
     public void setType(String type) throws MapsException {
         if (type.equals(MapsConstants.MAP_TYPE) || type.equals(MapsConstants.NODE_TYPE)
@@ -320,6 +329,7 @@ public class DbElement implements Cloneable {
      * <p>
      * clone
      * </p>
+     * .
      *
      * @return a {@link org.opennms.web.map.db.DbElement} object.
      */
@@ -338,6 +348,7 @@ public class DbElement implements Cloneable {
      * <p>
      * isMap
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -351,6 +362,7 @@ public class DbElement implements Cloneable {
      * <p>
      * isNode
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -364,6 +376,7 @@ public class DbElement implements Cloneable {
      * <p>
      * isHideMap
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -377,6 +390,7 @@ public class DbElement implements Cloneable {
      * <p>
      * isHideNode
      * </p>
+     * .
      *
      * @return a boolean.
      */

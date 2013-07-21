@@ -53,6 +53,7 @@ import com.sun.syndication.feed.synd.SyndFeedImpl;
  */
 public class OutageFeed extends AbstractFeed {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(OutageFeed.class);
 
     /**
@@ -84,6 +85,7 @@ public class OutageFeed extends AbstractFeed {
      * <p>
      * getFeed
      * </p>
+     * .
      *
      * @return a {@link com.sun.syndication.feed.synd.SyndFeed} object.
      */

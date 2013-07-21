@@ -45,15 +45,13 @@ import javax.servlet.http.HttpServletRequest;
  */
 public abstract class BaseAcknowledgeServlet extends HttpServlet {
 
-    /**
-	 *
-	 */
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 4059726823978789453L;
 
-    /** Constant <code>ACKNOWLEDGE_ACTION="1"</code> */
+    /** Constant <code>ACKNOWLEDGE_ACTION="1"</code>. */
     public static final String ACKNOWLEDGE_ACTION = "1";
 
-    /** Constant <code>UNACKNOWLEDGE_ACTION="2"</code> */
+    /** Constant <code>UNACKNOWLEDGE_ACTION="2"</code>. */
     public static final String UNACKNOWLEDGE_ACTION = "2";
 
     /** The URL to redirect the client to in case of success. */
@@ -73,8 +71,8 @@ public abstract class BaseAcknowledgeServlet extends HttpServlet {
      * config. If not present, this servlet will throw an exception so it will
      * be marked unavailable.
      *
-     * @throws javax.servlet.ServletException
-     *             if any.
+     * @throws ServletException
+     *             the servlet exception
      */
     @Override
     public void init() throws ServletException {

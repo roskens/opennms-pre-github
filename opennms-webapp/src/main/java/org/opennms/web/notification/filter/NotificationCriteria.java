@@ -43,42 +43,107 @@ import org.opennms.web.notification.SortStyle;
  */
 public class NotificationCriteria {
 
+    /**
+     * The Interface NotificationCriteriaVisitor.
+     *
+     * @param <E>
+     *            the element type
+     */
     public static interface NotificationCriteriaVisitor<E extends Exception> {
+
+        /**
+         * Visit ack type.
+         *
+         * @param ackType
+         *            the ack type
+         * @throws E
+         *             the e
+         */
         public void visitAckType(AcknowledgeType ackType) throws E;
 
+        /**
+         * Visit filter.
+         *
+         * @param filter
+         *            the filter
+         * @throws E
+         *             the e
+         */
         public void visitFilter(Filter filter) throws E;
 
+        /**
+         * Visit sort style.
+         *
+         * @param sortStyle
+         *            the sort style
+         * @throws E
+         *             the e
+         */
         public void visitSortStyle(SortStyle sortStyle) throws E;
 
+        /**
+         * Visit limit.
+         *
+         * @param limit
+         *            the limit
+         * @param offset
+         *            the offset
+         * @throws E
+         *             the e
+         */
         public void visitLimit(int limit, int offset) throws E;
     }
 
+    /**
+     * The Class BaseNotificationCriteriaVisitor.
+     *
+     * @param <E>
+     *            the element type
+     */
     public static class BaseNotificationCriteriaVisitor<E extends Exception> implements NotificationCriteriaVisitor<E> {
+
+        /* (non-Javadoc)
+         * @see org.opennms.web.notification.filter.NotificationCriteria.NotificationCriteriaVisitor#visitAckType(org.opennms.web.notification.AcknowledgeType)
+         */
         @Override
         public void visitAckType(AcknowledgeType ackType) throws E {
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.web.notification.filter.NotificationCriteria.NotificationCriteriaVisitor#visitFilter(org.opennms.web.filter.Filter)
+         */
         @Override
         public void visitFilter(Filter filter) throws E {
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.web.notification.filter.NotificationCriteria.NotificationCriteriaVisitor#visitLimit(int, int)
+         */
         @Override
         public void visitLimit(int limit, int offset) throws E {
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.web.notification.filter.NotificationCriteria.NotificationCriteriaVisitor#visitSortStyle(org.opennms.web.notification.SortStyle)
+         */
         @Override
         public void visitSortStyle(SortStyle sortStyle) throws E {
         }
     }
 
+    /** The m_filters. */
     Filter[] m_filters = null;
 
+    /** The m_sort style. */
     SortStyle m_sortStyle = SortStyle.ID;
 
+    /** The m_ack type. */
     AcknowledgeType m_ackType = AcknowledgeType.UNACKNOWLEDGED;
 
+    /** The m_limit. */
     int m_limit = -1;
 
+    /** The m_offset. */
     int m_offset = -1;
 
     /**
@@ -135,15 +200,16 @@ public class NotificationCriteria {
      * <p>
      * visit
      * </p>
+     * .
      *
-     * @param visitor
-     *            a
-     *            {@link org.opennms.web.notification.filter.NotificationCriteria.NotificationCriteriaVisitor}
-     *            object.
      * @param <E>
      *            a E object.
+     * @param visitor
+     *            a
      * @throws E
      *             if any.
+     *             {@link org.opennms.web.notification.filter.NotificationCriteria.NotificationCriteriaVisitor}
+     *             object.
      */
     public <E extends Exception> void visit(NotificationCriteriaVisitor<E> visitor) throws E {
         if (m_ackType != null) {

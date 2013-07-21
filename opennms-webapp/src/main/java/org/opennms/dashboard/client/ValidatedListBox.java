@@ -43,15 +43,17 @@ import com.google.gwt.user.client.ui.ListBox;
  * @since 1.8.1
  */
 public class ValidatedListBox extends ListBox {
-    /**
-     *
-     */
+
+    /** The m_dashlet. */
     private Dashlet m_dashlet;
 
+    /** The m_allow wrap around. */
     private boolean m_allowWrapAround = true;
 
+    /** The m_parent. */
     private ValidatedListBox m_parent = null;
 
+    /** The m_directional change handler. */
     private DirectionalChangeHandler m_directionalChangeHandler = null;
 
     /**
@@ -71,6 +73,7 @@ public class ValidatedListBox extends ListBox {
      * <p>
      * setParent
      * </p>
+     * .
      *
      * @param parent
      *            a {@link org.opennms.dashboard.client.ValidatedListBox}
@@ -84,6 +87,7 @@ public class ValidatedListBox extends ListBox {
      * <p>
      * setDirectionalChangeHandler
      * </p>
+     * .
      *
      * @param handler
      *            a
@@ -98,6 +102,7 @@ public class ValidatedListBox extends ListBox {
      * <p>
      * getSelectedValue
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -115,6 +120,7 @@ public class ValidatedListBox extends ListBox {
      * <p>
      * getRelativeSelectedValue
      * </p>
+     * .
      *
      * @param offset
      *            a int.
@@ -133,6 +139,7 @@ public class ValidatedListBox extends ListBox {
      * <p>
      * adjustSelectedValue
      * </p>
+     * .
      *
      * @param direction
      *            a int.

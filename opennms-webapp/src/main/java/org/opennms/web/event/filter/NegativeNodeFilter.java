@@ -43,11 +43,14 @@ import org.springframework.context.ApplicationContext;
  * @since 1.8.1
  */
 public class NegativeNodeFilter extends NotEqualOrNullFilter<Integer> {
-    /** Constant <code>TYPE="nodenot"</code> */
+
+    /** Constant <code>TYPE="nodenot"</code>. */
     public static final String TYPE = "nodenot";
 
+    /** The m_servlet context. */
     private ServletContext m_servletContext;
 
+    /** The m_app context. */
     private ApplicationContext m_appContext;
 
     /**
@@ -57,12 +60,22 @@ public class NegativeNodeFilter extends NotEqualOrNullFilter<Integer> {
      *
      * @param nodeId
      *            a int.
+     * @param servletContext
+     *            the servlet context
      */
     public NegativeNodeFilter(int nodeId, ServletContext servletContext) {
         super(TYPE, SQLType.INT, "EVENTS.NODEID", "node.id", nodeId);
         m_servletContext = servletContext;
     }
 
+    /**
+     * Instantiates a new negative node filter.
+     *
+     * @param nodeId
+     *            the node id
+     * @param appContext
+     *            the app context
+     */
     public NegativeNodeFilter(int nodeId, ApplicationContext appContext) {
         super(TYPE, SQLType.INT, "EVENTS.NODEID", "node.id", nodeId);
         m_appContext = appContext;
@@ -72,6 +85,7 @@ public class NegativeNodeFilter extends NotEqualOrNullFilter<Integer> {
      * <p>
      * getTextDescription
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -86,6 +100,11 @@ public class NegativeNodeFilter extends NotEqualOrNullFilter<Integer> {
         return ("node is not " + nodeName);
     }
 
+    /**
+     * Gets the node label.
+     *
+     * @return the node label
+     */
     private String getNodeLabel() {
         return m_servletContext != null ? NetworkElementFactory.getInstance(m_servletContext).getNodeLabel(getValue())
             : NetworkElementFactory.getInstance(m_appContext).getNodeLabel(getValue());
@@ -95,6 +114,7 @@ public class NegativeNodeFilter extends NotEqualOrNullFilter<Integer> {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -107,6 +127,7 @@ public class NegativeNodeFilter extends NotEqualOrNullFilter<Integer> {
      * <p>
      * getNodeId
      * </p>
+     * .
      *
      * @return a int.
      */

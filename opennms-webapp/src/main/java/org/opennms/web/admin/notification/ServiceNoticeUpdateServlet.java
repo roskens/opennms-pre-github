@@ -47,7 +47,7 @@ import org.opennms.core.utils.DBUtils;
 import org.opennms.core.utils.WebSecurityUtils;
 
 /**
- * A servlet that handles updating the ifservices table with the notice status
+ * A servlet that handles updating the ifservices table with the notice status.
  *
  * @author <a href="mailto:jason@opennms.org">Jason Johns</a>
  * @author <a href="http://www.opennms.org/">OpenNMS</a>
@@ -57,11 +57,11 @@ import org.opennms.core.utils.WebSecurityUtils;
  * @since 1.8.1
  */
 public class ServiceNoticeUpdateServlet extends HttpServlet {
-    /**
-     *
-     */
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -5205846787997118203L;
 
+    /** The Constant UPDATE_SERVICE. */
     private static final String UPDATE_SERVICE = "UPDATE ifservices SET notify = ? WHERE nodeID = ? AND ipaddr = ? AND serviceid = ?";
 
     /** {@inheritDoc} */
@@ -94,12 +94,31 @@ public class ServiceNoticeUpdateServlet extends HttpServlet {
         response.sendRedirect("index.jsp");
     }
 
+    /**
+     * Gets the services checked.
+     *
+     * @param userSession
+     *            the user session
+     * @return the services checked
+     */
     @SuppressWarnings("unchecked")
     private Map<String, String> getServicesChecked(HttpSession userSession) {
         return (Map<String, String>) userSession.getAttribute("service.notify.map");
     }
 
     /**
+     * Update service.
+     *
+     * @param nodeID
+     *            the node id
+     * @param interfaceIP
+     *            the interface ip
+     * @param serviceID
+     *            the service id
+     * @param notifyFlag
+     *            the notify flag
+     * @throws ServletException
+     *             the servlet exception
      */
     private void updateService(int nodeID, String interfaceIP, int serviceID, String notifyFlag)
             throws ServletException {

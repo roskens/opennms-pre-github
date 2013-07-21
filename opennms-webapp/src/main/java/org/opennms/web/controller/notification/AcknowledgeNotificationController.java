@@ -59,14 +59,17 @@ import org.springframework.web.servlet.view.RedirectView;
  */
 public class AcknowledgeNotificationController extends AbstractController implements InitializingBean {
 
+    /** The m_web notification repository. */
     private WebNotificationRepository m_webNotificationRepository;
 
+    /** The m_redirect view. */
     private String m_redirectView;
 
     /**
      * <p>
      * setRedirectView
      * </p>
+     * .
      *
      * @param redirectView
      *            a {@link java.lang.String} object.
@@ -79,6 +82,7 @@ public class AcknowledgeNotificationController extends AbstractController implem
      * <p>
      * setWebNotificationRepository
      * </p>
+     * .
      *
      * @param webNotificationRepository
      *            a
@@ -93,9 +97,10 @@ public class AcknowledgeNotificationController extends AbstractController implem
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @Override
     public void afterPropertiesSet() throws Exception {

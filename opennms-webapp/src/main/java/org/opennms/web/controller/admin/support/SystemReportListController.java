@@ -38,12 +38,14 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 
 /**
- * SystemReportController
+ * SystemReportController.
  *
  * @author ranger
  * @since 1.8.6
  */
 public class SystemReportListController extends AbstractController implements InitializingBean {
+
+    /** The m_system report. */
     private SystemReport m_systemReport;
 
     /** {@inheritDoc} */
@@ -54,10 +56,19 @@ public class SystemReportListController extends AbstractController implements In
                                 new SystemReportInfo(m_systemReport.getFormatters(), m_systemReport.getPlugins()));
     }
 
+    /**
+     * Sets the system report.
+     *
+     * @param report
+     *            the new system report
+     */
     public void setSystemReport(final SystemReport report) {
         m_systemReport = report;
     }
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         Assert.notNull(m_systemReport);

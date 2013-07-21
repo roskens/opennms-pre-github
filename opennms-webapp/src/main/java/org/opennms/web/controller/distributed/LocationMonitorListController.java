@@ -48,6 +48,8 @@ import org.springframework.web.servlet.mvc.AbstractController;
  * @since 1.8.1
  */
 public class LocationMonitorListController extends AbstractController implements InitializingBean {
+
+    /** The m_distributed poller service. */
     private DistributedPollerService m_distributedPollerService;
 
     /** {@inheritDoc} */
@@ -68,6 +70,7 @@ public class LocationMonitorListController extends AbstractController implements
      * <p>
      * getDistributedPollerService
      * </p>
+     * .
      *
      * @return a {@link org.opennms.web.svclayer.DistributedPollerService}
      *         object.
@@ -80,6 +83,7 @@ public class LocationMonitorListController extends AbstractController implements
      * <p>
      * setDistributedPollerService
      * </p>
+     * .
      *
      * @param distributedPollerService
      *            a {@link org.opennms.web.svclayer.DistributedPollerService}
@@ -93,9 +97,10 @@ public class LocationMonitorListController extends AbstractController implements
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @Override
     public final void afterPropertiesSet() throws Exception {

@@ -33,14 +33,33 @@ import java.util.List;
 
 import junit.framework.Assert;
 
+/**
+ * The Class PaletteTestUtils.
+ */
 public abstract class PaletteTestUtils extends Assert {
 
+    /**
+     * Assert palette item equals.
+     *
+     * @param expectedItem
+     *            the expected item
+     * @param actualItem
+     *            the actual item
+     */
     public static void assertPaletteItemEquals(final PaletteItem expectedItem, final PaletteItem actualItem) {
         assertEquals(expectedItem.getId(), actualItem.getId());
         assertEquals(expectedItem.getLabel(), actualItem.getLabel());
         assertEquals(expectedItem.isSpacer(), actualItem.isSpacer());
     }
 
+    /**
+     * Assert palette cateries equals.
+     *
+     * @param expectedCategories
+     *            the expected categories
+     * @param actualCategories
+     *            the actual categories
+     */
     public static void assertPaletteCateriesEquals(final List<PaletteCategory> expectedCategories,
             final List<PaletteCategory> actualCategories) {
         if (expectedCategories == null) {
@@ -57,11 +76,27 @@ public abstract class PaletteTestUtils extends Assert {
         assertFalse(iter.hasNext());
     }
 
+    /**
+     * Assert palette equals.
+     *
+     * @param expectedPalette
+     *            the expected palette
+     * @param actualPalette
+     *            the actual palette
+     */
     public static void assertPaletteEquals(final Palette expectedPalette, final Palette actualPalette) {
         assertEquals(expectedPalette.getLabel(), actualPalette.getLabel());
         assertPaletteCateriesEquals(expectedPalette.getCategories(), actualPalette.getCategories());
     }
 
+    /**
+     * Assert palette items equal.
+     *
+     * @param expectedItems
+     *            the expected items
+     * @param actualItems
+     *            the actual items
+     */
     public static void assertPaletteItemsEqual(final List<PaletteItem> expectedItems,
             final List<PaletteItem> actualItems) {
         if (expectedItems == null) {
@@ -81,6 +116,14 @@ public abstract class PaletteTestUtils extends Assert {
         }
     }
 
+    /**
+     * Assert palette category equals.
+     *
+     * @param expectedCategory
+     *            the expected category
+     * @param actualCategory
+     *            the actual category
+     */
     public static void assertPaletteCategoryEquals(final PaletteCategory expectedCategory,
             final PaletteCategory actualCategory) {
         assertEquals("Unexpected category label", expectedCategory.getLabel(), actualCategory.getLabel());

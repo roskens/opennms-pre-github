@@ -44,7 +44,7 @@ import org.opennms.netmgt.config.users.User;
 import org.opennms.web.springframework.security.Authentication;
 
 /**
- * A servlet that handles changing a user's password
+ * A servlet that handles changing a user's password.
  *
  * @author <A HREF="mailto:jeffg@opennms.org">Jeff Gehlbach</A>
  * @author <A HREF="http://www.opennms.org/">OpenNMS</A>
@@ -54,6 +54,8 @@ import org.opennms.web.springframework.security.Authentication;
  * @since 1.8.1
  */
 public class NewPasswordActionServlet extends HttpServlet {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 6803675433403988004L;
 
     /** {@inheritDoc} */

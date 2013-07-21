@@ -53,22 +53,32 @@ import org.springframework.transaction.annotation.Transactional;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 /**
+ * The Class AssetServiceImpl.
+ *
  * @author <a href="mailto:ronny@opennms.org">Ronny Trommer</a>
  */
 @Transactional(readOnly = false)
 public class AssetServiceImpl extends RemoteServiceServlet implements AssetService {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -6571388103047893262L;
 
+    /** The Constant AUTOENABLE. */
     private static final String AUTOENABLE = "A";
 
+    /** The Constant SSH_CONNECTION. */
     private static final String SSH_CONNECTION = "ssh";
 
+    /** The Constant TELNET_CONNECTION. */
     private static final String TELNET_CONNECTION = "telnet";
 
+    /** The Constant RSH_CONNECTION. */
     private static final String RSH_CONNECTION = "rsh";
 
+    /** The s_autoenable options. */
     private static ArrayList<String> s_autoenableOptions = new ArrayList<String>();
 
+    /** The s_connection options. */
     private static ArrayList<String> s_connectionOptions = new ArrayList<String>();
 
     static {
@@ -85,37 +95,29 @@ public class AssetServiceImpl extends RemoteServiceServlet implements AssetServi
         s_connectionOptions.add("");
     }
 
+    /** The logger. */
     private final Logger logger = LoggerFactory.getLogger("OpenNMS.WEB." + AssetServiceImpl.class.getName());
 
-    /**
-     * asset data access object for asset records
-     */
+    /** asset data access object for asset records. */
     private AssetRecordDao m_assetRecordDao;
 
-    /**
-     * node data access object for nodes
-     */
+    /** node data access object for nodes. */
     private NodeDao m_nodeDao;
 
-    /**
-     * node object with asset record
-     */
+    /** node object with asset record. */
     private OnmsNode m_onmsNode;
 
-    /**
-     * asset record object
-     */
+    /** asset record object. */
     private OnmsAssetRecord m_onmsAssetRecord;
 
-    /**
-     * web security context service for user name and role
-     */
+    /** web security context service for user name and role. */
     private SecurityContextService m_securityContext;
 
+    /** The m_allow html fields. */
     private HashSet<String> m_allowHtmlFields;
 
     /**
-     *
+     * Instantiates a new asset service impl.
      */
     public AssetServiceImpl() {
         m_securityContext = new SpringSecurityContextService();
@@ -330,6 +332,7 @@ public class AssetServiceImpl extends RemoteServiceServlet implements AssetServi
      * <p>
      * getAssetRecordDao
      * </p>
+     * .
      *
      * @return assetRecordDao a {@link org.opennms.netmgt.model.OnmsAssetRecord}
      */
@@ -341,9 +344,10 @@ public class AssetServiceImpl extends RemoteServiceServlet implements AssetServi
      * <p>
      * setAssetRecordDao
      * </p>
+     * .
      *
-     * @param m_assetRecordDao
-     *            a {@link org.opennms.netmgt.model.OnmsAssetRecord}
+     * @param assetRecordDao
+     *            the new asset record dao
      */
     public void setAssetRecordDao(AssetRecordDao assetRecordDao) {
         m_assetRecordDao = assetRecordDao;
@@ -353,6 +357,7 @@ public class AssetServiceImpl extends RemoteServiceServlet implements AssetServi
      * <p>
      * getNodeDao
      * </p>
+     * .
      *
      * @return m_nodeDao a {@link org.opennms.netmgt.dao.api.NodeDao}
      */
@@ -364,9 +369,10 @@ public class AssetServiceImpl extends RemoteServiceServlet implements AssetServi
      * <p>
      * setNodeDao
      * </p>
+     * .
      *
-     * @param m_nodeDao
-     *            a {@link org.opennms.netmgt.dao.api.NodeDao}
+     * @param nodeDao
+     *            the new node dao
      */
     public void setNodeDao(NodeDao nodeDao) {
         m_nodeDao = nodeDao;

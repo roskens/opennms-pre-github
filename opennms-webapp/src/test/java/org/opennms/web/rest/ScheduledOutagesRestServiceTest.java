@@ -51,14 +51,23 @@ import org.opennms.netmgt.filter.FilterDao;
 import org.opennms.netmgt.filter.FilterDaoFactory;
 import org.springframework.core.io.FileSystemResource;
 
+/**
+ * The Class ScheduledOutagesRestServiceTest.
+ */
 public class ScheduledOutagesRestServiceTest extends AbstractSpringJerseyRestTestCase {
 
+    /** The m_jaxb context. */
     private JAXBContext m_jaxbContext;
 
+    /** The m_filter dao. */
     private FilterDao m_filterDao;
 
+    /** The m_onms home. */
     private String m_onmsHome;
 
+    /* (non-Javadoc)
+     * @see org.opennms.web.rest.AbstractSpringJerseyRestTestCase#beforeServletStart()
+     */
     @Override
     protected void beforeServletStart() throws Exception {
         MockLogAppender.setupLogging();
@@ -141,18 +150,30 @@ public class ScheduledOutagesRestServiceTest extends AbstractSpringJerseyRestTes
 
     // This is required in order to avoid override configuration files in
     // opennms-base-assembly
+    /* (non-Javadoc)
+     * @see org.opennms.web.rest.AbstractSpringJerseyRestTestCase#afterServletStart()
+     */
     @Override
     public void afterServletStart() {
         System.setProperty("opennms.home", m_onmsHome);
         ConfigurationTestUtils.setRelativeHomeDirectory(m_onmsHome);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.web.rest.AbstractSpringJerseyRestTestCase#afterServletDestroy()
+     */
     @Override
     public void afterServletDestroy() {
         EasyMock.verify(m_filterDao);
         MockLogAppender.assertNoWarningsOrGreater();
     }
 
+    /**
+     * Test get outage.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testGetOutage() throws Exception {
         String url = "/sched-outages/my-junit-test";
@@ -161,6 +182,12 @@ public class ScheduledOutagesRestServiceTest extends AbstractSpringJerseyRestTes
         Assert.assertEquals("match-any", outage.getInterface(0).getAddress());
     }
 
+    /**
+     * Test set outage.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testSetOutage() throws Exception {
         String url = "/sched-outages";
@@ -171,29 +198,59 @@ public class ScheduledOutagesRestServiceTest extends AbstractSpringJerseyRestTes
         sendPost(url, outage, 303, "/sched-outages/test-outage");
     }
 
+    /**
+     * Test delete outage.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testDeleteOutage() throws Exception {
         sendRequest(DELETE, "/sched-outages/my-junit-test", 200);
     }
 
+    /**
+     * Test update collectd config.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testUpdateCollectdConfig() throws Exception {
         sendRequest(PUT, "/sched-outages/my-junit-test/collectd/example1", 303);
         sendRequest(DELETE, "/sched-outages/my-junit-test/collectd/example1", 200);
     }
 
+    /**
+     * Test update pollerd config.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testUpdatePollerdConfig() throws Exception {
         sendRequest(PUT, "/sched-outages/my-junit-test/pollerd/example1", 303);
         sendRequest(DELETE, "/sched-outages/my-junit-test/pollerd/example1", 200);
     }
 
+    /**
+     * Test update threshd config.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testUpdateThreshdConfig() throws Exception {
         sendRequest(PUT, "/sched-outages/my-junit-test/threshd/example1", 303);
         sendRequest(DELETE, "/sched-outages/my-junit-test/threshd/example1", 200);
     }
 
+    /**
+     * Test update notifd config.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testUpdateNotifdConfig() throws Exception {
         sendRequest(PUT, "/sched-outages/my-junit-test/notifd", 303);

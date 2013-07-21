@@ -44,11 +44,14 @@ import org.springframework.context.ApplicationContext;
  * @since 1.8.1
  */
 public class ServiceFilter extends EqualsFilter<Integer> {
-    /** Constant <code>TYPE="service"</code> */
+
+    /** Constant <code>TYPE="service"</code>. */
     public static final String TYPE = "service";
 
+    /** The m_servlet context. */
     private ServletContext m_servletContext;
 
+    /** The m_app context. */
     private ApplicationContext m_appContext;
 
     /**
@@ -59,6 +62,7 @@ public class ServiceFilter extends EqualsFilter<Integer> {
      * @param serviceId
      *            a int.
      * @param servletContext
+     *            the servlet context
      */
     public ServiceFilter(int serviceId, ServletContext servletContext) {
         super(TYPE, SQLType.INT, "EVENTS.SERVICEID", "serviceType.id", serviceId);
@@ -73,6 +77,7 @@ public class ServiceFilter extends EqualsFilter<Integer> {
      * @param serviceId
      *            a int.
      * @param appContext
+     *            the app context
      */
     public ServiceFilter(int serviceId, ApplicationContext appContext) {
         super(TYPE, SQLType.INT, "EVENTS.SERVICEID", "serviceType.id", serviceId);
@@ -83,6 +88,7 @@ public class ServiceFilter extends EqualsFilter<Integer> {
      * <p>
      * getTextDescription
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -99,6 +105,7 @@ public class ServiceFilter extends EqualsFilter<Integer> {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -111,6 +118,7 @@ public class ServiceFilter extends EqualsFilter<Integer> {
      * <p>
      * getServiceId
      * </p>
+     * .
      *
      * @return a int.
      */

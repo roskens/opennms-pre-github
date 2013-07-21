@@ -35,20 +35,26 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 import org.hibernate.criterion.Criterion;
 
 /**
- * BaseFilter
+ * BaseFilter.
  *
+ * @param <T>
+ *            the generic type
  * @author brozow
  * @version $Id: $
  * @since 1.8.1
  */
 public abstract class BaseFilter<T> implements Filter {
 
+    /** The m_filter name. */
     protected String m_filterName;
 
+    /** The m_sql type. */
     protected SQLType<T> m_sqlType;
 
+    /** The m_field name. */
     private String m_fieldName;
 
+    /** The m_property name. */
     private String m_propertyName;
 
     /**
@@ -64,8 +70,6 @@ public abstract class BaseFilter<T> implements Filter {
      *            a {@link java.lang.String} object.
      * @param propertyName
      *            a {@link java.lang.String} object.
-     * @param <T>
-     *            a T object.
      */
     public BaseFilter(String filterType, SQLType<T> sqlType, String fieldName, String propertyName) {
         m_filterName = filterType;
@@ -78,6 +82,7 @@ public abstract class BaseFilter<T> implements Filter {
      * <p>
      * getSQLFieldName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -89,6 +94,7 @@ public abstract class BaseFilter<T> implements Filter {
      * <p>
      * getPropertyName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -100,6 +106,7 @@ public abstract class BaseFilter<T> implements Filter {
      * <p>
      * getDescription
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -112,6 +119,7 @@ public abstract class BaseFilter<T> implements Filter {
      * <p>
      * bindValue
      * </p>
+     * .
      *
      * @param ps
      *            a {@link java.sql.PreparedStatement} object.
@@ -119,8 +127,8 @@ public abstract class BaseFilter<T> implements Filter {
      *            a int.
      * @param value
      *            a T object.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     public final void bindValue(PreparedStatement ps, int parameterIndex, T value) throws SQLException {
         m_sqlType.bindParam(ps, parameterIndex, value);
@@ -130,6 +138,7 @@ public abstract class BaseFilter<T> implements Filter {
      * <p>
      * formatValue
      * </p>
+     * .
      *
      * @param value
      *            a T object.
@@ -143,6 +152,7 @@ public abstract class BaseFilter<T> implements Filter {
      * <p>
      * getValueAsString
      * </p>
+     * .
      *
      * @param value
      *            a T object.
@@ -156,6 +166,7 @@ public abstract class BaseFilter<T> implements Filter {
      * <p>
      * getValueString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -165,6 +176,7 @@ public abstract class BaseFilter<T> implements Filter {
      * <p>
      * getCriterion
      * </p>
+     * .
      *
      * @return a {@link org.hibernate.criterion.Criterion} object.
      */
@@ -179,6 +191,7 @@ public abstract class BaseFilter<T> implements Filter {
      * <p>
      * getParamSql
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -189,6 +202,7 @@ public abstract class BaseFilter<T> implements Filter {
      * <p>
      * getSql
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -199,6 +213,7 @@ public abstract class BaseFilter<T> implements Filter {
      * <p>
      * getTextDescription
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -209,6 +224,7 @@ public abstract class BaseFilter<T> implements Filter {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

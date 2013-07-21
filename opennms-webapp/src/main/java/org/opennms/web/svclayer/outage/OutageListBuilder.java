@@ -56,6 +56,7 @@ public class OutageListBuilder {
      * <p>
      * theTable
      * </p>
+     * .
      *
      * @param foundOutages
      *            a {@link java.util.Collection} object.

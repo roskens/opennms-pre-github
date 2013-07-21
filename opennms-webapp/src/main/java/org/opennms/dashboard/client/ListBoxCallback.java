@@ -44,18 +44,26 @@ import com.google.gwt.user.client.ui.ListBox;
  * @since 1.8.1
  */
 public class ListBoxCallback implements AsyncCallback<String[][]> {
+
+    /** The m_dashlet loader. */
     private DashletLoader m_dashletLoader;
 
+    /** The m_direction. */
     private int m_direction = 1;
 
+    /** The m_list box. */
     private ListBox m_listBox;
 
+    /** The m_empty list item name. */
     private String m_emptyListItemName = null;
 
+    /** The m_empty list item value. */
     private String m_emptyListItemValue;
 
+    /** The m_null list item name. */
     private String m_nullListItemName;
 
+    /** The m_null list item value. */
     private String m_nullListItemValue;
 
     /**
@@ -77,6 +85,7 @@ public class ListBoxCallback implements AsyncCallback<String[][]> {
      * <p>
      * getListBox
      * </p>
+     * .
      *
      * @return a {@link com.google.gwt.user.client.ui.ListBox} object.
      */
@@ -88,6 +97,7 @@ public class ListBoxCallback implements AsyncCallback<String[][]> {
      * <p>
      * setDirection
      * </p>
+     * .
      *
      * @param direction
      *            a int.
@@ -100,6 +110,7 @@ public class ListBoxCallback implements AsyncCallback<String[][]> {
      * <p>
      * getDirection
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -111,6 +122,7 @@ public class ListBoxCallback implements AsyncCallback<String[][]> {
      * <p>
      * setNullListItem
      * </p>
+     * .
      *
      * @param name
      *            a {@link java.lang.String} object.
@@ -126,6 +138,7 @@ public class ListBoxCallback implements AsyncCallback<String[][]> {
      * <p>
      * setEmptyListItem
      * </p>
+     * .
      *
      * @param name
      *            a {@link java.lang.String} object.
@@ -141,6 +154,7 @@ public class ListBoxCallback implements AsyncCallback<String[][]> {
      * <p>
      * onDataLoaded
      * </p>
+     * .
      *
      * @param resources
      *            an array of {@link java.lang.String} objects.

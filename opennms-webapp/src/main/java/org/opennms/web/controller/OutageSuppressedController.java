@@ -60,24 +60,32 @@ import org.springframework.web.servlet.mvc.AbstractController;
  */
 public class OutageSuppressedController extends AbstractController {
 
+    /** The m_outage service. */
     OutageService m_outageService;
 
+    /** The m_cview. */
     OutageListBuilder m_cview = new OutageListBuilder();
 
+    /** The found outages. */
     Collection<OnmsOutage> foundOutages;
 
+    /** The view outages. */
     Collection<OnmsOutage> viewOutages;
 
+    /** The m_suppress. */
     SuppressOutages m_suppress = new SuppressOutages();
 
+    /** The m_success view. */
     private String m_successView;
 
+    /** The Constant ROW_LIMIT. */
     private static final int ROW_LIMIT = 25;
 
     /**
      * <p>
      * setOutageService
      * </p>
+     * .
      *
      * @param service
      *            a {@link org.opennms.web.svclayer.outage.OutageService}
@@ -159,6 +167,7 @@ public class OutageSuppressedController extends AbstractController {
      * <p>
      * setSuccessView
      * </p>
+     * .
      *
      * @param successView
      *            a {@link java.lang.String} object.
@@ -171,6 +180,7 @@ public class OutageSuppressedController extends AbstractController {
      * <p>
      * getSuccessView
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

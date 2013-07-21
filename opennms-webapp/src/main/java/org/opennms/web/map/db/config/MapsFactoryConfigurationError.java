@@ -39,9 +39,8 @@ package org.opennms.web.map.db.config;
  * @since 1.8.1
  */
 public class MapsFactoryConfigurationError extends Error {
-    /**
-     *
-     */
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -173670914545632388L;
 
     /**

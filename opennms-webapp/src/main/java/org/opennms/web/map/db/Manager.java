@@ -49,6 +49,7 @@ import org.opennms.web.map.view.VMapInfo;
  */
 public abstract class Manager {
 
+    /** The initialized. */
     protected boolean initialized = false;
 
     /**
@@ -64,25 +65,26 @@ public abstract class Manager {
      * <p>
      * saveMap
      * </p>
+     * .
      *
      * @param m
      *            a {@link org.opennms.web.map.db.DbMap} object.
      * @param e
      *            a {@link java.util.Collection} object.
      * @return a int.
-     * @throws org.opennms.web.map.MapsException
-     *             if any.
+     * @throws MapsException
+     *             the maps exception
      */
     public abstract int saveMap(DbMap m, Collection<DbElement> e) throws MapsException;
 
     /**
-     * delete the map with id in input
+     * delete the map with id in input.
      *
      * @param id
      *            a int.
      * @return number of maps deleted
-     * @throws org.opennms.web.map.MapsException
-     *             if any.
+     * @throws MapsException
+     *             the maps exception
      */
     public abstract int deleteMap(int id) throws MapsException;
 
@@ -90,9 +92,10 @@ public abstract class Manager {
      * <p>
      * deleteNodeTypeElementsFromAllMaps
      * </p>
+     * .
      *
-     * @throws org.opennms.web.map.MapsException
-     *             if any.
+     * @throws MapsException
+     *             the maps exception
      */
     public abstract void deleteNodeTypeElementsFromAllMaps() throws MapsException;
 
@@ -100,9 +103,10 @@ public abstract class Manager {
      * <p>
      * deleteMapTypeElementsFromAllMaps
      * </p>
+     * .
      *
-     * @throws org.opennms.web.map.MapsException
-     *             if any.
+     * @throws MapsException
+     *             the maps exception
      */
     public abstract void deleteMapTypeElementsFromAllMaps() throws MapsException;
 
@@ -110,6 +114,7 @@ public abstract class Manager {
      * <p>
      * getElement
      * </p>
+     * .
      *
      * @param id
      *            a int.
@@ -118,8 +123,8 @@ public abstract class Manager {
      * @param type
      *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.web.map.db.DbElement} object.
-     * @throws org.opennms.web.map.MapsException
-     *             if any.
+     * @throws MapsException
+     *             the maps exception
      */
     public abstract DbElement getElement(int id, int mapId, String type) throws MapsException;
 
@@ -127,6 +132,7 @@ public abstract class Manager {
      * <p>
      * newElement
      * </p>
+     * .
      *
      * @param id
      *            a int.
@@ -135,8 +141,8 @@ public abstract class Manager {
      * @param type
      *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.web.map.db.DbElement} object.
-     * @throws org.opennms.web.map.MapsException
-     *             if any.
+     * @throws MapsException
+     *             the maps exception
      */
     public abstract DbElement newElement(int id, int mapId, String type) throws MapsException;
 
@@ -144,10 +150,11 @@ public abstract class Manager {
      * <p>
      * getAllElements
      * </p>
+     * .
      *
      * @return an array of {@link org.opennms.web.map.db.DbElement} objects.
-     * @throws org.opennms.web.map.MapsException
-     *             if any.
+     * @throws MapsException
+     *             the maps exception
      */
     public abstract DbElement[] getAllElements() throws MapsException;
 
@@ -155,12 +162,13 @@ public abstract class Manager {
      * <p>
      * getElementsOfMap
      * </p>
+     * .
      *
      * @param mapid
      *            a int.
      * @return an array of {@link org.opennms.web.map.db.DbElement} objects.
-     * @throws org.opennms.web.map.MapsException
-     *             if any.
+     * @throws MapsException
+     *             the maps exception
      */
     public abstract DbElement[] getElementsOfMap(int mapid) throws MapsException;
 
@@ -168,12 +176,13 @@ public abstract class Manager {
      * <p>
      * getNodeElementsOfMap
      * </p>
+     * .
      *
      * @param mapid
      *            a int.
      * @return an array of {@link org.opennms.web.map.db.DbElement} objects.
-     * @throws org.opennms.web.map.MapsException
-     *             if any.
+     * @throws MapsException
+     *             the maps exception
      */
     public abstract DbElement[] getNodeElementsOfMap(int mapid) throws MapsException;
 
@@ -181,12 +190,13 @@ public abstract class Manager {
      * <p>
      * getMapElementsOfMap
      * </p>
+     * .
      *
      * @param mapid
      *            a int.
      * @return an array of {@link org.opennms.web.map.db.DbElement} objects.
-     * @throws org.opennms.web.map.MapsException
-     *             if any.
+     * @throws MapsException
+     *             the maps exception
      */
     public abstract DbElement[] getMapElementsOfMap(int mapid) throws MapsException;
 
@@ -194,12 +204,13 @@ public abstract class Manager {
      * <p>
      * getElementsLike
      * </p>
+     * .
      *
      * @param elementLabel
      *            a {@link java.lang.String} object.
      * @return an array of {@link org.opennms.web.map.db.DbElement} objects.
-     * @throws org.opennms.web.map.MapsException
-     *             if any.
+     * @throws MapsException
+     *             the maps exception
      */
     public abstract DbElement[] getElementsLike(String elementLabel) throws MapsException;
 
@@ -209,8 +220,8 @@ public abstract class Manager {
      *
      * @return java.util.Map<Integer,TreeSet> (key=parentMapId, value=set of
      *         child maps)
-     * @throws org.opennms.web.map.MapsException
-     *             if any.
+     * @throws MapsException
+     *             the maps exception
      */
     public abstract java.util.Map<Integer, Set<Integer>> getMapsStructure() throws MapsException;
 
@@ -218,12 +229,13 @@ public abstract class Manager {
      * <p>
      * countMaps
      * </p>
+     * .
      *
      * @param mapId
      *            a int.
      * @return a int.
-     * @throws org.opennms.web.map.MapsException
-     *             if any.
+     * @throws MapsException
+     *             the maps exception
      */
     public abstract int countMaps(int mapId) throws MapsException;
 
@@ -231,12 +243,13 @@ public abstract class Manager {
      * <p>
      * getMap
      * </p>
+     * .
      *
      * @param id
      *            a int.
      * @return a {@link org.opennms.web.map.db.DbMap} object.
-     * @throws org.opennms.web.map.MapsException
-     *             if any.
+     * @throws MapsException
+     *             the maps exception
      */
     public abstract DbMap getMap(int id) throws MapsException;
 
@@ -244,14 +257,15 @@ public abstract class Manager {
      * <p>
      * getMaps
      * </p>
+     * .
      *
      * @param mapname
      *            a {@link java.lang.String} object.
      * @param maptype
      *            a {@link java.lang.String} object.
      * @return an array of {@link org.opennms.web.map.db.DbMap} objects.
-     * @throws org.opennms.web.map.MapsException
-     *             if any.
+     * @throws MapsException
+     *             the maps exception
      */
     public abstract DbMap[] getMaps(String mapname, String maptype) throws MapsException;
 
@@ -259,10 +273,11 @@ public abstract class Manager {
      * <p>
      * getAllMaps
      * </p>
+     * .
      *
      * @return an array of {@link org.opennms.web.map.db.DbMap} objects.
-     * @throws org.opennms.web.map.MapsException
-     *             if any.
+     * @throws MapsException
+     *             the maps exception
      */
     public abstract DbMap[] getAllMaps() throws MapsException;
 
@@ -270,12 +285,13 @@ public abstract class Manager {
      * <p>
      * getMapsLike
      * </p>
+     * .
      *
      * @param mapLabel
      *            a {@link java.lang.String} object.
      * @return an array of {@link org.opennms.web.map.db.DbMap} objects.
-     * @throws org.opennms.web.map.MapsException
-     *             if any.
+     * @throws MapsException
+     *             the maps exception
      */
     public abstract DbMap[] getMapsLike(String mapLabel) throws MapsException;
 
@@ -283,12 +299,13 @@ public abstract class Manager {
      * <p>
      * getMapsByName
      * </p>
+     * .
      *
      * @param mapLabel
      *            a {@link java.lang.String} object.
      * @return an array of {@link org.opennms.web.map.db.DbMap} objects.
-     * @throws org.opennms.web.map.MapsException
-     *             if any.
+     * @throws MapsException
+     *             the maps exception
      */
     public abstract DbMap[] getMapsByName(String mapLabel) throws MapsException;
 
@@ -296,14 +313,15 @@ public abstract class Manager {
      * <p>
      * getContainerMaps
      * </p>
+     * .
      *
      * @param id
      *            a int.
      * @param type
      *            a {@link java.lang.String} object.
      * @return an array of {@link org.opennms.web.map.db.DbMap} objects.
-     * @throws org.opennms.web.map.MapsException
-     *             if any.
+     * @throws MapsException
+     *             the maps exception
      */
     public abstract DbMap[] getContainerMaps(int id, String type) throws MapsException;
 
@@ -311,10 +329,11 @@ public abstract class Manager {
      * <p>
      * getAllMapMenus
      * </p>
+     * .
      *
      * @return an array of {@link org.opennms.web.map.view.VMapInfo} objects.
-     * @throws org.opennms.web.map.MapsException
-     *             if any.
+     * @throws MapsException
+     *             the maps exception
      */
     public abstract VMapInfo[] getAllMapMenus() throws MapsException;
 
@@ -322,12 +341,13 @@ public abstract class Manager {
      * <p>
      * getMapMenu
      * </p>
+     * .
      *
      * @param mapId
      *            a int.
      * @return a {@link org.opennms.web.map.view.VMapInfo} object.
-     * @throws org.opennms.web.map.MapsException
-     *             if any.
+     * @throws MapsException
+     *             the maps exception
      */
     public abstract VMapInfo getMapMenu(int mapId) throws MapsException;
 
@@ -335,12 +355,13 @@ public abstract class Manager {
      * <p>
      * getMapsMenuByName
      * </p>
+     * .
      *
      * @param mapLabel
      *            a {@link java.lang.String} object.
      * @return an array of {@link org.opennms.web.map.view.VMapInfo} objects.
-     * @throws org.opennms.web.map.MapsException
-     *             if any.
+     * @throws MapsException
+     *             the maps exception
      */
     public abstract VMapInfo[] getMapsMenuByName(String mapLabel) throws MapsException;
 
@@ -348,12 +369,13 @@ public abstract class Manager {
      * <p>
      * getMapsMenuByOwner
      * </p>
+     * .
      *
      * @param owner
      *            a {@link java.lang.String} object.
      * @return an array of {@link org.opennms.web.map.view.VMapInfo} objects.
-     * @throws org.opennms.web.map.MapsException
-     *             if any.
+     * @throws MapsException
+     *             the maps exception
      */
     public abstract VMapInfo[] getMapsMenuByOwner(String owner) throws MapsException;
 
@@ -361,12 +383,13 @@ public abstract class Manager {
      * <p>
      * getMapsMenuByGroup
      * </p>
+     * .
      *
      * @param group
      *            a {@link java.lang.String} object.
      * @return an array of {@link org.opennms.web.map.view.VMapInfo} objects.
-     * @throws org.opennms.web.map.MapsException
-     *             if any.
+     * @throws MapsException
+     *             the maps exception
      */
     public abstract VMapInfo[] getMapsMenuByGroup(String group) throws MapsException;
 
@@ -374,10 +397,11 @@ public abstract class Manager {
      * <p>
      * getMapsMenuByOther
      * </p>
+     * .
      *
      * @return an array of {@link org.opennms.web.map.view.VMapInfo} objects.
-     * @throws org.opennms.web.map.MapsException
-     *             if any.
+     * @throws MapsException
+     *             the maps exception
      */
     public abstract VMapInfo[] getMapsMenuByOther() throws MapsException;
 
@@ -385,6 +409,7 @@ public abstract class Manager {
      * <p>
      * isElementInMap
      * </p>
+     * .
      *
      * @param elementId
      *            a int.
@@ -393,8 +418,8 @@ public abstract class Manager {
      * @param type
      *            a {@link java.lang.String} object.
      * @return a boolean.
-     * @throws org.opennms.web.map.MapsException
-     *             if any.
+     * @throws MapsException
+     *             the maps exception
      */
     public abstract boolean isElementInMap(int elementId, int mapId, String type) throws MapsException;
 
@@ -402,14 +427,15 @@ public abstract class Manager {
      * <p>
      * isElementDeleted
      * </p>
+     * .
      *
      * @param elementId
      *            a int.
      * @param type
      *            a {@link java.lang.String} object.
      * @return a boolean.
-     * @throws org.opennms.web.map.MapsException
-     *             if any.
+     * @throws MapsException
+     *             the maps exception
      */
     public abstract boolean isElementDeleted(int elementId, String type) throws MapsException;
 
@@ -417,10 +443,11 @@ public abstract class Manager {
      * <p>
      * getAllElementInfo
      * </p>
+     * .
      *
      * @return a {@link java.util.Vector} object.
-     * @throws org.opennms.web.map.MapsException
-     *             if any.
+     * @throws MapsException
+     *             the maps exception
      */
     public abstract Vector<VElementInfo> getAllElementInfo() throws MapsException;
 
@@ -428,10 +455,11 @@ public abstract class Manager {
      * <p>
      * getAlarmedElements
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
-     * @throws org.opennms.web.map.MapsException
-     *             if any.
+     * @throws MapsException
+     *             the maps exception
      */
     public abstract List<VElementInfo> getAlarmedElements() throws MapsException;
 
@@ -439,10 +467,11 @@ public abstract class Manager {
      * <p>
      * getDeletedNodes
      * </p>
+     * .
      *
      * @return a {@link java.util.Vector} object.
-     * @throws org.opennms.web.map.MapsException
-     *             if any.
+     * @throws MapsException
+     *             the maps exception
      */
     public abstract Vector<Integer> getDeletedNodes() throws MapsException;
 
@@ -450,12 +479,13 @@ public abstract class Manager {
      * <p>
      * getAvails
      * </p>
+     * .
      *
      * @param mapElements
      *            an array of {@link org.opennms.web.map.db.DbElement} objects.
      * @return a {@link java.util.Map} object.
-     * @throws org.opennms.web.map.MapsException
-     *             if any.
+     * @throws MapsException
+     *             the maps exception
      */
     public abstract java.util.Map<Integer, Double> getAvails(DbElement[] mapElements) throws MapsException;
 
@@ -463,12 +493,13 @@ public abstract class Manager {
      * <p>
      * getNodeidsOnElement
      * </p>
+     * .
      *
      * @param elem
      *            a {@link org.opennms.web.map.db.DbElement} object.
      * @return a {@link java.util.Set} object.
-     * @throws org.opennms.web.map.MapsException
-     *             if any.
+     * @throws MapsException
+     *             the maps exception
      */
     public abstract Set<Integer> getNodeidsOnElement(DbElement elem) throws MapsException;
 
@@ -476,12 +507,13 @@ public abstract class Manager {
      * <p>
      * getNodeIdsBySource
      * </p>
+     * .
      *
      * @param query
      *            a {@link java.lang.String} object.
      * @return a {@link java.util.Set} object.
-     * @throws org.opennms.web.map.MapsException
-     *             if any.
+     * @throws MapsException
+     *             the maps exception
      */
     public abstract Set<Integer> getNodeIdsBySource(String query) throws MapsException;
 
@@ -489,12 +521,13 @@ public abstract class Manager {
      * <p>
      * getLinksOnElements
      * </p>
+     * .
      *
      * @param allnodes
      *            a {@link java.util.Set} object.
      * @return a {@link java.util.Set} object.
-     * @throws org.opennms.web.map.MapsException
-     *             if any.
+     * @throws MapsException
+     *             the maps exception
      */
     public abstract Set<LinkInfo> getLinksOnElements(Set<Integer> allnodes) throws MapsException;
 }

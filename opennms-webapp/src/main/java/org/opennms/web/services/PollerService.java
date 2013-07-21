@@ -45,6 +45,7 @@ public interface PollerService {
      * <p>
      * poll
      * </p>
+     * .
      *
      * @param monSvc
      *            a {@link org.opennms.netmgt.model.OnmsMonitoredService}

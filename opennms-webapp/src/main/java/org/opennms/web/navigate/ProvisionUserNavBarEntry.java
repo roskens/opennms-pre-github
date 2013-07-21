@@ -33,7 +33,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.opennms.web.springframework.security.Authentication;
 
 /**
- * Handle the Quick Add Node Menu Item
+ * Handle the Quick Add Node Menu Item.
  *
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
  * @version $Id: $

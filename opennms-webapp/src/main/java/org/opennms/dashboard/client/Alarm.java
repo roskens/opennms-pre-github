@@ -46,26 +46,37 @@ import com.google.gwt.user.client.rpc.IsSerializable;
  */
 public class Alarm implements IsSerializable {
 
+    /** The m_log msg. */
     private String m_logMsg;
 
+    /** The m_descrption. */
     private String m_descrption;
 
+    /** The m_severity. */
     private String m_severity;
 
+    /** The m_count. */
     private int m_count;
 
+    /** The m_node label. */
     private String m_nodeLabel;
 
+    /** The m_node id. */
     private int m_nodeId;
 
+    /** The m_ip address. */
     private String m_ipAddress;
 
+    /** The m_svc name. */
     private String m_svcName;
 
+    /** The m_first event time. */
     private Date m_firstEventTime;
 
+    /** The m_last event time. */
     private Date m_lastEventTime;
 
+    /** The m_is dashboard role. */
     private boolean m_isDashboardRole;
 
     /**
@@ -118,6 +129,7 @@ public class Alarm implements IsSerializable {
      * <p>
      * getCount
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -129,6 +141,7 @@ public class Alarm implements IsSerializable {
      * <p>
      * setCount
      * </p>
+     * .
      *
      * @param count
      *            a int.
@@ -141,6 +154,7 @@ public class Alarm implements IsSerializable {
      * <p>
      * getDescrption
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -152,6 +166,7 @@ public class Alarm implements IsSerializable {
      * <p>
      * setDescrption
      * </p>
+     * .
      *
      * @param descrption
      *            a {@link java.lang.String} object.
@@ -164,6 +179,7 @@ public class Alarm implements IsSerializable {
      * <p>
      * getIpAddress
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -175,6 +191,7 @@ public class Alarm implements IsSerializable {
      * <p>
      * setIpAddress
      * </p>
+     * .
      *
      * @param ipAddress
      *            a {@link java.lang.String} object.
@@ -187,6 +204,7 @@ public class Alarm implements IsSerializable {
      * <p>
      * getNodeId
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -198,6 +216,7 @@ public class Alarm implements IsSerializable {
      * <p>
      * setNodeId
      * </p>
+     * .
      *
      * @param nodeId
      *            a int.
@@ -210,6 +229,7 @@ public class Alarm implements IsSerializable {
      * <p>
      * getNodeLabel
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -221,6 +241,7 @@ public class Alarm implements IsSerializable {
      * <p>
      * setNodeLabel
      * </p>
+     * .
      *
      * @param nodeLabel
      *            a {@link java.lang.String} object.
@@ -233,6 +254,7 @@ public class Alarm implements IsSerializable {
      * <p>
      * getSeverity
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -244,6 +266,7 @@ public class Alarm implements IsSerializable {
      * <p>
      * setSeverity
      * </p>
+     * .
      *
      * @param severity
      *            a {@link java.lang.String} object.
@@ -256,6 +279,7 @@ public class Alarm implements IsSerializable {
      * <p>
      * getSvcName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -267,6 +291,7 @@ public class Alarm implements IsSerializable {
      * <p>
      * setSvcName
      * </p>
+     * .
      *
      * @param svcName
      *            a {@link java.lang.String} object.
@@ -279,6 +304,7 @@ public class Alarm implements IsSerializable {
      * <p>
      * getFirstEventTime
      * </p>
+     * .
      *
      * @return a java$util$Date object.
      */
@@ -290,6 +316,7 @@ public class Alarm implements IsSerializable {
      * <p>
      * setFirstEventTime
      * </p>
+     * .
      *
      * @param firstEventTime
      *            a java$util$Date object.
@@ -302,6 +329,7 @@ public class Alarm implements IsSerializable {
      * <p>
      * getLastEventTime
      * </p>
+     * .
      *
      * @return a java$util$Date object.
      */
@@ -313,6 +341,7 @@ public class Alarm implements IsSerializable {
      * <p>
      * setLastEventTime
      * </p>
+     * .
      *
      * @param lastEventTime
      *            a java$util$Date object.
@@ -325,6 +354,7 @@ public class Alarm implements IsSerializable {
      * <p>
      * getLogMsg
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -336,6 +366,7 @@ public class Alarm implements IsSerializable {
      * <p>
      * setLogMsg
      * </p>
+     * .
      *
      * @param logMsg
      *            a {@link java.lang.String} object.
@@ -348,6 +379,7 @@ public class Alarm implements IsSerializable {
      * <p>
      * setIsDashboardRole
      * </p>
+     * .
      *
      * @param isDashboardRole
      *            a boolean.
@@ -360,6 +392,7 @@ public class Alarm implements IsSerializable {
      * <p>
      * getIsDashboardRole
      * </p>
+     * .
      *
      * @return a boolean.
      */

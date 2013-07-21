@@ -43,11 +43,20 @@ import org.springframework.util.Assert;
  * @since 1.8.1
  */
 public enum OutageType {
-    CURRENT("current"), RESOLVED("resolved"), BOTH("both"), SUPPRESSED("suppressed");
 
-    /** Constant <code>s_outageTypesString</code> */
+    /** The current. */
+    CURRENT("current"),
+ /** The resolved. */
+ RESOLVED("resolved"),
+ /** The both. */
+ BOTH("both"),
+ /** The suppressed. */
+ SUPPRESSED("suppressed");
+
+    /** Constant <code>s_outageTypesString</code>. */
     private static final Map<String, OutageType> s_outageTypesString;
 
+    /** The m_short name. */
     private String m_shortName;
 
     static {
@@ -58,6 +67,12 @@ public enum OutageType {
         }
     }
 
+    /**
+     * Instantiates a new outage type.
+     *
+     * @param shortName
+     *            the short name
+     */
     private OutageType(String shortName) {
         m_shortName = shortName;
     }
@@ -66,6 +81,7 @@ public enum OutageType {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -78,6 +94,7 @@ public enum OutageType {
      * <p>
      * getName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -89,6 +106,7 @@ public enum OutageType {
      * <p>
      * getShortName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -129,6 +147,7 @@ public enum OutageType {
      * <p>
      * getOutageType
      * </p>
+     * .
      *
      * @param outageTypeString
      *            a {@link java.lang.String} object.

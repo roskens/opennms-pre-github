@@ -36,26 +36,48 @@ import org.opennms.web.filter.SQLType;
  * Encapsulates severity filtering functionality.
  */
 public class SeverityFilter extends EqualsFilter<OnmsSeverity> {
+
+    /** The Constant TYPE. */
     public static final String TYPE = "severity";
 
+    /**
+     * Instantiates a new severity filter.
+     *
+     * @param severity
+     *            the severity
+     */
     public SeverityFilter(final OnmsSeverity severity) {
         super(TYPE, SQLType.SEVERITY, "ALARMS.SEVERITY", "severity", severity);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.web.filter.OneArgFilter#getTextDescription()
+     */
     @Override
     public String getTextDescription() {
         return (TYPE + " is " + getValue().getLabel());
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.web.filter.BaseFilter#toString()
+     */
     @Override
     public String toString() {
         return ("<AlarmFactory.SeverityFilter: " + this.getDescription() + ">");
     }
 
+    /**
+     * Gets the severity.
+     *
+     * @return the severity
+     */
     public int getSeverity() {
         return getValue().getId();
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(final Object obj) {
         return (this.toString().equals(obj.toString()));

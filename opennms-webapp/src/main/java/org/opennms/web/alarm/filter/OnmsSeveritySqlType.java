@@ -35,7 +35,7 @@ import org.opennms.netmgt.model.OnmsSeverity;
 import org.opennms.web.filter.SQLType;
 
 /**
- * OnmsSeverityType
+ * OnmsSeverityType.
  *
  * @author brozow
  * @version $Id: $
@@ -47,6 +47,7 @@ public class OnmsSeveritySqlType implements SQLType<OnmsSeverity> {
      * <p>
      * bindParam
      * </p>
+     * .
      *
      * @param ps
      *            a {@link java.sql.PreparedStatement} object.
@@ -54,8 +55,8 @@ public class OnmsSeveritySqlType implements SQLType<OnmsSeverity> {
      *            a int.
      * @param value
      *            a {@link org.opennms.netmgt.model.OnmsSeverity} object.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     @Override
     public void bindParam(final PreparedStatement ps, final int parameterIndex, final OnmsSeverity value)
@@ -67,6 +68,7 @@ public class OnmsSeveritySqlType implements SQLType<OnmsSeverity> {
      * <p>
      * createArray
      * </p>
+     * .
      *
      * @param value1
      *            a {@link org.opennms.netmgt.model.OnmsSeverity} object.
@@ -84,6 +86,7 @@ public class OnmsSeveritySqlType implements SQLType<OnmsSeverity> {
      * <p>
      * formatValue
      * </p>
+     * .
      *
      * @param value
      *            a {@link org.opennms.netmgt.model.OnmsSeverity} object.
@@ -98,6 +101,7 @@ public class OnmsSeveritySqlType implements SQLType<OnmsSeverity> {
      * <p>
      * getValueAsString
      * </p>
+     * .
      *
      * @param value
      *            a {@link org.opennms.netmgt.model.OnmsSeverity} object.

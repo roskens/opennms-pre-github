@@ -39,7 +39,8 @@ import org.opennms.web.filter.SQLType;
  * @since 1.8.1
  */
 public class NegativeAcknowledgedByFilter extends NotEqualOrNullFilter<String> {
-    /** Constant <code>TYPE="acknowledgedByNot"</code> */
+
+    /** Constant <code>TYPE="acknowledgedByNot"</code>. */
     public static final String TYPE = "acknowledgedByNot";
 
     /**
@@ -58,6 +59,7 @@ public class NegativeAcknowledgedByFilter extends NotEqualOrNullFilter<String> {
      * <p>
      * getTextDescription
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -70,6 +72,7 @@ public class NegativeAcknowledgedByFilter extends NotEqualOrNullFilter<String> {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -82,6 +85,7 @@ public class NegativeAcknowledgedByFilter extends NotEqualOrNullFilter<String> {
      * <p>
      * getAcknowledgedByFilter
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

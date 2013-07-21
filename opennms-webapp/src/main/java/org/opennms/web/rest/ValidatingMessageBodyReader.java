@@ -51,14 +51,33 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.InputSource;
 
+/**
+ * The Class ValidatingMessageBodyReader.
+ *
+ * @param <T>
+ *            the generic type
+ */
 @Provider
 public class ValidatingMessageBodyReader<T> implements MessageBodyReader<T> {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(ValidatingMessageBodyReader.class);
 
+    /** The providers. */
     @Context
     protected Providers providers;
 
     /**
+     * Checks if is readable.
+     *
+     * @param clazz
+     *            the clazz
+     * @param type
+     *            the type
+     * @param annotations
+     *            the annotations
+     * @param mediaType
+     *            the media type
      * @return true if the class is a JAXB-marshallable class that has
      *         an {@link javax.xml.bind.annotation.XmlRootElement} annotation.
      */
@@ -68,6 +87,9 @@ public class ValidatingMessageBodyReader<T> implements MessageBodyReader<T> {
         return (clazz.getAnnotation(XmlRootElement.class) != null);
     }
 
+    /* (non-Javadoc)
+     * @see javax.ws.rs.ext.MessageBodyReader#readFrom(java.lang.Class, java.lang.reflect.Type, java.lang.annotation.Annotation[], javax.ws.rs.core.MediaType, javax.ws.rs.core.MultivaluedMap, java.io.InputStream)
+     */
     @Override
     public T readFrom(final Class<T> clazz, final Type type, final Annotation[] annotations, final MediaType mediaType,
             final MultivaluedMap<String, String> parameters, final InputStream stream) throws IOException,

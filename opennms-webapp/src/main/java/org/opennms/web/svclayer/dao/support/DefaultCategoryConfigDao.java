@@ -88,6 +88,7 @@ public class DefaultCategoryConfigDao implements CategoryConfigDao {
      * <p>
      * findAll
      * </p>
+     * .
      *
      * @return a {@link java.util.Collection} object.
      */

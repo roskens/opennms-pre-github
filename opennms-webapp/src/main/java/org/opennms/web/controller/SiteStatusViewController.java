@@ -53,8 +53,10 @@ import org.springframework.web.servlet.mvc.AbstractController;
  */
 public class SiteStatusViewController extends AbstractController {
 
+    /** The Constant FIVE_MINUTES. */
     private static final int FIVE_MINUTES = 5 * 60;
 
+    /** The m_service. */
     private static SiteStatusViewService m_service;
 
     /**
@@ -71,6 +73,7 @@ public class SiteStatusViewController extends AbstractController {
      * <p>
      * setService
      * </p>
+     * .
      *
      * @param svc
      *            a {@link org.opennms.web.svclayer.SiteStatusViewService}
@@ -113,6 +116,15 @@ public class SiteStatusViewController extends AbstractController {
         return mav;
     }
 
+    /**
+     * Creates the site status view error.
+     *
+     * @param shortDescr
+     *            the short descr
+     * @param longDescr
+     *            the long descr
+     * @return the site status view error
+     */
     private SiteStatusViewError createSiteStatusViewError(final String shortDescr, final String longDescr) {
         SiteStatusViewError viewError = new SiteStatusViewError();
         viewError.setShortDescr(shortDescr);

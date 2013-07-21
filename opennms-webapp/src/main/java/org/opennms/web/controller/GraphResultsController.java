@@ -58,10 +58,14 @@ import org.springframework.web.servlet.mvc.AbstractController;
  * @since 1.8.1
  */
 public class GraphResultsController extends AbstractController implements InitializingBean {
+
+    /** The logger. */
     private static Logger logger = LoggerFactory.getLogger("OpenNMS.WEB." + GraphResultsController.class);
 
+    /** The m_graph results service. */
     private GraphResultsService m_graphResultsService;
 
+    /** The s_periods. */
     private static RelativeTimePeriod[] s_periods = RelativeTimePeriod.getDefaultPeriods();
 
     /** {@inheritDoc} */
@@ -221,6 +225,7 @@ public class GraphResultsController extends AbstractController implements Initia
      * <p>
      * getGraphResultsService
      * </p>
+     * .
      *
      * @return a {@link org.opennms.web.svclayer.GraphResultsService} object.
      */
@@ -232,6 +237,7 @@ public class GraphResultsController extends AbstractController implements Initia
      * <p>
      * setGraphResultsService
      * </p>
+     * .
      *
      * @param graphResultsService
      *            a {@link org.opennms.web.svclayer.GraphResultsService} object.
@@ -243,9 +249,9 @@ public class GraphResultsController extends AbstractController implements Initia
     /**
      * Ensures that required properties are set to valid values.
      *
+     * @throws Exception
+     *             the exception
      * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
-     * @throws java.lang.Exception
-     *             if any.
      */
     @Override
     public final void afterPropertiesSet() throws Exception {

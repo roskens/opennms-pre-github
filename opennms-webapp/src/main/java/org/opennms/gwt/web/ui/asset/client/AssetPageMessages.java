@@ -33,6 +33,8 @@ import java.util.Date;
 import com.google.gwt.i18n.client.Messages;
 
 /**
+ * The Interface AssetPageMessages.
+ *
  * @author <a href="mailto:MarkusNeumannMarkus@gmail.com">Markus Neumann</a>
  *         Basic static string i18n mechanism by GWT for messages with embedded
  *         content. Just add:
@@ -45,9 +47,24 @@ import com.google.gwt.i18n.client.Messages;
  */
 
 public interface AssetPageMessages extends Messages {
+
+    /**
+     * Invalid symbol.
+     *
+     * @param symbol
+     *            the symbol
+     * @return the string
+     */
     @DefaultMessage("''{0}'' is not a valid symbol.")
     String invalidSymbol(String symbol);
 
+    /**
+     * Last update.
+     *
+     * @param timestamp
+     *            the timestamp
+     * @return the string
+     */
     @DefaultMessage("Last update: {0,date,medium} {0,time,medium}")
     String lastUpdate(Date timestamp);
 }

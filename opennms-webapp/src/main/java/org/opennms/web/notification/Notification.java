@@ -41,46 +41,58 @@ import java.util.List;
 public class Notification {
     // Fields from the notifications table.
     // User id of the person being paged.
+    /** The m_sent to. */
     public List<NoticeSentTo> m_sentTo;
 
     // Text Message being sent in the page
+    /** The m_txt msg. */
     public String m_txtMsg;
 
     // Numeric Message being sent in the page
+    /** The m_num msg. */
     public String m_numMsg;
 
     // Notify ID
+    /** The m_notify id. */
     public int m_notifyID;
 
     // Time the page was sent in milliseconds.
+    /** The m_time sent. */
     public long m_timeSent;
 
     // Time the page was responded in milliseconds.
+    /** The m_time reply. */
     public long m_timeReply;
 
     // Responder.
+    /** The m_responder. */
     public String m_responder;
 
     // Contact info.
     // public String m_contactInfo;
 
     // Problem Node
+    /** The m_node id. */
     public int m_nodeID;
 
     // ID of the interface on problem node.
+    /** The m_interface id. */
     public String m_interfaceID;
 
     // Name of the problem service on the interface.
+    /** The m_service name. */
     public String m_serviceName;
 
     // ID of the problem service on the interface.
+    /** The m_service id. */
     public int m_serviceId;
 
     // ID of the event that triggered this notification
+    /** The m_event id. */
     public int m_eventId;
 
     /**
-     * Default Constructor
+     * Default Constructor.
      */
     public Notification() {
     }
@@ -135,6 +147,7 @@ public class Notification {
      * <p>
      * getSentTo
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -146,6 +159,7 @@ public class Notification {
      * <p>
      * getTextMessage
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -157,6 +171,7 @@ public class Notification {
      * <p>
      * getNumericMessage
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -168,6 +183,7 @@ public class Notification {
      * <p>
      * getId
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -179,6 +195,7 @@ public class Notification {
      * <p>
      * getTimeSent
      * </p>
+     * .
      *
      * @return a {@link java.util.Date} object.
      */
@@ -190,6 +207,7 @@ public class Notification {
      * <p>
      * getTimeReplied
      * </p>
+     * .
      *
      * @return a {@link java.util.Date} object.
      */
@@ -206,6 +224,7 @@ public class Notification {
      * <p>
      * getResponder
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -217,6 +236,7 @@ public class Notification {
      * <p>
      * getNodeId
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -228,6 +248,7 @@ public class Notification {
      * <p>
      * getInterfaceId
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -239,6 +260,7 @@ public class Notification {
      * <p>
      * getIpAddress
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -250,6 +272,7 @@ public class Notification {
      * <p>
      * getServiceName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -261,6 +284,7 @@ public class Notification {
      * <p>
      * getServiceId
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -272,6 +296,7 @@ public class Notification {
      * <p>
      * getEventId
      * </p>
+     * .
      *
      * @return a int.
      */

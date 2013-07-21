@@ -61,16 +61,20 @@ import org.springframework.jdbc.datasource.lookup.DataSourceLookupFailureExcepti
  */
 public class DefaultAdminCategoryService implements AdminCategoryService {
 
+    /** The m_category dao. */
     private CategoryDao m_categoryDao;
 
+    /** The m_node dao. */
     private NodeDao m_nodeDao;
 
+    /** The m_event proxy. */
     private EventProxy m_eventProxy;
 
     /**
      * <p>
      * getCategoryDao
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.dao.api.CategoryDao} object.
      */
@@ -82,6 +86,7 @@ public class DefaultAdminCategoryService implements AdminCategoryService {
      * <p>
      * setCategoryDao
      * </p>
+     * .
      *
      * @param dao
      *            a {@link org.opennms.netmgt.dao.api.CategoryDao} object.
@@ -94,6 +99,7 @@ public class DefaultAdminCategoryService implements AdminCategoryService {
      * <p>
      * getNodeDao
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.dao.api.NodeDao} object.
      */
@@ -105,6 +111,7 @@ public class DefaultAdminCategoryService implements AdminCategoryService {
      * <p>
      * setNodeDao
      * </p>
+     * .
      *
      * @param nodeDao
      *            a {@link org.opennms.netmgt.dao.api.NodeDao} object.
@@ -117,6 +124,7 @@ public class DefaultAdminCategoryService implements AdminCategoryService {
      * <p>
      * setEventProxy
      * </p>
+     * .
      *
      * @param eventProxy
      *            a {@link org.opennms.netmgt.model.events.EventProxy} object.
@@ -145,6 +153,13 @@ public class DefaultAdminCategoryService implements AdminCategoryService {
         return new CategoryAndMemberNodes(category, memberNodes);
     }
 
+    /**
+     * Find category.
+     *
+     * @param name
+     *            the name
+     * @return the onms category
+     */
     private OnmsCategory findCategory(final String name) {
         int categoryId = -1;
         try {
@@ -166,6 +181,7 @@ public class DefaultAdminCategoryService implements AdminCategoryService {
      * <p>
      * findAllNodes
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -194,6 +210,7 @@ public class DefaultAdminCategoryService implements AdminCategoryService {
      * <p>
      * performEdit
      * </p>
+     * .
      *
      * @param categoryIdString
      *            a {@link java.lang.String} object.
@@ -290,6 +307,7 @@ public class DefaultAdminCategoryService implements AdminCategoryService {
      * <p>
      * findAllCategories
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -348,6 +366,7 @@ public class DefaultAdminCategoryService implements AdminCategoryService {
      * <p>
      * performNodeEdit
      * </p>
+     * .
      *
      * @param nodeIdString
      *            a {@link java.lang.String} object.
@@ -432,6 +451,13 @@ public class DefaultAdminCategoryService implements AdminCategoryService {
         }
     }
 
+    /**
+     * Find node.
+     *
+     * @param nodeIdString
+     *            the node id string
+     * @return the onms node
+     */
     private OnmsNode findNode(final String nodeIdString) {
         final int nodeId;
 
@@ -444,6 +470,12 @@ public class DefaultAdminCategoryService implements AdminCategoryService {
         return getNodeDao().get(nodeId);
     }
 
+    /**
+     * Notify category change.
+     *
+     * @param node
+     *            the node
+     */
     private void notifyCategoryChange(final OnmsNode node) {
         EventBuilder bldr = new EventBuilder(EventConstants.NODE_CATEGORY_MEMBERSHIP_CHANGED_EVENT_UEI, "CategoryUI");
         bldr.setNode(node);
@@ -451,6 +483,12 @@ public class DefaultAdminCategoryService implements AdminCategoryService {
         send(bldr.getEvent());
     }
 
+    /**
+     * Send.
+     *
+     * @param e
+     *            the e
+     */
     private void send(final Event e) {
         try {
             m_eventProxy.send(e);
@@ -459,32 +497,73 @@ public class DefaultAdminCategoryService implements AdminCategoryService {
         }
     }
 
+    /**
+     * The Class CategoryAndMemberNodes.
+     */
     public class CategoryAndMemberNodes {
+
+        /** The m_category. */
         private OnmsCategory m_category;
 
+        /** The m_member nodes. */
         private Collection<OnmsNode> m_memberNodes;
 
+        /**
+         * Instantiates a new category and member nodes.
+         *
+         * @param category
+         *            the category
+         * @param memberNodes
+         *            the member nodes
+         */
         public CategoryAndMemberNodes(final OnmsCategory category, final Collection<OnmsNode> memberNodes) {
             m_category = category;
             m_memberNodes = memberNodes;
         }
 
+        /**
+         * Gets the category.
+         *
+         * @return the category
+         */
         public final OnmsCategory getCategory() {
             return m_category;
         }
 
+        /**
+         * Gets the member nodes.
+         *
+         * @return the member nodes
+         */
         public final Collection<OnmsNode> getMemberNodes() {
             return m_memberNodes;
         }
     }
 
+    /**
+     * The Class EditModel.
+     */
     public class EditModel {
+
+        /** The m_category. */
         private OnmsCategory m_category;
 
+        /** The m_nodes. */
         private List<OnmsNode> m_nodes;
 
+        /** The m_sorted member nodes. */
         private List<OnmsNode> m_sortedMemberNodes;
 
+        /**
+         * Instantiates a new edits the model.
+         *
+         * @param category
+         *            the category
+         * @param nodes
+         *            the nodes
+         * @param memberNodes
+         *            the member nodes
+         */
         public EditModel(final OnmsCategory category, final List<OnmsNode> nodes, final Collection<OnmsNode> memberNodes) {
             m_category = category;
             m_nodes = nodes;
@@ -497,27 +576,57 @@ public class DefaultAdminCategoryService implements AdminCategoryService {
             Collections.sort(m_sortedMemberNodes);
         }
 
+        /**
+         * Gets the category.
+         *
+         * @return the category
+         */
         public final OnmsCategory getCategory() {
             return m_category;
         }
 
+        /**
+         * Gets the nodes.
+         *
+         * @return the nodes
+         */
         public final List<OnmsNode> getNodes() {
             return m_nodes;
         }
 
+        /**
+         * Gets the sorted member nodes.
+         *
+         * @return the sorted member nodes
+         */
         public final List<OnmsNode> getSortedMemberNodes() {
             return m_sortedMemberNodes;
         }
 
     }
 
+    /**
+     * The Class NodeEditModel.
+     */
     public class NodeEditModel {
+
+        /** The m_node. */
         private OnmsNode m_node;
 
+        /** The m_categories. */
         private List<OnmsCategory> m_categories;
 
+        /** The m_sorted categories. */
         private List<OnmsCategory> m_sortedCategories;
 
+        /**
+         * Instantiates a new node edit model.
+         *
+         * @param node
+         *            the node
+         * @param categories
+         *            the categories
+         */
         public NodeEditModel(final OnmsNode node, final List<OnmsCategory> categories) {
             m_node = node;
             m_categories = categories;
@@ -530,14 +639,29 @@ public class DefaultAdminCategoryService implements AdminCategoryService {
             Collections.sort(m_sortedCategories);
         }
 
+        /**
+         * Gets the node.
+         *
+         * @return the node
+         */
         public final OnmsNode getNode() {
             return m_node;
         }
 
+        /**
+         * Gets the categories.
+         *
+         * @return the categories
+         */
         public final List<OnmsCategory> getCategories() {
             return m_categories;
         }
 
+        /**
+         * Gets the sorted categories.
+         *
+         * @return the sorted categories
+         */
         public final List<OnmsCategory> getSortedCategories() {
             return m_sortedCategories;
         }

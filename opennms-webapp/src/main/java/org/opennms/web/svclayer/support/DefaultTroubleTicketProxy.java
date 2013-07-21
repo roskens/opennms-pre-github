@@ -55,14 +55,17 @@ import org.springframework.jdbc.datasource.lookup.DataSourceLookupFailureExcepti
  */
 public class DefaultTroubleTicketProxy implements TroubleTicketProxy {
 
+    /** The m_alarm dao. */
     private AlarmDao m_alarmDao;
 
+    /** The m_event proxy. */
     private EventProxy m_eventProxy;
 
     /**
      * <p>
      * setAlarmDao
      * </p>
+     * .
      *
      * @param alarmDao
      *            a {@link org.opennms.netmgt.dao.api.AlarmDao} object.
@@ -75,6 +78,7 @@ public class DefaultTroubleTicketProxy implements TroubleTicketProxy {
      * <p>
      * setEventProxy
      * </p>
+     * .
      *
      * @param eventProxy
      *            a {@link org.opennms.netmgt.model.events.EventProxy} object.
@@ -101,6 +105,18 @@ public class DefaultTroubleTicketProxy implements TroubleTicketProxy {
         changeTicket(alarmId, TroubleTicketState.UPDATE_PENDING, EventConstants.TROUBLETICKET_UPDATE_UEI, null);
     }
 
+    /**
+     * Change ticket.
+     *
+     * @param alarmId
+     *            the alarm id
+     * @param newState
+     *            the new state
+     * @param uei
+     *            the uei
+     * @param attributes
+     *            the attributes
+     */
     private void changeTicket(final Integer alarmId, final TroubleTicketState newState, final String uei,
             final Map<String, String> attributes) {
         OnmsAlarm alarm = m_alarmDao.get(alarmId);
@@ -127,6 +143,12 @@ public class DefaultTroubleTicketProxy implements TroubleTicketProxy {
         send(bldr.getEvent());
     }
 
+    /**
+     * Send.
+     *
+     * @param e
+     *            the e
+     */
     private void send(final Event e) {
         try {
             m_eventProxy.send(e);

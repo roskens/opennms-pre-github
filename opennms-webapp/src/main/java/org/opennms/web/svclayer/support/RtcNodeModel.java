@@ -44,8 +44,11 @@ import org.opennms.netmgt.model.OnmsNode;
  * @since 1.8.1
  */
 public class RtcNodeModel {
+
+    /** The Constant AVAILABILITY_FORMAT. */
     private static final DecimalFormat AVAILABILITY_FORMAT = new DecimalFormat("0.000%");
 
+    /** The m_node list. */
     private List<RtcNode> m_nodeList = new ArrayList<RtcNode>();
 
     static {
@@ -56,6 +59,7 @@ public class RtcNodeModel {
      * <p>
      * addNode
      * </p>
+     * .
      *
      * @param node
      *            a
@@ -70,6 +74,7 @@ public class RtcNodeModel {
      * <p>
      * getNodeList
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -77,15 +82,35 @@ public class RtcNodeModel {
         return m_nodeList;
     }
 
+    /**
+     * The Class RtcNode.
+     */
     public static class RtcNode {
+
+        /** The m_node. */
         private OnmsNode m_node;
 
+        /** The m_service count. */
         private int m_serviceCount;
 
+        /** The m_down service count. */
         private int m_downServiceCount;
 
+        /** The m_availability. */
         private double m_availability;
 
+        /**
+         * Instantiates a new rtc node.
+         *
+         * @param node
+         *            the node
+         * @param serviceCount
+         *            the service count
+         * @param downServiceCount
+         *            the down service count
+         * @param availability
+         *            the availability
+         */
         public RtcNode(final OnmsNode node, final int serviceCount, final int downServiceCount,
                 final double availability) {
             m_node = node;
@@ -94,26 +119,54 @@ public class RtcNodeModel {
             m_availability = availability;
         }
 
+        /**
+         * Gets the availability.
+         *
+         * @return the availability
+         */
         public final double getAvailability() {
             return m_availability;
         }
 
+        /**
+         * Gets the availability as string.
+         *
+         * @return the availability as string
+         */
         public final String getAvailabilityAsString() {
             return AVAILABILITY_FORMAT.format(m_availability);
         }
 
+        /**
+         * Gets the down service count.
+         *
+         * @return the down service count
+         */
         public final int getDownServiceCount() {
             return m_downServiceCount;
         }
 
+        /**
+         * Gets the node.
+         *
+         * @return the node
+         */
         public final OnmsNode getNode() {
             return m_node;
         }
 
+        /**
+         * Gets the service count.
+         *
+         * @return the service count
+         */
         public final int getServiceCount() {
             return m_serviceCount;
         }
 
+        /* (non-Javadoc)
+         * @see java.lang.Object#toString()
+         */
         @Override
         public final String toString() {
             return m_node.getLabel() + ": " + m_downServiceCount + " of " + m_serviceCount + ": "

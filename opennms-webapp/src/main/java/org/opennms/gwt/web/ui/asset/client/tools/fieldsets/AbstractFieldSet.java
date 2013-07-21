@@ -47,6 +47,8 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
+ * The Class AbstractFieldSet.
+ *
  * @author <a href="mailto:MarkusNeumannMarkus@gmail.com">Markus Neumann</a>
  *         Implementation of {@link FieldSet} that creats an GWT
  *         {@link Composite} and {@link Panel} based {@link FieldSet}. The
@@ -60,30 +62,50 @@ import com.google.gwt.user.client.ui.Widget;
  */
 public abstract class AbstractFieldSet extends Composite implements FieldSet {
 
+    /** The main panel. */
     protected VerticalPanel mainPanel = new VerticalPanel();
 
+    /** The panel. */
     protected HorizontalPanel panel = new HorizontalPanel();
 
+    /** The label. */
     protected Label label = new Label();
 
+    /** The enabled. */
     protected Boolean enabled = true;
 
+    /** The changed. */
     protected Boolean changed = false;
 
+    /** The error label. */
     protected Label errorLabel = new Label();
 
+    /** The warning label. */
     protected Label warningLabel = new Label();
 
+    /** The help text. */
     protected String helpText = "";
 
+    /** The pop panel. */
     protected DecoratedPopupPanel popPanel = new DecoratedPopupPanel(true);
 
+    /** The error validators. */
     protected ArrayList<Validator> errorValidators = new ArrayList<Validator>();
 
+    /** The warning validators. */
     protected ArrayList<Validator> warningValidators = new ArrayList<Validator>();
 
+    /** The initital value. */
     protected Object inititalValue;
 
+    /**
+     * Instantiates a new abstract field set.
+     *
+     * @param name
+     *            the name
+     * @param helpText
+     *            the help text
+     */
     public AbstractFieldSet(String name, final String helpText) {
 
         // helpText popup preperation
@@ -134,10 +156,22 @@ public abstract class AbstractFieldSet extends Composite implements FieldSet {
         initWidget(mainPanel);
     }
 
+    /**
+     * Adds the error validator.
+     *
+     * @param validator
+     *            the validator
+     */
     public void addErrorValidator(Validator validator) {
         errorValidators.add(validator);
     }
 
+    /**
+     * Adds the warning validator.
+     *
+     * @param validator
+     *            the validator
+     */
     public void addWarningValidator(Validator validator) {
         warningValidators.add(validator);
     }
@@ -174,66 +208,107 @@ public abstract class AbstractFieldSet extends Composite implements FieldSet {
         return false;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.gwt.web.ui.asset.client.tools.fieldsets.FieldSet#clearChanged()
+     */
     @Override
     public void clearChanged() {
         changed = false;
         mainPanel.setStyleDependentName("changed", false);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.gwt.web.ui.asset.client.tools.fieldsets.FieldSet#clearErrors()
+     */
     @Override
     public void clearErrors() {
         errorLabel.setText(null);
         mainPanel.setStyleDependentName("error", false);
     }
 
+    /**
+     * Clear error validators.
+     */
     public void clearErrorValidators() {
         errorValidators.clear();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.gwt.web.ui.asset.client.tools.fieldsets.FieldSet#clearWarnings()
+     */
     @Override
     public void clearWarnings() {
         warningLabel.setText(null);
         mainPanel.setStyleDependentName("warning", false);
     }
 
+    /**
+     * Clear warning validators.
+     */
     public void clearWarningValidators() {
         warningValidators.clear();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.gwt.web.ui.asset.client.tools.fieldsets.FieldSet#getEnabled()
+     */
     @Override
     public Boolean getEnabled() {
         return enabled;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.gwt.web.ui.asset.client.tools.fieldsets.FieldSet#getError()
+     */
     @Override
     public String getError() {
         return errorLabel.getText();
     }
 
+    /**
+     * Gets the error validators.
+     *
+     * @return the error validators
+     */
     public ArrayList<Validator> getErrorValidators() {
         return errorValidators;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.gwt.web.ui.asset.client.tools.fieldsets.FieldSet#getLabel()
+     */
     @Override
     public String getLabel() {
         return label.getText();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.gwt.web.ui.asset.client.tools.fieldsets.FieldSet#getWarning()
+     */
     @Override
     public String getWarning() {
         return warningLabel.getText();
     }
 
+    /* (non-Javadoc)
+     * @see com.google.gwt.event.dom.client.ChangeHandler#onChange(com.google.gwt.event.dom.client.ChangeEvent)
+     */
     @Override
     public void onChange(ChangeEvent event) {
         checkField();
     }
 
+    /* (non-Javadoc)
+     * @see com.google.gwt.event.dom.client.FocusHandler#onFocus(com.google.gwt.event.dom.client.FocusEvent)
+     */
     @Override
     public void onFocus(FocusEvent event) {
 
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.gwt.web.ui.asset.client.tools.fieldsets.FieldSet#setError(java.lang.String)
+     */
     @Override
     public void setError(String error) {
         errorLabel.setText(error);
@@ -241,6 +316,12 @@ public abstract class AbstractFieldSet extends Composite implements FieldSet {
         mainPanel.setStyleDependentName("error", true);
     }
 
+    /**
+     * Sets the errors.
+     *
+     * @param errors
+     *            the new errors
+     */
     public void setErrors(ArrayList<String> errors) {
         String allErrors = "";
         for (String error : errors) {
@@ -251,15 +332,27 @@ public abstract class AbstractFieldSet extends Composite implements FieldSet {
         mainPanel.setStyleDependentName("error", true);
     }
 
+    /**
+     * Sets the error validators.
+     *
+     * @param validators
+     *            the new error validators
+     */
     public void setErrorValidators(ArrayList<Validator> validators) {
         errorValidators = validators;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.gwt.web.ui.asset.client.tools.fieldsets.FieldSet#setLabel(java.lang.String)
+     */
     @Override
     public void setLabel(String lable) {
         label.setText(lable);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.gwt.web.ui.asset.client.tools.fieldsets.FieldSet#setWarning(java.lang.String)
+     */
     @Override
     public void setWarning(String warning) {
         warningLabel.setText(warning);
@@ -267,6 +360,12 @@ public abstract class AbstractFieldSet extends Composite implements FieldSet {
         mainPanel.setStyleDependentName("warning", true);
     }
 
+    /**
+     * Sets the warnings.
+     *
+     * @param warnings
+     *            the new warnings
+     */
     public void setWarnings(ArrayList<String> warnings) {
         String allWarnings = "";
         for (String warning : warnings) {
@@ -277,6 +376,12 @@ public abstract class AbstractFieldSet extends Composite implements FieldSet {
         mainPanel.setStyleDependentName("warning", true);
     }
 
+    /**
+     * Sets the warning validators.
+     *
+     * @param validators
+     *            the new warning validators
+     */
     public void setWarningValidators(ArrayList<Validator> validators) {
         warningValidators = validators;
     }
@@ -286,6 +391,7 @@ public abstract class AbstractFieldSet extends Composite implements FieldSet {
      * set if necessary.
      *
      * @param object
+     *            the object
      */
     protected void validate(Object object) {
         // GWT.log("validate is called at " + this.getLabel() +

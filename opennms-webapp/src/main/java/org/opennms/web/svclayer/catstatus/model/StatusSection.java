@@ -42,8 +42,10 @@ import java.util.Collection;
  */
 public class StatusSection {
 
+    /** The m_name. */
     private String m_name;
 
+    /** The m_categorylist. */
     private Collection<StatusCategory> m_categorylist;
 
     /**
@@ -61,6 +63,7 @@ public class StatusSection {
      * <p>
      * setName
      * </p>
+     * .
      *
      * @param name
      *            a {@link java.lang.String} object.
@@ -73,6 +76,7 @@ public class StatusSection {
      * <p>
      * getName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -84,6 +88,7 @@ public class StatusSection {
      * <p>
      * getCategories
      * </p>
+     * .
      *
      * @return a {@link java.util.Collection} object.
      */
@@ -95,6 +100,7 @@ public class StatusSection {
      * <p>
      * addCategory
      * </p>
+     * .
      *
      * @param newCategory
      *            a

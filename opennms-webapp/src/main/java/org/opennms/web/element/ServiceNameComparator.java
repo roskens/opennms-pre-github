@@ -40,10 +40,12 @@ import java.util.Comparator;
  * @since 1.8.1
  */
 public class ServiceNameComparator implements Comparator<Service> {
+
     /**
      * <p>
      * compare
      * </p>
+     * .
      *
      * @param s1
      *            a {@link org.opennms.web.element.Service} object.

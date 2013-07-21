@@ -105,9 +105,12 @@ import com.sun.jersey.spi.resource.PerRequest;
 @Path("snmpConfig")
 @Transactional
 public class SnmpConfigRestService extends OnmsRestService {
+
+    /** The m_uri info. */
     @Context
     UriInfo m_uriInfo;
 
+    /** The m_snmp peer factory. */
     @Autowired
     private SnmpPeerFactory m_snmpPeerFactory;
 
@@ -115,6 +118,7 @@ public class SnmpConfigRestService extends OnmsRestService {
      * <p>
      * getSnmpInfo
      * </p>
+     * .
      *
      * @param ipAddr
      *            a {@link java.lang.String} object.
@@ -142,6 +146,7 @@ public class SnmpConfigRestService extends OnmsRestService {
      * <p>
      * setSnmpInfo
      * </p>
+     * .
      *
      * @param ipAddress
      *            a {@link java.lang.String} object.
@@ -169,7 +174,7 @@ public class SnmpConfigRestService extends OnmsRestService {
     }
 
     /**
-     * Updates a specific interface
+     * Updates a specific interface.
      *
      * @param ipAddress
      *            a {@link java.lang.String} object.

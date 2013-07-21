@@ -49,6 +49,8 @@ import org.springframework.web.servlet.mvc.AbstractController;
  * @since 1.8.1
  */
 public class ListController extends AbstractController implements InitializingBean {
+
+    /** The m_statistics report service. */
     private StatisticsReportService m_statisticsReportService;
 
     /** {@inheritDoc} */
@@ -69,9 +71,10 @@ public class ListController extends AbstractController implements InitializingBe
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -83,6 +86,7 @@ public class ListController extends AbstractController implements InitializingBe
      * <p>
      * getStatisticsReportService
      * </p>
+     * .
      *
      * @return a {@link org.opennms.web.svclayer.StatisticsReportService}
      *         object.
@@ -95,6 +99,7 @@ public class ListController extends AbstractController implements InitializingBe
      * <p>
      * setStatisticsReportService
      * </p>
+     * .
      *
      * @param statisticsReportService
      *            a {@link org.opennms.web.svclayer.StatisticsReportService}

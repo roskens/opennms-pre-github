@@ -44,16 +44,21 @@ import org.opennms.netmgt.model.OnmsResourceType;
  * @since 1.8.1
  */
 public class ChooseResourceModel {
+
+    /** The m_resource. */
     private OnmsResource m_resource;
 
+    /** The m_resource types. */
     private Map<OnmsResourceType, List<OnmsResource>> m_resourceTypes;
 
+    /** The m_end url. */
     private String m_endUrl;
 
     /**
      * <p>
      * setResource
      * </p>
+     * .
      *
      * @param resource
      *            a {@link org.opennms.netmgt.model.OnmsResource} object.
@@ -66,6 +71,7 @@ public class ChooseResourceModel {
      * <p>
      * getResource
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.OnmsResource} object.
      */
@@ -77,6 +83,7 @@ public class ChooseResourceModel {
      * <p>
      * getResourceTypes
      * </p>
+     * .
      *
      * @return a {@link java.util.Map} object.
      */
@@ -88,6 +95,7 @@ public class ChooseResourceModel {
      * <p>
      * setResourceTypes
      * </p>
+     * .
      *
      * @param resourceTypes
      *            a {@link java.util.Map} object.
@@ -100,6 +108,7 @@ public class ChooseResourceModel {
      * <p>
      * getEndUrl
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -111,6 +120,7 @@ public class ChooseResourceModel {
      * <p>
      * setEndUrl
      * </p>
+     * .
      *
      * @param endUrl
      *            a {@link java.lang.String} object.

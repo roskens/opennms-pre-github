@@ -38,28 +38,66 @@ package org.opennms.web.map.db;
  * @since 1.8.1
  */
 public class LinkInfo {
+
+    /** The id. */
     int id;
 
+    /** The nodeid. */
     int nodeid;
 
+    /** The ifindex. */
     int ifindex;
 
+    /** The nodeparentid. */
     int nodeparentid;
 
+    /** The parentifindex. */
     int parentifindex;
 
+    /** The linktypeid. */
     int linktypeid;
 
+    /** The snmpiftype. */
     int snmpiftype;
 
+    /** The snmpifspeed. */
     long snmpifspeed;
 
+    /** The snmpifoperstatus. */
     int snmpifoperstatus;
 
+    /** The snmpifadminstatus. */
     int snmpifadminstatus;
 
+    /** The status. */
     String status;
 
+    /**
+     * Instantiates a new link info.
+     *
+     * @param id
+     *            the id
+     * @param nodeid
+     *            the nodeid
+     * @param ifindex
+     *            the ifindex
+     * @param nodeparentid
+     *            the nodeparentid
+     * @param parentifindex
+     *            the parentifindex
+     * @param snmpiftype
+     *            the snmpiftype
+     * @param snmpifspeed
+     *            the snmpifspeed
+     * @param snmpifoperstatus
+     *            the snmpifoperstatus
+     * @param snmpifadminstatus
+     *            the snmpifadminstatus
+     * @param status
+     *            the status
+     * @param linktypeid
+     *            the linktypeid
+     */
     LinkInfo(int id, int nodeid, int ifindex, int nodeparentid, int parentifindex, int snmpiftype, long snmpifspeed,
             int snmpifoperstatus, int snmpifadminstatus, String status, int linktypeid) {
         super();
@@ -90,6 +128,7 @@ public class LinkInfo {
      * <p>
      * hashCode
      * </p>
+     * .
      *
      * @return a int.
      */

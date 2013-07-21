@@ -49,16 +49,20 @@ import org.opennms.web.svclayer.DemandPollService;
  */
 public class DefaultDemandPollService implements DemandPollService {
 
+    /** The m_poller service. */
     private PollerService m_pollerService;
 
+    /** The m_demand poll dao. */
     private DemandPollDao m_demandPollDao;
 
+    /** The m_monitored service dao. */
     private MonitoredServiceDao m_monitoredServiceDao;
 
     /**
      * <p>
      * setDemandPollDao
      * </p>
+     * .
      *
      * @param demandPollDao
      *            a {@link org.opennms.netmgt.dao.api.DemandPollDao} object.
@@ -71,6 +75,7 @@ public class DefaultDemandPollService implements DemandPollService {
      * <p>
      * setPollerAPI
      * </p>
+     * .
      *
      * @param pollerAPI
      *            a {@link org.opennms.web.services.PollerService} object.
@@ -83,6 +88,7 @@ public class DefaultDemandPollService implements DemandPollService {
      * <p>
      * setMonitoredServiceDao
      * </p>
+     * .
      *
      * @param monitoredServiceDao
      *            a {@link org.opennms.netmgt.dao.api.MonitoredServiceDao}
@@ -92,6 +98,9 @@ public class DefaultDemandPollService implements DemandPollService {
         m_monitoredServiceDao = monitoredServiceDao;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.web.svclayer.DemandPollService#pollMonitoredService(int, java.net.InetAddress, int, int)
+     */
     @Override
     public DemandPoll pollMonitoredService(final int nodeId, final InetAddress ipAddr, final int ifIndex,
             final int serviceId) {

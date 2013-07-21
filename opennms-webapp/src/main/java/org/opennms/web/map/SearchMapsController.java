@@ -62,8 +62,10 @@ import org.springframework.web.servlet.ModelAndView;
  */
 public class SearchMapsController extends MapsLoggingController {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(SearchMapsController.class);
 
+    /** The manager. */
     private Manager manager;
 
     /**

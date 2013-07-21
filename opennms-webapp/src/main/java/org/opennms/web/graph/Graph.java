@@ -48,12 +48,17 @@ import org.opennms.netmgt.model.RrdGraphAttribute;
  * @since 1.8.1
  */
 public class Graph implements Comparable<Graph> {
+
+    /** The m_graph. */
     private PrefabGraph m_graph = null;
 
+    /** The m_resource. */
     private OnmsResource m_resource;
 
+    /** The m_start. */
     private Date m_start = null;
 
+    /** The m_end. */
     private Date m_end = null;
 
     /**
@@ -81,6 +86,7 @@ public class Graph implements Comparable<Graph> {
      * <p>
      * getResource
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.OnmsResource} object.
      */
@@ -92,6 +98,7 @@ public class Graph implements Comparable<Graph> {
      * <p>
      * getStart
      * </p>
+     * .
      *
      * @return a {@link java.util.Date} object.
      */
@@ -103,6 +110,7 @@ public class Graph implements Comparable<Graph> {
      * <p>
      * getEnd
      * </p>
+     * .
      *
      * @return a {@link java.util.Date} object.
      */
@@ -114,6 +122,7 @@ public class Graph implements Comparable<Graph> {
      * <p>
      * getName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -125,6 +134,7 @@ public class Graph implements Comparable<Graph> {
      * <p>
      * getTitle
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -136,6 +146,7 @@ public class Graph implements Comparable<Graph> {
      * <p>
      * compareTo
      * </p>
+     * .
      *
      * @param other
      *            a {@link org.opennms.web.graph.Graph} object.
@@ -154,6 +165,7 @@ public class Graph implements Comparable<Graph> {
      * <p>
      * getGraphWidth
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -165,6 +177,7 @@ public class Graph implements Comparable<Graph> {
      * <p>
      * getGraphHeight
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -176,6 +189,7 @@ public class Graph implements Comparable<Graph> {
      * <p>
      * getPrefabGraph
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.PrefabGraph} object.
      */
@@ -187,6 +201,7 @@ public class Graph implements Comparable<Graph> {
      * <p>
      * getReport
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -198,6 +213,7 @@ public class Graph implements Comparable<Graph> {
      * <p>
      * getRequiredRrGraphdAttributes
      * </p>
+     * .
      *
      * @return a {@link java.util.Collection} object.
      */

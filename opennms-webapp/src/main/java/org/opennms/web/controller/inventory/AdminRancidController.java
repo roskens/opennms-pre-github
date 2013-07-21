@@ -50,12 +50,14 @@ import org.springframework.web.servlet.mvc.Controller;
  */
 public class AdminRancidController implements Controller {
 
+    /** The m_inventory service. */
     InventoryService m_inventoryService;
 
     /**
      * <p>
      * getInventoryService
      * </p>
+     * .
      *
      * @return a {@link org.opennms.web.svclayer.inventory.InventoryService}
      *         object.
@@ -68,6 +70,7 @@ public class AdminRancidController implements Controller {
      * <p>
      * setInventoryService
      * </p>
+     * .
      *
      * @param inventoryService
      *            a {@link org.opennms.web.svclayer.inventory.InventoryService}

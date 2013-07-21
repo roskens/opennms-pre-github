@@ -62,35 +62,47 @@ import org.springframework.webflow.execution.RequestContext;
  */
 public class DefaultSchedulerService implements InitializingBean, SchedulerService {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(DefaultSchedulerService.class);
 
+    /** The Constant SUCCESS. */
     private static final String SUCCESS = "success";
 
+    /** The Constant ERROR. */
     private static final String ERROR = "error";
 
+    /** The Constant PARAMETER_ERROR. */
     private static final String PARAMETER_ERROR = "Report parameters did not match the definition for the report please contact your OpenNMS administrator";
 
+    /** The Constant SCHEDULER_ERROR. */
     private static final String SCHEDULER_ERROR = "An exception occurred when scheduling the report";
 
+    /** The Constant TRIGGER_PARSE_ERROR. */
     private static final String TRIGGER_PARSE_ERROR = "An error occurred parsing the cron expression. It was not possible to schedule the report";
 
+    /** The Constant REPORTID_ERROR. */
     private static final String REPORTID_ERROR = "An error occurred locating the report service bean";
 
+    /** The m_scheduler. */
     private Scheduler m_scheduler;
 
+    /** The m_job detail. */
     private JobDetail m_jobDetail;
 
+    /** The m_trigger group. */
     private String m_triggerGroup;
 
+    /** The m_report wrapper service. */
     private ReportWrapperService m_reportWrapperService;
 
     /**
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @Override
     public final void afterPropertiesSet() throws Exception {
@@ -104,6 +116,7 @@ public class DefaultSchedulerService implements InitializingBean, SchedulerServi
      * <p>
      * getTriggerDescriptions
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -169,6 +182,7 @@ public class DefaultSchedulerService implements InitializingBean, SchedulerServi
      * <p>
      * removeTriggers
      * </p>
+     * .
      *
      * @param triggerNames
      *            an array of {@link java.lang.String} objects.
@@ -285,6 +299,7 @@ public class DefaultSchedulerService implements InitializingBean, SchedulerServi
      * <p>
      * setScheduler
      * </p>
+     * .
      *
      * @param scheduler
      *            a {@link org.quartz.Scheduler} object.
@@ -297,6 +312,7 @@ public class DefaultSchedulerService implements InitializingBean, SchedulerServi
      * <p>
      * setJobDetail
      * </p>
+     * .
      *
      * @param reportJob
      *            a {@link org.quartz.JobDetail} object.
@@ -309,6 +325,7 @@ public class DefaultSchedulerService implements InitializingBean, SchedulerServi
      * <p>
      * setTriggerGroup
      * </p>
+     * .
      *
      * @param triggerGroup
      *            a {@link java.lang.String} object.
@@ -321,6 +338,7 @@ public class DefaultSchedulerService implements InitializingBean, SchedulerServi
      * <p>
      * setReportWrapperService
      * </p>
+     * .
      *
      * @param reportWrapperService
      *            a

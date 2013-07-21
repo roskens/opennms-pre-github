@@ -66,19 +66,42 @@ import au.com.bytecode.opencsv.CSVReader;
  * @author <A HREF="mailto:ranger@opennms.org">Benjamin Reed</A>
  */
 public class ImportAssetsServlet extends HttpServlet {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 8282814214167099107L;
 
+    /** The logger. */
     private Logger logger = LoggerFactory.getLogger(ImportAssetsServlet.class.getName());
 
+    /** The errors. */
     private List<String> errors = new ArrayList<String>();
 
+    /**
+     * The Class AssetException.
+     */
     private class AssetException extends Exception {
+
+        /** The Constant serialVersionUID. */
         private static final long serialVersionUID = 2498335935646001342L;
 
+        /**
+         * Instantiates a new asset exception.
+         *
+         * @param message
+         *            the message
+         */
         public AssetException(String message) {
             super(message);
         }
 
+        /**
+         * Instantiates a new asset exception.
+         *
+         * @param message
+         *            the message
+         * @param t
+         *            the t
+         */
         public AssetException(String message, Throwable t) {
             super(message, t);
         }
@@ -88,6 +111,7 @@ public class ImportAssetsServlet extends HttpServlet {
     /** The URL to redirect the client to in case of success. */
     protected String redirectSuccess;
 
+    /** The model. */
     protected AssetModel model;
 
     /**
@@ -96,8 +120,8 @@ public class ImportAssetsServlet extends HttpServlet {
      * will
      * be marked unavailable.
      *
-     * @throws javax.servlet.ServletException
-     *             if any.
+     * @throws ServletException
+     *             the servlet exception
      */
     @Override
     public void init() throws ServletException {
@@ -169,6 +193,22 @@ public class ImportAssetsServlet extends HttpServlet {
         }
     }
 
+    /**
+     * Redirect with error message.
+     *
+     * @param request
+     *            the request
+     * @param response
+     *            the response
+     * @param e
+     *            the e
+     * @param message
+     *            the message
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws UnsupportedEncodingException
+     *             the unsupported encoding exception
+     */
     private void redirectWithErrorMessage(HttpServletRequest request, HttpServletResponse response, Exception e,
             String message) throws IOException, UnsupportedEncodingException {
         this.log(message, e);
@@ -180,12 +220,13 @@ public class ImportAssetsServlet extends HttpServlet {
      * <p>
      * decodeAssetsText
      * </p>
+     * .
      *
      * @param text
      *            a {@link java.lang.String} object.
      * @return a {@link java.util.List} object.
-     * @throws org.opennms.web.asset.ImportAssetsServlet$AssetException
-     *             if any.
+     * @throws AssetException
+     *             the asset exception
      */
     public List<Asset> decodeAssetsText(String text) throws AssetException {
         CSVReader csvReader = null;
@@ -322,10 +363,11 @@ public class ImportAssetsServlet extends HttpServlet {
      * <p>
      * getCurrentAssetNodesList
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     public List<Integer> getCurrentAssetNodesList() throws SQLException {
         Connection conn = Vault.getDbConnection();

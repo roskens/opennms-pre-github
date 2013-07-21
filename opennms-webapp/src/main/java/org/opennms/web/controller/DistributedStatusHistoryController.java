@@ -47,12 +47,15 @@ import org.springframework.web.servlet.mvc.AbstractController;
  * @since 1.8.1
  */
 public class DistributedStatusHistoryController extends AbstractController {
+
+    /** The m_distributed status service. */
     private DistributedStatusService m_distributedStatusService;
 
     /**
      * <p>
      * getDistributedStatusService
      * </p>
+     * .
      *
      * @return a {@link org.opennms.web.svclayer.DistributedStatusService}
      *         object.
@@ -65,6 +68,7 @@ public class DistributedStatusHistoryController extends AbstractController {
      * <p>
      * setDistributedStatusService
      * </p>
+     * .
      *
      * @param statusService
      *            a {@link org.opennms.web.svclayer.DistributedStatusService}

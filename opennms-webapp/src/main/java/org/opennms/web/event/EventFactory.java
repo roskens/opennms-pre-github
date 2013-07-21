@@ -62,8 +62,8 @@ public final class EventFactory {
      * Count all outstanding (unacknowledged) events.
      *
      * @return a int.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     public static int getEventCount() throws SQLException {
         return getEventCount(AcknowledgeType.UNACKNOWLEDGED, new Filter[0]);
@@ -77,8 +77,8 @@ public final class EventFactory {
      * @param filters
      *            an array of org$opennms$web$filter$Filter objects.
      * @return a int.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     public static int getEventCount(AcknowledgeType ackType, Filter[] filters) throws SQLException {
         if (ackType == null || filters == null) {
@@ -125,15 +125,15 @@ public final class EventFactory {
     /**
      * Count the number of events for a given acknowledgement type.
      *
-     * @return An array of event counts. Each index of the array corresponds to
-     *         the event severity for the counts (indeterminate is 1, critical
-     *         is 7, etc).
      * @param ackType
      *            a {@link org.opennms.web.event.AcknowledgeType} object.
      * @param filters
      *            an array of org$opennms$web$filter$Filter objects.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @return An array of event counts. Each index of the array corresponds to
+     *         the event severity for the counts (indeterminate is 1, critical
+     *         is 7, etc).
+     * @throws SQLException
+     *             the sQL exception
      */
     public static int[] getEventCountBySeverity(AcknowledgeType ackType, Filter[] filters) throws SQLException {
         if (ackType == null || filters == null) {
@@ -187,8 +187,8 @@ public final class EventFactory {
      * @param eventId
      *            a int.
      * @return a {@link org.opennms.web.event.Event} object.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     public static Event getEvent(int eventId) throws SQLException {
         Event event = null;
@@ -219,8 +219,8 @@ public final class EventFactory {
      * Return all unacknowledged events sorted by time.
      *
      * @return an array of {@link org.opennms.web.event.Event} objects.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     public static Event[] getEvents() throws SQLException {
         return getEvents(SortStyle.TIME, AcknowledgeType.UNACKNOWLEDGED);
@@ -232,8 +232,8 @@ public final class EventFactory {
      * @param ackType
      *            a {@link org.opennms.web.event.AcknowledgeType} object.
      * @return an array of {@link org.opennms.web.event.Event} objects.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     public static Event[] getEvents(AcknowledgeType ackType) throws SQLException {
         return getEvents(SortStyle.TIME, ackType);
@@ -245,8 +245,8 @@ public final class EventFactory {
      * @param sortStyle
      *            a {@link org.opennms.web.event.SortStyle} object.
      * @return an array of {@link org.opennms.web.event.Event} objects.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     public static Event[] getEvents(SortStyle sortStyle) throws SQLException {
         return getEvents(sortStyle, AcknowledgeType.UNACKNOWLEDGED);
@@ -256,15 +256,15 @@ public final class EventFactory {
      * Return all events (optionally only unacknowledged events) sorted by the
      * given sort style.
      *
-     * @deprecated Replaced by
-     *             {@link " #getEvents(SortStyle,AcknowledgeType) getEvents(SortStyle, AcknowledgeType)"}
      * @param sortStyle
      *            a {@link org.opennms.web.event.SortStyle} object.
      * @param includeAcknowledged
      *            a boolean.
      * @return an array of {@link org.opennms.web.event.Event} objects.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
+     * @deprecated Replaced by
+     *             {@link " #getEvents(SortStyle,AcknowledgeType) getEvents(SortStyle, AcknowledgeType)"}
      */
     public static Event[] getEvents(SortStyle sortStyle, boolean includeAcknowledged) throws SQLException {
         AcknowledgeType ackType = (includeAcknowledged) ? AcknowledgeType.BOTH : AcknowledgeType.UNACKNOWLEDGED;
@@ -280,8 +280,8 @@ public final class EventFactory {
      * @param ackType
      *            a {@link org.opennms.web.event.AcknowledgeType} object.
      * @return an array of {@link org.opennms.web.event.Event} objects.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     public static Event[] getEvents(SortStyle sortStyle, AcknowledgeType ackType) throws SQLException {
         return getEvents(sortStyle, ackType, new Filter[0]);
@@ -298,8 +298,8 @@ public final class EventFactory {
      * @param filters
      *            an array of org$opennms$web$filter$Filter objects.
      * @return an array of {@link org.opennms.web.event.Event} objects.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     public static Event[] getEvents(SortStyle sortStyle, AcknowledgeType ackType, Filter[] filters) throws SQLException {
         return getEvents(sortStyle, ackType, filters, -1, -1);
@@ -314,19 +314,19 @@ public final class EventFactory {
      * is okay for now until we can come up with an Oracle alternative too.
      * </p>
      *
-     * @param limit
-     *            if -1 or zero, no limit or offset is used
-     * @param offset
-     *            if -1, no limit or offset if used
      * @param sortStyle
      *            a {@link org.opennms.web.event.SortStyle} object.
      * @param ackType
      *            a {@link org.opennms.web.event.AcknowledgeType} object.
      * @param filters
      *            an array of org$opennms$web$filter$Filter objects.
+     * @param limit
+     *            if -1 or zero, no limit or offset is used
+     * @param offset
+     *            if -1, no limit or offset if used
      * @return an array of {@link org.opennms.web.event.Event} objects.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     public static Event[] getEvents(SortStyle sortStyle, AcknowledgeType ackType, Filter[] filters, int limit,
             int offset) throws SQLException {
@@ -405,9 +405,11 @@ public final class EventFactory {
      *
      * @param nodeId
      *            a int.
+     * @param servletContext
+     *            the servlet context
      * @return an array of {@link org.opennms.web.event.Event} objects.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     public static Event[] getEventsForNode(int nodeId, ServletContext servletContext) throws SQLException {
         return getEventsForNode(nodeId, SortStyle.ID, AcknowledgeType.UNACKNOWLEDGED, -1, -1, servletContext);
@@ -417,15 +419,17 @@ public final class EventFactory {
      * Return all events (optionally only unacknowledged events) sorted by event
      * ID for the given node.
      *
-     * @deprecated Replaced by
-     *             {@link " #getEventsForNode(int,SortStyle,AcknowledgeType) getEventsForNode( int, SortStyle, AcknowledgeType )"}
      * @param nodeId
      *            a int.
      * @param includeAcknowledged
      *            a boolean.
+     * @param servletContext
+     *            the servlet context
      * @return an array of {@link org.opennms.web.event.Event} objects.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
+     * @deprecated Replaced by
+     *             {@link " #getEventsForNode(int,SortStyle,AcknowledgeType) getEventsForNode( int, SortStyle, AcknowledgeType )"}
      */
     public static Event[] getEventsForNode(int nodeId, boolean includeAcknowledged, ServletContext servletContext)
             throws SQLException {
@@ -443,9 +447,11 @@ public final class EventFactory {
      *            a {@link org.opennms.web.event.SortStyle} object.
      * @param ackType
      *            a {@link org.opennms.web.event.AcknowledgeType} object.
+     * @param servletContext
+     *            the servlet context
      * @return an array of {@link org.opennms.web.event.Event} objects.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     public static Event[] getEventsForNode(int nodeId, SortStyle sortStyle, AcknowledgeType ackType,
             ServletContext servletContext) throws SQLException {
@@ -456,19 +462,21 @@ public final class EventFactory {
      * Return some maximum number of events or less (optionally only
      * unacknowledged events) sorted by the given sort style for the given node.
      *
-     * @param throttle
-     *            a value less than one means no throttling
      * @param nodeId
      *            a int.
      * @param sortStyle
      *            a {@link org.opennms.web.event.SortStyle} object.
      * @param ackType
      *            a {@link org.opennms.web.event.AcknowledgeType} object.
+     * @param throttle
+     *            a value less than one means no throttling
      * @param offset
      *            a int.
+     * @param servletContext
+     *            the servlet context
      * @return an array of {@link org.opennms.web.event.Event} objects.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     public static Event[] getEventsForNode(int nodeId, SortStyle sortStyle, AcknowledgeType ackType, int throttle,
             int offset, ServletContext servletContext) throws SQLException {
@@ -489,8 +497,8 @@ public final class EventFactory {
      * @param ackType
      *            a {@link org.opennms.web.event.AcknowledgeType} object.
      * @return a int.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     public static int getEventCountForNode(int nodeId, AcknowledgeType ackType) throws SQLException {
         if (ackType == null) {
@@ -539,9 +547,11 @@ public final class EventFactory {
      *            a int.
      * @param ipAddress
      *            a {@link java.lang.String} object.
+     * @param servletContext
+     *            the servlet context
      * @return an array of {@link org.opennms.web.event.Event} objects.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     public static Event[] getEventsForInterface(int nodeId, String ipAddress, ServletContext servletContext)
             throws SQLException {
@@ -553,17 +563,19 @@ public final class EventFactory {
      * Return all events (optionally only unacknowledged events) sorted by time
      * for the given interface.
      *
-     * @deprecated Replaced by
-     *             {@link " #getEventsForInterface(int,String,SortStyle,AcknowledgeType) getEventsForInterface( int, String, SortStyle, AcknowledgeType )"}
      * @param nodeId
      *            a int.
      * @param ipAddress
      *            a {@link java.lang.String} object.
      * @param includeAcknowledged
      *            a boolean.
+     * @param servletContext
+     *            the servlet context
      * @return an array of {@link org.opennms.web.event.Event} objects.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
+     * @deprecated Replaced by
+     *             {@link " #getEventsForInterface(int,String,SortStyle,AcknowledgeType) getEventsForInterface( int, String, SortStyle, AcknowledgeType )"}
      */
     public static Event[] getEventsForInterface(int nodeId, String ipAddress, boolean includeAcknowledged,
             ServletContext servletContext) throws SQLException {
@@ -576,10 +588,6 @@ public final class EventFactory {
      * unacknowledged events) sorted by the given sort style for the given node
      * and IP address.
      *
-     * @param throttle
-     *            a value less than one means no throttling
-     * @param offset
-     *            which row to start on in the result list
      * @param nodeId
      *            a int.
      * @param ipAddress
@@ -588,9 +596,15 @@ public final class EventFactory {
      *            a {@link org.opennms.web.event.SortStyle} object.
      * @param ackType
      *            a {@link org.opennms.web.event.AcknowledgeType} object.
+     * @param throttle
+     *            a value less than one means no throttling
+     * @param offset
+     *            which row to start on in the result list
+     * @param servletContext
+     *            the servlet context
      * @return an array of {@link org.opennms.web.event.Event} objects.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     public static Event[] getEventsForInterface(int nodeId, String ipAddress, SortStyle sortStyle,
             AcknowledgeType ackType, int throttle, int offset, ServletContext servletContext) throws SQLException {
@@ -607,10 +621,6 @@ public final class EventFactory {
      * unacknowledged events) sorted by the given sort style for the given node
      * and IP address.
      *
-     * @param throttle
-     *            a value less than one means no throttling
-     * @param offset
-     *            which row to start on in the result list
      * @param nodeId
      *            a int.
      * @param ifIndex
@@ -619,9 +629,15 @@ public final class EventFactory {
      *            a {@link org.opennms.web.event.SortStyle} object.
      * @param ackType
      *            a {@link org.opennms.web.event.AcknowledgeType} object.
+     * @param throttle
+     *            a value less than one means no throttling
+     * @param offset
+     *            which row to start on in the result list
+     * @param servletContext
+     *            the servlet context
      * @return an array of {@link org.opennms.web.event.Event} objects.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     public static Event[] getEventsForInterface(int nodeId, int ifIndex, SortStyle sortStyle, AcknowledgeType ackType,
             int throttle, int offset, ServletContext servletContext) throws SQLException {
@@ -640,8 +656,8 @@ public final class EventFactory {
      * @param ipAddress
      *            a {@link java.lang.String} object.
      * @return an array of {@link org.opennms.web.event.Event} objects.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     public static Event[] getEventsForInterface(String ipAddress) throws SQLException {
         return getEventsForInterface(ipAddress, SortStyle.ID, AcknowledgeType.UNACKNOWLEDGED, -1, -1);
@@ -651,15 +667,15 @@ public final class EventFactory {
      * Return all events (optionally only unacknowledged events) sorted by time
      * that have the given IP address, regardless of what node they belong to.
      *
-     * @deprecated Replaced by
-     *             {@link " #getEventsForInterface(String,SortStyle,AcknowledgeType) getEventsForInterface( String, SortStyle, AcknowledgeType )"}
      * @param ipAddress
      *            a {@link java.lang.String} object.
      * @param includeAcknowledged
      *            a boolean.
      * @return an array of {@link org.opennms.web.event.Event} objects.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
+     * @deprecated Replaced by
+     *             {@link " #getEventsForInterface(String,SortStyle,AcknowledgeType) getEventsForInterface( String, SortStyle, AcknowledgeType )"}
      */
     public static Event[] getEventsForInterface(String ipAddress, boolean includeAcknowledged) throws SQLException {
         AcknowledgeType ackType = (includeAcknowledged) ? AcknowledgeType.BOTH : AcknowledgeType.UNACKNOWLEDGED;
@@ -671,19 +687,19 @@ public final class EventFactory {
      * unacknowledged events) sorted by the given sort style for the given IP
      * address.
      *
-     * @param throttle
-     *            a value less than one means no throttling
-     * @param offset
-     *            which row to start on in the result list
      * @param ipAddress
      *            a {@link java.lang.String} object.
      * @param sortStyle
      *            a {@link org.opennms.web.event.SortStyle} object.
      * @param ackType
      *            a {@link org.opennms.web.event.AcknowledgeType} object.
+     * @param throttle
+     *            a value less than one means no throttling
+     * @param offset
+     *            which row to start on in the result list
      * @return an array of {@link org.opennms.web.event.Event} objects.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     public static Event[] getEventsForInterface(String ipAddress, SortStyle sortStyle, AcknowledgeType ackType,
             int throttle, int offset) throws SQLException {
@@ -705,9 +721,11 @@ public final class EventFactory {
      *            a {@link java.lang.String} object.
      * @param ackType
      *            a {@link org.opennms.web.event.AcknowledgeType} object.
+     * @param servletContext
+     *            the servlet context
      * @return a int.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     public static int getEventCountForInterface(int nodeId, String ipAddress, AcknowledgeType ackType,
             ServletContext servletContext) throws SQLException {
@@ -728,8 +746,8 @@ public final class EventFactory {
      * @param ackType
      *            a {@link org.opennms.web.event.AcknowledgeType} object.
      * @return a int.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     public static int getEventCountForInterface(String ipAddress, AcknowledgeType ackType) throws SQLException {
         if (ipAddress == null || ackType == null) {
@@ -756,9 +774,11 @@ public final class EventFactory {
      *            a {@link java.lang.String} object.
      * @param serviceId
      *            a int.
+     * @param servletContext
+     *            the servlet context
      * @return an array of {@link org.opennms.web.event.Event} objects.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     public static Event[] getEventsForService(int nodeId, String ipAddress, int serviceId, ServletContext servletContext)
             throws SQLException {
@@ -770,8 +790,6 @@ public final class EventFactory {
      * Return all events (optionally only unacknowledged events) sorted by time
      * for the given service.
      *
-     * @deprecated Replaced by
-     *             {@link " #getEventsForService(int,String,int,SortStyle,AcknowledgeType,int,int) getEventsForService( int, String, int, SortStyle, AcknowledgeType, int, int )"}
      * @param nodeId
      *            a int.
      * @param ipAddress
@@ -780,9 +798,13 @@ public final class EventFactory {
      *            a int.
      * @param includeAcknowledged
      *            a boolean.
+     * @param servletContext
+     *            the servlet context
      * @return an array of {@link org.opennms.web.event.Event} objects.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
+     * @deprecated Replaced by
+     *             {@link " #getEventsForService(int,String,int,SortStyle,AcknowledgeType,int,int) getEventsForService( int, String, int, SortStyle, AcknowledgeType, int, int )"}
      */
     public static Event[] getEventsForService(int nodeId, String ipAddress, int serviceId, boolean includeAcknowledged,
             ServletContext servletContext) throws SQLException {
@@ -795,10 +817,6 @@ public final class EventFactory {
      * unacknowledged events) sorted by the given sort style for the given node,
      * IP address, and service ID.
      *
-     * @param throttle
-     *            a value less than one means no throttling
-     * @param offset
-     *            which row to start on in the result list
      * @param nodeId
      *            a int.
      * @param ipAddress
@@ -809,9 +827,15 @@ public final class EventFactory {
      *            a {@link org.opennms.web.event.SortStyle} object.
      * @param ackType
      *            a {@link org.opennms.web.event.AcknowledgeType} object.
+     * @param throttle
+     *            a value less than one means no throttling
+     * @param offset
+     *            which row to start on in the result list
+     * @param servletContext
+     *            the servlet context
      * @return an array of {@link org.opennms.web.event.Event} objects.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     public static Event[] getEventsForService(int nodeId, String ipAddress, int serviceId, SortStyle sortStyle,
             AcknowledgeType ackType, int throttle, int offset, ServletContext servletContext) throws SQLException {
@@ -830,9 +854,11 @@ public final class EventFactory {
      *
      * @param serviceId
      *            a int.
+     * @param servletContext
+     *            the servlet context
      * @return an array of {@link org.opennms.web.event.Event} objects.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     public static Event[] getEventsForService(int serviceId, ServletContext servletContext) throws SQLException {
         return getEventsForService(serviceId, SortStyle.ID, AcknowledgeType.UNACKNOWLEDGED, -1, -1, servletContext);
@@ -847,9 +873,11 @@ public final class EventFactory {
      *            a int.
      * @param includeAcknowledged
      *            a boolean.
+     * @param servletContext
+     *            the servlet context
      * @return an array of {@link org.opennms.web.event.Event} objects.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     public static Event[] getEventsForService(int serviceId, boolean includeAcknowledged, ServletContext servletContext)
             throws SQLException {
@@ -862,19 +890,21 @@ public final class EventFactory {
      * unacknowledged events) sorted by the given sort style for the given
      * service ID.
      *
-     * @param throttle
-     *            a value less than one means no throttling
-     * @param offset
-     *            which row to start on in the result list
      * @param serviceId
      *            a int.
      * @param sortStyle
      *            a {@link org.opennms.web.event.SortStyle} object.
      * @param ackType
      *            a {@link org.opennms.web.event.AcknowledgeType} object.
+     * @param throttle
+     *            a value less than one means no throttling
+     * @param offset
+     *            which row to start on in the result list
+     * @param servletContext
+     *            the servlet context
      * @return an array of {@link org.opennms.web.event.Event} objects.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     public static Event[] getEventsForService(int serviceId, SortStyle sortStyle, AcknowledgeType ackType,
             int throttle, int offset, ServletContext servletContext) throws SQLException {
@@ -898,9 +928,11 @@ public final class EventFactory {
      *            a int.
      * @param ackType
      *            a {@link org.opennms.web.event.AcknowledgeType} object.
+     * @param servletContext
+     *            the servlet context
      * @return a int.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     public static int getEventCountForService(int nodeId, String ipAddress, int serviceId, AcknowledgeType ackType,
             ServletContext servletContext) throws SQLException {
@@ -921,9 +953,11 @@ public final class EventFactory {
      *            a int.
      * @param ackType
      *            a {@link org.opennms.web.event.AcknowledgeType} object.
+     * @param servletContext
+     *            the servlet context
      * @return a int.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     public static int getEventCountForService(int serviceId, AcknowledgeType ackType, ServletContext servletContext)
             throws SQLException {
@@ -941,8 +975,8 @@ public final class EventFactory {
      * @param severity
      *            a int.
      * @return an array of {@link org.opennms.web.event.Event} objects.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     public static Event[] getEventsForSeverity(int severity) throws SQLException {
         return getEventsForSeverity(severity, SortStyle.ID, AcknowledgeType.UNACKNOWLEDGED);
@@ -952,15 +986,15 @@ public final class EventFactory {
      * Return all events (optionally only unacknowledged events) sorted by time
      * for the given severity.
      *
-     * @deprecated Replaced by
-     *             {@link " #getEventsForSeverity(int,SortStyle,AcknowledgeType) getEventsForSeverity( int, SortStyle, AcknowledgeType )"}
      * @param severity
      *            a int.
      * @param includeAcknowledged
      *            a boolean.
      * @return an array of {@link org.opennms.web.event.Event} objects.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
+     * @deprecated Replaced by
+     *             {@link " #getEventsForSeverity(int,SortStyle,AcknowledgeType) getEventsForSeverity( int, SortStyle, AcknowledgeType )"}
      */
     public static Event[] getEventsForSeverity(int severity, boolean includeAcknowledged) throws SQLException {
         AcknowledgeType ackType = includeAcknowledged ? AcknowledgeType.BOTH : AcknowledgeType.UNACKNOWLEDGED;
@@ -971,6 +1005,7 @@ public final class EventFactory {
      * <p>
      * getEventsForSeverity
      * </p>
+     * .
      *
      * @param severity
      *            a int.
@@ -979,8 +1014,8 @@ public final class EventFactory {
      * @param ackType
      *            a {@link org.opennms.web.event.AcknowledgeType} object.
      * @return an array of {@link org.opennms.web.event.Event} objects.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     public static Event[] getEventsForSeverity(int severity, SortStyle sortStyle, AcknowledgeType ackType)
             throws SQLException {
@@ -994,8 +1029,8 @@ public final class EventFactory {
      * @param poller
      *            a {@link java.lang.String} object.
      * @return an array of {@link org.opennms.web.event.Event} objects.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     public static Event[] getEventsForPoller(String poller) throws SQLException {
         return getEventsForPoller(poller, false);
@@ -1010,8 +1045,8 @@ public final class EventFactory {
      * @param includeAcknowledged
      *            a boolean.
      * @return an array of {@link org.opennms.web.event.Event} objects.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     public static Event[] getEventsForPoller(String poller, boolean includeAcknowledged) throws SQLException {
         if (poller == null) {
@@ -1054,8 +1089,8 @@ public final class EventFactory {
      *            an array of {@link org.opennms.web.event.Event} objects.
      * @param user
      *            a {@link java.lang.String} object.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     public static void acknowledge(Event[] events, String user) throws SQLException {
         acknowledge(events, user, new Date());
@@ -1070,8 +1105,8 @@ public final class EventFactory {
      *            a {@link java.lang.String} object.
      * @param time
      *            a java$util$Date object.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     public static void acknowledge(Event[] events, String user, Date time) throws SQLException {
         if (events == null) {
@@ -1095,8 +1130,8 @@ public final class EventFactory {
      *            an array of int.
      * @param user
      *            a {@link java.lang.String} object.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     public static void acknowledge(int[] eventIds, String user) throws SQLException {
         acknowledge(eventIds, user, new Date());
@@ -1111,8 +1146,8 @@ public final class EventFactory {
      *            a {@link java.lang.String} object.
      * @param time
      *            a java$util$Date object.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     public static void acknowledge(int[] eventIds, String user, Date time) throws SQLException {
         if (eventIds == null || user == null || time == null) {
@@ -1155,8 +1190,8 @@ public final class EventFactory {
      *            an array of org$opennms$web$filter$Filter objects.
      * @param user
      *            a {@link java.lang.String} object.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     public static void acknowledge(Filter[] filters, String user) throws SQLException {
         acknowledge(filters, user, new Date());
@@ -1172,8 +1207,8 @@ public final class EventFactory {
      *            a {@link java.lang.String} object.
      * @param time
      *            a java$util$Date object.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     public static void acknowledge(Filter[] filters, String user, Date time) throws SQLException {
         if (filters == null || user == null || time == null) {
@@ -1213,8 +1248,8 @@ public final class EventFactory {
      *
      * @param user
      *            a {@link java.lang.String} object.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     public static void acknowledgeAll(String user) throws SQLException {
         acknowledgeAll(user, new Date());
@@ -1228,8 +1263,8 @@ public final class EventFactory {
      *            a {@link java.lang.String} object.
      * @param time
      *            a java$util$Date object.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     public static void acknowledgeAll(String user, Date time) throws SQLException {
         if (user == null || time == null) {
@@ -1256,8 +1291,8 @@ public final class EventFactory {
      *
      * @param events
      *            an array of {@link org.opennms.web.event.Event} objects.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     public static void unacknowledge(Event[] events) throws SQLException {
         if (events == null) {
@@ -1278,8 +1313,8 @@ public final class EventFactory {
      *
      * @param eventIds
      *            an array of int.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     public static void unacknowledge(int[] eventIds) throws SQLException {
         if (eventIds == null) {
@@ -1315,8 +1350,8 @@ public final class EventFactory {
      *
      * @param filters
      *            an array of org$opennms$web$filter$Filter objects.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     public static void unacknowledge(Filter[] filters) throws SQLException {
         if (filters == null) {
@@ -1351,8 +1386,8 @@ public final class EventFactory {
     /**
      * Unacknowledge all acknowledged events.
      *
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     public static void unacknowledgeAll() throws SQLException {
         Connection conn = Vault.getDbConnection();
@@ -1374,8 +1409,8 @@ public final class EventFactory {
      * @param rs
      *            a {@link java.sql.ResultSet} object.
      * @return an array of {@link org.opennms.web.event.Event} objects.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     protected static Event[] rs2Events(ResultSet rs) throws SQLException {
         Event[] events = null;

@@ -44,10 +44,11 @@ import org.opennms.netmgt.model.OnmsSeverity;
  * @since 1.8.1
  */
 public class Event {
-    /** Unique identifier for the event, cannot be null */
+
+    /** Unique identifier for the event, cannot be null. */
     protected int id;
 
-    /** Universal Event Identifer (UEI) for this event, cannot be null */
+    /** Universal Event Identifer (UEI) for this event, cannot be null. */
     protected String uei;
 
     /**
@@ -63,34 +64,34 @@ public class Event {
      */
     protected Date time;
 
-    /** The &lt;host&gt; element from the Event Data Stream DTD */
+    /** The &lt;host&gt; element from the Event Data Stream DTD. */
     protected String host;
 
-    /** The &lt;snmphost&gt; element from the Event Data Stream DTD */
+    /** The &lt;snmphost&gt; element from the Event Data Stream DTD. */
     protected String snmphost;
 
     /** The dpName of the Dist Poller which received the event, cannot be null. */
     protected String dpName;
 
-    /** The &lt;parms&gt; element from the Event Data Stream DTD */
+    /** The &lt;parms&gt; element from the Event Data Stream DTD. */
     protected String parms;
 
-    /** Unique integer identifier for node, can be null */
+    /** Unique integer identifier for node, can be null. */
     protected Integer nodeID;
 
-    /** Unique integer identifier of service/poller package, can be null */
+    /** Unique integer identifier of service/poller package, can be null. */
     protected Integer serviceID;
 
-    /** Human-readable name of the service */
+    /** Human-readable name of the service. */
     protected String serviceName;
 
-    /** IP Address of node's interface */
+    /** IP Address of node's interface. */
     protected String ipAddr;
 
-    /** Creation time of event in database, cannot be null */
+    /** Creation time of event in database, cannot be null. */
     protected Date createTime;
 
-    /** Free-form textual description of the event */
+    /** Free-form textual description of the event. */
     protected String description;
 
     /**
@@ -598,6 +599,7 @@ public class Event {
      * <p>
      * getSnmpHost
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -620,6 +622,7 @@ public class Event {
      * <p>
      * getNodeId
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -642,6 +645,7 @@ public class Event {
      * <p>
      * getServiceId
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -664,6 +668,7 @@ public class Event {
      * <p>
      * getIpAddress
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -829,6 +834,7 @@ public class Event {
      * <p>
      * isAcknowledged
      * </p>
+     * .
      *
      * @return a boolean.
      */

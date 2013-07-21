@@ -31,31 +31,59 @@ package org.opennms.gwt.web.ui.asset.client.event;
 import com.google.gwt.event.shared.GwtEvent;
 
 /**
+ * The Class SavedAssetEvent.
+ *
  * @author <a href="mailto:MarkusNeumannMarkus@gmail.com">Markus Neumann</a>
  */
 public class SavedAssetEvent extends GwtEvent<SavedAssetEventHandler> {
+
+    /** The Constant TYPE. */
     public static final Type<SavedAssetEventHandler> TYPE = new Type<SavedAssetEventHandler>();
 
+    /** The node id. */
     private int nodeId;
 
+    /**
+     * Instantiates a new saved asset event.
+     *
+     * @param nodeId
+     *            the node id
+     */
     public SavedAssetEvent(int nodeId) {
         this.nodeId = nodeId;
     }
 
+    /* (non-Javadoc)
+     * @see com.google.gwt.event.shared.GwtEvent#getAssociatedType()
+     */
     @Override
     public Type<SavedAssetEventHandler> getAssociatedType() {
         return TYPE;
     }
 
+    /* (non-Javadoc)
+     * @see com.google.gwt.event.shared.GwtEvent#dispatch(com.google.gwt.event.shared.EventHandler)
+     */
     @Override
     protected void dispatch(SavedAssetEventHandler handler) {
         handler.onSavedAsset(this);
     }
 
+    /**
+     * Gets the node id.
+     *
+     * @return the node id
+     */
     public int getNodeId() {
         return nodeId;
     }
 
+    /**
+     * Sets the node id.
+     *
+     * @param nodeId
+     *            the new node id
+     */
     public void setNodeId(int nodeId) {
         this.nodeId = nodeId;
     }

@@ -68,9 +68,8 @@ import org.opennms.web.servlet.MissingParameterException;
  * @since 1.8.1
  */
 public class EventQueryServlet extends HttpServlet {
-    /**
-     *
-     */
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 1226547298266948865L;
 
     /**
@@ -93,9 +92,10 @@ public class EventQueryServlet extends HttpServlet {
      * <p>
      * init
      * </p>
+     * .
      *
-     * @throws javax.servlet.ServletException
-     *             if any.
+     * @throws ServletException
+     *             the servlet exception
      */
     @Override
     public void init() throws ServletException {
@@ -212,6 +212,7 @@ public class EventQueryServlet extends HttpServlet {
      * <p>
      * getBeforeDateFilter
      * </p>
+     * .
      *
      * @param request
      *            a {@link javax.servlet.http.HttpServletRequest} object.
@@ -226,6 +227,7 @@ public class EventQueryServlet extends HttpServlet {
      * <p>
      * getAfterDateFilter
      * </p>
+     * .
      *
      * @param request
      *            a {@link javax.servlet.http.HttpServletRequest} object.
@@ -240,14 +242,15 @@ public class EventQueryServlet extends HttpServlet {
      * <p>
      * getDateFromRequest
      * </p>
+     * .
      *
      * @param request
      *            a {@link javax.servlet.http.HttpServletRequest} object.
      * @param prefix
      *            a {@link java.lang.String} object.
      * @return a java$util$Date object.
-     * @throws org.opennms.web.servlet.MissingParameterException
-     *             if any.
+     * @throws MissingParameterException
+     *             the missing parameter exception
      */
     protected Date getDateFromRequest(HttpServletRequest request, String prefix) throws MissingParameterException {
         if (request == null || prefix == null) {
@@ -321,6 +324,7 @@ public class EventQueryServlet extends HttpServlet {
      * <p>
      * getRequiredDateFields
      * </p>
+     * .
      *
      * @param prefix
      *            a {@link java.lang.String} object.

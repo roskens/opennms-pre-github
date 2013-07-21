@@ -62,46 +62,57 @@ import org.opennms.netmgt.config.poller.Service;
 
 /**
  * A servlet that handles managing or unmanaging interfaces and services on a
- * node
+ * node.
  *
  * @author <A HREF="mailto:jacinta@opennms.org">Jacinta Remedios </A>
  * @author <A HREF="http://www.opennms.org/">OpenNMS </A>
  */
 public class PollerConfigServlet extends HttpServlet {
-    /**
-     *
-     */
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 2622622848304715121L;
 
+    /** The poller config. */
     PollerConfiguration pollerConfig = null;
 
+    /** The capsd config. */
     CapsdConfiguration capsdConfig = null;
 
+    /** The redirect success. */
     protected String redirectSuccess;
 
+    /** The poller services. */
     HashMap<String, Service> pollerServices = new HashMap<String, Service>();
 
+    /** The capsd protocols. */
     HashMap<String, ProtocolPlugin> capsdProtocols = new HashMap<String, ProtocolPlugin>();
 
+    /** The capsd coll. */
     java.util.List<ProtocolPlugin> capsdColl = new ArrayList<ProtocolPlugin>();
 
+    /** The pkg. */
     org.opennms.netmgt.config.poller.Package pkg = null;
 
+    /** The plugin coll. */
     Collection<ProtocolPlugin> pluginColl = null;
 
+    /** The props. */
     Properties props = new Properties();
 
+    /** The poller factory. */
     PollerConfig pollerFactory = null;
 
+    /** The capsd factory. */
     CapsdConfig capsdFactory = null;
 
     /**
      * <p>
      * init
      * </p>
+     * .
      *
-     * @throws javax.servlet.ServletException
-     *             if any.
+     * @throws ServletException
+     *             the servlet exception
      */
     @Override
     public void init() throws ServletException {
@@ -137,9 +148,10 @@ public class PollerConfigServlet extends HttpServlet {
      * <p>
      * reloadFiles
      * </p>
+     * .
      *
-     * @throws javax.servlet.ServletException
-     *             if any.
+     * @throws ServletException
+     *             the servlet exception
      */
     public void reloadFiles() throws ServletException {
         ServletConfig config = this.getServletConfig();
@@ -174,6 +186,7 @@ public class PollerConfigServlet extends HttpServlet {
      * <p>
      * initCapsdProtocols
      * </p>
+     * .
      */
     public void initCapsdProtocols() {
         pluginColl = capsdConfig.getProtocolPluginCollection();
@@ -189,6 +202,7 @@ public class PollerConfigServlet extends HttpServlet {
      * <p>
      * initPollerServices
      * </p>
+     * .
      */
     public void initPollerServices() {
         Collection<org.opennms.netmgt.config.poller.Package> packageColl = pollerConfig.getPackageCollection();
@@ -272,6 +286,7 @@ public class PollerConfigServlet extends HttpServlet {
      * <p>
      * deleteCapsdInfo
      * </p>
+     * .
      *
      * @param name
      *            a {@link java.lang.String} object.
@@ -290,6 +305,7 @@ public class PollerConfigServlet extends HttpServlet {
      * <p>
      * adjustNonChecked
      * </p>
+     * .
      *
      * @param checkedList
      *            a {@link java.util.List} object.
@@ -315,11 +331,12 @@ public class PollerConfigServlet extends HttpServlet {
      * <p>
      * deleteThese
      * </p>
+     * .
      *
      * @param deleteServices
      *            a {@link java.util.List} object.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public void deleteThese(java.util.List<String> deleteServices) throws IOException {
         for (String svcname : deleteServices) {
@@ -350,6 +367,7 @@ public class PollerConfigServlet extends HttpServlet {
      * <p>
      * removeMonitor
      * </p>
+     * .
      *
      * @param service
      *            a {@link java.lang.String} object.
@@ -377,6 +395,7 @@ public class PollerConfigServlet extends HttpServlet {
      * <p>
      * modifyPollerInfo
      * </p>
+     * .
      *
      * @param bPolled
      *            a {@link java.lang.String} object.

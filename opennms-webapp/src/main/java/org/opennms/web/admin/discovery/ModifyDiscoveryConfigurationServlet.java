@@ -42,7 +42,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * A servlet that handles updating the status of the notifications
+ * A servlet that handles updating the status of the notifications.
  *
  * @author <A HREF="mailto:jason@opennms.org">Jason Johns </A>
  * @author <A HREF="http://www.opennms.org/">OpenNMS </A>
@@ -53,14 +53,24 @@ import org.slf4j.LoggerFactory;
  */
 public class ModifyDiscoveryConfigurationServlet extends HttpServlet {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(ModifyDiscoveryConfigurationServlet.class);
 
-    /**
-     *
-     */
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -3782436743630940629L;
 
-    /** Constant <code>log</code> */
+    /**
+     * Constant <code>log</code>.
+     *
+     * @param request
+     *            the request
+     * @param response
+     *            the response
+     * @throws ServletException
+     *             the servlet exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
 
     /** {@inheritDoc} */
     @Override
@@ -87,6 +97,7 @@ public class ModifyDiscoveryConfigurationServlet extends HttpServlet {
      * <p>
      * getDiscoveryConfig
      * </p>
+     * .
      *
      * @return a
      *         {@link org.opennms.netmgt.config.discovery.DiscoveryConfiguration}

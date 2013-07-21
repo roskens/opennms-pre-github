@@ -46,6 +46,7 @@ public interface DatabaseReportService {
      * <p>
      * execute
      * </p>
+     * .
      *
      * @param criteria
      *            a {@link org.opennms.api.reporting.parameter.ReportParameters}

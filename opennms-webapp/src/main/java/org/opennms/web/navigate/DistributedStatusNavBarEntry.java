@@ -42,6 +42,8 @@ import org.opennms.netmgt.dao.api.LocationMonitorDao;
  * @since 1.8.1
  */
 public class DistributedStatusNavBarEntry extends LocationBasedNavBarEntry {
+
+    /** The m_location monitor dao. */
     private LocationMonitorDao m_locationMonitorDao;
 
     /** {@inheritDoc} */
@@ -58,6 +60,7 @@ public class DistributedStatusNavBarEntry extends LocationBasedNavBarEntry {
      * <p>
      * getLocationMonitorDao
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.dao.api.LocationMonitorDao} object.
      */
@@ -69,6 +72,7 @@ public class DistributedStatusNavBarEntry extends LocationBasedNavBarEntry {
      * <p>
      * setLocationMonitorDao
      * </p>
+     * .
      *
      * @param locationMonitorDao
      *            a {@link org.opennms.netmgt.dao.api.LocationMonitorDao}

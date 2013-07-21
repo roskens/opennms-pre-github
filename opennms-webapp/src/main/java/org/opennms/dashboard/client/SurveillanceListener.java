@@ -46,6 +46,7 @@ public interface SurveillanceListener {
      * <p>
      * onAllClicked
      * </p>
+     * .
      *
      * @param viewer
      *            a {@link org.opennms.dashboard.client.Dashlet} object.
@@ -56,6 +57,7 @@ public interface SurveillanceListener {
      * <p>
      * onSurveillanceGroupClicked
      * </p>
+     * .
      *
      * @param viewer
      *            a {@link org.opennms.dashboard.client.Dashlet} object.
@@ -69,6 +71,7 @@ public interface SurveillanceListener {
      * <p>
      * onIntersectionClicked
      * </p>
+     * .
      *
      * @param viewer
      *            a {@link org.opennms.dashboard.client.Dashlet} object.

@@ -39,7 +39,8 @@ import org.opennms.web.filter.SQLType;
  * @since 1.8.1
  */
 public class ResponderFilter extends EqualsFilter<String> {
-    /** Constant <code>TYPE="responder"</code> */
+
+    /** Constant <code>TYPE="responder"</code>. */
     public static final String TYPE = "responder";
 
     // protected String responder;

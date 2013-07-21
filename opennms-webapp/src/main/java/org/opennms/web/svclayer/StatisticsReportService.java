@@ -45,10 +45,12 @@ import org.springframework.validation.BindException;
  */
 @Transactional(readOnly = true)
 public interface StatisticsReportService {
+
     /**
      * <p>
      * getStatisticsReports
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -58,6 +60,7 @@ public interface StatisticsReportService {
      * <p>
      * getReport
      * </p>
+     * .
      *
      * @param command
      *            a {@link org.opennms.web.command.StatisticsReportCommand}

@@ -43,16 +43,23 @@ import org.opennms.netmgt.mock.MockCategoryFactory;
 import org.opennms.test.mock.MockUtil;
 
 /**
+ * The Class DefaultCategoryConfigDaoTest.
+ *
  * @author jsartin
  */
 public class DefaultCategoryConfigDaoTest extends TestCase {
 
+    /** The m_dao. */
     DefaultCategoryConfigDao m_dao;
 
+    /** The m_cat factory. */
     protected MockCategoryFactory m_catFactory;
 
     /**
+     * Instantiates a new default category config dao test.
+     *
      * @param arg0
+     *            the arg0
      */
     public DefaultCategoryConfigDaoTest(final String arg0) {
         super(arg0);
@@ -72,6 +79,9 @@ public class DefaultCategoryConfigDaoTest extends TestCase {
         m_dao = new DefaultCategoryConfigDao();
     }
 
+    /* (non-Javadoc)
+     * @see junit.framework.TestCase#runTest()
+     */
     @Override
     public final void runTest() throws Throwable {
         super.runTest();
@@ -79,12 +89,15 @@ public class DefaultCategoryConfigDaoTest extends TestCase {
         MockUtil.println("------------ End Test " + getName() + " --------------------------");
     }
 
+    /**
+     * Test nothing.
+     */
     public void testNothing() {
         // test that setUp() / tearDown() works
     }
 
     /**
-     * Test method for
+     * Test method for.
      * {@link org.opennms.web.svclayer.dao.support.DefaultCategoryConfigDao#findAll()}
      * .
      */

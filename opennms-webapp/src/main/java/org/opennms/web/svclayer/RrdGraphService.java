@@ -43,10 +43,12 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Transactional(readOnly = true)
 public interface RrdGraphService {
+
     /**
      * <p>
      * getPrefabGraph
      * </p>
+     * .
      *
      * @param resourceId
      *            a {@link java.lang.String} object.
@@ -56,6 +58,10 @@ public interface RrdGraphService {
      *            a long.
      * @param end
      *            a long.
+     * @param width
+     *            the width
+     * @param height
+     *            the height
      * @return a {@link java.io.InputStream} object.
      */
     public InputStream getPrefabGraph(String resourceId, String report, long start, long end, Integer width,
@@ -65,6 +71,7 @@ public interface RrdGraphService {
      * <p>
      * getAdhocGraph
      * </p>
+     * .
      *
      * @param resourceId
      *            a {@link java.lang.String} object.

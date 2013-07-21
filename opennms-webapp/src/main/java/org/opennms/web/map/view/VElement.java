@@ -42,15 +42,19 @@ import org.opennms.web.map.db.DbElement;
 public class VElement extends DbElement {
 
     // boolean that represents if this is a childnode mandatory to avoid loops
+    /** The is child. */
     protected boolean isChild = false;
 
     // this is to define the status of the element
+    /** The status. */
     protected int status = -1;
 
     // this is used to understand if some fact happen is important
+    /** The severity. */
     protected int severity = -1;
 
     // this represents the global information elements
+    /** The avail. */
     protected double avail = -1;
 
     /**
@@ -69,8 +73,8 @@ public class VElement extends DbElement {
      *
      * @param e
      *            a {@link org.opennms.web.map.db.DbElement} object.
-     * @throws org.opennms.web.map.MapsException
-     *             if any.
+     * @throws MapsException
+     *             the maps exception
      */
     public VElement(DbElement e) throws MapsException {
         super(e);
@@ -87,18 +91,18 @@ public class VElement extends DbElement {
      *            a int.
      * @param type
      *            a {@link java.lang.String} object.
-     * @param label
-     *            a {@link java.lang.String} object.
      * @param sysoid
      *            a {@link java.lang.String} object.
      * @param iconName
+     *            a {@link java.lang.String} object.
+     * @param label
      *            a {@link java.lang.String} object.
      * @param x
      *            a int.
      * @param y
      *            a int.
-     * @throws org.opennms.web.map.MapsException
-     *             if any.
+     * @throws MapsException
+     *             the maps exception
      */
     public VElement(int mapId, int id, String type, String sysoid, String iconName, String label, int x, int y)
             throws MapsException {
@@ -123,8 +127,8 @@ public class VElement extends DbElement {
      *            a {@link java.lang.String} object.
      * @param iconName
      *            a {@link java.lang.String} object.
-     * @throws org.opennms.web.map.MapsException
-     *             if any.
+     * @throws MapsException
+     *             the maps exception
      */
     public VElement(int mapId, int id, String type, String label, String sysoid, String iconName) throws MapsException {
         super(mapId, id, type, label, sysoid, iconName, 0, 0);
@@ -206,6 +210,7 @@ public class VElement extends DbElement {
      * <p>
      * isChild
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -223,6 +228,7 @@ public class VElement extends DbElement {
      * <p>
      * equalsIgnorePosition
      * </p>
+     * .
      *
      * @param elem
      *            a {@link org.opennms.web.map.view.VElement} object.
@@ -240,6 +246,7 @@ public class VElement extends DbElement {
      * <p>
      * equalsIgnorePositionParentMap
      * </p>
+     * .
      *
      * @param elem
      *            a {@link org.opennms.web.map.view.VElement} object.
@@ -257,6 +264,7 @@ public class VElement extends DbElement {
      * <p>
      * hasSameIdentifier
      * </p>
+     * .
      *
      * @param elem
      *            a {@link org.opennms.web.map.view.VElement} object.
@@ -279,10 +287,11 @@ public class VElement extends DbElement {
      * <p>
      * getContainerMap
      * </p>
+     * .
      *
      * @return a int.
-     * @throws org.opennms.web.map.view.VElementNotChildException
-     *             if any.
+     * @throws VElementNotChildException
+     *             the v element not child exception
      */
     public final int getContainerMap() throws VElementNotChildException {
         if (isChild == true)
@@ -294,6 +303,7 @@ public class VElement extends DbElement {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -306,6 +316,7 @@ public class VElement extends DbElement {
      * <p>
      * clone
      * </p>
+     * .
      *
      * @return a {@link org.opennms.web.map.view.VElement} object.
      */

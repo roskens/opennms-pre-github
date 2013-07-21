@@ -1,3 +1,30 @@
+/*******************************************************************************
+ * This file is part of OpenNMS(R).
+ *
+ * Copyright (C) 2012 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published
+ * by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * OpenNMS(R) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with OpenNMS(R).  If not, see:
+ *      http://www.gnu.org/licenses/
+ *
+ * For more information contact:
+ *     OpenNMS(R) Licensing <license@opennms.org>
+ *     http://www.opennms.org/
+ *     http://www.opennms.com/
+ *******************************************************************************/
 package org.opennms.web.rest;
 
 import java.net.InetAddress;
@@ -16,10 +43,22 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.PropertyAccessorFactory;
 
+/**
+ * The Class RestUtils.
+ */
 public class RestUtils {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(RestUtils.class);
 
+    /**
+     * Sets the bean properties.
+     *
+     * @param bean
+     *            the bean
+     * @param properties
+     *            the properties
+     */
     public static void setBeanProperties(final Object bean, final MultivaluedMapImpl properties) {
         final BeanWrapper wrapper = PropertyAccessorFactory.forBeanPropertyAccess(bean);
         wrapper.registerCustomEditor(XMLGregorianCalendar.class, new StringXmlCalendarPropertyEditor());
@@ -37,6 +76,17 @@ public class RestUtils {
         }
     }
 
+    /**
+     * Convert if necessary.
+     *
+     * @param wrapper
+     *            the wrapper
+     * @param propertyName
+     *            the property name
+     * @param stringValue
+     *            the string value
+     * @return the object
+     */
     @SuppressWarnings("unchecked")
     private static Object convertIfNecessary(final BeanWrapper wrapper, final String propertyName,
             final String stringValue) {

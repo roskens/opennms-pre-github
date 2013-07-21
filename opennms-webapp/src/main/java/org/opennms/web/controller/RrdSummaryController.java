@@ -55,13 +55,22 @@ import org.springframework.web.servlet.mvc.AbstractFormController;
  */
 public class RrdSummaryController extends AbstractFormController implements InitializingBean {
 
+    /**
+     * The Class MarshalledView.
+     */
     static class MarshalledView implements View {
 
+        /* (non-Javadoc)
+         * @see org.springframework.web.servlet.View#getContentType()
+         */
         @Override
         public String getContentType() {
             return "text/xml";
         }
 
+        /* (non-Javadoc)
+         * @see org.springframework.web.servlet.View#render(java.util.Map, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+         */
         @Override
         public void render(final Map<String, ?> model, final HttpServletRequest request,
                 final HttpServletResponse response) throws Exception {
@@ -71,6 +80,7 @@ public class RrdSummaryController extends AbstractFormController implements Init
 
     }
 
+    /** The m_rrd summary service. */
     private RrdSummaryService m_rrdSummaryService;
 
     /**
@@ -83,6 +93,13 @@ public class RrdSummaryController extends AbstractFormController implements Init
         setCommandClass(SummarySpecification.class);
     }
 
+    /**
+     * Gets the summary.
+     *
+     * @param spec
+     *            the spec
+     * @return the summary
+     */
     private ModelAndView getSummary(final SummarySpecification spec) {
         Summary summary = m_rrdSummaryService.getSummary(spec);
         return new ModelAndView(new MarshalledView(), "summary", summary);
@@ -92,9 +109,10 @@ public class RrdSummaryController extends AbstractFormController implements Init
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @Override
     public final void afterPropertiesSet() throws Exception {
@@ -105,6 +123,7 @@ public class RrdSummaryController extends AbstractFormController implements Init
      * <p>
      * setRrdSummaryService
      * </p>
+     * .
      *
      * @param rrdSummaryService
      *            a {@link org.opennms.web.svclayer.RrdSummaryService} object.

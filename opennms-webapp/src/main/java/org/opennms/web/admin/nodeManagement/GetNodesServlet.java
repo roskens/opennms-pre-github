@@ -48,27 +48,31 @@ import org.opennms.core.utils.DBUtils;
 
 /**
  * A servlet that handles querying the database for node, interface, service
- * combinations
+ * combinations.
  *
  * @author <A HREF="mailto:jason@opennms.org">Jason Johns </A>
  * @author <A HREF="http://www.opennms.org/">OpenNMS </A>
  */
 public class GetNodesServlet extends HttpServlet {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 9083494959783285766L;
 
     // @ipv6 The regex in this statement is not IPv6-clean
+    /** The Constant INTERFACE_QUERY. */
     private static final String INTERFACE_QUERY = "SELECT nodeid, ipaddr, isManaged FROM ipinterface WHERE ismanaged in ('M','A','U','F') AND ipaddr <> '0.0.0.0' ORDER BY nodeid, case when (ipaddr ~ E'^([0-9]{1,3}\\.){3}[0-9]{1,3}$') then inet(ipaddr) else null end, ipaddr";
 
+    /** The Constant SERVICE_QUERY. */
     private static final String SERVICE_QUERY = "SELECT ifservices.serviceid, servicename, status FROM ifservices, service WHERE nodeid=? AND ipaddr=? AND status in ('A','U','F', 'S', 'R') AND ifservices.serviceid = service.serviceid ORDER BY servicename";
 
     /**
      * <p>
      * init
      * </p>
+     * .
      *
-     * @throws javax.servlet.ServletException
-     *             if any.
+     * @throws ServletException
+     *             the servlet exception
      */
     @Override
     public void init() throws ServletException {
@@ -95,6 +99,13 @@ public class GetNodesServlet extends HttpServlet {
     }
 
     /**
+     * Gets the all nodes.
+     *
+     * @param userSession
+     *            the user session
+     * @return the all nodes
+     * @throws SQLException
+     *             the sQL exception
      */
     private List<ManagedInterface> getAllNodes(HttpSession userSession) throws SQLException {
         Connection connection = null;

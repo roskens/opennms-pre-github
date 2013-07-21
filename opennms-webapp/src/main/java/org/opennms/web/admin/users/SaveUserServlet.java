@@ -50,9 +50,8 @@ import org.opennms.web.springframework.security.Authentication;
  * @since 1.8.1
  */
 public class SaveUserServlet extends HttpServlet {
-    /**
-     *
-     */
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -2138716651602916013L;
 
     /** {@inheritDoc} */

@@ -41,14 +41,20 @@ import java.util.GregorianCalendar;
  * @since 1.8.1
  */
 public class RelativeTimePeriod {
+
+    /** The Constant s_defaultPeriods. */
     private static final RelativeTimePeriod[] s_defaultPeriods;
 
+    /** The m_id. */
     private String m_id = null;
 
+    /** The m_name. */
     private String m_name = null;
 
+    /** The m_offset field. */
     private int m_offsetField = Calendar.DATE;
 
+    /** The m_offset amount. */
     private int m_offsetAmount = -1;
 
     static {
@@ -91,6 +97,7 @@ public class RelativeTimePeriod {
      * <p>
      * getId
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -102,6 +109,7 @@ public class RelativeTimePeriod {
      * <p>
      * setId
      * </p>
+     * .
      *
      * @param id
      *            a {@link java.lang.String} object.
@@ -114,6 +122,7 @@ public class RelativeTimePeriod {
      * <p>
      * getName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -125,6 +134,7 @@ public class RelativeTimePeriod {
      * <p>
      * setName
      * </p>
+     * .
      *
      * @param name
      *            a {@link java.lang.String} object.
@@ -137,6 +147,7 @@ public class RelativeTimePeriod {
      * <p>
      * getOffsetField
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -148,6 +159,7 @@ public class RelativeTimePeriod {
      * <p>
      * setOffsetField
      * </p>
+     * .
      *
      * @param offsetField
      *            a int.
@@ -160,6 +172,7 @@ public class RelativeTimePeriod {
      * <p>
      * getOffsetAmount
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -171,6 +184,7 @@ public class RelativeTimePeriod {
      * <p>
      * setOffsetAmount
      * </p>
+     * .
      *
      * @param offsetAmount
      *            a int.
@@ -183,6 +197,7 @@ public class RelativeTimePeriod {
      * <p>
      * getDefaultPeriods
      * </p>
+     * .
      *
      * @return an array of {@link org.opennms.web.graph.RelativeTimePeriod}
      *         objects.
@@ -195,6 +210,7 @@ public class RelativeTimePeriod {
      * <p>
      * getPeriodByIdOrDefault
      * </p>
+     * .
      *
      * @param id
      *            a {@link java.lang.String} object.
@@ -208,6 +224,7 @@ public class RelativeTimePeriod {
      * <p>
      * getPeriodByIdOrDefault
      * </p>
+     * .
      *
      * @param periods
      *            an array of {@link org.opennms.web.graph.RelativeTimePeriod}
@@ -237,6 +254,7 @@ public class RelativeTimePeriod {
      * <p>
      * getStartAndEndTimes
      * </p>
+     * .
      *
      * @return an array of long.
      */

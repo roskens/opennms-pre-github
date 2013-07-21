@@ -43,28 +43,21 @@ import org.opennms.netmgt.config.users.DutySchedule;
  * @deprecated Use the Group class instead
  */
 public class GroupInfo {
-    /**
-     * The name of the group
-     */
+
+    /** The name of the group. */
     private String m_groupName;
 
-    /**
-     * The comments for the group
-     */
+    /** The comments for the group. */
     private String m_groupComments;
 
-    /**
-     * The list of users in the group
-     */
+    /** The list of users in the group. */
     private List<String> m_users;
 
-    /**
-     * The list of duty schedules in the group
-     */
+    /** The list of duty schedules in the group. */
     private List<DutySchedule> m_dutySchedules;
 
     /**
-     * Default constructor, intializes the users list
+     * Default constructor, intializes the users list.
      */
     public GroupInfo() {
         m_groupName = "";
@@ -74,7 +67,7 @@ public class GroupInfo {
     }
 
     /**
-     * Sets the group name
+     * Sets the group name.
      *
      * @param aName
      *            the name of the group
@@ -84,7 +77,7 @@ public class GroupInfo {
     }
 
     /**
-     * Returns the group name
+     * Returns the group name.
      *
      * @return the name of the group
      */
@@ -93,7 +86,7 @@ public class GroupInfo {
     }
 
     /**
-     * Sets the comments for the group
+     * Sets the comments for the group.
      *
      * @param someComments
      *            the comments for the group
@@ -103,7 +96,7 @@ public class GroupInfo {
     }
 
     /**
-     * Returns the comments for the group
+     * Returns the comments for the group.
      *
      * @return the comments for the group
      */
@@ -112,7 +105,7 @@ public class GroupInfo {
     }
 
     /**
-     * Adds a username to the list of users
+     * Adds a username to the list of users.
      *
      * @param aUser
      *            a new username
@@ -122,7 +115,7 @@ public class GroupInfo {
     }
 
     /**
-     * Removes a username from the list of users
+     * Removes a username from the list of users.
      *
      * @param aUser
      *            the user to remove
@@ -132,7 +125,7 @@ public class GroupInfo {
     }
 
     /**
-     * Returns the list of users
+     * Returns the list of users.
      *
      * @return the list of users
      */
@@ -141,7 +134,7 @@ public class GroupInfo {
     }
 
     /**
-     * Returns a count of the users in the list
+     * Returns a count of the users in the list.
      *
      * @return how many users in this group
      */
@@ -150,7 +143,7 @@ public class GroupInfo {
     }
 
     /**
-     * This method adds a duty schedule
+     * This method adds a duty schedule.
      *
      * @param aSchedule
      *            a new duty schedule to associate with a group
@@ -160,7 +153,7 @@ public class GroupInfo {
     }
 
     /**
-     * This method sets a full list of duty schedules for a group
+     * This method sets a full list of duty schedules for a group.
      *
      * @param someSchedules
      *            a list of DutySchedule objects for a group
@@ -170,7 +163,7 @@ public class GroupInfo {
     }
 
     /**
-     * Returns the number of DutySchedule object for a group
+     * Returns the number of DutySchedule object for a group.
      *
      * @return the number of DutySchedules
      */
@@ -179,7 +172,7 @@ public class GroupInfo {
     }
 
     /**
-     * Returns the full list of DutySchedules
+     * Returns the full list of DutySchedules.
      *
      * @return the full list of DutySchedules
      */

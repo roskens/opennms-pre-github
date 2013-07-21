@@ -59,26 +59,30 @@ import org.slf4j.LoggerFactory;
 
 /**
  * A servlet that handles managing or unmanaging interfaces and services on a
- * node
+ * node.
  *
  * @author <A HREF="mailto:tarus@opennms.org">Tarus Balog </A>
  * @author <A HREF="http://www.opennms.org/">OpenNMS </A>
  */
 public class SnmpManageNodesServlet extends HttpServlet {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(SnmpManageNodesServlet.class);
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 1604691299928314549L;
 
+    /** The Constant UPDATE_INTERFACE. */
     private static final String UPDATE_INTERFACE = "UPDATE snmpInterface SET snmpCollect = ? WHERE id = ?";
 
     /**
      * <p>
      * init
      * </p>
+     * .
      *
-     * @throws javax.servlet.ServletException
-     *             if any.
+     * @throws ServletException
+     *             the servlet exception
      */
     @Override
     public void init() throws ServletException {
@@ -155,6 +159,13 @@ public class SnmpManageNodesServlet extends HttpServlet {
         dispatcher.forward(request, response);
     }
 
+    /**
+     * Gets the managed interfaces from session.
+     *
+     * @param userSession
+     *            the user session
+     * @return the managed interfaces from session
+     */
     @SuppressWarnings("unchecked")
     private List<SnmpManagedInterface> getManagedInterfacesFromSession(HttpSession userSession) {
         if (userSession == null) {
@@ -164,6 +175,16 @@ public class SnmpManageNodesServlet extends HttpServlet {
         }
     }
 
+    /**
+     * Send snmp restart event.
+     *
+     * @param nodeid
+     *            the nodeid
+     * @param primeInt
+     *            the prime int
+     * @throws ServletException
+     *             the servlet exception
+     */
     private void sendSNMPRestartEvent(int nodeid, String primeInt) throws ServletException {
         EventBuilder bldr = new EventBuilder(EventConstants.REINITIALIZE_PRIMARY_SNMP_INTERFACE_EVENT_UEI, "web ui");
         bldr.setNodeid(nodeid);
@@ -172,6 +193,14 @@ public class SnmpManageNodesServlet extends HttpServlet {
         sendEvent(bldr.getEvent());
     }
 
+    /**
+     * Send event.
+     *
+     * @param event
+     *            the event
+     * @throws ServletException
+     *             the servlet exception
+     */
     private void sendEvent(Event event) throws ServletException {
         try {
             Util.createEventProxy().send(event);

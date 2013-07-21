@@ -40,36 +40,53 @@ import org.apache.commons.lang.builder.ToStringBuilder;
  * @since 1.8.1
  */
 public class Outage {
+
+    /** The outage id. */
     protected int outageId;
 
+    /** The node id. */
     protected int nodeId;
 
+    /** The ip address. */
     protected String ipAddress;
 
+    /** The hostname. */
     protected String hostname;
 
+    /** The node label. */
     protected String nodeLabel;
 
+    /** The service id. */
     protected int serviceId;
 
+    /** The service name. */
     protected String serviceName;
 
+    /** The lost service time. */
     protected Date lostServiceTime;
 
+    /** The regained service time. */
     protected Date regainedServiceTime;
 
+    /** The lost service event id. */
     protected Integer lostServiceEventId;
 
+    /** The regained service event id. */
     protected Integer regainedServiceEventId;
 
+    /** The lost service notification id. */
     protected Integer lostServiceNotificationId;
 
+    /** The lost service notification acknowledged by. */
     protected String lostServiceNotificationAcknowledgedBy;
 
+    /** The suppress time. */
     protected Date suppressTime;
 
+    /** The suppressed by. */
     protected String suppressedBy;
 
+    /** The building. */
     protected String building;
 
     /**
@@ -189,6 +206,7 @@ public class Outage {
      * <p>
      * getId
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -219,7 +237,7 @@ public class Outage {
     }
 
     /**
-     * can be null
+     * can be null.
      *
      * @return a {@link java.lang.String} object.
      */
@@ -228,7 +246,7 @@ public class Outage {
     }
 
     /**
-     * can be null
+     * can be null.
      *
      * @return a {@link java.lang.String} object.
      */
@@ -248,7 +266,7 @@ public class Outage {
     }
 
     /**
-     * can be null
+     * can be null.
      *
      * @return a {@link java.lang.String} object.
      */
@@ -268,7 +286,7 @@ public class Outage {
     }
 
     /**
-     * can be null
+     * can be null.
      *
      * @return a {@link java.util.Date} object.
      */
@@ -277,7 +295,7 @@ public class Outage {
     }
 
     /**
-     * can be null
+     * can be null.
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -286,7 +304,7 @@ public class Outage {
     }
 
     /**
-     * can be null
+     * can be null.
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -295,7 +313,7 @@ public class Outage {
     }
 
     /**
-     * can be null
+     * can be null.
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -304,7 +322,7 @@ public class Outage {
     }
 
     /**
-     * can be null
+     * can be null.
      *
      * @return a {@link java.lang.String} object.
      */
@@ -335,7 +353,7 @@ public class Outage {
     }
 
     /**
-     * can be null
+     * can be null.
      *
      * @return a {@link java.lang.String} object.
      */
@@ -347,10 +365,11 @@ public class Outage {
      * <p>
      * getTimeDown
      * </p>
+     * .
      *
+     * @return a {@link java.util.Date} object.
      * @deprecated Please use {@link #getLostServiceTime getLostServiceTime}
      *             instead.
-     * @return a {@link java.util.Date} object.
      */
     public Date getTimeDown() {
         return (this.getLostServiceTime());
@@ -360,6 +379,7 @@ public class Outage {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

@@ -42,10 +42,13 @@ import java.util.Collection;
  */
 public class StatusInterface {
 
+    /** The m_ipaddress. */
     private String m_ipaddress;
 
+    /** The m_interfacename. */
     private String m_interfacename;
 
+    /** The m_services. */
     private Collection<StatusService> m_services;
 
     /**
@@ -63,6 +66,7 @@ public class StatusInterface {
      * <p>
      * addService
      * </p>
+     * .
      *
      * @param service
      *            a
@@ -77,6 +81,7 @@ public class StatusInterface {
      * <p>
      * getServices
      * </p>
+     * .
      *
      * @return a {@link java.util.Collection} object.
      */
@@ -88,6 +93,7 @@ public class StatusInterface {
      * <p>
      * getInterfacename
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -99,6 +105,7 @@ public class StatusInterface {
      * <p>
      * setInterfacename
      * </p>
+     * .
      *
      * @param m_interfacename
      *            a {@link java.lang.String} object.
@@ -111,6 +118,7 @@ public class StatusInterface {
      * <p>
      * getIpAddress
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -122,6 +130,7 @@ public class StatusInterface {
      * <p>
      * setIpAddress
      * </p>
+     * .
      *
      * @param m_ipaddress
      *            a {@link java.lang.String} object.

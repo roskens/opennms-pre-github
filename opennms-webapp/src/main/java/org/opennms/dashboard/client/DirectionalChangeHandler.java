@@ -51,6 +51,7 @@ public abstract class DirectionalChangeHandler implements ChangeHandler {
      * <p>
      * onChange
      * </p>
+     * .
      *
      * @param event
      *            a {@link com.google.gwt.event.dom.client.ChangeEvent} object.

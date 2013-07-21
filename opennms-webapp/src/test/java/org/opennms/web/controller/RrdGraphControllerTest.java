@@ -58,14 +58,24 @@ import org.springframework.mock.web.MockHttpServletRequest;
  */
 public class RrdGraphControllerTest {
 
+    /** The Constant ONE_HOUR_IN_MILLIS. */
     private static final int ONE_HOUR_IN_MILLIS = 60 * 60 * 1000;
 
+    /** The Constant ONE_DAY_IN_MILLIS. */
     private static final int ONE_DAY_IN_MILLIS = 24 * ONE_HOUR_IN_MILLIS;
 
+    /** The m_controller. */
     private RrdGraphController m_controller;
 
+    /** The m_request. */
     private MockHttpServletRequest m_request;
 
+    /**
+     * Sets the up.
+     *
+     * @throws InterruptedException
+     *             the interrupted exception
+     */
     @Before
     public final void setUp() throws InterruptedException {
         m_controller = new RrdGraphController();
@@ -93,7 +103,8 @@ public class RrdGraphControllerTest {
     /**
      * Set all fields smaller than an hour to 0.
      *
-     * @param now
+     * @param cal
+     *            the new sub hour fields zero
      */
     private void setSubHourFieldsZero(final Calendar cal) {
         cal.set(Calendar.MINUTE, 0);
@@ -103,9 +114,10 @@ public class RrdGraphControllerTest {
 
     /**
      * Set all fields smaller than a day to 0 (rounding down to midnight
-     * effectively)
+     * effectively).
      *
-     * @param now
+     * @param cal
+     *            the new sub day fields zero
      */
     private void setSubDayFieldsZero(final Calendar cal) {
         setSubHourFieldsZero(cal);
@@ -229,7 +241,7 @@ public class RrdGraphControllerTest {
 
     /**
      * Test the specification of just an "hour", with "today" as the day, for
-     * both start and end, using the 24hour clock
+     * both start and end, using the 24hour clock.
      */
     @Test
     public final void test24HourClockHourTodayStartEndTime() {
@@ -260,7 +272,7 @@ public class RrdGraphControllerTest {
 
     /**
      * Test the specification of just an "hour", with "today" as the day, for
-     * both start and end, using am/pm designators
+     * both start and end, using am/pm designators.
      */
     // Will fail until JRobin 1.5.13 comes out with my fix to TimeParser (not
     // yet committed)
@@ -340,7 +352,7 @@ public class RrdGraphControllerTest {
     }
 
     /**
-     * Test a start relative to an end that isn't now
+     * Test a start relative to an end that isn't now.
      */
     @Test
     public final void testRelativeStartOffsetEnd() {
@@ -361,7 +373,7 @@ public class RrdGraphControllerTest {
     }
 
     /**
-     * Test a start relative to an end that isn't now
+     * Test a start relative to an end that isn't now.
      */
     @Test
     public final void testRelativeStartOffsetEndAbbreviatedEnd() {
@@ -382,7 +394,7 @@ public class RrdGraphControllerTest {
     }
 
     /**
-     * Test an end relative to a start that isn't now
+     * Test an end relative to a start that isn't now.
      */
     @Test
     public final void testRelativeEndOffsetStart() {
@@ -402,7 +414,7 @@ public class RrdGraphControllerTest {
     }
 
     /**
-     * Test an end relative to a start that isn't now - abbreviated start (s)
+     * Test an end relative to a start that isn't now - abbreviated start (s).
      */
     @Test
     public final void testRelativeEndOffsetStartAbbreviatedStart() {
@@ -478,7 +490,7 @@ public class RrdGraphControllerTest {
     }
 
     /**
-     * Test a plain date specified as DD/MM/YYYY
+     * Test a plain date specified as DD/MM/YYYY.
      */
     @Test
     public final void testDateWithSlashes() {
@@ -503,7 +515,7 @@ public class RrdGraphControllerTest {
     }
 
     /**
-     * Test a plain date specified as YYYYMMDD
+     * Test a plain date specified as YYYYMMDD.
      */
     @Test
     public final void testDateWithNoDelimiters() {
@@ -531,7 +543,7 @@ public class RrdGraphControllerTest {
      * Test named month dates with no year
      * NB: Seems silly to test all, just test that an arbitrary one works, in
      * both short and long form
-     * If we find actual problems with specific months, we can add more tests
+     * If we find actual problems with specific months, we can add more tests.
      */
     @Test
     public final void testNamedMonthsNoYear() {
@@ -565,7 +577,7 @@ public class RrdGraphControllerTest {
      * Test named month dates with 2 digit years
      * NB: Seems silly to test all, just test that an arbitrary one works, in
      * both short and long form
-     * If we find actual problems with specific months, we can add more tests
+     * If we find actual problems with specific months, we can add more tests.
      */
     @Test
     public final void testNamedMonthsTwoDigitYear() {
@@ -592,7 +604,7 @@ public class RrdGraphControllerTest {
      * Test named month dates with 4 digit years
      * NB: Seems silly to test all, just test that an arbitrary one works, in
      * both short and long form
-     * If we find actual problems with specific months, we can add more tests
+     * If we find actual problems with specific months, we can add more tests.
      */
     @Test
     public final void testNamedMonthsFourDigitYear() {
@@ -647,7 +659,7 @@ public class RrdGraphControllerTest {
     }
 
     /**
-     * Test some basic time offsets
+     * Test some basic time offsets.
      */
     @Test
     public final void testTimeOffsets1() {
@@ -698,7 +710,7 @@ public class RrdGraphControllerTest {
     }
 
     /**
-     * Test some basic time offsets
+     * Test some basic time offsets.
      */
     @Test
     public final void testTimeOffsets3() {
@@ -726,7 +738,7 @@ public class RrdGraphControllerTest {
     }
 
     /**
-     * Test another basic time offset
+     * Test another basic time offset.
      */
     @Test
     public final void testTimeOffsets4() {
@@ -748,7 +760,7 @@ public class RrdGraphControllerTest {
     }
 
     /**
-     * Test some complex offset examples (per the rrdfetch man page)
+     * Test some complex offset examples (per the rrdfetch man page).
      */
     @Test
     public final void complexTest1() {
@@ -768,7 +780,7 @@ public class RrdGraphControllerTest {
     }
 
     /**
-     * Test some more complex offset examples
+     * Test some more complex offset examples.
      */
     @Test
     public final void complexTest2() {
@@ -787,7 +799,7 @@ public class RrdGraphControllerTest {
     }
 
     /**
-     * Test some more complex offset examples
+     * Test some more complex offset examples.
      */
     @Test
     public final void complexTest3() {

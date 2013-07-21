@@ -46,29 +46,20 @@ import java.util.List;
  * @since 1.8.1
  */
 public class UserInfo extends Object implements Cloneable {
-    /**
-     * The user id
-     */
+
+    /** The user id. */
     private String m_userId;
 
-    /**
-     * The full name of the user
-     */
+    /** The full name of the user. */
     private String m_fullName;
 
-    /**
-     * The comments associated with the user
-     */
+    /** The comments associated with the user. */
     private String m_userComments;
 
-    /**
-     * The password for the user
-     */
+    /** The password for the user. */
     private String m_password;
 
-    /**
-     * The notification information for the user
-     */
+    /** The notification information for the user. */
     private NotificationInfo m_notifInfo;
 
     /**
@@ -86,6 +77,7 @@ public class UserInfo extends Object implements Cloneable {
      * <p>
      * clone
      * </p>
+     * .
      *
      * @return a {@link java.lang.Object} object.
      */
@@ -116,7 +108,7 @@ public class UserInfo extends Object implements Cloneable {
     }
 
     /**
-     * Returns the notification information for this user
+     * Returns the notification information for this user.
      *
      * @return the notification info
      */
@@ -125,7 +117,7 @@ public class UserInfo extends Object implements Cloneable {
     }
 
     /**
-     * Sets the notificaton information for this user
+     * Sets the notificaton information for this user.
      *
      * @param someInfo
      *            the notification info
@@ -135,7 +127,7 @@ public class UserInfo extends Object implements Cloneable {
     }
 
     /**
-     * Sets the user id for this user
+     * Sets the user id for this user.
      *
      * @param aUserId
      *            the user id
@@ -145,7 +137,7 @@ public class UserInfo extends Object implements Cloneable {
     }
 
     /**
-     * Returns the user id for this user
+     * Returns the user id for this user.
      *
      * @return the user id
      */
@@ -154,7 +146,7 @@ public class UserInfo extends Object implements Cloneable {
     }
 
     /**
-     * Sets the full name for this user
+     * Sets the full name for this user.
      *
      * @param aFullName
      *            the full name
@@ -164,7 +156,7 @@ public class UserInfo extends Object implements Cloneable {
     }
 
     /**
-     * Returns the full name of this user
+     * Returns the full name of this user.
      *
      * @return the full name
      */
@@ -173,7 +165,7 @@ public class UserInfo extends Object implements Cloneable {
     }
 
     /**
-     * Sets the user comments for this user
+     * Sets the user comments for this user.
      *
      * @param someUserComments
      *            the user comments
@@ -183,7 +175,7 @@ public class UserInfo extends Object implements Cloneable {
     }
 
     /**
-     * Returns the user comments for this user
+     * Returns the user comments for this user.
      *
      * @return the user comments
      */
@@ -193,7 +185,7 @@ public class UserInfo extends Object implements Cloneable {
 
     /**
      * Sets the password for this user, assuming that the value passed in is
-     * already encrypted properly
+     * already encrypted properly.
      *
      * @param aPassword
      *            the encrypted password
@@ -203,12 +195,12 @@ public class UserInfo extends Object implements Cloneable {
     }
 
     /**
-     * Sets the password for this user, first encrypting it
+     * Sets the password for this user, first encrypting it.
      *
      * @param aPassword
      *            the password
-     * @throws java.lang.IllegalStateException
-     *             if any.
+     * @throws IllegalStateException
+     *             the illegal state exception
      */
     public void setUnencryptedPassword(String aPassword) throws IllegalStateException {
         m_password = encryptPassword(aPassword);
@@ -220,8 +212,8 @@ public class UserInfo extends Object implements Cloneable {
      * @param aPassword
      *            the password to encrypt
      * @return the MD5 hash of the password, or null if the encryption fails
-     * @throws java.lang.IllegalStateException
-     *             if any.
+     * @throws IllegalStateException
+     *             the illegal state exception
      */
     public static String encryptPassword(String aPassword) throws IllegalStateException {
         String encryptedPassword = null;
@@ -269,7 +261,7 @@ public class UserInfo extends Object implements Cloneable {
     }
 
     /**
-     * This method compares two encrypted strings for equality
+     * This method compares two encrypted strings for equality.
      *
      * @param aPassword
      *            the password to check for equality
@@ -281,7 +273,7 @@ public class UserInfo extends Object implements Cloneable {
     }
 
     /**
-     * Returns the password for this user
+     * Returns the password for this user.
      *
      * @return String, the password for the user
      */

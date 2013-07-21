@@ -47,6 +47,8 @@ import org.springframework.validation.Validator;
  * @since 1.8.1
  */
 public class LocationMonitorIdValidator implements Validator, InitializingBean {
+
+    /** The m_location monitor dao. */
     private LocationMonitorDao m_locationMonitorDao;
 
     /** {@inheritDoc} */
@@ -83,6 +85,7 @@ public class LocationMonitorIdValidator implements Validator, InitializingBean {
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      */
     @Override
     public final void afterPropertiesSet() {
@@ -95,6 +98,7 @@ public class LocationMonitorIdValidator implements Validator, InitializingBean {
      * <p>
      * getLocationMonitorDao
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.dao.api.LocationMonitorDao} object.
      */
@@ -106,6 +110,7 @@ public class LocationMonitorIdValidator implements Validator, InitializingBean {
      * <p>
      * setLocationMonitorDao
      * </p>
+     * .
      *
      * @param locationMonitorDao
      *            a {@link org.opennms.netmgt.dao.api.LocationMonitorDao}

@@ -35,6 +35,8 @@ import static org.junit.Assert.assertNull;
 import org.junit.Test;
 
 /**
+ * The Class DefaultGraphResultsServiceTest.
+ *
  * @author <a href="mailto:seth@opennms.org">Seth</a>
  */
 public class DefaultGraphResultsServiceTest {

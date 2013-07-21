@@ -52,6 +52,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.test.context.ContextConfiguration;
 
 /**
+ * The Class DefaultSurveillanceServiceIntegrationTest.
+ *
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
@@ -67,14 +69,25 @@ import org.springframework.test.context.ContextConfiguration;
 @JUnitConfigurationEnvironment
 @JUnitTemporaryDatabase
 public class DefaultSurveillanceServiceIntegrationTest implements InitializingBean {
+
+    /** The m_gwt surveillance service. */
     @Autowired
     private SurveillanceService m_gwtSurveillanceService;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
         /*
@@ -84,6 +97,9 @@ public class DefaultSurveillanceServiceIntegrationTest implements InitializingBe
         SecurityContextHolder.clearContext();
     }
 
+    /**
+     * Test get rtc for set.
+     */
     @Test
     public void testGetRtcForSet() {
         populateSecurityContext();
@@ -93,6 +109,11 @@ public class DefaultSurveillanceServiceIntegrationTest implements InitializingBe
         assertNotNull("rtcs should not be null", rtcs);
     }
 
+    /**
+     * Populate security context.
+     *
+     * @return the user details
+     */
     private static UserDetails populateSecurityContext() {
         UserDetails details = new User("user", "password", true, true, true, true, new ArrayList<GrantedAuthority>());
         org.springframework.security.core.Authentication auth = new UsernamePasswordAuthenticationToken(

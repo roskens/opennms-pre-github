@@ -38,7 +38,8 @@ import org.opennms.web.filter.SubstringFilter;
  * @since 1.8.1
  */
 public class PartialUEIFilter extends SubstringFilter {
-    /** Constant <code>TYPE="partialUei"</code> */
+
+    /** Constant <code>TYPE="partialUei"</code>. */
     public static final String TYPE = "partialUei";
 
     /**
@@ -57,6 +58,7 @@ public class PartialUEIFilter extends SubstringFilter {
      * <p>
      * getTextDescription
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -69,6 +71,7 @@ public class PartialUEIFilter extends SubstringFilter {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -81,6 +84,7 @@ public class PartialUEIFilter extends SubstringFilter {
      * <p>
      * getUEI
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

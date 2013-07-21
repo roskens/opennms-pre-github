@@ -61,19 +61,26 @@ import org.springframework.web.servlet.mvc.AbstractController;
  * @since 1.8.1
  */
 public class OutageFilterController extends AbstractController implements InitializingBean {
-    /** Constant <code>DEFAULT_MULTIPLE=0</code> */
+
+    /** Constant <code>DEFAULT_MULTIPLE=0</code>. */
     public static final int DEFAULT_MULTIPLE = 0;
 
+    /** The m_success view. */
     private String m_successView;
 
+    /** The m_default short limit. */
     private Integer m_defaultShortLimit;
 
+    /** The m_default long limit. */
     private Integer m_defaultLongLimit;
 
+    /** The m_default outage type. */
     private OutageType m_defaultOutageType = OutageType.CURRENT;
 
+    /** The m_default sort style. */
     private SortStyle m_defaultSortStyle = SortStyle.ID;
 
+    /** The m_web outage repository. */
     private WebOutageRepository m_webOutageRepository;
 
     /**
@@ -183,6 +190,11 @@ public class OutageFilterController extends AbstractController implements Initia
 
     }
 
+    /**
+     * Gets the default short limit.
+     *
+     * @return the default short limit
+     */
     private Integer getDefaultShortLimit() {
         return m_defaultShortLimit;
     }
@@ -191,6 +203,7 @@ public class OutageFilterController extends AbstractController implements Initia
      * <p>
      * setDefaultShortLimit
      * </p>
+     * .
      *
      * @param limit
      *            a {@link java.lang.Integer} object.
@@ -199,6 +212,11 @@ public class OutageFilterController extends AbstractController implements Initia
         m_defaultShortLimit = limit;
     }
 
+    /**
+     * Gets the default long limit.
+     *
+     * @return the default long limit
+     */
     private Integer getDefaultLongLimit() {
         return m_defaultLongLimit;
     }
@@ -207,6 +225,7 @@ public class OutageFilterController extends AbstractController implements Initia
      * <p>
      * setDefaultLongLimit
      * </p>
+     * .
      *
      * @param limit
      *            a {@link java.lang.Integer} object.
@@ -215,6 +234,11 @@ public class OutageFilterController extends AbstractController implements Initia
         m_defaultLongLimit = limit;
     }
 
+    /**
+     * Gets the success view.
+     *
+     * @return the success view
+     */
     private String getSuccessView() {
         return m_successView;
     }
@@ -223,6 +247,7 @@ public class OutageFilterController extends AbstractController implements Initia
      * <p>
      * setSuccessView
      * </p>
+     * .
      *
      * @param successView
      *            a {@link java.lang.String} object.
@@ -235,6 +260,7 @@ public class OutageFilterController extends AbstractController implements Initia
      * <p>
      * setWebOutageRepository
      * </p>
+     * .
      *
      * @param webOutageRepository
      *            a {@link org.opennms.web.outage.WebOutageRepository} object.
@@ -247,6 +273,7 @@ public class OutageFilterController extends AbstractController implements Initia
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      */
     @Override
     public void afterPropertiesSet() {
@@ -262,6 +289,7 @@ public class OutageFilterController extends AbstractController implements Initia
      * <p>
      * getDefaultOutageType
      * </p>
+     * .
      *
      * @return a {@link org.opennms.web.outage.OutageType} object.
      */
@@ -273,6 +301,7 @@ public class OutageFilterController extends AbstractController implements Initia
      * <p>
      * setDefaultOutageType
      * </p>
+     * .
      *
      * @param defaultOutageType
      *            a {@link org.opennms.web.outage.OutageType} object.
@@ -285,6 +314,7 @@ public class OutageFilterController extends AbstractController implements Initia
      * <p>
      * getDefaultSortStyle
      * </p>
+     * .
      *
      * @return a {@link org.opennms.web.outage.SortStyle} object.
      */
@@ -296,6 +326,7 @@ public class OutageFilterController extends AbstractController implements Initia
      * <p>
      * setDefaultSortStyle
      * </p>
+     * .
      *
      * @param defaultSortStyle
      *            a {@link org.opennms.web.outage.SortStyle} object.

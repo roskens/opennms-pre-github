@@ -49,12 +49,20 @@ import org.opennms.netmgt.model.events.EventProxy;
 import org.opennms.netmgt.model.events.EventProxyException;
 import org.opennms.netmgt.xml.event.Event;
 
+/**
+ * The Class PollerServiceTest.
+ */
 public class PollerServiceTest extends TestCase {
 
+    /** The m_poller service. */
     DefaultPollerService m_pollerService;
 
+    /** The m_event proxy. */
     EventProxy m_eventProxy;
 
+    /* (non-Javadoc)
+     * @see junit.framework.TestCase#setUp()
+     */
     @Override
     protected void setUp() throws Exception {
         m_eventProxy = createMock(EventProxy.class);
@@ -63,6 +71,12 @@ public class PollerServiceTest extends TestCase {
         m_pollerService.setEventProxy(m_eventProxy);
     }
 
+    /**
+     * Test poll.
+     *
+     * @throws EventProxyException
+     *             the event proxy exception
+     */
     public void testPoll() throws EventProxyException {
 
         final int expectedPolldId = 7;

@@ -43,50 +43,125 @@ import org.opennms.web.outage.SortStyle;
  */
 public class OutageCriteria {
 
+    /**
+     * The Interface OutageCriteriaVisitor.
+     *
+     * @param <E>
+     *            the element type
+     */
     public static interface OutageCriteriaVisitor<E extends Exception> {
+
+        /**
+         * Visit outage type.
+         *
+         * @param ackType
+         *            the ack type
+         * @throws E
+         *             the e
+         */
         public void visitOutageType(OutageType ackType) throws E;
 
+        /**
+         * Visit filter.
+         *
+         * @param filter
+         *            the filter
+         * @throws E
+         *             the e
+         */
         public void visitFilter(Filter filter) throws E;
 
+        /**
+         * Visit sort style.
+         *
+         * @param sortStyle
+         *            the sort style
+         * @throws E
+         *             the e
+         */
         public void visitSortStyle(SortStyle sortStyle) throws E;
 
+        /**
+         * Visit group by.
+         *
+         * @throws E
+         *             the e
+         */
         public void visitGroupBy() throws E;
 
+        /**
+         * Visit limit.
+         *
+         * @param limit
+         *            the limit
+         * @param offset
+         *            the offset
+         * @throws E
+         *             the e
+         */
         public void visitLimit(int limit, int offset) throws E;
     }
 
+    /**
+     * The Class BaseOutageCriteriaVisitor.
+     *
+     * @param <E>
+     *            the element type
+     */
     public static class BaseOutageCriteriaVisitor<E extends Exception> implements OutageCriteriaVisitor<E> {
+
+        /* (non-Javadoc)
+         * @see org.opennms.web.outage.filter.OutageCriteria.OutageCriteriaVisitor#visitOutageType(org.opennms.web.outage.OutageType)
+         */
         @Override
         public void visitOutageType(OutageType ackType) throws E {
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.web.outage.filter.OutageCriteria.OutageCriteriaVisitor#visitFilter(org.opennms.web.filter.Filter)
+         */
         @Override
         public void visitFilter(Filter filter) throws E {
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.web.outage.filter.OutageCriteria.OutageCriteriaVisitor#visitLimit(int, int)
+         */
         @Override
         public void visitLimit(int limit, int offset) throws E {
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.web.outage.filter.OutageCriteria.OutageCriteriaVisitor#visitGroupBy()
+         */
         @Override
         public void visitGroupBy() throws E {
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.web.outage.filter.OutageCriteria.OutageCriteriaVisitor#visitSortStyle(org.opennms.web.outage.SortStyle)
+         */
         @Override
         public void visitSortStyle(SortStyle sortStyle) throws E {
         }
     }
 
+    /** The m_filters. */
     Filter[] m_filters = null;
 
+    /** The m_sort style. */
     SortStyle m_sortStyle = SortStyle.DEFAULT_SORT_STYLE;
 
+    /** The m_outage type. */
     OutageType m_outageType = OutageType.CURRENT;
 
+    /** The m_group by. */
     String m_groupBy = null;
 
+    /** The m_limit. */
     int m_limit = -1;
 
+    /** The m_offset. */
     int m_offset = -1;
 
     /**
@@ -143,15 +218,16 @@ public class OutageCriteria {
      * <p>
      * visit
      * </p>
+     * .
      *
-     * @param visitor
-     *            a
-     *            {@link org.opennms.web.outage.filter.OutageCriteria.OutageCriteriaVisitor}
-     *            object.
      * @param <E>
      *            a E object.
+     * @param visitor
+     *            a
      * @throws E
      *             if any.
+     *             {@link org.opennms.web.outage.filter.OutageCriteria.OutageCriteriaVisitor}
+     *             object.
      */
     public <E extends Exception> void visit(OutageCriteriaVisitor<E> visitor) throws E {
         if (m_outageType != null) {

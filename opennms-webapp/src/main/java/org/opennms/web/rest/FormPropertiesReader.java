@@ -42,8 +42,13 @@ import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.ext.MessageBodyReader;
 import javax.ws.rs.ext.Provider;
 
+/**
+ * The Class FormPropertiesReader.
+ */
 @Provider
 public class FormPropertiesReader implements MessageBodyReader<MultivaluedMapImpl> {
+
+    /** The m_http servlet request. */
     @Context
     private HttpServletRequest m_httpServletRequest;
 

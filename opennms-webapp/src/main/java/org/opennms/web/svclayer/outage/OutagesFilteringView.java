@@ -61,6 +61,7 @@ import org.opennms.netmgt.model.OnmsOutage;
  */
 public class OutagesFilteringView {
 
+    /** The m_category dao. */
     private CategoryDao m_categoryDao;
 
     // String whoooha = "select 1154363839::int4::abstime;";
@@ -71,6 +72,7 @@ public class OutagesFilteringView {
      * <p>
      * filterQuery
      * </p>
+     * .
      *
      * @param request
      *            a {@link javax.servlet.http.HttpServletRequest} object.
@@ -141,6 +143,7 @@ public class OutagesFilteringView {
      * <p>
      * buildCriteria
      * </p>
+     * .
      *
      * @param request
      *            a {@link javax.servlet.http.HttpServletRequest} object.
@@ -243,6 +246,7 @@ public class OutagesFilteringView {
      * <p>
      * getCategoryDao
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.dao.api.CategoryDao} object.
      */
@@ -254,6 +258,7 @@ public class OutagesFilteringView {
      * <p>
      * setCategoryDao
      * </p>
+     * .
      *
      * @param categoryDao
      *            a {@link org.opennms.netmgt.dao.api.CategoryDao} object.

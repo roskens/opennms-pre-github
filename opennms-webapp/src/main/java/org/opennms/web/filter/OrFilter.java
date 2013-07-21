@@ -33,7 +33,7 @@ import org.hibernate.criterion.Disjunction;
 import org.hibernate.criterion.Restrictions;
 
 /**
- * OrFilter
+ * OrFilter.
  *
  * @author brozow
  * @version $Id: $

@@ -48,34 +48,54 @@ import com.google.gwt.user.client.ui.TableListener;
  */
 public class SurveillanceDashlet extends Dashlet {
 
+    /** The m_listeners. */
     private SurveillanceListenerCollection m_listeners = new SurveillanceListenerCollection();
 
+    /** The m_data. */
     private SurveillanceData m_data;
 
+    /** The m_view. */
     private SurveillanceView m_view;
 
+    /** The m_loader. */
     private SurveillanceLoader m_loader;
 
+    /**
+     * The Class SurveillanceLoader.
+     */
     class SurveillanceLoader extends DashletLoader implements AsyncCallback<SurveillanceData> {
 
+        /** The m_surveillance service. */
         private SurveillanceServiceAsync m_surveillanceService;
 
+        /* (non-Javadoc)
+         * @see com.google.gwt.user.client.ui.Widget#onLoad()
+         */
         @Override
         protected void onLoad() {
             load();
         }
 
+        /**
+         * Load.
+         */
         public void load() {
             loading();
             m_surveillanceService.getSurveillanceData(this);
         }
 
+        /* (non-Javadoc)
+         * @see com.google.gwt.user.client.rpc.AsyncCallback#onFailure(java.lang.Throwable)
+         */
         @Override
         public void onFailure(Throwable caught) {
             loadError(caught);
             error(caught);
         }
 
+        /* (non-Javadoc)
+         * @see com.google.gwt.user.client.rpc.AsyncCallback#onSuccess(java.lang.Object)
+         */
         @Override
         public void onSuccess(SurveillanceData data) {
             setData(data);
@@ -94,16 +114,32 @@ public class SurveillanceDashlet extends Dashlet {
             }
         }
 
+        /**
+         * Sets the surveillance service.
+         *
+         * @param surveillanceService
+         *            the new surveillance service
+         */
         public void setSurveillanceService(SurveillanceServiceAsync surveillanceService) {
             m_surveillanceService = surveillanceService;
         }
 
     }
 
+    /**
+     * The Class SurveillanceView.
+     */
     class SurveillanceView extends DashletView {
 
+        /** The m_grid. */
         private Grid m_grid = new Grid();
 
+        /**
+         * Instantiates a new surveillance view.
+         *
+         * @param dashlet
+         *            the dashlet
+         */
         public SurveillanceView(Dashlet dashlet) {
             super(dashlet);
             m_grid.addTableListener(new TableListener() {
@@ -129,11 +165,27 @@ public class SurveillanceDashlet extends Dashlet {
 
         }
 
+        /**
+         * Cell clicked.
+         *
+         * @param row
+         *            the row
+         * @param col
+         *            the col
+         */
         protected void cellClicked(int row, int col) {
             clearSelection();
             setSelection(row, col);
         }
 
+        /**
+         * Sets the selection.
+         *
+         * @param row
+         *            the row
+         * @param col
+         *            the col
+         */
         private void setSelection(int row, int col) {
             if (row == 0 && col == 0) {
                 // nothing to do just be cleared
@@ -150,6 +202,9 @@ public class SurveillanceDashlet extends Dashlet {
             }
         }
 
+        /**
+         * Clear selection.
+         */
         private void clearSelection() {
             for (int r = 0; r < m_grid.getRowCount(); r++) {
                 for (int c = 0; c < m_grid.getColumnCount(); c++) {
@@ -158,6 +213,12 @@ public class SurveillanceDashlet extends Dashlet {
             }
         }
 
+        /**
+         * Populate.
+         *
+         * @param data
+         *            the data
+         */
         void populate(SurveillanceData data) {
             setTitle(getTitle() + ": " + data.getName());
             m_grid.resize(data.getRowCount() + 1, data.getColumnCount() + 1);
@@ -211,6 +272,7 @@ public class SurveillanceDashlet extends Dashlet {
      * <p>
      * setData
      * </p>
+     * .
      *
      * @param data
      *            a {@link org.opennms.dashboard.client.SurveillanceData}
@@ -221,18 +283,41 @@ public class SurveillanceDashlet extends Dashlet {
         m_view.populate(data);
     }
 
+    /**
+     * On intersection clicked.
+     *
+     * @param row
+     *            the row
+     * @param col
+     *            the col
+     */
     private void onIntersectionClicked(int row, int col) {
         m_listeners.fireIntersectionClicked(this, m_data.getIntersection(row, col));
     }
 
+    /**
+     * On column group clicked.
+     *
+     * @param col
+     *            the col
+     */
     private void onColumnGroupClicked(int col) {
         m_listeners.fireSurveillanceGroupClicked(this, m_data.getColumnGroups()[col]);
     }
 
+    /**
+     * On row group clicked.
+     *
+     * @param row
+     *            the row
+     */
     private void onRowGroupClicked(int row) {
         m_listeners.fireSurveillanceGroupClicked(this, m_data.getRowGroups()[row]);
     }
 
+    /**
+     * On all clicked.
+     */
     private void onAllClicked() {
         m_listeners.fireAllClicked(this);
     }
@@ -241,6 +326,7 @@ public class SurveillanceDashlet extends Dashlet {
      * <p>
      * addSurveillanceViewListener
      * </p>
+     * .
      *
      * @param listener
      *            a {@link org.opennms.dashboard.client.SurveillanceListener}
@@ -254,6 +340,7 @@ public class SurveillanceDashlet extends Dashlet {
      * <p>
      * removeSurveillanceViewListener
      * </p>
+     * .
      *
      * @param listener
      *            a {@link org.opennms.dashboard.client.SurveillanceListener}
@@ -263,6 +350,12 @@ public class SurveillanceDashlet extends Dashlet {
         m_listeners.remove(listener);
     }
 
+    /**
+     * Initial loader.
+     *
+     * @param serviceEntryPoint
+     *            the service entry point
+     */
     void initialLoader(String serviceEntryPoint) {
         m_loader.load();
     }
@@ -271,6 +364,7 @@ public class SurveillanceDashlet extends Dashlet {
      * <p>
      * setSurveillanceService
      * </p>
+     * .
      *
      * @param svc
      *            a

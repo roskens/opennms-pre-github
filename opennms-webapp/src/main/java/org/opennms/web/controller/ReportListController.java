@@ -55,16 +55,13 @@ import org.springframework.web.servlet.mvc.AbstractController;
  */
 public class ReportListController extends AbstractController {
 
+    /** The logger. */
     private Logger logger = LoggerFactory.getLogger("OpenNMS.WEB." + ReportListController.class.getName());
 
-    /**
-     * Service provides report templates from different repositories
-     */
+    /** Service provides report templates from different repositories. */
     private DatabaseReportListService m_reportListService;
 
-    /**
-     * Page size for paging in the UI
-     */
+    /** Page size for paging in the UI. */
     private int m_pageSize;
 
     /** {@inheritDoc} */
@@ -94,6 +91,7 @@ public class ReportListController extends AbstractController {
      * <p>
      * getDatabaseReportListService
      * </p>
+     * .
      *
      * @return a {@link org.opennms.web.svclayer.DatabaseReportListService}
      *         object.
@@ -106,6 +104,7 @@ public class ReportListController extends AbstractController {
      * <p>
      * setDatabaseReportListService
      * </p>
+     * .
      *
      * @param listService
      *            a {@link org.opennms.web.svclayer.DatabaseReportListService}
@@ -119,6 +118,7 @@ public class ReportListController extends AbstractController {
      * <p>
      * getPageSize
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -130,6 +130,7 @@ public class ReportListController extends AbstractController {
      * <p>
      * setPageSize
      * </p>
+     * .
      *
      * @param pageSize
      *            a int.

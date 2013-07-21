@@ -59,8 +59,10 @@ import org.springframework.web.servlet.ModelAndView;
  */
 public class NewMapController extends MapsLoggingController {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(NewMapController.class);
 
+    /** The manager. */
     private Manager manager;
 
     /**

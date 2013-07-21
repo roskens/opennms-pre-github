@@ -46,14 +46,18 @@ import org.opennms.web.svclayer.catstatus.model.StatusService;
  * @since 1.8.1
  */
 public class CategoryBuilder {
+
+    /** The m_node map. */
     private Map<Integer, StatusNode> m_nodeMap = new HashMap<Integer, StatusNode>();
 
+    /** The m_node and interface map. */
     private Map<String, StatusInterface> m_nodeAndInterfaceMap = new HashMap<String, StatusInterface>();
 
     /**
      * <p>
      * addNode
      * </p>
+     * .
      *
      * @param nodeId
      *            a int.
@@ -77,6 +81,7 @@ public class CategoryBuilder {
      * <p>
      * addInterface
      * </p>
+     * .
      *
      * @param nodeId
      *            a int.
@@ -107,6 +112,7 @@ public class CategoryBuilder {
      * <p>
      * addOutageService
      * </p>
+     * .
      *
      * @param nodeId
      *            a int.
@@ -133,6 +139,15 @@ public class CategoryBuilder {
         return this;
     }
 
+    /**
+     * Gets the node and interface key.
+     *
+     * @param nodeId
+     *            the node id
+     * @param interfaceIp
+     *            the interface ip
+     * @return the node and interface key
+     */
     private String getNodeAndInterfaceKey(int nodeId, String interfaceIp) {
         return nodeId + ":" + interfaceIp;
     }
@@ -141,6 +156,7 @@ public class CategoryBuilder {
      * <p>
      * getNodes
      * </p>
+     * .
      *
      * @return a {@link java.util.Collection} object.
      */

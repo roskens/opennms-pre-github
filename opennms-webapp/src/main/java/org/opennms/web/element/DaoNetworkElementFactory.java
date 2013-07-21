@@ -28,6 +28,9 @@
 
 package org.opennms.web.element;
 
+/**
+ * A factory for creating DaoNetworkElement objects.
+ */
 public class DaoNetworkElementFactory {
 
 }

@@ -46,10 +46,12 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Transactional(readOnly = true)
 public interface ResourceService {
+
     /**
      * <p>
      * getRrdDirectory
      * </p>
+     * .
      *
      * @return a {@link java.io.File} object.
      */
@@ -59,6 +61,7 @@ public interface ResourceService {
      * <p>
      * findTopLevelResources
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -68,6 +71,7 @@ public interface ResourceService {
      * <p>
      * findNodeResources
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -77,6 +81,7 @@ public interface ResourceService {
      * <p>
      * findDomainResources
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -86,6 +91,7 @@ public interface ResourceService {
      * <p>
      * findNodeSourceResources
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -95,6 +101,7 @@ public interface ResourceService {
      * <p>
      * findNodeChildResources
      * </p>
+     * .
      *
      * @param nodeId
      *            a int.
@@ -106,6 +113,7 @@ public interface ResourceService {
      * <p>
      * findDomainChildResources
      * </p>
+     * .
      *
      * @param domain
      *            a {@link java.lang.String} object.
@@ -117,6 +125,7 @@ public interface ResourceService {
      * <p>
      * findNodeSourceChildResources
      * </p>
+     * .
      *
      * @param nodeSource
      *            a {@link java.lang.String} object.
@@ -128,6 +137,7 @@ public interface ResourceService {
      * <p>
      * findChildResources
      * </p>
+     * .
      *
      * @param resource
      *            a {@link org.opennms.netmgt.model.OnmsResource} object.
@@ -141,6 +151,7 @@ public interface ResourceService {
      * <p>
      * getResourceById
      * </p>
+     * .
      *
      * @param id
      *            a {@link java.lang.String} object.
@@ -152,6 +163,7 @@ public interface ResourceService {
      * <p>
      * findPrefabGraphsForResource
      * </p>
+     * .
      *
      * @param resource
      *            a {@link org.opennms.netmgt.model.OnmsResource} object.
@@ -163,6 +175,7 @@ public interface ResourceService {
      * <p>
      * getPrefabGraph
      * </p>
+     * .
      *
      * @param name
      *            a {@link java.lang.String} object.
@@ -174,6 +187,7 @@ public interface ResourceService {
      * <p>
      * findPrefabGraphsForChildResources
      * </p>
+     * .
      *
      * @param resource
      *            a {@link org.opennms.netmgt.model.OnmsResource} object.
@@ -187,6 +201,7 @@ public interface ResourceService {
      * <p>
      * promoteGraphAttributesForResource
      * </p>
+     * .
      *
      * @param resource
      *            a {@link org.opennms.netmgt.model.OnmsResource} object.
@@ -197,6 +212,7 @@ public interface ResourceService {
      * <p>
      * promoteGraphAttributesForResource
      * </p>
+     * .
      *
      * @param resourceId
      *            a {@link java.lang.String} object.
@@ -207,6 +223,7 @@ public interface ResourceService {
      * <p>
      * getResourceListById
      * </p>
+     * .
      *
      * @param resourceId
      *            a {@link java.lang.String} object.

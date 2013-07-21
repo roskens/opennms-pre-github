@@ -55,17 +55,20 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 
 /**
- * SystemReportController
+ * SystemReportController.
  *
  * @author ranger
  * @since 1.8.6
  */
 public class SupportController extends AbstractController implements InitializingBean {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(SupportController.class);
 
+    /** The m_system report. */
     private SystemReport m_systemReport = null;
 
+    /** The m_config dao. */
     private SupportRtConfigDao m_configDao = null;
 
     /** {@inheritDoc} */
@@ -108,6 +111,13 @@ public class SupportController extends AbstractController implements Initializin
         return new ModelAndView("/support/index", "results", results);
     }
 
+    /**
+     * Creates the ticket.
+     *
+     * @param request
+     *            the request
+     * @return the support results
+     */
     private SupportResults createTicket(final HttpServletRequest request) {
         final HttpSession session = request.getSession();
 
@@ -179,6 +189,13 @@ public class SupportController extends AbstractController implements Initializin
         return results;
     }
 
+    /**
+     * Login.
+     *
+     * @param request
+     *            the request
+     * @return the support results
+     */
     private SupportResults login(final HttpServletRequest request) {
         final String username = request.getParameter("username").trim();
         final String password = request.getParameter("password").trim();
@@ -234,6 +251,13 @@ public class SupportController extends AbstractController implements Initializin
         }
     }
 
+    /**
+     * Logout.
+     *
+     * @param request
+     *            the request
+     * @return the support results
+     */
     private SupportResults logout(final HttpServletRequest request) {
         final HttpSession session = request.getSession(true);
         final RequestTracker rt = (RequestTracker) session.getAttribute("requestTracker");
@@ -256,14 +280,29 @@ public class SupportController extends AbstractController implements Initializin
         return results;
     }
 
+    /**
+     * Sets the rt config dao.
+     *
+     * @param dao
+     *            the new rt config dao
+     */
     public void setRtConfigDao(final SupportRtConfigDao dao) {
         m_configDao = dao;
     }
 
+    /**
+     * Sets the system report.
+     *
+     * @param systemReport
+     *            the new system report
+     */
     public void setSystemReport(final SystemReport systemReport) {
         m_systemReport = systemReport;
     }
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         Assert.notNull(m_configDao);

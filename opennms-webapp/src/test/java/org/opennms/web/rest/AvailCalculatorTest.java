@@ -43,12 +43,20 @@ import org.opennms.netmgt.model.OnmsMonitoredService;
 import org.opennms.netmgt.model.PollStatus;
 import org.opennms.web.rest.support.TimeChunker;
 
+/**
+ * The Class AvailCalculatorTest.
+ */
 public class AvailCalculatorTest {
 
+    /** The m_location mon. */
     private OnmsLocationMonitor m_locationMon;
 
+    /** The m_svc. */
     private OnmsMonitoredService m_svc;
 
+    /**
+     * Sets the up.
+     */
     @Before
     public final void setUp() {
         m_locationMon = new OnmsLocationMonitor();
@@ -58,6 +66,9 @@ public class AvailCalculatorTest {
         m_svc = new OnmsMonitoredService();
     }
 
+    /**
+     * Test get availability one status.
+     */
     @Test
     public final void testGetAvailabilityOneStatus() {
         Date endTime = new Date(System.currentTimeMillis());
@@ -76,6 +87,15 @@ public class AvailCalculatorTest {
         assertEquals(0.5, uptimePercent, 0.00);
     }
 
+    /**
+     * Creates the status change.
+     *
+     * @param pollStatus
+     *            the poll status
+     * @param timestamp
+     *            the timestamp
+     * @return the onms location specific status
+     */
     private OnmsLocationSpecificStatus createStatusChange(final PollStatus pollStatus, final Date timestamp) {
         pollStatus.setTimestamp(timestamp);
         OnmsLocationSpecificStatus statusChange = new OnmsLocationSpecificStatus();
@@ -85,12 +105,20 @@ public class AvailCalculatorTest {
         return statusChange;
     }
 
+    /**
+     * Gets the services.
+     *
+     * @return the services
+     */
     private Collection<OnmsMonitoredService> getServices() {
         Collection<OnmsMonitoredService> svcs = new ArrayList<OnmsMonitoredService>();
         svcs.add(m_svc);
         return svcs;
     }
 
+    /**
+     * Test get availability status flip flop.
+     */
     @Test
     public final void testGetAvailabilityStatusFlipFlop() {
         Date endTime = new Date(System.currentTimeMillis());
@@ -109,6 +137,9 @@ public class AvailCalculatorTest {
         assertEquals(0.5, uptimePercent, 0.00);
     }
 
+    /**
+     * Test get availability unavailable before.
+     */
     @Test
     public final void testGetAvailabilityUnavailableBefore() {
         Date endTime = new Date(System.currentTimeMillis());
@@ -125,6 +156,9 @@ public class AvailCalculatorTest {
         assertEquals(0.5, uptimePercent, 0.00);
     }
 
+    /**
+     * Test not availabile during time chunk.
+     */
     @Test
     public final void testNotAvailabileDuringTimeChunk() {
         Date endTime = new Date(System.currentTimeMillis());

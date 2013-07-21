@@ -62,14 +62,19 @@ import org.opennms.web.api.Util;
 
 /**
  * A servlet that handles managing or unmanaging interfaces and services on a
- * node
+ * node.
  *
  * @author <A HREF="mailto:jacinta@opennms.org">Jacinta Remedios </A>
  * @author <A HREF="http://www.opennms.org/">OpenNMS </A>
  */
 public class AddPollerConfigServlet extends HttpServlet {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 8025629129971135727L;
 
+    /* (non-Javadoc)
+     * @see javax.servlet.http.HttpServlet#doPost(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     */
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String user_id = request.getRemoteUser();
@@ -169,7 +174,14 @@ public class AddPollerConfigServlet extends HttpServlet {
      * <p>
      * addCapsdInfo
      * </p>
+     * .
      *
+     * @param capsdConfig
+     *            the capsd config
+     * @param pkg
+     *            the pkg
+     * @param props
+     *            the props
      * @param name
      *            a {@link java.lang.String} object.
      * @param port
@@ -182,10 +194,11 @@ public class AddPollerConfigServlet extends HttpServlet {
      *            a {@link javax.servlet.http.HttpServletResponse} object.
      * @param request
      *            a {@link javax.servlet.http.HttpServletRequest} object.
-     * @throws javax.servlet.ServletException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
+     * @return true, if successful
+     * @throws ServletException
+     *             the servlet exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     private boolean addCapsdInfo(CapsdConfiguration capsdConfig, org.opennms.netmgt.config.poller.Package pkg,
             Properties props, String name, String port, String user, String protocol, HttpServletResponse response,
@@ -292,7 +305,14 @@ public class AddPollerConfigServlet extends HttpServlet {
      * <p>
      * addPollerInfo
      * </p>
+     * .
      *
+     * @param pollerConfig
+     *            the poller config
+     * @param pkg
+     *            the pkg
+     * @param props
+     *            the props
      * @param bPolled
      *            a {@link java.lang.String} object.
      * @param name
@@ -307,10 +327,11 @@ public class AddPollerConfigServlet extends HttpServlet {
      *            a {@link javax.servlet.http.HttpServletResponse} object.
      * @param request
      *            a {@link javax.servlet.http.HttpServletRequest} object.
-     * @throws javax.servlet.ServletException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
+     * @return true, if successful
+     * @throws ServletException
+     *             the servlet exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     private boolean addPollerInfo(PollerConfiguration pollerConfig, org.opennms.netmgt.config.poller.Package pkg,
             Properties props, String bPolled, String name, String port, String user, String protocol,

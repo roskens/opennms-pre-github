@@ -43,6 +43,7 @@ import com.google.gwt.user.client.ui.Widget;
  */
 public class DashletView extends Composite {
 
+    /** The m_dashlet. */
     private Dashlet m_dashlet;
 
     /**
@@ -76,6 +77,7 @@ public class DashletView extends Composite {
      * <p>
      * getTitle
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -94,6 +96,7 @@ public class DashletView extends Composite {
      * <p>
      * addToTitleBar
      * </p>
+     * .
      *
      * @param widget
      *            a {@link com.google.gwt.user.client.ui.Widget} object.
@@ -110,6 +113,7 @@ public class DashletView extends Composite {
      * <p>
      * onDashLoad
      * </p>
+     * .
      */
     public void onDashLoad() {
 

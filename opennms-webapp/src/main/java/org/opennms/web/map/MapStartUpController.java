@@ -57,8 +57,10 @@ import org.springframework.web.servlet.ModelAndView;
 @SuppressWarnings("deprecation")
 public class MapStartUpController extends MapsLoggingController {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(MapStartUpController.class);
 
+    /** The manager. */
     private Manager manager;
 
     /**

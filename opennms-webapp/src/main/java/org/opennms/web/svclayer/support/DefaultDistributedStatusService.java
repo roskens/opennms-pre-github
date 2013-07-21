@@ -87,26 +87,37 @@ import org.springframework.validation.Errors;
  */
 public class DefaultDistributedStatusService implements DistributedStatusService, InitializingBean {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(DefaultDistributedStatusService.class);
 
+    /** The m_monitored service dao. */
     private MonitoredServiceDao m_monitoredServiceDao;
 
+    /** The m_location monitor dao. */
     private LocationMonitorDao m_locationMonitorDao;
 
+    /** The m_application dao. */
     private ApplicationDao m_applicationDao;
 
+    /** The m_resource dao. */
     private ResourceDao m_resourceDao;
 
+    /** The m_graph dao. */
     private GraphDao m_graphDao;
 
+    /** The m_layout applications vertically. */
     private boolean m_layoutApplicationsVertically = false;
 
+    /** The Constant MONITORED_SERVICE_COMPARATOR. */
     private static final MonitoredServiceComparator MONITORED_SERVICE_COMPARATOR = new MonitoredServiceComparator();
 
+    /** The Constant SERVICE_GRAPH_COMPARATOR. */
     private static final ServiceGraphComparator SERVICE_GRAPH_COMPARATOR = new ServiceGraphComparator();
 
+    /** The Constant LOCATION_STATUS_COMPARATOR. */
     private static final LocationStatusComparator LOCATION_STATUS_COMPARATOR = new LocationStatusComparator();
 
+    /** The Constant NO_RECORDED_STATUS. */
     private static final PollStatus NO_RECORDED_STATUS;
 
     static {
@@ -114,26 +125,54 @@ public class DefaultDistributedStatusService implements DistributedStatusService
         NO_RECORDED_STATUS.setTimestamp(null);
     }
 
+    /**
+     * The Enum Severity.
+     */
     public enum Severity {
-        INDETERMINATE("Indeterminate"), NORMAL("Normal"), WARNING("Warning"), CRITICAL("Critical");
 
+        /** The indeterminate. */
+        INDETERMINATE("Indeterminate"),
+ /** The normal. */
+ NORMAL("Normal"),
+ /** The warning. */
+ WARNING("Warning"),
+ /** The critical. */
+ CRITICAL("Critical");
+
+        /** The m_style. */
         private final String m_style;
 
+        /**
+         * Instantiates a new severity.
+         *
+         * @param style
+         *            the style
+         */
         private Severity(final String style) {
             m_style = style;
         }
 
+        /**
+         * Gets the style.
+         *
+         * @return the style
+         */
         public String getStyle() {
             return m_style;
         }
     }
 
+    /**
+     * The Class MonitoredServiceComparator.
+     */
     public static class MonitoredServiceComparator implements Comparator<OnmsMonitoredService>, Serializable {
-        /**
-         *
-         */
+
+        /** The Constant serialVersionUID. */
         private static final long serialVersionUID = 3000643751074224389L;
 
+        /* (non-Javadoc)
+         * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
+         */
         @Override
         public final int compare(final OnmsMonitoredService o1, final OnmsMonitoredService o2) {
             int diff;
@@ -161,11 +200,13 @@ public class DefaultDistributedStatusService implements DistributedStatusService
      * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
      */
     public static class ServiceGraphComparator implements Comparator<ServiceGraph>, Serializable {
-        /**
-         *
-         */
+
+        /** The Constant serialVersionUID. */
         private static final long serialVersionUID = -1365958323886041945L;
 
+        /* (non-Javadoc)
+         * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
+         */
         @Override
         public final int compare(final ServiceGraph o1, final ServiceGraph o2) {
             if ((o1.getErrors().length == 0 && o2.getErrors().length == 0)
@@ -179,12 +220,17 @@ public class DefaultDistributedStatusService implements DistributedStatusService
         }
     }
 
+    /**
+     * The Class LocationStatusComparator.
+     */
     public static class LocationStatusComparator implements Comparator<OnmsLocationSpecificStatus>, Serializable {
-        /**
-         *
-         */
+
+        /** The Constant serialVersionUID. */
         private static final long serialVersionUID = -5854706886193427256L;
 
+        /* (non-Javadoc)
+         * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
+         */
         @Override
         public final int compare(final OnmsLocationSpecificStatus o1, final OnmsLocationSpecificStatus o2) {
             if ((o1.getPollResult().isUnknown() && o2.getPollResult().isUnknown())
@@ -202,6 +248,7 @@ public class DefaultDistributedStatusService implements DistributedStatusService
      * <p>
      * getApplicationCount
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -261,7 +308,11 @@ public class DefaultDistributedStatusService implements DistributedStatusService
     }
 
     /**
-     * TODO: Use the enum for these string values
+     * TODO: Use the enum for these string values.
+     *
+     * @param status
+     *            the status
+     * @return the style for poll result
      */
     private String getStyleForPollResult(final PollStatus status) {
         if (status.isAvailable()) {
@@ -275,6 +326,13 @@ public class DefaultDistributedStatusService implements DistributedStatusService
         }
     }
 
+    /**
+     * Gets the response text.
+     *
+     * @param status
+     *            the status
+     * @return the response text
+     */
     private String getResponseText(final PollStatus status) {
         if (status.isAvailable()) {
             Double responseTime = status.getResponseTime();
@@ -309,15 +367,18 @@ public class DefaultDistributedStatusService implements DistributedStatusService
      * <p>
      * findLocationSpecificStatus
      * </p>
+     * .
      *
      * @param command
      *            a
-     *            {@link org.opennms.web.command.DistributedStatusDetailsCommand}
-     *            object.
      * @param errors
      *            a {@link org.springframework.validation.Errors} object.
      * @return a {@link java.util.List} object or null if no location monitors
      *         are registered for the specified location and application tuple
+     * @throws IllegalArgumentException
+     *             the illegal argument exception
+     *             {@link org.opennms.web.command.DistributedStatusDetailsCommand}
+     *             object.
      */
     protected final List<OnmsLocationSpecificStatus> findLocationSpecificStatus(
             final DistributedStatusDetailsCommand command, final Errors errors) throws IllegalArgumentException {
@@ -469,8 +530,11 @@ public class DefaultDistributedStatusService implements DistributedStatusService
      * services.
      *
      * @param statuses
+     *            the statuses
      * @param monitors
+     *            the monitors
      * @param services
+     *            the services
      * @return filtered list
      */
     private Set<OnmsLocationSpecificStatus> filterStatus(final Collection<OnmsLocationSpecificStatus> statuses,
@@ -496,6 +560,7 @@ public class DefaultDistributedStatusService implements DistributedStatusService
      * <p>
      * calculateCurrentStatus
      * </p>
+     * .
      *
      * @param monitors
      *            a {@link java.util.Collection} object.
@@ -545,6 +610,7 @@ public class DefaultDistributedStatusService implements DistributedStatusService
      * <p>
      * calculateCurrentStatus
      * </p>
+     * .
      *
      * @param monitor
      *            a {@link org.opennms.netmgt.model.OnmsLocationMonitor} object.
@@ -584,6 +650,7 @@ public class DefaultDistributedStatusService implements DistributedStatusService
      * <p>
      * calculateStatus
      * </p>
+     * .
      *
      * @param pollStatuses
      *            a {@link java.util.Collection} object.
@@ -721,6 +788,15 @@ public class DefaultDistributedStatusService implements DistributedStatusService
         return new DecimalFormat("0.000").format((double) percentage) + "%";
     }
 
+    /**
+     * Creates the history page url.
+     *
+     * @param locationDefinition
+     *            the location definition
+     * @param application
+     *            the application
+     * @return the string
+     */
     private String createHistoryPageUrl(final OnmsMonitoringLocationDefinition locationDefinition,
             final OnmsApplication application) {
 
@@ -830,6 +906,12 @@ public class DefaultDistributedStatusService implements DistributedStatusService
         return model;
     }
 
+    /**
+     * Initialize graph urls.
+     *
+     * @param model
+     *            the model
+     */
     private void initializeGraphUrls(final DistributedStatusHistoryModel model) {
         if (model.getChosenMonitor() != null) {
 
@@ -847,6 +929,17 @@ public class DefaultDistributedStatusService implements DistributedStatusService
         }
     }
 
+    /**
+     * Gets the service graph for service.
+     *
+     * @param locMon
+     *            the loc mon
+     * @param service
+     *            the service
+     * @param times
+     *            the times
+     * @return the service graph for service
+     */
     private ServiceGraph getServiceGraphForService(final OnmsLocationMonitor locMon,
             final OnmsMonitoredService service, final long[] times) {
         OnmsResource resource = m_resourceDao.getResourceForIpInterface(service.getIpInterface(), locMon);
@@ -884,9 +977,10 @@ public class DefaultDistributedStatusService implements DistributedStatusService
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @Override
     public final void afterPropertiesSet() throws Exception {
@@ -901,6 +995,7 @@ public class DefaultDistributedStatusService implements DistributedStatusService
      * <p>
      * setMonitoredServiceDao
      * </p>
+     * .
      *
      * @param monitoredServiceDao
      *            a {@link org.opennms.netmgt.dao.api.MonitoredServiceDao}
@@ -915,6 +1010,7 @@ public class DefaultDistributedStatusService implements DistributedStatusService
      * <p>
      * setLocationMonitorDao
      * </p>
+     * .
      *
      * @param locationMonitorDao
      *            a {@link org.opennms.netmgt.dao.api.LocationMonitorDao}
@@ -929,6 +1025,7 @@ public class DefaultDistributedStatusService implements DistributedStatusService
      * <p>
      * setApplicationDao
      * </p>
+     * .
      *
      * @param applicationDao
      *            a {@link org.opennms.netmgt.dao.api.ApplicationDao} object.
@@ -942,6 +1039,7 @@ public class DefaultDistributedStatusService implements DistributedStatusService
      * <p>
      * getResourceDao
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.dao.api.ResourceDao} object.
      */
@@ -953,6 +1051,7 @@ public class DefaultDistributedStatusService implements DistributedStatusService
      * <p>
      * setResourceDao
      * </p>
+     * .
      *
      * @param resourceDao
      *            a {@link org.opennms.netmgt.dao.api.ResourceDao} object.
@@ -965,6 +1064,7 @@ public class DefaultDistributedStatusService implements DistributedStatusService
      * <p>
      * getGraphDao
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.dao.api.GraphDao} object.
      */
@@ -976,6 +1076,7 @@ public class DefaultDistributedStatusService implements DistributedStatusService
      * <p>
      * setGraphDao
      * </p>
+     * .
      *
      * @param graphDao
      *            a {@link org.opennms.netmgt.dao.api.GraphDao} object.
@@ -988,6 +1089,7 @@ public class DefaultDistributedStatusService implements DistributedStatusService
      * <p>
      * setLayoutApplicationsVertically
      * </p>
+     * .
      *
      * @param layoutApplicationsVertically
      *            a boolean.
@@ -1000,6 +1102,7 @@ public class DefaultDistributedStatusService implements DistributedStatusService
      * <p>
      * isLayoutApplicationsVertically
      * </p>
+     * .
      *
      * @return a boolean.
      */

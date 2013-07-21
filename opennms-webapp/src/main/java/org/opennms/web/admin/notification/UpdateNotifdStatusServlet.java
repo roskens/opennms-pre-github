@@ -43,18 +43,17 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * A servlet that handles updating the status of the notifications
+ * A servlet that handles updating the status of the notifications.
  *
  * @author <A HREF="mailto:jason@opennms.org">Jason Johns </A>
  * @author <A HREF="http://www.opennms.org/">OpenNMS </A>
  */
 public class UpdateNotifdStatusServlet extends HttpServlet {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(UpdateNotifdStatusServlet.class);
 
-    /**
-     *
-     */
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -841122529212545321L;
 
     /** {@inheritDoc} */
@@ -78,6 +77,12 @@ public class UpdateNotifdStatusServlet extends HttpServlet {
         dispatcher.forward(request, response);
     }
 
+    /**
+     * Send event.
+     *
+     * @param uei
+     *            the uei
+     */
     protected void sendEvent(String uei) {
         EventBuilder bldr = new EventBuilder(uei, "NotifdConfigFactory");
 

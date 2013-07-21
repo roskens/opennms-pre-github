@@ -29,7 +29,8 @@
 package org.opennms.web.notification;
 
 /**
- * This exception is used to indicate that the NotificationFactory had a problem
+ * This exception is used to indicate that the NotificationFactory had a
+ * problem.
  *
  * @author <A HREF="mailto:jason@opennms.org">Jason Johns </A>
  * @author <A HREF="http://www.opennms.org/">OpenNMS </A>
@@ -39,11 +40,11 @@ package org.opennms.web.notification;
  * @since 1.8.1
  */
 public class NotificationFactoryException extends Exception {
-    /**
-     *
-     */
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 2374905955140803820L;
 
+    /** The root cause. */
     private Throwable rootCause;
 
     /**

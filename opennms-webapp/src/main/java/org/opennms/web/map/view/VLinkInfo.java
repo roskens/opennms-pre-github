@@ -38,7 +38,10 @@ package org.opennms.web.map.view;
  * @since 1.8.1
  */
 public class VLinkInfo {
+
+    /** The id. */
     String id;
 
+    /** The status. */
     int status;
 }

@@ -78,22 +78,31 @@ import org.springframework.util.Assert;
  */
 public class DefaultManualProvisioningService implements ManualProvisioningService {
 
+    /** The m_deployed foreign source repository. */
     private ForeignSourceRepository m_deployedForeignSourceRepository;
 
+    /** The m_pending foreign source repository. */
     private ForeignSourceRepository m_pendingForeignSourceRepository;
 
+    /** The m_node dao. */
     private NodeDao m_nodeDao;
 
+    /** The m_category dao. */
     private CategoryDao m_categoryDao;
 
+    /** The m_service type dao. */
     private ServiceTypeDao m_serviceTypeDao;
 
+    /** The m_capsd config. */
     private CapsdConfig m_capsdConfig;
 
+    /** The m_global lock. */
     private final ReadWriteLock m_globalLock = new ReentrantReadWriteLock();
 
+    /** The m_read lock. */
     private final Lock m_readLock = m_globalLock.readLock();
 
+    /** The m_write lock. */
     private final Lock m_writeLock = m_globalLock.writeLock();
 
     /**
@@ -109,6 +118,7 @@ public class DefaultManualProvisioningService implements ManualProvisioningServi
      * <p>
      * setDeployedForeignSourceRepository
      * </p>
+     * .
      *
      * @param repository
      *            a
@@ -128,6 +138,7 @@ public class DefaultManualProvisioningService implements ManualProvisioningServi
      * <p>
      * setPendingForeignSourceRepository
      * </p>
+     * .
      *
      * @param repository
      *            a
@@ -147,6 +158,7 @@ public class DefaultManualProvisioningService implements ManualProvisioningServi
      * <p>
      * setNodeDao
      * </p>
+     * .
      *
      * @param nodeDao
      *            a {@link org.opennms.netmgt.dao.api.NodeDao} object.
@@ -164,6 +176,7 @@ public class DefaultManualProvisioningService implements ManualProvisioningServi
      * <p>
      * setCategoryDao
      * </p>
+     * .
      *
      * @param categoryDao
      *            a {@link org.opennms.netmgt.dao.api.CategoryDao} object.
@@ -181,6 +194,7 @@ public class DefaultManualProvisioningService implements ManualProvisioningServi
      * <p>
      * setServiceTypeDao
      * </p>
+     * .
      *
      * @param serviceTypeDao
      *            a {@link org.opennms.netmgt.dao.api.ServiceTypeDao} object.
@@ -189,6 +203,12 @@ public class DefaultManualProvisioningService implements ManualProvisioningServi
         m_serviceTypeDao = serviceTypeDao;
     }
 
+    /**
+     * Sets the capsd config.
+     *
+     * @param capsdConfig
+     *            the new capsd config
+     */
     public final void setCapsdConfig(final CapsdConfig capsdConfig) {
         m_capsdConfig = capsdConfig;
     }
@@ -272,6 +292,15 @@ public class DefaultManualProvisioningService implements ManualProvisioningServi
         }
     }
 
+    /**
+     * Creates the interface.
+     *
+     * @param ipAddr
+     *            the ip addr
+     * @param snmpPrimary
+     *            the snmp primary
+     * @return the requisition interface
+     */
     private RequisitionInterface createInterface(final String ipAddr, final PrimaryType snmpPrimary) {
         final RequisitionInterface iface = new RequisitionInterface();
         iface.setIpAddr(ipAddr);
@@ -300,6 +329,15 @@ public class DefaultManualProvisioningService implements ManualProvisioningServi
         }
     }
 
+    /**
+     * Creates the node.
+     *
+     * @param nodeLabel
+     *            the node label
+     * @param foreignId
+     *            the foreign id
+     * @return the requisition node
+     */
     private RequisitionNode createNode(final String nodeLabel, final String foreignId) {
         final RequisitionNode node = new RequisitionNode();
         node.setNodeLabel(nodeLabel);
@@ -368,6 +406,7 @@ public class DefaultManualProvisioningService implements ManualProvisioningServi
      * <p>
      * getProvisioningGroupNames
      * </p>
+     * .
      *
      * @return a {@link java.util.Collection} object.
      */
@@ -406,6 +445,13 @@ public class DefaultManualProvisioningService implements ManualProvisioningServi
         }
     }
 
+    /**
+     * Creates the service.
+     *
+     * @param serviceName
+     *            the service name
+     * @return the requisition monitored service
+     */
     private RequisitionMonitoredService createService(final String serviceName) {
         final RequisitionMonitoredService svc = new RequisitionMonitoredService();
         svc.setServiceName(serviceName);
@@ -483,6 +529,7 @@ public class DefaultManualProvisioningService implements ManualProvisioningServi
      * <p>
      * getAllGroups
      * </p>
+     * .
      *
      * @return a {@link java.util.Collection} object.
      */
@@ -549,6 +596,7 @@ public class DefaultManualProvisioningService implements ManualProvisioningServi
      * <p>
      * getGroupDbNodeCounts
      * </p>
+     * .
      *
      * @return a java$util$Map object.
      */
@@ -573,6 +621,7 @@ public class DefaultManualProvisioningService implements ManualProvisioningServi
      * <p>
      * getNodeCategoryNames
      * </p>
+     * .
      *
      * @return a {@link java.util.Collection} object.
      */
@@ -595,7 +644,10 @@ public class DefaultManualProvisioningService implements ManualProvisioningServi
      * <p>
      * getServiceTypeNames
      * </p>
+     * .
      *
+     * @param groupName
+     *            the group name
      * @return a {@link java.util.Collection} object.
      */
     @Override
@@ -626,6 +678,7 @@ public class DefaultManualProvisioningService implements ManualProvisioningServi
      * <p>
      * getAssetFieldNames
      * </p>
+     * .
      *
      * @return a {@link java.util.Collection} object.
      */

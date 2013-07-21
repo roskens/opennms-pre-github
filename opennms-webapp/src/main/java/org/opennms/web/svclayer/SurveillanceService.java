@@ -63,6 +63,7 @@ public interface SurveillanceService {
      * <p>
      * createSurveillanceTable
      * </p>
+     * .
      *
      * @param surveillanceViewName
      *            a {@link java.lang.String} object.
@@ -76,6 +77,7 @@ public interface SurveillanceService {
      * <p>
      * getHeaderRefreshSeconds
      * </p>
+     * .
      *
      * @param viewName
      *            a {@link java.lang.String} object.
@@ -87,6 +89,7 @@ public interface SurveillanceService {
      * <p>
      * isViewName
      * </p>
+     * .
      *
      * @param viewName
      *            a {@link java.lang.String} object.
@@ -98,6 +101,7 @@ public interface SurveillanceService {
      * <p>
      * getViewNames
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */

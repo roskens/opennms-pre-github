@@ -67,6 +67,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.sun.jersey.spi.resource.PerRequest;
 
+/**
+ * The Class OnmsSnmpInterfaceResource.
+ */
 @Component
 /**
  * <p>OnmsSnmpInterfaceResource class.</p>
@@ -80,17 +83,22 @@ import com.sun.jersey.spi.resource.PerRequest;
 @Transactional
 public class OnmsSnmpInterfaceResource extends OnmsRestService {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(OnmsSnmpInterfaceResource.class);
 
+    /** The m_node dao. */
     @Autowired
     private NodeDao m_nodeDao;
 
+    /** The m_snmp interface dao. */
     @Autowired
     private SnmpInterfaceDao m_snmpInterfaceDao;
 
+    /** The m_event proxy. */
     @Autowired
     private EventProxy m_eventProxy;
 
+    /** The m_uri info. */
     @Context
     UriInfo m_uriInfo;
 
@@ -98,6 +106,7 @@ public class OnmsSnmpInterfaceResource extends OnmsRestService {
      * <p>
      * getSnmpInterfaces
      * </p>
+     * .
      *
      * @param nodeCriteria
      *            a {@link java.lang.String} object.
@@ -134,6 +143,7 @@ public class OnmsSnmpInterfaceResource extends OnmsRestService {
      * <p>
      * getSnmpInterface
      * </p>
+     * .
      *
      * @param nodeCriteria
      *            a {@link java.lang.String} object.
@@ -159,6 +169,7 @@ public class OnmsSnmpInterfaceResource extends OnmsRestService {
      * <p>
      * addSnmpInterface
      * </p>
+     * .
      *
      * @param nodeCriteria
      *            a {@link java.lang.String} object.
@@ -198,6 +209,7 @@ public class OnmsSnmpInterfaceResource extends OnmsRestService {
      * <p>
      * deleteSnmpInterface
      * </p>
+     * .
      *
      * @param nodeCriteria
      *            a {@link java.lang.String} object.
@@ -236,6 +248,7 @@ public class OnmsSnmpInterfaceResource extends OnmsRestService {
      * <p>
      * updateSnmpInterface
      * </p>
+     * .
      *
      * @param nodeCriteria
      *            a {@link java.lang.String} object.

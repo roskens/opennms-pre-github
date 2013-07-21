@@ -58,14 +58,18 @@ import org.springframework.web.servlet.view.RedirectView;
  * @since 1.8.1
  */
 public class AcknowledgeAlarmByFilterController extends AbstractController implements InitializingBean {
+
+    /** The m_web alarm repository. */
     private AlarmRepository m_webAlarmRepository;
 
+    /** The m_redirect view. */
     private String m_redirectView;
 
     /**
      * <p>
      * setRedirectView
      * </p>
+     * .
      *
      * @param redirectView
      *            a {@link java.lang.String} object.
@@ -78,6 +82,7 @@ public class AcknowledgeAlarmByFilterController extends AbstractController imple
      * <p>
      * setWebAlarmRepository
      * </p>
+     * .
      *
      * @param webAlarmRepository
      *            a {@link org.opennms.netmgt.dao.api.AlarmRepository} object.
@@ -90,9 +95,10 @@ public class AcknowledgeAlarmByFilterController extends AbstractController imple
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @Override
     public final void afterPropertiesSet() throws Exception {

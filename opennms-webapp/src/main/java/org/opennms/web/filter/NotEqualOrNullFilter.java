@@ -36,6 +36,8 @@ import org.hibernate.criterion.Restrictions;
  * Abstract NotEqualOrNullFilter class.
  * </p>
  *
+ * @param <T>
+ *            the generic type
  * @author ranger
  * @version $Id: $
  * @since 1.8.1
@@ -57,8 +59,6 @@ public abstract class NotEqualOrNullFilter<T> extends OneArgFilter<T> {
      *            a {@link java.lang.String} object.
      * @param value
      *            a T object.
-     * @param <T>
-     *            a T object.
      */
     public NotEqualOrNullFilter(final String filterType, final SQLType<T> type, final String fieldName,
             final String propertyName, final T value) {
@@ -69,6 +69,7 @@ public abstract class NotEqualOrNullFilter<T> extends OneArgFilter<T> {
      * <p>
      * getCriterion
      * </p>
+     * .
      *
      * @return a {@link org.hibernate.criterion.Criterion} object.
      */

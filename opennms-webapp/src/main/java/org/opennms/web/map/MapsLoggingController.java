@@ -56,13 +56,22 @@ import org.springframework.web.servlet.mvc.Controller;
  */
 public abstract class MapsLoggingController implements Controller, ServletContextAware {
 
+    /** The m_servlet context. */
     private ServletContext m_servletContext;
 
+    /* (non-Javadoc)
+     * @see org.springframework.web.context.ServletContextAware#setServletContext(javax.servlet.ServletContext)
+     */
     @Override
     public void setServletContext(ServletContext servletContext) {
         m_servletContext = servletContext;
     }
 
+    /**
+     * Gets the servlet context.
+     *
+     * @return the servlet context
+     */
     public ServletContext getServletContext() {
         return m_servletContext;
     }
@@ -82,6 +91,17 @@ public abstract class MapsLoggingController implements Controller, ServletContex
 
     }
 
+    /**
+     * Handle request internal.
+     *
+     * @param request
+     *            the request
+     * @param response
+     *            the response
+     * @return the model and view
+     * @throws Exception
+     *             the exception
+     */
     protected abstract ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response)
             throws Exception;
 

@@ -39,7 +39,8 @@ import org.opennms.web.filter.SQLType;
  * @since 1.8.1
  */
 public class ExactUEIFilter extends EqualsFilter<String> {
-    /** Constant <code>TYPE="exactUei"</code> */
+
+    /** Constant <code>TYPE="exactUei"</code>. */
     public static final String TYPE = "exactUei";
 
     /**
@@ -58,6 +59,7 @@ public class ExactUEIFilter extends EqualsFilter<String> {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -70,6 +72,7 @@ public class ExactUEIFilter extends EqualsFilter<String> {
      * <p>
      * getUEI
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

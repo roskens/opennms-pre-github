@@ -42,7 +42,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * DefaultWebGroupRepository
+ * DefaultWebGroupRepository.
  *
  * @author brozow
  * @version $Id: $
@@ -50,12 +50,17 @@ import org.springframework.transaction.annotation.Transactional;
  */
 public class DefaultWebGroupRepository implements WebGroupRepository, InitializingBean {
 
+    /** The m_group dao. */
     @Autowired
     private GroupDao m_groupDao;
 
+    /** The m_category dao. */
     @Autowired
     private CategoryDao m_categoryDao;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
@@ -129,6 +134,13 @@ public class DefaultWebGroupRepository implements WebGroupRepository, Initializi
         setAuthorizedCategories(newName, categories);
     }
 
+    /**
+     * Gets the authorized categories.
+     *
+     * @param groupName
+     *            the group name
+     * @return the authorized categories
+     */
     private List<String> getAuthorizedCategories(String groupName) {
         List<OnmsCategory> categories = m_categoryDao.getCategoriesWithAuthorizedGroup(groupName);
 
@@ -141,6 +153,14 @@ public class DefaultWebGroupRepository implements WebGroupRepository, Initializi
         return categoryNames;
     }
 
+    /**
+     * Sets the authorized categories.
+     *
+     * @param groupName
+     *            the group name
+     * @param categoryNames
+     *            the category names
+     */
     private void setAuthorizedCategories(String groupName, List<String> categoryNames) {
 
         List<OnmsCategory> categories = m_categoryDao.getCategoriesWithAuthorizedGroup(groupName);

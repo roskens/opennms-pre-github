@@ -56,14 +56,26 @@ import org.opennms.netmgt.model.OnmsCategory;
 import org.opennms.netmgt.model.OnmsNode;
 import org.opennms.web.svclayer.AggregateStatus;
 
+/**
+ * The Class DefaultSiteStatusServiceTest.
+ */
 public class DefaultSiteStatusServiceTest {
 
+    /** The m_node dao. */
     private NodeDao m_nodeDao;
 
+    /** The m_category dao. */
     private CategoryDao m_categoryDao;
 
+    /** The m_site status view config dao. */
     private SiteStatusViewConfigDao m_siteStatusViewConfigDao;
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
         m_nodeDao = createMock(NodeDao.class);
@@ -71,6 +83,9 @@ public class DefaultSiteStatusServiceTest {
         m_siteStatusViewConfigDao = createMock(SiteStatusViewConfigDao.class);
     }
 
+    /**
+     * Test create aggregate status using node id.
+     */
     @Test
     public void testCreateAggregateStatusUsingNodeId() {
         Collection<AggregateStatus> aggrStati;
@@ -149,6 +164,9 @@ public class DefaultSiteStatusServiceTest {
         assertNotNull(aggrStati);
     }
 
+    /**
+     * Test create aggregate status using building.
+     */
     @Test
     public void testCreateAggregateStatusUsingBuilding() {
 

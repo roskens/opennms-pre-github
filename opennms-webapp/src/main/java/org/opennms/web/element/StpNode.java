@@ -42,39 +42,63 @@ import org.opennms.web.api.Util;
  * @author <a href="mailto:antonio@opennms.it">Antonio Russo</a>
  */
 public class StpNode {
+
+    /** The m_node id. */
     int m_nodeId;
 
+    /** The m_basenumports. */
     String m_basenumports = "";
 
+    /** The m_basetype. */
     String m_basetype;
 
+    /** The m_stpprotocolspecification. */
     String m_stpprotocolspecification = "";
 
+    /** The m_stppriority. */
     String m_stppriority = "";
 
+    /** The m_stprootcost. */
     String m_stprootcost = "";
 
+    /** The m_stprootport. */
     String m_stprootport = "";
 
+    /** The m_basevlan. */
     int m_basevlan;
 
+    /** The m_basevlanname. */
     String m_basevlanname = "default";
 
+    /** The m_basebridgeaddress. */
     String m_basebridgeaddress;
 
+    /** The m_stpdesignatedroot. */
     String m_stpdesignatedroot = "";
 
+    /** The m_last poll time. */
     String m_lastPollTime;
 
+    /** The m_status. */
     String m_status;
 
+    /** The m_stprootnodeid. */
     int m_stprootnodeid;
 
     /* package-protected so only the NetworkElementFactory can instantiate */
+    /**
+     * Instantiates a new stp node.
+     */
     StpNode() {
     }
 
     /* package-protected so only the NetworkElementFactory can instantiate */
+    /**
+     * Instantiates a new stp node.
+     *
+     * @param node
+     *            the node
+     */
     StpNode(OnmsStpNode node) {
         m_nodeId = node.getNode().getId();
         m_basebridgeaddress = node.getBaseBridgeAddress();
@@ -104,6 +128,7 @@ public class StpNode {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -120,6 +145,7 @@ public class StpNode {
      * <p>
      * get_basebridgeaddress
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -131,6 +157,7 @@ public class StpNode {
      * <p>
      * get_basenumports
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -142,6 +169,7 @@ public class StpNode {
      * <p>
      * get_basetype
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -153,6 +181,7 @@ public class StpNode {
      * <p>
      * getBaseType
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -164,6 +193,7 @@ public class StpNode {
      * <p>
      * get_basevlan
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -175,6 +205,7 @@ public class StpNode {
      * <p>
      * get_lastPollTime
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -186,6 +217,7 @@ public class StpNode {
      * <p>
      * get_nodeId
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -197,6 +229,7 @@ public class StpNode {
      * <p>
      * get_status
      * </p>
+     * .
      *
      * @return a char.
      */
@@ -208,6 +241,7 @@ public class StpNode {
      * <p>
      * get_stpdesignatedroot
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -219,6 +253,7 @@ public class StpNode {
      * <p>
      * get_stppriority
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -230,6 +265,7 @@ public class StpNode {
      * <p>
      * get_stpprotocolspecification
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -241,6 +277,7 @@ public class StpNode {
      * <p>
      * getStpProtocolSpecification
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -252,6 +289,7 @@ public class StpNode {
      * <p>
      * get_stprootcost
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -263,6 +301,7 @@ public class StpNode {
      * <p>
      * get_stprootport
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -274,6 +313,7 @@ public class StpNode {
      * <p>
      * get_stprootnodeid
      * </p>
+     * .
      *
      * @return Returns the m_stprootnodeid.
      */
@@ -285,6 +325,7 @@ public class StpNode {
      * <p>
      * getBaseVlanName
      * </p>
+     * .
      *
      * @return Returns the m_basevlanname.
      */
@@ -296,6 +337,7 @@ public class StpNode {
      * <p>
      * getStatusString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -307,6 +349,7 @@ public class StpNode {
      * <p>
      * getVlanColorIdentifier
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

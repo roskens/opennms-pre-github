@@ -70,6 +70,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.sun.jersey.spi.resource.PerRequest;
 
+/**
+ * The Class OnmsMonitoredServiceResource.
+ */
 @Component
 /**
  * <p>OnmsMonitoredServiceResource class.</p>
@@ -83,23 +86,30 @@ import com.sun.jersey.spi.resource.PerRequest;
 @Transactional
 public class OnmsMonitoredServiceResource extends OnmsRestService {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(OnmsMonitoredServiceResource.class);
 
+    /** The m_uri info. */
     @Context
     UriInfo m_uriInfo;
 
+    /** The m_node dao. */
     @Autowired
     private NodeDao m_nodeDao;
 
+    /** The m_ip interface dao. */
     @Autowired
     private IpInterfaceDao m_ipInterfaceDao;
 
+    /** The m_service dao. */
     @Autowired
     private MonitoredServiceDao m_serviceDao;
 
+    /** The m_service type dao. */
     @Autowired
     private ServiceTypeDao m_serviceTypeDao;
 
+    /** The m_event proxy. */
     @Autowired
     private EventProxy m_eventProxy;
 
@@ -107,6 +117,7 @@ public class OnmsMonitoredServiceResource extends OnmsRestService {
      * <p>
      * getServices
      * </p>
+     * .
      *
      * @param nodeCriteria
      *            a {@link java.lang.String} object.
@@ -133,6 +144,7 @@ public class OnmsMonitoredServiceResource extends OnmsRestService {
      * <p>
      * getService
      * </p>
+     * .
      *
      * @param nodeCriteria
      *            a {@link java.lang.String} object.
@@ -162,6 +174,7 @@ public class OnmsMonitoredServiceResource extends OnmsRestService {
      * <p>
      * addService
      * </p>
+     * .
      *
      * @param nodeCriteria
      *            a {@link java.lang.String} object.
@@ -222,6 +235,7 @@ public class OnmsMonitoredServiceResource extends OnmsRestService {
      * <p>
      * updateService
      * </p>
+     * .
      *
      * @param nodeCriteria
      *            a {@link java.lang.String} object.
@@ -275,6 +289,7 @@ public class OnmsMonitoredServiceResource extends OnmsRestService {
      * <p>
      * deleteService
      * </p>
+     * .
      *
      * @param nodeCriteria
      *            a {@link java.lang.String} object.

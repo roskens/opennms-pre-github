@@ -48,8 +48,14 @@ import org.apache.fop.apps.MimeConstants;
 import org.extremecomponents.table.core.Preferences;
 import org.extremecomponents.table.filter.ViewResolver;
 
+/**
+ * The Class OnmsPdfViewResolver.
+ */
 public class OnmsPdfViewResolver implements ViewResolver {
 
+    /* (non-Javadoc)
+     * @see org.extremecomponents.table.filter.ViewResolver#resolveView(javax.servlet.ServletRequest, javax.servlet.ServletResponse, org.extremecomponents.table.core.Preferences, java.lang.Object)
+     */
     @Override
     public void resolveView(ServletRequest request, ServletResponse response, Preferences preferences, Object viewData)
             throws Exception {

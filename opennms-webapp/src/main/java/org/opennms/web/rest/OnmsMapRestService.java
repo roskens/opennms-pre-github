@@ -57,6 +57,9 @@ import org.springframework.transaction.annotation.Transactional;
 import com.sun.jersey.api.core.ResourceContext;
 import com.sun.jersey.spi.resource.PerRequest;
 
+/**
+ * The Class OnmsMapRestService.
+ */
 @Component
 /**
  * <p>OnmsMapRestService class.</p>
@@ -71,14 +74,18 @@ import com.sun.jersey.spi.resource.PerRequest;
 @Transactional
 public class OnmsMapRestService extends OnmsRestService {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(OnmsMapRestService.class);
 
+    /** The m_map dao. */
     @Autowired
     private OnmsMapDao m_mapDao;
 
+    /** The m_uri info. */
     @Context
     UriInfo m_uriInfo;
 
+    /** The m_context. */
     @Context
     ResourceContext m_context;
 
@@ -86,6 +93,7 @@ public class OnmsMapRestService extends OnmsRestService {
      * <p>
      * getMaps
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.OnmsMapList} object.
      */
@@ -108,6 +116,7 @@ public class OnmsMapRestService extends OnmsRestService {
      * <p>
      * getMap
      * </p>
+     * .
      *
      * @param mapId
      *            a int.
@@ -130,6 +139,7 @@ public class OnmsMapRestService extends OnmsRestService {
      * <p>
      * addMap
      * </p>
+     * .
      *
      * @param map
      *            a {@link org.opennms.netmgt.model.OnmsMap} object.
@@ -153,6 +163,7 @@ public class OnmsMapRestService extends OnmsRestService {
      * <p>
      * deleteMap
      * </p>
+     * .
      *
      * @param mapId
      *            a int.
@@ -179,6 +190,7 @@ public class OnmsMapRestService extends OnmsRestService {
      * <p>
      * updateMap
      * </p>
+     * .
      *
      * @param mapId
      *            a int.
@@ -223,6 +235,7 @@ public class OnmsMapRestService extends OnmsRestService {
      * <p>
      * getMapElementResource
      * </p>
+     * .
      *
      * @return a {@link org.opennms.web.rest.OnmsMapElementResource} object.
      */

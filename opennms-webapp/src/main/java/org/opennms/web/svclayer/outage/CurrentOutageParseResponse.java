@@ -56,12 +56,14 @@ import org.opennms.core.utils.WebSecurityUtils;
  */
 public class CurrentOutageParseResponse {
 
+    /** The m_suppress. */
     static SuppressOutages m_suppress = new SuppressOutages();
 
     /**
      * <p>
      * ParseResponse
      * </p>
+     * .
      *
      * @param request
      *            a {@link javax.servlet.http.HttpServletRequest} object.
@@ -74,6 +76,7 @@ public class CurrentOutageParseResponse {
      * <p>
      * findSelectedOutagesIDs
      * </p>
+     * .
      *
      * @param request
      *            a {@link javax.servlet.http.HttpServletRequest} object.

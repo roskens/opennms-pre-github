@@ -45,6 +45,7 @@ public class Converter {
      * <p>
      * highToLow
      * </p>
+     * .
      *
      * @param value
      *            a double.
@@ -60,6 +61,7 @@ public class Converter {
      * <p>
      * lowToHigh
      * </p>
+     * .
      *
      * @param value
      *            a double.

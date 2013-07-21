@@ -40,7 +40,8 @@ import org.opennms.web.filter.SubstringFilter;
  * @since 1.8.1
  */
 public class DescriptionSubstringFilter extends SubstringFilter {
-    /** Constant <code>TYPE="descsub"</code> */
+
+    /** Constant <code>TYPE="descsub"</code>. */
     public static final String TYPE = "descsub";
 
     /**
@@ -59,6 +60,7 @@ public class DescriptionSubstringFilter extends SubstringFilter {
      * <p>
      * getTextDescription
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -71,6 +73,7 @@ public class DescriptionSubstringFilter extends SubstringFilter {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -83,6 +86,7 @@ public class DescriptionSubstringFilter extends SubstringFilter {
      * <p>
      * getSubstring
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

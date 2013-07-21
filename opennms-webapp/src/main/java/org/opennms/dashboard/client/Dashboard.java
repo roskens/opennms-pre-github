@@ -56,24 +56,32 @@ import com.google.gwt.user.client.ui.Widget;
  */
 public class Dashboard implements EntryPoint, ErrorHandler {
 
+    /** The m_surveillance. */
     Dashlet m_surveillance;
 
+    /** The m_alarms. */
     AlarmDashlet m_alarms;
 
+    /** The m_outages. */
     OutageDashlet m_outages;
 
+    /** The m_node status. */
     NodeStatusDashlet m_nodeStatus;
 
+    /** The m_notifications. */
     NotificationDashlet m_notifications;
 
+    /** The m_graphs. */
     GraphDashlet m_graphs;
 
+    /** The m_surveillance service. */
     private SurveillanceServiceAsync m_surveillanceService;
 
     /**
      * <p>
      * onModuleLoad
      * </p>
+     * .
      */
     @Override
     public void onModuleLoad() {
@@ -89,12 +97,22 @@ public class Dashboard implements EntryPoint, ErrorHandler {
 
     }
 
+    /**
+     * Creates the graph dashlet.
+     *
+     * @return the graph dashlet
+     */
     private GraphDashlet createGraphDashlet() {
         m_graphs = new GraphDashlet(this);
         m_graphs.setSurveillanceService(getSurveillanceService());
         return m_graphs;
     }
 
+    /**
+     * Creates the notification dashlet.
+     *
+     * @return the notification dashlet
+     */
     private NotificationDashlet createNotificationDashlet() {
         m_notifications = new NotificationDashlet(this);
         m_notifications.setSurveillanceService(getSurveillanceService());
@@ -106,6 +124,11 @@ public class Dashboard implements EntryPoint, ErrorHandler {
     // return m_outages;
     // }
 
+    /**
+     * Creates the alarm dashlet.
+     *
+     * @return the alarm dashlet
+     */
     private AlarmDashlet createAlarmDashlet() {
         m_alarms = new AlarmDashlet(this);
         m_alarms.setSurveillanceService(getSurveillanceService());
@@ -113,6 +136,11 @@ public class Dashboard implements EntryPoint, ErrorHandler {
         return m_alarms;
     }
 
+    /**
+     * Creates the surveillance dashlet.
+     *
+     * @return the dashlet
+     */
     private Dashlet createSurveillanceDashlet() {
         SurveillanceDashlet surveillance = new SurveillanceDashlet(this);
 
@@ -145,6 +173,11 @@ public class Dashboard implements EntryPoint, ErrorHandler {
         return m_surveillance;
     }
 
+    /**
+     * Gets the surveillance service.
+     *
+     * @return the surveillance service
+     */
     private SurveillanceServiceAsync getSurveillanceService() {
         if (m_surveillanceService == null) {
             String serviceEntryPoint = GWT.getHostPageBaseURL() + "surveillanceService.gwt";
@@ -158,6 +191,11 @@ public class Dashboard implements EntryPoint, ErrorHandler {
         return m_surveillanceService;
     }
 
+    /**
+     * Creates the node status dashlet.
+     *
+     * @return the node status dashlet
+     */
     private NodeStatusDashlet createNodeStatusDashlet() {
         m_nodeStatus = new NodeStatusDashlet(this);
         m_nodeStatus.setSurveillanceService(getSurveillanceService());
@@ -169,6 +207,7 @@ public class Dashboard implements EntryPoint, ErrorHandler {
      * <p>
      * add
      * </p>
+     * .
      *
      * @param widget
      *            a {@link com.google.gwt.user.client.ui.Widget} object.
@@ -192,6 +231,7 @@ public class Dashboard implements EntryPoint, ErrorHandler {
      * <p>
      * error
      * </p>
+     * .
      *
      * @param err
      *            a {@link java.lang.String} object.
@@ -227,6 +267,12 @@ public class Dashboard implements EntryPoint, ErrorHandler {
 
     }
 
+    /**
+     * Sets the surveillance set.
+     *
+     * @param set
+     *            the new surveillance set
+     */
     private void setSurveillanceSet(SurveillanceSet set) {
         m_surveillance.setSurveillanceSet(set);
         m_alarms.setSurveillanceSet(set);

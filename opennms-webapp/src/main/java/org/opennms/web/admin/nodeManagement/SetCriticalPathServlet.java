@@ -45,20 +45,21 @@ import org.opennms.core.utils.InetAddressUtils;
 import org.opennms.core.utils.WebSecurityUtils;
 
 /**
- * A servlet that manages the pathOutage table in the DB
+ * A servlet that manages the pathOutage table in the DB.
  *
  * @author <A HREF="http://www.opennms.org/">OpenNMS </A>
  * @version $Id: $
  * @since 1.8.1
  */
 public class SetCriticalPathServlet extends HttpServlet {
-    /**
-     *
-     */
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -5363097208855224954L;
 
+    /** The Constant SQL_SET_CRITICAL_PATH. */
     private static final String SQL_SET_CRITICAL_PATH = "INSERT INTO pathoutage (nodeid, criticalpathip, criticalpathservicename) VALUES (?, ?, ?)";
 
+    /** The Constant SQL_DELETE_CRITICAL_PATH. */
     private static final String SQL_DELETE_CRITICAL_PATH = "DELETE FROM pathoutage WHERE nodeid=?";
 
     /** {@inheritDoc} */
@@ -102,6 +103,14 @@ public class SetCriticalPathServlet extends HttpServlet {
         dispatcher.forward(request, response);
     }
 
+    /**
+     * Delete critical path.
+     *
+     * @param node
+     *            the node
+     * @throws SQLException
+     *             the sQL exception
+     */
     private void deleteCriticalPath(int node) throws SQLException {
 
         final DBUtils d = new DBUtils(getClass());
@@ -118,6 +127,18 @@ public class SetCriticalPathServlet extends HttpServlet {
         }
     }
 
+    /**
+     * Sets the critical path.
+     *
+     * @param node
+     *            the node
+     * @param criticalIp
+     *            the critical ip
+     * @param criticalSvc
+     *            the critical svc
+     * @throws SQLException
+     *             the sQL exception
+     */
     private void setCriticalPath(int node, String criticalIp, String criticalSvc) throws SQLException {
 
         deleteCriticalPath(node);

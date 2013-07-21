@@ -51,12 +51,28 @@ import org.springframework.web.servlet.mvc.AbstractController;
  * @since 1.8.1
  */
 public class FormProcGraphController extends AbstractController implements InitializingBean {
+
+    /**
+     * The Enum Parameters.
+     */
     public enum Parameters {
-        action, timespan, graphtype, title, graphindex
+
+        /** The action. */
+        action,
+ /** The timespan. */
+ timespan,
+ /** The graphtype. */
+ graphtype,
+ /** The title. */
+ title,
+ /** The graphindex. */
+ graphindex
     }
 
+    /** The m_ksc report factory. */
     private KSC_PerformanceReportFactory m_kscReportFactory;
 
+    /** The m_ksc report service. */
     private KscReportService m_kscReportService;
 
     /** {@inheritDoc} */
@@ -112,6 +128,7 @@ public class FormProcGraphController extends AbstractController implements Initi
      * <p>
      * getKscReportFactory
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.config.KSC_PerformanceReportFactory}
      *         object.
@@ -124,6 +141,7 @@ public class FormProcGraphController extends AbstractController implements Initi
      * <p>
      * setKscReportFactory
      * </p>
+     * .
      *
      * @param kscReportFactory
      *            a
@@ -138,6 +156,7 @@ public class FormProcGraphController extends AbstractController implements Initi
      * <p>
      * getKscReportService
      * </p>
+     * .
      *
      * @return a {@link org.opennms.web.svclayer.KscReportService} object.
      */
@@ -149,6 +168,7 @@ public class FormProcGraphController extends AbstractController implements Initi
      * <p>
      * setKscReportService
      * </p>
+     * .
      *
      * @param kscReportService
      *            a {@link org.opennms.web.svclayer.KscReportService} object.
@@ -161,9 +181,10 @@ public class FormProcGraphController extends AbstractController implements Initi
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @Override
     public void afterPropertiesSet() throws Exception {

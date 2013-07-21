@@ -57,14 +57,19 @@ import org.springframework.util.Assert;
  */
 public class DefaultKscReportService implements KscReportService, InitializingBean {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(DefaultKscReportService.class);
 
+    /** The m_resource service. */
     private ResourceService m_resourceService;
 
+    /** The m_ksc report factory. */
     private KSC_PerformanceReportFactory m_kscReportFactory;
 
+    /** The Constant s_timeSpans. */
     private static final LinkedHashMap<String, String> s_timeSpans = new LinkedHashMap<String, String>();
 
+    /** The Constant s_timeSpansWithNone. */
     private static final LinkedHashMap<String, String> s_timeSpansWithNone = new LinkedHashMap<String, String>();
 
     /** {@inheritDoc} */
@@ -91,6 +96,17 @@ public class DefaultKscReportService implements KscReportService, InitializingBe
         return buildResourceReport(getResourceService(), res, "Node Report for Foreign Source:Id " + nodeSource);
     }
 
+    /**
+     * Builds the resource report.
+     *
+     * @param service
+     *            the service
+     * @param parentResource
+     *            the parent resource
+     * @param title
+     *            the title
+     * @return the report
+     */
     private static Report buildResourceReport(final ResourceService service, final OnmsResource parentResource,
             final String title) {
         Report report = new Report();
@@ -116,6 +132,13 @@ public class DefaultKscReportService implements KscReportService, InitializingBe
         return report;
     }
 
+    /**
+     * Gets the resource id for graph.
+     *
+     * @param graph
+     *            the graph
+     * @return the resource id for graph
+     */
     private static String getResourceIdForGraph(final Graph graph) {
         Assert.notNull(graph, "graph argument cannot be null");
 
@@ -213,6 +236,9 @@ public class DefaultKscReportService implements KscReportService, InitializingBe
         return resources;
     }
 
+    /**
+     * Inits the time spans.
+     */
     private void initTimeSpans() {
         for (String timeSpan : KSC_PerformanceReportFactory.TIMESPAN_OPTIONS) {
             s_timeSpans.put(timeSpan, timeSpan);
@@ -236,6 +262,7 @@ public class DefaultKscReportService implements KscReportService, InitializingBe
      * <p>
      * getReportList
      * </p>
+     * .
      *
      * @return a {@link java.util.Map} object.
      */
@@ -248,6 +275,7 @@ public class DefaultKscReportService implements KscReportService, InitializingBe
      * <p>
      * getResourceService
      * </p>
+     * .
      *
      * @return a {@link org.opennms.web.svclayer.ResourceService} object.
      */
@@ -259,6 +287,7 @@ public class DefaultKscReportService implements KscReportService, InitializingBe
      * <p>
      * setResourceService
      * </p>
+     * .
      *
      * @param resourceService
      *            a {@link org.opennms.web.svclayer.ResourceService} object.
@@ -271,6 +300,7 @@ public class DefaultKscReportService implements KscReportService, InitializingBe
      * <p>
      * getKscReportFactory
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.config.KSC_PerformanceReportFactory}
      *         object.
@@ -283,6 +313,7 @@ public class DefaultKscReportService implements KscReportService, InitializingBe
      * <p>
      * setKscReportFactory
      * </p>
+     * .
      *
      * @param kscReportFactory
      *            a
@@ -297,9 +328,10 @@ public class DefaultKscReportService implements KscReportService, InitializingBe
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @Override
     public final void afterPropertiesSet() throws Exception {

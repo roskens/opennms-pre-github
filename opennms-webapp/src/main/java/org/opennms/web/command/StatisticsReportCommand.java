@@ -38,12 +38,15 @@ package org.opennms.web.command;
  * @since 1.8.1
  */
 public class StatisticsReportCommand {
+
+    /** The m_id. */
     private Integer m_id;
 
     /**
      * <p>
      * getId
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -55,6 +58,7 @@ public class StatisticsReportCommand {
      * <p>
      * setId
      * </p>
+     * .
      *
      * @param id
      *            a {@link java.lang.Integer} object.

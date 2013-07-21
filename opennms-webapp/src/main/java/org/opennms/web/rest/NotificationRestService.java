@@ -54,6 +54,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.sun.jersey.spi.resource.PerRequest;
 
+/**
+ * The Class NotificationRestService.
+ */
 @Component
 /**
  * <p>NotificationRestService class.</p>
@@ -66,12 +69,16 @@ import com.sun.jersey.spi.resource.PerRequest;
 @Scope("prototype")
 @Path("notifications")
 public class NotificationRestService extends OnmsRestService {
+
+    /** The m_notif dao. */
     @Autowired
     private NotificationDao m_notifDao;
 
+    /** The m_uri info. */
     @Context
     UriInfo m_uriInfo;
 
+    /** The m_security context. */
     @Context
     SecurityContext m_securityContext;
 
@@ -79,6 +86,7 @@ public class NotificationRestService extends OnmsRestService {
      * <p>
      * getNotification
      * </p>
+     * .
      *
      * @param notifId
      *            a {@link java.lang.String} object.
@@ -103,6 +111,7 @@ public class NotificationRestService extends OnmsRestService {
      * <p>
      * getCount
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -123,6 +132,7 @@ public class NotificationRestService extends OnmsRestService {
      * <p>
      * getNotifications
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.OnmsNotificationCollection}
      *         object.
@@ -153,11 +163,13 @@ public class NotificationRestService extends OnmsRestService {
      * <p>
      * updateNotification
      * </p>
+     * .
      *
      * @param notifId
      *            a {@link java.lang.String} object.
      * @param ack
      *            a {@link java.lang.Boolean} object.
+     * @return the response
      */
     @PUT
     @Path("{notifId}")
@@ -185,9 +197,11 @@ public class NotificationRestService extends OnmsRestService {
      * <p>
      * updateNotifications
      * </p>
+     * .
      *
      * @param params
      *            a {@link org.opennms.web.rest.MultivaluedMapImpl} object.
+     * @return the response
      */
     @PUT
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
@@ -215,6 +229,14 @@ public class NotificationRestService extends OnmsRestService {
         }
     }
 
+    /**
+     * Process notif ack.
+     *
+     * @param notif
+     *            the notif
+     * @param ack
+     *            the ack
+     */
     private void processNotifAck(final OnmsNotification notif, final Boolean ack) {
         if (ack) {
             notif.setRespondTime(new Date());

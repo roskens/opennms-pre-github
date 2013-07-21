@@ -40,10 +40,12 @@ import java.util.Comparator;
  * @since 1.8.1
  */
 public class InterfaceIpAddressComparator implements Comparator<Interface> {
+
     /**
      * <p>
      * compare
      * </p>
+     * .
      *
      * @param i1
      *            a {@link org.opennms.web.element.Interface} object.

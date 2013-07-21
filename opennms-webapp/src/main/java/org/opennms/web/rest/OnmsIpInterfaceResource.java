@@ -68,6 +68,9 @@ import org.springframework.transaction.annotation.Transactional;
 import com.sun.jersey.api.core.ResourceContext;
 import com.sun.jersey.spi.resource.PerRequest;
 
+/**
+ * The Class OnmsIpInterfaceResource.
+ */
 @Component
 /**
  * <p>OnmsIpInterfaceResource class.</p>
@@ -81,20 +84,26 @@ import com.sun.jersey.spi.resource.PerRequest;
 @Transactional
 public class OnmsIpInterfaceResource extends OnmsRestService {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(OnmsIpInterfaceResource.class);
 
+    /** The m_node dao. */
     @Autowired
     private NodeDao m_nodeDao;
 
+    /** The m_ip interface dao. */
     @Autowired
     private IpInterfaceDao m_ipInterfaceDao;
 
+    /** The m_event proxy. */
     @Autowired
     private EventProxy m_eventProxy;
 
+    /** The m_context. */
     @Context
     ResourceContext m_context;
 
+    /** The m_uri info. */
     @Context
     UriInfo m_uriInfo;
 
@@ -102,6 +111,7 @@ public class OnmsIpInterfaceResource extends OnmsRestService {
      * <p>
      * getIpInterfaces
      * </p>
+     * .
      *
      * @param nodeCriteria
      *            a {@link java.lang.String} object.
@@ -142,6 +152,7 @@ public class OnmsIpInterfaceResource extends OnmsRestService {
      * <p>
      * getIpInterface
      * </p>
+     * .
      *
      * @param nodeCriteria
      *            a {@link java.lang.String} object.
@@ -172,6 +183,7 @@ public class OnmsIpInterfaceResource extends OnmsRestService {
      * <p>
      * addIpInterface
      * </p>
+     * .
      *
      * @param nodeCriteria
      *            a {@link java.lang.String} object.
@@ -221,6 +233,7 @@ public class OnmsIpInterfaceResource extends OnmsRestService {
      * <p>
      * updateIpInterface
      * </p>
+     * .
      *
      * @param nodeCriteria
      *            a {@link java.lang.String} object.
@@ -272,6 +285,7 @@ public class OnmsIpInterfaceResource extends OnmsRestService {
      * <p>
      * deleteIpInterface
      * </p>
+     * .
      *
      * @param nodeCriteria
      *            a {@link java.lang.String} object.
@@ -320,6 +334,7 @@ public class OnmsIpInterfaceResource extends OnmsRestService {
      * <p>
      * getServices
      * </p>
+     * .
      *
      * @return a {@link org.opennms.web.rest.OnmsMonitoredServiceResource}
      *         object.

@@ -34,24 +34,34 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.i18n.client.DateTimeFormat;
 
 /**
+ * The Class StringDateLocalValidator.
+ *
  * @author <a href="mailto:MarkusNeumannMarkus@gmail.com">Markus
- *         Neumann</a><br/> Validates if the string representation of given
+ *         Neumann</a><br/>
+ *         Validates if the string representation of given
  *         object is parseable to an {@link Date}. The expected format is
  *         "yyyy-MM-dd".
  */
 public class StringDateLocalValidator implements Validator {
+
+    /** The con. */
     private AssetPageConstants con = GWT.create(AssetPageConstants.class);
 
+    /** The m_formater. */
     private final DateTimeFormat m_formater = DateTimeFormat.getFormat("yyyy-MM-dd");
 
+    /** The m_date string. */
     private String m_dateString = "";
 
     /**
-     * Validates if the string representation of given object is parseable to an
-     * {@link Date}. The expected format is "yyyy-MM-dd". The given object will
-     * be casted by <code>(String) object</code>.
+     * Validates if the string representation of given object is parseable to
+     * an.
      *
      * @param object
+     *            the object
+     * @return the string {@link Date}. The expected format is "yyyy-MM-dd". The
+     *         given object will
+     *         be casted by <code>(String) object</code>.
      */
     @Override
     public String validate(Object object) {

@@ -49,6 +49,7 @@ public class DateSqlType implements SQLType<Date> {
      * <p>
      * bindParam
      * </p>
+     * .
      *
      * @param ps
      *            a {@link java.sql.PreparedStatement} object.
@@ -56,8 +57,8 @@ public class DateSqlType implements SQLType<Date> {
      *            a int.
      * @param value
      *            a {@link java.util.Date} object.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     @Override
     public void bindParam(PreparedStatement ps, int parameterIndex, Date value) throws SQLException {
@@ -68,6 +69,7 @@ public class DateSqlType implements SQLType<Date> {
      * <p>
      * getValueAsString
      * </p>
+     * .
      *
      * @param value
      *            a {@link java.util.Date} object.
@@ -82,6 +84,7 @@ public class DateSqlType implements SQLType<Date> {
      * <p>
      * formatValue
      * </p>
+     * .
      *
      * @param value
      *            a {@link java.util.Date} object.
@@ -96,6 +99,7 @@ public class DateSqlType implements SQLType<Date> {
      * <p>
      * createArray
      * </p>
+     * .
      *
      * @param value1
      *            a {@link java.util.Date} object.

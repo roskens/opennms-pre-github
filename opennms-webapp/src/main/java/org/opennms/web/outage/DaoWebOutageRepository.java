@@ -64,12 +64,17 @@ import org.springframework.transaction.annotation.Transactional;
  */
 public class DaoWebOutageRepository implements WebOutageRepository, InitializingBean {
 
+    /** The m_outage dao. */
     @Autowired
     private OutageDao m_outageDao;
 
+    /** The m_node dao. */
     @Autowired
     private NodeDao m_nodeDao;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
@@ -83,6 +88,13 @@ public class DaoWebOutageRepository implements WebOutageRepository, Initializing
      * monitoredService.serviceType as serviceType
      */
 
+    /**
+     * Gets the onms criteria.
+     *
+     * @param outageCriteria
+     *            the outage criteria
+     * @return the onms criteria
+     */
     private OnmsCriteria getOnmsCriteria(final OutageCriteria outageCriteria) {
         final OnmsCriteria criteria = new OnmsCriteria(OnmsOutage.class);
         criteria.createAlias("monitoredService", "monitoredService");
@@ -166,6 +178,13 @@ public class DaoWebOutageRepository implements WebOutageRepository, Initializing
         return criteria;
     }
 
+    /**
+     * Map onms outage to outage.
+     *
+     * @param onmsOutage
+     *            the onms outage
+     * @return the outage
+     */
     private Outage mapOnmsOutageToOutage(OnmsOutage onmsOutage) {
         if (onmsOutage != null) {
             Outage outage = new Outage();
@@ -195,6 +214,13 @@ public class DaoWebOutageRepository implements WebOutageRepository, Initializing
         }
     }
 
+    /**
+     * Map onms outage to outage summary.
+     *
+     * @param onmsOutage
+     *            the onms outage
+     * @return the outage summary
+     */
     private OutageSummary mapOnmsOutageToOutageSummary(final OnmsOutage onmsOutage) {
         return new OutageSummary(onmsOutage.getNodeId(),
                                  onmsOutage.getMonitoredService().getIpInterface().getNode().getLabel(),
@@ -243,6 +269,13 @@ public class DaoWebOutageRepository implements WebOutageRepository, Initializing
         return getOutageSummary(onmsOutages).toArray(new OutageSummary[0]);
     }
 
+    /**
+     * Gets the outage summary.
+     *
+     * @param onmsOutages
+     *            the onms outages
+     * @return the outage summary
+     */
     private List<OutageSummary> getOutageSummary(List<OnmsOutage> onmsOutages) {
         List<OutageSummary> outages = new ArrayList<OutageSummary>();
 
@@ -261,6 +294,13 @@ public class DaoWebOutageRepository implements WebOutageRepository, Initializing
         }
     }
 
+    /**
+     * Elimenate duplicates.
+     *
+     * @param outagesSummaries
+     *            the outages summaries
+     * @return the list
+     */
     private List<OutageSummary> elimenateDuplicates(final List<OutageSummary> outagesSummaries) {
         final Map<Integer, OutageSummary> uniqueSummaries = new HashMap<Integer, OutageSummary>();
 
@@ -307,12 +347,18 @@ public class DaoWebOutageRepository implements WebOutageRepository, Initializing
         return mapOnmsOutageToOutage(m_outageDao.get(OutageId));
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.web.outage.WebOutageRepository#countCurrentOutages()
+     */
     @Transactional
     @Override
     public int countCurrentOutages() {
         return m_outageDao.countOutagesByNode();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.web.outage.WebOutageRepository#getCurrentOutages(int)
+     */
     @Transactional
     @Override
     public OutageSummary[] getCurrentOutages(final int rows) {

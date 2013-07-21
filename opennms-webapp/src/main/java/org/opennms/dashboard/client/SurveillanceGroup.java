@@ -44,10 +44,13 @@ import com.google.gwt.user.client.rpc.IsSerializable;
  */
 public class SurveillanceGroup extends SurveillanceSet implements IsSerializable {
 
+    /** The m_label. */
     private String m_label;
 
+    /** The m_id. */
     private String m_id;
 
+    /** The m_column. */
     private boolean m_column;
 
     /**
@@ -81,6 +84,7 @@ public class SurveillanceGroup extends SurveillanceSet implements IsSerializable
      * <p>
      * getId
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -92,6 +96,7 @@ public class SurveillanceGroup extends SurveillanceSet implements IsSerializable
      * <p>
      * getLabel
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -103,6 +108,7 @@ public class SurveillanceGroup extends SurveillanceSet implements IsSerializable
      * <p>
      * setId
      * </p>
+     * .
      *
      * @param id
      *            a {@link java.lang.String} object.
@@ -115,6 +121,7 @@ public class SurveillanceGroup extends SurveillanceSet implements IsSerializable
      * <p>
      * setLabel
      * </p>
+     * .
      *
      * @param label
      *            a {@link java.lang.String} object.
@@ -127,6 +134,7 @@ public class SurveillanceGroup extends SurveillanceSet implements IsSerializable
      * <p>
      * isColumn
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -138,6 +146,7 @@ public class SurveillanceGroup extends SurveillanceSet implements IsSerializable
      * <p>
      * setColumn
      * </p>
+     * .
      *
      * @param isColumn
      *            a boolean.
@@ -150,6 +159,7 @@ public class SurveillanceGroup extends SurveillanceSet implements IsSerializable
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

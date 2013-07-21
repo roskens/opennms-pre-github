@@ -57,16 +57,26 @@ import org.opennms.web.svclayer.catstatus.model.StatusSection;
 import org.opennms.web.svclayer.dao.CategoryConfigDao;
 import org.opennms.web.svclayer.dao.ViewDisplayDao;
 
+/**
+ * The Class DefaultCategoryStatusServiceTest.
+ */
 public class DefaultCategoryStatusServiceTest extends TestCase {
 
+    /** The category status service. */
     private DefaultCategoryStatusService categoryStatusService;
 
+    /** The view display dao. */
     private ViewDisplayDao viewDisplayDao;
 
+    /** The category dao. */
     private CategoryConfigDao categoryDao;
 
+    /** The outage dao. */
     private OutageDao outageDao;
 
+    /* (non-Javadoc)
+     * @see junit.framework.TestCase#setUp()
+     */
     @Override
     protected final void setUp() throws Exception {
         super.setUp();
@@ -79,6 +89,9 @@ public class DefaultCategoryStatusServiceTest extends TestCase {
         categoryStatusService.setOutageDao(outageDao);
     }
 
+    /**
+     * Test category groups returned when none exist.
+     */
     public final void testCategoryGroupsReturnedWhenNoneExist() {
 
         View view = new View();
@@ -93,6 +106,9 @@ public class DefaultCategoryStatusServiceTest extends TestCase {
         assertTrue("Collection Should Be Empty", categories.isEmpty());
     }
 
+    /**
+     * Test get categories status.
+     */
     public final void testGetCategoriesStatus() {
 
         View view = new View();
@@ -169,6 +185,13 @@ public class DefaultCategoryStatusServiceTest extends TestCase {
 
     }
 
+    /**
+     * Creates the category from label.
+     *
+     * @param label
+     *            the label
+     * @return the category
+     */
     private Category createCategoryFromLabel(final String label) {
 
         Category category = new Category();

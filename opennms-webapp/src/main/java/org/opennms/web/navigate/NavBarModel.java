@@ -40,6 +40,8 @@ import java.util.Map;
  * @since 1.8.1
  */
 public class NavBarModel {
+
+    /** The m_entries. */
     private Map<NavBarEntry, DisplayStatus> m_entries;
 
     /**
@@ -58,6 +60,7 @@ public class NavBarModel {
      * <p>
      * getEntries
      * </p>
+     * .
      *
      * @return a java$util$Map object.
      */

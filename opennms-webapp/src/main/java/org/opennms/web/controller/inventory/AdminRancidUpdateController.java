@@ -53,14 +53,17 @@ import org.springframework.web.servlet.mvc.SimpleFormController;
 @SuppressWarnings("deprecation")
 public class AdminRancidUpdateController extends SimpleFormController {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(AdminRancidUpdateController.class);
 
+    /** The m_inventory service. */
     InventoryService m_inventoryService;
 
     /**
      * <p>
      * getInventoryService
      * </p>
+     * .
      *
      * @return a {@link org.opennms.web.svclayer.inventory.InventoryService}
      *         object.
@@ -73,6 +76,7 @@ public class AdminRancidUpdateController extends SimpleFormController {
      * <p>
      * setInventoryService
      * </p>
+     * .
      *
      * @param inventoryService
      *            a {@link org.opennms.web.svclayer.inventory.InventoryService}

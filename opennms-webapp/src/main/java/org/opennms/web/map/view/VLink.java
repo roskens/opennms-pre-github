@@ -45,25 +45,36 @@ import org.opennms.web.map.MapsConstants;
  * @since 1.8.1
  */
 public final class VLink {
+
+    /** The elem1 type. */
     private final String elem1Type;
 
+    /** The elem1 id. */
     private final int elem1Id;
 
+    /** The elem2 type. */
     private final String elem2Type;
 
+    /** The elem2 id. */
     private final int elem2Id;
 
+    /** The nodeids. */
     private final Set<Integer> nodeids = new TreeSet<Integer>();
 
+    /** The vlink status map. */
     private final Map<String, Integer> vlinkStatusMap = new HashMap<String, Integer>();
 
+    /** The number of links. */
     private int numberOfLinks;
 
     // the link type defined in the map properties file
+    /** The link type id. */
     private int linkTypeId;
 
+    /** The link status string. */
     private String linkStatusString;
 
+    /** The id. */
     private final String id;
 
     /**
@@ -203,6 +214,7 @@ public final class VLink {
      * <p>
      * getFirst
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -214,6 +226,7 @@ public final class VLink {
      * <p>
      * getSecond
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -248,6 +261,7 @@ public final class VLink {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -272,6 +286,7 @@ public final class VLink {
      * <p>
      * getIdWithoutLinkType
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -283,6 +298,7 @@ public final class VLink {
      * <p>
      * increaseLinks
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -294,6 +310,7 @@ public final class VLink {
      * <p>
      * increaseStatusMapLinks
      * </p>
+     * .
      *
      * @param statusString
      *            a {@link java.lang.String} object.

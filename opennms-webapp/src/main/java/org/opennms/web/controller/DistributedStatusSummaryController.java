@@ -53,12 +53,14 @@ import org.springframework.web.servlet.mvc.AbstractController;
  */
 public class DistributedStatusSummaryController extends AbstractController {
 
+    /** The m_distributed status service. */
     private DistributedStatusService m_distributedStatusService;
 
     /**
      * <p>
      * getDistributedStatusService
      * </p>
+     * .
      *
      * @return a {@link org.opennms.web.svclayer.DistributedStatusService}
      *         object.
@@ -71,6 +73,7 @@ public class DistributedStatusSummaryController extends AbstractController {
      * <p>
      * setDistributedStatusService
      * </p>
+     * .
      *
      * @param statusService
      *            a {@link org.opennms.web.svclayer.DistributedStatusService}
@@ -108,6 +111,15 @@ public class DistributedStatusSummaryController extends AbstractController {
         return new ModelAndView("distributedStatusSummary", "webTable", table);
     }
 
+    /**
+     * Creates the error.
+     *
+     * @param shortDescr
+     *            the short descr
+     * @param longDescr
+     *            the long descr
+     * @return the object
+     */
     private Object createError(final String shortDescr, final String longDescr) {
         Map<String, String> error = new HashMap<String, String>();
         error.put("shortDescr", shortDescr);

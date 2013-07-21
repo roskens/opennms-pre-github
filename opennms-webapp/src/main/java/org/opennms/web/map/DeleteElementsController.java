@@ -61,8 +61,10 @@ import org.springframework.web.servlet.ModelAndView;
  */
 public class DeleteElementsController extends MapsLoggingController {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(DeleteElementsController.class);
 
+    /** The manager. */
     private Manager manager;
 
     /**

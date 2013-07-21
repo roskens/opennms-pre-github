@@ -43,10 +43,15 @@ import org.opennms.netmgt.model.OnmsSeverity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The Class AlarmRestServiceBase.
+ */
 public class AlarmRestServiceBase extends OnmsRestService {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(AlarmRestServiceBase.class);
 
+    /** The Constant m_severityPattern. */
     protected static final Pattern m_severityPattern;
 
     static {
@@ -55,6 +60,15 @@ public class AlarmRestServiceBase extends OnmsRestService {
                 + severities + ")'?");
     }
 
+    /**
+     * Gets the criteria.
+     *
+     * @param params
+     *            the params
+     * @param stripOrdering
+     *            the strip ordering
+     * @return the criteria
+     */
     protected Criteria getCriteria(final MultivaluedMap<String, String> params, final boolean stripOrdering) {
         final CriteriaBuilder cb = getCriteriaBuilder(params, stripOrdering);
 
@@ -63,6 +77,15 @@ public class AlarmRestServiceBase extends OnmsRestService {
         return criteria;
     }
 
+    /**
+     * Gets the criteria builder.
+     *
+     * @param params
+     *            the params
+     * @param stripOrdering
+     *            the strip ordering
+     * @return the criteria builder
+     */
     protected CriteriaBuilder getCriteriaBuilder(final MultivaluedMap<String, String> params,
             final boolean stripOrdering) {
         translateParameters(params);
@@ -96,6 +119,12 @@ public class AlarmRestServiceBase extends OnmsRestService {
         return cb;
     }
 
+    /**
+     * Translate parameters.
+     *
+     * @param params
+     *            the params
+     */
     protected void translateParameters(final MultivaluedMap<String, String> params) {
         // this is handled by a @QueryParam annotation, ignore it from the
         // UriInfo object

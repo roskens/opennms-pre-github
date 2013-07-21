@@ -56,6 +56,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * The Class DaoWebEventRepositoryTest.
+ */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
         "classpath:/META-INF/opennms/applicationContext-dao.xml", "classpath*:/META-INF/opennms/component-dao.xml",
@@ -65,17 +68,25 @@ import org.springframework.transaction.annotation.Transactional;
 @JUnitTemporaryDatabase
 public class DaoWebEventRepositoryTest implements InitializingBean {
 
+    /** The m_db populator. */
     @Autowired
     DatabasePopulator m_dbPopulator;
 
+    /** The m_dao event repo. */
     @Autowired
     WebEventRepository m_daoEventRepo;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public final void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Sets the up.
+     */
     @Before
     public final void setUp() {
         m_dbPopulator.populateDatabase();
@@ -105,6 +116,15 @@ public class DaoWebEventRepositoryTest implements InitializingBean {
         m_dbPopulator.getEventDao().flush();
     }
 
+    /**
+     * Gets the dist poller.
+     *
+     * @param localhost
+     *            the localhost
+     * @param localhostIp
+     *            the localhost ip
+     * @return the dist poller
+     */
     private OnmsDistPoller getDistPoller(final String localhost, final String localhostIp) {
         OnmsDistPoller distPoller = m_dbPopulator.getDistPollerDao().get(localhost);
         if (distPoller == null) {
@@ -115,6 +135,9 @@ public class DaoWebEventRepositoryTest implements InitializingBean {
         return distPoller;
     }
 
+    /**
+     * Test count matching events.
+     */
     @Test
     @Transactional
     public final void testCountMatchingEvents() {
@@ -124,6 +147,9 @@ public class DaoWebEventRepositoryTest implements InitializingBean {
         assertEquals(2, event);
     }
 
+    /**
+     * Test count matching events by severity.
+     */
     @Test
     @Transactional
     public final void testCountMatchingEventsBySeverity() {
@@ -142,6 +168,9 @@ public class DaoWebEventRepositoryTest implements InitializingBean {
         assertEquals(0, matchingEvents[OnmsSeverity.WARNING.getId()]);
     }
 
+    /**
+     * Test get event.
+     */
     @Test
     @JUnitTemporaryDatabase
     // Relies on specific IDs so we need a fresh database
@@ -155,6 +184,9 @@ public class DaoWebEventRepositoryTest implements InitializingBean {
         assertTrue(event.getEventDisplay());
     }
 
+    /**
+     * Test acknowledge unacknowledge matching alarms.
+     */
     @Test
     @JUnitTemporaryDatabase
     // Relies on specific IDs so we need a fresh database
@@ -172,6 +204,9 @@ public class DaoWebEventRepositoryTest implements InitializingBean {
         assertEquals(0, matchingEventCount);
     }
 
+    /**
+     * Test acknowledge unacknowledge all alarms.
+     */
     @Test
     @Transactional
     public final void testAcknowledgeUnacknowledgeAllAlarms() {
@@ -188,6 +223,9 @@ public class DaoWebEventRepositoryTest implements InitializingBean {
         assertEquals(0, matchingEventCount);
     }
 
+    /**
+     * Test count matching by severity.
+     */
     @Test
     @Transactional
     public final void testCountMatchingBySeverity() {
@@ -197,6 +235,9 @@ public class DaoWebEventRepositoryTest implements InitializingBean {
         assertEquals(8, matchingEventCount.length);
     }
 
+    /**
+     * Test filter by severity.
+     */
     @Test
     @Transactional
     public final void testFilterBySeverity() {

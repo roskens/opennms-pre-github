@@ -54,6 +54,7 @@ import org.springframework.web.servlet.mvc.AbstractController;
  */
 public class DownloadReportController extends AbstractController {
 
+    /** The m_report store service. */
     private ReportStoreService m_reportStoreService;
 
     /** {@inheritDoc} */
@@ -121,6 +122,7 @@ public class DownloadReportController extends AbstractController {
      * <p>
      * setReportStoreService
      * </p>
+     * .
      *
      * @param reportStoreService
      *            a

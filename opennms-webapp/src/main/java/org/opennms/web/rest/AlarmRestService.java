@@ -57,21 +57,28 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.sun.jersey.spi.resource.PerRequest;
 
+/**
+ * The Class AlarmRestService.
+ */
 @Component
 @PerRequest
 @Scope("prototype")
 @Path("alarms")
 public class AlarmRestService extends AlarmRestServiceBase {
 
+    /** The m_alarm dao. */
     @Autowired
     private AlarmDao m_alarmDao;
 
+    /** The m_ack dao. */
     @Autowired
     private AcknowledgmentDao m_ackDao;
 
+    /** The m_uri info. */
     @Context
     UriInfo m_uriInfo;
 
+    /** The m_security context. */
     @Context
     SecurityContext m_securityContext;
 
@@ -79,6 +86,7 @@ public class AlarmRestService extends AlarmRestServiceBase {
      * <p>
      * getAlarm
      * </p>
+     * .
      *
      * @param alarmId
      *            a {@link java.lang.String} object.
@@ -102,6 +110,7 @@ public class AlarmRestService extends AlarmRestServiceBase {
      * <p>
      * getCount
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -122,6 +131,7 @@ public class AlarmRestService extends AlarmRestServiceBase {
      * <p>
      * getAlarms
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.OnmsAlarmCollection} object.
      */
@@ -149,11 +159,13 @@ public class AlarmRestService extends AlarmRestServiceBase {
      * <p>
      * updateAlarm
      * </p>
+     * .
      *
      * @param alarmId
      *            a {@link java.lang.String} object.
-     * @param ack
-     *            a {@link java.lang.Boolean} object.
+     * @param formProperties
+     *            the form properties
+     * @return the response
      */
     @PUT
     @Path("{alarmId}")
@@ -216,9 +228,11 @@ public class AlarmRestService extends AlarmRestServiceBase {
      * <p>
      * updateAlarms
      * </p>
+     * .
      *
      * @param formProperties
      *            a {@link org.opennms.web.rest.MultivaluedMapImpl} object.
+     * @return the response
      */
     @PUT
     @Transactional
@@ -279,6 +293,12 @@ public class AlarmRestService extends AlarmRestServiceBase {
         }
     }
 
+    /**
+     * Assert user credentials.
+     *
+     * @param ackUser
+     *            the ack user
+     */
     private void assertUserCredentials(final String ackUser) {
         final String currentUser = m_securityContext.getUserPrincipal().getName();
         if (!(m_securityContext.isUserInRole(Authentication.ROLE_ADMIN)) && !(ackUser.equals(currentUser))) {

@@ -48,14 +48,25 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("/catstatus.htm")
 public class CategoryStatusController implements InitializingBean {
 
+    /** The m_categorystatusservice. */
     @Autowired
     private CategoryStatusService m_categorystatusservice;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Handle request internal.
+     *
+     * @return the model and view
+     * @throws Exception
+     *             the exception
+     */
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView handleRequestInternal() throws Exception {
         return new ModelAndView("displayCategoryStatus", "statusTree", m_categorystatusservice.getCategoriesStatus());

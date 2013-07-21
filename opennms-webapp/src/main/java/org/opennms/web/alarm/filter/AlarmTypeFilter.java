@@ -41,7 +41,8 @@ import org.opennms.web.filter.SQLType;
  * @since 1.8.1
  */
 public class AlarmTypeFilter extends EqualsFilter<Integer> {
-    /** Constant <code>TYPE="alarmTypeFilter"</code> */
+
+    /** Constant <code>TYPE="alarmTypeFilter"</code>. */
     public static final String TYPE = "alarmTypeFilter";
 
     /**
@@ -60,6 +61,7 @@ public class AlarmTypeFilter extends EqualsFilter<Integer> {
      * <p>
      * getTextDescription
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -68,6 +70,13 @@ public class AlarmTypeFilter extends EqualsFilter<Integer> {
         return TYPE + " = " + getAlarmTypeLabel(getValue());
     }
 
+    /**
+     * Gets the alarm type label.
+     *
+     * @param alarmType
+     *            the alarm type
+     * @return the alarm type label
+     */
     private String getAlarmTypeLabel(int alarmType) {
         if (alarmType == 1) {
             return "PROBLEM_TYPE";

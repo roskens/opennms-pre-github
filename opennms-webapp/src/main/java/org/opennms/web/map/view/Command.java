@@ -34,17 +34,36 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The Class Command.
+ */
 public class Command {
+
+    /** The out. */
     private final BufferedReader out;
 
+    /** The p. */
     private final Process p;
 
+    /** The scheduledtoremove. */
     private boolean scheduledtoremove;
 
+    /** The scheduletoremoverequest. */
     private int scheduletoremoverequest = 0;
 
+    /** The lines. */
     private final List<String> lines = new ArrayList<String>();
 
+    /**
+     * Instantiates a new command.
+     *
+     * @param command
+     *            the command
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws IllegalStateException
+     *             the illegal state exception
+     */
     public Command(String command) throws IOException, IllegalStateException {
         if (command.startsWith("traceroute") || command.startsWith("ping") || command.startsWith("ipmitool")) {
             p = Runtime.getRuntime().exec(command);
@@ -70,10 +89,21 @@ public class Command {
 
     }
 
+    /**
+     * Adds the line buffer.
+     *
+     * @param line
+     *            the line
+     */
     private synchronized void addLineBuffer(String line) {
         lines.add(line);
     }
 
+    /**
+     * Gets the next line.
+     *
+     * @return the next line
+     */
     public synchronized String getNextLine() {
         scheduledtoremove = false;
         scheduletoremoverequest = 0;
@@ -82,6 +112,11 @@ public class Command {
         return null;
     }
 
+    /**
+     * Runned.
+     *
+     * @return true, if successful
+     */
     public boolean runned() {
         try {
             p.exitValue();
@@ -91,10 +126,18 @@ public class Command {
         }
     }
 
+    /**
+     * Scheduled to remove.
+     *
+     * @return true, if successful
+     */
     public boolean scheduledToRemove() {
         return scheduledtoremove;
     }
 
+    /**
+     * Schedule to remove.
+     */
     public void scheduleToRemove() {
         scheduletoremoverequest++;
         if (scheduletoremoverequest > 2)

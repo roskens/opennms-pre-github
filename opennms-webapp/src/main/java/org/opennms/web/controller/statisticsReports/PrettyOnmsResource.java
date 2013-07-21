@@ -59,6 +59,7 @@ public class PrettyOnmsResource extends OnmsResource {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

@@ -57,20 +57,23 @@ import org.springframework.web.servlet.view.RedirectView;
  */
 public class AlarmSeverityChangeController extends AbstractController implements InitializingBean {
 
-    /** Constant <code>ESCALATE_ACTION="1"</code> */
+    /** Constant <code>ESCALATE_ACTION="1"</code>. */
     public static final String ESCALATE_ACTION = "1";
 
-    /** Constant <code>CLEAR_ACTION="2"</code> */
+    /** Constant <code>CLEAR_ACTION="2"</code>. */
     public static final String CLEAR_ACTION = "2";
 
+    /** The m_web alarm repository. */
     private AlarmRepository m_webAlarmRepository;
 
+    /** The m_redirect view. */
     private String m_redirectView;
 
     /**
      * <p>
      * setRedirectView
      * </p>
+     * .
      *
      * @param redirectView
      *            a {@link java.lang.String} object.
@@ -83,6 +86,7 @@ public class AlarmSeverityChangeController extends AbstractController implements
      * <p>
      * setWebAlarmRepository
      * </p>
+     * .
      *
      * @param webAlarmRepository
      *            a {@link org.opennms.netmgt.dao.api.AlarmRepository} object.
@@ -95,9 +99,10 @@ public class AlarmSeverityChangeController extends AbstractController implements
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @Override
     public final void afterPropertiesSet() throws Exception {

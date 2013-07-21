@@ -43,7 +43,7 @@ import org.opennms.netmgt.config.users.User;
 
 /**
  * A servlet that retrieves a user's password in preparation for changing the
- * password
+ * password.
  *
  * @author <A HREF="mailto:jeffg@opennms.org">Jeff Gehlbach </A>
  * @author <A HREF="http://www.opennms.org/">OpenNMS </A>
@@ -53,6 +53,8 @@ import org.opennms.netmgt.config.users.User;
  * @since 1.8.1
  */
 public class NewPasswordEntryServlet extends HttpServlet {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 8979500859478109256L;
 
     /** {@inheritDoc} */

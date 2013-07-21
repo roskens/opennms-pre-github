@@ -47,44 +47,102 @@ import com.google.gwt.user.client.ui.SuggestBox;
 import com.google.gwt.user.client.ui.SuggestOracle.Suggestion;
 
 /**
+ * The Class FieldSetSuggestBox.
+ *
  * @author <a href="mailto:MarkusNeumannMarkus@gmail.com">Markus
- *         Neumann</a><br/> {@link FieldSet} for displaying and editing text.
+ *         Neumann</a><br/>
+ *         {@link FieldSet} for displaying and editing text.
  *         Additional a suggestion box will support the user.
  */
 public class FieldSetSuggestBox extends AbstractFieldSet implements FieldSet, ValueChangeHandler<String>,
         SelectionHandler<Suggestion>, KeyUpHandler, MouseUpHandler {
 
+    /** The sugg box. */
     private SuggestBox suggBox;
 
+    /** The suggestions. */
     private Collection<String> suggestions;
 
+    /** The oracle. */
     private MultiWordSuggestOracle oracle = new MultiWordSuggestOracle();
 
+    /**
+     * Instantiates a new field set suggest box.
+     *
+     * @param name
+     *            the name
+     * @param value
+     *            the value
+     * @param helpText
+     *            the help text
+     */
     public FieldSetSuggestBox(String name, String value, String helpText) {
         super(name, helpText);
         init(value, null, -1);
     }
 
+    /**
+     * Instantiates a new field set suggest box.
+     *
+     * @param name
+     *            the name
+     * @param value
+     *            the value
+     * @param helpText
+     *            the help text
+     * @param suggestions
+     *            the suggestions
+     */
     public FieldSetSuggestBox(String name, String value, String helpText, Collection<String> suggestions) {
         super(name, helpText);
         init(value, suggestions, -1);
     }
 
+    /**
+     * Instantiates a new field set suggest box.
+     *
+     * @param name
+     *            the name
+     * @param value
+     *            the value
+     * @param helpText
+     *            the help text
+     * @param maxLength
+     *            the max length
+     */
     @UiConstructor
     public FieldSetSuggestBox(String name, String value, String helpText, int maxLength) {
         super(name, helpText);
         init(value, null, maxLength);
     }
 
+    /**
+     * Gets the suggestions.
+     *
+     * @return the suggestions
+     */
     public Collection<String> getSuggestions() {
         return suggestions;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.gwt.web.ui.asset.client.tools.fieldsets.FieldSet#getValue()
+     */
     @Override
     public String getValue() {
         return suggBox.getText();
     }
 
+    /**
+     * Inits the.
+     *
+     * @param value
+     *            the value
+     * @param suggestions
+     *            the suggestions
+     * @param maxLength
+     *            the max length
+     */
     private void init(String value, Collection<String> suggestions, int maxLength) {
         if (maxLength > 0) {
             addErrorValidator(new StringMaxLengthValidator(maxLength));
@@ -111,6 +169,9 @@ public class FieldSetSuggestBox extends AbstractFieldSet implements FieldSet, Va
         panel.add(suggBox);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.gwt.web.ui.asset.client.tools.fieldsets.AbstractFieldSet#onFocus(com.google.gwt.event.dom.client.FocusEvent)
+     */
     @Override
     public void onFocus(FocusEvent event) {
         suggBox.showSuggestionList();
@@ -138,6 +199,9 @@ public class FieldSetSuggestBox extends AbstractFieldSet implements FieldSet, Va
         checkField();
     }
 
+    /* (non-Javadoc)
+     * @see com.google.gwt.event.logical.shared.SelectionHandler#onSelection(com.google.gwt.event.logical.shared.SelectionEvent)
+     */
     @Override
     public void onSelection(SelectionEvent<Suggestion> event) {
         String selected = event.getSelectedItem().getReplacementString();
@@ -145,11 +209,17 @@ public class FieldSetSuggestBox extends AbstractFieldSet implements FieldSet, Va
         checkField();
     }
 
+    /* (non-Javadoc)
+     * @see com.google.gwt.event.logical.shared.ValueChangeHandler#onValueChange(com.google.gwt.event.logical.shared.ValueChangeEvent)
+     */
     @Override
     public void onValueChange(ValueChangeEvent<String> event) {
         checkField();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.gwt.web.ui.asset.client.tools.fieldsets.FieldSet#setEnabled(java.lang.Boolean)
+     */
     @Override
     public void setEnabled(Boolean enabled) {
         suggBox.getTextBox().setEnabled(enabled);
@@ -159,6 +229,7 @@ public class FieldSetSuggestBox extends AbstractFieldSet implements FieldSet, Va
      * Takes a Collection of Strings as suggestion model to support the uses.
      *
      * @param suggestions
+     *            the new suggestions
      */
     public void setSuggestions(Collection<String> suggestions) {
         this.suggestions = suggestions;
@@ -169,6 +240,9 @@ public class FieldSetSuggestBox extends AbstractFieldSet implements FieldSet, Va
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.gwt.web.ui.asset.client.tools.fieldsets.FieldSet#setValue(java.lang.String)
+     */
     @Override
     public void setValue(String value) {
         suggBox.setText(value);

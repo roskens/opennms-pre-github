@@ -43,10 +43,12 @@ import org.springframework.validation.BindException;
  */
 @Transactional(readOnly = true)
 public interface DistributedPollerService {
+
     /**
      * <p>
      * getLocationMonitorList
      * </p>
+     * .
      *
      * @return a {@link org.opennms.web.svclayer.LocationMonitorListModel}
      *         object.
@@ -57,6 +59,7 @@ public interface DistributedPollerService {
      * <p>
      * getLocationMonitorDetails
      * </p>
+     * .
      *
      * @param command
      *            a {@link org.opennms.web.command.LocationMonitorIdCommand}
@@ -72,6 +75,7 @@ public interface DistributedPollerService {
      * <p>
      * pauseLocationMonitor
      * </p>
+     * .
      *
      * @param command
      *            a {@link org.opennms.web.command.LocationMonitorIdCommand}
@@ -86,6 +90,7 @@ public interface DistributedPollerService {
      * <p>
      * resumeLocationMonitor
      * </p>
+     * .
      *
      * @param command
      *            a {@link org.opennms.web.command.LocationMonitorIdCommand}
@@ -100,6 +105,7 @@ public interface DistributedPollerService {
      * <p>
      * deleteLocationMonitor
      * </p>
+     * .
      *
      * @param command
      *            a {@link org.opennms.web.command.LocationMonitorIdCommand}
@@ -111,14 +117,14 @@ public interface DistributedPollerService {
     public void deleteLocationMonitor(LocationMonitorIdCommand command, BindException errors);
 
     /**
-     * Pause all the locations monitors
+     * Pause all the locations monitors.
      */
     @Transactional(readOnly = false)
     public void pauseAllLocationMonitors();
 
     /**
      * Resume all the locations monitors (those that have been stopped are not
-     * resumed)
+     * resumed).
      */
     @Transactional(readOnly = false)
     public void resumeAllLocationMonitors();

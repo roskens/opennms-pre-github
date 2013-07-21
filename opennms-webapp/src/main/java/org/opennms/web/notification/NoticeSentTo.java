@@ -39,9 +39,8 @@ import java.util.Date;
  * @since 1.8.1
  */
 public class NoticeSentTo {
-    /**
-     * User this notice was sent to
-     */
+
+    /** User this notice was sent to. */
     public String m_userId;
 
     /**
@@ -60,7 +59,7 @@ public class NoticeSentTo {
     public String m_media;
 
     /**
-     * Default Constructor
+     * Default Constructor.
      */
     public NoticeSentTo() {
     }
@@ -69,6 +68,7 @@ public class NoticeSentTo {
      * <p>
      * setUserId
      * </p>
+     * .
      *
      * @param userid
      *            a {@link java.lang.String} object.
@@ -81,6 +81,7 @@ public class NoticeSentTo {
      * <p>
      * getUserId
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -92,6 +93,7 @@ public class NoticeSentTo {
      * <p>
      * setTime
      * </p>
+     * .
      *
      * @param time
      *            a long.
@@ -105,6 +107,7 @@ public class NoticeSentTo {
      * <p>
      * getTime
      * </p>
+     * .
      *
      * @return a java$util$Date object.
      */
@@ -116,6 +119,7 @@ public class NoticeSentTo {
      * <p>
      * setMedia
      * </p>
+     * .
      *
      * @param media
      *            a {@link java.lang.String} object.
@@ -128,6 +132,7 @@ public class NoticeSentTo {
      * <p>
      * getMedia
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -139,6 +144,7 @@ public class NoticeSentTo {
      * <p>
      * setContactInfo
      * </p>
+     * .
      *
      * @param contact
      *            a {@link java.lang.String} object.
@@ -151,6 +157,7 @@ public class NoticeSentTo {
      * <p>
      * getContactInfo
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

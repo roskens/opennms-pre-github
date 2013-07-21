@@ -39,14 +39,19 @@ package org.opennms.web.controller.inventory;
  */
 public class AdminRancidRouterDbCommClass {
 
+    /** The group name. */
     private String groupName;
 
+    /** The device name. */
     private String deviceName;
 
+    /** The status name. */
     private String statusName;
 
+    /** The device type name. */
     private String deviceTypeName;
 
+    /** The comment. */
     private String comment;
 
     /**

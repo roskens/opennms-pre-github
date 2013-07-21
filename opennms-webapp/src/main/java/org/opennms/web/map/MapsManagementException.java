@@ -40,9 +40,8 @@ package org.opennms.web.map;
  * @since 1.8.1
  */
 public class MapsManagementException extends MapsException {
-    /**
-     *
-     */
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -2254482226066016170L;
 
     /**

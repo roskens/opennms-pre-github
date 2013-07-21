@@ -63,7 +63,8 @@ import org.opennms.web.outage.filter.ServiceFilter;
  * @since 1.8.1
  */
 public abstract class OutageUtil extends Object {
-    /** Constant <code>DOWN_COLOR="red"</code> */
+
+    /** Constant <code>DOWN_COLOR="red"</code>. */
     protected static final String DOWN_COLOR = "red";
 
     /** Constant <code>FILTER_SERVLET_URL_BASE="outage/list.htm"</code> */
@@ -73,9 +74,12 @@ public abstract class OutageUtil extends Object {
      * <p>
      * getFilter
      * </p>
+     * .
      *
      * @param filterString
      *            a {@link java.lang.String} object.
+     * @param servletContext
+     *            the servlet context
      * @return a org$opennms$web$filter$Filter object.
      */
     public static Filter getFilter(String filterString, ServletContext servletContext) {
@@ -126,6 +130,7 @@ public abstract class OutageUtil extends Object {
      * <p>
      * getFilterString
      * </p>
+     * .
      *
      * @param filter
      *            a org$opennms$web$filter$Filter object.
@@ -184,6 +189,7 @@ public abstract class OutageUtil extends Object {
     /**
      * Constant
      * <code>LINK_IGNORES="new String[] { sortby, outtype, limit, "{trunked}</code>
+     * .
      */
     protected static final String[] LINK_IGNORES = new String[] { "sortby", "outtype", "limit", "multiple", "filter" };
 
@@ -191,6 +197,7 @@ public abstract class OutageUtil extends Object {
      * <p>
      * makeLink
      * </p>
+     * .
      *
      * @param request
      *            a {@link javax.servlet.http.HttpServletRequest} object.
@@ -237,6 +244,7 @@ public abstract class OutageUtil extends Object {
      * <p>
      * makeLink
      * </p>
+     * .
      *
      * @param request
      *            a {@link javax.servlet.http.HttpServletRequest} object.
@@ -256,6 +264,7 @@ public abstract class OutageUtil extends Object {
      * <p>
      * makeLink
      * </p>
+     * .
      *
      * @param request
      *            a {@link javax.servlet.http.HttpServletRequest} object.
@@ -277,6 +286,7 @@ public abstract class OutageUtil extends Object {
      * <p>
      * makeLink
      * </p>
+     * .
      *
      * @param request
      *            a {@link javax.servlet.http.HttpServletRequest} object.
@@ -298,6 +308,7 @@ public abstract class OutageUtil extends Object {
      * <p>
      * makeLink
      * </p>
+     * .
      *
      * @param request
      *            a {@link javax.servlet.http.HttpServletRequest} object.
@@ -319,6 +330,7 @@ public abstract class OutageUtil extends Object {
      * <p>
      * makeLink
      * </p>
+     * .
      *
      * @param request
      *            a {@link javax.servlet.http.HttpServletRequest} object.
@@ -350,6 +362,7 @@ public abstract class OutageUtil extends Object {
      * <p>
      * makeHiddenTags
      * </p>
+     * .
      *
      * @param request
      *            a {@link javax.servlet.http.HttpServletRequest} object.
@@ -395,6 +408,7 @@ public abstract class OutageUtil extends Object {
      * <p>
      * makeHiddenTags
      * </p>
+     * .
      *
      * @param request
      *            a {@link javax.servlet.http.HttpServletRequest} object.
@@ -414,6 +428,7 @@ public abstract class OutageUtil extends Object {
      * <p>
      * makeHiddenTags
      * </p>
+     * .
      *
      * @param request
      *            a {@link javax.servlet.http.HttpServletRequest} object.
@@ -435,6 +450,7 @@ public abstract class OutageUtil extends Object {
      * <p>
      * makeHiddenTags
      * </p>
+     * .
      *
      * @param request
      *            a {@link javax.servlet.http.HttpServletRequest} object.
@@ -456,6 +472,7 @@ public abstract class OutageUtil extends Object {
      * <p>
      * makeHiddenTags
      * </p>
+     * .
      *
      * @param request
      *            a {@link javax.servlet.http.HttpServletRequest} object.
@@ -477,6 +494,7 @@ public abstract class OutageUtil extends Object {
      * <p>
      * makeHiddenTags
      * </p>
+     * .
      *
      * @param request
      *            a {@link javax.servlet.http.HttpServletRequest} object.

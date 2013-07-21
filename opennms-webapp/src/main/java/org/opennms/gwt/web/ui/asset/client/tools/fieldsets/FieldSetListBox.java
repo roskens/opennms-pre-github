@@ -34,32 +34,70 @@ import com.google.gwt.uibinder.client.UiConstructor;
 import com.google.gwt.user.client.ui.ListBox;
 
 /**
+ * The Class FieldSetListBox.
+ *
  * @author <a href="mailto:MarkusNeumannMarkus@gmail.com">Markus
- *         Neumann</a><br/> {@link FieldSet} for displaying and selection values
+ *         Neumann</a><br/>
+ *         {@link FieldSet} for displaying and selection values
  *         from a list.
  */
 public class FieldSetListBox extends AbstractFieldSet implements FieldSet {
 
+    /** The list box. */
     private ListBox listBox = new ListBox(false);
 
+    /** The options. */
     private ArrayList<String> options;
 
+    /**
+     * Instantiates a new field set list box.
+     *
+     * @param name
+     *            the name
+     * @param value
+     *            the value
+     * @param helpText
+     *            the help text
+     */
     @UiConstructor
     public FieldSetListBox(String name, String value, String helpText) {
         super(name, helpText);
         init(value, null);
     }
 
+    /**
+     * Instantiates a new field set list box.
+     *
+     * @param name
+     *            the name
+     * @param value
+     *            the value
+     * @param helpText
+     *            the help text
+     * @param options
+     *            the options
+     */
     public FieldSetListBox(String name, String value, String helpText, ArrayList<String> options) {
         super(name, helpText);
         init(value, options);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.gwt.web.ui.asset.client.tools.fieldsets.FieldSet#getValue()
+     */
     @Override
     public String getValue() {
         return listBox.getItemText(listBox.getSelectedIndex());
     }
 
+    /**
+     * Inits the.
+     *
+     * @param value
+     *            the value
+     * @param options
+     *            the options
+     */
     private void init(String value, ArrayList<String> options) {
         inititalValue = value;
 
@@ -91,6 +129,9 @@ public class FieldSetListBox extends AbstractFieldSet implements FieldSet {
         panel.add(listBox);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.gwt.web.ui.asset.client.tools.fieldsets.FieldSet#setEnabled(java.lang.Boolean)
+     */
     @Override
     public void setEnabled(Boolean enabled) {
         listBox.setEnabled(enabled);
@@ -100,8 +141,8 @@ public class FieldSetListBox extends AbstractFieldSet implements FieldSet {
      * Takes a ArraList of Strings as options. Options will be shown at the
      * list.
      *
-     * @param ArrayList
-     *            <String> options
+     * @param options
+     *            the new options
      */
     public void setOptions(ArrayList<String> options) {
         this.options = options;
@@ -111,6 +152,9 @@ public class FieldSetListBox extends AbstractFieldSet implements FieldSet {
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.gwt.web.ui.asset.client.tools.fieldsets.FieldSet#setValue(java.lang.String)
+     */
     @Override
     public void setValue(String value) {
         if (options.contains(value)) {

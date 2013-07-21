@@ -43,6 +43,9 @@ import org.extremecomponents.table.cell.Cell;
 import org.extremecomponents.table.core.TableModel;
 import org.extremecomponents.table.view.html.ColumnBuilder;
 
+/**
+ * The Class SuppressOutageCheckBox.
+ */
 public class SuppressOutageCheckBox implements Cell {
     /** {@inheritDoc} */
     @Override

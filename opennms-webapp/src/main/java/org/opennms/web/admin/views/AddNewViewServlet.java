@@ -40,7 +40,7 @@ import javax.servlet.http.HttpSession;
 import org.opennms.web.admin.views.parsers.View;
 
 /**
- * A servlet that handles adding a new view
+ * A servlet that handles adding a new view.
  *
  * @author <A HREF="mailto:jason@opennms.org">Jason Johns </A>
  * @author <A HREF="http://www.opennms.org/">OpenNMS </A>
@@ -50,9 +50,8 @@ import org.opennms.web.admin.views.parsers.View;
  * @since 1.8.1
  */
 public class AddNewViewServlet extends HttpServlet {
-    /**
-     *
-     */
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -2092767636140970345L;
 
     /** {@inheritDoc} */

@@ -45,11 +45,14 @@ import org.opennms.netmgt.model.OnmsCriteria;
  * @since 1.8.1
  */
 public abstract class ConditionalFilter implements Filter {
-    /** Constant <code>TYPE="conditionalFilter"</code> */
+
+    /** Constant <code>TYPE="conditionalFilter"</code>. */
     public static final String TYPE = "conditionalFilter";
 
+    /** The m_condition type. */
     private String m_conditionType;
 
+    /** The m_filters. */
     private Filter[] m_filters;
 
     /**
@@ -74,6 +77,7 @@ public abstract class ConditionalFilter implements Filter {
      * <p>
      * getFilters
      * </p>
+     * .
      *
      * @return an array of {@link org.opennms.web.filter.Filter} objects.
      */
@@ -95,6 +99,7 @@ public abstract class ConditionalFilter implements Filter {
      * <p>
      * getDescription
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -119,6 +124,7 @@ public abstract class ConditionalFilter implements Filter {
      * <p>
      * getParamSql
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -144,6 +150,7 @@ public abstract class ConditionalFilter implements Filter {
      * <p>
      * getSql
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -169,6 +176,7 @@ public abstract class ConditionalFilter implements Filter {
      * <p>
      * getTextDescription
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -194,6 +202,7 @@ public abstract class ConditionalFilter implements Filter {
      * <p>
      * applyCriteria
      * </p>
+     * .
      *
      * @param criteria
      *            a {@link org.opennms.netmgt.model.OnmsCriteria} object.
@@ -206,6 +215,7 @@ public abstract class ConditionalFilter implements Filter {
      * <p>
      * getCriterion
      * </p>
+     * .
      *
      * @return a {@link org.hibernate.criterion.Criterion} object.
      */
@@ -216,6 +226,7 @@ public abstract class ConditionalFilter implements Filter {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

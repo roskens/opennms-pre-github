@@ -38,10 +38,12 @@ package org.opennms.dashboard.client;
  * @since 1.8.1
  */
 public interface SimplePageable {
+
     /**
      * <p>
      * adjustPage
      * </p>
+     * .
      *
      * @param direction
      *            a int.

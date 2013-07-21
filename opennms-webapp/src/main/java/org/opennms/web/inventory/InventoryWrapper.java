@@ -41,12 +41,16 @@ import java.util.Date;
  */
 public class InventoryWrapper {
 
+    /** The version. */
     private String version;
 
+    /** The date. */
     private Date date;
 
+    /** The group. */
     private String group;
 
+    /** The url view vc. */
     private String urlViewVC;
 
     /**

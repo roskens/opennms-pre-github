@@ -39,18 +39,25 @@ package org.opennms.web.controller.inventory;
  */
 public class AdminRancidCloginCommClass {
 
+    /** The user id. */
     private String userID;
 
+    /** The pass. */
     private String pass;
 
+    /** The enpass. */
     private String enpass;
 
+    /** The login m. */
     private String loginM;
 
+    /** The auto e. */
     private String autoE;
 
+    /** The group name. */
     private String groupName;
 
+    /** The device name. */
     private String deviceName;
 
     /**

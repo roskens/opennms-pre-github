@@ -47,12 +47,14 @@ import org.opennms.web.svclayer.DatabaseReportListService;
  */
 public class DefaultDatabaseReportListService implements DatabaseReportListService {
 
+    /** The m_global report repository. */
     private GlobalReportRepository m_globalReportRepository;
 
     /**
      * <p>
      * getAll Reports from all Repositories
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -77,6 +79,9 @@ public class DefaultDatabaseReportListService implements DatabaseReportListServi
         return allReports;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.web.svclayer.DatabaseReportListService#getActiveRepositories()
+     */
     @Override
     public final List<ReportRepositoryDescription> getActiveRepositories() {
         List<ReportRepositoryDescription> result = new ArrayList<ReportRepositoryDescription>();
@@ -96,6 +101,9 @@ public class DefaultDatabaseReportListService implements DatabaseReportListServi
         return result;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.web.svclayer.DatabaseReportListService#getOnlineReportsByRepositoryId(java.lang.String)
+     */
     @Override
     public final List<DatabaseReportDescription> getOnlineReportsByRepositoryId(final String repositoryId) {
         List<DatabaseReportDescription> onlineReportList = new ArrayList<DatabaseReportDescription>();
@@ -113,6 +121,9 @@ public class DefaultDatabaseReportListService implements DatabaseReportListServi
         return onlineReportList;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.web.svclayer.DatabaseReportListService#getReportsByRepositoryId(java.lang.String)
+     */
     @Override
     public final List<DatabaseReportDescription> getReportsByRepositoryId(final String repositoryId) {
         List<DatabaseReportDescription> reportList = new ArrayList<DatabaseReportDescription>();
@@ -134,6 +145,7 @@ public class DefaultDatabaseReportListService implements DatabaseReportListServi
      * <p>
      * getAll Reports from all Repositories
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -157,10 +169,19 @@ public class DefaultDatabaseReportListService implements DatabaseReportListServi
         return onlineReports;
     }
 
+    /**
+     * Sets the global report repository.
+     *
+     * @param globalReportRepository
+     *            the new global report repository
+     */
     public final void setGlobalReportRepository(final GlobalReportRepository globalReportRepository) {
         m_globalReportRepository = globalReportRepository;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.web.svclayer.DatabaseReportListService#reloadConfigurationFiles()
+     */
     @Override
     public final void reloadConfigurationFiles() {
         m_globalReportRepository.reloadConfigurationFiles();

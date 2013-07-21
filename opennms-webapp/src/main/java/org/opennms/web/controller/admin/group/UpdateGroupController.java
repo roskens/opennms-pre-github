@@ -46,7 +46,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 
 /**
- * A servlet that handles saving a group
+ * A servlet that handles saving a group.
  *
  * @author <A HREF="mailto:jason@opennms.org">Jason Johns </A>
  * @author <A HREF="http://www.opennms.org/">OpenNMS </A>
@@ -112,9 +112,13 @@ public class UpdateGroupController extends AbstractController implements Initial
     }
 
     /**
-     * @param allCategories
-     * @param categoryListInGroup
-     * @return
+     * Removes the all.
+     *
+     * @param a
+     *            the a
+     * @param b
+     *            the b
+     * @return the string[]
      */
     @SuppressWarnings("unused")
     private String[] removeAll(final String[] a, final String[] b) {
@@ -128,9 +132,10 @@ public class UpdateGroupController extends AbstractController implements Initial
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @Override
     public void afterPropertiesSet() throws Exception {

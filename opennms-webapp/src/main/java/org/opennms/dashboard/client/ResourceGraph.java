@@ -57,6 +57,7 @@ public class ResourceGraph extends Image {
      * <p>
      * displayNoGraph
      * </p>
+     * .
      */
     public void displayNoGraph() {
         setUrl("images/rrd/error.png");
@@ -66,6 +67,7 @@ public class ResourceGraph extends Image {
      * <p>
      * setGraph
      * </p>
+     * .
      *
      * @param resourceId
      *            a {@link java.lang.String} object.
@@ -84,6 +86,7 @@ public class ResourceGraph extends Image {
      * <p>
      * prefetchGraph
      * </p>
+     * .
      *
      * @param resourceId
      *            a {@link java.lang.String} object.
@@ -98,6 +101,19 @@ public class ResourceGraph extends Image {
         Image.prefetch(buildGraphUrl(resourceId, reportName, start, end));
     }
 
+    /**
+     * Builds the graph url.
+     *
+     * @param resourceId
+     *            the resource id
+     * @param report
+     *            the report
+     * @param start
+     *            the start
+     * @param end
+     *            the end
+     * @return the string
+     */
     private String buildGraphUrl(String resourceId, String report, String start, String end) {
         return "graph/graph.png?resourceId=" + URL.encodeQueryString(resourceId) + "&report="
                 + URL.encodeQueryString(report) + "&start=" + start + "&end=" + end;

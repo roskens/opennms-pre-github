@@ -56,30 +56,34 @@ import org.slf4j.LoggerFactory;
  * @author <A HREF="http://www.opennms.org/">OpenNMS </A>
  */
 public class MailerServlet extends HttpServlet {
-    /**
-     *
-     */
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(MailerServlet.class);
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -6241742874510146572L;
 
     /**
      * Constant
      * <code>REQUIRED_FIELDS="new String[] { sendto, subject, usernam"{trunked}</code>
+     * .
      */
     protected static final String[] REQUIRED_FIELDS = new String[] { "sendto", "subject", "username", "msg" };
 
+    /** The redirect success. */
     protected String redirectSuccess;
 
+    /** The mail program. */
     protected String mailProgram;
 
     /**
      * <p>
      * init
      * </p>
+     * .
      *
-     * @throws javax.servlet.ServletException
-     *             if any.
+     * @throws ServletException
+     *             the servlet exception
      */
     @Override
     public void init() throws ServletException {

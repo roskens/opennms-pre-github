@@ -48,11 +48,20 @@ import org.opennms.netmgt.model.OnmsNode;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
+/**
+ * The Class IPhoneRestServiceTest.
+ */
 public class IPhoneRestServiceTest extends AbstractSpringJerseyRestTestCase {
+
+    /** The m_event dao. */
     private EventDao m_eventDao;
 
+    /** The m_dist poller dao. */
     private DistPollerDao m_distPollerDao;
 
+    /* (non-Javadoc)
+     * @see org.opennms.web.rest.AbstractSpringJerseyRestTestCase#afterServletStart()
+     */
     @Override
     protected void afterServletStart() throws Exception {
         final WebApplicationContext context = WebApplicationContextUtils.getWebApplicationContext(getServletContext());
@@ -62,6 +71,12 @@ public class IPhoneRestServiceTest extends AbstractSpringJerseyRestTestCase {
         m_eventDao = context.getBean("eventDao", EventDao.class);
     }
 
+    /**
+     * Test acknowlegement.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testAcknowlegement() throws Exception {
         final Pattern p = Pattern.compile("^.*<ackTime>(.*?)</ackTime>.*$", Pattern.DOTALL & Pattern.MULTILINE);
@@ -76,6 +91,12 @@ public class IPhoneRestServiceTest extends AbstractSpringJerseyRestTestCase {
         assertFalse(m.matches());
     }
 
+    /**
+     * Test alarms.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testAlarms() throws Exception {
         Map<String, String> parameters = new HashMap<String, String>();
@@ -91,6 +112,12 @@ public class IPhoneRestServiceTest extends AbstractSpringJerseyRestTestCase {
         assertTrue(xml.contains("<nodeLabel>node1</nodeLabel>"));
     }
 
+    /**
+     * Test events.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testEvents() throws Exception {
         Map<String, String> parameters = new HashMap<String, String>();
@@ -104,6 +131,12 @@ public class IPhoneRestServiceTest extends AbstractSpringJerseyRestTestCase {
         assertTrue(xml.contains("uei.opennms.org/test"));
     }
 
+    /**
+     * Test nodes.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testNodes() throws Exception {
         final Map<String, Object> parameters = new HashMap<String, Object>();
@@ -149,6 +182,12 @@ public class IPhoneRestServiceTest extends AbstractSpringJerseyRestTestCase {
         assertTrue(xml.contains("totalCount=\"0\""));
     }
 
+    /**
+     * Test snmp interfaces for node id.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testSnmpInterfacesForNodeId() throws Exception {
         Map<String, Object> parameters = new HashMap<String, Object>();
@@ -157,6 +196,12 @@ public class IPhoneRestServiceTest extends AbstractSpringJerseyRestTestCase {
         assertTrue(xml.contains("Initial ifAlias value"));
     }
 
+    /**
+     * Test events for node id.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testEventsForNodeId() throws Exception {
         OnmsNode node = new OnmsNode();
@@ -182,6 +227,12 @@ public class IPhoneRestServiceTest extends AbstractSpringJerseyRestTestCase {
         assertTrue(xml.contains("uei.opennms.org/test"));
     }
 
+    /**
+     * Test outages.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testOutages() throws Exception {
         Map<String, Object> parameters = new HashMap<String, Object>();

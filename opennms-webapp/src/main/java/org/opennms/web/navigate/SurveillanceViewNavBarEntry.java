@@ -43,6 +43,8 @@ import org.opennms.web.api.Util;
  * @since 1.8.1
  */
 public class SurveillanceViewNavBarEntry extends LocationBasedNavBarEntry {
+
+    /** The m_surveillance view config dao. */
     private SurveillanceViewConfigDao m_surveillanceViewConfigDao;
 
     /** {@inheritDoc} */
@@ -63,6 +65,7 @@ public class SurveillanceViewNavBarEntry extends LocationBasedNavBarEntry {
      * <p>
      * getSurveillanceViewConfigDao
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.dao.api.SurveillanceViewConfigDao}
      *         object.
@@ -75,6 +78,7 @@ public class SurveillanceViewNavBarEntry extends LocationBasedNavBarEntry {
      * <p>
      * setSurveillanceViewConfigDao
      * </p>
+     * .
      *
      * @param surveillanceViewConfigDao
      *            a {@link org.opennms.netmgt.dao.api.SurveillanceViewConfigDao}

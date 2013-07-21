@@ -47,6 +47,7 @@ public interface CategoryStatusService {
      * <p>
      * getCategoriesStatus
      * </p>
+     * .
      *
      * @return a {@link java.util.Collection} object.
      */

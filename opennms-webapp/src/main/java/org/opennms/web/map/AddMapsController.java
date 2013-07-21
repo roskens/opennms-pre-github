@@ -62,8 +62,10 @@ import org.springframework.web.servlet.ModelAndView;
  */
 public class AddMapsController extends MapsLoggingController {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(AddMapsController.class);
 
+    /** The manager. */
     private Manager manager;
 
     /**
@@ -89,6 +91,9 @@ public class AddMapsController extends MapsLoggingController {
         this.manager = manager;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.web.map.MapsLoggingController#handleRequestInternal(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     */
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response)
             throws UnsupportedEncodingException, IOException {
         String elems = request.getParameter("elems");

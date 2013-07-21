@@ -39,7 +39,8 @@ import org.opennms.web.filter.SQLType;
  * @since 1.8.1
  */
 public class InterfaceFilter extends EqualsFilter<String> {
-    /** Constant <code>TYPE="intf"</code> */
+
+    /** Constant <code>TYPE="intf"</code>. */
     public static final String TYPE = "intf";
 
     /**
@@ -58,6 +59,7 @@ public class InterfaceFilter extends EqualsFilter<String> {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -70,6 +72,7 @@ public class InterfaceFilter extends EqualsFilter<String> {
      * <p>
      * getIpAddress
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

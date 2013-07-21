@@ -67,26 +67,63 @@ import org.springframework.util.StringUtils;
  */
 public class DefaultSurveillanceService implements SurveillanceService {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(DefaultSurveillanceService.class);
 
+    /** The m_node dao. */
     private NodeDao m_nodeDao;
 
+    /** The m_category dao. */
     private CategoryDao m_categoryDao;
 
+    /** The m_surveillance config dao. */
     private SurveillanceViewConfigDao m_surveillanceConfigDao;
 
+    /**
+     * The Interface CellStatusStrategy.
+     */
     interface CellStatusStrategy {
+
+        /**
+         * Calculate cell status.
+         *
+         * @param sView
+         *            the s view
+         * @param progressMonitor
+         *            the progress monitor
+         * @return the surveillance status[][]
+         */
         public SurveillanceStatus[][] calculateCellStatus(SurveillanceView sView, ProgressMonitor progressMonitor);
 
+        /**
+         * Gets the phase count.
+         *
+         * @param sView
+         *            the s view
+         * @return the phase count
+         */
         public int getPhaseCount(SurveillanceView sView);
     }
 
+    /**
+     * The Class DefaultCellStatusStrategy.
+     */
     class DefaultCellStatusStrategy implements CellStatusStrategy {
 
+        /**
+         * Gets the nodes in categories.
+         *
+         * @param categories
+         *            the categories
+         * @return the nodes in categories
+         */
         private Collection<OnmsNode> getNodesInCategories(final Set<OnmsCategory> categories) {
             return m_nodeDao.findAllByCategoryList(categories);
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.web.svclayer.support.DefaultSurveillanceService.CellStatusStrategy#calculateCellStatus(org.opennms.web.svclayer.support.DefaultSurveillanceService.SurveillanceView, org.opennms.web.svclayer.ProgressMonitor)
+         */
         @Override
         public SurveillanceStatus[][] calculateCellStatus(final SurveillanceView sView,
                 final ProgressMonitor progressMonitor) {
@@ -130,6 +167,9 @@ public class DefaultSurveillanceService implements SurveillanceService {
             return cellStatus;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.web.svclayer.support.DefaultSurveillanceService.CellStatusStrategy#getPhaseCount(org.opennms.web.svclayer.support.DefaultSurveillanceService.SurveillanceView)
+         */
         @Override
         public int getPhaseCount(final SurveillanceView sView) {
             return sView.getRowCount() + sView.getColumnCount() + 1;
@@ -137,8 +177,18 @@ public class DefaultSurveillanceService implements SurveillanceService {
 
     }
 
+    /**
+     * The Class LowMemCellStatusStrategy.
+     */
     class LowMemCellStatusStrategy implements CellStatusStrategy {
 
+        /**
+         * To string.
+         *
+         * @param categories
+         *            the categories
+         * @return the string
+         */
         private String toString(final Collection<OnmsCategory> categories) {
             final StringBuilder buf = new StringBuilder();
 
@@ -156,6 +206,9 @@ public class DefaultSurveillanceService implements SurveillanceService {
             return buf.toString();
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.web.svclayer.support.DefaultSurveillanceService.CellStatusStrategy#calculateCellStatus(org.opennms.web.svclayer.support.DefaultSurveillanceService.SurveillanceView, org.opennms.web.svclayer.ProgressMonitor)
+         */
         @Override
         public SurveillanceStatus[][] calculateCellStatus(final SurveillanceView sView,
                 final ProgressMonitor progressMonitor) {
@@ -181,6 +234,9 @@ public class DefaultSurveillanceService implements SurveillanceService {
             return cellStatus;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.web.svclayer.support.DefaultSurveillanceService.CellStatusStrategy#getPhaseCount(org.opennms.web.svclayer.support.DefaultSurveillanceService.SurveillanceView)
+         */
         @Override
         public int getPhaseCount(final SurveillanceView sView) {
             return sView.getRowCount() * sView.getColumnCount();
@@ -188,8 +244,18 @@ public class DefaultSurveillanceService implements SurveillanceService {
 
     }
 
+    /**
+     * The Class VeryLowMemCellStatusStrategy.
+     */
     class VeryLowMemCellStatusStrategy implements CellStatusStrategy {
 
+        /**
+         * To string.
+         *
+         * @param categories
+         *            the categories
+         * @return the string
+         */
         private String toString(final Collection<OnmsCategory> categories) {
             final StringBuilder buf = new StringBuilder();
 
@@ -207,6 +273,9 @@ public class DefaultSurveillanceService implements SurveillanceService {
             return buf.toString();
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.web.svclayer.support.DefaultSurveillanceService.CellStatusStrategy#calculateCellStatus(org.opennms.web.svclayer.support.DefaultSurveillanceService.SurveillanceView, org.opennms.web.svclayer.ProgressMonitor)
+         */
         @Override
         public SurveillanceStatus[][] calculateCellStatus(final SurveillanceView sView,
                 final ProgressMonitor progressMonitor) {
@@ -234,6 +303,9 @@ public class DefaultSurveillanceService implements SurveillanceService {
             return cellStatus;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.web.svclayer.support.DefaultSurveillanceService.CellStatusStrategy#getPhaseCount(org.opennms.web.svclayer.support.DefaultSurveillanceService.SurveillanceView)
+         */
         @Override
         public int getPhaseCount(final SurveillanceView sView) {
             return sView.getRowCount() * sView.getColumnCount();
@@ -245,6 +317,7 @@ public class DefaultSurveillanceService implements SurveillanceService {
      * <p>
      * createSurveillanceTable
      * </p>
+     * .
      *
      * @return a {@link org.opennms.web.svclayer.SimpleWebTable} object.
      */
@@ -252,13 +325,30 @@ public class DefaultSurveillanceService implements SurveillanceService {
         return createSurveillanceTable("default", new ProgressMonitor());
     }
 
+    /**
+     * The Class SurveillanceView.
+     */
     public class SurveillanceView {
+
+        /** The m_surveillance config dao. */
         private final SurveillanceViewConfigDao m_surveillanceConfigDao;
 
+        /** The m_category dao. */
         private final CategoryDao m_categoryDao;
 
+        /** The m_view. */
         private final View m_view;
 
+        /**
+         * Instantiates a new surveillance view.
+         *
+         * @param viewName
+         *            the view name
+         * @param surveillanceConfigDao
+         *            the surveillance config dao
+         * @param categoryDao
+         *            the category dao
+         */
         public SurveillanceView(final String viewName, final SurveillanceViewConfigDao surveillanceConfigDao,
                 final CategoryDao categoryDao) {
             m_surveillanceConfigDao = surveillanceConfigDao;
@@ -266,30 +356,75 @@ public class DefaultSurveillanceService implements SurveillanceService {
             m_view = m_surveillanceConfigDao.getView(viewName);
         }
 
+        /**
+         * Gets the row count.
+         *
+         * @return the row count
+         */
         public int getRowCount() {
             return m_view.getRows().getRowDefCount();
         }
 
+        /**
+         * Gets the column count.
+         *
+         * @return the column count
+         */
         public int getColumnCount() {
             return m_view.getColumns().getColumnDefCount();
         }
 
+        /**
+         * Gets the categories for row.
+         *
+         * @param rowIndex
+         *            the row index
+         * @return the categories for row
+         */
         public Set<OnmsCategory> getCategoriesForRow(final int rowIndex) {
             return getOnmsCategoriesFromViewCategories(getRowDef(rowIndex).getCategoryCollection());
         }
 
+        /**
+         * Gets the row def.
+         *
+         * @param rowIndex
+         *            the row index
+         * @return the row def
+         */
         private RowDef getRowDef(final int rowIndex) {
             return m_view.getRows().getRowDef(rowIndex);
         }
 
+        /**
+         * Gets the categories for column.
+         *
+         * @param colIndex
+         *            the col index
+         * @return the categories for column
+         */
         public Set<OnmsCategory> getCategoriesForColumn(final int colIndex) {
             return getOnmsCategoriesFromViewCategories(getColumnDef(colIndex).getCategoryCollection());
         }
 
+        /**
+         * Gets the column def.
+         *
+         * @param colIndex
+         *            the col index
+         * @return the column def
+         */
         private ColumnDef getColumnDef(final int colIndex) {
             return m_view.getColumns().getColumnDef(colIndex);
         }
 
+        /**
+         * Gets the onms categories from view categories.
+         *
+         * @param viewCats
+         *            the view cats
+         * @return the onms categories from view categories
+         */
         private Set<OnmsCategory> getOnmsCategoriesFromViewCategories(final Collection<Category> viewCats) {
             final Set<OnmsCategory> categories = new HashSet<OnmsCategory>();
 
@@ -309,18 +444,46 @@ public class DefaultSurveillanceService implements SurveillanceService {
             return categories;
         }
 
+        /**
+         * Gets the row label.
+         *
+         * @param rowIndex
+         *            the row index
+         * @return the row label
+         */
         public String getRowLabel(final int rowIndex) {
             return getRowDef(rowIndex).getLabel();
         }
 
+        /**
+         * Gets the column label.
+         *
+         * @param colIndex
+         *            the col index
+         * @return the column label
+         */
         public String getColumnLabel(final int colIndex) {
             return getColumnDef(colIndex).getLabel();
         }
 
+        /**
+         * Gets the column report category.
+         *
+         * @param colIndex
+         *            the col index
+         * @return the column report category
+         */
         public String getColumnReportCategory(final int colIndex) {
             return getColumnDef(colIndex).getReportCategory();
         }
 
+        /**
+         * Gets the row report category.
+         *
+         * @param rowIndex
+         *            the row index
+         * @return the row report category
+         */
         public String getRowReportCategory(final int rowIndex) {
             return getRowDef(rowIndex).getReportCategory();
         }
@@ -385,10 +548,22 @@ public class DefaultSurveillanceService implements SurveillanceService {
         return webTable;
     }
 
+    /**
+     * Gets the cell status strategy.
+     *
+     * @return the cell status strategy
+     */
     private CellStatusStrategy getCellStatusStrategy() {
         return new VeryLowMemCellStatusStrategy();
     }
 
+    /**
+     * Compute report category link.
+     *
+     * @param reportCategory
+     *            the report category
+     * @return the string
+     */
     private String computeReportCategoryLink(final String reportCategory) {
         String link = null;
 
@@ -403,6 +578,17 @@ public class DefaultSurveillanceService implements SurveillanceService {
      * parameters to show the categories for this cell.
      * FIXME: this code should move to the jsp after the status table is
      * enhanced to support this requirement.
+     */
+    /**
+     * Creates the node page url.
+     *
+     * @param view
+     *            the view
+     * @param colIndex
+     *            the col index
+     * @param rowIndex
+     *            the row index
+     * @return the string
      */
     private String createNodePageUrl(final SurveillanceView view, final int colIndex, final int rowIndex) {
         Set<OnmsCategory> columns = Collections.emptySet();
@@ -435,6 +621,7 @@ public class DefaultSurveillanceService implements SurveillanceService {
      * <p>
      * getNodeDao
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.dao.api.NodeDao} object.
      */
@@ -446,6 +633,7 @@ public class DefaultSurveillanceService implements SurveillanceService {
      * <p>
      * setNodeDao
      * </p>
+     * .
      *
      * @param nodeDao
      *            a {@link org.opennms.netmgt.dao.api.NodeDao} object.
@@ -458,6 +646,7 @@ public class DefaultSurveillanceService implements SurveillanceService {
      * <p>
      * getCategoryDao
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.dao.api.CategoryDao} object.
      */
@@ -469,6 +658,7 @@ public class DefaultSurveillanceService implements SurveillanceService {
      * <p>
      * setCategoryDao
      * </p>
+     * .
      *
      * @param categoryDao
      *            a {@link org.opennms.netmgt.dao.api.CategoryDao} object.
@@ -481,6 +671,7 @@ public class DefaultSurveillanceService implements SurveillanceService {
      * <p>
      * getSurveillanceConfigDao
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.dao.api.SurveillanceViewConfigDao}
      *         object.
@@ -493,6 +684,7 @@ public class DefaultSurveillanceService implements SurveillanceService {
      * <p>
      * setSurveillanceConfigDao
      * </p>
+     * .
      *
      * @param surveillanceConfigDao
      *            a {@link org.opennms.netmgt.dao.api.SurveillanceViewConfigDao}
@@ -521,6 +713,7 @@ public class DefaultSurveillanceService implements SurveillanceService {
      * <p>
      * getViewNames
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -534,6 +727,11 @@ public class DefaultSurveillanceService implements SurveillanceService {
         return viewNames;
     }
 
+    /**
+     * Gets the view collection.
+     *
+     * @return the view collection
+     */
     private Collection<View> getViewCollection() {
         return m_surveillanceConfigDao.getViews().getViewCollection();
     }

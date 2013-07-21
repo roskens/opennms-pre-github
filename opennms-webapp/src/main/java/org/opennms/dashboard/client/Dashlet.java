@@ -46,11 +46,25 @@ import com.google.gwt.user.client.ui.Widget;
  */
 public abstract class Dashlet extends Composite {
 
+    /**
+     * The Class DashletTitle.
+     */
     class DashletTitle extends Composite {
+
+        /** The m_panel. */
         private DockPanel m_panel = new DockPanel();
 
+        /** The m_label. */
         private Label m_label = new Label();
 
+        /**
+         * Instantiates a new dashlet title.
+         *
+         * @param title
+         *            the title
+         * @param loader
+         *            the loader
+         */
         DashletTitle(String title, DashletLoader loader) {
 
             m_label.setText(title);
@@ -66,27 +80,44 @@ public abstract class Dashlet extends Composite {
             initWidget(m_panel);
         }
 
+        /* (non-Javadoc)
+         * @see com.google.gwt.user.client.ui.UIObject#setTitle(java.lang.String)
+         */
         @Override
         public void setTitle(String title) {
             m_label.setText(title);
         }
 
+        /**
+         * Adds the.
+         *
+         * @param widget
+         *            the widget
+         * @param constraint
+         *            the constraint
+         */
         public void add(Widget widget, DockLayoutConstant constraint) {
             m_panel.add(widget, constraint);
         }
 
     }
 
+    /** The m_panel. */
     private VerticalPanel m_panel = new VerticalPanel();
 
+    /** The m_title. */
     private String m_title;
 
+    /** The m_title widget. */
     private DashletTitle m_titleWidget;
 
+    /** The m_view. */
     private DashletView m_view;
 
+    /** The m_loader. */
     private DashletLoader m_loader;
 
+    /** The m_dashboard. */
     private Dashboard m_dashboard;
 
     /**
@@ -109,6 +140,7 @@ public abstract class Dashlet extends Composite {
      * <p>
      * setView
      * </p>
+     * .
      *
      * @param view
      *            a {@link org.opennms.dashboard.client.DashletView} object.
@@ -121,6 +153,7 @@ public abstract class Dashlet extends Composite {
      * <p>
      * setView
      * </p>
+     * .
      *
      * @param view
      *            a {@link com.google.gwt.user.client.ui.Widget} object.
@@ -133,6 +166,7 @@ public abstract class Dashlet extends Composite {
      * <p>
      * getTitle
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -152,6 +186,7 @@ public abstract class Dashlet extends Composite {
      * <p>
      * addToTitleBar
      * </p>
+     * .
      *
      * @param widget
      *            a {@link com.google.gwt.user.client.ui.Widget} object.
@@ -168,6 +203,7 @@ public abstract class Dashlet extends Composite {
      * <p>
      * setLoader
      * </p>
+     * .
      *
      * @param loader
      *            a {@link org.opennms.dashboard.client.DashletLoader} object.
@@ -180,6 +216,7 @@ public abstract class Dashlet extends Composite {
      * <p>
      * onLoad
      * </p>
+     * .
      */
     @Override
     protected void onLoad() {
@@ -201,6 +238,7 @@ public abstract class Dashlet extends Composite {
      * <p>
      * error
      * </p>
+     * .
      *
      * @param caught
      *            a {@link java.lang.Throwable} object.
@@ -213,6 +251,7 @@ public abstract class Dashlet extends Composite {
      * <p>
      * error
      * </p>
+     * .
      *
      * @param err
      *            a {@link java.lang.String} object.
@@ -225,6 +264,7 @@ public abstract class Dashlet extends Composite {
      * <p>
      * setSurveillanceSet
      * </p>
+     * .
      *
      * @param set
      *            a {@link org.opennms.dashboard.client.SurveillanceSet} object.

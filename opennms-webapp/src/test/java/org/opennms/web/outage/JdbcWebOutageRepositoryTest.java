@@ -48,6 +48,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * The Class JdbcWebOutageRepositoryTest.
+ */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
         "classpath:/META-INF/opennms/applicationContext-dao.xml", "classpath*:/META-INF/opennms/component-dao.xml",
@@ -57,22 +60,33 @@ import org.springframework.transaction.annotation.Transactional;
 @JUnitTemporaryDatabase
 public class JdbcWebOutageRepositoryTest implements InitializingBean {
 
+    /** The m_db populator. */
     @Autowired
     DatabasePopulator m_dbPopulator;
 
+    /** The m_outage repo. */
     @Autowired
     WebOutageRepository m_outageRepo;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Sets the up.
+     */
     @Before
     public void setUp() {
         m_dbPopulator.populateDatabase();
     }
 
+    /**
+     * Test count matching outages.
+     */
     @Test
     @JUnitTemporaryDatabase
     // Relies on specific IDs so we need a fresh database
@@ -83,6 +97,9 @@ public class JdbcWebOutageRepositoryTest implements InitializingBean {
         assertEquals(1, outages);
     }
 
+    /**
+     * Test get outage.
+     */
     @Test
     @JUnitTemporaryDatabase
     // Relies on specific IDs so we need a fresh database
@@ -95,6 +112,9 @@ public class JdbcWebOutageRepositoryTest implements InitializingBean {
         assertNotNull(outage);
     }
 
+    /**
+     * Test get outages.
+     */
     @Test
     @Transactional
     public void testGetOutages() {
@@ -106,6 +126,9 @@ public class JdbcWebOutageRepositoryTest implements InitializingBean {
         assertNull(outages[1].getRegainedServiceTime());
     }
 
+    /**
+     * Test get outage summaries.
+     */
     @Test
     @Transactional
     public void testGetOutageSummaries() {

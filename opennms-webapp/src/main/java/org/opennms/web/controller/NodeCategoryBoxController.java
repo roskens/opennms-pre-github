@@ -51,6 +51,8 @@ import org.springframework.web.servlet.mvc.AbstractController;
  * @since 1.8.1
  */
 public class NodeCategoryBoxController extends AbstractController {
+
+    /** The m_admin category service. */
     private AdminCategoryService m_adminCategoryService;
 
     /** {@inheritDoc} */
@@ -78,6 +80,7 @@ public class NodeCategoryBoxController extends AbstractController {
      * <p>
      * getAdminCategoryService
      * </p>
+     * .
      *
      * @return a {@link org.opennms.web.svclayer.AdminCategoryService} object.
      */
@@ -89,6 +92,7 @@ public class NodeCategoryBoxController extends AbstractController {
      * <p>
      * setAdminCategoryService
      * </p>
+     * .
      *
      * @param adminCategoryService
      *            a {@link org.opennms.web.svclayer.AdminCategoryService}

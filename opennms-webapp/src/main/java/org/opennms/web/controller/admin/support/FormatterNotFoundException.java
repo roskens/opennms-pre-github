@@ -28,12 +28,20 @@
 
 package org.opennms.web.controller.admin.support;
 
+/**
+ * The Class FormatterNotFoundException.
+ */
 public class FormatterNotFoundException extends IllegalArgumentException {
-    /**
-     *
-     */
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 8369553385533065023L;
 
+    /**
+     * Instantiates a new formatter not found exception.
+     *
+     * @param message
+     *            the message
+     */
     public FormatterNotFoundException(final String message) {
         super(message);
     }

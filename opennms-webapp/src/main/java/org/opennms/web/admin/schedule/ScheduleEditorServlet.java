@@ -65,49 +65,135 @@ import org.opennms.netmgt.config.poller.Outages;
  * @since 1.8.1
  */
 public class ScheduleEditorServlet extends HttpServlet {
-    /**
-     *
-     */
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -7117332637559031820L;
 
+    /** The m_ops. */
     private Map<String, ScheduleOp> m_ops = new HashMap<String, ScheduleOp>();
 
+    /** The m_maps. */
     private Map<String, SingleMapping> m_maps = new HashMap<String, SingleMapping>();
 
+    /** The m_default op. */
     private ScheduleOp m_defaultOp;
 
+    /** The m_default mapping. */
     private ScheduleMapping m_defaultMapping;
 
+    /** The m_default view. */
     private String m_defaultView;
 
+    /**
+     * The Interface ScheduleManager.
+     */
     public interface ScheduleManager {
+
+        /**
+         * Gets the file name.
+         *
+         * @return the file name
+         */
         public String getFileName();
 
+        /**
+         * Sets the file name.
+         *
+         * @param fileName
+         *            the new file name
+         */
         public void setFileName(String fileName);
 
+        /**
+         * Load schedules.
+         *
+         * @throws ServletException
+         *             the servlet exception
+         */
         public void loadSchedules() throws ServletException;
 
+        /**
+         * Save schedules.
+         *
+         * @throws ServletException
+         *             the servlet exception
+         */
         public void saveSchedules() throws ServletException;
 
+        /**
+         * Delete schedule.
+         *
+         * @param index
+         *            the index
+         * @throws ServletException
+         *             the servlet exception
+         */
         public void deleteSchedule(int index) throws ServletException;
 
+        /**
+         * Adds the schedule.
+         *
+         * @param schedule
+         *            the schedule
+         * @throws ServletException
+         *             the servlet exception
+         */
         public void addSchedule(BasicSchedule schedule) throws ServletException;
 
+        /**
+         * Sets the schedule.
+         *
+         * @param index
+         *            the index
+         * @param schedule
+         *            the schedule
+         * @throws ServletException
+         *             the servlet exception
+         */
         public void setSchedule(int index, BasicSchedule schedule) throws ServletException;
 
+        /**
+         * Creates the schedule.
+         *
+         * @param name
+         *            the name
+         * @param type
+         *            the type
+         * @return the basic schedule
+         */
         public BasicSchedule createSchedule(String name, String type);
 
+        /**
+         * Gets the schedule.
+         *
+         * @param index
+         *            the index
+         * @return the schedule
+         */
         public BasicSchedule getSchedule(int index);
 
+        /**
+         * Gets the schedule.
+         *
+         * @return the schedule
+         */
         public BasicSchedule[] getSchedule();
     }
 
+    /**
+     * The Class OutageManager.
+     */
     static class OutageManager implements ScheduleManager {
 
+        /** The m_outages. */
         private Outages m_outages;
 
+        /** The m_file name. */
         private String m_fileName = null;
 
+        /* (non-Javadoc)
+         * @see org.opennms.web.admin.schedule.ScheduleEditorServlet.ScheduleManager#loadSchedules()
+         */
         @Override
         public void loadSchedules() throws ServletException {
             if (m_fileName == null) {
@@ -129,6 +215,9 @@ public class ScheduleEditorServlet extends HttpServlet {
             }
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.web.admin.schedule.ScheduleEditorServlet.ScheduleManager#saveSchedules()
+         */
         @Override
         public void saveSchedules() throws ServletException {
             if (m_fileName == null) {
@@ -150,27 +239,44 @@ public class ScheduleEditorServlet extends HttpServlet {
             }
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.web.admin.schedule.ScheduleEditorServlet.ScheduleManager#deleteSchedule(int)
+         */
         @Override
         public void deleteSchedule(int index) throws ServletException {
             List<Outage> outages = getOutages();
             outages.remove(index);
         }
 
+        /**
+         * Gets the outages.
+         *
+         * @return the outages
+         */
         private List<Outage> getOutages() {
             return m_outages.getOutageCollection();
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.web.admin.schedule.ScheduleEditorServlet.ScheduleManager#addSchedule(org.opennms.netmgt.config.poller.BasicSchedule)
+         */
         @Override
         public void addSchedule(BasicSchedule schedule) throws ServletException {
             Outage outage = (Outage) schedule;
             m_outages.addOutage(outage);
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.web.admin.schedule.ScheduleEditorServlet.ScheduleManager#setSchedule(int, org.opennms.netmgt.config.poller.BasicSchedule)
+         */
         @Override
         public void setSchedule(int index, BasicSchedule schedule) throws ServletException {
             m_outages.setOutage(index, (Outage) schedule);
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.web.admin.schedule.ScheduleEditorServlet.ScheduleManager#createSchedule(java.lang.String, java.lang.String)
+         */
         @Override
         public BasicSchedule createSchedule(String name, String type) {
             Outage outage = new Outage();
@@ -179,21 +285,33 @@ public class ScheduleEditorServlet extends HttpServlet {
             return outage;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.web.admin.schedule.ScheduleEditorServlet.ScheduleManager#getSchedule(int)
+         */
         @Override
         public BasicSchedule getSchedule(int index) {
             return m_outages.getOutage(index);
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.web.admin.schedule.ScheduleEditorServlet.ScheduleManager#getSchedule()
+         */
         @Override
         public BasicSchedule[] getSchedule() {
             return m_outages.getOutage();
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.web.admin.schedule.ScheduleEditorServlet.ScheduleManager#getFileName()
+         */
         @Override
         public String getFileName() {
             return m_fileName;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.web.admin.schedule.ScheduleEditorServlet.ScheduleManager#setFileName(java.lang.String)
+         */
         @Override
         public void setFileName(String fileName) {
             m_fileName = fileName;
@@ -201,12 +319,36 @@ public class ScheduleEditorServlet extends HttpServlet {
 
     }
 
+    /**
+     * The Interface ScheduleOp.
+     */
     interface ScheduleOp {
+
+        /**
+         * Do op.
+         *
+         * @param request
+         *            the request
+         * @param response
+         *            the response
+         * @param map
+         *            the map
+         * @return the string
+         * @throws ServletException
+         *             the servlet exception
+         */
         public String doOp(HttpServletRequest request, HttpServletResponse response, ScheduleMapping map)
                 throws ServletException;
     }
 
+    /**
+     * The Class NewScheduleOp.
+     */
     class NewScheduleOp implements ScheduleOp {
+
+        /* (non-Javadoc)
+         * @see org.opennms.web.admin.schedule.ScheduleEditorServlet.ScheduleOp#doOp(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, org.opennms.web.admin.schedule.ScheduleEditorServlet.ScheduleMapping)
+         */
         @Override
         public String doOp(HttpServletRequest request, HttpServletResponse response, ScheduleMapping map)
                 throws ServletException {
@@ -221,7 +363,14 @@ public class ScheduleEditorServlet extends HttpServlet {
         }
     }
 
+    /**
+     * The Class EditOp.
+     */
     class EditOp implements ScheduleOp {
+
+        /* (non-Javadoc)
+         * @see org.opennms.web.admin.schedule.ScheduleEditorServlet.ScheduleOp#doOp(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, org.opennms.web.admin.schedule.ScheduleEditorServlet.ScheduleMapping)
+         */
         @Override
         public String doOp(HttpServletRequest request, HttpServletResponse response, ScheduleMapping map)
                 throws ServletException {
@@ -236,7 +385,14 @@ public class ScheduleEditorServlet extends HttpServlet {
         }
     }
 
+    /**
+     * The Class DeleteOp.
+     */
     class DeleteOp implements ScheduleOp {
+
+        /* (non-Javadoc)
+         * @see org.opennms.web.admin.schedule.ScheduleEditorServlet.ScheduleOp#doOp(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, org.opennms.web.admin.schedule.ScheduleEditorServlet.ScheduleMapping)
+         */
         @Override
         public String doOp(HttpServletRequest request, HttpServletResponse response, ScheduleMapping map)
                 throws ServletException {
@@ -251,7 +407,14 @@ public class ScheduleEditorServlet extends HttpServlet {
         }
     }
 
+    /**
+     * The Class DisplayOp.
+     */
     class DisplayOp implements ScheduleOp {
+
+        /* (non-Javadoc)
+         * @see org.opennms.web.admin.schedule.ScheduleEditorServlet.ScheduleOp#doOp(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, org.opennms.web.admin.schedule.ScheduleEditorServlet.ScheduleMapping)
+         */
         @Override
         public String doOp(HttpServletRequest request, HttpServletResponse response, ScheduleMapping map)
                 throws ServletException {
@@ -261,17 +424,42 @@ public class ScheduleEditorServlet extends HttpServlet {
         }
     }
 
+    /**
+     * The Interface ScheduleMapping.
+     */
     interface ScheduleMapping {
+
+        /**
+         * Gets the.
+         *
+         * @param result
+         *            the result
+         * @return the string
+         */
         public String get(String result);
     }
 
+    /**
+     * The Class SingleMapping.
+     */
     static class SingleMapping implements ScheduleMapping {
+
+        /** The m_view. */
         String m_view;
 
+        /**
+         * Instantiates a new single mapping.
+         *
+         * @param view
+         *            the view
+         */
         public SingleMapping(String view) {
             m_view = view;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.web.admin.schedule.ScheduleEditorServlet.ScheduleMapping#get(java.lang.String)
+         */
         @Override
         public String get(String result) {
             return m_view;
@@ -301,6 +489,13 @@ public class ScheduleEditorServlet extends HttpServlet {
 
     }
 
+    /**
+     * Gets the op.
+     *
+     * @param cmd
+     *            the cmd
+     * @return the op
+     */
     ScheduleOp getOp(String cmd) {
 
         if (cmd == null) {
@@ -315,6 +510,13 @@ public class ScheduleEditorServlet extends HttpServlet {
         return op;
     }
 
+    /**
+     * Gets the map.
+     *
+     * @param cmd
+     *            the cmd
+     * @return the map
+     */
     ScheduleMapping getMap(String cmd) {
         if (cmd == null) {
             return m_defaultMapping;
@@ -326,6 +528,20 @@ public class ScheduleEditorServlet extends HttpServlet {
         return map;
     }
 
+    /**
+     * Show view.
+     *
+     * @param request
+     *            the request
+     * @param response
+     *            the response
+     * @param view
+     *            the view
+     * @throws ServletException
+     *             the servlet exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     void showView(HttpServletRequest request, HttpServletResponse response, String view) throws ServletException,
             IOException {
         String nextView = view;
@@ -352,6 +568,18 @@ public class ScheduleEditorServlet extends HttpServlet {
         process(request, response);
     }
 
+    /**
+     * Process.
+     *
+     * @param request
+     *            the request
+     * @param response
+     *            the response
+     * @throws ServletException
+     *             the servlet exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         ScheduleOp op = getOp(request.getParameter("op"));
         ScheduleMapping map = getMap(request.getParameter("op"));
@@ -360,6 +588,15 @@ public class ScheduleEditorServlet extends HttpServlet {
 
     }
 
+    /**
+     * Gets the sched mgr.
+     *
+     * @param request
+     *            the request
+     * @return the sched mgr
+     * @throws ServletException
+     *             the servlet exception
+     */
     private ScheduleManager getSchedMgr(HttpServletRequest request) throws ServletException {
         ScheduleManager schedMgr = (ScheduleManager) request.getSession().getAttribute("schedMgr");
         String fileName = request.getParameter("file");

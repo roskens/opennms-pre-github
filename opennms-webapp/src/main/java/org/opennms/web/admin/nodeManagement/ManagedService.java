@@ -41,19 +41,14 @@ package org.opennms.web.admin.nodeManagement;
  * @since 1.8.1
  */
 public class ManagedService {
-    /**
-     *
-     */
+
+    /** The name. */
     protected String name;
 
-    /**
-     *
-     */
+    /** The status. */
     protected String status;
 
-    /**
-     *
-     */
+    /** The service id. */
     protected int serviceId;
 
     /**
@@ -68,6 +63,7 @@ public class ManagedService {
      * <p>
      * setId
      * </p>
+     * .
      *
      * @param id
      *            a int.
@@ -80,6 +76,7 @@ public class ManagedService {
      * <p>
      * getId
      * </p>
+     * .
      *
      * @return a int.
      */

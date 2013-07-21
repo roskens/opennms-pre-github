@@ -47,7 +47,8 @@ import org.opennms.web.filter.SQLType;
  * @since 1.8.1
  */
 public class RecentOutagesFilter extends OneArgFilter<Date> {
-    /** Constant <code>TYPE="recent"</code> */
+
+    /** Constant <code>TYPE="recent"</code>. */
     public static final String TYPE = "recent";
 
     /**
@@ -93,6 +94,7 @@ public class RecentOutagesFilter extends OneArgFilter<Date> {
      * <p>
      * yesterday
      * </p>
+     * .
      *
      * @return a {@link java.util.Date} object.
      */

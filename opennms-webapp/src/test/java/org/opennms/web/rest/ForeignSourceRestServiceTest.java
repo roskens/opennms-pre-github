@@ -37,11 +37,20 @@ import org.opennms.test.JUnitConfigurationEnvironment;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.context.ContextConfiguration;
 
+/**
+ * The Class ForeignSourceRestServiceTest.
+ */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/opennms/component-dao.xml" })
 @JUnitConfigurationEnvironment
 public class ForeignSourceRestServiceTest extends AbstractSpringJerseyRestTestCase {
 
+    /**
+     * Test foreign sources.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testForeignSources() throws Exception {
         createForeignSource();
@@ -65,6 +74,12 @@ public class ForeignSourceRestServiceTest extends AbstractSpringJerseyRestTestCa
         assertTrue(xml.contains("<scan-interval>1d</scan-interval>"));
     }
 
+    /**
+     * Test detectors.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testDetectors() throws Exception {
         createForeignSource();
@@ -83,6 +98,12 @@ public class ForeignSourceRestServiceTest extends AbstractSpringJerseyRestTestCa
         xml = sendRequest(GET, url, 204);
     }
 
+    /**
+     * Test policies.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testPolicies() throws Exception {
         createForeignSource();
@@ -102,6 +123,12 @@ public class ForeignSourceRestServiceTest extends AbstractSpringJerseyRestTestCa
         xml = sendRequest(GET, url, 204);
     }
 
+    /**
+     * Creates the foreign source.
+     *
+     * @throws Exception
+     *             the exception
+     */
     private void createForeignSource() throws Exception {
         String fs = "<foreign-source xmlns=\"http://xmlns.opennms.org/xsd/config/foreign-source\" name=\"test\">"
                 + "<scan-interval>1d</scan-interval>"

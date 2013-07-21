@@ -54,16 +54,20 @@ import org.springframework.validation.BindException;
  */
 public class DefaultStatisticsReportService implements StatisticsReportService, InitializingBean {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(DefaultStatisticsReportService.class);
 
+    /** The m_statistics report dao. */
     private StatisticsReportDao m_statisticsReportDao;
 
+    /** The m_resource dao. */
     private ResourceDao m_resourceDao;
 
     /**
      * <p>
      * getStatisticsReports
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -110,9 +114,10 @@ public class DefaultStatisticsReportService implements StatisticsReportService, 
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @Override
     public final void afterPropertiesSet() throws Exception {
@@ -124,6 +129,7 @@ public class DefaultStatisticsReportService implements StatisticsReportService, 
      * <p>
      * getStatisticsReportDao
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.dao.api.StatisticsReportDao} object.
      */
@@ -135,6 +141,7 @@ public class DefaultStatisticsReportService implements StatisticsReportService, 
      * <p>
      * setStatisticsReportDao
      * </p>
+     * .
      *
      * @param statisticsReportDao
      *            a {@link org.opennms.netmgt.dao.api.StatisticsReportDao}
@@ -148,6 +155,7 @@ public class DefaultStatisticsReportService implements StatisticsReportService, 
      * <p>
      * getResourceDao
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.dao.api.ResourceDao} object.
      */
@@ -159,6 +167,7 @@ public class DefaultStatisticsReportService implements StatisticsReportService, 
      * <p>
      * setResourceDao
      * </p>
+     * .
      *
      * @param resourceDao
      *            a {@link org.opennms.netmgt.dao.api.ResourceDao} object.

@@ -52,8 +52,10 @@ import org.springframework.web.servlet.mvc.AbstractController;
  */
 public class OutageDetailController extends AbstractController implements InitializingBean {
 
+    /** The m_success view. */
     private String m_successView;
 
+    /** The m_web outage repository. */
     private WebOutageRepository m_webOutageRepository;
 
     /** {@inheritDoc} */
@@ -84,9 +86,10 @@ public class OutageDetailController extends AbstractController implements Initia
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -94,6 +97,11 @@ public class OutageDetailController extends AbstractController implements Initia
         Assert.notNull(m_webOutageRepository, "webOutageRepository must be set");
     }
 
+    /**
+     * Gets the success view.
+     *
+     * @return the success view
+     */
     private String getSuccessView() {
         return m_successView;
     }
@@ -102,6 +110,7 @@ public class OutageDetailController extends AbstractController implements Initia
      * <p>
      * setSuccessView
      * </p>
+     * .
      *
      * @param successView
      *            a {@link java.lang.String} object.
@@ -114,6 +123,7 @@ public class OutageDetailController extends AbstractController implements Initia
      * <p>
      * setWebOutageRepository
      * </p>
+     * .
      *
      * @param webOutageRepository
      *            a {@link org.opennms.web.outage.WebOutageRepository} object.

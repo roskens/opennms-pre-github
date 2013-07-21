@@ -81,15 +81,19 @@ import com.sun.jersey.spi.resource.PerRequest;
 @Path("outages")
 public class OutageRestService extends OnmsRestService {
 
+    /** The m_outage dao. */
     @Autowired
     private OutageDao m_outageDao;
 
+    /** The m_uri info. */
     @Context
     UriInfo m_uriInfo;
 
+    /** The m_security context. */
     @Context
     SecurityContext m_securityContext;
 
+    /** The m_servlet context. */
     @Context
     ServletContext m_servletContext;
 
@@ -97,6 +101,7 @@ public class OutageRestService extends OnmsRestService {
      * <p>
      * getOutage
      * </p>
+     * .
      *
      * @param outageId
      *            a {@link java.lang.String} object.
@@ -120,6 +125,7 @@ public class OutageRestService extends OnmsRestService {
      * <p>
      * getCount
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -140,6 +146,7 @@ public class OutageRestService extends OnmsRestService {
      * <p>
      * getOutages
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.OnmsOutageCollection} object.
      */
@@ -167,6 +174,7 @@ public class OutageRestService extends OnmsRestService {
      * <p>
      * forNodeId
      * </p>
+     * .
      *
      * @param nodeId
      *            a int.

@@ -66,49 +66,60 @@ import org.slf4j.LoggerFactory;
 
 /**
  * A servlet that handles managing or unmanaging interfaces and services on a
- * node
+ * node.
  *
  * @author <A HREF="mailto:jacinta@opennms.org">Jacinta Remedios </A>
  * @author <A HREF="http://www.opennms.org/">OpenNMS </A>
  */
 public class PollerConfigServlet extends HttpServlet {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(PollerConfigServlet.class);
 
-    /**
-     *
-     */
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -4273370522387271772L;
 
+    /** The m_poller config. */
     private PollerConfiguration m_pollerConfig = null;
 
+    /** The m_capsd config. */
     private CapsdConfiguration m_capsdConfig = null;
 
+    /** The m_redirect success. */
     protected String m_redirectSuccess;
 
+    /** The m_poller services. */
     private Map<String, Service> m_pollerServices = new HashMap<String, Service>();
 
+    /** The m_capsd protocols. */
     private Map<String, ProtocolPlugin> m_capsdProtocols = new HashMap<String, ProtocolPlugin>();
 
+    /** The m_capsd coll. */
     private List<ProtocolPlugin> m_capsdColl = new ArrayList<ProtocolPlugin>();
 
+    /** The m_pkg. */
     private org.opennms.netmgt.config.poller.Package m_pkg = null;
 
+    /** The m_plugin coll. */
     private List<ProtocolPlugin> m_pluginColl = null;
 
+    /** The m_props. */
     private Properties m_props = new Properties();
 
+    /** The m_poller factory. */
     private PollerConfig m_pollerFactory = null;
 
+    /** The m_capsd factory. */
     private CapsdConfig m_capsdFactory = null;
 
     /**
      * <p>
      * init
      * </p>
+     * .
      *
-     * @throws javax.servlet.ServletException
-     *             if any.
+     * @throws ServletException
+     *             the servlet exception
      */
     @Override
     public void init() throws ServletException {
@@ -124,6 +135,13 @@ public class PollerConfigServlet extends HttpServlet {
         initCapsdProtocols();
     }
 
+    /**
+     * Gets the inits the parameters.
+     *
+     * @return the inits the parameters
+     * @throws ServletException
+     *             the servlet exception
+     */
     private void getInitParameters() throws ServletException {
         ServletConfig config = getServletConfig();
         m_redirectSuccess = config.getInitParameter("redirect.success");
@@ -132,6 +150,12 @@ public class PollerConfigServlet extends HttpServlet {
         }
     }
 
+    /**
+     * Inits the capsd config factory.
+     *
+     * @throws ServletException
+     *             the servlet exception
+     */
     private void initCapsdConfigFactory() throws ServletException {
         try {
             CapsdConfigFactory.init();
@@ -145,6 +169,12 @@ public class PollerConfigServlet extends HttpServlet {
         }
     }
 
+    /**
+     * Inits the poller config factory.
+     *
+     * @throws ServletException
+     *             the servlet exception
+     */
     private void initPollerConfigFactory() throws ServletException {
         try {
             PollerConfigFactory.init();
@@ -158,6 +188,12 @@ public class PollerConfigServlet extends HttpServlet {
         }
     }
 
+    /**
+     * Load poller conf properties.
+     *
+     * @throws ServletException
+     *             the servlet exception
+     */
     private void loadPollerConfProperties() throws ServletException {
         try {
             m_props.load(new FileInputStream(ConfigFileConstants.getFile(ConfigFileConstants.POLLER_CONF_FILE_NAME)));
@@ -173,9 +209,10 @@ public class PollerConfigServlet extends HttpServlet {
      * <p>
      * reloadFiles
      * </p>
+     * .
      *
-     * @throws javax.servlet.ServletException
-     *             if any.
+     * @throws ServletException
+     *             the servlet exception
      */
     public void reloadFiles() throws ServletException {
         ServletConfig config = getServletConfig();
@@ -198,6 +235,7 @@ public class PollerConfigServlet extends HttpServlet {
      * <p>
      * initCapsdProtocols
      * </p>
+     * .
      */
     public void initCapsdProtocols() {
         m_pluginColl = getCapsdProtocolPlugins();
@@ -209,6 +247,11 @@ public class PollerConfigServlet extends HttpServlet {
         }
     }
 
+    /**
+     * Gets the capsd protocol plugins.
+     *
+     * @return the capsd protocol plugins
+     */
     private List<ProtocolPlugin> getCapsdProtocolPlugins() {
         return (List<ProtocolPlugin>) m_capsdConfig.getProtocolPluginCollection();
     }
@@ -217,6 +260,7 @@ public class PollerConfigServlet extends HttpServlet {
      * <p>
      * initPollerServices
      * </p>
+     * .
      */
     public void initPollerServices() {
         Collection<org.opennms.netmgt.config.poller.Package> packageColl = m_pollerConfig.getPackageCollection();
@@ -291,6 +335,7 @@ public class PollerConfigServlet extends HttpServlet {
      * <p>
      * deleteCapsdInfo
      * </p>
+     * .
      *
      * @param name
      *            a {@link java.lang.String} object.
@@ -309,6 +354,7 @@ public class PollerConfigServlet extends HttpServlet {
      * <p>
      * adjustNonChecked
      * </p>
+     * .
      *
      * @param checkedList
      *            a {@link java.util.List} object.
@@ -334,11 +380,12 @@ public class PollerConfigServlet extends HttpServlet {
      * <p>
      * deleteThese
      * </p>
+     * .
      *
      * @param deleteServices
      *            a {@link java.util.List} object.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public void deleteThese(List<String> deleteServices) throws IOException {
         for (String svcname : deleteServices) {
@@ -369,6 +416,7 @@ public class PollerConfigServlet extends HttpServlet {
      * <p>
      * removeMonitor
      * </p>
+     * .
      *
      * @param service
      *            a {@link java.lang.String} object.
@@ -396,6 +444,7 @@ public class PollerConfigServlet extends HttpServlet {
      * <p>
      * modifyPollerInfo
      * </p>
+     * .
      *
      * @param bPolled
      *            a {@link java.lang.String} object.

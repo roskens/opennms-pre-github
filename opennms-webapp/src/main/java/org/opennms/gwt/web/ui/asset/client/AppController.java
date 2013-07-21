@@ -37,20 +37,35 @@ import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.RootPanel;
 
 /**
+ * The Class AppController.
+ *
  * @author <a href="mailto:MarkusNeumannMarkus@gmail.com">Markus Neumann</a>
  *         AppController of asset module. Following GWT MVP design.
  */
 public class AppController implements Presenter {
 
+    /** The event bus. */
     private final HandlerManager eventBus;
 
+    /** The rpc service. */
     private final AssetServiceAsync rpcService;
 
+    /**
+     * Instantiates a new app controller.
+     *
+     * @param rpcService
+     *            the rpc service
+     * @param eventBus
+     *            the event bus
+     */
     public AppController(AssetServiceAsync rpcService, HandlerManager eventBus) {
         this.eventBus = eventBus;
         this.rpcService = rpcService;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.gwt.web.ui.asset.client.presenter.Presenter#go(com.google.gwt.user.client.ui.HasWidgets)
+     */
     @Override
     public void go(HasWidgets container) {
         if (RootPanel.get("opennms-assetNodePage") != null) {

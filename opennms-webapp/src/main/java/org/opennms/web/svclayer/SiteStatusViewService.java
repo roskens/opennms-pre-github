@@ -68,6 +68,7 @@ public interface SiteStatusViewService {
      * <p>
      * createAggregateStatuses
      * </p>
+     * .
      *
      * @param statusView
      *            a {@link org.opennms.netmgt.model.AggregateStatusView} object.
@@ -79,6 +80,7 @@ public interface SiteStatusViewService {
      * <p>
      * createAggregateStatuses
      * </p>
+     * .
      *
      * @param statusView
      *            a {@link org.opennms.netmgt.model.AggregateStatusView} object.
@@ -92,6 +94,7 @@ public interface SiteStatusViewService {
      * <p>
      * createAggregateStatusesUsingNodeId
      * </p>
+     * .
      *
      * @param nodeId
      *            a int.
@@ -105,6 +108,7 @@ public interface SiteStatusViewService {
      * <p>
      * getAggregateStatus
      * </p>
+     * .
      *
      * @param statusViewName
      *            a {@link java.lang.String} object.
@@ -120,6 +124,7 @@ public interface SiteStatusViewService {
      * <p>
      * getNodes
      * </p>
+     * .
      *
      * @param statusViewName
      *            a {@link java.lang.String} object.

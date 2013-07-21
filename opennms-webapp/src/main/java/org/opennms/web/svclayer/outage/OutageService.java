@@ -51,6 +51,7 @@ public interface OutageService {
      * <p>
      * getCurrentOutages
      * </p>
+     * .
      *
      * @return a {@link java.util.Collection} object.
      */
@@ -60,6 +61,7 @@ public interface OutageService {
      * <p>
      * getOutagesByRange
      * </p>
+     * .
      *
      * @param offset
      *            a {@link java.lang.Integer} object.
@@ -80,6 +82,7 @@ public interface OutageService {
      * <p>
      * getOutagesByRange
      * </p>
+     * .
      *
      * @param offset
      *            a {@link java.lang.Integer} object.
@@ -100,6 +103,7 @@ public interface OutageService {
      * <p>
      * getSuppressedOutagesByRange
      * </p>
+     * .
      *
      * @param offset
      *            a {@link java.lang.Integer} object.
@@ -118,6 +122,7 @@ public interface OutageService {
      * <p>
      * getSuppressedOutages
      * </p>
+     * .
      *
      * @return a {@link java.util.Collection} object.
      */
@@ -127,6 +132,7 @@ public interface OutageService {
      * <p>
      * getCurrentOutageCount
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -136,6 +142,7 @@ public interface OutageService {
      * <p>
      * getOutageCount
      * </p>
+     * .
      *
      * @param criteria
      *            a {@link org.opennms.netmgt.model.OnmsCriteria} object.
@@ -147,6 +154,7 @@ public interface OutageService {
      * <p>
      * getSuppressedOutageCount
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -156,6 +164,7 @@ public interface OutageService {
      * <p>
      * getCurrentOutagesForNode
      * </p>
+     * .
      *
      * @param nodeId
      *            a int.
@@ -167,6 +176,7 @@ public interface OutageService {
      * <p>
      * getNonCurrentOutagesForNode
      * </p>
+     * .
      *
      * @param nodeId
      *            a int.
@@ -178,6 +188,7 @@ public interface OutageService {
      * <p>
      * getOutagesForNode
      * </p>
+     * .
      *
      * @param nodeId
      *            a int.
@@ -189,6 +200,7 @@ public interface OutageService {
      * <p>
      * getOutagesForNode
      * </p>
+     * .
      *
      * @param nodeId
      *            a int.
@@ -202,6 +214,7 @@ public interface OutageService {
      * <p>
      * getOutagesForInterface
      * </p>
+     * .
      *
      * @param nodeId
      *            a int.
@@ -215,6 +228,7 @@ public interface OutageService {
      * <p>
      * getOutagesForInterface
      * </p>
+     * .
      *
      * @param nodeId
      *            a int.
@@ -230,6 +244,7 @@ public interface OutageService {
      * <p>
      * getOutagesForService
      * </p>
+     * .
      *
      * @param nodeId
      *            a int.
@@ -245,6 +260,7 @@ public interface OutageService {
      * <p>
      * getOutagesForService
      * </p>
+     * .
      *
      * @param nodeId
      *            a int.
@@ -262,6 +278,7 @@ public interface OutageService {
      * <p>
      * getCurrentOutages
      * </p>
+     * .
      *
      * @param orderProperty
      *            a {@link java.lang.String} object.
@@ -273,6 +290,7 @@ public interface OutageService {
      * <p>
      * load
      * </p>
+     * .
      *
      * @param outageid
      *            a {@link java.lang.Integer} object.
@@ -284,6 +302,7 @@ public interface OutageService {
      * <p>
      * update
      * </p>
+     * .
      *
      * @param outage
      *            a {@link org.opennms.netmgt.model.OnmsOutage} object.
@@ -294,6 +313,7 @@ public interface OutageService {
      * <p>
      * getOutageCount
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -303,6 +323,7 @@ public interface OutageService {
      * <p>
      * outageCountFiltered
      * </p>
+     * .
      *
      * @param filter
      *            a {@link java.lang.String} object.
@@ -314,6 +335,7 @@ public interface OutageService {
      * <p>
      * getResolvedOutagesByRange
      * </p>
+     * .
      *
      * @param offset
      *            a {@link java.lang.Integer} object.
@@ -334,6 +356,7 @@ public interface OutageService {
      * <p>
      * outageResolvedCountFiltered
      * </p>
+     * .
      *
      * @param searchFilter
      *            a {@link java.lang.String} object.

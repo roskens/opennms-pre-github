@@ -41,8 +41,28 @@ import org.opennms.netmgt.model.DemandPoll;
  */
 public interface DemandPollService {
 
+    /**
+     * Poll monitored service.
+     *
+     * @param nodeid
+     *            the nodeid
+     * @param ipAddr
+     *            the ip addr
+     * @param ifIndex
+     *            the if index
+     * @param serviceId
+     *            the service id
+     * @return the demand poll
+     */
     DemandPoll pollMonitoredService(int nodeid, InetAddress ipAddr, int ifIndex, int serviceId);
 
+    /**
+     * Gets the updated results.
+     *
+     * @param resultId
+     *            the result id
+     * @return the updated results
+     */
     DemandPoll getUpdatedResults(int resultId);
 
 }

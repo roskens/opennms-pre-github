@@ -50,6 +50,7 @@ public interface DaemonStatusService {
      * <p>
      * getCurrentDaemonStatus
      * </p>
+     * .
      *
      * @return a {@link java.util.Map} object.
      */
@@ -60,6 +61,7 @@ public interface DaemonStatusService {
      * <p>
      * getCurrentDaemonStatusColl
      * </p>
+     * .
      *
      * @return a {@link java.util.Collection} object.
      */
@@ -69,6 +71,7 @@ public interface DaemonStatusService {
      * <p>
      * startDaemon
      * </p>
+     * .
      *
      * @param service
      *            a {@link java.lang.String} object.
@@ -80,6 +83,7 @@ public interface DaemonStatusService {
      * <p>
      * stopDaemon
      * </p>
+     * .
      *
      * @param service
      *            a {@link java.lang.String} object.
@@ -91,6 +95,7 @@ public interface DaemonStatusService {
      * <p>
      * restartDaemon
      * </p>
+     * .
      *
      * @param service
      *            a {@link java.lang.String} object.
@@ -102,6 +107,7 @@ public interface DaemonStatusService {
      * <p>
      * performOperationOnDaemons
      * </p>
+     * .
      *
      * @param operation
      *            a {@link java.lang.String} object.

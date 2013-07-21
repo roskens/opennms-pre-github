@@ -58,8 +58,10 @@ import org.springframework.web.servlet.ModelAndView;
  */
 public class LoadDefaultMapController extends MapsLoggingController {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(LoadDefaultMapController.class);
 
+    /** The manager. */
     private Manager manager;
 
     /**

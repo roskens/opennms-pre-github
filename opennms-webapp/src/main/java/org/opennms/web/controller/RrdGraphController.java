@@ -67,6 +67,8 @@ import org.springframework.web.servlet.mvc.AbstractController;
  * @since 1.8.1
  */
 public class RrdGraphController extends AbstractController {
+
+    /** The m_rrd graph service. */
     private RrdGraphService m_rrdGraphService;
 
     /** {@inheritDoc} */
@@ -134,6 +136,13 @@ public class RrdGraphController extends AbstractController {
         return null;
     }
 
+    /**
+     * Parses the times.
+     *
+     * @param request
+     *            the request
+     * @return the long[]
+     */
     public final long[] parseTimes(final HttpServletRequest request) {
         String startTime = request.getParameter("start");
         String endTime = request.getParameter("end");
@@ -199,6 +208,7 @@ public class RrdGraphController extends AbstractController {
      * <p>
      * getRrdGraphService
      * </p>
+     * .
      *
      * @return a {@link org.opennms.web.svclayer.RrdGraphService} object.
      */
@@ -210,6 +220,7 @@ public class RrdGraphController extends AbstractController {
      * <p>
      * setRrdGraphService
      * </p>
+     * .
      *
      * @param rrdGraphService
      *            a {@link org.opennms.web.svclayer.RrdGraphService} object.

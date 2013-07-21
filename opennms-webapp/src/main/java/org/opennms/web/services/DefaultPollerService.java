@@ -46,12 +46,14 @@ import org.opennms.netmgt.xml.event.Event;
  */
 public class DefaultPollerService implements PollerService {
 
+    /** The m_event proxy. */
     private EventProxy m_eventProxy;
 
     /**
      * <p>
      * setEventProxy
      * </p>
+     * .
      *
      * @param eventProxy
      *            a {@link org.opennms.netmgt.model.events.EventProxy} object.
@@ -76,6 +78,12 @@ public class DefaultPollerService implements PollerService {
         sendEvent(bldr.getEvent());
     }
 
+    /**
+     * Send event.
+     *
+     * @param demandPollEvent
+     *            the demand poll event
+     */
     private void sendEvent(Event demandPollEvent) {
         try {
             m_eventProxy.send(demandPollEvent);

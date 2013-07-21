@@ -56,14 +56,25 @@ import org.springframework.validation.BindException;
  * @author <a href="dj@opennms.org">DJ Gregor</a>
  */
 public class DefaultStatisticsReportServiceTest {
+
+    /** The m_mocks. */
     private EasyMockUtils m_mocks = new EasyMockUtils();
 
+    /** The m_service. */
     private DefaultStatisticsReportService m_service = new DefaultStatisticsReportService();
 
+    /** The m_resource dao. */
     private ResourceDao m_resourceDao = m_mocks.createMock(ResourceDao.class);
 
+    /** The m_statistics report dao. */
     private StatisticsReportDao m_statisticsReportDao = m_mocks.createMock(StatisticsReportDao.class);
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
         m_service.setResourceDao(m_resourceDao);
@@ -71,11 +82,20 @@ public class DefaultStatisticsReportServiceTest {
         m_service.afterPropertiesSet();
     }
 
+    /**
+     * Verify.
+     *
+     * @throws Throwable
+     *             the throwable
+     */
     @After
     public void verify() throws Throwable {
         m_mocks.verifyAll();
     }
 
+    /**
+     * Test null command object id.
+     */
     @Test
     public void testNullCommandObjectId() {
         StatisticsReportCommand command = new StatisticsReportCommand();
@@ -93,6 +113,9 @@ public class DefaultStatisticsReportServiceTest {
         ta.verifyAnticipated();
     }
 
+    /**
+     * Test datum with non existent resource.
+     */
     @Test
     public void testDatumWithNonExistentResource() {
         StatisticsReport report = new StatisticsReport();

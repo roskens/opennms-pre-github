@@ -53,8 +53,10 @@ import org.springframework.beans.factory.InitializingBean;
  */
 public class DefaultChooseResourceService implements ChooseResourceService, InitializingBean {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(DefaultChooseResourceService.class);
 
+    /** The m_resource dao. */
     public ResourceDao m_resourceDao;
 
     /** {@inheritDoc} */
@@ -98,6 +100,13 @@ public class DefaultChooseResourceService implements ChooseResourceService, Init
         return model;
     }
 
+    /**
+     * Check label for quotes.
+     *
+     * @param childResource
+     *            the child resource
+     * @return the onms resource
+     */
     private OnmsResource checkLabelForQuotes(final OnmsResource childResource) {
 
         String lbl = Util.convertToJsSafeString(childResource.getLabel());
@@ -114,6 +123,7 @@ public class DefaultChooseResourceService implements ChooseResourceService, Init
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      */
     @Override
     public final void afterPropertiesSet() {
@@ -126,6 +136,7 @@ public class DefaultChooseResourceService implements ChooseResourceService, Init
      * <p>
      * getResourceDao
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.dao.api.ResourceDao} object.
      */
@@ -137,6 +148,7 @@ public class DefaultChooseResourceService implements ChooseResourceService, Init
      * <p>
      * setResourceDao
      * </p>
+     * .
      *
      * @param resourceDao
      *            a {@link org.opennms.netmgt.dao.api.ResourceDao} object.

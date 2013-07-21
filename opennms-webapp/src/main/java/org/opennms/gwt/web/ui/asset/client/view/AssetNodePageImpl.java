@@ -67,6 +67,8 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
+ * The Class AssetNodePageImpl.
+ *
  * @author <a href="mailto:MarkusNeumannMarkus@gmail.com">Markus Neumann</a>
  *         AssetNodePage java part. Corresponding ui-binder xml
  *         {@link AssetNodePage.ui.xml}.
@@ -79,257 +81,343 @@ import com.google.gwt.user.client.ui.Widget;
 public class AssetNodePageImpl extends Composite implements AssetPagePresenter.Display {
 
     /**
-     * Recommended GWT MVP and UI-Binder design
+     * Recommended GWT MVP and UI-Binder design.
      */
     @UiTemplate("AssetNodePage.ui.xml")
     interface AssetNodePageUiBinder extends UiBinder<Widget, AssetNodePageImpl> {
     }
 
+    /** The ui binder. */
     private static AssetNodePageUiBinder uiBinder = GWT.create(AssetNodePageUiBinder.class);
 
+    /** The con. */
     private AssetPageConstants con = GWT.create(AssetPageConstants.class);
 
+    /** The m_asset. */
     AssetCommand m_asset;
 
+    /** The node info label. */
     @UiField
     Label nodeInfoLabel;
 
+    /** The node info link. */
     @UiField
     Anchor nodeInfoLink;
 
+    /** The main panel. */
     @UiField
     VerticalPanel mainPanel;
 
+    /** The l info top. */
     @UiField
     Label lInfoTop;
 
+    /** The l info bottom. */
     @UiField
     Label lInfoBottom;
 
+    /** The snmp disc panel. */
     @UiField
     DisclosurePanelCookie snmpDiscPanel;
 
+    /** The s system id. */
     @UiField
     FieldSetTextDisplay sSystemId;
 
+    /** The s system name. */
     @UiField
     FieldSetTextDisplay sSystemName;
 
+    /** The s system location. */
     @UiField
     FieldSetTextDisplay sSystemLocation;
 
+    /** The s system contact. */
     @UiField
     FieldSetTextDisplay sSystemContact;
 
+    /** The s system description. */
     @UiField
     FieldSetTextDisplay sSystemDescription;
 
+    /** The s display cat. */
     @UiField
     FieldSetSuggestBox sDisplayCat;
 
+    /** The s notification cat. */
     @UiField
     FieldSetSuggestBox sNotificationCat;
 
+    /** The s poller cat. */
     @UiField
     FieldSetSuggestBox sPollerCat;
 
+    /** The s threshold cat. */
     @UiField
     FieldSetSuggestBox sThresholdCat;
 
+    /** The s description. */
     @UiField
     FieldSetSuggestBox sDescription;
 
+    /** The s asset category. */
     @UiField
     FieldSetSuggestBox sAssetCategory;
 
+    /** The s manufacturer. */
     @UiField
     FieldSetSuggestBox sManufacturer;
 
+    /** The s model number. */
     @UiField
     FieldSetSuggestBox sModelNumber;
 
+    /** The s serial number. */
     @UiField
     FieldSetTextBox sSerialNumber;
 
+    /** The s asset number. */
     @UiField
     FieldSetTextBox sAssetNumber;
 
+    /** The s operating system. */
     @UiField
     FieldSetSuggestBox sOperatingSystem;
 
+    /** The s date installed. */
     @UiField
     FieldSetDateBox sDateInstalled;
 
+    /** The s region. */
     @UiField
     FieldSetSuggestBox sRegion;
 
+    /** The s division. */
     @UiField
     FieldSetSuggestBox sDivision;
 
+    /** The s department. */
     @UiField
     FieldSetSuggestBox sDepartment;
 
+    /** The s address1. */
     @UiField
     FieldSetSuggestBox sAddress1;
 
+    /** The s address2. */
     @UiField
     FieldSetSuggestBox sAddress2;
 
+    /** The s city. */
     @UiField
     FieldSetSuggestBox sCity;
 
+    /** The s state. */
     @UiField
     FieldSetSuggestBox sState;
 
+    /** The s zip. */
     @UiField
     FieldSetSuggestBox sZip;
 
+    /** The s country. */
     @UiField
     FieldSetSuggestBox sCountry;
 
+    /** The s longitude. */
     @UiField
     FieldSetTextBox sLongitude;
 
+    /** The s latitude. */
     @UiField
     FieldSetTextBox sLatitude;
 
+    /** The s building. */
     @UiField
     FieldSetSuggestBox sBuilding;
 
+    /** The s floor. */
     @UiField
     FieldSetSuggestBox sFloor;
 
+    /** The s room. */
     @UiField
     FieldSetSuggestBox sRoom;
 
+    /** The s rack. */
     @UiField
     FieldSetSuggestBox sRack;
 
+    /** The s slot. */
     @UiField
     FieldSetTextBox sSlot;
 
+    /** The s rack unit hight. */
     @UiField
     FieldSetTextBox sRackUnitHight;
 
+    /** The s port. */
     @UiField
     FieldSetTextBox sPort;
 
+    /** The s circuit id. */
     @UiField
     FieldSetSuggestBox sCircuitId;
 
+    /** The s admin. */
     @UiField
     FieldSetSuggestBox sAdmin;
 
+    /** The s vendor name. */
     @UiField
     FieldSetSuggestBox sVendorName;
 
+    /** The s phone. */
     @UiField
     FieldSetSuggestBox sPhone;
 
+    /** The s fax. */
     @UiField
     FieldSetSuggestBox sFax;
 
+    /** The s lease. */
     @UiField
     FieldSetSuggestBox sLease;
 
+    /** The s lease expires. */
     @UiField
     FieldSetDateBox sLeaseExpires;
 
+    /** The s vendor asset. */
     @UiField
     FieldSetTextBox sVendorAsset;
 
+    /** The s maint contract. */
     @UiField
     FieldSetSuggestBox sMaintContract;
 
+    /** The s contract expires. */
     @UiField
     FieldSetDateBox sContractExpires;
 
+    /** The s maint phone. */
     @UiField
     FieldSetSuggestBox sMaintPhone;
 
+    /** The s user name. */
     @UiField
     FieldSetTextBox sUserName;
 
+    /** The s password. */
     @UiField
     FieldSetPasswordBox sPassword;
 
+    /** The s enable password. */
     @UiField
     FieldSetPasswordBox sEnablePassword;
 
+    /** The s connection. */
     @UiField
     FieldSetListBox sConnection;
 
+    /** The s auto enable. */
     @UiField
     FieldSetListBox sAutoEnable;
 
+    /** The s snmpcommunity. */
     @UiField
     FieldSetSuggestBox sSnmpcommunity;
 
+    /** The s cpu. */
     @UiField
     FieldSetSuggestBox sCpu;
 
+    /** The s ram. */
     @UiField
     FieldSetSuggestBox sRam;
 
+    /** The s storagectrl. */
     @UiField
     FieldSetSuggestBox sStoragectrl;
 
+    /** The s additionalhardware. */
     @UiField
     FieldSetSuggestBox sAdditionalhardware;
 
+    /** The s numpowersupplies. */
     @UiField
     FieldSetSuggestBox sNumpowersupplies;
 
+    /** The s inputpower. */
     @UiField
     FieldSetSuggestBox sInputpower;
 
+    /** The s hdd1. */
     @UiField
     FieldSetSuggestBox sHdd1;
 
+    /** The s hdd2. */
     @UiField
     FieldSetSuggestBox sHdd2;
 
+    /** The s hdd3. */
     @UiField
     FieldSetSuggestBox sHdd3;
 
+    /** The s hdd4. */
     @UiField
     FieldSetSuggestBox sHdd4;
 
+    /** The s hdd5. */
     @UiField
     FieldSetSuggestBox sHdd5;
 
+    /** The s hdd6. */
     @UiField
     FieldSetSuggestBox sHdd6;
 
+    /** The s vmware managed object id. */
     @UiField
     FieldSetSuggestBox sVmwareManagedObjectId;
 
+    /** The s vmware managed entity type. */
     @UiField
     FieldSetSuggestBox sVmwareManagedEntityType;
 
+    /** The s vmware management server. */
     @UiField
     FieldSetSuggestBox sVmwareManagementServer;
 
+    /** The s vmware topology info. */
     @UiField
     FieldSetSuggestBox sVmwareTopologyInfo;
 
+    /** The s vmware state. */
     @UiField
     FieldSetSuggestBox sVmwareState;
 
+    /** The s comment. */
     @UiField
     FieldSetTextArea sComment;
 
+    /** The save button. */
     @UiField
     Button saveButton;
 
+    /** The reset button. */
     @UiField
     Button resetButton;
 
+    /** The last modified. */
     @UiField
     Label lastModified;
 
+    /** The field set list. */
     private ArrayList<FieldSet> fieldSetList = new ArrayList<FieldSet>();
 
+    /**
+     * Instantiates a new asset node page impl.
+     */
     public AssetNodePageImpl() {
         initWidget(uiBinder.createAndBindUi(this));
 
@@ -347,11 +435,17 @@ public class AssetNodePageImpl extends Composite implements AssetPagePresenter.D
         initUiElementList();
     }
 
+    /* (non-Javadoc)
+     * @see com.google.gwt.user.client.ui.Widget#asWidget()
+     */
     @Override
     public Widget asWidget() {
         return this;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.gwt.web.ui.asset.client.presenter.AssetPagePresenter.Display#cleanUp()
+     */
     @Override
     public void cleanUp() {
         for (FieldSet fs : fieldSetList) {
@@ -359,6 +453,9 @@ public class AssetNodePageImpl extends Composite implements AssetPagePresenter.D
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.gwt.web.ui.asset.client.presenter.AssetPagePresenter.Display#getData()
+     */
     @Override
     public AssetCommand getData() {
         saveDataConfigCategories();
@@ -373,11 +470,17 @@ public class AssetNodePageImpl extends Composite implements AssetPagePresenter.D
         return m_asset;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.gwt.web.ui.asset.client.presenter.AssetPagePresenter.Display#getResetButton()
+     */
     @Override
     public HasClickHandlers getResetButton() {
         return resetButton;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.gwt.web.ui.asset.client.presenter.AssetPagePresenter.Display#getSaveButton()
+     */
     @Override
     public HasClickHandlers getSaveButton() {
         return saveButton;
@@ -470,6 +573,9 @@ public class AssetNodePageImpl extends Composite implements AssetPagePresenter.D
         fieldSetList.add(sComment);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.gwt.web.ui.asset.client.presenter.AssetPagePresenter.Display#isUiValid()
+     */
     @Override
     public boolean isUiValid() {
         for (FieldSet fs : fieldSetList) {
@@ -480,6 +586,9 @@ public class AssetNodePageImpl extends Composite implements AssetPagePresenter.D
         return true;
     }
 
+    /**
+     * Save data authentication.
+     */
     private void saveDataAuthentication() {
         m_asset.setUsername(sUserName.getValue());
         m_asset.setPassword(sPassword.getValue());
@@ -489,10 +598,16 @@ public class AssetNodePageImpl extends Composite implements AssetPagePresenter.D
         m_asset.setSnmpcommunity(sSnmpcommunity.getValue());
     }
 
+    /**
+     * Save data comments.
+     */
     private void saveDataComments() {
         m_asset.setComment(sComment.getValue());
     }
 
+    /**
+     * Save data config categories.
+     */
     private void saveDataConfigCategories() {
         m_asset.setDisplayCategory(sDisplayCat.getValue());
         m_asset.setNotifyCategory(sNotificationCat.getValue());
@@ -500,6 +615,9 @@ public class AssetNodePageImpl extends Composite implements AssetPagePresenter.D
         m_asset.setThresholdCategory(sThresholdCat.getValue());
     }
 
+    /**
+     * Save data hardware.
+     */
     private void saveDataHardware() {
         m_asset.setCpu(sCpu.getValue());
         m_asset.setRam(sRam.getValue());
@@ -516,6 +634,9 @@ public class AssetNodePageImpl extends Composite implements AssetPagePresenter.D
         m_asset.setHdd6(sHdd6.getValue());
     }
 
+    /**
+     * Save data identification.
+     */
     private void saveDataIdentification() {
         m_asset.setDescription(sDescription.getValue());
         m_asset.setCategory(sAssetCategory.getValue());
@@ -527,6 +648,9 @@ public class AssetNodePageImpl extends Composite implements AssetPagePresenter.D
         m_asset.setDateInstalled(sDateInstalled.getValue());
     }
 
+    /**
+     * Save data location.
+     */
     private void saveDataLocation() {
         m_asset.setRegion(sRegion.getValue());
         m_asset.setDivision(sDivision.getValue());
@@ -550,6 +674,9 @@ public class AssetNodePageImpl extends Composite implements AssetPagePresenter.D
         m_asset.setAdmin(sAdmin.getValue());
     }
 
+    /**
+     * Save data vendor.
+     */
     private void saveDataVendor() {
         m_asset.setVendor(sVendorName.getValue());
         m_asset.setVendorPhone(sPhone.getValue());
@@ -562,6 +689,9 @@ public class AssetNodePageImpl extends Composite implements AssetPagePresenter.D
         m_asset.setSupportPhone(sMaintPhone.getValue());
     }
 
+    /**
+     * Save data vmware.
+     */
     private void saveDataVmware() {
         m_asset.setVmwareManagedObjectId(sVmwareManagedObjectId.getValue());
         m_asset.setVmwareManagedEntityType(sVmwareManagedEntityType.getValue());
@@ -570,6 +700,9 @@ public class AssetNodePageImpl extends Composite implements AssetPagePresenter.D
         m_asset.setVmwareState(sVmwareState.getValue());
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.gwt.web.ui.asset.client.presenter.AssetPagePresenter.Display#setData(org.opennms.gwt.web.ui.asset.shared.AssetCommand)
+     */
     @Override
     public void setData(AssetCommand asset) {
         m_asset = asset;
@@ -591,6 +724,12 @@ public class AssetNodePageImpl extends Composite implements AssetPagePresenter.D
                 + asset.getLastModifiedBy());
     }
 
+    /**
+     * Sets the data authentication.
+     *
+     * @param asset
+     *            the new data authentication
+     */
     private void setDataAuthentication(AssetCommand asset) {
         sUserName.setValue(asset.getUsername());
         sPassword.setValue(asset.getPassword());
@@ -602,10 +741,22 @@ public class AssetNodePageImpl extends Composite implements AssetPagePresenter.D
         sSnmpcommunity.setValue(asset.getSnmpcommunity());
     }
 
+    /**
+     * Sets the data comments.
+     *
+     * @param asset
+     *            the new data comments
+     */
     private void setDataComments(AssetCommand asset) {
         sComment.setValue(asset.getComment());
     }
 
+    /**
+     * Sets the data config categories.
+     *
+     * @param asset
+     *            the new data config categories
+     */
     private void setDataConfigCategories(AssetCommand asset) {
         sDisplayCat.setValue(asset.getDisplayCategory());
         sNotificationCat.setValue(asset.getNotifyCategory());
@@ -613,6 +764,12 @@ public class AssetNodePageImpl extends Composite implements AssetPagePresenter.D
         sThresholdCat.setValue(asset.getThresholdCategory());
     }
 
+    /**
+     * Sets the data hardware.
+     *
+     * @param asset
+     *            the new data hardware
+     */
     private void setDataHardware(AssetCommand asset) {
         sCpu.setValue(asset.getCpu());
         sRam.setValue(asset.getRam());
@@ -628,6 +785,12 @@ public class AssetNodePageImpl extends Composite implements AssetPagePresenter.D
         sHdd6.setValue(asset.getHdd6());
     }
 
+    /**
+     * Sets the data identification.
+     *
+     * @param asset
+     *            the new data identification
+     */
     private void setDataIdentification(AssetCommand asset) {
         sDescription.setValue(asset.getDescription());
         sAssetCategory.setValue(asset.getCategory());
@@ -639,6 +802,12 @@ public class AssetNodePageImpl extends Composite implements AssetPagePresenter.D
         sDateInstalled.setValue(asset.getDateInstalled());
     }
 
+    /**
+     * Sets the data location.
+     *
+     * @param asset
+     *            the new data location
+     */
     private void setDataLocation(AssetCommand asset) {
         sRegion.setValue(asset.getRegion());
         sDivision.setValue(asset.getDivision());
@@ -662,10 +831,24 @@ public class AssetNodePageImpl extends Composite implements AssetPagePresenter.D
         sAdmin.setValue(asset.getAdmin());
     }
 
+    /**
+     * F2s.
+     *
+     * @param value
+     *            the value
+     * @return the string
+     */
     private String f2s(final Float value) {
         return value == null ? null : value.toString();
     }
 
+    /**
+     * S2f.
+     *
+     * @param value
+     *            the value
+     * @return the float
+     */
     private Float s2f(final String value) {
         if (value != null && !"".equals(value)) {
             try {
@@ -677,6 +860,12 @@ public class AssetNodePageImpl extends Composite implements AssetPagePresenter.D
         return null;
     }
 
+    /**
+     * Sets the data snmp.
+     *
+     * @param asset
+     *            the new data snmp
+     */
     private void setDataSNMP(AssetCommand asset) {
 
         if ((asset.getSnmpSysObjectId().equals("")) || (asset.getSnmpSysObjectId() == null)) {
@@ -691,6 +880,9 @@ public class AssetNodePageImpl extends Composite implements AssetPagePresenter.D
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.gwt.web.ui.asset.client.presenter.AssetPagePresenter.Display#setDataSugg(org.opennms.gwt.web.ui.asset.shared.AssetSuggCommand)
+     */
     @Override
     public void setDataSugg(AssetSuggCommand assetSugg) {
         setDataSuggConfigCategories(assetSugg);
@@ -702,10 +894,22 @@ public class AssetNodePageImpl extends Composite implements AssetPagePresenter.D
         setDataSuggVmware(assetSugg);
     }
 
+    /**
+     * Sets the data sugg auth.
+     *
+     * @param assetSugg
+     *            the new data sugg auth
+     */
     private void setDataSuggAuth(AssetSuggCommand assetSugg) {
         sSnmpcommunity.setSuggestions(assetSugg.getSnmpcommunity());
     }
 
+    /**
+     * Sets the data sugg config categories.
+     *
+     * @param assetSugg
+     *            the new data sugg config categories
+     */
     private void setDataSuggConfigCategories(AssetSuggCommand assetSugg) {
         sDisplayCat.setSuggestions(assetSugg.getDisplayCategory());
         sNotificationCat.setSuggestions(assetSugg.getNotifyCategory());
@@ -713,6 +917,12 @@ public class AssetNodePageImpl extends Composite implements AssetPagePresenter.D
         sThresholdCat.setSuggestions(assetSugg.getThresholdCategory());
     }
 
+    /**
+     * Sets the data sugg hardware.
+     *
+     * @param assetSugg
+     *            the new data sugg hardware
+     */
     private void setDataSuggHardware(AssetSuggCommand assetSugg) {
         sCpu.setSuggestions(assetSugg.getCpu());
         sRam.setSuggestions(assetSugg.getRam());
@@ -728,6 +938,12 @@ public class AssetNodePageImpl extends Composite implements AssetPagePresenter.D
         sHdd6.setSuggestions(assetSugg.getHdd6());
     }
 
+    /**
+     * Sets the data sugg identification.
+     *
+     * @param assetSugg
+     *            the new data sugg identification
+     */
     private void setDataSuggIdentification(AssetSuggCommand assetSugg) {
         sDescription.setSuggestions(assetSugg.getDescription());
         sAssetCategory.setSuggestions(assetSugg.getCategory());
@@ -736,6 +952,12 @@ public class AssetNodePageImpl extends Composite implements AssetPagePresenter.D
         sOperatingSystem.setSuggestions(assetSugg.getOperatingSystem());
     }
 
+    /**
+     * Sets the data sugg location.
+     *
+     * @param assetSugg
+     *            the new data sugg location
+     */
     private void setDataSuggLocation(AssetSuggCommand assetSugg) {
         sRegion.setSuggestions(assetSugg.getRegion());
         sDivision.setSuggestions(assetSugg.getDivision());
@@ -754,6 +976,12 @@ public class AssetNodePageImpl extends Composite implements AssetPagePresenter.D
         sAdmin.setSuggestions(assetSugg.getAdmin());
     }
 
+    /**
+     * Sets the data sugg vendor.
+     *
+     * @param assetSugg
+     *            the new data sugg vendor
+     */
     private void setDataSuggVendor(AssetSuggCommand assetSugg) {
         sVendorName.setSuggestions(assetSugg.getVendor());
         sPhone.setSuggestions(assetSugg.getVendorPhone());
@@ -763,6 +991,12 @@ public class AssetNodePageImpl extends Composite implements AssetPagePresenter.D
         sMaintPhone.setSuggestions(assetSugg.getSupportPhone());
     }
 
+    /**
+     * Sets the data vendor.
+     *
+     * @param asset
+     *            the new data vendor
+     */
     private void setDataVendor(AssetCommand asset) {
         sVendorName.setValue(asset.getVendor());
         sPhone.setValue(asset.getVendorPhone());
@@ -775,6 +1009,12 @@ public class AssetNodePageImpl extends Composite implements AssetPagePresenter.D
         sMaintPhone.setValue(asset.getSupportPhone());
     }
 
+    /**
+     * Sets the data sugg vmware.
+     *
+     * @param assetSugg
+     *            the new data sugg vmware
+     */
     private void setDataSuggVmware(AssetSuggCommand assetSugg) {
         sVmwareManagedObjectId.setSuggestions(assetSugg.getVmwareManagedObjectId());
         sVmwareManagedEntityType.setSuggestions(assetSugg.getVmwareManagedEntityType());
@@ -783,6 +1023,12 @@ public class AssetNodePageImpl extends Composite implements AssetPagePresenter.D
         sVmwareState.setSuggestions(assetSugg.getVmwareState());
     }
 
+    /**
+     * Sets the data vmware.
+     *
+     * @param asset
+     *            the new data vmware
+     */
     private void setDataVmware(AssetCommand asset) {
         sVmwareManagedObjectId.setValue(asset.getVmwareManagedObjectId());
         sVmwareManagedEntityType.setValue(asset.getVmwareManagedEntityType());
@@ -791,6 +1037,9 @@ public class AssetNodePageImpl extends Composite implements AssetPagePresenter.D
         sVmwareState.setValue(asset.getVmwareState());
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.gwt.web.ui.asset.client.presenter.AssetPagePresenter.Display#setEnable(java.lang.Boolean)
+     */
     @Override
     public void setEnable(Boolean enabled) {
         for (FieldSet fieldSet : fieldSetList) {
@@ -800,6 +1049,9 @@ public class AssetNodePageImpl extends Composite implements AssetPagePresenter.D
         resetButton.setEnabled(enabled);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.gwt.web.ui.asset.client.presenter.AssetPagePresenter.Display#setError(java.lang.String, java.lang.Throwable)
+     */
     @Override
     public void setError(String description, Throwable throwable) {
         String error = "";
@@ -832,6 +1084,9 @@ public class AssetNodePageImpl extends Composite implements AssetPagePresenter.D
         dialog.show();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.gwt.web.ui.asset.client.presenter.AssetPagePresenter.Display#setInfo(java.lang.String)
+     */
     @Override
     public void setInfo(String info) {
         lInfoTop.setText(info);

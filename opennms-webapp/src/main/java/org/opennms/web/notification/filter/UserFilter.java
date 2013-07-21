@@ -42,7 +42,8 @@ import org.opennms.web.filter.SQLType;
  * @since 1.8.1
  */
 public class UserFilter extends OneArgFilter<String> {
-    /** Constant <code>TYPE="user"</code> */
+
+    /** Constant <code>TYPE="user"</code>. */
     public static final String TYPE = "user";
 
     /**
@@ -82,6 +83,7 @@ public class UserFilter extends OneArgFilter<String> {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -94,6 +96,7 @@ public class UserFilter extends OneArgFilter<String> {
      * <p>
      * getUser
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

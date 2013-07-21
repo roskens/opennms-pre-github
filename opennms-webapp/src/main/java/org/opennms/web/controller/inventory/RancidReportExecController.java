@@ -59,17 +59,22 @@ import org.springframework.web.servlet.mvc.SimpleFormController;
  * @since 1.8.1
  */
 public class RancidReportExecController extends SimpleFormController {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(RancidReportExecController.class);
 
     // InventoryService m_inventoryService;
+    /** The m_configuration report service. */
     ConfigurationReportService m_configurationReportService;
 
+    /** The m_inventory report service. */
     InventoryReportService m_inventoryReportService;
 
     /**
      * <p>
      * getConfigurationReportService
      * </p>
+     * .
      *
      * @return a
      *         {@link org.opennms.report.configuration.svclayer.ConfigurationReportService}
@@ -83,6 +88,7 @@ public class RancidReportExecController extends SimpleFormController {
      * <p>
      * setConfigurationReportService
      * </p>
+     * .
      *
      * @param configurationReportService
      *            a
@@ -97,6 +103,7 @@ public class RancidReportExecController extends SimpleFormController {
      * <p>
      * getInventoryReportService
      * </p>
+     * .
      *
      * @return a
      *         {@link org.opennms.report.inventory.svclayer.InventoryReportService}
@@ -110,6 +117,7 @@ public class RancidReportExecController extends SimpleFormController {
      * <p>
      * setInventoryReportService
      * </p>
+     * .
      *
      * @param inventoryReportService
      *            a

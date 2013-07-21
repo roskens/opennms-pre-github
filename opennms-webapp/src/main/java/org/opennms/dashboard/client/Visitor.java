@@ -38,10 +38,12 @@ package org.opennms.dashboard.client;
  * @since 1.8.1
  */
 public interface Visitor {
+
     /**
      * <p>
      * visitAll
      * </p>
+     * .
      */
     public void visitAll();
 
@@ -49,6 +51,7 @@ public interface Visitor {
      * <p>
      * visitGroup
      * </p>
+     * .
      *
      * @param group
      *            a {@link org.opennms.dashboard.client.SurveillanceGroup}
@@ -60,6 +63,7 @@ public interface Visitor {
      * <p>
      * visitIntersection
      * </p>
+     * .
      *
      * @param row
      *            a {@link org.opennms.dashboard.client.SurveillanceGroup}

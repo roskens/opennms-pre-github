@@ -61,13 +61,17 @@ import com.sun.syndication.feed.synd.SyndFeedImpl;
  */
 public class AlarmFeed extends AbstractFeed {
 
+    /** The m_web alarm repository. */
     private final AlarmRepository m_webAlarmRepository = new AlarmRepositoryHibernate();
 
     /**
      * <p>
      * getFeed
      * </p>
+     * .
      *
+     * @param servletContext
+     *            the servlet context
      * @return a {@link com.sun.syndication.feed.synd.SyndFeed} object.
      */
     public SyndFeed getFeed(ServletContext servletContext) {

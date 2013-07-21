@@ -39,16 +39,20 @@ package org.opennms.web.svclayer.catstatus.model;
  */
 public class StatusService {
 
+    /** The m_name. */
     private String m_name;
 
+    /** The m_outagestatus. */
     private Boolean m_outagestatus;
 
+    /** The m_outagetime. */
     private long m_outagetime;
 
     /**
      * <p>
      * getName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -60,6 +64,7 @@ public class StatusService {
      * <p>
      * setName
      * </p>
+     * .
      *
      * @param m_name
      *            a {@link java.lang.String} object.
@@ -72,6 +77,7 @@ public class StatusService {
      * <p>
      * getOutageStatus
      * </p>
+     * .
      *
      * @return a {@link java.lang.Boolean} object.
      */
@@ -83,6 +89,7 @@ public class StatusService {
      * <p>
      * setOutageStatus
      * </p>
+     * .
      *
      * @param m_outagestatus
      *            a {@link java.lang.Boolean} object.
@@ -95,6 +102,7 @@ public class StatusService {
      * <p>
      * getOutageTime
      * </p>
+     * .
      *
      * @return a long.
      */
@@ -106,6 +114,7 @@ public class StatusService {
      * <p>
      * setOutageTime
      * </p>
+     * .
      *
      * @param m_outagetime
      *            a long.

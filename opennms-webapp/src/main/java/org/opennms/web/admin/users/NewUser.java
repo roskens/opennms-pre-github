@@ -37,30 +37,41 @@ package org.opennms.web.admin.users;
  */
 public class NewUser {
     // Data from the Add New User page
+    /** The fullname. */
     private String fullname;
 
+    /** The user. */
     private String user;
 
+    /** The passwd. */
     private String passwd;
 
+    /** The confirmpasswd. */
     private String confirmpasswd;
 
+    /** The comments. */
     private String comments;
 
+    /** The email. */
     private String email;
 
+    /** The numsvc. */
     private String numsvc;
 
+    /** The numpin. */
     private String numpin;
 
+    /** The txtsvc. */
     private String txtsvc;
 
+    /** The txtpin. */
     private String txtpin;
 
+    /** The dutysch. */
     private String dutysch;
 
     /**
-     * Default Constructor
+     * Default Constructor.
      */
     public NewUser() {
         fullname = "";
@@ -376,6 +387,7 @@ public class NewUser {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

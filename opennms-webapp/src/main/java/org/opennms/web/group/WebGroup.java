@@ -34,7 +34,7 @@ import java.util.List;
 import org.opennms.netmgt.config.groups.Group;
 
 /**
- * WebGroup
+ * WebGroup.
  *
  * @author brozow
  * @version $Id: $
@@ -42,16 +42,22 @@ import org.opennms.netmgt.config.groups.Group;
  */
 public class WebGroup {
 
+    /** The m_name. */
     private String m_name;
 
+    /** The m_comments. */
     private String m_comments;
 
+    /** The m_default map. */
     private String m_defaultMap = "";
 
+    /** The m_duty schedules. */
     private List<String> m_dutySchedules = new ArrayList<String>();
 
+    /** The m_authorized categories. */
     private List<String> m_authorizedCategories = new ArrayList<String>();
 
+    /** The m_users. */
     private List<String> m_users = new ArrayList<String>();
 
     /**
@@ -86,6 +92,7 @@ public class WebGroup {
      * <p>
      * getName
      * </p>
+     * .
      *
      * @return the name
      */
@@ -97,6 +104,7 @@ public class WebGroup {
      * <p>
      * setName
      * </p>
+     * .
      *
      * @param name
      *            the name to set
@@ -109,6 +117,7 @@ public class WebGroup {
      * <p>
      * getComments
      * </p>
+     * .
      *
      * @return the comments
      */
@@ -120,6 +129,7 @@ public class WebGroup {
      * <p>
      * setComments
      * </p>
+     * .
      *
      * @param comments
      *            the comments to set
@@ -132,6 +142,7 @@ public class WebGroup {
      * <p>
      * getDutySchedules
      * </p>
+     * .
      *
      * @return the dutySchedules
      */
@@ -143,6 +154,7 @@ public class WebGroup {
      * <p>
      * setDutySchedules
      * </p>
+     * .
      *
      * @param dutySchedules
      *            the dutySchedules to set
@@ -155,6 +167,7 @@ public class WebGroup {
      * <p>
      * addDutySchedule
      * </p>
+     * .
      *
      * @param dutySchedule
      *            a {@link java.lang.String} object.
@@ -167,6 +180,7 @@ public class WebGroup {
      * <p>
      * getAuthorizedCategories
      * </p>
+     * .
      *
      * @return the authorizedCategories
      */
@@ -178,6 +192,7 @@ public class WebGroup {
      * <p>
      * setAuthorizedCategories
      * </p>
+     * .
      *
      * @param authorizedCategories
      *            the authorizedCategories to set
@@ -190,6 +205,7 @@ public class WebGroup {
      * <p>
      * getUsers
      * </p>
+     * .
      *
      * @return the users
      */
@@ -201,6 +217,7 @@ public class WebGroup {
      * <p>
      * setUsers
      * </p>
+     * .
      *
      * @param users
      *            the users to set
@@ -213,6 +230,7 @@ public class WebGroup {
      * <p>
      * getUnauthorizedCategories
      * </p>
+     * .
      *
      * @param allCategories
      *            a {@link java.util.List} object.
@@ -228,6 +246,7 @@ public class WebGroup {
      * <p>
      * getRemainingUsers
      * </p>
+     * .
      *
      * @param allUsers
      *            a {@link java.util.List} object.
@@ -243,6 +262,7 @@ public class WebGroup {
      * <p>
      * getDefaultMap
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -254,6 +274,7 @@ public class WebGroup {
      * <p>
      * setDefaultMap
      * </p>
+     * .
      *
      * @param defaultMap
      *            a {@link java.lang.String} object.

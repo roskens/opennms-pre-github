@@ -38,7 +38,8 @@ import org.opennms.web.filter.IPLikeFilter;
  * @since 1.8.1
  */
 public class IPAddrLikeFilter extends IPLikeFilter {
-    /** Constant <code>TYPE="iplike"</code> */
+
+    /** Constant <code>TYPE="iplike"</code>. */
     public static final String TYPE = "iplike";
 
     /**
@@ -57,6 +58,7 @@ public class IPAddrLikeFilter extends IPLikeFilter {
      * <p>
      * getTextDescription
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -69,6 +71,7 @@ public class IPAddrLikeFilter extends IPLikeFilter {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -81,6 +84,7 @@ public class IPAddrLikeFilter extends IPLikeFilter {
      * <p>
      * getIpLikePattern
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

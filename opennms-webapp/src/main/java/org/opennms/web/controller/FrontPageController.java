@@ -49,6 +49,17 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("/frontPage.htm")
 public class FrontPageController {
 
+    /**
+     * Handle request.
+     *
+     * @param request
+     *            the request
+     * @param response
+     *            the response
+     * @return the model and view
+     * @throws Exception
+     *             the exception
+     */
     @RequestMapping(method = RequestMethod.GET)
     protected final ModelAndView handleRequest(final HttpServletRequest request, final HttpServletResponse response)
             throws Exception {

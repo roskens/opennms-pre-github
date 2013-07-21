@@ -55,14 +55,17 @@ import org.springframework.web.servlet.mvc.SimpleFormController;
 @SuppressWarnings("deprecation")
 public class AdminStorageDeleteBucketController extends SimpleFormController {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(AdminStorageDeleteBucketController.class);
 
+    /** The m_inventory service. */
     InventoryService m_inventoryService;
 
     /**
      * <p>
      * getInventoryService
      * </p>
+     * .
      *
      * @return a {@link org.opennms.web.svclayer.inventory.InventoryService}
      *         object.
@@ -75,6 +78,7 @@ public class AdminStorageDeleteBucketController extends SimpleFormController {
      * <p>
      * setInventoryService
      * </p>
+     * .
      *
      * @param inventoryService
      *            a {@link org.opennms.web.svclayer.inventory.InventoryService}

@@ -37,13 +37,25 @@ import org.opennms.core.test.MockLogAppender;
 import org.opennms.core.xml.JaxbUtils;
 import org.opennms.netmgt.model.OnmsGroupList;
 
+/**
+ * The Class GroupRestServiceTest.
+ */
 public class GroupRestServiceTest extends AbstractSpringJerseyRestTestCase {
 
+    /* (non-Javadoc)
+     * @see org.opennms.web.rest.AbstractSpringJerseyRestTestCase#afterServletStart()
+     */
     @Override
     protected void afterServletStart() throws Exception {
         MockLogAppender.setupLogging(true, "DEBUG");
     }
 
+    /**
+     * Test group.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testGroup() throws Exception {
         // Testing GET Collection
@@ -59,6 +71,12 @@ public class GroupRestServiceTest extends AbstractSpringJerseyRestTestCase {
         sendRequest(GET, "/groups/idontexist", 404);
     }
 
+    /**
+     * Test write group.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testWriteGroup() throws Exception {
         createGroup("test");
@@ -72,6 +90,12 @@ public class GroupRestServiceTest extends AbstractSpringJerseyRestTestCase {
         assertTrue(xml.contains(">MONKEYS<"));
     }
 
+    /**
+     * Test delete group.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testDeleteGroup() throws Exception {
         createGroup("deleteMe");
@@ -86,6 +110,12 @@ public class GroupRestServiceTest extends AbstractSpringJerseyRestTestCase {
         sendRequest(GET, "/groups/deleteMe", 404);
     }
 
+    /**
+     * Test users.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testUsers() throws Exception {
         createGroup("deleteMe");
@@ -102,6 +132,14 @@ public class GroupRestServiceTest extends AbstractSpringJerseyRestTestCase {
         assertFalse(xml.contains("totallyUniqueUser"));
     }
 
+    /**
+     * Creates the group.
+     *
+     * @param groupname
+     *            the groupname
+     * @throws Exception
+     *             the exception
+     */
     protected void createGroup(final String groupname) throws Exception {
         String group = "<group>" + "<name>" + groupname + "</name>" + "<comments>" + groupname + "</comments>"
                 + "</group>";

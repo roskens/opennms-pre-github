@@ -38,7 +38,8 @@ import org.opennms.web.filter.SubstringFilter;
  * @since 1.8.1
  */
 public class NodeNameLikeFilter extends SubstringFilter {
-    /** Constant <code>TYPE="nodenamelike"</code> */
+
+    /** Constant <code>TYPE="nodenamelike"</code>. */
     public static final String TYPE = "nodenamelike";
 
     /**
@@ -63,6 +64,7 @@ public class NodeNameLikeFilter extends SubstringFilter {
      * <p>
      * getTextDescription
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -75,6 +77,7 @@ public class NodeNameLikeFilter extends SubstringFilter {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -87,6 +90,7 @@ public class NodeNameLikeFilter extends SubstringFilter {
      * <p>
      * getSubstring
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

@@ -31,6 +31,8 @@ package org.opennms.gwt.web.ui.asset.client.tools.validation;
 import org.opennms.gwt.web.ui.asset.client.tools.fieldsets.AbstractFieldSet;
 
 /**
+ * The Interface Validator.
+ *
  * @author <a href="mailto:MarkusNeumannMarkus@gmail.com">Markus Neumann</a>
  *         Validators are simple classes to check if a given parameter is valid
  *         following an defined rule. Validators are used in

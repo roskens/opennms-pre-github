@@ -60,10 +60,13 @@ import org.springframework.web.servlet.mvc.SimpleFormController;
  */
 public class OnlineReportController extends SimpleFormController {
 
+    /** The m_report wrapper service. */
     private ReportWrapperService m_reportWrapperService;
 
+    /** The m_cat config service. */
     private CategoryConfigService m_catConfigService;
 
+    /** The m_category dao. */
     private CategoryDao m_categoryDao;
 
     /**
@@ -131,6 +134,7 @@ public class OnlineReportController extends SimpleFormController {
      * <p>
      * setReportWrapperService
      * </p>
+     * .
      *
      * @param reportWrapperService
      *            a
@@ -145,6 +149,7 @@ public class OnlineReportController extends SimpleFormController {
      * <p>
      * setCategoryConfigService
      * </p>
+     * .
      *
      * @param catConfigService
      *            a {@link org.opennms.web.svclayer.CategoryConfigService}
@@ -158,6 +163,7 @@ public class OnlineReportController extends SimpleFormController {
      * <p>
      * setCategoryDao
      * </p>
+     * .
      *
      * @param categoryDao
      *            a {@link org.opennms.netmgt.dao.api.CategoryDao} object.

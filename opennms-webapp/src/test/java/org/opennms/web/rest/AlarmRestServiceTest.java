@@ -54,9 +54,17 @@ import org.opennms.netmgt.model.OnmsSeverity;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
+/**
+ * The Class AlarmRestServiceTest.
+ */
 public class AlarmRestServiceTest extends AbstractSpringJerseyRestTestCase {
+
+    /** The m_database populator. */
     private DatabasePopulator m_databasePopulator;
 
+    /* (non-Javadoc)
+     * @see org.opennms.web.rest.AbstractSpringJerseyRestTestCase#afterServletStart()
+     */
     @Override
     protected void afterServletStart() {
         MockLogAppender.setupLogging(true, "DEBUG");
@@ -65,6 +73,12 @@ public class AlarmRestServiceTest extends AbstractSpringJerseyRestTestCase {
         m_databasePopulator.populateDatabase();
     }
 
+    /**
+     * Test alarms.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testAlarms() throws Exception {
         String xml = sendRequest(GET, "/alarms",
@@ -77,6 +91,12 @@ public class AlarmRestServiceTest extends AbstractSpringJerseyRestTestCase {
         assertTrue(xml.contains("<nodeLabel>node1</nodeLabel>"));
     }
 
+    /**
+     * Test alarm query by node.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testAlarmQueryByNode() throws Exception {
         String xml = sendRequest(GET, "/alarms", parseParamData("nodeId=6&limit=1"), 200);
@@ -89,6 +109,12 @@ public class AlarmRestServiceTest extends AbstractSpringJerseyRestTestCase {
         assertTrue(xml.contains("node1"));
     }
 
+    /**
+     * Test alarm query by severity equals.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testAlarmQueryBySeverityEquals() throws Exception {
         String xml = null;
@@ -100,6 +126,12 @@ public class AlarmRestServiceTest extends AbstractSpringJerseyRestTestCase {
         assertFalse(xml.contains("This is a test alarm"));
     }
 
+    /**
+     * Test alarm query by severity less than.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testAlarmQueryBySeverityLessThan() throws Exception {
         String xml = null;
@@ -114,6 +146,12 @@ public class AlarmRestServiceTest extends AbstractSpringJerseyRestTestCase {
         assertTrue(xml.contains("This is a test alarm"));
     }
 
+    /**
+     * Test alarm query by severity greater than.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testAlarmQueryBySeverityGreaterThan() throws Exception {
         String xml = null;
@@ -128,6 +166,12 @@ public class AlarmRestServiceTest extends AbstractSpringJerseyRestTestCase {
         assertTrue(xml.contains("This is a test alarm"));
     }
 
+    /**
+     * Test alarm updates.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testAlarmUpdates() throws Exception {
         createAlarm(OnmsSeverity.MAJOR);
@@ -167,6 +211,11 @@ public class AlarmRestServiceTest extends AbstractSpringJerseyRestTestCase {
         assertNotNull(failure);
     }
 
+    /**
+     * Gets the last alarm.
+     *
+     * @return the last alarm
+     */
     private OnmsAlarm getLastAlarm() {
         final NavigableSet<OnmsAlarm> alarms = new TreeSet<OnmsAlarm>(new Comparator<OnmsAlarm>() {
             @Override
@@ -178,6 +227,12 @@ public class AlarmRestServiceTest extends AbstractSpringJerseyRestTestCase {
         return alarms.last();
     }
 
+    /**
+     * Test complex query.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testComplexQuery() throws Exception {
         String xml = null;
@@ -260,6 +315,12 @@ public class AlarmRestServiceTest extends AbstractSpringJerseyRestTestCase {
         assertXpathDoesNotMatch(xml, "//alarm[@severity='CRITICAL' and @id='2']");
     }
 
+    /**
+     * Creates the alarm.
+     *
+     * @param severity
+     *            the severity
+     */
     private void createAlarm(final OnmsSeverity severity) {
         final OnmsEvent event = getEventDao().findAll().get(0);
 
@@ -282,14 +343,29 @@ public class AlarmRestServiceTest extends AbstractSpringJerseyRestTestCase {
         getAlarmDao().flush();
     }
 
+    /**
+     * Gets the event dao.
+     *
+     * @return the event dao
+     */
     private EventDao getEventDao() {
         return m_databasePopulator.getEventDao();
     }
 
+    /**
+     * Gets the alarm dao.
+     *
+     * @return the alarm dao
+     */
     private AlarmDao getAlarmDao() {
         return m_databasePopulator.getAlarmDao();
     }
 
+    /**
+     * Gets the dist poller dao.
+     *
+     * @return the dist poller dao
+     */
     private DistPollerDao getDistPollerDao() {
         return m_databasePopulator.getDistPollerDao();
     }

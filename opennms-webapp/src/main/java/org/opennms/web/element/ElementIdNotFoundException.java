@@ -41,21 +41,26 @@ import java.net.URLEncoder;
  * @since 1.8.1
  */
 public class ElementIdNotFoundException extends RuntimeException {
-    /**
-     *
-     */
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 6002934081158722933L;
 
+    /** The bad id. */
     protected String badId;
 
+    /** The message. */
     protected String message;
 
+    /** The elem type. */
     protected String elemType;
 
+    /** The detail uri. */
     protected String detailUri;
 
+    /** The detail param. */
     protected String detailParam;
 
+    /** The browse uri. */
     protected String browseUri;
 
     /**
@@ -129,6 +134,12 @@ public class ElementIdNotFoundException extends RuntimeException {
         this.detailParam = null;
     }
 
+    /**
+     * Sets the bad id.
+     *
+     * @param idIn
+     *            the new bad id
+     */
     private void setBadId(String idIn) {
         try {
             this.badId = URLEncoder.encode(idIn, "UTF-8");
@@ -153,6 +164,7 @@ public class ElementIdNotFoundException extends RuntimeException {
      * <p>
      * getBadID
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

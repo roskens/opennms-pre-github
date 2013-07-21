@@ -49,15 +49,24 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ObjectError;
 
 /**
+ * The Class DefaultDistributedPollerServiceTest.
+ *
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  */
 public class DefaultDistributedPollerServiceTest extends TestCase {
+
+    /** The m_mocks. */
     private List<Object> m_mocks;
 
+    /** The m_location monitor dao. */
     private LocationMonitorDao m_locationMonitorDao;
 
+    /** The m_distributed poller service. */
     private DefaultDistributedPollerService m_distributedPollerService;
 
+    /* (non-Javadoc)
+     * @see junit.framework.TestCase#setUp()
+     */
     @Override
     protected final void setUp() {
         m_mocks = new LinkedList<Object>();
@@ -69,6 +78,9 @@ public class DefaultDistributedPollerServiceTest extends TestCase {
         m_distributedPollerService.setLocationMonitorDao(m_locationMonitorDao);
     }
 
+    /**
+     * Test pause location monitor success.
+     */
     public final void testPauseLocationMonitorSuccess() {
         OnmsLocationMonitor locationMonitor = new OnmsLocationMonitor();
         locationMonitor.setId(1);
@@ -89,6 +101,9 @@ public class DefaultDistributedPollerServiceTest extends TestCase {
         assertEquals("new monitor status", MonitorStatus.PAUSED, locationMonitor.getStatus());
     }
 
+    /**
+     * Test pause location monitor already paused.
+     */
     public final void testPauseLocationMonitorAlreadyPaused() {
         OnmsLocationMonitor locationMonitor = new OnmsLocationMonitor();
         locationMonitor.setId(1);
@@ -110,6 +125,9 @@ public class DefaultDistributedPollerServiceTest extends TestCase {
         assertEquals("error 0 code", "distributed.locationMonitor.alreadyPaused", errorList.get(0).getCode());
     }
 
+    /**
+     * Test pause location monitor binding errors.
+     */
     public final void testPauseLocationMonitorBindingErrors() {
         LocationMonitorIdCommand command = new LocationMonitorIdCommand();
 
@@ -124,6 +142,9 @@ public class DefaultDistributedPollerServiceTest extends TestCase {
         assertEquals("error count after pause", 1, errors.getErrorCount());
     }
 
+    /**
+     * Test pause location monitor null command.
+     */
     public final void testPauseLocationMonitorNullCommand() {
         ThrowableAnticipator ta = new ThrowableAnticipator();
         ta.anticipate(new IllegalStateException("command argument cannot be null"));
@@ -141,6 +162,9 @@ public class DefaultDistributedPollerServiceTest extends TestCase {
         verifyMocks();
     }
 
+    /**
+     * Test pause location monitor null bind exception.
+     */
     public final void testPauseLocationMonitorNullBindException() {
         ThrowableAnticipator ta = new ThrowableAnticipator();
         ta.anticipate(new IllegalStateException("errors argument cannot be null"));
@@ -157,6 +181,9 @@ public class DefaultDistributedPollerServiceTest extends TestCase {
         verifyMocks();
     }
 
+    /**
+     * Test resume location monitor success.
+     */
     public final void testResumeLocationMonitorSuccess() {
         OnmsLocationMonitor locationMonitor = new OnmsLocationMonitor();
         locationMonitor.setId(1);
@@ -177,6 +204,9 @@ public class DefaultDistributedPollerServiceTest extends TestCase {
         assertEquals("new monitor status", MonitorStatus.STARTED, locationMonitor.getStatus());
     }
 
+    /**
+     * Test resume location monitor not paused.
+     */
     public final void testResumeLocationMonitorNotPaused() {
         OnmsLocationMonitor locationMonitor = new OnmsLocationMonitor();
         locationMonitor.setId(1);
@@ -198,6 +228,9 @@ public class DefaultDistributedPollerServiceTest extends TestCase {
         assertEquals("error 0 code", "distributed.locationMonitor.notPaused", errorList.get(0).getCode());
     }
 
+    /**
+     * Test resume location monitor binding errors.
+     */
     public final void testResumeLocationMonitorBindingErrors() {
         LocationMonitorIdCommand command = new LocationMonitorIdCommand();
 
@@ -212,6 +245,9 @@ public class DefaultDistributedPollerServiceTest extends TestCase {
         assertEquals("error count after pause", 1, errors.getErrorCount());
     }
 
+    /**
+     * Test resume location monitor null command.
+     */
     public final void testResumeLocationMonitorNullCommand() {
         ThrowableAnticipator ta = new ThrowableAnticipator();
         ta.anticipate(new IllegalStateException("command argument cannot be null"));
@@ -229,6 +265,9 @@ public class DefaultDistributedPollerServiceTest extends TestCase {
         verifyMocks();
     }
 
+    /**
+     * Test resume location monitor null bind exception.
+     */
     public final void testResumeLocationMonitorNullBindException() {
         ThrowableAnticipator ta = new ThrowableAnticipator();
         ta.anticipate(new IllegalStateException("errors argument cannot be null"));
@@ -245,6 +284,9 @@ public class DefaultDistributedPollerServiceTest extends TestCase {
         verifyMocks();
     }
 
+    /**
+     * Test delete location monitor success.
+     */
     public final void testDeleteLocationMonitorSuccess() {
         OnmsLocationMonitor locationMonitor = new OnmsLocationMonitor();
         locationMonitor.setId(1);
@@ -263,6 +305,9 @@ public class DefaultDistributedPollerServiceTest extends TestCase {
         assertEquals("error count", 0, errors.getErrorCount());
     }
 
+    /**
+     * Test delete location monitor binding errors.
+     */
     public final void testDeleteLocationMonitorBindingErrors() {
         LocationMonitorIdCommand command = new LocationMonitorIdCommand();
 
@@ -277,6 +322,9 @@ public class DefaultDistributedPollerServiceTest extends TestCase {
         assertEquals("error count after pause", 1, errors.getErrorCount());
     }
 
+    /**
+     * Test delete location monitor null command.
+     */
     public final void testDeleteLocationMonitorNullCommand() {
         ThrowableAnticipator ta = new ThrowableAnticipator();
         ta.anticipate(new IllegalStateException("command argument cannot be null"));
@@ -294,6 +342,9 @@ public class DefaultDistributedPollerServiceTest extends TestCase {
         verifyMocks();
     }
 
+    /**
+     * Test delete location monitor null bind exception.
+     */
     public final void testDeleteLocationMonitorNullBindException() {
         ThrowableAnticipator ta = new ThrowableAnticipator();
         ta.anticipate(new IllegalStateException("errors argument cannot be null"));
@@ -310,12 +361,18 @@ public class DefaultDistributedPollerServiceTest extends TestCase {
         verifyMocks();
     }
 
+    /**
+     * Replay mocks.
+     */
     private void replayMocks() {
         for (Object o : m_mocks) {
             replay(o);
         }
     }
 
+    /**
+     * Verify mocks.
+     */
     private void verifyMocks() {
         for (Object o : m_mocks) {
             verify(o);
@@ -325,6 +382,13 @@ public class DefaultDistributedPollerServiceTest extends TestCase {
         }
     }
 
+    /**
+     * Gets the error list.
+     *
+     * @param errors
+     *            the errors
+     * @return the error list
+     */
     private static List<ObjectError> getErrorList(final Errors errors) {
         return (List<ObjectError>) errors.getAllErrors();
     }

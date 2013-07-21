@@ -40,10 +40,12 @@ import java.sql.SQLException;
  * @since 1.8.1
  */
 public interface Filter {
+
     /**
      * <p>
      * getSql
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -53,6 +55,7 @@ public interface Filter {
      * <p>
      * getParamSql
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -62,14 +65,15 @@ public interface Filter {
      * <p>
      * bindParams
      * </p>
+     * .
      *
      * @param ps
      *            a {@link java.sql.PreparedStatement} object.
      * @param parameterIndex
      *            a int.
      * @return a int.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     public int bindParams(PreparedStatement ps, int parameterIndex) throws SQLException;
 
@@ -77,6 +81,7 @@ public interface Filter {
      * <p>
      * getDescription
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -86,6 +91,7 @@ public interface Filter {
      * <p>
      * getTextDescription
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

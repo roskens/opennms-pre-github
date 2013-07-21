@@ -45,12 +45,17 @@ import org.opennms.web.map.db.DbMap;
  * @since 1.8.1
  */
 public final class VMap extends DbMap {
+
+    /** The elements. */
     private final Map<String, VElement> elements = new ConcurrentHashMap<String, VElement>();
 
+    /** The links. */
     private final List<VLink> links = new ArrayList<VLink>();
 
+    /** The create time string. */
     private String createTimeString;
 
+    /** The last modified time string. */
     private String lastModifiedTimeString;
 
     /**
@@ -103,6 +108,7 @@ public final class VMap extends DbMap {
      * <p>
      * addElement
      * </p>
+     * .
      *
      * @param ve
      *            a {@link org.opennms.web.map.view.VElement} object.
@@ -118,6 +124,7 @@ public final class VMap extends DbMap {
      * <p>
      * addElements
      * </p>
+     * .
      *
      * @param ve
      *            an array of {@link org.opennms.web.map.view.VElement} objects.
@@ -134,6 +141,7 @@ public final class VMap extends DbMap {
      * <p>
      * addElements
      * </p>
+     * .
      *
      * @param elems
      *            a {@link java.util.List} object.
@@ -150,6 +158,7 @@ public final class VMap extends DbMap {
      * <p>
      * addLink
      * </p>
+     * .
      *
      * @param link
      *            a {@link org.opennms.web.map.view.VLink} object.
@@ -162,6 +171,7 @@ public final class VMap extends DbMap {
      * <p>
      * addLinks
      * </p>
+     * .
      *
      * @param links
      *            a {@link java.util.List} object.
@@ -174,6 +184,7 @@ public final class VMap extends DbMap {
      * <p>
      * removeElement
      * </p>
+     * .
      *
      * @param id
      *            a int.
@@ -195,6 +206,7 @@ public final class VMap extends DbMap {
      * <p>
      * removeLink
      * </p>
+     * .
      *
      * @param link
      *            a {@link org.opennms.web.map.view.VLink} object.
@@ -209,6 +221,7 @@ public final class VMap extends DbMap {
      * <p>
      * getLinksOnElement
      * </p>
+     * .
      *
      * @param id
      *            a int.
@@ -232,6 +245,7 @@ public final class VMap extends DbMap {
      * <p>
      * removeLinksOnElementList
      * </p>
+     * .
      *
      * @param id
      *            a int.
@@ -253,6 +267,7 @@ public final class VMap extends DbMap {
      * <p>
      * removeElements
      * </p>
+     * .
      *
      * @param ids
      *            an array of int.
@@ -271,6 +286,7 @@ public final class VMap extends DbMap {
      * <p>
      * getElement
      * </p>
+     * .
      *
      * @param id
      *            a int.
@@ -308,6 +324,7 @@ public final class VMap extends DbMap {
      * <p>
      * removeAllElements
      * </p>
+     * .
      */
     public void removeAllElements() {
         elements.clear();
@@ -317,6 +334,7 @@ public final class VMap extends DbMap {
      * <p>
      * removeAllLinks
      * </p>
+     * .
      */
     public void removeAllLinks() {
         links.clear();
@@ -326,6 +344,7 @@ public final class VMap extends DbMap {
      * <p>
      * size
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -337,6 +356,7 @@ public final class VMap extends DbMap {
      * <p>
      * linksize
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -348,6 +368,7 @@ public final class VMap extends DbMap {
      * <p>
      * containsElement
      * </p>
+     * .
      *
      * @param id
      *            a int.
@@ -363,6 +384,7 @@ public final class VMap extends DbMap {
      * <p>
      * containsLink
      * </p>
+     * .
      *
      * @param link
      *            a {@link org.opennms.web.map.view.VLink} object.
@@ -454,6 +476,7 @@ public final class VMap extends DbMap {
      * <p>
      * isNew
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -462,10 +485,26 @@ public final class VMap extends DbMap {
         return super.isNew();
     }
 
+    /**
+     * Gets the element id.
+     *
+     * @param element
+     *            the element
+     * @return the element id
+     */
     private String getElementId(VElement element) {
         return element.getId() + element.getType();
     }
 
+    /**
+     * Gets the element id.
+     *
+     * @param id
+     *            the id
+     * @param type
+     *            the type
+     * @return the element id
+     */
     private String getElementId(int id, String type) {
         return id + type;
     }

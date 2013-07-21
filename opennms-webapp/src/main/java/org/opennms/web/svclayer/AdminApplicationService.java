@@ -44,12 +44,17 @@ import org.opennms.web.svclayer.support.DefaultAdminApplicationService.EditModel
 import org.opennms.web.svclayer.support.DefaultAdminApplicationService.ServiceEditModel;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * The Interface AdminApplicationService.
+ */
 @Transactional(readOnly = true)
 public interface AdminApplicationService {
+
     /**
      * <p>
      * getApplication
      * </p>
+     * .
      *
      * @param applicationIdString
      *            a {@link java.lang.String} object.
@@ -63,6 +68,7 @@ public interface AdminApplicationService {
      * <p>
      * findAllMonitoredServices
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -72,6 +78,7 @@ public interface AdminApplicationService {
      * <p>
      * findApplicationAndAllMonitoredServices
      * </p>
+     * .
      *
      * @param applicationIdString
      *            a {@link java.lang.String} object.
@@ -85,6 +92,7 @@ public interface AdminApplicationService {
      * <p>
      * performEdit
      * </p>
+     * .
      *
      * @param editAction
      *            a {@link java.lang.String} object.
@@ -102,6 +110,7 @@ public interface AdminApplicationService {
      * <p>
      * addNewApplication
      * </p>
+     * .
      *
      * @param name
      *            a {@link java.lang.String} object.
@@ -114,6 +123,7 @@ public interface AdminApplicationService {
      * <p>
      * findAllApplications
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -123,6 +133,7 @@ public interface AdminApplicationService {
      * <p>
      * removeApplication
      * </p>
+     * .
      *
      * @param applicationIdString
      *            a {@link java.lang.String} object.
@@ -134,6 +145,7 @@ public interface AdminApplicationService {
      * <p>
      * findByMonitoredService
      * </p>
+     * .
      *
      * @param id
      *            a int.
@@ -145,6 +157,7 @@ public interface AdminApplicationService {
      * <p>
      * performServiceEdit
      * </p>
+     * .
      *
      * @param ifServiceIdString
      *            a {@link java.lang.String} object.
@@ -162,6 +175,7 @@ public interface AdminApplicationService {
      * <p>
      * findServiceApplications
      * </p>
+     * .
      *
      * @param ifServiceIdString
      *            a {@link java.lang.String} object.

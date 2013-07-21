@@ -39,14 +39,19 @@ package org.opennms.web.controller.inventory;
  */
 public class RancidReportExecCommClass {
 
+    /** The date. */
     private String date;
 
+    /** The fieldhas. */
     private String fieldhas;
 
+    /** The reporttype. */
     private String reporttype;
 
+    /** The reportfiletype. */
     private String reportfiletype;
 
+    /** The reportemail. */
     private String reportemail;
 
     /**

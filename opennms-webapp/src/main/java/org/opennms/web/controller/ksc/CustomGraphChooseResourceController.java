@@ -56,12 +56,21 @@ import org.springframework.web.servlet.mvc.AbstractController;
  */
 public class CustomGraphChooseResourceController extends AbstractController implements InitializingBean {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(CustomGraphChooseResourceController.class);
 
+    /**
+     * The Enum Parameters.
+     */
     public enum Parameters {
-        resourceId, selectedResourceId
+
+        /** The resource id. */
+        resourceId,
+ /** The selected resource id. */
+ selectedResourceId
     }
 
+    /** The m_resource service. */
     private ResourceService m_resourceService;
 
     /** {@inheritDoc} */
@@ -106,6 +115,7 @@ public class CustomGraphChooseResourceController extends AbstractController impl
      * <p>
      * getResourceService
      * </p>
+     * .
      *
      * @return a {@link org.opennms.web.svclayer.ResourceService} object.
      */
@@ -117,6 +127,7 @@ public class CustomGraphChooseResourceController extends AbstractController impl
      * <p>
      * setResourceService
      * </p>
+     * .
      *
      * @param resourceService
      *            a {@link org.opennms.web.svclayer.ResourceService} object.
@@ -129,9 +140,10 @@ public class CustomGraphChooseResourceController extends AbstractController impl
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @Override
     public void afterPropertiesSet() throws Exception {

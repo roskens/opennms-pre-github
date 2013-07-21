@@ -30,14 +30,27 @@ package org.opennms.web.alarm.filter;
 
 import org.opennms.web.filter.NoSubstringFilter;
 
+/**
+ * The Class NegativeEventParmLikeFilter.
+ */
 public class NegativeEventParmLikeFilter extends NoSubstringFilter {
 
+    /** The Constant TYPE. */
     public static final String TYPE = "noparmmatchany";
 
+    /**
+     * Instantiates a new negative event parm like filter.
+     *
+     * @param value
+     *            the value
+     */
     public NegativeEventParmLikeFilter(String value) {
         super(TYPE, "eventParms", "eventParms", value + "(string,text)");
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.web.filter.OneArgFilter#getTextDescription()
+     */
     @Override
     public String getTextDescription() {
         String strippedType = getValue().replace("(string,text)", "");
@@ -49,6 +62,9 @@ public class NegativeEventParmLikeFilter extends NoSubstringFilter {
         return buffer.toString();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.web.filter.BaseFilter#getDescription()
+     */
     @Override
     public String getDescription() {
         return TYPE + "=" + getValueString().replace("(string,text)", "");

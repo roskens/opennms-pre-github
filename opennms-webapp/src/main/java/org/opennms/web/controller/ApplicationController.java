@@ -52,8 +52,18 @@ import org.springframework.web.servlet.view.RedirectView;
  */
 public class ApplicationController extends AbstractController {
 
+    /** The m_admin application service. */
     private AdminApplicationService m_adminApplicationService;
 
+    /**
+     * Gets the non empty parameter.
+     *
+     * @param request
+     *            the request
+     * @param parameter
+     *            the parameter
+     * @return the non empty parameter
+     */
     private String getNonEmptyParameter(final HttpServletRequest request, final String parameter) {
         if (request != null) {
             String p = request.getParameter(parameter);
@@ -145,6 +155,7 @@ public class ApplicationController extends AbstractController {
      * <p>
      * getAdminApplicationService
      * </p>
+     * .
      *
      * @return a {@link org.opennms.web.svclayer.AdminApplicationService}
      *         object.
@@ -157,6 +168,7 @@ public class ApplicationController extends AbstractController {
      * <p>
      * setAdminApplicationService
      * </p>
+     * .
      *
      * @param adminApplicationService
      *            a {@link org.opennms.web.svclayer.AdminApplicationService}

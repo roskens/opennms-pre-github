@@ -41,16 +41,20 @@ import java.util.Date;
  */
 public class TriggerDescription {
 
+    /** The m_trigger name. */
     private String m_triggerName;
 
+    /** The m_description. */
     private String m_description;
 
+    /** The m_next fire time. */
     private Date m_nextFireTime;
 
     /**
      * <p>
      * getTriggerName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -62,6 +66,7 @@ public class TriggerDescription {
      * <p>
      * setTriggerName
      * </p>
+     * .
      *
      * @param triggerName
      *            a {@link java.lang.String} object.
@@ -74,6 +79,7 @@ public class TriggerDescription {
      * <p>
      * getDescription
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -85,6 +91,7 @@ public class TriggerDescription {
      * <p>
      * setDescription
      * </p>
+     * .
      *
      * @param description
      *            a {@link java.lang.String} object.
@@ -97,6 +104,7 @@ public class TriggerDescription {
      * <p>
      * getNextFireTime
      * </p>
+     * .
      *
      * @return a java$util$Date object.
      */
@@ -108,6 +116,7 @@ public class TriggerDescription {
      * <p>
      * setNextFireTime
      * </p>
+     * .
      *
      * @param nextFireTime
      *            a java$util$Date object.

@@ -43,7 +43,8 @@ import org.opennms.web.filter.SQLType;
  * @since 1.8.1
  */
 public class BeforeDateFilter extends LessThanFilter<Date> {
-    /** Constant <code>TYPE="beforedate"</code> */
+
+    /** Constant <code>TYPE="beforedate"</code>. */
     public static final String TYPE = "beforedate";
 
     /**
@@ -74,6 +75,7 @@ public class BeforeDateFilter extends LessThanFilter<Date> {
      * <p>
      * getTextDescription
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -86,6 +88,7 @@ public class BeforeDateFilter extends LessThanFilter<Date> {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -98,6 +101,7 @@ public class BeforeDateFilter extends LessThanFilter<Date> {
      * <p>
      * getDate
      * </p>
+     * .
      *
      * @return a java$util$Date object.
      */

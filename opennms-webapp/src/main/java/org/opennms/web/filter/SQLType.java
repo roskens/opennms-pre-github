@@ -40,28 +40,33 @@ import org.opennms.web.alarm.filter.OnmsSeveritySqlType;
  * SQLType interface.
  * </p>
  *
+ * @param <T>
+ *            the generic type
  * @author ranger
  * @version $Id: $
  * @since 1.8.1
  */
 public interface SQLType<T> {
 
+    /** The Constant INT. */
     public static final SQLType<Integer> INT = new IntegerSqlType();
 
+    /** The Constant STRING. */
     public static final SQLType<String> STRING = new StringSqlType();
 
+    /** The Constant DATE. */
     public static final SQLType<Date> DATE = new DateSqlType();
 
+    /** The Constant SEVERITY. */
     public static final SQLType<OnmsSeverity> SEVERITY = new OnmsSeveritySqlType();
 
     /**
      * <p>
      * getValueAsString
      * </p>
+     * .
      *
      * @param value
-     *            a T object.
-     * @param <T>
      *            a T object.
      * @return a {@link java.lang.String} object.
      */
@@ -71,6 +76,7 @@ public interface SQLType<T> {
      * <p>
      * formatValue
      * </p>
+     * .
      *
      * @param value
      *            a T object.
@@ -82,6 +88,7 @@ public interface SQLType<T> {
      * <p>
      * bindParam
      * </p>
+     * .
      *
      * @param ps
      *            a {@link java.sql.PreparedStatement} object.
@@ -89,8 +96,8 @@ public interface SQLType<T> {
      *            a int.
      * @param value
      *            a T object.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     public void bindParam(PreparedStatement ps, int parameterIndex, T value) throws SQLException;
 
@@ -98,6 +105,7 @@ public interface SQLType<T> {
      * <p>
      * createArray
      * </p>
+     * .
      *
      * @param value1
      *            a T object.

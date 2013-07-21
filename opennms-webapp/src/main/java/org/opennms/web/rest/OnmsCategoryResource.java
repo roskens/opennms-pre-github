@@ -58,6 +58,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.sun.jersey.spi.resource.PerRequest;
 
+/**
+ * The Class OnmsCategoryResource.
+ */
 @Component
 /**
  * <p>OnmsCategoryResource class.</p>
@@ -72,14 +75,18 @@ import com.sun.jersey.spi.resource.PerRequest;
 @Transactional
 public class OnmsCategoryResource extends OnmsRestService {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(OnmsCategoryResource.class);
 
+    /** The m_uri info. */
     @Context
     UriInfo m_uriInfo;
 
+    /** The m_node dao. */
     @Autowired
     private NodeDao m_nodeDao;
 
+    /** The m_category dao. */
     @Autowired
     private CategoryDao m_categoryDao;
 
@@ -87,6 +94,7 @@ public class OnmsCategoryResource extends OnmsRestService {
      * <p>
      * getCategories
      * </p>
+     * .
      *
      * @param nodeCriteria
      *            a {@link java.lang.String} object.
@@ -113,6 +121,7 @@ public class OnmsCategoryResource extends OnmsRestService {
      * <p>
      * getCategory
      * </p>
+     * .
      *
      * @param nodeCriteria
      *            a {@link java.lang.String} object.
@@ -143,6 +152,7 @@ public class OnmsCategoryResource extends OnmsRestService {
      * <p>
      * addCategory
      * </p>
+     * .
      *
      * @param nodeCriteria
      *            a {@link java.lang.String} object.
@@ -181,6 +191,7 @@ public class OnmsCategoryResource extends OnmsRestService {
      * <p>
      * updateCategory
      * </p>
+     * .
      *
      * @param nodeCriteria
      *            a {@link java.lang.String} object.
@@ -229,6 +240,7 @@ public class OnmsCategoryResource extends OnmsRestService {
      * <p>
      * deleteCaegory
      * </p>
+     * .
      *
      * @param nodeCriteria
      *            a {@link java.lang.String} object.
@@ -262,6 +274,15 @@ public class OnmsCategoryResource extends OnmsRestService {
         }
     }
 
+    /**
+     * Gets the category.
+     *
+     * @param node
+     *            the node
+     * @param categoryName
+     *            the category name
+     * @return the category
+     */
     private OnmsCategory getCategory(OnmsNode node, String categoryName) {
         for (OnmsCategory category : node.getCategories()) {
             if (category.getName().equals(categoryName)) {

@@ -42,7 +42,8 @@ import org.opennms.web.filter.SQLType;
  * @since 1.8.1
  */
 public class SeverityBetweenFilter extends BetweenFilter<OnmsSeverity> {
-    /** Constant <code>TYPE="severityBetween"</code> */
+
+    /** Constant <code>TYPE="severityBetween"</code>. */
     public static final String TYPE = "severityBetween";
 
     /**
@@ -63,6 +64,7 @@ public class SeverityBetweenFilter extends BetweenFilter<OnmsSeverity> {
      * <p>
      * getTextDescription
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -71,6 +73,13 @@ public class SeverityBetweenFilter extends BetweenFilter<OnmsSeverity> {
         return "alarm severity between " + getSeverityLabel(getFirst()) + " and " + getSeverityLabel(getLast());
     }
 
+    /**
+     * Gets the severity label.
+     *
+     * @param severity
+     *            the severity
+     * @return the severity label
+     */
     private String getSeverityLabel(final OnmsSeverity severity) {
         return severity.getLabel();
     }
@@ -79,6 +88,7 @@ public class SeverityBetweenFilter extends BetweenFilter<OnmsSeverity> {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

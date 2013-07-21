@@ -42,28 +42,23 @@ import java.util.StringTokenizer;
  * @since 1.8.1
  */
 public class Category implements Cloneable {
-    /**
-     */
+
+    /** The m_label. */
     private String m_label;
 
-    /**
-     */
+    /** The m_rule. */
     private String m_rule;
 
-    /**
-     */
+    /** The m_normal. */
     private String m_normal;
 
-    /**
-     */
+    /** The m_warning. */
     private String m_warning;
 
-    /**
-     */
+    /** The m_services. */
     private List<String> m_services;
 
-    /**
-     */
+    /** The m_comments. */
     private String m_comments;
 
     /**
@@ -102,6 +97,7 @@ public class Category implements Cloneable {
      * <p>
      * clone
      * </p>
+     * .
      *
      * @return a {@link org.opennms.web.admin.views.parsers.Category} object.
      */
@@ -125,7 +121,7 @@ public class Category implements Cloneable {
 
     /**
      * This constructor creates a Category by parsing a string in the
-     * UserManager format
+     * UserManager format.
      *
      * @param aDataString
      *            a string in the format "label$normal$warning$rule"
@@ -167,6 +163,7 @@ public class Category implements Cloneable {
      * <p>
      * setLabel
      * </p>
+     * .
      *
      * @param aValue
      *            a {@link java.lang.String} object.
@@ -179,6 +176,7 @@ public class Category implements Cloneable {
      * <p>
      * getLabel
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -190,6 +188,7 @@ public class Category implements Cloneable {
      * <p>
      * setRule
      * </p>
+     * .
      *
      * @param aValue
      *            a {@link java.lang.String} object.
@@ -202,6 +201,7 @@ public class Category implements Cloneable {
      * <p>
      * getRule
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -213,6 +213,7 @@ public class Category implements Cloneable {
      * <p>
      * setNormal
      * </p>
+     * .
      *
      * @param aValue
      *            a {@link java.lang.String} object.
@@ -225,6 +226,7 @@ public class Category implements Cloneable {
      * <p>
      * getNormal
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -236,6 +238,7 @@ public class Category implements Cloneable {
      * <p>
      * setWarning
      * </p>
+     * .
      *
      * @param aValue
      *            a {@link java.lang.String} object.
@@ -248,6 +251,7 @@ public class Category implements Cloneable {
      * <p>
      * getWarning
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -256,7 +260,7 @@ public class Category implements Cloneable {
     }
 
     /**
-     * Adds a service to this category
+     * Adds a service to this category.
      *
      * @param name
      *            the service name.
@@ -266,7 +270,7 @@ public class Category implements Cloneable {
     }
 
     /**
-     * Returns the list of services in this category
+     * Returns the list of services in this category.
      *
      * @return the list of services.
      */
@@ -275,7 +279,7 @@ public class Category implements Cloneable {
     }
 
     /**
-     * Sets the list of services
+     * Sets the list of services.
      *
      * @param services
      *            a list of service names
@@ -288,6 +292,7 @@ public class Category implements Cloneable {
      * <p>
      * setComments
      * </p>
+     * .
      *
      * @param comment
      *            a {@link java.lang.String} object.
@@ -300,6 +305,7 @@ public class Category implements Cloneable {
      * <p>
      * getComments
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -311,6 +317,7 @@ public class Category implements Cloneable {
      * <p>
      * getUserManagerFormat
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

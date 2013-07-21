@@ -45,9 +45,12 @@ import com.google.gwt.uibinder.client.UiConstructor;
 import com.google.gwt.user.datepicker.client.DateBox;
 
 /**
+ * The Class FieldSetDateBox.
+ *
  * @author <a href="mailto:MarkusNeumannMarkus@gmail.com">Markus
- *         Neumann</a><br/> {@link FieldSet} for displaying and editing
- *         {@link Dates}. It's working on stings for compatibility reasons with
+ *         Neumann</a><br/>
+ *         {@link FieldSet} for displaying and editing {@link Dates}. It's
+ *         working on stings for compatibility reasons with
  *         old db-code. Works with an internal date format of "yyyy-MM-dd".
  *         Displays the Date as i18n date format. If the given string is not in
  *         "yyyy-MM-dd" format, or the input by the ui is not compatible with
@@ -58,17 +61,42 @@ import com.google.gwt.user.datepicker.client.DateBox;
 public class FieldSetDateBox extends AbstractFieldSet implements FieldSet, ValueChangeHandler<Date>, MouseUpHandler,
         KeyUpHandler {
 
+    /** The date box. */
     private DateBox dateBox = new DateBox();
 
+    /** The local formater. */
     private final DateTimeFormat localFormater = DateTimeFormat.getFormat(PredefinedFormat.DATE_MEDIUM);
 
+    /** The onms formater. */
     private final DateTimeFormat onmsFormater = DateTimeFormat.getFormat("yyyy-MM-dd");
 
+    /**
+     * Instantiates a new field set date box.
+     *
+     * @param name
+     *            the name
+     * @param value
+     *            the value
+     * @param helpText
+     *            the help text
+     */
     public FieldSetDateBox(String name, String value, String helpText) {
         super(name, helpText);
         init(value, -1);
     }
 
+    /**
+     * Instantiates a new field set date box.
+     *
+     * @param name
+     *            the name
+     * @param value
+     *            the value
+     * @param helpText
+     *            the help text
+     * @param maxLength
+     *            the max length
+     */
     @UiConstructor
     public FieldSetDateBox(String name, String value, String helpText, int maxLength) {
         super(name, helpText);
@@ -93,6 +121,14 @@ public class FieldSetDateBox extends AbstractFieldSet implements FieldSet, Value
         return result;
     }
 
+    /**
+     * Inits the.
+     *
+     * @param value
+     *            the value
+     * @param maxLength
+     *            the max length
+     */
     private void init(String value, int maxLength) {
 
         if (maxLength > 0) {
@@ -119,21 +155,33 @@ public class FieldSetDateBox extends AbstractFieldSet implements FieldSet, Value
         panel.add(dateBox);
     }
 
+    /* (non-Javadoc)
+     * @see com.google.gwt.event.dom.client.KeyUpHandler#onKeyUp(com.google.gwt.event.dom.client.KeyUpEvent)
+     */
     @Override
     public void onKeyUp(KeyUpEvent event) {
         checkField();
     }
 
+    /* (non-Javadoc)
+     * @see com.google.gwt.event.dom.client.MouseUpHandler#onMouseUp(com.google.gwt.event.dom.client.MouseUpEvent)
+     */
     @Override
     public void onMouseUp(MouseUpEvent event) {
         checkField();
     }
 
+    /* (non-Javadoc)
+     * @see com.google.gwt.event.logical.shared.ValueChangeHandler#onValueChange(com.google.gwt.event.logical.shared.ValueChangeEvent)
+     */
     @Override
     public void onValueChange(ValueChangeEvent<Date> event) {
         checkField();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.gwt.web.ui.asset.client.tools.fieldsets.FieldSet#setEnabled(java.lang.Boolean)
+     */
     @Override
     public void setEnabled(Boolean enabled) {
         dateBox.getTextBox().setEnabled(enabled);
@@ -143,8 +191,8 @@ public class FieldSetDateBox extends AbstractFieldSet implements FieldSet, Value
      * To get a valid input without warnings use "yyyy-MM-dd" formated string
      * representation of date. But any string can be set to the value.
      *
-     * @param String
-     *            value
+     * @param value
+     *            the new value
      */
     @Override
     public void setValue(String value) {

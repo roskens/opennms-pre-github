@@ -38,14 +38,18 @@ package org.opennms.web.command;
  * @since 1.8.1
  */
 public class DistributedStatusDetailsCommand {
+
+    /** The m_location. */
     private String m_location;
 
+    /** The m_application. */
     private String m_application;
 
     /**
      * <p>
      * getApplication
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -57,6 +61,7 @@ public class DistributedStatusDetailsCommand {
      * <p>
      * setApplication
      * </p>
+     * .
      *
      * @param application
      *            a {@link java.lang.String} object.
@@ -69,6 +74,7 @@ public class DistributedStatusDetailsCommand {
      * <p>
      * getLocation
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -80,6 +86,7 @@ public class DistributedStatusDetailsCommand {
      * <p>
      * setLocation
      * </p>
+     * .
      *
      * @param location
      *            a {@link java.lang.String} object.

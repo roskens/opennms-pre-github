@@ -56,6 +56,9 @@ import org.springframework.transaction.annotation.Transactional;
 import com.sun.jersey.api.core.ResourceContext;
 import com.sun.jersey.spi.resource.PerRequest;
 
+/**
+ * The Class DataLinkInterfaceRestService.
+ */
 @Component
 /**
  * <p>DataLinkInterfaceRestService class.</p>
@@ -69,20 +72,30 @@ import com.sun.jersey.spi.resource.PerRequest;
 @Transactional
 public class DataLinkInterfaceRestService extends OnmsRestService {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(DataLinkInterfaceRestService.class);
 
+    /** The m_data link interface dao. */
     @Autowired
     private DataLinkInterfaceDao m_dataLinkInterfaceDao;
 
+    /** The m_node dao. */
     @Autowired
     private NodeDao m_nodeDao;
 
+    /** The m_uri info. */
     @Context
     UriInfo m_uriInfo;
 
+    /** The m_context. */
     @Context
     ResourceContext m_context;
 
+    /**
+     * Gets the links.
+     *
+     * @return the links
+     */
     @GET
     @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON, MediaType.APPLICATION_ATOM_XML })
     @Transactional(readOnly = true)
@@ -99,6 +112,13 @@ public class DataLinkInterfaceRestService extends OnmsRestService {
         }
     }
 
+    /**
+     * Gets the link.
+     *
+     * @param linkId
+     *            the link id
+     * @return the link
+     */
     @GET
     @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON, MediaType.APPLICATION_ATOM_XML })
     @Path("{linkId}")
@@ -113,6 +133,15 @@ public class DataLinkInterfaceRestService extends OnmsRestService {
         }
     }
 
+    /**
+     * Update data link interface.
+     *
+     * @param linkId
+     *            the link id
+     * @param params
+     *            the params
+     * @return the response
+     */
     @PUT
     @Path("{linkId}")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
@@ -135,6 +164,13 @@ public class DataLinkInterfaceRestService extends OnmsRestService {
         }
     }
 
+    /**
+     * Adds the or replace data link interface.
+     *
+     * @param iface
+     *            the iface
+     * @return the response
+     */
     @POST
     @Consumes(MediaType.APPLICATION_XML)
     @Transactional
@@ -155,6 +191,13 @@ public class DataLinkInterfaceRestService extends OnmsRestService {
         }
     }
 
+    /**
+     * Delete data link interface.
+     *
+     * @param linkId
+     *            the link id
+     * @return the response
+     */
     @DELETE
     @Path("{linkId}")
     public Response deleteDataLinkInterface(@PathParam("linkId")

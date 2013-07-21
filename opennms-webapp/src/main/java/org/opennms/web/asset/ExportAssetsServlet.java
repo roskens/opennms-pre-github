@@ -48,17 +48,21 @@ import au.com.bytecode.opencsv.CSVWriter;
  * @author <A HREF="mailto:ranger@opennms.org">Benjamin Reed</A>
  */
 public class ExportAssetsServlet extends HttpServlet {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -4854445395857220978L;
 
+    /** The model. */
     protected AssetModel model;
 
     /**
      * <p>
      * init
      * </p>
+     * .
      *
-     * @throws javax.servlet.ServletException
-     *             if any.
+     * @throws ServletException
+     *             the servlet exception
      */
     @Override
     public void init() throws ServletException {

@@ -43,12 +43,20 @@ import org.opennms.netmgt.dao.api.DaemonStatusDao;
 import org.opennms.netmgt.model.MockServiceDaemon;
 import org.opennms.netmgt.model.ServiceInfo;
 
+/**
+ * The Class DefaultDaemonStatusServiceTest.
+ */
 public class DefaultDaemonStatusServiceTest extends TestCase {
 
+    /** The default daemon status service. */
     private DefaultDaemonStatusService defaultDaemonStatusService;
 
+    /** The daemon status dao. */
     private DaemonStatusDao daemonStatusDao;
 
+    /* (non-Javadoc)
+     * @see junit.framework.TestCase#setUp()
+     */
     @Override
     protected void setUp() throws Exception {
         super.setUp();
@@ -57,14 +65,27 @@ public class DefaultDaemonStatusServiceTest extends TestCase {
         defaultDaemonStatusService.setDaemonStatusDao(daemonStatusDao);
     }
 
+    /**
+     * Test get current daemon status not empty.
+     *
+     * @return the list
+     */
     public List<ServiceInfo> testGetCurrentDaemonStatusNotEmpty() {
         return null;
     }
 
+    /**
+     * Test get current daemon status empty.
+     *
+     * @return the list
+     */
     public List<ServiceInfo> testGetCurrentDaemonStatusEmpty() {
         return null;
     }
 
+    /**
+     * Test start daemon.
+     */
     public void testStartDaemon() {
         Map<String, ServiceInfo> info2Return = new HashMap<String, ServiceInfo>();
         ServiceInfo sinfo1 = new ServiceInfo("ignore", "failed");
@@ -91,24 +112,40 @@ public class DefaultDaemonStatusServiceTest extends TestCase {
         assertEquals("status must be 'Started'", "Started", status);
     }
 
+    /**
+     * Test stop daemon.
+     */
     public void testStopDaemon() {
 
     }
 
+    /**
+     * Test restart daemon.
+     */
     public void testRestartDaemon() {
 
     }
 
+    /**
+     * Test perform operation on daemons empty set of daemons.
+     */
     public void testPerformOperationOnDaemonsEmptySetOfDaemons() {
         // TODO Auto-generated method stub
 
     }
 
+    /**
+     * Test perform operation on daemons non empty set of daemons.
+     */
     public void testPerformOperationOnDaemonsNonEmptySetOfDaemons() {
         // TODO Auto-generated method stub
 
     }
 
+    /**
+     * Test perform operation on daemons non empty set of daemons invalid
+     * operation.
+     */
     public void testPerformOperationOnDaemonsNonEmptySetOfDaemonsInvalidOperation() {
         // TODO Auto-generated method stub
 

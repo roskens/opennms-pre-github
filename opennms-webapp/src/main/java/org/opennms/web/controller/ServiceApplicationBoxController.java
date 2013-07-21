@@ -51,6 +51,8 @@ import org.springframework.web.servlet.mvc.AbstractController;
  * @since 1.8.1
  */
 public class ServiceApplicationBoxController extends AbstractController {
+
+    /** The m_admin application service. */
     private AdminApplicationService m_adminApplicationService;
 
     /** {@inheritDoc} */
@@ -73,6 +75,7 @@ public class ServiceApplicationBoxController extends AbstractController {
      * <p>
      * getAdminApplicationService
      * </p>
+     * .
      *
      * @return a {@link org.opennms.web.svclayer.AdminApplicationService}
      *         object.
@@ -85,6 +88,7 @@ public class ServiceApplicationBoxController extends AbstractController {
      * <p>
      * setAdminApplicationService
      * </p>
+     * .
      *
      * @param adminApplicationService
      *            a {@link org.opennms.web.svclayer.AdminApplicationService}

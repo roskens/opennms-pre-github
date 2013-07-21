@@ -57,19 +57,26 @@ import org.springframework.web.servlet.mvc.AbstractController;
  * @author <A HREF="http://www.opennms.org/">OpenNMS </A>
  */
 public class AlarmFilterController extends AbstractController implements InitializingBean {
-    /** Constant <code>DEFAULT_MULTIPLE=0</code> */
+
+    /** Constant <code>DEFAULT_MULTIPLE=0</code>. */
     public static final int DEFAULT_MULTIPLE = 0;
 
+    /** The m_success view. */
     private String m_successView;
 
+    /** The m_default short limit. */
     private Integer m_defaultShortLimit;
 
+    /** The m_default long limit. */
     private Integer m_defaultLongLimit;
 
+    /** The m_default acknowledge type. */
     private AcknowledgeType m_defaultAcknowledgeType = AcknowledgeType.UNACKNOWLEDGED;
 
+    /** The m_default sort style. */
     private SortStyle m_defaultSortStyle = SortStyle.ID;
 
+    /** The m_web alarm repository. */
     private AlarmRepository m_webAlarmRepository;
 
     /**
@@ -173,6 +180,11 @@ public class AlarmFilterController extends AbstractController implements Initial
         return modelAndView;
     }
 
+    /**
+     * Gets the default short limit.
+     *
+     * @return the default short limit
+     */
     private Integer getDefaultShortLimit() {
         return m_defaultShortLimit;
     }
@@ -181,6 +193,7 @@ public class AlarmFilterController extends AbstractController implements Initial
      * <p>
      * setDefaultShortLimit
      * </p>
+     * .
      *
      * @param limit
      *            a {@link java.lang.Integer} object.
@@ -189,6 +202,11 @@ public class AlarmFilterController extends AbstractController implements Initial
         m_defaultShortLimit = limit;
     }
 
+    /**
+     * Gets the default long limit.
+     *
+     * @return the default long limit
+     */
     private Integer getDefaultLongLimit() {
         return m_defaultLongLimit;
     }
@@ -197,6 +215,7 @@ public class AlarmFilterController extends AbstractController implements Initial
      * <p>
      * setDefaultLongLimit
      * </p>
+     * .
      *
      * @param limit
      *            a {@link java.lang.Integer} object.
@@ -205,6 +224,11 @@ public class AlarmFilterController extends AbstractController implements Initial
         m_defaultLongLimit = limit;
     }
 
+    /**
+     * Gets the success view.
+     *
+     * @return the success view
+     */
     private String getSuccessView() {
         return m_successView;
     }
@@ -213,6 +237,7 @@ public class AlarmFilterController extends AbstractController implements Initial
      * <p>
      * setSuccessView
      * </p>
+     * .
      *
      * @param successView
      *            a {@link java.lang.String} object.
@@ -225,6 +250,7 @@ public class AlarmFilterController extends AbstractController implements Initial
      * <p>
      * setWebAlarmRepository
      * </p>
+     * .
      *
      * @param webAlarmRepository
      *            a {@link org.opennms.netmgt.dao.api.AlarmRepository} object.
@@ -237,6 +263,7 @@ public class AlarmFilterController extends AbstractController implements Initial
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      */
     @Override
     public final void afterPropertiesSet() {
@@ -252,6 +279,7 @@ public class AlarmFilterController extends AbstractController implements Initial
      * <p>
      * getDefaultAcknowledgeType
      * </p>
+     * .
      *
      * @return a {@link org.opennms.web.alarm.AcknowledgeType} object.
      */
@@ -263,6 +291,7 @@ public class AlarmFilterController extends AbstractController implements Initial
      * <p>
      * setDefaultAcknowledgeType
      * </p>
+     * .
      *
      * @param defaultAcknowledgeType
      *            a {@link org.opennms.web.alarm.AcknowledgeType} object.
@@ -275,6 +304,7 @@ public class AlarmFilterController extends AbstractController implements Initial
      * <p>
      * getDefaultSortStyle
      * </p>
+     * .
      *
      * @return a {@link org.opennms.web.alarm.SortStyle} object.
      */
@@ -286,6 +316,7 @@ public class AlarmFilterController extends AbstractController implements Initial
      * <p>
      * setDefaultSortStyle
      * </p>
+     * .
      *
      * @param defaultSortStyle
      *            a {@link org.opennms.web.alarm.SortStyle} object.

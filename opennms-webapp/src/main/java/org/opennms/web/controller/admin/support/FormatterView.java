@@ -45,14 +45,26 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.view.InternalResourceView;
 
+/**
+ * The Class FormatterView.
+ */
 public final class FormatterView implements View {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(FormatterView.class);
 
+    /** The m_formatter. */
     private SystemReportFormatter m_formatter = null;
 
+    /** The m_view. */
     private InternalResourceView m_view = null;
 
+    /**
+     * Instantiates a new formatter view.
+     *
+     * @param formatter
+     *            the formatter
+     */
     public FormatterView(final SystemReportFormatter formatter) {
         super();
         m_formatter = formatter;
@@ -64,6 +76,9 @@ public final class FormatterView implements View {
         LOG.debug("formatter = {}, view = {}", m_formatter, m_view);
     }
 
+    /* (non-Javadoc)
+     * @see org.springframework.web.servlet.View#getContentType()
+     */
     @Override
     public String getContentType() {
         if (m_view != null)
@@ -73,6 +88,9 @@ public final class FormatterView implements View {
         return m_formatter.getContentType();
     }
 
+    /* (non-Javadoc)
+     * @see org.springframework.web.servlet.View#render(java.util.Map, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     */
     @Override
     public void render(final Map<String, ?> model, final HttpServletRequest request, final HttpServletResponse response)
             throws Exception {
@@ -127,6 +145,13 @@ public final class FormatterView implements View {
         }
     }
 
+    /**
+     * Gets the file name.
+     *
+     * @param request
+     *            the request
+     * @return the file name
+     */
     public String getFileName(final HttpServletRequest request) {
         final String outputParameter = request.getParameter("output");
         String fileName = null;
@@ -138,6 +163,9 @@ public final class FormatterView implements View {
         return fileName;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return new ToStringBuilder(this).append("formatter", m_formatter).toString();

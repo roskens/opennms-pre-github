@@ -28,16 +28,30 @@
 
 package org.opennms.web.controller.admin.support;
 
+/**
+ * The Class SystemReportException.
+ */
 public class SystemReportException extends Exception {
-    /**
-     *
-     */
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -4293417522743903130L;
 
+    /**
+     * Instantiates a new system report exception.
+     *
+     * @param t
+     *            the t
+     */
     public SystemReportException(final Throwable t) {
         super(t);
     }
 
+    /**
+     * Instantiates a new system report exception.
+     *
+     * @param message
+     *            the message
+     */
     public SystemReportException(final String message) {
         super(message);
     }

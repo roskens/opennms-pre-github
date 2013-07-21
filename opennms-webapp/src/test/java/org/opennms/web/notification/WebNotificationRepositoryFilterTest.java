@@ -59,6 +59,9 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * The Class WebNotificationRepositoryFilterTest.
+ */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
         "classpath:/META-INF/opennms/applicationContext-dao.xml", "classpath*:/META-INF/opennms/component-dao.xml",
@@ -69,22 +72,31 @@ import org.springframework.transaction.annotation.Transactional;
 @JUnitTemporaryDatabase
 public class WebNotificationRepositoryFilterTest implements InitializingBean {
 
+    /** The m_db populator. */
     @Autowired
     DatabasePopulator m_dbPopulator;
 
+    /** The m_dao notification repo. */
     @Autowired
     @Qualifier("dao")
     WebNotificationRepository m_daoNotificationRepo;
 
+    /** The m_jdbc notification repo. */
     @Autowired
     @Qualifier("jdbc")
     WebNotificationRepository m_jdbcNotificationRepo;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public final void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Sets the up logging.
+     */
     @BeforeClass
     public static void setUpLogging() {
         Properties props = new Properties();
@@ -95,11 +107,17 @@ public class WebNotificationRepositoryFilterTest implements InitializingBean {
         MockLogAppender.setupLogging(props);
     }
 
+    /**
+     * Sets the up.
+     */
     @Before
     public final void setUp() {
         m_dbPopulator.populateDatabase();
     }
 
+    /**
+     * Test acknowledge by filter.
+     */
     @Test
     @Transactional
     public final void testAcknowledgeByFilter() {
@@ -109,6 +127,9 @@ public class WebNotificationRepositoryFilterTest implements InitializingBean {
         assert1Result(filter);
     }
 
+    /**
+     * Test interface filter.
+     */
     @Test
     @Transactional
     public final void testInterfaceFilter() {
@@ -116,6 +137,9 @@ public class WebNotificationRepositoryFilterTest implements InitializingBean {
         assert1Result(filter);
     }
 
+    /**
+     * Test node filter.
+     */
     @Test
     @JUnitTemporaryDatabase
     // Relies on specific IDs so we need a fresh database
@@ -126,6 +150,9 @@ public class WebNotificationRepositoryFilterTest implements InitializingBean {
 
     }
 
+    /**
+     * Test notification id filter.
+     */
     @Test
     @JUnitTemporaryDatabase
     // Relies on specific IDs so we need a fresh database
@@ -135,6 +162,9 @@ public class WebNotificationRepositoryFilterTest implements InitializingBean {
         assert1Result(filter);
     }
 
+    /**
+     * Test notification id list filter.
+     */
     @Test
     @JUnitTemporaryDatabase
     // Relies on specific IDs so we need a fresh database
@@ -144,6 +174,9 @@ public class WebNotificationRepositoryFilterTest implements InitializingBean {
         assert1Result(filter);
     }
 
+    /**
+     * Test responder filter.
+     */
     @Test
     @Transactional
     public final void testResponderFilter() {
@@ -154,6 +187,9 @@ public class WebNotificationRepositoryFilterTest implements InitializingBean {
 
     }
 
+    /**
+     * Test service filter.
+     */
     @Test
     @JUnitTemporaryDatabase
     // Relies on specific IDs so we need a fresh database
@@ -165,6 +201,9 @@ public class WebNotificationRepositoryFilterTest implements InitializingBean {
         assert1Result(filter);
     }
 
+    /**
+     * Test user filter.
+     */
     @Test
     @Transactional
     public final void testUserFilter() {
@@ -172,6 +211,12 @@ public class WebNotificationRepositoryFilterTest implements InitializingBean {
         assert1Result(filter);
     }
 
+    /**
+     * Assert1 result.
+     *
+     * @param filter
+     *            the filter
+     */
     private void assert1Result(final Filter filter) {
         System.out.println(filter.getSql());
         NotificationCriteria criteria = new NotificationCriteria(filter);

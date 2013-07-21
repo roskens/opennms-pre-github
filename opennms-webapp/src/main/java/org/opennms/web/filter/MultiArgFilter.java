@@ -34,14 +34,17 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * TwoArgFilter
+ * TwoArgFilter.
  *
+ * @param <T>
+ *            the generic type
  * @author brozow
  * @version $Id: $
  * @since 1.8.1
  */
 public abstract class MultiArgFilter<T> extends BaseFilter<T> {
 
+    /** The m_values. */
     private T[] m_values;
 
     /**
@@ -59,8 +62,6 @@ public abstract class MultiArgFilter<T> extends BaseFilter<T> {
      *            a {@link java.lang.String} object.
      * @param values
      *            an array of T objects.
-     * @param <T>
-     *            a T object.
      */
     public MultiArgFilter(String filterType, SQLType<T> sqlType, String fieldName, String propertyName, T[] values) {
         super(filterType, sqlType, fieldName, propertyName);
@@ -71,6 +72,7 @@ public abstract class MultiArgFilter<T> extends BaseFilter<T> {
      * <p>
      * getValues
      * </p>
+     * .
      *
      * @return an array of T objects.
      */
@@ -82,6 +84,7 @@ public abstract class MultiArgFilter<T> extends BaseFilter<T> {
      * <p>
      * getValuesAsList
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -93,6 +96,7 @@ public abstract class MultiArgFilter<T> extends BaseFilter<T> {
      * <p>
      * getSQLTemplate
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

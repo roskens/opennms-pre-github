@@ -47,56 +47,83 @@ import org.opennms.web.map.config.Status;
  * @since 1.8.1
  */
 public class VProperties {
+
+    /** The is user admin. */
     private boolean isUserAdmin = false;
 
+    /** The reload. */
     private boolean reload = false;
 
+    /** The double click enabled. */
     private boolean doubleClickEnabled = true;
 
+    /** The context menu enabled. */
     private boolean contextMenuEnabled = true;
 
+    /** The avail enabled. */
     private boolean availEnabled = true;
 
+    /** The use semaphore. */
     private boolean useSemaphore = true;
 
+    /** The unknownstatusid. */
     private int unknownstatusid;
 
+    /** The max links. */
     private int maxLinks;
 
+    /** The summary link. */
     private int summaryLink;
 
+    /** The summary link color. */
     private String summaryLinkColor;
 
+    /** The multilink ignore color. */
     private String multilinkIgnoreColor;
 
+    /** The multilink status. */
     private String multilinkStatus;
 
+    /** The context menu. */
     private ContextMenu contextMenu;
 
+    /** The links. */
     private List<Link> links;
 
+    /** The link statuses. */
     private List<LinkStatus> linkStatuses;
 
+    /** The statuses. */
     private List<Status> statuses;
 
+    /** The severities. */
     private List<Severity> severities;
 
+    /** The avails. */
     private List<Avail> avails;
 
+    /** The default map element dimension. */
     private int defaultMapElementDimension;
 
+    /** The icons. */
     private java.util.Map<String, String> icons;
 
+    /** The background images. */
     private java.util.Map<String, String> backgroundImages;
 
+    /** The map element dimensions. */
     private java.util.Map<String, String> mapElementDimensions;
 
+    /** The default node icon. */
     private String defaultNodeIcon;
 
+    /** The default map icon. */
     private String defaultMapIcon;
 
+    /** The default background color. */
     private String defaultBackgroundColor;
 
+    /** The categories. */
     private List<String> categories;
 
     /**
@@ -241,6 +268,7 @@ public class VProperties {
      * <p>
      * isAvailEnabled
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -264,6 +292,7 @@ public class VProperties {
      * <p>
      * isDoubleClickEnabled
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -287,6 +316,7 @@ public class VProperties {
      * <p>
      * isContextMenuEnabled
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -310,6 +340,7 @@ public class VProperties {
      * <p>
      * isReload
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -333,6 +364,7 @@ public class VProperties {
      * <p>
      * isUserAdmin
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -344,6 +376,7 @@ public class VProperties {
      * <p>
      * setUserAdmin
      * </p>
+     * .
      *
      * @param isUserAdmin
      *            a boolean.
@@ -678,6 +711,7 @@ public class VProperties {
      * <p>
      * isUseSemaphore
      * </p>
+     * .
      *
      * @return a boolean.
      */

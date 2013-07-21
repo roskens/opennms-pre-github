@@ -39,8 +39,10 @@ package org.opennms.web.svclayer;
  */
 public class PaletteBuilder {
 
+    /** The m_palette. */
     private Palette m_palette;
 
+    /** The m_current category. */
     private PaletteCategory m_currentCategory;
 
     /**
@@ -59,6 +61,7 @@ public class PaletteBuilder {
      * <p>
      * addCategory
      * </p>
+     * .
      *
      * @param label
      *            a {@link java.lang.String} object.
@@ -74,6 +77,7 @@ public class PaletteBuilder {
      * <p>
      * addItem
      * </p>
+     * .
      *
      * @param id
      *            a {@link java.lang.String} object.
@@ -91,6 +95,7 @@ public class PaletteBuilder {
      * <p>
      * addSpacer
      * </p>
+     * .
      *
      * @return a {@link org.opennms.web.svclayer.PaletteBuilder} object.
      */
@@ -103,6 +108,7 @@ public class PaletteBuilder {
      * <p>
      * getPalette
      * </p>
+     * .
      *
      * @return a {@link org.opennms.web.svclayer.Palette} object.
      */

@@ -42,6 +42,8 @@ import javax.servlet.http.HttpServletRequest;
  * @since 1.8.1
  */
 public class FileBasedNavBarEntry extends LocationBasedNavBarEntry {
+
+    /** The m_file. */
     private File m_file;
 
     /** {@inheritDoc} */
@@ -58,6 +60,7 @@ public class FileBasedNavBarEntry extends LocationBasedNavBarEntry {
      * <p>
      * getFile
      * </p>
+     * .
      *
      * @return a {@link java.io.File} object.
      */
@@ -69,6 +72,7 @@ public class FileBasedNavBarEntry extends LocationBasedNavBarEntry {
      * <p>
      * setFile
      * </p>
+     * .
      *
      * @param file
      *            a {@link java.io.File} object.

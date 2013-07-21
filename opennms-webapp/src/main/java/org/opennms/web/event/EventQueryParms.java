@@ -43,16 +43,23 @@ import org.opennms.web.filter.Filter;
  * @since 1.8.1
  */
 public class EventQueryParms extends Object {
+
+    /** The sort style. */
     public SortStyle sortStyle;
 
+    /** The ack type. */
     public AcknowledgeType ackType;
 
+    /** The filters. */
     public List<Filter> filters;
 
+    /** The limit. */
     public int limit;
 
+    /** The multiple. */
     public int multiple;
 
+    /** The display. */
     public String display;
 
     /**

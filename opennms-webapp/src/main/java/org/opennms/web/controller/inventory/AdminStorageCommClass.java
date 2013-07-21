@@ -39,6 +39,7 @@ package org.opennms.web.controller.inventory;
  */
 public class AdminStorageCommClass {
 
+    /** The bucket. */
     private String bucket;
 
     /**

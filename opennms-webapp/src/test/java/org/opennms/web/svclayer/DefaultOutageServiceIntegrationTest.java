@@ -52,6 +52,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * The Class DefaultOutageServiceIntegrationTest.
+ */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:META-INF/opennms/applicationContext-soa.xml",
         "classpath:META-INF/opennms/applicationContext-dao.xml",
@@ -65,27 +68,44 @@ import org.springframework.transaction.annotation.Transactional;
 @JUnitConfigurationEnvironment
 @JUnitTemporaryDatabase
 public class DefaultOutageServiceIntegrationTest implements InitializingBean {
+
+    /** The Constant RANGE_LIMIT. */
     private static final int RANGE_LIMIT = 5;
 
+    /** The m_outage service. */
     @Autowired
     OutageService m_outageService;
 
+    /** The m_outage dao. */
     @Autowired
     OutageDao m_outageDao;
 
+    /** The m_database populator. */
     @Autowired
     DatabasePopulator m_databasePopulator;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
         m_databasePopulator.populateDatabase();
     }
 
+    /**
+     * Test get range outages.
+     */
     @Test
     @Transactional
     @JUnitTemporaryDatabase
@@ -99,6 +119,9 @@ public class DefaultOutageServiceIntegrationTest implements InitializingBean {
 
     // More tests should be defined for these
 
+    /**
+     * Test get supressed outages.
+     */
     @Test
     @Transactional
     @Ignore
@@ -109,6 +132,9 @@ public class DefaultOutageServiceIntegrationTest implements InitializingBean {
 
     }
 
+    /**
+     * Test load one outage.
+     */
     @Test
     @JUnitTemporaryDatabase
     public void testLoadOneOutage() {
@@ -116,6 +142,9 @@ public class DefaultOutageServiceIntegrationTest implements InitializingBean {
         assertTrue("We loaded one outage ", outage.getId().equals(1));
     }
 
+    /**
+     * Test no of suppressed outages.
+     */
     @Test
     @Transactional
     @Ignore
@@ -125,6 +154,9 @@ public class DefaultOutageServiceIntegrationTest implements InitializingBean {
         assertTrue("We should find suppressed messages ", outages == 0);
     }
 
+    /**
+     * Test suppression.
+     */
     @Test
     @Transactional
     @JUnitTemporaryDatabase

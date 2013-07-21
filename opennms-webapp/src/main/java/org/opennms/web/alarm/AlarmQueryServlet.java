@@ -70,9 +70,8 @@ import org.opennms.web.servlet.MissingParameterException;
  * @since 1.8.1
  */
 public class AlarmQueryServlet extends HttpServlet {
-    /**
-     *
-     */
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 9140535159580534211L;
 
     /**
@@ -95,9 +94,10 @@ public class AlarmQueryServlet extends HttpServlet {
      * <p>
      * init
      * </p>
+     * .
      *
-     * @throws javax.servlet.ServletException
-     *             if any.
+     * @throws ServletException
+     *             the servlet exception
      */
     @Override
     public void init() throws ServletException {
@@ -238,6 +238,7 @@ public class AlarmQueryServlet extends HttpServlet {
      * <p>
      * getBeforeFirstEventTimeFilter
      * </p>
+     * .
      *
      * @param request
      *            a {@link javax.servlet.http.HttpServletRequest} object.
@@ -253,6 +254,7 @@ public class AlarmQueryServlet extends HttpServlet {
      * <p>
      * getAfterFirstEventTimeFilter
      * </p>
+     * .
      *
      * @param request
      *            a {@link javax.servlet.http.HttpServletRequest} object.
@@ -268,6 +270,7 @@ public class AlarmQueryServlet extends HttpServlet {
      * <p>
      * getBeforeLastEventTimeFilter
      * </p>
+     * .
      *
      * @param request
      *            a {@link javax.servlet.http.HttpServletRequest} object.
@@ -283,6 +286,7 @@ public class AlarmQueryServlet extends HttpServlet {
      * <p>
      * getAfterLastEventTimeFilter
      * </p>
+     * .
      *
      * @param request
      *            a {@link javax.servlet.http.HttpServletRequest} object.
@@ -298,14 +302,15 @@ public class AlarmQueryServlet extends HttpServlet {
      * <p>
      * getDateFromRequest
      * </p>
+     * .
      *
      * @param request
      *            a {@link javax.servlet.http.HttpServletRequest} object.
      * @param prefix
      *            a {@link java.lang.String} object.
      * @return a {@link java.util.Date} object.
-     * @throws org.opennms.web.servlet.MissingParameterException
-     *             if any.
+     * @throws MissingParameterException
+     *             the missing parameter exception
      */
     protected Date getDateFromRequest(HttpServletRequest request, String prefix) throws MissingParameterException {
         if (request == null || prefix == null) {
@@ -379,6 +384,7 @@ public class AlarmQueryServlet extends HttpServlet {
      * <p>
      * getRequiredDateFields
      * </p>
+     * .
      *
      * @param prefix
      *            a {@link java.lang.String} object.

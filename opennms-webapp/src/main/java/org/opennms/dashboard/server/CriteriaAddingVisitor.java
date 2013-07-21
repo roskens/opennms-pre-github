@@ -60,12 +60,16 @@ import org.springframework.util.Assert;
  */
 public class CriteriaAddingVisitor implements Visitor, InitializingBean {
 
+    /** The m_criteria. */
     private OnmsCriteria m_criteria;
 
+    /** The m_category dao. */
     private CategoryDao m_categoryDao;
 
+    /** The m_view. */
     private View m_view;
 
+    /** The m_surv view. */
     private SurveillanceView m_survView;
 
     /**
@@ -84,6 +88,7 @@ public class CriteriaAddingVisitor implements Visitor, InitializingBean {
      * <p>
      * visitAll
      * </p>
+     * .
      */
     @Override
     public void visitAll() {
@@ -120,6 +125,7 @@ public class CriteriaAddingVisitor implements Visitor, InitializingBean {
      * <p>
      * addCriteriaForCategories
      * </p>
+     * .
      *
      * @param criteria
      *            a {@link org.opennms.netmgt.model.OnmsCriteria} object.
@@ -135,6 +141,7 @@ public class CriteriaAddingVisitor implements Visitor, InitializingBean {
      * <p>
      * addCriteriaForCategories
      * </p>
+     * .
      *
      * @param criteria
      *            a {@link org.opennms.netmgt.model.OnmsCriteria} object.
@@ -151,6 +158,7 @@ public class CriteriaAddingVisitor implements Visitor, InitializingBean {
      * <p>
      * getView
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.config.surveillanceViews.View}
      *         object.
@@ -163,6 +171,7 @@ public class CriteriaAddingVisitor implements Visitor, InitializingBean {
      * <p>
      * setView
      * </p>
+     * .
      *
      * @param view
      *            a {@link org.opennms.netmgt.config.surveillanceViews.View}
@@ -176,6 +185,7 @@ public class CriteriaAddingVisitor implements Visitor, InitializingBean {
      * <p>
      * setCategoryDao
      * </p>
+     * .
      *
      * @param categoryDao
      *            a {@link org.opennms.netmgt.dao.api.CategoryDao} object.
@@ -188,6 +198,7 @@ public class CriteriaAddingVisitor implements Visitor, InitializingBean {
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      */
     @Override
     public void afterPropertiesSet() {
@@ -214,6 +225,15 @@ public class CriteriaAddingVisitor implements Visitor, InitializingBean {
 
     }
 
+    /**
+     * Array of type.
+     *
+     * @param length
+     *            the length
+     * @param initialVal
+     *            the initial val
+     * @return the type[]
+     */
     private Type[] arrayOfType(int length, Type initialVal) {
         Type[] array = new Type[length];
         for (int i = 0; i < length; i++) {
@@ -226,6 +246,7 @@ public class CriteriaAddingVisitor implements Visitor, InitializingBean {
      * <p>
      * commaDelimitedQuestionMarks
      * </p>
+     * .
      *
      * @param count
      *            a int.
@@ -242,58 +263,147 @@ public class CriteriaAddingVisitor implements Visitor, InitializingBean {
         return buf.toString();
     }
 
+    /**
+     * The Class SurveillanceView.
+     */
     private static class SurveillanceView {
+
+        /** The m_name. */
         private String m_name;
 
+        /** The m_columns. */
         private MapToSetOf<String, String> m_columns = new MapToSetOf<String, String>();
 
+        /** The m_rows. */
         private MapToSetOf<String, String> m_rows = new MapToSetOf<String, String>();
 
+        /**
+         * Sets the name.
+         *
+         * @param name
+         *            the new name
+         */
         public void setName(String name) {
             m_name = name;
         }
 
+        /**
+         * Gets the name.
+         *
+         * @return the name
+         */
         public String getName() {
             return m_name;
         }
 
+        /**
+         * Adds the column category.
+         *
+         * @param column
+         *            the column
+         * @param category
+         *            the category
+         */
         public void addColumnCategory(String column, String category) {
             m_columns.addValue(column, category);
         }
 
+        /**
+         * Adds the row category.
+         *
+         * @param row
+         *            the row
+         * @param category
+         *            the category
+         */
         public void addRowCategory(String row, String category) {
             m_rows.addValue(row, category);
         }
 
+        /**
+         * Gets the categories for row.
+         *
+         * @param row
+         *            the row
+         * @return the categories for row
+         */
         public Set<String> getCategoriesForRow(String row) {
             return m_rows.getValueForKey(row);
         }
 
+        /**
+         * Gets the categories for column.
+         *
+         * @param column
+         *            the column
+         * @return the categories for column
+         */
         public Set<String> getCategoriesForColumn(String column) {
             return m_columns.getValueForKey(column);
         }
 
+        /**
+         * Gets the row categories.
+         *
+         * @return the row categories
+         */
         public Set<String> getRowCategories() {
             return m_rows.getAllValues();
         }
 
+        /**
+         * Gets the column categories.
+         *
+         * @return the column categories
+         */
         public Set<String> getColumnCategories() {
             return m_columns.getAllValues();
         }
 
+        /**
+         * Gets the categories for columns.
+         *
+         * @param columns
+         *            the columns
+         * @return the categories for columns
+         */
         public Set<String> getCategoriesForColumns(Collection<? extends String> columns) {
             return m_columns.getValuesForKeys(columns);
         }
 
+        /**
+         * Gets the categories for rows.
+         *
+         * @param rows
+         *            the rows
+         * @return the categories for rows
+         */
         public Set<String> getCategoriesForRows(Collection<? extends String> rows) {
             return m_rows.getValuesForKeys(rows);
         }
     }
 
+    /**
+     * The Class MapToSetOf.
+     *
+     * @param <K>
+     *            the key type
+     * @param <V>
+     *            the value type
+     */
     private static class MapToSetOf<K, V> {
 
+        /** The m_map. */
         private Map<K, Set<V>> m_map = new LinkedHashMap<K, Set<V>>();
 
+        /**
+         * Adds the value.
+         *
+         * @param key
+         *            the key
+         * @param value
+         *            the value
+         */
         public void addValue(K key, V value) {
             if (!m_map.containsKey(key)) {
                 m_map.put(key, new LinkedHashSet<V>());
@@ -301,6 +411,13 @@ public class CriteriaAddingVisitor implements Visitor, InitializingBean {
             m_map.get(key).add(value);
         }
 
+        /**
+         * Gets the values for keys.
+         *
+         * @param keys
+         *            the keys
+         * @return the values for keys
+         */
         public Set<V> getValuesForKeys(Collection<? extends K> keys) {
             LinkedHashSet<V> values = new LinkedHashSet<V>();
             for (K key : keys) {
@@ -310,10 +427,22 @@ public class CriteriaAddingVisitor implements Visitor, InitializingBean {
             return values;
         }
 
+        /**
+         * Gets the all values.
+         *
+         * @return the all values
+         */
         public Set<V> getAllValues() {
             return getValuesForKeys(m_map.keySet());
         }
 
+        /**
+         * Gets the value for key.
+         *
+         * @param key
+         *            the key
+         * @return the value for key
+         */
         public Set<V> getValueForKey(K key) {
             return getValuesForKeys(Collections.singleton(key));
         }

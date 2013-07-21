@@ -42,9 +42,11 @@ import org.opennms.web.filter.SQLType;
  * @since 1.8.1
  */
 public class NodeFilter extends EqualsFilter<Integer> {
-    /** Constant <code>TYPE="node"</code> */
+
+    /** Constant <code>TYPE="node"</code>. */
     public static final String TYPE = "node";
 
+    /** The m_servlet context. */
     private ServletContext m_servletContext;
 
     /**
@@ -54,6 +56,8 @@ public class NodeFilter extends EqualsFilter<Integer> {
      *
      * @param nodeId
      *            a int.
+     * @param servletContext
+     *            the servlet context
      */
     public NodeFilter(int nodeId, ServletContext servletContext) {
         super(TYPE, SQLType.INT, "NODEID", "node.id", nodeId);
@@ -64,6 +68,7 @@ public class NodeFilter extends EqualsFilter<Integer> {
      * <p>
      * getTextDescription
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -82,6 +87,7 @@ public class NodeFilter extends EqualsFilter<Integer> {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -94,6 +100,7 @@ public class NodeFilter extends EqualsFilter<Integer> {
      * <p>
      * getNodeId
      * </p>
+     * .
      *
      * @return a int.
      */

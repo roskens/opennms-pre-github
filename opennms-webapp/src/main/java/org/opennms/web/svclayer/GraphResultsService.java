@@ -42,10 +42,12 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Transactional(readOnly = true)
 public interface GraphResultsService {
+
     /**
      * <p>
      * findResults
      * </p>
+     * .
      *
      * @param resources
      *            an array of {@link java.lang.String} objects.

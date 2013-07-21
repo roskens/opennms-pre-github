@@ -44,7 +44,7 @@ import org.opennms.web.admin.groups.parsers.Group;
 import org.opennms.web.admin.groups.parsers.GroupInfo;
 
 /**
- * A servlet that handles removing duty schedules from a group
+ * A servlet that handles removing duty schedules from a group.
  *
  * @author <A HREF="mailto:jason@opennms.org">Jason Johns </A>
  * @author <A HREF="http://www.opennms.org/">OpenNMS </A>
@@ -54,6 +54,8 @@ import org.opennms.web.admin.groups.parsers.GroupInfo;
  * @since 1.8.1
  */
 public class RemoveGroupDutySchedulesServlet extends HttpServlet {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -196901195544716793L;
 
     /** {@inheritDoc} */

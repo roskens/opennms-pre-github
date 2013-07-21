@@ -69,23 +69,31 @@ import org.springframework.web.servlet.mvc.AbstractController;
  */
 public class NotificationFilterController extends AbstractController implements InitializingBean {
 
-    /** Constant <code>DEFAULT_MULTIPLE=0</code> */
+    /** Constant <code>DEFAULT_MULTIPLE=0</code>. */
     public static final int DEFAULT_MULTIPLE = 0;
 
+    /** The m_success view. */
     private String m_successView;
 
+    /** The m_default short limit. */
     private Integer m_defaultShortLimit;
 
+    /** The m_default long limit. */
     private Integer m_defaultLongLimit;
 
+    /** The m_default sort style. */
     private SortStyle m_defaultSortStyle = SortStyle.ID;
 
+    /** The m_default ack type. */
     private AcknowledgeType m_defaultAckType = AcknowledgeType.UNACKNOWLEDGED;
 
+    /** The m_web event repository. */
     private WebEventRepository m_webEventRepository;
 
+    /** The m_web notification repository. */
     private WebNotificationRepository m_webNotificationRepository;
 
+    /** The m_node dao. */
     private NodeDao m_nodeDao;
 
     /**
@@ -228,6 +236,7 @@ public class NotificationFilterController extends AbstractController implements 
      * <p>
      * setDefaultShortLimit
      * </p>
+     * .
      *
      * @param limit
      *            a {@link java.lang.Integer} object.
@@ -240,6 +249,7 @@ public class NotificationFilterController extends AbstractController implements 
      * <p>
      * setDefaultLongLimit
      * </p>
+     * .
      *
      * @param limit
      *            a {@link java.lang.Integer} object.
@@ -252,6 +262,7 @@ public class NotificationFilterController extends AbstractController implements 
      * <p>
      * setDefaultSortStyle
      * </p>
+     * .
      *
      * @param sortStyle
      *            a {@link org.opennms.web.notification.SortStyle} object.
@@ -264,6 +275,7 @@ public class NotificationFilterController extends AbstractController implements 
      * <p>
      * setSuccessView
      * </p>
+     * .
      *
      * @param successView
      *            a {@link java.lang.String} object.
@@ -276,6 +288,7 @@ public class NotificationFilterController extends AbstractController implements 
      * <p>
      * setWebEventRepository
      * </p>
+     * .
      *
      * @param webEventRepository
      *            a {@link org.opennms.web.event.WebEventRepository} object.
@@ -288,6 +301,7 @@ public class NotificationFilterController extends AbstractController implements 
      * <p>
      * setWebNotificationRepository
      * </p>
+     * .
      *
      * @param webNotificationRepository
      *            a
@@ -302,6 +316,7 @@ public class NotificationFilterController extends AbstractController implements 
      * <p>
      * setNodeDao
      * </p>
+     * .
      *
      * @param nodeDao
      *            a {@link org.opennms.netmgt.dao.api.NodeDao} object.
@@ -314,6 +329,7 @@ public class NotificationFilterController extends AbstractController implements 
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      */
     @Override
     public void afterPropertiesSet() {

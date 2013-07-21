@@ -41,20 +41,26 @@ import com.google.gwt.user.client.rpc.IsSerializable;
  */
 public class SurveillanceData implements IsSerializable {
 
+    /** The m_complete. */
     private boolean m_complete = false;
 
+    /** The m_name. */
     private String m_name;
 
+    /** The m_column groups. */
     private SurveillanceGroup[] m_columnGroups;
 
+    /** The m_row groups. */
     private SurveillanceGroup[] m_rowGroups;
 
+    /** The m_cells. */
     private SurveillanceIntersection[][] m_cells;
 
     /**
      * <p>
      * getName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -66,6 +72,7 @@ public class SurveillanceData implements IsSerializable {
      * <p>
      * setName
      * </p>
+     * .
      *
      * @param name
      *            a {@link java.lang.String} object.
@@ -78,6 +85,7 @@ public class SurveillanceData implements IsSerializable {
      * <p>
      * isComplete
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -89,6 +97,7 @@ public class SurveillanceData implements IsSerializable {
      * <p>
      * setComplete
      * </p>
+     * .
      *
      * @param complete
      *            a boolean.
@@ -101,6 +110,7 @@ public class SurveillanceData implements IsSerializable {
      * <p>
      * getColumnCount
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -112,6 +122,7 @@ public class SurveillanceData implements IsSerializable {
      * <p>
      * getRowCount
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -120,7 +131,7 @@ public class SurveillanceData implements IsSerializable {
     }
 
     /**
-     * The heading of the column number 'colunmIndex' using zero based index
+     * The heading of the column number 'colunmIndex' using zero based index.
      *
      * @param columnIndex
      *            the index of the column
@@ -131,7 +142,7 @@ public class SurveillanceData implements IsSerializable {
     }
 
     /**
-     * The heading of row with index 'rowIndex' using zero based index
+     * The heading of row with index 'rowIndex' using zero based index.
      *
      * @param rowIndex
      *            the index of the row
@@ -145,6 +156,7 @@ public class SurveillanceData implements IsSerializable {
      * <p>
      * getCell
      * </p>
+     * .
      *
      * @param row
      *            a int.
@@ -158,6 +170,9 @@ public class SurveillanceData implements IsSerializable {
         return m_cells[row][col];
     }
 
+    /**
+     * Ensure data.
+     */
     private void ensureData() {
         if (m_cells == null) {
             m_cells = new SurveillanceIntersection[getRowCount()][getColumnCount()];
@@ -173,6 +188,7 @@ public class SurveillanceData implements IsSerializable {
      * <p>
      * setCell
      * </p>
+     * .
      *
      * @param row
      *            a int.
@@ -194,6 +210,7 @@ public class SurveillanceData implements IsSerializable {
      * <p>
      * setCell
      * </p>
+     * .
      *
      * @param row
      *            a int.
@@ -214,6 +231,7 @@ public class SurveillanceData implements IsSerializable {
      * <p>
      * setCell
      * </p>
+     * .
      *
      * @param row
      *            a int.
@@ -230,6 +248,7 @@ public class SurveillanceData implements IsSerializable {
      * <p>
      * getIntersection
      * </p>
+     * .
      *
      * @param row
      *            a int.
@@ -246,6 +265,7 @@ public class SurveillanceData implements IsSerializable {
      * <p>
      * getColumnGroups
      * </p>
+     * .
      *
      * @return an array of
      *         {@link org.opennms.dashboard.client.SurveillanceGroup} objects.
@@ -258,6 +278,7 @@ public class SurveillanceData implements IsSerializable {
      * <p>
      * setColumnGroups
      * </p>
+     * .
      *
      * @param columnGroups
      *            an array of
@@ -272,6 +293,7 @@ public class SurveillanceData implements IsSerializable {
      * <p>
      * getRowGroups
      * </p>
+     * .
      *
      * @return an array of
      *         {@link org.opennms.dashboard.client.SurveillanceGroup} objects.
@@ -284,6 +306,7 @@ public class SurveillanceData implements IsSerializable {
      * <p>
      * setRowGroups
      * </p>
+     * .
      *
      * @param rowGroups
      *            an array of

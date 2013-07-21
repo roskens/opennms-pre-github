@@ -44,12 +44,14 @@ import org.opennms.netmgt.model.OnmsOutage;
  */
 public class SuppressOutages {
     // me love you, LONG_TIME
+    /** The long time. */
     private static Integer LONG_TIME = Integer.valueOf(100);
 
     /**
      * <p>
      * suppress
      * </p>
+     * .
      *
      * @param outageid
      *            a {@link java.lang.Integer} object.

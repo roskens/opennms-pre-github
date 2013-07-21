@@ -71,16 +71,21 @@ import org.springframework.util.StringUtils;
  */
 public class DefaultRrdGraphService implements RrdGraphService, InitializingBean {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(DefaultRrdGraphService.class);
 
     // private static final String s_missingParamsPath =
     // "/images/rrd/missingparams.png";
+    /** The Constant s_rrdError. */
     private static final String s_rrdError = "/images/rrd/error.png";
 
+    /** The m_graph dao. */
     private GraphDao m_graphDao;
 
+    /** The m_resource dao. */
     private ResourceDao m_resourceDao;
 
+    /** The m_rrd dao. */
     private RrdDao m_rrdDao;
 
     /** {@inheritDoc} */
@@ -108,6 +113,13 @@ public class DefaultRrdGraphService implements RrdGraphService, InitializingBean
         return getInputStreamForCommand(command);
     }
 
+    /**
+     * Gets the input stream for command.
+     *
+     * @param command
+     *            the command
+     * @return the input stream for command
+     */
     private InputStream getInputStreamForCommand(final String command) {
         boolean debug = true;
         File workDir = m_resourceDao.getRrdDirectory(true);
@@ -132,6 +144,7 @@ public class DefaultRrdGraphService implements RrdGraphService, InitializingBean
      * <p>
      * returnErrorImage
      * </p>
+     * .
      *
      * @param file
      *            a {@link java.lang.String} object.
@@ -176,6 +189,7 @@ public class DefaultRrdGraphService implements RrdGraphService, InitializingBean
      * <p>
      * createAdHocCommand
      * </p>
+     * .
      *
      * @param adhocType
      *            a {@link org.opennms.netmgt.model.AdhocGraphType} object.
@@ -253,6 +267,15 @@ public class DefaultRrdGraphService implements RrdGraphService, InitializingBean
         return MessageFormat.format(buf.toString(), "bogus-rrd", starttime, endtime, graphtitle);
     }
 
+    /**
+     * Gets the rrd names.
+     *
+     * @param resource
+     *            the resource
+     * @param dsNames
+     *            the ds names
+     * @return the rrd names
+     */
     private static String[] getRrdNames(final OnmsResource resource, final String[] dsNames) {
         String[] rrds = new String[dsNames.length];
 
@@ -272,6 +295,17 @@ public class DefaultRrdGraphService implements RrdGraphService, InitializingBean
         return rrds;
     }
 
+    /**
+     * Gets the translations for attributes.
+     *
+     * @param attributes
+     *            the attributes
+     * @param requiredAttributes
+     *            the required attributes
+     * @param type
+     *            the type
+     * @return the translations for attributes
+     */
     private static Map<String, String> getTranslationsForAttributes(final Map<String, String> attributes,
             final String[] requiredAttributes, final String type) {
         if (requiredAttributes == null) {
@@ -302,6 +336,7 @@ public class DefaultRrdGraphService implements RrdGraphService, InitializingBean
      * <p>
      * createPrefabCommand
      * </p>
+     * .
      *
      * @param graph
      *            a {@link org.opennms.web.graph.Graph} object.
@@ -311,6 +346,10 @@ public class DefaultRrdGraphService implements RrdGraphService, InitializingBean
      *            a {@link java.io.File} object.
      * @param reportName
      *            a {@link java.lang.String} object.
+     * @param width
+     *            the width
+     * @param height
+     *            the height
      * @return a {@link java.lang.String} object.
      */
 
@@ -448,6 +487,7 @@ public class DefaultRrdGraphService implements RrdGraphService, InitializingBean
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      */
     @Override
     public final void afterPropertiesSet() {
@@ -460,6 +500,7 @@ public class DefaultRrdGraphService implements RrdGraphService, InitializingBean
      * <p>
      * getResourceDao
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.dao.api.ResourceDao} object.
      */
@@ -471,6 +512,7 @@ public class DefaultRrdGraphService implements RrdGraphService, InitializingBean
      * <p>
      * setResourceDao
      * </p>
+     * .
      *
      * @param resourceDao
      *            a {@link org.opennms.netmgt.dao.api.ResourceDao} object.
@@ -483,6 +525,7 @@ public class DefaultRrdGraphService implements RrdGraphService, InitializingBean
      * <p>
      * getGraphDao
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.dao.api.GraphDao} object.
      */
@@ -494,6 +537,7 @@ public class DefaultRrdGraphService implements RrdGraphService, InitializingBean
      * <p>
      * setGraphDao
      * </p>
+     * .
      *
      * @param graphDao
      *            a {@link org.opennms.netmgt.dao.api.GraphDao} object.
@@ -506,6 +550,7 @@ public class DefaultRrdGraphService implements RrdGraphService, InitializingBean
      * <p>
      * getRrdDao
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.dao.api.RrdDao} object.
      */
@@ -517,6 +562,7 @@ public class DefaultRrdGraphService implements RrdGraphService, InitializingBean
      * <p>
      * setRrdDao
      * </p>
+     * .
      *
      * @param rrdDao
      *            a {@link org.opennms.netmgt.dao.api.RrdDao} object.

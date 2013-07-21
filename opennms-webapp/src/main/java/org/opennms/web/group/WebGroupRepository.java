@@ -29,7 +29,7 @@
 package org.opennms.web.group;
 
 /**
- * WebGroupRepository
+ * WebGroupRepository.
  *
  * @author brozow
  * @version $Id: $
@@ -41,6 +41,7 @@ public interface WebGroupRepository {
      * <p>
      * groupExists
      * </p>
+     * .
      *
      * @param groupName
      *            a {@link java.lang.String} object.
@@ -52,6 +53,7 @@ public interface WebGroupRepository {
      * <p>
      * getGroup
      * </p>
+     * .
      *
      * @param groupName
      *            a {@link java.lang.String} object.
@@ -63,6 +65,7 @@ public interface WebGroupRepository {
      * <p>
      * saveGroup
      * </p>
+     * .
      *
      * @param group
      *            a {@link org.opennms.web.group.WebGroup} object.
@@ -73,6 +76,7 @@ public interface WebGroupRepository {
      * <p>
      * deleteGroup
      * </p>
+     * .
      *
      * @param groupName
      *            a {@link java.lang.String} object.
@@ -83,6 +87,7 @@ public interface WebGroupRepository {
      * <p>
      * renameGroup
      * </p>
+     * .
      *
      * @param oldName
      *            a {@link java.lang.String} object.

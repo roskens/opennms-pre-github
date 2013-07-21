@@ -53,15 +53,26 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
+/**
+ * The Class AlarmStatsRestServiceTest.
+ */
 public class AlarmStatsRestServiceTest extends AbstractSpringJerseyRestTestCase {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(AlarmStatsRestServiceTest.class);
 
+    /** The m_database populator. */
     private DatabasePopulator m_databasePopulator;
 
+    /** The m_context. */
     private WebApplicationContext m_context;
 
+    /** The count. */
     private int count = 0;
 
+    /* (non-Javadoc)
+     * @see org.opennms.web.rest.AbstractSpringJerseyRestTestCase#afterServletStart()
+     */
     @Override
     protected void afterServletStart() throws Exception {
         count = 0;
@@ -81,6 +92,12 @@ public class AlarmStatsRestServiceTest extends AbstractSpringJerseyRestTestCase 
         alarmDao.flush();
     }
 
+    /**
+     * Test get alarm stats.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testGetAlarmStats() throws Exception {
         createAlarm(OnmsSeverity.CLEARED, "admin");
@@ -97,6 +114,12 @@ public class AlarmStatsRestServiceTest extends AbstractSpringJerseyRestTestCase 
         assertTrue(xml.contains(" acknowledgedCount=\"3\""));
     }
 
+    /**
+     * Test get alarm stats by severity.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testGetAlarmStatsBySeverity() throws Exception {
         createAlarm(OnmsSeverity.CLEARED, "admin");
@@ -113,6 +136,12 @@ public class AlarmStatsRestServiceTest extends AbstractSpringJerseyRestTestCase 
         assertTrue(xml.contains(" acknowledgedCount=\"2\""));
     }
 
+    /**
+     * Test newest and oldest by severity.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testNewestAndOldestBySeverity() throws Exception {
         final OnmsAlarm oldestAckedAlarm = createAlarm(OnmsSeverity.WARNING, "admin");
@@ -144,6 +173,15 @@ public class AlarmStatsRestServiceTest extends AbstractSpringJerseyRestTestCase 
         assertTrue(newestUnackedXml.contains("<firstEventTime>2010-01-01T03:00:00"));
     }
 
+    /**
+     * Gets the xml.
+     *
+     * @param tag
+     *            the tag
+     * @param xml
+     *            the xml
+     * @return the xml
+     */
     private String getXml(final String tag, final String xml) {
         final Pattern p = Pattern.compile("(<" + tag + ">.*?</" + tag + ">)", Pattern.DOTALL | Pattern.CASE_INSENSITIVE
                 | Pattern.MULTILINE);
@@ -154,6 +192,12 @@ public class AlarmStatsRestServiceTest extends AbstractSpringJerseyRestTestCase 
         return "";
     }
 
+    /**
+     * Test get alarm stats severity list.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testGetAlarmStatsSeverityList() throws Exception {
         createAlarm(OnmsSeverity.CLEARED, "admin");
@@ -177,6 +221,15 @@ public class AlarmStatsRestServiceTest extends AbstractSpringJerseyRestTestCase 
         assertTrue(xml.contains("NORMAL"));
     }
 
+    /**
+     * Creates the alarm.
+     *
+     * @param severity
+     *            the severity
+     * @param ackUser
+     *            the ack user
+     * @return the onms alarm
+     */
     private OnmsAlarm createAlarm(final OnmsSeverity severity, final String ackUser) {
         final OnmsEvent event = createEvent();
 
@@ -206,6 +259,11 @@ public class AlarmStatsRestServiceTest extends AbstractSpringJerseyRestTestCase 
         return alarm;
     }
 
+    /**
+     * Creates the event.
+     *
+     * @return the onms event
+     */
     protected OnmsEvent createEvent() {
         final Calendar c = new GregorianCalendar();
         c.set(2010, Calendar.JANUARY, 1, 0, 0, 0);
@@ -236,14 +294,29 @@ public class AlarmStatsRestServiceTest extends AbstractSpringJerseyRestTestCase 
         return event;
     }
 
+    /**
+     * Gets the alarm dao.
+     *
+     * @return the alarm dao
+     */
     private AlarmDao getAlarmDao() {
         return m_context.getBean("alarmDao", AlarmDao.class);
     }
 
+    /**
+     * Gets the dist poller dao.
+     *
+     * @return the dist poller dao
+     */
     private DistPollerDao getDistPollerDao() {
         return m_context.getBean("distPollerDao", DistPollerDao.class);
     }
 
+    /**
+     * Gets the event dao.
+     *
+     * @return the event dao
+     */
     private EventDao getEventDao() {
         return m_context.getBean("eventDao", EventDao.class);
     }

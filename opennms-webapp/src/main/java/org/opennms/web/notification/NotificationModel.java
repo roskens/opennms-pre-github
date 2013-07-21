@@ -53,62 +53,86 @@ import org.slf4j.LoggerFactory;
  */
 public class NotificationModel extends Object {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(NotificationModel.class);
 
+    /** The Constant USERID. */
     private static final String USERID = "userID";
 
+    /** The Constant NOTICE_TIME. */
     private static final String NOTICE_TIME = "notifytime";
 
+    /** The Constant TXT_MESG. */
     private static final String TXT_MESG = "textMsg";
 
+    /** The Constant NUM_MESG. */
     private static final String NUM_MESG = "numericMsg";
 
+    /** The Constant NOTIFY. */
     private static final String NOTIFY = "notifyID";
 
+    /** The Constant TIME. */
     private static final String TIME = "pageTime";
 
+    /** The Constant REPLYTIME. */
     private static final String REPLYTIME = "respondTime";
 
+    /** The Constant ANS_BY. */
     private static final String ANS_BY = "answeredBy";
 
+    /** The Constant CONTACT. */
     private static final String CONTACT = "contactInfo";
 
+    /** The Constant NODE. */
     private static final String NODE = "nodeID";
 
+    /** The Constant INTERFACE. */
     private static final String INTERFACE = "interfaceID";
 
+    /** The Constant SERVICE. */
     private static final String SERVICE = "serviceID";
 
+    /** The Constant MEDIA. */
     private static final String MEDIA = "media";
 
+    /** The Constant EVENTID. */
     private static final String EVENTID = "eventid";
 
+    /** The Constant SELECT. */
     private static final String SELECT = "SELECT textmsg, numericmsg, notifyid, pagetime, respondtime, answeredby, nodeid, interfaceid, serviceid, eventid from NOTIFICATIONS";
 
+    /** The Constant NOTICE_ID. */
     private static final String NOTICE_ID = "SELECT textmsg, numericmsg, notifyid, pagetime, respondtime, answeredby, nodeid, interfaceid, serviceid, eventid from NOTIFICATIONS where NOTIFYID = ?";
 
+    /** The Constant SENT_TO. */
     private static final String SENT_TO = "SELECT userid, notifytime, media, contactinfo FROM usersnotified WHERE notifyid=?";
 
+    /** The Constant INSERT_NOTIFY. */
     private static final String INSERT_NOTIFY = "INSERT INTO NOTIFICATIONS (notifyid, textmsg, numericmsg, pagetime, respondtime, answeredby, nodeid, interfaceid, serviceid, eventid) VALUES (NEXTVAL('notifyNxtId'), ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
+    /** The Constant OUTSTANDING. */
     private static final String OUTSTANDING = "SELECT textmsg, numericmsg, notifyid, pagetime, respondtime, answeredby, nodeid, interfaceid, serviceid, eventid FROM NOTIFICATIONS WHERE respondTime is NULL";
 
+    /** The Constant OUTSTANDING_COUNT. */
     private static final String OUTSTANDING_COUNT = "SELECT COUNT(notifyid) AS TOTAL FROM NOTIFICATIONS WHERE respondTime is NULL";
 
+    /** The Constant USER_OUTSTANDING. */
     private static final String USER_OUTSTANDING = "SELECT textmsg, numericmsg, notifyid, pagetime, respondtime, answeredby, nodeid, interfaceid, serviceid, eventid FROM NOTIFICATIONS WHERE (respondTime is NULL) AND notifications.notifyid in (SELECT DISTINCT usersnotified.notifyid FROM usersnotified WHERE usersnotified.userid=?)";
 
+    /** The Constant USER_OUTSTANDING_COUNT. */
     private static final String USER_OUTSTANDING_COUNT = "SELECT COUNT(notifyid) AS TOTAL FROM NOTIFICATIONS WHERE (respondTime is NULL) AND notifications.notifyid in (SELECT DISTINCT usersnotified.notifyid FROM usersnotified WHERE usersnotified.userid=?)";
 
     /**
      * <p>
      * getNoticeInfo
      * </p>
+     * .
      *
      * @param id
      *            a int.
      * @return a {@link org.opennms.web.notification.Notification} object.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     public Notification getNoticeInfo(int id) throws SQLException {
         Notification nbean = null;
@@ -182,11 +206,12 @@ public class NotificationModel extends Object {
      * <p>
      * allNotifications
      * </p>
+     * .
      *
      * @return an array of {@link org.opennms.web.notification.Notification}
      *         objects.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     public Notification[] allNotifications() throws SQLException {
         return this.allNotifications(null);
@@ -199,8 +224,8 @@ public class NotificationModel extends Object {
      *            a {@link java.lang.String} object.
      * @return an array of {@link org.opennms.web.notification.Notification}
      *         objects.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     public Notification[] allNotifications(String order) throws SQLException {
         Notification[] notices = null;
@@ -236,6 +261,15 @@ public class NotificationModel extends Object {
         return (notices);
     }
 
+    /**
+     * Gets the service name.
+     *
+     * @param conn
+     *            the conn
+     * @param id
+     *            the id
+     * @return the service name
+     */
     private String getServiceName(Connection conn, Integer id) {
         if (id == null) {
             return null;
@@ -288,8 +322,8 @@ public class NotificationModel extends Object {
      *            a {@link java.sql.ResultSet} object.
      * @return an array of {@link org.opennms.web.notification.Notification}
      *         objects.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     protected Notification[] rs2NotifyBean(Connection conn, ResultSet rs) throws SQLException {
         Notification[] notices = null;
@@ -337,8 +371,8 @@ public class NotificationModel extends Object {
      *
      * @return an array of {@link org.opennms.web.notification.Notification}
      *         objects.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     public Notification[] getOutstandingNotices() throws SQLException {
         Notification[] notices = null;
@@ -366,8 +400,8 @@ public class NotificationModel extends Object {
      * This method returns notices not yet acknowledged.
      *
      * @return a int.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     public int getOutstandingNoticeCount() throws SQLException {
         int count = 0;
@@ -400,8 +434,8 @@ public class NotificationModel extends Object {
      * @param username
      *            a {@link java.lang.String} object.
      * @return a int.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     public int getOutstandingNoticeCount(String username) throws SQLException {
         if (username == null) {
@@ -440,8 +474,8 @@ public class NotificationModel extends Object {
      *            a {@link java.lang.String} object.
      * @return an array of {@link org.opennms.web.notification.Notification}
      *         objects.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     public Notification[] getOutstandingNotices(String name) throws SQLException {
         Notification[] notices = null;
@@ -475,8 +509,8 @@ public class NotificationModel extends Object {
      *            a {@link java.lang.String} object.
      * @param noticeId
      *            a int.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     public void acknowledged(String name, int noticeId) throws SQLException {
         if (name == null) {
@@ -506,8 +540,8 @@ public class NotificationModel extends Object {
      *
      * @param nbean
      *            a {@link org.opennms.web.notification.Notification} object.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     public void insert(Notification nbean) throws SQLException {
         if (nbean == null || nbean.m_txtMsg == null) {

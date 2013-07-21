@@ -41,7 +41,8 @@ import org.opennms.web.filter.SQLType;
  * @since 1.8.1
  */
 public class NegativeSeverityFilter extends NotEqualsFilter<Integer> {
-    /** Constant <code>TYPE="severityNot"</code> */
+
+    /** Constant <code>TYPE="severityNot"</code>. */
     public static final String TYPE = "severityNot";
 
     /**
@@ -72,6 +73,7 @@ public class NegativeSeverityFilter extends NotEqualsFilter<Integer> {
      * <p>
      * getTextDescription
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -84,6 +86,7 @@ public class NegativeSeverityFilter extends NotEqualsFilter<Integer> {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -96,6 +99,7 @@ public class NegativeSeverityFilter extends NotEqualsFilter<Integer> {
      * <p>
      * getSeverity
      * </p>
+     * .
      *
      * @return a int.
      */

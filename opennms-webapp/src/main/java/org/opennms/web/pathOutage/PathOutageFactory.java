@@ -50,38 +50,49 @@ import org.opennms.core.utils.WebSecurityUtils;
  */
 public class PathOutageFactory extends Object {
 
+    /** The Constant GET_CRITICAL_PATHS. */
     private static final String GET_CRITICAL_PATHS = "SELECT DISTINCT criticalpathip, criticalpathservicename FROM pathoutage ORDER BY criticalpathip, criticalpathservicename";
 
+    /** The Constant GET_CRITICAL_PATH_BY_NODEID. */
     private static final String GET_CRITICAL_PATH_BY_NODEID = "SELECT criticalpathip, criticalpathservicename FROM pathoutage WHERE nodeid=?";
 
+    /** The Constant GET_NODES_IN_PATH. */
     private static final String GET_NODES_IN_PATH = "SELECT DISTINCT pathoutage.nodeid FROM pathoutage, ipinterface WHERE pathoutage.criticalpathip=? AND pathoutage.criticalpathservicename=? AND pathoutage.nodeid=ipinterface.nodeid AND ipinterface.ismanaged!='D' ORDER BY nodeid";
 
+    /** The Constant COUNT_MANAGED_SVCS. */
     private static final String COUNT_MANAGED_SVCS = "SELECT count(*) FROM ifservices WHERE status ='A' and nodeid=?";
 
+    /** The Constant COUNT_OUTAGES. */
     private static final String COUNT_OUTAGES = "SELECT count(*) FROM outages WHERE svcregainedeventid IS NULL and nodeid=?";
 
+    /** The Constant COUNT_NODES_IN_PATH. */
     private static final String COUNT_NODES_IN_PATH = "SELECT count(DISTINCT pathoutage.nodeid) FROM pathoutage, ipinterface WHERE pathoutage.criticalpathip=? AND pathoutage.criticalpathservicename=? AND pathoutage.nodeid=ipinterface.nodeid AND ipinterface.ismanaged!='D'";
 
+    /** The Constant GET_NODELABEL_BY_IP. */
     private static final String GET_NODELABEL_BY_IP = "SELECT nodelabel FROM node WHERE nodeid IN (SELECT nodeid FROM ipinterface WHERE ipaddr=? AND ismanaged!='D')";
 
+    /** The Constant GET_NODEID_BY_IP. */
     private static final String GET_NODEID_BY_IP = "SELECT nodeid FROM ipinterface WHERE ipaddr=? AND ismanaged!='D' ORDER BY nodeid DESC LIMIT 1";
 
+    /** The Constant GET_NODELABEL_BY_NODEID. */
     private static final String GET_NODELABEL_BY_NODEID = "SELECT nodelabel FROM node WHERE nodeid=?";
 
+    /** The Constant GET_CRITICAL_PATH_STATUS. */
     private static final String GET_CRITICAL_PATH_STATUS = "SELECT count(*) FROM outages WHERE ipaddr=? AND ifregainedservice IS NULL AND serviceid=(SELECT serviceid FROM service WHERE servicename=?)";
 
+    /** The Constant IS_CRITICAL_PATH_MANAGED. */
     private static final String IS_CRITICAL_PATH_MANAGED = "SELECT count(*) FROM ifservices WHERE ipaddr=? AND status='A' AND serviceid=(SELECT serviceid FROM service WHERE servicename=?)";
 
-    /** Constant <code>NO_CRITICAL_PATH="Not Configured"</code> */
+    /** Constant <code>NO_CRITICAL_PATH="Not Configured"</code>. */
     public static final String NO_CRITICAL_PATH = "Not Configured";
 
     /**
      * <p>
-     * Retrieve all the critical paths from the database
+     * Retrieve all the critical paths from the database.
      *
      * @return a {@link java.util.List} object.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     public static List<String[]> getAllCriticalPaths() throws SQLException {
         Connection conn = Vault.getDbConnection();
@@ -107,13 +118,13 @@ public class PathOutageFactory extends Object {
 
     /**
      * <p>
-     * Retrieve critical path by nodeid from the database
+     * Retrieve critical path by nodeid from the database.
      *
      * @param nodeID
      *            a int.
      * @return a {@link java.lang.String} object.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     public static String getCriticalPath(int nodeID) throws SQLException {
         final DBUtils d = new DBUtils(PathOutageFactory.class);
@@ -139,15 +150,15 @@ public class PathOutageFactory extends Object {
 
     /**
      * <p>
-     * Retrieve all the nodes in a critical path from the database
+     * Retrieve all the nodes in a critical path from the database.
      *
      * @param criticalPathIp
      *            IP address of the critical path
      * @param criticalPathServiceName
      *            service name for the critical path
      * @return a {@link java.util.List} object.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     public static List<String> getNodesInPath(String criticalPathIp, String criticalPathServiceName)
             throws SQLException {
@@ -174,15 +185,15 @@ public class PathOutageFactory extends Object {
     /**
      * This method is responsible for determining the
      * node label of a node, and the up/down status
-     * and status color
+     * and status color.
      *
      * @param nodeIDStr
      *            a {@link java.lang.String} object.
      * @param conn
      *            a {@link java.sql.Connection} object.
      * @return an array of {@link java.lang.String} objects.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     public static String[] getLabelAndStatus(String nodeIDStr, Connection conn) throws SQLException {
 
@@ -240,15 +251,15 @@ public class PathOutageFactory extends Object {
      * data related to the critical path:
      * node label, nodeId, the number of nodes
      * dependent on this path, and the managed state
-     * of the path
+     * of the path.
      *
      * @param criticalPathIp
      *            a {@link java.lang.String} object.
      * @param criticalPathServiceName
      *            a {@link java.lang.String} object.
      * @return an array of {@link java.lang.String} objects.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     public static String[] getCriticalPathData(String criticalPathIp, String criticalPathServiceName)
             throws SQLException {

@@ -65,16 +65,28 @@ import org.springframework.transaction.annotation.Transactional;
  */
 public class DaoWebEventRepository implements WebEventRepository, InitializingBean {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(DaoWebEventRepository.class);
 
+    /** The m_event dao. */
     @Autowired
     EventDao m_eventDao;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Gets the onms criteria.
+     *
+     * @param eventCriteria
+     *            the event criteria
+     * @return the onms criteria
+     */
     private OnmsCriteria getOnmsCriteria(final EventCriteria eventCriteria) {
         final OnmsCriteria criteria = new OnmsCriteria(OnmsEvent.class);
         criteria.createAlias("alarm", "alarm", OnmsCriteria.LEFT_JOIN);
@@ -161,6 +173,13 @@ public class DaoWebEventRepository implements WebEventRepository, InitializingBe
         return criteria;
     }
 
+    /**
+     * Map onms event to event.
+     *
+     * @param onmsEvent
+     *            the onms event
+     * @return the event
+     */
     private Event mapOnmsEventToEvent(OnmsEvent onmsEvent) {
         LOG.debug("Mapping OnmsEvent to WebEvent for event with database id {}", onmsEvent.getId());
         Event event = new Event();
@@ -200,6 +219,13 @@ public class DaoWebEventRepository implements WebEventRepository, InitializingBe
         return event;
     }
 
+    /**
+     * Gets the node id from node.
+     *
+     * @param onmsEvent
+     *            the onms event
+     * @return the node id from node
+     */
     private Integer getNodeIdFromNode(OnmsEvent onmsEvent) {
         try {
             return onmsEvent.getNode() != null ? onmsEvent.getNode().getId() : 0;
@@ -209,6 +235,13 @@ public class DaoWebEventRepository implements WebEventRepository, InitializingBe
         }
     }
 
+    /**
+     * Gets the node label from node.
+     *
+     * @param onmsEvent
+     *            the onms event
+     * @return the node label from node
+     */
     private String getNodeLabelFromNode(OnmsEvent onmsEvent) {
         try {
             return onmsEvent.getNode() != null ? onmsEvent.getNode().getLabel() : "";
@@ -222,6 +255,7 @@ public class DaoWebEventRepository implements WebEventRepository, InitializingBe
      * <p>
      * acknowledgeAll
      * </p>
+     * .
      *
      * @param user
      *            a {@link java.lang.String} object.
@@ -313,6 +347,7 @@ public class DaoWebEventRepository implements WebEventRepository, InitializingBe
      * <p>
      * unacknowledgeAll
      * </p>
+     * .
      */
     @Transactional
     @Override

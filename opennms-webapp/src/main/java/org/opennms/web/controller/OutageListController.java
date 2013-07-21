@@ -61,22 +61,30 @@ import org.springframework.web.servlet.mvc.AbstractController;
  * @since 1.8.1
  */
 public class OutageListController extends AbstractController implements InitializingBean {
+
+    /** The Constant ROW_LIMIT. */
     private static final int ROW_LIMIT = 25;
 
+    /** The m_outage service. */
     private OutageService m_outageService;
 
+    /** The m_outage list builder. */
     private OutageListBuilder m_outageListBuilder;
 
+    /** The m_success view. */
     private String m_successView;
 
+    /** The m_default rows displayed. */
     private int m_defaultRowsDisplayed = ROW_LIMIT;
 
+    /** The m_filter view. */
     private OutagesFilteringView m_filterView;
 
     /**
      * <p>
      * setOutageService
      * </p>
+     * .
      *
      * @param service
      *            a {@link org.opennms.web.svclayer.outage.OutageService}
@@ -90,6 +98,7 @@ public class OutageListController extends AbstractController implements Initiali
      * <p>
      * setFilterView
      * </p>
+     * .
      *
      * @param filterView
      *            a {@link org.opennms.web.svclayer.outage.OutagesFilteringView}
@@ -165,6 +174,7 @@ public class OutageListController extends AbstractController implements Initiali
      * <p>
      * setSuccessView
      * </p>
+     * .
      *
      * @param successView
      *            a {@link java.lang.String} object.
@@ -177,6 +187,7 @@ public class OutageListController extends AbstractController implements Initiali
      * <p>
      * getSuccessView
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -188,6 +199,7 @@ public class OutageListController extends AbstractController implements Initiali
      * <p>
      * setDefaultRowsDisplayed
      * </p>
+     * .
      *
      * @param defaultRowsDisplayed
      *            a int.
@@ -200,6 +212,7 @@ public class OutageListController extends AbstractController implements Initiali
      * <p>
      * getDefaultRowsDisplayed
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -211,9 +224,10 @@ public class OutageListController extends AbstractController implements Initiali
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @Override
     public final void afterPropertiesSet() throws Exception {
@@ -225,6 +239,7 @@ public class OutageListController extends AbstractController implements Initiali
      * <p>
      * setOutageListBuilder
      * </p>
+     * .
      *
      * @param outageListBuilder
      *            a {@link org.opennms.web.svclayer.outage.OutageListBuilder}

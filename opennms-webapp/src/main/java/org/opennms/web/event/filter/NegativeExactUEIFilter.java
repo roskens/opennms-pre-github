@@ -39,7 +39,8 @@ import org.opennms.web.filter.SQLType;
  * @since 1.8.1
  */
 public class NegativeExactUEIFilter extends NotEqualsFilter<String> {
-    /** Constant <code>TYPE="exactUeiNot"</code> */
+
+    /** Constant <code>TYPE="exactUeiNot"</code>. */
     public static final String TYPE = "exactUeiNot";
 
     /**
@@ -58,6 +59,7 @@ public class NegativeExactUEIFilter extends NotEqualsFilter<String> {
      * <p>
      * getTextDescription
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -70,6 +72,7 @@ public class NegativeExactUEIFilter extends NotEqualsFilter<String> {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -82,6 +85,7 @@ public class NegativeExactUEIFilter extends NotEqualsFilter<String> {
      * <p>
      * getUEI
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

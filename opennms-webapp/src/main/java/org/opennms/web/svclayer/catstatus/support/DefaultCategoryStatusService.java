@@ -59,16 +59,21 @@ import org.opennms.web.svclayer.dao.ViewDisplayDao;
  * @since 1.8.1
  */
 public class DefaultCategoryStatusService implements CategoryStatusService {
+
+    /** The m_view display dao. */
     private ViewDisplayDao m_viewDisplayDao;
 
+    /** The m_category config dao. */
     private CategoryConfigDao m_categoryConfigDao;
 
+    /** The m_outage dao. */
     private OutageDao m_outageDao;
 
     /**
      * <p>
      * getCategoriesStatus
      * </p>
+     * .
      *
      * @return a {@link java.util.Collection} object.
      */
@@ -86,6 +91,13 @@ public class DefaultCategoryStatusService implements CategoryStatusService {
         return statusSections;
     }
 
+    /**
+     * Creates the section.
+     *
+     * @param section
+     *            the section
+     * @return the status section
+     */
     private StatusSection createSection(Section section) {
         StatusSection statusSection = new StatusSection();
 
@@ -101,6 +113,13 @@ public class DefaultCategoryStatusService implements CategoryStatusService {
         return statusSection;
     }
 
+    /**
+     * Creates the category.
+     *
+     * @param category
+     *            the category
+     * @return the status category
+     */
     private StatusCategory createCategory(String category) {
         Collection<OnmsOutage> outages;
 
@@ -138,6 +157,7 @@ public class DefaultCategoryStatusService implements CategoryStatusService {
      * <p>
      * setViewDisplayDao
      * </p>
+     * .
      *
      * @param viewDisplayDao
      *            a {@link org.opennms.web.svclayer.dao.ViewDisplayDao} object.
@@ -150,6 +170,7 @@ public class DefaultCategoryStatusService implements CategoryStatusService {
      * <p>
      * setCategoryConfigDao
      * </p>
+     * .
      *
      * @param categoryDao
      *            a {@link org.opennms.web.svclayer.dao.CategoryConfigDao}
@@ -163,6 +184,7 @@ public class DefaultCategoryStatusService implements CategoryStatusService {
      * <p>
      * setOutageDao
      * </p>
+     * .
      *
      * @param outageDao
      *            a {@link org.opennms.netmgt.dao.api.OutageDao} object.
@@ -171,14 +193,35 @@ public class DefaultCategoryStatusService implements CategoryStatusService {
         m_outageDao = outageDao;
     }
 
+    /**
+     * Gets the sections for view.
+     *
+     * @param view
+     *            the view
+     * @return the sections for view
+     */
     private List<Section> getSectionsForView(View view) {
         return view.getSectionCollection();
     }
 
+    /**
+     * Gets the categories for section.
+     *
+     * @param section
+     *            the section
+     * @return the categories for section
+     */
     private List<String> getCategoriesForSection(Section section) {
         return section.getCategoryCollection();
     }
 
+    /**
+     * Gets the services for category.
+     *
+     * @param categoryDetail
+     *            the category detail
+     * @return the services for category
+     */
     private List<String> getServicesForCategory(Category categoryDetail) {
         return categoryDetail.getServiceCollection();
     }

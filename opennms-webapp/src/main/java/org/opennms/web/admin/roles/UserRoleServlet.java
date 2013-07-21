@@ -44,20 +44,21 @@ import org.opennms.netmgt.config.WebRoleContext;
 import org.opennms.netmgt.config.WebRoleManager;
 
 /**
- * Servlet implementation class for Servlet: RoleServlet
+ * Servlet implementation class for Servlet: RoleServlet.
  *
  * @author ranger
  * @version $Id: $
  * @since 1.8.1
  */
 public class UserRoleServlet extends javax.servlet.http.HttpServlet implements javax.servlet.Servlet {
-    /**
-     *
-     */
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 1078908981395901414L;
 
+    /** The Constant LIST. */
     private static final String LIST = "/roles/list.jsp";
 
+    /** The Constant VIEW. */
     private static final String VIEW = "/roles/view.jsp";
 
     /**
@@ -69,11 +70,33 @@ public class UserRoleServlet extends javax.servlet.http.HttpServlet implements j
         super();
     }
 
+    /**
+     * The Interface Action.
+     */
     private interface Action {
+
+        /**
+         * Execute.
+         *
+         * @param request
+         *            the request
+         * @param response
+         *            the response
+         * @return the string
+         * @throws ServletException
+         *             the servlet exception
+         */
         public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException;
     }
 
+    /**
+     * The Class ListAction.
+     */
     private class ListAction implements Action {
+
+        /* (non-Javadoc)
+         * @see org.opennms.web.admin.roles.UserRoleServlet.Action#execute(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+         */
         @Override
         public String execute(HttpServletRequest request, HttpServletResponse response) {
             return LIST;
@@ -81,8 +104,14 @@ public class UserRoleServlet extends javax.servlet.http.HttpServlet implements j
 
     }
 
+    /**
+     * The Class ViewAction.
+     */
     private class ViewAction implements Action {
 
+        /* (non-Javadoc)
+         * @see org.opennms.web.admin.roles.UserRoleServlet.Action#execute(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+         */
         @Override
         public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException {
             try {
@@ -107,15 +136,16 @@ public class UserRoleServlet extends javax.servlet.http.HttpServlet implements j
      * <p>
      * doIt
      * </p>
+     * .
      *
      * @param request
      *            a {@link javax.servlet.http.HttpServletRequest} object.
      * @param response
      *            a {@link javax.servlet.http.HttpServletResponse} object.
-     * @throws javax.servlet.ServletException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws ServletException
+     *             the servlet exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     protected void doIt(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String reqUrl = request.getServletPath();
@@ -126,6 +156,15 @@ public class UserRoleServlet extends javax.servlet.http.HttpServlet implements j
         dispatcher.forward(request, response);
     }
 
+    /**
+     * Gets the action.
+     *
+     * @param request
+     *            the request
+     * @param response
+     *            the response
+     * @return the action
+     */
     private Action getAction(HttpServletRequest request, HttpServletResponse response) {
         String op = request.getParameter("operation");
         if ("view".equals(op))
@@ -161,9 +200,10 @@ public class UserRoleServlet extends javax.servlet.http.HttpServlet implements j
      * <p>
      * init
      * </p>
+     * .
      *
-     * @throws javax.servlet.ServletException
-     *             if any.
+     * @throws ServletException
+     *             the servlet exception
      */
     @Override
     public void init() throws ServletException {
@@ -180,6 +220,11 @@ public class UserRoleServlet extends javax.servlet.http.HttpServlet implements j
         }
     }
 
+    /**
+     * Gets the role manager.
+     *
+     * @return the role manager
+     */
     private WebRoleManager getRoleManager() {
         return WebRoleContext.getWebRoleManager();
     }

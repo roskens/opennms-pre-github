@@ -57,14 +57,24 @@ import org.springframework.web.servlet.mvc.AbstractController;
  */
 public class CustomGraphEditDetailsController extends AbstractController implements InitializingBean {
 
+    /**
+     * The Enum Parameters.
+     */
     public enum Parameters {
-        resourceId, graphtype
+
+        /** The resource id. */
+        resourceId,
+ /** The graphtype. */
+ graphtype
     }
 
+    /** The m_ksc report factory. */
     private KSC_PerformanceReportFactory m_kscReportFactory;
 
+    /** The m_ksc report service. */
     private KscReportService m_kscReportService;
 
+    /** The m_resource service. */
     private ResourceService m_resourceService;
 
     /** {@inheritDoc} */
@@ -134,6 +144,7 @@ public class CustomGraphEditDetailsController extends AbstractController impleme
      * <p>
      * getPrefabGraphFromList
      * </p>
+     * .
      *
      * @param graphs
      *            an array of {@link org.opennms.netmgt.model.PrefabGraph}
@@ -155,6 +166,7 @@ public class CustomGraphEditDetailsController extends AbstractController impleme
      * <p>
      * getResourceService
      * </p>
+     * .
      *
      * @return a {@link org.opennms.web.svclayer.ResourceService} object.
      */
@@ -166,6 +178,7 @@ public class CustomGraphEditDetailsController extends AbstractController impleme
      * <p>
      * setResourceService
      * </p>
+     * .
      *
      * @param resourceService
      *            a {@link org.opennms.web.svclayer.ResourceService} object.
@@ -178,6 +191,7 @@ public class CustomGraphEditDetailsController extends AbstractController impleme
      * <p>
      * getKscReportFactory
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.config.KSC_PerformanceReportFactory}
      *         object.
@@ -190,6 +204,7 @@ public class CustomGraphEditDetailsController extends AbstractController impleme
      * <p>
      * setKscReportFactory
      * </p>
+     * .
      *
      * @param kscReportFactory
      *            a
@@ -204,6 +219,7 @@ public class CustomGraphEditDetailsController extends AbstractController impleme
      * <p>
      * getKscReportService
      * </p>
+     * .
      *
      * @return a {@link org.opennms.web.svclayer.KscReportService} object.
      */
@@ -215,6 +231,7 @@ public class CustomGraphEditDetailsController extends AbstractController impleme
      * <p>
      * setKscReportService
      * </p>
+     * .
      *
      * @param kscReportService
      *            a {@link org.opennms.web.svclayer.KscReportService} object.
@@ -227,9 +244,10 @@ public class CustomGraphEditDetailsController extends AbstractController impleme
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @Override
     public void afterPropertiesSet() throws Exception {

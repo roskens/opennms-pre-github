@@ -53,7 +53,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * A servlet that handles updating the status of the notifications
+ * A servlet that handles updating the status of the notifications.
  *
  * @author <A HREF="mailto:jason@opennms.org">Jason Johns</A>
  * @author <A HREF="http://www.opennms.org/">OpenNMS</A>
@@ -64,37 +64,39 @@ import org.slf4j.LoggerFactory;
  */
 public class ActionDiscoveryServlet extends HttpServlet {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(ActionDiscoveryServlet.class);
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 2L;
 
-    /** Constant <code>log</code> */
+    /** Constant <code>log</code>. */
 
     /** Constant <code>addSpecificAction="AddSpecific"</code> */
     public static String addSpecificAction = "AddSpecific";
 
-    /** Constant <code>removeSpecificAction="RemoveSpecific"</code> */
+    /** Constant <code>removeSpecificAction="RemoveSpecific"</code>. */
     public static String removeSpecificAction = "RemoveSpecific";
 
-    /** Constant <code>addIncludeRangeAction="AddIncludeRange"</code> */
+    /** Constant <code>addIncludeRangeAction="AddIncludeRange"</code>. */
     public static String addIncludeRangeAction = "AddIncludeRange";
 
-    /** Constant <code>removeIncludeRangeAction="RemoveIncludeRange"</code> */
+    /** Constant <code>removeIncludeRangeAction="RemoveIncludeRange"</code>. */
     public static String removeIncludeRangeAction = "RemoveIncludeRange";
 
-    /** Constant <code>addIncludeUrlAction="AddIncludeUrl"</code> */
+    /** Constant <code>addIncludeUrlAction="AddIncludeUrl"</code>. */
     public static String addIncludeUrlAction = "AddIncludeUrl";
 
-    /** Constant <code>removeIncludeUrlAction="RemoveIncludeUrl"</code> */
+    /** Constant <code>removeIncludeUrlAction="RemoveIncludeUrl"</code>. */
     public static String removeIncludeUrlAction = "RemoveIncludeUrl";
 
-    /** Constant <code>addExcludeRangeAction="AddExcludeRange"</code> */
+    /** Constant <code>addExcludeRangeAction="AddExcludeRange"</code>. */
     public static String addExcludeRangeAction = "AddExcludeRange";
 
-    /** Constant <code>removeExcludeRangeAction="RemoveExcludeRange"</code> */
+    /** Constant <code>removeExcludeRangeAction="RemoveExcludeRange"</code>. */
     public static String removeExcludeRangeAction = "RemoveExcludeRange";
 
-    /** Constant <code>saveAndRestartAction="SaveAndRestart"</code> */
+    /** Constant <code>saveAndRestartAction="SaveAndRestart"</code>. */
     public static String saveAndRestartAction = "SaveAndRestart";
 
     /** {@inheritDoc} */

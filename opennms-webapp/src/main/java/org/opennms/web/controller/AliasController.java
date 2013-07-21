@@ -31,9 +31,17 @@ package org.opennms.web.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+/**
+ * The Class AliasController.
+ */
 @Controller
 public class AliasController {
 
+    /**
+     * Element service jsp.
+     *
+     * @return the string
+     */
     @RequestMapping("/element/service.jsp")
     public String elementServiceJsp() {
         return "forward:/element/service.htm";

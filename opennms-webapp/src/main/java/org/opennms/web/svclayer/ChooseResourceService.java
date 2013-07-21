@@ -42,10 +42,12 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Transactional(readOnly = true)
 public interface ChooseResourceService {
+
     /**
      * <p>
      * findChildResources
      * </p>
+     * .
      *
      * @param resourceId
      *            a {@link java.lang.String} object.

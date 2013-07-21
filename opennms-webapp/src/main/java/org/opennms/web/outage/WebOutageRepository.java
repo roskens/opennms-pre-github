@@ -46,6 +46,7 @@ public interface WebOutageRepository {
      * <p>
      * countMatchingOutages
      * </p>
+     * .
      *
      * @param criteria
      *            a {@link org.opennms.web.outage.filter.OutageCriteria} object.
@@ -57,6 +58,7 @@ public interface WebOutageRepository {
      * <p>
      * getOutage
      * </p>
+     * .
      *
      * @param OutageId
      *            a int.
@@ -68,6 +70,7 @@ public interface WebOutageRepository {
      * <p>
      * getMatchingOutages
      * </p>
+     * .
      *
      * @param criteria
      *            a {@link org.opennms.web.outage.filter.OutageCriteria} object.
@@ -79,6 +82,7 @@ public interface WebOutageRepository {
      * <p>
      * countMatchingOutageSummaries
      * </p>
+     * .
      *
      * @param criteria
      *            a {@link org.opennms.web.outage.filter.OutageCriteria} object.
@@ -90,6 +94,7 @@ public interface WebOutageRepository {
      * <p>
      * getMatchingOutageSummaries
      * </p>
+     * .
      *
      * @param criteria
      *            a {@link org.opennms.web.outage.filter.OutageCriteria} object.
@@ -100,6 +105,8 @@ public interface WebOutageRepository {
 
     /**
      * Count the current number of nodes with outages.
+     *
+     * @return the int
      */
     public abstract int countCurrentOutages();
 
@@ -108,7 +115,7 @@ public interface WebOutageRepository {
      *
      * @param rows
      *            the number of outages to return.
-     * @return
+     * @return the current outages
      */
     public abstract OutageSummary[] getCurrentOutages(int rows);
 }

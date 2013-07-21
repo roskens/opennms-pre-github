@@ -40,16 +40,21 @@ import javax.servlet.http.HttpServletRequest;
  * @since 1.8.1
  */
 public class LocationBasedNavBarEntry implements NavBarEntry {
+
+    /** The m_location match. */
     private String m_locationMatch;
 
+    /** The m_url. */
     private String m_url;
 
+    /** The m_name. */
     private String m_name;
 
     /**
      * <p>
      * getLocationMatch
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -61,6 +66,7 @@ public class LocationBasedNavBarEntry implements NavBarEntry {
      * <p>
      * setLocationMatch
      * </p>
+     * .
      *
      * @param locationMatch
      *            a {@link java.lang.String} object.
@@ -77,6 +83,7 @@ public class LocationBasedNavBarEntry implements NavBarEntry {
      * <p>
      * getUrl
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -89,6 +96,7 @@ public class LocationBasedNavBarEntry implements NavBarEntry {
      * <p>
      * setUrl
      * </p>
+     * .
      *
      * @param url
      *            a {@link java.lang.String} object.
@@ -105,6 +113,7 @@ public class LocationBasedNavBarEntry implements NavBarEntry {
      * <p>
      * getName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -117,6 +126,7 @@ public class LocationBasedNavBarEntry implements NavBarEntry {
      * <p>
      * setName
      * </p>
+     * .
      *
      * @param name
      *            a {@link java.lang.String} object.
@@ -140,6 +150,7 @@ public class LocationBasedNavBarEntry implements NavBarEntry {
      * <p>
      * isLinkMatches
      * </p>
+     * .
      *
      * @param request
      *            a {@link javax.servlet.http.HttpServletRequest} object.

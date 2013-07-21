@@ -38,11 +38,11 @@ package org.opennms.web.admin.nodeManagement;
  * @since 1.8.1
  */
 public class NoManagedInterfacesException extends RuntimeException {
-    /**
-	 *
-	 */
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -1302515550652984154L;
 
+    /** The m_node list uri. */
     private String m_nodeListUri;
 
     /**
@@ -62,6 +62,7 @@ public class NoManagedInterfacesException extends RuntimeException {
      * <p>
      * getNodeListUri
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

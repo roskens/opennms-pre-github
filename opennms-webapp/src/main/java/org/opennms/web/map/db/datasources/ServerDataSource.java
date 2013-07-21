@@ -60,32 +60,45 @@ import org.slf4j.LoggerFactory;
  */
 public class ServerDataSource implements DataSourceInterface {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(ServerDataSource.class);
 
+    /** The params. */
     private Map<?, ?> params;
 
+    /** The initialized. */
     boolean initialized = false;
 
+    /** The severity mapping. */
     private Map<String, String> severityMapping = new HashMap<String, String>();
 
+    /** The Constant STATUS_FIELD. */
     static final String STATUS_FIELD = "ev_status";
 
+    /** The Constant SEVERITY_FIELD. */
     static final String SEVERITY_FIELD = "ev_severity";
 
+    /** The Constant TABLE_NAME. */
     static final String TABLE_NAME = "v_eventi_snm";
 
+    /** The closed status. */
     final String CLOSED_STATUS = "CLOSED";
 
+    /** The ack status. */
     final String ACK_STATUS = "ACK";
 
+    /** The assigned status. */
     final String ASSIGNED_STATUS = "ASSIGNED";
 
+    /** The open status. */
     final String OPEN_STATUS = "OPEN";
 
     // private static MapPropertiesFactory mpf=null;
 
+    /** The opennms conn. */
     static Connection opennmsConn = null;
 
+    /** The external conn. */
     static Connection externalConn = null;
 
     /**
@@ -146,6 +159,13 @@ public class ServerDataSource implements DataSourceInterface {
 
     }
 
+    /**
+     * Checks if is initialized.
+     *
+     * @return true, if is initialized
+     * @throws SQLException
+     *             the sQL exception
+     */
     private boolean isInitialized() throws SQLException {
 
         if (opennmsConn != null && !opennmsConn.isClosed() && externalConn != null && !externalConn.isClosed())
@@ -157,9 +177,10 @@ public class ServerDataSource implements DataSourceInterface {
      * <p>
      * finalize
      * </p>
+     * .
      *
-     * @throws java.lang.Throwable
-     *             if any.
+     * @throws Throwable
+     *             the throwable
      */
     @Override
     protected void finalize() throws Throwable {
@@ -203,6 +224,13 @@ public class ServerDataSource implements DataSourceInterface {
         return result;
     }
 
+    /**
+     * Gets the ip addr by id.
+     *
+     * @param id
+     *            the id
+     * @return the ip addr by id
+     */
     private Set<String> getIpAddrById(Object id) {
         // get ipaddresses of the node
         String sqlQueryIFaces = "select distinct ipaddr from ipinterface where ipaddr!='0.0.0.0' and nodeid=?";
@@ -227,6 +255,13 @@ public class ServerDataSource implements DataSourceInterface {
         return ipAddrs;
     }
 
+    /**
+     * Gets the sev.
+     *
+     * @param ipAddrs
+     *            the ip addrs
+     * @return the sev
+     */
     private String getSev(Set<String> ipAddrs) {
 
         String getDataQuery = "select max(" + SEVERITY_FIELD + ") from " + TABLE_NAME + " where ip_address in (";
@@ -294,6 +329,13 @@ public class ServerDataSource implements DataSourceInterface {
 
     }
 
+    /**
+     * Gets the st.
+     *
+     * @param ipAddrs
+     *            the ip addrs
+     * @return the st
+     */
     private String getSt(Set<String> ipAddrs) {
 
         String getDataQuery = "select " + STATUS_FIELD + " from " + TABLE_NAME + " where ip_address in (";

@@ -48,10 +48,12 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Transactional(readOnly = true)
 public interface AdminCategoryService {
+
     /**
      * <p>
      * getCategory
      * </p>
+     * .
      *
      * @param categoryIdString
      *            a {@link java.lang.String} object.
@@ -65,6 +67,7 @@ public interface AdminCategoryService {
      * <p>
      * findAllNodes
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -74,6 +77,7 @@ public interface AdminCategoryService {
      * <p>
      * findCategoryAndAllNodes
      * </p>
+     * .
      *
      * @param categoryIdString
      *            a {@link java.lang.String} object.
@@ -87,6 +91,7 @@ public interface AdminCategoryService {
      * <p>
      * performEdit
      * </p>
+     * .
      *
      * @param editAction
      *            a {@link java.lang.String} object.
@@ -104,6 +109,7 @@ public interface AdminCategoryService {
      * <p>
      * addNewCategory
      * </p>
+     * .
      *
      * @param name
      *            a {@link java.lang.String} object.
@@ -116,6 +122,7 @@ public interface AdminCategoryService {
      * <p>
      * getCategoryWithName
      * </p>
+     * .
      *
      * @param newCategoryName
      *            a {@link java.lang.String} object.
@@ -127,6 +134,7 @@ public interface AdminCategoryService {
      * <p>
      * findAllCategories
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -136,6 +144,7 @@ public interface AdminCategoryService {
      * <p>
      * removeCategory
      * </p>
+     * .
      *
      * @param categoryIdString
      *            a {@link java.lang.String} object.
@@ -147,6 +156,7 @@ public interface AdminCategoryService {
      * <p>
      * findByNode
      * </p>
+     * .
      *
      * @param nodeId
      *            a int.
@@ -158,6 +168,7 @@ public interface AdminCategoryService {
      * <p>
      * findNodeCategories
      * </p>
+     * .
      *
      * @param nodeIdString
      *            a {@link java.lang.String} object.
@@ -171,6 +182,7 @@ public interface AdminCategoryService {
      * <p>
      * performNodeEdit
      * </p>
+     * .
      *
      * @param nodeIdString
      *            a {@link java.lang.String} object.

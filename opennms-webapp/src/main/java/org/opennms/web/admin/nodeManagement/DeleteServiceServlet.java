@@ -57,9 +57,7 @@ import org.opennms.web.element.Service;
  */
 public class DeleteServiceServlet extends HttpServlet {
 
-    /**
-     *
-     */
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -8169359759001371089L;
 
     /*
@@ -100,6 +98,7 @@ public class DeleteServiceServlet extends HttpServlet {
      * <p>
      * checkParameters
      * </p>
+     * .
      *
      * @param request
      *            a {@link javax.servlet.http.HttpServletRequest} object.
@@ -126,6 +125,14 @@ public class DeleteServiceServlet extends HttpServlet {
 
     }
 
+    /**
+     * Send event.
+     *
+     * @param event
+     *            the event
+     * @throws ServletException
+     *             the servlet exception
+     */
     private void sendEvent(Event event) throws ServletException {
         try {
             Util.createEventProxy().send(event);

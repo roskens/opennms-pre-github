@@ -61,8 +61,10 @@ import org.springframework.web.servlet.view.RedirectView;
  */
 public class CategoryController extends AbstractController {
 
+    /** The m_admin category service. */
     private AdminCategoryService m_adminCategoryService;
 
+    /** The m_surveillance view config dao. */
     private SurveillanceViewConfigDao m_surveillanceViewConfigDao;
 
     /** {@inheritDoc} */
@@ -164,6 +166,11 @@ public class CategoryController extends AbstractController {
                              // "categories", sortedCategories);
     }
 
+    /**
+     * Gets the all surveillance view categories.
+     *
+     * @return the all surveillance view categories
+     */
     private List<String> getAllSurveillanceViewCategories() {
         List<String> categoryNames = new ArrayList<String>();
         Views views = getSurveillanceViewConfigDao().getViews();
@@ -186,6 +193,14 @@ public class CategoryController extends AbstractController {
         return categoryNames;
     }
 
+    /**
+     * Adds the category names.
+     *
+     * @param categoryNames
+     *            the category names
+     * @param categoryCollection
+     *            the category collection
+     */
     private void addCategoryNames(final List<String> categoryNames, final List<Category> categoryCollection) {
         for (Category category : categoryCollection) {
             if (!categoryNames.contains(category.getName())) {
@@ -198,6 +213,7 @@ public class CategoryController extends AbstractController {
      * <p>
      * getAdminCategoryService
      * </p>
+     * .
      *
      * @return a {@link org.opennms.web.svclayer.AdminCategoryService} object.
      */
@@ -209,6 +225,7 @@ public class CategoryController extends AbstractController {
      * <p>
      * setAdminCategoryService
      * </p>
+     * .
      *
      * @param adminCategoryService
      *            a {@link org.opennms.web.svclayer.AdminCategoryService}
@@ -218,10 +235,21 @@ public class CategoryController extends AbstractController {
         m_adminCategoryService = adminCategoryService;
     }
 
+    /**
+     * Sets the surveillance view config dao.
+     *
+     * @param surveillanceConfigDao
+     *            the new surveillance view config dao
+     */
     public final void setSurveillanceViewConfigDao(final SurveillanceViewConfigDao surveillanceConfigDao) {
         m_surveillanceViewConfigDao = surveillanceConfigDao;
     }
 
+    /**
+     * Gets the surveillance view config dao.
+     *
+     * @return the surveillance view config dao
+     */
     public final SurveillanceViewConfigDao getSurveillanceViewConfigDao() {
         return m_surveillanceViewConfigDao;
     }

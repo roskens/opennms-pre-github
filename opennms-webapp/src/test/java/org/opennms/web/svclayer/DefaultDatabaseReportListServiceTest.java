@@ -46,12 +46,23 @@ import org.opennms.web.svclayer.support.DefaultDatabaseReportListService;
 //import org.springframework.core.io.ClassPathResource;
 //import org.springframework.core.io.Resource;
 // TODO indigo: Improve tests and refactor for spring injection
+/**
+ * The Class DefaultDatabaseReportListServiceTest.
+ */
 public class DefaultDatabaseReportListServiceTest {
 
+    /** The m_default database report list service. */
     private DefaultDatabaseReportListService m_defaultDatabaseReportListService;
 
+    /** The m_global report repository. */
     private GlobalReportRepository m_globalReportRepository;
 
+    /**
+     * Setup dao.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setupDao() throws Exception {
         m_globalReportRepository = EasyMock.createNiceMock(GlobalReportRepository.class);
@@ -63,6 +74,12 @@ public class DefaultDatabaseReportListServiceTest {
 
     }
 
+    /**
+     * Test get all online.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Ignore
     @Test
     public void testGetAllOnline() throws Exception {

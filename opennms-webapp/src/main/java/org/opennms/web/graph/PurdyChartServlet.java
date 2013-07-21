@@ -53,11 +53,10 @@ import org.slf4j.LoggerFactory;
  */
 public class PurdyChartServlet extends HttpServlet {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(PurdyChartServlet.class);
 
-    /**
-     *
-     */
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 2449309268355063862L;
 
     /**

@@ -47,28 +47,59 @@ import org.springframework.validation.BindException;
  * @since 1.8.1
  */
 public class StatisticsReportModel {
+
+    /**
+     * The Class Datum.
+     */
     public static class Datum implements Comparable<Datum> {
+
+        /** The m_value. */
         private Double m_value;
 
+        /** The m_resource. */
         private OnmsResource m_resource;
 
+        /* (non-Javadoc)
+         * @see java.lang.Comparable#compareTo(java.lang.Object)
+         */
         @Override
         public final int compareTo(final Datum o) {
             return m_value.compareTo(o.getValue());
         }
 
+        /**
+         * Gets the resource.
+         *
+         * @return the resource
+         */
         public final OnmsResource getResource() {
             return m_resource;
         }
 
+        /**
+         * Gets the pretty resource.
+         *
+         * @return the pretty resource
+         */
         public final OnmsResource getPrettyResource() {
             return new PrettyOnmsResource(m_resource);
         }
 
+        /**
+         * Sets the resource.
+         *
+         * @param resource
+         *            the new resource
+         */
         public final void setResource(final OnmsResource resource) {
             m_resource = resource;
         }
 
+        /**
+         * Gets the resource parent label.
+         *
+         * @return the resource parent label
+         */
         public final String getResourceParentLabel() {
             Assert.notNull(m_resource, "the resource must be set before calling this method");
 
@@ -89,6 +120,11 @@ public class StatisticsReportModel {
             return buffer.toString();
         }
 
+        /**
+         * Gets the resource parents reversed.
+         *
+         * @return the resource parents reversed
+         */
         public final List<OnmsResource> getResourceParentsReversed() {
             if (m_resource == null) {
                 return new ArrayList<OnmsResource>(0);
@@ -105,6 +141,11 @@ public class StatisticsReportModel {
             return resources;
         }
 
+        /**
+         * Gets the pretty resource parents reversed.
+         *
+         * @return the pretty resource parents reversed
+         */
         public final List<OnmsResource> getPrettyResourceParentsReversed() {
             if (m_resource == null) {
                 return new ArrayList<OnmsResource>(0);
@@ -121,25 +162,40 @@ public class StatisticsReportModel {
             return resources;
         }
 
+        /**
+         * Gets the value.
+         *
+         * @return the value
+         */
         public final Double getValue() {
             return m_value;
         }
 
+        /**
+         * Sets the value.
+         *
+         * @param value
+         *            the new value
+         */
         public final void setValue(final Double value) {
             m_value = value;
         }
     }
 
+    /** The m_errors. */
     private BindException m_errors;
 
+    /** The m_report. */
     private StatisticsReport m_report;
 
+    /** The m_data. */
     private SortedSet<Datum> m_data = new TreeSet<Datum>();
 
     /**
      * <p>
      * getData
      * </p>
+     * .
      *
      * @return a {@link java.util.SortedSet} object.
      */
@@ -151,6 +207,7 @@ public class StatisticsReportModel {
      * <p>
      * setData
      * </p>
+     * .
      *
      * @param data
      *            a {@link java.util.SortedSet} object.
@@ -163,6 +220,7 @@ public class StatisticsReportModel {
      * <p>
      * addData
      * </p>
+     * .
      *
      * @param datum
      *            a
@@ -177,6 +235,7 @@ public class StatisticsReportModel {
      * <p>
      * getErrors
      * </p>
+     * .
      *
      * @return a {@link org.springframework.validation.BindException} object.
      */
@@ -188,6 +247,7 @@ public class StatisticsReportModel {
      * <p>
      * setErrors
      * </p>
+     * .
      *
      * @param errors
      *            a {@link org.springframework.validation.BindException} object.
@@ -200,6 +260,7 @@ public class StatisticsReportModel {
      * <p>
      * getReport
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.StatisticsReport} object.
      */
@@ -211,6 +272,7 @@ public class StatisticsReportModel {
      * <p>
      * setReport
      * </p>
+     * .
      *
      * @param report
      *            a {@link org.opennms.netmgt.model.StatisticsReport} object.

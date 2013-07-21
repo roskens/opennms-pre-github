@@ -54,14 +54,25 @@ import org.springframework.web.servlet.ModelAndView;
 // @RequestMapping("/daemonstatus.htm")
 public class DaemonStatusController implements InitializingBean {
 
+    /** The daemon status service. */
     @Autowired
     private DaemonStatusService daemonStatusService;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Reference data.
+     *
+     * @return the map
+     * @throws Exception
+     *             the exception
+     */
     protected Map<String, Collection<ServiceInfo>> referenceData() throws Exception {
         Map<String, Collection<ServiceInfo>> referenceData = new HashMap<String, Collection<ServiceInfo>>();
         Collection<ServiceInfo> daemons = daemonStatusService.getCurrentDaemonStatusColl();
@@ -69,6 +80,13 @@ public class DaemonStatusController implements InitializingBean {
         return referenceData;
     }
 
+    /**
+     * On submit.
+     *
+     * @return the model and view
+     * @throws Exception
+     *             the exception
+     */
     @RequestMapping(method = RequestMethod.POST)
     public ModelAndView onSubmit() throws Exception {
         // FIXME: This isn't used

@@ -31,25 +31,44 @@ package org.opennms.web.element;
 import org.opennms.core.utils.InetAddressUtils;
 import org.opennms.netmgt.model.OnmsMonitoredService;
 
+/**
+ * The Class Service.
+ */
 public class Service {
+
+    /** The m_id. */
     private int m_id;
 
+    /** The m_node id. */
     private int m_nodeId;
 
+    /** The m_ip addr. */
     private String m_ipAddr;
 
+    /** The m_service id. */
     private int m_serviceId;
 
+    /** The m_service name. */
     private String m_serviceName;
 
+    /** The m_last good. */
     private String m_lastGood;
 
+    /** The m_last fail. */
     private String m_lastFail;
 
+    /** The m_notify. */
     private String m_notify;
 
+    /** The m_status. */
     private char m_status;
 
+    /**
+     * Instantiates a new service.
+     *
+     * @param monSvc
+     *            the mon svc
+     */
     Service(OnmsMonitoredService monSvc) {
         setId(monSvc.getId());
         setNodeId(monSvc.getNodeId());
@@ -74,6 +93,7 @@ public class Service {
      * <p>
      * getId
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -85,6 +105,7 @@ public class Service {
      * <p>
      * getNodeId
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -96,6 +117,7 @@ public class Service {
      * <p>
      * getIpAddress
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -107,6 +129,7 @@ public class Service {
      * <p>
      * getServiceId
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -118,6 +141,7 @@ public class Service {
      * <p>
      * getServiceName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -129,6 +153,7 @@ public class Service {
      * <p>
      * getLastGood
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -140,6 +165,7 @@ public class Service {
      * <p>
      * getLastFail
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -151,6 +177,7 @@ public class Service {
      * <p>
      * getNotify
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -162,6 +189,7 @@ public class Service {
      * <p>
      * getStatus
      * </p>
+     * .
      *
      * @return a char.
      */
@@ -173,6 +201,7 @@ public class Service {
      * <p>
      * isManaged
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -184,6 +213,7 @@ public class Service {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -199,38 +229,92 @@ public class Service {
         return str.toString();
     }
 
+    /**
+     * Sets the id.
+     *
+     * @param id
+     *            the new id
+     */
     void setId(int id) {
         m_id = id;
     }
 
+    /**
+     * Sets the node id.
+     *
+     * @param nodeId
+     *            the new node id
+     */
     void setNodeId(int nodeId) {
         m_nodeId = nodeId;
     }
 
+    /**
+     * Sets the ip address.
+     *
+     * @param ipAddr
+     *            the new ip address
+     */
     void setIpAddress(String ipAddr) {
         m_ipAddr = ipAddr;
     }
 
+    /**
+     * Sets the service id.
+     *
+     * @param serviceId
+     *            the new service id
+     */
     void setServiceId(int serviceId) {
         m_serviceId = serviceId;
     }
 
+    /**
+     * Sets the service name.
+     *
+     * @param serviceName
+     *            the new service name
+     */
     void setServiceName(String serviceName) {
         m_serviceName = serviceName;
     }
 
+    /**
+     * Sets the last good.
+     *
+     * @param lastGood
+     *            the new last good
+     */
     void setLastGood(String lastGood) {
         m_lastGood = lastGood;
     }
 
+    /**
+     * Sets the last fail.
+     *
+     * @param lastFail
+     *            the new last fail
+     */
     void setLastFail(String lastFail) {
         m_lastFail = lastFail;
     }
 
+    /**
+     * Sets the notify.
+     *
+     * @param notify
+     *            the new notify
+     */
     void setNotify(String notify) {
         m_notify = notify;
     }
 
+    /**
+     * Sets the status.
+     *
+     * @param status
+     *            the new status
+     */
     void setStatus(char status) {
         m_status = status;
     }

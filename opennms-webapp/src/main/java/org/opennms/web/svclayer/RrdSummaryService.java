@@ -47,6 +47,7 @@ public interface RrdSummaryService {
      * <p>
      * getSummary
      * </p>
+     * .
      *
      * @param specification
      *            a {@link org.opennms.web.svclayer.SummarySpecification}

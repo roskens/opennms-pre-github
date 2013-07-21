@@ -31,18 +31,44 @@ package org.opennms.web.filter;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
 
+/**
+ * The Class NotEqualsFilter.
+ *
+ * @param <T>
+ *            the generic type
+ */
 public abstract class NotEqualsFilter<T> extends OneArgFilter<T> {
 
+    /**
+     * Instantiates a new not equals filter.
+     *
+     * @param filterType
+     *            the filter type
+     * @param type
+     *            the type
+     * @param fieldName
+     *            the field name
+     * @param daoPropertyName
+     *            the dao property name
+     * @param value
+     *            the value
+     */
     public NotEqualsFilter(final String filterType, final SQLType<T> type, final String fieldName,
             final String daoPropertyName, final T value) {
         super(filterType, type, fieldName, daoPropertyName, value);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.web.filter.BaseFilter#getCriterion()
+     */
     @Override
     public Criterion getCriterion() {
         return Restrictions.ne(getPropertyName(), getValue());
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.web.filter.OneArgFilter#getSQLTemplate()
+     */
     @Override
     public String getSQLTemplate() {
         return " " + getSQLFieldName() + " <> %s ";

@@ -48,6 +48,8 @@ import org.joda.time.format.ISODateTimeFormat;
  * @since 1.8.1
  */
 public class ISO8601DateEditor extends PropertyEditorSupport {
+
+    /** The Constant m_formatter. */
     static final DateTimeFormatter m_formatter = ISODateTimeFormat.dateTime().withZone(DateTimeZone.UTC);
 
     /**

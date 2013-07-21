@@ -50,8 +50,11 @@ import org.springframework.web.servlet.mvc.AbstractController;
  * @since 1.8.1
  */
 public class ChooseResourceController extends AbstractController implements InitializingBean {
+
+    /** The m_choose resource service. */
     private ChooseResourceService m_chooseResourceService;
 
+    /** The m_default end url. */
     private String m_defaultEndUrl;
 
     /** {@inheritDoc} */
@@ -89,6 +92,7 @@ public class ChooseResourceController extends AbstractController implements Init
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      */
     @Override
     public final void afterPropertiesSet() {
@@ -105,6 +109,7 @@ public class ChooseResourceController extends AbstractController implements Init
      * <p>
      * getChooseResourceService
      * </p>
+     * .
      *
      * @return a {@link org.opennms.web.svclayer.ChooseResourceService} object.
      */
@@ -116,6 +121,7 @@ public class ChooseResourceController extends AbstractController implements Init
      * <p>
      * setChooseResourceService
      * </p>
+     * .
      *
      * @param chooseResourceService
      *            a {@link org.opennms.web.svclayer.ChooseResourceService}
@@ -129,6 +135,7 @@ public class ChooseResourceController extends AbstractController implements Init
      * <p>
      * getDefaultEndUrl
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -140,6 +147,7 @@ public class ChooseResourceController extends AbstractController implements Init
      * <p>
      * setDefaultEndUrl
      * </p>
+     * .
      *
      * @param defaultEndUrl
      *            a {@link java.lang.String} object.

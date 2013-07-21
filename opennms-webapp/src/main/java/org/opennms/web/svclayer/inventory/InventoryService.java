@@ -66,21 +66,26 @@ import org.springframework.beans.factory.InitializingBean;
  */
 public class InventoryService implements InitializingBean {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(InventoryService.class);
 
+    /** The m_rws config. */
     RWSConfig m_rwsConfig;
 
+    /** The m_node dao. */
     NodeDao m_nodeDao;
 
+    /** The m_cp. */
     ConnectionProperties m_cp;
 
     /**
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -101,6 +106,7 @@ public class InventoryService implements InitializingBean {
      * <p>
      * getRwsConfig
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.config.RWSConfig} object.
      */
@@ -112,6 +118,7 @@ public class InventoryService implements InitializingBean {
      * <p>
      * setRwsConfig
      * </p>
+     * .
      *
      * @param rwsConfig
      *            a {@link org.opennms.netmgt.config.RWSConfig} object.
@@ -124,6 +131,7 @@ public class InventoryService implements InitializingBean {
      * <p>
      * getNodeDao
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.dao.api.NodeDao} object.
      */
@@ -135,6 +143,7 @@ public class InventoryService implements InitializingBean {
      * <p>
      * setNodeDao
      * </p>
+     * .
      *
      * @param nodeDao
      *            a {@link org.opennms.netmgt.dao.api.NodeDao} object.
@@ -147,6 +156,7 @@ public class InventoryService implements InitializingBean {
      * <p>
      * checkRWSAlive
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -166,6 +176,7 @@ public class InventoryService implements InitializingBean {
      * <p>
      * checkRancidNode
      * </p>
+     * .
      *
      * @param deviceName
      *            a {@link java.lang.String} object.
@@ -208,6 +219,7 @@ public class InventoryService implements InitializingBean {
      * <p>
      * getRancidNodeBase
      * </p>
+     * .
      *
      * @param nodeid
      *            a int.
@@ -262,6 +274,7 @@ public class InventoryService implements InitializingBean {
      * <p>
      * getRancidNode
      * </p>
+     * .
      *
      * @param nodeid
      *            a int.
@@ -352,6 +365,7 @@ public class InventoryService implements InitializingBean {
      * <p>
      * getBuckets
      * </p>
+     * .
      *
      * @param nodeid
      *            a int.
@@ -385,6 +399,7 @@ public class InventoryService implements InitializingBean {
      * <p>
      * getRancidNodeList
      * </p>
+     * .
      *
      * @param nodeid
      *            a int.
@@ -456,6 +471,7 @@ public class InventoryService implements InitializingBean {
      * <p>
      * getRancidNodeList
      * </p>
+     * .
      *
      * @param nodeid
      *            a int.
@@ -518,6 +534,7 @@ public class InventoryService implements InitializingBean {
      * <p>
      * getInventory
      * </p>
+     * .
      *
      * @param nodeid
      *            a int.
@@ -574,6 +591,7 @@ public class InventoryService implements InitializingBean {
      * <p>
      * getRancidNodeWithCLoginForGroup
      * </p>
+     * .
      *
      * @param nodeid
      *            a int.
@@ -666,6 +684,7 @@ public class InventoryService implements InitializingBean {
      * <p>
      * getRancidNodeWithCLogin
      * </p>
+     * .
      *
      * @param nodeid
      *            a int.
@@ -760,6 +779,7 @@ public class InventoryService implements InitializingBean {
      * <p>
      * switchStatus
      * </p>
+     * .
      *
      * @param groupName
      *            a {@link java.lang.String} object.
@@ -792,6 +812,7 @@ public class InventoryService implements InitializingBean {
      * <p>
      * deleteNodeOnRouterDb
      * </p>
+     * .
      *
      * @param groupName
      *            a {@link java.lang.String} object.
@@ -818,6 +839,7 @@ public class InventoryService implements InitializingBean {
      * <p>
      * updateNodeOnRouterDb
      * </p>
+     * .
      *
      * @param groupName
      *            a {@link java.lang.String} object.
@@ -860,6 +882,7 @@ public class InventoryService implements InitializingBean {
      * <p>
      * createNodeOnRouterDb
      * </p>
+     * .
      *
      * @param groupName
      *            a {@link java.lang.String} object.
@@ -902,6 +925,7 @@ public class InventoryService implements InitializingBean {
      * <p>
      * updateClogin
      * </p>
+     * .
      *
      * @param deviceName
      *            a {@link java.lang.String} object.
@@ -948,6 +972,7 @@ public class InventoryService implements InitializingBean {
      * <p>
      * deleteClogin
      * </p>
+     * .
      *
      * @param deviceName
      *            a {@link java.lang.String} object.
@@ -971,6 +996,7 @@ public class InventoryService implements InitializingBean {
      * <p>
      * deleteBucketItem
      * </p>
+     * .
      *
      * @param bucket
      *            a {@link java.lang.String} object.
@@ -994,6 +1020,7 @@ public class InventoryService implements InitializingBean {
      * <p>
      * deleteBucket
      * </p>
+     * .
      *
      * @param bucket
      *            a {@link java.lang.String} object.
@@ -1015,6 +1042,7 @@ public class InventoryService implements InitializingBean {
      * <p>
      * createBucket
      * </p>
+     * .
      *
      * @param bucket
      *            a {@link java.lang.String} object.

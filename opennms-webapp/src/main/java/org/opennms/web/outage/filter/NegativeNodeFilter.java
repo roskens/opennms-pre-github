@@ -42,11 +42,14 @@ import org.opennms.web.filter.SQLType;
  * @since 1.8.1
  */
 public class NegativeNodeFilter extends NotEqualOrNullFilter<Integer> {
-    /** Constant <code>TYPE="nodenot"</code> */
+
+    /** Constant <code>TYPE="nodenot"</code>. */
     public static final String TYPE = "nodenot";
 
+    /** The node id. */
     protected int nodeId;
 
+    /** The m_servlet context. */
     private ServletContext m_servletContext;
 
     /**
@@ -56,6 +59,8 @@ public class NegativeNodeFilter extends NotEqualOrNullFilter<Integer> {
      *
      * @param nodeId
      *            a int.
+     * @param servletContext
+     *            the servlet context
      */
     public NegativeNodeFilter(int nodeId, ServletContext servletContext) {
         super(TYPE, SQLType.INT, "OUTAGES.NODEID", "node.id", nodeId);
@@ -66,6 +71,7 @@ public class NegativeNodeFilter extends NotEqualOrNullFilter<Integer> {
      * <p>
      * getTextDescription
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -84,6 +90,7 @@ public class NegativeNodeFilter extends NotEqualOrNullFilter<Integer> {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -96,6 +103,7 @@ public class NegativeNodeFilter extends NotEqualOrNullFilter<Integer> {
      * <p>
      * getNode
      * </p>
+     * .
      *
      * @return a int.
      */
