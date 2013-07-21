@@ -31,18 +31,28 @@ package org.opennms.netmgt.icmp;
 import java.net.NoRouteToHostException;
 
 /**
- * HostIsDownException
+ * HostIsDownException.
  *
  * @author brozow
  */
 public class HostIsDownException extends NoRouteToHostException {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -8208677556544653414L;
 
+    /**
+     * Instantiates a new host is down exception.
+     */
     public HostIsDownException() {
         super();
     }
 
+    /**
+     * Instantiates a new host is down exception.
+     *
+     * @param msg
+     *            the msg
+     */
     public HostIsDownException(String msg) {
         super(msg);
     }

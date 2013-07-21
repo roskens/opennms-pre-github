@@ -44,6 +44,7 @@ public interface PingResponseCallback {
      * <p>
      * handleResponse
      * </p>
+     * .
      *
      * @param address
      *            a {@link java.net.InetAddress} object.
@@ -56,6 +57,7 @@ public interface PingResponseCallback {
      * <p>
      * handleTimeout
      * </p>
+     * .
      *
      * @param address
      *            a {@link java.net.InetAddress} object.
@@ -68,6 +70,7 @@ public interface PingResponseCallback {
      * <p>
      * handleError
      * </p>
+     * .
      *
      * @param address
      *            a {@link java.net.InetAddress} object.

@@ -30,17 +30,42 @@ package org.opennms.netmgt.icmp;
 
 import java.io.IOException;
 
+/**
+ * The Class IcmpMessengerIOException.
+ */
 public class IcmpMessengerIOException extends IOException {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 4658370128592224097L;
 
+    /**
+     * Instantiates a new icmp messenger io exception.
+     *
+     * @param message
+     *            the message
+     */
     public IcmpMessengerIOException(final String message) {
         super(message);
     }
 
+    /**
+     * Instantiates a new icmp messenger io exception.
+     *
+     * @param message
+     *            the message
+     * @param throwable
+     *            the throwable
+     */
     public IcmpMessengerIOException(final String message, final Throwable throwable) {
         super(message, throwable);
     }
 
+    /**
+     * Instantiates a new icmp messenger io exception.
+     *
+     * @param throwable
+     *            the throwable
+     */
     public IcmpMessengerIOException(final Throwable throwable) {
         super(throwable);
     }

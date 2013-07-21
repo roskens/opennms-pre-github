@@ -43,6 +43,8 @@ import java.util.concurrent.TimeUnit;
  * @version $Id: $
  */
 public class ParallelPingResponseCallback implements PingResponseCallback {
+
+    /** The m_latch. */
     CountDownLatch m_latch;
 
     /**
@@ -50,6 +52,7 @@ public class ParallelPingResponseCallback implements PingResponseCallback {
      */
     Number[] m_responseTimes;
 
+    /** The m_error. */
     Throwable m_error;
 
     /**
@@ -106,14 +109,21 @@ public class ParallelPingResponseCallback implements PingResponseCallback {
      * <p>
      * waitFor
      * </p>
+     * .
      *
-     * @throws java.lang.InterruptedException
-     *             if any.
+     * @throws InterruptedException
+     *             the interrupted exception
      */
     public void waitFor() throws InterruptedException {
         m_latch.await();
     }
 
+    /**
+     * Rethrow error.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void rethrowError() throws Exception {
         if (m_error instanceof Error) {
             throw (Error) m_error;
@@ -126,6 +136,7 @@ public class ParallelPingResponseCallback implements PingResponseCallback {
      * <p>
      * getResponseTimes
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */

@@ -45,6 +45,7 @@ import org.slf4j.LoggerFactory;
  */
 public class SinglePingResponseCallback implements PingResponseCallback {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(SinglePingResponseCallback.class);
 
     /**
@@ -52,10 +53,13 @@ public class SinglePingResponseCallback implements PingResponseCallback {
      */
     private Long m_responseTime = null;
 
+    /** The m_host. */
     private InetAddress m_host;
 
+    /** The m_error. */
     private Throwable m_error = null;
 
+    /** The m_latch. */
     private CountDownLatch m_latch = new CountDownLatch(1);
 
     /**
@@ -110,11 +114,12 @@ public class SinglePingResponseCallback implements PingResponseCallback {
      * <p>
      * waitFor
      * </p>
+     * .
      *
      * @param timeout
      *            a long.
-     * @throws java.lang.InterruptedException
-     *             if any.
+     * @throws InterruptedException
+     *             the interrupted exception
      */
     public void waitFor(long timeout) throws InterruptedException {
         m_latch.await(timeout, TimeUnit.MILLISECONDS);
@@ -124,9 +129,10 @@ public class SinglePingResponseCallback implements PingResponseCallback {
      * <p>
      * waitFor
      * </p>
+     * .
      *
-     * @throws java.lang.InterruptedException
-     *             if any.
+     * @throws InterruptedException
+     *             the interrupted exception
      */
     public void waitFor() throws InterruptedException {
         info("waiting for ping to " + m_host + " to finish");
@@ -134,6 +140,12 @@ public class SinglePingResponseCallback implements PingResponseCallback {
         info("finished waiting for ping to " + m_host + " to finish");
     }
 
+    /**
+     * Rethrow error.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void rethrowError() throws Exception {
         if (m_error instanceof Error) {
             throw (Error) m_error;
@@ -153,6 +165,11 @@ public class SinglePingResponseCallback implements PingResponseCallback {
         return m_responseTime;
     }
 
+    /**
+     * Gets the error.
+     *
+     * @return the error
+     */
     public Throwable getError() {
         return m_error;
     }
@@ -161,6 +178,7 @@ public class SinglePingResponseCallback implements PingResponseCallback {
      * <p>
      * info
      * </p>
+     * .
      *
      * @param msg
      *            a {@link java.lang.String} object.
@@ -173,6 +191,7 @@ public class SinglePingResponseCallback implements PingResponseCallback {
      * <p>
      * info
      * </p>
+     * .
      *
      * @param msg
      *            a {@link java.lang.String} object.

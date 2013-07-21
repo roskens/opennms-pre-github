@@ -40,6 +40,8 @@ import org.slf4j.LoggerFactory;
  * @author <A HREF="mailto:brozow@opennms.org">Matt Brozowski</A>
  */
 public abstract class PingerFactory {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(PingerFactory.class);
 
     /**
@@ -48,7 +50,7 @@ public abstract class PingerFactory {
     private static Pinger m_pinger;
 
     /**
-     * Returns an implementation of the default {@link Pinger} class
+     * Returns an implementation of the default {@link Pinger} class.
      *
      * @return a {@link Pinger} object.
      */
@@ -90,6 +92,7 @@ public abstract class PingerFactory {
      * <p>
      * setIpcManager
      * </p>
+     * .
      *
      * @param pinger
      *            a {@link Pinger} object.

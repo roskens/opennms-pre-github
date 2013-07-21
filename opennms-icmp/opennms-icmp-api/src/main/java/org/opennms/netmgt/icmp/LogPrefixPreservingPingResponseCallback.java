@@ -35,21 +35,45 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
 
+/**
+ * The Class LogPrefixPreservingPingResponseCallback.
+ */
 public class LogPrefixPreservingPingResponseCallback implements PingResponseCallback {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(LogPrefixPreservingPingResponseCallback.class);
 
+    /** The m_cb. */
     private final PingResponseCallback m_cb;
 
+    /** The m_mdc. */
     private final Map m_mdc = getCopyOfContextMap();
 
+    /**
+     * Instantiates a new log prefix preserving ping response callback.
+     *
+     * @param cb
+     *            the cb
+     */
     public LogPrefixPreservingPingResponseCallback(PingResponseCallback cb) {
         m_cb = cb;
     }
 
+    /**
+     * Gets the copy of context map.
+     *
+     * @return the copy of context map
+     */
     private static Map getCopyOfContextMap() {
         return MDC.getCopyOfContextMap();
     }
 
+    /**
+     * Sets the context map.
+     *
+     * @param map
+     *            the new context map
+     */
     private static void setContextMap(Map map) {
         if (map == null) {
             MDC.clear();
@@ -58,6 +82,9 @@ public class LogPrefixPreservingPingResponseCallback implements PingResponseCall
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.icmp.PingResponseCallback#handleError(java.net.InetAddress, org.opennms.netmgt.icmp.EchoPacket, java.lang.Throwable)
+     */
     @Override
     public void handleError(InetAddress address, EchoPacket request, Throwable t) {
 
@@ -70,6 +97,9 @@ public class LogPrefixPreservingPingResponseCallback implements PingResponseCall
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.icmp.PingResponseCallback#handleResponse(java.net.InetAddress, org.opennms.netmgt.icmp.EchoPacket)
+     */
     @Override
     public void handleResponse(InetAddress address, EchoPacket response) {
         Map mdc = getCopyOfContextMap();
@@ -81,6 +111,9 @@ public class LogPrefixPreservingPingResponseCallback implements PingResponseCall
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.icmp.PingResponseCallback#handleTimeout(java.net.InetAddress, org.opennms.netmgt.icmp.EchoPacket)
+     */
     @Override
     public void handleTimeout(InetAddress address, EchoPacket request) {
         Map mdc = getCopyOfContextMap();
