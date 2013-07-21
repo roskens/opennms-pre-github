@@ -39,27 +39,39 @@ import junit.framework.TestCase;
 import org.opennms.api.integration.ticketing.PluginException;
 import org.opennms.api.integration.ticketing.Ticket;
 
+/**
+ * The Class OtrsTicketerPluginTest.
+ */
 public class OtrsTicketerPluginTest extends TestCase {
 
     // defaults for ticket
 
+    /** The default user. */
     private String defaultUser = new String("root@localhost");
 
     // defaults for article
 
+    /** The default article body. */
     private String defaultArticleBody = new String("default body text");
 
+    /** The default article subject. */
     private String defaultArticleSubject = new String("default article subject");
 
+    /** The m_config dao. */
     DefaultOtrsConfigDao m_configDao;
 
+    /** The m_ticketer. */
     OtrsTicketerPlugin m_ticketer;
 
+    /** The m_ticket. */
     Ticket m_ticket;
 
     /**
      * Don't run this test unless the runOtrsTests property
      * is set to "true".
+     *
+     * @throws Throwable
+     *             the throwable
      */
     @Override
     protected void runTest() throws Throwable {
@@ -77,14 +89,27 @@ public class OtrsTicketerPluginTest extends TestCase {
         }
     }
 
+    /**
+     * Checks if is run test.
+     *
+     * @return true, if is run test
+     */
     private boolean isRunTest() {
         return Boolean.getBoolean(getRunTestProperty());
     }
 
+    /**
+     * Gets the run test property.
+     *
+     * @return the run test property
+     */
     private String getRunTestProperty() {
         return "runOtrsTests";
     }
 
+    /* (non-Javadoc)
+     * @see junit.framework.TestCase#setUp()
+     */
     @Override
     protected void setUp() throws Exception {
 
@@ -104,6 +129,9 @@ public class OtrsTicketerPluginTest extends TestCase {
 
     }
 
+    /**
+     * Test get.
+     */
     public void testGet() {
 
         TicketIDAndNumber idAndNumber = null;
@@ -138,6 +166,9 @@ public class OtrsTicketerPluginTest extends TestCase {
 
     }
 
+    /**
+     * Test save.
+     */
     public void testSave() {
 
         Ticket retrievedTicket = null;
@@ -182,6 +213,12 @@ public class OtrsTicketerPluginTest extends TestCase {
      * }
      */
 
+    /**
+     * Test state update.
+     *
+     * @throws InterruptedException
+     *             the interrupted exception
+     */
     public void testStateUpdate() throws InterruptedException {
 
         try {
@@ -217,6 +254,14 @@ public class OtrsTicketerPluginTest extends TestCase {
 
     }
 
+    /**
+     * Assert ticket equals.
+     *
+     * @param existing
+     *            the existing
+     * @param retrieved
+     *            the retrieved
+     */
     private void assertTicketEquals(Ticket existing, Ticket retrieved) {
         assertEquals(existing.getId(), retrieved.getId());
         assertEquals(existing.getState(), retrieved.getState());
@@ -230,6 +275,17 @@ public class OtrsTicketerPluginTest extends TestCase {
 
     // This is just to bootstrap a saved ticket so that we can get it back later
 
+    /**
+     * Creates the ticket and article.
+     *
+     * @param ticketSubject
+     *            the ticket subject
+     * @param articleBody
+     *            the article body
+     * @return the ticket id and number
+     * @throws InterruptedException
+     *             the interrupted exception
+     */
     private TicketIDAndNumber createTicketAndArticle(String ticketSubject, String articleBody)
             throws InterruptedException {
 

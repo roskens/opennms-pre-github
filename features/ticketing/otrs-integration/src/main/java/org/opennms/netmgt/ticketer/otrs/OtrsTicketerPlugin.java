@@ -39,16 +39,20 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * OpenNMS Trouble Ticket Plugin API implementation for OTRS
+ * OpenNMS Trouble Ticket Plugin API implementation for OTRS.
  *
  * @author <a href="mailto:jonathan@opennms.org">Jonathan Sartin</a>
  * @version $Id: $
  */
 public class OtrsTicketerPlugin implements Plugin {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(OtrsTicketerPlugin.class);
 
+    /** The m_config dao. */
     private DefaultOtrsConfigDao m_configDao;
 
+    /** The m_endpoint. */
     private String m_endpoint;
 
     /**
@@ -193,6 +197,18 @@ public class OtrsTicketerPlugin implements Plugin {
 
     }
 
+    /**
+     * Update otrs state.
+     *
+     * @param ticket
+     *            the ticket
+     * @param port
+     *            the port
+     * @param creds
+     *            the creds
+     * @throws RemoteException
+     *             the remote exception
+     */
     private void updateOTRSState(Ticket ticket, TicketServicePort_PortType port, Credentials creds)
             throws RemoteException {
 
@@ -215,6 +231,19 @@ public class OtrsTicketerPlugin implements Plugin {
         port.ticketStateUpdate(stateUpdate, creds);
     }
 
+    /**
+     * New otrs ticket.
+     *
+     * @param newTicket
+     *            the new ticket
+     * @param port
+     *            the port
+     * @param creds
+     *            the creds
+     * @return the ticket id and number
+     * @throws RemoteException
+     *             the remote exception
+     */
     private TicketIDAndNumber newOTRSTicket(Ticket newTicket, TicketServicePort_PortType port, Credentials creds)
             throws RemoteException {
 
@@ -248,6 +277,20 @@ public class OtrsTicketerPlugin implements Plugin {
 
     }
 
+    /**
+     * New otrs article.
+     *
+     * @param otrsTicketNumber
+     *            the otrs ticket number
+     * @param newTicket
+     *            the new ticket
+     * @param port
+     *            the port
+     * @param creds
+     *            the creds
+     * @throws RemoteException
+     *             the remote exception
+     */
     private void newOTRSArticle(Long otrsTicketNumber, Ticket newTicket, TicketServicePort_PortType port,
             Credentials creds) throws RemoteException {
 
@@ -285,6 +328,20 @@ public class OtrsTicketerPlugin implements Plugin {
 
     }
 
+    /**
+     * Update otrs article.
+     *
+     * @param otrsTicketNumber
+     *            the otrs ticket number
+     * @param newTicket
+     *            the new ticket
+     * @param port
+     *            the port
+     * @param creds
+     *            the creds
+     * @throws RemoteException
+     *             the remote exception
+     */
     private void updateOTRSArticle(Long otrsTicketNumber, Ticket newTicket, TicketServicePort_PortType port,
             Credentials creds) throws RemoteException {
 
@@ -346,6 +403,7 @@ public class OtrsTicketerPlugin implements Plugin {
      * TODO: Convert this to something parameterised
      *
      * @param state
+     *            the state
      * @return an Integer representing the OTRS StateID.
      */
 
@@ -384,7 +442,8 @@ public class OtrsTicketerPlugin implements Plugin {
      * Convenience method for converting OTRS ticket StateID to
      * OpenNMS enumerated ticket states.
      *
-     * @param otrsStateID
+     * @param otrsStateId
+     *            the otrs state id
      * @return the converted
      *         <code>org.opennms.netmgt.ticketd.Ticket.State</code>
      */
@@ -416,7 +475,11 @@ public class OtrsTicketerPlugin implements Plugin {
      * Convenience method for initialising the ticketServicePort and correctly
      * setting the endpoint.
      *
+     * @param endpoint
+     *            the endpoint
      * @return TicketServicePort to connect to the remote service.
+     * @throws PluginException
+     *             the plugin exception
      */
 
     private TicketServicePort_PortType getTicketServicePort(String endpoint) throws PluginException {
@@ -441,6 +504,7 @@ public class OtrsTicketerPlugin implements Plugin {
      * <p>
      * getEndpoint
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -452,6 +516,7 @@ public class OtrsTicketerPlugin implements Plugin {
      * <p>
      * setEndpoint
      * </p>
+     * .
      *
      * @param endpoint
      *            a {@link java.lang.String} object.
