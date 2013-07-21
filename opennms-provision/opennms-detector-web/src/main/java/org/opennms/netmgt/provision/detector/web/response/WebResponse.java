@@ -47,14 +47,26 @@ import org.slf4j.LoggerFactory;
  */
 public class WebResponse {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(WebResponse.class);
 
+    /** The expected range. */
     private String expectedRange;
 
+    /** The expected text. */
     private String expectedText;
 
+    /** The http response. */
     private HttpResponse httpResponse;
 
+    /**
+     * Instantiates a new web response.
+     *
+     * @param request
+     *            the request
+     * @param response
+     *            the response
+     */
     public WebResponse(WebRequest request, HttpResponse response) {
         if (request != null) {
             this.expectedRange = request.getResponseRange();
@@ -63,6 +75,11 @@ public class WebResponse {
         this.httpResponse = response;
     }
 
+    /**
+     * Checks if is valid.
+     *
+     * @return true, if is valid
+     */
     public boolean isValid() {
         if (httpResponse == null || expectedRange == null) {
             return false;
@@ -94,6 +111,15 @@ public class WebResponse {
         return retval;
     }
 
+    /**
+     * In range.
+     *
+     * @param range
+     *            the range
+     * @param val
+     *            the val
+     * @return true, if successful
+     */
     private boolean inRange(String range, Integer val) {
         String[] boundries = range.split("-");
         if (val < new Integer(boundries[0]) || val > new Integer(boundries[1])) {

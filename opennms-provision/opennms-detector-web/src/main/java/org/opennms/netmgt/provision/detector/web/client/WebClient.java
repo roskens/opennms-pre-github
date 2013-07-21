@@ -69,20 +69,31 @@ import org.slf4j.LoggerFactory;
  */
 public class WebClient implements Client<WebRequest, WebResponse> {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(WebClient.class);
 
+    /** The m_http client. */
     private DefaultHttpClient m_httpClient;
 
+    /** The m_http method. */
     private HttpGet m_httpMethod;
 
+    /** The schema. */
     private String schema;
 
+    /** The path. */
     private String path;
 
+    /**
+     * Instantiates a new web client.
+     */
     public WebClient() {
         m_httpClient = new DefaultHttpClient();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.support.Client#connect(java.net.InetAddress, int, int)
+     */
     @Override
     public void connect(InetAddress address, int port, int timeout) throws IOException, Exception {
         URIBuilder ub = new URIBuilder();
@@ -94,16 +105,25 @@ public class WebClient implements Client<WebRequest, WebResponse> {
         setTimeout(timeout);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.support.Client#close()
+     */
     @Override
     public void close() {
         m_httpClient.getConnectionManager().shutdown();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.support.Client#receiveBanner()
+     */
     @Override
     public WebResponse receiveBanner() throws IOException, Exception {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.support.Client#sendRequest(java.lang.Object)
+     */
     @Override
     public WebResponse sendRequest(WebRequest request) throws IOException, Exception {
         for (Entry<String, String> entry : request.getHeaders().entrySet()) {
@@ -118,14 +138,32 @@ public class WebClient implements Client<WebRequest, WebResponse> {
         }
     }
 
+    /**
+     * Sets the path.
+     *
+     * @param path
+     *            the new path
+     */
     public void setPath(String path) {
         this.path = path;
     }
 
+    /**
+     * Sets the schema.
+     *
+     * @param schema
+     *            the new schema
+     */
     public void setSchema(String schema) {
         this.schema = schema;
     }
 
+    /**
+     * Sets the timeout.
+     *
+     * @param timeout
+     *            the new timeout
+     */
     public void setTimeout(int timeout) {
         if (timeout > 0) {
             m_httpClient.getParams().setParameter(CoreConnectionPNames.CONNECTION_TIMEOUT, timeout);
@@ -133,28 +171,62 @@ public class WebClient implements Client<WebRequest, WebResponse> {
         }
     }
 
+    /**
+     * Sets the user agent.
+     *
+     * @param userAgent
+     *            the new user agent
+     */
     public void setUserAgent(String userAgent) {
         m_httpClient.getParams().setParameter(CoreProtocolPNames.USER_AGENT, userAgent);
     }
 
+    /**
+     * Sets the virtual host.
+     *
+     * @param virtualHost
+     *            the virtual host
+     * @param virtualPort
+     *            the virtual port
+     */
     public void setVirtualHost(String virtualHost, int virtualPort) {
         if (virtualHost == null || virtualPort == 0)
             return;
         m_httpClient.getParams().setParameter(ClientPNames.VIRTUAL_HOST, new HttpHost(virtualHost, virtualPort));
     }
 
+    /**
+     * Sets the use http v1.
+     *
+     * @param useHttpV1
+     *            the new use http v1
+     */
     public void setUseHttpV1(boolean useHttpV1) {
         if (useHttpV1) {
             m_httpClient.getParams().setParameter(CoreProtocolPNames.PROTOCOL_VERSION, HttpVersion.HTTP_1_0);
         }
     }
 
+    /**
+     * Sets the auth.
+     *
+     * @param userName
+     *            the user name
+     * @param password
+     *            the password
+     */
     public void setAuth(String userName, String password) {
         LOG.debug("enabling user authentication using credentials for {}", userName);
         m_httpClient.getCredentialsProvider().setCredentials(AuthScope.ANY,
                                                              new UsernamePasswordCredentials(userName, password));
     }
 
+    /**
+     * Sets the auth preemtive.
+     *
+     * @param authPreemtive
+     *            the new auth preemtive
+     */
     public void setAuthPreemtive(boolean authPreemtive) {
         /**
          * Add an HttpRequestInterceptor that will perform preemptive

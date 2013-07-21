@@ -41,36 +41,78 @@ import java.util.Map;
  */
 public class WebRequest {
 
+    /** The m_headers. */
     private Map<String, String> m_headers = new HashMap<String, String>();
 
+    /** The m_response text. */
     private String m_responseText;
 
+    /** The m_response range. */
     private String m_responseRange;
 
+    /**
+     * Gets the headers.
+     *
+     * @return the headers
+     */
     public Map<String, String> getHeaders() {
         return m_headers;
     }
 
+    /**
+     * Sets the headers.
+     *
+     * @param headers
+     *            the headers
+     */
     public void setHeaders(Map<String, String> headers) {
         this.m_headers = headers;
     }
 
+    /**
+     * Gets the response text.
+     *
+     * @return the response text
+     */
     public String getResponseText() {
         return m_responseText;
     }
 
+    /**
+     * Sets the response text.
+     *
+     * @param responseText
+     *            the new response text
+     */
     public void setResponseText(String responseText) {
         this.m_responseText = responseText;
     }
 
+    /**
+     * Gets the response range.
+     *
+     * @return the response range
+     */
     public String getResponseRange() {
         return m_responseRange;
     }
 
+    /**
+     * Sets the response range.
+     *
+     * @param responseRange
+     *            the new response range
+     */
     public void setResponseRange(String responseRange) {
         this.m_responseRange = responseRange;
     }
 
+    /**
+     * Parses the headers.
+     *
+     * @param headersUrl
+     *            the headers url
+     */
     public void parseHeaders(String headersUrl) {
         if (headersUrl == null || !headersUrl.contains("="))
             return;

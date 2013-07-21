@@ -37,6 +37,9 @@ import org.opennms.netmgt.provision.support.ResponseValidator;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+/**
+ * The Class WebDetector.
+ */
 @Component
 /**
  * <p>WebDetector class.</p>
@@ -47,43 +50,57 @@ import org.springframework.stereotype.Component;
 @Scope("prototype")
 public class WebDetector extends BasicDetector<WebRequest, WebResponse> {
 
+    /** The Constant DEFAULT_SERVICE_NAME. */
     private static final String DEFAULT_SERVICE_NAME = "WEB";
 
+    /** The Constant DEFAULT_PORT. */
     private static final int DEFAULT_PORT = 80;
 
+    /** The path. */
     private String path = "/";
 
+    /** The user agent. */
     private String userAgent = "OpenNMS WebMonitor";
 
+    /** The virtual host. */
     private String virtualHost;
 
+    /** The use http v1. */
     private boolean useHttpV1 = false;
 
+    /** The headers. */
     private String headers;
 
+    /** The auth enabled. */
     private boolean authEnabled = false;
 
+    /** The auth preemtive. */
     private boolean authPreemtive = true;
 
+    /** The auth user. */
     private String authUser = "admin";
 
+    /** The auth password. */
     private String authPassword = "admin";
 
+    /** The response text. */
     private String responseText;
 
+    /** The response range. */
     private String responseRange = "100-399";
 
+    /** The schema. */
     private String schema = "http";
 
     /**
-     * Default constructor
+     * Default constructor.
      */
     public WebDetector() {
         super(DEFAULT_SERVICE_NAME, DEFAULT_PORT);
     }
 
     /**
-     * Constructor for creating a non-default service based on this protocol
+     * Constructor for creating a non-default service based on this protocol.
      *
      * @param serviceName
      *            a {@link java.lang.String} object.
@@ -94,11 +111,19 @@ public class WebDetector extends BasicDetector<WebRequest, WebResponse> {
         super(serviceName, port);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.support.AbstractDetector#onInit()
+     */
     @Override
     protected void onInit() {
         send(getRequest(), getWebValidator());
     }
 
+    /**
+     * Gets the request.
+     *
+     * @return the request
+     */
     private WebRequest getRequest() {
         WebRequest request = new WebRequest();
         request.parseHeaders(getHeaders());
@@ -107,6 +132,11 @@ public class WebDetector extends BasicDetector<WebRequest, WebResponse> {
         return request;
     }
 
+    /**
+     * Gets the web validator.
+     *
+     * @return the web validator
+     */
     private static ResponseValidator<WebResponse> getWebValidator() {
         return new ResponseValidator<WebResponse>() {
             @Override
@@ -116,6 +146,9 @@ public class WebDetector extends BasicDetector<WebRequest, WebResponse> {
         };
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.support.BasicDetector#getClient()
+     */
     @Override
     protected Client<WebRequest, WebResponse> getClient() {
         final WebClient client = new WebClient();
@@ -131,98 +164,230 @@ public class WebDetector extends BasicDetector<WebRequest, WebResponse> {
         return client;
     }
 
+    /**
+     * Gets the schema.
+     *
+     * @return the schema
+     */
     public String getSchema() {
         return schema;
     }
 
+    /**
+     * Sets the schema.
+     *
+     * @param schema
+     *            the new schema
+     */
     public void setSchema(String schema) {
         this.schema = schema;
     }
 
+    /**
+     * Gets the path.
+     *
+     * @return the path
+     */
     public String getPath() {
         return path;
     }
 
+    /**
+     * Sets the path.
+     *
+     * @param path
+     *            the new path
+     */
     public void setPath(String path) {
         this.path = path;
     }
 
+    /**
+     * Gets the user agent.
+     *
+     * @return the user agent
+     */
     public String getUserAgent() {
         return userAgent;
     }
 
+    /**
+     * Sets the user agent.
+     *
+     * @param userAgent
+     *            the new user agent
+     */
     public void setUserAgent(String userAgent) {
         this.userAgent = userAgent;
     }
 
+    /**
+     * Gets the virtual host.
+     *
+     * @return the virtual host
+     */
     public String getVirtualHost() {
         return virtualHost;
     }
 
+    /**
+     * Sets the virtual host.
+     *
+     * @param virtualHost
+     *            the new virtual host
+     */
     public void setVirtualHost(String virtualHost) {
         this.virtualHost = virtualHost;
     }
 
+    /**
+     * Checks if is use http v1.
+     *
+     * @return true, if is use http v1
+     */
     public boolean isUseHttpV1() {
         return useHttpV1;
     }
 
+    /**
+     * Sets the use http v1.
+     *
+     * @param useHttpV1
+     *            the new use http v1
+     */
     public void setUseHttpV1(boolean useHttpV1) {
         this.useHttpV1 = useHttpV1;
     }
 
+    /**
+     * Gets the headers.
+     *
+     * @return the headers
+     */
     public String getHeaders() {
         return headers;
     }
 
+    /**
+     * Sets the headers.
+     *
+     * @param headers
+     *            the new headers
+     */
     public void setHeaders(String headers) {
         this.headers = headers;
     }
 
+    /**
+     * Checks if is auth enabled.
+     *
+     * @return true, if is auth enabled
+     */
     public boolean isAuthEnabled() {
         return authEnabled;
     }
 
+    /**
+     * Sets the auth enabled.
+     *
+     * @param authEnabled
+     *            the new auth enabled
+     */
     public void setAuthEnabled(boolean authEnabled) {
         this.authEnabled = authEnabled;
     }
 
+    /**
+     * Checks if is auth preemtive.
+     *
+     * @return true, if is auth preemtive
+     */
     public boolean isAuthPreemtive() {
         return authPreemtive;
     }
 
+    /**
+     * Sets the auth preemtive.
+     *
+     * @param authPreemtive
+     *            the new auth preemtive
+     */
     public void setAuthPreemtive(boolean authPreemtive) {
         this.authPreemtive = authPreemtive;
     }
 
+    /**
+     * Gets the auth user.
+     *
+     * @return the auth user
+     */
     public String getAuthUser() {
         return authUser;
     }
 
+    /**
+     * Sets the auth user.
+     *
+     * @param authUser
+     *            the new auth user
+     */
     public void setAuthUser(String authUser) {
         this.authUser = authUser;
     }
 
+    /**
+     * Gets the auth password.
+     *
+     * @return the auth password
+     */
     public String getAuthPassword() {
         return authPassword;
     }
 
+    /**
+     * Sets the auth password.
+     *
+     * @param authPassword
+     *            the new auth password
+     */
     public void setAuthPassword(String authPassword) {
         this.authPassword = authPassword;
     }
 
+    /**
+     * Gets the response text.
+     *
+     * @return the response text
+     */
     public String getResponseText() {
         return responseText;
     }
 
+    /**
+     * Sets the response text.
+     *
+     * @param responseText
+     *            the new response text
+     */
     public void setResponseText(String responseText) {
         this.responseText = responseText;
     }
 
+    /**
+     * Gets the response range.
+     *
+     * @return the response range
+     */
     public String getResponseRange() {
         return responseRange;
     }
 
+    /**
+     * Sets the response range.
+     *
+     * @param responseRange
+     *            the new response range
+     */
     public void setResponseRange(String responseRange) {
         this.responseRange = responseRange;
     }
