@@ -50,28 +50,50 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+/**
+ * The Class NCSAlarmController.
+ */
 @Controller
 @RequestMapping("alarm/ncs-alarms.htm")
 public class NCSAlarmController {
 
+    /** The Constant DEFAULT_MULTIPLE. */
     public static final int DEFAULT_MULTIPLE = 0;
 
+    /** The m_success view. */
     private String m_successView = "alarm/ncs-alarms";
 
+    /** The m_default short limit. */
     private Integer m_defaultShortLimit = 1000;
 
+    /** The m_default long limit. */
     private Integer m_defaultLongLimit = 2000;
 
+    /** The m_default acknowledge type. */
     private AcknowledgeType m_defaultAcknowledgeType = AcknowledgeType.UNACKNOWLEDGED;
 
+    /** The m_default sort style. */
     private SortStyle m_defaultSortStyle = SortStyle.ID;
 
+    /** The m_web alarm repository. */
     @Autowired
     AlarmRepository m_webAlarmRepository;
 
+    /** The m_servlet context. */
     @Autowired
     ServletContext m_servletContext;
 
+    /**
+     * Handle request internal.
+     *
+     * @param request
+     *            the request
+     * @param response
+     *            the response
+     * @return the model and view
+     * @throws Exception
+     *             the exception
+     */
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response)
             throws Exception {
@@ -163,18 +185,38 @@ public class NCSAlarmController {
         return modelAndView;
     }
 
+    /**
+     * Gets the success view.
+     *
+     * @return the success view
+     */
     private String getSuccessView() {
         return m_successView;
     }
 
+    /**
+     * Gets the servlet context.
+     *
+     * @return the servlet context
+     */
     private ServletContext getServletContext() {
         return m_servletContext;
     }
 
+    /**
+     * Gets the default short limit.
+     *
+     * @return the default short limit
+     */
     private Integer getDefaultShortLimit() {
         return m_defaultShortLimit;
     }
 
+    /**
+     * Gets the default long limit.
+     *
+     * @return the default long limit
+     */
     private Integer getDefaultLongLimit() {
         return m_defaultLongLimit;
     }

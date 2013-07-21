@@ -32,8 +32,14 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
+/**
+ * The Class AlarmParmParserTest.
+ */
 public class AlarmParmParserTest {
 
+    /**
+     * Test parse parms.
+     */
     @Test
     public void testParseParms() {
         String parms = "url=http://localhost:8980/opennms/rtc/post/Network+Interfaces(string,text);user=rtc(string,text);passwd=rtc(string,text);catlabel=Network Interfaces(string,text)";
@@ -41,6 +47,15 @@ public class AlarmParmParserTest {
         assertEquals("http://localhost:8980/opennms/rtc/post/Network+Interfaces", getParm(parms, "url"));
     }
 
+    /**
+     * Gets the parm.
+     *
+     * @param eventParms
+     *            the event parms
+     * @param parm
+     *            the parm
+     * @return the parm
+     */
     private String getParm(String eventParms, String parm) {
         String retVal = null;
         if (eventParms.contains(parm + "=")) {

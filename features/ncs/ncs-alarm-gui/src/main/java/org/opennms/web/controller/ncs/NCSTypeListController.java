@@ -43,13 +43,28 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+/**
+ * The Class NCSTypeListController.
+ */
 @Controller
 @RequestMapping("ncs/ncs-type.htm")
 public class NCSTypeListController {
 
+    /** The m_component dao. */
     @Autowired
     NCSComponentRepository m_componentDao;
 
+    /**
+     * Handle request internal.
+     *
+     * @param request
+     *            the request
+     * @param response
+     *            the response
+     * @return the model and view
+     * @throws Exception
+     *             the exception
+     */
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response)
             throws Exception {
@@ -69,6 +84,13 @@ public class NCSTypeListController {
         return modelAndView;
     }
 
+    /**
+     * Gets the component html.
+     *
+     * @param component
+     *            the component
+     * @return the component html
+     */
     private String getComponentHTML(NCSComponent component) {
         StringBuffer buffer = new StringBuffer();
 
@@ -95,6 +117,11 @@ public class NCSTypeListController {
     }
 
     // Used for testing the controller view
+    /**
+     * Gets the test component.
+     *
+     * @return the test component
+     */
     private NCSComponent getTestComponent() {
         return new NCSBuilder("Service", "NA-Service", "123").setName("CokeP2P").pushComponent("ServiceElement",
                                                                                                "NA-ServiceElement",

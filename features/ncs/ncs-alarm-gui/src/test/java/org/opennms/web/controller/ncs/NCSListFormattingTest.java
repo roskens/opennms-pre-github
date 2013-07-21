@@ -44,8 +44,21 @@ import org.opennms.netmgt.model.ncs.NCSBuilder;
 import org.opennms.netmgt.model.ncs.NCSComponent;
 import org.opennms.netmgt.model.ncs.NCSComponent.DependencyRequirements;
 
+/**
+ * The Class NCSListFormattingTest.
+ */
 public class NCSListFormattingTest {
 
+    /**
+     * Test marshall component.
+     *
+     * @throws JAXBException
+     *             the jAXB exception
+     * @throws UnsupportedEncodingException
+     *             the unsupported encoding exception
+     * @throws TransformerConfigurationException
+     *             the transformer configuration exception
+     */
     @Test
     public void testMarshallComponent() throws JAXBException, UnsupportedEncodingException,
             TransformerConfigurationException {
@@ -95,6 +108,11 @@ public class NCSListFormattingTest {
         assertEquals(getExpectedList(), result);
     }
 
+    /**
+     * Gets the expected list.
+     *
+     * @return the expected list
+     */
     private String getExpectedList() {
         return "<ul>\n" + "<li>CokeP2P<ul>\n" + "<li>PE1:SE1<ul>\n" + "<li>jnxVpnIf<ul>\n" + "<li>link</li>\n"
                 + "</ul></li>\n" + "<li>jnxVpnPw-vcid(50)<ul>\n" + "<li>lspA-PE1-PE2</li>\n"
@@ -104,6 +122,9 @@ public class NCSListFormattingTest {
                 + "</ul></li>\n" + "</ul>";
     }
 
+    /**
+     * Test recursive method.
+     */
     @Test
     public void testRecursiveMethod() {
         NCSComponent svc = new NCSBuilder("Service", "NA-Service", "123").setName("CokeP2P").pushComponent("ServiceElement",
@@ -121,6 +142,13 @@ public class NCSListFormattingTest {
         System.err.println("recursive: " + result);
     }
 
+    /**
+     * Gets the component html.
+     *
+     * @param component
+     *            the component
+     * @return the component html
+     */
     private String getComponentHTML(NCSComponent component) {
         StringBuffer buffer = new StringBuffer();
         buffer.append("<li>");
@@ -140,6 +168,16 @@ public class NCSListFormattingTest {
 
     }
 
+    /**
+     * Prints the jaxb xml.
+     *
+     * @param svc
+     *            the svc
+     * @throws JAXBException
+     *             the jAXB exception
+     * @throws UnsupportedEncodingException
+     *             the unsupported encoding exception
+     */
     private void printJaxbXML(NCSComponent svc) throws JAXBException, UnsupportedEncodingException {
         JAXBContext context = JAXBContext.newInstance(NCSComponent.class);
         Marshaller marshaller = context.createMarshaller();

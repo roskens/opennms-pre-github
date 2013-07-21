@@ -30,26 +30,49 @@ package org.opennms.web.controller.ncs;
 
 import org.opennms.web.navigate.PageNavEntry;
 
+/**
+ * The Class NCSAlarmListNavItem.
+ */
 public class NCSAlarmListNavItem implements PageNavEntry {
 
+    /** The m_name. */
     private String m_name;
 
+    /** The m_url. */
     private String m_url;
 
+    /* (non-Javadoc)
+     * @see org.opennms.web.navigate.PageNavEntry#getName()
+     */
     @Override
     public String getName() {
         return m_name;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.web.navigate.PageNavEntry#getUrl()
+     */
     @Override
     public String getUrl() {
         return m_url;
     }
 
+    /**
+     * Sets the name.
+     *
+     * @param name
+     *            the new name
+     */
     public void setName(String name) {
         m_name = name;
     }
 
+    /**
+     * Sets the url.
+     *
+     * @param url
+     *            the new url
+     */
     public void setUrl(String url) {
         m_url = url;
     }
