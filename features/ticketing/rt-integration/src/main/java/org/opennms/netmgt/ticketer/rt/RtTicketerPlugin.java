@@ -43,32 +43,44 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * OpenNMS Trouble Ticket Plugin API implementation for RT
+ * OpenNMS Trouble Ticket Plugin API implementation for RT.
  *
  * @author <a href="mailto:jonathan@opennms.org">Jonathan Sartin</a>
  * @author <a href="mailto:ranger@opennms.org">Benjamin Reed</a>
  */
 public class RtTicketerPlugin implements Plugin {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(RtTicketerPlugin.class);
 
+    /** The m_tag pattern. */
     private static Pattern m_tagPattern = Pattern.compile("<[^>]*>");
 
+    /** The m_request tracker. */
     private RequestTracker m_requestTracker;
 
+    /** The m_queue. */
     private String m_queue;
 
+    /** The m_requestor. */
     private String m_requestor;
 
+    /** The m_open status. */
     private String m_openStatus;
 
+    /** The m_closed status. */
     private String m_closedStatus;
 
+    /** The m_cancelled status. */
     private String m_cancelledStatus;
 
+    /** The m_valid open status. */
     private List<Integer> m_validOpenStatus;
 
+    /** The m_valid closed status. */
     private List<String> m_validClosedStatus;
 
+    /** The m_valid cancelled status. */
     private List<String> m_validCancelledStatus;
 
     /**
@@ -183,10 +195,12 @@ public class RtTicketerPlugin implements Plugin {
     }
 
     /**
-     * Convenience method for updating the Ticket Status in RT
+     * Convenience method for updating the Ticket Status in RT.
      *
      * @param ticket
      *            the ticket details
+     * @throws PluginException
+     *             the plugin exception
      */
 
     private void updateRtStatus(final Ticket ticket) throws PluginException {
@@ -199,6 +213,13 @@ public class RtTicketerPlugin implements Plugin {
         }
     }
 
+    /**
+     * Rt ticket from ticket.
+     *
+     * @param ticket
+     *            the ticket
+     * @return the rT ticket
+     */
     private RTTicket rtTicketFromTicket(final Ticket ticket) {
         final RTTicket rtt = new RTTicket();
 
@@ -292,6 +313,7 @@ public class RtTicketerPlugin implements Plugin {
      * <p>
      * setUser
      * </p>
+     * .
      *
      * @param user
      *            a {@link java.lang.String} object.
@@ -304,6 +326,7 @@ public class RtTicketerPlugin implements Plugin {
      * <p>
      * setPassword
      * </p>
+     * .
      *
      * @param password
      *            a {@link java.lang.String} object.

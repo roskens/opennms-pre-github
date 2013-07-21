@@ -38,21 +38,29 @@ import org.opennms.api.integration.ticketing.Ticket;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The Class RtTicketerPluginTest.
+ */
 public class RtTicketerPluginTest extends TestCase {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(RtTicketerPluginTest.class);
 
     /**
-     * Test Cases for RtTicketerPlugin
-     *
-     * @author <a href="mailto:jonathan@opennms.org">Jonathan Sartin</a>
+     * Test Cases for RtTicketerPlugin. @author <a
+     * href="mailto:jonathan@opennms.org">Jonathan Sartin</a>
      */
 
     RtTicketerPlugin m_ticketer;
 
+    /** The m_ticket. */
     Ticket m_ticket;
 
     /**
      * Don't run this test unless the runRtTests property is set to "true".
+     *
+     * @throws Throwable
+     *             the throwable
      */
     @Override
     protected void runTest() throws Throwable {
@@ -70,14 +78,27 @@ public class RtTicketerPluginTest extends TestCase {
         }
     }
 
+    /**
+     * Checks if is run test.
+     *
+     * @return true, if is run test
+     */
     private boolean isRunTest() {
         return Boolean.getBoolean(getRunTestProperty());
     }
 
+    /**
+     * Gets the run test property.
+     *
+     * @return the run test property
+     */
     private String getRunTestProperty() {
         return "runRtTests";
     }
 
+    /* (non-Javadoc)
+     * @see junit.framework.TestCase#setUp()
+     */
     @Override
     protected void setUp() throws Exception {
         final String testHome = System.getProperty("user.home") + File.separatorChar + ".opennms" + File.separatorChar
@@ -101,6 +122,9 @@ public class RtTicketerPluginTest extends TestCase {
 
     }
 
+    /**
+     * Test save and get.
+     */
     public void testSaveAndGet() {
 
         try {
@@ -114,6 +138,9 @@ public class RtTicketerPluginTest extends TestCase {
 
     }
 
+    /**
+     * Test update and get.
+     */
     public void testUpdateAndGet() {
 
         try {
@@ -133,6 +160,14 @@ public class RtTicketerPluginTest extends TestCase {
 
     }
 
+    /**
+     * Assert ticket equals.
+     *
+     * @param existing
+     *            the existing
+     * @param retrieved
+     *            the retrieved
+     */
     private void assertTicketEquals(final Ticket existing, final Ticket retrieved) {
         assertEquals(existing.getId(), retrieved.getId());
         assertEquals(existing.getState(), retrieved.getState());
