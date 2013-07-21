@@ -53,8 +53,16 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @TestExecutionListeners({})
 public class JavaMailerTest {
+
+    /** The Constant TEST_ADDRESS. */
     private static final String TEST_ADDRESS = "test@opennms.org";
 
+    /**
+     * Sets the up.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     @Before
     public void setUp() throws IOException {
         MockLogAppender.setupLogging();
@@ -67,11 +75,23 @@ public class JavaMailerTest {
         System.setProperty("opennms.home", homeDir.getAbsolutePath());
     }
 
+    /**
+     * Tear down.
+     *
+     * @throws Throwable
+     *             the throwable
+     */
     @After
     public void tearDown() throws Throwable {
         // MockLogAppender.assertNoWarningsOrGreater();
     }
 
+    /**
+     * Test java mailer with defaults.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @IfProfileValue(name = "runMailTests", value = "true")
     @Ignore
@@ -81,6 +101,12 @@ public class JavaMailerTest {
         jm.mailSend();
     }
 
+    /**
+     * Test java mailer with null to.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @Ignore
     public final void testJavaMailerWithNullTo() throws Exception {
@@ -98,6 +124,12 @@ public class JavaMailerTest {
         ta.verifyAnticipated();
     }
 
+    /**
+     * Test java mailer with empty to.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @Ignore
     public final void testJavaMailerWithEmptyTo() throws Exception {
@@ -115,6 +147,12 @@ public class JavaMailerTest {
         ta.verifyAnticipated();
     }
 
+    /**
+     * Test java mailer with null from.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @Ignore
     public final void testJavaMailerWithNullFrom() throws Exception {
@@ -132,6 +170,12 @@ public class JavaMailerTest {
         ta.verifyAnticipated();
     }
 
+    /**
+     * Test java mailer with empty from.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @Ignore
     public final void testJavaMailerWithEmptyFrom() throws Exception {
@@ -149,6 +193,12 @@ public class JavaMailerTest {
         ta.verifyAnticipated();
     }
 
+    /**
+     * Test java mailer with null subject.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @Ignore
     public final void testJavaMailerWithNullSubject() throws Exception {
@@ -166,6 +216,12 @@ public class JavaMailerTest {
         ta.verifyAnticipated();
     }
 
+    /**
+     * Test java mailer with empty subject.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @Ignore
     public final void testJavaMailerWithEmptySubject() throws Exception {
@@ -183,6 +239,12 @@ public class JavaMailerTest {
         ta.verifyAnticipated();
     }
 
+    /**
+     * Test java mailer with null message text.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @Ignore
     public final void testJavaMailerWithNullMessageText() throws Exception {
@@ -200,6 +262,12 @@ public class JavaMailerTest {
         ta.verifyAnticipated();
     }
 
+    /**
+     * Test java mailer with empty message text.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @Ignore
     public final void testJavaMailerWithEmptyMessageText() throws Exception {
@@ -218,6 +286,12 @@ public class JavaMailerTest {
     }
 
     // FIXME: took this out a david's suggestion
+    /**
+     * Test java mailer using mta explicitly.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Ignore
     public final void testJavaMailerUsingMTAExplicitly() throws Exception {
         JavaMailer jm = createMailer("Test message from testJavaMailer using MTA explicitly");
@@ -231,6 +305,12 @@ public class JavaMailerTest {
     }
 
     // FIXME: took this out a david's suggestion
+    /**
+     * Test java mailer using mta by transport.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Ignore
     public final void testJavaMailerUsingMTAByTransport() throws Exception {
         JavaMailer jm = createMailer("Test message from testJavaMailer using MTA by transport");
@@ -245,6 +325,12 @@ public class JavaMailerTest {
         jm.mailSend();
     }
 
+    /**
+     * Test java mailer with file attachment.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Ignore
     @IfProfileValue(name = "runMailTests", value = "true")
     public final void testJavaMailerWithFileAttachment() throws Exception {
@@ -255,6 +341,15 @@ public class JavaMailerTest {
         jm.mailSend();
     }
 
+    /**
+     * Creates the mailer.
+     *
+     * @param subject
+     *            the subject
+     * @return the java mailer
+     * @throws Exception
+     *             the exception
+     */
     private JavaMailer createMailer(String subject) throws Exception {
         JavaMailer jm = new JavaMailer();
 

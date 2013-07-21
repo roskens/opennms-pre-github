@@ -71,16 +71,22 @@ import org.slf4j.LoggerFactory;
  */
 public class JavaReadMailer extends JavaMailer2 {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(JavaReadMailer.class);
 
+    /** The m_messages. */
     private List<Message> m_messages;
 
+    /** The m_config. */
     private final ReadmailConfig m_config;
 
+    /** The m_session. */
     private Session m_session;
 
+    /** The m_delete on close. */
     private Boolean m_deleteOnClose = false;
 
+    /** The m_store. */
     private Store m_store;
 
     /**
@@ -114,8 +120,8 @@ public class JavaReadMailer extends JavaMailer2 {
      *            object.
      * @param closeOnDelete
      *            a {@link java.lang.Boolean} object.
-     * @throws org.opennms.javamail.JavaMailerException
-     *             if any.
+     * @throws JavaMailerException
+     *             the java mailer exception
      */
     public JavaReadMailer(final ReadmailConfig config, Boolean closeOnDelete) throws JavaMailerException {
         if (closeOnDelete != null) {
@@ -131,10 +137,11 @@ public class JavaReadMailer extends JavaMailer2 {
      * <p>
      * retrieveMessages
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
-     * @throws org.opennms.javamail.JavaMailerException
-     *             if any.
+     * @throws JavaMailerException
+     *             the java mailer exception
      */
     public List<Message> retrieveMessages() throws JavaMailerException {
         Message[] msgs;
@@ -173,12 +180,13 @@ public class JavaReadMailer extends JavaMailer2 {
      * <p>
      * retrieveMessages
      * </p>
+     * .
      *
      * @param term
      *            a {@link javax.mail.search.SearchTerm} object.
      * @return a {@link java.util.List} object.
-     * @throws org.opennms.javamail.JavaMailerException
-     *             if any.
+     * @throws JavaMailerException
+     *             the java mailer exception
      */
     public List<Message> retrieveMessages(SearchTerm term) throws JavaMailerException {
         Message[] msgs;
@@ -206,7 +214,7 @@ public class JavaReadMailer extends JavaMailer2 {
 
     /**
      * Configures the java mail api properties based on the settings
-     * ReadMailConfig
+     * ReadMailConfig.
      *
      * @return A set of javamail properties based on the mail configuration
      */
@@ -247,6 +255,7 @@ public class JavaReadMailer extends JavaMailer2 {
      * <p>
      * getMessages
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -264,10 +273,10 @@ public class JavaReadMailer extends JavaMailer2 {
      *            a {@link javax.mail.Message} object.
      * @return The text portion of an email with each line being an element of
      *         the list.
-     * @throws javax.mail.MessagingException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws MessagingException
+     *             the messaging exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public static List<String> getText(Message msg) throws MessagingException, IOException {
 
@@ -304,6 +313,7 @@ public class JavaReadMailer extends JavaMailer2 {
      * <p>
      * isDeleteOnClose
      * </p>
+     * .
      *
      * @return a {@link java.lang.Boolean} object.
      */
@@ -315,6 +325,7 @@ public class JavaReadMailer extends JavaMailer2 {
      * <p>
      * setDeleteOnClose
      * </p>
+     * .
      *
      * @param deleteOnClose
      *            a {@link java.lang.Boolean} object.
@@ -327,6 +338,7 @@ public class JavaReadMailer extends JavaMailer2 {
      * <p>
      * string2Lines
      * </p>
+     * .
      *
      * @param text
      *            a {@link java.lang.String} object.

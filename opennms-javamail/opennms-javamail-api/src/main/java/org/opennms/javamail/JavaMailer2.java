@@ -53,17 +53,20 @@ import org.slf4j.LoggerFactory;
 import org.springframework.util.StringUtils;
 
 /**
- * Sends an email message using the Java Mail API
+ * Sends an email message using the Java Mail API.
  *
  * @author <A HREF="mailto:david@opennms.org">David Hustace </A>
  * @version $Id: $
  */
 public abstract class JavaMailer2 {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(JavaMailer2.class);
 
+    /** The m_session. */
     private Session m_session = null;
 
+    /** The m_mail props. */
     private Properties m_mailProps;
 
     /**
@@ -73,8 +76,8 @@ public abstract class JavaMailer2 {
      *
      * @param javamailProps
      *            a {@link java.util.Properties} object.
-     * @throws org.opennms.javamail.JavaMailerException
-     *             if any.
+     * @throws JavaMailerException
+     *             the java mailer exception
      */
     public JavaMailer2(Properties javamailProps) throws JavaMailerException {
     }
@@ -85,17 +88,16 @@ public abstract class JavaMailer2 {
      * properties, retrieve the current properties from the session and override
      * as needed.
      *
-     * @throws IOException
-     *             if any.
-     * @throws org.opennms.javamail.JavaMailerException
-     *             if any.
+     * @throws JavaMailerException
+     *             the java mailer exception
      */
     public JavaMailer2() throws JavaMailerException {
         this(new Properties());
     }
 
     /**
-     * Helper method to create an Authenticator based on Password Authentication
+     * Helper method to create an Authenticator based on Password
+     * Authentication.
      *
      * @param user
      *            a {@link java.lang.String} object.
@@ -155,12 +157,10 @@ public abstract class JavaMailer2 {
      * @param file
      *            file to attach
      * @return attachment body part
-     * @throws javax.mail.MessagingException
-     *             if we can't set the data handler or
-     *             the file name on the MimeBodyPart
-     * @throws org.opennms.javamail.JavaMailerException
-     *             if the file does not exist or is not
-     *             readable
+     * @throws MessagingException
+     *             the messaging exception
+     * @throws JavaMailerException
+     *             the java mailer exception
      */
     public MimeBodyPart createFileAttachment(final File file) throws MessagingException, JavaMailerException {
         if (!file.exists()) {
@@ -183,6 +183,7 @@ public abstract class JavaMailer2 {
      * <p>
      * setDebug
      * </p>
+     * .
      *
      * @param debug
      *            a boolean.
@@ -198,13 +199,19 @@ public abstract class JavaMailer2 {
      * <p>
      * log
      * </p>
+     * .
      *
      * @return log4j Category
      */
 
     public static class LoggingByteArrayOutputStream extends ByteArrayOutputStream {
+
+        /** The Constant LOG. */
         private static final Logger LOG = LoggerFactory.getLogger(LoggingByteArrayOutputStream.class);
 
+        /* (non-Javadoc)
+         * @see java.io.OutputStream#flush()
+         */
         @Override
         public void flush() throws IOException {
             super.flush();
@@ -218,31 +225,63 @@ public abstract class JavaMailer2 {
         }
     }
 
+    /**
+     * The listener interface for receiving loggingTransport events.
+     * The class that is interested in processing a loggingTransport
+     * event implements this interface, and the object created
+     * with that class is registered with a component using the
+     * component's <code>addLoggingTransportListener<code> method. When
+     * the loggingTransport event occurs, that object's appropriate
+     * method is invoked.
+     *
+     * @see LoggingTransportEvent
+     */
     public static class LoggingTransportListener implements TransportListener {
 
+        /** The Constant LOG. */
         private static final Logger LOG = LoggerFactory.getLogger(LoggingTransportListener.class);
 
+        /** The m_invalid addresses. */
         private List<Address> m_invalidAddresses = new ArrayList<Address>();
 
+        /** The m_valid sent addresses. */
         private List<Address> m_validSentAddresses = new ArrayList<Address>();
 
+        /** The m_valid unsent addresses. */
         private List<Address> m_validUnsentAddresses = new ArrayList<Address>();
 
+        /* (non-Javadoc)
+         * @see javax.mail.event.TransportListener#messageDelivered(javax.mail.event.TransportEvent)
+         */
         @Override
         public void messageDelivered(TransportEvent event) {
             logEvent("message delivered", event);
         }
 
+        /* (non-Javadoc)
+         * @see javax.mail.event.TransportListener#messageNotDelivered(javax.mail.event.TransportEvent)
+         */
         @Override
         public void messageNotDelivered(TransportEvent event) {
             logEvent("message not delivered", event);
         }
 
+        /* (non-Javadoc)
+         * @see javax.mail.event.TransportListener#messagePartiallyDelivered(javax.mail.event.TransportEvent)
+         */
         @Override
         public void messagePartiallyDelivered(TransportEvent event) {
             logEvent("message partially delivered", event);
         }
 
+        /**
+         * Log event.
+         *
+         * @param message
+         *            the message
+         * @param event
+         *            the event
+         */
         private void logEvent(String message, TransportEvent event) {
             if (event.getInvalidAddresses() != null && event.getInvalidAddresses().length > 0) {
                 m_invalidAddresses.addAll(Arrays.asList(event.getInvalidAddresses()));
@@ -261,6 +300,11 @@ public abstract class JavaMailer2 {
             }
         }
 
+        /**
+         * Checks for anything been received.
+         *
+         * @return true, if successful
+         */
         public boolean hasAnythingBeenReceived() {
             return m_invalidAddresses.size() != 0 || m_validSentAddresses.size() != 0
                     || m_validUnsentAddresses.size() != 0;
@@ -277,6 +321,7 @@ public abstract class JavaMailer2 {
          * problems.
          *
          * @throws JavaMailerException
+         *             the java mailer exception
          */
         public void assertAllMessagesDelivered() throws JavaMailerException {
             for (int i = 0; i < 10; i++) {
@@ -317,6 +362,7 @@ public abstract class JavaMailer2 {
      * <p>
      * getSession
      * </p>
+     * .
      *
      * @return the session
      */
@@ -328,6 +374,7 @@ public abstract class JavaMailer2 {
      * <p>
      * setSession
      * </p>
+     * .
      *
      * @param session
      *            the session to set

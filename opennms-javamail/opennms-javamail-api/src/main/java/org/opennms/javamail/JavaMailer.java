@@ -70,110 +70,157 @@ import org.slf4j.LoggerFactory;
 import org.springframework.util.StringUtils;
 
 /**
- * Sends an email message using the Java Mail API
+ * Sends an email message using the Java Mail API.
  *
  * @author <A HREF="mailto:david@opennms.org">David Hustace </A>
  * @version $Id: $
  */
 public class JavaMailer {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(JavaMailer.class);
 
+    /** The Constant DEFAULT_FROM_ADDRESS. */
     private static final String DEFAULT_FROM_ADDRESS = "root@[127.0.0.1]";
 
     // private static final String DEFAULT_TO_ADDRESS = "root@[127.0.0.1]";
+    /** The Constant DEFAULT_MAIL_HOST. */
     private static final String DEFAULT_MAIL_HOST = "127.0.0.1";
 
+    /** The Constant DEFAULT_AUTHENTICATE. */
     private static final boolean DEFAULT_AUTHENTICATE = false;
 
+    /** The Constant DEFAULT_AUTHENTICATE_USER. */
     private static final String DEFAULT_AUTHENTICATE_USER = "opennms";
 
+    /** The Constant DEFAULT_AUTHENTICATE_PASSWORD. */
     private static final String DEFAULT_AUTHENTICATE_PASSWORD = "opennms";
 
+    /** The Constant DEFAULT_MAILER. */
     private static final String DEFAULT_MAILER = "smtpsend";
 
+    /** The Constant DEFAULT_TRANSPORT. */
     private static final String DEFAULT_TRANSPORT = "smtp";
 
+    /** The Constant DEFAULT_MAILER_DEBUG. */
     private static final boolean DEFAULT_MAILER_DEBUG = false;
 
+    /** The Constant DEFAULT_USE_JMTA. */
     private static final boolean DEFAULT_USE_JMTA = true;
 
+    /** The Constant DEFAULT_CONTENT_TYPE. */
     private static final String DEFAULT_CONTENT_TYPE = "text/plain";
 
+    /** The Constant DEFAULT_CHARSET. */
     private static final String DEFAULT_CHARSET = "us-ascii";
 
+    /** The Constant DEFAULT_ENCODING. */
     private static final String DEFAULT_ENCODING = "Q"; // I think this means
                                                         // quoted-printable
                                                         // encoding, see bug
                                                         // 2825
 
-    private static final boolean DEFAULT_STARTTLS_ENABLE = false;
+    /**
+                                                         * The Constant
+                                                         * DEFAULT_STARTTLS_ENABLE
+                                                         * .
+                                                         */
+                                                        private static final boolean DEFAULT_STARTTLS_ENABLE = false;
 
+    /** The Constant DEFAULT_QUIT_WAIT. */
     private static final boolean DEFAULT_QUIT_WAIT = true;
 
+    /** The Constant DEFAULT_SMTP_PORT. */
     private static final int DEFAULT_SMTP_PORT = 25;
 
+    /** The Constant DEFAULT_SMTP_SSL_ENABLE. */
     private static final boolean DEFAULT_SMTP_SSL_ENABLE = false;
 
+    /** The m_session. */
     private Session m_session = null;
 
     /*
      * properties from configuration
      */
+    /** The m_mail props. */
     private Properties m_mailProps;
 
     /*
      * fields from properties used for deterministic behavior of the mailer
      */
+    /** The m_debug. */
     private boolean m_debug;
 
+    /** The m_mail host. */
     private String m_mailHost;
 
+    /** The m_use jmta. */
     private boolean m_useJMTA;
 
+    /** The m_mailer. */
     private String m_mailer;
 
+    /** The m_transport. */
     private String m_transport;
 
+    /** The m_from. */
     private String m_from;
 
+    /** The m_authenticate. */
     private boolean m_authenticate;
 
+    /** The m_user. */
     private String m_user;
 
+    /** The m_password. */
     private String m_password;
 
+    /** The m_content type. */
     private String m_contentType;
 
+    /** The m_char set. */
     private String m_charSet;
 
+    /** The m_encoding. */
     private String m_encoding;
 
+    /** The m_start tls enabled. */
     private boolean m_startTlsEnabled;
 
+    /** The m_quit wait. */
     private boolean m_quitWait;
 
+    /** The m_smtp port. */
     private int m_smtpPort;
 
+    /** The m_smtp ssl. */
     private boolean m_smtpSsl;
 
     /*
      * Basic messaging fields
      */
+    /** The m_to. */
     private String m_to;
 
+    /** The m_subject. */
     private String m_subject;
 
+    /** The m_message text. */
     private String m_messageText;
 
+    /** The m_file name. */
     private String m_fileName;
 
+    /** The m_input stream. */
     private InputStream m_inputStream;
 
+    /** The m_input stream name. */
     private String m_inputStreamName;
 
+    /** The m_input stream content type. */
     private String m_inputStreamContentType;
 
+    /** The m_extra headers. */
     private Map<String, String> m_extraHeaders = new HashMap<String, String>();
 
     /**
@@ -183,8 +230,8 @@ public class JavaMailer {
      *
      * @param javamailProps
      *            a {@link java.util.Properties} object.
-     * @throws org.opennms.javamail.JavaMailerException
-     *             if any.
+     * @throws JavaMailerException
+     *             the java mailer exception
      */
     public JavaMailer(Properties javamailProps) throws JavaMailerException {
 
@@ -204,10 +251,8 @@ public class JavaMailer {
      * properties, retrieve the current properties from the session and override
      * as needed.
      *
-     * @throws IOException
-     *             if any.
-     * @throws org.opennms.javamail.JavaMailerException
-     *             if any.
+     * @throws JavaMailerException
+     *             the java mailer exception
      */
     public JavaMailer() throws JavaMailerException {
         this(new Properties());
@@ -220,7 +265,10 @@ public class JavaMailer {
      * compatibility but configuration
      * will probably change soon.
      *
+     * @param javamailProps
+     *            the javamail props
      * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
 
     private void configureProperties(Properties javamailProps) throws IOException {
@@ -303,8 +351,8 @@ public class JavaMailer {
     /**
      * Sends a message based on properties set on this bean.
      *
-     * @throws org.opennms.javamail.JavaMailerException
-     *             if any.
+     * @throws JavaMailerException
+     *             the java mailer exception
      */
     public void mailSend() throws JavaMailerException {
         LOG.debug(createSendLogMsg());
@@ -312,7 +360,8 @@ public class JavaMailer {
     }
 
     /**
-     * Helper method to create an Authenticator based on Password Authentication
+     * Helper method to create an Authenticator based on Password
+     * Authentication.
      *
      * @return a {@link javax.mail.Authenticator} object.
      */
@@ -335,8 +384,8 @@ public class JavaMailer {
      * Build a complete message ready for sending.
      *
      * @return completed message, ready to be passed to Transport.sendMessage
-     * @throws org.opennms.javamail.JavaMailerException
-     *             if any of the underlying operations fail
+     * @throws JavaMailerException
+     *             the java mailer exception
      */
     public Message buildMessage() throws JavaMailerException {
         try {
@@ -392,10 +441,11 @@ public class JavaMailer {
     /**
      * Helper method to that creates a MIME message.
      *
-     * @param session
-     * @return
+     * @return the mime message
      * @throws MessagingException
+     *             the messaging exception
      * @throws AddressException
+     *             the address exception
      */
     private MimeMessage initializeMessage() throws MessagingException, AddressException {
         MimeMessage message;
@@ -410,7 +460,9 @@ public class JavaMailer {
     }
 
     /**
-     * @return
+     * Creates the send log msg.
+     *
+     * @return the string
      */
     private String createSendLogMsg() {
         StringBuffer sb = new StringBuffer();
@@ -435,12 +487,10 @@ public class JavaMailer {
      * @param file
      *            file to attach
      * @return attachment body part
-     * @throws javax.mail.MessagingException
-     *             if we can't set the data handler or
-     *             the file name on the MimeBodyPart
-     * @throws org.opennms.javamail.JavaMailerException
-     *             if the file does not exist or is not
-     *             readable
+     * @throws MessagingException
+     *             the messaging exception
+     * @throws JavaMailerException
+     *             the java mailer exception
      */
     public MimeBodyPart createFileAttachment(final File file) throws MessagingException, JavaMailerException {
         if (!file.exists()) {
@@ -499,8 +549,8 @@ public class JavaMailer {
      *
      * @param message
      *            a {@link javax.mail.Message} object.
-     * @throws org.opennms.javamail.JavaMailerException
-     *             if any.
+     * @throws JavaMailerException
+     *             the java mailer exception
      */
     public void sendMessage(Message message) throws JavaMailerException {
         Transport t = null;
@@ -543,14 +593,32 @@ public class JavaMailer {
         }
     }
 
+    /**
+     * The Class InputStreamDataSource.
+     */
     private class InputStreamDataSource implements DataSource {
 
+        /** The name. */
         private String name;
 
+        /** The content type. */
         private String contentType;
 
+        /** The baos. */
         private ByteArrayOutputStream baos;
 
+        /**
+         * Instantiates a new input stream data source.
+         *
+         * @param name
+         *            the name
+         * @param contentType
+         *            the content type
+         * @param inputStream
+         *            the input stream
+         * @throws JavaMailerException
+         *             the java mailer exception
+         */
         InputStreamDataSource(String name, String contentType, InputStream inputStream) throws JavaMailerException {
             this.name = name;
             this.contentType = contentType;
@@ -571,22 +639,34 @@ public class JavaMailer {
             }
         }
 
+        /* (non-Javadoc)
+         * @see javax.activation.DataSource#getContentType()
+         */
         @Override
         public String getContentType() {
             LOG.debug("getContentType: {}", contentType);
             return contentType;
         }
 
+        /* (non-Javadoc)
+         * @see javax.activation.DataSource#getInputStream()
+         */
         @Override
         public InputStream getInputStream() throws IOException {
             return new ByteArrayInputStream(baos.toByteArray());
         }
 
+        /* (non-Javadoc)
+         * @see javax.activation.DataSource#getName()
+         */
         @Override
         public String getName() {
             return name;
         }
 
+        /* (non-Javadoc)
+         * @see javax.activation.DataSource#getOutputStream()
+         */
         @Override
         public OutputStream getOutputStream() throws IOException {
             throw new IOException("Cannot write to this read-only resource");
@@ -597,6 +677,7 @@ public class JavaMailer {
      * <p>
      * getPassword
      * </p>
+     * .
      *
      * @return Returns the password.
      */
@@ -608,6 +689,7 @@ public class JavaMailer {
      * <p>
      * setPassword
      * </p>
+     * .
      *
      * @param password
      *            The password to set.
@@ -620,6 +702,7 @@ public class JavaMailer {
      * <p>
      * getUser
      * </p>
+     * .
      *
      * @return Returns the user.
      */
@@ -631,6 +714,7 @@ public class JavaMailer {
      * <p>
      * setUser
      * </p>
+     * .
      *
      * @param user
      *            The user to set.
@@ -643,6 +727,7 @@ public class JavaMailer {
      * <p>
      * isUseJMTA
      * </p>
+     * .
      *
      * @return Returns the _useMailHost.
      */
@@ -654,6 +739,7 @@ public class JavaMailer {
      * <p>
      * setUseJMTA
      * </p>
+     * .
      *
      * @param useMTA
      *            a boolean.
@@ -666,6 +752,7 @@ public class JavaMailer {
      * <p>
      * getFrom
      * </p>
+     * .
      *
      * @return Returns the from address.
      */
@@ -677,6 +764,7 @@ public class JavaMailer {
      * <p>
      * setFrom
      * </p>
+     * .
      *
      * @param from
      *            The from address to set.
@@ -689,6 +777,7 @@ public class JavaMailer {
      * <p>
      * isAuthenticate
      * </p>
+     * .
      *
      * @return Returns the authenticate boolean.
      */
@@ -700,6 +789,7 @@ public class JavaMailer {
      * <p>
      * setAuthenticate
      * </p>
+     * .
      *
      * @param authenticate
      *            The authenticate boolean to set.
@@ -712,6 +802,7 @@ public class JavaMailer {
      * <p>
      * getFileName
      * </p>
+     * .
      *
      * @return Returns the file name attachment.
      */
@@ -723,6 +814,7 @@ public class JavaMailer {
      * <p>
      * setFileName
      * </p>
+     * .
      *
      * @param fileName
      *            a {@link java.lang.String} object.
@@ -735,6 +827,7 @@ public class JavaMailer {
      * <p>
      * getInputStream
      * </p>
+     * .
      *
      * @return Returns the input stream attachment.
      */
@@ -746,6 +839,7 @@ public class JavaMailer {
      * <p>
      * setInputStream
      * </p>
+     * .
      *
      * @param inputStream
      *            Sets the input stream to be attached to the message.
@@ -758,6 +852,7 @@ public class JavaMailer {
      * <p>
      * getInputStreamName
      * </p>
+     * .
      *
      * @return Returns the name to use for stream attachments..
      */
@@ -769,6 +864,7 @@ public class JavaMailer {
      * <p>
      * setInputStreamName
      * </p>
+     * .
      *
      * @param inputStreamName
      *            Sets the name to use for stream attachments.
@@ -781,6 +877,7 @@ public class JavaMailer {
      * <p>
      * getInputStreamContentType
      * </p>
+     * .
      *
      * @return Returns the name to use for stream attachments..
      */
@@ -792,6 +889,7 @@ public class JavaMailer {
      * <p>
      * setInputStreamContentType
      * </p>
+     * .
      *
      * @param inputStreamContentType
      *            a {@link java.lang.String} object.
@@ -804,6 +902,7 @@ public class JavaMailer {
      * <p>
      * getMailHost
      * </p>
+     * .
      *
      * @return Returns the mail host.
      */
@@ -815,6 +914,7 @@ public class JavaMailer {
      * <p>
      * setMailHost
      * </p>
+     * .
      *
      * @param mail_host
      *            Sets the mail host.
@@ -827,6 +927,7 @@ public class JavaMailer {
      * <p>
      * getMailer
      * </p>
+     * .
      *
      * @return Returns the mailer.
      */
@@ -838,6 +939,7 @@ public class JavaMailer {
      * <p>
      * setMailer
      * </p>
+     * .
      *
      * @param mailer
      *            Sets the mailer.
@@ -850,6 +952,7 @@ public class JavaMailer {
      * <p>
      * getMessageText
      * </p>
+     * .
      *
      * @return Returns the message text.
      */
@@ -861,6 +964,7 @@ public class JavaMailer {
      * <p>
      * setMessageText
      * </p>
+     * .
      *
      * @param messageText
      *            Sets the message text.
@@ -873,6 +977,7 @@ public class JavaMailer {
      * <p>
      * getSubject
      * </p>
+     * .
      *
      * @return Returns the message Subject.
      */
@@ -884,6 +989,7 @@ public class JavaMailer {
      * <p>
      * setSubject
      * </p>
+     * .
      *
      * @param subject
      *            Sets the message Subject.
@@ -896,6 +1002,7 @@ public class JavaMailer {
      * <p>
      * getTo
      * </p>
+     * .
      *
      * @return Returns the To address.
      */
@@ -907,6 +1014,7 @@ public class JavaMailer {
      * <p>
      * setTo
      * </p>
+     * .
      *
      * @param to
      *            Sets the To address.
@@ -919,6 +1027,7 @@ public class JavaMailer {
      * <p>
      * getTransport
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -934,6 +1043,7 @@ public class JavaMailer {
      * <p>
      * setTransport
      * </p>
+     * .
      *
      * @param transport
      *            a {@link java.lang.String} object.
@@ -946,6 +1056,7 @@ public class JavaMailer {
      * <p>
      * isDebug
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -957,6 +1068,7 @@ public class JavaMailer {
      * <p>
      * setDebug
      * </p>
+     * .
      *
      * @param debug
      *            a boolean.
@@ -970,13 +1082,19 @@ public class JavaMailer {
     }
 
     /**
+     * The Class LoggingByteArrayOutputStream.
+     *
      * @return log4j Category
      */
 
     public static class LoggingByteArrayOutputStream extends ByteArrayOutputStream {
 
+        /** The Constant LOG. */
         private static final Logger LOG = LoggerFactory.getLogger(LoggingByteArrayOutputStream.class);
 
+        /* (non-Javadoc)
+         * @see java.io.OutputStream#flush()
+         */
         @Override
         public void flush() throws IOException {
             super.flush();
@@ -990,31 +1108,63 @@ public class JavaMailer {
         }
     }
 
+    /**
+     * The listener interface for receiving loggingTransport events.
+     * The class that is interested in processing a loggingTransport
+     * event implements this interface, and the object created
+     * with that class is registered with a component using the
+     * component's <code>addLoggingTransportListener<code> method. When
+     * the loggingTransport event occurs, that object's appropriate
+     * method is invoked.
+     *
+     * @see LoggingTransportEvent
+     */
     public static class LoggingTransportListener implements TransportListener {
 
+        /** The Constant LOG. */
         private static final Logger LOG = LoggerFactory.getLogger(LoggingTransportListener.class);
 
+        /** The m_invalid addresses. */
         private List<Address> m_invalidAddresses = new ArrayList<Address>();
 
+        /** The m_valid sent addresses. */
         private List<Address> m_validSentAddresses = new ArrayList<Address>();
 
+        /** The m_valid unsent addresses. */
         private List<Address> m_validUnsentAddresses = new ArrayList<Address>();
 
+        /* (non-Javadoc)
+         * @see javax.mail.event.TransportListener#messageDelivered(javax.mail.event.TransportEvent)
+         */
         @Override
         public void messageDelivered(TransportEvent event) {
             logEvent("message delivered", event);
         }
 
+        /* (non-Javadoc)
+         * @see javax.mail.event.TransportListener#messageNotDelivered(javax.mail.event.TransportEvent)
+         */
         @Override
         public void messageNotDelivered(TransportEvent event) {
             logEvent("message not delivered", event);
         }
 
+        /* (non-Javadoc)
+         * @see javax.mail.event.TransportListener#messagePartiallyDelivered(javax.mail.event.TransportEvent)
+         */
         @Override
         public void messagePartiallyDelivered(TransportEvent event) {
             logEvent("message partially delivered", event);
         }
 
+        /**
+         * Log event.
+         *
+         * @param message
+         *            the message
+         * @param event
+         *            the event
+         */
         private void logEvent(String message, TransportEvent event) {
             if (event.getInvalidAddresses() != null && event.getInvalidAddresses().length > 0) {
                 m_invalidAddresses.addAll(Arrays.asList(event.getInvalidAddresses()));
@@ -1033,6 +1183,11 @@ public class JavaMailer {
             }
         }
 
+        /**
+         * Checks for anything been received.
+         *
+         * @return true, if successful
+         */
         public boolean hasAnythingBeenReceived() {
             return m_invalidAddresses.size() != 0 || m_validSentAddresses.size() != 0
                     || m_validUnsentAddresses.size() != 0;
@@ -1049,6 +1204,7 @@ public class JavaMailer {
          * problems.
          *
          * @throws JavaMailerException
+         *             the java mailer exception
          */
         public void assertAllMessagesDelivered() throws JavaMailerException {
             for (int i = 0; i < 10; i++) {
@@ -1089,6 +1245,7 @@ public class JavaMailer {
      * <p>
      * getSession
      * </p>
+     * .
      *
      * @return the session
      */
@@ -1100,6 +1257,7 @@ public class JavaMailer {
      * <p>
      * setSession
      * </p>
+     * .
      *
      * @param session
      *            the session to set
@@ -1112,6 +1270,7 @@ public class JavaMailer {
      * <p>
      * getContentType
      * </p>
+     * .
      *
      * @return the contentType
      */
@@ -1123,6 +1282,7 @@ public class JavaMailer {
      * <p>
      * setContentType
      * </p>
+     * .
      *
      * @param contentType
      *            the contentType to set
@@ -1135,6 +1295,7 @@ public class JavaMailer {
      * <p>
      * getCharSet
      * </p>
+     * .
      *
      * @return the charSet
      */
@@ -1146,6 +1307,7 @@ public class JavaMailer {
      * <p>
      * setCharSet
      * </p>
+     * .
      *
      * @param charSet
      *            the charSet to set
@@ -1158,6 +1320,7 @@ public class JavaMailer {
      * <p>
      * getEncoding
      * </p>
+     * .
      *
      * @return the encoding
      */
@@ -1169,6 +1332,7 @@ public class JavaMailer {
      * <p>
      * setEncoding
      * </p>
+     * .
      *
      * @param encoding
      *            the encoding to set
@@ -1181,6 +1345,7 @@ public class JavaMailer {
      * <p>
      * isStartTlsEnabled
      * </p>
+     * .
      *
      * @return the startTlsEnabled
      */
@@ -1192,6 +1357,7 @@ public class JavaMailer {
      * <p>
      * setStartTlsEnabled
      * </p>
+     * .
      *
      * @param startTlsEnabled
      *            the startTlsEnabled to set
@@ -1204,6 +1370,7 @@ public class JavaMailer {
      * <p>
      * isQuitWait
      * </p>
+     * .
      *
      * @return the quitWait
      */
@@ -1215,6 +1382,7 @@ public class JavaMailer {
      * <p>
      * setQuitWait
      * </p>
+     * .
      *
      * @param quitWait
      *            the quitWait to set
@@ -1227,6 +1395,7 @@ public class JavaMailer {
      * <p>
      * getSmtpPort
      * </p>
+     * .
      *
      * @return the smtpPort
      */
@@ -1238,6 +1407,7 @@ public class JavaMailer {
      * <p>
      * setSmtpPort
      * </p>
+     * .
      *
      * @param smtpPort
      *            the smtpPort to set
@@ -1250,6 +1420,7 @@ public class JavaMailer {
      * <p>
      * isSmtpSsl
      * </p>
+     * .
      *
      * @return the smtpSsl
      */
@@ -1261,6 +1432,7 @@ public class JavaMailer {
      * <p>
      * setSmtpSsl
      * </p>
+     * .
      *
      * @param smtpSsl
      *            the smtpSsl to set
@@ -1279,14 +1451,33 @@ public class JavaMailer {
         return m_mailProps;
     }
 
+    /**
+     * Gets the extra headers.
+     *
+     * @return the extra headers
+     */
     public Map<String, String> getExtraHeaders() {
         return m_extraHeaders;
     }
 
+    /**
+     * Sets the extra headers.
+     *
+     * @param headers
+     *            the headers
+     */
     public void setExtraHeaders(final Map<String, String> headers) {
         m_extraHeaders = headers;
     }
 
+    /**
+     * Adds the extra header.
+     *
+     * @param key
+     *            the key
+     * @param value
+     *            the value
+     */
     public void addExtraHeader(final String key, final String value) {
         m_extraHeaders.put(key, value);
     }

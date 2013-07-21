@@ -51,14 +51,20 @@ import org.opennms.netmgt.config.javamail.SendmailMessage;
 import org.opennms.netmgt.config.javamail.SendmailProtocol;
 import org.opennms.netmgt.config.javamail.UserAuth;
 
+/**
+ * The Class JavaReadMailerTest.
+ */
 public class JavaReadMailerTest {
 
     /**
-     * Un-ignore this test with a proper gmail account
+     * Un-ignore this test with a proper gmail account.
      *
      * @throws JavaMailerException
+     *             the java mailer exception
      * @throws MessagingException
+     *             the messaging exception
      * @throws InterruptedException
+     *             the interrupted exception
      */
     @Test
     @Ignore
@@ -148,14 +154,37 @@ public class JavaReadMailerTest {
 
     }
 
+    /**
+     * Gets the password.
+     *
+     * @return the password
+     */
     private String getPassword() {
         return "bar";
     }
 
+    /**
+     * Gets the user.
+     *
+     * @return the user
+     */
     private String getUser() {
         return "foo";
     }
 
+    /**
+     * Creates the ack message.
+     *
+     * @param gmailAccount
+     *            the gmail account
+     * @param noticeId
+     *            the notice id
+     * @param regards
+     *            the regards
+     * @param body
+     *            the body
+     * @return the sendmail message
+     */
     private SendmailMessage createAckMessage(String gmailAccount, String noticeId, String regards, String body) {
         SendmailMessage sendMsg = new SendmailMessage();
         sendMsg.setTo(gmailAccount + "@gmail.com");
@@ -165,6 +194,17 @@ public class JavaReadMailerTest {
         return sendMsg;
     }
 
+    /**
+     * Creates the send mailer.
+     *
+     * @param gmailAccount
+     *            the gmail account
+     * @param gmailPassword
+     *            the gmail password
+     * @return the java send mailer
+     * @throws JavaMailerException
+     *             the java mailer exception
+     */
     private JavaSendMailer createSendMailer(String gmailAccount, String gmailPassword) throws JavaMailerException {
 
         SendmailConfig config = new SendmailConfig();
@@ -200,6 +240,16 @@ public class JavaReadMailerTest {
         return new JavaSendMailer(config);
     }
 
+    /**
+     * Test get text.
+     *
+     * @throws JavaMailerException
+     *             the java mailer exception
+     * @throws MessagingException
+     *             the messaging exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     @Test
     @Ignore
     public void testGetText() throws JavaMailerException, MessagingException, IOException {
@@ -211,6 +261,17 @@ public class JavaReadMailerTest {
         }
     }
 
+    /**
+     * Creates the google read mailer.
+     *
+     * @param gmailAccount
+     *            the gmail account
+     * @param gmailPassword
+     *            the gmail password
+     * @return the java read mailer
+     * @throws JavaMailerException
+     *             the java mailer exception
+     */
     private JavaReadMailer createGoogleReadMailer(String gmailAccount, String gmailPassword) throws JavaMailerException {
         ReadmailConfig config = new ReadmailConfig();
         config.setDebug(true);

@@ -29,16 +29,14 @@
 package org.opennms.javamail;
 
 /**
- * Exception used to create proper return code
+ * Exception used to create proper return code.
  *
  * @author <a href="mailto:david@opennms.org">David Hustace </a>
  * @version $Id: $
  */
 public class JavaMailerException extends Exception {
 
-    /**
-     *
-     */
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -5889585419229061711L;
 
     /**
