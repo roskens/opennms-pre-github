@@ -48,12 +48,17 @@ import java.util.StringTokenizer;
  * Bootstrap application for starting OpenNMS.
  */
 public class Bootstrap {
+
+    /** The Constant BOOT_PROPERTIES_NAME. */
     protected static final String BOOT_PROPERTIES_NAME = "bootstrap.properties";
 
+    /** The Constant RRD_PROPERTIES_NAME. */
     protected static final String RRD_PROPERTIES_NAME = "rrd-configuration.properties";
 
+    /** The Constant LIBRARY_PROPERTIES_NAME. */
     protected static final String LIBRARY_PROPERTIES_NAME = "libraries.properties";
 
+    /** The Constant OPENNMS_HOME_PROPERTY. */
     protected static final String OPENNMS_HOME_PROPERTY = "opennms.home";
 
     /**
@@ -81,16 +86,16 @@ public class Bootstrap {
      *
      * @param dirStr
      *            List of directories to search for JARs, separated by
-     *            {@link java.io.File#pathSeparator File.pathSeparator}
      * @param recursive
      *            Whether to recurse into subdirectories of the directories in
      *            dirStr
      * @param append
      *            TODO
-     * @returns A new ClassLoader containing the found JARs
      * @return a {@link java.lang.ClassLoader} object.
-     * @throws java.net.MalformedURLException
-     *             if any.
+     * @throws MalformedURLException
+     *             the malformed url exception
+     *             {@link java.io.File#pathSeparator File.pathSeparator}
+     * @returns A new ClassLoader containing the found JARs
      */
     public static ClassLoader loadClasses(String dirStr, boolean recursive, boolean append)
             throws MalformedURLException {
@@ -125,10 +130,10 @@ public class Bootstrap {
      *            Directory to search for JARs
      * @param recursive
      *            Whether to recurse into subdirectories of dir
-     * @returns A new ClassLoader containing the found JARs
      * @return a {@link java.lang.ClassLoader} object.
-     * @throws java.net.MalformedURLException
-     *             if any.
+     * @throws MalformedURLException
+     *             the malformed url exception
+     * @returns A new ClassLoader containing the found JARs
      */
     public static ClassLoader loadClasses(File dir, boolean recursive) throws MalformedURLException {
         LinkedList<URL> urls = new LinkedList<URL>();
@@ -141,8 +146,8 @@ public class Bootstrap {
      *
      * @param urls
      *            List of URLs to add to the ClassLoader's search list.
-     * @returns A new ClassLoader with the specified search list
      * @return a {@link java.lang.ClassLoader} object.
+     * @returns A new ClassLoader with the specified search list
      */
     public static ClassLoader newClassLoader(LinkedList<URL> urls) {
         URL[] urlsArray = urls.toArray(new URL[0]);
@@ -160,8 +165,8 @@ public class Bootstrap {
      *            dir
      * @param urls
      *            LinkedList to append found JARs onto
-     * @throws java.net.MalformedURLException
-     *             if any.
+     * @throws MalformedURLException
+     *             the malformed url exception
      */
     public static void loadClasses(File dir, boolean recursive, LinkedList<URL> urls) throws MalformedURLException {
         // Add the directory
@@ -225,6 +230,8 @@ public class Bootstrap {
      *
      * @param is
      *            InputStream of the properties file to load.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     protected static void loadProperties(InputStream is) throws IOException {
         Properties p = new Properties();
@@ -241,6 +248,12 @@ public class Bootstrap {
 
     /**
      * Copy properties from a property file to the system properties.
+     *
+     * @param f
+     *            the f
+     * @return true, if successful
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     protected static boolean loadProperties(File f) throws IOException {
         if (!f.exists()) {
@@ -267,6 +280,7 @@ public class Bootstrap {
      * @return whether the property file was able to be loaded into the System
      *         properties
      * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     protected static boolean loadDefaultProperties(File opennmsHome) throws IOException {
         boolean propertiesLoaded = true;
@@ -317,8 +331,8 @@ public class Bootstrap {
      *
      * @param args
      *            Command line arguments
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     public static void main(String[] args) throws Exception {
         loadDefaultProperties();
@@ -330,12 +344,50 @@ public class Bootstrap {
         executeClass(classToExec, classToExecMethod, classToExecArgs, false);
     }
 
+    /**
+     * Execute class.
+     *
+     * @param classToExec
+     *            the class to exec
+     * @param classToExecMethod
+     *            the class to exec method
+     * @param classToExecArgs
+     *            the class to exec args
+     * @param appendClasspath
+     *            the append classpath
+     * @throws MalformedURLException
+     *             the malformed url exception
+     * @throws ClassNotFoundException
+     *             the class not found exception
+     * @throws NoSuchMethodException
+     *             the no such method exception
+     */
     protected static void executeClass(final String classToExec, final String classToExecMethod,
             final String[] classToExecArgs, boolean appendClasspath) throws MalformedURLException,
             ClassNotFoundException, NoSuchMethodException {
         executeClass(classToExec, classToExecMethod, classToExecArgs, appendClasspath, false);
     }
 
+    /**
+     * Execute class.
+     *
+     * @param classToExec
+     *            the class to exec
+     * @param classToExecMethod
+     *            the class to exec method
+     * @param classToExecArgs
+     *            the class to exec args
+     * @param appendClasspath
+     *            the append classpath
+     * @param recurse
+     *            the recurse
+     * @throws MalformedURLException
+     *             the malformed url exception
+     * @throws ClassNotFoundException
+     *             the class not found exception
+     * @throws NoSuchMethodException
+     *             the no such method exception
+     */
     protected static void executeClass(final String classToExec, final String classToExecMethod,
             final String[] classToExecArgs, boolean appendClasspath, final boolean recurse)
             throws MalformedURLException, ClassNotFoundException, NoSuchMethodException {
@@ -387,6 +439,12 @@ public class Bootstrap {
         }
     }
 
+    /**
+     * Load default properties.
+     *
+     * @throws Exception
+     *             the exception
+     */
     protected static void loadDefaultProperties() throws Exception {
         boolean propertiesLoaded = false;
         String opennmsHome = System.getProperty(OPENNMS_HOME_PROPERTY);
