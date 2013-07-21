@@ -68,10 +68,18 @@ import com.atlassian.jira.rest.client.internal.jersey.JerseyJiraRestClientFactor
  * @author Seth
  */
 public class JiraTicketerPlugin implements Plugin {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(JiraTicketerPlugin.class);
 
+    /** The client factory. */
     protected final JiraRestClientFactory clientFactory = new JerseyJiraRestClientFactory();
 
+    /**
+     * Gets the connection.
+     *
+     * @return the connection
+     */
     protected JiraRestClient getConnection() {
         try {
             URI jiraUri = new URL(getProperties().getProperty("jira.host")).toURI();
@@ -95,6 +103,8 @@ public class JiraTicketerPlugin implements Plugin {
      * Implementation of TicketerPlugin API call to retrieve a Jira trouble
      * ticket.
      *
+     * @param ticketId
+     *            the ticket id
      * @return an OpenNMS
      */
     @Override
@@ -133,6 +143,7 @@ public class JiraTicketerPlugin implements Plugin {
      * the OpenNMS enumerated ticket states.
      *
      * @param stateIdString
+     *            the state id string
      * @return the converted
      *         <code>org.opennms.api.integration.ticketing.Ticket.State</code>
      */

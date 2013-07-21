@@ -40,10 +40,20 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.opennms.api.integration.ticketing.Ticket;
 
+/**
+ * The Class JiraTicketerPluginTest.
+ */
 public class JiraTicketerPluginTest {
 
+    /** The m_ticketer. */
     JiraTicketerPlugin m_ticketer;
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
 
@@ -54,6 +64,9 @@ public class JiraTicketerPluginTest {
         m_ticketer = new JiraTicketerPlugin();
     }
 
+    /**
+     * Test save.
+     */
     @Test
     @Ignore("This test creates test tickets on a JIRA system.")
     public void testSave() {
@@ -74,6 +87,12 @@ public class JiraTicketerPluginTest {
 
     }
 
+    /**
+     * Test update.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @Ignore("This test creates test tickets on a JIRA system.")
     public void testUpdate() throws Exception {
@@ -108,6 +127,14 @@ public class JiraTicketerPluginTest {
         assertTicketEquals(newTicket, newerTicket);
     }
 
+    /**
+     * Assert ticket equals.
+     *
+     * @param ticket
+     *            the ticket
+     * @param newTicket
+     *            the new ticket
+     */
     private static void assertTicketEquals(Ticket ticket, Ticket newTicket) {
         assertEquals(ticket.getId(), newTicket.getId());
         assertEquals(ticket.getState(), newTicket.getState());
