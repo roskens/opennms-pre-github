@@ -38,5 +38,33 @@ package org.opennms.netmgt.model;
  * @version $Id: $
  */
 public enum TroubleTicketState {
-    OPEN, CREATE_PENDING, CREATE_FAILED, UPDATE_PENDING, UPDATE_FAILED, CLOSED, CLOSE_PENDING, CLOSE_FAILED, RESOLVED, RESOLVE_PENDING, RESOLVE_FAILED, CANCELLED, CANCEL_PENDING, CANCEL_FAILED
+
+    /** The open. */
+    OPEN,
+ /** The create pending. */
+ CREATE_PENDING,
+ /** The create failed. */
+ CREATE_FAILED,
+ /** The update pending. */
+ UPDATE_PENDING,
+ /** The update failed. */
+ UPDATE_FAILED,
+ /** The closed. */
+ CLOSED,
+ /** The close pending. */
+ CLOSE_PENDING,
+ /** The close failed. */
+ CLOSE_FAILED,
+ /** The resolved. */
+ RESOLVED,
+ /** The resolve pending. */
+ RESOLVE_PENDING,
+ /** The resolve failed. */
+ RESOLVE_FAILED,
+ /** The cancelled. */
+ CANCELLED,
+ /** The cancel pending. */
+ CANCEL_PENDING,
+ /** The cancel failed. */
+ CANCEL_FAILED
 }

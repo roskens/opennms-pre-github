@@ -49,7 +49,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
 /**
- * The varbinds from the trap
+ * The varbinds from the trap.
  *
  * @version $Revision$ $Date$
  */
@@ -59,15 +59,15 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 @Deprecated
 // @ValidateUsing("event.xsd")
 public class Parms implements Serializable {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 1361348948961582446L;
 
     // --------------------------/
     // - Class/Member Variables -/
     // --------------------------/
 
-    /**
-     * A varbind from the trap
-     */
+    /** A varbind from the trap. */
     @XmlElement(name = "parm", required = true)
     private java.util.List<org.opennms.netmgt.xml.event.Parm> _parmList;
 
@@ -75,6 +75,9 @@ public class Parms implements Serializable {
     // - Constructors -/
     // ----------------/
 
+    /**
+     * Instantiates a new parms.
+     */
     public Parms() {
         super();
         this._parmList = new java.util.ArrayList<org.opennms.netmgt.xml.event.Parm>();
@@ -85,21 +88,26 @@ public class Parms implements Serializable {
     // -----------/
 
     /**
+     * Adds the parm.
+     *
      * @param vParm
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the v parm
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void addParm(final org.opennms.netmgt.xml.event.Parm vParm) throws java.lang.IndexOutOfBoundsException {
         this._parmList.add(vParm);
     }
 
     /**
+     * Adds the parm.
+     *
      * @param index
+     *            the index
      * @param vParm
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the v parm
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void addParm(final int index, final org.opennms.netmgt.xml.event.Parm vParm)
             throws java.lang.IndexOutOfBoundsException {
@@ -120,11 +128,11 @@ public class Parms implements Serializable {
      * Method getParm.
      *
      * @param index
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the index
      * @return the value of the org.opennms.netmgt.xml.event.Parm
      *         at the given index
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public org.opennms.netmgt.xml.event.Parm getParm(final int index) throws java.lang.IndexOutOfBoundsException {
         // check bounds for index
@@ -157,9 +165,9 @@ public class Parms implements Serializable {
      * No type checking is performed on any modifications to the
      * Vector.
      *
+     * @return a reference to the Vector backing this class
      * @deprecated This entire class has been deprecated. Use
      *             Event.getParmCollection instead
-     * @return a reference to the Vector backing this class
      */
     public java.util.List<org.opennms.netmgt.xml.event.Parm> getParmCollection() {
         return this._parmList;
@@ -185,6 +193,7 @@ public class Parms implements Serializable {
     }
 
     /**
+     * Removes the all parm.
      */
     public void removeAllParm() {
         this._parmList.clear();
@@ -194,6 +203,7 @@ public class Parms implements Serializable {
      * Method removeParm.
      *
      * @param vParm
+     *            the v parm
      * @return true if the object was removed from the collection.
      */
     public boolean removeParm(final org.opennms.netmgt.xml.event.Parm vParm) {
@@ -205,6 +215,7 @@ public class Parms implements Serializable {
      * Method removeParmAt.
      *
      * @param index
+     *            the index
      * @return the element removed from the collection
      */
     public org.opennms.netmgt.xml.event.Parm removeParmAt(final int index) {
@@ -213,11 +224,14 @@ public class Parms implements Serializable {
     }
 
     /**
+     * Sets the parm.
+     *
      * @param index
+     *            the index
      * @param vParm
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the v parm
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void setParm(final int index, final org.opennms.netmgt.xml.event.Parm vParm)
             throws java.lang.IndexOutOfBoundsException {
@@ -231,7 +245,10 @@ public class Parms implements Serializable {
     }
 
     /**
+     * Sets the parm.
+     *
      * @param vParmArray
+     *            the new parm
      */
     public void setParm(final org.opennms.netmgt.xml.event.Parm[] vParmArray) {
         // -- copy array
@@ -260,14 +277,17 @@ public class Parms implements Serializable {
      * Sets the value of '_parmList' by setting it to the given
      * Vector. No type checking is performed.
      *
-     * @deprecated
      * @param parmList
      *            the Vector to set.
+     * @deprecated
      */
     public void setParmCollection(final java.util.List<org.opennms.netmgt.xml.event.Parm> parmList) {
         this._parmList = parmList;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return new ToStringBuilder(this).append("parm", _parmList).toString();

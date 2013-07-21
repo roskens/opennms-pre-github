@@ -75,15 +75,28 @@ import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 import org.xml.sax.helpers.XMLReaderFactory;
 
+/**
+ * The Class JaxbCastorEquivalenceTest.
+ */
 public class JaxbCastorEquivalenceTest {
 
+    /** The Constant xmlWithNamespace. */
     private static final String xmlWithNamespace = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><event uuid=\"1234\" xmlns=\"http://xmlns.opennms.org/xsd/event\"><dbid>37</dbid><dist-poller>localhost</dist-poller><creation-time>Friday, March 18, 2011 1:34:13 PM GMT</creation-time><master-station>chief</master-station><mask><maskelement><mename>generic</mename><mevalue>6</mevalue></maskelement></mask><uei>uei.opennms.org/test</uei><source>JaxbCastorEquivalenceTest</source><nodeid>1</nodeid><time>Friday, March 18, 2011 1:34:13 PM GMT</time><host>funkytown</host><interface>192.168.0.1</interface><snmphost>192.168.0.1</snmphost><service>ICMP</service><snmp><id>.1.3.6.15</id><idtext>I am a banana!</idtext><version>v2c</version><specific>0</specific><generic>6</generic><community>public</community><time-stamp>1300455253196</time-stamp></snmp><parms><parm><parmName>foo</parmName><value encoding=\"text\" type=\"string\">bar</value></parm></parms><descr>This is a test thingy.</descr><logmsg dest=\"logndisplay\" notify=\"true\">this is a log message</logmsg><severity>Indeterminate</severity><pathoutage>monkeys</pathoutage><correlation path=\"pathOutage\" state=\"on\"><cuei>uei.opennms.org/funky-stuff</cuei><cmin>1</cmin><cmax>17</cmax><ctime>yesterday</ctime></correlation><operinstruct>run away</operinstruct><autoaction state=\"off\">content</autoaction><operaction menutext=\"this is in the menu!\" state=\"on\">totally actiony</operaction><autoacknowledge state=\"off\">content</autoacknowledge><loggroup>foo</loggroup><loggroup>bar</loggroup><tticket state=\"on\">tticket stuff</tticket><forward mechanism=\"snmptcp\" state=\"on\">I like shoes.</forward><script language=\"zombo\">the unattainable is within reach, at zombo.com</script><ifIndex>53</ifIndex><ifAlias>giggetE</ifAlias><mouseovertext>click here to buy now!!!!1!1!</mouseovertext><alarm-data x733-probable-cause=\"27\" x733-alarm-type=\"TimeDomainViolation\" auto-clean=\"true\" clear-key=\"car\" alarm-type=\"19\" reduction-key=\"bus\"/></event>";
 
+    /**
+     * Sets the up.
+     */
     @Before
     public void setUp() {
         MockLogAppender.setupLogging(true);
     }
 
+    /**
+     * Marshal event.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @Ignore("castor-specific things have been removed from the classes now")
     public void marshalEvent() throws Exception {
@@ -140,12 +153,24 @@ public class JaxbCastorEquivalenceTest {
         assertNotNull(newCastorEvent);
     }
 
+    /**
+     * Test unmarshal event simple.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testUnmarshalEventSimple() throws Exception {
         final JAXBContext c = JAXBContext.newInstance("org.opennms.netmgt.xml.event");
         c.createUnmarshaller().unmarshal(new StringReader(xmlWithNamespace));
     }
 
+    /**
+     * Test unmarshal event simple with validation.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testUnmarshalEventSimpleWithValidation() throws Exception {
         final JAXBContext c = JAXBContext.newInstance("org.opennms.netmgt.xml.event");
@@ -156,6 +181,12 @@ public class JaxbCastorEquivalenceTest {
         unmarshaller.unmarshal(new StringReader(xmlWithNamespace));
     }
 
+    /**
+     * Test unmarshal event simple with validation and generated jaxb.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testUnmarshalEventSimpleWithValidationAndGeneratedJaxb() throws Exception {
         final JAXBContext c = JAXBContext.newInstance("org.opennms.xmlns.xsd.event");
@@ -166,6 +197,11 @@ public class JaxbCastorEquivalenceTest {
         unmarshaller.unmarshal(new StringReader(xmlWithNamespace));
     }
 
+    /**
+     * Gets the full event.
+     *
+     * @return the full event
+     */
     private Event getFullEvent() {
         final EventBuilder builder = new EventBuilder("uei.opennms.org/test", "JaxbCastorEquivalenceTest");
         final Event event = builder.setUuid("1234").setDistPoller("localhost").setMasterStation("chief").setNodeid(1).setHost("funkytown").setInterface(addr("192.168.0.1")).setSnmpHost("192.168.0.1").setService("ICMP").setDescription("This is a test thingy.").setSeverity("normal").getEvent();
@@ -191,6 +227,11 @@ public class JaxbCastorEquivalenceTest {
         return event;
     }
 
+    /**
+     * Gets the full alarm data.
+     *
+     * @return the full alarm data
+     */
     private AlarmData getFullAlarmData() {
         final AlarmData alarmData = new AlarmData();
         alarmData.setAlarmType(19);
@@ -202,6 +243,11 @@ public class JaxbCastorEquivalenceTest {
         return alarmData;
     }
 
+    /**
+     * Gets the full script.
+     *
+     * @return the full script
+     */
     private Script getFullScript() {
         final Script script = new Script();
         script.setLanguage("zombo");
@@ -209,6 +255,11 @@ public class JaxbCastorEquivalenceTest {
         return script;
     }
 
+    /**
+     * Gets the full forward.
+     *
+     * @return the full forward
+     */
     private Forward getFullForward() {
         final Forward forward = new Forward();
         forward.setContent("I like shoes.");
@@ -217,6 +268,11 @@ public class JaxbCastorEquivalenceTest {
         return forward;
     }
 
+    /**
+     * Gets the full tticket.
+     *
+     * @return the full tticket
+     */
     private Tticket getFullTticket() {
         final Tticket tticket = new Tticket();
         tticket.setContent("tticket stuff");
@@ -224,6 +280,11 @@ public class JaxbCastorEquivalenceTest {
         return tticket;
     }
 
+    /**
+     * Gets the full autoacknowledge.
+     *
+     * @return the full autoacknowledge
+     */
     private Autoacknowledge getFullAutoacknowledge() {
         final Autoacknowledge autoacknowledge = new Autoacknowledge();
         autoacknowledge.setContent("content");
@@ -231,6 +292,11 @@ public class JaxbCastorEquivalenceTest {
         return autoacknowledge;
     }
 
+    /**
+     * Gets the full autoaction.
+     *
+     * @return the full autoaction
+     */
     private Autoaction getFullAutoaction() {
         final Autoaction autoaction = new Autoaction();
         autoaction.setContent("content");
@@ -238,6 +304,11 @@ public class JaxbCastorEquivalenceTest {
         return autoaction;
     }
 
+    /**
+     * Gets the full operaction.
+     *
+     * @return the full operaction
+     */
     private Operaction getFullOperaction() {
         final Operaction operaction = new Operaction();
         operaction.setContent("totally actiony");
@@ -246,6 +317,11 @@ public class JaxbCastorEquivalenceTest {
         return operaction;
     }
 
+    /**
+     * Gets the full correlation.
+     *
+     * @return the full correlation
+     */
     private Correlation getFullCorrelation() {
         final Correlation correlation = new Correlation();
         correlation.setCmax("17");
@@ -257,18 +333,33 @@ public class JaxbCastorEquivalenceTest {
         return correlation;
     }
 
+    /**
+     * Gets the full logmsg.
+     *
+     * @return the full logmsg
+     */
     private Logmsg getFullLogmsg() {
         final Logmsg logmsg = new Logmsg();
         logmsg.setContent("this is a log message");
         return logmsg;
     }
 
+    /**
+     * Gets the parm collection.
+     *
+     * @return the parm collection
+     */
     private List<Parm> getParmCollection() {
         final List<Parm> parms = new ArrayList<Parm>();
         parms.add(new Parm("foo", "bar"));
         return parms;
     }
 
+    /**
+     * Gets the full snmp.
+     *
+     * @return the full snmp
+     */
     private Snmp getFullSnmp() {
         final Snmp snmp = new Snmp();
         snmp.setCommunity("public");
@@ -281,12 +372,22 @@ public class JaxbCastorEquivalenceTest {
         return snmp;
     }
 
+    /**
+     * Gets the full mask.
+     *
+     * @return the full mask
+     */
     private Mask getFullMask() {
         final Mask mask = new Mask();
         mask.setMaskelement(new Maskelement[] { getFullMaskelement() });
         return mask;
     }
 
+    /**
+     * Gets the full maskelement.
+     *
+     * @return the full maskelement
+     */
     private Maskelement getFullMaskelement() {
         final Maskelement maskelement = new Maskelement();
         maskelement.setMename("generic");
@@ -294,6 +395,16 @@ public class JaxbCastorEquivalenceTest {
         return maskelement;
     }
 
+    /**
+     * Assert xml equals.
+     *
+     * @param string
+     *            the string
+     * @param string2
+     *            the string2
+     * @throws Exception
+     *             the exception
+     */
     private void assertXmlEquals(final String string, final String string2) throws Exception {
         final DetailedDiff diff = getDiff(string, string2);
         System.err.println("diff = " + diff);
@@ -301,6 +412,19 @@ public class JaxbCastorEquivalenceTest {
                      diff.getAllDifferences().size());
     }
 
+    /**
+     * Gets the diff.
+     *
+     * @param xmlA
+     *            the xml a
+     * @param xmlB
+     *            the xml b
+     * @return the diff
+     * @throws SAXException
+     *             the sAX exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     private DetailedDiff getDiff(final String xmlA, final String xmlB) throws SAXException, IOException {
         DetailedDiff myDiff = new DetailedDiff(XMLUnit.compareXML(xmlA, xmlB));
         @SuppressWarnings("unchecked")

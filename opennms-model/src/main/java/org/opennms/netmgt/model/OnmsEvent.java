@@ -70,127 +70,125 @@ import org.springframework.core.style.ToStringCreator;
 @Filter(name = FilterManager.AUTH_FILTER_NAME, condition = "exists (select distinct x.nodeid from node x join category_node cn on x.nodeid = cn.nodeid join category_group cg on cn.categoryId = cg.categoryId where x.nodeid = nodeid and cg.groupId in (:userGroups))")
 public class OnmsEvent extends OnmsEntity implements Serializable {
 
-    /**
-	 *
-	 */
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -7412025003474162992L;
 
-    /** identifier field */
+    /** identifier field. */
     private Integer m_eventId;
 
-    /** persistent field */
+    /** persistent field. */
     private String m_eventUei;
 
-    /** persistent field */
+    /** persistent field. */
     private Date m_eventTime;
 
-    /** nullable persistent field */
+    /** nullable persistent field. */
     private String m_eventHost;
 
-    /** persistent field */
+    /** persistent field. */
     private String m_eventSource;
 
-    /** nullable persistent field */
+    /** nullable persistent field. */
     private InetAddress m_ipAddr;
 
-    /** persistent field */
+    /** persistent field. */
     private OnmsDistPoller m_distPoller;
 
-    /** nullable persistent field */
+    /** nullable persistent field. */
     private String m_eventSnmpHost;
 
-    /** nullable persistent field */
+    /** nullable persistent field. */
     private OnmsServiceType m_serviceType;
 
-    /** nullable persistent field */
+    /** nullable persistent field. */
     private String m_eventSnmp;
 
-    /** nullable persistent field */
+    /** nullable persistent field. */
     private String m_eventParms;
 
-    /** persistent field */
+    /** persistent field. */
     private Date m_eventCreateTime;
 
-    /** nullable persistent field */
+    /** nullable persistent field. */
     private String m_eventDescr;
 
-    /** nullable persistent field */
+    /** nullable persistent field. */
     private String m_eventLogGroup;
 
-    /** nullable persistent field */
+    /** nullable persistent field. */
     private String m_eventLogMsg;
 
-    /** persistent field */
+    /** persistent field. */
     private Integer m_eventSeverity;
 
-    /** nullable persistent field */
+    /** nullable persistent field. */
     private Integer m_ifIndex;
 
-    /** nullable persistent field */
+    /** nullable persistent field. */
     private String m_eventPathOutage;
 
-    /** nullable persistent field */
+    /** nullable persistent field. */
     private String m_eventCorrelation;
 
-    /** nullable persistent field */
+    /** nullable persistent field. */
     private Integer m_eventSuppressedCount;
 
-    /** nullable persistent field */
+    /** nullable persistent field. */
     private String m_eventOperInstruct;
 
-    /** nullable persistent field */
+    /** nullable persistent field. */
     private String m_eventAutoAction;
 
-    /** nullable persistent field */
+    /** nullable persistent field. */
     private String m_eventOperAction;
 
-    /** nullable persistent field */
+    /** nullable persistent field. */
     private String m_eventOperActionMenuText;
 
-    /** nullable persistent field */
+    /** nullable persistent field. */
     private String m_eventNotification;
 
-    /** nullable persistent field */
+    /** nullable persistent field. */
     private String m_eventTTicket;
 
-    /** nullable persistent field */
+    /** nullable persistent field. */
     private Integer m_eventTTicketState;
 
-    /** nullable persistent field */
+    /** nullable persistent field. */
     private String m_eventForward;
 
-    /** nullable persistent field */
+    /** nullable persistent field. */
     private String m_eventMouseOverText;
 
-    /** persistent field */
+    /** persistent field. */
     private String m_eventLog;
 
-    /** persistent field */
+    /** persistent field. */
     private String m_eventDisplay;
 
-    /** nullable persistent field */
+    /** nullable persistent field. */
     private String m_eventAckUser;
 
-    /** nullable persistent field */
+    /** nullable persistent field. */
     private Date m_eventAckTime;
 
-    /** nullable persistent field */
+    /** nullable persistent field. */
     private OnmsAlarm m_alarm;
 
-    /** persistent field */
+    /** persistent field. */
     private org.opennms.netmgt.model.OnmsNode m_node;
 
-    /** persistent field */
+    /** persistent field. */
     private Set<OnmsNotification> m_notifications = new HashSet<OnmsNotification>();
 
-    /** persistent field */
+    /** persistent field. */
     private Set<OnmsOutage> m_associatedServiceRegainedOutages = new HashSet<OnmsOutage>();
 
-    /** persistent field */
+    /** persistent field. */
     private Set<OnmsOutage> m_associatedServiceLostOutages = new HashSet<OnmsOutage>();
 
     /**
-     * full constructor
+     * full constructor.
      *
      * @param eventid
      *            a {@link java.lang.Integer} object.
@@ -317,13 +315,13 @@ public class OnmsEvent extends OnmsEntity implements Serializable {
     }
 
     /**
-     * default constructor
+     * default constructor.
      */
     public OnmsEvent() {
     }
 
     /**
-     * minimal constructor
+     * minimal constructor.
      *
      * @param eventid
      *            a {@link java.lang.Integer} object.
@@ -377,6 +375,7 @@ public class OnmsEvent extends OnmsEntity implements Serializable {
      * <p>
      * getId
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -393,6 +392,7 @@ public class OnmsEvent extends OnmsEntity implements Serializable {
      * <p>
      * setId
      * </p>
+     * .
      *
      * @param eventid
      *            a {@link java.lang.Integer} object.
@@ -405,6 +405,7 @@ public class OnmsEvent extends OnmsEntity implements Serializable {
      * <p>
      * getEventUei
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -418,6 +419,7 @@ public class OnmsEvent extends OnmsEntity implements Serializable {
      * <p>
      * setEventUei
      * </p>
+     * .
      *
      * @param eventuei
      *            a {@link java.lang.String} object.
@@ -430,6 +432,7 @@ public class OnmsEvent extends OnmsEntity implements Serializable {
      * <p>
      * getEventTime
      * </p>
+     * .
      *
      * @return a {@link java.util.Date} object.
      */
@@ -444,6 +447,7 @@ public class OnmsEvent extends OnmsEntity implements Serializable {
      * <p>
      * setEventTime
      * </p>
+     * .
      *
      * @param eventtime
      *            a {@link java.util.Date} object.
@@ -456,6 +460,7 @@ public class OnmsEvent extends OnmsEntity implements Serializable {
      * <p>
      * getEventHost
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -469,6 +474,7 @@ public class OnmsEvent extends OnmsEntity implements Serializable {
      * <p>
      * setEventHost
      * </p>
+     * .
      *
      * @param eventhost
      *            a {@link java.lang.String} object.
@@ -481,6 +487,7 @@ public class OnmsEvent extends OnmsEntity implements Serializable {
      * <p>
      * getEventSource
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -494,6 +501,7 @@ public class OnmsEvent extends OnmsEntity implements Serializable {
      * <p>
      * setEventSource
      * </p>
+     * .
      *
      * @param eventsource
      *            a {@link java.lang.String} object.
@@ -506,6 +514,7 @@ public class OnmsEvent extends OnmsEntity implements Serializable {
      * <p>
      * getIpAddr
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -521,6 +530,7 @@ public class OnmsEvent extends OnmsEntity implements Serializable {
      * <p>
      * setIpAddr
      * </p>
+     * .
      *
      * @param ipaddr
      *            a {@link java.lang.String} object.
@@ -533,6 +543,7 @@ public class OnmsEvent extends OnmsEntity implements Serializable {
      * <p>
      * getDistPoller
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.OnmsDistPoller} object.
      */
@@ -547,6 +558,7 @@ public class OnmsEvent extends OnmsEntity implements Serializable {
      * <p>
      * setDistPoller
      * </p>
+     * .
      *
      * @param distPoller
      *            a {@link org.opennms.netmgt.model.OnmsDistPoller} object.
@@ -559,6 +571,7 @@ public class OnmsEvent extends OnmsEntity implements Serializable {
      * <p>
      * getEventSnmpHost
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -572,6 +585,7 @@ public class OnmsEvent extends OnmsEntity implements Serializable {
      * <p>
      * setEventSnmpHost
      * </p>
+     * .
      *
      * @param eventsnmphost
      *            a {@link java.lang.String} object.
@@ -584,6 +598,7 @@ public class OnmsEvent extends OnmsEntity implements Serializable {
      * <p>
      * getServiceType
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.OnmsServiceType} object.
      */
@@ -597,6 +612,7 @@ public class OnmsEvent extends OnmsEntity implements Serializable {
      * <p>
      * setServiceType
      * </p>
+     * .
      *
      * @param serviceType
      *            a {@link org.opennms.netmgt.model.OnmsServiceType} object.
@@ -609,6 +625,7 @@ public class OnmsEvent extends OnmsEntity implements Serializable {
      * <p>
      * getEventSnmp
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -622,6 +639,7 @@ public class OnmsEvent extends OnmsEntity implements Serializable {
      * <p>
      * setEventSnmp
      * </p>
+     * .
      *
      * @param eventsnmp
      *            a {@link java.lang.String} object.
@@ -634,6 +652,7 @@ public class OnmsEvent extends OnmsEntity implements Serializable {
      * <p>
      * getEventParms
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -647,6 +666,7 @@ public class OnmsEvent extends OnmsEntity implements Serializable {
      * <p>
      * setEventParms
      * </p>
+     * .
      *
      * @param eventparms
      *            a {@link java.lang.String} object.
@@ -659,6 +679,7 @@ public class OnmsEvent extends OnmsEntity implements Serializable {
      * <p>
      * getEventCreateTime
      * </p>
+     * .
      *
      * @return a {@link java.util.Date} object.
      */
@@ -673,6 +694,7 @@ public class OnmsEvent extends OnmsEntity implements Serializable {
      * <p>
      * setEventCreateTime
      * </p>
+     * .
      *
      * @param eventcreatetime
      *            a {@link java.util.Date} object.
@@ -685,6 +707,7 @@ public class OnmsEvent extends OnmsEntity implements Serializable {
      * <p>
      * getEventDescr
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -698,6 +721,7 @@ public class OnmsEvent extends OnmsEntity implements Serializable {
      * <p>
      * setEventDescr
      * </p>
+     * .
      *
      * @param eventdescr
      *            a {@link java.lang.String} object.
@@ -710,6 +734,7 @@ public class OnmsEvent extends OnmsEntity implements Serializable {
      * <p>
      * getEventLogGroup
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -723,6 +748,7 @@ public class OnmsEvent extends OnmsEntity implements Serializable {
      * <p>
      * setEventLogGroup
      * </p>
+     * .
      *
      * @param eventloggroup
      *            a {@link java.lang.String} object.
@@ -735,6 +761,7 @@ public class OnmsEvent extends OnmsEntity implements Serializable {
      * <p>
      * getEventLogMsg
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -748,6 +775,7 @@ public class OnmsEvent extends OnmsEntity implements Serializable {
      * <p>
      * setEventLogMsg
      * </p>
+     * .
      *
      * @param eventlogmsg
      *            a {@link java.lang.String} object.
@@ -760,6 +788,7 @@ public class OnmsEvent extends OnmsEntity implements Serializable {
      * <p>
      * getEventSeverity
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -773,6 +802,7 @@ public class OnmsEvent extends OnmsEntity implements Serializable {
      * <p>
      * setEventSeverity
      * </p>
+     * .
      *
      * @param severity
      *            a {@link java.lang.Integer} object.
@@ -785,6 +815,7 @@ public class OnmsEvent extends OnmsEntity implements Serializable {
      * <p>
      * getSeverityLabel
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -798,6 +829,7 @@ public class OnmsEvent extends OnmsEntity implements Serializable {
      * <p>
      * setSeverityLabel
      * </p>
+     * .
      *
      * @param label
      *            a {@link java.lang.String} object.
@@ -810,6 +842,7 @@ public class OnmsEvent extends OnmsEntity implements Serializable {
      * <p>
      * getEventPathOutage
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -823,6 +856,7 @@ public class OnmsEvent extends OnmsEntity implements Serializable {
      * <p>
      * setEventPathOutage
      * </p>
+     * .
      *
      * @param eventpathoutage
      *            a {@link java.lang.String} object.
@@ -835,6 +869,7 @@ public class OnmsEvent extends OnmsEntity implements Serializable {
      * <p>
      * getEventCorrelation
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -848,6 +883,7 @@ public class OnmsEvent extends OnmsEntity implements Serializable {
      * <p>
      * setEventCorrelation
      * </p>
+     * .
      *
      * @param eventcorrelation
      *            a {@link java.lang.String} object.
@@ -860,6 +896,7 @@ public class OnmsEvent extends OnmsEntity implements Serializable {
      * <p>
      * getEventSuppressedCount
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -873,6 +910,7 @@ public class OnmsEvent extends OnmsEntity implements Serializable {
      * <p>
      * setEventSuppressedCount
      * </p>
+     * .
      *
      * @param eventsuppressedcount
      *            a {@link java.lang.Integer} object.
@@ -885,6 +923,7 @@ public class OnmsEvent extends OnmsEntity implements Serializable {
      * <p>
      * getEventOperInstruct
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -898,6 +937,7 @@ public class OnmsEvent extends OnmsEntity implements Serializable {
      * <p>
      * setEventOperInstruct
      * </p>
+     * .
      *
      * @param eventoperinstruct
      *            a {@link java.lang.String} object.
@@ -910,6 +950,7 @@ public class OnmsEvent extends OnmsEntity implements Serializable {
      * <p>
      * getEventAutoAction
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -923,6 +964,7 @@ public class OnmsEvent extends OnmsEntity implements Serializable {
      * <p>
      * setEventAutoAction
      * </p>
+     * .
      *
      * @param eventautoaction
      *            a {@link java.lang.String} object.
@@ -935,6 +977,7 @@ public class OnmsEvent extends OnmsEntity implements Serializable {
      * <p>
      * getEventOperAction
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -948,6 +991,7 @@ public class OnmsEvent extends OnmsEntity implements Serializable {
      * <p>
      * setEventOperAction
      * </p>
+     * .
      *
      * @param eventoperaction
      *            a {@link java.lang.String} object.
@@ -960,6 +1004,7 @@ public class OnmsEvent extends OnmsEntity implements Serializable {
      * <p>
      * getEventOperActionMenuText
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -973,6 +1018,7 @@ public class OnmsEvent extends OnmsEntity implements Serializable {
      * <p>
      * setEventOperActionMenuText
      * </p>
+     * .
      *
      * @param eventOperActionMenuText
      *            a {@link java.lang.String} object.
@@ -985,6 +1031,7 @@ public class OnmsEvent extends OnmsEntity implements Serializable {
      * <p>
      * getEventNotification
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -998,6 +1045,7 @@ public class OnmsEvent extends OnmsEntity implements Serializable {
      * <p>
      * setEventNotification
      * </p>
+     * .
      *
      * @param eventnotification
      *            a {@link java.lang.String} object.
@@ -1010,6 +1058,7 @@ public class OnmsEvent extends OnmsEntity implements Serializable {
      * <p>
      * getEventTTicket
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -1023,6 +1072,7 @@ public class OnmsEvent extends OnmsEntity implements Serializable {
      * <p>
      * setEventTTicket
      * </p>
+     * .
      *
      * @param eventtticket
      *            a {@link java.lang.String} object.
@@ -1035,6 +1085,7 @@ public class OnmsEvent extends OnmsEntity implements Serializable {
      * <p>
      * getEventTTicketState
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -1048,6 +1099,7 @@ public class OnmsEvent extends OnmsEntity implements Serializable {
      * <p>
      * setEventTTicketState
      * </p>
+     * .
      *
      * @param eventtticketstate
      *            a {@link java.lang.Integer} object.
@@ -1060,6 +1112,7 @@ public class OnmsEvent extends OnmsEntity implements Serializable {
      * <p>
      * getEventForward
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -1073,6 +1126,7 @@ public class OnmsEvent extends OnmsEntity implements Serializable {
      * <p>
      * setEventForward
      * </p>
+     * .
      *
      * @param eventforward
      *            a {@link java.lang.String} object.
@@ -1085,6 +1139,7 @@ public class OnmsEvent extends OnmsEntity implements Serializable {
      * <p>
      * getEventMouseOverText
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -1098,6 +1153,7 @@ public class OnmsEvent extends OnmsEntity implements Serializable {
      * <p>
      * setEventMouseOverText
      * </p>
+     * .
      *
      * @param eventmouseovertext
      *            a {@link java.lang.String} object.
@@ -1107,7 +1163,7 @@ public class OnmsEvent extends OnmsEntity implements Serializable {
     }
 
     /**
-     * TODO: Make this an Enum
+     * TODO: Make this an Enum.
      *
      * @return a {@link java.lang.String} object.
      */
@@ -1121,6 +1177,7 @@ public class OnmsEvent extends OnmsEntity implements Serializable {
      * <p>
      * setEventLog
      * </p>
+     * .
      *
      * @param eventlog
      *            a {@link java.lang.String} object.
@@ -1130,7 +1187,7 @@ public class OnmsEvent extends OnmsEntity implements Serializable {
     }
 
     /**
-     * TODO: make this an Enum
+     * TODO: make this an Enum.
      *
      * @return a {@link java.lang.String} object.
      */
@@ -1144,6 +1201,7 @@ public class OnmsEvent extends OnmsEntity implements Serializable {
      * <p>
      * setEventDisplay
      * </p>
+     * .
      *
      * @param eventdisplay
      *            a {@link java.lang.String} object.
@@ -1156,6 +1214,7 @@ public class OnmsEvent extends OnmsEntity implements Serializable {
      * <p>
      * getEventAckUser
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -1169,6 +1228,7 @@ public class OnmsEvent extends OnmsEntity implements Serializable {
      * <p>
      * setEventAckUser
      * </p>
+     * .
      *
      * @param eventackuser
      *            a {@link java.lang.String} object.
@@ -1181,6 +1241,7 @@ public class OnmsEvent extends OnmsEntity implements Serializable {
      * <p>
      * getEventAckTime
      * </p>
+     * .
      *
      * @return a {@link java.util.Date} object.
      */
@@ -1195,6 +1256,7 @@ public class OnmsEvent extends OnmsEntity implements Serializable {
      * <p>
      * setEventAckTime
      * </p>
+     * .
      *
      * @param eventacktime
      *            a {@link java.util.Date} object.
@@ -1207,6 +1269,7 @@ public class OnmsEvent extends OnmsEntity implements Serializable {
      * <p>
      * getAlarm
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.OnmsAlarm} object.
      */
@@ -1221,6 +1284,7 @@ public class OnmsEvent extends OnmsEntity implements Serializable {
      * <p>
      * setAlarm
      * </p>
+     * .
      *
      * @param alarm
      *            a {@link org.opennms.netmgt.model.OnmsAlarm} object.
@@ -1233,6 +1297,7 @@ public class OnmsEvent extends OnmsEntity implements Serializable {
      * <p>
      * getNode
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.OnmsNode} object.
      */
@@ -1244,6 +1309,11 @@ public class OnmsEvent extends OnmsEntity implements Serializable {
         return m_node;
     }
 
+    /**
+     * Gets the node label.
+     *
+     * @return the node label
+     */
     @Transient
     @XmlElement(name = "nodeLabel", required = false)
     public String getNodeLabel() {
@@ -1256,6 +1326,7 @@ public class OnmsEvent extends OnmsEntity implements Serializable {
      * <p>
      * setNode
      * </p>
+     * .
      *
      * @param node
      *            a {@link org.opennms.netmgt.model.OnmsNode} object.
@@ -1268,6 +1339,7 @@ public class OnmsEvent extends OnmsEntity implements Serializable {
      * <p>
      * getNotifications
      * </p>
+     * .
      *
      * @return a {@link java.util.Set} object.
      */
@@ -1281,6 +1353,7 @@ public class OnmsEvent extends OnmsEntity implements Serializable {
      * <p>
      * setNotifications
      * </p>
+     * .
      *
      * @param notifications
      *            a {@link java.util.Set} object.
@@ -1293,6 +1366,7 @@ public class OnmsEvent extends OnmsEntity implements Serializable {
      * <p>
      * getAssociatedServiceRegainedOutages
      * </p>
+     * .
      *
      * @return a {@link java.util.Set} object.
      */
@@ -1306,6 +1380,7 @@ public class OnmsEvent extends OnmsEntity implements Serializable {
      * <p>
      * setAssociatedServiceRegainedOutages
      * </p>
+     * .
      *
      * @param outagesBySvcregainedeventid
      *            a {@link java.util.Set} object.
@@ -1318,6 +1393,7 @@ public class OnmsEvent extends OnmsEntity implements Serializable {
      * <p>
      * getAssociatedServiceLostOutages
      * </p>
+     * .
      *
      * @return a {@link java.util.Set} object.
      */
@@ -1331,6 +1407,7 @@ public class OnmsEvent extends OnmsEntity implements Serializable {
      * <p>
      * setAssociatedServiceLostOutages
      * </p>
+     * .
      *
      * @param outagesBySvclosteventid
      *            a {@link java.util.Set} object.
@@ -1343,6 +1420,7 @@ public class OnmsEvent extends OnmsEntity implements Serializable {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -1361,6 +1439,7 @@ public class OnmsEvent extends OnmsEntity implements Serializable {
      * <p>
      * getIfIndex
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -1373,6 +1452,7 @@ public class OnmsEvent extends OnmsEntity implements Serializable {
      * <p>
      * setIfIndex
      * </p>
+     * .
      *
      * @param ifIndex
      *            a {@link java.lang.Integer} object.

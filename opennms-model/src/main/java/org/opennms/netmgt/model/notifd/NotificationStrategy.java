@@ -49,6 +49,7 @@ public interface NotificationStrategy {
      * <p>
      * send
      * </p>
+     * .
      *
      * @param arguments
      *            a {@link java.util.List} object.

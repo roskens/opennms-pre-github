@@ -62,15 +62,15 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 @XmlAccessorType(XmlAccessType.FIELD)
 // @ValidateUsing("event.xsd")
 public class Forward implements Serializable {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -4795441559557516585L;
 
     // --------------------------/
     // - Class/Member Variables -/
     // --------------------------/
 
-    /**
-     * internal content storage
-     */
+    /** internal content storage. */
     @XmlValue
     private java.lang.String _content = "";
 
@@ -90,6 +90,9 @@ public class Forward implements Serializable {
     // - Constructors -/
     // ----------------/
 
+    /**
+     * Instantiates a new forward.
+     */
     public Forward() {
         super();
         setContent("");
@@ -160,6 +163,9 @@ public class Forward implements Serializable {
         this._state = state;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return new ToStringBuilder(this).append("content", _content).append("state", _state).append("mechanism",

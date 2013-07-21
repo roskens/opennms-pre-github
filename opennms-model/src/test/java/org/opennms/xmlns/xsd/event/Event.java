@@ -110,95 +110,128 @@ import javax.xml.bind.annotation.XmlType;
 @XmlRootElement(name = "event")
 public class Event {
 
+    /** The dbid. */
     protected Integer dbid;
 
+    /** The dist poller. */
     @XmlElement(name = "dist-poller")
     protected String distPoller;
 
+    /** The creation time. */
     @XmlElement(name = "creation-time")
     protected String creationTime;
 
+    /** The master station. */
     @XmlElement(name = "master-station")
     protected String masterStation;
 
+    /** The mask. */
     @XmlElement(namespace = "http://xmlns.opennms.org/xsd/event")
     protected Mask mask;
 
+    /** The uei. */
     protected String uei;
 
+    /** The source. */
     @XmlElement(required = true)
     protected String source;
 
+    /** The nodeid. */
     protected Long nodeid;
 
+    /** The time. */
     @XmlElement(required = true)
     protected String time;
 
+    /** The host. */
     protected String host;
 
+    /** The _interface. */
     @XmlElement(name = "interface")
     protected String _interface;
 
+    /** The snmphost. */
     protected String snmphost;
 
+    /** The service. */
     protected String service;
 
+    /** The snmp. */
     @XmlElement(namespace = "http://xmlns.opennms.org/xsd/event")
     protected Snmp snmp;
 
+    /** The parms. */
     @XmlElement(namespace = "http://xmlns.opennms.org/xsd/event")
     protected Parms parms;
 
+    /** The descr. */
     protected String descr;
 
+    /** The logmsg. */
     @XmlElement(namespace = "http://xmlns.opennms.org/xsd/event")
     protected Logmsg logmsg;
 
+    /** The severity. */
     protected String severity;
 
+    /** The pathoutage. */
     protected String pathoutage;
 
+    /** The correlation. */
     @XmlElement(namespace = "http://xmlns.opennms.org/xsd/event")
     protected Correlation correlation;
 
+    /** The operinstruct. */
     protected String operinstruct;
 
+    /** The autoaction. */
     @XmlElement(namespace = "http://xmlns.opennms.org/xsd/event")
     protected List<Autoaction> autoaction;
 
+    /** The operaction. */
     @XmlElement(namespace = "http://xmlns.opennms.org/xsd/event")
     protected List<Operaction> operaction;
 
+    /** The autoacknowledge. */
     @XmlElement(namespace = "http://xmlns.opennms.org/xsd/event")
     protected Autoacknowledge autoacknowledge;
 
+    /** The loggroup. */
     protected List<String> loggroup;
 
+    /** The tticket. */
     @XmlElement(namespace = "http://xmlns.opennms.org/xsd/event")
     protected Tticket tticket;
 
+    /** The forward. */
     @XmlElement(namespace = "http://xmlns.opennms.org/xsd/event")
     protected List<Forward> forward;
 
+    /** The script. */
     @XmlElement(namespace = "http://xmlns.opennms.org/xsd/event")
     protected List<Script> script;
 
+    /** The if index. */
     protected Integer ifIndex;
 
+    /** The if alias. */
     protected String ifAlias;
 
+    /** The mouseovertext. */
     protected String mouseovertext;
 
+    /** The alarm data. */
     @XmlElement(name = "alarm-data", namespace = "http://xmlns.opennms.org/xsd/event")
     protected AlarmData alarmData;
 
+    /** The uuid. */
     @XmlAttribute(name = "uuid")
     protected String uuid;
 
     /**
      * Gets the value of the dbid property.
      *
-     * @return
+     * @return the dbid
      *         possible object is {@link Integer }
      */
     public Integer getDbid() {
@@ -218,7 +251,7 @@ public class Event {
     /**
      * Gets the value of the distPoller property.
      *
-     * @return
+     * @return the dist poller
      *         possible object is {@link String }
      */
     public String getDistPoller() {
@@ -238,7 +271,7 @@ public class Event {
     /**
      * Gets the value of the creationTime property.
      *
-     * @return
+     * @return the creation time
      *         possible object is {@link String }
      */
     public String getCreationTime() {
@@ -258,7 +291,7 @@ public class Event {
     /**
      * Gets the value of the masterStation property.
      *
-     * @return
+     * @return the master station
      *         possible object is {@link String }
      */
     public String getMasterStation() {
@@ -277,9 +310,9 @@ public class Event {
 
     /**
      * The event mask which helps to uniquely identify an
-     * event
+     * event.
      *
-     * @return
+     * @return the mask
      *         possible object is {@link Mask }
      */
     public Mask getMask() {
@@ -299,7 +332,7 @@ public class Event {
     /**
      * Gets the value of the uei property.
      *
-     * @return
+     * @return the uei
      *         possible object is {@link String }
      */
     public String getUei() {
@@ -319,7 +352,7 @@ public class Event {
     /**
      * Gets the value of the source property.
      *
-     * @return
+     * @return the source
      *         possible object is {@link String }
      */
     public String getSource() {
@@ -339,7 +372,7 @@ public class Event {
     /**
      * Gets the value of the nodeid property.
      *
-     * @return
+     * @return the nodeid
      *         possible object is {@link Long }
      */
     public Long getNodeid() {
@@ -359,7 +392,7 @@ public class Event {
     /**
      * Gets the value of the time property.
      *
-     * @return
+     * @return the time
      *         possible object is {@link String }
      */
     public String getTime() {
@@ -379,7 +412,7 @@ public class Event {
     /**
      * Gets the value of the host property.
      *
-     * @return
+     * @return the host
      *         possible object is {@link String }
      */
     public String getHost() {
@@ -399,7 +432,7 @@ public class Event {
     /**
      * Gets the value of the interface property.
      *
-     * @return
+     * @return the interface
      *         possible object is {@link String }
      */
     public String getInterface() {
@@ -419,7 +452,7 @@ public class Event {
     /**
      * Gets the value of the snmphost property.
      *
-     * @return
+     * @return the snmphost
      *         possible object is {@link String }
      */
     public String getSnmphost() {
@@ -439,7 +472,7 @@ public class Event {
     /**
      * Gets the value of the service property.
      *
-     * @return
+     * @return the service
      *         possible object is {@link String }
      */
     public String getService() {
@@ -457,9 +490,9 @@ public class Event {
     }
 
     /**
-     * The snmp information from the trap
+     * The snmp information from the trap.
      *
-     * @return
+     * @return the snmp
      *         possible object is {@link Snmp }
      */
     public Snmp getSnmp() {
@@ -477,9 +510,9 @@ public class Event {
     }
 
     /**
-     * The varbinds from the trap
+     * The varbinds from the trap.
      *
-     * @return
+     * @return the parms
      *         possible object is {@link Parms }
      */
     public Parms getParms() {
@@ -499,7 +532,7 @@ public class Event {
     /**
      * Gets the value of the descr property.
      *
-     * @return
+     * @return the descr
      *         possible object is {@link String }
      */
     public String getDescr() {
@@ -517,9 +550,9 @@ public class Event {
     }
 
     /**
-     * The event logmsg
+     * The event logmsg.
      *
-     * @return
+     * @return the logmsg
      *         possible object is {@link Logmsg }
      */
     public Logmsg getLogmsg() {
@@ -539,7 +572,7 @@ public class Event {
     /**
      * Gets the value of the severity property.
      *
-     * @return
+     * @return the severity
      *         possible object is {@link String }
      */
     public String getSeverity() {
@@ -559,7 +592,7 @@ public class Event {
     /**
      * Gets the value of the pathoutage property.
      *
-     * @return
+     * @return the pathoutage
      *         possible object is {@link String }
      */
     public String getPathoutage() {
@@ -577,9 +610,9 @@ public class Event {
     }
 
     /**
-     * The event correlation information
+     * The event correlation information.
      *
-     * @return
+     * @return the correlation
      *         possible object is {@link Correlation }
      */
     public Correlation getCorrelation() {
@@ -599,7 +632,7 @@ public class Event {
     /**
      * Gets the value of the operinstruct property.
      *
-     * @return
+     * @return the operinstruct
      *         possible object is {@link String }
      */
     public String getOperinstruct() {
@@ -632,7 +665,8 @@ public class Event {
      * </pre>
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link Autoaction }
+     *
+     * @return the autoaction {@link Autoaction }
      */
     public List<Autoaction> getAutoaction() {
         if (autoaction == null) {
@@ -657,7 +691,8 @@ public class Event {
      * </pre>
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link Operaction }
+     *
+     * @return the operaction {@link Operaction }
      */
     public List<Operaction> getOperaction() {
         if (operaction == null) {
@@ -668,9 +703,9 @@ public class Event {
 
     /**
      * The autoacknowledge information for the
-     * user
+     * user.
      *
-     * @return
+     * @return the autoacknowledge
      *         possible object is {@link Autoacknowledge }
      */
     public Autoacknowledge getAutoacknowledge() {
@@ -702,6 +737,8 @@ public class Event {
      * </pre>
      * <p>
      * Objects of the following type(s) are allowed in the list {@link String }
+     *
+     * @return the loggroup
      */
     public List<String> getLoggroup() {
         if (loggroup == null) {
@@ -711,9 +748,9 @@ public class Event {
     }
 
     /**
-     * The trouble ticket info
+     * The trouble ticket info.
      *
-     * @return
+     * @return the tticket
      *         possible object is {@link Tticket }
      */
     public Tticket getTticket() {
@@ -746,6 +783,8 @@ public class Event {
      * </pre>
      * <p>
      * Objects of the following type(s) are allowed in the list {@link Forward }
+     *
+     * @return the forward
      */
     public List<Forward> getForward() {
         if (forward == null) {
@@ -770,6 +809,8 @@ public class Event {
      * </pre>
      * <p>
      * Objects of the following type(s) are allowed in the list {@link Script }
+     *
+     * @return the script
      */
     public List<Script> getScript() {
         if (script == null) {
@@ -781,7 +822,7 @@ public class Event {
     /**
      * Gets the value of the ifIndex property.
      *
-     * @return
+     * @return the if index
      *         possible object is {@link Integer }
      */
     public Integer getIfIndex() {
@@ -801,7 +842,7 @@ public class Event {
     /**
      * Gets the value of the ifAlias property.
      *
-     * @return
+     * @return the if alias
      *         possible object is {@link String }
      */
     public String getIfAlias() {
@@ -821,7 +862,7 @@ public class Event {
     /**
      * Gets the value of the mouseovertext property.
      *
-     * @return
+     * @return the mouseovertext
      *         possible object is {@link String }
      */
     public String getMouseovertext() {
@@ -841,7 +882,7 @@ public class Event {
     /**
      * Data used to create an event.
      *
-     * @return
+     * @return the alarm data
      *         possible object is {@link AlarmData }
      */
     public AlarmData getAlarmData() {
@@ -861,7 +902,7 @@ public class Event {
     /**
      * Gets the value of the uuid property.
      *
-     * @return
+     * @return the uuid
      *         possible object is {@link String }
      */
     public String getUuid() {

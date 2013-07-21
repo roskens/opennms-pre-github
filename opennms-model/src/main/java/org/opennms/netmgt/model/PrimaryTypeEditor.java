@@ -30,6 +30,9 @@ package org.opennms.netmgt.model;
 
 import java.beans.PropertyEditorSupport;
 
+/**
+ * The Class PrimaryTypeEditor.
+ */
 public class PrimaryTypeEditor extends PropertyEditorSupport {
 
     /** {@inheritDoc} */

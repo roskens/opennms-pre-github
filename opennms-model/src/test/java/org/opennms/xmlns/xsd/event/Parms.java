@@ -68,6 +68,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlRootElement(name = "parms")
 public class Parms {
 
+    /** The parm. */
     @XmlElement(namespace = "http://xmlns.opennms.org/xsd/event", required = true)
     protected List<Parm> parm;
 
@@ -86,6 +87,8 @@ public class Parms {
      * </pre>
      * <p>
      * Objects of the following type(s) are allowed in the list {@link Parm }
+     *
+     * @return the parm
      */
     public List<Parm> getParm() {
         if (parm == null) {

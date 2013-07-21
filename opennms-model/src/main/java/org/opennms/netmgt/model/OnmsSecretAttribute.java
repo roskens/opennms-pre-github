@@ -35,8 +35,10 @@ package org.opennms.netmgt.model;
  */
 public class OnmsSecretAttribute {
 
+    /** The m_label. */
     private String m_label;
 
+    /** The m_id. */
     private String m_id;
 
     /**
@@ -67,6 +69,7 @@ public class OnmsSecretAttribute {
      * <p>
      * getId
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -78,6 +81,7 @@ public class OnmsSecretAttribute {
      * <p>
      * setId
      * </p>
+     * .
      *
      * @param id
      *            a {@link java.lang.String} object.
@@ -90,6 +94,7 @@ public class OnmsSecretAttribute {
      * <p>
      * getLabel
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -101,6 +106,7 @@ public class OnmsSecretAttribute {
      * <p>
      * setLabel
      * </p>
+     * .
      *
      * @param label
      *            a {@link java.lang.String} object.

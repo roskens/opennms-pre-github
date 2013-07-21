@@ -30,6 +30,9 @@ package org.opennms.netmgt.model;
 
 import java.beans.PropertyEditorSupport;
 
+/**
+ * The Class OnmsSeverityEditor.
+ */
 public class OnmsSeverityEditor extends PropertyEditorSupport {
 
     /** {@inheritDoc} */

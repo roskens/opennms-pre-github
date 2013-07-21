@@ -32,7 +32,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * Basic unit tests for OnmsNode Class
+ * Basic unit tests for OnmsNode Class.
  *
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
  */
@@ -42,6 +42,9 @@ public class OnmsNodeTest {
      * Test the equals method of the PrimaryType class and therefore the
      * getPrimaryInterface method
      * of the node.
+     */
+    /**
+     * Test get primary interface.
      */
     @Test
     public void testGetPrimaryInterface() {

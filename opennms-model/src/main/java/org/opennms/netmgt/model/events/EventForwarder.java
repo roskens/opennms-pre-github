@@ -42,7 +42,7 @@ import org.opennms.netmgt.xml.event.Log;
 public interface EventForwarder {
 
     /**
-     * Called by a service to send an event to eventd
+     * Called by a service to send an event to eventd.
      *
      * @param event
      *            a {@link org.opennms.netmgt.xml.event.Event} object.
@@ -50,7 +50,7 @@ public interface EventForwarder {
     public void sendNow(Event event);
 
     /**
-     * Called by a service to send a set of events to eventd
+     * Called by a service to send a set of events to eventd.
      *
      * @param eventLog
      *            a {@link org.opennms.netmgt.xml.event.Log} object.

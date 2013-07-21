@@ -47,20 +47,28 @@ import org.springframework.util.Assert;
  */
 public class OnmsResource implements Comparable<OnmsResource> {
 
+    /** The m_name. */
     private String m_name;
 
+    /** The m_attributes. */
     private Set<OnmsAttribute> m_attributes;
 
+    /** The m_label. */
     private String m_label;
 
+    /** The m_link. */
     private String m_link;
 
+    /** The m_resource type. */
     private OnmsResourceType m_resourceType;
 
+    /** The m_entity. */
     private OnmsEntity m_entity;
 
+    /** The m_resources. */
     private List<OnmsResource> m_resources;
 
+    /** The m_parent. */
     private OnmsResource m_parent = null;
 
     /**
@@ -120,6 +128,7 @@ public class OnmsResource implements Comparable<OnmsResource> {
      * <p>
      * getName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -131,6 +140,7 @@ public class OnmsResource implements Comparable<OnmsResource> {
      * <p>
      * getLabel
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -142,6 +152,7 @@ public class OnmsResource implements Comparable<OnmsResource> {
      * <p>
      * getResourceType
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.OnmsResourceType} object.
      */
@@ -153,6 +164,7 @@ public class OnmsResource implements Comparable<OnmsResource> {
      * <p>
      * getAttributes
      * </p>
+     * .
      *
      * @return a {@link java.util.Set} object.
      */
@@ -164,6 +176,7 @@ public class OnmsResource implements Comparable<OnmsResource> {
      * <p>
      * getChildResources
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -175,6 +188,7 @@ public class OnmsResource implements Comparable<OnmsResource> {
      * <p>
      * compareTo
      * </p>
+     * .
      *
      * @param o
      *            a {@link org.opennms.netmgt.model.OnmsResource} object.
@@ -210,6 +224,7 @@ public class OnmsResource implements Comparable<OnmsResource> {
      * <p>
      * setParent
      * </p>
+     * .
      *
      * @param parent
      *            a {@link org.opennms.netmgt.model.OnmsResource} object.
@@ -222,6 +237,7 @@ public class OnmsResource implements Comparable<OnmsResource> {
      * <p>
      * getParent
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.OnmsResource} object.
      */
@@ -233,6 +249,7 @@ public class OnmsResource implements Comparable<OnmsResource> {
      * <p>
      * getId
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -249,6 +266,7 @@ public class OnmsResource implements Comparable<OnmsResource> {
      * <p>
      * getLink
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -264,6 +282,7 @@ public class OnmsResource implements Comparable<OnmsResource> {
      * <p>
      * setLink
      * </p>
+     * .
      *
      * @param link
      *            a {@link java.lang.String} object.
@@ -276,6 +295,7 @@ public class OnmsResource implements Comparable<OnmsResource> {
      * <p>
      * createResourceId
      * </p>
+     * .
      *
      * @param resources
      *            a {@link java.lang.String} object.
@@ -351,6 +371,13 @@ public class OnmsResource implements Comparable<OnmsResource> {
         return properties;
     }
 
+    /**
+     * Encode.
+     *
+     * @param string
+     *            the string
+     * @return the string
+     */
     private static String encode(String string) {
         if (string == null)
             return null;
@@ -366,6 +393,7 @@ public class OnmsResource implements Comparable<OnmsResource> {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -378,6 +406,7 @@ public class OnmsResource implements Comparable<OnmsResource> {
      * <p>
      * getEntity
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.OnmsEntity} object.
      */
@@ -389,6 +418,7 @@ public class OnmsResource implements Comparable<OnmsResource> {
      * <p>
      * setEntity
      * </p>
+     * .
      *
      * @param entity
      *            a {@link org.opennms.netmgt.model.OnmsEntity} object.

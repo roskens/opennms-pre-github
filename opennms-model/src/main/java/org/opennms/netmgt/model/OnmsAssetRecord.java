@@ -63,343 +63,221 @@ import org.springframework.core.style.ToStringCreator;
 @Entity
 @Table(name = "assets")
 public class OnmsAssetRecord implements Serializable {
-    /**
-     * Constant <code>AUTOENABLED="A"</code>
-     */
+
+    /** Constant <code>AUTOENABLED="A"</code>. */
     public static final String AUTOENABLED = "A";
 
-    /**
-     * Constant <code>SSH_CONNECTION="ssh"</code>
-     */
+    /** Constant <code>SSH_CONNECTION="ssh"</code>. */
     public static final String SSH_CONNECTION = "ssh";
 
     // public enum Autoenable {AUTOENABLED};
 
-    /**
-     * Constant <code>TELNET_CONNECTION="telnet"</code>
-     */
+    /** Constant <code>TELNET_CONNECTION="telnet"</code>. */
     public static final String TELNET_CONNECTION = "telnet";
 
-    /**
-     * Constant <code>RSH_CONNECTION="rsh"</code>
-     */
+    /** Constant <code>RSH_CONNECTION="rsh"</code>. */
     public static final String RSH_CONNECTION = "rsh";
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -2532676045548726818L;
 
     // public enum AssetConnections
     // {TELNET_CONNECTION,SSH_CONNECTION,RSH_CONNECTION};
 
+    /** The m_id. */
     private Integer m_id;
 
-    /**
-     * identifier field
-     */
+    /** identifier field. */
     private String m_category = "Unspecified";
 
-    /**
-     * identifier field
-     */
+    /** identifier field. */
     private String m_manufacturer;
 
-    /**
-     * identifier field
-     */
+    /** identifier field. */
     private String m_vendor;
 
-    /**
-     * identifier field
-     */
+    /** identifier field. */
     private String m_modelNumber;
 
-    /**
-     * identifier field
-     */
+    /** identifier field. */
     private String m_serialNumber;
 
-    /**
-     * identifier field
-     */
+    /** identifier field. */
     private String m_description;
 
-    /**
-     * identifier field
-     */
+    /** identifier field. */
     private String m_circuitId;
 
-    /**
-     * identifier field
-     */
+    /** identifier field. */
     private String m_assetNumber;
 
-    /**
-     * identifier field
-     */
+    /** identifier field. */
     private String m_operatingSystem;
 
-    /**
-     * identifier field
-     */
+    /** identifier field. */
     private String m_rack;
 
-    /**
-     * identifier field
-     */
+    /** identifier field. */
     private String m_slot;
 
-    /**
-     * identifier field
-     */
+    /** identifier field. */
     private String m_port;
 
-    /**
-     * identifier field
-     */
+    /** identifier field. */
     private String m_region;
 
-    /**
-     * identifier field
-     */
+    /** identifier field. */
     private String m_division;
 
-    /**
-     * identifier field
-     */
+    /** identifier field. */
     private String m_department;
 
-    /**
-     * identifier field
-     */
+    /** identifier field. */
     private String m_building;
 
-    /**
-     * identifier field
-     */
+    /** identifier field. */
     private String m_floor;
 
-    /**
-     * identifier field
-     */
+    /** identifier field. */
     private String m_room;
 
-    /**
-     * identifier field
-     */
+    /** identifier field. */
     private String m_vendorPhone;
 
-    /**
-     * identifier field
-     */
+    /** identifier field. */
     private String m_vendorFax;
 
-    /**
-     * identifier field
-     */
+    /** identifier field. */
     private String m_vendorAssetNumber;
 
-    /**
-     * identifier field
-     */
+    /** identifier field. */
     private String m_username;
 
-    /**
-     * identifier field
-     */
+    /** identifier field. */
     private String m_password;
 
-    /**
-     * identifier field
-     */
+    /** identifier field. */
     private String m_enable;
 
-    /**
-     * identifier field
-     */
+    /** identifier field. */
     private String m_connection;
 
-    /**
-     * identifier field
-     */
+    /** identifier field. */
     private String m_autoenable;
 
-    /**
-     * identifier field
-     */
+    /** identifier field. */
     private String m_lastModifiedBy = "";
 
-    /**
-     * identifier field
-     */
+    /** identifier field. */
     private Date m_lastModifiedDate = new Date();
 
-    /**
-     * identifier field
-     */
+    /** identifier field. */
     private String m_dateInstalled;
 
-    /**
-     * identifier field
-     */
+    /** identifier field. */
     private String m_lease;
 
-    /**
-     * identifier field
-     */
+    /** identifier field. */
     private String m_leaseExpires;
 
-    /**
-     * identifier field
-     */
+    /** identifier field. */
     private String m_supportPhone;
 
-    /**
-     * identifier field
-     */
+    /** identifier field. */
     private String m_maintcontract;
 
-    /**
-     * identifier field
-     */
+    /** identifier field. */
     private String m_maintContractExpiration;
 
-    /**
-     * identifier field
-     */
+    /** identifier field. */
     private String m_displayCategory;
 
-    /**
-     * identifier field
-     */
+    /** identifier field. */
     private String m_notifyCategory;
 
-    /**
-     * identifier field
-     */
+    /** identifier field. */
     private String m_pollerCategory;
 
-    /**
-     * identifier field
-     */
+    /** identifier field. */
     private String m_thresholdCategory;
 
-    /**
-     * identifier field
-     */
+    /** identifier field. */
     private String m_comment;
 
-    /**
-     * identifier field
-     */
+    /** identifier field. */
     private String m_cpu;
 
-    /**
-     * identifier field
-     */
+    /** identifier field. */
     private String m_ram;
 
-    /**
-     * identifier field
-     */
+    /** identifier field. */
     private String m_storagectrl;
 
-    /**
-     * identifier field
-     */
+    /** identifier field. */
     private String m_hdd1;
 
-    /**
-     * identifier field
-     */
+    /** identifier field. */
     private String m_hdd2;
 
-    /**
-     * identifier field
-     */
+    /** identifier field. */
     private String m_hdd3;
 
-    /**
-     * identifier field
-     */
+    /** identifier field. */
     private String m_hdd4;
 
-    /**
-     * identifier field
-     */
+    /** identifier field. */
     private String m_hdd5;
 
-    /**
-     * identifier field
-     */
+    /** identifier field. */
     private String m_hdd6;
 
-    /**
-     * identifier field
-     */
+    /** identifier field. */
     private String m_numpowersupplies;
 
-    /**
-     * identifier field
-     */
+    /** identifier field. */
     private String m_inputpower;
 
-    /**
-     * identifier field
-     */
+    /** identifier field. */
     private String m_additionalhardware;
 
-    /**
-     * identifier field
-     */
+    /** identifier field. */
     private String m_admin;
 
-    /**
-     * identifier field
-     */
+    /** identifier field. */
     private String m_snmpcommunity;
 
-    /**
-     * identifier field
-     */
+    /** identifier field. */
     private String m_rackunitheight;
 
-    /**
-     * persistent field
-     */
+    /** persistent field. */
     private OnmsNode m_node;
 
+    /** The m_managed object type. */
     private String m_managedObjectType;
 
+    /** The m_managed object instance. */
     private String m_managedObjectInstance;
 
+    /** The m_geolocation. */
     private OnmsGeolocation m_geolocation = new OnmsGeolocation();
 
-    /**
-     * VMware managed Object ID
-     */
+    /** VMware managed Object ID. */
     private String m_vmwareManagedObjectId;
 
-    /**
-     * VMware managed entity Type (virtualMachine | hostSystem)
-     */
+    /** VMware managed entity Type (virtualMachine | hostSystem). */
     private String m_vmwareManagedEntityType;
 
-    /**
-     * VMware management Server
-     */
+    /** VMware management Server. */
     private String m_vmwareManagementServer;
 
-    /**
-     * VMware composite field for topology information
-     */
+    /** VMware composite field for topology information. */
     private String m_vmwareTopologyInfo;
 
-    /**
-     * VMware managed entity state
-     */
+    /** VMware managed entity state. */
     private String m_vmwareState;
 
     /**
-     * default constructor
+     * default constructor.
      */
     public OnmsAssetRecord() {
     }
@@ -408,6 +286,7 @@ public class OnmsAssetRecord implements Serializable {
      * <p>
      * getId
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -423,6 +302,7 @@ public class OnmsAssetRecord implements Serializable {
      * <p>
      * setId
      * </p>
+     * .
      *
      * @param id
      *            a {@link java.lang.Integer} object.
@@ -444,7 +324,7 @@ public class OnmsAssetRecord implements Serializable {
     }
 
     /**
-     * Set the node associated with the asset record
+     * Set the node associated with the asset record.
      *
      * @param node
      *            a {@link org.opennms.netmgt.model.OnmsNode} object.
@@ -468,6 +348,7 @@ public class OnmsAssetRecord implements Serializable {
      * <p>
      * setCategory
      * </p>
+     * .
      *
      * @param category
      *            a {@link java.lang.String} object.
@@ -490,6 +371,7 @@ public class OnmsAssetRecord implements Serializable {
      * <p>
      * setManufacturer
      * </p>
+     * .
      *
      * @param manufacturer
      *            a {@link java.lang.String} object.
@@ -512,6 +394,7 @@ public class OnmsAssetRecord implements Serializable {
      * <p>
      * setVendor
      * </p>
+     * .
      *
      * @param vendor
      *            a {@link java.lang.String} object.
@@ -534,6 +417,7 @@ public class OnmsAssetRecord implements Serializable {
      * <p>
      * setModelNumber
      * </p>
+     * .
      *
      * @param modelnumber
      *            a {@link java.lang.String} object.
@@ -556,6 +440,7 @@ public class OnmsAssetRecord implements Serializable {
      * <p>
      * setSerialNumber
      * </p>
+     * .
      *
      * @param serialnumber
      *            a {@link java.lang.String} object.
@@ -578,6 +463,7 @@ public class OnmsAssetRecord implements Serializable {
      * <p>
      * setDescription
      * </p>
+     * .
      *
      * @param description
      *            a {@link java.lang.String} object.
@@ -600,6 +486,7 @@ public class OnmsAssetRecord implements Serializable {
      * <p>
      * setCircuitId
      * </p>
+     * .
      *
      * @param circuitid
      *            a {@link java.lang.String} object.
@@ -622,6 +509,7 @@ public class OnmsAssetRecord implements Serializable {
      * <p>
      * setAssetNumber
      * </p>
+     * .
      *
      * @param assetnumber
      *            a {@link java.lang.String} object.
@@ -644,6 +532,7 @@ public class OnmsAssetRecord implements Serializable {
      * <p>
      * setOperatingSystem
      * </p>
+     * .
      *
      * @param operatingsystem
      *            a {@link java.lang.String} object.
@@ -666,6 +555,7 @@ public class OnmsAssetRecord implements Serializable {
      * <p>
      * setRack
      * </p>
+     * .
      *
      * @param rack
      *            a {@link java.lang.String} object.
@@ -688,6 +578,7 @@ public class OnmsAssetRecord implements Serializable {
      * <p>
      * setSlot
      * </p>
+     * .
      *
      * @param slot
      *            a {@link java.lang.String} object.
@@ -710,6 +601,7 @@ public class OnmsAssetRecord implements Serializable {
      * <p>
      * setPort
      * </p>
+     * .
      *
      * @param port
      *            a {@link java.lang.String} object.
@@ -732,6 +624,7 @@ public class OnmsAssetRecord implements Serializable {
      * <p>
      * setRegion
      * </p>
+     * .
      *
      * @param region
      *            a {@link java.lang.String} object.
@@ -754,6 +647,7 @@ public class OnmsAssetRecord implements Serializable {
      * <p>
      * setDivision
      * </p>
+     * .
      *
      * @param division
      *            a {@link java.lang.String} object.
@@ -776,6 +670,7 @@ public class OnmsAssetRecord implements Serializable {
      * <p>
      * setDepartment
      * </p>
+     * .
      *
      * @param department
      *            a {@link java.lang.String} object.
@@ -784,12 +679,23 @@ public class OnmsAssetRecord implements Serializable {
         m_department = department;
     }
 
+    /**
+     * Gets the geolocation.
+     *
+     * @return the geolocation
+     */
     @Embedded
     @XmlTransient
     public OnmsGeolocation getGeolocation() {
         return m_geolocation;
     }
 
+    /**
+     * Sets the geolocation.
+     *
+     * @param geolocation
+     *            the new geolocation
+     */
     public void setGeolocation(final OnmsGeolocation geolocation) {
         m_geolocation = geolocation;
     }
@@ -808,6 +714,7 @@ public class OnmsAssetRecord implements Serializable {
      * <p>
      * setBuilding
      * </p>
+     * .
      *
      * @param building
      *            a {@link java.lang.String} object.
@@ -830,6 +737,7 @@ public class OnmsAssetRecord implements Serializable {
      * <p>
      * setFloor
      * </p>
+     * .
      *
      * @param floor
      *            a {@link java.lang.String} object.
@@ -852,6 +760,7 @@ public class OnmsAssetRecord implements Serializable {
      * <p>
      * setRoom
      * </p>
+     * .
      *
      * @param room
      *            a {@link java.lang.String} object.
@@ -874,6 +783,7 @@ public class OnmsAssetRecord implements Serializable {
      * <p>
      * setVendorPhone
      * </p>
+     * .
      *
      * @param vendorphone
      *            a {@link java.lang.String} object.
@@ -896,6 +806,7 @@ public class OnmsAssetRecord implements Serializable {
      * <p>
      * setVendorFax
      * </p>
+     * .
      *
      * @param vendorfax
      *            a {@link java.lang.String} object.
@@ -908,6 +819,7 @@ public class OnmsAssetRecord implements Serializable {
      * <p>
      * getVendorAssetNumber
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -920,6 +832,7 @@ public class OnmsAssetRecord implements Serializable {
      * <p>
      * setVendorAssetNumber
      * </p>
+     * .
      *
      * @param vendorassetnumber
      *            a {@link java.lang.String} object.
@@ -942,6 +855,7 @@ public class OnmsAssetRecord implements Serializable {
      * <p>
      * setLastModifiedBy
      * </p>
+     * .
      *
      * @param userlastmodified
      *            a {@link java.lang.String} object.
@@ -965,6 +879,7 @@ public class OnmsAssetRecord implements Serializable {
      * <p>
      * setLastModifiedDate
      * </p>
+     * .
      *
      * @param lastmodifieddate
      *            a {@link java.util.Date} object.
@@ -987,6 +902,7 @@ public class OnmsAssetRecord implements Serializable {
      * <p>
      * setDateInstalled
      * </p>
+     * .
      *
      * @param dateinstalled
      *            a {@link java.lang.String} object.
@@ -1009,6 +925,7 @@ public class OnmsAssetRecord implements Serializable {
      * <p>
      * setLease
      * </p>
+     * .
      *
      * @param lease
      *            a {@link java.lang.String} object.
@@ -1031,6 +948,7 @@ public class OnmsAssetRecord implements Serializable {
      * <p>
      * setLeaseExpires
      * </p>
+     * .
      *
      * @param leaseexpires
      *            a {@link java.lang.String} object.
@@ -1053,6 +971,7 @@ public class OnmsAssetRecord implements Serializable {
      * <p>
      * setSupportPhone
      * </p>
+     * .
      *
      * @param supportphone
      *            a {@link java.lang.String} object.
@@ -1075,6 +994,7 @@ public class OnmsAssetRecord implements Serializable {
      * <p>
      * setMaintContract
      * </p>
+     * .
      *
      * @param maintcontract
      *            a {@link java.lang.String} object.
@@ -1099,6 +1019,7 @@ public class OnmsAssetRecord implements Serializable {
      * <p>
      * setMaintContractNumber
      * </p>
+     * .
      *
      * @param maintcontract
      *            a {@link java.lang.String} object.
@@ -1113,6 +1034,7 @@ public class OnmsAssetRecord implements Serializable {
      * <p>
      * getMaintContractExpiration
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -1125,6 +1047,7 @@ public class OnmsAssetRecord implements Serializable {
      * <p>
      * setMaintContractExpiration
      * </p>
+     * .
      *
      * @param maintcontractexpires
      *            a {@link java.lang.String} object.
@@ -1137,6 +1060,7 @@ public class OnmsAssetRecord implements Serializable {
      * <p>
      * getDisplayCategory
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -1149,6 +1073,7 @@ public class OnmsAssetRecord implements Serializable {
      * <p>
      * setDisplayCategory
      * </p>
+     * .
      *
      * @param displaycategory
      *            a {@link java.lang.String} object.
@@ -1161,6 +1086,7 @@ public class OnmsAssetRecord implements Serializable {
      * <p>
      * getNotifyCategory
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -1173,6 +1099,7 @@ public class OnmsAssetRecord implements Serializable {
      * <p>
      * setNotifyCategory
      * </p>
+     * .
      *
      * @param notifycategory
      *            a {@link java.lang.String} object.
@@ -1185,6 +1112,7 @@ public class OnmsAssetRecord implements Serializable {
      * <p>
      * getPollerCategory
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -1197,6 +1125,7 @@ public class OnmsAssetRecord implements Serializable {
      * <p>
      * setPollerCategory
      * </p>
+     * .
      *
      * @param pollercategory
      *            a {@link java.lang.String} object.
@@ -1209,6 +1138,7 @@ public class OnmsAssetRecord implements Serializable {
      * <p>
      * getThresholdCategory
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -1221,6 +1151,7 @@ public class OnmsAssetRecord implements Serializable {
      * <p>
      * setThresholdCategory
      * </p>
+     * .
      *
      * @param thresholdcategory
      *            a {@link java.lang.String} object.
@@ -1233,6 +1164,7 @@ public class OnmsAssetRecord implements Serializable {
      * <p>
      * getComment
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -1245,6 +1177,7 @@ public class OnmsAssetRecord implements Serializable {
      * <p>
      * setComment
      * </p>
+     * .
      *
      * @param comment
      *            a {@link java.lang.String} object.
@@ -1257,6 +1190,7 @@ public class OnmsAssetRecord implements Serializable {
      * <p>
      * getManagedObjectType
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -1269,6 +1203,7 @@ public class OnmsAssetRecord implements Serializable {
      * <p>
      * setManagedObjectType
      * </p>
+     * .
      *
      * @param mot
      *            a {@link java.lang.String} object.
@@ -1281,6 +1216,7 @@ public class OnmsAssetRecord implements Serializable {
      * <p>
      * getManagedObjectInstance
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -1293,6 +1229,7 @@ public class OnmsAssetRecord implements Serializable {
      * <p>
      * setManagedObjectInstance
      * </p>
+     * .
      *
      * @param moi
      *            a {@link java.lang.String} object.
@@ -1305,6 +1242,7 @@ public class OnmsAssetRecord implements Serializable {
      * <p>
      * getUsername
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -1317,6 +1255,7 @@ public class OnmsAssetRecord implements Serializable {
      * <p>
      * setUsername
      * </p>
+     * .
      *
      * @param username
      *            a {@link java.lang.String} object.
@@ -1329,6 +1268,7 @@ public class OnmsAssetRecord implements Serializable {
      * <p>
      * getPassword
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -1341,6 +1281,7 @@ public class OnmsAssetRecord implements Serializable {
      * <p>
      * setPassword
      * </p>
+     * .
      *
      * @param password
      *            a {@link java.lang.String} object.
@@ -1353,6 +1294,7 @@ public class OnmsAssetRecord implements Serializable {
      * <p>
      * getEnable
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -1365,6 +1307,7 @@ public class OnmsAssetRecord implements Serializable {
      * <p>
      * setEnable
      * </p>
+     * .
      *
      * @param enable
      *            a {@link java.lang.String} object.
@@ -1377,6 +1320,7 @@ public class OnmsAssetRecord implements Serializable {
      * <p>
      * getConnection
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -1389,6 +1333,7 @@ public class OnmsAssetRecord implements Serializable {
      * <p>
      * setConnection
      * </p>
+     * .
      *
      * @param connection
      *            a {@link java.lang.String} object.
@@ -1412,6 +1357,7 @@ public class OnmsAssetRecord implements Serializable {
      * <p>
      * getAutoenable
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -1424,6 +1370,7 @@ public class OnmsAssetRecord implements Serializable {
      * <p>
      * setAutoenable
      * </p>
+     * .
      *
      * @param autoenable
      *            a {@link java.lang.String} object.
@@ -1436,6 +1383,7 @@ public class OnmsAssetRecord implements Serializable {
      * <p>
      * getCpu
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -1448,6 +1396,7 @@ public class OnmsAssetRecord implements Serializable {
      * <p>
      * setCpu
      * </p>
+     * .
      *
      * @param cpu
      *            a {@link java.lang.String} object.
@@ -1460,6 +1409,7 @@ public class OnmsAssetRecord implements Serializable {
      * <p>
      * getRam
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -1472,6 +1422,7 @@ public class OnmsAssetRecord implements Serializable {
      * <p>
      * setRam
      * </p>
+     * .
      *
      * @param ram
      *            a {@link java.lang.String} object.
@@ -1484,6 +1435,7 @@ public class OnmsAssetRecord implements Serializable {
      * <p>
      * getSnmpcommunity
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -1496,6 +1448,7 @@ public class OnmsAssetRecord implements Serializable {
      * <p>
      * setSnmpcommunity
      * </p>
+     * .
      *
      * @param snmpcommunity
      *            a {@link java.lang.String} object.
@@ -1508,6 +1461,7 @@ public class OnmsAssetRecord implements Serializable {
      * <p>
      * getRackunitheight
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -1520,9 +1474,10 @@ public class OnmsAssetRecord implements Serializable {
      * <p>
      * setRackunitheight
      * </p>
+     * .
      *
-     * @param snmpcommunity
-     *            a {@link java.lang.String} object.
+     * @param rackunitheight
+     *            the new rackunitheight
      */
     public void setRackunitheight(String rackunitheight) {
         m_rackunitheight = rackunitheight;
@@ -1532,6 +1487,7 @@ public class OnmsAssetRecord implements Serializable {
      * <p>
      * getAdmin
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -1544,6 +1500,7 @@ public class OnmsAssetRecord implements Serializable {
      * <p>
      * setAdmin
      * </p>
+     * .
      *
      * @param admin
      *            a {@link java.lang.String} object.
@@ -1556,6 +1513,7 @@ public class OnmsAssetRecord implements Serializable {
      * <p>
      * getAdditionalhardware
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -1568,6 +1526,7 @@ public class OnmsAssetRecord implements Serializable {
      * <p>
      * setAdditionalhardware
      * </p>
+     * .
      *
      * @param additionalhardware
      *            a {@link java.lang.String} object.
@@ -1580,6 +1539,7 @@ public class OnmsAssetRecord implements Serializable {
      * <p>
      * getInputpower
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -1592,6 +1552,7 @@ public class OnmsAssetRecord implements Serializable {
      * <p>
      * setInputpower
      * </p>
+     * .
      *
      * @param inputpower
      *            a {@link java.lang.String} object.
@@ -1604,6 +1565,7 @@ public class OnmsAssetRecord implements Serializable {
      * <p>
      * getNumpowersupplies
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -1616,6 +1578,7 @@ public class OnmsAssetRecord implements Serializable {
      * <p>
      * setNumpowersupplies
      * </p>
+     * .
      *
      * @param numpowersupplies
      *            a {@link java.lang.String} object.
@@ -1628,6 +1591,7 @@ public class OnmsAssetRecord implements Serializable {
      * <p>
      * getHdd6
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -1640,6 +1604,7 @@ public class OnmsAssetRecord implements Serializable {
      * <p>
      * setHdd6
      * </p>
+     * .
      *
      * @param hdd6
      *            a {@link java.lang.String} object.
@@ -1652,6 +1617,7 @@ public class OnmsAssetRecord implements Serializable {
      * <p>
      * getHdd5
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -1664,6 +1630,7 @@ public class OnmsAssetRecord implements Serializable {
      * <p>
      * setHdd5
      * </p>
+     * .
      *
      * @param hdd5
      *            a {@link java.lang.String} object.
@@ -1676,6 +1643,7 @@ public class OnmsAssetRecord implements Serializable {
      * <p>
      * getHdd4
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -1688,6 +1656,7 @@ public class OnmsAssetRecord implements Serializable {
      * <p>
      * setHdd4
      * </p>
+     * .
      *
      * @param hdd4
      *            a {@link java.lang.String} object.
@@ -1700,6 +1669,7 @@ public class OnmsAssetRecord implements Serializable {
      * <p>
      * getHdd3
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -1712,6 +1682,7 @@ public class OnmsAssetRecord implements Serializable {
      * <p>
      * setHdd3
      * </p>
+     * .
      *
      * @param hdd3
      *            a {@link java.lang.String} object.
@@ -1724,6 +1695,7 @@ public class OnmsAssetRecord implements Serializable {
      * <p>
      * getHdd2
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -1736,6 +1708,7 @@ public class OnmsAssetRecord implements Serializable {
      * <p>
      * setHdd2
      * </p>
+     * .
      *
      * @param hdd2
      *            a {@link java.lang.String} object.
@@ -1748,6 +1721,7 @@ public class OnmsAssetRecord implements Serializable {
      * <p>
      * getHdd1
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -1760,6 +1734,7 @@ public class OnmsAssetRecord implements Serializable {
      * <p>
      * setHdd1
      * </p>
+     * .
      *
      * @param hdd1
      *            a {@link java.lang.String} object.
@@ -1772,6 +1747,7 @@ public class OnmsAssetRecord implements Serializable {
      * <p>
      * getStoragectrl
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -1784,6 +1760,7 @@ public class OnmsAssetRecord implements Serializable {
      * <p>
      * setStoragectrl
      * </p>
+     * .
      *
      * @param storagectrl
      *            a {@link java.lang.String} object.
@@ -1795,6 +1772,8 @@ public class OnmsAssetRecord implements Serializable {
     /**
      * PROXY METHOD: do not delete until {@link OnmsGeolocation} is truly a
      * separate table, or projection mapping will fail.
+     *
+     * @return the address1
      */
     @Transient
     @Deprecated
@@ -1803,6 +1782,12 @@ public class OnmsAssetRecord implements Serializable {
         return m_geolocation == null ? null : m_geolocation.getAddress1();
     }
 
+    /**
+     * Sets the address1.
+     *
+     * @param address1
+     *            the new address1
+     */
     @Deprecated
     public void setAddress1(final String address1) {
         if (m_geolocation != null)
@@ -1812,6 +1797,8 @@ public class OnmsAssetRecord implements Serializable {
     /**
      * PROXY METHOD: do not delete until {@link OnmsGeolocation} is truly a
      * separate table, or projection mapping will fail.
+     *
+     * @return the address2
      */
     @Transient
     @Deprecated
@@ -1820,6 +1807,12 @@ public class OnmsAssetRecord implements Serializable {
         return m_geolocation == null ? null : m_geolocation.getAddress2();
     }
 
+    /**
+     * Sets the address2.
+     *
+     * @param address2
+     *            the new address2
+     */
     @Deprecated
     public void setAddress2(final String address2) {
         if (m_geolocation != null)
@@ -1829,6 +1822,8 @@ public class OnmsAssetRecord implements Serializable {
     /**
      * PROXY METHOD: do not delete until {@link OnmsGeolocation} is truly a
      * separate table, or projection mapping will fail.
+     *
+     * @return the city
      */
     @Transient
     @Deprecated
@@ -1837,6 +1832,12 @@ public class OnmsAssetRecord implements Serializable {
         return m_geolocation == null ? null : m_geolocation.getCity();
     }
 
+    /**
+     * Sets the city.
+     *
+     * @param city
+     *            the new city
+     */
     @Deprecated
     public void setCity(final String city) {
         if (m_geolocation != null)
@@ -1846,6 +1847,8 @@ public class OnmsAssetRecord implements Serializable {
     /**
      * PROXY METHOD: do not delete until {@link OnmsGeolocation} is truly a
      * separate table, or projection mapping will fail.
+     *
+     * @return the state
      */
     @Transient
     @Deprecated
@@ -1854,6 +1857,12 @@ public class OnmsAssetRecord implements Serializable {
         return m_geolocation == null ? null : m_geolocation.getState();
     }
 
+    /**
+     * Sets the state.
+     *
+     * @param state
+     *            the new state
+     */
     @Deprecated
     public void setState(final String state) {
         if (m_geolocation != null)
@@ -1863,6 +1872,8 @@ public class OnmsAssetRecord implements Serializable {
     /**
      * PROXY METHOD: do not delete until {@link OnmsGeolocation} is truly a
      * separate table, or projection mapping will fail.
+     *
+     * @return the zip
      */
     @Transient
     @Deprecated
@@ -1871,6 +1882,12 @@ public class OnmsAssetRecord implements Serializable {
         return m_geolocation == null ? null : m_geolocation.getZip();
     }
 
+    /**
+     * Sets the zip.
+     *
+     * @param zip
+     *            the new zip
+     */
     @Deprecated
     public void setZip(final String zip) {
         if (m_geolocation != null)
@@ -1880,6 +1897,8 @@ public class OnmsAssetRecord implements Serializable {
     /**
      * PROXY METHOD: do not delete until {@link OnmsGeolocation} is truly a
      * separate table, or projection mapping will fail.
+     *
+     * @return the country
      */
     @Transient
     @Deprecated
@@ -1888,6 +1907,12 @@ public class OnmsAssetRecord implements Serializable {
         return m_geolocation == null ? null : m_geolocation.getCountry();
     }
 
+    /**
+     * Sets the country.
+     *
+     * @param country
+     *            the new country
+     */
     @Deprecated
     public void setCountry(final String country) {
         if (m_geolocation != null)
@@ -1897,6 +1922,8 @@ public class OnmsAssetRecord implements Serializable {
     /**
      * PROXY METHOD: do not delete until {@link OnmsGeolocation} is truly a
      * separate table, or projection mapping will fail.
+     *
+     * @return the longitude
      */
     @Transient
     @Deprecated
@@ -1905,6 +1932,12 @@ public class OnmsAssetRecord implements Serializable {
         return m_geolocation == null ? null : m_geolocation.getLongitude();
     }
 
+    /**
+     * Sets the longitude.
+     *
+     * @param longitude
+     *            the new longitude
+     */
     @Deprecated
     public void setLongitude(final Float longitude) {
         if (m_geolocation != null)
@@ -1914,6 +1947,8 @@ public class OnmsAssetRecord implements Serializable {
     /**
      * PROXY METHOD: do not delete until {@link OnmsGeolocation} is truly a
      * separate table, or projection mapping will fail.
+     *
+     * @return the latitude
      */
     @Transient
     @Deprecated
@@ -1922,6 +1957,12 @@ public class OnmsAssetRecord implements Serializable {
         return m_geolocation == null ? null : m_geolocation.getLatitude();
     }
 
+    /**
+     * Sets the latitude.
+     *
+     * @param latitude
+     *            the new latitude
+     */
     @Deprecated
     public void setLatitude(final Float latitude) {
         if (m_geolocation != null)
@@ -1934,7 +1975,7 @@ public class OnmsAssetRecord implements Serializable {
      * </p>
      * <p/>
      * Set the VMware management entity type defines if the machine is a virtual
-     * machine or a host system
+     * machine or a host system.
      *
      * @return a {@link java.lang.String} object
      */
@@ -1949,7 +1990,7 @@ public class OnmsAssetRecord implements Serializable {
      * </p>
      * <p/>
      * Set the VMware management entity type defines if the machine is a virtual
-     * machine or a host system
+     * machine or a host system.
      *
      * @param vmwareManagedEntityType
      *            a {@link java.lang.String} object
@@ -1963,7 +2004,7 @@ public class OnmsAssetRecord implements Serializable {
      * getVmwareManagedObjectId
      * </p>
      * <p/>
-     * Get the VMware managed object ID as a unique identifier for VMware API
+     * Get the VMware managed object ID as a unique identifier for VMware API.
      *
      * @return a {@link java.lang.String} object
      */
@@ -1977,8 +2018,10 @@ public class OnmsAssetRecord implements Serializable {
      * setVmwareManagedObjectId
      * </p>
      * <p/>
-     * Set the VMware managed object ID as a unique identifier for VMware API
+     * Set the VMware managed object ID as a unique identifier for VMware API.
      *
+     * @param vmwareManagedObjectId
+     *            the new vmware managed object id
      * @return a {@link java.lang.String} object
      */
     public void setVmwareManagedObjectId(String vmwareManagedObjectId) {
@@ -1990,7 +2033,7 @@ public class OnmsAssetRecord implements Serializable {
      * getVmwareManagementServer
      * </p>
      * <p/>
-     * Get the vCenter host or ip address
+     * Get the vCenter host or ip address.
      *
      * @return a {@link java.lang.String} object
      */
@@ -2004,7 +2047,7 @@ public class OnmsAssetRecord implements Serializable {
      * setVmwareManagementServer
      * </p>
      * <p/>
-     * Set the vCenter host or ip address
+     * Set the vCenter host or ip address.
      *
      * @param vmwareManagementServer
      *            a {@link java.lang.String} object
@@ -2018,7 +2061,7 @@ public class OnmsAssetRecord implements Serializable {
      * getVmwareState
      * </p>
      * <p/>
-     * Get the VMware managed entity state
+     * Get the VMware managed entity state.
      *
      * @return a {@link java.lang.String} object
      */
@@ -2032,7 +2075,7 @@ public class OnmsAssetRecord implements Serializable {
      * setVmwareState
      * </p>
      * <p/>
-     * Set the VMware managed entity state
+     * Set the VMware managed entity state.
      *
      * @param vmwareState
      *            a {@link java.lang.String} object
@@ -2046,7 +2089,7 @@ public class OnmsAssetRecord implements Serializable {
      * getVmwareTopologyInfo
      * </p>
      * <p/>
-     * Get the VMware topology information
+     * Get the VMware topology information.
      *
      * @return a {@link java.lang.String} object
      */
@@ -2060,7 +2103,7 @@ public class OnmsAssetRecord implements Serializable {
      * setVmwareTopologyInfo
      * </p>
      * <p/>
-     * Set the VMware topology information
+     * Set the VMware topology information.
      *
      * @param vmwareTopologyInfo
      *            a {@link java.lang.String} object

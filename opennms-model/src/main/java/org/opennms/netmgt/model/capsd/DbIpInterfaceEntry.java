@@ -67,42 +67,43 @@ import org.slf4j.LoggerFactory;
  */
 public final class DbIpInterfaceEntry {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(DbIpInterfaceEntry.class);
 
-    /** Constant <code>SNMP_PRIMARY='P'</code> */
+    /** Constant <code>SNMP_PRIMARY='P'</code>. */
     public static final char SNMP_PRIMARY = 'P';
 
-    /** Constant <code>SNMP_SECONDARY='S'</code> */
+    /** Constant <code>SNMP_SECONDARY='S'</code>. */
     public static final char SNMP_SECONDARY = 'S';
 
-    /** Constant <code>SNMP_NOT_ELIGIBLE='N'</code> */
+    /** Constant <code>SNMP_NOT_ELIGIBLE='N'</code>. */
     public static final char SNMP_NOT_ELIGIBLE = 'N';
 
-    /** Constant <code>SNMP_UNKNOWN=' '</code> */
+    /** Constant <code>SNMP_UNKNOWN=' '</code>. */
     public static final char SNMP_UNKNOWN = ' ';
 
-    /** Constant <code>STATE_MANAGED='M'</code> */
+    /** Constant <code>STATE_MANAGED='M'</code>. */
     public static final char STATE_MANAGED = 'M';
 
-    /** Constant <code>STATE_UNMANAGED='U'</code> */
+    /** Constant <code>STATE_UNMANAGED='U'</code>. */
     public static final char STATE_UNMANAGED = 'U';
 
-    /** Constant <code>STATE_ALIAS='A'</code> */
+    /** Constant <code>STATE_ALIAS='A'</code>. */
     public static final char STATE_ALIAS = 'A';
 
-    /** Constant <code>STATE_DELETED='D'</code> */
+    /** Constant <code>STATE_DELETED='D'</code>. */
     public static final char STATE_DELETED = 'D';
 
-    /** Constant <code>STATE_FORCED='F'</code> */
+    /** Constant <code>STATE_FORCED='F'</code>. */
     public static final char STATE_FORCED = 'F';
 
-    /** Constant <code>STATE_NOT_POLLED='N'</code> */
+    /** Constant <code>STATE_NOT_POLLED='N'</code>. */
     public static final char STATE_NOT_POLLED = 'N';
 
-    /** Constant <code>STATE_REMOTE='X'</code> */
+    /** Constant <code>STATE_REMOTE='X'</code>. */
     public static final char STATE_REMOTE = 'X';
 
-    /** Constant <code>STATE_UNKNOWN=' '</code> */
+    /** Constant <code>STATE_UNKNOWN=' '</code>. */
     public static final char STATE_UNKNOWN = ' ';
 
     /**
@@ -131,9 +132,7 @@ public final class DbIpInterfaceEntry {
      */
     private boolean m_fromDb;
 
-    /**
-     * The node identifier
-     */
+    /** The node identifier. */
     private long m_nodeId;
 
     /**
@@ -141,26 +140,19 @@ public final class DbIpInterfaceEntry {
      */
     private InetAddress m_ipAddr;
 
-    /**
-     * The SNMP ifIndex
-     */
+    /** The SNMP ifIndex. */
     private int m_ifIndex;
 
+    /** The m_original if index. */
     private int m_originalIfIndex;
 
-    /**
-     * The hostname string, if any
-     */
+    /** The hostname string, if any. */
     private String m_hostname;
 
-    /**
-     * The status of the interface
-     */
+    /** The status of the interface. */
     private int m_status;
 
-    /**
-     * The managed status, if any
-     */
+    /** The managed status, if any. */
     private char m_managedState;
 
     /**
@@ -181,19 +173,26 @@ public final class DbIpInterfaceEntry {
 
     // Mask fields
     //
+    /** The Constant CHANGED_IFINDEX. */
     private static final int CHANGED_IFINDEX = 1 << 0;
 
+    /** The Constant CHANGED_HOSTNAME. */
     private static final int CHANGED_HOSTNAME = 1 << 1;
 
+    /** The Constant CHANGED_MANAGED. */
     private static final int CHANGED_MANAGED = 1 << 2;
 
+    /** The Constant CHANGED_STATUS. */
     private static final int CHANGED_STATUS = 1 << 3;
 
+    /** The Constant CHANGED_POLLTIME. */
     private static final int CHANGED_POLLTIME = 1 << 4;
 
+    /** The Constant CHANGED_PRIMARY. */
     private static final int CHANGED_PRIMARY = 1 << 5;
 
     // Indicates that the ifIndex is to be used as database key for this entry
+    /** The m_use if index as key. */
     private boolean m_useIfIndexAsKey;
 
     /**
@@ -202,8 +201,8 @@ public final class DbIpInterfaceEntry {
      *
      * @param c
      *            The connection to the database.
-     * @throws java.sql.SQLException
-     *             Thrown if an error occurs with the connection
+     * @throws SQLException
+     *             the sQL exception
      */
     private void insert(Connection c) throws SQLException {
         if (m_fromDb) {
@@ -295,8 +294,8 @@ public final class DbIpInterfaceEntry {
      *
      * @param c
      *            The connection used for the update.
-     * @throws java.sql.SQLException
-     *             Thrown if an error occurs with the connection
+     * @throws SQLException
+     *             the sQL exception
      */
     private void update(Connection c) throws SQLException {
         if (!m_fromDb) {
@@ -430,8 +429,9 @@ public final class DbIpInterfaceEntry {
      *
      * @param c
      *            The connection used to load the data.
-     * @throws java.sql.SQLException
-     *             Thrown if an error occurs with the connection
+     * @return true, if successful
+     * @throws SQLException
+     *             the sQL exception
      */
     private boolean load(Connection c) throws SQLException {
         if (!m_fromDb) {
@@ -545,7 +545,7 @@ public final class DbIpInterfaceEntry {
 
     /**
      * Constructs a new interface, this constructor will only work for entries
-     * loaded from the database!
+     * loaded from the database!.
      *
      * @param nid
      *            The node identifier.
@@ -574,6 +574,8 @@ public final class DbIpInterfaceEntry {
      * Returns the node entry's unique identifier. This is a non-mutable
      * element. If the record does not yet exist in the database then a -1 is
      * returned.
+     *
+     * @return the node id
      */
     public long getNodeId() {
         return m_nodeId;
@@ -582,13 +584,17 @@ public final class DbIpInterfaceEntry {
     /**
      * Returns the name of the distributed poller for the entry. This is a
      * non-mutable element of the record.
+     *
+     * @return the if address
      */
     public InetAddress getIfAddress() {
         return m_ipAddr;
     }
 
     /**
-     * Gets the last poll time of the record
+     * Gets the last poll time of the record.
+     *
+     * @return the last poll string
      */
     public String getLastPollString() {
         String result = null;
@@ -599,7 +605,9 @@ public final class DbIpInterfaceEntry {
     }
 
     /**
-     * Gets the last poll time of the record
+     * Gets the last poll time of the record.
+     *
+     * @return the last poll
      */
     public Timestamp getLastPoll() {
         return m_lastPoll;
@@ -610,6 +618,8 @@ public final class DbIpInterfaceEntry {
      *
      * @param time
      *            The creation time.
+     * @throws ParseException
+     *             the parse exception
      */
     public void setLastPoll(String time) throws ParseException {
         if (time == null) {
@@ -645,20 +655,24 @@ public final class DbIpInterfaceEntry {
 
     /**
      * Returns true if the ifIndex is defined.
+     *
+     * @return true, if successful
      */
     public boolean hasIfIndex() {
         return m_ifIndex != -1;
     }
 
     /**
-     * Returns the current ifIndex
+     * Returns the current ifIndex.
+     *
+     * @return the if index
      */
     public int getIfIndex() {
         return m_ifIndex;
     }
 
     /**
-     * Sets the ifIndex value
+     * Sets the ifIndex value.
      *
      * @param ndx
      *            The new ifIndex.
@@ -668,6 +682,11 @@ public final class DbIpInterfaceEntry {
         m_changed |= CHANGED_IFINDEX;
     }
 
+    /**
+     * Checks for if index changed.
+     *
+     * @return true, if successful
+     */
     public boolean hasIfIndexChanged() {
         if ((m_changed & CHANGED_IFINDEX) == CHANGED_IFINDEX) {
             return true;
@@ -676,6 +695,13 @@ public final class DbIpInterfaceEntry {
         }
     }
 
+    /**
+     * Update if index.
+     *
+     * @param newIfIndex
+     *            the new if index
+     * @return true, if successful
+     */
     public boolean updateIfIndex(int newIfIndex) {
         if (newIfIndex != -1 && newIfIndex != m_ifIndex) {
             setIfIndex(newIfIndex);
@@ -686,6 +712,8 @@ public final class DbIpInterfaceEntry {
 
     /**
      * Returns the current hostname.
+     *
+     * @return the hostname
      */
     public String getHostname() {
         return m_hostname;
@@ -702,6 +730,11 @@ public final class DbIpInterfaceEntry {
         m_changed |= CHANGED_HOSTNAME;
     }
 
+    /**
+     * Checks for hostname changed.
+     *
+     * @return true, if successful
+     */
     public boolean hasHostnameChanged() {
         if ((m_changed & CHANGED_HOSTNAME) == CHANGED_HOSTNAME) {
             return true;
@@ -710,6 +743,13 @@ public final class DbIpInterfaceEntry {
         }
     }
 
+    /**
+     * Update hostname.
+     *
+     * @param newHostname
+     *            the new hostname
+     * @return true, if successful
+     */
     public boolean updateHostname(String newHostname) {
         boolean doUpdate = false;
         if (newHostname != null && m_hostname != null) {
@@ -732,7 +772,9 @@ public final class DbIpInterfaceEntry {
     }
 
     /**
-     * Returns the current managed state of the interface
+     * Returns the current managed state of the interface.
+     *
+     * @return the managed state
      */
     public char getManagedState() {
         return m_managedState;
@@ -749,6 +791,11 @@ public final class DbIpInterfaceEntry {
         m_changed |= CHANGED_MANAGED;
     }
 
+    /**
+     * Checks for managed state changed.
+     *
+     * @return true, if successful
+     */
     public boolean hasManagedStateChanged() {
         if ((m_changed & CHANGED_MANAGED) == CHANGED_MANAGED) {
             return true;
@@ -757,6 +804,13 @@ public final class DbIpInterfaceEntry {
         }
     }
 
+    /**
+     * Update managed state.
+     *
+     * @param newManagedState
+     *            the new managed state
+     * @return true, if successful
+     */
     public boolean updateManagedState(char newManagedState) {
         if (newManagedState != m_managedState) {
             setManagedState(newManagedState);
@@ -767,14 +821,16 @@ public final class DbIpInterfaceEntry {
     }
 
     /**
-     * Gets the current operational status field
+     * Gets the current operational status field.
+     *
+     * @return the status
      */
     public int getStatus() {
         return m_status;
     }
 
     /**
-     * Sets the current status of the interface
+     * Sets the current status of the interface.
      *
      * @param status
      *            The new status.
@@ -784,6 +840,11 @@ public final class DbIpInterfaceEntry {
         m_changed |= CHANGED_STATUS;
     }
 
+    /**
+     * Checks for status changed.
+     *
+     * @return true, if successful
+     */
     public boolean hasStatusChanged() {
         if ((m_changed & CHANGED_STATUS) == CHANGED_STATUS) {
             return true;
@@ -792,6 +853,13 @@ public final class DbIpInterfaceEntry {
         }
     }
 
+    /**
+     * Update status.
+     *
+     * @param newStatus
+     *            the new status
+     * @return true, if successful
+     */
     public boolean updateStatus(int newStatus) {
         if (newStatus != -1 && newStatus != m_status) {
             setStatus(newStatus);
@@ -803,6 +871,8 @@ public final class DbIpInterfaceEntry {
 
     /**
      * Returns the current primary state.
+     *
+     * @return the primary state
      */
     public char getPrimaryState() {
         return m_primaryState;
@@ -819,6 +889,11 @@ public final class DbIpInterfaceEntry {
         m_changed |= CHANGED_PRIMARY;
     }
 
+    /**
+     * Checks for primary state changed.
+     *
+     * @return true, if successful
+     */
     public boolean hasPrimaryStateChanged() {
         if ((m_changed & CHANGED_PRIMARY) == CHANGED_PRIMARY) {
             return true;
@@ -827,6 +902,13 @@ public final class DbIpInterfaceEntry {
         }
     }
 
+    /**
+     * Update primary state.
+     *
+     * @param newPrimaryState
+     *            the new primary state
+     * @return true, if successful
+     */
     public boolean updatePrimaryState(char newPrimaryState) {
         if (newPrimaryState != SNMP_UNKNOWN && newPrimaryState != m_primaryState) {
             setPrimaryState(newPrimaryState);
@@ -841,6 +923,9 @@ public final class DbIpInterfaceEntry {
      * interfaca does not exist the a new row in the table is created. If the
      * element already exists then it's current row is updated as needed based
      * upon the current changes to the node.
+     *
+     * @throws SQLException
+     *             the sQL exception
      */
     public void store() throws SQLException {
         if (m_changed != 0 || m_fromDb == false) {
@@ -872,6 +957,8 @@ public final class DbIpInterfaceEntry {
      *
      * @param db
      *            The database connection used to write the record.
+     * @throws SQLException
+     *             the sQL exception
      */
     public void store(Connection db) throws SQLException {
         if (m_changed != 0 || m_fromDb == false) {
@@ -883,6 +970,13 @@ public final class DbIpInterfaceEntry {
         }
     }
 
+    /**
+     * Gets the services.
+     *
+     * @return the services
+     * @throws SQLException
+     *             the sQL exception
+     */
     public DbIfServiceEntry[] getServices() throws SQLException {
         DbIfServiceEntry[] entries = null;
 
@@ -903,6 +997,15 @@ public final class DbIpInterfaceEntry {
         return entries;
     }
 
+    /**
+     * Gets the services.
+     *
+     * @param db
+     *            the db
+     * @return the services
+     * @throws SQLException
+     *             the sQL exception
+     */
     public DbIfServiceEntry[] getServices(Connection db) throws SQLException {
         PreparedStatement stmt = null;
         ResultSet rset = null;
@@ -938,10 +1041,10 @@ public final class DbIpInterfaceEntry {
      * Creates a new entry. The entry is created in memory, but is not written
      * to the database until the first call to <code>store</code>.
      *
-     * @param address
-     *            The address of the interface.
      * @param l
      *            The node id of the interface.
+     * @param address
+     *            The address of the interface.
      * @return A new interface record.
      */
     public static DbIpInterfaceEntry create(long l, InetAddress address) {
@@ -952,10 +1055,10 @@ public final class DbIpInterfaceEntry {
      * Creates a new entry. The entry is created in memory, but is not written
      * to the database until the first call to <code>store</code>.
      *
-     * @param address
-     *            The address of the interface.
      * @param nid
      *            The node id of the interface.
+     * @param address
+     *            The address of the interface.
      * @param ifIndex
      *            The ifindex of the interface.
      * @return A new interface record.
@@ -993,6 +1096,8 @@ public final class DbIpInterfaceEntry {
      * @param addr
      *            The ip address.
      * @return The loaded entry or null if one could not be found.
+     * @throws SQLException
+     *             the sQL exception
      */
     public static DbIpInterfaceEntry get(int nid, InetAddress addr) throws SQLException {
         Connection db = null;
@@ -1022,6 +1127,8 @@ public final class DbIpInterfaceEntry {
      * @param ifIndex
      *            The interface index.
      * @return The loaded entry or null if one could not be found.
+     * @throws SQLException
+     *             the sQL exception
      */
     public static DbIpInterfaceEntry get(int nid, InetAddress addr, int ifIndex) throws SQLException {
         Connection db = null;
@@ -1051,6 +1158,8 @@ public final class DbIpInterfaceEntry {
      * @param addr
      *            The internet address.
      * @return The loaded entry or null if one could not be found.
+     * @throws SQLException
+     *             the sQL exception
      */
     public static DbIpInterfaceEntry get(Connection db, long nid, InetAddress addr) throws SQLException {
         DbIpInterfaceEntry entry = new DbIpInterfaceEntry(nid, addr, true);
@@ -1074,6 +1183,8 @@ public final class DbIpInterfaceEntry {
      * @param ifIndex
      *            The interface index.
      * @return The loaded entry or null if one could not be found.
+     * @throws SQLException
+     *             the sQL exception
      */
     public static DbIpInterfaceEntry get(Connection db, long nid, InetAddress addr, int ifIndex) throws SQLException {
         DbIpInterfaceEntry entry = new DbIpInterfaceEntry(nid, addr, ifIndex, true);
@@ -1108,7 +1219,7 @@ public final class DbIpInterfaceEntry {
     }
 
     /**
-     * For debugging only
+     * For debugging only.
      *
      * @param args
      *            an array of {@link java.lang.String} objects.

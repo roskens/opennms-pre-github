@@ -38,14 +38,19 @@ import java.util.Set;
  */
 public class DemandPoll {
 
+    /** The m_id. */
     private Integer m_id;
 
+    /** The m_request time. */
     private Date m_requestTime;
 
+    /** The m_user name. */
     private String m_userName;
 
+    /** The m_description. */
     private String m_description;
 
+    /** The m_poll results. */
     private Set<PollResult> m_pollResults;
 
     /**
@@ -61,6 +66,7 @@ public class DemandPoll {
      * <p>
      * getDescription
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -72,6 +78,7 @@ public class DemandPoll {
      * <p>
      * setDescription
      * </p>
+     * .
      *
      * @param description
      *            a {@link java.lang.String} object.
@@ -84,6 +91,7 @@ public class DemandPoll {
      * <p>
      * getId
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -95,6 +103,7 @@ public class DemandPoll {
      * <p>
      * setId
      * </p>
+     * .
      *
      * @param id
      *            a int.
@@ -107,6 +116,7 @@ public class DemandPoll {
      * <p>
      * setId
      * </p>
+     * .
      *
      * @param id
      *            a {@link java.lang.Integer} object.
@@ -119,6 +129,7 @@ public class DemandPoll {
      * <p>
      * getPollResults
      * </p>
+     * .
      *
      * @return a {@link java.util.Set} object.
      */
@@ -130,6 +141,7 @@ public class DemandPoll {
      * <p>
      * setPollResults
      * </p>
+     * .
      *
      * @param pollResults
      *            a {@link java.util.Set} object.
@@ -142,6 +154,7 @@ public class DemandPoll {
      * <p>
      * getRequestTime
      * </p>
+     * .
      *
      * @return a {@link java.util.Date} object.
      */
@@ -153,6 +166,7 @@ public class DemandPoll {
      * <p>
      * setRequestTime
      * </p>
+     * .
      *
      * @param requestTime
      *            a {@link java.util.Date} object.
@@ -165,6 +179,7 @@ public class DemandPoll {
      * <p>
      * getUserName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -176,6 +191,7 @@ public class DemandPoll {
      * <p>
      * setUserName
      * </p>
+     * .
      *
      * @param user
      *            a {@link java.lang.String} object.

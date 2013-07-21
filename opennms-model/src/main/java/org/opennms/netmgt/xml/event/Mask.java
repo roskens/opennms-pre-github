@@ -64,15 +64,15 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 @XmlAccessorType(XmlAccessType.FIELD)
 // @ValidateUsing("event.xsd")
 public class Mask implements Serializable {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 6553429078798831778L;
 
     // --------------------------/
     // - Class/Member Variables -/
     // --------------------------/
 
-    /**
-     * The mask element
-     */
+    /** The mask element. */
     @XmlElement(name = "maskelement", required = true, nillable = false)
     private java.util.List<org.opennms.netmgt.xml.event.Maskelement> _maskelementList;
 
@@ -80,6 +80,9 @@ public class Mask implements Serializable {
     // - Constructors -/
     // ----------------/
 
+    /**
+     * Instantiates a new mask.
+     */
     public Mask() {
         super();
         this._maskelementList = new java.util.ArrayList<org.opennms.netmgt.xml.event.Maskelement>();
@@ -90,10 +93,12 @@ public class Mask implements Serializable {
     // -----------/
 
     /**
+     * Adds the maskelement.
+     *
      * @param vMaskelement
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the v maskelement
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void addMaskelement(final org.opennms.netmgt.xml.event.Maskelement vMaskelement)
             throws java.lang.IndexOutOfBoundsException {
@@ -101,11 +106,14 @@ public class Mask implements Serializable {
     }
 
     /**
+     * Adds the maskelement.
+     *
      * @param index
+     *            the index
      * @param vMaskelement
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the v maskelement
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void addMaskelement(final int index, final org.opennms.netmgt.xml.event.Maskelement vMaskelement)
             throws java.lang.IndexOutOfBoundsException {
@@ -126,11 +134,11 @@ public class Mask implements Serializable {
      * Method getMaskelement.
      *
      * @param index
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the index
      * @return the value of the
      *         org.opennms.netmgt.xml.event.Maskelement at the given index
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public org.opennms.netmgt.xml.event.Maskelement getMaskelement(final int index)
             throws java.lang.IndexOutOfBoundsException {
@@ -190,6 +198,7 @@ public class Mask implements Serializable {
     }
 
     /**
+     * Removes the all maskelement.
      */
     public void removeAllMaskelement() {
         this._maskelementList.clear();
@@ -199,6 +208,7 @@ public class Mask implements Serializable {
      * Method removeMaskelement.
      *
      * @param vMaskelement
+     *            the v maskelement
      * @return true if the object was removed from the collection.
      */
     public boolean removeMaskelement(final org.opennms.netmgt.xml.event.Maskelement vMaskelement) {
@@ -210,6 +220,7 @@ public class Mask implements Serializable {
      * Method removeMaskelementAt.
      *
      * @param index
+     *            the index
      * @return the element removed from the collection
      */
     public org.opennms.netmgt.xml.event.Maskelement removeMaskelementAt(final int index) {
@@ -218,11 +229,14 @@ public class Mask implements Serializable {
     }
 
     /**
+     * Sets the maskelement.
+     *
      * @param index
+     *            the index
      * @param vMaskelement
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the v maskelement
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void setMaskelement(final int index, final org.opennms.netmgt.xml.event.Maskelement vMaskelement)
             throws java.lang.IndexOutOfBoundsException {
@@ -236,7 +250,10 @@ public class Mask implements Serializable {
     }
 
     /**
+     * Sets the maskelement.
+     *
      * @param vMaskelementArray
+     *            the new maskelement
      */
     public void setMaskelement(final org.opennms.netmgt.xml.event.Maskelement[] vMaskelementArray) {
         // -- copy array
@@ -265,14 +282,17 @@ public class Mask implements Serializable {
      * Sets the value of '_maskelementList' by setting it to the
      * given Vector. No type checking is performed.
      *
-     * @deprecated
      * @param maskelementList
      *            the Vector to set.
+     * @deprecated
      */
     public void setMaskelementCollection(final java.util.List<org.opennms.netmgt.xml.event.Maskelement> maskelementList) {
         this._maskelementList = maskelementList;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return new ToStringBuilder(this).append("maskelement", _maskelementList).toString();

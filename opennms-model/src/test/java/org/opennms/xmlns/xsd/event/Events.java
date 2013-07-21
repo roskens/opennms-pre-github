@@ -68,6 +68,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlRootElement(name = "events")
 public class Events {
 
+    /** The event. */
     @XmlElement(namespace = "http://xmlns.opennms.org/xsd/event", required = true)
     protected List<Event> event;
 
@@ -86,6 +87,8 @@ public class Events {
      * </pre>
      * <p>
      * Objects of the following type(s) are allowed in the list {@link Event }
+     *
+     * @return the event
      */
     public List<Event> getEvent() {
         if (event == null) {

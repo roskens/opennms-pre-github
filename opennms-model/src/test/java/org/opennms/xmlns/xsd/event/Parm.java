@@ -66,16 +66,18 @@ import javax.xml.bind.annotation.XmlType;
 @XmlRootElement(name = "parm")
 public class Parm {
 
+    /** The parm name. */
     @XmlElement(required = true)
     protected String parmName;
 
+    /** The value. */
     @XmlElement(namespace = "http://xmlns.opennms.org/xsd/event", required = true)
     protected Value value;
 
     /**
      * Gets the value of the parmName property.
      *
-     * @return
+     * @return the parm name
      *         possible object is {@link String }
      */
     public String getParmName() {
@@ -93,9 +95,9 @@ public class Parm {
     }
 
     /**
-     * parm value
+     * parm value.
      *
-     * @return
+     * @return the value
      *         possible object is {@link Value }
      */
     public Value getValue() {

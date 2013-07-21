@@ -41,6 +41,7 @@ public interface ServiceDaemon extends PausableFiber {
      * <p>
      * status
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

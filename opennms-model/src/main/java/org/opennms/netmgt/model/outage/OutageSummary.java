@@ -40,14 +40,20 @@ import org.opennms.core.utils.FuzzyDateFormatter;
  * @since 1.8.1
  */
 public class OutageSummary implements Comparable<OutageSummary> {
+
+    /** The node id. */
     protected final int nodeId;
 
+    /** The node label. */
     protected final String nodeLabel;
 
+    /** The time down. */
     protected final Date timeDown;
 
+    /** The time up. */
     protected final Date timeUp;
 
+    /** The time now. */
     protected final Date timeNow;
 
     /**
@@ -135,6 +141,7 @@ public class OutageSummary implements Comparable<OutageSummary> {
      * <p>
      * getHostname
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -179,6 +186,7 @@ public class OutageSummary implements Comparable<OutageSummary> {
      * <p>
      * getFuzzyTimeDown
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -191,6 +199,7 @@ public class OutageSummary implements Comparable<OutageSummary> {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -210,6 +219,9 @@ public class OutageSummary implements Comparable<OutageSummary> {
         return (buffer.toString());
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Comparable#compareTo(java.lang.Object)
+     */
     @Override
     public int compareTo(final OutageSummary that) {
         return new CompareToBuilder().append(this.getTimeDown(), that.getTimeDown()).append(this.getTimeUp(),

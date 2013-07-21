@@ -43,10 +43,14 @@ import javax.persistence.Embeddable;
  */
 @Embeddable
 public class PathElement implements Serializable {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 2437052160139305371L;
 
+    /** The m_ip address. */
     private String m_ipAddress;
 
+    /** The m_service name. */
     private String m_serviceName;
 
     /**
@@ -77,6 +81,7 @@ public class PathElement implements Serializable {
      * <p>
      * getIpAddress
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -89,6 +94,7 @@ public class PathElement implements Serializable {
      * <p>
      * setIpAddress
      * </p>
+     * .
      *
      * @param ipAddress
      *            a {@link java.lang.String} object.
@@ -101,6 +107,7 @@ public class PathElement implements Serializable {
      * <p>
      * getServiceName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -113,6 +120,7 @@ public class PathElement implements Serializable {
      * <p>
      * setServiceName
      * </p>
+     * .
      *
      * @param serviceName
      *            a {@link java.lang.String} object.

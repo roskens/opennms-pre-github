@@ -36,25 +36,51 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+/**
+ * The Class OnmsUserList.
+ */
 @XmlRootElement(name = "users")
 public class OnmsUserList extends LinkedList<OnmsUser> {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 870025150817734414L;
 
+    /** The m_total count. */
     private int m_totalCount;
 
+    /**
+     * Instantiates a new onms user list.
+     */
     public OnmsUserList() {
         super();
     }
 
+    /**
+     * Instantiates a new onms user list.
+     *
+     * @param c
+     *            the c
+     */
     public OnmsUserList(final Collection<? extends OnmsUser> c) {
         super(c);
     }
 
+    /**
+     * Gets the users.
+     *
+     * @return the users
+     */
     @XmlElement(name = "user")
     public List<OnmsUser> getUsers() {
         return this;
     }
 
+    /**
+     * Sets the users.
+     *
+     * @param users
+     *            the new users
+     */
     public void setUsers(final List<OnmsUser> users) {
         if (users == this)
             return;
@@ -62,6 +88,11 @@ public class OnmsUserList extends LinkedList<OnmsUser> {
         addAll(users);
     }
 
+    /**
+     * Gets the count.
+     *
+     * @return the count
+     */
     @XmlAttribute(name = "count")
     public int getCount() {
         return this.size();
@@ -69,9 +100,20 @@ public class OnmsUserList extends LinkedList<OnmsUser> {
 
     // The property has a getter "" but no setter. For unmarshalling, please
     // define setters.
+    /**
+     * Sets the count.
+     *
+     * @param count
+     *            the new count
+     */
     public void setCount(final int count) {
     }
 
+    /**
+     * Gets the total count.
+     *
+     * @return the total count
+     */
     @XmlAttribute(name = "totalCount")
     public int getTotalCount() {
         return m_totalCount;
@@ -81,6 +123,7 @@ public class OnmsUserList extends LinkedList<OnmsUser> {
      * <p>
      * setTotalCount
      * </p>
+     * .
      *
      * @param count
      *            a int.

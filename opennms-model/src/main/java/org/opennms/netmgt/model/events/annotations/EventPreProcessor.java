@@ -34,7 +34,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * EventPreProcessor
+ * EventPreProcessor.
  *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @version $Id: $

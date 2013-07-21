@@ -37,8 +37,11 @@ import org.springframework.util.Assert;
  * </p>
  */
 public class LocationMonitorIpInterface {
+
+    /** The m_location monitor. */
     private final OnmsLocationMonitor m_locationMonitor;
 
+    /** The m_ip interface. */
     private final OnmsIpInterface m_ipInterface;
 
     /**
@@ -62,6 +65,7 @@ public class LocationMonitorIpInterface {
      * <p>
      * getIpInterface
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.OnmsIpInterface} object.
      */
@@ -73,6 +77,7 @@ public class LocationMonitorIpInterface {
      * <p>
      * getLocationMonitor
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.OnmsLocationMonitor} object.
      */
@@ -80,12 +85,18 @@ public class LocationMonitorIpInterface {
         return m_locationMonitor;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return new ToStringCreator(this).append("locationMonitor", m_locationMonitor).append("ipInterface",
                                                                                              m_ipInterface).toString();
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -95,6 +106,9 @@ public class LocationMonitorIpInterface {
         return result;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(final Object obj) {
         if (this == obj)

@@ -66,16 +66,18 @@ import javax.xml.bind.annotation.XmlType;
 @XmlRootElement(name = "log")
 public class Log {
 
+    /** The header. */
     @XmlElement(namespace = "http://xmlns.opennms.org/xsd/event")
     protected Header header;
 
+    /** The events. */
     @XmlElement(namespace = "http://xmlns.opennms.org/xsd/event", required = true)
     protected Events events;
 
     /**
      * Gets the value of the header property.
      *
-     * @return
+     * @return the header
      *         possible object is {@link Header }
      */
     public Header getHeader() {
@@ -95,7 +97,7 @@ public class Log {
     /**
      * Gets the value of the events property.
      *
-     * @return
+     * @return the events
      *         possible object is {@link Events }
      */
     public Events getEvents() {

@@ -39,21 +39,20 @@ import org.springframework.core.style.ToStringCreator;
  */
 public class OnmsServiceMap extends OnmsEntity implements Serializable {
 
-    /**
-     *
-     */
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 6550492519192174055L;
 
+    /** The m_id. */
     private Integer m_id;
 
-    /** identifier field */
+    /** identifier field. */
     private String m_ipAddr;
 
-    /** identifier field */
+    /** identifier field. */
     private String m_serviceMapName;
 
     /**
-     * full constructor
+     * full constructor.
      *
      * @param ipAddr
      *            a {@link java.lang.String} object.
@@ -66,7 +65,7 @@ public class OnmsServiceMap extends OnmsEntity implements Serializable {
     }
 
     /**
-     * default constructor
+     * default constructor.
      */
     public OnmsServiceMap() {
     }
@@ -75,10 +74,11 @@ public class OnmsServiceMap extends OnmsEntity implements Serializable {
      * <p>
      * getId
      * </p>
+     * .
      *
+     * @return a {@link java.lang.Integer} object.
      * @hibernate.id generator-class="native" column="id"
      * @hibernate.generator-param name="sequence" value="svcMapNxtId"
-     * @return a {@link java.lang.Integer} object.
      */
     public Integer getId() {
         return m_id;
@@ -88,6 +88,7 @@ public class OnmsServiceMap extends OnmsEntity implements Serializable {
      * <p>
      * setId
      * </p>
+     * .
      *
      * @param id
      *            a {@link java.lang.Integer} object.
@@ -100,6 +101,7 @@ public class OnmsServiceMap extends OnmsEntity implements Serializable {
      * <p>
      * getIpAddr
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -111,6 +113,7 @@ public class OnmsServiceMap extends OnmsEntity implements Serializable {
      * <p>
      * setIpAddr
      * </p>
+     * .
      *
      * @param ipAddr
      *            a {@link java.lang.String} object.
@@ -123,6 +126,7 @@ public class OnmsServiceMap extends OnmsEntity implements Serializable {
      * <p>
      * getServiceMapName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -134,6 +138,7 @@ public class OnmsServiceMap extends OnmsEntity implements Serializable {
      * <p>
      * setServiceMapName
      * </p>
+     * .
      *
      * @param serviceMapName
      *            a {@link java.lang.String} object.
@@ -146,6 +151,7 @@ public class OnmsServiceMap extends OnmsEntity implements Serializable {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

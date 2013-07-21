@@ -82,6 +82,9 @@ public class ParmDescriptor extends org.exolab.castor.xml.util.XMLClassDescripto
     // - Constructors -/
     // ----------------/
 
+    /**
+     * Instantiates a new parm descriptor.
+     */
     public ParmDescriptor() {
         super();
         _nsURI = "http://xmlns.opennms.org/xsd/event";

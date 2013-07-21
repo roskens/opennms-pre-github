@@ -42,49 +42,50 @@ import javax.persistence.TemporalType;
 import org.springframework.core.style.ToStringCreator;
 
 /**
- * Represents an OpenNMS Distributed Poller
+ * Represents an OpenNMS Distributed Poller.
  */
 @Entity
 @Table(name = "distPoller")
 public class OnmsDistPoller implements Serializable {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -1094353783612066524L;
 
-    /** identifier field */
+    /** identifier field. */
     private String m_name;
 
-    /** persistent field */
+    /** persistent field. */
     private String m_ipAddress;
 
-    /** nullable persistent field */
+    /** nullable persistent field. */
     private String m_comment;
 
-    /** nullable persistent field */
+    /** nullable persistent field. */
     private BigDecimal m_discoveryLimit;
 
-    /** nullable persistent field */
+    /** nullable persistent field. */
     private Date m_lastNodePull;
 
-    /** nullable persistent field */
+    /** nullable persistent field. */
     private Date m_lastEventPull;
 
-    /** nullable persistent field */
+    /** nullable persistent field. */
     private Date m_lastPackagePush;
 
-    /** nullable persistent field */
+    /** nullable persistent field. */
     private Integer m_adminState;
 
-    /** nullable persistent field */
+    /** nullable persistent field. */
     private Integer m_runState;
 
     /**
-     * default constructor
+     * default constructor.
      */
     public OnmsDistPoller() {
     }
 
     /**
-     * minimal constructor
+     * minimal constructor.
      *
      * @param name
      *            a {@link java.lang.String} object.
@@ -112,6 +113,7 @@ public class OnmsDistPoller implements Serializable {
      * <p>
      * setName
      * </p>
+     * .
      *
      * @param dpname
      *            a {@link java.lang.String} object.
@@ -134,6 +136,7 @@ public class OnmsDistPoller implements Serializable {
      * <p>
      * setIpAddress
      * </p>
+     * .
      *
      * @param dpip
      *            a {@link java.lang.String} object.
@@ -143,7 +146,7 @@ public class OnmsDistPoller implements Serializable {
     }
 
     /**
-     * A free form text field providing a desciption of the distrubted poller
+     * A free form text field providing a desciption of the distrubted poller.
      *
      * @return a {@link java.lang.String} object.
      */
@@ -156,6 +159,7 @@ public class OnmsDistPoller implements Serializable {
      * <p>
      * setComment
      * </p>
+     * .
      *
      * @param dpcomment
      *            a {@link java.lang.String} object.
@@ -180,6 +184,7 @@ public class OnmsDistPoller implements Serializable {
      * <p>
      * setDiscoveryLimit
      * </p>
+     * .
      *
      * @param dpdisclimit
      *            a {@link java.math.BigDecimal} object.
@@ -189,7 +194,7 @@ public class OnmsDistPoller implements Serializable {
     }
 
     /**
-     * Time of last pull of new nodes from the DP
+     * Time of last pull of new nodes from the DP.
      *
      * @return a {@link java.util.Date} object.
      */
@@ -203,6 +208,7 @@ public class OnmsDistPoller implements Serializable {
      * <p>
      * setLastNodePull
      * </p>
+     * .
      *
      * @param dplastnodepull
      *            a {@link java.util.Date} object.
@@ -212,7 +218,7 @@ public class OnmsDistPoller implements Serializable {
     }
 
     /**
-     * Time of last pull of events from the DP
+     * Time of last pull of events from the DP.
      *
      * @return a {@link java.util.Date} object.
      */
@@ -226,6 +232,7 @@ public class OnmsDistPoller implements Serializable {
      * <p>
      * setLastEventPull
      * </p>
+     * .
      *
      * @param dplasteventpull
      *            a {@link java.util.Date} object.
@@ -235,7 +242,7 @@ public class OnmsDistPoller implements Serializable {
     }
 
     /**
-     * Time of last push of Package (config) to the DP
+     * Time of last push of Package (config) to the DP.
      *
      * @return a {@link java.util.Date} object.
      */
@@ -249,6 +256,7 @@ public class OnmsDistPoller implements Serializable {
      * <p>
      * setLastPackagePush
      * </p>
+     * .
      *
      * @param dplastpackagepush
      *            a {@link java.util.Date} object.
@@ -271,6 +279,7 @@ public class OnmsDistPoller implements Serializable {
      * <p>
      * setAdminState
      * </p>
+     * .
      *
      * @param dpadminstate
      *            a {@link java.lang.Integer} object.
@@ -294,6 +303,7 @@ public class OnmsDistPoller implements Serializable {
      * <p>
      * setRunState
      * </p>
+     * .
      *
      * @param dprunstate
      *            a {@link java.lang.Integer} object.
@@ -306,6 +316,7 @@ public class OnmsDistPoller implements Serializable {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

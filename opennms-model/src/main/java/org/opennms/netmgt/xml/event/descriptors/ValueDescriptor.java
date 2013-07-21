@@ -82,6 +82,9 @@ public class ValueDescriptor extends org.exolab.castor.xml.util.XMLClassDescript
     // - Constructors -/
     // ----------------/
 
+    /**
+     * Instantiates a new value descriptor.
+     */
     public ValueDescriptor() {
         super();
         _nsURI = "http://xmlns.opennms.org/xsd/event";

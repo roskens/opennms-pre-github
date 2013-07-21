@@ -55,10 +55,15 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.opennms.core.xml.bind.InetAddressXmlAdapter;
 
+/**
+ * The Class Event.
+ */
 @XmlRootElement(name = "event")
 @XmlAccessorType(XmlAccessType.FIELD)
 // @ValidateUsing("event.xsd")
 public class Event implements Serializable {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -7181966801138679257L;
 
     // --------------------------/
@@ -71,9 +76,7 @@ public class Event implements Serializable {
     @XmlAttribute(name = "uuid")
     private String _uuid;
 
-    /**
-     * The event database id
-     */
+    /** The event database id. */
     @XmlElement(name = "dbid")
     private Integer _dbid;
 
@@ -83,27 +86,19 @@ public class Event implements Serializable {
     @XmlElement(name = "dist-poller")
     private String _distPoller;
 
-    /**
-     * from header
-     */
+    /** from header. */
     @XmlElement(name = "creation-time")
     private String _creationTime;
 
-    /**
-     * from header
-     */
+    /** from header. */
     @XmlElement(name = "master-station")
     private String _masterStation;
 
-    /**
-     * The event mask which helps to uniquely identify an event
-     */
+    /** The event mask which helps to uniquely identify an event. */
     @XmlElement(name = "mask")
     private Mask _mask;
 
-    /**
-     * The Universal Event Identifier
-     */
+    /** The Universal Event Identifier. */
     @XmlElement(name = "uei")
     private String _uei;
 
@@ -113,9 +108,7 @@ public class Event implements Serializable {
     @XmlElement(name = "source")
     private String _source;
 
-    /**
-     * The nodeid to which this event pertains
-     */
+    /** The nodeid to which this event pertains. */
     @XmlElement(name = "nodeid")
     private Long _nodeid;
 
@@ -128,139 +121,98 @@ public class Event implements Serializable {
     @XmlElement(name = "time")
     private String _time;
 
-    /**
-     * The host at which the event is generated
-     */
+    /** The host at which the event is generated. */
     @XmlElement(name = "host")
     private String _host;
 
-    /**
-     * The interface to which this event is pertinent
-     */
+    /** The interface to which this event is pertinent. */
     @XmlElement(name = "interface")
     @XmlJavaTypeAdapter(InetAddressXmlAdapter.class)
     private InetAddress _interfaceAddress;
 
+    /** The _interface string. */
     private transient String _interfaceString;
 
-    /**
-     * The snmp host of the trap
-     */
+    /** The snmp host of the trap. */
     @XmlElement(name = "snmphost")
     private String _snmphost;
 
-    /**
-     * The service to which this event is pertinent
-     */
+    /** The service to which this event is pertinent. */
     @XmlElement(name = "service")
     private String _service;
 
-    /**
-     * The snmp information from the trap
-     */
+    /** The snmp information from the trap. */
     @XmlElement(name = "snmp")
     private Snmp _snmp;
 
-    /**
-     * The varbinds from the trap
-     */
+    /** The varbinds from the trap. */
     @XmlElementWrapper(name = "parms")
     @XmlElement(name = "parm")
     private List<Parm> _parms;
 
-    /**
-     * The event description
-     */
+    /** The event description. */
     @XmlElement(name = "descr")
     private String _descr;
 
-    /**
-     * The event logmsg
-     */
+    /** The event logmsg. */
     @XmlElement(name = "logmsg")
     private Logmsg _logmsg;
 
-    /**
-     * The event severity
-     */
+    /** The event severity. */
     @XmlElement(name = "severity")
     private String _severity;
 
-    /**
-     * The path outage information
-     */
+    /** The path outage information. */
     @XmlElement(name = "pathoutage")
     private String _pathoutage;
 
-    /**
-     * The event correlation information
-     */
+    /** The event correlation information. */
     @XmlElement(name = "correlation")
     private Correlation _correlation;
 
-    /**
-     * The operator instruction for this event
-     */
+    /** The operator instruction for this event. */
     @XmlElement(name = "operinstruct")
     private String _operinstruct;
 
-    /**
-     * The automatic action to occur when this event occurs
-     */
+    /** The automatic action to occur when this event occurs. */
     @XmlElement(name = "autoaction")
     private List<Autoaction> _autoactionList;
 
-    /**
-     * The operator action to be taken when this event occurs
-     */
+    /** The operator action to be taken when this event occurs. */
     @XmlElement(name = "operaction")
     private List<Operaction> _operactionList;
 
-    /**
-     * The autoacknowledge information for the user
-     */
+    /** The autoacknowledge information for the user. */
     @XmlElement(name = "autoacknowledge")
     private Autoacknowledge _autoacknowledge;
 
-    /**
-     * A logical group with which to associate this event
-     */
+    /** A logical group with which to associate this event. */
     @XmlElement(name = "loggroup")
     private List<String> _loggroupList;
 
-    /**
-     * The trouble ticket info
-     */
+    /** The trouble ticket info. */
     @XmlElement(name = "tticket")
     private Tticket _tticket;
 
-    /**
-     * The forwarding information for this event
-     */
+    /** The forwarding information for this event. */
     @XmlElement(name = "forward")
     private List<Forward> _forwardList;
 
-    /**
-     * The script information for this event
-     */
+    /** The script information for this event. */
     @XmlElement(name = "script")
     private List<Script> _scriptList;
 
-    /**
-     * The ifIndex to which this event is pertinent
-     */
+    /** The ifIndex to which this event is pertinent. */
     @XmlElement(name = "ifIndex")
     private Integer _ifIndex;
 
-    /**
-     * The ifAlias to which this event is pertinent
-     */
+    /** The ifAlias to which this event is pertinent. */
     @XmlElement(name = "ifAlias")
     private String _ifAlias;
 
     /**
      * The text to be displayed on a 'mouseOver' event when this event is
-     * displayed in the event browser
+     * displayed in the event browser.
      */
     @XmlElement(name = "mouseovertext")
     private String _mouseovertext;
@@ -275,6 +227,9 @@ public class Event implements Serializable {
     // - Constructors -/
     // ----------------/
 
+    /**
+     * Instantiates a new event.
+     */
     public Event() {
         super();
         _autoactionList = new ArrayList<Autoaction>();
@@ -289,7 +244,10 @@ public class Event implements Serializable {
     // -----------/
 
     /**
+     * Adds the autoaction.
+     *
      * @param vAutoaction
+     *            the v autoaction
      * @throws IndexOutOfBoundsException
      *             if the index given is outside the bounds of the collection
      */
@@ -298,8 +256,12 @@ public class Event implements Serializable {
     }
 
     /**
+     * Adds the autoaction.
+     *
      * @param index
+     *            the index
      * @param vAutoaction
+     *            the v autoaction
      * @throws IndexOutOfBoundsException
      *             if the index given is outside the bounds of the collection
      */
@@ -308,7 +270,10 @@ public class Event implements Serializable {
     }
 
     /**
+     * Adds the forward.
+     *
      * @param vForward
+     *            the v forward
      * @throws IndexOutOfBoundsException
      *             if the index given is outside the bounds of the collection
      */
@@ -317,8 +282,12 @@ public class Event implements Serializable {
     }
 
     /**
+     * Adds the forward.
+     *
      * @param index
+     *            the index
      * @param vForward
+     *            the v forward
      * @throws IndexOutOfBoundsException
      *             if the index given is outside the bounds of the collection
      */
@@ -327,7 +296,10 @@ public class Event implements Serializable {
     }
 
     /**
+     * Adds the loggroup.
+     *
      * @param vLoggroup
+     *            the v loggroup
      * @throws IndexOutOfBoundsException
      *             if the index given is outside the bounds of the collection
      */
@@ -336,8 +308,12 @@ public class Event implements Serializable {
     }
 
     /**
+     * Adds the loggroup.
+     *
      * @param index
+     *            the index
      * @param vLoggroup
+     *            the v loggroup
      * @throws IndexOutOfBoundsException
      *             if the index given is outside the bounds of the collection
      */
@@ -346,7 +322,10 @@ public class Event implements Serializable {
     }
 
     /**
+     * Adds the operaction.
+     *
      * @param vOperaction
+     *            the v operaction
      * @throws IndexOutOfBoundsException
      *             if the index given is outside the bounds of the collection
      */
@@ -354,6 +333,12 @@ public class Event implements Serializable {
         _operactionList.add(vOperaction);
     }
 
+    /**
+     * Adds the parm.
+     *
+     * @param parm
+     *            the parm
+     */
     public void addParm(final Parm parm) {
         if (_parms == null) {
             _parms = new ArrayList<Parm>();
@@ -362,8 +347,12 @@ public class Event implements Serializable {
     }
 
     /**
+     * Adds the operaction.
+     *
      * @param index
+     *            the index
      * @param vOperaction
+     *            the v operaction
      * @throws IndexOutOfBoundsException
      *             if the index given is outside the bounds of the collection
      */
@@ -372,7 +361,10 @@ public class Event implements Serializable {
     }
 
     /**
+     * Adds the script.
+     *
      * @param vScript
+     *            the v script
      * @throws IndexOutOfBoundsException
      *             if the index given is outside the bounds of the collection
      */
@@ -381,8 +373,12 @@ public class Event implements Serializable {
     }
 
     /**
+     * Adds the script.
+     *
      * @param index
+     *            the index
      * @param vScript
+     *            the v script
      * @throws IndexOutOfBoundsException
      *             if the index given is outside the bounds of the collection
      */
@@ -391,18 +387,21 @@ public class Event implements Serializable {
     }
 
     /**
+     * Delete dbid.
      */
     public void deleteDbid() {
         _dbid = null;
     }
 
     /**
+     * Delete if index.
      */
     public void deleteIfIndex() {
         _ifIndex = null;
     }
 
     /**
+     * Delete nodeid.
      */
     public void deleteNodeid() {
         _nodeid = null;
@@ -478,10 +477,11 @@ public class Event implements Serializable {
      * Method getAutoaction.
      *
      * @param index
-     * @throws IndexOutOfBoundsException
-     *             if the index given is outside the bounds of the collection
+     *            the index
      * @return the value of the Autoaction at the
      *         given index
+     * @throws IndexOutOfBoundsException
+     *             if the index given is outside the bounds of the collection
      */
     public Autoaction getAutoaction(final int index) throws IndexOutOfBoundsException {
         // check bounds for index
@@ -579,10 +579,11 @@ public class Event implements Serializable {
      * Method getForward.
      *
      * @param index
-     * @throws IndexOutOfBoundsException
-     *             if the index given is outside the bounds of the collection
+     *            the index
      * @return the value of the Forward at the
      *         given index
+     * @throws IndexOutOfBoundsException
+     *             if the index given is outside the bounds of the collection
      */
     public Forward getForward(final int index) throws IndexOutOfBoundsException {
         // check bounds for index
@@ -671,6 +672,11 @@ public class Event implements Serializable {
     }
 
     // just to be sure
+    /**
+     * Gets the interface address.
+     *
+     * @return the interface address
+     */
     @XmlTransient
     public InetAddress getInterfaceAddress() {
         return _interfaceAddress;
@@ -680,9 +686,10 @@ public class Event implements Serializable {
      * Method getLoggroup.
      *
      * @param index
+     *            the index
+     * @return the value of the String at the given index
      * @throws IndexOutOfBoundsException
      *             if the index given is outside the bounds of the collection
-     * @return the value of the String at the given index
      */
     public String getLoggroup(final int index) throws IndexOutOfBoundsException {
         // check bounds for index
@@ -782,10 +789,11 @@ public class Event implements Serializable {
      * Method getOperaction.
      *
      * @param index
-     * @throws IndexOutOfBoundsException
-     *             if the index given is outside the bounds of the collection
+     *            the index
      * @return the value of the Operaction at the
      *         given index
+     * @throws IndexOutOfBoundsException
+     *             if the index given is outside the bounds of the collection
      */
     public Operaction getOperaction(final int index) throws IndexOutOfBoundsException {
         // check bounds for index
@@ -841,7 +849,9 @@ public class Event implements Serializable {
     }
 
     /**
-     * Returns the Collection of parms for this event
+     * Returns the Collection of parms for this event.
+     *
+     * @return the parm collection
      */
     public List<Parm> getParmCollection() {
         return _parms == null ? Collections.<Parm> emptyList() : _parms;
@@ -861,9 +871,10 @@ public class Event implements Serializable {
      * Method getScript.
      *
      * @param index
+     *            the index
+     * @return the value of the Script at the given index
      * @throws IndexOutOfBoundsException
      *             if the index given is outside the bounds of the collection
-     * @return the value of the Script at the given index
      */
     public Script getScript(final int index) throws IndexOutOfBoundsException {
         // check bounds for index
@@ -1072,30 +1083,35 @@ public class Event implements Serializable {
     }
 
     /**
+     * Removes the all autoaction.
      */
     public void removeAllAutoaction() {
         _autoactionList.clear();
     }
 
     /**
+     * Removes the all forward.
      */
     public void removeAllForward() {
         _forwardList.clear();
     }
 
     /**
+     * Removes the all loggroup.
      */
     public void removeAllLoggroup() {
         _loggroupList.clear();
     }
 
     /**
+     * Removes the all operaction.
      */
     public void removeAllOperaction() {
         _operactionList.clear();
     }
 
     /**
+     * Removes the all script.
      */
     public void removeAllScript() {
         _scriptList.clear();
@@ -1105,6 +1121,7 @@ public class Event implements Serializable {
      * Method removeAutoaction.
      *
      * @param vAutoaction
+     *            the v autoaction
      * @return true if the object was removed from the collection.
      */
     public boolean removeAutoaction(final Autoaction vAutoaction) {
@@ -1115,6 +1132,7 @@ public class Event implements Serializable {
      * Method removeAutoactionAt.
      *
      * @param index
+     *            the index
      * @return the element removed from the collection
      */
     public Autoaction removeAutoactionAt(final int index) {
@@ -1125,6 +1143,7 @@ public class Event implements Serializable {
      * Method removeForward.
      *
      * @param vForward
+     *            the v forward
      * @return true if the object was removed from the collection.
      */
     public boolean removeForward(final Forward vForward) {
@@ -1135,6 +1154,7 @@ public class Event implements Serializable {
      * Method removeForwardAt.
      *
      * @param index
+     *            the index
      * @return the element removed from the collection
      */
     public Forward removeForwardAt(final int index) {
@@ -1145,6 +1165,7 @@ public class Event implements Serializable {
      * Method removeLoggroup.
      *
      * @param vLoggroup
+     *            the v loggroup
      * @return true if the object was removed from the collection.
      */
     public boolean removeLoggroup(final String vLoggroup) {
@@ -1155,6 +1176,7 @@ public class Event implements Serializable {
      * Method removeLoggroupAt.
      *
      * @param index
+     *            the index
      * @return the element removed from the collection
      */
     public String removeLoggroupAt(final int index) {
@@ -1165,6 +1187,7 @@ public class Event implements Serializable {
      * Method removeOperaction.
      *
      * @param vOperaction
+     *            the v operaction
      * @return true if the object was removed from the collection.
      */
     public boolean removeOperaction(final Operaction vOperaction) {
@@ -1175,6 +1198,7 @@ public class Event implements Serializable {
      * Method removeOperactionAt.
      *
      * @param index
+     *            the index
      * @return the element removed from the collection
      */
     public Operaction removeOperactionAt(final int index) {
@@ -1185,6 +1209,7 @@ public class Event implements Serializable {
      * Method removeScript.
      *
      * @param vScript
+     *            the v script
      * @return true if the object was removed from the collection.
      */
     public boolean removeScript(final Script vScript) {
@@ -1195,6 +1220,7 @@ public class Event implements Serializable {
      * Method removeScriptAt.
      *
      * @param index
+     *            the index
      * @return the element removed from the collection
      */
     public Script removeScriptAt(final int index) {
@@ -1225,8 +1251,12 @@ public class Event implements Serializable {
     }
 
     /**
+     * Sets the autoaction.
+     *
      * @param index
+     *            the index
      * @param vAutoaction
+     *            the v autoaction
      * @throws IndexOutOfBoundsException
      *             if the index given is outside the bounds of the collection
      */
@@ -1241,7 +1271,10 @@ public class Event implements Serializable {
     }
 
     /**
+     * Sets the autoaction.
+     *
      * @param vAutoactionArray
+     *            the new autoaction
      */
     public void setAutoaction(final Autoaction[] vAutoactionArray) {
         // -- copy array
@@ -1270,9 +1303,9 @@ public class Event implements Serializable {
      * Sets the value of '_autoactionList' by setting it to the given Vector. No
      * type checking is performed.
      *
-     * @deprecated
      * @param autoactionList
      *            the Vector to set.
+     * @deprecated
      */
     public void setAutoactionCollection(final List<Autoaction> autoactionList) {
         _autoactionList = autoactionList;
@@ -1333,8 +1366,12 @@ public class Event implements Serializable {
     }
 
     /**
+     * Sets the forward.
+     *
      * @param index
+     *            the index
      * @param vForward
+     *            the v forward
      * @throws IndexOutOfBoundsException
      *             if the index given is outside the bounds of the collection
      */
@@ -1349,7 +1386,10 @@ public class Event implements Serializable {
     }
 
     /**
+     * Sets the forward.
+     *
      * @param vForwardArray
+     *            the new forward
      */
     public void setForward(final Forward[] vForwardArray) {
         // -- copy array
@@ -1378,9 +1418,9 @@ public class Event implements Serializable {
      * Sets the value of '_forwardList' by setting it to the given Vector. No
      * type checking is performed.
      *
-     * @deprecated
      * @param forwardList
      *            the Vector to set.
+     * @deprecated
      */
     public void setForwardCollection(final List<Forward> forwardList) {
         _forwardList = forwardList;
@@ -1424,21 +1464,31 @@ public class Event implements Serializable {
      * following description: The interface to which this event is pertinent
      *
      * @param _interface
-     * @param interface the value of field 'interface'.
+     *            the new interface
      */
     public void setInterface(final String _interface) {
         _interfaceAddress = addr(_interface);
         _interfaceString = null;
     }
 
+    /**
+     * Sets the interface address.
+     *
+     * @param _interface
+     *            the new interface address
+     */
     public void setInterfaceAddress(final InetAddress _interface) {
         _interfaceAddress = _interface;
         _interfaceString = null;
     }
 
     /**
+     * Sets the loggroup.
+     *
      * @param index
+     *            the index
      * @param vLoggroup
+     *            the v loggroup
      * @throws IndexOutOfBoundsException
      *             if the index given is outside the bounds of the collection
      */
@@ -1453,7 +1503,10 @@ public class Event implements Serializable {
     }
 
     /**
+     * Sets the loggroup.
+     *
      * @param vLoggroupArray
+     *            the new loggroup
      */
     public void setLoggroup(final String[] vLoggroupArray) {
         // -- copy array
@@ -1482,9 +1535,9 @@ public class Event implements Serializable {
      * Sets the value of '_loggroupList' by setting it to the given Vector. No
      * type checking is performed.
      *
-     * @deprecated
      * @param loggroupList
      *            the Vector to set.
+     * @deprecated
      */
     public void setLoggroupCollection(final List<String> loggroupList) {
         _loggroupList = loggroupList;
@@ -1547,8 +1600,12 @@ public class Event implements Serializable {
     }
 
     /**
+     * Sets the operaction.
+     *
      * @param index
+     *            the index
      * @param vOperaction
+     *            the v operaction
      * @throws IndexOutOfBoundsException
      *             if the index given is outside the bounds of the collection
      */
@@ -1563,7 +1620,10 @@ public class Event implements Serializable {
     }
 
     /**
+     * Sets the operaction.
+     *
      * @param vOperactionArray
+     *            the new operaction
      */
     public void setOperaction(final Operaction[] vOperactionArray) {
         // -- copy array
@@ -1592,9 +1652,9 @@ public class Event implements Serializable {
      * Sets the value of '_operactionList' by setting it to the given Vector. No
      * type checking is performed.
      *
-     * @deprecated
      * @param operactionList
      *            the Vector to set.
+     * @deprecated
      */
     public void setOperactionCollection(final List<Operaction> operactionList) {
         _operactionList = operactionList;
@@ -1611,6 +1671,12 @@ public class Event implements Serializable {
         _operinstruct = operinstruct;
     }
 
+    /**
+     * Sets the parm collection.
+     *
+     * @param parms
+     *            the new parm collection
+     */
     public void setParmCollection(final List<Parm> parms) {
         _parms = parms;
     }
@@ -1627,8 +1693,12 @@ public class Event implements Serializable {
     }
 
     /**
+     * Sets the script.
+     *
      * @param index
+     *            the index
      * @param vScript
+     *            the v script
      * @throws IndexOutOfBoundsException
      *             if the index given is outside the bounds of the collection
      */
@@ -1643,7 +1713,10 @@ public class Event implements Serializable {
     }
 
     /**
+     * Sets the script.
+     *
      * @param vScriptArray
+     *            the new script
      */
     public void setScript(final Script[] vScriptArray) {
         // -- copy array
@@ -1672,9 +1745,9 @@ public class Event implements Serializable {
      * Sets the value of '_scriptList' by setting it to the given Vector. No
      * type checking is performed.
      *
-     * @deprecated
      * @param scriptList
      *            the Vector to set.
+     * @deprecated
      */
     public void setScriptCollection(final List<Script> scriptList) {
         _scriptList = scriptList;
@@ -1780,6 +1853,9 @@ public class Event implements Serializable {
         _uuid = uuid;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return new ToStringBuilder(this).append("uuid", _uuid).append("dbid", _dbid).append("dist-poller", _distPoller).append("creation-time",

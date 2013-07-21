@@ -39,11 +39,14 @@ import org.opennms.netmgt.xml.event.Value;
  * </p>
  */
 public class SyntaxToEvent {
+
+    /** The m_type id. */
     int m_typeId;
 
+    /** The m_type. */
     String m_type;
 
-    /** Constant <code>m_syntaxToEvents</code> */
+    /** Constant <code>m_syntaxToEvents</code>. */
     public static SyntaxToEvent[] m_syntaxToEvents;
 
     static {
@@ -69,6 +72,7 @@ public class SyntaxToEvent {
      * <p>
      * getTypeId
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -80,6 +84,7 @@ public class SyntaxToEvent {
      * <p>
      * getType
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -91,6 +96,7 @@ public class SyntaxToEvent {
      * <p>
      * setupSyntax
      * </p>
+     * .
      */
     public static void setupSyntax() {
         m_syntaxToEvents = new SyntaxToEvent[] {
@@ -111,6 +117,7 @@ public class SyntaxToEvent {
      * <p>
      * processSyntax
      * </p>
+     * .
      *
      * @param name
      *            a {@link java.lang.String} object.

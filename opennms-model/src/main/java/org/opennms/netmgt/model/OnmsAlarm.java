@@ -73,132 +73,141 @@ import org.springframework.core.style.ToStringCreator;
 @Table(name = "alarms")
 @Filter(name = FilterManager.AUTH_FILTER_NAME, condition = "exists (select distinct x.nodeid from node x join category_node cn on x.nodeid = cn.nodeid join category_group cg on cn.categoryId = cg.categoryId where x.nodeid = nodeid and cg.groupId in (:userGroups))")
 public class OnmsAlarm implements Acknowledgeable, Serializable {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 7275548439687562161L;
 
-    /** Constant <code>PROBLEM_TYPE=1</code> */
+    /** Constant <code>PROBLEM_TYPE=1</code>. */
     public static final int PROBLEM_TYPE = 1;
 
-    /** Constant <code>RESOLUTION_TYPE=2</code> */
+    /** Constant <code>RESOLUTION_TYPE=2</code>. */
     public static final int RESOLUTION_TYPE = 2;
 
-    /** identifier field */
+    /** identifier field. */
     private Integer m_id;
 
-    /** persistent field */
+    /** persistent field. */
     private String m_uei;
 
-    /** persistent field */
+    /** persistent field. */
     private OnmsDistPoller m_distPoller;
 
-    /** nullable persistent field */
+    /** nullable persistent field. */
     private OnmsNode m_node;
 
-    /** nullable persistent field */
+    /** nullable persistent field. */
     private InetAddress m_ipAddr;
 
-    /** nullable persistent field */
+    /** nullable persistent field. */
     private OnmsServiceType m_serviceType;
 
-    /** nullable persistent field */
+    /** nullable persistent field. */
     private String m_reductionKey;
 
-    /** nullable persistent field */
+    /** nullable persistent field. */
     private Integer m_alarmType;
 
-    /** nullable persistent field */
+    /** nullable persistent field. */
     private Integer m_ifIndex;
 
-    /** persistent field */
+    /** persistent field. */
     private Integer m_counter;
 
-    /** persistent field */
+    /** persistent field. */
     private OnmsSeverity m_severity = OnmsSeverity.INDETERMINATE;
 
-    /** persistent field */
+    /** persistent field. */
     private Date m_firstEventTime;
 
-    /** persistent field */
+    /** persistent field. */
     private Date m_lastEventTime;
 
-    /** persistent field */
+    /** persistent field. */
     private Date m_firstAutomationTime;
 
-    /** persistent field */
+    /** persistent field. */
     private Date m_lastAutomationTime;
 
-    /** nullable persistent field */
+    /** nullable persistent field. */
     private String m_description;
 
-    /** nullable persistent field */
+    /** nullable persistent field. */
     private String m_logMsg;
 
-    /** nullable persistent field */
+    /** nullable persistent field. */
     private String m_operInstruct;
 
-    /** nullable persistent field */
+    /** nullable persistent field. */
     private String m_tTicketId;
 
-    /** nullable persistent field */
+    /** nullable persistent field. */
     private TroubleTicketState m_tTicketState;
 
-    /** nullable persistent field */
+    /** nullable persistent field. */
     private String m_mouseOverText;
 
-    /** nullable persistent field */
+    /** nullable persistent field. */
     private Date m_suppressedUntil;
 
-    /** nullable persistent field */
+    /** nullable persistent field. */
     private String m_suppressedUser;
 
-    /** nullable persistent field */
+    /** nullable persistent field. */
     private Date m_suppressedTime;
 
-    /** nullable persistent field */
+    /** nullable persistent field. */
     private String m_alarmAckUser;
 
-    /** nullable persistent field */
+    /** nullable persistent field. */
     private Date m_alarmAckTime;
 
-    /** nullable persistent field */
+    /** nullable persistent field. */
     private String m_clearKey;
 
-    /** persistent field */
+    /** persistent field. */
     private OnmsEvent m_lastEvent;
 
-    /** persistent field */
+    /** persistent field. */
     private String m_eventParms;
 
-    /** persistent field */
+    /** persistent field. */
     private String m_managedObjectInstance;
 
-    /** persistent field */
+    /** persistent field. */
     private String m_managedObjectType;
 
-    /** persistent field */
+    /** persistent field. */
     private String m_applicationDN;
 
+    /** The m_oss primary key. */
     private String m_ossPrimaryKey;
 
+    /** The m_x733 alarm type. */
     private String m_x733AlarmType;
 
+    /** The m_qos alarm state. */
     private String m_qosAlarmState;
 
+    /** The m_x733 probable cause. */
     private int m_x733ProbableCause = 0;
 
+    /** The m_details. */
     private Map<String, String> m_details;
 
+    /** The m_sticky memo. */
     private OnmsMemo m_stickyMemo;
 
+    /** The m_reduction key memo. */
     private OnmsReductionKeyMemo m_reductionKeyMemo;
 
     /**
-     * default constructor
+     * default constructor.
      */
     public OnmsAlarm() {
     }
 
     /**
-     * minimal constructor
+     * minimal constructor.
      *
      * @param alarmid
      *            a {@link java.lang.Integer} object.
@@ -230,6 +239,7 @@ public class OnmsAlarm implements Acknowledgeable, Serializable {
      * <p>
      * getId
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -246,6 +256,7 @@ public class OnmsAlarm implements Acknowledgeable, Serializable {
      * <p>
      * setId
      * </p>
+     * .
      *
      * @param alarmid
      *            a {@link java.lang.Integer} object.
@@ -258,6 +269,7 @@ public class OnmsAlarm implements Acknowledgeable, Serializable {
      * <p>
      * getUei
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -271,6 +283,7 @@ public class OnmsAlarm implements Acknowledgeable, Serializable {
      * <p>
      * setUei
      * </p>
+     * .
      *
      * @param eventuei
      *            a {@link java.lang.String} object.
@@ -283,6 +296,7 @@ public class OnmsAlarm implements Acknowledgeable, Serializable {
      * <p>
      * getDistPoller
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.OnmsDistPoller} object.
      */
@@ -297,6 +311,7 @@ public class OnmsAlarm implements Acknowledgeable, Serializable {
      * <p>
      * setDistPoller
      * </p>
+     * .
      *
      * @param distPoller
      *            a {@link org.opennms.netmgt.model.OnmsDistPoller} object.
@@ -310,6 +325,7 @@ public class OnmsAlarm implements Acknowledgeable, Serializable {
      * <p>
      * getNode
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.OnmsNode} object.
      */
@@ -325,6 +341,7 @@ public class OnmsAlarm implements Acknowledgeable, Serializable {
      * <p>
      * setNode
      * </p>
+     * .
      *
      * @param node
      *            a {@link org.opennms.netmgt.model.OnmsNode} object.
@@ -333,6 +350,11 @@ public class OnmsAlarm implements Acknowledgeable, Serializable {
         this.m_node = node;
     }
 
+    /**
+     * Gets the node id.
+     *
+     * @return the node id
+     */
     @Transient
     @XmlElement(name = "nodeId", required = false)
     public Integer getNodeId() {
@@ -341,6 +363,11 @@ public class OnmsAlarm implements Acknowledgeable, Serializable {
         return m_node.getId();
     }
 
+    /**
+     * Gets the node label.
+     *
+     * @return the node label
+     */
     @Transient
     @XmlElement(name = "nodeLabel", required = false)
     public String getNodeLabel() {
@@ -353,6 +380,7 @@ public class OnmsAlarm implements Acknowledgeable, Serializable {
      * <p>
      * getIpAddr
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -368,6 +396,7 @@ public class OnmsAlarm implements Acknowledgeable, Serializable {
      * <p>
      * setIpAddr
      * </p>
+     * .
      *
      * @param ipaddr
      *            a {@link java.lang.String} object.
@@ -380,6 +409,7 @@ public class OnmsAlarm implements Acknowledgeable, Serializable {
      * <p>
      * getServiceType
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.OnmsServiceType} object.
      */
@@ -393,6 +423,7 @@ public class OnmsAlarm implements Acknowledgeable, Serializable {
      * <p>
      * setServiceType
      * </p>
+     * .
      *
      * @param service
      *            a {@link org.opennms.netmgt.model.OnmsServiceType} object.
@@ -405,6 +436,7 @@ public class OnmsAlarm implements Acknowledgeable, Serializable {
      * <p>
      * getReductionKey
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -418,6 +450,7 @@ public class OnmsAlarm implements Acknowledgeable, Serializable {
      * <p>
      * setReductionKey
      * </p>
+     * .
      *
      * @param reductionkey
      *            a {@link java.lang.String} object.
@@ -430,6 +463,7 @@ public class OnmsAlarm implements Acknowledgeable, Serializable {
      * <p>
      * getAlarmType
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -443,6 +477,7 @@ public class OnmsAlarm implements Acknowledgeable, Serializable {
      * <p>
      * setAlarmType
      * </p>
+     * .
      *
      * @param alarmtype
      *            a {@link java.lang.Integer} object.
@@ -455,6 +490,7 @@ public class OnmsAlarm implements Acknowledgeable, Serializable {
      * <p>
      * getCounter
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -468,6 +504,7 @@ public class OnmsAlarm implements Acknowledgeable, Serializable {
      * <p>
      * setCounter
      * </p>
+     * .
      *
      * @param counter
      *            a {@link java.lang.Integer} object.
@@ -480,6 +517,7 @@ public class OnmsAlarm implements Acknowledgeable, Serializable {
      * <p>
      * getSeverityLabel
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -493,6 +531,7 @@ public class OnmsAlarm implements Acknowledgeable, Serializable {
      * <p>
      * setSeverityLabel
      * </p>
+     * .
      *
      * @param label
      *            a {@link java.lang.String} object.
@@ -505,6 +544,7 @@ public class OnmsAlarm implements Acknowledgeable, Serializable {
      * <p>
      * getSeverity
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.OnmsSeverity} object.
      */
@@ -520,6 +560,7 @@ public class OnmsAlarm implements Acknowledgeable, Serializable {
      * <p>
      * setSeverity
      * </p>
+     * .
      *
      * @param severity
      *            a {@link org.opennms.netmgt.model.OnmsSeverity} object.
@@ -532,6 +573,7 @@ public class OnmsAlarm implements Acknowledgeable, Serializable {
      * <p>
      * getSeverityId
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -545,6 +587,7 @@ public class OnmsAlarm implements Acknowledgeable, Serializable {
      * <p>
      * setSeverityId
      * </p>
+     * .
      *
      * @param severity
      *            a {@link java.lang.Integer} object.
@@ -557,6 +600,7 @@ public class OnmsAlarm implements Acknowledgeable, Serializable {
      * <p>
      * getFirstEventTime
      * </p>
+     * .
      *
      * @return a {@link java.util.Date} object.
      */
@@ -570,6 +614,7 @@ public class OnmsAlarm implements Acknowledgeable, Serializable {
      * <p>
      * setFirstEventTime
      * </p>
+     * .
      *
      * @param firsteventtime
      *            a {@link java.util.Date} object.
@@ -582,6 +627,7 @@ public class OnmsAlarm implements Acknowledgeable, Serializable {
      * <p>
      * getDescription
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -594,6 +640,7 @@ public class OnmsAlarm implements Acknowledgeable, Serializable {
      * <p>
      * setDescription
      * </p>
+     * .
      *
      * @param description
      *            a {@link java.lang.String} object.
@@ -606,6 +653,7 @@ public class OnmsAlarm implements Acknowledgeable, Serializable {
      * <p>
      * getLogMsg
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -619,6 +667,7 @@ public class OnmsAlarm implements Acknowledgeable, Serializable {
      * <p>
      * setLogMsg
      * </p>
+     * .
      *
      * @param logmsg
      *            a {@link java.lang.String} object.
@@ -631,6 +680,7 @@ public class OnmsAlarm implements Acknowledgeable, Serializable {
      * <p>
      * getOperInstruct
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -644,6 +694,7 @@ public class OnmsAlarm implements Acknowledgeable, Serializable {
      * <p>
      * setOperInstruct
      * </p>
+     * .
      *
      * @param operinstruct
      *            a {@link java.lang.String} object.
@@ -656,6 +707,7 @@ public class OnmsAlarm implements Acknowledgeable, Serializable {
      * <p>
      * getTTicketId
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -669,6 +721,7 @@ public class OnmsAlarm implements Acknowledgeable, Serializable {
      * <p>
      * setTTicketId
      * </p>
+     * .
      *
      * @param tticketid
      *            a {@link java.lang.String} object.
@@ -681,6 +734,7 @@ public class OnmsAlarm implements Acknowledgeable, Serializable {
      * <p>
      * getTTicketState
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.TroubleTicketState} object.
      */
@@ -694,6 +748,7 @@ public class OnmsAlarm implements Acknowledgeable, Serializable {
      * <p>
      * setTTicketState
      * </p>
+     * .
      *
      * @param tticketstate
      *            a {@link org.opennms.netmgt.model.TroubleTicketState} object.
@@ -706,6 +761,7 @@ public class OnmsAlarm implements Acknowledgeable, Serializable {
      * <p>
      * getMouseOverText
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -719,6 +775,7 @@ public class OnmsAlarm implements Acknowledgeable, Serializable {
      * <p>
      * setMouseOverText
      * </p>
+     * .
      *
      * @param mouseovertext
      *            a {@link java.lang.String} object.
@@ -731,6 +788,7 @@ public class OnmsAlarm implements Acknowledgeable, Serializable {
      * <p>
      * getSuppressedUntil
      * </p>
+     * .
      *
      * @return a {@link java.util.Date} object.
      */
@@ -745,6 +803,7 @@ public class OnmsAlarm implements Acknowledgeable, Serializable {
      * <p>
      * setSuppressedUntil
      * </p>
+     * .
      *
      * @param suppresseduntil
      *            a {@link java.util.Date} object.
@@ -757,6 +816,7 @@ public class OnmsAlarm implements Acknowledgeable, Serializable {
      * <p>
      * getSuppressedUser
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -770,6 +830,7 @@ public class OnmsAlarm implements Acknowledgeable, Serializable {
      * <p>
      * setSuppressedUser
      * </p>
+     * .
      *
      * @param suppresseduser
      *            a {@link java.lang.String} object.
@@ -782,6 +843,7 @@ public class OnmsAlarm implements Acknowledgeable, Serializable {
      * <p>
      * getSuppressedTime
      * </p>
+     * .
      *
      * @return a {@link java.util.Date} object.
      */
@@ -796,6 +858,7 @@ public class OnmsAlarm implements Acknowledgeable, Serializable {
      * <p>
      * setSuppressedTime
      * </p>
+     * .
      *
      * @param suppressedtime
      *            a {@link java.util.Date} object.
@@ -808,6 +871,7 @@ public class OnmsAlarm implements Acknowledgeable, Serializable {
      * <p>
      * getAlarmAckUser
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -821,6 +885,7 @@ public class OnmsAlarm implements Acknowledgeable, Serializable {
      * <p>
      * setAlarmAckUser
      * </p>
+     * .
      *
      * @param alarmackuser
      *            a {@link java.lang.String} object.
@@ -829,6 +894,11 @@ public class OnmsAlarm implements Acknowledgeable, Serializable {
         this.m_alarmAckUser = alarmackuser;
     }
 
+    /**
+     * Checks if is acknowledged.
+     *
+     * @return true, if is acknowledged
+     */
     @Transient
     @XmlTransient
     public boolean isAcknowledged() {
@@ -839,6 +909,7 @@ public class OnmsAlarm implements Acknowledgeable, Serializable {
      * <p>
      * getAlarmAckTime
      * </p>
+     * .
      *
      * @return a {@link java.util.Date} object.
      */
@@ -853,6 +924,7 @@ public class OnmsAlarm implements Acknowledgeable, Serializable {
      * <p>
      * setAlarmAckTime
      * </p>
+     * .
      *
      * @param alarmacktime
      *            a {@link java.util.Date} object.
@@ -865,6 +937,7 @@ public class OnmsAlarm implements Acknowledgeable, Serializable {
      * <p>
      * getClearKey
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -878,6 +951,7 @@ public class OnmsAlarm implements Acknowledgeable, Serializable {
      * <p>
      * setClearKey
      * </p>
+     * .
      *
      * @param clearKey
      *            a {@link java.lang.String} object.
@@ -890,6 +964,7 @@ public class OnmsAlarm implements Acknowledgeable, Serializable {
      * <p>
      * getLastEvent
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.OnmsEvent} object.
      */
@@ -904,6 +979,7 @@ public class OnmsAlarm implements Acknowledgeable, Serializable {
      * <p>
      * setLastEvent
      * </p>
+     * .
      *
      * @param event
      *            a {@link org.opennms.netmgt.model.OnmsEvent} object.
@@ -925,6 +1001,7 @@ public class OnmsAlarm implements Acknowledgeable, Serializable {
      * <p>
      * getEventParms
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -938,6 +1015,7 @@ public class OnmsAlarm implements Acknowledgeable, Serializable {
      * <p>
      * setEventParms
      * </p>
+     * .
      *
      * @param eventparms
      *            a {@link java.lang.String} object.
@@ -950,6 +1028,7 @@ public class OnmsAlarm implements Acknowledgeable, Serializable {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -962,6 +1041,7 @@ public class OnmsAlarm implements Acknowledgeable, Serializable {
      * <p>
      * getLastEventTime
      * </p>
+     * .
      *
      * @return a {@link java.util.Date} object.
      */
@@ -976,6 +1056,7 @@ public class OnmsAlarm implements Acknowledgeable, Serializable {
      * <p>
      * setLastEventTime
      * </p>
+     * .
      *
      * @param lastEventTime
      *            a {@link java.util.Date} object.
@@ -988,6 +1069,7 @@ public class OnmsAlarm implements Acknowledgeable, Serializable {
      * <p>
      * getApplicationDN
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -1001,6 +1083,7 @@ public class OnmsAlarm implements Acknowledgeable, Serializable {
      * <p>
      * setApplicationDN
      * </p>
+     * .
      *
      * @param applicationDN
      *            a {@link java.lang.String} object.
@@ -1013,6 +1096,7 @@ public class OnmsAlarm implements Acknowledgeable, Serializable {
      * <p>
      * getManagedObjectInstance
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -1025,6 +1109,7 @@ public class OnmsAlarm implements Acknowledgeable, Serializable {
      * <p>
      * setManagedObjectInstance
      * </p>
+     * .
      *
      * @param managedObjectInstance
      *            a {@link java.lang.String} object.
@@ -1037,6 +1122,7 @@ public class OnmsAlarm implements Acknowledgeable, Serializable {
      * <p>
      * getManagedObjectType
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -1049,6 +1135,7 @@ public class OnmsAlarm implements Acknowledgeable, Serializable {
      * <p>
      * setManagedObjectType
      * </p>
+     * .
      *
      * @param managedObjectType
      *            a {@link java.lang.String} object.
@@ -1061,6 +1148,7 @@ public class OnmsAlarm implements Acknowledgeable, Serializable {
      * <p>
      * getOssPrimaryKey
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -1073,6 +1161,7 @@ public class OnmsAlarm implements Acknowledgeable, Serializable {
      * <p>
      * setOssPrimaryKey
      * </p>
+     * .
      *
      * @param key
      *            a {@link java.lang.String} object.
@@ -1085,6 +1174,7 @@ public class OnmsAlarm implements Acknowledgeable, Serializable {
      * <p>
      * getX733AlarmType
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -1097,6 +1187,7 @@ public class OnmsAlarm implements Acknowledgeable, Serializable {
      * <p>
      * setX733AlarmType
      * </p>
+     * .
      *
      * @param alarmType
      *            a {@link java.lang.String} object.
@@ -1109,6 +1200,7 @@ public class OnmsAlarm implements Acknowledgeable, Serializable {
      * <p>
      * getX733ProbableCause
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -1121,6 +1213,7 @@ public class OnmsAlarm implements Acknowledgeable, Serializable {
      * <p>
      * setX733ProbableCause
      * </p>
+     * .
      *
      * @param cause
      *            a int.
@@ -1133,6 +1226,7 @@ public class OnmsAlarm implements Acknowledgeable, Serializable {
      * <p>
      * getQosAlarmState
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -1146,6 +1240,7 @@ public class OnmsAlarm implements Acknowledgeable, Serializable {
      * <p>
      * setQosAlarmState
      * </p>
+     * .
      *
      * @param alarmState
      *            a {@link java.lang.String} object.
@@ -1158,6 +1253,7 @@ public class OnmsAlarm implements Acknowledgeable, Serializable {
      * <p>
      * getFirstAutomationTime
      * </p>
+     * .
      *
      * @return a {@link java.util.Date} object.
      */
@@ -1172,6 +1268,7 @@ public class OnmsAlarm implements Acknowledgeable, Serializable {
      * <p>
      * setFirstAutomationTime
      * </p>
+     * .
      *
      * @param firstAutomationTime
      *            a {@link java.util.Date} object.
@@ -1184,6 +1281,7 @@ public class OnmsAlarm implements Acknowledgeable, Serializable {
      * <p>
      * getLastAutomationTime
      * </p>
+     * .
      *
      * @return a {@link java.util.Date} object.
      */
@@ -1198,6 +1296,7 @@ public class OnmsAlarm implements Acknowledgeable, Serializable {
      * <p>
      * setLastAutomationTime
      * </p>
+     * .
      *
      * @param lastAutomationTime
      *            a {@link java.util.Date} object.
@@ -1210,6 +1309,7 @@ public class OnmsAlarm implements Acknowledgeable, Serializable {
      * <p>
      * getDetails
      * </p>
+     * .
      *
      * @return a {@link java.util.Map} object.
      */
@@ -1226,6 +1326,7 @@ public class OnmsAlarm implements Acknowledgeable, Serializable {
      * <p>
      * setDetails
      * </p>
+     * .
      *
      * @param alarmDetails
      *            a {@link java.util.Map} object.
@@ -1238,6 +1339,7 @@ public class OnmsAlarm implements Acknowledgeable, Serializable {
      * <p>
      * getIfIndex
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -1251,6 +1353,7 @@ public class OnmsAlarm implements Acknowledgeable, Serializable {
      * <p>
      * setIfIndex
      * </p>
+     * .
      *
      * @param ifIndex
      *            a {@link java.lang.Integer} object.
@@ -1259,6 +1362,11 @@ public class OnmsAlarm implements Acknowledgeable, Serializable {
         m_ifIndex = ifIndex;
     }
 
+    /**
+     * Gets the reduction key memo.
+     *
+     * @return the reduction key memo
+     */
     @ManyToOne
     @JoinColumn(name = "reductionKey", referencedColumnName = "reductionkey", updatable = false, insertable = false)
     @XmlElement(name = "reductionKeyMemo")
@@ -1266,10 +1374,21 @@ public class OnmsAlarm implements Acknowledgeable, Serializable {
         return m_reductionKeyMemo;
     }
 
+    /**
+     * Sets the reduction key memo.
+     *
+     * @param reductionKeyMemo
+     *            the new reduction key memo
+     */
     public void setReductionKeyMemo(OnmsReductionKeyMemo reductionKeyMemo) {
         this.m_reductionKeyMemo = reductionKeyMemo;
     }
 
+    /**
+     * Gets the sticky memo.
+     *
+     * @return the sticky memo
+     */
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "stickymemo")
     @XmlElement(name = "stickyMemo")
@@ -1277,6 +1396,12 @@ public class OnmsAlarm implements Acknowledgeable, Serializable {
         return m_stickyMemo;
     }
 
+    /**
+     * Sets the sticky memo.
+     *
+     * @param stickyMemo
+     *            the new sticky memo
+     */
     public void setStickyMemo(OnmsMemo stickyMemo) {
         this.m_stickyMemo = stickyMemo;
     }
@@ -1315,6 +1440,7 @@ public class OnmsAlarm implements Acknowledgeable, Serializable {
      * <p>
      * getType
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.AckType} object.
      */
@@ -1328,6 +1454,7 @@ public class OnmsAlarm implements Acknowledgeable, Serializable {
      * <p>
      * getAckId
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -1341,6 +1468,7 @@ public class OnmsAlarm implements Acknowledgeable, Serializable {
      * <p>
      * getAckUser
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -1354,6 +1482,7 @@ public class OnmsAlarm implements Acknowledgeable, Serializable {
      * <p>
      * getAckTime
      * </p>
+     * .
      *
      * @return a {@link java.util.Date} object.
      */

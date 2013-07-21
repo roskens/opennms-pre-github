@@ -35,12 +35,16 @@ package org.opennms.netmgt.model;
  */
 public class OnmsAgent extends Object {
 
+    /** The m_id. */
     private Integer m_id;
 
+    /** The m_service type. */
     private OnmsServiceType m_serviceType;
 
+    /** The m_ip address. */
     private String m_ipAddress;
 
+    /** The m_node. */
     private OnmsNode m_node;
 
     /**
@@ -56,6 +60,7 @@ public class OnmsAgent extends Object {
      * <p>
      * getId
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -67,6 +72,7 @@ public class OnmsAgent extends Object {
      * <p>
      * setId
      * </p>
+     * .
      *
      * @param id
      *            a {@link java.lang.Integer} object.
@@ -79,6 +85,7 @@ public class OnmsAgent extends Object {
      * <p>
      * getServiceType
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.OnmsServiceType} object.
      */
@@ -90,6 +97,7 @@ public class OnmsAgent extends Object {
      * <p>
      * setServiceType
      * </p>
+     * .
      *
      * @param serviceType
      *            a {@link org.opennms.netmgt.model.OnmsServiceType} object.
@@ -102,6 +110,7 @@ public class OnmsAgent extends Object {
      * <p>
      * getIpAddress
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -113,6 +122,7 @@ public class OnmsAgent extends Object {
      * <p>
      * setIpAddress
      * </p>
+     * .
      *
      * @param ipAddress
      *            a {@link java.lang.String} object.
@@ -125,6 +135,7 @@ public class OnmsAgent extends Object {
      * <p>
      * getNode
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.OnmsNode} object.
      */
@@ -136,6 +147,7 @@ public class OnmsAgent extends Object {
      * <p>
      * setNode
      * </p>
+     * .
      *
      * @param node
      *            a {@link org.opennms.netmgt.model.OnmsNode} object.

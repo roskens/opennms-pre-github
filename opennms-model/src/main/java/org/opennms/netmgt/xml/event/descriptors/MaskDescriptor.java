@@ -82,6 +82,9 @@ public class MaskDescriptor extends org.exolab.castor.xml.util.XMLClassDescripto
     // - Constructors -/
     // ----------------/
 
+    /**
+     * Instantiates a new mask descriptor.
+     */
     public MaskDescriptor() {
         super();
         _nsURI = "http://xmlns.opennms.org/xsd/event";

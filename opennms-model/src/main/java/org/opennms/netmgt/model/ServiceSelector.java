@@ -39,8 +39,11 @@ import java.util.List;
  * @author <a href="mailto:jason.aras@fastsearch.com">Jason Ayers</a>
  */
 public class ServiceSelector {
+
+    /** The m_filter rule. */
     private String m_filterRule;
 
+    /** The m_service names. */
     private List<String> m_serviceNames;
 
     /**
@@ -62,6 +65,7 @@ public class ServiceSelector {
      * <p>
      * getFilterRule
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -73,6 +77,7 @@ public class ServiceSelector {
      * <p>
      * getServiceNames
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */

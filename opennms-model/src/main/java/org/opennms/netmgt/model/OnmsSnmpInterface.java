@@ -72,55 +72,61 @@ import org.springframework.core.style.ToStringCreator;
 @Table(name = "snmpInterface")
 public class OnmsSnmpInterface extends OnmsEntity implements Serializable {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(OnmsSnmpInterface.class);
 
-    /**
-     *
-     */
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -5396189389666285305L;
 
+    /** The m_id. */
     private Integer m_id;
 
-    /** identifier field */
+    /** identifier field. */
     private InetAddress m_netMask;
 
-    /** identifier field */
+    /** identifier field. */
     private String m_physAddr;
 
-    /** identifier field */
+    /** identifier field. */
     private Integer m_ifIndex;
 
-    /** identifier field */
+    /** identifier field. */
     private String m_ifDescr;
 
-    /** identifier field */
+    /** identifier field. */
     private Integer m_ifType;
 
-    /** identifier field */
+    /** identifier field. */
     private String m_ifName;
 
-    /** identifier field */
+    /** identifier field. */
     private Long m_ifSpeed;
 
-    /** identifier field */
+    /** identifier field. */
     private Integer m_ifAdminStatus;
 
-    /** identifier field */
+    /** identifier field. */
     private Integer m_ifOperStatus;
 
-    /** identifier field */
+    /** identifier field. */
     private String m_ifAlias;
 
+    /** The m_last capsd poll. */
     private Date m_lastCapsdPoll;
 
+    /** The m_collect. */
     private String m_collect = "N";
 
+    /** The m_poll. */
     private String m_poll = "N";
 
+    /** The m_last snmp poll. */
     private Date m_lastSnmpPoll;
 
+    /** The m_node. */
     private OnmsNode m_node;
 
+    /** The m_ip interfaces. */
     private Set<OnmsIpInterface> m_ipInterfaces = new HashSet<OnmsIpInterface>();
 
     /**
@@ -156,7 +162,7 @@ public class OnmsSnmpInterface extends OnmsEntity implements Serializable {
     }
 
     /**
-     * default constructor
+     * default constructor.
      */
     public OnmsSnmpInterface() {
     }
@@ -179,6 +185,7 @@ public class OnmsSnmpInterface extends OnmsEntity implements Serializable {
      * <p>
      * setId
      * </p>
+     * .
      *
      * @param id
      *            a {@link java.lang.Integer} object.
@@ -191,6 +198,7 @@ public class OnmsSnmpInterface extends OnmsEntity implements Serializable {
      * <p>
      * getNetMask
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -205,6 +213,7 @@ public class OnmsSnmpInterface extends OnmsEntity implements Serializable {
      * <p>
      * setNetMask
      * </p>
+     * .
      *
      * @param snmpipadentnetmask
      *            a {@link java.lang.String} object.
@@ -217,6 +226,7 @@ public class OnmsSnmpInterface extends OnmsEntity implements Serializable {
      * <p>
      * getPhysAddr
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -229,6 +239,7 @@ public class OnmsSnmpInterface extends OnmsEntity implements Serializable {
      * <p>
      * setPhysAddr
      * </p>
+     * .
      *
      * @param snmpphysaddr
      *            a {@link java.lang.String} object.
@@ -241,6 +252,7 @@ public class OnmsSnmpInterface extends OnmsEntity implements Serializable {
      * <p>
      * getIfIndex
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -254,6 +266,7 @@ public class OnmsSnmpInterface extends OnmsEntity implements Serializable {
      * <p>
      * setIfIndex
      * </p>
+     * .
      *
      * @param snmpifindex
      *            a {@link java.lang.Integer} object.
@@ -266,6 +279,7 @@ public class OnmsSnmpInterface extends OnmsEntity implements Serializable {
      * <p>
      * getIfDescr
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -278,6 +292,7 @@ public class OnmsSnmpInterface extends OnmsEntity implements Serializable {
      * <p>
      * setIfDescr
      * </p>
+     * .
      *
      * @param snmpifdescr
      *            a {@link java.lang.String} object.
@@ -290,6 +305,7 @@ public class OnmsSnmpInterface extends OnmsEntity implements Serializable {
      * <p>
      * getIfType
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -302,6 +318,7 @@ public class OnmsSnmpInterface extends OnmsEntity implements Serializable {
      * <p>
      * setIfType
      * </p>
+     * .
      *
      * @param snmpiftype
      *            a {@link java.lang.Integer} object.
@@ -314,6 +331,7 @@ public class OnmsSnmpInterface extends OnmsEntity implements Serializable {
      * <p>
      * getIfName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -326,6 +344,7 @@ public class OnmsSnmpInterface extends OnmsEntity implements Serializable {
      * <p>
      * setIfName
      * </p>
+     * .
      *
      * @param snmpifname
      *            a {@link java.lang.String} object.
@@ -338,6 +357,7 @@ public class OnmsSnmpInterface extends OnmsEntity implements Serializable {
      * <p>
      * getIfSpeed
      * </p>
+     * .
      *
      * @return a {@link java.lang.Long} object.
      */
@@ -350,6 +370,7 @@ public class OnmsSnmpInterface extends OnmsEntity implements Serializable {
      * <p>
      * setIfSpeed
      * </p>
+     * .
      *
      * @param snmpifspeed
      *            a {@link java.lang.Long} object.
@@ -362,6 +383,7 @@ public class OnmsSnmpInterface extends OnmsEntity implements Serializable {
      * <p>
      * getIfAdminStatus
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -374,6 +396,7 @@ public class OnmsSnmpInterface extends OnmsEntity implements Serializable {
      * <p>
      * setIfAdminStatus
      * </p>
+     * .
      *
      * @param snmpifadminstatus
      *            a {@link java.lang.Integer} object.
@@ -386,6 +409,7 @@ public class OnmsSnmpInterface extends OnmsEntity implements Serializable {
      * <p>
      * getIfOperStatus
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -398,6 +422,7 @@ public class OnmsSnmpInterface extends OnmsEntity implements Serializable {
      * <p>
      * setIfOperStatus
      * </p>
+     * .
      *
      * @param snmpifoperstatus
      *            a {@link java.lang.Integer} object.
@@ -410,6 +435,7 @@ public class OnmsSnmpInterface extends OnmsEntity implements Serializable {
      * <p>
      * getIfAlias
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -422,6 +448,7 @@ public class OnmsSnmpInterface extends OnmsEntity implements Serializable {
      * <p>
      * setIfAlias
      * </p>
+     * .
      *
      * @param snmpifalias
      *            a {@link java.lang.String} object.
@@ -434,6 +461,7 @@ public class OnmsSnmpInterface extends OnmsEntity implements Serializable {
      * <p>
      * getLastCapsdPoll
      * </p>
+     * .
      *
      * @return a {@link java.util.Date} object.
      */
@@ -447,6 +475,7 @@ public class OnmsSnmpInterface extends OnmsEntity implements Serializable {
      * <p>
      * setLastCapsdPoll
      * </p>
+     * .
      *
      * @param lastCapsdPoll
      *            a {@link java.util.Date} object.
@@ -459,6 +488,7 @@ public class OnmsSnmpInterface extends OnmsEntity implements Serializable {
      * <p>
      * getCollect
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -472,6 +502,7 @@ public class OnmsSnmpInterface extends OnmsEntity implements Serializable {
      * <p>
      * setCollect
      * </p>
+     * .
      *
      * @param collect
      *            a {@link java.lang.String} object.
@@ -484,6 +515,7 @@ public class OnmsSnmpInterface extends OnmsEntity implements Serializable {
      * <p>
      * getPoll
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -497,6 +529,7 @@ public class OnmsSnmpInterface extends OnmsEntity implements Serializable {
      * <p>
      * setPoll
      * </p>
+     * .
      *
      * @param poll
      *            a {@link java.lang.String} object.
@@ -509,6 +542,7 @@ public class OnmsSnmpInterface extends OnmsEntity implements Serializable {
      * <p>
      * getLastSnmpPoll
      * </p>
+     * .
      *
      * @return a {@link java.util.Date} object.
      */
@@ -522,6 +556,7 @@ public class OnmsSnmpInterface extends OnmsEntity implements Serializable {
      * <p>
      * setLastSnmpPoll
      * </p>
+     * .
      *
      * @param lastSnmpPoll
      *            a {@link java.util.Date} object.
@@ -534,6 +569,7 @@ public class OnmsSnmpInterface extends OnmsEntity implements Serializable {
      * <p>
      * isCollectionUserSpecified
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -546,6 +582,7 @@ public class OnmsSnmpInterface extends OnmsEntity implements Serializable {
      * <p>
      * isCollectionEnabled
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -559,6 +596,7 @@ public class OnmsSnmpInterface extends OnmsEntity implements Serializable {
      * <p>
      * setCollectionEnabled
      * </p>
+     * .
      *
      * @param shouldCollect
      *            a boolean.
@@ -571,6 +609,7 @@ public class OnmsSnmpInterface extends OnmsEntity implements Serializable {
      * <p>
      * setCollectionEnabled
      * </p>
+     * .
      *
      * @param shouldCollect
      *            a boolean.
@@ -589,6 +628,7 @@ public class OnmsSnmpInterface extends OnmsEntity implements Serializable {
      * <p>
      * isPollEnabled
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -602,6 +642,7 @@ public class OnmsSnmpInterface extends OnmsEntity implements Serializable {
      * <p>
      * getNode
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.OnmsNode} object.
      */
@@ -617,6 +658,7 @@ public class OnmsSnmpInterface extends OnmsEntity implements Serializable {
      * <p>
      * setNode
      * </p>
+     * .
      *
      * @param node
      *            a {@link org.opennms.netmgt.model.OnmsNode} object.
@@ -629,6 +671,7 @@ public class OnmsSnmpInterface extends OnmsEntity implements Serializable {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -663,6 +706,7 @@ public class OnmsSnmpInterface extends OnmsEntity implements Serializable {
      * <p>
      * getIpInterfaces
      * </p>
+     * .
      *
      * @return a {@link java.util.Set} object.
      */
@@ -676,6 +720,7 @@ public class OnmsSnmpInterface extends OnmsEntity implements Serializable {
      * <p>
      * setIpInterfaces
      * </p>
+     * .
      *
      * @param ipInterfaces
      *            a {@link java.util.Set} object.
@@ -701,6 +746,7 @@ public class OnmsSnmpInterface extends OnmsEntity implements Serializable {
      * <p>
      * getPrimaryIpInterface
      * </p>
+     * .
      *
      * @return an {@link OnmsIpInterface} object.
      */
@@ -714,6 +760,7 @@ public class OnmsSnmpInterface extends OnmsEntity implements Serializable {
      * <p>
      * computePhysAddrForRRD
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -741,6 +788,7 @@ public class OnmsSnmpInterface extends OnmsEntity implements Serializable {
      * <p>
      * computeNameForRRD
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -770,6 +818,7 @@ public class OnmsSnmpInterface extends OnmsEntity implements Serializable {
      * <p>
      * computeLabelForRRD
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -781,6 +830,7 @@ public class OnmsSnmpInterface extends OnmsEntity implements Serializable {
      * <p>
      * addIpInterface
      * </p>
+     * .
      *
      * @param iface
      *            a {@link org.opennms.netmgt.model.OnmsIpInterface} object.
@@ -794,6 +844,7 @@ public class OnmsSnmpInterface extends OnmsEntity implements Serializable {
      * <p>
      * mergeSnmpInterfaceAttributes
      * </p>
+     * .
      *
      * @param scannedSnmpIface
      *            a {@link org.opennms.netmgt.model.OnmsSnmpInterface} object.

@@ -47,11 +47,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "acknowledgments")
 public class OnmsAcknowledgmentCollection extends LinkedList<OnmsAcknowledgment> {
 
-    /**
-     *
-     */
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -8540172282769996576L;
 
+    /** The m_total count. */
     private int m_totalCount;
 
     /**
@@ -79,6 +78,7 @@ public class OnmsAcknowledgmentCollection extends LinkedList<OnmsAcknowledgment>
      * <p>
      * getNotifications
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -91,6 +91,7 @@ public class OnmsAcknowledgmentCollection extends LinkedList<OnmsAcknowledgment>
      * <p>
      * setEvents
      * </p>
+     * .
      *
      * @param events
      *            a {@link java.util.List} object.
@@ -106,6 +107,7 @@ public class OnmsAcknowledgmentCollection extends LinkedList<OnmsAcknowledgment>
      * <p>
      * getCount
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -118,6 +120,7 @@ public class OnmsAcknowledgmentCollection extends LinkedList<OnmsAcknowledgment>
      * <p>
      * getTotalCount
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -130,6 +133,7 @@ public class OnmsAcknowledgmentCollection extends LinkedList<OnmsAcknowledgment>
      * <p>
      * setTotalCount
      * </p>
+     * .
      *
      * @param count
      *            a int.

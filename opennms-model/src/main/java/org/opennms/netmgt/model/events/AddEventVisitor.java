@@ -36,12 +36,18 @@ import org.opennms.netmgt.xml.event.Event;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The Class AddEventVisitor.
+ */
 public class AddEventVisitor extends AbstractEntityVisitor {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(AddEventVisitor.class);
 
+    /** The Constant m_eventSource. */
     private static final String m_eventSource = "Provisiond";
 
+    /** The m_event forwarder. */
     private final EventForwarder m_eventForwarder;
 
     /**
@@ -82,6 +88,7 @@ public class AddEventVisitor extends AbstractEntityVisitor {
      * <p>
      * createNodeAddedEvent
      * </p>
+     * .
      *
      * @param node
      *            a {@link org.opennms.netmgt.model.OnmsNode} object.
@@ -95,6 +102,7 @@ public class AddEventVisitor extends AbstractEntityVisitor {
      * <p>
      * createNodeGainedInterfaceEvent
      * </p>
+     * .
      *
      * @param iface
      *            a {@link org.opennms.netmgt.model.OnmsIpInterface} object.
@@ -108,6 +116,7 @@ public class AddEventVisitor extends AbstractEntityVisitor {
      * <p>
      * createNodeGainedServiceEvent
      * </p>
+     * .
      *
      * @param monSvc
      *            a {@link org.opennms.netmgt.model.OnmsMonitoredService}

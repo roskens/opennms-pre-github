@@ -47,8 +47,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "ipInterfaces")
 public class OnmsIpInterfaceList extends LinkedList<OnmsIpInterface> {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 1123252152117491694L;
 
+    /** The m_total count. */
     private int m_totalCount;
 
     /**
@@ -76,6 +78,7 @@ public class OnmsIpInterfaceList extends LinkedList<OnmsIpInterface> {
      * <p>
      * getInterfaces
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -88,6 +91,7 @@ public class OnmsIpInterfaceList extends LinkedList<OnmsIpInterface> {
      * <p>
      * setInterfaces
      * </p>
+     * .
      *
      * @param interfaces
      *            a {@link java.util.List} object.
@@ -103,6 +107,7 @@ public class OnmsIpInterfaceList extends LinkedList<OnmsIpInterface> {
      * <p>
      * getCount
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -115,6 +120,7 @@ public class OnmsIpInterfaceList extends LinkedList<OnmsIpInterface> {
      * <p>
      * getTotalCount
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -127,6 +133,7 @@ public class OnmsIpInterfaceList extends LinkedList<OnmsIpInterface> {
      * <p>
      * setTotalCount
      * </p>
+     * .
      *
      * @param count
      *            a int.

@@ -82,6 +82,9 @@ public class EventReceiptDescriptor extends org.exolab.castor.xml.util.XMLClassD
     // - Constructors -/
     // ----------------/
 
+    /**
+     * Instantiates a new event receipt descriptor.
+     */
     public EventReceiptDescriptor() {
         super();
         _nsURI = "http://xmlns.opennms.org/xsd/event";

@@ -28,48 +28,78 @@
 
 package org.opennms.netmgt.model;
 
+/**
+ * The Class MockServiceDaemon.
+ */
 public class MockServiceDaemon implements MockServiceDaemonMBean {
 
+    /** The start called. */
     private boolean startCalled = false;
 
+    /** The status str. */
     private String statusStr = "UNDEFINED";
 
+    /** The name. */
     private String name;
 
+    /**
+     * Instantiates a new mock service daemon.
+     *
+     * @param name
+     *            the name
+     */
     public MockServiceDaemon(String name) {
         this.name = name;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.model.ServiceDaemon#getStatusText()
+     */
     @Override
     public String getStatusText() {
         // TODO Auto-generated method stub
         return statusStr;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.core.fiber.PausableFiber#pause()
+     */
     @Override
     public void pause() {
         // TODO Auto-generated method stub
 
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.core.fiber.PausableFiber#resume()
+     */
     @Override
     public void resume() {
         // TODO Auto-generated method stub
 
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.core.fiber.Fiber#getName()
+     */
     @Override
     public String getName() {
         // TODO Auto-generated method stub
         return name;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.core.fiber.Fiber#getStatus()
+     */
     @Override
     public int getStatus() {
         // TODO Auto-generated method stub
         return 0;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.core.fiber.Fiber#start()
+     */
     @Override
     public void start() {
         // TODO Auto-generated method stub
@@ -77,10 +107,18 @@ public class MockServiceDaemon implements MockServiceDaemonMBean {
         statusStr = "Started";
     }
 
+    /**
+     * Gets the start called.
+     *
+     * @return the start called
+     */
     public boolean getStartCalled() {
         return startCalled;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.core.fiber.Fiber#stop()
+     */
     @Override
     public void stop() {
         // TODO Auto-generated method stub

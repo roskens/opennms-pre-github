@@ -71,19 +71,22 @@ import javax.xml.bind.annotation.XmlValue;
 @XmlRootElement(name = "logmsg")
 public class Logmsg {
 
+    /** The value. */
     @XmlValue
     protected String value;
 
+    /** The notify. */
     @XmlAttribute(name = "notify")
     protected Boolean notify;
 
+    /** The dest. */
     @XmlAttribute(name = "dest")
     protected String dest;
 
     /**
      * Gets the value of the value property.
      *
-     * @return
+     * @return the value
      *         possible object is {@link String }
      */
     public String getValue() {
@@ -103,7 +106,7 @@ public class Logmsg {
     /**
      * Gets the value of the notify property.
      *
-     * @return
+     * @return true, if is notify
      *         possible object is {@link Boolean }
      */
     public boolean isNotify() {
@@ -127,7 +130,7 @@ public class Logmsg {
     /**
      * Gets the value of the dest property.
      *
-     * @return
+     * @return the dest
      *         possible object is {@link String }
      */
     public String getDest() {

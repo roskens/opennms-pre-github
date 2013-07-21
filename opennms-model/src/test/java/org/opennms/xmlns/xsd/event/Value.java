@@ -77,19 +77,22 @@ import javax.xml.bind.annotation.XmlValue;
 @XmlRootElement(name = "value")
 public class Value {
 
+    /** The value. */
     @XmlValue
     protected String value;
 
+    /** The type. */
     @XmlAttribute(name = "type")
     protected String type;
 
+    /** The encoding. */
     @XmlAttribute(name = "encoding")
     protected String encoding;
 
     /**
      * Gets the value of the value property.
      *
-     * @return
+     * @return the value
      *         possible object is {@link String }
      */
     public String getValue() {
@@ -109,7 +112,7 @@ public class Value {
     /**
      * Gets the value of the type property.
      *
-     * @return
+     * @return the type
      *         possible object is {@link String }
      */
     public String getType() {
@@ -133,7 +136,7 @@ public class Value {
     /**
      * Gets the value of the encoding property.
      *
-     * @return
+     * @return the encoding
      *         possible object is {@link String }
      */
     public String getEncoding() {

@@ -38,8 +38,9 @@ import org.opennms.netmgt.xml.event.Event;
  * @author <A HREF="mailto:weave@oculan.com">Brian Weaver </A>
  */
 public interface EventListener {
+
     /**
-     * Return the id of the listener
+     * Return the id of the listener.
      *
      * @return a {@link java.lang.String} object.
      */

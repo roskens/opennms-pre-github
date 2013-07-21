@@ -31,13 +31,19 @@ package org.opennms.netmgt.model.events;
 import org.opennms.netmgt.xml.event.Event;
 
 /**
+ * The Interface EventWriter.
+ *
  * @author brozow
  *         TODO To change the template for this generated type comment go to
  *         Window - Preferences - Java - Code Style - Code Templates
  */
 public interface EventWriter {
+
     /**
+     * Write event.
+     *
      * @param e
+     *            the e
      */
     public void writeEvent(Event e);
 }

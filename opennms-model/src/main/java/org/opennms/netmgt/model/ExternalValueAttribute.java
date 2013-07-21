@@ -37,10 +37,14 @@ package org.opennms.netmgt.model;
  * @version $Id: $
  */
 public class ExternalValueAttribute implements OnmsAttribute {
+
+    /** The m_name. */
     private String m_name;
 
+    /** The m_value. */
     private String m_value;
 
+    /** The m_resource. */
     private OnmsResource m_resource;
 
     /**
@@ -62,8 +66,8 @@ public class ExternalValueAttribute implements OnmsAttribute {
      * Get the name for this attribute. This is the name for
      * this type of external value.
      *
-     * @see org.opennms.netmgt.model.OnmsAttribute#getName()
      * @return a {@link java.lang.String} object.
+     * @see org.opennms.netmgt.model.OnmsAttribute#getName()
      */
     @Override
     public String getName() {
@@ -74,6 +78,7 @@ public class ExternalValueAttribute implements OnmsAttribute {
      * <p>
      * getValue
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -85,9 +90,10 @@ public class ExternalValueAttribute implements OnmsAttribute {
      * <p>
      * getResource
      * </p>
+     * .
      *
-     * @see org.opennms.netmgt.model.OnmsAttribute#getResource()
      * @return a {@link org.opennms.netmgt.model.OnmsResource} object.
+     * @see org.opennms.netmgt.model.OnmsAttribute#getResource()
      */
     @Override
     public OnmsResource getResource() {

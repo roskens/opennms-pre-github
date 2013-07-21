@@ -94,6 +94,7 @@ public interface OnmsResourceType {
      * <p>
      * getLinkForResource
      * </p>
+     * .
      *
      * @param resource
      *            a {@link org.opennms.netmgt.model.OnmsResource} object.
@@ -101,7 +102,25 @@ public interface OnmsResourceType {
      */
     public String getLinkForResource(OnmsResource resource);
 
+    /**
+     * Checks if is resource type on node source.
+     *
+     * @param nodeSource
+     *            the node source
+     * @param nodeId
+     *            the node id
+     * @return true, if is resource type on node source
+     */
     public boolean isResourceTypeOnNodeSource(String nodeSource, int nodeId);
 
+    /**
+     * Gets the resources for node source.
+     *
+     * @param nodeSource
+     *            the node source
+     * @param nodeId
+     *            the node id
+     * @return the resources for node source
+     */
     public List<OnmsResource> getResourcesForNodeSource(String nodeSource, int nodeId);
 }

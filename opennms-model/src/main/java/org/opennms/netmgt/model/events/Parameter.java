@@ -37,13 +37,14 @@ import org.opennms.netmgt.xml.event.Value;
 
 /**
  * This is an utility class used to format the event parameters - to be inserted
- * into the 'events' table
+ * into the 'events' table.
  *
  * @author <A HREF="mailto:weave@oculan.com">Brian Weaver</A>
  */
 public final class Parameter {
+
     /**
-     * Format the list of event parameters
+     * Format the list of event parameters.
      *
      * @param event
      *            TODO
@@ -71,7 +72,7 @@ public final class Parameter {
     }
 
     /**
-     * Format each parameter
+     * Format each parameter.
      *
      * @param parm
      *            the parameter
@@ -113,6 +114,7 @@ public final class Parameter {
      * <p>
      * decode
      * </p>
+     * .
      *
      * @param eventparms
      *            an event parm string

@@ -47,10 +47,13 @@ import org.slf4j.LoggerFactory;
  */
 public class UpdateEventVisitor extends AbstractEntityVisitor {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(UpdateEventVisitor.class);
 
+    /** The Constant m_eventSource. */
     private static final String m_eventSource = "Provisiond";
 
+    /** The m_event forwarder. */
     private EventForwarder m_eventForwarder;
 
     /**
@@ -91,20 +94,48 @@ public class UpdateEventVisitor extends AbstractEntityVisitor {
         // TODO decide what to do here and when to do it
     }
 
+    /**
+     * Creates the node updated event.
+     *
+     * @param node
+     *            the node
+     * @return the event
+     */
     private Event createNodeUpdatedEvent(OnmsNode node) {
         return EventUtils.createNodeUpdatedEvent(m_eventSource, node.getId(), node.getLabel(), node.getLabelSource());
     }
 
+    /**
+     * Creates the ip interface updated event.
+     *
+     * @param iface
+     *            the iface
+     * @return the event
+     */
     @SuppressWarnings("unused")
     private Event createIpInterfaceUpdatedEvent(OnmsIpInterface iface) {
         return null;
     }
 
+    /**
+     * Creates the snmp interface updated event.
+     *
+     * @param iface
+     *            the iface
+     * @return the event
+     */
     @SuppressWarnings("unused")
     private Event createSnmpInterfaceUpdatedEvent(OnmsSnmpInterface iface) {
         return null;
     }
 
+    /**
+     * Creates the monitored service updated event.
+     *
+     * @param monSvc
+     *            the mon svc
+     * @return the event
+     */
     @SuppressWarnings("unused")
     private Event createMonitoredServiceUpdatedEvent(OnmsMonitoredService monSvc) {
         return null;

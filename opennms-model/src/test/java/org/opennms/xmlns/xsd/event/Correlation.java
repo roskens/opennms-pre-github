@@ -85,17 +85,23 @@ import javax.xml.bind.annotation.XmlType;
 @XmlRootElement(name = "correlation")
 public class Correlation {
 
+    /** The cuei. */
     protected List<String> cuei;
 
+    /** The cmin. */
     protected String cmin;
 
+    /** The cmax. */
     protected String cmax;
 
+    /** The ctime. */
     protected String ctime;
 
+    /** The state. */
     @XmlAttribute(name = "state")
     protected String state;
 
+    /** The path. */
     @XmlAttribute(name = "path")
     protected String path;
 
@@ -114,6 +120,8 @@ public class Correlation {
      * </pre>
      * <p>
      * Objects of the following type(s) are allowed in the list {@link String }
+     *
+     * @return the cuei
      */
     public List<String> getCuei() {
         if (cuei == null) {
@@ -125,7 +133,7 @@ public class Correlation {
     /**
      * Gets the value of the cmin property.
      *
-     * @return
+     * @return the cmin
      *         possible object is {@link String }
      */
     public String getCmin() {
@@ -145,7 +153,7 @@ public class Correlation {
     /**
      * Gets the value of the cmax property.
      *
-     * @return
+     * @return the cmax
      *         possible object is {@link String }
      */
     public String getCmax() {
@@ -165,7 +173,7 @@ public class Correlation {
     /**
      * Gets the value of the ctime property.
      *
-     * @return
+     * @return the ctime
      *         possible object is {@link String }
      */
     public String getCtime() {
@@ -185,7 +193,7 @@ public class Correlation {
     /**
      * Gets the value of the state property.
      *
-     * @return
+     * @return the state
      *         possible object is {@link String }
      */
     public String getState() {
@@ -209,7 +217,7 @@ public class Correlation {
     /**
      * Gets the value of the path property.
      *
-     * @return
+     * @return the path
      *         possible object is {@link String }
      */
     public String getPath() {

@@ -58,6 +58,8 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 @XmlAccessorType(XmlAccessType.FIELD)
 // @ValidateUsing("event.xsd")
 public class EventReceipt implements Serializable {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -3104058231772479313L;
 
     // --------------------------/
@@ -74,6 +76,9 @@ public class EventReceipt implements Serializable {
     // - Constructors -/
     // ----------------/
 
+    /**
+     * Instantiates a new event receipt.
+     */
     public EventReceipt() {
         super();
         this._uuidList = new java.util.ArrayList<java.lang.String>();
@@ -84,21 +89,26 @@ public class EventReceipt implements Serializable {
     // -----------/
 
     /**
+     * Adds the uuid.
+     *
      * @param vUuid
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the v uuid
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void addUuid(final java.lang.String vUuid) throws java.lang.IndexOutOfBoundsException {
         this._uuidList.add(vUuid);
     }
 
     /**
+     * Adds the uuid.
+     *
      * @param index
+     *            the index
      * @param vUuid
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the v uuid
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void addUuid(final int index, final java.lang.String vUuid) throws java.lang.IndexOutOfBoundsException {
         this._uuidList.add(index, vUuid);
@@ -118,10 +128,10 @@ public class EventReceipt implements Serializable {
      * Method getUuid.
      *
      * @param index
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the index
      * @return the value of the java.lang.String at the given index
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public java.lang.String getUuid(final int index) throws java.lang.IndexOutOfBoundsException {
         // check bounds for index
@@ -180,6 +190,7 @@ public class EventReceipt implements Serializable {
     }
 
     /**
+     * Removes the all uuid.
      */
     public void removeAllUuid() {
         this._uuidList.clear();
@@ -189,6 +200,7 @@ public class EventReceipt implements Serializable {
      * Method removeUuid.
      *
      * @param vUuid
+     *            the v uuid
      * @return true if the object was removed from the collection.
      */
     public boolean removeUuid(final java.lang.String vUuid) {
@@ -200,6 +212,7 @@ public class EventReceipt implements Serializable {
      * Method removeUuidAt.
      *
      * @param index
+     *            the index
      * @return the element removed from the collection
      */
     public java.lang.String removeUuidAt(final int index) {
@@ -208,11 +221,14 @@ public class EventReceipt implements Serializable {
     }
 
     /**
+     * Sets the uuid.
+     *
      * @param index
+     *            the index
      * @param vUuid
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the v uuid
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void setUuid(final int index, final java.lang.String vUuid) throws java.lang.IndexOutOfBoundsException {
         // check bounds for index
@@ -225,7 +241,10 @@ public class EventReceipt implements Serializable {
     }
 
     /**
+     * Sets the uuid.
+     *
      * @param vUuidArray
+     *            the new uuid
      */
     public void setUuid(final java.lang.String[] vUuidArray) {
         // -- copy array
@@ -254,14 +273,17 @@ public class EventReceipt implements Serializable {
      * Sets the value of '_uuidList' by setting it to the given
      * Vector. No type checking is performed.
      *
-     * @deprecated
      * @param uuidList
      *            the Vector to set.
+     * @deprecated
      */
     public void setUuidCollection(final java.util.List<java.lang.String> uuidList) {
         this._uuidList = uuidList;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return new ToStringBuilder(this).append("uuid", _uuidList).toString();

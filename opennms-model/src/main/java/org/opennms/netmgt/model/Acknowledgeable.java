@@ -47,6 +47,7 @@ public interface Acknowledgeable {
      * <p>
      * acknowledge
      * </p>
+     * .
      *
      * @param ackUser
      *            a {@link java.lang.String} object.
@@ -57,6 +58,7 @@ public interface Acknowledgeable {
      * <p>
      * unacknowledge
      * </p>
+     * .
      *
      * @param ackUser
      *            a {@link java.lang.String} object.
@@ -67,6 +69,7 @@ public interface Acknowledgeable {
      * <p>
      * clear
      * </p>
+     * .
      *
      * @param ackUser
      *            a {@link java.lang.String} object.
@@ -77,6 +80,7 @@ public interface Acknowledgeable {
      * <p>
      * escalate
      * </p>
+     * .
      *
      * @param ackUser
      *            a {@link java.lang.String} object.
@@ -87,6 +91,7 @@ public interface Acknowledgeable {
      * <p>
      * getType
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.AckType} object.
      */
@@ -96,6 +101,7 @@ public interface Acknowledgeable {
      * <p>
      * getAckId
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -105,6 +111,7 @@ public interface Acknowledgeable {
      * <p>
      * getAckUser
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -114,6 +121,7 @@ public interface Acknowledgeable {
      * <p>
      * getAckTime
      * </p>
+     * .
      *
      * @return a {@link java.util.Date} object.
      */

@@ -39,48 +39,47 @@ import org.springframework.core.style.ToStringCreator;
  */
 public class OnmsVulnPlugin extends OnmsEntity implements Serializable {
 
-    /**
-     *
-     */
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 6665164524726559523L;
 
-    /** identifier field */
+    /** identifier field. */
     private Integer m_pluginId;
 
-    /** identifier field */
+    /** identifier field. */
     private Integer m_pluginSubId;
 
-    /** identifier field */
+    /** identifier field. */
     private String m_name;
 
-    /** identifier field */
+    /** identifier field. */
     private String m_category;
 
-    /** identifier field */
+    /** identifier field. */
     private String m_copyright;
 
-    /** identifier field */
+    /** identifier field. */
     private String m_descr;
 
-    /** identifier field */
+    /** identifier field. */
     private String m_summary;
 
-    /** identifier field */
+    /** identifier field. */
     private String m_family;
 
-    /** identifier field */
+    /** identifier field. */
     private String m_version;
 
-    /** identifier field */
+    /** identifier field. */
     private String m_cveEntry;
 
-    /** identifier field */
+    /** identifier field. */
     private String m_md5;
 
+    /** The m_id. */
     private Integer m_id;
 
     /**
-     * full constructor
+     * full constructor.
      *
      * @param pluginId
      *            a {@link java.lang.Integer} object.
@@ -121,7 +120,7 @@ public class OnmsVulnPlugin extends OnmsEntity implements Serializable {
     }
 
     /**
-     * default constructor
+     * default constructor.
      */
     public OnmsVulnPlugin() {
     }
@@ -129,9 +128,9 @@ public class OnmsVulnPlugin extends OnmsEntity implements Serializable {
     /**
      * Unique identifier for ipInterface.
      *
+     * @return a {@link java.lang.Integer} object.
      * @hibernate.id generator-class="native" column="id"
      * @hibernate.generator-param name="sequence" value="vlnPlgnNxtId"
-     * @return a {@link java.lang.Integer} object.
      */
     public Integer getId() {
         return m_id;
@@ -141,6 +140,7 @@ public class OnmsVulnPlugin extends OnmsEntity implements Serializable {
      * <p>
      * setId
      * </p>
+     * .
      *
      * @param id
      *            a {@link java.lang.Integer} object.
@@ -153,6 +153,7 @@ public class OnmsVulnPlugin extends OnmsEntity implements Serializable {
      * <p>
      * getPluginId
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -164,6 +165,7 @@ public class OnmsVulnPlugin extends OnmsEntity implements Serializable {
      * <p>
      * setPluginId
      * </p>
+     * .
      *
      * @param pluginId
      *            a {@link java.lang.Integer} object.
@@ -176,6 +178,7 @@ public class OnmsVulnPlugin extends OnmsEntity implements Serializable {
      * <p>
      * getPluginSubId
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -187,6 +190,7 @@ public class OnmsVulnPlugin extends OnmsEntity implements Serializable {
      * <p>
      * setPluginSubId
      * </p>
+     * .
      *
      * @param pluginSubId
      *            a {@link java.lang.Integer} object.
@@ -199,6 +203,7 @@ public class OnmsVulnPlugin extends OnmsEntity implements Serializable {
      * <p>
      * getName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -210,6 +215,7 @@ public class OnmsVulnPlugin extends OnmsEntity implements Serializable {
      * <p>
      * setName
      * </p>
+     * .
      *
      * @param name
      *            a {@link java.lang.String} object.
@@ -222,6 +228,7 @@ public class OnmsVulnPlugin extends OnmsEntity implements Serializable {
      * <p>
      * getCategory
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -233,6 +240,7 @@ public class OnmsVulnPlugin extends OnmsEntity implements Serializable {
      * <p>
      * setCategory
      * </p>
+     * .
      *
      * @param category
      *            a {@link java.lang.String} object.
@@ -245,6 +253,7 @@ public class OnmsVulnPlugin extends OnmsEntity implements Serializable {
      * <p>
      * getCopyright
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -256,6 +265,7 @@ public class OnmsVulnPlugin extends OnmsEntity implements Serializable {
      * <p>
      * setCopyright
      * </p>
+     * .
      *
      * @param copyright
      *            a {@link java.lang.String} object.
@@ -268,6 +278,7 @@ public class OnmsVulnPlugin extends OnmsEntity implements Serializable {
      * <p>
      * getDescr
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -279,6 +290,7 @@ public class OnmsVulnPlugin extends OnmsEntity implements Serializable {
      * <p>
      * setDescr
      * </p>
+     * .
      *
      * @param descr
      *            a {@link java.lang.String} object.
@@ -291,6 +303,7 @@ public class OnmsVulnPlugin extends OnmsEntity implements Serializable {
      * <p>
      * getSummary
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -302,6 +315,7 @@ public class OnmsVulnPlugin extends OnmsEntity implements Serializable {
      * <p>
      * setSummary
      * </p>
+     * .
      *
      * @param summary
      *            a {@link java.lang.String} object.
@@ -314,6 +328,7 @@ public class OnmsVulnPlugin extends OnmsEntity implements Serializable {
      * <p>
      * getFamily
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -325,6 +340,7 @@ public class OnmsVulnPlugin extends OnmsEntity implements Serializable {
      * <p>
      * setFamily
      * </p>
+     * .
      *
      * @param family
      *            a {@link java.lang.String} object.
@@ -337,6 +353,7 @@ public class OnmsVulnPlugin extends OnmsEntity implements Serializable {
      * <p>
      * getVersion
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -348,6 +365,7 @@ public class OnmsVulnPlugin extends OnmsEntity implements Serializable {
      * <p>
      * setVersion
      * </p>
+     * .
      *
      * @param version
      *            a {@link java.lang.String} object.
@@ -360,6 +378,7 @@ public class OnmsVulnPlugin extends OnmsEntity implements Serializable {
      * <p>
      * getCveEntry
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -371,6 +390,7 @@ public class OnmsVulnPlugin extends OnmsEntity implements Serializable {
      * <p>
      * setCveEntry
      * </p>
+     * .
      *
      * @param cveEntry
      *            a {@link java.lang.String} object.
@@ -383,6 +403,7 @@ public class OnmsVulnPlugin extends OnmsEntity implements Serializable {
      * <p>
      * getMd5
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -394,6 +415,7 @@ public class OnmsVulnPlugin extends OnmsEntity implements Serializable {
      * <p>
      * setMd5
      * </p>
+     * .
      *
      * @param md5
      *            a {@link java.lang.String} object.
@@ -406,6 +428,7 @@ public class OnmsVulnPlugin extends OnmsEntity implements Serializable {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

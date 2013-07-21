@@ -34,7 +34,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * EventHandler
+ * EventHandler.
  *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @version $Id: $
@@ -43,9 +43,14 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 public @interface EventHandler {
 
-    /** Constant <code>ALL_UEIS="*"</code> */
+    /** Constant <code>ALL_UEIS="*"</code>. */
     public static final String ALL_UEIS = "*";
 
+    /**
+     * Uei.
+     *
+     * @return the string
+     */
     String uei();
 
 }

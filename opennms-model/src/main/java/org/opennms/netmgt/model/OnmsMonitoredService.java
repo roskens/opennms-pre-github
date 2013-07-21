@@ -64,32 +64,42 @@ import javax.xml.bind.annotation.XmlTransient;
 import org.hibernate.annotations.Where;
 import org.springframework.core.style.ToStringCreator;
 
+/**
+ * The Class OnmsMonitoredService.
+ */
 @XmlRootElement(name = "service")
 @Entity
 @Table(name = "ifServices")
 public class OnmsMonitoredService extends OnmsEntity implements Serializable, Comparable<OnmsMonitoredService> {
 
-    /**
-     *
-     */
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -7106081378757872886L;
 
+    /** The m_id. */
     private Integer m_id;
 
+    /** The m_last good. */
     private Date m_lastGood;
 
+    /** The m_last fail. */
     private Date m_lastFail;
 
+    /** The m_qualifier. */
     private String m_qualifier;
 
+    /** The m_status. */
     private String m_status;
 
+    /** The m_source. */
     private String m_source;
 
+    /** The m_notify. */
     private String m_notify;
 
+    /** The m_service type. */
     private OnmsServiceType m_serviceType;
 
+    /** The m_ip interface. */
     private OnmsIpInterface m_ipInterface;
 
     /*
@@ -102,10 +112,13 @@ public class OnmsMonitoredService extends OnmsEntity implements Serializable, Co
      * be a model change were one service can be represented
      * by more than one outage.
      */
+    /** The m_current outages. */
     private Set<OnmsOutage> m_currentOutages = new LinkedHashSet<OnmsOutage>();
 
+    /** The m_applications. */
     private Set<OnmsApplication> m_applications = new LinkedHashSet<OnmsApplication>();
 
+    /** The Constant STATUS_MAP. */
     private static final Map<String, String> STATUS_MAP;
 
     static {
@@ -163,6 +176,7 @@ public class OnmsMonitoredService extends OnmsEntity implements Serializable, Co
      * <p>
      * setId
      * </p>
+     * .
      *
      * @param id
      *            a {@link java.lang.Integer} object.
@@ -175,6 +189,7 @@ public class OnmsMonitoredService extends OnmsEntity implements Serializable, Co
      * <p>
      * getIpAddress
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -188,6 +203,7 @@ public class OnmsMonitoredService extends OnmsEntity implements Serializable, Co
      * <p>
      * getIpAddress
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      * @deprecated
@@ -202,6 +218,7 @@ public class OnmsMonitoredService extends OnmsEntity implements Serializable, Co
      * <p>
      * getIfIndex
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -215,6 +232,7 @@ public class OnmsMonitoredService extends OnmsEntity implements Serializable, Co
      * <p>
      * getLastGood
      * </p>
+     * .
      *
      * @return a {@link java.util.Date} object.
      */
@@ -228,6 +246,7 @@ public class OnmsMonitoredService extends OnmsEntity implements Serializable, Co
      * <p>
      * setLastGood
      * </p>
+     * .
      *
      * @param lastgood
      *            a {@link java.util.Date} object.
@@ -240,6 +259,7 @@ public class OnmsMonitoredService extends OnmsEntity implements Serializable, Co
      * <p>
      * getLastFail
      * </p>
+     * .
      *
      * @return a {@link java.util.Date} object.
      */
@@ -253,6 +273,7 @@ public class OnmsMonitoredService extends OnmsEntity implements Serializable, Co
      * <p>
      * setLastFail
      * </p>
+     * .
      *
      * @param lastfail
      *            a {@link java.util.Date} object.
@@ -265,6 +286,7 @@ public class OnmsMonitoredService extends OnmsEntity implements Serializable, Co
      * <p>
      * getQualifier
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -277,6 +299,7 @@ public class OnmsMonitoredService extends OnmsEntity implements Serializable, Co
      * <p>
      * setQualifier
      * </p>
+     * .
      *
      * @param qualifier
      *            a {@link java.lang.String} object.
@@ -289,6 +312,7 @@ public class OnmsMonitoredService extends OnmsEntity implements Serializable, Co
      * <p>
      * getStatus
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -302,6 +326,7 @@ public class OnmsMonitoredService extends OnmsEntity implements Serializable, Co
      * <p>
      * setStatus
      * </p>
+     * .
      *
      * @param status
      *            a {@link java.lang.String} object.
@@ -310,6 +335,11 @@ public class OnmsMonitoredService extends OnmsEntity implements Serializable, Co
         m_status = status;
     }
 
+    /**
+     * Gets the status long.
+     *
+     * @return the status long
+     */
     @Transient
     public String getStatusLong() {
         return STATUS_MAP.get(getStatus());
@@ -319,6 +349,7 @@ public class OnmsMonitoredService extends OnmsEntity implements Serializable, Co
      * <p>
      * getSource
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -332,6 +363,7 @@ public class OnmsMonitoredService extends OnmsEntity implements Serializable, Co
      * <p>
      * setSource
      * </p>
+     * .
      *
      * @param source
      *            a {@link java.lang.String} object.
@@ -344,6 +376,7 @@ public class OnmsMonitoredService extends OnmsEntity implements Serializable, Co
      * <p>
      * getNotify
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -356,6 +389,7 @@ public class OnmsMonitoredService extends OnmsEntity implements Serializable, Co
      * <p>
      * setNotify
      * </p>
+     * .
      *
      * @param notify
      *            a {@link java.lang.String} object.
@@ -368,6 +402,7 @@ public class OnmsMonitoredService extends OnmsEntity implements Serializable, Co
      * <p>
      * getIpInterface
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.OnmsIpInterface} object.
      */
@@ -383,6 +418,7 @@ public class OnmsMonitoredService extends OnmsEntity implements Serializable, Co
      * <p>
      * setIpInterface
      * </p>
+     * .
      *
      * @param ipInterface
      *            a {@link org.opennms.netmgt.model.OnmsIpInterface} object.
@@ -395,6 +431,7 @@ public class OnmsMonitoredService extends OnmsEntity implements Serializable, Co
      * <p>
      * getNodeId
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -408,6 +445,7 @@ public class OnmsMonitoredService extends OnmsEntity implements Serializable, Co
      * <p>
      * getServiceType
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.OnmsServiceType} object.
      */
@@ -421,6 +459,7 @@ public class OnmsMonitoredService extends OnmsEntity implements Serializable, Co
      * <p>
      * setServiceType
      * </p>
+     * .
      *
      * @param service
      *            a {@link org.opennms.netmgt.model.OnmsServiceType} object.
@@ -433,6 +472,7 @@ public class OnmsMonitoredService extends OnmsEntity implements Serializable, Co
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -456,6 +496,7 @@ public class OnmsMonitoredService extends OnmsEntity implements Serializable, Co
      * <p>
      * getServiceId
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -475,6 +516,7 @@ public class OnmsMonitoredService extends OnmsEntity implements Serializable, Co
      * <p>
      * getServiceName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -487,6 +529,7 @@ public class OnmsMonitoredService extends OnmsEntity implements Serializable, Co
      * <p>
      * isDown
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -504,6 +547,7 @@ public class OnmsMonitoredService extends OnmsEntity implements Serializable, Co
      * <p>
      * getCurrentOutages
      * </p>
+     * .
      *
      * @return a {@link java.util.Set} object.
      */
@@ -518,6 +562,7 @@ public class OnmsMonitoredService extends OnmsEntity implements Serializable, Co
      * <p>
      * setCurrentOutages
      * </p>
+     * .
      *
      * @param currentOutages
      *            a {@link java.util.Set} object.
@@ -530,6 +575,7 @@ public class OnmsMonitoredService extends OnmsEntity implements Serializable, Co
      * <p>
      * getApplications
      * </p>
+     * .
      *
      * @return a {@link java.util.Set} object.
      */
@@ -543,6 +589,7 @@ public class OnmsMonitoredService extends OnmsEntity implements Serializable, Co
      * <p>
      * setApplications
      * </p>
+     * .
      *
      * @param applications
      *            a {@link java.util.Set} object.
@@ -555,6 +602,7 @@ public class OnmsMonitoredService extends OnmsEntity implements Serializable, Co
      * <p>
      * addApplication
      * </p>
+     * .
      *
      * @param application
      *            a {@link org.opennms.netmgt.model.OnmsApplication} object.
@@ -568,6 +616,7 @@ public class OnmsMonitoredService extends OnmsEntity implements Serializable, Co
      * <p>
      * removeApplication
      * </p>
+     * .
      *
      * @param application
      *            a {@link org.opennms.netmgt.model.OnmsApplication} object.
@@ -581,6 +630,7 @@ public class OnmsMonitoredService extends OnmsEntity implements Serializable, Co
      * <p>
      * compareTo
      * </p>
+     * .
      *
      * @param o
      *            a {@link org.opennms.netmgt.model.OnmsMonitoredService}
@@ -610,6 +660,7 @@ public class OnmsMonitoredService extends OnmsEntity implements Serializable, Co
      * <p>
      * mergeServiceAttributes
      * </p>
+     * .
      *
      * @param scanned
      *            a {@link org.opennms.netmgt.model.OnmsMonitoredService}
@@ -635,6 +686,15 @@ public class OnmsMonitoredService extends OnmsEntity implements Serializable, Co
 
     }
 
+    /**
+     * Checks for new status value.
+     *
+     * @param newStatus
+     *            the new status
+     * @param oldStatus
+     *            the old status
+     * @return true, if successful
+     */
     private boolean hasNewStatusValue(String newStatus, String oldStatus) {
         /*
          * Don't overwrite the 'Not Monitored' in the database when provisioning

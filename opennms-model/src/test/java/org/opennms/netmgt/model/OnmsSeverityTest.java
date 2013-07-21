@@ -33,8 +33,14 @@ import junit.framework.TestCase;
 
 import org.junit.Test;
 
+/**
+ * The Class OnmsSeverityTest.
+ */
 public class OnmsSeverityTest extends TestCase {
 
+    /**
+     * Test get id.
+     */
     @Test
     public void testGetId() {
         int id = OnmsSeverity.CLEARED.getId();
@@ -42,6 +48,9 @@ public class OnmsSeverityTest extends TestCase {
         Assert.assertEquals(id, sev.getId());
     }
 
+    /**
+     * Test get label.
+     */
     @Test
     public void testGetLabel() {
         String label = OnmsSeverity.CLEARED.getLabel();
@@ -49,6 +58,9 @@ public class OnmsSeverityTest extends TestCase {
         Assert.assertEquals(label, sev.getLabel());
     }
 
+    /**
+     * Test is less than.
+     */
     @Test
     public void testIsLessThan() {
         OnmsSeverity major = OnmsSeverity.MAJOR;
@@ -56,6 +68,9 @@ public class OnmsSeverityTest extends TestCase {
         Assert.assertTrue(minor.isLessThan(major));
     }
 
+    /**
+     * Test is less than or equal.
+     */
     @Test
     public void testIsLessThanOrEqual() {
         OnmsSeverity major = OnmsSeverity.MAJOR;
@@ -63,6 +78,9 @@ public class OnmsSeverityTest extends TestCase {
         Assert.assertTrue(minor.isLessThanOrEqual(major));
     }
 
+    /**
+     * Test is greater than.
+     */
     @Test
     public void testIsGreaterThan() {
         OnmsSeverity major = OnmsSeverity.MAJOR;
@@ -70,6 +88,9 @@ public class OnmsSeverityTest extends TestCase {
         Assert.assertTrue(major.isGreaterThan(minor));
     }
 
+    /**
+     * Test is greater than or equal.
+     */
     @Test
     public void testIsGreaterThanOrEqual() {
         OnmsSeverity major = OnmsSeverity.MAJOR;
@@ -77,6 +98,9 @@ public class OnmsSeverityTest extends TestCase {
         Assert.assertTrue(major.isGreaterThanOrEqual(minor));
     }
 
+    /**
+     * Test escalate.
+     */
     @Test
     public void testEscalate() {
         OnmsSeverity major = OnmsSeverity.MAJOR;

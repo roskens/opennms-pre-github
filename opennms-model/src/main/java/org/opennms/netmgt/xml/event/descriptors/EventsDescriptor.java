@@ -82,6 +82,9 @@ public class EventsDescriptor extends org.exolab.castor.xml.util.XMLClassDescrip
     // - Constructors -/
     // ----------------/
 
+    /**
+     * Instantiates a new events descriptor.
+     */
     public EventsDescriptor() {
         super();
         _nsURI = "http://xmlns.opennms.org/xsd/event";

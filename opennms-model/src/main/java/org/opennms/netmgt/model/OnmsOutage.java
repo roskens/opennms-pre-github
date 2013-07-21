@@ -68,37 +68,35 @@ import org.springframework.core.style.ToStringCreator;
 @Filter(name = FilterManager.AUTH_FILTER_NAME, condition = "exists (select distinct x.nodeid from node x join category_node cn on x.nodeid = cn.nodeid join category_group cg on cn.categoryId = cg.categoryId where x.nodeid = nodeid and cg.groupId in (:userGroups))")
 public class OnmsOutage implements Serializable {
 
-    /**
-     *
-     */
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 3846398168228820151L;
 
-    /** identifier field */
+    /** identifier field. */
     private Integer m_id;
 
-    /** persistent field */
+    /** persistent field. */
     private Date m_ifLostService;
 
-    /** nullable persistent field */
+    /** nullable persistent field. */
     private Date m_ifRegainedService;
 
-    /** persistent field */
+    /** persistent field. */
     private OnmsEvent m_serviceRegainedEvent;
 
-    /** persistent field */
+    /** persistent field. */
     private OnmsEvent m_serviceLostEvent;
 
-    /** persistent field */
+    /** persistent field. */
     private OnmsMonitoredService m_monitoredService;
 
-    /** persistent field */
+    /** persistent field. */
     private Date m_suppressTime;
 
-    /** persistent field */
+    /** persistent field. */
     private String m_suppressedBy;
 
     /**
-     * full constructor
+     * full constructor.
      *
      * @param ifLostService
      *            a {@link java.util.Date} object.
@@ -129,13 +127,13 @@ public class OnmsOutage implements Serializable {
     }
 
     /**
-     * default constructor
+     * default constructor.
      */
     public OnmsOutage() {
     }
 
     /**
-     * minimal constructor
+     * minimal constructor.
      *
      * @param ifLostService
      *            a {@link java.util.Date} object.
@@ -155,6 +153,7 @@ public class OnmsOutage implements Serializable {
      * <p>
      * getId
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -171,6 +170,7 @@ public class OnmsOutage implements Serializable {
      * <p>
      * setId
      * </p>
+     * .
      *
      * @param outageId
      *            a {@link java.lang.Integer} object.
@@ -184,6 +184,7 @@ public class OnmsOutage implements Serializable {
      * <p>
      * getMonitoredService
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.OnmsMonitoredService} object.
      */
@@ -197,6 +198,7 @@ public class OnmsOutage implements Serializable {
      * <p>
      * setMonitoredService
      * </p>
+     * .
      *
      * @param monitoredService
      *            a {@link org.opennms.netmgt.model.OnmsMonitoredService}
@@ -210,6 +212,7 @@ public class OnmsOutage implements Serializable {
      * <p>
      * getIfLostService
      * </p>
+     * .
      *
      * @return a {@link java.util.Date} object.
      */
@@ -223,6 +226,7 @@ public class OnmsOutage implements Serializable {
      * <p>
      * setIfLostService
      * </p>
+     * .
      *
      * @param ifLostService
      *            a {@link java.util.Date} object.
@@ -236,6 +240,7 @@ public class OnmsOutage implements Serializable {
      * <p>
      * getServiceLostEvent
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.OnmsEvent} object.
      */
@@ -249,6 +254,7 @@ public class OnmsOutage implements Serializable {
      * <p>
      * setServiceLostEvent
      * </p>
+     * .
      *
      * @param svcLostEvent
      *            a {@link org.opennms.netmgt.model.OnmsEvent} object.
@@ -261,6 +267,7 @@ public class OnmsOutage implements Serializable {
      * <p>
      * getIfRegainedService
      * </p>
+     * .
      *
      * @return a {@link java.util.Date} object.
      */
@@ -274,6 +281,7 @@ public class OnmsOutage implements Serializable {
      * <p>
      * setIfRegainedService
      * </p>
+     * .
      *
      * @param ifRegainedService
      *            a {@link java.util.Date} object.
@@ -287,6 +295,7 @@ public class OnmsOutage implements Serializable {
      * <p>
      * getServiceRegainedEvent
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.OnmsEvent} object.
      */
@@ -300,6 +309,7 @@ public class OnmsOutage implements Serializable {
      * <p>
      * setServiceRegainedEvent
      * </p>
+     * .
      *
      * @param svcRegainedEvent
      *            a {@link org.opennms.netmgt.model.OnmsEvent} object.
@@ -312,6 +322,7 @@ public class OnmsOutage implements Serializable {
      * <p>
      * getSuppressTime
      * </p>
+     * .
      *
      * @return a {@link java.util.Date} object.
      */
@@ -325,6 +336,7 @@ public class OnmsOutage implements Serializable {
      * <p>
      * setSuppressTime
      * </p>
+     * .
      *
      * @param timeToSuppress
      *            a {@link java.util.Date} object.
@@ -337,6 +349,7 @@ public class OnmsOutage implements Serializable {
      * <p>
      * getSuppressedBy
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -349,6 +362,7 @@ public class OnmsOutage implements Serializable {
      * <p>
      * setSuppressedBy
      * </p>
+     * .
      *
      * @param suppressorMan
      *            a {@link java.lang.String} object.
@@ -361,6 +375,7 @@ public class OnmsOutage implements Serializable {
      * <p>
      * getNodeId
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -373,6 +388,7 @@ public class OnmsOutage implements Serializable {
      * <p>
      * getIpAddress
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -388,6 +404,7 @@ public class OnmsOutage implements Serializable {
      * <p>
      * getIpAddressAsString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      * @deprecated use getIpAddress
@@ -402,6 +419,7 @@ public class OnmsOutage implements Serializable {
      * <p>
      * getServiceId
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -414,6 +432,7 @@ public class OnmsOutage implements Serializable {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

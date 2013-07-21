@@ -71,27 +71,34 @@ import javax.xml.bind.annotation.XmlType;
 @XmlRootElement(name = "snmp")
 public class Snmp {
 
+    /** The id. */
     @XmlElement(required = true)
     protected String id;
 
+    /** The idtext. */
     protected String idtext;
 
+    /** The version. */
     @XmlElement(required = true)
     protected String version;
 
+    /** The specific. */
     protected Integer specific;
 
+    /** The generic. */
     protected Integer generic;
 
+    /** The community. */
     protected String community;
 
+    /** The time stamp. */
     @XmlElement(name = "time-stamp")
     protected Long timeStamp;
 
     /**
      * Gets the value of the id property.
      *
-     * @return
+     * @return the id
      *         possible object is {@link String }
      */
     public String getId() {
@@ -111,7 +118,7 @@ public class Snmp {
     /**
      * Gets the value of the idtext property.
      *
-     * @return
+     * @return the idtext
      *         possible object is {@link String }
      */
     public String getIdtext() {
@@ -131,7 +138,7 @@ public class Snmp {
     /**
      * Gets the value of the version property.
      *
-     * @return
+     * @return the version
      *         possible object is {@link String }
      */
     public String getVersion() {
@@ -151,7 +158,7 @@ public class Snmp {
     /**
      * Gets the value of the specific property.
      *
-     * @return
+     * @return the specific
      *         possible object is {@link Integer }
      */
     public Integer getSpecific() {
@@ -171,7 +178,7 @@ public class Snmp {
     /**
      * Gets the value of the generic property.
      *
-     * @return
+     * @return the generic
      *         possible object is {@link Integer }
      */
     public Integer getGeneric() {
@@ -191,7 +198,7 @@ public class Snmp {
     /**
      * Gets the value of the community property.
      *
-     * @return
+     * @return the community
      *         possible object is {@link String }
      */
     public String getCommunity() {
@@ -211,7 +218,7 @@ public class Snmp {
     /**
      * Gets the value of the timeStamp property.
      *
-     * @return
+     * @return the time stamp
      *         possible object is {@link Long }
      */
     public Long getTimeStamp() {

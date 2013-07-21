@@ -39,12 +39,24 @@ import org.opennms.netmgt.snmp.SnmpValue;
 import org.opennms.netmgt.snmp.SnmpValueFactory;
 import org.opennms.netmgt.xml.event.Parm;
 
+/**
+ * The Class SyntaxToEventTest.
+ */
 public class SyntaxToEventTest {
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
     }
 
+    /**
+     * Test process syntax zeros.
+     */
     @Test
     public void testProcessSyntaxZeros() {
         SnmpValueFactory valueFactory = SnmpUtils.getValueFactory();
@@ -59,6 +71,9 @@ public class SyntaxToEventTest {
         assertEquals("00:00:00:00:00:00", parm.getValue().getContent());
     }
 
+    /**
+     * Test process syntax with null.
+     */
     @Test
     public void testProcessSyntaxWithNull() {
         SnmpValueFactory valueFactory = SnmpUtils.getValueFactory();
@@ -96,6 +111,9 @@ public class SyntaxToEventTest {
         assertEquals("UUUUU.", parm.getValue().getContent());
     }
 
+    /**
+     * Test process syntax for mac addresses.
+     */
     @Test
     public void testProcessSyntaxForMacAddresses() {
         SnmpValueFactory valueFactory = SnmpUtils.getValueFactory();

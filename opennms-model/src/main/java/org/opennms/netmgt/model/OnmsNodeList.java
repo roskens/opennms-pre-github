@@ -47,8 +47,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "nodes")
 public class OnmsNodeList extends LinkedList<OnmsNode> {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 8031737923157780179L;
 
+    /** The m_total count. */
     private int m_totalCount;
 
     /**
@@ -76,6 +78,7 @@ public class OnmsNodeList extends LinkedList<OnmsNode> {
      * <p>
      * getNodes
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -88,6 +91,7 @@ public class OnmsNodeList extends LinkedList<OnmsNode> {
      * <p>
      * setNodes
      * </p>
+     * .
      *
      * @param nodes
      *            a {@link java.util.List} object.
@@ -103,6 +107,7 @@ public class OnmsNodeList extends LinkedList<OnmsNode> {
      * <p>
      * getCount
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -113,6 +118,12 @@ public class OnmsNodeList extends LinkedList<OnmsNode> {
 
     // The property has a getter "" but no setter. For unmarshalling, please
     // define setters.
+    /**
+     * Sets the count.
+     *
+     * @param count
+     *            the new count
+     */
     public void setCount(final int count) {
     }
 
@@ -120,6 +131,7 @@ public class OnmsNodeList extends LinkedList<OnmsNode> {
      * <p>
      * getTotalCount
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -132,6 +144,7 @@ public class OnmsNodeList extends LinkedList<OnmsNode> {
      * <p>
      * setTotalCount
      * </p>
+     * .
      *
      * @param count
      *            a int.

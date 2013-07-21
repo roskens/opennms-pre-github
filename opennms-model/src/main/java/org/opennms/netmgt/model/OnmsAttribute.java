@@ -34,10 +34,12 @@ package org.opennms.netmgt.model;
  * </p>
  */
 public interface OnmsAttribute {
+
     /**
      * <p>
      * getName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -47,6 +49,7 @@ public interface OnmsAttribute {
      * <p>
      * getResource
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.OnmsResource} object.
      */
@@ -56,6 +59,7 @@ public interface OnmsAttribute {
      * <p>
      * setResource
      * </p>
+     * .
      *
      * @param resource
      *            a {@link org.opennms.netmgt.model.OnmsResource} object.

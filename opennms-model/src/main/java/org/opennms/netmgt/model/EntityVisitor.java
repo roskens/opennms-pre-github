@@ -35,20 +35,68 @@ package org.opennms.netmgt.model;
  */
 public interface EntityVisitor {
 
+    /**
+     * Visit node.
+     *
+     * @param node
+     *            the node
+     */
     public void visitNode(OnmsNode node);
 
+    /**
+     * Visit node complete.
+     *
+     * @param node
+     *            the node
+     */
     public void visitNodeComplete(OnmsNode node);
 
+    /**
+     * Visit snmp interface.
+     *
+     * @param snmpIface
+     *            the snmp iface
+     */
     public void visitSnmpInterface(OnmsEntity snmpIface);
 
+    /**
+     * Visit snmp interface complete.
+     *
+     * @param snmpIface
+     *            the snmp iface
+     */
     public void visitSnmpInterfaceComplete(OnmsEntity snmpIface);
 
+    /**
+     * Visit ip interface.
+     *
+     * @param iface
+     *            the iface
+     */
     public void visitIpInterface(OnmsIpInterface iface);
 
+    /**
+     * Visit ip interface complete.
+     *
+     * @param iface
+     *            the iface
+     */
     public void visitIpInterfaceComplete(OnmsIpInterface iface);
 
+    /**
+     * Visit monitored service.
+     *
+     * @param monSvc
+     *            the mon svc
+     */
     public void visitMonitoredService(OnmsMonitoredService monSvc);
 
+    /**
+     * Visit monitored service complete.
+     *
+     * @param monSvc
+     *            the mon svc
+     */
     public void visitMonitoredServiceComplete(OnmsMonitoredService monSvc);
 
 }

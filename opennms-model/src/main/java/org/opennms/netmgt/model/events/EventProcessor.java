@@ -40,16 +40,19 @@ import org.opennms.netmgt.xml.event.Header;
  * @version $Id: $
  */
 public interface EventProcessor {
+
     /**
      * <p>
      * process
      * </p>
+     * .
      *
      * @param eventHeader
      *            a {@link org.opennms.netmgt.xml.event.Header} object.
      * @param event
      *            a {@link org.opennms.netmgt.xml.event.Event} object.
-     * @throws {@link EventProcessorException} if any.
+     * @throws EventProcessorException
+     *             the event processor exception
      */
     void process(Header eventHeader, Event event) throws EventProcessorException;
 }

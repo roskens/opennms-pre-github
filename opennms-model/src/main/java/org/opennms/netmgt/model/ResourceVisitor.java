@@ -37,10 +37,12 @@ package org.opennms.netmgt.model;
  * @version $Id: $
  */
 public interface ResourceVisitor {
+
     /**
      * <p>
      * visit
      * </p>
+     * .
      *
      * @param resource
      *            a {@link org.opennms.netmgt.model.OnmsResource} object.

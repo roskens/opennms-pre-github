@@ -53,8 +53,18 @@ import org.opennms.netmgt.model.events.AnnotationBasedEventListenerAdapter;
 @Target(ElementType.TYPE)
 public @interface EventListener {
 
+    /**
+     * Name.
+     *
+     * @return the string
+     */
     String name();
 
+    /**
+     * Log prefix.
+     *
+     * @return the string
+     */
     String logPrefix() default "";
 
 }

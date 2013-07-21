@@ -43,20 +43,28 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class OnmsMonitoringLocationDefinition implements Serializable {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 1389369619460044379L;
 
+    /** The m_area. */
     private String m_area;
 
+    /** The m_name. */
     private String m_name;
 
+    /** The m_polling package name. */
     private String m_pollingPackageName;
 
+    /** The m_geolocation. */
     private String m_geolocation;
 
+    /** The m_coordinates. */
     private String m_coordinates;
 
+    /** The m_priority. */
     private Long m_priority;
 
+    /** The m_tags. */
     private Set<String> m_tags = new HashSet<String>();
 
     /**
@@ -152,6 +160,7 @@ public class OnmsMonitoringLocationDefinition implements Serializable {
      * <p>
      * getArea
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -163,6 +172,7 @@ public class OnmsMonitoringLocationDefinition implements Serializable {
      * <p>
      * setArea
      * </p>
+     * .
      *
      * @param area
      *            a {@link java.lang.String} object.
@@ -175,6 +185,7 @@ public class OnmsMonitoringLocationDefinition implements Serializable {
      * <p>
      * getName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -187,6 +198,7 @@ public class OnmsMonitoringLocationDefinition implements Serializable {
      * <p>
      * setName
      * </p>
+     * .
      *
      * @param name
      *            a {@link java.lang.String} object.
@@ -199,6 +211,7 @@ public class OnmsMonitoringLocationDefinition implements Serializable {
      * <p>
      * getPollingPackageName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -210,6 +223,7 @@ public class OnmsMonitoringLocationDefinition implements Serializable {
      * <p>
      * setPollingPackageName
      * </p>
+     * .
      *
      * @param pollingPackageName
      *            a {@link java.lang.String} object.
@@ -222,6 +236,7 @@ public class OnmsMonitoringLocationDefinition implements Serializable {
      * <p>
      * getGeolocation
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -233,6 +248,7 @@ public class OnmsMonitoringLocationDefinition implements Serializable {
      * <p>
      * setGeolocation
      * </p>
+     * .
      *
      * @param location
      *            a {@link java.lang.String} object.
@@ -245,6 +261,7 @@ public class OnmsMonitoringLocationDefinition implements Serializable {
      * <p>
      * getCoordinates
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -256,6 +273,7 @@ public class OnmsMonitoringLocationDefinition implements Serializable {
      * <p>
      * setCoordinates
      * </p>
+     * .
      *
      * @param coordinates
      *            a {@link java.lang.String} object.
@@ -268,6 +286,7 @@ public class OnmsMonitoringLocationDefinition implements Serializable {
      * <p>
      * getPriority
      * </p>
+     * .
      *
      * @return a {@link java.lang.Long} object.
      */
@@ -279,6 +298,7 @@ public class OnmsMonitoringLocationDefinition implements Serializable {
      * <p>
      * setPriority
      * </p>
+     * .
      *
      * @param priority
      *            a {@link java.lang.Long} object.
@@ -291,6 +311,7 @@ public class OnmsMonitoringLocationDefinition implements Serializable {
      * <p>
      * getTags
      * </p>
+     * .
      *
      * @return a {@link java.util.Set} object.
      */
@@ -302,6 +323,7 @@ public class OnmsMonitoringLocationDefinition implements Serializable {
      * <p>
      * setTags
      * </p>
+     * .
      *
      * @param tags
      *            a {@link java.util.Set} object.

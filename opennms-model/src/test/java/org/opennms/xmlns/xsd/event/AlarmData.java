@@ -74,28 +74,34 @@ import javax.xml.bind.annotation.XmlType;
 @XmlRootElement(name = "alarm-data")
 public class AlarmData {
 
+    /** The reduction key. */
     @XmlAttribute(name = "reduction-key", required = true)
     protected String reductionKey;
 
+    /** The alarm type. */
     @XmlAttribute(name = "alarm-type", required = true)
     protected int alarmType;
 
+    /** The clear key. */
     @XmlAttribute(name = "clear-key")
     protected String clearKey;
 
+    /** The auto clean. */
     @XmlAttribute(name = "auto-clean")
     protected Boolean autoClean;
 
+    /** The x733 alarm type. */
     @XmlAttribute(name = "x733-alarm-type")
     protected String x733AlarmType;
 
+    /** The x733 probable cause. */
     @XmlAttribute(name = "x733-probable-cause")
     protected Integer x733ProbableCause;
 
     /**
      * Gets the value of the reductionKey property.
      *
-     * @return
+     * @return the reduction key
      *         possible object is {@link String }
      */
     public String getReductionKey() {
@@ -114,6 +120,8 @@ public class AlarmData {
 
     /**
      * Gets the value of the alarmType property.
+     *
+     * @return the alarm type
      */
     public int getAlarmType() {
         return alarmType;
@@ -121,6 +129,9 @@ public class AlarmData {
 
     /**
      * Sets the value of the alarmType property.
+     *
+     * @param value
+     *            the new alarm type
      */
     public void setAlarmType(int value) {
         this.alarmType = value;
@@ -129,7 +140,7 @@ public class AlarmData {
     /**
      * Gets the value of the clearKey property.
      *
-     * @return
+     * @return the clear key
      *         possible object is {@link String }
      */
     public String getClearKey() {
@@ -149,7 +160,7 @@ public class AlarmData {
     /**
      * Gets the value of the autoClean property.
      *
-     * @return
+     * @return true, if is auto clean
      *         possible object is {@link Boolean }
      */
     public boolean isAutoClean() {
@@ -173,7 +184,7 @@ public class AlarmData {
     /**
      * Gets the value of the x733AlarmType property.
      *
-     * @return
+     * @return the x733 alarm type
      *         possible object is {@link String }
      */
     public String getX733AlarmType() {
@@ -193,7 +204,7 @@ public class AlarmData {
     /**
      * Gets the value of the x733ProbableCause property.
      *
-     * @return
+     * @return the x733 probable cause
      *         possible object is {@link Integer }
      */
     public Integer getX733ProbableCause() {

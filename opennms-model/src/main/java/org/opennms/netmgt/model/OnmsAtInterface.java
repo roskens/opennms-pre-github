@@ -69,22 +69,34 @@ import org.opennms.netmgt.model.OnmsArpInterface.StatusType;
 @Entity
 @Table(name = "atInterface", uniqueConstraints = { @UniqueConstraint(columnNames = { "nodeId", "ipAddr", "atPhysAddr" }) })
 public class OnmsAtInterface {
+
+    /** The m_id. */
     private Integer m_id;
 
+    /** The m_node. */
     private OnmsNode m_node;
 
+    /** The m_ip address. */
     private InetAddress m_ipAddress;
 
+    /** The m_mac address. */
     private String m_macAddress;
 
+    /** The m_status. */
     private StatusType m_status = StatusType.UNKNOWN;
 
+    /** The m_source node id. */
     private Integer m_sourceNodeId;
 
+    /** The m_if index. */
     private Integer m_ifIndex;
 
+    /** The m_last poll time. */
     private Date m_lastPollTime;
 
+    /**
+     * Instantiates a new onms at interface.
+     */
     OnmsAtInterface() {
     }
 
@@ -128,6 +140,7 @@ public class OnmsAtInterface {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -141,6 +154,11 @@ public class OnmsAtInterface {
                                                                                                                                                                                        m_lastPollTime).toString();
     }
 
+    /**
+     * Gets the id.
+     *
+     * @return the id
+     */
     @Id
     @Column(nullable = false)
     @XmlTransient
@@ -150,6 +168,11 @@ public class OnmsAtInterface {
         return m_id;
     }
 
+    /**
+     * Gets the interface id.
+     *
+     * @return the interface id
+     */
     @XmlID
     @XmlAttribute(name = "id")
     @Transient
@@ -157,10 +180,21 @@ public class OnmsAtInterface {
         return getId().toString();
     }
 
+    /**
+     * Sets the id.
+     *
+     * @param id
+     *            the new id
+     */
     public void setId(final Integer id) {
         m_id = id;
     }
 
+    /**
+     * Gets the node.
+     *
+     * @return the node
+     */
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "nodeId")
     @XmlElement(name = "nodeId")
@@ -169,6 +203,12 @@ public class OnmsAtInterface {
         return m_node;
     }
 
+    /**
+     * Sets the node.
+     *
+     * @param node
+     *            the new node
+     */
     public void setNode(OnmsNode node) {
         m_node = node;
     }
@@ -188,6 +228,12 @@ public class OnmsAtInterface {
         return m_ipAddress;
     }
 
+    /**
+     * Sets the ip address.
+     *
+     * @param ipAddress
+     *            the new ip address
+     */
     public void setIpAddress(final InetAddress ipAddress) {
         m_ipAddress = ipAddress;
     }
@@ -217,22 +263,44 @@ public class OnmsAtInterface {
         this.m_macAddress = macAddress;
     }
 
+    /**
+     * Gets the status.
+     *
+     * @return the status
+     */
     @XmlAttribute
     @Column(nullable = false)
     public StatusType getStatus() {
         return m_status;
     }
 
+    /**
+     * Sets the status.
+     *
+     * @param status
+     *            the new status
+     */
     public void setStatus(final StatusType status) {
         m_status = status;
     }
 
+    /**
+     * Gets the source node id.
+     *
+     * @return the source node id
+     */
     @XmlAttribute
     @Column(nullable = false)
     public Integer getSourceNodeId() {
         return m_sourceNodeId;
     }
 
+    /**
+     * Sets the source node id.
+     *
+     * @param sourceNodeId
+     *            the new source node id
+     */
     public void setSourceNodeId(final Integer sourceNodeId) {
         m_sourceNodeId = sourceNodeId;
     }
@@ -262,6 +330,11 @@ public class OnmsAtInterface {
         m_ifIndex = ifIndex;
     }
 
+    /**
+     * Gets the last poll time.
+     *
+     * @return the last poll time
+     */
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "lastPollTime", nullable = false)
     @XmlElement(name = "lastPollTime")
@@ -269,6 +342,12 @@ public class OnmsAtInterface {
         return m_lastPollTime;
     }
 
+    /**
+     * Sets the last poll time.
+     *
+     * @param lastPollTime
+     *            the new last poll time
+     */
     public void setLastPollTime(final Date lastPollTime) {
         m_lastPollTime = lastPollTime;
     }

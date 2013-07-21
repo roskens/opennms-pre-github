@@ -36,32 +36,64 @@ import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.Transient;
 
+/**
+ * The Class PrimaryType.
+ */
 @Embeddable
 public class PrimaryType implements Comparable<PrimaryType>, Serializable {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -647348487361201657L;
 
+    /** The Constant s_order. */
     private static final char[] s_order = { 'N', 'S', 'P' };
 
+    /** The m_coll type. */
     private char m_collType;
 
+    /**
+     * Instantiates a new primary type.
+     */
     protected PrimaryType() {
         this('N');
     }
 
+    /**
+     * Instantiates a new primary type.
+     *
+     * @param collType
+     *            the coll type
+     */
     PrimaryType(final char collType) {
         m_collType = collType;
     }
 
+    /**
+     * Gets the code.
+     *
+     * @return the code
+     */
     @Transient
     public String getCode() {
         return String.valueOf(m_collType);
     }
 
+    /**
+     * Gets the char code.
+     *
+     * @return the char code
+     */
     @Column(name = "isSnmpPrimary")
     public char getCharCode() {
         return m_collType;
     }
 
+    /**
+     * Sets the char code.
+     *
+     * @param collType
+     *            the new char code
+     */
     public void setCharCode(final char collType) {
         m_collType = collType;
     }
@@ -69,12 +101,17 @@ public class PrimaryType implements Comparable<PrimaryType>, Serializable {
     /**
      * Hibernate objects should not have any specific hashCode() implementation
      * since it should always give the same object for the same row anyways.
+     *
+     * @return the int
      */
     @Override
     public int hashCode() {
         return super.hashCode();
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(final Object o) {
         if (o instanceof PrimaryType) {
@@ -83,11 +120,21 @@ public class PrimaryType implements Comparable<PrimaryType>, Serializable {
             return false;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Comparable#compareTo(java.lang.Object)
+     */
     @Override
     public int compareTo(final PrimaryType collType) {
         return getIndex(m_collType) - getIndex(collType.m_collType);
     }
 
+    /**
+     * Gets the index.
+     *
+     * @param code
+     *            the code
+     * @return the index
+     */
     private static int getIndex(final char code) {
         for (int i = 0; i < s_order.length; i++) {
             if (s_order[i] == code) {
@@ -97,27 +144,65 @@ public class PrimaryType implements Comparable<PrimaryType>, Serializable {
         throw new IllegalArgumentException("illegal collType code '" + code + "'");
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return String.valueOf(m_collType);
     }
 
+    /**
+     * Checks if is less than.
+     *
+     * @param collType
+     *            the coll type
+     * @return true, if is less than
+     */
     public boolean isLessThan(final PrimaryType collType) {
         return compareTo(collType) < 0;
     }
 
+    /**
+     * Checks if is greater than.
+     *
+     * @param collType
+     *            the coll type
+     * @return true, if is greater than
+     */
     public boolean isGreaterThan(final PrimaryType collType) {
         return compareTo(collType) > 0;
     }
 
+    /**
+     * Max.
+     *
+     * @param collType
+     *            the coll type
+     * @return the primary type
+     */
     public PrimaryType max(final PrimaryType collType) {
         return this.isLessThan(collType) ? collType : this;
     }
 
+    /**
+     * Min.
+     *
+     * @param collType
+     *            the coll type
+     * @return the primary type
+     */
     public PrimaryType min(final PrimaryType collType) {
         return this.isLessThan(collType) ? this : collType;
     }
 
+    /**
+     * Gets the.
+     *
+     * @param code
+     *            the code
+     * @return the primary type
+     */
     public static PrimaryType get(final char code) {
         switch (code) {
         case 'P':
@@ -131,6 +216,13 @@ public class PrimaryType implements Comparable<PrimaryType>, Serializable {
         }
     }
 
+    /**
+     * Gets the.
+     *
+     * @param code
+     *            the code
+     * @return the primary type
+     */
     public static PrimaryType get(final String code) {
         if (code == null) {
             return NOT_ELIGIBLE;
@@ -145,6 +237,11 @@ public class PrimaryType implements Comparable<PrimaryType>, Serializable {
         }
     }
 
+    /**
+     * Gets the all types.
+     *
+     * @return the all types
+     */
     public static List<PrimaryType> getAllTypes() {
         final List<PrimaryType> types = new ArrayList<PrimaryType>();
         for (final char c : s_order) {
@@ -153,9 +250,12 @@ public class PrimaryType implements Comparable<PrimaryType>, Serializable {
         return types;
     }
 
+    /** The Constant PRIMARY. */
     public static final PrimaryType PRIMARY = new PrimaryType('P');
 
+    /** The Constant SECONDARY. */
     public static final PrimaryType SECONDARY = new PrimaryType('S');
 
+    /** The Constant NOT_ELIGIBLE. */
     public static final PrimaryType NOT_ELIGIBLE = new PrimaryType('N');
 }

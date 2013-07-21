@@ -68,6 +68,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlRootElement(name = "event-receipt")
 public class EventReceipt {
 
+    /** The uuid. */
     @XmlElement(required = true)
     protected List<String> uuid;
 
@@ -86,6 +87,8 @@ public class EventReceipt {
      * </pre>
      * <p>
      * Objects of the following type(s) are allowed in the list {@link String }
+     *
+     * @return the uuid
      */
     public List<String> getUuid() {
         if (uuid == null) {

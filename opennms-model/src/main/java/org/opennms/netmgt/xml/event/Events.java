@@ -58,6 +58,8 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 @XmlAccessorType(XmlAccessType.FIELD)
 // @ValidateUsing("event.xsd")
 public class Events implements Serializable {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -6993861737101274987L;
 
     // --------------------------/
@@ -74,6 +76,9 @@ public class Events implements Serializable {
     // - Constructors -/
     // ----------------/
 
+    /**
+     * Instantiates a new events.
+     */
     public Events() {
         super();
         this._eventList = new java.util.ArrayList<org.opennms.netmgt.xml.event.Event>();
@@ -84,21 +89,26 @@ public class Events implements Serializable {
     // -----------/
 
     /**
+     * Adds the event.
+     *
      * @param vEvent
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the v event
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void addEvent(final org.opennms.netmgt.xml.event.Event vEvent) throws java.lang.IndexOutOfBoundsException {
         this._eventList.add(vEvent);
     }
 
     /**
+     * Adds the event.
+     *
      * @param index
+     *            the index
      * @param vEvent
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the v event
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void addEvent(final int index, final org.opennms.netmgt.xml.event.Event vEvent)
             throws java.lang.IndexOutOfBoundsException {
@@ -119,11 +129,11 @@ public class Events implements Serializable {
      * Method getEvent.
      *
      * @param index
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the index
      * @return the value of the org.opennms.netmgt.xml.event.Event
      *         at the given index
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public org.opennms.netmgt.xml.event.Event getEvent(final int index) throws java.lang.IndexOutOfBoundsException {
         // check bounds for index
@@ -182,6 +192,7 @@ public class Events implements Serializable {
     }
 
     /**
+     * Removes the all event.
      */
     public void removeAllEvent() {
         this._eventList.clear();
@@ -191,6 +202,7 @@ public class Events implements Serializable {
      * Method removeEvent.
      *
      * @param vEvent
+     *            the v event
      * @return true if the object was removed from the collection.
      */
     public boolean removeEvent(final org.opennms.netmgt.xml.event.Event vEvent) {
@@ -202,6 +214,7 @@ public class Events implements Serializable {
      * Method removeEventAt.
      *
      * @param index
+     *            the index
      * @return the element removed from the collection
      */
     public org.opennms.netmgt.xml.event.Event removeEventAt(final int index) {
@@ -210,11 +223,14 @@ public class Events implements Serializable {
     }
 
     /**
+     * Sets the event.
+     *
      * @param index
+     *            the index
      * @param vEvent
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the v event
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void setEvent(final int index, final org.opennms.netmgt.xml.event.Event vEvent)
             throws java.lang.IndexOutOfBoundsException {
@@ -228,7 +244,10 @@ public class Events implements Serializable {
     }
 
     /**
+     * Sets the event.
+     *
      * @param vEventArray
+     *            the new event
      */
     public void setEvent(final org.opennms.netmgt.xml.event.Event[] vEventArray) {
         // -- copy array
@@ -257,14 +276,17 @@ public class Events implements Serializable {
      * Sets the value of '_eventList' by setting it to the given
      * Vector. No type checking is performed.
      *
-     * @deprecated
      * @param eventList
      *            the Vector to set.
+     * @deprecated
      */
     public void setEventCollection(final java.util.List<org.opennms.netmgt.xml.event.Event> eventList) {
         this._eventList = eventList;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return new ToStringBuilder(this).append("event", _eventList).toString();

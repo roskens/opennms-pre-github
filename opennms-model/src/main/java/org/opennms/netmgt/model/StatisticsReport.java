@@ -57,24 +57,34 @@ import javax.persistence.Transient;
 @Table(name = "statisticsReport")
 public class StatisticsReport implements Serializable {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -4311256943204150153L;
 
+    /** The m_id. */
     private Integer m_id;
 
+    /** The m_start date. */
     private Date m_startDate;
 
+    /** The m_end date. */
     private Date m_endDate;
 
+    /** The m_name. */
     private String m_name;
 
+    /** The m_description. */
     private String m_description;
 
+    /** The m_job started date. */
     private Date m_jobStartedDate;
 
+    /** The m_job completed date. */
     private Date m_jobCompletedDate;
 
+    /** The m_purge date. */
     private Date m_purgeDate;
 
+    /** The m_data. */
     private Set<StatisticsReportData> m_data = new HashSet<StatisticsReportData>();
 
     /**
@@ -94,6 +104,7 @@ public class StatisticsReport implements Serializable {
      * <p>
      * setId
      * </p>
+     * .
      *
      * @param id
      *            a {@link java.lang.Integer} object.
@@ -118,6 +129,7 @@ public class StatisticsReport implements Serializable {
      * <p>
      * setStartDate
      * </p>
+     * .
      *
      * @param startDate
      *            a {@link java.util.Date} object.
@@ -142,6 +154,7 @@ public class StatisticsReport implements Serializable {
      * <p>
      * setEndDate
      * </p>
+     * .
      *
      * @param endDate
      *            a {@link java.util.Date} object.
@@ -165,6 +178,7 @@ public class StatisticsReport implements Serializable {
      * <p>
      * setName
      * </p>
+     * .
      *
      * @param name
      *            a {@link java.lang.String} object.
@@ -187,6 +201,7 @@ public class StatisticsReport implements Serializable {
      * <p>
      * setDescription
      * </p>
+     * .
      *
      * @param description
      *            a {@link java.lang.String} object.
@@ -210,6 +225,7 @@ public class StatisticsReport implements Serializable {
      * <p>
      * setJobStartedDate
      * </p>
+     * .
      *
      * @param jobStartedDate
      *            a {@link java.util.Date} object.
@@ -233,6 +249,7 @@ public class StatisticsReport implements Serializable {
      * <p>
      * setJobCompletedDate
      * </p>
+     * .
      *
      * @param jobCompletedDate
      *            a {@link java.util.Date} object.
@@ -242,7 +259,7 @@ public class StatisticsReport implements Serializable {
     }
 
     /**
-     * The date at which this report can be purged
+     * The date at which this report can be purged.
      *
      * @return a {@link java.util.Date} object.
      */
@@ -256,6 +273,7 @@ public class StatisticsReport implements Serializable {
      * <p>
      * setPurgeDate
      * </p>
+     * .
      *
      * @param purgeDate
      *            a {@link java.util.Date} object.
@@ -268,6 +286,7 @@ public class StatisticsReport implements Serializable {
      * <p>
      * getData
      * </p>
+     * .
      *
      * @return a {@link java.util.Set} object.
      */
@@ -282,6 +301,7 @@ public class StatisticsReport implements Serializable {
      * <p>
      * setData
      * </p>
+     * .
      *
      * @param data
      *            a {@link java.util.Set} object.
@@ -294,6 +314,7 @@ public class StatisticsReport implements Serializable {
      * <p>
      * addData
      * </p>
+     * .
      *
      * @param datum
      *            a {@link org.opennms.netmgt.model.StatisticsReportData}
@@ -307,6 +328,7 @@ public class StatisticsReport implements Serializable {
      * <p>
      * getDuration
      * </p>
+     * .
      *
      * @return a long.
      */
@@ -319,6 +341,7 @@ public class StatisticsReport implements Serializable {
      * <p>
      * getDurationString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -331,6 +354,7 @@ public class StatisticsReport implements Serializable {
      * <p>
      * getJobDuration
      * </p>
+     * .
      *
      * @return a long.
      */
@@ -343,6 +367,7 @@ public class StatisticsReport implements Serializable {
      * <p>
      * getJobDurationString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -355,6 +380,7 @@ public class StatisticsReport implements Serializable {
      * <p>
      * getMaxDatumValue
      * </p>
+     * .
      *
      * @return a {@link java.lang.Double} object.
      */
@@ -376,6 +402,7 @@ public class StatisticsReport implements Serializable {
      * <p>
      * getMinDatumValue
      * </p>
+     * .
      *
      * @return a {@link java.lang.Double} object.
      */
@@ -393,6 +420,13 @@ public class StatisticsReport implements Serializable {
         return mv;
     }
 
+    /**
+     * Gets the string for interval.
+     *
+     * @param interval
+     *            the interval
+     * @return the string for interval
+     */
     private String getStringForInterval(long interval) {
         double value = interval;
 

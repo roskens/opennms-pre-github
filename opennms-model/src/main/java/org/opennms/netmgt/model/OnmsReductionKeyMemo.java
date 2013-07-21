@@ -45,15 +45,28 @@ import javax.xml.bind.annotation.XmlRootElement;
 @DiscriminatorValue(value = "ReductionKeyMemo")
 public class OnmsReductionKeyMemo extends OnmsMemo {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 7472348439687562161L;
 
+    /** The m_reduction key. */
     @Column(name = "reductionkey")
     private String m_reductionKey;
 
+    /**
+     * Gets the reduction key.
+     *
+     * @return the reduction key
+     */
     public String getReductionKey() {
         return m_reductionKey;
     }
 
+    /**
+     * Sets the reduction key.
+     *
+     * @param reductionKey
+     *            the new reduction key
+     */
     public void setReductionKey(String reductionKey) {
         this.m_reductionKey = reductionKey;
     }

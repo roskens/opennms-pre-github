@@ -50,19 +50,30 @@ import javax.xml.bind.annotation.XmlTransient;
 
 import org.springframework.core.style.ToStringCreator;
 
+/**
+ * The Class OnmsArpInterface.
+ */
 @XmlRootElement(name = "arpInterface")
 @Entity
 @Table(name = "atInterface")
 public class OnmsArpInterface extends OnmsEntity implements Serializable {
 
+    /**
+     * The Class StatusType.
+     */
     @Embeddable
     public static class StatusType implements Comparable<StatusType>, Serializable {
+
+        /** The Constant serialVersionUID. */
         private static final long serialVersionUID = -4784344871599250528L;
 
+        /** The Constant s_order. */
         private static final char[] s_order = { 'A', 'N', 'D', 'U', 'B', 'G' };
 
+        /** The m_status type. */
         private char m_statusType;
 
+        /** The Constant statusMap. */
         private static final Map<Character, String> statusMap = new HashMap<Character, String>();
 
         static {
@@ -74,28 +85,58 @@ public class OnmsArpInterface extends OnmsEntity implements Serializable {
             statusMap.put('G', "Good");
         }
 
+        /**
+         * Instantiates a new status type.
+         */
         @SuppressWarnings("unused")
         private StatusType() {
         }
 
+        /**
+         * Instantiates a new status type.
+         *
+         * @param statusType
+         *            the status type
+         */
         public StatusType(char statusType) {
             m_statusType = statusType;
         }
 
+        /**
+         * Gets the char code.
+         *
+         * @return the char code
+         */
         @Column(name = "status")
         public char getCharCode() {
             return m_statusType;
         }
 
+        /**
+         * Sets the char code.
+         *
+         * @param statusType
+         *            the new char code
+         */
         public void setCharCode(char statusType) {
             m_statusType = statusType;
         }
 
+        /* (non-Javadoc)
+         * @see java.lang.Comparable#compareTo(java.lang.Object)
+         */
         @Override
         public int compareTo(StatusType o) {
             return getIndex(m_statusType) - getIndex(o.m_statusType);
         }
 
+        /**
+         * Gets the index.
+         *
+         * @param code
+         *            the code
+         * @return the index
+         */
         private static int getIndex(char code) {
             for (int i = 0; i < s_order.length; i++) {
                 if (s_order[i] == code) {
@@ -105,6 +146,9 @@ public class OnmsArpInterface extends OnmsEntity implements Serializable {
             throw new IllegalArgumentException("illegal statusType code '" + code + "'");
         }
 
+        /* (non-Javadoc)
+         * @see java.lang.Object#equals(java.lang.Object)
+         */
         @Override
         public boolean equals(Object o) {
             if (o instanceof StatusType) {
@@ -113,16 +157,29 @@ public class OnmsArpInterface extends OnmsEntity implements Serializable {
             return false;
         }
 
+        /* (non-Javadoc)
+         * @see java.lang.Object#hashCode()
+         */
         @Override
         public int hashCode() {
             return toString().hashCode();
         }
 
+        /* (non-Javadoc)
+         * @see java.lang.Object#toString()
+         */
         @Override
         public String toString() {
             return String.valueOf(m_statusType);
         }
 
+        /**
+         * Gets the.
+         *
+         * @param code
+         *            the code
+         * @return the status type
+         */
         public static StatusType get(char code) {
             switch (code) {
             case 'A':
@@ -146,7 +203,10 @@ public class OnmsArpInterface extends OnmsEntity implements Serializable {
          * <p>
          * getStatusString
          * </p>
+         * .
          *
+         * @param code
+         *            the code
          * @return a {@link java.lang.String} object.
          */
         /**
@@ -157,6 +217,13 @@ public class OnmsArpInterface extends OnmsEntity implements Serializable {
             return null;
         }
 
+        /**
+         * Gets the.
+         *
+         * @param code
+         *            the code
+         * @return the status type
+         */
         public static StatusType get(String code) {
             if (code == null)
                 return UNKNOWN;
@@ -169,36 +236,51 @@ public class OnmsArpInterface extends OnmsEntity implements Serializable {
                 return get(code.charAt(0));
         }
 
+        /** The active. */
         public static StatusType ACTIVE = new StatusType('A');
 
+        /** The inactive. */
         public static StatusType INACTIVE = new StatusType('N');
 
+        /** The deleted. */
         public static StatusType DELETED = new StatusType('D');
 
+        /** The unknown. */
         public static StatusType UNKNOWN = new StatusType('U');
 
+        /** The bad. */
         public static StatusType BAD = new StatusType('B');
 
+        /** The good. */
         public static StatusType GOOD = new StatusType('G');
 
     }
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 7750043250236397014L;
 
+    /** The m_id. */
     private Integer m_id;
 
+    /** The m_node. */
     private OnmsNode m_node;
 
+    /** The m_ip address. */
     private String m_ipAddress;
 
+    /** The m_phys addr. */
     private String m_physAddr;
 
+    /** The m_status. */
     private StatusType m_status = StatusType.UNKNOWN;
 
+    /** The m_source node. */
     private OnmsNode m_sourceNode;
 
+    /** The m_if index. */
     private Integer m_ifIndex;
 
+    /** The m_last poll. */
     private Date m_lastPoll;
 
     /**
@@ -210,8 +292,10 @@ public class OnmsArpInterface extends OnmsEntity implements Serializable {
     }
 
     /**
-     * minimal constructor
+     * minimal constructor.
      *
+     * @param sourceNode
+     *            the source node
      * @param node
      *            a {@link org.opennms.netmgt.model.OnmsNode} object.
      * @param ipAddr
@@ -250,6 +334,7 @@ public class OnmsArpInterface extends OnmsEntity implements Serializable {
      * <p>
      * setId
      * </p>
+     * .
      *
      * @param id
      *            a {@link java.lang.Integer} object.
@@ -262,6 +347,7 @@ public class OnmsArpInterface extends OnmsEntity implements Serializable {
      * <p>
      * getNode
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.OnmsNode} object.
      */
@@ -276,6 +362,7 @@ public class OnmsArpInterface extends OnmsEntity implements Serializable {
      * <p>
      * setNode
      * </p>
+     * .
      *
      * @param node
      *            a {@link org.opennms.netmgt.model.OnmsNode} object.
@@ -288,6 +375,7 @@ public class OnmsArpInterface extends OnmsEntity implements Serializable {
      * <p>
      * getIpAddress
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -300,6 +388,7 @@ public class OnmsArpInterface extends OnmsEntity implements Serializable {
      * <p>
      * setIpAddress
      * </p>
+     * .
      *
      * @param ipaddr
      *            a {@link java.lang.String} object.
@@ -312,6 +401,7 @@ public class OnmsArpInterface extends OnmsEntity implements Serializable {
      * <p>
      * getPhysAddr
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -324,6 +414,7 @@ public class OnmsArpInterface extends OnmsEntity implements Serializable {
      * <p>
      * setPhysAddr
      * </p>
+     * .
      *
      * @param physAddr
      *            a {@link java.lang.String} object.
@@ -336,6 +427,7 @@ public class OnmsArpInterface extends OnmsEntity implements Serializable {
      * <p>
      * getStatus
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.OnmsArpInterface.StatusType}
      *         object.
@@ -349,6 +441,7 @@ public class OnmsArpInterface extends OnmsEntity implements Serializable {
      * <p>
      * setStatus
      * </p>
+     * .
      *
      * @param status
      *            a {@link org.opennms.netmgt.model.OnmsArpInterface.StatusType}
@@ -362,6 +455,7 @@ public class OnmsArpInterface extends OnmsEntity implements Serializable {
      * <p>
      * getSourceNode
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.OnmsNode} object.
      */
@@ -376,6 +470,7 @@ public class OnmsArpInterface extends OnmsEntity implements Serializable {
      * <p>
      * setSourceNode
      * </p>
+     * .
      *
      * @param sourceNode
      *            a {@link org.opennms.netmgt.model.OnmsNode} object.
@@ -388,6 +483,7 @@ public class OnmsArpInterface extends OnmsEntity implements Serializable {
      * <p>
      * getIfIndex
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -400,6 +496,7 @@ public class OnmsArpInterface extends OnmsEntity implements Serializable {
      * <p>
      * setIfIndex
      * </p>
+     * .
      *
      * @param ifIndex
      *            a {@link java.lang.Integer} object.
@@ -412,6 +509,7 @@ public class OnmsArpInterface extends OnmsEntity implements Serializable {
      * <p>
      * getLastPoll
      * </p>
+     * .
      *
      * @return a {@link java.util.Date} object.
      */
@@ -425,6 +523,7 @@ public class OnmsArpInterface extends OnmsEntity implements Serializable {
      * <p>
      * setLastPoll
      * </p>
+     * .
      *
      * @param lastPoll
      *            a {@link java.util.Date} object.
@@ -437,6 +536,7 @@ public class OnmsArpInterface extends OnmsEntity implements Serializable {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -449,6 +549,9 @@ public class OnmsArpInterface extends OnmsEntity implements Serializable {
                                                                                                                                                                                     getLastPoll()).toString();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.model.OnmsEntity#visit(org.opennms.netmgt.model.EntityVisitor)
+     */
     @Override
     public void visit(EntityVisitor visitor) {
         // Do nothing??

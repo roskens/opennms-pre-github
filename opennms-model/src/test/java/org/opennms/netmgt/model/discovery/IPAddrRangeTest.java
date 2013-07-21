@@ -35,25 +35,38 @@ import java.util.Iterator;
 import junit.framework.TestCase;
 
 /**
- * IPAddressRangeTest
+ * IPAddressRangeTest.
  *
  * @author brozow
  */
 public class IPAddrRangeTest extends TestCase {
 
+    /** The addr2. */
     private final IPAddress addr2 = new IPAddress("192.168.1.3");
 
+    /** The addr3. */
     private final IPAddress addr3 = new IPAddress("192.168.1.5");
 
+    /** The singleton. */
     private final IPAddrRange singleton;
 
+    /** The small. */
     private final IPAddrRange small;
 
+    /**
+     * Instantiates a new iP addr range test.
+     *
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     public IPAddrRangeTest() throws UnknownHostException {
         small = new IPAddrRange(addr2.toString(), addr3.toString());
         singleton = new IPAddrRange(addr2.toString(), addr2.toString());
     }
 
+    /**
+     * Test iterator.
+     */
     public void testIterator() {
         // assertEquals(3, small.size());
         Iterator<InetAddress> it = small.iterator();
@@ -66,6 +79,9 @@ public class IPAddrRangeTest extends TestCase {
         assertFalse(it.hasNext());
     }
 
+    /**
+     * Test iterate singleton.
+     */
     public void testIterateSingleton() {
         Iterator<InetAddress> it = singleton.iterator();
         assertTrue(it.hasNext());

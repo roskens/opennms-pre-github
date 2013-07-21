@@ -36,6 +36,9 @@ import java.sql.SQLException;
 import org.hibernate.HibernateException;
 import org.hibernate.usertype.UserType;
 
+/**
+ * The Class OnmsSeverityUserType.
+ */
 public class OnmsSeverityUserType implements UserType {
 
     /**
@@ -44,11 +47,17 @@ public class OnmsSeverityUserType implements UserType {
     public OnmsSeverityUserType() {
     }
 
+    /* (non-Javadoc)
+     * @see org.hibernate.usertype.UserType#assemble(java.io.Serializable, java.lang.Object)
+     */
     @Override
     public Object assemble(final Serializable cached, final Object owner) throws HibernateException {
         return deepCopy(cached);
     }
 
+    /* (non-Javadoc)
+     * @see org.hibernate.usertype.UserType#deepCopy(java.lang.Object)
+     */
     @Override
     public Object deepCopy(final Object value) throws HibernateException {
         if (value == null) {
@@ -62,11 +71,17 @@ public class OnmsSeverityUserType implements UserType {
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.hibernate.usertype.UserType#disassemble(java.lang.Object)
+     */
     @Override
     public Serializable disassemble(final Object value) throws HibernateException {
         return (Serializable) deepCopy(value);
     }
 
+    /* (non-Javadoc)
+     * @see org.hibernate.usertype.UserType#equals(java.lang.Object, java.lang.Object)
+     */
     @Override
     public boolean equals(final Object x, final Object y) throws HibernateException {
         if (x == y)
@@ -76,22 +91,34 @@ public class OnmsSeverityUserType implements UserType {
         return x.equals(y);
     }
 
+    /* (non-Javadoc)
+     * @see org.hibernate.usertype.UserType#hashCode(java.lang.Object)
+     */
     @Override
     public int hashCode(final Object x) throws HibernateException {
         return x.hashCode();
     }
 
+    /* (non-Javadoc)
+     * @see org.hibernate.usertype.UserType#isMutable()
+     */
     @Override
     public boolean isMutable() {
         return false;
     }
 
+    /* (non-Javadoc)
+     * @see org.hibernate.usertype.UserType#nullSafeGet(java.sql.ResultSet, java.lang.String[], java.lang.Object)
+     */
     @Override
     public Object nullSafeGet(final ResultSet rs, final String[] names, final Object owner) throws HibernateException,
             SQLException {
         return OnmsSeverity.get(rs.getInt(names[0]));
     }
 
+    /* (non-Javadoc)
+     * @see org.hibernate.usertype.UserType#nullSafeSet(java.sql.PreparedStatement, java.lang.Object, int)
+     */
     @Override
     public void nullSafeSet(final PreparedStatement st, final Object value, final int index) throws HibernateException,
             SQLException {
@@ -108,16 +135,25 @@ public class OnmsSeverityUserType implements UserType {
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.hibernate.usertype.UserType#replace(java.lang.Object, java.lang.Object, java.lang.Object)
+     */
     @Override
     public Object replace(final Object original, final Object target, final Object owner) throws HibernateException {
         return original;
     }
 
+    /* (non-Javadoc)
+     * @see org.hibernate.usertype.UserType#returnedClass()
+     */
     @Override
     public Class<OnmsSeverity> returnedClass() {
         return OnmsSeverity.class;
     }
 
+    /* (non-Javadoc)
+     * @see org.hibernate.usertype.UserType#sqlTypes()
+     */
     @Override
     public int[] sqlTypes() {
         return new int[] { java.sql.Types.INTEGER };

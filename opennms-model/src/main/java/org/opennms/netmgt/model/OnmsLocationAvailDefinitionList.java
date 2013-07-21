@@ -35,27 +35,48 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+/**
+ * The Class OnmsLocationAvailDefinitionList.
+ */
 @XmlRootElement
 public class OnmsLocationAvailDefinitionList extends LinkedList<OnmsLocationAvailDataPoint> {
 
-    /**
-     *
-     */
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 1L;
 
+    /**
+     * Instantiates a new onms location avail definition list.
+     */
     public OnmsLocationAvailDefinitionList() {
         super();
     }
 
+    /**
+     * Instantiates a new onms location avail definition list.
+     *
+     * @param c
+     *            the c
+     */
     public OnmsLocationAvailDefinitionList(Collection<? extends OnmsLocationAvailDataPoint> c) {
         super(c);
     }
 
+    /**
+     * Gets the definitions.
+     *
+     * @return the definitions
+     */
     @XmlElement(name = "data")
     public List<OnmsLocationAvailDataPoint> getDefinitions() {
         return this;
     }
 
+    /**
+     * Sets the definitions.
+     *
+     * @param defs
+     *            the new definitions
+     */
     public void setDefinitions(List<OnmsLocationAvailDataPoint> defs) {
         if (defs == this)
             return;
@@ -63,6 +84,12 @@ public class OnmsLocationAvailDefinitionList extends LinkedList<OnmsLocationAvai
         addAll(defs);
     }
 
+    /**
+     * Adds the definition.
+     *
+     * @param def
+     *            the def
+     */
     public void addDefinition(OnmsLocationAvailDataPoint def) {
         add(def);
     }

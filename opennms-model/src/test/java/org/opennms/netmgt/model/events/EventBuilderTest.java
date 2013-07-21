@@ -37,12 +37,14 @@ import org.opennms.netmgt.EventConstants;
 import org.opennms.netmgt.xml.event.Event;
 
 /**
+ * The Class EventBuilderTest.
+ *
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
  */
 public class EventBuilderTest {
 
     /**
-     * Test method for
+     * Test method for.
      * {@link org.opennms.netmgt.model.events.EventBuilder#getEvent()}.
      */
     @Test
@@ -55,6 +57,12 @@ public class EventBuilderTest {
         assertEquals("Indeterminate", builder.getEvent().getSeverity());
     }
 
+    /**
+     * Test using passed in date.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public final void testUsingPassedInDate() throws Exception {
         Date date = new Date(12345);

@@ -39,6 +39,8 @@ import org.hibernate.type.StringType;
  * @version $Id: $
  */
 public class OnmsRestrictions {
+
+    /** The Constant STRING_TYPE. */
     private static final StringType STRING_TYPE = new StringType();
 
     /**

@@ -54,43 +54,53 @@ import javax.xml.bind.annotation.XmlTransient;
 @Entity
 @Table(name = "element")
 public class OnmsMapElement implements Serializable {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 1594163211618494443L;
 
-    /** Constant <code>MAP_TYPE="M"</code> */
+    /** Constant <code>MAP_TYPE="M"</code>. */
     public static final String MAP_TYPE = "M";
 
-    /** Constant <code>MAP_HIDE_TYPE="W"</code> */
+    /** Constant <code>MAP_HIDE_TYPE="W"</code>. */
     public static final String MAP_HIDE_TYPE = "W";
 
-    /** Constant <code>NODE_TYPE="N"</code> */
+    /** Constant <code>NODE_TYPE="N"</code>. */
     public static final String NODE_TYPE = "N";
 
-    /** Constant <code>NODE_HIDE_TYPE="H"</code> */
+    /** Constant <code>NODE_HIDE_TYPE="H"</code>. */
     public static final String NODE_HIDE_TYPE = "H";
 
-    /** Constant <code>defaultNodeIcon="unspecified"</code> */
+    /** Constant <code>defaultNodeIcon="unspecified"</code>. */
     public static final String defaultNodeIcon = "unspecified";
 
-    /** Constant <code>defaultMapIcon="map"</code> */
+    /** Constant <code>defaultMapIcon="map"</code>. */
     public static final String defaultMapIcon = "map";
 
+    /** The id. */
     private int id;
 
+    /** The element id. */
     private int elementId;
 
+    /** The map. */
     @XmlTransient
     @ManyToOne
     @JoinColumn(name = "mapId")
     private OnmsMap map;
 
+    /** The type. */
     protected String type;
 
+    /** The label. */
     private String label;
 
+    /** The icon name. */
     private String iconName;
 
+    /** The x. */
     private int x;
 
+    /** The y. */
     private int y;
 
     /**
@@ -210,6 +220,7 @@ public class OnmsMapElement implements Serializable {
      * <p>
      * getMapElementId
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

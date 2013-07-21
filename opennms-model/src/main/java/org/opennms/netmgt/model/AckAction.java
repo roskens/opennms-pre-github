@@ -42,16 +42,29 @@ import java.util.Map;
  * @version $Id: $
  */
 public enum AckAction {
-    UNSPECIFIED(1, "Unspecified"), ACKNOWLEDGE(2, "Acknowledge"), UNACKNOWLEDGE(3, "Unacknowledge"), ESCALATE(4,
-            "Escalate"), CLEAR(5, "Clear");
 
-    /** Constant <code>m_idMap</code> */
+    /** The unspecified. */
+    UNSPECIFIED(1, "Unspecified"),
+ /** The acknowledge. */
+ ACKNOWLEDGE(2, "Acknowledge"),
+ /** The unacknowledge. */
+ UNACKNOWLEDGE(3, "Unacknowledge"),
+ /** The escalate. */
+ ESCALATE(4,
+            "Escalate"),
+ /** The clear. */
+ CLEAR(5, "Clear");
+
+    /** Constant <code>m_idMap</code>. */
     private static final Map<Integer, AckAction> m_idMap;
 
+    /** The Constant m_ids. */
     private static final List<Integer> m_ids;
 
+    /** The m_id. */
     private int m_id;
 
+    /** The m_label. */
     private String m_label;
 
     static {
@@ -63,11 +76,24 @@ public enum AckAction {
         }
     }
 
+    /**
+     * Instantiates a new ack action.
+     *
+     * @param id
+     *            the id
+     * @param label
+     *            the label
+     */
     private AckAction(int id, String label) {
         m_id = id;
         m_label = label;
     }
 
+    /**
+     * Gets the id.
+     *
+     * @return the id
+     */
     private Integer getId() {
         return m_id;
     }
@@ -82,6 +108,7 @@ public enum AckAction {
      * <p>
      * get
      * </p>
+     * .
      *
      * @param id
      *            a int.

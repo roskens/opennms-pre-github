@@ -68,22 +68,26 @@ import javax.xml.bind.annotation.XmlType;
 @XmlRootElement(name = "header")
 public class Header {
 
+    /** The ver. */
     @XmlElement(required = true)
     protected String ver;
 
+    /** The dp name. */
     @XmlElement(required = true)
     protected String dpName;
 
+    /** The created. */
     @XmlElement(required = true)
     protected String created;
 
+    /** The mstation. */
     @XmlElement(required = true)
     protected String mstation;
 
     /**
      * Gets the value of the ver property.
      *
-     * @return
+     * @return the ver
      *         possible object is {@link String }
      */
     public String getVer() {
@@ -103,7 +107,7 @@ public class Header {
     /**
      * Gets the value of the dpName property.
      *
-     * @return
+     * @return the dp name
      *         possible object is {@link String }
      */
     public String getDpName() {
@@ -123,7 +127,7 @@ public class Header {
     /**
      * Gets the value of the created property.
      *
-     * @return
+     * @return the created
      *         possible object is {@link String }
      */
     public String getCreated() {
@@ -143,7 +147,7 @@ public class Header {
     /**
      * Gets the value of the mstation property.
      *
-     * @return
+     * @return the mstation
      *         possible object is {@link String }
      */
     public String getMstation() {

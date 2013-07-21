@@ -44,35 +44,56 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+/**
+ * The Class OnmsUser.
+ */
 @XmlRootElement(name = "user")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class OnmsUser implements UserDetails {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -5750203994158854220L;
 
+    /** The m_username. */
     @XmlElement(name = "user-id", required = true)
     private String m_username;
 
+    /** The m_full name. */
     @XmlElement(name = "full-name", required = false)
     private String m_fullName;
 
+    /** The m_comments. */
     @XmlElement(name = "user-comments", required = false)
     private String m_comments;
 
+    /** The m_password. */
     @XmlElement(name = "password", required = false)
     private String m_password;
 
+    /** The m_password salted. */
     @XmlElement(name = "passwordSalt", required = false)
     private boolean m_passwordSalted = false;
 
+    /** The m_authorities. */
     @XmlTransient
     private Collection<? extends GrantedAuthority> m_authorities;
 
+    /** The m_duty schedule. */
     @XmlElement(name = "duty-schedule", required = false)
     private List<String> m_dutySchedule = new ArrayList<String>();
 
+    /**
+     * Instantiates a new onms user.
+     */
     public OnmsUser() {
     }
 
+    /**
+     * Instantiates a new onms user.
+     *
+     * @param username
+     *            the username
+     */
     public OnmsUser(final String username) {
         m_username = username;
     }
@@ -81,6 +102,7 @@ public class OnmsUser implements UserDetails {
      * <p>
      * getComments
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -92,6 +114,7 @@ public class OnmsUser implements UserDetails {
      * <p>
      * setComments
      * </p>
+     * .
      *
      * @param comments
      *            a {@link java.lang.String} object.
@@ -104,6 +127,7 @@ public class OnmsUser implements UserDetails {
      * <p>
      * getPassword
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -116,6 +140,7 @@ public class OnmsUser implements UserDetails {
      * <p>
      * setPassword
      * </p>
+     * .
      *
      * @param password
      *            a {@link java.lang.String} object.
@@ -124,10 +149,21 @@ public class OnmsUser implements UserDetails {
         m_password = password;
     }
 
+    /**
+     * Gets the password salted.
+     *
+     * @return the password salted
+     */
     public boolean getPasswordSalted() {
         return m_passwordSalted;
     }
 
+    /**
+     * Sets the password salted.
+     *
+     * @param passwordSalted
+     *            the new password salted
+     */
     public void setPasswordSalted(final boolean passwordSalted) {
         m_passwordSalted = passwordSalted;
     }
@@ -136,6 +172,7 @@ public class OnmsUser implements UserDetails {
      * <p>
      * getFullName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -147,6 +184,7 @@ public class OnmsUser implements UserDetails {
      * <p>
      * setFullName
      * </p>
+     * .
      *
      * @param fullName
      *            a {@link java.lang.String} object.
@@ -159,6 +197,7 @@ public class OnmsUser implements UserDetails {
      * <p>
      * getUsername
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -171,6 +210,7 @@ public class OnmsUser implements UserDetails {
      * <p>
      * setUsername
      * </p>
+     * .
      *
      * @param username
      *            a {@link java.lang.String} object.
@@ -179,10 +219,21 @@ public class OnmsUser implements UserDetails {
         m_username = username;
     }
 
+    /**
+     * Gets the duty schedule.
+     *
+     * @return the duty schedule
+     */
     public List<String> getDutySchedule() {
         return m_dutySchedule;
     }
 
+    /**
+     * Sets the duty schedule.
+     *
+     * @param dutySchedule
+     *            the new duty schedule
+     */
     public void setDutySchedule(final List<String> dutySchedule) {
         m_dutySchedule = dutySchedule;
     }
@@ -191,6 +242,7 @@ public class OnmsUser implements UserDetails {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -204,6 +256,7 @@ public class OnmsUser implements UserDetails {
      * <p>
      * getAuthorities
      * </p>
+     * .
      *
      * @return an array of {@link org.springframework.security.GrantedAuthority}
      *         objects.
@@ -217,6 +270,7 @@ public class OnmsUser implements UserDetails {
      * <p>
      * setAuthorities
      * </p>
+     * .
      *
      * @param authorities
      *            an array of
@@ -230,6 +284,7 @@ public class OnmsUser implements UserDetails {
      * <p>
      * isAccountNonExpired
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -242,6 +297,7 @@ public class OnmsUser implements UserDetails {
      * <p>
      * isAccountNonLocked
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -254,6 +310,7 @@ public class OnmsUser implements UserDetails {
      * <p>
      * isCredentialsNonExpired
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -266,6 +323,7 @@ public class OnmsUser implements UserDetails {
      * <p>
      * isEnabled
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -274,6 +332,12 @@ public class OnmsUser implements UserDetails {
         return true;
     }
 
+    /**
+     * Adds the authority.
+     *
+     * @param authority
+     *            the authority
+     */
     public void addAuthority(final GrantedAuthority authority) {
         final Set<GrantedAuthority> authorities = new HashSet<GrantedAuthority>();
         if (m_authorities != null)

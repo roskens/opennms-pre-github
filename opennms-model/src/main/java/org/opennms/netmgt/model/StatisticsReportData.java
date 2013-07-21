@@ -52,17 +52,19 @@ import javax.persistence.Transient;
 @Table(name = "statisticsReportData")
 public class StatisticsReportData implements Serializable {
 
-    /**
-     *
-     */
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -6112853375515080125L;
 
+    /** The m_id. */
     private Integer m_id;
 
+    /** The m_report. */
     private StatisticsReport m_report;
 
+    /** The m_resource. */
     private ResourceReference m_resource;
 
+    /** The m_value. */
     private Double m_value;
 
     /**
@@ -82,6 +84,7 @@ public class StatisticsReportData implements Serializable {
      * <p>
      * setId
      * </p>
+     * .
      *
      * @param id
      *            a {@link java.lang.Integer} object.
@@ -94,6 +97,7 @@ public class StatisticsReportData implements Serializable {
      * <p>
      * getReport
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.StatisticsReport} object.
      */
@@ -108,6 +112,7 @@ public class StatisticsReportData implements Serializable {
      * <p>
      * setReport
      * </p>
+     * .
      *
      * @param report
      *            a {@link org.opennms.netmgt.model.StatisticsReport} object.
@@ -120,6 +125,7 @@ public class StatisticsReportData implements Serializable {
      * <p>
      * getResource
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.ResourceReference} object.
      */
@@ -133,6 +139,7 @@ public class StatisticsReportData implements Serializable {
      * <p>
      * setResource
      * </p>
+     * .
      *
      * @param resource
      *            a {@link org.opennms.netmgt.model.ResourceReference} object.
@@ -145,6 +152,7 @@ public class StatisticsReportData implements Serializable {
      * <p>
      * getResourceId
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -157,6 +165,7 @@ public class StatisticsReportData implements Serializable {
      * <p>
      * getValue
      * </p>
+     * .
      *
      * @return a {@link java.lang.Double} object.
      */
@@ -169,6 +178,7 @@ public class StatisticsReportData implements Serializable {
      * <p>
      * setValue
      * </p>
+     * .
      *
      * @param value
      *            a {@link java.lang.Double} object.

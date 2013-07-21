@@ -44,24 +44,48 @@ import javax.xml.bind.annotation.XmlRootElement;
 // @ValidateUsing("event.xsd")
 public class UpdateField {
 
+    /** The m_field name. */
     @XmlAttribute(name = "field-name", required = true)
     private java.lang.String m_fieldName;
 
+    /** The m_update on reduction. */
     @XmlAttribute(name = "update-on-reduction", required = false)
     private java.lang.Boolean m_updateOnReduction = Boolean.TRUE;
 
+    /**
+     * Gets the field name.
+     *
+     * @return the field name
+     */
     public String getFieldName() {
         return m_fieldName;
     }
 
+    /**
+     * Sets the field name.
+     *
+     * @param fieldName
+     *            the new field name
+     */
     public void setFieldName(String fieldName) {
         m_fieldName = fieldName;
     }
 
+    /**
+     * Checks if is update on reduction.
+     *
+     * @return the boolean
+     */
     public Boolean isUpdateOnReduction() {
         return m_updateOnReduction;
     }
 
+    /**
+     * Sets the update on reduction.
+     *
+     * @param update
+     *            the new update on reduction
+     */
     public void setUpdateOnReduction(Boolean update) {
         m_updateOnReduction = update;
     }

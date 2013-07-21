@@ -82,6 +82,9 @@ public class ForwardDescriptor extends org.exolab.castor.xml.util.XMLClassDescri
     // - Constructors -/
     // ----------------/
 
+    /**
+     * Instantiates a new forward descriptor.
+     */
     public ForwardDescriptor() {
         super();
         _nsURI = "http://xmlns.opennms.org/xsd/event";

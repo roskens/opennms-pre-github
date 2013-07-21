@@ -35,20 +35,28 @@ package org.opennms.netmgt.model;
  */
 public class PrefabGraphType {
 
+    /** The m_default report. */
     private String m_defaultReport;
 
+    /** The m_name. */
     private String m_name;
 
+    /** The m_command prefix. */
     private String m_commandPrefix;
 
+    /** The m_output mime type. */
     private String m_outputMimeType;
 
+    /** The m_graph width. */
     private String m_graphWidth;
 
+    /** The m_graph height. */
     private String m_graphHeight;
 
+    /** The m_include directory. */
     private String m_includeDirectory;
 
+    /** The m_include rescan interval. */
     private int m_includeRescanInterval;
 
     /**
@@ -63,6 +71,7 @@ public class PrefabGraphType {
      * <p>
      * setName
      * </p>
+     * .
      *
      * @param name
      *            a {@link java.lang.String} object.
@@ -75,6 +84,7 @@ public class PrefabGraphType {
      * <p>
      * getName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -86,6 +96,7 @@ public class PrefabGraphType {
      * <p>
      * setDefaultReport
      * </p>
+     * .
      *
      * @param defaultReport
      *            a {@link java.lang.String} object.
@@ -98,6 +109,7 @@ public class PrefabGraphType {
      * <p>
      * getDefaultReport
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -109,6 +121,7 @@ public class PrefabGraphType {
      * <p>
      * setGraphWidth
      * </p>
+     * .
      *
      * @param graphWidth
      *            a {@link java.lang.String} object.
@@ -121,6 +134,7 @@ public class PrefabGraphType {
      * <p>
      * getGraphWidth
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -132,6 +146,7 @@ public class PrefabGraphType {
      * <p>
      * setGraphHeight
      * </p>
+     * .
      *
      * @param graphHeight
      *            a {@link java.lang.String} object.
@@ -144,6 +159,7 @@ public class PrefabGraphType {
      * <p>
      * getGraphHeight
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -155,6 +171,7 @@ public class PrefabGraphType {
      * <p>
      * setCommandPrefix
      * </p>
+     * .
      *
      * @param commandPrefix
      *            a {@link java.lang.String} object.
@@ -167,6 +184,7 @@ public class PrefabGraphType {
      * <p>
      * getCommandPrefix
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -178,6 +196,7 @@ public class PrefabGraphType {
      * <p>
      * setOutputMimeType
      * </p>
+     * .
      *
      * @param outputMimeType
      *            a {@link java.lang.String} object.
@@ -190,6 +209,7 @@ public class PrefabGraphType {
      * <p>
      * getOutputMimeType
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -198,7 +218,7 @@ public class PrefabGraphType {
     }
 
     /**
-     * Set the directory from which individual graph files should be included
+     * Set the directory from which individual graph files should be included.
      *
      * @param includeDirectory
      *            - the new path for the include directory
@@ -210,6 +230,8 @@ public class PrefabGraphType {
     }
 
     /**
+     * Gets the include directory.
+     *
      * @return the include directory in which to look for any individual graph
      *         files
      */
@@ -224,14 +246,16 @@ public class PrefabGraphType {
      * least
      * this long since the last scan, or the initial load.
      *
-     * @param timeout
-     *            - the new timeout, in milliseconds
+     * @param interval
+     *            the new include directory rescan interval
      */
     public void setIncludeDirectoryRescanInterval(int interval) {
         m_includeRescanInterval = interval;
     }
 
     /**
+     * Gets the include directory rescan timeout.
+     *
      * @return the timeout used
      */
     public int getIncludeDirectoryRescanTimeout() {

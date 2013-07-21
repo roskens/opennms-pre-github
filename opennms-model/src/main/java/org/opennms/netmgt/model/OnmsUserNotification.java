@@ -49,6 +49,9 @@ import javax.xml.bind.annotation.XmlTransient;
 
 import org.springframework.core.style.ToStringCreator;
 
+/**
+ * The Class OnmsUserNotification.
+ */
 @Entity
 /**
  * <p>OnmsUserNotification class.</p>
@@ -57,30 +60,32 @@ import org.springframework.core.style.ToStringCreator;
 @XmlRootElement(name = "userNotification")
 public class OnmsUserNotification implements Serializable {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -1750912427062821742L;
 
+    /** The m_id. */
     private Integer m_id;
 
-    /** identifier field */
+    /** identifier field. */
     private String m_userId;
 
-    /** identifier field */
+    /** identifier field. */
     private Date m_notifyTime;
 
-    /** identifier field */
+    /** identifier field. */
     private String m_media;
 
-    /** identifier field */
+    /** identifier field. */
     private String m_contactInfo;
 
-    /** identifier field */
+    /** identifier field. */
     private String m_autoNotify;
 
-    /** persistent field */
+    /** persistent field. */
     private OnmsNotification m_notification;
 
     /**
-     * full constructor
+     * full constructor.
      *
      * @param userId
      *            a {@link java.lang.String} object.
@@ -109,7 +114,7 @@ public class OnmsUserNotification implements Serializable {
     }
 
     /**
-     * default constructor
+     * default constructor.
      */
     public OnmsUserNotification() {
     }
@@ -118,6 +123,7 @@ public class OnmsUserNotification implements Serializable {
      * <p>
      * getId
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -134,6 +140,7 @@ public class OnmsUserNotification implements Serializable {
      * <p>
      * setId
      * </p>
+     * .
      *
      * @param id
      *            a {@link java.lang.Integer} object.
@@ -146,6 +153,7 @@ public class OnmsUserNotification implements Serializable {
      * <p>
      * getUserId
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -159,6 +167,7 @@ public class OnmsUserNotification implements Serializable {
      * <p>
      * setUserId
      * </p>
+     * .
      *
      * @param userId
      *            a {@link java.lang.String} object.
@@ -171,6 +180,7 @@ public class OnmsUserNotification implements Serializable {
      * <p>
      * getNotifyTime
      * </p>
+     * .
      *
      * @return a {@link java.util.Date} object.
      */
@@ -185,6 +195,7 @@ public class OnmsUserNotification implements Serializable {
      * <p>
      * setNotifyTime
      * </p>
+     * .
      *
      * @param notifyTime
      *            a {@link java.util.Date} object.
@@ -197,6 +208,7 @@ public class OnmsUserNotification implements Serializable {
      * <p>
      * getMedia
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -210,6 +222,7 @@ public class OnmsUserNotification implements Serializable {
      * <p>
      * setMedia
      * </p>
+     * .
      *
      * @param media
      *            a {@link java.lang.String} object.
@@ -222,6 +235,7 @@ public class OnmsUserNotification implements Serializable {
      * <p>
      * getContactInfo
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -235,6 +249,7 @@ public class OnmsUserNotification implements Serializable {
      * <p>
      * setContactInfo
      * </p>
+     * .
      *
      * @param contactInfo
      *            a {@link java.lang.String} object.
@@ -247,6 +262,7 @@ public class OnmsUserNotification implements Serializable {
      * <p>
      * getAutoNotify
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -260,6 +276,7 @@ public class OnmsUserNotification implements Serializable {
      * <p>
      * setAutoNotify
      * </p>
+     * .
      *
      * @param autoNotify
      *            a {@link java.lang.String} object.
@@ -272,6 +289,7 @@ public class OnmsUserNotification implements Serializable {
      * <p>
      * getNotification
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.OnmsNotification} object.
      */
@@ -286,6 +304,7 @@ public class OnmsUserNotification implements Serializable {
      * <p>
      * setNotification
      * </p>
+     * .
      *
      * @param notification
      *            a {@link org.opennms.netmgt.model.OnmsNotification} object.
@@ -298,6 +317,7 @@ public class OnmsUserNotification implements Serializable {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

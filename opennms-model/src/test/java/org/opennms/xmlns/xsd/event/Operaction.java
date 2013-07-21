@@ -71,19 +71,22 @@ import javax.xml.bind.annotation.XmlValue;
 @XmlRootElement(name = "operaction")
 public class Operaction {
 
+    /** The value. */
     @XmlValue
     protected String value;
 
+    /** The state. */
     @XmlAttribute(name = "state")
     protected String state;
 
+    /** The menutext. */
     @XmlAttribute(name = "menutext", required = true)
     protected String menutext;
 
     /**
      * Gets the value of the value property.
      *
-     * @return
+     * @return the value
      *         possible object is {@link String }
      */
     public String getValue() {
@@ -103,7 +106,7 @@ public class Operaction {
     /**
      * Gets the value of the state property.
      *
-     * @return
+     * @return the state
      *         possible object is {@link String }
      */
     public String getState() {
@@ -127,7 +130,7 @@ public class Operaction {
     /**
      * Gets the value of the menutext property.
      *
-     * @return
+     * @return the menutext
      *         possible object is {@link String }
      */
     public String getMenutext() {

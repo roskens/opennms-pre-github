@@ -82,6 +82,9 @@ public class OperactionDescriptor extends org.exolab.castor.xml.util.XMLClassDes
     // - Constructors -/
     // ----------------/
 
+    /**
+     * Instantiates a new operaction descriptor.
+     */
     public OperactionDescriptor() {
         super();
         _nsURI = "http://xmlns.opennms.org/xsd/event";

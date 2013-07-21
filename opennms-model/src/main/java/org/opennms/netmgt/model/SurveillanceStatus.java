@@ -29,19 +29,23 @@
 package org.opennms.netmgt.model;
 
 /**
- * SurveillanceStatus
+ * SurveillanceStatus.
  *
  * @author brozow
  */
 public interface SurveillanceStatus {
 
     /**
-     * The number of nodes that do not have at least one service up
+     * The number of nodes that do not have at least one service up.
+     *
+     * @return the down entity count
      */
     Integer getDownEntityCount();
 
     /**
-     * The total number of nodes represented by this status
+     * The total number of nodes represented by this status.
+     *
+     * @return the total entity count
      */
     Integer getTotalEntityCount();
 
@@ -57,6 +61,9 @@ public interface SurveillanceStatus {
      * <li>'Critical' representing that more than one service on the from the
      * set of all active services on the assocuate nodes has an outage
      * </ul>
+     * .
+     *
+     * @return the status
      */
     String getStatus();
 

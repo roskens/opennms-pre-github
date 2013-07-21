@@ -59,140 +59,180 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link Maskelement }
+     * Create an instance of {@link Maskelement }.
+     *
+     * @return the maskelement
      */
     public Maskelement createMaskelement() {
         return new Maskelement();
     }
 
     /**
-     * Create an instance of {@link Autoaction }
+     * Create an instance of {@link Autoaction }.
+     *
+     * @return the autoaction
      */
     public Autoaction createAutoaction() {
         return new Autoaction();
     }
 
     /**
-     * Create an instance of {@link Header }
+     * Create an instance of {@link Header }.
+     *
+     * @return the header
      */
     public Header createHeader() {
         return new Header();
     }
 
     /**
-     * Create an instance of {@link Tticket }
+     * Create an instance of {@link Tticket }.
+     *
+     * @return the tticket
      */
     public Tticket createTticket() {
         return new Tticket();
     }
 
     /**
-     * Create an instance of {@link Logmsg }
+     * Create an instance of {@link Logmsg }.
+     *
+     * @return the logmsg
      */
     public Logmsg createLogmsg() {
         return new Logmsg();
     }
 
     /**
-     * Create an instance of {@link Parm }
+     * Create an instance of {@link Parm }.
+     *
+     * @return the parm
      */
     public Parm createParm() {
         return new Parm();
     }
 
     /**
-     * Create an instance of {@link Script }
+     * Create an instance of {@link Script }.
+     *
+     * @return the script
      */
     public Script createScript() {
         return new Script();
     }
 
     /**
-     * Create an instance of {@link Correlation }
+     * Create an instance of {@link Correlation }.
+     *
+     * @return the correlation
      */
     public Correlation createCorrelation() {
         return new Correlation();
     }
 
     /**
-     * Create an instance of {@link Parms }
+     * Create an instance of {@link Parms }.
+     *
+     * @return the parms
      */
     public Parms createParms() {
         return new Parms();
     }
 
     /**
-     * Create an instance of {@link Forward }
+     * Create an instance of {@link Forward }.
+     *
+     * @return the forward
      */
     public Forward createForward() {
         return new Forward();
     }
 
     /**
-     * Create an instance of {@link Autoacknowledge }
+     * Create an instance of {@link Autoacknowledge }.
+     *
+     * @return the autoacknowledge
      */
     public Autoacknowledge createAutoacknowledge() {
         return new Autoacknowledge();
     }
 
     /**
-     * Create an instance of {@link AlarmData }
+     * Create an instance of {@link AlarmData }.
+     *
+     * @return the alarm data
      */
     public AlarmData createAlarmData() {
         return new AlarmData();
     }
 
     /**
-     * Create an instance of {@link Log }
+     * Create an instance of {@link Log }.
+     *
+     * @return the log
      */
     public Log createLog() {
         return new Log();
     }
 
     /**
-     * Create an instance of {@link Events }
+     * Create an instance of {@link Events }.
+     *
+     * @return the events
      */
     public Events createEvents() {
         return new Events();
     }
 
     /**
-     * Create an instance of {@link Value }
+     * Create an instance of {@link Value }.
+     *
+     * @return the value
      */
     public Value createValue() {
         return new Value();
     }
 
     /**
-     * Create an instance of {@link Mask }
+     * Create an instance of {@link Mask }.
+     *
+     * @return the mask
      */
     public Mask createMask() {
         return new Mask();
     }
 
     /**
-     * Create an instance of {@link Snmp }
+     * Create an instance of {@link Snmp }.
+     *
+     * @return the snmp
      */
     public Snmp createSnmp() {
         return new Snmp();
     }
 
     /**
-     * Create an instance of {@link Operaction }
+     * Create an instance of {@link Operaction }.
+     *
+     * @return the operaction
      */
     public Operaction createOperaction() {
         return new Operaction();
     }
 
     /**
-     * Create an instance of {@link Event }
+     * Create an instance of {@link Event }.
+     *
+     * @return the event
      */
     public Event createEvent() {
         return new Event();
     }
 
     /**
-     * Create an instance of {@link EventReceipt }
+     * Create an instance of {@link EventReceipt }.
+     *
+     * @return the event receipt
      */
     public EventReceipt createEventReceipt() {
         return new EventReceipt();

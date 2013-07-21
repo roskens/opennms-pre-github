@@ -48,24 +48,34 @@ import org.springframework.beans.PropertyAccessorFactory;
  */
 public class NetworkBuilder {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(NetworkBuilder.class);
 
+    /** The m_dist poller. */
     private final OnmsDistPoller m_distPoller;
 
+    /** The m_current node. */
     OnmsNode m_currentNode;
 
+    /** The m_asset bean. */
     BeanWrapper m_assetBean;
 
+    /** The m_current if. */
     OnmsIpInterface m_currentIf;
 
+    /** The m_current snmp if. */
     OnmsSnmpInterface m_currentSnmpIf;
 
+    /** The m_current at if. */
     OnmsArpInterface m_currentAtIf;
 
+    /** The m_current mon svc. */
     OnmsMonitoredService m_currentMonSvc;
 
+    /** The m_service type cache. */
     private Map<String, OnmsServiceType> m_serviceTypeCache = new HashMap<String, OnmsServiceType>();
 
+    /** The m_category cache. */
     private Map<String, OnmsCategory> m_categoryCache = new HashMap<String, OnmsCategory>();
 
     /**
@@ -95,7 +105,7 @@ public class NetworkBuilder {
     }
 
     /**
-     * Totally bogus
+     * Totally bogus.
      */
     public NetworkBuilder() {
         this("localhost", "127.0.0.1");
@@ -105,6 +115,7 @@ public class NetworkBuilder {
      * <p>
      * addNode
      * </p>
+     * .
      *
      * @param label
      *            a {@link java.lang.String} object.
@@ -118,52 +129,122 @@ public class NetworkBuilder {
         return new NodeBuilder(m_currentNode);
     }
 
+    /**
+     * The Class NodeBuilder.
+     */
     public class NodeBuilder {
+
+        /** The m_node. */
         OnmsNode m_node;
 
+        /**
+         * Instantiates a new node builder.
+         *
+         * @param node
+         *            the node
+         */
         NodeBuilder(final OnmsNode node) {
             m_node = node;
         }
 
+        /**
+         * Gets the node.
+         *
+         * @return the node
+         */
         public OnmsNode getNode() {
             return m_node;
         }
 
+        /**
+         * Sets the id.
+         *
+         * @param id
+         *            the id
+         * @return the node builder
+         */
         public NodeBuilder setId(final Integer id) {
             m_node.setId(id);
             return this;
         }
 
+        /**
+         * Sets the foreign source.
+         *
+         * @param foreignSource
+         *            the foreign source
+         * @return the node builder
+         */
         public NodeBuilder setForeignSource(final String foreignSource) {
             m_node.setForeignSource(foreignSource);
             return this;
         }
 
+        /**
+         * Sets the foreign id.
+         *
+         * @param foreignId
+         *            the foreign id
+         * @return the node builder
+         */
         public NodeBuilder setForeignId(final String foreignId) {
             m_node.setForeignId(foreignId);
             return this;
         }
 
+        /**
+         * Gets the asset record.
+         *
+         * @return the asset record
+         */
         public OnmsAssetRecord getAssetRecord() {
             return m_node.getAssetRecord();
         }
 
+        /**
+         * Sets the label source.
+         *
+         * @param labelSource
+         *            the label source
+         * @return the node builder
+         */
         public NodeBuilder setLabelSource(final String labelSource) {
             m_node.setLabelSource(labelSource);
             return this;
 
         }
 
+        /**
+         * Sets the type.
+         *
+         * @param type
+         *            the type
+         * @return the node builder
+         */
         public NodeBuilder setType(final String type) {
             m_node.setType(type);
             return this;
         }
 
+        /**
+         * Sets the sys object id.
+         *
+         * @param sysObjectId
+         *            the sys object id
+         * @return the node builder
+         */
         public NodeBuilder setSysObjectId(final String sysObjectId) {
             m_node.setSysObjectId(sysObjectId);
             return this;
         }
 
+        /**
+         * Sets the sys name.
+         *
+         * @param nodesysname
+         *            the nodesysname
+         * @return the node builder
+         */
         public NodeBuilder setSysName(final String nodesysname) {
             m_node.setSysName(nodesysname);
             return this;
@@ -175,6 +256,7 @@ public class NetworkBuilder {
      * <p>
      * addInterface
      * </p>
+     * .
      *
      * @param ipAddr
      *            a {@link java.lang.String} object.
@@ -187,34 +269,66 @@ public class NetworkBuilder {
         return new InterfaceBuilder(m_currentIf);
     }
 
+    /**
+     * The Class InterfaceBuilder.
+     */
     public static class InterfaceBuilder {
+
+        /** The m_iface. */
         final OnmsIpInterface m_iface;
 
+        /**
+         * Instantiates a new interface builder.
+         *
+         * @param iface
+         *            the iface
+         */
         InterfaceBuilder(final OnmsIpInterface iface) {
             m_iface = iface;
         }
 
+        /**
+         * Sets the is managed.
+         *
+         * @param managed
+         *            the managed
+         * @return the interface builder
+         */
         public InterfaceBuilder setIsManaged(final String managed) {
             m_iface.setIsManaged(managed);
             return this;
         }
 
+        /**
+         * Sets the is snmp primary.
+         *
+         * @param isSnmpPrimary
+         *            the is snmp primary
+         * @return the interface builder
+         */
         public InterfaceBuilder setIsSnmpPrimary(final String isSnmpPrimary) {
             m_iface.setIsSnmpPrimary(PrimaryType.get(isSnmpPrimary));
             return this;
         }
 
+        /**
+         * Gets the interface.
+         *
+         * @return the interface
+         */
         public OnmsIpInterface getInterface() {
             return m_iface;
         }
 
         /**
-         * @deprecated Create the SNMP Interface first, and then use
-         *             {@link SnmpInterfaceBuilder#addIpInterface(String)} to
-         *             add IP Interfaces.
+         * Adds the snmp interface.
+         *
          * @param ifIndex
          *            the ifIndex
          * @return an SnmpInterfaceBuilder
+         * @deprecated Create the SNMP Interface first, and then use
+         *             {@link SnmpInterfaceBuilder#addIpInterface(String)} to
+         *             add IP Interfaces.
          */
         @Deprecated
         public SnmpInterfaceBuilder addSnmpInterface(final int ifIndex) {
@@ -226,43 +340,101 @@ public class NetworkBuilder {
 
         }
 
+        /**
+         * Sets the id.
+         *
+         * @param id
+         *            the id
+         * @return the interface builder
+         */
         public InterfaceBuilder setId(final int id) {
             m_iface.setId(id);
             return this;
         }
     }
 
+    /**
+     * The Class AtInterfaceBuilder.
+     */
     public class AtInterfaceBuilder {
+
+        /** The m_iface. */
         final OnmsArpInterface m_iface;
 
+        /**
+         * Instantiates a new at interface builder.
+         *
+         * @param iface
+         *            the iface
+         */
         AtInterfaceBuilder(final OnmsArpInterface iface) {
             m_iface = iface;
         }
 
+        /**
+         * Sets the status.
+         *
+         * @param managed
+         *            the managed
+         * @return the at interface builder
+         */
         public AtInterfaceBuilder setStatus(final char managed) {
             m_iface.setStatus(StatusType.get(managed));
             return this;
         }
 
+        /**
+         * Sets the if index.
+         *
+         * @param ifIndex
+         *            the if index
+         * @return the at interface builder
+         */
         public AtInterfaceBuilder setIfIndex(final int ifIndex) {
             m_iface.setIfIndex(ifIndex);
             return this;
         }
 
+        /**
+         * Sets the source node.
+         *
+         * @param node
+         *            the node
+         * @return the at interface builder
+         */
         public AtInterfaceBuilder setSourceNode(final OnmsNode node) {
             m_iface.setSourceNode(node);
             return this;
         }
 
+        /**
+         * Gets the interface.
+         *
+         * @return the interface
+         */
         public OnmsArpInterface getInterface() {
             return m_iface;
         }
 
+        /**
+         * Sets the id.
+         *
+         * @param id
+         *            the id
+         * @return the at interface builder
+         */
         public AtInterfaceBuilder setId(final int id) {
             m_iface.setId(id);
             return this;
         }
 
+        /**
+         * Sets the last poll time.
+         *
+         * @param timestamp
+         *            the timestamp
+         * @return the at interface builder
+         */
         public AtInterfaceBuilder setLastPollTime(final Date timestamp) {
             m_iface.setLastPoll(timestamp);
             return this;
@@ -273,6 +445,7 @@ public class NetworkBuilder {
      * <p>
      * addInterface
      * </p>
+     * .
      *
      * @param ipAddr
      *            a {@link java.lang.String} object.
@@ -289,6 +462,15 @@ public class NetworkBuilder {
     }
 
     /**
+     * Adds the at interface.
+     *
+     * @param sourceNode
+     *            the source node
+     * @param ipAddr
+     *            the ip addr
+     * @param physAddr
+     *            the phys addr
+     * @return the at interface builder
      */
     public AtInterfaceBuilder addAtInterface(final OnmsNode sourceNode, final String ipAddr, final String physAddr) {
         m_currentAtIf = new OnmsArpInterface(sourceNode, m_currentNode, ipAddr, physAddr);
@@ -299,6 +481,7 @@ public class NetworkBuilder {
      * <p>
      * addSnmpInterface
      * </p>
+     * .
      *
      * @param ifIndex
      *            a int.
@@ -317,6 +500,7 @@ public class NetworkBuilder {
      * <p>
      * addService
      * </p>
+     * .
      *
      * @param serviceType
      *            a {@link org.opennms.netmgt.model.OnmsServiceType} object.
@@ -343,6 +527,7 @@ public class NetworkBuilder {
      * <p>
      * setDisplayCategory
      * </p>
+     * .
      *
      * @param displayCategory
      *            a {@link java.lang.String} object.
@@ -355,6 +540,7 @@ public class NetworkBuilder {
      * <p>
      * setBuilding
      * </p>
+     * .
      *
      * @param building
      *            a {@link java.lang.String} object.
@@ -367,6 +553,7 @@ public class NetworkBuilder {
      * <p>
      * getCurrentNode
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.OnmsNode} object.
      */
@@ -378,6 +565,7 @@ public class NetworkBuilder {
      * <p>
      * addCategory
      * </p>
+     * .
      *
      * @param cat
      *            a {@link org.opennms.netmgt.model.OnmsCategory} object.
@@ -391,6 +579,7 @@ public class NetworkBuilder {
      * <p>
      * addCategory
      * </p>
+     * .
      *
      * @param categoryName
      *            a {@link java.lang.String} object.
@@ -403,6 +592,7 @@ public class NetworkBuilder {
      * <p>
      * clearInterface
      * </p>
+     * .
      */
     public void clearInterface() {
         m_currentIf = null;
@@ -413,6 +603,7 @@ public class NetworkBuilder {
      * <p>
      * addService
      * </p>
+     * .
      *
      * @param serviceName
      *            a {@link java.lang.String} object.
@@ -426,6 +617,7 @@ public class NetworkBuilder {
      * <p>
      * setAssetAttribute
      * </p>
+     * .
      *
      * @param name
      *            a {@link java.lang.String} object.
@@ -440,6 +632,13 @@ public class NetworkBuilder {
         }
     }
 
+    /**
+     * Gets the service type.
+     *
+     * @param serviceName
+     *            the service name
+     * @return the service type
+     */
     public OnmsServiceType getServiceType(final String serviceName) {
         if (!m_serviceTypeCache.containsKey(serviceName)) {
             m_serviceTypeCache.put(serviceName, new OnmsServiceType(serviceName));
@@ -447,6 +646,13 @@ public class NetworkBuilder {
         return m_serviceTypeCache.get(serviceName);
     }
 
+    /**
+     * Gets the category.
+     *
+     * @param categoryName
+     *            the category name
+     * @return the category
+     */
     public OnmsCategory getCategory(final String categoryName) {
         if (!m_categoryCache.containsKey(categoryName)) {
             m_categoryCache.put(categoryName, new OnmsCategory(categoryName));

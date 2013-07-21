@@ -34,16 +34,23 @@ package org.opennms.netmgt.model;
  * </p>
  */
 public class AdhocGraphType {
+
+    /** The m_name. */
     private String m_name;
 
+    /** The m_command prefix. */
     private String m_commandPrefix;
 
+    /** The m_output mime type. */
     private String m_outputMimeType;
 
+    /** The m_title template. */
     private String m_titleTemplate;
 
+    /** The m_data source template. */
     private String m_dataSourceTemplate;
 
+    /** The m_graph line template. */
     private String m_graphLineTemplate;
 
     /**
@@ -59,6 +66,7 @@ public class AdhocGraphType {
      * <p>
      * setName
      * </p>
+     * .
      *
      * @param name
      *            a {@link java.lang.String} object.
@@ -71,6 +79,7 @@ public class AdhocGraphType {
      * <p>
      * getName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -82,6 +91,7 @@ public class AdhocGraphType {
      * <p>
      * setCommandPrefix
      * </p>
+     * .
      *
      * @param commandPrefix
      *            a {@link java.lang.String} object.
@@ -94,6 +104,7 @@ public class AdhocGraphType {
      * <p>
      * getCommandPrefix
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -105,6 +116,7 @@ public class AdhocGraphType {
      * <p>
      * setOutputMimeType
      * </p>
+     * .
      *
      * @param outputMimeType
      *            a {@link java.lang.String} object.
@@ -117,6 +129,7 @@ public class AdhocGraphType {
      * <p>
      * getOutputMimeType
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -128,6 +141,7 @@ public class AdhocGraphType {
      * <p>
      * setTitleTemplate
      * </p>
+     * .
      *
      * @param template
      *            a {@link java.lang.String} object.
@@ -140,6 +154,7 @@ public class AdhocGraphType {
      * <p>
      * setDataSourceTemplate
      * </p>
+     * .
      *
      * @param template
      *            a {@link java.lang.String} object.
@@ -152,6 +167,7 @@ public class AdhocGraphType {
      * <p>
      * setGraphLineTemplate
      * </p>
+     * .
      *
      * @param template
      *            a {@link java.lang.String} object.
@@ -164,6 +180,7 @@ public class AdhocGraphType {
      * <p>
      * getDataSourceTemplate
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -175,6 +192,7 @@ public class AdhocGraphType {
      * <p>
      * getGraphLineTemplate
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -186,6 +204,7 @@ public class AdhocGraphType {
      * <p>
      * getTitleTemplate
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

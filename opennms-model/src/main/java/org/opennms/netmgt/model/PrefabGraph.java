@@ -36,28 +36,41 @@ import org.springframework.util.Assert;
  * </p>
  */
 public class PrefabGraph extends Object implements Comparable<PrefabGraph> {
+
+    /** The m_name. */
     private String m_name;
 
+    /** The m_title. */
     private String m_title;
 
+    /** The m_columns. */
     private String[] m_columns;
 
+    /** The m_command. */
     private String m_command;
 
+    /** The m_external values. */
     private String[] m_externalValues;
 
+    /** The m_properties values. */
     private String[] m_propertiesValues;
 
+    /** The m_order. */
     private int m_order;
 
+    /** The m_types. */
     private String[] m_types = new String[0];
 
+    /** The m_description. */
     private String m_description;
 
+    /** The m_graph width. */
     private Integer m_graphWidth;
 
+    /** The m_graph height. */
     private Integer m_graphHeight;
 
+    /** The m_suppress. */
     private String[] m_suppress;
 
     /**
@@ -120,6 +133,7 @@ public class PrefabGraph extends Object implements Comparable<PrefabGraph> {
      * <p>
      * getName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -131,6 +145,7 @@ public class PrefabGraph extends Object implements Comparable<PrefabGraph> {
      * <p>
      * getTitle
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -142,6 +157,7 @@ public class PrefabGraph extends Object implements Comparable<PrefabGraph> {
      * <p>
      * getOrder
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -153,6 +169,7 @@ public class PrefabGraph extends Object implements Comparable<PrefabGraph> {
      * <p>
      * getColumns
      * </p>
+     * .
      *
      * @return an array of {@link java.lang.String} objects.
      */
@@ -164,6 +181,7 @@ public class PrefabGraph extends Object implements Comparable<PrefabGraph> {
      * <p>
      * getCommand
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -175,6 +193,7 @@ public class PrefabGraph extends Object implements Comparable<PrefabGraph> {
      * <p>
      * getExternalValues
      * </p>
+     * .
      *
      * @return an array of {@link java.lang.String} objects.
      */
@@ -186,6 +205,7 @@ public class PrefabGraph extends Object implements Comparable<PrefabGraph> {
      * <p>
      * getPropertiesValues
      * </p>
+     * .
      *
      * @return list of required string properties
      * @see org.opennms.netmgt.model.StringPropertyAttribute
@@ -207,6 +227,7 @@ public class PrefabGraph extends Object implements Comparable<PrefabGraph> {
      * <p>
      * hasMatchingType
      * </p>
+     * .
      *
      * @param matchingTypes
      *            a {@link java.lang.String} object.
@@ -254,6 +275,7 @@ public class PrefabGraph extends Object implements Comparable<PrefabGraph> {
      * <p>
      * getSuppress
      * </p>
+     * .
      *
      * @return an array of {@link java.lang.String} objects.
      */
@@ -265,6 +287,7 @@ public class PrefabGraph extends Object implements Comparable<PrefabGraph> {
      * <p>
      * compareTo
      * </p>
+     * .
      *
      * @param other
      *            a {@link org.opennms.netmgt.model.PrefabGraph} object.

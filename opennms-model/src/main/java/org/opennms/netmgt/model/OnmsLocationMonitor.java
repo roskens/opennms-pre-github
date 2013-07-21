@@ -62,35 +62,60 @@ import org.springframework.core.style.ToStringCreator;
 @Table(name = "location_monitors")
 public class OnmsLocationMonitor implements Comparable<OnmsLocationMonitor> {
 
+    /**
+     * The Enum MonitorStatus.
+     */
     public static enum MonitorStatus {
-        /** @deprecated */
-        NEW, REGISTERED, STARTED, STOPPED,
-        /** @deprecated */
-        UNRESPONSIVE, DISCONNECTED, PAUSED, CONFIG_CHANGED, DELETED
+
+        /** The new. @deprecated */
+        NEW,
+ /** The registered. */
+ REGISTERED,
+ /** The started. */
+ STARTED,
+ /** The stopped. */
+ STOPPED,
+
+        /** The unresponsive. @deprecated */
+        UNRESPONSIVE,
+ /** The disconnected. */
+ DISCONNECTED,
+ /** The paused. */
+ PAUSED,
+ /** The config changed. */
+ CONFIG_CHANGED,
+ /** The deleted. */
+ DELETED
     }
 
+    /** The m_id. */
     private Integer m_id;
 
     // private String m_name;
 
+    /** The m_status. */
     private MonitorStatus m_status = MonitorStatus.REGISTERED;
 
+    /** The m_last check in time. */
     private Date m_lastCheckInTime;
 
     /*
      * Needed for locating XML-configured location definition and
      * creating m_locationDefintion.
      */
+    /** The m_definition name. */
     private String m_definitionName;
 
     // private OnmsMonitoringLocationDefinition m_locationDefinition;
 
+    /** The m_details. */
     private Map<String, String> m_details;
 
     /**
      * <p>
      * getId
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -106,6 +131,7 @@ public class OnmsLocationMonitor implements Comparable<OnmsLocationMonitor> {
      * <p>
      * setId
      * </p>
+     * .
      *
      * @param id
      *            a {@link java.lang.Integer} object.
@@ -118,6 +144,7 @@ public class OnmsLocationMonitor implements Comparable<OnmsLocationMonitor> {
      * <p>
      * getDefinitionName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -130,6 +157,7 @@ public class OnmsLocationMonitor implements Comparable<OnmsLocationMonitor> {
      * <p>
      * setDefinitionName
      * </p>
+     * .
      *
      * @param definitionName
      *            a {@link java.lang.String} object.
@@ -142,6 +170,7 @@ public class OnmsLocationMonitor implements Comparable<OnmsLocationMonitor> {
      * <p>
      * getStatus
      * </p>
+     * .
      *
      * @return a
      *         {@link org.opennms.netmgt.model.OnmsLocationMonitor.MonitorStatus}
@@ -157,6 +186,7 @@ public class OnmsLocationMonitor implements Comparable<OnmsLocationMonitor> {
      * <p>
      * setStatus
      * </p>
+     * .
      *
      * @param status
      *            a
@@ -167,6 +197,13 @@ public class OnmsLocationMonitor implements Comparable<OnmsLocationMonitor> {
         m_status = normalize(status);
     }
 
+    /**
+     * Normalize.
+     *
+     * @param status
+     *            the status
+     * @return the monitor status
+     */
     private MonitorStatus normalize(MonitorStatus status) {
         switch (status) {
         case UNRESPONSIVE:
@@ -182,6 +219,7 @@ public class OnmsLocationMonitor implements Comparable<OnmsLocationMonitor> {
      * <p>
      * getLastCheckInTime
      * </p>
+     * .
      *
      * @return a {@link java.util.Date} object.
      */
@@ -195,6 +233,7 @@ public class OnmsLocationMonitor implements Comparable<OnmsLocationMonitor> {
      * <p>
      * setLastCheckInTime
      * </p>
+     * .
      *
      * @param lastCheckInTime
      *            a {@link java.util.Date} object.
@@ -207,6 +246,7 @@ public class OnmsLocationMonitor implements Comparable<OnmsLocationMonitor> {
      * <p>
      * getName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -219,6 +259,7 @@ public class OnmsLocationMonitor implements Comparable<OnmsLocationMonitor> {
      * <p>
      * getDetails
      * </p>
+     * .
      *
      * @return a {@link java.util.Map} object.
      */
@@ -234,6 +275,7 @@ public class OnmsLocationMonitor implements Comparable<OnmsLocationMonitor> {
      * <p>
      * setDetails
      * </p>
+     * .
      *
      * @param pollerDetails
      *            a {@link java.util.Map} object.
@@ -252,6 +294,7 @@ public class OnmsLocationMonitor implements Comparable<OnmsLocationMonitor> {
      * <p>
      * compareTo
      * </p>
+     * .
      *
      * @param o
      *            a {@link org.opennms.netmgt.model.OnmsLocationMonitor} object.

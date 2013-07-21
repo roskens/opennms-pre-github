@@ -57,17 +57,19 @@ import org.springframework.core.style.ToStringCreator;
 @Table(name = "categories")
 public class OnmsCategory implements Serializable, Comparable<OnmsCategory> {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 4694348093332239377L;
 
-    /** identifier field */
+    /** identifier field. */
     private Integer m_id;
 
-    /** persistent field */
+    /** persistent field. */
     private String m_name;
 
-    /** persistent field */
+    /** persistent field. */
     private String m_description;
 
+    /** The m_authorized groups. */
     private Set<String> m_authorizedGroups = new HashSet<String>();
 
     // private Set<OnmsNode> m_memberNodes;
@@ -88,7 +90,7 @@ public class OnmsCategory implements Serializable, Comparable<OnmsCategory> {
     }
 
     /**
-     * default constructor
+     * default constructor.
      */
     public OnmsCategory() {
     }
@@ -110,6 +112,7 @@ public class OnmsCategory implements Serializable, Comparable<OnmsCategory> {
      * <p>
      * getId
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -126,6 +129,7 @@ public class OnmsCategory implements Serializable, Comparable<OnmsCategory> {
      * <p>
      * setId
      * </p>
+     * .
      *
      * @param id
      *            a {@link java.lang.Integer} object.
@@ -138,6 +142,7 @@ public class OnmsCategory implements Serializable, Comparable<OnmsCategory> {
      * <p>
      * getName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -151,6 +156,7 @@ public class OnmsCategory implements Serializable, Comparable<OnmsCategory> {
      * <p>
      * setName
      * </p>
+     * .
      *
      * @param name
      *            a {@link java.lang.String} object.
@@ -163,6 +169,7 @@ public class OnmsCategory implements Serializable, Comparable<OnmsCategory> {
      * <p>
      * getDescription
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -176,6 +183,7 @@ public class OnmsCategory implements Serializable, Comparable<OnmsCategory> {
      * <p>
      * setDescription
      * </p>
+     * .
      *
      * @param description
      *            a {@link java.lang.String} object.
@@ -188,6 +196,7 @@ public class OnmsCategory implements Serializable, Comparable<OnmsCategory> {
      * <p>
      * getAuthorizedGroups
      * </p>
+     * .
      *
      * @return a {@link java.util.Set} object.
      */
@@ -202,6 +211,7 @@ public class OnmsCategory implements Serializable, Comparable<OnmsCategory> {
      * <p>
      * setAuthorizedGroups
      * </p>
+     * .
      *
      * @param authorizedGroups
      *            a {@link java.util.Set} object.
@@ -224,6 +234,7 @@ public class OnmsCategory implements Serializable, Comparable<OnmsCategory> {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -248,6 +259,7 @@ public class OnmsCategory implements Serializable, Comparable<OnmsCategory> {
      * <p>
      * hashCode
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -260,6 +272,7 @@ public class OnmsCategory implements Serializable, Comparable<OnmsCategory> {
      * <p>
      * compareTo
      * </p>
+     * .
      *
      * @param o
      *            a {@link org.opennms.netmgt.model.OnmsCategory} object.

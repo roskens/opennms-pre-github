@@ -77,19 +77,22 @@ import javax.xml.bind.annotation.XmlValue;
 @XmlRootElement(name = "forward")
 public class Forward {
 
+    /** The value. */
     @XmlValue
     protected String value;
 
+    /** The state. */
     @XmlAttribute(name = "state")
     protected String state;
 
+    /** The mechanism. */
     @XmlAttribute(name = "mechanism")
     protected String mechanism;
 
     /**
      * Gets the value of the value property.
      *
-     * @return
+     * @return the value
      *         possible object is {@link String }
      */
     public String getValue() {
@@ -109,7 +112,7 @@ public class Forward {
     /**
      * Gets the value of the state property.
      *
-     * @return
+     * @return the state
      *         possible object is {@link String }
      */
     public String getState() {
@@ -133,7 +136,7 @@ public class Forward {
     /**
      * Gets the value of the mechanism property.
      *
-     * @return
+     * @return the mechanism
      *         possible object is {@link String }
      */
     public String getMechanism() {

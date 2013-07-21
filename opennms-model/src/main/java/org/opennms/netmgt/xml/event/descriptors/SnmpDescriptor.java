@@ -82,6 +82,9 @@ public class SnmpDescriptor extends org.exolab.castor.xml.util.XMLClassDescripto
     // - Constructors -/
     // ----------------/
 
+    /**
+     * Instantiates a new snmp descriptor.
+     */
     public SnmpDescriptor() {
         super();
         _nsURI = "http://xmlns.opennms.org/xsd/event";

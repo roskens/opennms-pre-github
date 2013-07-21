@@ -47,8 +47,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "snmpInterfaces")
 public class OnmsSnmpInterfaceList extends LinkedList<OnmsSnmpInterface> {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 1123252152117491694L;
 
+    /** The m_total count. */
     private int m_totalCount;
 
     /**
@@ -76,6 +78,7 @@ public class OnmsSnmpInterfaceList extends LinkedList<OnmsSnmpInterface> {
      * <p>
      * getInterfaces
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -88,6 +91,7 @@ public class OnmsSnmpInterfaceList extends LinkedList<OnmsSnmpInterface> {
      * <p>
      * getCount
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -100,6 +104,7 @@ public class OnmsSnmpInterfaceList extends LinkedList<OnmsSnmpInterface> {
      * <p>
      * getTotalCount
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -112,6 +117,7 @@ public class OnmsSnmpInterfaceList extends LinkedList<OnmsSnmpInterface> {
      * <p>
      * setTotalCount
      * </p>
+     * .
      *
      * @param count
      *            a int.
@@ -124,6 +130,7 @@ public class OnmsSnmpInterfaceList extends LinkedList<OnmsSnmpInterface> {
      * <p>
      * setInterfaces
      * </p>
+     * .
      *
      * @param interfaces
      *            a {@link java.util.List} object.

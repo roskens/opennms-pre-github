@@ -46,6 +46,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.opennms.netmgt.xml.event.Event;
 import org.opennms.netmgt.xml.event.Parm;
 
+/**
+ * The Class OnmsAcknowledgment.
+ */
 @XmlRootElement(name = "ack")
 // hmmm
 @Entity
@@ -58,18 +61,25 @@ import org.opennms.netmgt.xml.event.Parm;
  */
 public class OnmsAcknowledgment {
 
+    /** The m_id. */
     private Integer m_id;
 
+    /** The m_ack time. */
     private Date m_ackTime;
 
+    /** The m_ack user. */
     private String m_ackUser;
 
+    /** The m_ack type. */
     private AckType m_ackType;
 
+    /** The m_ack action. */
     private AckAction m_ackAction;
 
+    /** The m_log. */
     private String m_log;
 
+    /** The m_ref id. */
     private Integer m_refId;
 
     // main constructor
@@ -132,8 +142,8 @@ public class OnmsAcknowledgment {
      *
      * @param e
      *            a {@link org.opennms.netmgt.xml.event.Event} object.
-     * @throws java.text.ParseException
-     *             if any.
+     * @throws ParseException
+     *             the parse exception
      */
     public OnmsAcknowledgment(final Event e) throws ParseException {
         this(DateFormat.getDateInstance(DateFormat.FULL).parse(e.getTime()), "admin");
@@ -233,6 +243,7 @@ public class OnmsAcknowledgment {
      * <p>
      * getId
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -248,6 +259,7 @@ public class OnmsAcknowledgment {
      * <p>
      * setId
      * </p>
+     * .
      *
      * @param id
      *            a {@link java.lang.Integer} object.
@@ -260,6 +272,7 @@ public class OnmsAcknowledgment {
      * <p>
      * getAckTime
      * </p>
+     * .
      *
      * @return a {@link java.util.Date} object.
      */
@@ -273,6 +286,7 @@ public class OnmsAcknowledgment {
      * <p>
      * setAckTime
      * </p>
+     * .
      *
      * @param time
      *            a {@link java.util.Date} object.
@@ -286,6 +300,7 @@ public class OnmsAcknowledgment {
      * <p>
      * getAckUser
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -298,6 +313,7 @@ public class OnmsAcknowledgment {
      * <p>
      * setAckUser
      * </p>
+     * .
      *
      * @param user
      *            a {@link java.lang.String} object.
@@ -310,6 +326,7 @@ public class OnmsAcknowledgment {
      * <p>
      * getAckType
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.AckType} object.
      */
@@ -322,6 +339,7 @@ public class OnmsAcknowledgment {
      * <p>
      * setAckType
      * </p>
+     * .
      *
      * @param ackType
      *            a {@link org.opennms.netmgt.model.AckType} object.
@@ -334,6 +352,7 @@ public class OnmsAcknowledgment {
      * <p>
      * getRefId
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -346,6 +365,7 @@ public class OnmsAcknowledgment {
      * <p>
      * setRefId
      * </p>
+     * .
      *
      * @param refId
      *            a {@link java.lang.Integer} object.
@@ -358,6 +378,7 @@ public class OnmsAcknowledgment {
      * <p>
      * getAckAction
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.AckAction} object.
      */
@@ -370,6 +391,7 @@ public class OnmsAcknowledgment {
      * <p>
      * setAckAction
      * </p>
+     * .
      *
      * @param ackAction
      *            a {@link org.opennms.netmgt.model.AckAction} object.
@@ -382,6 +404,7 @@ public class OnmsAcknowledgment {
      * <p>
      * getLog
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -394,6 +417,7 @@ public class OnmsAcknowledgment {
      * <p>
      * setLog
      * </p>
+     * .
      *
      * @param log
      *            a {@link java.lang.String} object.

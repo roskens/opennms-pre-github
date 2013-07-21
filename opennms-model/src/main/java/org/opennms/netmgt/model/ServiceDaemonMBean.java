@@ -28,6 +28,9 @@
 
 package org.opennms.netmgt.model;
 
+/**
+ * The Interface ServiceDaemonMBean.
+ */
 public interface ServiceDaemonMBean extends ServiceDaemon {
 
 }

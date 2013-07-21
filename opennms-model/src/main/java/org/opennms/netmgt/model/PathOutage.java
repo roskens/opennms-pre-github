@@ -34,10 +34,14 @@ package org.opennms.netmgt.model;
  * </p>
  */
 public class PathOutage {
+
+    /** The node id. */
     private int nodeId;
 
+    /** The critical path ip. */
     private String criticalPathIp;
 
+    /** The critical path service name. */
     private String criticalPathServiceName;
 
     // Operations
@@ -45,6 +49,7 @@ public class PathOutage {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

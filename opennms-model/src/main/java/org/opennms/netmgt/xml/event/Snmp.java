@@ -49,7 +49,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
 /**
- * The snmp information from the trap
+ * The snmp information from the trap.
  *
  * @version $Revision$ $Date$
  */
@@ -58,51 +58,39 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 @XmlAccessorType(XmlAccessType.FIELD)
 // @ValidateUsing("event.xsd")
 public class Snmp implements Serializable {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -3623082421217325379L;
 
     // --------------------------/
     // - Class/Member Variables -/
     // --------------------------/
 
-    /**
-     * The snmp enterprise id
-     */
+    /** The snmp enterprise id. */
     @XmlElement(name = "id", required = true)
     private java.lang.String _id;
 
-    /**
-     * The snmp enterprise id text
-     */
+    /** The snmp enterprise id text. */
     @XmlElement(name = "idtext")
     private java.lang.String _idtext;
 
-    /**
-     * The snmp version
-     */
+    /** The snmp version. */
     @XmlElement(name = "version", required = true)
     private java.lang.String _version;
 
-    /**
-     * The specific trap number
-     */
+    /** The specific trap number. */
     @XmlElement(name = "specific")
     private Integer _specific;
 
-    /**
-     * The generic trap number
-     */
+    /** The generic trap number. */
     @XmlElement(name = "generic")
     private Integer _generic;
 
-    /**
-     * The community name
-     */
+    /** The community name. */
     @XmlElement(name = "community")
     private java.lang.String _community;
 
-    /**
-     * The time stamp
-     */
+    /** The time stamp. */
     @XmlElement(name = "time-stamp")
     private Long _timeStamp;
 
@@ -110,6 +98,9 @@ public class Snmp implements Serializable {
     // - Constructors -/
     // ----------------/
 
+    /**
+     * Instantiates a new snmp.
+     */
     public Snmp() {
         super();
     }
@@ -119,18 +110,21 @@ public class Snmp implements Serializable {
     // -----------/
 
     /**
+     * Delete generic.
      */
     public void deleteGeneric() {
         this._generic = null;
     }
 
     /**
+     * Delete specific.
      */
     public void deleteSpecific() {
         this._specific = null;
     }
 
     /**
+     * Delete time stamp.
      */
     public void deleteTimeStamp() {
         this._timeStamp = null;
@@ -311,6 +305,9 @@ public class Snmp implements Serializable {
         this._version = version;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return new ToStringBuilder(this).append("id", _id).append("idtext", _idtext).append("version", _version).append("specific",

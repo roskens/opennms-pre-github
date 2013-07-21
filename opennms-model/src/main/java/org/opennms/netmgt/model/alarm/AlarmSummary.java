@@ -41,16 +41,35 @@ import org.opennms.netmgt.model.OnmsSeverity;
  */
 public class AlarmSummary implements Comparable<AlarmSummary> {
 
+    /** The node id. */
     private final int nodeId;
 
+    /** The node label. */
     private final String nodeLabel;
 
+    /** The min last event date. */
     private final Date minLastEventDate;
 
+    /** The max severity. */
     private final OnmsSeverity maxSeverity;
 
+    /** The alarm count. */
     private final long alarmCount;
 
+    /**
+     * Instantiates a new alarm summary.
+     *
+     * @param nodeId
+     *            the node id
+     * @param nodeLabel
+     *            the node label
+     * @param minLastEventDate
+     *            the min last event date
+     * @param maxSeverity
+     *            the max severity
+     * @param alarmCount
+     *            the alarm count
+     */
     public AlarmSummary(final Integer nodeId, final String nodeLabel, final Date minLastEventDate,
             final OnmsSeverity maxSeverity, final Long alarmCount) {
         super();
@@ -65,31 +84,64 @@ public class AlarmSummary implements Comparable<AlarmSummary> {
         this.alarmCount = alarmCount;
     }
 
+    /**
+     * Gets the node id.
+     *
+     * @return the node id
+     */
     public int getNodeId() {
         return nodeId;
     }
 
+    /**
+     * Gets the node label.
+     *
+     * @return the node label
+     */
     public String getNodeLabel() {
         return nodeLabel;
     }
 
+    /**
+     * Gets the min last event date.
+     *
+     * @return the min last event date
+     */
     public Date getMinLastEventDate() {
         return minLastEventDate;
     }
 
+    /**
+     * Gets the alarm count.
+     *
+     * @return the alarm count
+     */
     public long getAlarmCount() {
         return alarmCount;
     }
 
+    /**
+     * Gets the max severity.
+     *
+     * @return the max severity
+     */
     public OnmsSeverity getMaxSeverity() {
         return maxSeverity;
     }
 
+    /**
+     * Gets the fuzzy time down.
+     *
+     * @return the fuzzy time down
+     */
     public String getFuzzyTimeDown() {
         return minLastEventDate == null ? "N/A" : FuzzyDateFormatter.calculateDifference(this.minLastEventDate,
                                                                                          new Date());
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         final StringBuffer buffer = new StringBuffer();
@@ -107,6 +159,9 @@ public class AlarmSummary implements Comparable<AlarmSummary> {
 
     /*
      * The alarm summaries will be ordered by the oldest one first
+     * @see java.lang.Comparable#compareTo(java.lang.Object)
+     */
+    /* (non-Javadoc)
      * @see java.lang.Comparable#compareTo(java.lang.Object)
      */
     @Override

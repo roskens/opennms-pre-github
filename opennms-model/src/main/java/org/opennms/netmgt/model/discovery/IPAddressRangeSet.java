@@ -34,10 +34,20 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
 
+/**
+ * The Class IPAddressRangeSet.
+ */
 public class IPAddressRangeSet implements Iterable<IPAddressRange> {
     // The ranges are kept in order and non-overlapping
+    /** The m_ranges. */
     List<IPAddressRange> m_ranges = new LinkedList<IPAddressRange>();
 
+    /**
+     * Adds the.
+     *
+     * @param range
+     *            the range
+     */
     public void add(IPAddressRange range) {
         IPAddressRange working = range;
         // we traverse the ordered list
@@ -68,6 +78,12 @@ public class IPAddressRangeSet implements Iterable<IPAddressRange> {
         m_ranges.add(working);
     }
 
+    /**
+     * Removes the.
+     *
+     * @param range
+     *            the range
+     */
     public void remove(IPAddressRange range) {
         for (ListIterator<IPAddressRange> it = m_ranges.listIterator(); it.hasNext();) {
             IPAddressRange r = it.next();
@@ -95,10 +111,18 @@ public class IPAddressRangeSet implements Iterable<IPAddressRange> {
         }
     }
 
+    /**
+     * To array.
+     *
+     * @return the iP address range[]
+     */
     public IPAddressRange[] toArray() {
         return m_ranges.toArray(new IPAddressRange[m_ranges.size()]);
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         StringBuilder buf = new StringBuilder();
@@ -118,17 +142,32 @@ public class IPAddressRangeSet implements Iterable<IPAddressRange> {
         return buf.toString();
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Iterable#iterator()
+     */
     @Override
     public Iterator<IPAddressRange> iterator() {
         return Collections.unmodifiableList(m_ranges).iterator();
     }
 
+    /**
+     * Adds the all.
+     *
+     * @param ranges
+     *            the ranges
+     */
     public void addAll(IPAddressRangeSet ranges) {
         for (IPAddressRange r : ranges) {
             add(r);
         }
     }
 
+    /**
+     * Removes the all.
+     *
+     * @param ranges
+     *            the ranges
+     */
     public void removeAll(IPAddressRangeSet ranges) {
         for (IPAddressRange r : ranges) {
             remove(r);

@@ -49,7 +49,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
 /**
- * The mask element
+ * The mask element.
  *
  * @version $Revision$ $Date$
  */
@@ -58,23 +58,20 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 @XmlAccessorType(XmlAccessType.FIELD)
 // @ValidateUsing("event.xsd")
 public class Maskelement implements Serializable {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 6355834996920103487L;
 
     // --------------------------/
     // - Class/Member Variables -/
     // --------------------------/
 
-    /**
-     * The mask element name can only be one of those
-     * specified above
-     */
+    /** The mask element name can only be one of those specified above. */
 
     @XmlElement(name = "mename", required = true)
     private java.lang.String _mename;
 
-    /**
-     * The mask element value
-     */
+    /** The mask element value. */
     @XmlElement(name = "mevalue", required = true)
     private java.util.List<java.lang.String> _mevalueList;
 
@@ -82,6 +79,9 @@ public class Maskelement implements Serializable {
     // - Constructors -/
     // ----------------/
 
+    /**
+     * Instantiates a new maskelement.
+     */
     public Maskelement() {
         super();
         this._mevalueList = new java.util.ArrayList<java.lang.String>();
@@ -92,21 +92,26 @@ public class Maskelement implements Serializable {
     // -----------/
 
     /**
+     * Adds the mevalue.
+     *
      * @param vMevalue
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the v mevalue
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void addMevalue(final java.lang.String vMevalue) throws java.lang.IndexOutOfBoundsException {
         this._mevalueList.add(vMevalue.intern());
     }
 
     /**
+     * Adds the mevalue.
+     *
      * @param index
+     *            the index
      * @param vMevalue
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the v mevalue
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void addMevalue(final int index, final java.lang.String vMevalue) throws java.lang.IndexOutOfBoundsException {
         this._mevalueList.add(index, vMevalue.intern());
@@ -138,10 +143,10 @@ public class Maskelement implements Serializable {
      * Method getMevalue.
      *
      * @param index
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the index
      * @return the value of the java.lang.String at the given index
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public java.lang.String getMevalue(final int index) throws java.lang.IndexOutOfBoundsException {
         // check bounds for index
@@ -200,6 +205,7 @@ public class Maskelement implements Serializable {
     }
 
     /**
+     * Removes the all mevalue.
      */
     public void removeAllMevalue() {
         this._mevalueList.clear();
@@ -209,6 +215,7 @@ public class Maskelement implements Serializable {
      * Method removeMevalue.
      *
      * @param vMevalue
+     *            the v mevalue
      * @return true if the object was removed from the collection.
      */
     public boolean removeMevalue(final java.lang.String vMevalue) {
@@ -220,6 +227,7 @@ public class Maskelement implements Serializable {
      * Method removeMevalueAt.
      *
      * @param index
+     *            the index
      * @return the element removed from the collection
      */
     public java.lang.String removeMevalueAt(final int index) {
@@ -241,11 +249,14 @@ public class Maskelement implements Serializable {
     }
 
     /**
+     * Sets the mevalue.
+     *
      * @param index
+     *            the index
      * @param vMevalue
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the v mevalue
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void setMevalue(final int index, final java.lang.String vMevalue) throws java.lang.IndexOutOfBoundsException {
         // check bounds for index
@@ -258,7 +269,10 @@ public class Maskelement implements Serializable {
     }
 
     /**
+     * Sets the mevalue.
+     *
      * @param vMevalueArray
+     *            the new mevalue
      */
     public void setMevalue(final java.lang.String[] vMevalueArray) {
         // -- copy array
@@ -288,9 +302,9 @@ public class Maskelement implements Serializable {
      * Sets the value of '_mevalueList' by setting it to the given
      * Vector. No type checking is performed.
      *
-     * @deprecated
      * @param mevalueList
      *            the Vector to set.
+     * @deprecated
      */
     public void setMevalueCollection(final java.util.List<java.lang.String> mevalueList) {
         this._mevalueList.clear();
@@ -299,6 +313,9 @@ public class Maskelement implements Serializable {
         }
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return new ToStringBuilder(this).append("mename", _mename).append("mevalue", _mevalueList).toString();

@@ -41,7 +41,7 @@ import java.util.Collection;
 public interface EventSubscriptionService {
 
     /**
-     * Registers an event listener that is interested in all events
+     * Registers an event listener that is interested in all events.
      *
      * @param listener
      *            a {@link org.opennms.netmgt.model.events.EventListener}
@@ -50,7 +50,7 @@ public interface EventSubscriptionService {
     public void addEventListener(EventListener listener);
 
     /**
-     * Registers an event listener interested in the UEIs in the passed list
+     * Registers an event listener interested in the UEIs in the passed list.
      *
      * @param listener
      *            a {@link org.opennms.netmgt.model.events.EventListener}
@@ -61,7 +61,7 @@ public interface EventSubscriptionService {
     public void addEventListener(EventListener listener, Collection<String> ueis);
 
     /**
-     * Registers an event listener interested in the passed UEI
+     * Registers an event listener interested in the passed UEI.
      *
      * @param listener
      *            a {@link org.opennms.netmgt.model.events.EventListener}
@@ -72,7 +72,7 @@ public interface EventSubscriptionService {
     public void addEventListener(EventListener listener, String uei);
 
     /**
-     * Removes a registered event listener
+     * Removes a registered event listener.
      *
      * @param listener
      *            a {@link org.opennms.netmgt.model.events.EventListener}
@@ -82,7 +82,7 @@ public interface EventSubscriptionService {
 
     /**
      * Removes a registered event listener - the UEI list indicates the list of
-     * events the listener is no more interested in
+     * events the listener is no more interested in.
      *
      * @param listener
      *            a {@link org.opennms.netmgt.model.events.EventListener}
@@ -94,7 +94,7 @@ public interface EventSubscriptionService {
 
     /**
      * Removes a registered event listener - the UEI indicates an event the
-     * listener is no more interested in
+     * listener is no more interested in.
      *
      * @param listener
      *            a {@link org.opennms.netmgt.model.events.EventListener}

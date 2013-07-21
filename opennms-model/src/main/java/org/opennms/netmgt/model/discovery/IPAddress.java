@@ -45,6 +45,7 @@ import org.opennms.core.utils.InetAddressUtils;
  */
 public class IPAddress implements Comparable<IPAddress> {
 
+    /** The m_ip addr. */
     final byte[] m_ipAddr;
 
     /**
@@ -99,6 +100,7 @@ public class IPAddress implements Comparable<IPAddress> {
      * <p>
      * toInetAddress
      * </p>
+     * .
      *
      * @return a {@link java.net.InetAddress} object.
      */
@@ -110,6 +112,7 @@ public class IPAddress implements Comparable<IPAddress> {
      * <p>
      * toOctets
      * </p>
+     * .
      *
      * @return an array of byte.
      */
@@ -126,6 +129,9 @@ public class IPAddress implements Comparable<IPAddress> {
         return false;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
     @Override
     public int hashCode() {
         return Arrays.hashCode(m_ipAddr);
@@ -135,6 +141,7 @@ public class IPAddress implements Comparable<IPAddress> {
      * <p>
      * compareTo
      * </p>
+     * .
      *
      * @param o
      *            a {@link org.opennms.netmgt.model.discovery.IPAddress} object.
@@ -145,6 +152,11 @@ public class IPAddress implements Comparable<IPAddress> {
         return new ByteArrayComparator().compare(m_ipAddr, o.toOctets());
     }
 
+    /**
+     * To user string.
+     *
+     * @return the string
+     */
     public String toUserString() {
         // this returns dotted notation for ipv4 or the double colon format for
         // ipv6
@@ -157,6 +169,11 @@ public class IPAddress implements Comparable<IPAddress> {
         return toUserString();
     }
 
+    /**
+     * To db string.
+     *
+     * @return the string
+     */
     public String toDbString() {
         return InetAddressUtils.toIpAddrString(m_ipAddr);
     }
@@ -170,6 +187,7 @@ public class IPAddress implements Comparable<IPAddress> {
      * <p>
      * incr
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.discovery.IPAddress} object.
      */
@@ -195,6 +213,7 @@ public class IPAddress implements Comparable<IPAddress> {
      * <p>
      * decr
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.discovery.IPAddress} object.
      */
@@ -221,6 +240,7 @@ public class IPAddress implements Comparable<IPAddress> {
      * <p>
      * isPredecessorOf
      * </p>
+     * .
      *
      * @param other
      *            a {@link org.opennms.netmgt.model.discovery.IPAddress} object.
@@ -234,6 +254,7 @@ public class IPAddress implements Comparable<IPAddress> {
      * <p>
      * isSuccessorOf
      * </p>
+     * .
      *
      * @param other
      *            a {@link org.opennms.netmgt.model.discovery.IPAddress} object.
@@ -247,6 +268,7 @@ public class IPAddress implements Comparable<IPAddress> {
      * <p>
      * isLessThan
      * </p>
+     * .
      *
      * @param other
      *            a {@link org.opennms.netmgt.model.discovery.IPAddress} object.
@@ -260,6 +282,7 @@ public class IPAddress implements Comparable<IPAddress> {
      * <p>
      * isLessThanOrEqualTo
      * </p>
+     * .
      *
      * @param other
      *            a {@link org.opennms.netmgt.model.discovery.IPAddress} object.
@@ -273,6 +296,7 @@ public class IPAddress implements Comparable<IPAddress> {
      * <p>
      * isGreaterThan
      * </p>
+     * .
      *
      * @param other
      *            a {@link org.opennms.netmgt.model.discovery.IPAddress} object.
@@ -286,6 +310,7 @@ public class IPAddress implements Comparable<IPAddress> {
      * <p>
      * isGreaterThanOrEqualTo
      * </p>
+     * .
      *
      * @param other
      *            a {@link org.opennms.netmgt.model.discovery.IPAddress} object.
@@ -299,6 +324,7 @@ public class IPAddress implements Comparable<IPAddress> {
      * <p>
      * min
      * </p>
+     * .
      *
      * @param a
      *            a {@link org.opennms.netmgt.model.discovery.IPAddress} object.
@@ -314,6 +340,7 @@ public class IPAddress implements Comparable<IPAddress> {
      * <p>
      * max
      * </p>
+     * .
      *
      * @param a
      *            a {@link org.opennms.netmgt.model.discovery.IPAddress} object.

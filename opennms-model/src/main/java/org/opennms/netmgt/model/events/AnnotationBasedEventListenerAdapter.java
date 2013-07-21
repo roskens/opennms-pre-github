@@ -56,29 +56,38 @@ import org.springframework.util.Assert;
 import org.springframework.util.ClassUtils;
 
 /**
- * AnnotationBasedEventListenerAdapter
+ * AnnotationBasedEventListenerAdapter.
  *
  * @author brozow
  * @version $Id: $
  */
 public class AnnotationBasedEventListenerAdapter implements StoppableEventListener, InitializingBean, DisposableBean {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(AnnotationBasedEventListenerAdapter.class);
 
+    /** The m_name. */
     private volatile String m_name = null;
 
+    /** The m_annotated listener. */
     private volatile Object m_annotatedListener;
 
+    /** The m_log prefix. */
     private volatile String m_logPrefix = null;
 
+    /** The m_subscription service. */
     private volatile EventSubscriptionService m_subscriptionService;
 
+    /** The m_uei to handler map. */
     private final Map<String, Method> m_ueiToHandlerMap = new HashMap<String, Method>();
 
+    /** The m_event pre processors. */
     private final List<Method> m_eventPreProcessors = new LinkedList<Method>();
 
+    /** The m_event post processors. */
     private final List<Method> m_eventPostProcessors = new LinkedList<Method>();
 
+    /** The m_exception handlers. */
     private final SortedSet<Method> m_exceptionHandlers = new TreeSet<Method>(createExceptionHandlerComparator());
 
     /**
@@ -136,6 +145,7 @@ public class AnnotationBasedEventListenerAdapter implements StoppableEventListen
      * <p>
      * getName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -148,6 +158,7 @@ public class AnnotationBasedEventListenerAdapter implements StoppableEventListen
      * <p>
      * setName
      * </p>
+     * .
      *
      * @param name
      *            a {@link java.lang.String} object.
@@ -160,6 +171,7 @@ public class AnnotationBasedEventListenerAdapter implements StoppableEventListen
      * <p>
      * getLogPrefix
      * </p>
+     * .
      *
      * @return the logPrefix
      */
@@ -171,6 +183,7 @@ public class AnnotationBasedEventListenerAdapter implements StoppableEventListen
      * <p>
      * setLogPrefix
      * </p>
+     * .
      *
      * @param logPrefix
      *            the logPrefix to set
@@ -230,13 +243,14 @@ public class AnnotationBasedEventListenerAdapter implements StoppableEventListen
      * <p>
      * postprocessEvent
      * </p>
+     * .
      *
      * @param event
      *            a {@link org.opennms.netmgt.xml.event.Event} object.
-     * @throws java.lang.IllegalAccessException
-     *             if any.
-     * @throws java.lang.reflect.InvocationTargetException
-     *             if any.
+     * @throws IllegalAccessException
+     *             the illegal access exception
+     * @throws InvocationTargetException
+     *             the invocation target exception
      */
     protected void postprocessEvent(Event event) throws IllegalAccessException, InvocationTargetException {
         for (Method m : m_eventPostProcessors) {
@@ -248,15 +262,16 @@ public class AnnotationBasedEventListenerAdapter implements StoppableEventListen
      * <p>
      * processEvent
      * </p>
+     * .
      *
      * @param event
      *            a {@link org.opennms.netmgt.xml.event.Event} object.
      * @param method
      *            a {@link java.lang.reflect.Method} object.
-     * @throws java.lang.IllegalAccessException
-     *             if any.
-     * @throws java.lang.reflect.InvocationTargetException
-     *             if any.
+     * @throws IllegalAccessException
+     *             the illegal access exception
+     * @throws InvocationTargetException
+     *             the invocation target exception
      */
     protected void processEvent(Event event, Method method) throws IllegalAccessException, InvocationTargetException {
         method.invoke(m_annotatedListener, event);
@@ -266,13 +281,14 @@ public class AnnotationBasedEventListenerAdapter implements StoppableEventListen
      * <p>
      * preprocessEvent
      * </p>
+     * .
      *
      * @param event
      *            a {@link org.opennms.netmgt.xml.event.Event} object.
-     * @throws java.lang.IllegalAccessException
-     *             if any.
-     * @throws java.lang.reflect.InvocationTargetException
-     *             if any.
+     * @throws IllegalAccessException
+     *             the illegal access exception
+     * @throws InvocationTargetException
+     *             the invocation target exception
      */
     protected void preprocessEvent(Event event) throws IllegalAccessException, InvocationTargetException {
         for (Method m : m_eventPreProcessors) {
@@ -284,6 +300,7 @@ public class AnnotationBasedEventListenerAdapter implements StoppableEventListen
      * <p>
      * handleException
      * </p>
+     * .
      *
      * @param event
      *            a {@link org.opennms.netmgt.xml.event.Event} object.
@@ -313,6 +330,7 @@ public class AnnotationBasedEventListenerAdapter implements StoppableEventListen
      * <p>
      * setAnnotatedListener
      * </p>
+     * .
      *
      * @param annotatedListener
      *            a {@link java.lang.Object} object.
@@ -325,6 +343,7 @@ public class AnnotationBasedEventListenerAdapter implements StoppableEventListen
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      */
     @Override
     public void afterPropertiesSet() {
@@ -367,10 +386,20 @@ public class AnnotationBasedEventListenerAdapter implements StoppableEventListen
         }
     }
 
+    /**
+     * Find event listener annotation.
+     *
+     * @param annotatedListener
+     *            the annotated listener
+     * @return the event listener
+     */
     private static EventListener findEventListenerAnnotation(Object annotatedListener) {
         return annotatedListener.getClass().getAnnotation(EventListener.class);
     }
 
+    /**
+     * Populate exception handlers set.
+     */
     private void populateExceptionHandlersSet() {
 
         Method[] methods = m_annotatedListener.getClass().getMethods();
@@ -383,6 +412,12 @@ public class AnnotationBasedEventListenerAdapter implements StoppableEventListen
 
     }
 
+    /**
+     * Validate method as event exception handler.
+     *
+     * @param method
+     *            the method
+     */
     private static void validateMethodAsEventExceptionHandler(Method method) {
         Assert.state(method.getParameterTypes().length == 2,
                      "Invalid number of paremeters. EventExceptionHandler methods must take 2 arguments with types (Event, ? extends Throwable)");
@@ -392,13 +427,28 @@ public class AnnotationBasedEventListenerAdapter implements StoppableEventListen
                      "Second parameter of incorrect type. EventExceptionHandler second paramenter must be of type ? extends Throwable");
     }
 
+    /**
+     * The Class ClassComparator.
+     *
+     * @param <T>
+     *            the generic type
+     */
     private static class ClassComparator<T> implements Comparator<Class<? extends T>> {
+
+        /* (non-Javadoc)
+         * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
+         */
         @Override
         public int compare(Class<? extends T> lhsType, Class<? extends T> rhsType) {
             return ClassUtils.isAssignable(lhsType, rhsType) ? 1 : -1;
         }
     }
 
+    /**
+     * Creates the exception handler comparator.
+     *
+     * @return the comparator
+     */
     private Comparator<Method> createExceptionHandlerComparator() {
         final ClassComparator<Throwable> classComparator = new ClassComparator<Throwable>();
 
@@ -427,6 +477,9 @@ public class AnnotationBasedEventListenerAdapter implements StoppableEventListen
 
     }
 
+    /**
+     * Populate post processor list.
+     */
     private void populatePostProcessorList() {
 
         Method[] methods = m_annotatedListener.getClass().getMethods();
@@ -438,6 +491,9 @@ public class AnnotationBasedEventListenerAdapter implements StoppableEventListen
         }
     }
 
+    /**
+     * Populate pre processor list.
+     */
     private void populatePreProcessorList() {
 
         Method[] methods = m_annotatedListener.getClass().getMethods();
@@ -450,6 +506,9 @@ public class AnnotationBasedEventListenerAdapter implements StoppableEventListen
         }
     }
 
+    /**
+     * Populate uei to handler map.
+     */
     private void populateUeiToHandlerMap() {
         Method[] methods = m_annotatedListener.getClass().getMethods();
 
@@ -469,6 +528,12 @@ public class AnnotationBasedEventListenerAdapter implements StoppableEventListen
 
     }
 
+    /**
+     * Validate method as event handler.
+     *
+     * @param method
+     *            the method
+     */
     private static void validateMethodAsEventHandler(Method method) {
         Assert.state(method.getParameterTypes().length == 1, "Invalid number of paremeters for method " + method
                 + ". EventHandler methods must take a single event argument");
@@ -481,6 +546,7 @@ public class AnnotationBasedEventListenerAdapter implements StoppableEventListen
      * <p>
      * stop
      * </p>
+     * .
      */
     @Override
     public void stop() {
@@ -491,9 +557,10 @@ public class AnnotationBasedEventListenerAdapter implements StoppableEventListen
      * <p>
      * destroy
      * </p>
+     * .
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @Override
     public void destroy() throws Exception {
@@ -504,6 +571,7 @@ public class AnnotationBasedEventListenerAdapter implements StoppableEventListen
      * <p>
      * setEventSubscriptionService
      * </p>
+     * .
      *
      * @param subscriptionService
      *            a

@@ -39,6 +39,7 @@ public abstract class OnmsEntity {
      * <p>
      * hasNewValue
      * </p>
+     * .
      *
      * @param newVal
      *            a {@link java.lang.Object} object.
@@ -54,6 +55,7 @@ public abstract class OnmsEntity {
      * <p>
      * visit
      * </p>
+     * .
      *
      * @param visitor
      *            a {@link org.opennms.netmgt.model.EntityVisitor} object.

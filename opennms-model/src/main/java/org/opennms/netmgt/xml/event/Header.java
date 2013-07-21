@@ -58,6 +58,8 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 @XmlAccessorType(XmlAccessType.FIELD)
 // @ValidateUsing("event.xsd")
 public class Header implements Serializable {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 1963826810463701325L;
 
     // --------------------------/
@@ -96,6 +98,9 @@ public class Header implements Serializable {
     // - Constructors -/
     // ----------------/
 
+    /**
+     * Instantiates a new header.
+     */
     public Header() {
         super();
     }
@@ -192,6 +197,9 @@ public class Header implements Serializable {
         this._ver = ver;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return new ToStringBuilder(this).append("ver", _ver).append("dpName", _dpName).append("created", _created).append("mstation",

@@ -41,16 +41,33 @@ import java.util.Map;
  */
 public enum OnmsSeverity implements Serializable {
     // Keep this ordered by ID so we can use the internal enum compareTo
-    INDETERMINATE(1, "Indeterminate", "lightblue"), CLEARED(2, "Cleared", "white"), NORMAL(3, "Normal", "green"), WARNING(
-            4, "Warning", "cyan"), MINOR(5, "Minor", "yellow"), MAJOR(6, "Major", "orange"), CRITICAL(7, "Critical",
+    /** The indeterminate. */
+    INDETERMINATE(1, "Indeterminate", "lightblue"),
+ /** The cleared. */
+ CLEARED(2, "Cleared", "white"),
+ /** The normal. */
+ NORMAL(3, "Normal", "green"),
+ /** The warning. */
+ WARNING(
+            4, "Warning", "cyan"),
+ /** The minor. */
+ MINOR(5, "Minor", "yellow"),
+ /** The major. */
+ MAJOR(6, "Major", "orange"),
+ /** The critical. */
+ CRITICAL(7, "Critical",
             "red");
 
+    /** The Constant m_idMap. */
     private static final Map<Integer, OnmsSeverity> m_idMap;
 
+    /** The m_id. */
     private int m_id;
 
+    /** The m_label. */
     private String m_label;
 
+    /** The m_color. */
     private String m_color;
 
     static {
@@ -60,6 +77,16 @@ public enum OnmsSeverity implements Serializable {
         }
     }
 
+    /**
+     * Instantiates a new onms severity.
+     *
+     * @param id
+     *            the id
+     * @param label
+     *            the label
+     * @param color
+     *            the color
+     */
     private OnmsSeverity(final int id, final String label, final String color) {
         m_id = id;
         m_label = label;
@@ -70,6 +97,7 @@ public enum OnmsSeverity implements Serializable {
      * <p>
      * getId
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -81,6 +109,7 @@ public enum OnmsSeverity implements Serializable {
      * <p>
      * getLabel
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -92,6 +121,7 @@ public enum OnmsSeverity implements Serializable {
      * <p>
      * getColor
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -103,6 +133,7 @@ public enum OnmsSeverity implements Serializable {
      * <p>
      * isLessThan
      * </p>
+     * .
      *
      * @param other
      *            a {@link org.opennms.netmgt.model.OnmsSeverity} object.
@@ -116,6 +147,7 @@ public enum OnmsSeverity implements Serializable {
      * <p>
      * isLessThanOrEqual
      * </p>
+     * .
      *
      * @param other
      *            a {@link org.opennms.netmgt.model.OnmsSeverity} object.
@@ -129,6 +161,7 @@ public enum OnmsSeverity implements Serializable {
      * <p>
      * isGreaterThan
      * </p>
+     * .
      *
      * @param other
      *            a {@link org.opennms.netmgt.model.OnmsSeverity} object.
@@ -142,6 +175,7 @@ public enum OnmsSeverity implements Serializable {
      * <p>
      * isGreaterThanOrEqual
      * </p>
+     * .
      *
      * @param other
      *            a {@link org.opennms.netmgt.model.OnmsSeverity} object.
@@ -155,6 +189,7 @@ public enum OnmsSeverity implements Serializable {
      * <p>
      * get
      * </p>
+     * .
      *
      * @param id
      *            a int.
@@ -172,6 +207,7 @@ public enum OnmsSeverity implements Serializable {
      * <p>
      * get
      * </p>
+     * .
      *
      * @param label
      *            a {@link java.lang.String} object.
@@ -190,6 +226,7 @@ public enum OnmsSeverity implements Serializable {
      * <p>
      * escalate
      * </p>
+     * .
      *
      * @param sev
      *            a {@link org.opennms.netmgt.model.OnmsSeverity} object.
@@ -203,6 +240,11 @@ public enum OnmsSeverity implements Serializable {
         }
     }
 
+    /**
+     * Names.
+     *
+     * @return the list
+     */
     public static List<String> names() {
         final List<String> names = new ArrayList<String>();
         for (final OnmsSeverity value : values()) {

@@ -37,10 +37,12 @@ package org.opennms.netmgt.model;
  * @version $Id: $
  */
 public interface AttributeVisitor {
+
     /**
      * <p>
      * visit
      * </p>
+     * .
      *
      * @param attribute
      *            a {@link org.opennms.netmgt.model.OnmsAttribute} object.

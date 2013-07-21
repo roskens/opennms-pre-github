@@ -69,15 +69,14 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 // @ValidateUsing("event.xsd")
 public class Logmsg implements Serializable {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -7173862847984790914L;
 
     // --------------------------/
     // - Class/Member Variables -/
     // --------------------------/
 
-    /**
-     * internal content storage
-     */
+    /** internal content storage. */
     @XmlValue
     private java.lang.String _content = "";
 
@@ -97,6 +96,9 @@ public class Logmsg implements Serializable {
     // - Constructors -/
     // ----------------/
 
+    /**
+     * Instantiates a new logmsg.
+     */
     public Logmsg() {
         super();
         setContent("");
@@ -108,6 +110,7 @@ public class Logmsg implements Serializable {
     // -----------/
 
     /**
+     * Delete notify.
      */
     public void deleteNotify() {
         this._notify = null;
@@ -190,6 +193,9 @@ public class Logmsg implements Serializable {
         this._notify = notify;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return new ToStringBuilder(this).append("content", _content).append("notify", _notify).append("dest", _dest).toString();

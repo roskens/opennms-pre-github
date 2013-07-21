@@ -53,6 +53,7 @@ import org.slf4j.LoggerFactory;
  */
 public final class IPAddrRange implements Iterable<InetAddress> {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(IPAddrRange.class);
 
     /**
@@ -114,9 +115,6 @@ public final class IPAddrRange implements Iterable<InetAddress> {
          *            The start address.
          * @param end
          *            The ending address.
-         * @exception java.lang.IllegalArgumentException
-         *                Thrown if the start address is greater than the ending
-         *                address.
          */
         IPAddressRangeGenerator(byte[] start, byte[] end) {
             if (new ByteArrayComparator().compare(start, end) > 0)
@@ -130,6 +128,8 @@ public final class IPAddrRange implements Iterable<InetAddress> {
          * <P>
          * Returns true if the enumeration object has more elements remaining.
          * </P>
+         *
+         * @return true, if successful
          */
         @Override
         public boolean hasMoreElements() {
@@ -142,8 +142,7 @@ public final class IPAddrRange implements Iterable<InetAddress> {
          * left in the enumeration an exception will be thrown.
          * </P>
          *
-         * @exception java.util.NoSuchElementException
-         *                Thrown if the collection is exhausted.
+         * @return the inet address
          */
         @Override
         public InetAddress nextElement() {
@@ -159,6 +158,8 @@ public final class IPAddrRange implements Iterable<InetAddress> {
          * <P>
          * Returns true if there are more elements in the iteration.
          * </P>
+         *
+         * @return true, if successful
          */
         @Override
         public boolean hasNext() {
@@ -171,8 +172,7 @@ public final class IPAddrRange implements Iterable<InetAddress> {
          * left in the iteration an exception will be thrown.
          * </P>
          *
-         * @exception java.util.NoSuchElementException
-         *                Thrown if the collection is exhausted.
+         * @return the inet address
          */
         @Override
         public InetAddress next() {
@@ -185,9 +185,6 @@ public final class IPAddrRange implements Iterable<InetAddress> {
          * for the implemetor. For the purposes of this class it is not
          * implemented and will throw an exception.
          * </P>
-         *
-         * @exception java.lang.UnsupportedOperationException
-         *                Always thrown by the remove method.
          */
         @Override
         public void remove() {
@@ -213,10 +210,9 @@ public final class IPAddrRange implements Iterable<InetAddress> {
      *            The starting address, resolved by InetAddress.
      * @param toIP
      *            The ending address, resolved by InetAddress.
+     * @throws UnknownHostException
+     *             the unknown host exception
      * @see java.net.InetAddressUtils.addr(java.lang.String)
-     * @exception java.net.UnknownHostException
-     *                Thrown by the InetAddress class if the hostname cannot be
-     *                resolved.
      */
     IPAddrRange(String fromIP, String toIP) throws java.net.UnknownHostException {
         this(InetAddressUtils.addr(fromIP), InetAddressUtils.addr(toIP));
@@ -276,6 +272,8 @@ public final class IPAddrRange implements Iterable<InetAddress> {
      *            IP address (String) to compare
      * @return 'true' if the specified IP address falls within the IP address
      *         range. 'false' otherwise.
+     * @throws UnknownHostException
+     *             the unknown host exception
      */
     boolean contains(String ipAddr) throws java.net.UnknownHostException {
         return InetAddressUtils.isInetAddressInRange(ipAddr, m_begin, m_end);
@@ -291,8 +289,8 @@ public final class IPAddrRange implements Iterable<InetAddress> {
      * InetAddress}or <code>null</code> if the address is unknown.
      * </p>
      *
-     * @see java.net.InetAddress
      * @return a {@link java.util.Iterator} object.
+     * @see java.net.InetAddress
      */
     @Override
     public Iterator<InetAddress> iterator() {
@@ -309,6 +307,7 @@ public final class IPAddrRange implements Iterable<InetAddress> {
      * InetAddress}or <code>null</code> if the address is unknown.
      * </p>
      *
+     * @return the enumeration
      * @see java.net.InetAddress
      */
     Enumeration<InetAddress> elements() {

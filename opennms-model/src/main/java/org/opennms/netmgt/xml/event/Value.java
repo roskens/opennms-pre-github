@@ -50,7 +50,7 @@ import javax.xml.bind.annotation.XmlValue;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
 /**
- * parm value
+ * parm value.
  *
  * @version $Revision$ $Date$
  */
@@ -59,15 +59,15 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 @XmlAccessorType(XmlAccessType.FIELD)
 // @ValidateUsing("event.xsd")
 public class Value implements Serializable {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 6267247580169994541L;
 
     // --------------------------/
     // - Class/Member Variables -/
     // --------------------------/
 
-    /**
-     * internal content storage
-     */
+    /** internal content storage. */
     @XmlValue
     private java.lang.String _content = "";
 
@@ -87,6 +87,9 @@ public class Value implements Serializable {
     // - Constructors -/
     // ----------------/
 
+    /**
+     * Instantiates a new value.
+     */
     public Value() {
         super();
         setContent("");
@@ -98,6 +101,12 @@ public class Value implements Serializable {
     // - Methods -/
     // -----------/
 
+    /**
+     * Instantiates a new value.
+     *
+     * @param value
+     *            the value
+     */
     public Value(final String value) {
         this();
         setContent(value);
@@ -162,6 +171,9 @@ public class Value implements Serializable {
         this._type = type;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return new ToStringBuilder(this).append("content", _content).append("type", _type).append("encoding", _encoding).toString();

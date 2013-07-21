@@ -33,9 +33,15 @@ import org.opennms.netmgt.model.OnmsIpInterface;
 import org.opennms.netmgt.model.OnmsMonitoredService;
 import org.opennms.netmgt.model.OnmsNode;
 
+/**
+ * The Class DeleteEventVisitor.
+ */
 public class DeleteEventVisitor extends AbstractEntityVisitor {
+
+    /** The m_event forwarder. */
     private final EventForwarder m_eventForwarder;
 
+    /** The Constant m_eventSource. */
     private static final String m_eventSource = "Provisiond";
 
     /**

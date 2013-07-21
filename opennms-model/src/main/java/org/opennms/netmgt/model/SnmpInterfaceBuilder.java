@@ -40,6 +40,7 @@ import org.opennms.netmgt.model.NetworkBuilder.InterfaceBuilder;
  */
 public class SnmpInterfaceBuilder {
 
+    /** The m_snmp if. */
     private final OnmsSnmpInterface m_snmpIf;
 
     /**
@@ -58,6 +59,7 @@ public class SnmpInterfaceBuilder {
      * <p>
      * setIfSpeed
      * </p>
+     * .
      *
      * @param ifSpeed
      *            a long.
@@ -72,6 +74,7 @@ public class SnmpInterfaceBuilder {
      * <p>
      * setIfDescr
      * </p>
+     * .
      *
      * @param ifDescr
      *            a {@link java.lang.String} object.
@@ -86,6 +89,7 @@ public class SnmpInterfaceBuilder {
      * <p>
      * setIfAlias
      * </p>
+     * .
      *
      * @param ifAlias
      *            a {@link java.lang.String} object.
@@ -100,6 +104,7 @@ public class SnmpInterfaceBuilder {
      * <p>
      * setIfName
      * </p>
+     * .
      *
      * @param ifName
      *            a {@link java.lang.String} object.
@@ -114,6 +119,7 @@ public class SnmpInterfaceBuilder {
      * <p>
      * setIfType
      * </p>
+     * .
      *
      * @param ifType
      *            a {@link java.lang.Integer} object.
@@ -128,6 +134,7 @@ public class SnmpInterfaceBuilder {
      * <p>
      * getSnmpInterface
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.OnmsSnmpInterface} object.
      */
@@ -139,6 +146,7 @@ public class SnmpInterfaceBuilder {
      * <p>
      * setIfOperStatus
      * </p>
+     * .
      *
      * @param ifOperStatus
      *            a {@link java.lang.Integer} object.
@@ -153,6 +161,7 @@ public class SnmpInterfaceBuilder {
      * <p>
      * setCollectionEnabled
      * </p>
+     * .
      *
      * @param collect
      *            a boolean.
@@ -167,6 +176,7 @@ public class SnmpInterfaceBuilder {
      * <p>
      * setPhysAddr
      * </p>
+     * .
      *
      * @param physAddr
      *            a {@link java.lang.String} object.
@@ -181,9 +191,10 @@ public class SnmpInterfaceBuilder {
      * <p>
      * setPhysAddr
      * </p>
+     * .
      *
-     * @param physAddr
-     *            a {@link java.lang.String} object.
+     * @param netmask
+     *            the netmask
      * @return a {@link org.opennms.netmgt.model.SnmpInterfaceBuilder} object.
      */
     public SnmpInterfaceBuilder setNetMask(InetAddress netmask) {
@@ -192,6 +203,13 @@ public class SnmpInterfaceBuilder {
         return this;
     }
 
+    /**
+     * Adds the ip interface.
+     *
+     * @param ipAddress
+     *            the ip address
+     * @return the interface builder
+     */
     public InterfaceBuilder addIpInterface(final String ipAddress) {
         final OnmsIpInterface iface = new OnmsIpInterface(InetAddressUtils.addr(ipAddress), m_snmpIf.getNode());
         m_snmpIf.addIpInterface(iface);

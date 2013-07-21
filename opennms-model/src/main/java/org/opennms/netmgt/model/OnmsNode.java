@@ -92,79 +92,85 @@ import org.springframework.core.style.ToStringCreator;
 @Filter(name = FilterManager.AUTH_FILTER_NAME, condition = "exists (select distinct x.nodeid from node x join category_node cn on x.nodeid = cn.nodeid join category_group cg on cn.categoryId = cg.categoryId where x.nodeid = nodeid and cg.groupId in (:userGroups))")
 public class OnmsNode extends OnmsEntity implements Serializable, Comparable<OnmsNode> {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(OnmsNode.class);
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -5736397583719151493L;
 
-    /** identifier field */
+    /** identifier field. */
     private Integer m_id;
 
-    /** persistent field */
+    /** persistent field. */
     private Date m_createTime = new Date();
 
-    /** nullable persistent field */
+    /** nullable persistent field. */
     private OnmsNode m_parent;
 
-    /** nullable persistent field */
+    /** nullable persistent field. */
     private String m_type;
 
-    /** nullable persistent field */
+    /** nullable persistent field. */
     private String m_sysObjectId;
 
-    /** nullable persistent field */
+    /** nullable persistent field. */
     private String m_sysName;
 
-    /** nullable persistent field */
+    /** nullable persistent field. */
     private String m_sysDescription;
 
-    /** nullable persistent field */
+    /** nullable persistent field. */
     private String m_sysLocation;
 
-    /** nullable persistent field */
+    /** nullable persistent field. */
     private String m_sysContact;
 
-    /** nullable persistent field */
+    /** nullable persistent field. */
     private String m_label;
 
-    /** nullable persistent field */
+    /** nullable persistent field. */
     private String m_labelSource;
 
-    /** nullable persistent field */
+    /** nullable persistent field. */
     private String m_netBiosName;
 
-    /** nullable persistent field */
+    /** nullable persistent field. */
     private String m_netBiosDomain;
 
-    /** nullable persistent field */
+    /** nullable persistent field. */
     private String m_operatingSystem;
 
-    /** nullable persistent field */
+    /** nullable persistent field. */
     private Date m_lastCapsdPoll;
 
+    /** The m_foreign source. */
     private String m_foreignSource;
 
+    /** The m_foreign id. */
     private String m_foreignId;
 
-    /** persistent field */
+    /** persistent field. */
     private OnmsDistPoller m_distPoller;
 
-    /** persistent field */
+    /** persistent field. */
     private OnmsAssetRecord m_assetRecord;
 
-    /** persistent field */
+    /** persistent field. */
     private Set<OnmsIpInterface> m_ipInterfaces = new LinkedHashSet<OnmsIpInterface>();
 
-    /** persistent field */
+    /** persistent field. */
     private Set<OnmsSnmpInterface> m_snmpInterfaces = new LinkedHashSet<OnmsSnmpInterface>();
 
-    /** persistent field */
+    /** persistent field. */
     private Set<OnmsArpInterface> m_arpInterfaces = new LinkedHashSet<OnmsArpInterface>();
 
-    /** persistent field */
+    /** persistent field. */
     private Set<OnmsArpInterface> m_arpInterfacesBySource = new LinkedHashSet<OnmsArpInterface>();
 
+    /** The m_categories. */
     private Set<OnmsCategory> m_categories = new LinkedHashSet<OnmsCategory>();
 
+    /** The m_path element. */
     private PathElement m_pathElement;
 
     /**
@@ -190,6 +196,14 @@ public class OnmsNode extends OnmsEntity implements Serializable, Comparable<Onm
         m_assetRecord.setNode(this);
     }
 
+    /**
+     * Instantiates a new onms node.
+     *
+     * @param distPoller
+     *            the dist poller
+     * @param label
+     *            the label
+     */
     public OnmsNode(final OnmsDistPoller distPoller, final String label) {
         this(distPoller);
         setLabel(label);
@@ -213,6 +227,7 @@ public class OnmsNode extends OnmsEntity implements Serializable, Comparable<Onm
      * <p>
      * getNodeId
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -230,6 +245,7 @@ public class OnmsNode extends OnmsEntity implements Serializable, Comparable<Onm
      * <p>
      * setId
      * </p>
+     * .
      *
      * @param nodeid
      *            a {@link java.lang.Integer} object.
@@ -242,6 +258,7 @@ public class OnmsNode extends OnmsEntity implements Serializable, Comparable<Onm
      * <p>
      * setNodeId
      * </p>
+     * .
      *
      * @param nodeid
      *            a {@link java.lang.String} object.
@@ -253,8 +270,8 @@ public class OnmsNode extends OnmsEntity implements Serializable, Comparable<Onm
     /**
      * Time node was added to the database.
      *
-     * @hibernate.property column="nodecreatetime" length="8" not-null="true"
      * @return a {@link java.util.Date} object.
+     * @hibernate.property column="nodecreatetime" length="8" not-null="true"
      */
     @XmlElement(name = "createTime")
     @Temporal(TemporalType.TIMESTAMP)
@@ -267,6 +284,7 @@ public class OnmsNode extends OnmsEntity implements Serializable, Comparable<Onm
      * <p>
      * setCreateTime
      * </p>
+     * .
      *
      * @param nodecreatetime
      *            a {@link java.util.Date} object.
@@ -295,6 +313,7 @@ public class OnmsNode extends OnmsEntity implements Serializable, Comparable<Onm
      * <p>
      * setParent
      * </p>
+     * .
      *
      * @param parent
      *            a {@link org.opennms.netmgt.model.OnmsNode} object.
@@ -322,6 +341,7 @@ public class OnmsNode extends OnmsEntity implements Serializable, Comparable<Onm
      * <p>
      * setType
      * </p>
+     * .
      *
      * @param nodetype
      *            a {@link java.lang.String} object.
@@ -345,6 +365,7 @@ public class OnmsNode extends OnmsEntity implements Serializable, Comparable<Onm
      * <p>
      * setSysObjectId
      * </p>
+     * .
      *
      * @param nodesysoid
      *            a {@link java.lang.String} object.
@@ -368,6 +389,7 @@ public class OnmsNode extends OnmsEntity implements Serializable, Comparable<Onm
      * <p>
      * setSysName
      * </p>
+     * .
      *
      * @param nodesysname
      *            a {@link java.lang.String} object.
@@ -391,6 +413,7 @@ public class OnmsNode extends OnmsEntity implements Serializable, Comparable<Onm
      * <p>
      * setSysDescription
      * </p>
+     * .
      *
      * @param nodesysdescription
      *            a {@link java.lang.String} object.
@@ -414,6 +437,7 @@ public class OnmsNode extends OnmsEntity implements Serializable, Comparable<Onm
      * <p>
      * setSysLocation
      * </p>
+     * .
      *
      * @param nodesyslocation
      *            a {@link java.lang.String} object.
@@ -437,6 +461,7 @@ public class OnmsNode extends OnmsEntity implements Serializable, Comparable<Onm
      * <p>
      * setSysContact
      * </p>
+     * .
      *
      * @param nodesyscontact
      *            a {@link java.lang.String} object.
@@ -460,6 +485,7 @@ public class OnmsNode extends OnmsEntity implements Serializable, Comparable<Onm
      * <p>
      * setLabel
      * </p>
+     * .
      *
      * @param nodelabel
      *            a {@link java.lang.String} object.
@@ -474,7 +500,7 @@ public class OnmsNode extends OnmsEntity implements Serializable, Comparable<Onm
      * - 'H' = IP hostname
      * - 'S' = sysName
      * - 'A' = IP address
-     * TODO: change this to an enum
+     * TODO: change this to an enum.
      *
      * @return a {@link java.lang.String} object.
      */
@@ -488,6 +514,7 @@ public class OnmsNode extends OnmsEntity implements Serializable, Comparable<Onm
      * <p>
      * setLabelSource
      * </p>
+     * .
      *
      * @param nodelabelsource
      *            a {@link java.lang.String} object.
@@ -511,6 +538,7 @@ public class OnmsNode extends OnmsEntity implements Serializable, Comparable<Onm
      * <p>
      * setNetBiosName
      * </p>
+     * .
      *
      * @param nodenetbiosname
      *            a {@link java.lang.String} object.
@@ -534,6 +562,7 @@ public class OnmsNode extends OnmsEntity implements Serializable, Comparable<Onm
      * <p>
      * setNetBiosDomain
      * </p>
+     * .
      *
      * @param nodedomainname
      *            a {@link java.lang.String} object.
@@ -557,6 +586,7 @@ public class OnmsNode extends OnmsEntity implements Serializable, Comparable<Onm
      * <p>
      * setOperatingSystem
      * </p>
+     * .
      *
      * @param operatingsystem
      *            a {@link java.lang.String} object.
@@ -581,6 +611,7 @@ public class OnmsNode extends OnmsEntity implements Serializable, Comparable<Onm
      * <p>
      * setLastCapsdPoll
      * </p>
+     * .
      *
      * @param lastcapsdpoll
      *            a {@link java.util.Date} object.
@@ -593,6 +624,7 @@ public class OnmsNode extends OnmsEntity implements Serializable, Comparable<Onm
      * <p>
      * getForeignId
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -606,6 +638,7 @@ public class OnmsNode extends OnmsEntity implements Serializable, Comparable<Onm
      * <p>
      * setForeignId
      * </p>
+     * .
      *
      * @param foreignId
      *            a {@link java.lang.String} object.
@@ -618,6 +651,7 @@ public class OnmsNode extends OnmsEntity implements Serializable, Comparable<Onm
      * <p>
      * getForeignSource
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -631,6 +665,7 @@ public class OnmsNode extends OnmsEntity implements Serializable, Comparable<Onm
      * <p>
      * setForeignSource
      * </p>
+     * .
      *
      * @param foreignSource
      *            a {@link java.lang.String} object.
@@ -640,7 +675,7 @@ public class OnmsNode extends OnmsEntity implements Serializable, Comparable<Onm
     }
 
     /**
-     * Distributed Poller responsible for this node
+     * Distributed Poller responsible for this node.
      *
      * @return a {@link org.opennms.netmgt.model.OnmsDistPoller} object.
      */
@@ -655,6 +690,7 @@ public class OnmsNode extends OnmsEntity implements Serializable, Comparable<Onm
      * <p>
      * setDistPoller
      * </p>
+     * .
      *
      * @param distpoller
      *            a {@link org.opennms.netmgt.model.OnmsDistPoller} object.
@@ -664,7 +700,7 @@ public class OnmsNode extends OnmsEntity implements Serializable, Comparable<Onm
     }
 
     /**
-     * The assert record associated with this node
+     * The assert record associated with this node.
      *
      * @return a {@link org.opennms.netmgt.model.OnmsAssetRecord} object.
      */
@@ -677,6 +713,7 @@ public class OnmsNode extends OnmsEntity implements Serializable, Comparable<Onm
      * <p>
      * setAssetRecord
      * </p>
+     * .
      *
      * @param asset
      *            a {@link org.opennms.netmgt.model.OnmsAssetRecord} object.
@@ -689,6 +726,7 @@ public class OnmsNode extends OnmsEntity implements Serializable, Comparable<Onm
      * <p>
      * getPathElement
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.PathElement} object.
      */
@@ -705,6 +743,7 @@ public class OnmsNode extends OnmsEntity implements Serializable, Comparable<Onm
      * <p>
      * setPathElement
      * </p>
+     * .
      *
      * @param pathElement
      *            a {@link org.opennms.netmgt.model.PathElement} object.
@@ -714,7 +753,7 @@ public class OnmsNode extends OnmsEntity implements Serializable, Comparable<Onm
     }
 
     /**
-     * The interfaces on this node
+     * The interfaces on this node.
      *
      * @return a {@link java.util.Set} object.
      */
@@ -729,6 +768,7 @@ public class OnmsNode extends OnmsEntity implements Serializable, Comparable<Onm
      * <p>
      * setIpInterfaces
      * </p>
+     * .
      *
      * @param ipinterfaces
      *            a {@link java.util.Set} object.
@@ -741,6 +781,7 @@ public class OnmsNode extends OnmsEntity implements Serializable, Comparable<Onm
      * <p>
      * addIpInterface
      * </p>
+     * .
      *
      * @param iface
      *            a {@link org.opennms.netmgt.model.OnmsIpInterface} object.
@@ -751,7 +792,7 @@ public class OnmsNode extends OnmsEntity implements Serializable, Comparable<Onm
     }
 
     /**
-     * The information from the SNMP interfaces/ipAddrTables for the node
+     * The information from the SNMP interfaces/ipAddrTables for the node.
      *
      * @return a {@link java.util.Set} object.
      */
@@ -766,6 +807,7 @@ public class OnmsNode extends OnmsEntity implements Serializable, Comparable<Onm
      * <p>
      * setSnmpInterfaces
      * </p>
+     * .
      *
      * @param snmpinterfaces
      *            a {@link java.util.Set} object.
@@ -775,7 +817,7 @@ public class OnmsNode extends OnmsEntity implements Serializable, Comparable<Onm
     }
 
     /**
-     * The ARP interfaces with this node as a source
+     * The ARP interfaces with this node as a source.
      *
      * @return a {@link java.util.Set} object.
      */
@@ -787,6 +829,8 @@ public class OnmsNode extends OnmsEntity implements Serializable, Comparable<Onm
     }
 
     /**
+     * Sets the arp interfaces by source.
+     *
      * @param arpInterfaces
      *            a {@link java.util.Set} object.
      */
@@ -795,6 +839,8 @@ public class OnmsNode extends OnmsEntity implements Serializable, Comparable<Onm
     }
 
     /**
+     * Adds the arp interface by source.
+     *
      * @param iface
      *            a {@link org.opennms.netmgt.model.OnmsArpInterface} object.
      */
@@ -804,7 +850,7 @@ public class OnmsNode extends OnmsEntity implements Serializable, Comparable<Onm
     }
 
     /**
-     * The ARP interfaces on this node
+     * The ARP interfaces on this node.
      *
      * @return a {@link java.util.Set} object.
      */
@@ -818,6 +864,7 @@ public class OnmsNode extends OnmsEntity implements Serializable, Comparable<Onm
      * <p>
      * setArpInterfaces
      * </p>
+     * .
      *
      * @param arpInterfaces
      *            a {@link java.util.Set} object.
@@ -830,6 +877,7 @@ public class OnmsNode extends OnmsEntity implements Serializable, Comparable<Onm
      * <p>
      * addArpInterface
      * </p>
+     * .
      *
      * @param iface
      *            a {@link org.opennms.netmgt.model.OnmsArpInterface} object.
@@ -843,6 +891,7 @@ public class OnmsNode extends OnmsEntity implements Serializable, Comparable<Onm
      * <p>
      * getCategories
      * </p>
+     * .
      *
      * @return a {@link java.util.Set} object.
      */
@@ -857,6 +906,7 @@ public class OnmsNode extends OnmsEntity implements Serializable, Comparable<Onm
      * <p>
      * setCategories
      * </p>
+     * .
      *
      * @param categories
      *            a {@link java.util.Set} object.
@@ -869,6 +919,7 @@ public class OnmsNode extends OnmsEntity implements Serializable, Comparable<Onm
      * <p>
      * addCategory
      * </p>
+     * .
      *
      * @param category
      *            a {@link org.opennms.netmgt.model.OnmsCategory} object.
@@ -882,6 +933,7 @@ public class OnmsNode extends OnmsEntity implements Serializable, Comparable<Onm
      * <p>
      * removeCategory
      * </p>
+     * .
      *
      * @param category
      *            a {@link org.opennms.netmgt.model.OnmsCategory} object.
@@ -895,6 +947,7 @@ public class OnmsNode extends OnmsEntity implements Serializable, Comparable<Onm
      * <p>
      * hasCategory
      * </p>
+     * .
      *
      * @param categoryName
      *            a {@link java.lang.String} object.
@@ -913,6 +966,7 @@ public class OnmsNode extends OnmsEntity implements Serializable, Comparable<Onm
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -954,6 +1008,7 @@ public class OnmsNode extends OnmsEntity implements Serializable, Comparable<Onm
      * <p>
      * addSnmpInterface
      * </p>
+     * .
      *
      * @param snmpIface
      *            a {@link org.opennms.netmgt.model.OnmsSnmpInterface} object.
@@ -967,6 +1022,7 @@ public class OnmsNode extends OnmsEntity implements Serializable, Comparable<Onm
      * <p>
      * isDown
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -985,6 +1041,7 @@ public class OnmsNode extends OnmsEntity implements Serializable, Comparable<Onm
      * <p>
      * getSnmpInterfaceWithIfIndex
      * </p>
+     * .
      *
      * @param ifIndex
      *            a int.
@@ -1004,6 +1061,7 @@ public class OnmsNode extends OnmsEntity implements Serializable, Comparable<Onm
      * <p>
      * getIpInterfaceByIpAddress
      * </p>
+     * .
      *
      * @param ipAddress
      *            a {@link java.lang.String} object.
@@ -1017,6 +1075,7 @@ public class OnmsNode extends OnmsEntity implements Serializable, Comparable<Onm
      * <p>
      * getIpInterfaceByIpAddress
      * </p>
+     * .
      *
      * @param ipAddress
      *            a {@link java.lang.String} object.
@@ -1035,6 +1094,7 @@ public class OnmsNode extends OnmsEntity implements Serializable, Comparable<Onm
      * <p>
      * compareTo
      * </p>
+     * .
      *
      * @param o
      *            a {@link org.opennms.netmgt.model.OnmsNode} object.
@@ -1062,10 +1122,10 @@ public class OnmsNode extends OnmsEntity implements Serializable, Comparable<Onm
      * <p>
      * getPrimaryInterface
      * </p>
-     * This function should be kept similar to
-     * {@link IpInterfaceDao#findPrimaryInterfaceByNodeId()}.
+     * This function should be kept similar to.
      *
      * @return a {@link org.opennms.netmgt.model.OnmsIpInterface} object.
+     *         {@link IpInterfaceDao#findPrimaryInterfaceByNodeId()}.
      */
     @Transient
     public OnmsIpInterface getPrimaryInterface() {
@@ -1127,6 +1187,7 @@ public class OnmsNode extends OnmsEntity implements Serializable, Comparable<Onm
      * <p>
      * getInterfaceWithService
      * </p>
+     * .
      *
      * @param svcName
      *            a {@link java.lang.String} object.
@@ -1146,6 +1207,7 @@ public class OnmsNode extends OnmsEntity implements Serializable, Comparable<Onm
      * <p>
      * getCriticalInterface
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.OnmsIpInterface} object.
      */
@@ -1165,6 +1227,7 @@ public class OnmsNode extends OnmsEntity implements Serializable, Comparable<Onm
      * <p>
      * mergeAgentAttributes
      * </p>
+     * .
      *
      * @param scannedNode
      *            a {@link org.opennms.netmgt.model.OnmsNode} object.
@@ -1195,9 +1258,12 @@ public class OnmsNode extends OnmsEntity implements Serializable, Comparable<Onm
      * <p>
      * mergeNodeAttributes
      * </p>
+     * .
      *
      * @param scannedNode
      *            a {@link org.opennms.netmgt.model.OnmsNode} object.
+     * @param eventForwarder
+     *            the event forwarder
      */
     public void mergeNodeAttributes(OnmsNode scannedNode, EventForwarder eventForwarder) {
         if (hasNewValue(scannedNode.getLabel(), getLabel())) {
@@ -1257,6 +1323,7 @@ public class OnmsNode extends OnmsEntity implements Serializable, Comparable<Onm
      * <p>
      * mergeAdditionalCategories
      * </p>
+     * .
      *
      * @param scannedNode
      *            a {@link org.opennms.netmgt.model.OnmsNode} object.
@@ -1269,6 +1336,7 @@ public class OnmsNode extends OnmsEntity implements Serializable, Comparable<Onm
      * <p>
      * mergeSnmpInterfaces
      * </p>
+     * .
      *
      * @param scannedNode
      *            a {@link org.opennms.netmgt.model.OnmsNode} object.
@@ -1324,6 +1392,7 @@ public class OnmsNode extends OnmsEntity implements Serializable, Comparable<Onm
      * <p>
      * mergeIpInterfaces
      * </p>
+     * .
      *
      * @param scannedNode
      *            a {@link org.opennms.netmgt.model.OnmsNode} object.
@@ -1404,6 +1473,7 @@ public class OnmsNode extends OnmsEntity implements Serializable, Comparable<Onm
      * <p>
      * mergeCategorySet
      * </p>
+     * .
      *
      * @param scannedNode
      *            a {@link org.opennms.netmgt.model.OnmsNode} object.
@@ -1415,7 +1485,7 @@ public class OnmsNode extends OnmsEntity implements Serializable, Comparable<Onm
     }
 
     /**
-     * Truly merges the node's assert record
+     * Truly merges the node's assert record.
      *
      * @param scannedNode
      *            a {@link org.opennms.netmgt.model.OnmsNode} object.
@@ -1425,7 +1495,7 @@ public class OnmsNode extends OnmsEntity implements Serializable, Comparable<Onm
     }
 
     /**
-     * Simply replaces the current asset record with the new record
+     * Simply replaces the current asset record with the new record.
      *
      * @param scannedNode
      *            a {@link org.opennms.netmgt.model.OnmsNode} object.
@@ -1440,6 +1510,7 @@ public class OnmsNode extends OnmsEntity implements Serializable, Comparable<Onm
      * <p>
      * mergeNode
      * </p>
+     * .
      *
      * @param scannedNode
      *            a {@link org.opennms.netmgt.model.OnmsNode} object.

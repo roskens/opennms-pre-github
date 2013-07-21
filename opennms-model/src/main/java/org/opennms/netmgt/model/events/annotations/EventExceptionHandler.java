@@ -34,7 +34,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * EventExceptionHandler
+ * EventExceptionHandler.
  *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @version $Id: $
@@ -42,5 +42,11 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
 public @interface EventExceptionHandler {
+
+    /**
+     * Order.
+     *
+     * @return the int
+     */
     int order() default Integer.MAX_VALUE;
 }

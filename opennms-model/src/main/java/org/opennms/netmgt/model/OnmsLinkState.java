@@ -48,6 +48,9 @@ import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
+/**
+ * The Class OnmsLinkState.
+ */
 @Entity
 /**
  * <p>OnmsLinkState class.</p>
@@ -58,20 +61,36 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 @Table(name = "linkstate")
 public class OnmsLinkState implements Serializable, Comparable<OnmsLinkState> {
 
-    /**
-     *
-     */
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -5586375063168201398L;
 
+    /**
+     * The Interface LinkStateTransition.
+     */
     public interface LinkStateTransition {
+
+        /**
+         * On link up.
+         */
         public void onLinkUp();
 
+        /**
+         * On link down.
+         */
         public void onLinkDown();
 
+        /**
+         * On link unknown.
+         */
         public void onLinkUnknown();
     }
 
+    /**
+     * The Enum LinkState.
+     */
     public static enum LinkState {
+
+        /** The link up. */
         LINK_UP {
             @Override
             public LinkState nodeDown(LinkStateTransition transition) {
@@ -102,6 +121,8 @@ public class OnmsLinkState implements Serializable, Comparable<OnmsLinkState> {
                 return "G";
             }
         },
+
+        /** The link node down. */
         LINK_NODE_DOWN {
             @Override
             public LinkState nodeUp(LinkStateTransition transition) {
@@ -131,6 +152,8 @@ public class OnmsLinkState implements Serializable, Comparable<OnmsLinkState> {
                 return "B";
             }
         },
+
+        /** The link parent node down. */
         LINK_PARENT_NODE_DOWN {
 
             @Override
@@ -162,6 +185,8 @@ public class OnmsLinkState implements Serializable, Comparable<OnmsLinkState> {
             }
 
         },
+
+        /** The link both down. */
         LINK_BOTH_DOWN {
 
             @Override
@@ -191,6 +216,8 @@ public class OnmsLinkState implements Serializable, Comparable<OnmsLinkState> {
                 return "B";
             }
         },
+
+        /** The link both unmanaged. */
         LINK_BOTH_UNMANAGED {
             @Override
             public LinkState nodeEndPointFound(LinkStateTransition transition) {
@@ -207,6 +234,8 @@ public class OnmsLinkState implements Serializable, Comparable<OnmsLinkState> {
                 return "U";
             }
         },
+
+        /** The link parent node unmanaged. */
         LINK_PARENT_NODE_UNMANAGED {
 
             @Override
@@ -226,6 +255,8 @@ public class OnmsLinkState implements Serializable, Comparable<OnmsLinkState> {
             }
 
         },
+
+        /** The link node unmanaged. */
         LINK_NODE_UNMANAGED {
 
             @Override
@@ -246,54 +277,136 @@ public class OnmsLinkState implements Serializable, Comparable<OnmsLinkState> {
 
         };
 
+        /**
+         * Gets the data link interface state type.
+         *
+         * @return the data link interface state type
+         */
         public abstract String getDataLinkInterfaceStateType();
 
+        /**
+         * Node down.
+         *
+         * @param transition
+         *            the transition
+         * @return the link state
+         */
         public LinkState nodeDown(LinkStateTransition transition) {
             return this;
         }
 
+        /**
+         * Parent node down.
+         *
+         * @param transition
+         *            the transition
+         * @return the link state
+         */
         public LinkState parentNodeDown(LinkStateTransition transition) {
             return this;
         }
 
+        /**
+         * Node up.
+         *
+         * @param transition
+         *            the transition
+         * @return the link state
+         */
         public LinkState nodeUp(LinkStateTransition transition) {
             return this;
         }
 
+        /**
+         * Parent node up.
+         *
+         * @param transition
+         *            the transition
+         * @return the link state
+         */
         public LinkState parentNodeUp(LinkStateTransition transition) {
             return this;
         }
 
+        /**
+         * Down.
+         *
+         * @param isParent
+         *            the is parent
+         * @param transition
+         *            the transition
+         * @return the link state
+         */
         public LinkState down(boolean isParent, LinkStateTransition transition) {
             return isParent ? parentNodeDown(transition) : nodeDown(transition);
         }
 
+        /**
+         * Up.
+         *
+         * @param isParent
+         *            the is parent
+         * @param transition
+         *            the transition
+         * @return the link state
+         */
         public LinkState up(boolean isParent, LinkStateTransition transition) {
             return isParent ? parentNodeUp(transition) : nodeUp(transition);
         }
 
+        /**
+         * Node end point found.
+         *
+         * @param transition
+         *            the transition
+         * @return the link state
+         */
         public LinkState nodeEndPointFound(LinkStateTransition transition) {
             return this;
         }
 
+        /**
+         * Parent node end point found.
+         *
+         * @param transition
+         *            the transition
+         * @return the link state
+         */
         public LinkState parentNodeEndPointFound(LinkStateTransition transition) {
             return this;
         }
 
+        /**
+         * Parent node end point deleted.
+         *
+         * @param transition
+         *            the transition
+         * @return the link state
+         */
         public LinkState parentNodeEndPointDeleted(LinkStateTransition transition) {
             return this;
 
         }
 
+        /**
+         * Node end point deleted.
+         *
+         * @param transition
+         *            the transition
+         * @return the link state
+         */
         public LinkState nodeEndPointDeleted(LinkStateTransition transition) {
             return this;
         }
     }
 
+    /** The m_id. */
     private Integer m_id;
 
+    /** The m_data link interface. */
     private DataLinkInterface m_dataLinkInterface;
 
+    /** The m_link state. */
     private LinkState m_linkState = LinkState.LINK_UP;
 
     /**
@@ -324,6 +437,7 @@ public class OnmsLinkState implements Serializable, Comparable<OnmsLinkState> {
      * <p>
      * getId
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -339,6 +453,7 @@ public class OnmsLinkState implements Serializable, Comparable<OnmsLinkState> {
      * <p>
      * setId
      * </p>
+     * .
      *
      * @param id
      *            a {@link java.lang.Integer} object.
@@ -351,6 +466,7 @@ public class OnmsLinkState implements Serializable, Comparable<OnmsLinkState> {
      * <p>
      * getDataLinkInterface
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.DataLinkInterface} object.
      */
@@ -365,6 +481,7 @@ public class OnmsLinkState implements Serializable, Comparable<OnmsLinkState> {
      * <p>
      * setDataLinkInterface
      * </p>
+     * .
      *
      * @param dataLinkInterface
      *            a {@link org.opennms.netmgt.model.DataLinkInterface} object.
@@ -377,6 +494,7 @@ public class OnmsLinkState implements Serializable, Comparable<OnmsLinkState> {
      * <p>
      * getLinkState
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.OnmsLinkState.LinkState}
      *         object.
@@ -391,6 +509,7 @@ public class OnmsLinkState implements Serializable, Comparable<OnmsLinkState> {
      * <p>
      * setLinkState
      * </p>
+     * .
      *
      * @param linkState
      *            a {@link org.opennms.netmgt.model.OnmsLinkState.LinkState}
@@ -404,6 +523,7 @@ public class OnmsLinkState implements Serializable, Comparable<OnmsLinkState> {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -430,6 +550,7 @@ public class OnmsLinkState implements Serializable, Comparable<OnmsLinkState> {
      * <p>
      * compareTo
      * </p>
+     * .
      *
      * @param o
      *            a {@link org.opennms.netmgt.model.OnmsLinkState} object.
@@ -446,6 +567,7 @@ public class OnmsLinkState implements Serializable, Comparable<OnmsLinkState> {
      * <p>
      * hashCode
      * </p>
+     * .
      *
      * @return a int.
      */

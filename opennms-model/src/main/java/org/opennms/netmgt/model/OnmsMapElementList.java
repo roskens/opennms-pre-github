@@ -43,6 +43,8 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement(name = "mapElements")
 public class OnmsMapElementList extends LinkedList<OnmsMapElement> {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 474241792322520294L;
 
     /**
@@ -70,6 +72,7 @@ public class OnmsMapElementList extends LinkedList<OnmsMapElement> {
      * <p>
      * getMapElements
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -82,6 +85,7 @@ public class OnmsMapElementList extends LinkedList<OnmsMapElement> {
      * <p>
      * setMapElements
      * </p>
+     * .
      *
      * @param mapElements
      *            a {@link java.util.List} object.
@@ -97,6 +101,7 @@ public class OnmsMapElementList extends LinkedList<OnmsMapElement> {
      * <p>
      * getCount
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */

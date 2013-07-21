@@ -82,6 +82,9 @@ public class HeaderDescriptor extends org.exolab.castor.xml.util.XMLClassDescrip
     // - Constructors -/
     // ----------------/
 
+    /**
+     * Instantiates a new header descriptor.
+     */
     public HeaderDescriptor() {
         super();
         _nsURI = "http://xmlns.opennms.org/xsd/event";

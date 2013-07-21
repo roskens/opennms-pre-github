@@ -36,25 +36,51 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+/**
+ * The Class OnmsGroupList.
+ */
 @XmlRootElement(name = "groups")
 public class OnmsGroupList extends LinkedList<OnmsGroup> {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -3120131643998397193L;
 
+    /** The m_total count. */
     private int m_totalCount;
 
+    /**
+     * Instantiates a new onms group list.
+     */
     public OnmsGroupList() {
         super();
     }
 
+    /**
+     * Instantiates a new onms group list.
+     *
+     * @param c
+     *            the c
+     */
     public OnmsGroupList(final Collection<? extends OnmsGroup> c) {
         super(c);
     }
 
+    /**
+     * Gets the groups.
+     *
+     * @return the groups
+     */
     @XmlElement(name = "group")
     public List<OnmsGroup> getGroups() {
         return this;
     }
 
+    /**
+     * Sets the groups.
+     *
+     * @param groups
+     *            the new groups
+     */
     public void setGroups(final List<OnmsGroup> groups) {
         if (groups == this)
             return;
@@ -62,6 +88,11 @@ public class OnmsGroupList extends LinkedList<OnmsGroup> {
         addAll(groups);
     }
 
+    /**
+     * Gets the count.
+     *
+     * @return the count
+     */
     @XmlAttribute(name = "count")
     public int getCount() {
         return this.size();
@@ -69,9 +100,20 @@ public class OnmsGroupList extends LinkedList<OnmsGroup> {
 
     // The property has a getter "" but no setter. For unmarshalling, please
     // define setters.
+    /**
+     * Sets the count.
+     *
+     * @param count
+     *            the new count
+     */
     public void setCount(final int count) {
     }
 
+    /**
+     * Gets the total count.
+     *
+     * @return the total count
+     */
     @XmlAttribute(name = "totalCount")
     public int getTotalCount() {
         return m_totalCount;
@@ -81,6 +123,7 @@ public class OnmsGroupList extends LinkedList<OnmsGroup> {
      * <p>
      * setTotalCount
      * </p>
+     * .
      *
      * @param count
      *            a int.

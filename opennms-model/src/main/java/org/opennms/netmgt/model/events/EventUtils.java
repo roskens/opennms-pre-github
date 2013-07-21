@@ -68,12 +68,14 @@ import org.slf4j.LoggerFactory;
  */
 public abstract class EventUtils {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(EventUtils.class);
 
     /**
      * <p>
      * createNodeAddedEvent
      * </p>
+     * .
      *
      * @param source
      *            a {@link java.lang.String} object.
@@ -102,6 +104,7 @@ public abstract class EventUtils {
      * <p>
      * createNodeGainedInterfaceEvent
      * </p>
+     * .
      *
      * @param source
      *            a {@link java.lang.String} object.
@@ -127,6 +130,7 @@ public abstract class EventUtils {
      * <p>
      * createNodeGainedServiceEvent
      * </p>
+     * .
      *
      * @param source
      *            a {@link java.lang.String} object.
@@ -208,8 +212,8 @@ public abstract class EventUtils {
      *            the source of the event
      * @param nodeId
      *            the nodeId of the node the interface resides in
-     * @param ipAddr
-     *            the ipAdddr of the event
+     * @param addr
+     *            the addr
      * @return an Event represent an interfaceDeleted event for the given
      *         interface
      */
@@ -225,14 +229,14 @@ public abstract class EventUtils {
 
     /**
      * Constructs a serviceDeleted Event for the nodeId, ipAddr, serviceName
-     * triple
+     * triple.
      *
      * @param source
      *            the source of the event
      * @param nodeId
      *            the nodeId that the service resides on
-     * @param ipAddr
-     *            the interface that the service resides on
+     * @param addr
+     *            the addr
      * @param service
      *            the name of the service that was deleted
      * @return an Event that represents the serviceDeleted event for the give
@@ -345,6 +349,14 @@ public abstract class EventUtils {
         return EventUtils.getParm(e, parmName, null);
     }
 
+    /**
+     * Debug.
+     *
+     * @param format
+     *            the format
+     * @param args
+     *            the args
+     */
     private static void debug(String format, Object... args) {
         LOG.debug(String.format(format, args));
     }
@@ -353,6 +365,7 @@ public abstract class EventUtils {
      * <p>
      * createNodeUpdatedEvent
      * </p>
+     * .
      *
      * @param source
      *            a {@link java.lang.String} object.
@@ -377,6 +390,7 @@ public abstract class EventUtils {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @param event
      *            a {@link org.opennms.netmgt.xml.event.Event} object.
@@ -489,6 +503,13 @@ public abstract class EventUtils {
         return b.toString();
     }
 
+    /**
+     * To string.
+     *
+     * @param parms
+     *            the parms
+     * @return the string
+     */
     public static String toString(Collection<Parm> parms) {
         if (parms.size() == 0) {
             return "Parms: (none)\n";
@@ -511,6 +532,7 @@ public abstract class EventUtils {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @param value
      *            a {@link org.opennms.netmgt.xml.event.Value} object.
@@ -524,6 +546,7 @@ public abstract class EventUtils {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @param snmp
      *            a {@link org.opennms.netmgt.xml.event.Snmp} object.
@@ -560,6 +583,7 @@ public abstract class EventUtils {
      * <p>
      * eventsMatch
      * </p>
+     * .
      *
      * @param e1
      *            a {@link org.opennms.netmgt.xml.event.Event} object.

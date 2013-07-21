@@ -44,9 +44,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "links")
 public class DataLinkInterfaceList extends LinkedList<DataLinkInterface> {
 
-    /**
-     *
-     */
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 1980683067851461914L;
 
     /**
@@ -74,6 +72,7 @@ public class DataLinkInterfaceList extends LinkedList<DataLinkInterface> {
      * <p>
      * getMaps
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -86,9 +85,10 @@ public class DataLinkInterfaceList extends LinkedList<DataLinkInterface> {
      * <p>
      * setMaps
      * </p>
+     * .
      *
-     * @param maps
-     *            a {@link java.util.List} object.
+     * @param links
+     *            the new links
      */
     public void setLinks(List<DataLinkInterface> links) {
         if (links == this)
@@ -101,6 +101,7 @@ public class DataLinkInterfaceList extends LinkedList<DataLinkInterface> {
      * <p>
      * getCount
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */

@@ -53,7 +53,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
  * The autoacknowledge information for the user with state
  * controlling if event is marked acknoledged when inserted into
  * the
- * database
+ * database.
  *
  * @version $Revision$ $Date$
  */
@@ -62,15 +62,15 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 @XmlAccessorType(XmlAccessType.FIELD)
 // @ValidateUsing("event.xsd")
 public class Autoacknowledge implements Serializable {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -3959431672151994490L;
 
     // --------------------------/
     // - Class/Member Variables -/
     // --------------------------/
 
-    /**
-     * internal content storage
-     */
+    /** internal content storage. */
     @XmlValue
     private java.lang.String _content = "";
 
@@ -84,6 +84,9 @@ public class Autoacknowledge implements Serializable {
     // - Constructors -/
     // ----------------/
 
+    /**
+     * Instantiates a new autoacknowledge.
+     */
     public Autoacknowledge() {
         super();
         setContent("");
@@ -134,6 +137,9 @@ public class Autoacknowledge implements Serializable {
         this._state = state;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return new ToStringBuilder(this).append("content", _content).append("state", _state).toString();

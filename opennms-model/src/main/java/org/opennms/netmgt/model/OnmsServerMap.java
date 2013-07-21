@@ -42,23 +42,25 @@ import org.springframework.core.style.ToStringCreator;
  @Entity
  @Table(name="servermap")
  */
+/**
+ * The Class OnmsServerMap.
+ */
 public class OnmsServerMap extends OnmsEntity implements Serializable {
 
-    /**
-     *
-     */
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -858347716282069343L;
 
-    /** identifier field */
+    /** identifier field. */
     private String m_ipAddr;
 
-    /** identifier field */
+    /** identifier field. */
     private String m_serverName;
 
+    /** The m_id. */
     private Integer m_id;
 
     /**
-     * full constructor
+     * full constructor.
      *
      * @param ipAddr
      *            a {@link java.lang.String} object.
@@ -71,7 +73,7 @@ public class OnmsServerMap extends OnmsEntity implements Serializable {
     }
 
     /**
-     * default constructor
+     * default constructor.
      */
     public OnmsServerMap() {
     }
@@ -80,6 +82,7 @@ public class OnmsServerMap extends OnmsEntity implements Serializable {
      * <p>
      * getId
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -95,6 +98,7 @@ public class OnmsServerMap extends OnmsEntity implements Serializable {
      * <p>
      * setId
      * </p>
+     * .
      *
      * @param id
      *            a {@link java.lang.Integer} object.
@@ -107,6 +111,7 @@ public class OnmsServerMap extends OnmsEntity implements Serializable {
      * <p>
      * getIpAddress
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -119,6 +124,7 @@ public class OnmsServerMap extends OnmsEntity implements Serializable {
      * <p>
      * setIpAddress
      * </p>
+     * .
      *
      * @param ipAddr
      *            a {@link java.lang.String} object.
@@ -131,6 +137,7 @@ public class OnmsServerMap extends OnmsEntity implements Serializable {
      * <p>
      * getServerName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -143,6 +150,7 @@ public class OnmsServerMap extends OnmsEntity implements Serializable {
      * <p>
      * setServerName
      * </p>
+     * .
      *
      * @param serverName
      *            a {@link java.lang.String} object.
@@ -155,6 +163,7 @@ public class OnmsServerMap extends OnmsEntity implements Serializable {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

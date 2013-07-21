@@ -44,52 +44,75 @@ import org.opennms.core.utils.ByteArrayComparator;
 import org.opennms.core.utils.InetAddressUtils;
 
 /**
- * IPAddressRangeTest
+ * IPAddressRangeTest.
  *
  * @author brozow
  */
 public class IPAddressRangeTest extends TestCase {
 
+    /** The zero. */
     private final IPAddress zero = new IPAddress("0.0.0.0");
 
+    /** The one. */
     private final IPAddress one = new IPAddress("0.0.0.1");
 
+    /** The max one octet. */
     private final IPAddress maxOneOctet = new IPAddress("0.0.0.255");
 
+    /** The max two octet. */
     private final IPAddress maxTwoOctet = new IPAddress("0.0.255.0");
 
+    /** The max three octet. */
     private final IPAddress maxThreeOctet = new IPAddress("0.255.0.0");
 
+    /** The thirty bit number. */
     private final IPAddress thirtyBitNumber = new IPAddress("63.255.255.255");
 
+    /** The thirty one bit number. */
     private final IPAddress thirtyOneBitNumber = new IPAddress("127.255.255.255");
 
+    /** The thirty two bit. */
     private final IPAddress thirtyTwoBit = new IPAddress("128.0.0.0");
 
+    /** The max four octet. */
     private final IPAddress maxFourOctet = new IPAddress("255.0.0.0");
 
+    /** The max i pv4. */
     private final IPAddress maxIPv4 = new IPAddress("255.255.255.255");
 
+    /** The max i pv6. */
     private final IPAddress maxIPv6 = new IPAddress("ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff");
 
+    /** The max i pv6 minus five. */
     private final IPAddress maxIPv6MinusFive = new IPAddress("ffff:ffff:ffff:ffff:ffff:ffff:ffff:fffa");
 
+    /** The begin. */
     private final IPAddress begin = new IPAddress("192.168.1.1");
 
+    /** The addr2. */
     private final IPAddress addr2 = new IPAddress("192.168.1.3");
 
+    /** The addr3. */
     private final IPAddress addr3 = new IPAddress("192.168.1.5");
 
+    /** The end. */
     private final IPAddress end = new IPAddress("192.168.1.254");
 
+    /** The normal. */
     private final IPAddressRange normal;
 
+    /** The singleton. */
     private final IPAddressRange singleton;
 
+    /** The small. */
     private final IPAddressRange small;
 
+    /** The high v6. */
     private final IPAddressRange highV6;
 
+    /**
+     * Instantiates a new iP address range test.
+     */
     public IPAddressRangeTest() {
         normal = new IPAddressRange(begin, end);
         small = new IPAddressRange(addr2, addr3);
@@ -97,6 +120,9 @@ public class IPAddressRangeTest extends TestCase {
         highV6 = new IPAddressRange(maxIPv6MinusFive, maxIPv6);
     }
 
+    /**
+     * Test to big integer.
+     */
     public void testToBigInteger() {
         IPAddress startAtZero = new IPAddress("0.0.0.0");
         assertTrue(startAtZero.isPredecessorOf(one));
@@ -124,6 +150,12 @@ public class IPAddressRangeTest extends TestCase {
         // maxIPv6.toBigInteger().longValue());
     }
 
+    /**
+     * Test convert big integer into inet address.
+     *
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     public void testConvertBigIntegerIntoInetAddress() throws UnknownHostException {
         assertEquals(0,
                      new ByteArrayComparator().compare(zero.toOctets(),
@@ -193,6 +225,12 @@ public class IPAddressRangeTest extends TestCase {
         }
     }
 
+    /**
+     * Test to ip addr string.
+     *
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     public void testToIpAddrString() throws UnknownHostException {
         assertEquals("0.0.0.0", InetAddressUtils.toIpAddrString(zero.toOctets()));
         assertEquals("0.0.0.1", InetAddressUtils.toIpAddrString(one.toOctets()));
@@ -214,6 +252,9 @@ public class IPAddressRangeTest extends TestCase {
                      InetAddressUtils.toIpAddrString(InetAddressUtils.addr("AAAA::%0")));
     }
 
+    /**
+     * Test create.
+     */
     public void testCreate() {
         assertEquals(begin, normal.getBegin());
         assertEquals(end, normal.getEnd());
@@ -224,10 +265,16 @@ public class IPAddressRangeTest extends TestCase {
         assertEquals(new BigInteger("6"), highV6.size());
     }
 
+    /**
+     * Test singleton range.
+     */
     public void testSingletonRange() {
         assertEquals(BigInteger.ONE, singleton.size());
     }
 
+    /**
+     * Test contains.
+     */
     public void testContains() {
         assertTrue(normal.contains(begin));
         assertTrue(normal.contains(begin.incr()));
@@ -235,6 +282,9 @@ public class IPAddressRangeTest extends TestCase {
         assertTrue(normal.contains(end));
     }
 
+    /**
+     * Test iterator.
+     */
     public void testIterator() {
         assertEquals(new BigInteger("3"), small.size());
         Iterator<IPAddress> it = small.iterator();
@@ -247,6 +297,9 @@ public class IPAddressRangeTest extends TestCase {
         assertFalse(it.hasNext());
     }
 
+    /**
+     * Test iterate singleton.
+     */
     public void testIterateSingleton() {
         Iterator<IPAddress> it = singleton.iterator();
         assertTrue(it.hasNext());
@@ -254,6 +307,12 @@ public class IPAddressRangeTest extends TestCase {
         assertFalse(it.hasNext());
     }
 
+    /**
+     * Test get lowest inet address.
+     *
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     public void testGetLowestInetAddress() throws UnknownHostException {
         assertNull(InetAddressUtils.getLowestInetAddress(Collections.<InetAddress> emptyList()));
 
@@ -305,6 +364,13 @@ public class IPAddressRangeTest extends TestCase {
                      InetAddressUtils.toIpAddrString(InetAddressUtils.getLowestInetAddress(ips)));
     }
 
+    /**
+     * Gets the lowest host address.
+     *
+     * @param ips
+     *            the ips
+     * @return the lowest host address
+     */
     private String getLowestHostAddress(final List<InetAddress> ips) {
         return InetAddressUtils.str(InetAddressUtils.getLowestInetAddress(ips));
     }

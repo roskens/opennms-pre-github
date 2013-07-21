@@ -53,16 +53,17 @@ import org.springframework.core.style.ToStringCreator;
 @Table(name = "service")
 public class OnmsServiceType implements Serializable {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -459218937667452586L;
 
-    /** identifier field */
+    /** identifier field. */
     private Integer m_id;
 
-    /** persistent field */
+    /** persistent field. */
     private String m_name;
 
     /**
-     * full constructor
+     * full constructor.
      *
      * @param servicename
      *            a {@link java.lang.String} object.
@@ -72,7 +73,7 @@ public class OnmsServiceType implements Serializable {
     }
 
     /**
-     * default constructor
+     * default constructor.
      */
     public OnmsServiceType() {
     }
@@ -81,6 +82,7 @@ public class OnmsServiceType implements Serializable {
      * <p>
      * getId
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -97,6 +99,7 @@ public class OnmsServiceType implements Serializable {
      * <p>
      * setId
      * </p>
+     * .
      *
      * @param serviceid
      *            a {@link java.lang.Integer} object.
@@ -109,6 +112,7 @@ public class OnmsServiceType implements Serializable {
      * <p>
      * getName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -121,6 +125,7 @@ public class OnmsServiceType implements Serializable {
      * <p>
      * setName
      * </p>
+     * .
      *
      * @param name
      *            a {@link java.lang.String} object.
@@ -133,6 +138,7 @@ public class OnmsServiceType implements Serializable {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -155,6 +161,7 @@ public class OnmsServiceType implements Serializable {
      * <p>
      * hashCode
      * </p>
+     * .
      *
      * @return a int.
      */

@@ -68,6 +68,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlRootElement(name = "mask")
 public class Mask {
 
+    /** The maskelement. */
     @XmlElement(namespace = "http://xmlns.opennms.org/xsd/event", required = true)
     protected List<Maskelement> maskelement;
 
@@ -86,7 +87,8 @@ public class Mask {
      * </pre>
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link Maskelement }
+     *
+     * @return the maskelement {@link Maskelement }
      */
     public List<Maskelement> getMaskelement() {
         if (maskelement == null) {

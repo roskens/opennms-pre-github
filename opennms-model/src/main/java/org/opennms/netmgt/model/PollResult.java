@@ -35,12 +35,16 @@ package org.opennms.netmgt.model;
  */
 public class PollResult {
 
+    /** The m_id. */
     private Integer m_id;
 
+    /** The m_demand poll. */
     private DemandPoll m_demandPoll;
 
+    /** The m_monitored service. */
     private OnmsMonitoredService m_monitoredService;
 
+    /** The m_status. */
     private PollStatus m_status;
 
     /**
@@ -68,6 +72,7 @@ public class PollResult {
      * <p>
      * getId
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -79,6 +84,7 @@ public class PollResult {
      * <p>
      * setId
      * </p>
+     * .
      *
      * @param id
      *            a int.
@@ -91,6 +97,7 @@ public class PollResult {
      * <p>
      * getMonitoredService
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.OnmsMonitoredService} object.
      */
@@ -102,6 +109,7 @@ public class PollResult {
      * <p>
      * setMonitoredService
      * </p>
+     * .
      *
      * @param monitoredService
      *            a {@link org.opennms.netmgt.model.OnmsMonitoredService}
@@ -115,6 +123,7 @@ public class PollResult {
      * <p>
      * getStatus
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.PollStatus} object.
      */
@@ -126,6 +135,7 @@ public class PollResult {
      * <p>
      * setStatus
      * </p>
+     * .
      *
      * @param status
      *            a {@link org.opennms.netmgt.model.PollStatus} object.
@@ -138,6 +148,7 @@ public class PollResult {
      * <p>
      * getDemandPoll
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.DemandPoll} object.
      */
@@ -149,6 +160,7 @@ public class PollResult {
      * <p>
      * setDemandPoll
      * </p>
+     * .
      *
      * @param poll
      *            a {@link org.opennms.netmgt.model.DemandPoll} object.

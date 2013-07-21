@@ -64,16 +64,18 @@ import javax.xml.bind.annotation.XmlValue;
 @XmlRootElement(name = "script")
 public class Script {
 
+    /** The value. */
     @XmlValue
     protected String value;
 
+    /** The language. */
     @XmlAttribute(name = "language", required = true)
     protected String language;
 
     /**
      * Gets the value of the value property.
      *
-     * @return
+     * @return the value
      *         possible object is {@link String }
      */
     public String getValue() {
@@ -93,7 +95,7 @@ public class Script {
     /**
      * Gets the value of the language property.
      *
-     * @return
+     * @return the language
      *         possible object is {@link String }
      */
     public String getLanguage() {

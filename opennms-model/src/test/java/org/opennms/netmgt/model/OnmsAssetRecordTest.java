@@ -32,12 +32,15 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * Model Object behavioral testing
+ * Model Object behavioral testing.
  *
  * @author <a href="mailto:david@openms.org">David Hustace</a>
  */
 public class OnmsAssetRecordTest {
 
+    /**
+     * Equals same object.
+     */
     @Test
     public void equalsSameObject() {
         OnmsAssetRecord rec1 = new OnmsAssetRecord();
@@ -49,6 +52,9 @@ public class OnmsAssetRecordTest {
         Assert.assertTrue(rec1.equals(rec1));
     }
 
+    /**
+     * Equals diff object.
+     */
     @Test
     public void equalsDiffObject() {
         OnmsAssetRecord rec1 = new OnmsAssetRecord();
@@ -86,6 +92,9 @@ public class OnmsAssetRecordTest {
         Assert.assertFalse(rec1.equals(rec2));
     }
 
+    /**
+     * Test merge equal record.
+     */
     @Test
     public void testMergeEqualRecord() {
         OnmsAssetRecord rec1 = new OnmsAssetRecord();
@@ -113,6 +122,9 @@ public class OnmsAssetRecordTest {
         Assert.assertEquals(building, rec1.getBuilding());
     }
 
+    /**
+     * Test merge not equal record.
+     */
     @Test
     public void testMergeNotEqualRecord() {
         OnmsAssetRecord rec1 = new OnmsAssetRecord();

@@ -39,10 +39,12 @@ import java.util.SortedSet;
  * @version $Id: $
  */
 public interface AttributeStatisticVisitorWithResults extends AttributeStatisticVisitor {
+
     /**
      * <p>
      * getResults
      * </p>
+     * .
      *
      * @return a {@link java.util.SortedSet} object.
      */
@@ -54,6 +56,7 @@ public interface AttributeStatisticVisitorWithResults extends AttributeStatistic
      * <p>
      * setCount
      * </p>
+     * .
      *
      * @param count
      *            a {@link java.lang.Integer} object.
@@ -64,6 +67,7 @@ public interface AttributeStatisticVisitorWithResults extends AttributeStatistic
      * <p>
      * getCount
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -73,6 +77,7 @@ public interface AttributeStatisticVisitorWithResults extends AttributeStatistic
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      */
     public void afterPropertiesSet();
 }

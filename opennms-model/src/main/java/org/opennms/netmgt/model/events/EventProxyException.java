@@ -35,9 +35,7 @@ package org.opennms.netmgt.model.events;
  */
 public class EventProxyException extends Exception {
 
-    /**
-     *
-     */
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -5163171630068781718L;
 
     /**

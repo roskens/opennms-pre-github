@@ -36,10 +36,17 @@ import org.opennms.netmgt.model.OnmsLinkState.LinkState;
 import org.opennms.netmgt.model.OnmsLinkState.LinkStateTransition;
 import org.opennms.test.mock.EasyMockUtils;
 
+/**
+ * The Class LinkStateTest.
+ */
 public class LinkStateTest {
 
+    /** The m_easy mock utils. */
     EasyMockUtils m_easyMockUtils = new EasyMockUtils();
 
+    /**
+     * Test move from both unmanaged to link node unmanaged.
+     */
     @Test
     public void testMoveFromBothUnmanagedToLinkNodeUnmanaged() {
 
@@ -51,6 +58,9 @@ public class LinkStateTest {
         verify();
     }
 
+    /**
+     * Test move from both unmanaged to parent unmanaged.
+     */
     @Test
     public void testMoveFromBothUnmanagedToParentUnmanaged() {
 
@@ -62,6 +72,9 @@ public class LinkStateTest {
         verify();
     }
 
+    /**
+     * Test move from both unmanaged to link up.
+     */
     @Test
     public void testMoveFromBothUnmanagedToLinkUp() {
         LinkState linkState = LinkState.LINK_BOTH_UNMANAGED;
@@ -72,6 +85,9 @@ public class LinkStateTest {
         assertEquals(LinkState.LINK_UP, linkState);
     }
 
+    /**
+     * Test move from node unmanaged to link up.
+     */
     @Test
     public void testMoveFromNodeUnmanagedToLinkUp() {
         LinkState linkState = LinkState.LINK_NODE_UNMANAGED;
@@ -82,6 +98,9 @@ public class LinkStateTest {
         verify();
     }
 
+    /**
+     * Test move from link up to node down.
+     */
     @Test
     public void testMoveFromLinkUpToNodeDown() {
         LinkState linkState = LinkState.LINK_UP;
@@ -92,6 +111,9 @@ public class LinkStateTest {
         verify();
     }
 
+    /**
+     * Test move from node down to both down.
+     */
     @Test
     public void testMoveFromNodeDownToBothDown() {
         LinkState linkState = LinkState.LINK_NODE_DOWN;
@@ -102,6 +124,9 @@ public class LinkStateTest {
         verify();
     }
 
+    /**
+     * Test from both down to parent node down.
+     */
     @Test
     public void testFromBothDownToParentNodeDown() {
         LinkState linkState = LinkState.LINK_BOTH_DOWN;
@@ -112,6 +137,9 @@ public class LinkStateTest {
         verify();
     }
 
+    /**
+     * Test from link up to parent unmanaged.
+     */
     @Test
     public void testFromLinkUpToParentUnmanaged() {
         LinkState linkState = LinkState.LINK_UP;
@@ -123,6 +151,9 @@ public class LinkStateTest {
         verify();
     }
 
+    /**
+     * Test from node down to link up.
+     */
     @Test
     public void testFromNodeDownToLinkUp() {
         LinkState linkState = LinkState.LINK_NODE_DOWN;
@@ -133,6 +164,9 @@ public class LinkStateTest {
         verify();
     }
 
+    /**
+     * Test from parent node down to link up.
+     */
     @Test
     public void testFromParentNodeDownToLinkUp() {
         LinkState linkState = LinkState.LINK_PARENT_NODE_DOWN;
@@ -143,6 +177,9 @@ public class LinkStateTest {
         verify();
     }
 
+    /**
+     * Test from both down to link up.
+     */
     @Test
     public void testFromBothDownToLinkUp() {
         LinkState linkState = LinkState.LINK_BOTH_DOWN;
@@ -153,6 +190,11 @@ public class LinkStateTest {
         assertEquals(LinkState.LINK_UP, linkState);
     }
 
+    /**
+     * Creates the empty transition.
+     *
+     * @return the link state transition
+     */
     public LinkStateTransition createEmptyTransition() {
         return new LinkStateTransition() {
             @Override
@@ -170,14 +212,25 @@ public class LinkStateTest {
         };
     }
 
+    /**
+     * Replay.
+     */
     public void replay() {
         m_easyMockUtils.replayAll();
     }
 
+    /**
+     * Verify.
+     */
     public void verify() {
         m_easyMockUtils.verifyAll();
     }
 
+    /**
+     * Expect no transition.
+     *
+     * @return the link state transition
+     */
     private LinkStateTransition expectNoTransition() {
         LinkStateTransition transition = m_easyMockUtils.createMock(LinkStateTransition.class);
 
@@ -186,6 +239,11 @@ public class LinkStateTest {
         return transition;
     }
 
+    /**
+     * Expect link up.
+     *
+     * @return the link state transition
+     */
     private LinkStateTransition expectLinkUp() {
         LinkStateTransition transition = m_easyMockUtils.createMock(LinkStateTransition.class);
         transition.onLinkUp();
@@ -195,6 +253,11 @@ public class LinkStateTest {
         return transition;
     }
 
+    /**
+     * Expect link down.
+     *
+     * @return the link state transition
+     */
     private LinkStateTransition expectLinkDown() {
         LinkStateTransition transition = m_easyMockUtils.createMock(LinkStateTransition.class);
         transition.onLinkDown();
@@ -204,6 +267,11 @@ public class LinkStateTest {
         return transition;
     }
 
+    /**
+     * Expect link unknown.
+     *
+     * @return the link state transition
+     */
     private LinkStateTransition expectLinkUnknown() {
         LinkStateTransition transition = m_easyMockUtils.createMock(LinkStateTransition.class);
         transition.onLinkUnknown();

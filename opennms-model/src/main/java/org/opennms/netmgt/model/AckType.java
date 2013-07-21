@@ -42,15 +42,24 @@ import java.util.Map;
  * @version $Id: $
  */
 public enum AckType {
-    UNSPECIFIED(1, "Unspecified"), ALARM(2, "Alarm"), NOTIFICATION(3, "Notification");
 
-    /** Constant <code>m_idMap</code> */
+    /** The unspecified. */
+    UNSPECIFIED(1, "Unspecified"),
+ /** The alarm. */
+ ALARM(2, "Alarm"),
+ /** The notification. */
+ NOTIFICATION(3, "Notification");
+
+    /** Constant <code>m_idMap</code>. */
     private static final Map<Integer, AckType> m_idMap;
 
+    /** The Constant m_ids. */
     private static final List<Integer> m_ids;
 
+    /** The m_id. */
     private int m_id;
 
+    /** The m_label. */
     private String m_label;
 
     static {
@@ -62,11 +71,24 @@ public enum AckType {
         }
     }
 
+    /**
+     * Instantiates a new ack type.
+     *
+     * @param id
+     *            the id
+     * @param label
+     *            the label
+     */
     private AckType(int id, String label) {
         m_id = id;
         m_label = label;
     }
 
+    /**
+     * Gets the id.
+     *
+     * @return the id
+     */
     private Integer getId() {
         return m_id;
     }
@@ -81,6 +103,7 @@ public enum AckType {
      * <p>
      * get
      * </p>
+     * .
      *
      * @param id
      *            a int.

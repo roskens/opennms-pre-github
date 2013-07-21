@@ -40,6 +40,9 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+/**
+ * The Class ReportCatalogEntry.
+ */
 @Entity
 @Table(name = "reportCatalog")
 /**
@@ -50,22 +53,29 @@ import javax.persistence.TemporalType;
  */
 public class ReportCatalogEntry implements Serializable {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -5351014623584691820L;
 
+    /** The m_id. */
     private Integer m_id;
 
+    /** The m_report id. */
     private String m_reportId;
 
+    /** The m_title. */
     private String m_title;
 
+    /** The m_date. */
     private Date m_date;
 
+    /** The m_location. */
     private String m_location;
 
     /**
      * <p>
      * getId
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -81,6 +91,7 @@ public class ReportCatalogEntry implements Serializable {
      * <p>
      * setId
      * </p>
+     * .
      *
      * @param id
      *            a {@link java.lang.Integer} object.
@@ -93,6 +104,7 @@ public class ReportCatalogEntry implements Serializable {
      * <p>
      * getReportId
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -105,6 +117,7 @@ public class ReportCatalogEntry implements Serializable {
      * <p>
      * setReportId
      * </p>
+     * .
      *
      * @param reportId
      *            a {@link java.lang.String} object.
@@ -117,6 +130,7 @@ public class ReportCatalogEntry implements Serializable {
      * <p>
      * getTitle
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -129,6 +143,7 @@ public class ReportCatalogEntry implements Serializable {
      * <p>
      * setTitle
      * </p>
+     * .
      *
      * @param title
      *            a {@link java.lang.String} object.
@@ -141,6 +156,7 @@ public class ReportCatalogEntry implements Serializable {
      * <p>
      * getDate
      * </p>
+     * .
      *
      * @return a {@link java.util.Date} object.
      */
@@ -154,6 +170,7 @@ public class ReportCatalogEntry implements Serializable {
      * <p>
      * setDate
      * </p>
+     * .
      *
      * @param date
      *            a {@link java.util.Date} object.
@@ -166,6 +183,7 @@ public class ReportCatalogEntry implements Serializable {
      * <p>
      * getLocation
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -178,6 +196,7 @@ public class ReportCatalogEntry implements Serializable {
      * <p>
      * setLocation
      * </p>
+     * .
      *
      * @param location
      *            a {@link java.lang.String} object.

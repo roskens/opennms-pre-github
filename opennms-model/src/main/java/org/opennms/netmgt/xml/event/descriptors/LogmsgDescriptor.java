@@ -82,6 +82,9 @@ public class LogmsgDescriptor extends org.exolab.castor.xml.util.XMLClassDescrip
     // - Constructors -/
     // ----------------/
 
+    /**
+     * Instantiates a new logmsg descriptor.
+     */
     public LogmsgDescriptor() {
         super();
         _nsURI = "http://xmlns.opennms.org/xsd/event";

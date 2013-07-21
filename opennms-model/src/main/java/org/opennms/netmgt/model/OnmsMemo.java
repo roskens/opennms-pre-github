@@ -53,6 +53,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * <p>
  * Generic memo for any element inside OpenNMS
  * </p>
+ * .
  *
  * @author <a href="mailto:Markus@OpenNMS.com">Markus Neumann</a>
  */
@@ -64,8 +65,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 @DiscriminatorValue(value = "Memo")
 public class OnmsMemo implements Serializable {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 7272348439687562161L;
 
+    /** The m_id. */
     @Id
     @Column(name = "id", nullable = false)
     @SequenceGenerator(name = "memoSequence", sequenceName = "memoNxtId")
@@ -73,66 +76,131 @@ public class OnmsMemo implements Serializable {
     @XmlAttribute(name = "id")
     private Integer m_id;
 
+    /** The m_body. */
     @Column(name = "body")
     private String m_body;
 
+    /** The m_author. */
     @Column(name = "author")
     private String m_author;
 
+    /** The m_updated. */
     @Column(name = "updated")
     @Temporal(TemporalType.TIMESTAMP)
     private Date m_updated;
 
+    /** The m_created. */
     @Column(name = "created")
     @Temporal(TemporalType.TIMESTAMP)
     private Date m_created;
 
+    /**
+     * Pre update.
+     */
     @PreUpdate
     private void preUpdate() {
         m_updated = new Date();
     }
 
+    /**
+     * Pre persist.
+     */
     @PrePersist
     private void prePersist() {
         m_created = new Date();
     }
 
+    /**
+     * Gets the body.
+     *
+     * @return the body
+     */
     public String getBody() {
         return m_body;
     }
 
+    /**
+     * Sets the body.
+     *
+     * @param body
+     *            the new body
+     */
     public void setBody(String body) {
         this.m_body = body;
     }
 
+    /**
+     * Gets the created.
+     *
+     * @return the created
+     */
     public Date getCreated() {
         return m_created;
     }
 
+    /**
+     * Gets the id.
+     *
+     * @return the id
+     */
     public Integer getId() {
         return m_id;
     }
 
+    /**
+     * Sets the id.
+     *
+     * @param id
+     *            the new id
+     */
     public void setId(final Integer id) {
         m_id = id;
     }
 
+    /**
+     * Gets the updated.
+     *
+     * @return the updated
+     */
     public Date getUpdated() {
         return m_updated;
     }
 
+    /**
+     * Sets the created.
+     *
+     * @param created
+     *            the new created
+     */
     public void setCreated(Date created) {
         this.m_created = created;
     }
 
+    /**
+     * Sets the updated.
+     *
+     * @param updated
+     *            the new updated
+     */
     public void setUpdated(Date updated) {
         this.m_updated = updated;
     }
 
+    /**
+     * Gets the author.
+     *
+     * @return the author
+     */
     public String getAuthor() {
         return m_author;
     }
 
+    /**
+     * Sets the author.
+     *
+     * @param author
+     *            the new author
+     */
     public void setAuthor(String author) {
         this.m_author = author;
     }

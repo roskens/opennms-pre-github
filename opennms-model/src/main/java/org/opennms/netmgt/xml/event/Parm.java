@@ -49,7 +49,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
 /**
- * A varbind from the trap
+ * A varbind from the trap.
  *
  * @version $Revision$ $Date$
  */
@@ -58,21 +58,19 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 @XmlAccessorType(XmlAccessType.FIELD)
 // @ValidateUsing("event.xsd")
 public class Parm implements Serializable {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 2841420030575276257L;
 
     // --------------------------/
     // - Class/Member Variables -/
     // --------------------------/
 
-    /**
-     * parm name
-     */
+    /** parm name. */
     @XmlElement(name = "parmName", required = true)
     private java.lang.String _parmName;
 
-    /**
-     * parm value
-     */
+    /** parm value. */
     @XmlElement(name = "value", required = true)
     private org.opennms.netmgt.xml.event.Value _value;
 
@@ -80,6 +78,9 @@ public class Parm implements Serializable {
     // - Constructors -/
     // ----------------/
 
+    /**
+     * Instantiates a new parm.
+     */
     public Parm() {
         super();
     }
@@ -88,6 +89,14 @@ public class Parm implements Serializable {
     // - Methods -/
     // -----------/
 
+    /**
+     * Instantiates a new parm.
+     *
+     * @param name
+     *            the name
+     * @param value
+     *            the value
+     */
     public Parm(final String name, final String value) {
         this();
         setParmName(name);
@@ -136,11 +145,19 @@ public class Parm implements Serializable {
         this._value = value;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return new ToStringBuilder(this).append("parmName", _parmName).append("value", _value).toString();
     }
 
+    /**
+     * Checks if is valid.
+     *
+     * @return true, if is valid
+     */
     public boolean isValid() {
         return getParmName() != null && getValue() != null;
     }

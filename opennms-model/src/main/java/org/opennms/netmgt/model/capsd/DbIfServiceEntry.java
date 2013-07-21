@@ -65,45 +65,52 @@ import org.slf4j.LoggerFactory;
  */
 public final class DbIfServiceEntry {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(DbIfServiceEntry.class);
 
-    /** Constant <code>STATUS_UNMANAGED='U'</code> */
+    /** Constant <code>STATUS_UNMANAGED='U'</code>. */
     public static final char STATUS_UNMANAGED = 'U';
 
-    /** Constant <code>STATUS_ACTIVE='A'</code> */
+    /** Constant <code>STATUS_ACTIVE='A'</code>. */
     public static final char STATUS_ACTIVE = 'A';
 
-    /** Constant <code>STATUS_DELETED='D'</code> */
+    /** Constant <code>STATUS_DELETED='D'</code>. */
     public static final char STATUS_DELETED = 'D';
 
-    /** Constant <code>STATUS_FORCED='F'</code> */
+    /** Constant <code>STATUS_FORCED='F'</code>. */
     public static final char STATUS_FORCED = 'F';
 
-    /** Constant <code>STATUS_NOT_POLLED='N'</code> */
+    /** Constant <code>STATUS_NOT_POLLED='N'</code>. */
     public static final char STATUS_NOT_POLLED = 'N';
 
-    /** Constant <code>STATUS_UNKNOWN=' '</code> */
+    /** Constant <code>STATUS_UNKNOWN=' '</code>. */
     public static final char STATUS_UNKNOWN = ' ';
 
-    /** Constant <code>STATUS_SUSPEND='S'</code> */
+    /** Constant <code>STATUS_SUSPEND='S'</code>. */
     public static final char STATUS_SUSPEND = 'S';
 
-    /** Constant <code>STATUS_RESUME='R'</code> */
+    /** Constant <code>STATUS_RESUME='R'</code>. */
     public static final char STATUS_RESUME = 'R';
 
-    /** Constant <code>STATUS_REMOTE='X'</code> */
+    /** Constant <code>STATUS_REMOTE='X'</code>. */
     public static final char STATUS_REMOTE = 'X';
 
+    /** The Constant SOURCE_PLUGIN. */
     public static final char SOURCE_PLUGIN = 'P';
 
+    /** The Constant SOURCE_FORCED. */
     static final char SOURCE_FORCED = 'F';
 
+    /** The Constant SOURCE_UNKNOWN. */
     static final char SOURCE_UNKNOWN = ' ';
 
+    /** The Constant NOTIFY_ON. */
     public static final char NOTIFY_ON = 'Y';
 
+    /** The Constant NOTIFY_OFF. */
     static final char NOTIFY_OFF = 'N';
 
+    /** The Constant NOTIFY_UNKNOWN. */
     static final char NOTIFY_UNKNOWN = ' ';
 
     /**
@@ -117,9 +124,7 @@ public final class DbIfServiceEntry {
      */
     private boolean m_fromDb;
 
-    /**
-     * The node identifier
-     */
+    /** The node identifier. */
     private long m_nodeId;
 
     /**
@@ -127,24 +132,16 @@ public final class DbIfServiceEntry {
      */
     private InetAddress m_ipAddr;
 
-    /**
-     * The integer service id
-     */
+    /** The integer service id. */
     private int m_serviceId;
 
-    /**
-     * The SNMP ifIndex
-     */
+    /** The SNMP ifIndex. */
     private int m_ifIndex;
 
-    /**
-     * The status of the interface
-     */
+    /** The status of the interface. */
     private char m_status;
 
-    /**
-     * The managed status, if any
-     */
+    /** The managed status, if any. */
     private char m_source;
 
     /**
@@ -162,9 +159,7 @@ public final class DbIfServiceEntry {
      */
     private char m_notify;
 
-    /**
-     * The qualifier string
-     */
+    /** The qualifier string. */
     private String m_qualifier;
 
     /**
@@ -175,18 +170,25 @@ public final class DbIfServiceEntry {
 
     // Mask fields
     //
+    /** The Constant CHANGED_IFINDEX. */
     private static final int CHANGED_IFINDEX = 1 << 0;
 
+    /** The Constant CHANGED_LASTGOOD. */
     private static final int CHANGED_LASTGOOD = 1 << 1;
 
+    /** The Constant CHANGED_LASTFAIL. */
     private static final int CHANGED_LASTFAIL = 1 << 2;
 
+    /** The Constant CHANGED_STATUS. */
     private static final int CHANGED_STATUS = 1 << 3;
 
+    /** The Constant CHANGED_SOURCE. */
     private static final int CHANGED_SOURCE = 1 << 4;
 
+    /** The Constant CHANGED_NOTIFY. */
     private static final int CHANGED_NOTIFY = 1 << 5;
 
+    /** The Constant CHANGED_QUALIFIER. */
     private static final int CHANGED_QUALIFIER = 1 << 6;
 
     /**
@@ -195,8 +197,10 @@ public final class DbIfServiceEntry {
      *
      * @param c
      *            The connection to the database.
-     * @throws java.sql.SQLException
-     *             Thrown if an error occurs with the connection
+     * @param noRollback
+     *            the no rollback
+     * @throws SQLException
+     *             the sQL exception
      */
     private void insert(Connection c, boolean noRollback) throws SQLException {
         if (m_fromDb)
@@ -345,8 +349,8 @@ public final class DbIfServiceEntry {
      *
      * @param c
      *            The connection used for the update.
-     * @throws java.sql.SQLException
-     *             Thrown if an error occurs with the connection
+     * @throws SQLException
+     *             the sQL exception
      */
     private void update(Connection c) throws SQLException {
         if (!m_fromDb)
@@ -471,8 +475,9 @@ public final class DbIfServiceEntry {
      *
      * @param c
      *            The connection used to load the data.
-     * @throws java.sql.SQLException
-     *             Thrown if an error occurs with the connection
+     * @return true, if successful
+     * @throws SQLException
+     *             the sQL exception
      */
     private boolean load(Connection c) throws SQLException {
         if (!m_fromDb)
@@ -593,6 +598,8 @@ public final class DbIfServiceEntry {
      * Returns the node entry's unique identifier. This is a non-mutable
      * element. If the record does not yet exist in the database then a -1 is
      * returned.
+     *
+     * @return the node id
      */
     public long getNodeId() {
         return m_nodeId;
@@ -601,6 +608,8 @@ public final class DbIfServiceEntry {
     /**
      * Returns the name of the distributed poller for the entry. This is a
      * non-mutable element of the record.
+     *
+     * @return the if address
      */
     public InetAddress getIfAddress() {
         return m_ipAddr;
@@ -608,13 +617,17 @@ public final class DbIfServiceEntry {
 
     /**
      * Returns the service id of this service entry.
+     *
+     * @return the service id
      */
     public int getServiceId() {
         return m_serviceId;
     }
 
     /**
-     * Gets the last good poll time of the record
+     * Gets the last good poll time of the record.
+     *
+     * @return the last good string
      */
     public String getLastGoodString() {
         String result = null;
@@ -625,17 +638,21 @@ public final class DbIfServiceEntry {
     }
 
     /**
-     * Gets the last good poll time of the record
+     * Gets the last good poll time of the record.
+     *
+     * @return the last good
      */
     public Timestamp getLastGood() {
         return m_lastGood;
     }
 
     /**
-     * Sets the current last good poll time
+     * Sets the current last good poll time.
      *
      * @param time
      *            The poll time.
+     * @throws ParseException
+     *             the parse exception
      */
     public void setLastGood(String time) throws ParseException {
         if (time == null) {
@@ -670,7 +687,9 @@ public final class DbIfServiceEntry {
     }
 
     /**
-     * Gets the last fail poll time of the record
+     * Gets the last fail poll time of the record.
+     *
+     * @return the last fail string
      */
     public String getLastFailString() {
         String result = null;
@@ -681,17 +700,21 @@ public final class DbIfServiceEntry {
     }
 
     /**
-     * Gets the last fail poll time of the record
+     * Gets the last fail poll time of the record.
+     *
+     * @return the last fail
      */
     public Timestamp getLastFail() {
         return m_lastFail;
     }
 
     /**
-     * Sets the current last fail poll time
+     * Sets the current last fail poll time.
      *
      * @param time
      *            The poll time.
+     * @throws ParseException
+     *             the parse exception
      */
     public void setLastFail(String time) throws ParseException {
         if (time == null) {
@@ -727,20 +750,24 @@ public final class DbIfServiceEntry {
 
     /**
      * Returns true if the ifIndex is defined.
+     *
+     * @return true, if successful
      */
     public boolean hasIfIndex() {
         return m_ifIndex != -1;
     }
 
     /**
-     * Returns the current ifIndex
+     * Returns the current ifIndex.
+     *
+     * @return the if index
      */
     public int getIfIndex() {
         return m_ifIndex;
     }
 
     /**
-     * Sets the ifIndex value
+     * Sets the ifIndex value.
      *
      * @param ndx
      *            The new ifIndex.
@@ -750,6 +777,11 @@ public final class DbIfServiceEntry {
         m_changed |= CHANGED_IFINDEX;
     }
 
+    /**
+     * Checks for if index changed.
+     *
+     * @return true, if successful
+     */
     public boolean hasIfIndexChanged() {
         if ((m_changed & CHANGED_IFINDEX) == CHANGED_IFINDEX)
             return true;
@@ -757,6 +789,13 @@ public final class DbIfServiceEntry {
             return false;
     }
 
+    /**
+     * Update if index.
+     *
+     * @param newIfIndex
+     *            the new if index
+     * @return true, if successful
+     */
     public boolean updateIfIndex(int newIfIndex) {
         if (newIfIndex != m_ifIndex) {
             setIfIndex(newIfIndex);
@@ -766,14 +805,16 @@ public final class DbIfServiceEntry {
     }
 
     /**
-     * Gets the current operational status field
+     * Gets the current operational status field.
+     *
+     * @return the status
      */
     public char getStatus() {
         return m_status;
     }
 
     /**
-     * Sets the current status of the service
+     * Sets the current status of the service.
      *
      * @param status
      *            The new status.
@@ -783,6 +824,11 @@ public final class DbIfServiceEntry {
         m_changed |= CHANGED_STATUS;
     }
 
+    /**
+     * Checks for status changed.
+     *
+     * @return true, if successful
+     */
     public boolean hasStatusChanged() {
         if ((m_changed & CHANGED_STATUS) == CHANGED_STATUS)
             return true;
@@ -790,6 +836,13 @@ public final class DbIfServiceEntry {
             return false;
     }
 
+    /**
+     * Update status.
+     *
+     * @param newStatus
+     *            the new status
+     * @return true, if successful
+     */
     public boolean updateStatus(char newStatus) {
         if (newStatus != m_status) {
             setStatus(newStatus);
@@ -800,19 +853,29 @@ public final class DbIfServiceEntry {
 
     /**
      * Gets the source of the interface service.
+     *
+     * @return the source
      */
     public char getSource() {
         return m_source;
     }
 
     /**
-     * Sets the source of the interface service
+     * Sets the source of the interface service.
+     *
+     * @param src
+     *            the new source
      */
     public void setSource(char src) {
         m_source = src;
         m_changed |= CHANGED_SOURCE;
     }
 
+    /**
+     * Checks for source changed.
+     *
+     * @return true, if successful
+     */
     public boolean hasSourceChanged() {
         if ((m_changed & CHANGED_SOURCE) == CHANGED_SOURCE)
             return true;
@@ -820,6 +883,13 @@ public final class DbIfServiceEntry {
             return false;
     }
 
+    /**
+     * Update source.
+     *
+     * @param newSource
+     *            the new source
+     * @return true, if successful
+     */
     public boolean updateSource(char newSource) {
         if (newSource != m_source) {
             setSource(newSource);
@@ -830,19 +900,29 @@ public final class DbIfServiceEntry {
 
     /**
      * Gets the notification state.
+     *
+     * @return the notify
      */
     public char getNotify() {
         return m_notify;
     }
 
     /**
-     * Sets the notification state
+     * Sets the notification state.
+     *
+     * @param notify
+     *            the new notify
      */
     public void setNotify(char notify) {
         m_notify = notify;
         m_changed |= CHANGED_NOTIFY;
     }
 
+    /**
+     * Checks for notify changed.
+     *
+     * @return true, if successful
+     */
     public boolean hasNotifyChanged() {
         if ((m_changed & CHANGED_NOTIFY) == CHANGED_NOTIFY)
             return true;
@@ -850,6 +930,13 @@ public final class DbIfServiceEntry {
             return false;
     }
 
+    /**
+     * Update notify.
+     *
+     * @param newNotify
+     *            the new notify
+     * @return true, if successful
+     */
     public boolean updateNotify(char newNotify) {
         if (newNotify != m_notify) {
             setNotify(newNotify);
@@ -858,15 +945,31 @@ public final class DbIfServiceEntry {
         return false;
     }
 
+    /**
+     * Gets the qualifier.
+     *
+     * @return the qualifier
+     */
     public String getQualifier() {
         return m_qualifier;
     }
 
+    /**
+     * Sets the qualifier.
+     *
+     * @param qualifier
+     *            the new qualifier
+     */
     public void setQualifier(String qualifier) {
         m_qualifier = qualifier;
         m_changed |= CHANGED_QUALIFIER;
     }
 
+    /**
+     * Checks for qualifier changed.
+     *
+     * @return true, if successful
+     */
     public boolean hasQualifierChanged() {
         if ((m_changed & CHANGED_QUALIFIER) == CHANGED_QUALIFIER)
             return true;
@@ -874,6 +977,13 @@ public final class DbIfServiceEntry {
             return false;
     }
 
+    /**
+     * Update qualifier.
+     *
+     * @param newQualifier
+     *            the new qualifier
+     * @return true, if successful
+     */
     public boolean updateQualifier(String newQualifier) {
         boolean doUpdate = false;
         if (newQualifier != null && m_qualifier != null) {
@@ -897,6 +1007,9 @@ public final class DbIfServiceEntry {
      * interfaca does not exist the a new row in the table is created. If the
      * element already exists then it's current row is updated as needed based
      * upon the current changes to the node.
+     *
+     * @throws SQLException
+     *             the sQL exception
      */
     public void store() throws SQLException {
         if (m_changed != 0 || m_fromDb == false) {
@@ -926,11 +1039,23 @@ public final class DbIfServiceEntry {
      *
      * @param db
      *            The database connection used to write the record.
+     * @throws SQLException
+     *             the sQL exception
      */
     public void store(Connection db) throws SQLException {
         store(db, false);
     }
 
+    /**
+     * Store.
+     *
+     * @param db
+     *            the db
+     * @param noRollback
+     *            the no rollback
+     * @throws SQLException
+     *             the sQL exception
+     */
     public void store(Connection db, boolean noRollback) throws SQLException {
         if (m_changed != 0 || m_fromDb == false) {
             if (m_fromDb) {
@@ -945,10 +1070,10 @@ public final class DbIfServiceEntry {
      * Creates a new entry. The entry is created in memory, but is not written
      * to the database until the first call to <code>store</code>.
      *
-     * @param address
-     *            The address of the interface.
      * @param nid
      *            The node id of the interface.
+     * @param address
+     *            The address of the interface.
      * @param sid
      *            The service id for the interface.
      * @return A new interface record.
@@ -969,6 +1094,8 @@ public final class DbIfServiceEntry {
      * @param sid
      *            The service id.
      * @return The loaded entry or null if one could not be found.
+     * @throws SQLException
+     *             the sQL exception
      */
     public static DbIfServiceEntry get(int nid, InetAddress addr, int sid) throws SQLException {
         Connection db = null;
@@ -997,7 +1124,11 @@ public final class DbIfServiceEntry {
      *            The node id key
      * @param addr
      *            The IP address.
+     * @param sid
+     *            the sid
      * @return The loaded entry or null if one could not be found.
+     * @throws SQLException
+     *             the sQL exception
      */
     public static DbIfServiceEntry get(Connection db, long nodeId, InetAddress addr, int sid) throws SQLException {
         DbIfServiceEntry entry = new DbIfServiceEntry(nodeId, addr, sid, true);
@@ -1033,7 +1164,7 @@ public final class DbIfServiceEntry {
     }
 
     /**
-     * For debugging only
+     * For debugging only.
      *
      * @param args
      *            an array of {@link java.lang.String} objects.

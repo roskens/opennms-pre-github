@@ -38,13 +38,14 @@ package org.opennms.netmgt.model;
  */
 public interface FilterManager {
 
-    /** Constant <code>AUTH_FILTER_NAME="authorizedOnly"</code> */
+    /** Constant <code>AUTH_FILTER_NAME="authorizedOnly"</code>. */
     public static final String AUTH_FILTER_NAME = "authorizedOnly";
 
     /**
      * <p>
      * enableAuthorizationFilter
      * </p>
+     * .
      *
      * @param authorizationGroups
      *            an array of {@link java.lang.String} objects.
@@ -55,6 +56,7 @@ public interface FilterManager {
      * <p>
      * disableAuthorizationFilter
      * </p>
+     * .
      */
     public void disableAuthorizationFilter();
 

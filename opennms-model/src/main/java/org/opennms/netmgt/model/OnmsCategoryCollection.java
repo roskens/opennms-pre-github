@@ -47,6 +47,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "categories")
 public class OnmsCategoryCollection extends LinkedList<OnmsCategory> {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 4731486422555152257L;
 
     /**
@@ -74,6 +75,7 @@ public class OnmsCategoryCollection extends LinkedList<OnmsCategory> {
      * <p>
      * getCategories
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -86,6 +88,7 @@ public class OnmsCategoryCollection extends LinkedList<OnmsCategory> {
      * <p>
      * setCategories
      * </p>
+     * .
      *
      * @param categories
      *            a {@link java.util.List} object.
@@ -101,6 +104,7 @@ public class OnmsCategoryCollection extends LinkedList<OnmsCategory> {
      * <p>
      * getCount
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */

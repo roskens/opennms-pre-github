@@ -39,22 +39,29 @@ import java.util.Set;
  */
 public class AggregateStatusView {
 
+    /** The m_id. */
     private Integer m_id;
 
+    /** The m_name. */
     private String m_name;
 
+    /** The m_table name. */
     private String m_tableName;
 
+    /** The m_column name. */
     private String m_columnName;
 
+    /** The m_column value. */
     private String m_columnValue;
 
+    /** The m_status definitions. */
     private Set<AggregateStatusDefinition> m_statusDefinitions;
 
     /**
      * <p>
      * getId
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -66,6 +73,7 @@ public class AggregateStatusView {
      * <p>
      * setId
      * </p>
+     * .
      *
      * @param id
      *            a {@link java.lang.Integer} object.
@@ -78,6 +86,7 @@ public class AggregateStatusView {
      * <p>
      * getName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -89,6 +98,7 @@ public class AggregateStatusView {
      * <p>
      * setName
      * </p>
+     * .
      *
      * @param name
      *            a {@link java.lang.String} object.
@@ -101,6 +111,7 @@ public class AggregateStatusView {
      * <p>
      * getTableName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -112,6 +123,7 @@ public class AggregateStatusView {
      * <p>
      * setTableName
      * </p>
+     * .
      *
      * @param tableName
      *            a {@link java.lang.String} object.
@@ -124,6 +136,7 @@ public class AggregateStatusView {
      * <p>
      * getColumnName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -135,6 +148,7 @@ public class AggregateStatusView {
      * <p>
      * setColumnName
      * </p>
+     * .
      *
      * @param columnName
      *            a {@link java.lang.String} object.
@@ -147,6 +161,7 @@ public class AggregateStatusView {
      * <p>
      * getColumnValue
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -158,6 +173,7 @@ public class AggregateStatusView {
      * <p>
      * setColumnValue
      * </p>
+     * .
      *
      * @param columnValue
      *            a {@link java.lang.String} object.
@@ -170,6 +186,7 @@ public class AggregateStatusView {
      * <p>
      * getStatusDefinitions
      * </p>
+     * .
      *
      * @return a {@link java.util.Set} object.
      */
@@ -181,6 +198,7 @@ public class AggregateStatusView {
      * <p>
      * setStatusDefinitions
      * </p>
+     * .
      *
      * @param statusDefinitions
      *            a {@link java.util.Set} object.

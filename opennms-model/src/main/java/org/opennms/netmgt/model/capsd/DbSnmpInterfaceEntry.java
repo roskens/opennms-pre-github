@@ -61,6 +61,7 @@ import org.slf4j.LoggerFactory;
  */
 public final class DbSnmpInterfaceEntry {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(DbSnmpInterfaceEntry.class);
 
     /**
@@ -77,34 +78,40 @@ public final class DbSnmpInterfaceEntry {
      */
     private boolean m_fromDb;
 
-    /**
-     * The node identifier
-     */
+    /** The node identifier. */
     private long m_nodeId;
 
-    /**
-     * The SNMP ifIndex
-     */
+    /** The SNMP ifIndex. */
     private int m_ifIndex;
 
+    /** The m_netmask. */
     private InetAddress m_netmask;
 
+    /** The m_phys addr. */
     private String m_physAddr;
 
+    /** The m_if description. */
     private String m_ifDescription;
 
+    /** The m_if type. */
     private int m_ifType;
 
+    /** The m_if name. */
     private String m_ifName;
 
+    /** The m_if alias. */
     private String m_ifAlias;
 
+    /** The m_if speed. */
     private long m_ifSpeed;
 
+    /** The m_if admin status. */
     private int m_ifAdminStatus;
 
+    /** The m_if oper status. */
     private int m_ifOperStatus;
 
+    /** The m_collect. */
     private String m_collect;
 
     /**
@@ -116,24 +123,34 @@ public final class DbSnmpInterfaceEntry {
     // Mask fields
     // private static final int CHANGED_IFADDRESS = 1 << 0;
 
+    /** The Constant CHANGED_NETMASK. */
     private static final int CHANGED_NETMASK = 1 << 1;
 
+    /** The Constant CHANGED_PHYSADDR. */
     private static final int CHANGED_PHYSADDR = 1 << 2;
 
+    /** The Constant CHANGED_DESCRIPTION. */
     private static final int CHANGED_DESCRIPTION = 1 << 3;
 
+    /** The Constant CHANGED_IFTYPE. */
     private static final int CHANGED_IFTYPE = 1 << 4;
 
+    /** The Constant CHANGED_IFNAME. */
     private static final int CHANGED_IFNAME = 1 << 5;
 
+    /** The Constant CHANGED_IFSPEED. */
     private static final int CHANGED_IFSPEED = 1 << 6;
 
+    /** The Constant CHANGED_IFADMINSTATUS. */
     private static final int CHANGED_IFADMINSTATUS = 1 << 7;
 
+    /** The Constant CHANGED_IFOPERSTATUS. */
     private static final int CHANGED_IFOPERSTATUS = 1 << 8;
 
+    /** The Constant CHANGED_IFALIAS. */
     private static final int CHANGED_IFALIAS = 1 << 9;
 
+    /** The Constant CHANGED_COLLECT. */
     private static final int CHANGED_COLLECT = 1 << 10;
 
     /**
@@ -142,8 +159,8 @@ public final class DbSnmpInterfaceEntry {
      *
      * @param c
      *            The connection to the database.
-     * @throws java.sql.SQLException
-     *             Thrown if an error occurs with the connection
+     * @throws SQLException
+     *             the sQL exception
      */
     private void insert(Connection c) throws SQLException {
         if (m_fromDb) {
@@ -283,8 +300,8 @@ public final class DbSnmpInterfaceEntry {
      *
      * @param c
      *            The connection used for the update.
-     * @throws java.sql.SQLException
-     *             Thrown if an error occurs with the connection
+     * @throws SQLException
+     *             the sQL exception
      */
     private void update(Connection c) throws SQLException {
         if (!m_fromDb) {
@@ -475,8 +492,9 @@ public final class DbSnmpInterfaceEntry {
      *
      * @param c
      *            The connection used to load the data.
-     * @throws java.sql.SQLException
-     *             Thrown if an error occurs with the connection
+     * @return true, if successful
+     * @throws SQLException
+     *             the sQL exception
      */
     private boolean load(Connection c) throws SQLException {
         if (!m_fromDb) {
@@ -623,6 +641,8 @@ public final class DbSnmpInterfaceEntry {
      * Returns the node entry's unique identifier. This is a non-mutable
      * element. If the record does not yet exist in the database then a -1 is
      * returned.
+     *
+     * @return the node id
      */
     public long getNodeId() {
         return m_nodeId;
@@ -630,27 +650,47 @@ public final class DbSnmpInterfaceEntry {
 
     /**
      * Returns true if the ifIndex is defined.
+     *
+     * @return true, if successful
      */
     public boolean hasIfIndex() {
         return m_ifIndex != -1;
     }
 
     /**
-     * Returns the current ifIndex
+     * Returns the current ifIndex.
+     *
+     * @return the if index
      */
     public int getIfIndex() {
         return m_ifIndex;
     }
 
+    /**
+     * Gets the netmask.
+     *
+     * @return the netmask
+     */
     public InetAddress getNetmask() {
         return m_netmask;
     }
 
+    /**
+     * Sets the netmask.
+     *
+     * @param mask
+     *            the new netmask
+     */
     public void setNetmask(InetAddress mask) {
         m_netmask = mask;
         m_changed |= CHANGED_NETMASK;
     }
 
+    /**
+     * Checks for netmask changed.
+     *
+     * @return true, if successful
+     */
     public boolean hasNetmaskChanged() {
         if ((m_changed & CHANGED_NETMASK) == CHANGED_NETMASK) {
             return true;
@@ -659,6 +699,13 @@ public final class DbSnmpInterfaceEntry {
         }
     }
 
+    /**
+     * Update netmask.
+     *
+     * @param newNetmask
+     *            the new netmask
+     * @return true, if successful
+     */
     public boolean updateNetmask(InetAddress newNetmask) {
         if (newNetmask == null || newNetmask.equals(m_netmask)) {
             return false;
@@ -668,15 +715,31 @@ public final class DbSnmpInterfaceEntry {
         }
     }
 
+    /**
+     * Gets the physical address.
+     *
+     * @return the physical address
+     */
     public String getPhysicalAddress() {
         return m_physAddr;
     }
 
+    /**
+     * Sets the physical address.
+     *
+     * @param addr
+     *            the new physical address
+     */
     public void setPhysicalAddress(String addr) {
         m_physAddr = addr;
         m_changed |= CHANGED_PHYSADDR;
     }
 
+    /**
+     * Checks for physical address changed.
+     *
+     * @return true, if successful
+     */
     public boolean hasPhysicalAddressChanged() {
         if ((m_changed & CHANGED_PHYSADDR) == CHANGED_PHYSADDR) {
             return true;
@@ -685,6 +748,13 @@ public final class DbSnmpInterfaceEntry {
         }
     }
 
+    /**
+     * Update physical address.
+     *
+     * @param newPhysAddr
+     *            the new phys addr
+     * @return true, if successful
+     */
     public boolean updatePhysicalAddress(String newPhysAddr) {
         if (newPhysAddr == null || newPhysAddr.equals(m_physAddr)) {
             return false;
@@ -694,15 +764,31 @@ public final class DbSnmpInterfaceEntry {
         }
     }
 
+    /**
+     * Gets the description.
+     *
+     * @return the description
+     */
     public String getDescription() {
         return m_ifDescription;
     }
 
+    /**
+     * Sets the description.
+     *
+     * @param descr
+     *            the new description
+     */
     public void setDescription(String descr) {
         m_ifDescription = descr;
         m_changed |= CHANGED_DESCRIPTION;
     }
 
+    /**
+     * Checks for description changed.
+     *
+     * @return true, if successful
+     */
     public boolean hasDescriptionChanged() {
         if ((m_changed & CHANGED_DESCRIPTION) == CHANGED_DESCRIPTION) {
             return true;
@@ -711,6 +797,13 @@ public final class DbSnmpInterfaceEntry {
         }
     }
 
+    /**
+     * Update description.
+     *
+     * @param newIfDescription
+     *            the new if description
+     * @return true, if successful
+     */
     public boolean updateDescription(String newIfDescription) {
         if (newIfDescription == null || newIfDescription.equals(m_ifDescription)) {
             return false;
@@ -720,15 +813,31 @@ public final class DbSnmpInterfaceEntry {
         }
     }
 
+    /**
+     * Gets the name.
+     *
+     * @return the name
+     */
     public String getName() {
         return m_ifName;
     }
 
+    /**
+     * Sets the name.
+     *
+     * @param name
+     *            the new name
+     */
     public void setName(String name) {
         m_ifName = name;
         m_changed |= CHANGED_IFNAME;
     }
 
+    /**
+     * Checks for name changed.
+     *
+     * @return true, if successful
+     */
     public boolean hasNameChanged() {
         if ((m_changed & CHANGED_IFNAME) == CHANGED_IFNAME) {
             return true;
@@ -737,6 +846,13 @@ public final class DbSnmpInterfaceEntry {
         }
     }
 
+    /**
+     * Update name.
+     *
+     * @param newIfName
+     *            the new if name
+     * @return true, if successful
+     */
     public boolean updateName(String newIfName) {
         if (newIfName == null || newIfName.equals(m_ifName)) {
             return false;
@@ -746,15 +862,31 @@ public final class DbSnmpInterfaceEntry {
         }
     }
 
+    /**
+     * Gets the type.
+     *
+     * @return the type
+     */
     public int getType() {
         return m_ifType;
     }
 
+    /**
+     * Sets the type.
+     *
+     * @param type
+     *            the new type
+     */
     public void setType(int type) {
         m_ifType = type;
         m_changed |= CHANGED_IFTYPE;
     }
 
+    /**
+     * Checks for type changed.
+     *
+     * @return true, if successful
+     */
     public boolean hasTypeChanged() {
         if ((m_changed & CHANGED_IFTYPE) == CHANGED_IFTYPE) {
             return true;
@@ -763,6 +895,13 @@ public final class DbSnmpInterfaceEntry {
         }
     }
 
+    /**
+     * Update type.
+     *
+     * @param newIfType
+     *            the new if type
+     * @return true, if successful
+     */
     public boolean updateType(int newIfType) {
         if (newIfType == -1 || newIfType == m_ifType) {
             return false;
@@ -772,15 +911,31 @@ public final class DbSnmpInterfaceEntry {
         }
     }
 
+    /**
+     * Gets the speed.
+     *
+     * @return the speed
+     */
     public long getSpeed() {
         return m_ifSpeed;
     }
 
+    /**
+     * Sets the speed.
+     *
+     * @param speed
+     *            the new speed
+     */
     public void setSpeed(long speed) {
         m_ifSpeed = speed;
         m_changed |= CHANGED_IFSPEED;
     }
 
+    /**
+     * Checks for speed changed.
+     *
+     * @return true, if successful
+     */
     public boolean hasSpeedChanged() {
         if ((m_changed & CHANGED_IFSPEED) == CHANGED_IFSPEED) {
             return true;
@@ -789,6 +944,13 @@ public final class DbSnmpInterfaceEntry {
         }
     }
 
+    /**
+     * Update speed.
+     *
+     * @param newIfSpeed
+     *            the new if speed
+     * @return true, if successful
+     */
     public boolean updateSpeed(long newIfSpeed) {
         if (newIfSpeed == -1L || newIfSpeed == m_ifSpeed) {
             return false;
@@ -798,15 +960,31 @@ public final class DbSnmpInterfaceEntry {
         }
     }
 
+    /**
+     * Gets the admin status.
+     *
+     * @return the admin status
+     */
     public int getAdminStatus() {
         return m_ifAdminStatus;
     }
 
+    /**
+     * Sets the admin status.
+     *
+     * @param status
+     *            the new admin status
+     */
     public void setAdminStatus(int status) {
         m_ifAdminStatus = status;
         m_changed |= CHANGED_IFADMINSTATUS;
     }
 
+    /**
+     * Checks for admin status changed.
+     *
+     * @return true, if successful
+     */
     public boolean hasAdminStatusChanged() {
         if ((m_changed & CHANGED_IFADMINSTATUS) == CHANGED_IFADMINSTATUS) {
             return true;
@@ -815,6 +993,13 @@ public final class DbSnmpInterfaceEntry {
         }
     }
 
+    /**
+     * Update admin status.
+     *
+     * @param newIfAdminStatus
+     *            the new if admin status
+     * @return true, if successful
+     */
     public boolean updateAdminStatus(int newIfAdminStatus) {
         if (newIfAdminStatus == -1 || newIfAdminStatus == m_ifAdminStatus) {
             return false;
@@ -824,15 +1009,31 @@ public final class DbSnmpInterfaceEntry {
         }
     }
 
+    /**
+     * Gets the operational status.
+     *
+     * @return the operational status
+     */
     public int getOperationalStatus() {
         return m_ifOperStatus;
     }
 
+    /**
+     * Sets the operational status.
+     *
+     * @param status
+     *            the new operational status
+     */
     public void setOperationalStatus(int status) {
         m_ifOperStatus = status;
         m_changed |= CHANGED_IFOPERSTATUS;
     }
 
+    /**
+     * Checks for operational status changed.
+     *
+     * @return true, if successful
+     */
     public boolean hasOperationalStatusChanged() {
         if ((m_changed & CHANGED_IFOPERSTATUS) == CHANGED_IFOPERSTATUS) {
             return true;
@@ -841,6 +1042,13 @@ public final class DbSnmpInterfaceEntry {
         }
     }
 
+    /**
+     * Update operational status.
+     *
+     * @param newIfOperStatus
+     *            the new if oper status
+     * @return true, if successful
+     */
     public boolean updateOperationalStatus(int newIfOperStatus) {
         if (newIfOperStatus == -1 || newIfOperStatus == m_ifOperStatus) {
             return false;
@@ -850,15 +1058,31 @@ public final class DbSnmpInterfaceEntry {
         }
     }
 
+    /**
+     * Gets the alias.
+     *
+     * @return the alias
+     */
     public String getAlias() {
         return m_ifAlias;
     }
 
+    /**
+     * Sets the alias.
+     *
+     * @param alias
+     *            the new alias
+     */
     public void setAlias(String alias) {
         m_ifAlias = alias;
         m_changed |= CHANGED_IFALIAS;
     }
 
+    /**
+     * Checks for alias changed.
+     *
+     * @return true, if successful
+     */
     public boolean hasAliasChanged() {
         if ((m_changed & CHANGED_IFALIAS) == CHANGED_IFALIAS) {
             return true;
@@ -867,6 +1091,13 @@ public final class DbSnmpInterfaceEntry {
         }
     }
 
+    /**
+     * Update alias.
+     *
+     * @param newIfAlias
+     *            the new if alias
+     * @return true, if successful
+     */
     public boolean updateAlias(String newIfAlias) {
         if (newIfAlias == null || newIfAlias.equals(m_ifAlias)) {
             return false;
@@ -876,19 +1107,42 @@ public final class DbSnmpInterfaceEntry {
         }
     }
 
+    /**
+     * Gets the collect.
+     *
+     * @return the collect
+     */
     public String getCollect() {
         return m_collect;
     }
 
+    /**
+     * Sets the collect.
+     *
+     * @param collect
+     *            the new collect
+     */
     public void setCollect(String collect) {
         m_collect = collect;
         m_changed |= CHANGED_COLLECT;
     }
 
+    /**
+     * Checks for collect changed.
+     *
+     * @return true, if successful
+     */
     public boolean hasCollectChanged() {
         return ((m_changed & CHANGED_COLLECT) == CHANGED_COLLECT);
     }
 
+    /**
+     * Update collect.
+     *
+     * @param newCollect
+     *            the new collect
+     * @return true, if successful
+     */
     public boolean updateCollect(String newCollect) {
         if (newCollect == null || newCollect.equals(m_collect)) {
             return false;
@@ -903,6 +1157,9 @@ public final class DbSnmpInterfaceEntry {
      * interface does not exist the a new row in the table is created. If the
      * element already exists then it's current row is updated as needed based
      * upon the current changes to the node.
+     *
+     * @throws SQLException
+     *             the sQL exception
      */
     public void store() throws SQLException {
         if (m_changed != 0 || m_fromDb == false) {
@@ -934,6 +1191,8 @@ public final class DbSnmpInterfaceEntry {
      *
      * @param db
      *            The database connection used to write the record.
+     * @throws SQLException
+     *             the sQL exception
      */
     public void store(Connection db) throws SQLException {
         if (m_changed != 0 || m_fromDb == false) {
@@ -969,6 +1228,8 @@ public final class DbSnmpInterfaceEntry {
      * @param ifIndex
      *            the interface index.
      * @return The loaded entry or null if one could not be found.
+     * @throws SQLException
+     *             the sQL exception
      */
     public static DbSnmpInterfaceEntry get(long nodeId, int ifIndex) throws SQLException {
         Connection db = null;
@@ -998,6 +1259,8 @@ public final class DbSnmpInterfaceEntry {
      * @param ifIndex
      *            The interface index.
      * @return The loaded entry or null if one could not be found.
+     * @throws SQLException
+     *             the sQL exception
      */
     public static DbSnmpInterfaceEntry get(Connection db, long nodeId, int ifIndex) throws SQLException {
         DbSnmpInterfaceEntry entry = new DbSnmpInterfaceEntry(nodeId, ifIndex);
@@ -1035,7 +1298,7 @@ public final class DbSnmpInterfaceEntry {
     }
 
     /**
-     * For debugging only
+     * For debugging only.
      *
      * @param args
      *            an array of {@link java.lang.String} objects.

@@ -49,10 +49,14 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "resourceReference")
 public class ResourceReference implements Serializable {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -8681671877772073153L;
 
+    /** The m_id. */
     private Integer m_id;
 
+    /** The m_resource id. */
     private String m_resourceId;
 
     /**
@@ -80,6 +84,7 @@ public class ResourceReference implements Serializable {
      * <p>
      * setId
      * </p>
+     * .
      *
      * @param id
      *            a {@link java.lang.Integer} object.
@@ -92,6 +97,7 @@ public class ResourceReference implements Serializable {
      * <p>
      * getResourceId
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -104,6 +110,7 @@ public class ResourceReference implements Serializable {
      * <p>
      * setResourceId
      * </p>
+     * .
      *
      * @param resourceId
      *            a {@link java.lang.String} object.

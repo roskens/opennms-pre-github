@@ -69,16 +69,18 @@ import javax.xml.bind.annotation.XmlType;
 @XmlRootElement(name = "maskelement")
 public class Maskelement {
 
+    /** The mename. */
     @XmlElement(required = true)
     protected String mename;
 
+    /** The mevalue. */
     @XmlElement(required = true)
     protected List<String> mevalue;
 
     /**
      * Gets the value of the mename property.
      *
-     * @return
+     * @return the mename
      *         possible object is {@link String }
      */
     public String getMename() {
@@ -110,6 +112,8 @@ public class Maskelement {
      * </pre>
      * <p>
      * Objects of the following type(s) are allowed in the list {@link String }
+     *
+     * @return the mevalue
      */
     public List<String> getMevalue() {
         if (mevalue == null) {

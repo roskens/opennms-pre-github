@@ -42,6 +42,9 @@ import javax.persistence.Table;
 
 import org.springframework.core.style.ToStringCreator;
 
+/**
+ * The Class OnmsApplication.
+ */
 @Entity
 /**
  * <p>OnmsApplication class.</p>
@@ -49,16 +52,20 @@ import org.springframework.core.style.ToStringCreator;
 @Table(name = "applications")
 public class OnmsApplication implements Comparable<OnmsApplication> {
 
+    /** The m_id. */
     private Integer m_id;
 
+    /** The m_name. */
     private String m_name;
 
+    /** The m_monitored services. */
     private Set<OnmsMonitoredService> m_monitoredServices = new LinkedHashSet<OnmsMonitoredService>();
 
     /**
      * <p>
      * getId
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -74,6 +81,7 @@ public class OnmsApplication implements Comparable<OnmsApplication> {
      * <p>
      * setId
      * </p>
+     * .
      *
      * @param id
      *            a {@link java.lang.Integer} object.
@@ -86,6 +94,7 @@ public class OnmsApplication implements Comparable<OnmsApplication> {
      * <p>
      * getName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -98,6 +107,7 @@ public class OnmsApplication implements Comparable<OnmsApplication> {
      * <p>
      * setName
      * </p>
+     * .
      *
      * @param name
      *            a {@link java.lang.String} object.
@@ -110,6 +120,7 @@ public class OnmsApplication implements Comparable<OnmsApplication> {
      * <p>
      * getMonitoredServices
      * </p>
+     * .
      *
      * @return a {@link java.util.Set} object.
      * @since 1.8.1
@@ -123,6 +134,7 @@ public class OnmsApplication implements Comparable<OnmsApplication> {
      * <p>
      * setMonitoredServices
      * </p>
+     * .
      *
      * @param services
      *            a {@link java.util.Set} object.
@@ -136,6 +148,7 @@ public class OnmsApplication implements Comparable<OnmsApplication> {
      * <p>
      * addMonitoredService
      * </p>
+     * .
      *
      * @param service
      *            a {@link org.opennms.netmgt.model.OnmsMonitoredService}
@@ -150,6 +163,7 @@ public class OnmsApplication implements Comparable<OnmsApplication> {
      * <p>
      * compareTo
      * </p>
+     * .
      *
      * @param o
      *            a {@link org.opennms.netmgt.model.OnmsApplication} object.

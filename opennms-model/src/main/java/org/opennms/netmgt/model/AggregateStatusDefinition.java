@@ -38,12 +38,16 @@ import java.util.Set;
  */
 public class AggregateStatusDefinition {
 
+    /** The m_id. */
     private int m_id;
 
+    /** The m_name. */
     private String m_name;
 
+    /** The m_report category. */
     private String m_reportCategory;
 
+    /** The m_categories. */
     private Set<OnmsCategory> m_categories;
 
     /**
@@ -78,6 +82,7 @@ public class AggregateStatusDefinition {
      * <p>
      * getId
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -89,6 +94,7 @@ public class AggregateStatusDefinition {
      * <p>
      * setId
      * </p>
+     * .
      *
      * @param id
      *            a {@link java.lang.Integer} object.
@@ -101,6 +107,7 @@ public class AggregateStatusDefinition {
      * <p>
      * getName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -112,6 +119,7 @@ public class AggregateStatusDefinition {
      * <p>
      * setName
      * </p>
+     * .
      *
      * @param name
      *            a {@link java.lang.String} object.
@@ -124,6 +132,7 @@ public class AggregateStatusDefinition {
      * <p>
      * getCategories
      * </p>
+     * .
      *
      * @return a {@link java.util.Set} object.
      */
@@ -135,6 +144,7 @@ public class AggregateStatusDefinition {
      * <p>
      * setCategories
      * </p>
+     * .
      *
      * @param categories
      *            a {@link java.util.Set} object.
@@ -147,6 +157,7 @@ public class AggregateStatusDefinition {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -159,6 +170,7 @@ public class AggregateStatusDefinition {
      * <p>
      * getReportCategory
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -170,6 +182,7 @@ public class AggregateStatusDefinition {
      * <p>
      * setReportCategory
      * </p>
+     * .
      *
      * @param reportCategory
      *            a {@link java.lang.String} object.

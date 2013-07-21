@@ -71,44 +71,46 @@ import org.springframework.core.style.ToStringCreator;
 @Filter(name = FilterManager.AUTH_FILTER_NAME, condition = "exists (select distinct x.nodeid from node x join category_node cn on x.nodeid = cn.nodeid join category_group cg on cn.categoryId = cg.categoryId where x.nodeid = nodeid and cg.groupId in (:userGroups))")
 public class OnmsNotification implements Acknowledgeable, Serializable {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -1162549324168290004L;
 
-    /** identifier field */
+    /** identifier field. */
     private Integer m_notifyId;
 
-    /** persistent field */
+    /** persistent field. */
     private String m_textMsg;
 
-    /** nullable persistent field */
+    /** nullable persistent field. */
     private String m_subject;
 
-    /** nullable persistent field */
+    /** nullable persistent field. */
     private String m_numericMsg;
 
-    /** nullable persistent field */
+    /** nullable persistent field. */
     private Date m_pageTime;
 
-    /** nullable persistent field */
+    /** nullable persistent field. */
     private Date m_respondTime;
 
-    /** nullable persistent field */
+    /** nullable persistent field. */
     private String m_answeredBy;
 
-    /** nullable persistent field */
+    /** nullable persistent field. */
     private OnmsServiceType m_serviceType;
 
-    /** nullable persistent field */
+    /** nullable persistent field. */
     private String m_queueId;
 
-    /** persistent field */
+    /** persistent field. */
     private OnmsEvent m_event;
 
-    /** persistent field */
+    /** persistent field. */
     private OnmsNode m_node;
 
-    /** persistent field */
+    /** persistent field. */
     private Set<OnmsUserNotification> m_usersNotified = new HashSet<OnmsUserNotification>();
 
+    /** The m_ip address. */
     private InetAddress m_ipAddress;
 
     /**
@@ -119,7 +121,7 @@ public class OnmsNotification implements Acknowledgeable, Serializable {
     private String m_notifConfigName;
 
     /**
-     * full constructor
+     * full constructor.
      *
      * @param notifyId
      *            a {@link java.lang.Integer} object.
@@ -170,13 +172,13 @@ public class OnmsNotification implements Acknowledgeable, Serializable {
     }
 
     /**
-     * default constructor
+     * default constructor.
      */
     public OnmsNotification() {
     }
 
     /**
-     * minimal constructor
+     * minimal constructor.
      *
      * @param notifyId
      *            a {@link java.lang.Integer} object.
@@ -202,6 +204,7 @@ public class OnmsNotification implements Acknowledgeable, Serializable {
      * <p>
      * getNotifyId
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -218,6 +221,7 @@ public class OnmsNotification implements Acknowledgeable, Serializable {
      * <p>
      * setNotifyId
      * </p>
+     * .
      *
      * @param notifyid
      *            a {@link java.lang.Integer} object.
@@ -230,6 +234,7 @@ public class OnmsNotification implements Acknowledgeable, Serializable {
      * <p>
      * getTextMsg
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -243,6 +248,7 @@ public class OnmsNotification implements Acknowledgeable, Serializable {
      * <p>
      * setTextMsg
      * </p>
+     * .
      *
      * @param textmsg
      *            a {@link java.lang.String} object.
@@ -255,6 +261,7 @@ public class OnmsNotification implements Acknowledgeable, Serializable {
      * <p>
      * getSubject
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -268,6 +275,7 @@ public class OnmsNotification implements Acknowledgeable, Serializable {
      * <p>
      * setSubject
      * </p>
+     * .
      *
      * @param subject
      *            a {@link java.lang.String} object.
@@ -280,6 +288,7 @@ public class OnmsNotification implements Acknowledgeable, Serializable {
      * <p>
      * getNumericMsg
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -293,6 +302,7 @@ public class OnmsNotification implements Acknowledgeable, Serializable {
      * <p>
      * setNumericMsg
      * </p>
+     * .
      *
      * @param numericmsg
      *            a {@link java.lang.String} object.
@@ -305,6 +315,7 @@ public class OnmsNotification implements Acknowledgeable, Serializable {
      * <p>
      * getPageTime
      * </p>
+     * .
      *
      * @return a {@link java.util.Date} object.
      */
@@ -319,6 +330,7 @@ public class OnmsNotification implements Acknowledgeable, Serializable {
      * <p>
      * setPageTime
      * </p>
+     * .
      *
      * @param pagetime
      *            a {@link java.util.Date} object.
@@ -331,6 +343,7 @@ public class OnmsNotification implements Acknowledgeable, Serializable {
      * <p>
      * getRespondTime
      * </p>
+     * .
      *
      * @return a {@link java.util.Date} object.
      */
@@ -345,6 +358,7 @@ public class OnmsNotification implements Acknowledgeable, Serializable {
      * <p>
      * setRespondTime
      * </p>
+     * .
      *
      * @param respondtime
      *            a {@link java.util.Date} object.
@@ -357,6 +371,7 @@ public class OnmsNotification implements Acknowledgeable, Serializable {
      * <p>
      * getAnsweredBy
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -370,6 +385,7 @@ public class OnmsNotification implements Acknowledgeable, Serializable {
      * <p>
      * setAnsweredBy
      * </p>
+     * .
      *
      * @param answeredby
      *            a {@link java.lang.String} object.
@@ -382,6 +398,7 @@ public class OnmsNotification implements Acknowledgeable, Serializable {
      * <p>
      * getIpAddress
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -397,6 +414,7 @@ public class OnmsNotification implements Acknowledgeable, Serializable {
      * <p>
      * setIpAddress
      * </p>
+     * .
      *
      * @param ipAddress
      *            a {@link java.lang.String} object.
@@ -409,6 +427,7 @@ public class OnmsNotification implements Acknowledgeable, Serializable {
      * <p>
      * getServiceType
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.OnmsServiceType} object.
      */
@@ -422,6 +441,7 @@ public class OnmsNotification implements Acknowledgeable, Serializable {
      * <p>
      * setServiceType
      * </p>
+     * .
      *
      * @param serviceType
      *            a {@link org.opennms.netmgt.model.OnmsServiceType} object.
@@ -434,6 +454,7 @@ public class OnmsNotification implements Acknowledgeable, Serializable {
      * <p>
      * getQueueId
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -446,6 +467,7 @@ public class OnmsNotification implements Acknowledgeable, Serializable {
      * <p>
      * setQueueId
      * </p>
+     * .
      *
      * @param queueid
      *            a {@link java.lang.String} object.
@@ -458,6 +480,7 @@ public class OnmsNotification implements Acknowledgeable, Serializable {
      * <p>
      * getEvent
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.OnmsEvent} object.
      */
@@ -472,6 +495,7 @@ public class OnmsNotification implements Acknowledgeable, Serializable {
      * <p>
      * setEvent
      * </p>
+     * .
      *
      * @param event
      *            a {@link org.opennms.netmgt.model.OnmsEvent} object.
@@ -489,6 +513,7 @@ public class OnmsNotification implements Acknowledgeable, Serializable {
      * <p>
      * getEventUei
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -502,6 +527,7 @@ public class OnmsNotification implements Acknowledgeable, Serializable {
      * <p>
      * setEventUei
      * </p>
+     * .
      *
      * @param eventUei
      *            a {@link java.lang.String} object.
@@ -514,6 +540,7 @@ public class OnmsNotification implements Acknowledgeable, Serializable {
      * <p>
      * getSeverityLabel
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -527,6 +554,7 @@ public class OnmsNotification implements Acknowledgeable, Serializable {
      * <p>
      * getNode
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.OnmsNode} object.
      */
@@ -538,6 +566,11 @@ public class OnmsNotification implements Acknowledgeable, Serializable {
         return m_node;
     }
 
+    /**
+     * Gets the node id.
+     *
+     * @return the node id
+     */
     @Transient
     @XmlElement(name = "nodeId", required = false)
     public Integer getNodeId() {
@@ -546,6 +579,11 @@ public class OnmsNotification implements Acknowledgeable, Serializable {
         return m_node.getId();
     }
 
+    /**
+     * Gets the node label.
+     *
+     * @return the node label
+     */
     @Transient
     @XmlElement(name = "nodeLabel", required = false)
     public String getNodeLabel() {
@@ -558,6 +596,7 @@ public class OnmsNotification implements Acknowledgeable, Serializable {
      * <p>
      * setNode
      * </p>
+     * .
      *
      * @param node
      *            a {@link org.opennms.netmgt.model.OnmsNode} object.
@@ -570,6 +609,7 @@ public class OnmsNotification implements Acknowledgeable, Serializable {
      * <p>
      * getUsersNotified
      * </p>
+     * .
      *
      * @return a {@link java.util.Set} object.
      */
@@ -584,6 +624,7 @@ public class OnmsNotification implements Acknowledgeable, Serializable {
      * <p>
      * setUsersNotified
      * </p>
+     * .
      *
      * @param usersnotifieds
      *            a {@link java.util.Set} object.
@@ -596,6 +637,7 @@ public class OnmsNotification implements Acknowledgeable, Serializable {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -608,6 +650,7 @@ public class OnmsNotification implements Acknowledgeable, Serializable {
      * <p>
      * getNotifConfigName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -619,6 +662,7 @@ public class OnmsNotification implements Acknowledgeable, Serializable {
      * <p>
      * setNotifConfigName
      * </p>
+     * .
      *
      * @param notifConfigName
      *            a {@link java.lang.String} object.
@@ -642,6 +686,7 @@ public class OnmsNotification implements Acknowledgeable, Serializable {
      * <p>
      * getType
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.AckType} object.
      */
@@ -655,6 +700,7 @@ public class OnmsNotification implements Acknowledgeable, Serializable {
      * <p>
      * getAckId
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -668,6 +714,7 @@ public class OnmsNotification implements Acknowledgeable, Serializable {
      * <p>
      * getAckUser
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -681,6 +728,7 @@ public class OnmsNotification implements Acknowledgeable, Serializable {
      * <p>
      * getAckTime
      * </p>
+     * .
      *
      * @return a {@link java.util.Date} object.
      */

@@ -82,6 +82,9 @@ public class LogDescriptor extends org.exolab.castor.xml.util.XMLClassDescriptor
     // - Constructors -/
     // ----------------/
 
+    /**
+     * Instantiates a new log descriptor.
+     */
     public LogDescriptor() {
         super();
         _nsURI = "http://xmlns.opennms.org/xsd/event";

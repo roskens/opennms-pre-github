@@ -34,40 +34,41 @@ import org.opennms.netmgt.EventConstants;
 
 /**
  * This class contains the constants and methods related to inserting events
- * into the database
+ * into the database.
  *
  * @author <A HREF="mailto:sowmya@opennms.org">Sowmya Kumaraswamy </A>
  */
 public class Constants extends EventConstants {
+
     /**
      * The 'parms' are added to a single column of the DB - the parm name and
      * value are added as delimiter separated list of ' <parmName>= <value>'
-     * strings
+     * strings.
      */
     public static final char NAME_VAL_DELIM = '=';
 
     /**
      * The delimiter used to delimit multiple values of the same element that
-     * are appended and made the value of a single database column
+     * are appended and made the value of a single database column.
      */
     public static final char MULTIPLE_VAL_DELIM = ';';
 
     /**
      * The parser adds the value and attributes of an element to a single
-     * element of eventBlock and uses the ATTRIB_DELIM to separate these values
+     * element of eventBlock and uses the ATTRIB_DELIM to separate these values.
      */
     public static final String ATTRIB_DELIM = "/\\";
 
     /**
      * The values and the corresponding attributes of an element are added to a
-     * single column of the table and delimited by DB_ATTRIB_DELIM
+     * single column of the table and delimited by DB_ATTRIB_DELIM.
      */
     public static final char DB_ATTRIB_DELIM = ',';
 
     /**
      * Multiple values of any xml element are appended into one value when
      * inserted into the database - if the length of the appended string exceeds
-     * the column length, the value is appended with this pattern
+     * the column length, the value is appended with this pattern.
      */
     public static final String VALUE_TRUNCATE_INDICATOR = "...";
 
@@ -111,9 +112,6 @@ public class Constants extends EventConstants {
      * @param maxlen
      *            The maximum length of the composite string
      * @return The composite string.
-     * @exception java.lang.ClassCastException
-     *                Thrown if any processed item in the list is not a string
-     *                object.
      */
     public static String format(final List<String> strings, final int maxlen) {
         if (strings == null) {
@@ -149,9 +147,6 @@ public class Constants extends EventConstants {
      * @param maxlen
      *            The maximum length of the composite string
      * @return The composite string.
-     * @exception java.lang.ClassCastException
-     *                Thrown if any processed item in the list is not a string
-     *                object.
      */
     public static String format(final String[] strings, final int maxlen) {
         if (strings == null || strings.length <= 0)
@@ -181,11 +176,11 @@ public class Constants extends EventConstants {
      * This method is passed a string to be truncated to the maximum string size
      * passed.
      *
+     * @param origString
+     *            a {@link java.lang.String} object.
      * @param maxlen
      *            The maximum length of the composite string
      * @return The string(truncated if necessary).
-     * @param origString
-     *            a {@link java.lang.String} object.
      */
     public static String format(final String origString, final int maxlen) {
         if (origString == null)

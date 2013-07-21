@@ -57,59 +57,76 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "map")
 public class OnmsMap implements Serializable {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 3885485728813867167L;
 
-    /** Constant <code>USER_GENERATED_MAP="U"</code> */
+    /** Constant <code>USER_GENERATED_MAP="U"</code>. */
     public static final String USER_GENERATED_MAP = "U";
 
-    /** Constant <code>AUTOMATICALLY_GENERATED_MAP="A"</code> */
+    /** Constant <code>AUTOMATICALLY_GENERATED_MAP="A"</code>. */
     public static final String AUTOMATICALLY_GENERATED_MAP = "A";
 
-    /** Constant <code>AUTOMATIC_SAVED_MAP="S"</code> */
+    /** Constant <code>AUTOMATIC_SAVED_MAP="S"</code>. */
     public static final String AUTOMATIC_SAVED_MAP = "S";
 
-    /** Constant <code>DELETED_MAP="D"</code> */
+    /** Constant <code>DELETED_MAP="D"</code>. */
     public static final String DELETED_MAP = "D"; // for future use
 
-    /** Constant <code>ACCESS_MODE_ADMIN="RW"</code> */
+    /** Constant <code>ACCESS_MODE_ADMIN="RW"</code>. */
     public static final String ACCESS_MODE_ADMIN = "RW";
 
-    /** Constant <code>ACCESS_MODE_USER="RO"</code> */
+    /** Constant <code>ACCESS_MODE_USER="RO"</code>. */
     public static final String ACCESS_MODE_USER = "RO";
 
-    /** Constant <code>ACCESS_MODE_GROUP="RWRO"</code> */
+    /** Constant <code>ACCESS_MODE_GROUP="RWRO"</code>. */
     public static final String ACCESS_MODE_GROUP = "RWRO";
 
+    /** The id. */
     private int id;
 
+    /** The name. */
     private String name;
 
+    /** The map group. */
     private String mapGroup;
 
+    /** The background. */
     private String background;
 
+    /** The owner. */
     private String owner;
 
+    /** The access mode. */
     private String accessMode;
 
+    /** The user last modifies. */
     private String userLastModifies;
 
+    /** The create time. */
     private Date createTime;
 
+    /** The last modified time. */
     private Date lastModifiedTime;
 
+    /** The scale. */
     private float scale;
 
+    /** The offset x. */
     private int offsetX;
 
+    /** The offset y. */
     private int offsetY;
 
+    /** The type. */
     private String type;
 
+    /** The width. */
     private int width;
 
+    /** The height. */
     private int height;
 
+    /** The map elements. */
     private Set<OnmsMapElement> mapElements = new LinkedHashSet<OnmsMapElement>();
 
     /**
@@ -255,6 +272,7 @@ public class OnmsMap implements Serializable {
      * <p>
      * getMapId
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -653,6 +671,7 @@ public class OnmsMap implements Serializable {
      * <p>
      * addMapElement
      * </p>
+     * .
      *
      * @param element
      *            a {@link org.opennms.netmgt.model.OnmsMapElement} object.

@@ -50,7 +50,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
 /**
- * The event correlation information
+ * The event correlation information.
  *
  * @version $Revision$ $Date$
  */
@@ -59,16 +59,15 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 @XmlAccessorType(XmlAccessType.FIELD)
 // @ValidateUsing("event.xsd")
 public class Correlation implements Serializable {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 7883869597194555535L;
 
     // --------------------------/
     // - Class/Member Variables -/
     // --------------------------/
 
-    /**
-     * The state determines if event is
-     * correlated
-     */
+    /** The state determines if event is correlated. */
     @XmlAttribute(name = "state")
     private java.lang.String _state = "off";
 
@@ -78,27 +77,19 @@ public class Correlation implements Serializable {
     @XmlAttribute(name = "path")
     private java.lang.String _path = "suppressDuplicates".intern();
 
-    /**
-     * A cancelling UEI for this event
-     */
+    /** A cancelling UEI for this event. */
     @XmlElement(name = "cuei")
     private java.util.List<java.lang.String> _cueiList;
 
-    /**
-     * The minimum count for this event
-     */
+    /** The minimum count for this event. */
     @XmlElement(name = "cmin")
     private java.lang.String _cmin;
 
-    /**
-     * The maximum count for this event
-     */
+    /** The maximum count for this event. */
     @XmlElement(name = "cmax")
     private java.lang.String _cmax;
 
-    /**
-     * The correlation time for this event
-     */
+    /** The correlation time for this event. */
     @XmlElement(name = "ctime")
     private java.lang.String _ctime;
 
@@ -106,6 +97,9 @@ public class Correlation implements Serializable {
     // - Constructors -/
     // ----------------/
 
+    /**
+     * Instantiates a new correlation.
+     */
     public Correlation() {
         super();
         setState("off");
@@ -118,21 +112,26 @@ public class Correlation implements Serializable {
     // -----------/
 
     /**
+     * Adds the cuei.
+     *
      * @param vCuei
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the v cuei
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void addCuei(final java.lang.String vCuei) throws java.lang.IndexOutOfBoundsException {
         this._cueiList.add(vCuei);
     }
 
     /**
+     * Adds the cuei.
+     *
      * @param index
+     *            the index
      * @param vCuei
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the v cuei
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void addCuei(final int index, final java.lang.String vCuei) throws java.lang.IndexOutOfBoundsException {
         this._cueiList.add(index, vCuei);
@@ -183,10 +182,10 @@ public class Correlation implements Serializable {
      * Method getCuei.
      *
      * @param index
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the index
      * @return the value of the java.lang.String at the given index
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public java.lang.String getCuei(final int index) throws java.lang.IndexOutOfBoundsException {
         // check bounds for index
@@ -265,6 +264,7 @@ public class Correlation implements Serializable {
     }
 
     /**
+     * Removes the all cuei.
      */
     public void removeAllCuei() {
         this._cueiList.clear();
@@ -274,6 +274,7 @@ public class Correlation implements Serializable {
      * Method removeCuei.
      *
      * @param vCuei
+     *            the v cuei
      * @return true if the object was removed from the collection.
      */
     public boolean removeCuei(final java.lang.String vCuei) {
@@ -285,6 +286,7 @@ public class Correlation implements Serializable {
      * Method removeCueiAt.
      *
      * @param index
+     *            the index
      * @return the element removed from the collection
      */
     public java.lang.String removeCueiAt(final int index) {
@@ -326,11 +328,14 @@ public class Correlation implements Serializable {
     }
 
     /**
+     * Sets the cuei.
+     *
      * @param index
+     *            the index
      * @param vCuei
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the v cuei
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void setCuei(final int index, final java.lang.String vCuei) throws java.lang.IndexOutOfBoundsException {
         // check bounds for index
@@ -343,7 +348,10 @@ public class Correlation implements Serializable {
     }
 
     /**
+     * Sets the cuei.
+     *
      * @param vCueiArray
+     *            the new cuei
      */
     public void setCuei(final java.lang.String[] vCueiArray) {
         // -- copy array
@@ -372,9 +380,9 @@ public class Correlation implements Serializable {
      * Sets the value of '_cueiList' by setting it to the given
      * Vector. No type checking is performed.
      *
-     * @deprecated
      * @param cueiList
      *            the Vector to set.
+     * @deprecated
      */
     public void setCueiCollection(final java.util.List<java.lang.String> cueiList) {
         this._cueiList = cueiList;
@@ -402,6 +410,9 @@ public class Correlation implements Serializable {
         this._state = state;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return new ToStringBuilder(this).append("state", _state).append("path", _path).append("cuei", _cueiList).append("cmin",

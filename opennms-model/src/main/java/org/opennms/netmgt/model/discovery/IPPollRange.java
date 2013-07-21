@@ -49,9 +49,7 @@ public class IPPollRange implements Iterable<IPPollAddress> {
      */
     private final IPAddrRange m_range;
 
-    /**
-     * The timeout in milliseconds (1/1000th)
-     */
+    /** The timeout in milliseconds (1/1000th). */
     private final long m_timeout;
 
     /**
@@ -96,6 +94,8 @@ public class IPPollRange implements Iterable<IPPollAddress> {
          * Returns true if the Enumeration described by this object still has
          * more elements.
          * </P>
+         *
+         * @return true, if successful
          */
         @Override
         public boolean hasMoreElements() {
@@ -107,8 +107,7 @@ public class IPPollRange implements Iterable<IPPollAddress> {
          * Returns the next IPPollAddress in the enumeration.
          * </P>
          *
-         * @exception java.util.NoSuchElementException
-         *                Thrown if there are no more elements in the iteration.
+         * @return the iP poll address
          */
         @Override
         public IPPollAddress nextElement() {
@@ -120,6 +119,8 @@ public class IPPollRange implements Iterable<IPPollAddress> {
          * If there are more elements left in the iteration then a value of true
          * is returned. Else a false value is returned.
          * </P>
+         *
+         * @return true, if successful
          */
         @Override
         public boolean hasNext() {
@@ -132,8 +133,7 @@ public class IPPollRange implements Iterable<IPPollAddress> {
          * pointer.
          * </P>
          *
-         * @exception java.util.NoSuchElementException
-         *                Thrown if there are no more elements in the iteration.
+         * @return the iP poll address
          */
         @Override
         public IPPollAddress next() {
@@ -144,9 +144,6 @@ public class IPPollRange implements Iterable<IPPollAddress> {
          * The remove method is part of the Iterator interface and is optional.
          * Since it is not implemnted it will always throw an
          * UnsupportedOperationException.
-         *
-         * @exception java.lang.UnsupportedOperationException
-         *                Always thrown by this method.
          */
         @Override
         public void remove() {
@@ -171,10 +168,10 @@ public class IPPollRange implements Iterable<IPPollAddress> {
      *            The timeout for each generated IPPollAddress.
      * @param retries
      *            The number of retries for generated addresses.
+     * @throws UnknownHostException
+     *             the unknown host exception
      * @see IPPollAddress
      * @see IPAddrRange
-     * @throws java.net.UnknownHostException
-     *             if any.
      */
     public IPPollRange(String fromIP, String toIP, long timeout, int retries) throws java.net.UnknownHostException {
         m_range = new IPAddrRange(fromIP, toIP);

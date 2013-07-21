@@ -38,18 +38,23 @@ import java.util.List;
  */
 public class RrdRepository {
 
+    /** The m_rra list. */
     private List<String> m_rraList;
 
+    /** The m_step. */
     private int m_step;
 
+    /** The m_heart beat. */
     private int m_heartBeat;
 
+    /** The m_rrd base dir. */
     private File m_rrdBaseDir;
 
     /**
      * <p>
      * getRrdBaseDir
      * </p>
+     * .
      *
      * @return a {@link java.io.File} object.
      */
@@ -61,6 +66,7 @@ public class RrdRepository {
      * <p>
      * setRrdBaseDir
      * </p>
+     * .
      *
      * @param rrdBaseDir
      *            a {@link java.io.File} object.
@@ -73,6 +79,7 @@ public class RrdRepository {
      * <p>
      * getRraList
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -84,6 +91,7 @@ public class RrdRepository {
      * <p>
      * setRraList
      * </p>
+     * .
      *
      * @param rraList
      *            a {@link java.util.List} object.
@@ -96,6 +104,7 @@ public class RrdRepository {
      * <p>
      * getStep
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -107,6 +116,7 @@ public class RrdRepository {
      * <p>
      * setStep
      * </p>
+     * .
      *
      * @param step
      *            a int.
@@ -119,6 +129,7 @@ public class RrdRepository {
      * <p>
      * getHeartBeat
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -130,6 +141,7 @@ public class RrdRepository {
      * <p>
      * setHeartBeat
      * </p>
+     * .
      *
      * @param heartBeat
      *            a int.
@@ -142,6 +154,7 @@ public class RrdRepository {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

@@ -46,6 +46,8 @@ import org.springframework.util.Assert;
  * @version $Id: $
  */
 public class EventIpcManagerProxy implements EventIpcManager {
+
+    /** The m_delegate. */
     private EventIpcManager m_delegate = null;
 
     /** {@inheritDoc} */
@@ -59,6 +61,7 @@ public class EventIpcManagerProxy implements EventIpcManager {
      * <p>
      * addEventListener
      * </p>
+     * .
      *
      * @param listener
      *            a {@link org.opennms.netmgt.model.events.EventListener}
@@ -75,6 +78,7 @@ public class EventIpcManagerProxy implements EventIpcManager {
      * <p>
      * addEventListener
      * </p>
+     * .
      *
      * @param listener
      *            a {@link org.opennms.netmgt.model.events.EventListener}
@@ -106,6 +110,7 @@ public class EventIpcManagerProxy implements EventIpcManager {
      * <p>
      * removeEventListener
      * </p>
+     * .
      *
      * @param listener
      *            a {@link org.opennms.netmgt.model.events.EventListener}
@@ -122,6 +127,7 @@ public class EventIpcManagerProxy implements EventIpcManager {
      * <p>
      * removeEventListener
      * </p>
+     * .
      *
      * @param listener
      *            a {@link org.opennms.netmgt.model.events.EventListener}
@@ -153,11 +159,12 @@ public class EventIpcManagerProxy implements EventIpcManager {
      * <p>
      * send
      * </p>
+     * .
      *
      * @param eventLog
      *            a {@link org.opennms.netmgt.xml.event.Log} object.
-     * @throws org.opennms.netmgt.model.events.EventProxyException
-     *             if any.
+     * @throws EventProxyException
+     *             the event proxy exception
      */
     @Override
     public void send(Log eventLog) throws EventProxyException {
@@ -176,6 +183,7 @@ public class EventIpcManagerProxy implements EventIpcManager {
      * <p>
      * sendNow
      * </p>
+     * .
      *
      * @param eventLog
      *            a {@link org.opennms.netmgt.xml.event.Log} object.
@@ -186,6 +194,9 @@ public class EventIpcManagerProxy implements EventIpcManager {
         m_delegate.sendNow(eventLog);
     }
 
+    /**
+     * Assert state.
+     */
     private void assertState() {
         Assert.state(m_delegate != null, "property delegate not set; has the event daemon successfully started?");
     }
@@ -194,6 +205,7 @@ public class EventIpcManagerProxy implements EventIpcManager {
      * <p>
      * getDelegate
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.events.EventIpcManager} object.
      */
@@ -205,6 +217,7 @@ public class EventIpcManagerProxy implements EventIpcManager {
      * <p>
      * setDelegate
      * </p>
+     * .
      *
      * @param delegate
      *            a {@link org.opennms.netmgt.model.events.EventIpcManager}

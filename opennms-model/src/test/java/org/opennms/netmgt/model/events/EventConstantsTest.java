@@ -47,22 +47,36 @@ import org.junit.runners.Parameterized.Parameters;
 import org.opennms.core.test.MockLogAppender;
 import org.opennms.netmgt.EventConstants;
 
+/**
+ * The Class EventConstantsTest.
+ */
 @RunWith(Parameterized.class)
 public class EventConstantsTest {
 
     // Test Parameters
+    /** The m_test locale. */
     private final Locale m_testLocale;
 
+    /** The m_test time zone. */
     private final TimeZone m_testTimeZone;
 
+    /** The m_gmt text. */
     private final String m_gmtText;
 
+    /** The m_zone text. */
     private final String m_zoneText;
 
+    /** The m_timestamp. */
     private final Long m_timestamp;
 
+    /** The m_timestamp calendar. */
     private final Calendar m_timestampCalendar;
 
+    /**
+     * Data.
+     *
+     * @return the collection
+     */
     @Parameters
     public static Collection<Object[]> data() {
         return Arrays.asList(new Object[][] {
@@ -78,6 +92,20 @@ public class EventConstantsTest {
                         "Donnerstag, 10. M\u00E4rz 2011 23:40:37 MEZ", Long.valueOf(1299796837 * 1000L) } });
     }
 
+    /**
+     * Instantiates a new event constants test.
+     *
+     * @param locale
+     *            the locale
+     * @param timeZone
+     *            the time zone
+     * @param gmtText
+     *            the gmt text
+     * @param zoneText
+     *            the zone text
+     * @param timestamp
+     *            the timestamp
+     */
     public EventConstantsTest(final Locale locale, final TimeZone timeZone, final String gmtText,
             final String zoneText, final Long timestamp) {
         m_testLocale = locale;
@@ -90,10 +118,15 @@ public class EventConstantsTest {
     }
 
     // Initialized Inside the Tests
+    /** The m_default locale. */
     private Locale m_defaultLocale;
 
+    /** The m_default time zone. */
     private TimeZone m_defaultTimeZone;
 
+    /**
+     * Sets the up.
+     */
     @Before
     public void setUp() {
         MockLogAppender.setupLogging();
@@ -113,24 +146,45 @@ public class EventConstantsTest {
         EventConstants.FORMATTER_DEFAULT.remove();
     }
 
+    /**
+     * Tear down.
+     */
     @After
     public void tearDown() {
         Locale.setDefault(m_defaultLocale);
         TimeZone.setDefault(m_defaultTimeZone);
     }
 
+    /**
+     * Test event date parse.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testEventDateParse() throws Exception {
         final Date date = EventConstants.parseToDate(m_zoneText);
         assertEquals(m_testLocale + ": time should equal " + m_timestamp, m_timestamp.longValue(), date.getTime());
     }
 
+    /**
+     * Test format to string.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testFormatToString() throws Exception {
         final String formatted = EventConstants.formatToString(new Date(m_timestamp));
         assertEquals(m_testLocale + ": formatted string should equal " + m_gmtText, m_gmtText, formatted);
     }
 
+    /**
+     * Test round trip from full.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testRoundTripFromFull() throws Exception {
         final String formatted = EventConstants.FORMATTER_FULL.get().format(new Date(m_timestamp));
@@ -143,6 +197,12 @@ public class EventConstantsTest {
         assertEquals(calendar.get(Calendar.SECOND), m_timestampCalendar.get(Calendar.SECOND));
     }
 
+    /**
+     * Test round trip from full gmt.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testRoundTripFromFullGMT() throws Exception {
         final String formatted = EventConstants.FORMATTER_FULL_GMT.get().format(new Date(m_timestamp));
@@ -155,6 +215,12 @@ public class EventConstantsTest {
         assertEquals(calendar.get(Calendar.SECOND), m_timestampCalendar.get(Calendar.SECOND));
     }
 
+    /**
+     * Test round trip from long.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testRoundTripFromLong() throws Exception {
         final String formatted = EventConstants.FORMATTER_LONG.get().format(new Date(m_timestamp));
@@ -167,6 +233,12 @@ public class EventConstantsTest {
         assertEquals(calendar.get(Calendar.SECOND), m_timestampCalendar.get(Calendar.SECOND));
     }
 
+    /**
+     * Test round trip from long gmt.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testRoundTripFromLongGMT() throws Exception {
         final String formatted = EventConstants.FORMATTER_LONG_GMT.get().format(new Date(m_timestamp));
@@ -179,6 +251,12 @@ public class EventConstantsTest {
         assertEquals(calendar.get(Calendar.SECOND), m_timestampCalendar.get(Calendar.SECOND));
     }
 
+    /**
+     * Test round trip from custom.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testRoundTripFromCustom() throws Exception {
         final String formatted = EventConstants.FORMATTER_CUSTOM.get().format(new Date(m_timestamp));

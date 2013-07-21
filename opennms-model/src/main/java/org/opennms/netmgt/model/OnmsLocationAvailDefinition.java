@@ -31,34 +31,72 @@ package org.opennms.netmgt.model;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+/**
+ * The Class OnmsLocationAvailDefinition.
+ */
 @XmlRootElement
 public class OnmsLocationAvailDefinition {
 
+    /** The m_availability. */
     private String m_availability;
 
+    /** The m_application. */
     private String m_application;
 
+    /**
+     * Instantiates a new onms location avail definition.
+     */
     public OnmsLocationAvailDefinition() {
     }
 
+    /**
+     * Instantiates a new onms location avail definition.
+     *
+     * @param applicationName
+     *            the application name
+     * @param calculatePercentageUptime
+     *            the calculate percentage uptime
+     */
     public OnmsLocationAvailDefinition(String applicationName, String calculatePercentageUptime) {
         setApplication(applicationName);
         setAvailability(calculatePercentageUptime);
     }
 
+    /**
+     * Sets the availability.
+     *
+     * @param availability
+     *            the new availability
+     */
     public void setAvailability(String availability) {
         this.m_availability = availability;
     }
 
+    /**
+     * Gets the availability.
+     *
+     * @return the availability
+     */
     @XmlElement(name = "availability")
     public String getAvailability() {
         return m_availability;
     }
 
+    /**
+     * Sets the application.
+     *
+     * @param applicationName
+     *            the new application
+     */
     public void setApplication(String applicationName) {
         m_application = applicationName;
     }
 
+    /**
+     * Gets the application.
+     *
+     * @return the application
+     */
     @XmlElement(name = "application")
     public String getApplication() {
         return m_application;

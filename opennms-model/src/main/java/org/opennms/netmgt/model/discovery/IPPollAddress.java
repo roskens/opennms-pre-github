@@ -113,11 +113,10 @@ public class IPPollAddress {
      * equal in address, timeout, and the number of retries.
      * </P>
      *
+     * @param object
+     *            the object
      * @return True if the objects are logically equal. False is returned
      *         otherwise.
-     * @param pollAddr
-     *            a {@link org.opennms.netmgt.model.discovery.IPPollAddress}
-     *            object.
      */
     @Override
     public boolean equals(final Object object) {
@@ -135,6 +134,9 @@ public class IPPollAddress {
         return false;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return new ToStringBuilder(this).append("address", m_address).append("retries", m_retries).append("timeout",

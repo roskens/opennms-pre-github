@@ -38,7 +38,14 @@ import java.util.Date;
 import org.junit.Test;
 import org.opennms.netmgt.model.NetworkBuilder.InterfaceBuilder;
 
+/**
+ * The Class NetworkBuilderTest.
+ */
 public class NetworkBuilderTest {
+
+    /**
+     * Test multiple ip interfaces with one if index.
+     */
     @Test
     public void testMultipleIpInterfacesWithOneIfIndex() {
         final NetworkBuilder nb = new NetworkBuilder();
@@ -55,6 +62,9 @@ public class NetworkBuilderTest {
         assertEquals(1, node.getSnmpInterfaces().size());
     }
 
+    /**
+     * Test add snmp to multiple ip.
+     */
     @Test
     public void testAddSnmpToMultipleIp() {
         final NetworkBuilder builder = new NetworkBuilder();
@@ -70,6 +80,9 @@ public class NetworkBuilderTest {
         assertEquals(1, node.getSnmpInterfaces().size());
     }
 
+    /**
+     * Test ip interface.
+     */
     @Test
     public void testIpInterface() {
         final NetworkBuilder builder = new NetworkBuilder("localhost", "127.0.0.1");
@@ -79,6 +92,9 @@ public class NetworkBuilderTest {
         assertEquals(1, iface.getIfIndex().intValue());
     }
 
+    /**
+     * Test duplicate service and category names.
+     */
     @Test
     public void testDuplicateServiceAndCategoryNames() {
         final NetworkBuilder builder = new NetworkBuilder("localhost", "127.0.0.1");
@@ -157,6 +173,15 @@ public class NetworkBuilderTest {
         assertEquals(catNode1.hashCode(), catNode2.hashCode());
     }
 
+    /**
+     * Gets the category.
+     *
+     * @param catName
+     *            the cat name
+     * @param node
+     *            the node
+     * @return the category
+     */
     private OnmsCategory getCategory(final String catName, final OnmsNode node) {
         for (final OnmsCategory cat : node.getCategories()) {
             if (catName.equals(cat.getName())) {

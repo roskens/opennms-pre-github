@@ -46,75 +46,144 @@ import org.opennms.netmgt.xml.event.Event;
 import org.opennms.test.mock.EasyMockUtils;
 
 /**
- * AnnotationBasedEventListenerAdapterTest
+ * AnnotationBasedEventListenerAdapterTest.
  *
  * @author brozow
  */
 public class AnnotationBasedEventListenerAdapterTest {
 
+    /** The Constant ANNOTATED_NAME. */
     private static final String ANNOTATED_NAME = "AnotatedListenerName";
 
+    /** The Constant OVERRIDEN_NAME. */
     private static final String OVERRIDEN_NAME = "OverriddenName";
 
+    /** The m_annotated listener. */
     private AnnotatedListener m_annotatedListener;
 
+    /** The m_adapter. */
     private AnnotationBasedEventListenerAdapter m_adapter;
 
+    /** The m_mock utils. */
     private EasyMockUtils m_mockUtils;
 
+    /** The m_event ipc mgr. */
     private EventSubscriptionService m_eventIpcMgr;
 
+    /** The m_subscriptions. */
     private Set<String> m_subscriptions;
 
+    /**
+     * The listener interface for receiving annotated events.
+     * The class that is interested in processing a annotated
+     * event implements this interface, and the object created
+     * with that class is registered with a component using the
+     * component's <code>addAnnotatedListener<code> method. When
+     * the annotated event occurs, that object's appropriate
+     * method is invoked.
+     *
+     * @see AnnotatedEvent
+     */
     @EventListener(name = ANNOTATED_NAME)
     private static class AnnotatedListener {
 
+        /** The pre processed events. */
         public int preProcessedEvents = 0;
 
+        /** The received event count. */
         public int receivedEventCount = 0;
 
+        /** The post processed events. */
         public int postProcessedEvents = 0;
 
+        /** The illegal args handled. */
         public int illegalArgsHandled = 0;
 
+        /** The gen exceptions handled. */
         public int genExceptionsHandled = 0;
 
+        /**
+         * Handle an event.
+         *
+         * @param e
+         *            the e
+         */
         @SuppressWarnings("unused")
         @EventHandler(uei = EventConstants.NODE_DOWN_EVENT_UEI)
         public void handleAnEvent(Event e) {
             receivedEventCount++;
         }
 
+        /**
+         * Handle another event.
+         *
+         * @param e
+         *            the e
+         */
         @SuppressWarnings("unused")
         @EventHandler(uei = EventConstants.ADD_INTERFACE_EVENT_UEI)
         public void handleAnotherEvent(Event e) {
             throw new IllegalArgumentException("test generated exception");
         }
 
+        /**
+         * Handle yet another event.
+         *
+         * @param e
+         *            the e
+         */
         @SuppressWarnings("unused")
         @EventHandler(uei = EventConstants.ADD_NODE_EVENT_UEI)
         public void handleYetAnotherEvent(Event e) {
             throw new IllegalStateException("test generated state exception");
         }
 
+        /**
+         * Pre process.
+         *
+         * @param e
+         *            the e
+         */
         @SuppressWarnings("unused")
         @EventPreProcessor()
         public void preProcess(Event e) {
             preProcessedEvents++;
         }
 
+        /**
+         * Post process.
+         *
+         * @param e
+         *            the e
+         */
         @SuppressWarnings("unused")
         @EventPostProcessor
         public void postProcess(Event e) {
             postProcessedEvents++;
         }
 
+        /**
+         * Handle exception.
+         *
+         * @param e
+         *            the e
+         * @param ex
+         *            the ex
+         */
         @SuppressWarnings("unused")
         @EventExceptionHandler
         public void handleException(Event e, IllegalArgumentException ex) {
             illegalArgsHandled++;
         }
 
+        /**
+         * Handle exception.
+         *
+         * @param e
+         *            the e
+         * @param ex
+         *            the ex
+         */
         @SuppressWarnings("unused")
         @EventExceptionHandler
         public void handleException(Event e, Exception ex) {
@@ -123,6 +192,17 @@ public class AnnotationBasedEventListenerAdapterTest {
 
     }
 
+    /**
+     * The listener interface for receiving derived events.
+     * The class that is interested in processing a derived
+     * event implements this interface, and the object created
+     * with that class is registered with a component using the
+     * component's <code>addDerivedListener<code> method. When
+     * the derived event occurs, that object's appropriate
+     * method is invoked.
+     *
+     * @see DerivedEvent
+     */
     private static class DerivedListener extends AnnotatedListener {
 
     }
@@ -130,6 +210,12 @@ public class AnnotationBasedEventListenerAdapterTest {
     /*
      * (non-Javadoc)
      * @see junit.framework.TestCase#setUp()
+     */
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
      */
     @Before
     public void setUp() throws Exception {
@@ -151,6 +237,12 @@ public class AnnotationBasedEventListenerAdapterTest {
         m_eventIpcMgr.addEventListener(m_adapter, m_subscriptions);
     }
 
+    /**
+     * Test derived class.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testDerivedClass() throws Exception {
 
@@ -184,6 +276,12 @@ public class AnnotationBasedEventListenerAdapterTest {
         m_mockUtils.verifyAll();
     }
 
+    /**
+     * Test get name from annotation.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testGetNameFromAnnotation() throws Exception {
         m_mockUtils.replayAll();
@@ -194,6 +292,12 @@ public class AnnotationBasedEventListenerAdapterTest {
         m_mockUtils.verifyAll();
     }
 
+    /**
+     * Test overridden name.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testOverriddenName() throws Exception {
         m_mockUtils.replayAll();
@@ -206,6 +310,9 @@ public class AnnotationBasedEventListenerAdapterTest {
         m_mockUtils.verifyAll();
     }
 
+    /**
+     * Test send matching event.
+     */
     @Test
     public void testSendMatchingEvent() {
 
@@ -227,6 +334,9 @@ public class AnnotationBasedEventListenerAdapterTest {
 
     }
 
+    /**
+     * Test processing exception.
+     */
     @Test
     public void testProcessingException() {
 
@@ -251,6 +361,13 @@ public class AnnotationBasedEventListenerAdapterTest {
 
     }
 
+    /**
+     * Creates the event.
+     *
+     * @param uei
+     *            the uei
+     * @return the event
+     */
     private Event createEvent(String uei) {
         return new EventBuilder(uei, "Test").getEvent();
     }

@@ -58,8 +58,10 @@ import org.springframework.util.StringUtils;
  */
 public class EventBuilder {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(EventBuilder.class);
 
+    /** The m_event. */
     private Event m_event;
 
     /**
@@ -128,6 +130,7 @@ public class EventBuilder {
      * <p>
      * getEvent
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.xml.event.Event} object.
      */
@@ -135,6 +138,13 @@ public class EventBuilder {
         return m_event;
     }
 
+    /**
+     * Sets the uei.
+     *
+     * @param uei
+     *            the uei
+     * @return the event builder
+     */
     public EventBuilder setUei(final String uei) {
         m_event.setUei(uei);
         return this;
@@ -144,6 +154,7 @@ public class EventBuilder {
      * <p>
      * setTime
      * </p>
+     * .
      *
      * @param date
      *            a {@link java.util.Date} object.
@@ -158,6 +169,7 @@ public class EventBuilder {
      * <p>
      * setCreationTime
      * </p>
+     * .
      *
      * @param date
      *            a {@link java.util.Date} object.
@@ -172,6 +184,7 @@ public class EventBuilder {
      * <p>
      * setSource
      * </p>
+     * .
      *
      * @param source
      *            a {@link java.lang.String} object.
@@ -187,6 +200,7 @@ public class EventBuilder {
      * <p>
      * setSeverity
      * </p>
+     * .
      *
      * @param severity
      *            a {@link java.lang.String} object.
@@ -201,6 +215,7 @@ public class EventBuilder {
      * <p>
      * setNodeid
      * </p>
+     * .
      *
      * @param nodeid
      *            a long.
@@ -215,6 +230,7 @@ public class EventBuilder {
      * <p>
      * setHost
      * </p>
+     * .
      *
      * @param hostname
      *            a {@link java.lang.String} object.
@@ -229,6 +245,7 @@ public class EventBuilder {
      * <p>
      * setInterface
      * </p>
+     * .
      *
      * @param ipAddress
      *            a {@link java.lang.String} object.
@@ -244,9 +261,10 @@ public class EventBuilder {
      * <p>
      * setInterface
      * </p>
+     * .
      *
-     * @param ipAddress
-     *            a {@link java.lang.String} object.
+     * @param ifIndex
+     *            the if index
      * @return a {@link org.opennms.netmgt.model.events.EventBuilder} object.
      */
     public EventBuilder setIfIndex(final int ifIndex) {
@@ -258,6 +276,7 @@ public class EventBuilder {
      * <p>
      * setService
      * </p>
+     * .
      *
      * @param serviceName
      *            a {@link java.lang.String} object.
@@ -272,6 +291,7 @@ public class EventBuilder {
      * <p>
      * addParam
      * </p>
+     * .
      *
      * @param parmName
      *            a {@link java.lang.String} object.
@@ -283,6 +303,19 @@ public class EventBuilder {
         return addParam(parmName, val, null, null);
     }
 
+    /**
+     * Adds the param.
+     *
+     * @param parmName
+     *            the parm name
+     * @param val
+     *            the val
+     * @param type
+     *            the type
+     * @param encoding
+     *            the encoding
+     * @return the event builder
+     */
     public EventBuilder addParam(final String parmName, final String val, final String type, final String encoding) {
         if (parmName != null) {
             Value value = new Value();
@@ -306,6 +339,13 @@ public class EventBuilder {
         return this;
     }
 
+    /**
+     * Adds the param.
+     *
+     * @param parm
+     *            the parm
+     * @return the event builder
+     */
     public EventBuilder addParam(final Parm parm) {
         m_event.addParm(parm);
 
@@ -316,6 +356,7 @@ public class EventBuilder {
      * <p>
      * addParam
      * </p>
+     * .
      *
      * @param parmName
      *            a {@link java.lang.String} object.
@@ -342,6 +383,7 @@ public class EventBuilder {
      * <p>
      * setParam
      * </p>
+     * .
      *
      * @param parmName
      *            a {@link java.lang.String} object.
@@ -370,6 +412,7 @@ public class EventBuilder {
      * <p>
      * addParam
      * </p>
+     * .
      *
      * @param parmName
      *            a {@link java.lang.String} object.
@@ -385,6 +428,7 @@ public class EventBuilder {
      * <p>
      * addParam
      * </p>
+     * .
      *
      * @param parmName
      *            a {@link java.lang.String} object.
@@ -400,6 +444,7 @@ public class EventBuilder {
      * <p>
      * addParam
      * </p>
+     * .
      *
      * @param parmName
      *            a {@link java.lang.String} object.
@@ -415,6 +460,7 @@ public class EventBuilder {
      * <p>
      * addParam
      * </p>
+     * .
      *
      * @param parmName
      *            a {@link java.lang.String} object.
@@ -430,6 +476,7 @@ public class EventBuilder {
      * <p>
      * addParam
      * </p>
+     * .
      *
      * @param parmName
      *            a {@link java.lang.String} object.
@@ -447,6 +494,7 @@ public class EventBuilder {
      * <p>
      * setAlarmData
      * </p>
+     * .
      *
      * @param alarmData
      *            a {@link org.opennms.netmgt.xml.event.AlarmData} object.
@@ -463,6 +511,7 @@ public class EventBuilder {
      * <p>
      * setNode
      * </p>
+     * .
      *
      * @param node
      *            a {@link org.opennms.netmgt.model.OnmsNode} object.
@@ -479,6 +528,7 @@ public class EventBuilder {
      * <p>
      * setIpInterface
      * </p>
+     * .
      *
      * @param iface
      *            a {@link org.opennms.netmgt.model.OnmsIpInterface} object.
@@ -498,6 +548,7 @@ public class EventBuilder {
      * <p>
      * setMonitoredService
      * </p>
+     * .
      *
      * @param monitoredService
      *            a {@link org.opennms.netmgt.model.OnmsMonitoredService}
@@ -517,6 +568,7 @@ public class EventBuilder {
      * <p>
      * setSnmpVersion
      * </p>
+     * .
      *
      * @param version
      *            a {@link java.lang.String} object.
@@ -528,6 +580,9 @@ public class EventBuilder {
         return this;
     }
 
+    /**
+     * Ensure snmp.
+     */
     private void ensureSnmp() {
         if (m_event.getSnmp() == null) {
             m_event.setSnmp(new Snmp());
@@ -535,6 +590,13 @@ public class EventBuilder {
 
     }
 
+    /**
+     * Sets the community.
+     *
+     * @param community
+     *            the community
+     * @return the event builder
+     */
     public EventBuilder setCommunity(final String community) {
         ensureSnmp();
         m_event.getSnmp().setCommunity(community);
@@ -545,6 +607,7 @@ public class EventBuilder {
      * <p>
      * setEnterpriseId
      * </p>
+     * .
      *
      * @param enterprise
      *            a {@link java.lang.String} object.
@@ -560,6 +623,7 @@ public class EventBuilder {
      * <p>
      * setGeneric
      * </p>
+     * .
      *
      * @param generic
      *            a int.
@@ -575,6 +639,7 @@ public class EventBuilder {
      * <p>
      * setSpecific
      * </p>
+     * .
      *
      * @param specific
      *            a int.
@@ -590,6 +655,7 @@ public class EventBuilder {
      * <p>
      * setSnmpHost
      * </p>
+     * .
      *
      * @param snmpHost
      *            a {@link java.lang.String} object.
@@ -601,6 +667,13 @@ public class EventBuilder {
 
     }
 
+    /**
+     * Sets the snmp time stamp.
+     *
+     * @param timeStamp
+     *            the time stamp
+     * @return the event builder
+     */
     public EventBuilder setSnmpTimeStamp(final long timeStamp) {
         ensureSnmp();
         m_event.getSnmp().setTimeStamp(timeStamp);
@@ -611,6 +684,7 @@ public class EventBuilder {
      * <p>
      * setField
      * </p>
+     * .
      *
      * @param name
      *            a {@link java.lang.String} object.
@@ -634,6 +708,9 @@ public class EventBuilder {
         }
     }
 
+    /**
+     * Ensure logmsg.
+     */
     private void ensureLogmsg() {
         if (m_event.getLogmsg() == null) {
             m_event.setLogmsg(new Logmsg());
@@ -644,6 +721,7 @@ public class EventBuilder {
      * <p>
      * setLogDest
      * </p>
+     * .
      *
      * @param dest
      *            a {@link java.lang.String} object.
@@ -659,6 +737,7 @@ public class EventBuilder {
      * <p>
      * setLogMessage
      * </p>
+     * .
      *
      * @param content
      *            a {@link java.lang.String} object.
@@ -674,6 +753,7 @@ public class EventBuilder {
      * <p>
      * setDescription
      * </p>
+     * .
      *
      * @param descr
      *            a {@link java.lang.String} object.
@@ -688,6 +768,7 @@ public class EventBuilder {
      * <p>
      * setParms
      * </p>
+     * .
      *
      * @param parms
      *            a list of parameters.
@@ -698,16 +779,37 @@ public class EventBuilder {
         return this;
     }
 
+    /**
+     * Sets the uuid.
+     *
+     * @param uuid
+     *            the uuid
+     * @return the event builder
+     */
     public EventBuilder setUuid(final String uuid) {
         m_event.setUuid(uuid);
         return this;
     }
 
+    /**
+     * Sets the dist poller.
+     *
+     * @param distPoller
+     *            the dist poller
+     * @return the event builder
+     */
     public EventBuilder setDistPoller(final String distPoller) {
         m_event.setDistPoller(distPoller);
         return this;
     }
 
+    /**
+     * Sets the master station.
+     *
+     * @param masterStation
+     *            the master station
+     * @return the event builder
+     */
     public EventBuilder setMasterStation(final String masterStation) {
         m_event.setMasterStation(masterStation);
         return this;

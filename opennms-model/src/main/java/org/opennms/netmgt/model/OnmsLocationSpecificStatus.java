@@ -40,16 +40,23 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+/**
+ * The Class OnmsLocationSpecificStatus.
+ */
 @Entity
 @Table(name = "location_specific_status_changes")
 public class OnmsLocationSpecificStatus {
 
+    /** The m_id. */
     private Integer m_id;
 
+    /** The m_location monitor. */
     private OnmsLocationMonitor m_locationMonitor;
 
+    /** The m_monitored service. */
     private OnmsMonitoredService m_monitoredService;
 
+    /** The m_poll result. */
     private PollStatus m_pollResult;
 
     /**
@@ -85,6 +92,7 @@ public class OnmsLocationSpecificStatus {
      * <p>
      * getId
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -100,6 +108,7 @@ public class OnmsLocationSpecificStatus {
      * <p>
      * setId
      * </p>
+     * .
      *
      * @param id
      *            a {@link java.lang.Integer} object.
@@ -112,6 +121,7 @@ public class OnmsLocationSpecificStatus {
      * <p>
      * getLocationMonitor
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.OnmsLocationMonitor} object.
      */
@@ -125,6 +135,7 @@ public class OnmsLocationSpecificStatus {
      * <p>
      * setLocationMonitor
      * </p>
+     * .
      *
      * @param locationMonitor
      *            a {@link org.opennms.netmgt.model.OnmsLocationMonitor} object.
@@ -137,6 +148,7 @@ public class OnmsLocationSpecificStatus {
      * <p>
      * getMonitoredService
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.OnmsMonitoredService} object.
      */
@@ -150,6 +162,7 @@ public class OnmsLocationSpecificStatus {
      * <p>
      * setMonitoredService
      * </p>
+     * .
      *
      * @param monitoredService
      *            a {@link org.opennms.netmgt.model.OnmsMonitoredService}
@@ -163,6 +176,7 @@ public class OnmsLocationSpecificStatus {
      * <p>
      * getPollResult
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.PollStatus} object.
      */
@@ -175,6 +189,7 @@ public class OnmsLocationSpecificStatus {
      * <p>
      * setPollResult
      * </p>
+     * .
      *
      * @param newStatus
      *            a {@link org.opennms.netmgt.model.PollStatus} object.
@@ -187,6 +202,7 @@ public class OnmsLocationSpecificStatus {
      * <p>
      * getStatusCode
      * </p>
+     * .
      *
      * @return a int.
      */

@@ -40,27 +40,25 @@ import org.opennms.netmgt.xml.event.Log;
  * @author <A HREF="mailto:sowmya@opennms.org">Sowmya Kumaraswamy </A>
  */
 public interface EventProxy {
+
     /**
-     * This method is called to send the event out
+     * This method is called to send the event out.
      *
      * @param event
      *            the event to be sent out
-     * @exception EventProxyException
-     *                thrown if the send fails for any reason
-     * @throws org.opennms.netmgt.model.events.EventProxyException
-     *             if any.
+     * @throws EventProxyException
+     *             thrown if the send fails for any reason
      */
     public void send(Event event) throws EventProxyException;
 
     /**
-     * This method is called to send an event log containing multiple events out
+     * This method is called to send an event log containing multiple events
+     * out.
      *
      * @param eventLog
      *            the events to be sent out
-     * @exception EventProxyException
-     *                thrown if the send fails for any reason
-     * @throws org.opennms.netmgt.model.events.EventProxyException
-     *             if any.
+     * @throws EventProxyException
+     *             thrown if the send fails for any reason
      */
     public void send(Log eventLog) throws EventProxyException;
 }

@@ -53,6 +53,8 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 @XmlAccessorType(XmlAccessType.FIELD)
 // @ValidateUsing("event.xsd")
 public class AlarmData implements Serializable {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 3681502418413339216L;
 
     /**
@@ -91,27 +93,33 @@ public class AlarmData implements Serializable {
     @XmlAttribute(name = "x733-probable-cause")
     private Integer _x733ProbableCause;
 
-    /**
-     * Field m_updateField
-     */
+    /** Field m_updateField. */
     @XmlElement(name = "update-field", required = false)
     private List<UpdateField> m_updateFieldList = new ArrayList<UpdateField>();
 
+    /**
+     * Instantiates a new alarm data.
+     */
     public AlarmData() {
         super();
     }
 
+    /**
+     * Delete alarm type.
+     */
     public void deleteAlarmType() {
         this._alarmType = null;
     }
 
     /**
+     * Delete auto clean.
      */
     public void deleteAutoClean() {
         this._autoClean = null;
     }
 
     /**
+     * Delete x733 probable cause.
      */
     public void deleteX733ProbableCause() {
         this._x733ProbableCause = null;
@@ -268,22 +276,47 @@ public class AlarmData implements Serializable {
         this._x733ProbableCause = x733ProbableCause;
     }
 
+    /**
+     * Gets the update field.
+     *
+     * @return the update field
+     */
     public UpdateField[] getUpdateField() {
         return m_updateFieldList.toArray(new UpdateField[0]);
     }
 
+    /**
+     * Gets the update field collection.
+     *
+     * @return the update field collection
+     */
     public Collection<UpdateField> getUpdateFieldCollection() {
         return m_updateFieldList;
     }
 
+    /**
+     * Gets the update field list.
+     *
+     * @return the update field list
+     */
     public List<UpdateField> getUpdateFieldList() {
         return m_updateFieldList;
     }
 
+    /**
+     * Gets the update field list count.
+     *
+     * @return the update field list count
+     */
     public int getUpdateFieldListCount() {
         return m_updateFieldList.size();
     }
 
+    /**
+     * Checks for update fields.
+     *
+     * @return the boolean
+     */
     public Boolean hasUpdateFields() {
         Boolean hasFields = true;
         if (m_updateFieldList == null || m_updateFieldList.isEmpty()) {
@@ -292,6 +325,12 @@ public class AlarmData implements Serializable {
         return hasFields;
     }
 
+    /**
+     * Sets the update field.
+     *
+     * @param fields
+     *            the new update field
+     */
     public void setUpdateField(UpdateField[] fields) {
         m_updateFieldList.clear();
         for (int i = 0; i < fields.length; i++) {
@@ -299,6 +338,12 @@ public class AlarmData implements Serializable {
         }
     }
 
+    /**
+     * Sets the update field.
+     *
+     * @param fields
+     *            the new update field
+     */
     public void setUpdateField(final List<UpdateField> fields) {
         if (m_updateFieldList == fields)
             return;
@@ -306,6 +351,12 @@ public class AlarmData implements Serializable {
         m_updateFieldList.addAll(fields);
     }
 
+    /**
+     * Sets the update field collection.
+     *
+     * @param fields
+     *            the new update field collection
+     */
     public void setUpdateFieldCollection(final Collection<UpdateField> fields) {
         if (m_updateFieldList == fields)
             return;
@@ -313,6 +364,9 @@ public class AlarmData implements Serializable {
         m_updateFieldList.addAll(fields);
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return new ToStringBuilder(this).append("reduction-key", _reductionKey).append("alarm-type", _alarmType).append("clear-key",

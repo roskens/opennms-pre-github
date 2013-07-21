@@ -34,8 +34,11 @@ package org.opennms.netmgt.model;
  * </p>
  */
 public class ServiceInfo {
+
+    /** The service status. */
     private String serviceStatus;
 
+    /** The service name. */
     private String serviceName;
 
     /**

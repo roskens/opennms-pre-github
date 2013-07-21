@@ -40,8 +40,12 @@ import org.hibernate.usertype.UserType;
 import org.opennms.core.utils.InetAddressComparator;
 import org.opennms.core.utils.InetAddressUtils;
 
+/**
+ * The Class InetAddressUserType.
+ */
 public class InetAddressUserType implements UserType {
 
+    /** The Constant SQL_TYPES. */
     private static final int[] SQL_TYPES = new int[] { java.sql.Types.VARCHAR };
 
     /**
@@ -50,6 +54,9 @@ public class InetAddressUserType implements UserType {
     public InetAddressUserType() {
     }
 
+    /* (non-Javadoc)
+     * @see org.hibernate.usertype.UserType#assemble(java.io.Serializable, java.lang.Object)
+     */
     @Override
     public Object assemble(final Serializable cached, final Object owner) throws HibernateException {
         return deepCopy(cached);
@@ -59,6 +66,12 @@ public class InetAddressUserType implements UserType {
      * Since {@link java.net.InetAddress} is immutable, we just return the
      * original
      * value without copying it.
+     *
+     * @param value
+     *            the value
+     * @return the object
+     * @throws HibernateException
+     *             the hibernate exception
      */
     @Override
     public Object deepCopy(final Object value) throws HibernateException {
@@ -73,11 +86,17 @@ public class InetAddressUserType implements UserType {
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.hibernate.usertype.UserType#disassemble(java.lang.Object)
+     */
     @Override
     public Serializable disassemble(final Object value) throws HibernateException {
         return (Serializable) deepCopy(value);
     }
 
+    /* (non-Javadoc)
+     * @see org.hibernate.usertype.UserType#equals(java.lang.Object, java.lang.Object)
+     */
     @Override
     public boolean equals(final Object x, final Object y) throws HibernateException {
         if (x == y)
@@ -89,22 +108,34 @@ public class InetAddressUserType implements UserType {
         return new InetAddressComparator().compare((InetAddress) x, (InetAddress) y) == 0;
     }
 
+    /* (non-Javadoc)
+     * @see org.hibernate.usertype.UserType#hashCode(java.lang.Object)
+     */
     @Override
     public int hashCode(final Object x) throws HibernateException {
         return x.hashCode();
     }
 
+    /* (non-Javadoc)
+     * @see org.hibernate.usertype.UserType#isMutable()
+     */
     @Override
     public boolean isMutable() {
         return false;
     }
 
+    /* (non-Javadoc)
+     * @see org.hibernate.usertype.UserType#nullSafeGet(java.sql.ResultSet, java.lang.String[], java.lang.Object)
+     */
     @Override
     public Object nullSafeGet(final ResultSet rs, final String[] names, final Object owner) throws HibernateException,
             SQLException {
         return InetAddressUtils.addr((String) Hibernate.STRING.nullSafeGet(rs, names[0]));
     }
 
+    /* (non-Javadoc)
+     * @see org.hibernate.usertype.UserType#nullSafeSet(java.sql.PreparedStatement, java.lang.Object, int)
+     */
     @Override
     public void nullSafeSet(final PreparedStatement st, final Object value, final int index) throws HibernateException,
             SQLException {
@@ -130,16 +161,25 @@ public class InetAddressUserType implements UserType {
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.hibernate.usertype.UserType#replace(java.lang.Object, java.lang.Object, java.lang.Object)
+     */
     @Override
     public Object replace(final Object original, final Object target, final Object owner) throws HibernateException {
         return original;
     }
 
+    /* (non-Javadoc)
+     * @see org.hibernate.usertype.UserType#returnedClass()
+     */
     @Override
     public Class<InetAddress> returnedClass() {
         return InetAddress.class;
     }
 
+    /* (non-Javadoc)
+     * @see org.hibernate.usertype.UserType#sqlTypes()
+     */
     @Override
     public int[] sqlTypes() {
         return SQL_TYPES;

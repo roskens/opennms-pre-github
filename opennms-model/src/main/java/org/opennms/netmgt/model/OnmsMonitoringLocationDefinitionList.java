@@ -35,27 +35,48 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+/**
+ * The Class OnmsMonitoringLocationDefinitionList.
+ */
 @XmlRootElement
 public class OnmsMonitoringLocationDefinitionList extends LinkedList<OnmsMonitoringLocationDefinition> {
 
-    /**
-     *
-     */
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 1L;
 
+    /**
+     * Instantiates a new onms monitoring location definition list.
+     */
     public OnmsMonitoringLocationDefinitionList() {
         super();
     }
 
+    /**
+     * Instantiates a new onms monitoring location definition list.
+     *
+     * @param c
+     *            the c
+     */
     public OnmsMonitoringLocationDefinitionList(Collection<? extends OnmsMonitoringLocationDefinition> c) {
         super(c);
     }
 
+    /**
+     * Gets the definitions.
+     *
+     * @return the definitions
+     */
     @XmlElement(name = "locations")
     public List<OnmsMonitoringLocationDefinition> getDefinitions() {
         return this;
     }
 
+    /**
+     * Sets the definitions.
+     *
+     * @param defs
+     *            the new definitions
+     */
     public void setDefinitions(List<OnmsMonitoringLocationDefinition> defs) {
         if (defs == this)
             return;

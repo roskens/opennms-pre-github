@@ -70,16 +70,18 @@ import javax.xml.bind.annotation.XmlValue;
 @XmlRootElement(name = "autoaction")
 public class Autoaction {
 
+    /** The value. */
     @XmlValue
     protected String value;
 
+    /** The state. */
     @XmlAttribute(name = "state")
     protected String state;
 
     /**
      * Gets the value of the value property.
      *
-     * @return
+     * @return the value
      *         possible object is {@link String }
      */
     public String getValue() {
@@ -99,7 +101,7 @@ public class Autoaction {
     /**
      * Gets the value of the state property.
      *
-     * @return
+     * @return the state
      *         possible object is {@link String }
      */
     public String getState() {

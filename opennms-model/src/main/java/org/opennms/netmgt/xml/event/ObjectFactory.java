@@ -47,6 +47,7 @@ import org.slf4j.LoggerFactory;
 @XmlRegistry
 public class ObjectFactory {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(ObjectFactory.class);
 
     /**
@@ -58,7 +59,9 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link AlarmData }
+     * Create an instance of {@link AlarmData }.
+     *
+     * @return the alarm data
      */
     public AlarmData createAlarmData() {
         LOG.debug("createAlarmData");
@@ -66,7 +69,9 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link Value }
+     * Create an instance of {@link Value }.
+     *
+     * @return the value
      */
     public Value createValue() {
         LOG.debug("createValue");
@@ -74,7 +79,9 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link Events }
+     * Create an instance of {@link Events }.
+     *
+     * @return the events
      */
     public Events createEvents() {
         LOG.debug("createEvents");
@@ -82,7 +89,9 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link Maskelement }
+     * Create an instance of {@link Maskelement }.
+     *
+     * @return the maskelement
      */
     public Maskelement createMaskelement() {
         LOG.debug("createMaskelement");
@@ -90,7 +99,9 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link Log }
+     * Create an instance of {@link Log }.
+     *
+     * @return the log
      */
     public Log createLog() {
         LOG.debug("createLog");
@@ -98,7 +109,9 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link Forward }
+     * Create an instance of {@link Forward }.
+     *
+     * @return the forward
      */
     public Forward createForward() {
         LOG.debug("createForward");
@@ -106,7 +119,9 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link Parms }
+     * Create an instance of {@link Parms }.
+     *
+     * @return the parms
      */
     @Deprecated
     public Parms createParms() {
@@ -115,7 +130,9 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link Event }
+     * Create an instance of {@link Event }.
+     *
+     * @return the event
      */
     public Event createEvent() {
         LOG.debug("createEvent");
@@ -123,7 +140,9 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link Header }
+     * Create an instance of {@link Header }.
+     *
+     * @return the header
      */
     public Header createHeader() {
         LOG.debug("createHeader");
@@ -131,7 +150,9 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link Logmsg }
+     * Create an instance of {@link Logmsg }.
+     *
+     * @return the logmsg
      */
     public Logmsg createLogmsg() {
         LOG.debug("createLogmsg");
@@ -139,7 +160,9 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link Mask }
+     * Create an instance of {@link Mask }.
+     *
+     * @return the mask
      */
     public Mask createMask() {
         LOG.debug("createMask");
@@ -147,7 +170,9 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link Operaction }
+     * Create an instance of {@link Operaction }.
+     *
+     * @return the operaction
      */
     public Operaction createOperaction() {
         LOG.debug("createOperaction");
@@ -155,7 +180,9 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link Autoacknowledge }
+     * Create an instance of {@link Autoacknowledge }.
+     *
+     * @return the autoacknowledge
      */
     public Autoacknowledge createAutoacknowledge() {
         LOG.debug("createAutoacknowledge");
@@ -163,7 +190,9 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link Parm }
+     * Create an instance of {@link Parm }.
+     *
+     * @return the parm
      */
     public Parm createParm() {
         LOG.debug("createParm");
@@ -171,7 +200,9 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link Snmp }
+     * Create an instance of {@link Snmp }.
+     *
+     * @return the snmp
      */
     public Snmp createSnmp() {
         LOG.debug("createSnmp");
@@ -179,7 +210,9 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link Script }
+     * Create an instance of {@link Script }.
+     *
+     * @return the script
      */
     public Script createScript() {
         LOG.debug("createScript");
@@ -187,7 +220,9 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link EventReceipt }
+     * Create an instance of {@link EventReceipt }.
+     *
+     * @return the event receipt
      */
     public EventReceipt createEventReceipt() {
         LOG.debug("createEventReceipt");
@@ -195,7 +230,9 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link Correlation }
+     * Create an instance of {@link Correlation }.
+     *
+     * @return the correlation
      */
     public Correlation createCorrelation() {
         LOG.debug("createCorrelation");
@@ -203,7 +240,9 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link Autoaction }
+     * Create an instance of {@link Autoaction }.
+     *
+     * @return the autoaction
      */
     public Autoaction createAutoaction() {
         LOG.debug("createAutoaction");
@@ -211,7 +250,9 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link Tticket }
+     * Create an instance of {@link Tticket }.
+     *
+     * @return the tticket
      */
     public Tticket createTticket() {
         LOG.debug("createTticket");

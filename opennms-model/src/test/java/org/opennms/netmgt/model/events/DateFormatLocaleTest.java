@@ -43,12 +43,21 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 import org.opennms.core.test.MockLogAppender;
 
+/**
+ * The Class DateFormatLocaleTest.
+ */
 @RunWith(Parameterized.class)
 public class DateFormatLocaleTest {
 
     // Test Parameters
+    /** The m_test locale. */
     private final Locale m_testLocale;
 
+    /**
+     * Data.
+     *
+     * @return the collection
+     */
     @Parameters
     public static Collection<Object[]> data() {
         return Arrays.asList(new Object[][] {
@@ -67,15 +76,30 @@ public class DateFormatLocaleTest {
                 { Locale.US }, { new Locale("no_NN") }, { new Locale("no_NB") }, { new Locale("no_NO") } });
     }
 
+    /**
+     * Instantiates a new date format locale test.
+     *
+     * @param locale
+     *            the locale
+     */
     public DateFormatLocaleTest(final Locale locale) {
         m_testLocale = locale;
     }
 
+    /**
+     * Sets the up.
+     */
     @Before
     public void setUp() {
         MockLogAppender.setupLogging();
     }
 
+    /**
+     * Test full date time parsing.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testFullDateTimeParsing() throws Exception {
         long currentMillis = System.currentTimeMillis();
@@ -87,6 +111,12 @@ public class DateFormatLocaleTest {
         assertEquals(m_testLocale.toString(), date, newDate);
     }
 
+    /**
+     * Test long date time parsing.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testLongDateTimeParsing() throws Exception {
         long currentMillis = System.currentTimeMillis();

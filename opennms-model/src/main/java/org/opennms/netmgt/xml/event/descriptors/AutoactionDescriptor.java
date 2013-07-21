@@ -82,6 +82,9 @@ public class AutoactionDescriptor extends org.exolab.castor.xml.util.XMLClassDes
     // - Constructors -/
     // ----------------/
 
+    /**
+     * Instantiates a new autoaction descriptor.
+     */
     public AutoactionDescriptor() {
         super();
         _nsURI = "http://xmlns.opennms.org/xsd/event";

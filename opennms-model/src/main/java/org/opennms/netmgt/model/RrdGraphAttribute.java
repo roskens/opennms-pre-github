@@ -37,12 +37,16 @@ import java.io.File;
  */
 public class RrdGraphAttribute implements OnmsAttribute {
 
+    /** The m_name. */
     private String m_name;
 
+    /** The m_relative path. */
     private String m_relativePath;
 
+    /** The m_rrd file. */
     private String m_rrdFile;
 
+    /** The m_resource. */
     private OnmsResource m_resource;
 
     /**
@@ -67,6 +71,7 @@ public class RrdGraphAttribute implements OnmsAttribute {
      * <p>
      * getName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -98,6 +103,7 @@ public class RrdGraphAttribute implements OnmsAttribute {
      * <p>
      * getRrdRelativePath
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

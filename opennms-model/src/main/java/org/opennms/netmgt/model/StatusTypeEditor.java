@@ -32,6 +32,9 @@ import java.beans.PropertyEditorSupport;
 
 import org.opennms.netmgt.model.OnmsArpInterface.StatusType;
 
+/**
+ * The Class StatusTypeEditor.
+ */
 public class StatusTypeEditor extends PropertyEditorSupport {
 
     /** {@inheritDoc} */
