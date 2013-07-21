@@ -39,6 +39,10 @@ package org.opennms.netmgt.rrd.tcp;
  * @version $Id: $
  */
 public final class PerformanceDataProtos {
+
+    /**
+     * Instantiates a new performance data protos.
+     */
     private PerformanceDataProtos() {
     }
 
@@ -46,6 +50,7 @@ public final class PerformanceDataProtos {
      * <p>
      * registerAllExtensions
      * </p>
+     * .
      *
      * @param registry
      *            a {@link com.google.protobuf.ExtensionRegistry} object.
@@ -53,93 +58,177 @@ public final class PerformanceDataProtos {
     public static void registerAllExtensions(com.google.protobuf.ExtensionRegistry registry) {
     }
 
+    /**
+     * The Class PerformanceDataReading.
+     */
     public static final class PerformanceDataReading extends com.google.protobuf.GeneratedMessage {
         // Use PerformanceDataReading.newBuilder() to construct.
+        /**
+         * Instantiates a new performance data reading.
+         */
         private PerformanceDataReading() {
         }
 
+        /** The Constant defaultInstance. */
         private static final PerformanceDataReading defaultInstance = new PerformanceDataReading();
 
+        /**
+         * Gets the default instance.
+         *
+         * @return the default instance
+         */
         public static PerformanceDataReading getDefaultInstance() {
             return defaultInstance;
         }
 
+        /* (non-Javadoc)
+         * @see com.google.protobuf.MessageLite#getDefaultInstanceForType()
+         */
         @Override
         public PerformanceDataReading getDefaultInstanceForType() {
             return defaultInstance;
         }
 
+        /**
+         * Gets the descriptor.
+         *
+         * @return the descriptor
+         */
         public static final com.google.protobuf.Descriptors.Descriptor getDescriptor() {
             return org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.internal_static_PerformanceDataReading_descriptor;
         }
 
+        /* (non-Javadoc)
+         * @see com.google.protobuf.GeneratedMessage#internalGetFieldAccessorTable()
+         */
         @Override
         protected com.google.protobuf.GeneratedMessage.FieldAccessorTable internalGetFieldAccessorTable() {
             return org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.internal_static_PerformanceDataReading_fieldAccessorTable;
         }
 
         // required string path = 1;
+        /** The Constant PATH_FIELD_NUMBER. */
         public static final int PATH_FIELD_NUMBER = 1;
 
+        /** The has path. */
         private boolean hasPath;
 
+        /** The path_. */
         private java.lang.String path_ = "";
 
+        /**
+         * Checks for path.
+         *
+         * @return true, if successful
+         */
         public boolean hasPath() {
             return hasPath;
         }
 
+        /**
+         * Gets the path.
+         *
+         * @return the path
+         */
         public java.lang.String getPath() {
             return path_;
         }
 
         // required string owner = 2;
+        /** The Constant OWNER_FIELD_NUMBER. */
         public static final int OWNER_FIELD_NUMBER = 2;
 
+        /** The has owner. */
         private boolean hasOwner;
 
+        /** The owner_. */
         private java.lang.String owner_ = "";
 
+        /**
+         * Checks for owner.
+         *
+         * @return true, if successful
+         */
         public boolean hasOwner() {
             return hasOwner;
         }
 
+        /**
+         * Gets the owner.
+         *
+         * @return the owner
+         */
         public java.lang.String getOwner() {
             return owner_;
         }
 
         // required uint64 timestamp = 3;
+        /** The Constant TIMESTAMP_FIELD_NUMBER. */
         public static final int TIMESTAMP_FIELD_NUMBER = 3;
 
+        /** The has timestamp. */
         private boolean hasTimestamp;
 
+        /** The timestamp_. */
         private long timestamp_ = 0L;
 
+        /**
+         * Checks for timestamp.
+         *
+         * @return true, if successful
+         */
         public boolean hasTimestamp() {
             return hasTimestamp;
         }
 
+        /**
+         * Gets the timestamp.
+         *
+         * @return the timestamp
+         */
         public long getTimestamp() {
             return timestamp_;
         }
 
         // repeated double value = 4;
+        /** The Constant VALUE_FIELD_NUMBER. */
         public static final int VALUE_FIELD_NUMBER = 4;
 
+        /** The value_. */
         private java.util.List<java.lang.Double> value_ = java.util.Collections.emptyList();
 
+        /**
+         * Gets the value list.
+         *
+         * @return the value list
+         */
         public java.util.List<java.lang.Double> getValueList() {
             return value_;
         }
 
+        /**
+         * Gets the value count.
+         *
+         * @return the value count
+         */
         public int getValueCount() {
             return value_.size();
         }
 
+        /**
+         * Gets the value.
+         *
+         * @param index
+         *            the index
+         * @return the value
+         */
         public double getValue(int index) {
             return value_.get(index);
         }
 
+        /* (non-Javadoc)
+         * @see com.google.protobuf.GeneratedMessage#isInitialized()
+         */
         @Override
         public final boolean isInitialized() {
             if (!hasPath)
@@ -151,6 +240,9 @@ public final class PerformanceDataProtos {
             return true;
         }
 
+        /* (non-Javadoc)
+         * @see com.google.protobuf.AbstractMessage#writeTo(com.google.protobuf.CodedOutputStream)
+         */
         @Override
         public void writeTo(com.google.protobuf.CodedOutputStream output) throws java.io.IOException {
             if (hasPath()) {
@@ -168,8 +260,12 @@ public final class PerformanceDataProtos {
             getUnknownFields().writeTo(output);
         }
 
+        /** The memoized serialized size. */
         private int memoizedSerializedSize = -1;
 
+        /* (non-Javadoc)
+         * @see com.google.protobuf.AbstractMessage#getSerializedSize()
+         */
         @Override
         public int getSerializedSize() {
             int size = memoizedSerializedSize;
@@ -197,99 +293,246 @@ public final class PerformanceDataProtos {
             return size;
         }
 
+        /**
+         * Parses the from.
+         *
+         * @param data
+         *            the data
+         * @return the org.opennms.netmgt.rrd.tcp. performance data protos.
+         *         performance data reading
+         * @throws InvalidProtocolBufferException
+         *             the invalid protocol buffer exception
+         */
         public static org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading parseFrom(
                 com.google.protobuf.ByteString data) throws com.google.protobuf.InvalidProtocolBufferException {
             return newBuilder().mergeFrom(data).buildParsed();
         }
 
+        /**
+         * Parses the from.
+         *
+         * @param data
+         *            the data
+         * @param extensionRegistry
+         *            the extension registry
+         * @return the org.opennms.netmgt.rrd.tcp. performance data protos.
+         *         performance data reading
+         * @throws InvalidProtocolBufferException
+         *             the invalid protocol buffer exception
+         */
         public static org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading parseFrom(
                 com.google.protobuf.ByteString data, com.google.protobuf.ExtensionRegistryLite extensionRegistry)
                 throws com.google.protobuf.InvalidProtocolBufferException {
             return newBuilder().mergeFrom(data, extensionRegistry).buildParsed();
         }
 
+        /**
+         * Parses the from.
+         *
+         * @param data
+         *            the data
+         * @return the org.opennms.netmgt.rrd.tcp. performance data protos.
+         *         performance data reading
+         * @throws InvalidProtocolBufferException
+         *             the invalid protocol buffer exception
+         */
         public static org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading parseFrom(byte[] data)
                 throws com.google.protobuf.InvalidProtocolBufferException {
             return newBuilder().mergeFrom(data).buildParsed();
         }
 
+        /**
+         * Parses the from.
+         *
+         * @param data
+         *            the data
+         * @param extensionRegistry
+         *            the extension registry
+         * @return the org.opennms.netmgt.rrd.tcp. performance data protos.
+         *         performance data reading
+         * @throws InvalidProtocolBufferException
+         *             the invalid protocol buffer exception
+         */
         public static org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading parseFrom(byte[] data,
                 com.google.protobuf.ExtensionRegistryLite extensionRegistry)
                 throws com.google.protobuf.InvalidProtocolBufferException {
             return newBuilder().mergeFrom(data, extensionRegistry).buildParsed();
         }
 
+        /**
+         * Parses the from.
+         *
+         * @param input
+         *            the input
+         * @return the org.opennms.netmgt.rrd.tcp. performance data protos.
+         *         performance data reading
+         * @throws IOException
+         *             Signals that an I/O exception has occurred.
+         */
         public static org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading parseFrom(
                 java.io.InputStream input) throws java.io.IOException {
             return newBuilder().mergeFrom(input).buildParsed();
         }
 
+        /**
+         * Parses the from.
+         *
+         * @param input
+         *            the input
+         * @param extensionRegistry
+         *            the extension registry
+         * @return the org.opennms.netmgt.rrd.tcp. performance data protos.
+         *         performance data reading
+         * @throws IOException
+         *             Signals that an I/O exception has occurred.
+         */
         public static org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading parseFrom(
                 java.io.InputStream input, com.google.protobuf.ExtensionRegistryLite extensionRegistry)
                 throws java.io.IOException {
             return newBuilder().mergeFrom(input, extensionRegistry).buildParsed();
         }
 
+        /**
+         * Parses the delimited from.
+         *
+         * @param input
+         *            the input
+         * @return the org.opennms.netmgt.rrd.tcp. performance data protos.
+         *         performance data reading
+         * @throws IOException
+         *             Signals that an I/O exception has occurred.
+         */
         public static org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading parseDelimitedFrom(
                 java.io.InputStream input) throws java.io.IOException {
             return newBuilder().mergeDelimitedFrom(input).buildParsed();
         }
 
+        /**
+         * Parses the delimited from.
+         *
+         * @param input
+         *            the input
+         * @param extensionRegistry
+         *            the extension registry
+         * @return the org.opennms.netmgt.rrd.tcp. performance data protos.
+         *         performance data reading
+         * @throws IOException
+         *             Signals that an I/O exception has occurred.
+         */
         public static org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading parseDelimitedFrom(
                 java.io.InputStream input, com.google.protobuf.ExtensionRegistryLite extensionRegistry)
                 throws java.io.IOException {
             return newBuilder().mergeDelimitedFrom(input, extensionRegistry).buildParsed();
         }
 
+        /**
+         * Parses the from.
+         *
+         * @param input
+         *            the input
+         * @return the org.opennms.netmgt.rrd.tcp. performance data protos.
+         *         performance data reading
+         * @throws IOException
+         *             Signals that an I/O exception has occurred.
+         */
         public static org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading parseFrom(
                 com.google.protobuf.CodedInputStream input) throws java.io.IOException {
             return newBuilder().mergeFrom(input).buildParsed();
         }
 
+        /**
+         * Parses the from.
+         *
+         * @param input
+         *            the input
+         * @param extensionRegistry
+         *            the extension registry
+         * @return the org.opennms.netmgt.rrd.tcp. performance data protos.
+         *         performance data reading
+         * @throws IOException
+         *             Signals that an I/O exception has occurred.
+         */
         public static org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading parseFrom(
                 com.google.protobuf.CodedInputStream input, com.google.protobuf.ExtensionRegistryLite extensionRegistry)
                 throws java.io.IOException {
             return newBuilder().mergeFrom(input, extensionRegistry).buildParsed();
         }
 
+        /**
+         * New builder.
+         *
+         * @return the builder
+         */
         public static Builder newBuilder() {
             return Builder.create();
         }
 
+        /* (non-Javadoc)
+         * @see com.google.protobuf.MessageLite#newBuilderForType()
+         */
         @Override
         public Builder newBuilderForType() {
             return newBuilder();
         }
 
+        /**
+         * New builder.
+         *
+         * @param prototype
+         *            the prototype
+         * @return the builder
+         */
         public static Builder newBuilder(
                 org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading prototype) {
             return newBuilder().mergeFrom(prototype);
         }
 
+        /* (non-Javadoc)
+         * @see com.google.protobuf.MessageLite#toBuilder()
+         */
         @Override
         public Builder toBuilder() {
             return newBuilder(this);
         }
 
+        /**
+         * The Class Builder.
+         */
         public static final class Builder extends com.google.protobuf.GeneratedMessage.Builder<Builder> {
+
+            /** The result. */
             private org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading result;
 
             // Construct using
             // org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading.newBuilder()
+            /**
+             * Instantiates a new builder.
+             */
             private Builder() {
             }
 
+            /**
+             * Creates the.
+             *
+             * @return the builder
+             */
             private static Builder create() {
                 Builder builder = new Builder();
                 builder.result = new org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading();
                 return builder;
             }
 
+            /* (non-Javadoc)
+             * @see com.google.protobuf.GeneratedMessage.Builder#internalGetResult()
+             */
             @Override
             protected org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading internalGetResult() {
                 return result;
             }
 
+            /* (non-Javadoc)
+             * @see com.google.protobuf.AbstractMessage.Builder#clear()
+             */
             @Override
             public Builder clear() {
                 if (result == null) {
@@ -299,26 +542,41 @@ public final class PerformanceDataProtos {
                 return this;
             }
 
+            /* (non-Javadoc)
+             * @see com.google.protobuf.GeneratedMessage.Builder#clone()
+             */
             @Override
             public Builder clone() {
                 return create().mergeFrom(result);
             }
 
+            /* (non-Javadoc)
+             * @see com.google.protobuf.GeneratedMessage.Builder#getDescriptorForType()
+             */
             @Override
             public com.google.protobuf.Descriptors.Descriptor getDescriptorForType() {
                 return org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading.getDescriptor();
             }
 
+            /* (non-Javadoc)
+             * @see com.google.protobuf.MessageLite.Builder#getDefaultInstanceForType()
+             */
             @Override
             public org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading getDefaultInstanceForType() {
                 return org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading.getDefaultInstance();
             }
 
+            /* (non-Javadoc)
+             * @see com.google.protobuf.GeneratedMessage.Builder#isInitialized()
+             */
             @Override
             public boolean isInitialized() {
                 return result.isInitialized();
             }
 
+            /* (non-Javadoc)
+             * @see com.google.protobuf.MessageLite.Builder#build()
+             */
             @Override
             public org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading build() {
                 if (result != null && !isInitialized()) {
@@ -327,6 +585,14 @@ public final class PerformanceDataProtos {
                 return buildPartial();
             }
 
+            /**
+             * Builds the parsed.
+             *
+             * @return the org.opennms.netmgt.rrd.tcp. performance data protos.
+             *         performance data reading
+             * @throws InvalidProtocolBufferException
+             *             the invalid protocol buffer exception
+             */
             private org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading buildParsed()
                     throws com.google.protobuf.InvalidProtocolBufferException {
                 if (!isInitialized()) {
@@ -335,6 +601,9 @@ public final class PerformanceDataProtos {
                 return buildPartial();
             }
 
+            /* (non-Javadoc)
+             * @see com.google.protobuf.MessageLite.Builder#buildPartial()
+             */
             @Override
             public org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading buildPartial() {
                 if (result == null) {
@@ -348,6 +617,9 @@ public final class PerformanceDataProtos {
                 return returnMe;
             }
 
+            /* (non-Javadoc)
+             * @see com.google.protobuf.AbstractMessage.Builder#mergeFrom(com.google.protobuf.Message)
+             */
             @Override
             public Builder mergeFrom(com.google.protobuf.Message other) {
                 if (other instanceof org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading) {
@@ -358,6 +630,13 @@ public final class PerformanceDataProtos {
                 }
             }
 
+            /**
+             * Merge from.
+             *
+             * @param other
+             *            the other
+             * @return the builder
+             */
             public Builder mergeFrom(org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading other) {
                 if (other == org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading.getDefaultInstance())
                     return this;
@@ -380,6 +659,9 @@ public final class PerformanceDataProtos {
                 return this;
             }
 
+            /* (non-Javadoc)
+             * @see com.google.protobuf.AbstractMessage.Builder#mergeFrom(com.google.protobuf.CodedInputStream, com.google.protobuf.ExtensionRegistryLite)
+             */
             @Override
             public Builder mergeFrom(com.google.protobuf.CodedInputStream input,
                     com.google.protobuf.ExtensionRegistryLite extensionRegistry) throws java.io.IOException {
@@ -418,14 +700,31 @@ public final class PerformanceDataProtos {
             }
 
             // required string path = 1;
+            /**
+             * Checks for path.
+             *
+             * @return true, if successful
+             */
             public boolean hasPath() {
                 return result.hasPath();
             }
 
+            /**
+             * Gets the path.
+             *
+             * @return the path
+             */
             public java.lang.String getPath() {
                 return result.getPath();
             }
 
+            /**
+             * Sets the path.
+             *
+             * @param value
+             *            the value
+             * @return the builder
+             */
             public Builder setPath(java.lang.String value) {
                 if (value == null) {
                     throw new NullPointerException();
@@ -435,6 +734,11 @@ public final class PerformanceDataProtos {
                 return this;
             }
 
+            /**
+             * Clear path.
+             *
+             * @return the builder
+             */
             public Builder clearPath() {
                 result.hasPath = false;
                 result.path_ = getDefaultInstance().getPath();
@@ -442,14 +746,31 @@ public final class PerformanceDataProtos {
             }
 
             // required string owner = 2;
+            /**
+             * Checks for owner.
+             *
+             * @return true, if successful
+             */
             public boolean hasOwner() {
                 return result.hasOwner();
             }
 
+            /**
+             * Gets the owner.
+             *
+             * @return the owner
+             */
             public java.lang.String getOwner() {
                 return result.getOwner();
             }
 
+            /**
+             * Sets the owner.
+             *
+             * @param value
+             *            the value
+             * @return the builder
+             */
             public Builder setOwner(java.lang.String value) {
                 if (value == null) {
                     throw new NullPointerException();
@@ -459,6 +780,11 @@ public final class PerformanceDataProtos {
                 return this;
             }
 
+            /**
+             * Clear owner.
+             *
+             * @return the builder
+             */
             public Builder clearOwner() {
                 result.hasOwner = false;
                 result.owner_ = getDefaultInstance().getOwner();
@@ -466,20 +792,42 @@ public final class PerformanceDataProtos {
             }
 
             // required uint64 timestamp = 3;
+            /**
+             * Checks for timestamp.
+             *
+             * @return true, if successful
+             */
             public boolean hasTimestamp() {
                 return result.hasTimestamp();
             }
 
+            /**
+             * Gets the timestamp.
+             *
+             * @return the timestamp
+             */
             public long getTimestamp() {
                 return result.getTimestamp();
             }
 
+            /**
+             * Sets the timestamp.
+             *
+             * @param value
+             *            the value
+             * @return the builder
+             */
             public Builder setTimestamp(long value) {
                 result.hasTimestamp = true;
                 result.timestamp_ = value;
                 return this;
             }
 
+            /**
+             * Clear timestamp.
+             *
+             * @return the builder
+             */
             public Builder clearTimestamp() {
                 result.hasTimestamp = false;
                 result.timestamp_ = 0L;
@@ -487,23 +835,56 @@ public final class PerformanceDataProtos {
             }
 
             // repeated double value = 4;
+            /**
+             * Gets the value list.
+             *
+             * @return the value list
+             */
             public java.util.List<java.lang.Double> getValueList() {
                 return java.util.Collections.unmodifiableList(result.value_);
             }
 
+            /**
+             * Gets the value count.
+             *
+             * @return the value count
+             */
             public int getValueCount() {
                 return result.getValueCount();
             }
 
+            /**
+             * Gets the value.
+             *
+             * @param index
+             *            the index
+             * @return the value
+             */
             public double getValue(int index) {
                 return result.getValue(index);
             }
 
+            /**
+             * Sets the value.
+             *
+             * @param index
+             *            the index
+             * @param value
+             *            the value
+             * @return the builder
+             */
             public Builder setValue(int index, double value) {
                 result.value_.set(index, value);
                 return this;
             }
 
+            /**
+             * Adds the value.
+             *
+             * @param value
+             *            the value
+             * @return the builder
+             */
             public Builder addValue(double value) {
                 if (result.value_.isEmpty()) {
                     result.value_ = new java.util.ArrayList<java.lang.Double>();
@@ -512,6 +893,13 @@ public final class PerformanceDataProtos {
                 return this;
             }
 
+            /**
+             * Adds the all value.
+             *
+             * @param values
+             *            the values
+             * @return the builder
+             */
             public Builder addAllValue(java.lang.Iterable<? extends java.lang.Double> values) {
                 if (result.value_.isEmpty()) {
                     result.value_ = new java.util.ArrayList<java.lang.Double>();
@@ -520,6 +908,11 @@ public final class PerformanceDataProtos {
                 return this;
             }
 
+            /**
+             * Clear value.
+             *
+             * @return the builder
+             */
             public Builder clearValue() {
                 result.value_ = java.util.Collections.emptyList();
                 return this;
@@ -535,48 +928,93 @@ public final class PerformanceDataProtos {
         }
     }
 
+    /**
+     * The Class PerformanceDataReadings.
+     */
     public static final class PerformanceDataReadings extends com.google.protobuf.GeneratedMessage {
         // Use PerformanceDataReadings.newBuilder() to construct.
+        /**
+         * Instantiates a new performance data readings.
+         */
         private PerformanceDataReadings() {
         }
 
+        /** The Constant defaultInstance. */
         private static final PerformanceDataReadings defaultInstance = new PerformanceDataReadings();
 
+        /**
+         * Gets the default instance.
+         *
+         * @return the default instance
+         */
         public static PerformanceDataReadings getDefaultInstance() {
             return defaultInstance;
         }
 
+        /* (non-Javadoc)
+         * @see com.google.protobuf.MessageLite#getDefaultInstanceForType()
+         */
         @Override
         public PerformanceDataReadings getDefaultInstanceForType() {
             return defaultInstance;
         }
 
+        /**
+         * Gets the descriptor.
+         *
+         * @return the descriptor
+         */
         public static final com.google.protobuf.Descriptors.Descriptor getDescriptor() {
             return org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.internal_static_PerformanceDataReadings_descriptor;
         }
 
+        /* (non-Javadoc)
+         * @see com.google.protobuf.GeneratedMessage#internalGetFieldAccessorTable()
+         */
         @Override
         protected com.google.protobuf.GeneratedMessage.FieldAccessorTable internalGetFieldAccessorTable() {
             return org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.internal_static_PerformanceDataReadings_fieldAccessorTable;
         }
 
         // repeated .PerformanceDataReading message = 1;
+        /** The Constant MESSAGE_FIELD_NUMBER. */
         public static final int MESSAGE_FIELD_NUMBER = 1;
 
+        /** The message_. */
         private java.util.List<org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading> message_ = java.util.Collections.emptyList();
 
+        /**
+         * Gets the message list.
+         *
+         * @return the message list
+         */
         public java.util.List<org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading> getMessageList() {
             return message_;
         }
 
+        /**
+         * Gets the message count.
+         *
+         * @return the message count
+         */
         public int getMessageCount() {
             return message_.size();
         }
 
+        /**
+         * Gets the message.
+         *
+         * @param index
+         *            the index
+         * @return the message
+         */
         public org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading getMessage(int index) {
             return message_.get(index);
         }
 
+        /* (non-Javadoc)
+         * @see com.google.protobuf.GeneratedMessage#isInitialized()
+         */
         @Override
         public final boolean isInitialized() {
             for (org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading element : getMessageList()) {
@@ -586,6 +1024,9 @@ public final class PerformanceDataProtos {
             return true;
         }
 
+        /* (non-Javadoc)
+         * @see com.google.protobuf.AbstractMessage#writeTo(com.google.protobuf.CodedOutputStream)
+         */
         @Override
         public void writeTo(com.google.protobuf.CodedOutputStream output) throws java.io.IOException {
             for (org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading element : getMessageList()) {
@@ -594,8 +1035,12 @@ public final class PerformanceDataProtos {
             getUnknownFields().writeTo(output);
         }
 
+        /** The memoized serialized size. */
         private int memoizedSerializedSize = -1;
 
+        /* (non-Javadoc)
+         * @see com.google.protobuf.AbstractMessage#getSerializedSize()
+         */
         @Override
         public int getSerializedSize() {
             int size = memoizedSerializedSize;
@@ -611,99 +1056,246 @@ public final class PerformanceDataProtos {
             return size;
         }
 
+        /**
+         * Parses the from.
+         *
+         * @param data
+         *            the data
+         * @return the org.opennms.netmgt.rrd.tcp. performance data protos.
+         *         performance data readings
+         * @throws InvalidProtocolBufferException
+         *             the invalid protocol buffer exception
+         */
         public static org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReadings parseFrom(
                 com.google.protobuf.ByteString data) throws com.google.protobuf.InvalidProtocolBufferException {
             return newBuilder().mergeFrom(data).buildParsed();
         }
 
+        /**
+         * Parses the from.
+         *
+         * @param data
+         *            the data
+         * @param extensionRegistry
+         *            the extension registry
+         * @return the org.opennms.netmgt.rrd.tcp. performance data protos.
+         *         performance data readings
+         * @throws InvalidProtocolBufferException
+         *             the invalid protocol buffer exception
+         */
         public static org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReadings parseFrom(
                 com.google.protobuf.ByteString data, com.google.protobuf.ExtensionRegistryLite extensionRegistry)
                 throws com.google.protobuf.InvalidProtocolBufferException {
             return newBuilder().mergeFrom(data, extensionRegistry).buildParsed();
         }
 
+        /**
+         * Parses the from.
+         *
+         * @param data
+         *            the data
+         * @return the org.opennms.netmgt.rrd.tcp. performance data protos.
+         *         performance data readings
+         * @throws InvalidProtocolBufferException
+         *             the invalid protocol buffer exception
+         */
         public static org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReadings parseFrom(byte[] data)
                 throws com.google.protobuf.InvalidProtocolBufferException {
             return newBuilder().mergeFrom(data).buildParsed();
         }
 
+        /**
+         * Parses the from.
+         *
+         * @param data
+         *            the data
+         * @param extensionRegistry
+         *            the extension registry
+         * @return the org.opennms.netmgt.rrd.tcp. performance data protos.
+         *         performance data readings
+         * @throws InvalidProtocolBufferException
+         *             the invalid protocol buffer exception
+         */
         public static org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReadings parseFrom(byte[] data,
                 com.google.protobuf.ExtensionRegistryLite extensionRegistry)
                 throws com.google.protobuf.InvalidProtocolBufferException {
             return newBuilder().mergeFrom(data, extensionRegistry).buildParsed();
         }
 
+        /**
+         * Parses the from.
+         *
+         * @param input
+         *            the input
+         * @return the org.opennms.netmgt.rrd.tcp. performance data protos.
+         *         performance data readings
+         * @throws IOException
+         *             Signals that an I/O exception has occurred.
+         */
         public static org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReadings parseFrom(
                 java.io.InputStream input) throws java.io.IOException {
             return newBuilder().mergeFrom(input).buildParsed();
         }
 
+        /**
+         * Parses the from.
+         *
+         * @param input
+         *            the input
+         * @param extensionRegistry
+         *            the extension registry
+         * @return the org.opennms.netmgt.rrd.tcp. performance data protos.
+         *         performance data readings
+         * @throws IOException
+         *             Signals that an I/O exception has occurred.
+         */
         public static org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReadings parseFrom(
                 java.io.InputStream input, com.google.protobuf.ExtensionRegistryLite extensionRegistry)
                 throws java.io.IOException {
             return newBuilder().mergeFrom(input, extensionRegistry).buildParsed();
         }
 
+        /**
+         * Parses the delimited from.
+         *
+         * @param input
+         *            the input
+         * @return the org.opennms.netmgt.rrd.tcp. performance data protos.
+         *         performance data readings
+         * @throws IOException
+         *             Signals that an I/O exception has occurred.
+         */
         public static org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReadings parseDelimitedFrom(
                 java.io.InputStream input) throws java.io.IOException {
             return newBuilder().mergeDelimitedFrom(input).buildParsed();
         }
 
+        /**
+         * Parses the delimited from.
+         *
+         * @param input
+         *            the input
+         * @param extensionRegistry
+         *            the extension registry
+         * @return the org.opennms.netmgt.rrd.tcp. performance data protos.
+         *         performance data readings
+         * @throws IOException
+         *             Signals that an I/O exception has occurred.
+         */
         public static org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReadings parseDelimitedFrom(
                 java.io.InputStream input, com.google.protobuf.ExtensionRegistryLite extensionRegistry)
                 throws java.io.IOException {
             return newBuilder().mergeDelimitedFrom(input, extensionRegistry).buildParsed();
         }
 
+        /**
+         * Parses the from.
+         *
+         * @param input
+         *            the input
+         * @return the org.opennms.netmgt.rrd.tcp. performance data protos.
+         *         performance data readings
+         * @throws IOException
+         *             Signals that an I/O exception has occurred.
+         */
         public static org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReadings parseFrom(
                 com.google.protobuf.CodedInputStream input) throws java.io.IOException {
             return newBuilder().mergeFrom(input).buildParsed();
         }
 
+        /**
+         * Parses the from.
+         *
+         * @param input
+         *            the input
+         * @param extensionRegistry
+         *            the extension registry
+         * @return the org.opennms.netmgt.rrd.tcp. performance data protos.
+         *         performance data readings
+         * @throws IOException
+         *             Signals that an I/O exception has occurred.
+         */
         public static org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReadings parseFrom(
                 com.google.protobuf.CodedInputStream input, com.google.protobuf.ExtensionRegistryLite extensionRegistry)
                 throws java.io.IOException {
             return newBuilder().mergeFrom(input, extensionRegistry).buildParsed();
         }
 
+        /**
+         * New builder.
+         *
+         * @return the builder
+         */
         public static Builder newBuilder() {
             return Builder.create();
         }
 
+        /* (non-Javadoc)
+         * @see com.google.protobuf.MessageLite#newBuilderForType()
+         */
         @Override
         public Builder newBuilderForType() {
             return newBuilder();
         }
 
+        /**
+         * New builder.
+         *
+         * @param prototype
+         *            the prototype
+         * @return the builder
+         */
         public static Builder newBuilder(
                 org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReadings prototype) {
             return newBuilder().mergeFrom(prototype);
         }
 
+        /* (non-Javadoc)
+         * @see com.google.protobuf.MessageLite#toBuilder()
+         */
         @Override
         public Builder toBuilder() {
             return newBuilder(this);
         }
 
+        /**
+         * The Class Builder.
+         */
         public static final class Builder extends com.google.protobuf.GeneratedMessage.Builder<Builder> {
+
+            /** The result. */
             private org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReadings result;
 
             // Construct using
             // org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReadings.newBuilder()
+            /**
+             * Instantiates a new builder.
+             */
             private Builder() {
             }
 
+            /**
+             * Creates the.
+             *
+             * @return the builder
+             */
             private static Builder create() {
                 Builder builder = new Builder();
                 builder.result = new org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReadings();
                 return builder;
             }
 
+            /* (non-Javadoc)
+             * @see com.google.protobuf.GeneratedMessage.Builder#internalGetResult()
+             */
             @Override
             protected org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReadings internalGetResult() {
                 return result;
             }
 
+            /* (non-Javadoc)
+             * @see com.google.protobuf.AbstractMessage.Builder#clear()
+             */
             @Override
             public Builder clear() {
                 if (result == null) {
@@ -713,26 +1305,41 @@ public final class PerformanceDataProtos {
                 return this;
             }
 
+            /* (non-Javadoc)
+             * @see com.google.protobuf.GeneratedMessage.Builder#clone()
+             */
             @Override
             public Builder clone() {
                 return create().mergeFrom(result);
             }
 
+            /* (non-Javadoc)
+             * @see com.google.protobuf.GeneratedMessage.Builder#getDescriptorForType()
+             */
             @Override
             public com.google.protobuf.Descriptors.Descriptor getDescriptorForType() {
                 return org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReadings.getDescriptor();
             }
 
+            /* (non-Javadoc)
+             * @see com.google.protobuf.MessageLite.Builder#getDefaultInstanceForType()
+             */
             @Override
             public org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReadings getDefaultInstanceForType() {
                 return org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReadings.getDefaultInstance();
             }
 
+            /* (non-Javadoc)
+             * @see com.google.protobuf.GeneratedMessage.Builder#isInitialized()
+             */
             @Override
             public boolean isInitialized() {
                 return result.isInitialized();
             }
 
+            /* (non-Javadoc)
+             * @see com.google.protobuf.MessageLite.Builder#build()
+             */
             @Override
             public org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReadings build() {
                 if (result != null && !isInitialized()) {
@@ -741,6 +1348,14 @@ public final class PerformanceDataProtos {
                 return buildPartial();
             }
 
+            /**
+             * Builds the parsed.
+             *
+             * @return the org.opennms.netmgt.rrd.tcp. performance data protos.
+             *         performance data readings
+             * @throws InvalidProtocolBufferException
+             *             the invalid protocol buffer exception
+             */
             private org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReadings buildParsed()
                     throws com.google.protobuf.InvalidProtocolBufferException {
                 if (!isInitialized()) {
@@ -749,6 +1364,9 @@ public final class PerformanceDataProtos {
                 return buildPartial();
             }
 
+            /* (non-Javadoc)
+             * @see com.google.protobuf.MessageLite.Builder#buildPartial()
+             */
             @Override
             public org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReadings buildPartial() {
                 if (result == null) {
@@ -762,6 +1380,9 @@ public final class PerformanceDataProtos {
                 return returnMe;
             }
 
+            /* (non-Javadoc)
+             * @see com.google.protobuf.AbstractMessage.Builder#mergeFrom(com.google.protobuf.Message)
+             */
             @Override
             public Builder mergeFrom(com.google.protobuf.Message other) {
                 if (other instanceof org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReadings) {
@@ -772,6 +1393,13 @@ public final class PerformanceDataProtos {
                 }
             }
 
+            /**
+             * Merge from.
+             *
+             * @param other
+             *            the other
+             * @return the builder
+             */
             public Builder mergeFrom(org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReadings other) {
                 if (other == org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReadings.getDefaultInstance())
                     return this;
@@ -785,6 +1413,9 @@ public final class PerformanceDataProtos {
                 return this;
             }
 
+            /* (non-Javadoc)
+             * @see com.google.protobuf.AbstractMessage.Builder#mergeFrom(com.google.protobuf.CodedInputStream, com.google.protobuf.ExtensionRegistryLite)
+             */
             @Override
             public Builder mergeFrom(com.google.protobuf.CodedInputStream input,
                     com.google.protobuf.ExtensionRegistryLite extensionRegistry) throws java.io.IOException {
@@ -813,18 +1444,44 @@ public final class PerformanceDataProtos {
             }
 
             // repeated .PerformanceDataReading message = 1;
+            /**
+             * Gets the message list.
+             *
+             * @return the message list
+             */
             public java.util.List<org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading> getMessageList() {
                 return java.util.Collections.unmodifiableList(result.message_);
             }
 
+            /**
+             * Gets the message count.
+             *
+             * @return the message count
+             */
             public int getMessageCount() {
                 return result.getMessageCount();
             }
 
+            /**
+             * Gets the message.
+             *
+             * @param index
+             *            the index
+             * @return the message
+             */
             public org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading getMessage(int index) {
                 return result.getMessage(index);
             }
 
+            /**
+             * Sets the message.
+             *
+             * @param index
+             *            the index
+             * @param value
+             *            the value
+             * @return the builder
+             */
             public Builder setMessage(int index,
                     org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading value) {
                 if (value == null) {
@@ -834,12 +1491,28 @@ public final class PerformanceDataProtos {
                 return this;
             }
 
+            /**
+             * Sets the message.
+             *
+             * @param index
+             *            the index
+             * @param builderForValue
+             *            the builder for value
+             * @return the builder
+             */
             public Builder setMessage(int index,
                     org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading.Builder builderForValue) {
                 result.message_.set(index, builderForValue.build());
                 return this;
             }
 
+            /**
+             * Adds the message.
+             *
+             * @param value
+             *            the value
+             * @return the builder
+             */
             public Builder addMessage(org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading value) {
                 if (value == null) {
                     throw new NullPointerException();
@@ -851,6 +1524,13 @@ public final class PerformanceDataProtos {
                 return this;
             }
 
+            /**
+             * Adds the message.
+             *
+             * @param builderForValue
+             *            the builder for value
+             * @return the builder
+             */
             public Builder addMessage(
                     org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading.Builder builderForValue) {
                 if (result.message_.isEmpty()) {
@@ -860,6 +1540,13 @@ public final class PerformanceDataProtos {
                 return this;
             }
 
+            /**
+             * Adds the all message.
+             *
+             * @param values
+             *            the values
+             * @return the builder
+             */
             public Builder addAllMessage(
                     java.lang.Iterable<? extends org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading> values) {
                 if (result.message_.isEmpty()) {
@@ -869,6 +1556,11 @@ public final class PerformanceDataProtos {
                 return this;
             }
 
+            /**
+             * Clear message.
+             *
+             * @return the builder
+             */
             public Builder clearMessage() {
                 result.message_ = java.util.Collections.emptyList();
                 return this;
@@ -884,12 +1576,16 @@ public final class PerformanceDataProtos {
         }
     }
 
+    /** The internal_static_ performance data reading_descriptor. */
     private static com.google.protobuf.Descriptors.Descriptor internal_static_PerformanceDataReading_descriptor;
 
+    /** The internal_static_ performance data reading_field accessor table. */
     private static com.google.protobuf.GeneratedMessage.FieldAccessorTable internal_static_PerformanceDataReading_fieldAccessorTable;
 
+    /** The internal_static_ performance data readings_descriptor. */
     private static com.google.protobuf.Descriptors.Descriptor internal_static_PerformanceDataReadings_descriptor;
 
+    /** The internal_static_ performance data readings_field accessor table. */
     private static com.google.protobuf.GeneratedMessage.FieldAccessorTable internal_static_PerformanceDataReadings_fieldAccessorTable;
 
     /**
@@ -903,6 +1599,7 @@ public final class PerformanceDataProtos {
         return descriptor;
     }
 
+    /** The descriptor. */
     private static com.google.protobuf.Descriptors.FileDescriptor descriptor;
     static {
         java.lang.String[] descriptorData = { "\n\025PerformanceData.proto\"W\n\026PerformanceDa"
@@ -943,6 +1640,7 @@ public final class PerformanceDataProtos {
      * <p>
      * internalForceInit
      * </p>
+     * .
      */
     public static void internalForceInit() {
     }

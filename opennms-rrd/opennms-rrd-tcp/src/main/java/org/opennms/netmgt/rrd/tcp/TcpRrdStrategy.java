@@ -54,44 +54,88 @@ import org.opennms.netmgt.rrd.RrdStrategy;
 public class TcpRrdStrategy implements
         RrdStrategy<TcpRrdStrategy.RrdDefinition, TcpRrdStrategy.RrdOutputSocketWithFilename> {
 
+    /**
+     * The Class RrdDefinition.
+     */
     public static class RrdDefinition {
+
+        /** The m_rrd name. */
         private final String m_directory, m_rrdName;
 
+        /**
+         * Instantiates a new rrd definition.
+         *
+         * @param directory
+         *            the directory
+         * @param rrdName
+         *            the rrd name
+         */
         public RrdDefinition(String directory, String rrdName) {
             m_directory = directory;
             m_rrdName = rrdName;
         }
 
+        /**
+         * Gets the path.
+         *
+         * @return the path
+         */
         public String getPath() {
             return m_directory + File.separator + m_rrdName;
         };
     }
 
+    /**
+     * The Class RrdOutputSocketWithFilename.
+     */
     public static class RrdOutputSocketWithFilename {
+
+        /** The m_socket. */
         private final RrdOutputSocket m_socket;
 
+        /** The m_filename. */
         private final String m_filename;
 
+        /**
+         * Instantiates a new rrd output socket with filename.
+         *
+         * @param socket
+         *            the socket
+         * @param filename
+         *            the filename
+         */
         public RrdOutputSocketWithFilename(RrdOutputSocket socket, String filename) {
             m_socket = socket;
             m_filename = filename;
         }
 
+        /**
+         * Gets the socket.
+         *
+         * @return the socket
+         */
         public RrdOutputSocket getSocket() {
             return m_socket;
         }
 
+        /**
+         * Gets the filename.
+         *
+         * @return the filename
+         */
         public String getFilename() {
             return m_filename;
         }
     }
 
+    /** The m_host. */
     private String m_host = null;
 
     /**
      * <p>
      * getHost
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -109,6 +153,7 @@ public class TcpRrdStrategy implements
      * <p>
      * setHost
      * </p>
+     * .
      *
      * @param host
      *            a {@link java.lang.String} object.
@@ -117,12 +162,14 @@ public class TcpRrdStrategy implements
         this.m_host = host;
     }
 
+    /** The m_port. */
     private int m_port = 0;
 
     /**
      * <p>
      * getPort
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -134,6 +181,7 @@ public class TcpRrdStrategy implements
      * <p>
      * setPort
      * </p>
+     * .
      *
      * @param port
      *            a int.
@@ -146,6 +194,7 @@ public class TcpRrdStrategy implements
      * <p>
      * getDefaultFileExtension
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -165,13 +214,16 @@ public class TcpRrdStrategy implements
      * <p>
      * createFile
      * </p>
+     * .
      *
      * @param rrdDef
      *            a
-     *            {@link org.opennms.netmgt.rrd.tcp.TcpRrdStrategy.RrdDefinition}
-     *            object.
-     * @throws java.lang.Exception
-     *             if any.
+     * @param attributeMappings
+     *            the attribute mappings
+     * @throws Exception
+     *             the exception
+     *             {@link org.opennms.netmgt.rrd.tcp.TcpRrdStrategy.RrdDefinition}
+     *             object.
      */
     @Override
     public void createFile(RrdDefinition rrdDef, Map<String, String> attributeMappings) throws Exception {
@@ -194,13 +246,14 @@ public class TcpRrdStrategy implements
      * <p>
      * closeFile
      * </p>
+     * .
      *
      * @param rrd
      *            a
-     *            {@link org.opennms.netmgt.rrd.tcp.TcpRrdStrategy.RrdOutputSocketWithFilename}
-     *            object.
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
+     *             {@link org.opennms.netmgt.rrd.tcp.TcpRrdStrategy.RrdOutputSocketWithFilename}
+     *             object.
      */
     @Override
     public void closeFile(RrdOutputSocketWithFilename rrd) throws Exception {
@@ -243,6 +296,7 @@ public class TcpRrdStrategy implements
      * <p>
      * getGraphLeftOffset
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -255,6 +309,7 @@ public class TcpRrdStrategy implements
      * <p>
      * getGraphRightOffset
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -267,6 +322,7 @@ public class TcpRrdStrategy implements
      * <p>
      * getGraphTopOffsetWithText
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -279,6 +335,7 @@ public class TcpRrdStrategy implements
      * <p>
      * getStats
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

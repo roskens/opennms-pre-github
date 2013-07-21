@@ -66,16 +66,28 @@ import org.slf4j.LoggerFactory;
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  */
 public class TcpRrdStrategyTest {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(TcpRrdStrategyTest.class);
 
+    /** The m_strategy. */
     private RrdStrategy<Object, Object> m_strategy;
 
+    /** The m_file anticipator. */
     private FileAnticipator m_fileAnticipator;
 
+    /** The m_listener thread. */
     private static Thread m_listenerThread;
 
+    /** The m_temp dir. */
     private static String m_tempDir;
 
+    /**
+     * Start listener thread.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @BeforeClass
     public static void startListenerThread() throws Exception {
         m_listenerThread = new Thread() {
@@ -156,6 +168,12 @@ public class TcpRrdStrategyTest {
         m_listenerThread.start();
     }
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
 
@@ -170,6 +188,12 @@ public class TcpRrdStrategyTest {
         m_fileAnticipator = new FileAnticipator(false);
     }
 
+    /**
+     * Tear down.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @After
     public void tearDown() throws Exception {
         if (m_fileAnticipator.isInitialized()) {
@@ -178,6 +202,12 @@ public class TcpRrdStrategyTest {
         m_fileAnticipator.tearDown();
     }
 
+    /**
+     * Stop listener thread.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @AfterClass
     public static void stopListenerThread() throws Exception {
         m_listenerThread.interrupt();
@@ -185,11 +215,20 @@ public class TcpRrdStrategyTest {
         assertFalse("Listener thread encountered errors", "fail".equals(m_listenerThread.getName()));
     }
 
+    /**
+     * Test initialize.
+     */
     @Test
     public void testInitialize() {
         // Don't do anything... just check that setUp works
     }
 
+    /**
+     * Test create.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testCreate() throws Exception {
         File rrdFile = createRrdFile();
@@ -200,6 +239,12 @@ public class TcpRrdStrategyTest {
         m_strategy.closeFile(openedFile);
     }
 
+    /**
+     * Test update.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testUpdate() throws Exception {
         File rrdFile = createRrdFile();
@@ -221,6 +266,13 @@ public class TcpRrdStrategyTest {
         Thread.sleep(1000);
     }
 
+    /**
+     * Creates the rrd file.
+     *
+     * @return the file
+     * @throws Exception
+     *             the exception
+     */
     public File createRrdFile() throws Exception {
         String rrdFileBase = "foo";
         String rrdExtension = RrdUtils.getExtension();

@@ -59,53 +59,108 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class QueuingTcpRrdStrategy implements RrdStrategy<TcpRrdStrategy.RrdDefinition, String> {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(QueuingTcpRrdStrategy.class);
 
+    /** The m_queue. */
     private final BlockingQueue<PerformanceDataReading> m_queue = new LinkedBlockingQueue<PerformanceDataReading>(50000);
 
+    /** The m_consumer thread. */
     private final ConsumerThread m_consumerThread;
 
+    /** The m_delegate. */
     private final TcpRrdStrategy m_delegate;
 
+    /** The m_skipped readings. */
     private int m_skippedReadings = 0;
 
+    /**
+     * The Class PerformanceDataReading.
+     */
     private static class PerformanceDataReading {
+
+        /** The m_filename. */
         private String m_filename;
 
+        /** The m_owner. */
         private String m_owner;
 
+        /** The m_data. */
         private String m_data;
 
+        /**
+         * Instantiates a new performance data reading.
+         *
+         * @param filename
+         *            the filename
+         * @param owner
+         *            the owner
+         * @param data
+         *            the data
+         */
         public PerformanceDataReading(String filename, String owner, String data) {
             m_filename = filename;
             m_owner = owner;
             m_data = data;
         }
 
+        /**
+         * Gets the filename.
+         *
+         * @return the filename
+         */
         public String getFilename() {
             return m_filename;
         }
 
+        /**
+         * Gets the owner.
+         *
+         * @return the owner
+         */
         public String getOwner() {
             return m_owner;
         }
 
+        /**
+         * Gets the data.
+         *
+         * @return the data
+         */
         public String getData() {
             return m_data;
         }
     }
 
+    /**
+     * The Class ConsumerThread.
+     */
     private static class ConsumerThread extends Thread {
+
+        /** The m_my queue. */
         private final BlockingQueue<PerformanceDataReading> m_myQueue;
 
+        /** The m_strategy. */
         private final TcpRrdStrategy m_strategy;
 
+        /**
+         * Instantiates a new consumer thread.
+         *
+         * @param strategy
+         *            the strategy
+         * @param queue
+         *            the queue
+         */
         public ConsumerThread(final TcpRrdStrategy strategy, final BlockingQueue<PerformanceDataReading> queue) {
             m_strategy = strategy;
             m_myQueue = queue;
             this.setName(this.getClass().getSimpleName());
         }
 
+        /* (non-Javadoc)
+         * @see java.lang.Thread#run()
+         */
         @Override
         public void run() {
             try {
@@ -153,6 +208,7 @@ public class QueuingTcpRrdStrategy implements RrdStrategy<TcpRrdStrategy.RrdDefi
      * <p>
      * getDefaultFileExtension
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -172,13 +228,16 @@ public class QueuingTcpRrdStrategy implements RrdStrategy<TcpRrdStrategy.RrdDefi
      * <p>
      * createFile
      * </p>
+     * .
      *
      * @param rrdDef
      *            a
-     *            {@link org.opennms.netmgt.rrd.tcp.TcpRrdStrategy.RrdDefinition}
-     *            object.
-     * @throws java.lang.Exception
-     *             if any.
+     * @param attributeMappings
+     *            the attribute mappings
+     * @throws Exception
+     *             the exception
+     *             {@link org.opennms.netmgt.rrd.tcp.TcpRrdStrategy.RrdDefinition}
+     *             object.
      */
     @Override
     public void createFile(RrdDefinition rrdDef, Map<String, String> attributeMappings) throws Exception {
@@ -208,11 +267,12 @@ public class QueuingTcpRrdStrategy implements RrdStrategy<TcpRrdStrategy.RrdDefi
      * <p>
      * closeFile
      * </p>
+     * .
      *
      * @param rrd
      *            a {@link java.lang.String} object.
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @Override
     public void closeFile(String rrd) throws Exception {
@@ -255,6 +315,7 @@ public class QueuingTcpRrdStrategy implements RrdStrategy<TcpRrdStrategy.RrdDefi
      * <p>
      * getGraphLeftOffset
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -267,6 +328,7 @@ public class QueuingTcpRrdStrategy implements RrdStrategy<TcpRrdStrategy.RrdDefi
      * <p>
      * getGraphRightOffset
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -279,6 +341,7 @@ public class QueuingTcpRrdStrategy implements RrdStrategy<TcpRrdStrategy.RrdDefi
      * <p>
      * getGraphTopOffsetWithText
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -291,6 +354,7 @@ public class QueuingTcpRrdStrategy implements RrdStrategy<TcpRrdStrategy.RrdDefi
      * <p>
      * getStats
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

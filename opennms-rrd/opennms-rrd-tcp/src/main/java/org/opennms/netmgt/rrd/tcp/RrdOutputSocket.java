@@ -48,15 +48,21 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class RrdOutputSocket {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(RrdOutputSocket.class);
 
     // private final RrdDefinition m_def;
+    /** The m_host. */
     private final String m_host;
 
+    /** The m_port. */
     private final int m_port;
 
+    /** The m_messages. */
     private final PerformanceDataProtos.PerformanceDataReadings.Builder m_messages;
 
+    /** The m_message count. */
     private int m_messageCount = 0;
 
     /**
@@ -79,6 +85,7 @@ public class RrdOutputSocket {
      * <p>
      * addData
      * </p>
+     * .
      *
      * @param filename
      *            a {@link java.lang.String} object.
@@ -98,6 +105,7 @@ public class RrdOutputSocket {
      * <p>
      * writeData
      * </p>
+     * .
      */
     public void writeData() {
         Socket socket = null;
@@ -122,6 +130,13 @@ public class RrdOutputSocket {
         }
     };
 
+    /**
+     * Parses the rrd timestamp.
+     *
+     * @param data
+     *            the data
+     * @return the long
+     */
     private Long parseRrdTimestamp(String data) {
         if (data.startsWith("N:")) {
             return System.currentTimeMillis();
@@ -132,6 +147,13 @@ public class RrdOutputSocket {
         }
     }
 
+    /**
+     * Parses the rrd values.
+     *
+     * @param data
+     *            the data
+     * @return the list
+     */
     private List<Double> parseRrdValues(String data) {
         List<Double> retval = new ArrayList<Double>();
         String[] values = data.split(":");
