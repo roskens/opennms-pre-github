@@ -23,34 +23,63 @@ import java.util.Map;
 import javax.servlet.FilterConfig;
 import javax.servlet.ServletContext;
 
+/**
+ * The Class FilterConfigImpl.
+ */
 public final class FilterConfigImpl implements FilterConfig {
+
+    /** The name. */
     private final String name;
 
+    /** The context. */
     private final ServletContext context;
 
+    /** The init params. */
     private final Map<String, String> initParams;
 
+    /**
+     * Instantiates a new filter config impl.
+     *
+     * @param name
+     *            the name
+     * @param context
+     *            the context
+     * @param initParams
+     *            the init params
+     */
     public FilterConfigImpl(String name, ServletContext context, Map<String, String> initParams) {
         this.name = name;
         this.context = context;
         this.initParams = initParams;
     }
 
+    /* (non-Javadoc)
+     * @see javax.servlet.FilterConfig#getFilterName()
+     */
     @Override
     public String getFilterName() {
         return this.name;
     }
 
+    /* (non-Javadoc)
+     * @see javax.servlet.FilterConfig#getServletContext()
+     */
     @Override
     public ServletContext getServletContext() {
         return this.context;
     }
 
+    /* (non-Javadoc)
+     * @see javax.servlet.FilterConfig#getInitParameter(java.lang.String)
+     */
     @Override
     public String getInitParameter(String name) {
         return this.initParams.get(name);
     }
 
+    /* (non-Javadoc)
+     * @see javax.servlet.FilterConfig#getInitParameterNames()
+     */
     @Override
     public Enumeration<String> getInitParameterNames() {
         return Collections.enumeration(this.initParams.keySet());

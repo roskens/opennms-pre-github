@@ -29,25 +29,50 @@ import org.opennms.container.web.felix.base.internal.HttpServiceController;
 import org.opennms.container.web.felix.base.internal.logger.SystemLogger;
 import org.osgi.framework.Constants;
 
+/**
+ * The Class BridgeActivator.
+ */
 public final class BridgeActivator extends AbstractActivator {
+
+    /** The dispatcher. */
     private DispatcherFilter dispatcher;
 
+    /** The event dispatcher. */
     private EventDispatcher eventDispatcher;
 
+    /** The controller. */
     private HttpServiceController controller;
 
+    /**
+     * Gets the dispatcher filter.
+     *
+     * @return the dispatcher filter
+     */
     protected DispatcherFilter getDispatcherFilter() {
         return this.dispatcher;
     }
 
+    /**
+     * Gets the event dispatcher.
+     *
+     * @return the event dispatcher
+     */
     protected EventDispatcher getEventDispatcher() {
         return this.eventDispatcher;
     }
 
+    /**
+     * Gets the http service controller.
+     *
+     * @return the http service controller
+     */
     protected HttpServiceController getHttpServiceController() {
         return this.controller;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.container.web.felix.base.internal.AbstractActivator#doStart()
+     */
     @Override
     protected void doStart() throws Exception {
         this.controller = new HttpServiceController(getBundleContext());
@@ -71,6 +96,9 @@ public final class BridgeActivator extends AbstractActivator {
         SystemLogger.info("Started bridged http service");
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.container.web.felix.base.internal.AbstractActivator#doStop()
+     */
     @Override
     protected void doStop() throws Exception {
         this.controller.unregister();

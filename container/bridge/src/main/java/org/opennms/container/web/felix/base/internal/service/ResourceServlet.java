@@ -28,15 +28,30 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * The Class ResourceServlet.
+ */
 public final class ResourceServlet extends HttpServlet {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -7387663368560295529L;
 
+    /** The path. */
     private final String path;
 
+    /**
+     * Instantiates a new resource servlet.
+     *
+     * @param path
+     *            the path
+     */
     public ResourceServlet(String path) {
         this.path = path;
     }
 
+    /* (non-Javadoc)
+     * @see javax.servlet.http.HttpServlet#doGet(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         String target = req.getPathInfo();
@@ -58,6 +73,20 @@ public final class ResourceServlet extends HttpServlet {
         }
     }
 
+    /**
+     * Handle.
+     *
+     * @param req
+     *            the req
+     * @param res
+     *            the res
+     * @param url
+     *            the url
+     * @param resName
+     *            the res name
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     private void handle(HttpServletRequest req, HttpServletResponse res, URL url, String resName) throws IOException {
         String contentType = getServletContext().getMimeType(resName);
         if (contentType != null) {
@@ -76,6 +105,13 @@ public final class ResourceServlet extends HttpServlet {
         }
     }
 
+    /**
+     * Gets the last modified.
+     *
+     * @param url
+     *            the url
+     * @return the last modified
+     */
     private long getLastModified(URL url) {
         long lastModified = 0;
 
@@ -99,6 +135,15 @@ public final class ResourceServlet extends HttpServlet {
         return lastModified;
     }
 
+    /**
+     * Resource modified.
+     *
+     * @param resTimestamp
+     *            the res timestamp
+     * @param modSince
+     *            the mod since
+     * @return true, if successful
+     */
     private boolean resourceModified(long resTimestamp, long modSince) {
         modSince /= 1000;
         resTimestamp /= 1000;
@@ -106,6 +151,16 @@ public final class ResourceServlet extends HttpServlet {
         return resTimestamp == 0 || modSince == -1 || resTimestamp > modSince;
     }
 
+    /**
+     * Copy resource.
+     *
+     * @param url
+     *            the url
+     * @param res
+     *            the res
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     private void copyResource(URL url, HttpServletResponse res) throws IOException {
         OutputStream os = null;
         InputStream is = null;

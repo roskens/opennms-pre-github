@@ -22,6 +22,21 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * The Interface ExtServletContext.
+ */
 public interface ExtServletContext extends ServletContext {
+
+    /**
+     * Handle security.
+     *
+     * @param req
+     *            the req
+     * @param res
+     *            the res
+     * @return true, if successful
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     public boolean handleSecurity(HttpServletRequest req, HttpServletResponse res) throws IOException;
 }

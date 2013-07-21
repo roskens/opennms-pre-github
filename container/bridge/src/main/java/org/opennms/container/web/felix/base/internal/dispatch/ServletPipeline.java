@@ -28,13 +28,37 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.opennms.container.web.felix.base.internal.handler.ServletHandler;
 
+/**
+ * The Class ServletPipeline.
+ */
 public final class ServletPipeline {
+
+    /** The handlers. */
     private final ServletHandler[] handlers;
 
+    /**
+     * Instantiates a new servlet pipeline.
+     *
+     * @param handlers
+     *            the handlers
+     */
     public ServletPipeline(ServletHandler[] handlers) {
         this.handlers = handlers;
     }
 
+    /**
+     * Handle.
+     *
+     * @param req
+     *            the req
+     * @param res
+     *            the res
+     * @return true, if successful
+     * @throws ServletException
+     *             the servlet exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     public boolean handle(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         for (ServletHandler handler : this.handlers) {
             if (handler.handle(req, res)) {
@@ -45,10 +69,22 @@ public final class ServletPipeline {
         return false;
     }
 
+    /**
+     * Checks for servlets mapped.
+     *
+     * @return true, if successful
+     */
     public boolean hasServletsMapped() {
         return this.handlers.length > 0;
     }
 
+    /**
+     * Gets the request dispatcher.
+     *
+     * @param path
+     *            the path
+     * @return the request dispatcher
+     */
     public RequestDispatcher getRequestDispatcher(String path) {
         for (ServletHandler handler : this.handlers) {
             if (handler.matches(path)) {
@@ -59,16 +95,33 @@ public final class ServletPipeline {
         return null;
     }
 
+    /**
+     * The Class Dispatcher.
+     */
     private final class Dispatcher implements RequestDispatcher {
+
+        /** The path. */
         private final String path;
 
+        /** The handler. */
         private final ServletHandler handler;
 
+        /**
+         * Instantiates a new dispatcher.
+         *
+         * @param path
+         *            the path
+         * @param handler
+         *            the handler
+         */
         public Dispatcher(String path, ServletHandler handler) {
             this.path = path;
             this.handler = handler;
         }
 
+        /* (non-Javadoc)
+         * @see javax.servlet.RequestDispatcher#forward(javax.servlet.ServletRequest, javax.servlet.ServletResponse)
+         */
         @Override
         public void forward(ServletRequest req, ServletResponse res) throws ServletException, IOException {
             if (res.isCommitted()) {
@@ -78,20 +131,39 @@ public final class ServletPipeline {
             this.handler.handle(new RequestWrapper((HttpServletRequest) req, this.path), (HttpServletResponse) res);
         }
 
+        /* (non-Javadoc)
+         * @see javax.servlet.RequestDispatcher#include(javax.servlet.ServletRequest, javax.servlet.ServletResponse)
+         */
         @Override
         public void include(ServletRequest req, ServletResponse res) throws ServletException, IOException {
             this.handler.handle((HttpServletRequest) req, (HttpServletResponse) res);
         }
     }
 
+    /**
+     * The Class RequestWrapper.
+     */
     private final class RequestWrapper extends HttpServletRequestWrapper {
+
+        /** The request uri. */
         private final String requestUri;
 
+        /**
+         * Instantiates a new request wrapper.
+         *
+         * @param req
+         *            the req
+         * @param requestUri
+         *            the request uri
+         */
         public RequestWrapper(HttpServletRequest req, String requestUri) {
             super(req);
             this.requestUri = requestUri;
         }
 
+        /* (non-Javadoc)
+         * @see javax.servlet.http.HttpServletRequestWrapper#getRequestURI()
+         */
         @Override
         public String getRequestURI() {
             return this.requestUri;

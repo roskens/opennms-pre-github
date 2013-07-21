@@ -26,25 +26,54 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.opennms.container.web.felix.base.internal.context.ExtServletContext;
 
+/**
+ * The Class ServletHandler.
+ */
 public final class ServletHandler extends AbstractHandler implements Comparable<ServletHandler> {
+
+    /** The alias. */
     private final String alias;
 
+    /** The servlet. */
     private final Servlet servlet;
 
+    /**
+     * Instantiates a new servlet handler.
+     *
+     * @param context
+     *            the context
+     * @param servlet
+     *            the servlet
+     * @param alias
+     *            the alias
+     */
     public ServletHandler(ExtServletContext context, Servlet servlet, String alias) {
         super(context);
         this.alias = alias;
         this.servlet = servlet;
     }
 
+    /**
+     * Gets the alias.
+     *
+     * @return the alias
+     */
     public String getAlias() {
         return this.alias;
     }
 
+    /**
+     * Gets the servlet.
+     *
+     * @return the servlet
+     */
     public Servlet getServlet() {
         return this.servlet;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.container.web.felix.base.internal.handler.AbstractHandler#init()
+     */
     @Override
     public void init() throws ServletException {
         String name = "servlet_" + getId();
@@ -52,11 +81,21 @@ public final class ServletHandler extends AbstractHandler implements Comparable<
         this.servlet.init(config);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.container.web.felix.base.internal.handler.AbstractHandler#destroy()
+     */
     @Override
     public void destroy() {
         this.servlet.destroy();
     }
 
+    /**
+     * Matches.
+     *
+     * @param uri
+     *            the uri
+     * @return true, if successful
+     */
     public boolean matches(String uri) {
         if (uri == null) {
             return this.alias.equals("/");
@@ -67,6 +106,19 @@ public final class ServletHandler extends AbstractHandler implements Comparable<
         }
     }
 
+    /**
+     * Handle.
+     *
+     * @param req
+     *            the req
+     * @param res
+     *            the res
+     * @return true, if successful
+     * @throws ServletException
+     *             the servlet exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     public boolean handle(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         // pathInfo is null if using *.htm style uri-mapping, or if we're in a
         // filter rather than a specific servlet
@@ -78,6 +130,18 @@ public final class ServletHandler extends AbstractHandler implements Comparable<
         return matches;
     }
 
+    /**
+     * Do handle.
+     *
+     * @param req
+     *            the req
+     * @param res
+     *            the res
+     * @throws ServletException
+     *             the servlet exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     private void doHandle(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         // set a sensible status code in case handleSecurity returns false
         // but fails to send a response
@@ -90,6 +154,9 @@ public final class ServletHandler extends AbstractHandler implements Comparable<
         }
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Comparable#compareTo(java.lang.Object)
+     */
     @Override
     public int compareTo(ServletHandler other) {
         return other.alias.length() - this.alias.length();

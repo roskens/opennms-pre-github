@@ -33,10 +33,19 @@ import org.osgi.framework.BundleContext;
 public class HttpSessionListenerManager extends AbstractListenerManager<HttpSessionListener> implements
         HttpSessionListener {
 
+    /**
+     * Instantiates a new http session listener manager.
+     *
+     * @param context
+     *            the context
+     */
     public HttpSessionListenerManager(BundleContext context) {
         super(context, HttpSessionListener.class);
     }
 
+    /* (non-Javadoc)
+     * @see javax.servlet.http.HttpSessionListener#sessionCreated(javax.servlet.http.HttpSessionEvent)
+     */
     @Override
     public void sessionCreated(final HttpSessionEvent se) {
         final Iterator<HttpSessionListener> listeners = getContextListeners();
@@ -45,6 +54,9 @@ public class HttpSessionListenerManager extends AbstractListenerManager<HttpSess
         }
     }
 
+    /* (non-Javadoc)
+     * @see javax.servlet.http.HttpSessionListener#sessionDestroyed(javax.servlet.http.HttpSessionEvent)
+     */
     @Override
     public void sessionDestroyed(final HttpSessionEvent se) {
         final Iterator<HttpSessionListener> listeners = getContextListeners();

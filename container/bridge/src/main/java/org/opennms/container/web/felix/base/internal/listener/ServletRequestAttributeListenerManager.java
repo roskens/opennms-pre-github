@@ -32,10 +32,22 @@ import org.osgi.framework.BundleContext;
  */
 public class ServletRequestAttributeListenerManager extends AbstractListenerManager<ServletRequestAttributeListener> {
 
+    /**
+     * Instantiates a new servlet request attribute listener manager.
+     *
+     * @param context
+     *            the context
+     */
     public ServletRequestAttributeListenerManager(BundleContext context) {
         super(context, ServletRequestAttributeListener.class);
     }
 
+    /**
+     * Attribute added.
+     *
+     * @param srae
+     *            the srae
+     */
     public void attributeAdded(final ServletRequestAttributeEvent srae) {
         final Iterator<ServletRequestAttributeListener> listeners = getContextListeners();
         while (listeners.hasNext()) {
@@ -43,6 +55,12 @@ public class ServletRequestAttributeListenerManager extends AbstractListenerMana
         }
     }
 
+    /**
+     * Attribute removed.
+     *
+     * @param srae
+     *            the srae
+     */
     public void attributeRemoved(final ServletRequestAttributeEvent srae) {
         final Iterator<ServletRequestAttributeListener> listeners = getContextListeners();
         while (listeners.hasNext()) {
@@ -50,6 +68,12 @@ public class ServletRequestAttributeListenerManager extends AbstractListenerMana
         }
     }
 
+    /**
+     * Attribute replaced.
+     *
+     * @param srae
+     *            the srae
+     */
     public void attributeReplaced(final ServletRequestAttributeEvent srae) {
         final Iterator<ServletRequestAttributeListener> listeners = getContextListeners();
         while (listeners.hasNext()) {

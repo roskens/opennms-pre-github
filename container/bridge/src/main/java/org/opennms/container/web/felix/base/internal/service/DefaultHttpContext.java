@@ -24,18 +24,35 @@ import javax.servlet.http.HttpServletResponse;
 import org.osgi.framework.Bundle;
 import org.osgi.service.http.HttpContext;
 
+/**
+ * The Class DefaultHttpContext.
+ */
 public final class DefaultHttpContext implements HttpContext {
+
+    /** The bundle. */
     private Bundle bundle;
 
+    /**
+     * Instantiates a new default http context.
+     *
+     * @param bundle
+     *            the bundle
+     */
     public DefaultHttpContext(Bundle bundle) {
         this.bundle = bundle;
     }
 
+    /* (non-Javadoc)
+     * @see org.osgi.service.http.HttpContext#getMimeType(java.lang.String)
+     */
     @Override
     public String getMimeType(String name) {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see org.osgi.service.http.HttpContext#getResource(java.lang.String)
+     */
     @Override
     public URL getResource(String name) {
         if (name.startsWith("/")) {
@@ -45,6 +62,9 @@ public final class DefaultHttpContext implements HttpContext {
         return this.bundle.getResource(name);
     }
 
+    /* (non-Javadoc)
+     * @see org.osgi.service.http.HttpContext#handleSecurity(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     */
     @Override
     public boolean handleSecurity(HttpServletRequest req, HttpServletResponse res) {
         return true;

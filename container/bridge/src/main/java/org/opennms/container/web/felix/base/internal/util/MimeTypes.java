@@ -19,11 +19,20 @@ package org.opennms.container.web.felix.base.internal.util;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * The Class MimeTypes.
+ */
 public final class MimeTypes {
+
+    /** The Constant INSTANCE. */
     private static final MimeTypes INSTANCE = new MimeTypes();
 
+    /** The ext map. */
     private final Map<String, String> extMap;
 
+    /**
+     * Instantiates a new mime types.
+     */
     private MimeTypes() {
         this.extMap = new HashMap<String, String>();
         this.extMap.put("abs", "audio/x-mpeg");
@@ -173,6 +182,13 @@ public final class MimeTypes {
         this.extMap.put("zip", "application/zip");
     }
 
+    /**
+     * Gets the by file.
+     *
+     * @param file
+     *            the file
+     * @return the by file
+     */
     public String getByFile(String file) {
         if (file == null) {
             return null;
@@ -191,6 +207,13 @@ public final class MimeTypes {
         return getByExtension(ext);
     }
 
+    /**
+     * Gets the by extension.
+     *
+     * @param ext
+     *            the ext
+     * @return the by extension
+     */
     public String getByExtension(String ext) {
         if (ext == null) {
             return null;
@@ -199,6 +222,11 @@ public final class MimeTypes {
         return this.extMap.get(ext);
     }
 
+    /**
+     * Gets the.
+     *
+     * @return the mime types
+     */
     public static MimeTypes get() {
         return INSTANCE;
     }

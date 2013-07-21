@@ -28,13 +28,32 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.opennms.container.web.felix.base.internal.context.ExtServletContext;
 
+/**
+ * The Class FilterHandler.
+ */
 public final class FilterHandler extends AbstractHandler implements Comparable<FilterHandler> {
+
+    /** The filter. */
     private final Filter filter;
 
+    /** The regex. */
     private final Pattern regex;
 
+    /** The ranking. */
     private final int ranking;
 
+    /**
+     * Instantiates a new filter handler.
+     *
+     * @param context
+     *            the context
+     * @param filter
+     *            the filter
+     * @param pattern
+     *            the pattern
+     * @param ranking
+     *            the ranking
+     */
     public FilterHandler(ExtServletContext context, Filter filter, String pattern, int ranking) {
         super(context);
         this.filter = filter;
@@ -42,10 +61,18 @@ public final class FilterHandler extends AbstractHandler implements Comparable<F
         this.regex = Pattern.compile(pattern);
     }
 
+    /**
+     * Gets the filter.
+     *
+     * @return the filter
+     */
     public Filter getFilter() {
         return this.filter;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.container.web.felix.base.internal.handler.AbstractHandler#init()
+     */
     @Override
     public void init() throws ServletException {
         String name = "filter_" + getId();
@@ -53,11 +80,21 @@ public final class FilterHandler extends AbstractHandler implements Comparable<F
         this.filter.init(config);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.container.web.felix.base.internal.handler.AbstractHandler#destroy()
+     */
     @Override
     public void destroy() {
         this.filter.destroy();
     }
 
+    /**
+     * Matches.
+     *
+     * @param uri
+     *            the uri
+     * @return true, if successful
+     */
     public boolean matches(String uri) {
         // assume root if uri is null
         if (uri == null) {
@@ -67,6 +104,20 @@ public final class FilterHandler extends AbstractHandler implements Comparable<F
         return this.regex.matcher(uri).matches();
     }
 
+    /**
+     * Handle.
+     *
+     * @param req
+     *            the req
+     * @param res
+     *            the res
+     * @param chain
+     *            the chain
+     * @throws ServletException
+     *             the servlet exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     public void handle(HttpServletRequest req, HttpServletResponse res, FilterChain chain) throws ServletException,
             IOException {
         // pathInfo is null if using *.htm style uri-mapping, or if we're in a
@@ -79,6 +130,20 @@ public final class FilterHandler extends AbstractHandler implements Comparable<F
         }
     }
 
+    /**
+     * Do handle.
+     *
+     * @param req
+     *            the req
+     * @param res
+     *            the res
+     * @param chain
+     *            the chain
+     * @throws ServletException
+     *             the servlet exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     private void doHandle(HttpServletRequest req, HttpServletResponse res, FilterChain chain) throws ServletException,
             IOException {
         if (!getContext().handleSecurity(req, res)) {
@@ -88,6 +153,9 @@ public final class FilterHandler extends AbstractHandler implements Comparable<F
         }
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Comparable#compareTo(java.lang.Object)
+     */
     @Override
     public int compareTo(FilterHandler other) {
         return other.ranking - this.ranking;

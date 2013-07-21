@@ -25,21 +25,42 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.opennms.container.web.felix.base.internal.handler.FilterHandler;
 
+/**
+ * The Class InvocationFilterChain.
+ */
 public final class InvocationFilterChain extends HttpFilterChain {
+
+    /** The handlers. */
     private final FilterHandler[] handlers;
 
+    /** The servlet pipeline. */
     private final ServletPipeline servletPipeline;
 
+    /** The proceeding chain. */
     private final FilterChain proceedingChain;
 
+    /** The index. */
     private int index = -1;
 
+    /**
+     * Instantiates a new invocation filter chain.
+     *
+     * @param handlers
+     *            the handlers
+     * @param servletPipeline
+     *            the servlet pipeline
+     * @param proceedingChain
+     *            the proceeding chain
+     */
     public InvocationFilterChain(FilterHandler[] handlers, ServletPipeline servletPipeline, FilterChain proceedingChain) {
         this.handlers = handlers;
         this.servletPipeline = servletPipeline;
         this.proceedingChain = proceedingChain;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.container.web.felix.base.internal.dispatch.HttpFilterChain#doFilter(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     */
     @Override
     protected void doFilter(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
         this.index++;

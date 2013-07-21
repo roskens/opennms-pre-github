@@ -20,7 +20,14 @@ package org.opennms.container.web.felix.base.internal.logger;
 
 import org.osgi.framework.ServiceReference;
 
+/**
+ * The Class NopLogger.
+ */
 public final class NopLogger extends AbstractLogger {
+
+    /* (non-Javadoc)
+     * @see org.osgi.service.log.LogService#log(org.osgi.framework.ServiceReference, int, java.lang.String, java.lang.Throwable)
+     */
     @Override
     @SuppressWarnings("unchecked")
     // Because of OSGi API

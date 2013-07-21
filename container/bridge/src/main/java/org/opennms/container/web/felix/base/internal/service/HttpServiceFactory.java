@@ -24,15 +24,35 @@ import org.osgi.framework.Bundle;
 import org.osgi.framework.ServiceFactory;
 import org.osgi.framework.ServiceRegistration;
 
+/**
+ * A factory for creating HttpService objects.
+ */
 public final class HttpServiceFactory implements ServiceFactory<HttpServiceImpl> {
+
+    /** The context. */
     private final ServletContext context;
 
+    /** The attribute listener. */
     private final ServletContextAttributeListener attributeListener;
 
+    /** The handler registry. */
     private final HandlerRegistry handlerRegistry;
 
+    /** The shared context attributes. */
     private final boolean sharedContextAttributes;
 
+    /**
+     * Instantiates a new http service factory.
+     *
+     * @param context
+     *            the context
+     * @param handlerRegistry
+     *            the handler registry
+     * @param attributeListener
+     *            the attribute listener
+     * @param sharedContextAttributes
+     *            the shared context attributes
+     */
     public HttpServiceFactory(ServletContext context, HandlerRegistry handlerRegistry,
             ServletContextAttributeListener attributeListener, boolean sharedContextAttributes) {
         this.context = context;
@@ -41,12 +61,18 @@ public final class HttpServiceFactory implements ServiceFactory<HttpServiceImpl>
         this.sharedContextAttributes = sharedContextAttributes;
     }
 
+    /* (non-Javadoc)
+     * @see org.osgi.framework.ServiceFactory#getService(org.osgi.framework.Bundle, org.osgi.framework.ServiceRegistration)
+     */
     @Override
     public HttpServiceImpl getService(Bundle bundle, ServiceRegistration<HttpServiceImpl> reg) {
         return new HttpServiceImpl(bundle, this.context, this.handlerRegistry, this.attributeListener,
                                    this.sharedContextAttributes);
     }
 
+    /* (non-Javadoc)
+     * @see org.osgi.framework.ServiceFactory#ungetService(org.osgi.framework.Bundle, org.osgi.framework.ServiceRegistration, java.lang.Object)
+     */
     @Override
     public void ungetService(Bundle bundle, ServiceRegistration<HttpServiceImpl> reg, HttpServiceImpl service) {
         service.unregisterAll();

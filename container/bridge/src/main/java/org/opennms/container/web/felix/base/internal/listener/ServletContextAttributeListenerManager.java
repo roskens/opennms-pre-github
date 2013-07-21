@@ -33,10 +33,19 @@ import org.osgi.framework.BundleContext;
 public class ServletContextAttributeListenerManager extends AbstractListenerManager<ServletContextAttributeListener>
         implements ServletContextAttributeListener {
 
+    /**
+     * Instantiates a new servlet context attribute listener manager.
+     *
+     * @param context
+     *            the context
+     */
     public ServletContextAttributeListenerManager(BundleContext context) {
         super(context, ServletContextAttributeListener.class);
     }
 
+    /* (non-Javadoc)
+     * @see javax.servlet.ServletContextAttributeListener#attributeAdded(javax.servlet.ServletContextAttributeEvent)
+     */
     @Override
     public void attributeAdded(final ServletContextAttributeEvent scab) {
         final Iterator<ServletContextAttributeListener> listeners = getContextListeners();
@@ -45,6 +54,9 @@ public class ServletContextAttributeListenerManager extends AbstractListenerMana
         }
     }
 
+    /* (non-Javadoc)
+     * @see javax.servlet.ServletContextAttributeListener#attributeRemoved(javax.servlet.ServletContextAttributeEvent)
+     */
     @Override
     public void attributeRemoved(final ServletContextAttributeEvent scab) {
         final Iterator<ServletContextAttributeListener> listeners = getContextListeners();
@@ -53,6 +65,9 @@ public class ServletContextAttributeListenerManager extends AbstractListenerMana
         }
     }
 
+    /* (non-Javadoc)
+     * @see javax.servlet.ServletContextAttributeListener#attributeReplaced(javax.servlet.ServletContextAttributeEvent)
+     */
     @Override
     public void attributeReplaced(final ServletContextAttributeEvent scab) {
         final Iterator<ServletContextAttributeListener> listeners = getContextListeners();

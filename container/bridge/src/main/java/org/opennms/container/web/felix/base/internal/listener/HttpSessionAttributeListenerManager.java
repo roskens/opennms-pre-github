@@ -33,10 +33,19 @@ import org.osgi.framework.BundleContext;
 public class HttpSessionAttributeListenerManager extends AbstractListenerManager<HttpSessionAttributeListener>
         implements HttpSessionAttributeListener {
 
+    /**
+     * Instantiates a new http session attribute listener manager.
+     *
+     * @param context
+     *            the context
+     */
     public HttpSessionAttributeListenerManager(BundleContext context) {
         super(context, HttpSessionAttributeListener.class);
     }
 
+    /* (non-Javadoc)
+     * @see javax.servlet.http.HttpSessionAttributeListener#attributeAdded(javax.servlet.http.HttpSessionBindingEvent)
+     */
     @Override
     public void attributeAdded(final HttpSessionBindingEvent se) {
         final Iterator<HttpSessionAttributeListener> listeners = getContextListeners();
@@ -45,6 +54,9 @@ public class HttpSessionAttributeListenerManager extends AbstractListenerManager
         }
     }
 
+    /* (non-Javadoc)
+     * @see javax.servlet.http.HttpSessionAttributeListener#attributeRemoved(javax.servlet.http.HttpSessionBindingEvent)
+     */
     @Override
     public void attributeRemoved(final HttpSessionBindingEvent se) {
         final Iterator<HttpSessionAttributeListener> listeners = getContextListeners();
@@ -53,6 +65,9 @@ public class HttpSessionAttributeListenerManager extends AbstractListenerManager
         }
     }
 
+    /* (non-Javadoc)
+     * @see javax.servlet.http.HttpSessionAttributeListener#attributeReplaced(javax.servlet.http.HttpSessionBindingEvent)
+     */
     @Override
     public void attributeReplaced(final HttpSessionBindingEvent se) {
         final Iterator<HttpSessionAttributeListener> listeners = getContextListeners();

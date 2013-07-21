@@ -25,17 +25,38 @@ import javax.servlet.ServletContextAttributeListener;
 import org.osgi.framework.Bundle;
 import org.osgi.service.http.HttpContext;
 
+/**
+ * The Class ServletContextManager.
+ */
 public final class ServletContextManager {
+
+    /** The bundle. */
     private final Bundle bundle;
 
+    /** The context. */
     private final ServletContext context;
 
+    /** The attribute listener. */
     private final ServletContextAttributeListener attributeListener;
 
+    /** The context map. */
     private final Map<HttpContext, ExtServletContext> contextMap;
 
+    /** The shared attributes. */
     private final boolean sharedAttributes;
 
+    /**
+     * Instantiates a new servlet context manager.
+     *
+     * @param bundle
+     *            the bundle
+     * @param context
+     *            the context
+     * @param attributeListener
+     *            the attribute listener
+     * @param sharedAttributes
+     *            the shared attributes
+     */
     public ServletContextManager(Bundle bundle, ServletContext context,
             ServletContextAttributeListener attributeListener, boolean sharedAttributes) {
         this.bundle = bundle;
@@ -45,6 +66,13 @@ public final class ServletContextManager {
         this.sharedAttributes = sharedAttributes;
     }
 
+    /**
+     * Gets the servlet context.
+     *
+     * @param httpContext
+     *            the http context
+     * @return the servlet context
+     */
     public ExtServletContext getServletContext(HttpContext httpContext) {
         synchronized (this.contextMap) {
             ExtServletContext context = this.contextMap.get(httpContext);
@@ -56,6 +84,13 @@ public final class ServletContextManager {
         }
     }
 
+    /**
+     * Adds the servlet context.
+     *
+     * @param httpContext
+     *            the http context
+     * @return the ext servlet context
+     */
     private ExtServletContext addServletContext(HttpContext httpContext) {
         ExtServletContext context = new ServletContextImpl(this.bundle, this.context, httpContext, attributeListener,
                                                            sharedAttributes);

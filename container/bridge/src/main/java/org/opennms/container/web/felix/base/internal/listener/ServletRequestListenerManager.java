@@ -32,10 +32,22 @@ import org.osgi.framework.BundleContext;
  */
 public class ServletRequestListenerManager extends AbstractListenerManager<ServletRequestListener> {
 
+    /**
+     * Instantiates a new servlet request listener manager.
+     *
+     * @param context
+     *            the context
+     */
     public ServletRequestListenerManager(BundleContext context) {
         super(context, ServletRequestListener.class);
     }
 
+    /**
+     * Request destroyed.
+     *
+     * @param sre
+     *            the sre
+     */
     public void requestDestroyed(final ServletRequestEvent sre) {
         final Iterator<ServletRequestListener> listeners = getContextListeners();
         while (listeners.hasNext()) {
@@ -43,6 +55,12 @@ public class ServletRequestListenerManager extends AbstractListenerManager<Servl
         }
     }
 
+    /**
+     * Request initialized.
+     *
+     * @param sre
+     *            the sre
+     */
     public void requestInitialized(final ServletRequestEvent sre) {
         final Iterator<ServletRequestListener> listeners = getContextListeners();
         while (listeners.hasNext()) {

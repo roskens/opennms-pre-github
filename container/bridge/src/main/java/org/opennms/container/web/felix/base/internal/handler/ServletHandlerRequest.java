@@ -22,17 +22,34 @@ import javax.servlet.http.HttpServletRequestWrapper;
 
 import org.osgi.service.http.HttpContext;
 
+/**
+ * The Class ServletHandlerRequest.
+ */
 final class ServletHandlerRequest extends HttpServletRequestWrapper {
+
+    /** The m_alias. */
     private final String m_alias;
 
+    /** The m_context path. */
     private String m_contextPath;
 
+    /** The m_servlet path. */
     private String m_servletPath;
 
+    /** The m_path info. */
     private String m_pathInfo;
 
+    /** The m_path info calculated. */
     private boolean m_pathInfoCalculated = false;
 
+    /**
+     * Instantiates a new servlet handler request.
+     *
+     * @param req
+     *            the req
+     * @param alias
+     *            the alias
+     */
     public ServletHandlerRequest(final HttpServletRequest req, final String alias) {
         super(req);
 
@@ -41,24 +58,36 @@ final class ServletHandlerRequest extends HttpServletRequestWrapper {
         updatePathInfo();
     }
 
+    /* (non-Javadoc)
+     * @see javax.servlet.http.HttpServletRequestWrapper#getContextPath()
+     */
     @Override
     public String getContextPath() {
         updatePathInfo();
         return m_contextPath;
     }
 
+    /* (non-Javadoc)
+     * @see javax.servlet.http.HttpServletRequestWrapper#getServletPath()
+     */
     @Override
     public String getServletPath() {
         updatePathInfo();
         return m_servletPath;
     }
 
+    /* (non-Javadoc)
+     * @see javax.servlet.http.HttpServletRequestWrapper#getPathInfo()
+     */
     @Override
     public String getPathInfo() {
         updatePathInfo();
         return m_pathInfo;
     }
 
+    /* (non-Javadoc)
+     * @see javax.servlet.http.HttpServletRequestWrapper#getPathTranslated()
+     */
     @Override
     public String getPathTranslated() {
         final String info = getPathInfo();
@@ -68,6 +97,9 @@ final class ServletHandlerRequest extends HttpServletRequestWrapper {
         return getRealPath(info);
     }
 
+    /* (non-Javadoc)
+     * @see javax.servlet.http.HttpServletRequestWrapper#getAuthType()
+     */
     @Override
     public String getAuthType() {
         String authType = (String) getAttribute(HttpContext.AUTHENTICATION_TYPE);
@@ -79,6 +111,9 @@ final class ServletHandlerRequest extends HttpServletRequestWrapper {
         return authType;
     }
 
+    /* (non-Javadoc)
+     * @see javax.servlet.http.HttpServletRequestWrapper#getRemoteUser()
+     */
     @Override
     public String getRemoteUser() {
         String remoteUser = (String) getAttribute(HttpContext.REMOTE_USER);
@@ -90,12 +125,18 @@ final class ServletHandlerRequest extends HttpServletRequestWrapper {
         return remoteUser;
     }
 
+    /* (non-Javadoc)
+     * @see javax.servlet.ServletRequestWrapper#setRequest(javax.servlet.ServletRequest)
+     */
     @Override
     public void setRequest(ServletRequest request) {
         super.setRequest(request);
         m_pathInfoCalculated = false;
     }
 
+    /**
+     * Update path info.
+     */
     private void updatePathInfo() {
         if (m_pathInfoCalculated)
             return;

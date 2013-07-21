@@ -22,17 +22,34 @@ import java.io.PrintStream;
 
 import org.osgi.framework.ServiceReference;
 
+/**
+ * The Class ConsoleLogger.
+ */
 public final class ConsoleLogger extends AbstractLogger {
+
+    /** The out. */
     private final PrintStream out;
 
+    /**
+     * Instantiates a new console logger.
+     */
     public ConsoleLogger() {
         this(System.out);
     }
 
+    /**
+     * Instantiates a new console logger.
+     *
+     * @param out
+     *            the out
+     */
     public ConsoleLogger(PrintStream out) {
         this.out = out;
     }
 
+    /* (non-Javadoc)
+     * @see org.osgi.service.log.LogService#log(org.osgi.framework.ServiceReference, int, java.lang.String, java.lang.Throwable)
+     */
     @Override
     @SuppressWarnings("unchecked")
     // Because of OSGi API

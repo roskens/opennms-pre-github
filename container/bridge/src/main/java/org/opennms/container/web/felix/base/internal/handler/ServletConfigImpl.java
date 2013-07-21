@@ -23,34 +23,63 @@ import java.util.Map;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 
+/**
+ * The Class ServletConfigImpl.
+ */
 public final class ServletConfigImpl implements ServletConfig {
+
+    /** The name. */
     private final String name;
 
+    /** The context. */
     private final ServletContext context;
 
+    /** The init params. */
     private final Map<String, String> initParams;
 
+    /**
+     * Instantiates a new servlet config impl.
+     *
+     * @param name
+     *            the name
+     * @param context
+     *            the context
+     * @param initParams
+     *            the init params
+     */
     public ServletConfigImpl(String name, ServletContext context, Map<String, String> initParams) {
         this.name = name;
         this.context = context;
         this.initParams = initParams;
     }
 
+    /* (non-Javadoc)
+     * @see javax.servlet.ServletConfig#getServletName()
+     */
     @Override
     public String getServletName() {
         return this.name;
     }
 
+    /* (non-Javadoc)
+     * @see javax.servlet.ServletConfig#getServletContext()
+     */
     @Override
     public ServletContext getServletContext() {
         return this.context;
     }
 
+    /* (non-Javadoc)
+     * @see javax.servlet.ServletConfig#getInitParameter(java.lang.String)
+     */
     @Override
     public String getInitParameter(String name) {
         return this.initParams.get(name);
     }
 
+    /* (non-Javadoc)
+     * @see javax.servlet.ServletConfig#getInitParameterNames()
+     */
     @Override
     public Enumeration<String> getInitParameterNames() {
         return Collections.enumeration(this.initParams.keySet());

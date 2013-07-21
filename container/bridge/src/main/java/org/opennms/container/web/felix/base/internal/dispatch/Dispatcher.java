@@ -25,13 +25,38 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.opennms.container.web.felix.base.internal.handler.HandlerRegistry;
 
+/**
+ * The Class Dispatcher.
+ */
 public final class Dispatcher {
+
+    /** The handler registry. */
     private final HandlerRegistry handlerRegistry;
 
+    /**
+     * Instantiates a new dispatcher.
+     *
+     * @param handlerRegistry
+     *            the handler registry
+     */
     public Dispatcher(HandlerRegistry handlerRegistry) {
         this.handlerRegistry = handlerRegistry;
     }
 
+    /**
+     * Dispatch.
+     *
+     * @param req
+     *            the req
+     * @param res
+     *            the res
+     * @param chain
+     *            the chain
+     * @throws ServletException
+     *             the servlet exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     public void dispatch(HttpServletRequest req, HttpServletResponse res, FilterChain chain) throws ServletException,
             IOException {
         ServletPipeline servletPipeline = new ServletPipeline(this.handlerRegistry.getServlets());

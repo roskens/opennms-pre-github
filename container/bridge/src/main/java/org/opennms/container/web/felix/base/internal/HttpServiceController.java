@@ -33,6 +33,9 @@ import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceRegistration;
 import org.osgi.service.http.HttpService;
 
+/**
+ * The Class HttpServiceController.
+ */
 public final class HttpServiceController {
     /**
      * Name of the Framework property indicating whether the servlet context
@@ -55,28 +58,45 @@ public final class HttpServiceController {
      */
     private static final String FELIX_HTTP_SHARED_SERVLET_CONTEXT_ATTRIBUTES = "org.apache.felix.http.shared_servlet_context_attributes";
 
+    /** The bundle context. */
     private final BundleContext bundleContext;
 
+    /** The registry. */
     private final HandlerRegistry registry;
 
+    /** The dispatcher. */
     private final Dispatcher dispatcher;
 
+    /** The service props. */
     private final Hashtable<String, Object> serviceProps;
 
+    /** The context attribute listener. */
     private final ServletContextAttributeListenerManager contextAttributeListener;
 
+    /** The request listener. */
     private final ServletRequestListenerManager requestListener;
 
+    /** The request attribute listener. */
     private final ServletRequestAttributeListenerManager requestAttributeListener;
 
+    /** The session listener. */
     private final HttpSessionListenerManager sessionListener;
 
+    /** The session attribute listener. */
     private final HttpSessionAttributeListenerManager sessionAttributeListener;
 
+    /** The shared context attributes. */
     private final boolean sharedContextAttributes;
 
+    /** The service reg. */
     private ServiceRegistration<?> serviceReg;
 
+    /**
+     * Instantiates a new http service controller.
+     *
+     * @param bundleContext
+     *            the bundle context
+     */
     public HttpServiceController(BundleContext bundleContext) {
         this.bundleContext = bundleContext;
         this.registry = new HandlerRegistry();
@@ -90,30 +110,66 @@ public final class HttpServiceController {
         this.sharedContextAttributes = getBoolean(FELIX_HTTP_SHARED_SERVLET_CONTEXT_ATTRIBUTES);
     }
 
+    /**
+     * Gets the dispatcher.
+     *
+     * @return the dispatcher
+     */
     public Dispatcher getDispatcher() {
         return this.dispatcher;
     }
 
+    /**
+     * Gets the context attribute listener.
+     *
+     * @return the context attribute listener
+     */
     public ServletContextAttributeListenerManager getContextAttributeListener() {
         return contextAttributeListener;
     }
 
+    /**
+     * Gets the request listener.
+     *
+     * @return the request listener
+     */
     public ServletRequestListenerManager getRequestListener() {
         return requestListener;
     }
 
+    /**
+     * Gets the request attribute listener.
+     *
+     * @return the request attribute listener
+     */
     public ServletRequestAttributeListenerManager getRequestAttributeListener() {
         return requestAttributeListener;
     }
 
+    /**
+     * Gets the session listener.
+     *
+     * @return the session listener
+     */
     public HttpSessionListenerManager getSessionListener() {
         return sessionListener;
     }
 
+    /**
+     * Gets the session attribute listener.
+     *
+     * @return the session attribute listener
+     */
     public HttpSessionAttributeListenerManager getSessionAttributeListener() {
         return sessionAttributeListener;
     }
 
+    /**
+     * Sets the properties.
+     *
+     * @param props
+     *            the props
+     */
     public void setProperties(Hashtable<String, Object> props) {
         this.serviceProps.clear();
         this.serviceProps.putAll(props);
@@ -123,6 +179,12 @@ public final class HttpServiceController {
         }
     }
 
+    /**
+     * Register.
+     *
+     * @param servletContext
+     *            the servlet context
+     */
     public void register(ServletContext servletContext) {
         this.contextAttributeListener.open();
         this.requestListener.open();
@@ -136,6 +198,9 @@ public final class HttpServiceController {
         this.serviceReg = this.bundleContext.registerService(ifaces, factory, this.serviceProps);
     }
 
+    /**
+     * Unregister.
+     */
     public void unregister() {
         if (this.serviceReg == null) {
             return;
@@ -155,6 +220,13 @@ public final class HttpServiceController {
         }
     }
 
+    /**
+     * Gets the boolean.
+     *
+     * @param property
+     *            the property
+     * @return the boolean
+     */
     private boolean getBoolean(final String property) {
         String prop = this.bundleContext.getProperty(property);
         return (prop != null) ? Boolean.valueOf(prop).booleanValue() : false;

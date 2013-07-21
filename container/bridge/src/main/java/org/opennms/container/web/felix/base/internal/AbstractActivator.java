@@ -21,15 +21,29 @@ import org.opennms.container.web.felix.base.internal.logger.SystemLogger;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 
+/**
+ * The Class AbstractActivator.
+ */
 public abstract class AbstractActivator implements BundleActivator {
+
+    /** The context. */
     private BundleContext context;
 
+    /** The logger. */
     private LogServiceLogger logger;
 
+    /**
+     * Gets the bundle context.
+     *
+     * @return the bundle context
+     */
     protected final BundleContext getBundleContext() {
         return this.context;
     }
 
+    /* (non-Javadoc)
+     * @see org.osgi.framework.BundleActivator#start(org.osgi.framework.BundleContext)
+     */
     @Override
     public final void start(BundleContext context) throws Exception {
         this.context = context;
@@ -38,13 +52,28 @@ public abstract class AbstractActivator implements BundleActivator {
         doStart();
     }
 
+    /* (non-Javadoc)
+     * @see org.osgi.framework.BundleActivator#stop(org.osgi.framework.BundleContext)
+     */
     @Override
     public final void stop(BundleContext context) throws Exception {
         doStop();
         this.logger.close();
     }
 
+    /**
+     * Do start.
+     *
+     * @throws Exception
+     *             the exception
+     */
     protected abstract void doStart() throws Exception;
 
+    /**
+     * Do stop.
+     *
+     * @throws Exception
+     *             the exception
+     */
     protected abstract void doStop() throws Exception;
 }

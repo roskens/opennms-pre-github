@@ -21,17 +21,30 @@ package org.opennms.container.web.felix.base.internal.logger;
 import org.osgi.framework.ServiceReference;
 import org.osgi.service.log.LogService;
 
+/**
+ * The Class AbstractLogger.
+ */
 public abstract class AbstractLogger implements LogService {
+
+    /* (non-Javadoc)
+     * @see org.osgi.service.log.LogService#log(int, java.lang.String)
+     */
     @Override
     public final void log(int level, String message) {
         log(null, level, message, null);
     }
 
+    /* (non-Javadoc)
+     * @see org.osgi.service.log.LogService#log(int, java.lang.String, java.lang.Throwable)
+     */
     @Override
     public final void log(int level, String message, Throwable cause) {
         log(null, level, message, cause);
     }
 
+    /* (non-Javadoc)
+     * @see org.osgi.service.log.LogService#log(org.osgi.framework.ServiceReference, int, java.lang.String)
+     */
     @Override
     @SuppressWarnings("unchecked")
     // Due to the OSGi API

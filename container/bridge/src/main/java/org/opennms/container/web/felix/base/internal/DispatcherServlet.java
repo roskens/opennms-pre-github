@@ -31,27 +31,48 @@ import javax.servlet.http.HttpServletResponse;
 import org.opennms.container.web.felix.base.internal.dispatch.NotFoundFilterChain;
 import org.opennms.container.web.felix.base.internal.listener.ServletRequestAttributeListenerManager;
 
+/**
+ * The Class DispatcherServlet.
+ */
 public final class DispatcherServlet extends HttpServlet {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 1L;
 
+    /** The controller. */
     private final HttpServiceController controller;
 
+    /**
+     * Instantiates a new dispatcher servlet.
+     *
+     * @param controller
+     *            the controller
+     */
     public DispatcherServlet(HttpServiceController controller) {
         this.controller = controller;
     }
 
+    /* (non-Javadoc)
+     * @see javax.servlet.GenericServlet#init(javax.servlet.ServletConfig)
+     */
     @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
         this.controller.register(getServletContext());
     }
 
+    /* (non-Javadoc)
+     * @see javax.servlet.GenericServlet#destroy()
+     */
     @Override
     public void destroy() {
         this.controller.unregister();
         super.destroy();
     }
 
+    /* (non-Javadoc)
+     * @see javax.servlet.http.HttpServlet#service(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     */
     @Override
     public void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         final ServletRequestEvent sre = new ServletRequestEvent(getServletContext(), req);
@@ -64,12 +85,27 @@ public final class DispatcherServlet extends HttpServlet {
         }
     }
 
+    /**
+     * The Class AttributeEventRequest.
+     */
     private static class AttributeEventRequest extends HttpServletRequestWrapper {
 
+        /** The servlet context. */
         private final ServletContext servletContext;
 
+        /** The request attribute listener. */
         private final ServletRequestAttributeListenerManager requestAttributeListener;
 
+        /**
+         * Instantiates a new attribute event request.
+         *
+         * @param servletContext
+         *            the servlet context
+         * @param requestAttributeListener
+         *            the request attribute listener
+         * @param request
+         *            the request
+         */
         public AttributeEventRequest(ServletContext servletContext,
                 ServletRequestAttributeListenerManager requestAttributeListener, HttpServletRequest request) {
             super(request);
@@ -77,6 +113,9 @@ public final class DispatcherServlet extends HttpServlet {
             this.requestAttributeListener = requestAttributeListener;
         }
 
+        /* (non-Javadoc)
+         * @see javax.servlet.ServletRequestWrapper#setAttribute(java.lang.String, java.lang.Object)
+         */
         @Override
         public void setAttribute(String name, Object value) {
             if (value == null) {
@@ -95,6 +134,9 @@ public final class DispatcherServlet extends HttpServlet {
             }
         }
 
+        /* (non-Javadoc)
+         * @see javax.servlet.ServletRequestWrapper#removeAttribute(java.lang.String)
+         */
         @Override
         public void removeAttribute(String name) {
             Object oldValue = this.getAttribute(name);

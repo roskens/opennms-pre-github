@@ -16,25 +16,50 @@
  */
 package org.opennms.container.web.felix.base.internal;
 
+/**
+ * The Class AbstractHttpActivator.
+ */
 public abstract class AbstractHttpActivator extends AbstractActivator {
+
+    /** The dispatcher. */
     private DispatcherServlet dispatcher;
 
+    /** The event dispatcher. */
     private EventDispatcher eventDispatcher;
 
+    /** The controller. */
     private HttpServiceController controller;
 
+    /**
+     * Gets the dispatcher servlet.
+     *
+     * @return the dispatcher servlet
+     */
     protected final DispatcherServlet getDispatcherServlet() {
         return this.dispatcher;
     }
 
+    /**
+     * Gets the event dispatcher.
+     *
+     * @return the event dispatcher
+     */
     protected final EventDispatcher getEventDispatcher() {
         return this.eventDispatcher;
     }
 
+    /**
+     * Gets the http service controller.
+     *
+     * @return the http service controller
+     */
     protected final HttpServiceController getHttpServiceController() {
         return this.controller;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.container.web.felix.base.internal.AbstractActivator#doStart()
+     */
     @Override
     protected void doStart() throws Exception {
         this.controller = new HttpServiceController(getBundleContext());
@@ -42,6 +67,9 @@ public abstract class AbstractHttpActivator extends AbstractActivator {
         this.eventDispatcher = new EventDispatcher(this.controller);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.container.web.felix.base.internal.AbstractActivator#doStop()
+     */
     @Override
     protected void doStop() throws Exception {
         this.controller.unregister();

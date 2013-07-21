@@ -27,16 +27,44 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.opennms.container.web.felix.base.internal.handler.FilterHandler;
 
+/**
+ * The Class FilterPipeline.
+ */
 public final class FilterPipeline {
+
+    /** The handlers. */
     private final FilterHandler[] handlers;
 
+    /** The servlet pipeline. */
     private final ServletPipeline servletPipeline;
 
+    /**
+     * Instantiates a new filter pipeline.
+     *
+     * @param handlers
+     *            the handlers
+     * @param servletPipeline
+     *            the servlet pipeline
+     */
     public FilterPipeline(FilterHandler[] handlers, ServletPipeline servletPipeline) {
         this.handlers = handlers;
         this.servletPipeline = servletPipeline;
     }
 
+    /**
+     * Dispatch.
+     *
+     * @param req
+     *            the req
+     * @param res
+     *            the res
+     * @param proceedingChain
+     *            the proceeding chain
+     * @throws ServletException
+     *             the servlet exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     public void dispatch(HttpServletRequest req, HttpServletResponse res, FilterChain proceedingChain)
             throws ServletException, IOException {
         FilterChain chain = new InvocationFilterChain(this.handlers, this.servletPipeline, proceedingChain);
@@ -48,11 +76,24 @@ public final class FilterPipeline {
         chain.doFilter(req, res);
     }
 
+    /**
+     * The Class RequestWrapper.
+     */
     private final class RequestWrapper extends HttpServletRequestWrapper {
+
+        /**
+         * Instantiates a new request wrapper.
+         *
+         * @param req
+         *            the req
+         */
         public RequestWrapper(HttpServletRequest req) {
             super(req);
         }
 
+        /* (non-Javadoc)
+         * @see javax.servlet.ServletRequestWrapper#getRequestDispatcher(java.lang.String)
+         */
         @Override
         public RequestDispatcher getRequestDispatcher(String path) {
             final RequestDispatcher dispatcher = servletPipeline.getRequestDispatcher(path);

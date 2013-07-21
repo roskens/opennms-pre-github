@@ -1,3 +1,30 @@
+/*******************************************************************************
+ * This file is part of OpenNMS(R).
+ *
+ * Copyright (C) 2012 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published
+ * by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * OpenNMS(R) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with OpenNMS(R).  If not, see:
+ *      http://www.gnu.org/licenses/
+ *
+ * For more information contact:
+ *     OpenNMS(R) Licensing <license@opennms.org>
+ *     http://www.opennms.org/
+ *     http://www.opennms.com/
+ *******************************************************************************/
 package org.opennms.container.web.felix.base.internal.handler;
 
 import static org.junit.Assert.assertEquals;
@@ -13,18 +40,41 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 import org.springframework.mock.web.MockHttpServletRequest;
 
+/**
+ * The Class ServletHandlerRequestTest.
+ */
 @RunWith(Parameterized.class)
 public class ServletHandlerRequestTest {
+
+    /** The m_request. */
     private HttpServletRequest m_request;
 
+    /** The m_alias. */
     private String m_alias;
 
+    /** The m_expected context path. */
     private String m_expectedContextPath;
 
+    /** The m_expected servlet path. */
     private String m_expectedServletPath;
 
+    /** The m_expected path info. */
     private String m_expectedPathInfo;
 
+    /**
+     * Instantiates a new servlet handler request test.
+     *
+     * @param request
+     *            the request
+     * @param alias
+     *            the alias
+     * @param expectedContextPath
+     *            the expected context path
+     * @param expectedServletPath
+     *            the expected servlet path
+     * @param expectedPathInfo
+     *            the expected path info
+     */
     public ServletHandlerRequestTest(final HttpServletRequest request, final String alias,
             final String expectedContextPath, final String expectedServletPath, final String expectedPathInfo) {
         m_request = request;
@@ -34,6 +84,11 @@ public class ServletHandlerRequestTest {
         m_expectedPathInfo = expectedPathInfo;
     }
 
+    /**
+     * Data.
+     *
+     * @return the collection
+     */
     @Parameters
     public static Collection<Object[]> data() {
         return Arrays.asList(new Object[][] {
@@ -46,6 +101,9 @@ public class ServletHandlerRequestTest {
                         "/UIDL" } });
     }
 
+    /**
+     * Test request.
+     */
     @Test
     public void testRequest() {
         final ServletHandlerRequest request = new ServletHandlerRequest(m_request, m_alias);
@@ -54,6 +112,17 @@ public class ServletHandlerRequestTest {
         assertEquals(m_expectedPathInfo, request.getPathInfo());
     }
 
+    /**
+     * Creates the request.
+     *
+     * @param contextPath
+     *            the context path
+     * @param servletPath
+     *            the servlet path
+     * @param pathInfo
+     *            the path info
+     * @return the http servlet request
+     */
     private static HttpServletRequest createRequest(final String contextPath, final String servletPath,
             final String pathInfo) {
         return new MockHttpServletRequest() {

@@ -23,11 +23,23 @@ import org.osgi.framework.ServiceReference;
 import org.osgi.service.log.LogService;
 import org.osgi.util.tracker.ServiceTracker;
 
+/**
+ * The Class LogServiceLogger.
+ */
 public final class LogServiceLogger extends AbstractLogger {
+
+    /** The console logger. */
     private final ConsoleLogger consoleLogger;
 
+    /** The tracker. */
     private final ServiceTracker<?, ?> tracker;
 
+    /**
+     * Instantiates a new log service logger.
+     *
+     * @param context
+     *            the context
+     */
     public LogServiceLogger(BundleContext context) {
         this.consoleLogger = new ConsoleLogger();
         this.tracker = new ServiceTracker<ServiceReference<LogService>, LogService>(context,
@@ -35,10 +47,16 @@ public final class LogServiceLogger extends AbstractLogger {
         this.tracker.open();
     }
 
+    /**
+     * Close.
+     */
     public void close() {
         this.tracker.close();
     }
 
+    /* (non-Javadoc)
+     * @see org.osgi.service.log.LogService#log(org.osgi.framework.ServiceReference, int, java.lang.String, java.lang.Throwable)
+     */
     @Override
     @SuppressWarnings("unchecked")
     // Because of OSGi API

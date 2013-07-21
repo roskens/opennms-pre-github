@@ -25,17 +25,38 @@ import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
 import org.osgi.util.tracker.ServiceTracker;
 
+/**
+ * The Class AbstractListenerManager.
+ *
+ * @param <T>
+ *            the generic type
+ */
 public class AbstractListenerManager<T> extends ServiceTracker<T, T> {
 
+    /** The all context listeners. */
     private ArrayList<T> allContextListeners;
 
+    /** The lock. */
     private final Object lock;
 
+    /**
+     * Instantiates a new abstract listener manager.
+     *
+     * @param context
+     *            the context
+     * @param clazz
+     *            the clazz
+     */
     protected AbstractListenerManager(BundleContext context, Class<T> clazz) {
         super(context, clazz, null);
         lock = new Object();
     }
 
+    /**
+     * Gets the context listeners.
+     *
+     * @return the context listeners
+     */
     protected final Iterator<T> getContextListeners() {
         ArrayList<T> result = allContextListeners;
         if (result == null) {
@@ -61,6 +82,9 @@ public class AbstractListenerManager<T> extends ServiceTracker<T, T> {
         return result.iterator();
     }
 
+    /* (non-Javadoc)
+     * @see org.osgi.util.tracker.ServiceTracker#addingService(org.osgi.framework.ServiceReference)
+     */
     @Override
     public T addingService(ServiceReference<T> reference) {
         synchronized (lock) {
@@ -70,6 +94,9 @@ public class AbstractListenerManager<T> extends ServiceTracker<T, T> {
         return super.addingService(reference);
     }
 
+    /* (non-Javadoc)
+     * @see org.osgi.util.tracker.ServiceTracker#modifiedService(org.osgi.framework.ServiceReference, java.lang.Object)
+     */
     @Override
     public void modifiedService(ServiceReference<T> reference, T service) {
         synchronized (lock) {
@@ -79,6 +106,9 @@ public class AbstractListenerManager<T> extends ServiceTracker<T, T> {
         super.modifiedService(reference, service);
     }
 
+    /* (non-Javadoc)
+     * @see org.osgi.util.tracker.ServiceTracker#removedService(org.osgi.framework.ServiceReference, java.lang.Object)
+     */
     @Override
     public void removedService(ServiceReference<T> reference, T service) {
         synchronized (lock) {

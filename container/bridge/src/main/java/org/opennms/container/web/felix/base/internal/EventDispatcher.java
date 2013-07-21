@@ -26,37 +26,59 @@ import javax.servlet.http.HttpSessionListener;
 /**
  * The <code>EventDispatcher</code> dispatches events sent from the servlet
  * container (embedded Jetty or container in which the framework is running
- * in bridged mode) to any {@link HttpSessionAttributeListener} or
+ * in bridged mode) to any {@link HttpSessionAttributeListener} or.
  * {@link HttpSessionListener} services.
  */
 public class EventDispatcher implements HttpSessionAttributeListener, HttpSessionListener {
 
+    /** The controller. */
     private final HttpServiceController controller;
 
+    /**
+     * Instantiates a new event dispatcher.
+     *
+     * @param controller
+     *            the controller
+     */
     public EventDispatcher(final HttpServiceController controller) {
         this.controller = controller;
     }
 
+    /* (non-Javadoc)
+     * @see javax.servlet.http.HttpSessionListener#sessionCreated(javax.servlet.http.HttpSessionEvent)
+     */
     @Override
     public void sessionCreated(HttpSessionEvent se) {
         controller.getSessionListener().sessionCreated(se);
     }
 
+    /* (non-Javadoc)
+     * @see javax.servlet.http.HttpSessionListener#sessionDestroyed(javax.servlet.http.HttpSessionEvent)
+     */
     @Override
     public void sessionDestroyed(HttpSessionEvent se) {
         controller.getSessionListener().sessionDestroyed(se);
     }
 
+    /* (non-Javadoc)
+     * @see javax.servlet.http.HttpSessionAttributeListener#attributeAdded(javax.servlet.http.HttpSessionBindingEvent)
+     */
     @Override
     public void attributeAdded(HttpSessionBindingEvent se) {
         controller.getSessionAttributeListener().attributeAdded(se);
     }
 
+    /* (non-Javadoc)
+     * @see javax.servlet.http.HttpSessionAttributeListener#attributeRemoved(javax.servlet.http.HttpSessionBindingEvent)
+     */
     @Override
     public void attributeRemoved(HttpSessionBindingEvent se) {
         controller.getSessionAttributeListener().attributeRemoved(se);
     }
 
+    /* (non-Javadoc)
+     * @see javax.servlet.http.HttpSessionAttributeListener#attributeReplaced(javax.servlet.http.HttpSessionBindingEvent)
+     */
     @Override
     public void attributeReplaced(HttpSessionBindingEvent se) {
         controller.getSessionAttributeListener().attributeReplaced(se);

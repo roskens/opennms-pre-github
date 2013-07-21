@@ -22,7 +22,14 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * The Class NotFoundFilterChain.
+ */
 public final class NotFoundFilterChain extends HttpFilterChain {
+
+    /* (non-Javadoc)
+     * @see org.opennms.container.web.felix.base.internal.dispatch.HttpFilterChain#doFilter(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     */
     @Override
     protected void doFilter(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
         res.sendError(HttpServletResponse.SC_NOT_FOUND);

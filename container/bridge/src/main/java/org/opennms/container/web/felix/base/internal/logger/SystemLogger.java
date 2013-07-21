@@ -20,31 +20,76 @@ package org.opennms.container.web.felix.base.internal.logger;
 
 import org.osgi.service.log.LogService;
 
+/**
+ * The Class SystemLogger.
+ */
 public final class SystemLogger {
+
+    /** The Constant NOP. */
     private static final LogService NOP = new NopLogger();
 
+    /** The logger. */
     private static LogService LOGGER;
 
+    /**
+     * Sets the log service.
+     *
+     * @param service
+     *            the new log service
+     */
     public static void setLogService(LogService service) {
         LOGGER = service;
     }
 
+    /**
+     * Gets the logger.
+     *
+     * @return the logger
+     */
     private static LogService getLogger() {
         return LOGGER != null ? LOGGER : NOP;
     }
 
+    /**
+     * Debug.
+     *
+     * @param message
+     *            the message
+     */
     public static void debug(String message) {
         getLogger().log(LogService.LOG_DEBUG, message);
     }
 
+    /**
+     * Info.
+     *
+     * @param message
+     *            the message
+     */
     public static void info(String message) {
         getLogger().log(LogService.LOG_INFO, message);
     }
 
+    /**
+     * Warning.
+     *
+     * @param message
+     *            the message
+     * @param cause
+     *            the cause
+     */
     public static void warning(String message, Throwable cause) {
         getLogger().log(LogService.LOG_WARNING, message, cause);
     }
 
+    /**
+     * Error.
+     *
+     * @param message
+     *            the message
+     * @param cause
+     *            the cause
+     */
     public static void error(String message, Throwable cause) {
         getLogger().log(LogService.LOG_ERROR, message, cause);
     }
