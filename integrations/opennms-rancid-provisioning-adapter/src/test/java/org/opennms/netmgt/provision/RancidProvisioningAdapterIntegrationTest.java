@@ -54,6 +54,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * The Class RancidProvisioningAdapterIntegrationTest.
+ */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
         "classpath:/META-INF/opennms/applicationContext-dao.xml", "classpath*:/META-INF/opennms/component-dao.xml",
@@ -72,25 +75,39 @@ import org.springframework.transaction.annotation.Transactional;
  */
 public class RancidProvisioningAdapterIntegrationTest implements InitializingBean {
 
+    /** The m_node dao. */
     @Autowired
     private NodeDao m_nodeDao;
 
+    /** The m_mock event ipc manager. */
     @Autowired
     private MockEventIpcManager m_mockEventIpcManager;
 
+    /** The m_populator. */
     @Autowired
     private DatabasePopulator m_populator;
 
+    /** The m_adapter. */
     @Autowired
     private RancidProvisioningAdapter m_adapter;
 
+    /** The Constant NODE_ID. */
     private static final int NODE_ID = 1;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
         Properties props = new Properties();
@@ -122,6 +139,9 @@ public class RancidProvisioningAdapterIntegrationTest implements InitializingBea
      * TODO: This test needs to be updated so that it properly connects to the
      * JUnitHttpServer
      * for simulated RANCID REST operations.
+     *
+     * @throws InterruptedException
+     *             the interrupted exception
      */
     @Test
     @Transactional
@@ -145,18 +165,27 @@ public class RancidProvisioningAdapterIntegrationTest implements InitializingBea
         assertEquals(0, m_adapter.getOperationQueue().getOperationQueueForNode(firstNodeId).size());
     }
 
+    /**
+     * Test update node.
+     */
     @Test
     @Transactional
     public void testUpdateNode() {
         // TODO: Add some tests
     }
 
+    /**
+     * Test delete node.
+     */
     @Test
     @Transactional
     public void testDeleteNode() {
         // TODO: Add some tests
     }
 
+    /**
+     * Test node config changed.
+     */
     @Test
     @Transactional
     public void testNodeConfigChanged() {

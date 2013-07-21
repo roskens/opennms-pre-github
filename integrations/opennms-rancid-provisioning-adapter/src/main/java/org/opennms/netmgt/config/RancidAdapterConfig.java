@@ -42,7 +42,7 @@ public interface RancidAdapterConfig {
      * return the delay time for the specified address
      * the delay time is the time in msec that represents
      * a delay in the execution of a RancidAdapter
-     * execution
+     * execution.
      *
      * @param ipaddress
      *            the ipaddress of the node
@@ -52,7 +52,7 @@ public interface RancidAdapterConfig {
 
     /**
      * return the number of retries in case of failure
-     * for the specified address
+     * for the specified address.
      *
      * @param ipaddress
      *            the ipaddress of the node
@@ -64,7 +64,7 @@ public interface RancidAdapterConfig {
      * return the delay time for the specified address
      * the retrydelay time is the time in msec that represents
      * a delay in the execution of a RancidAdapter
-     * execution retry after a failure
+     * execution retry after a failure.
      *
      * @param ipaddress
      *            the ipaddress of the node
@@ -83,7 +83,7 @@ public interface RancidAdapterConfig {
     public abstract boolean useCategories(String ipaddress);
 
     /**
-     * return the Rancid Type String
+     * return the Rancid Type String.
      *
      * @param sysoid
      *            the system OID identifier of the node

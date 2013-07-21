@@ -49,6 +49,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * The Class RancidProvisioningAdapterTest.
+ */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
         "classpath:/META-INF/opennms/applicationContext-dao.xml", "classpath*:/META-INF/opennms/component-dao.xml",
@@ -60,21 +63,35 @@ import org.springframework.transaction.annotation.Transactional;
 @JUnitConfigurationEnvironment
 @JUnitTemporaryDatabase
 public class RancidProvisioningAdapterTest implements InitializingBean {
+
+    /** The m_adapter. */
     @Autowired
     private RancidProvisioningAdapter m_adapter;
 
+    /** The m_node dao. */
     @Autowired
     private NodeDao m_nodeDao;
 
+    /** The m_add operation. */
     private AdapterOperation m_addOperation;
 
+    /** The m_delete operation. */
     private AdapterOperation m_deleteOperation;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
         NetworkBuilder nb = new NetworkBuilder();
@@ -105,6 +122,9 @@ public class RancidProvisioningAdapterTest implements InitializingBean {
      * TODO: This test needs to be updated so that it properly connects to the
      * JUnitHttpServer
      * for simulated RANCID REST operations.
+     *
+     * @throws Exception
+     *             the exception
      */
     @Test
     @Transactional
@@ -123,6 +143,9 @@ public class RancidProvisioningAdapterTest implements InitializingBean {
      * for simulated RANCID REST operations.
      * TODO: This test seems to pass even though it fails to connect with a mock
      * RANCID server
+     *
+     * @throws Exception
+     *             the exception
      */
     @Test
     @Transactional

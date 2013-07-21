@@ -74,17 +74,20 @@ import org.slf4j.LoggerFactory;
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
  */
 public abstract class RancidAdapterConfigManager implements RancidAdapterConfig {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(RancidAdapterConfigManager.class);
 
+    /** The m_global lock. */
     private final ReadWriteLock m_globalLock = new ReentrantReadWriteLock();
 
+    /** The m_read lock. */
     private final Lock m_readLock = m_globalLock.readLock();
 
+    /** The m_write lock. */
     private final Lock m_writeLock = m_globalLock.writeLock();
 
-    /**
-     * The config class loaded from the config file
-     */
+    /** The config class loaded from the config file. */
     private RancidConfiguration m_config;
 
     /**
@@ -93,14 +96,12 @@ public abstract class RancidAdapterConfigManager implements RancidAdapterConfig 
      */
     private static boolean m_verifyServer;
 
-    /**
-     * The name of the local OpenNMS server
-     */
+    /** The name of the local OpenNMS server. */
     private static String m_localServer;
 
     /**
      * A mapping of the configured URLs to a list of the specific IPs configured
-     * in each - so as to avoid file reads
+     * in each - so as to avoid file reads.
      */
     private Map<String, List<String>> m_urlIPMap;
 
@@ -110,9 +111,7 @@ public abstract class RancidAdapterConfigManager implements RancidAdapterConfig 
      */
     private Map<Package, List<InetAddress>> m_pkgIpMap;
 
-    /**
-     * A mapping between policyManage Name and Package
-     */
+    /** A mapping between policyManage Name and Package. */
     private Map<Package, PolicyManage> m_pkgPolicyMap;
 
     /**
@@ -120,19 +119,19 @@ public abstract class RancidAdapterConfigManager implements RancidAdapterConfig 
      * Constructor for RancidAdapterConfigManager.
      * </p>
      *
-     * @author <a href="mailto:antonio@opennms.org">Antonio Russo</a>
      * @param reader
      *            a {@link java.io.InputStream} object.
-     * @param verifyServer
-     *            a boolean.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
      * @param serverName
      *            a {@link java.lang.String} object.
+     * @param verifyServer
+     *            a boolean.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @author <a href="mailto:antonio@opennms.org">Antonio Russo</a>
      */
     public RancidAdapterConfigManager(final InputStream reader, final String serverName, final boolean verifyServer)
             throws MarshalException, ValidationException, IOException {
@@ -149,10 +148,20 @@ public abstract class RancidAdapterConfigManager implements RancidAdapterConfig 
     public RancidAdapterConfigManager() {
     }
 
+    /**
+     * Gets the read lock.
+     *
+     * @return the read lock
+     */
     public Lock getReadLock() {
         return m_readLock;
     }
 
+    /**
+     * Gets the write lock.
+     *
+     * @return the write lock
+     */
     public Lock getWriteLock() {
         return m_writeLock;
     }
@@ -161,15 +170,16 @@ public abstract class RancidAdapterConfigManager implements RancidAdapterConfig 
      * <p>
      * reloadXML
      * </p>
+     * .
      *
      * @param reader
      *            a {@link java.io.InputStream} object.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     protected void reloadXML(final InputStream reader) throws MarshalException, ValidationException, IOException {
         getWriteLock().lock();
@@ -185,7 +195,7 @@ public abstract class RancidAdapterConfigManager implements RancidAdapterConfig 
 
     /**
      * Go throw the rancid configuration and find a map from
-     * policy name and packages
+     * policy name and packages.
      */
     private void createPolicyNamePkgMap() {
         m_pkgPolicyMap = new HashMap<Package, PolicyManage>();
@@ -199,7 +209,7 @@ public abstract class RancidAdapterConfigManager implements RancidAdapterConfig 
     /**
      * Go through the rancid adapter configuration and build a mapping of each
      * configured URL to a list of IPs configured in that URL - done at init()
-     * time so that repeated file reads can be avoided
+     * time so that repeated file reads can be avoided.
      */
     private void createUrlIpMap() {
         m_urlIPMap = new HashMap<String, List<String>>();
@@ -253,6 +263,13 @@ public abstract class RancidAdapterConfigManager implements RancidAdapterConfig 
         }
     }
 
+    /**
+     * Gets the ip list.
+     *
+     * @param pkg
+     *            the pkg
+     * @return the ip list
+     */
     private List<InetAddress> getIpList(final Package pkg) {
         final StringBuffer filterRules = new StringBuffer(pkg.getFilter().getContent());
         if (m_verifyServer) {
@@ -486,22 +503,41 @@ public abstract class RancidAdapterConfigManager implements RancidAdapterConfig 
      *
      * @param cal
      *            the calendar to lookup
-     * @param outage
-     *            the outage
+     * @param schedule
+     *            the schedule
      * @return true if time is in outage
      */
     private boolean isTimeInSchedule(final Calendar cal, final Schedule schedule) {
         return BasicScheduleUtils.isTimeInSchedule(cal, BasicScheduleUtils.getRancidSchedule(schedule));
     }
 
+    /**
+     * Checks for policies.
+     *
+     * @return true, if successful
+     */
     private boolean hasPolicies() {
         return (getConfiguration().getPolicies() != null);
     }
 
+    /**
+     * Checks for policy manage.
+     *
+     * @param ipaddress
+     *            the ipaddress
+     * @return true, if successful
+     */
     private boolean hasPolicyManage(final String ipaddress) {
         return (getAllPackageMatches(ipaddress).size() > 0);
     }
 
+    /**
+     * Gets the policy manage.
+     *
+     * @param ipaddr
+     *            the ipaddr
+     * @return the policy manage
+     */
     private PolicyManage getPolicyManage(final String ipaddr) {
         if (hasPolicyManage(ipaddr)) {
             return getPolicyManageWithoutTesting(ipaddr);
@@ -509,6 +545,13 @@ public abstract class RancidAdapterConfigManager implements RancidAdapterConfig 
         return null;
     }
 
+    /**
+     * Gets the policy manage without testing.
+     *
+     * @param ipaddr
+     *            the ipaddr
+     * @return the policy manage without testing
+     */
     private PolicyManage getPolicyManageWithoutTesting(final String ipaddr) {
         final String pkgname = getAllPackageMatches(ipaddr).get(0);
         final Iterator<Entry<Package, PolicyManage>> ite = m_pkgPolicyMap.entrySet().iterator();
@@ -525,6 +568,7 @@ public abstract class RancidAdapterConfigManager implements RancidAdapterConfig 
      * <p>
      * hasSchedule
      * </p>
+     * .
      *
      * @param ipaddress
      *            a {@link java.lang.String} object.
@@ -546,6 +590,7 @@ public abstract class RancidAdapterConfigManager implements RancidAdapterConfig 
      * <p>
      * getSchedules
      * </p>
+     * .
      *
      * @param ipaddress
      *            a {@link java.lang.String} object.
@@ -567,6 +612,7 @@ public abstract class RancidAdapterConfigManager implements RancidAdapterConfig 
      * <p>
      * packages
      * </p>
+     * .
      *
      * @return a {@link java.lang.Iterable} object.
      */
@@ -589,6 +635,7 @@ public abstract class RancidAdapterConfigManager implements RancidAdapterConfig 
      * <p>
      * mappings
      * </p>
+     * .
      *
      * @return a {@link java.lang.Iterable} object.
      */
@@ -605,6 +652,7 @@ public abstract class RancidAdapterConfigManager implements RancidAdapterConfig 
      * <p>
      * policies
      * </p>
+     * .
      *
      * @return a {@link java.lang.Iterable} object.
      */
@@ -621,6 +669,7 @@ public abstract class RancidAdapterConfigManager implements RancidAdapterConfig 
      * <p>
      * includeURLs
      * </p>
+     * .
      *
      * @param pkg
      *            a {@link org.opennms.netmgt.config.rancid.adapter.Package}
