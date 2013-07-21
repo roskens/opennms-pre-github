@@ -29,8 +29,16 @@
 package org.opennms.nrtg.nrtbroker.local.internal;
 
 /**
+ * The Interface NrtBrokerLocalMBean.
+ *
  * @author Markus Neumann
  */
 public interface NrtBrokerLocalMBean {
+
+    /**
+     * Gets the measurement set size.
+     *
+     * @return the measurement set size
+     */
     public Integer getMeasurementSetSize();
 }

@@ -42,17 +42,32 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
+ * The Class NrtBrokerLocal.
+ *
  * @author Markus Neumann
  * @author Christian Pape
  */
 
 public class NrtBrokerLocal implements NrtBroker, NrtBrokerLocalMBean {
 
+    /**
+     * The Class TimedOutMap.
+     */
     private class TimedOutMap {
+
+        /** The m_measurement sets. */
         private Map<String, List<MeasurementSet>> m_measurementSets = new HashMap<String, List<MeasurementSet>>();
 
+        /** The m_last access. */
         private Map<String, Date> m_lastAccess = new HashMap<String, Date>();
 
+        /**
+         * Gets the and remove.
+         *
+         * @param key
+         *            the key
+         * @return the and remove
+         */
         public List<MeasurementSet> getAndRemove(String key) {
             synchronized (m_measurementSets) {
                 m_lastAccess.put(key, new Date());
@@ -63,6 +78,12 @@ public class NrtBrokerLocal implements NrtBroker, NrtBrokerLocalMBean {
             }
         }
 
+        /**
+         * Adds the measurement sets.
+         *
+         * @param measurementSets
+         *            the measurement sets
+         */
         public void addMeasurementSets(Map<String, MeasurementSet> measurementSets) {
             for (Map.Entry<String, MeasurementSet> entry : measurementSets.entrySet()) {
 
@@ -76,6 +97,14 @@ public class NrtBrokerLocal implements NrtBroker, NrtBrokerLocalMBean {
             doHousekeeping();
         }
 
+        /**
+         * Adds the measurement set.
+         *
+         * @param key
+         *            the key
+         * @param measurementSet
+         *            the measurement set
+         */
         public void addMeasurementSet(String key, MeasurementSet measurementSet) {
             synchronized (m_measurementSets) {
                 if (!m_measurementSets.containsKey(key)) {
@@ -87,6 +116,9 @@ public class NrtBrokerLocal implements NrtBroker, NrtBrokerLocalMBean {
             }
         }
 
+        /**
+         * Do housekeeping.
+         */
         private void doHousekeeping() {
             synchronized (m_measurementSets) {
                 for (String key : m_lastAccess.keySet()) {
@@ -102,17 +134,28 @@ public class NrtBrokerLocal implements NrtBroker, NrtBrokerLocalMBean {
             }
         }
 
+        /**
+         * Gets the amount of measurement sets.
+         *
+         * @return the amount of measurement sets
+         */
         private Integer getAmountOfMeasurementSets() {
             return m_measurementSets.size();
         }
     }
 
+    /** The logger. */
     private static Logger logger = LoggerFactory.getLogger("OpenNMS.WEB." + NrtBrokerLocal.class);
 
+    /** The m_protocol collectors. */
     private List<ProtocolCollector> m_protocolCollectors;
 
+    /** The m_measurement sets. */
     private TimedOutMap m_measurementSets = new TimedOutMap();
 
+    /* (non-Javadoc)
+     * @see org.opennms.nrtg.api.NrtBroker#publishCollectionJob(org.opennms.nrtg.api.model.CollectionJob)
+     */
     @Override
     public void publishCollectionJob(CollectionJob collectionJob) {
         ProtocolCollector protocolCollector = getProtocolCollector(collectionJob.getService());
@@ -126,11 +169,21 @@ public class NrtBrokerLocal implements NrtBroker, NrtBrokerLocalMBean {
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.nrtg.api.NrtBroker#receiveMeasurementSets(java.lang.String)
+     */
     @Override
     public List<MeasurementSet> receiveMeasurementSets(String destination) {
         return m_measurementSets.getAndRemove(destination);
     }
 
+    /**
+     * Gets the protocol collector.
+     *
+     * @param protocol
+     *            the protocol
+     * @return the protocol collector
+     */
     public ProtocolCollector getProtocolCollector(String protocol) {
         for (ProtocolCollector protocolCollector : m_protocolCollectors) {
             if (protocolCollector.getProtcol().equals(protocol)) {
@@ -141,14 +194,28 @@ public class NrtBrokerLocal implements NrtBroker, NrtBrokerLocalMBean {
         return null;
     }
 
+    /**
+     * Sets the protocol collectors.
+     *
+     * @param protocolCollectors
+     *            the new protocol collectors
+     */
     public void setProtocolCollectors(List<ProtocolCollector> protocolCollectors) {
         this.m_protocolCollectors = protocolCollectors;
     }
 
+    /**
+     * Gets the protocol collectors.
+     *
+     * @return the protocol collectors
+     */
     public List<ProtocolCollector> getProtocolCollectors() {
         return m_protocolCollectors;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.nrtg.nrtbroker.local.internal.NrtBrokerLocalMBean#getMeasurementSetSize()
+     */
     @Override
     public Integer getMeasurementSetSize() {
         return m_measurementSets.getAmountOfMeasurementSets();
