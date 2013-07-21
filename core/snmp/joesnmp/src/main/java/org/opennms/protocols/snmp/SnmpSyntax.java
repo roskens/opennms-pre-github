@@ -43,14 +43,17 @@ import org.opennms.protocols.snmp.asn1.AsnEncodingException;
  * @version 1.1.1.1
  */
 public interface SnmpSyntax {
+
     /**
      * Returns the ASN.1 type of the implementor object.
+     *
+     * @return the byte
      */
     public byte typeId();
 
     /**
      * Encodes the data object in the specified buffer using the AsnEncoder
-     * object
+     * object.
      *
      * @param buf
      *            The buffer to write the encoded information
@@ -60,8 +63,8 @@ public interface SnmpSyntax {
      *            The object used to encode the data
      * @return Returns the offset in buf to the byte immedantly after the last
      *         encode byte for the SnmpSyntax file
-     * @exception AsnEncodingException
-     *                Thrown if an encoding error occurs
+     * @throws AsnEncodingException
+     *             Thrown if an encoding error occurs
      */
     public int encodeASN(byte[] buf, int offset, AsnEncoder encoder) throws AsnEncodingException;
 
@@ -76,14 +79,16 @@ public interface SnmpSyntax {
      *            The object used to decode the ASN.1 data
      * @return Returns the index to the byte of data immedantly after the last
      *         byte of encoded data.
-     * @exception AsnDecodingException
-     *                Thrown if an encoding error occurs
+     * @throws AsnDecodingException
+     *             Thrown if an encoding error occurs
      */
     public int decodeASN(byte[] buf, int offset, AsnEncoder encoder) throws AsnDecodingException;
 
     /**
      * Creates a duplicate (in memory) object of the caller. Similar to the
      * clone() method.
+     *
+     * @return the snmp syntax
      */
     public SnmpSyntax duplicate();
 }

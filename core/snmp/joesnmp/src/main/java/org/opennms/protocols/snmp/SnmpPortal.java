@@ -56,6 +56,8 @@ import org.slf4j.LoggerFactory;
  * @see java.net.DatagramSocket
  */
 public class SnmpPortal {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(SnmpPortal.class);
 
     /**
@@ -121,8 +123,8 @@ public class SnmpPortal {
     /**
      * Private constructor used to disallow the default constructor.
      *
-     * @exception java.lang.UnsupportedOperationException
-     *                Always thrown!
+     * @throws UnsupportedOperationException
+     *             the unsupported operation exception
      */
     @SuppressWarnings("unused")
     private SnmpPortal() throws java.lang.UnsupportedOperationException {
@@ -140,11 +142,8 @@ public class SnmpPortal {
      *            The ASN.1 codec object.
      * @param port
      *            The port to send and receive datagram from.
-     * @exception java.net.SocketException
-     *                Thrown if an error occurs setting up the communication
-     *                channel.
-     * @exception java.lang.IllegalArgumentException
-     *                Thrown if any of the parameters are null or invalid.
+     * @throws SocketException
+     *             the socket exception
      */
     SnmpPortal(final SnmpPacketHandler handler, final AsnEncoder encoder, final int port) throws SocketException {
         if (handler == null || encoder == null)
@@ -161,6 +160,20 @@ public class SnmpPortal {
         initializePortal(encoder);
     }
 
+    /**
+     * Instantiates a new snmp portal.
+     *
+     * @param handler
+     *            the handler
+     * @param encoder
+     *            the encoder
+     * @param address
+     *            the address
+     * @param port
+     *            the port
+     * @throws SocketException
+     *             the socket exception
+     */
     SnmpPortal(final SnmpPacketHandler handler, final AsnEncoder encoder, final InetAddress address, final int port)
             throws SocketException {
         if (handler == null || encoder == null)
@@ -181,6 +194,14 @@ public class SnmpPortal {
         initializePortal(encoder);
     }
 
+    /**
+     * Initialize portal.
+     *
+     * @param encoder
+     *            the encoder
+     * @throws SocketException
+     *             the socket exception
+     */
     public void initializePortal(final AsnEncoder encoder) throws SocketException {
         //
         // Determine whether or not it is necessary to use the
@@ -390,10 +411,10 @@ public class SnmpPortal {
      *
      * @param pkt
      *            The datagram packet to be decoded
-     * @exception SnmpPduEncodingException
-     *                Thrown if a pdu or session level error occurs
-     * @exception AsnDecodingException
-     *                Thrown if the AsnEncoder encounters an error
+     * @throws SnmpPduEncodingException
+     *             Thrown if a pdu or session level error occurs
+     * @throws AsnDecodingException
+     *             Thrown if the AsnEncoder encounters an error
      * @see SnmpPduTrap
      * @see SnmpPduPacket
      * @see SnmpPduRequest
@@ -525,8 +546,8 @@ public class SnmpPortal {
      *            The buffer to transmit.
      * @param length
      *            The valid length of the buffer
-     * @exception java.lang.IOException
-     *                For more details see java.net.DatagramSocket.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      * @see java.net.DatagramSocket
      */
     void send(SnmpPeer peer, byte[] buf, int length) throws java.io.IOException {
@@ -547,8 +568,8 @@ public class SnmpPortal {
      *            The SNMP peer destination
      * @param buf
      *            The buffer to transmit.
-     * @exception java.lang.IOException
-     *                For more details see java.net.DatagramSocket.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      * @see java.net.DatagramSocket
      */
     void send(SnmpPeer peer, byte[] buf) throws java.io.IOException {
@@ -602,6 +623,8 @@ public class SnmpPortal {
     /**
      * Returns true if this portal has had it's <CODE>close</CODE> method
      * called.
+     *
+     * @return true, if is closed
      */
     boolean isClosed() {
         return m_isClosing;

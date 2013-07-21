@@ -44,6 +44,7 @@ import java.net.InetAddress;
  * @see SnmpTrapSession
  */
 interface SnmpPacketHandler {
+
     /**
      * <P>
      * This method is used to process received SNMP messages in the standard V1
@@ -69,6 +70,8 @@ interface SnmpPacketHandler {
      *            The PDU implicit command value.
      * @param pdu
      *            The Protocol Data Unit (PDU).
+     * @throws SnmpPduEncodingException
+     *             the snmp pdu encoding exception
      * @see SnmpPortal.Receiver#run
      * @see SnmpPortal#handlePkt
      */
@@ -94,6 +97,8 @@ interface SnmpPacketHandler {
      *            The community string in the message.
      * @param pdu
      *            The SNMP trap Protocol Data Unit.
+     * @throws SnmpPduEncodingException
+     *             the snmp pdu encoding exception
      * @see SnmpPduTrap
      */
     void processSnmpTrap(InetAddress agent, int port, SnmpOctetString community, SnmpPduTrap pdu)

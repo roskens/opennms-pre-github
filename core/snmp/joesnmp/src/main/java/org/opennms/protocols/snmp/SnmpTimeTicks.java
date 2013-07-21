@@ -39,9 +39,8 @@ package org.opennms.protocols.snmp;
  * @author <a href="mailto:weave@oculan.com">Brian Weaver </a>
  */
 public class SnmpTimeTicks extends SnmpUInt32 {
-    /**
-     * Defines the serialization format
-     */
+
+    /** Defines the serialization format. */
     static final long serialVersionUID = 5452427494814505218L;
 
     /**
@@ -112,12 +111,6 @@ public class SnmpTimeTicks extends SnmpUInt32 {
      *
      * @param value
      *            The string encoded value of TimeTicks
-     * @throws java.lang.NumberFormatException
-     *             Thrown if the passed value is malformed and cannot be parsed.
-     * @throws java.lang.IllegalArgumentException
-     *             Throws if the passed value evaluates to a negative value.
-     * @throws java.lang.NullPointerException
-     *             Throws if the passed value is a null reference.
      */
     public SnmpTimeTicks(String value) {
         super(value);
@@ -155,6 +148,8 @@ public class SnmpTimeTicks extends SnmpUInt32 {
 
     /**
      * Returns the string representation of the object.
+     *
+     * @return the string
      */
     @Override
     public String toString() {

@@ -247,7 +247,9 @@ public class SnmpObjectId extends Object implements SnmpSyntax, Cloneable, Seria
     }
 
     /**
-     * Returns the value of the last object identifier component value
+     * Returns the value of the last object identifier component value.
+     *
+     * @return the last identifier
      */
     public int getLastIdentifier() {
         return m_data[m_data.length - 1];
@@ -265,7 +267,7 @@ public class SnmpObjectId extends Object implements SnmpSyntax, Cloneable, Seria
     }
 
     /**
-     * Sets the object to the passed object identifier
+     * Sets the object to the passed object identifier.
      *
      * @param data
      *            The new object identifier
@@ -594,6 +596,8 @@ public class SnmpObjectId extends Object implements SnmpSyntax, Cloneable, Seria
 
     /**
      * Used to get the ASN.1 type for this particular object.
+     *
+     * @return the byte
      */
     @Override
     public byte typeId() {
@@ -612,8 +616,8 @@ public class SnmpObjectId extends Object implements SnmpSyntax, Cloneable, Seria
      * @param encoder
      *            The encoder object.
      * @return The offset of the byte immediantly after the last encoded byte.
-     * @exception AsnEncodingException
-     *                Thrown if the encoder finds an error in the buffer.
+     * @throws AsnEncodingException
+     *             Thrown if the encoder finds an error in the buffer.
      */
     @Override
     public int encodeASN(byte[] buf, int offset, AsnEncoder encoder) throws AsnEncodingException {
@@ -634,9 +638,9 @@ public class SnmpObjectId extends Object implements SnmpSyntax, Cloneable, Seria
      *            The decoder object.
      * @return The index of the byte immediantly after the last decoded byte of
      *         information.
-     * @exception AsnDecodingException
-     *                Thrown by the encoder if an error occurs trying to decode
-     *                the data buffer.
+     * @throws AsnDecodingException
+     *             Thrown by the encoder if an error occurs trying to decode
+     *             the data buffer.
      */
     @Override
     public int decodeASN(byte[] buf, int offset, AsnEncoder encoder) throws AsnDecodingException {

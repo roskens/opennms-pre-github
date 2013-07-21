@@ -44,9 +44,7 @@ public class SnmpParameters extends Object implements Cloneable {
      */
     private String m_readCommunity;
 
-    /**
-     * The write community string
-     */
+    /** The write community string. */
     private String m_writeCommunity;
 
     /**
@@ -66,9 +64,7 @@ public class SnmpParameters extends Object implements Cloneable {
      */
     private AsnEncoder m_encoder;
 
-    /**
-     * The default read-only community string
-     */
+    /** The default read-only community string. */
     public static final String defaultCommunity = "public";
 
     /**

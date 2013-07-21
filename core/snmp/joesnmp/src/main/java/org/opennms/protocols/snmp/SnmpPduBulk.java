@@ -76,7 +76,7 @@ public class SnmpPduBulk extends SnmpPduPacket {
     }
 
     /**
-     * Returns the number of non-repeating elements
+     * Returns the number of non-repeating elements.
      *
      * @return The non-repeating value
      */

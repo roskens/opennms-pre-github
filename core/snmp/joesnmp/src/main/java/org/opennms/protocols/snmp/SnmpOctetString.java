@@ -50,8 +50,10 @@ public class SnmpOctetString extends Object implements SnmpSyntax, Cloneable, Se
                                                                // tool
 
     /**
-     * The actual octet string data (UTF-8)
-     */
+                                                                 * The actual
+                                                                 * octet string
+                                                                 * data (UTF-8).
+                                                                 */
     private byte[] m_data;
 
     /**
@@ -188,8 +190,8 @@ public class SnmpOctetString extends Object implements SnmpSyntax, Cloneable, Se
      * @param encoder
      *            The encoder object.
      * @return The offset of the byte immediantly after the last encoded byte.
-     * @exception AsnEncodingException
-     *                Thrown if the encoder finds an error in the buffer.
+     * @throws AsnEncodingException
+     *             Thrown if the encoder finds an error in the buffer.
      */
     @Override
     public int encodeASN(byte[] buf, int offset, AsnEncoder encoder) throws AsnEncodingException {
@@ -213,9 +215,9 @@ public class SnmpOctetString extends Object implements SnmpSyntax, Cloneable, Se
      *            The decoder object.
      * @return The index of the byte immediantly after the last decoded byte of
      *         information.
-     * @exception AsnDecodingException
-     *                Thrown by the encoder if an error occurs trying to decode
-     *                the data buffer.
+     * @throws AsnDecodingException
+     *             Thrown by the encoder if an error occurs trying to decode
+     *             the data buffer.
      */
     @Override
     public int decodeASN(byte[] buf, int offset, AsnEncoder encoder) throws AsnDecodingException {
@@ -252,6 +254,8 @@ public class SnmpOctetString extends Object implements SnmpSyntax, Cloneable, Se
     /**
      * Returns a string representation of the object. If the object contains
      * non-printable characters then the contents are printed in hexidecimal.
+     *
+     * @return the string
      */
     @Override
     public String toString() {
@@ -347,6 +351,13 @@ public class SnmpOctetString extends Object implements SnmpSyntax, Cloneable, Se
     }
 
     // TODO: Move this to common base class
+    /**
+     * To hex string.
+     *
+     * @param ostr
+     *            the ostr
+     * @return the string
+     */
     public static String toHexString(SnmpOctetString ostr) {
         if (ostr == null)
             return null;
@@ -362,6 +373,9 @@ public class SnmpOctetString extends Object implements SnmpSyntax, Cloneable, Se
         return physAddr;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof SnmpOctetString) {
@@ -381,6 +395,9 @@ public class SnmpOctetString extends Object implements SnmpSyntax, Cloneable, Se
         return false;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
     @Override
     public int hashCode() {
         return 0;

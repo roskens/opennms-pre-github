@@ -150,9 +150,7 @@ public class SnmpSMI {
      */
     public static final byte SMI_ENDOFMIBVIEW = (ASN1.CONTEXT | ASN1.PRIMITIVE | 0x02);
 
-    /**
-     * The value for a SNMP V1 protocol session
-     */
+    /** The value for a SNMP V1 protocol session. */
     public static final int SNMPV1 = 0;
 
     /**
@@ -160,37 +158,26 @@ public class SnmpSMI {
      */
     public static final int SNMPV2 = 1;
 
+    /**
+     * Gets the version string.
+     *
+     * @param version
+     *            the version
+     * @return the version string
+     */
     public static String getVersionString(int version) {
         return ((version == SNMPV1) ? "SNMPv1" : "SNMPv2");
     }
 
     /**
-     * Creates a single RRD file for the specified RRD data source.
+     * To int.
      *
-     * @param collectionName
-     *            Name of the collection
-     * @param ipaddr
-     *            Interface address
-     * @param directory
-     *            RRD repository directory
-     * @param ds
-     *            RRD data source
-     * @return TRUE if new RRD file created, FALSE if RRD file was not created
-     *         because it already existed.
+     * @param result
+     *            the result
+     * @param deflt
+     *            the deflt
+     * @return the int
      */
-    /*
-     * public boolean createRRD(String collectionName, InetAddress ipaddr,
-     * String directory, RRDDataSource ds) throws RrdException {
-     * String creator = "primary SNMP interface " + ipaddr.getHostAddress();
-     * int step =
-     * DataCollectionConfigFactory.getInstance().getStep(collectionName);
-     * List rraList =
-     * DataCollectionConfigFactory.getInstance().getRRAList(collectionName);
-     * return RrdUtils.createRRD(creator, directory, ds.getName(), step,
-     * ds.getType(), ds.getHeartbeat(), ds.getMin(), ds.getMax(), rraList);
-     * }
-     */
-
     public static int toInt(SnmpSyntax result, int deflt) {
         if (result == null)
             return deflt;

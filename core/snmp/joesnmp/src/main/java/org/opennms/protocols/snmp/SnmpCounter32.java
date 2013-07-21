@@ -107,12 +107,6 @@ public class SnmpCounter32 extends SnmpUInt32 {
      *
      * @param value
      *            The string encoded value.
-     * @throws java.lang.NumberFormatException
-     *             Thrown if the passed value is malformed and cannot be parsed.
-     * @throws java.lang.IllegalArgumentException
-     *             Throws if the passed value evaluates to a negative value.
-     * @throws java.lang.NullPointerException
-     *             Throws if the passed value is a null reference.
      */
     public SnmpCounter32(String value) {
         super(value);

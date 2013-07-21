@@ -41,38 +41,28 @@ import java.util.NoSuchElementException;
  * @author <a href="mailto:weave@oculan.com">Brian Weaver</a>
  */
 class SnmpTimer extends Object {
-    /**
-     * The list of runnable objects (stored as TimeoutElement)
-     */
+
+    /** The list of runnable objects (stored as TimeoutElement). */
     private LinkedList<TimeoutElement> m_list;
 
-    /**
-     * The thread doing the scheduling
-     */
+    /** The thread doing the scheduling. */
     private Thread m_thread;
 
-    /**
-     * when true the internal thread should exit
-     */
+    /** when true the internal thread should exit. */
     private boolean m_exit;
 
-    /**
-     * The synchronization object
-     */
+    /** The synchronization object. */
     private Object m_sync;
 
     /**
      * Used to track the individual runnables and when the runnable "expires".
      */
     private class TimeoutElement {
-        /**
-         * The runnable object
-         */
+
+        /** The runnable object. */
         public Runnable m_toRun;
 
-        /**
-         * The date to run the runnable
-         */
+        /** The date to run the runnable. */
         public long m_when;
 
         /**
@@ -240,7 +230,7 @@ class SnmpTimer extends Object {
     }
 
     /**
-     * Cancels the current timer object and terminates the internal thread
+     * Cancels the current timer object and terminates the internal thread.
      */
     void cancel() {
         synchronized (m_sync) {

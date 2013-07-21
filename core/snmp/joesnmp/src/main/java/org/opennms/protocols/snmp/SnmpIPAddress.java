@@ -71,8 +71,6 @@ public class SnmpIPAddress extends SnmpOctetString {
      *
      * @param data
      *            The application string to manage (UTF-8)
-     * @throws java.security.InvalidParameterException
-     *             Thrown if the passed buffer is not exactly 4 octets in size.
      */
     public SnmpIPAddress(byte[] data) {
         super(data);
@@ -98,8 +96,6 @@ public class SnmpIPAddress extends SnmpOctetString {
      *
      * @param second
      *            The object to copy
-     * @throws java.security.InvalidParameterException
-     *             Thrown if the passed buffer is not exactly 4 octets in size.
      */
     public SnmpIPAddress(SnmpOctetString second) {
         super(second);
@@ -123,14 +119,14 @@ public class SnmpIPAddress extends SnmpOctetString {
     /**
      * Constructs a new instance of the class with the IP address of the
      * evaluated argument. The argument is evaluated by the
-     * {@link java.net.InetAddress#getByName InetAddress}class and the returned
-     * address is encoded in this instance.
      *
      * @param inetAddr
      *            The string encoded IP Address to encapsulate.
-     * @exception SnmpBadConversionException
-     *                Thrown if the string address cannot be converted to an IP
-     *                Address.
+     * @throws SnmpBadConversionException
+     *             Thrown if the string address cannot be converted to an IP
+     *             Address. {@link java.net.InetAddress#getByName InetAddress}
+     *             class and the returned
+     *             address is encoded in this instance.
      */
     public SnmpIPAddress(String inetAddr) throws SnmpBadConversionException {
         try {
@@ -185,9 +181,6 @@ public class SnmpIPAddress extends SnmpOctetString {
      *
      * @param data
      *            The new octet string data.
-     * @throws java.security.InvalidParameterException
-     *             Thrown if the passed buffer is not valid against the SMI
-     *             definition.
      */
     @Override
     public void setString(byte[] data) {
@@ -215,9 +208,6 @@ public class SnmpIPAddress extends SnmpOctetString {
      *
      * @param data
      *            The new octet string data.
-     * @throws java.security.InvalidParameterException
-     *             Thrown if the passed buffer is not valid against the SMI
-     *             definition.
      * @see java.lang.String#getBytes()
      */
     @Override
@@ -245,9 +235,9 @@ public class SnmpIPAddress extends SnmpOctetString {
      *            The decoder object.
      * @return The index of the byte immediantly after the last decoded byte of
      *         information.
-     * @exception AsnDecodingException
-     *                Thrown by the encoder if an error occurs trying to decode
-     *                the data buffer.
+     * @throws AsnDecodingException
+     *             Thrown by the encoder if an error occurs trying to decode
+     *             the data buffer.
      */
     @Override
     public int decodeASN(byte[] buf, int offset, AsnEncoder encoder) throws AsnDecodingException {
@@ -273,9 +263,6 @@ public class SnmpIPAddress extends SnmpOctetString {
      * conversion then an exception is thrown.
      *
      * @return The IPv4Address converted from the appliation string
-     * @exception SnmpBadConversionException
-     *                Thrown if the length of the string is invalid. Must be
-     *                equal to four
      */
     public InetAddress convertToIpAddress() {
         byte[] data = getString();
@@ -294,7 +281,9 @@ public class SnmpIPAddress extends SnmpOctetString {
     }
 
     /**
-     * Returns the application string as a IPv4 dotted decimal address
+     * Returns the application string as a IPv4 dotted decimal address.
+     *
+     * @return the string
      */
     @Override
     public String toString() {
@@ -309,6 +298,13 @@ public class SnmpIPAddress extends SnmpOctetString {
         return buf.toString();
     }
 
+    /**
+     * To inet address.
+     *
+     * @param val
+     *            the val
+     * @return the inet address
+     */
     public static InetAddress toInetAddress(SnmpIPAddress val) {
         return (val == null ? null : val.convertToIpAddress());
     }

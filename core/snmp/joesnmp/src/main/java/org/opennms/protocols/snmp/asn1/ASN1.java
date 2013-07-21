@@ -45,9 +45,7 @@ public class ASN1 {
      */
     public static final byte INTEGER = (byte) 0x02;
 
-    /**
-     * A sequence of zero or more bits
-     */
+    /** A sequence of zero or more bits. */
     public static final byte BITSTRING = (byte) 0x03;
 
     /**
@@ -92,9 +90,7 @@ public class ASN1 {
      */
     public static final byte APPLICATION = (byte) 0x40;
 
-    /**
-     * Also relevant to a particular application, but limited by context
-     */
+    /** Also relevant to a particular application, but limited by context. */
     public static final byte CONTEXT = (byte) 0x80;
 
     /**

@@ -68,17 +68,14 @@ public class SnmpSession extends Object {
 
     /**
      * This is the command passed to the SnmpHandler if an IOException occurs
-     * while attempting to transmit the request
-     *
-     * @see SnmpHandler
+     * while attempting to transmit the request. @see SnmpHandler
      */
     public static final int ERROR_IOEXCEPTION = -2;
 
     /**
      * This is the command passed to the SnmpHandler if an encoding exception is
-     * generated when attempting to send an SnmpPduRequest message
-     *
-     * @see SnmpHandler
+     * generated when attempting to send an SnmpPduRequest message. @see
+     * SnmpHandler
      */
     public static final int ERROR_ENCODING = -3;
 
@@ -111,36 +108,34 @@ public class SnmpSession extends Object {
      */
     private SnmpHandler m_defHandler;
 
-    /**
-     * ASN encoder
-     */
+    /** ASN encoder. */
     AsnEncoder m_encoder;
 
     //
     // thread related stuff
     //
 
-    /**
-     * Provides a synchronization point
-     */
+    /** Provides a synchronization point. */
     private Object m_sync;
 
     /**
      * If the boolean variable is set then the destroy() method must have been
-     * called
+     * called.
      */
     private boolean m_stopRun;
 
-    /**
-     * the receiver thread
-     */
+    /** the receiver thread. */
     private SnmpPortal m_portal;
 
     /**
      * Inner class SessionHandler implements the interface SnmpPacketHandler to
-     * handle callbacks from the SnmpPortal
+     * handle callbacks from the SnmpPortal.
      */
     private class SessionHandler implements SnmpPacketHandler {
+
+        /* (non-Javadoc)
+         * @see org.opennms.protocols.snmp.SnmpPacketHandler#processSnmpMessage(java.net.InetAddress, int, org.opennms.protocols.snmp.SnmpInt32, org.opennms.protocols.snmp.SnmpOctetString, int, org.opennms.protocols.snmp.SnmpPduPacket)
+         */
         @Override
         public void processSnmpMessage(InetAddress agent, int port, SnmpInt32 version, SnmpOctetString community,
                 int pduType, SnmpPduPacket pdu) throws SnmpPduEncodingException {
@@ -207,17 +202,26 @@ public class SnmpSession extends Object {
             }
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.protocols.snmp.SnmpPacketHandler#processSnmpTrap(java.net.InetAddress, int, org.opennms.protocols.snmp.SnmpOctetString, org.opennms.protocols.snmp.SnmpPduTrap)
+         */
         @Override
         public void processSnmpTrap(InetAddress agent, int port, SnmpOctetString community, SnmpPduTrap pdu)
                 throws SnmpPduEncodingException {
             throw new SnmpPduEncodingException("Invalid PDU Type for session");
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.protocols.snmp.SnmpPacketHandler#processBadDatagram(java.net.DatagramPacket)
+         */
         @Override
         public void processBadDatagram(DatagramPacket p) {
             // do nothing - discard?
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.protocols.snmp.SnmpPacketHandler#processException(java.lang.Exception)
+         */
         @Override
         public void processException(Exception e) {
             // do nothing - discard?
@@ -265,14 +269,11 @@ public class SnmpSession extends Object {
      * </P>
      */
     private static class ByteArrayInfo {
-        /**
-         * The buffer
-         */
+
+        /** The buffer. */
         private byte[] m_buf;
 
-        /**
-         * The valid length of the buffer
-         */
+        /** The valid length of the buffer. */
         private int m_length;
 
         /**
@@ -290,14 +291,18 @@ public class SnmpSession extends Object {
         }
 
         /**
-         * returns the encapsulated array
+         * returns the encapsulated array.
+         *
+         * @return the byte[]
          */
         public byte[] array() {
             return m_buf;
         }
 
         /**
-         * Returns the valid length of the encapsulate array
+         * Returns the valid length of the encapsulate array.
+         *
+         * @return the int
          */
         public int size() {
             return m_length;
@@ -314,12 +319,11 @@ public class SnmpSession extends Object {
      * @param pdu
      *            The pdu to encode
      * @return The encoded pdu request
-     * @exception SnmpPduEncodingException
-     *                Thrown if an encoding exception occurs at the session
-     *                level
-     * @exception org.opennms.protocols.snmp.asn1.AsnEncodingException
-     *                Thrown if an encoding exception occurs in the AsnEncoder
-     *                object.
+     * @throws SnmpPduEncodingException
+     *             Thrown if an encoding exception occurs at the session
+     *             level
+     * @throws AsnEncodingException
+     *             the asn encoding exception
      */
     private ByteArrayInfo encode(SnmpPduPacket pdu) throws SnmpPduEncodingException, AsnEncodingException {
         SnmpPeer peer = m_peer;
@@ -385,12 +389,11 @@ public class SnmpSession extends Object {
      * @param pdu
      *            The pdu to encode
      * @return The encoded pdu request
-     * @exception SnmpPduEncodingException
-     *                Thrown if an encoding exception occurs at the session
-     *                level
-     * @exception org.opennms.protocols.snmp.asn1.AsnEncodingException
-     *                Thrown if an encoding exception occurs in the AsnEncoder
-     *                object.
+     * @throws SnmpPduEncodingException
+     *             Thrown if an encoding exception occurs at the session
+     *             level
+     * @throws AsnEncodingException
+     *             the asn encoding exception
      */
     private ByteArrayInfo encode(SnmpPduTrap pdu) throws SnmpPduEncodingException, AsnEncodingException {
         SnmpPeer peer = m_peer;
@@ -518,14 +521,13 @@ public class SnmpSession extends Object {
      *
      * @param req
      *            The SnmpRequest to transmit
-     * @exception SnmpPduEncodingException
-     *                Thrown if an encoding exception occurs at the session
-     *                level
-     * @exception org.opennms.protocols.snmp.asn1.AsnEncodingException
-     *                Thrown if an encoding exception occurs in the AsnEncoder
-     *                object.
-     * @exception java.io.IOException
-     *                Thrown if an error occurs sending the encoded datagram
+     * @throws SnmpPduEncodingException
+     *             Thrown if an encoding exception occurs at the session
+     *             level
+     * @throws AsnEncodingException
+     *             the asn encoding exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      * @see SnmpRequest
      * @see SnmpParameters
      * @see SnmpPeer
@@ -582,9 +584,9 @@ public class SnmpSession extends Object {
      *
      * @param peer
      *            The peer agent
+     * @throws SocketException
+     *             the socket exception
      * @see SnmpPeer
-     * @exception java.net.SocketException
-     *                If thrown it is from the creation of a DatagramSocket.
      */
     public SnmpSession(InetAddress peer) throws SocketException {
         m_sync = new Object();
@@ -606,9 +608,9 @@ public class SnmpSession extends Object {
      *
      * @param peer
      *            The SnmpPeer used to configure this session
+     * @throws SocketException
+     *             the socket exception
      * @see SnmpPeer
-     * @exception java.net.SocketException
-     *                If thrown it is from the creation of a DatagramSocket.
      */
     public SnmpSession(SnmpPeer peer) throws SocketException {
         m_requests = new LinkedList<SnmpRequest>();
@@ -634,10 +636,10 @@ public class SnmpSession extends Object {
      *            The peer address for agent
      * @param params
      *            The SnmpParameters to configure with this session
+     * @throws SocketException
+     *             the socket exception
      * @see SnmpPeer
      * @see SnmpParameters
-     * @exception java.net.SocketException
-     *                If thrown it is from the creation of a DatagramSocket.
      */
     public SnmpSession(InetAddress peer, SnmpParameters params) throws SocketException {
         this(peer);
@@ -690,8 +692,6 @@ public class SnmpSession extends Object {
      * request is one that has no yet responded to the query.
      *
      * @return The number of outstanding request
-     * @throws java.lang.IllegalStateException
-     *             Throw if the session has been closed.
      */
     public int getOutstandingCount() {
         //
@@ -726,8 +726,6 @@ public class SnmpSession extends Object {
      * @param requestId
      *            The request to cancel
      * @see SnmpPduPacket
-     * @throws java.lang.IllegalStateException
-     *             Throw if the session has been closed.
      */
     public void cancel(int requestId) {
         //
@@ -766,10 +764,6 @@ public class SnmpSession extends Object {
      * @param handler
      *            The handler object for this request
      * @return The request identifier for the newly sent PDU.
-     * @exception SnmpHandlerNotDefinedException
-     *                Thrown if the handler is null
-     * @exception java.lang.IllegalStateException
-     *                Thrown if the session has been closed.
      */
     public int send(SnmpPduPacket pdu, SnmpHandler handler) {
         if (handler == null)
@@ -807,10 +801,6 @@ public class SnmpSession extends Object {
      * @param pdu
      *            The pdu to encode and send
      * @return The request identifier for the newly sent PDU.
-     * @exception SnmpHandlerNotDefinedException
-     *                Thrown if the handler is null
-     * @exception java.lang.IllegalStateException
-     *                Thrown if the session has been closed.
      */
     public int send(SnmpPduPacket pdu) {
         if (m_defHandler == null)
@@ -827,10 +817,6 @@ public class SnmpSession extends Object {
      * @param handler
      *            The handler object for this request
      * @return The request identifier for the newly sent PDU.
-     * @exception SnmpHandlerNotDefinedException
-     *                Thrown if the handler is null
-     * @exception java.lang.IllegalStateException
-     *                Thrown if the session has been closed.
      */
     public int send(SnmpPduTrap pdu, SnmpHandler handler) {
         if (handler == null)
@@ -855,10 +841,6 @@ public class SnmpSession extends Object {
      * @param pdu
      *            The pdu to encode and send
      * @return The request identifier for the newly sent PDU.
-     * @exception SnmpHandlerNotDefinedException
-     *                Thrown if the handler is null
-     * @exception java.lang.IllegalStateException
-     *                Thrown if the session has been closed.
      */
     public int send(SnmpPduTrap pdu) {
         if (m_defHandler == null)
@@ -871,6 +853,8 @@ public class SnmpSession extends Object {
      * Returns true if the <CODE>close</CODE> method has been called. The
      * session cannot be used to send request after <CODE>close</CODE> has
      * been executed.
+     *
+     * @return true, if is closed
      */
     public boolean isClosed() {
         synchronized (m_sync) {
@@ -881,10 +865,6 @@ public class SnmpSession extends Object {
     /**
      * Used to close the session. Once called the session should be considered
      * invalid and unusable.
-     *
-     * @exception java.lang.IllegalStateException
-     *                Thrown if the session has already been closed by another
-     *                thread.
      */
     public void close() {
         synchronized (m_sync) {
@@ -940,62 +920,177 @@ public class SnmpSession extends Object {
         SnmpUtil.registerSyntax(object);
     }
 
+    /**
+     * Gets the next.
+     *
+     * @param oid
+     *            the oid
+     * @return the next
+     */
     public SnmpSyntax getNext(SnmpObjectId oid) {
         return getResult(SnmpPduPacket.GETNEXT, oid);
     }
 
+    /**
+     * Gets the next.
+     *
+     * @param oids
+     *            the oids
+     * @return the next
+     */
     public SnmpSyntax[] getNext(SnmpObjectId[] oids) {
         return getResults(SnmpPduPacket.GETNEXT, oids);
     }
 
+    /**
+     * Gets the.
+     *
+     * @param oid
+     *            the oid
+     * @return the snmp syntax
+     */
     public SnmpSyntax get(SnmpObjectId oid) {
         return getResult(SnmpPduPacket.GET, oid);
     }
 
+    /**
+     * Sets the.
+     *
+     * @param oid
+     *            the oid
+     * @param value
+     *            the value
+     * @return the snmp syntax
+     */
     public SnmpSyntax set(SnmpObjectId oid, SnmpSyntax value) {
         return getResult(SnmpPduPacket.SET, oid, value);
     }
 
+    /**
+     * Sets the.
+     *
+     * @param oids
+     *            the oids
+     * @param values
+     *            the values
+     * @return the snmp syntax[]
+     */
     public SnmpSyntax[] set(SnmpObjectId[] oids, SnmpSyntax[] values) {
         return getResults(SnmpPduPacket.SET, oids, values);
     }
 
+    /**
+     * Gets the.
+     *
+     * @param oids
+     *            the oids
+     * @return the snmp syntax[]
+     */
     public SnmpSyntax[] get(SnmpObjectId[] oids) {
         return getResults(SnmpPduPacket.GET, oids);
     }
 
+    /**
+     * Gets the bulk.
+     *
+     * @param nonRepeaters
+     *            the non repeaters
+     * @param maxReptitions
+     *            the max reptitions
+     * @param id
+     *            the id
+     * @return the bulk
+     */
     public SnmpSyntax[] getBulk(int nonRepeaters, int maxReptitions, SnmpObjectId id) {
         return getBulk(nonRepeaters, maxReptitions, new SnmpObjectId[] { id });
     }
 
+    /**
+     * Gets the bulk.
+     *
+     * @param nonRepeaters
+     *            the non repeaters
+     * @param maxRepititions
+     *            the max repititions
+     * @param oids
+     *            the oids
+     * @return the bulk
+     */
     public SnmpSyntax[] getBulk(int nonRepeaters, int maxRepititions, SnmpObjectId[] oids) {
         SnmpVarBind[] varbinds = createVarBinds(oids);
         SnmpPduPacket request = new SnmpPduBulk(nonRepeaters, maxRepititions, varbinds);
         return getResults(request);
     }
 
+    /**
+     * Gets the result.
+     *
+     * @param requestType
+     *            the request type
+     * @param oid
+     *            the oid
+     * @return the result
+     */
     private SnmpSyntax getResult(int requestType, SnmpObjectId oid) {
         SnmpSyntax[] result = getResults(requestType, new SnmpObjectId[] { oid });
         return (result == null || result.length <= 0 ? null : result[0]);
     }
 
+    /**
+     * Gets the result.
+     *
+     * @param requestType
+     *            the request type
+     * @param oid
+     *            the oid
+     * @param value
+     *            the value
+     * @return the result
+     */
     private SnmpSyntax getResult(int requestType, SnmpObjectId oid, SnmpSyntax value) {
         SnmpSyntax[] result = getResults(requestType, new SnmpObjectId[] { oid }, new SnmpSyntax[] { oid });
         return (result == null || result.length <= 0 ? null : result[0]);
     }
 
+    /**
+     * Gets the results.
+     *
+     * @param requestType
+     *            the request type
+     * @param oids
+     *            the oids
+     * @return the results
+     */
     private SnmpSyntax[] getResults(int requestType, SnmpObjectId[] oids) {
         SnmpVarBind[] varbinds = createVarBinds(oids);
         SnmpPduPacket request = new SnmpPduRequest(requestType, varbinds);
         return getResults(request);
     }
 
+    /**
+     * Gets the results.
+     *
+     * @param requestType
+     *            the request type
+     * @param oids
+     *            the oids
+     * @param values
+     *            the values
+     * @return the results
+     */
     private SnmpSyntax[] getResults(int requestType, SnmpObjectId[] oids, SnmpSyntax[] values) {
         SnmpVarBind[] varbinds = createVarBinds(oids, values);
         SnmpPduPacket request = new SnmpPduRequest(requestType, varbinds);
         return getResults(request);
     }
 
+    /**
+     * Creates the var binds.
+     *
+     * @param oids
+     *            the oids
+     * @return the snmp var bind[]
+     */
     private SnmpVarBind[] createVarBinds(SnmpObjectId[] oids) {
         SnmpVarBind[] varbinds = new SnmpVarBind[oids.length];
         for (int i = 0; i < oids.length; i++) {
@@ -1004,6 +1099,15 @@ public class SnmpSession extends Object {
         return varbinds;
     }
 
+    /**
+     * Creates the var binds.
+     *
+     * @param oids
+     *            the oids
+     * @param values
+     *            the values
+     * @return the snmp var bind[]
+     */
     private SnmpVarBind[] createVarBinds(SnmpObjectId[] oids, SnmpSyntax[] values) {
         SnmpVarBind[] varbinds = new SnmpVarBind[oids.length];
         for (int i = 0; i < oids.length; i++) {
@@ -1012,6 +1116,13 @@ public class SnmpSession extends Object {
         return varbinds;
     }
 
+    /**
+     * Gets the results.
+     *
+     * @param request
+     *            the request
+     * @return the results
+     */
     private SnmpSyntax[] getResults(SnmpPduPacket request) {
         SnmpPduPacket response = getResponse(request);
         if (response == null)
@@ -1023,6 +1134,13 @@ public class SnmpSession extends Object {
         return vals;
     }
 
+    /**
+     * Gets the response.
+     *
+     * @param request
+     *            the request
+     * @return the response
+     */
     public SnmpPduPacket getResponse(SnmpPduPacket request) {
         SnmpResponseHandler handler = new SnmpResponseHandler();
         synchronized (handler) {

@@ -72,9 +72,7 @@ public abstract class SnmpPduPacket extends Object implements SnmpSyntax, Clonea
      */
     private int m_requestId; // from pdu
 
-    /**
-     * The peer of this packet, if we are agent
-     */
+    /** The peer of this packet, if we are agent. */
     private SnmpPeer m_peer = null;
 
     /**
@@ -222,14 +220,10 @@ public abstract class SnmpPduPacket extends Object implements SnmpSyntax, Clonea
      */
     public static final int GETBULK = (int) (ASN1.CONTEXT | ASN1.CONSTRUCTOR | 5) + 256;
 
-    /**
-     * Defines a SNMPv2 Inform Request message
-     */
+    /** Defines a SNMPv2 Inform Request message. */
     public static final int INFORM = (int) (ASN1.CONTEXT | ASN1.CONSTRUCTOR | 6) + 256;
 
-    /**
-     * Defines a SNMPv2 Trap message
-     */
+    /** Defines a SNMPv2 Trap message. */
     public static final int V2TRAP = (int) (ASN1.CONTEXT | ASN1.CONSTRUCTOR | 7) + 256;
 
     /**
@@ -245,9 +239,7 @@ public abstract class SnmpPduPacket extends Object implements SnmpSyntax, Clonea
      */
     public static final int ErrNoError = 0;
 
-    /**
-     * The PDU was too large for the agent to process
-     */
+    /** The PDU was too large for the agent to process. */
     public static final int ErrTooBig = 1;
 
     /**
@@ -319,9 +311,7 @@ public abstract class SnmpPduPacket extends Object implements SnmpSyntax, Clonea
      */
     public static final int ErrCommitFailed = 14;
 
-    /**
-     * Unable to perform the undo request
-     */
+    /** Unable to perform the undo request. */
     public static final int ErrUndoFailed = 15;
 
     /**
@@ -329,9 +319,7 @@ public abstract class SnmpPduPacket extends Object implements SnmpSyntax, Clonea
      */
     public static final int ErrAuthorizationError = 16;
 
-    /**
-     * The specified instance or table is not writable
-     */
+    /** The specified instance or table is not writable. */
     public static final int ErrNotWritable = 17;
 
     /**
@@ -349,7 +337,7 @@ public abstract class SnmpPduPacket extends Object implements SnmpSyntax, Clonea
     }
 
     /**
-     * Sets the PDU's current command
+     * Sets the PDU's current command.
      *
      * @param cmd
      *            The new command.
@@ -368,7 +356,7 @@ public abstract class SnmpPduPacket extends Object implements SnmpSyntax, Clonea
     }
 
     /**
-     * Sets the Peer for the Packet
+     * Sets the Peer for the Packet.
      *
      * @param peer
      *            The peer of this packet
@@ -387,7 +375,7 @@ public abstract class SnmpPduPacket extends Object implements SnmpSyntax, Clonea
     }
 
     /**
-     * Sets the protocol data unit's sequence identifer
+     * Sets the protocol data unit's sequence identifer.
      *
      * @param reqid
      *            The new request id
@@ -452,7 +440,7 @@ public abstract class SnmpPduPacket extends Object implements SnmpSyntax, Clonea
     }
 
     /**
-     * Removes the variable as defined by the index
+     * Removes the variable as defined by the index.
      *
      * @param ndx
      *            The index of the variable to remove
@@ -477,7 +465,7 @@ public abstract class SnmpPduPacket extends Object implements SnmpSyntax, Clonea
     }
 
     /**
-     * Returns the PDU commmand in an 8-bit format
+     * Returns the PDU commmand in an 8-bit format.
      *
      * @return The pdu command
      */
@@ -498,8 +486,8 @@ public abstract class SnmpPduPacket extends Object implements SnmpSyntax, Clonea
      * @param encoder
      *            The encoder object.
      * @return The offset of the byte immediantly after the last encoded byte.
-     * @exception AsnEncodingException
-     *                Thrown if the encoder finds an error in the buffer.
+     * @throws AsnEncodingException
+     *             Thrown if the encoder finds an error in the buffer.
      */
     @Override
     public int encodeASN(byte[] buf, int offset, AsnEncoder encoder) throws AsnEncodingException {
@@ -571,9 +559,9 @@ public abstract class SnmpPduPacket extends Object implements SnmpSyntax, Clonea
      *            The decoder object.
      * @return The index of the byte immediantly after the last decoded byte of
      *         information.
-     * @exception AsnDecodingException
-     *                Thrown by the encoder if an error occurs trying to decode
-     *                the data buffer.
+     * @throws AsnDecodingException
+     *             Thrown by the encoder if an error occurs trying to decode
+     *             the data buffer.
      */
     @Override
     public int decodeASN(byte[] buf, int offset, AsnEncoder encoder) throws AsnDecodingException {
@@ -651,6 +639,8 @@ public abstract class SnmpPduPacket extends Object implements SnmpSyntax, Clonea
     /**
      * Defined for derived classes to return a duplicate of self. This method
      * not defined.
+     *
+     * @return the snmp syntax
      */
     @Override
     public abstract SnmpSyntax duplicate();
@@ -658,6 +648,8 @@ public abstract class SnmpPduPacket extends Object implements SnmpSyntax, Clonea
     /**
      * Defined for derived classes to return a duplicate of self. This method
      * not defined.
+     *
+     * @return the object
      */
     @Override
     public abstract Object clone();

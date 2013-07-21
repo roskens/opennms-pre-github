@@ -94,6 +94,8 @@ public abstract class SnmpV2Error extends Object implements SnmpSyntax, Cloneabl
      * @param encoder
      *            The encoding object
      * @return The index of the byte immedantly after the last encoded byte.
+     * @throws AsnEncodingException
+     *             the asn encoding exception
      */
     @Override
     public int encodeASN(byte[] buf, int offset, AsnEncoder encoder) throws AsnEncodingException {
@@ -112,6 +114,8 @@ public abstract class SnmpV2Error extends Object implements SnmpSyntax, Cloneabl
      * @param encoder
      *            The object used to decode the data.
      * @return The index of the byte immedantly after the last encoded byte.
+     * @throws AsnDecodingException
+     *             the asn decoding exception
      */
     @Override
     public int decodeASN(byte[] buf, int offset, AsnEncoder encoder) throws AsnDecodingException {

@@ -48,9 +48,8 @@ import java.util.ArrayList;
  * @author <a href="mailto:weave@oculan.com">Brian Weaver </a>
  */
 class SnmpUtil extends Object {
-    /**
-     * The array of dynamically registred SnmpSyntax objects
-     */
+
+    /** The array of dynamically registred SnmpSyntax objects. */
     static ArrayList<SnmpSyntax> m_syntaxArray = null;
 
     //

@@ -38,11 +38,10 @@ package org.opennms.protocols.snmp;
  */
 public final class SnmpResponseHandler implements SnmpHandler {
 
+    /** The m_error. */
     boolean m_error = true;
 
-    /**
-     * The returned object identifier
-     */
+    /** The returned object identifier. */
     private SnmpPduPacket m_response = null;
 
     /**
@@ -101,6 +100,11 @@ public final class SnmpResponseHandler implements SnmpHandler {
         }
     }
 
+    /**
+     * Gets the response.
+     *
+     * @return the response
+     */
     public SnmpPduPacket getResponse() {
         return m_response;
     }
@@ -108,32 +112,70 @@ public final class SnmpResponseHandler implements SnmpHandler {
     /**
      * Returns the recovered SNMP system object identifier, if any. If one was
      * not returned then a null value is returned to the caller.
+     *
+     * @return the first response var bind
      */
     public SnmpVarBind getFirstResponseVarBind() {
         return getResponseVarBind(0);
     }
 
+    /**
+     * Gets the first response value.
+     *
+     * @return the first response value
+     */
     public SnmpSyntax getFirstResponseValue() {
         return getResponseValue(0);
     }
 
+    /**
+     * Gets the first response string.
+     *
+     * @return the first response string
+     */
     public String getFirstResponseString() {
         return getResponseString(0);
     }
 
+    /**
+     * Gets the response value.
+     *
+     * @param index
+     *            the index
+     * @return the response value
+     */
     public SnmpSyntax getResponseValue(int index) {
         return getResponseVarBind(index).getValue();
     }
 
+    /**
+     * Gets the response string.
+     *
+     * @param index
+     *            the index
+     * @return the response string
+     */
     public String getResponseString(int index) {
         SnmpSyntax val = getResponseValue(index);
         return (val == null ? null : val.toString());
     }
 
+    /**
+     * Gets the response var bind.
+     *
+     * @param index
+     *            the index
+     * @return the response var bind
+     */
     public SnmpVarBind getResponseVarBind(int index) {
         return (getResponse() == null ? null : getResponse().getVarBindAt(index));
     }
 
+    /**
+     * Gets the response var bind count.
+     *
+     * @return the response var bind count
+     */
     public int getResponseVarBindCount() {
         return (getResponse() == null ? 0 : getResponse().getLength());
     }

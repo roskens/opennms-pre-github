@@ -38,9 +38,8 @@ package org.opennms.protocols.snmp;
  * @author <a href="mailto:weave@oculan.com">Brian Weaver </a>
  */
 public class SnmpGauge32 extends SnmpUInt32 {
-    /**
-     * for serialzation support
-     */
+
+    /** for serialzation support. */
     static final long serialVersionUID = 6399350821456655314L;
 
     /**
@@ -107,12 +106,6 @@ public class SnmpGauge32 extends SnmpUInt32 {
      *
      * @param value
      *            The string encoded value.
-     * @throws java.lang.NumberFormatException
-     *             Thrown if the passed value is malformed and cannot be parsed.
-     * @throws java.lang.IllegalArgumentException
-     *             Throws if the passed value evaluates to a negative value.
-     * @throws java.lang.NullPointerException
-     *             Throws if the passed value is a null reference.
      */
     public SnmpGauge32(String value) {
         super(value);

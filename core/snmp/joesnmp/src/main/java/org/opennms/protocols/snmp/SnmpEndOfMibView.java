@@ -97,6 +97,8 @@ public class SnmpEndOfMibView extends SnmpV2Error {
 
     /**
      * Returns the string representation of the object.
+     *
+     * @return the string
      */
     @Override
     public String toString() {

@@ -42,14 +42,13 @@ import org.opennms.protocols.snmp.asn1.AsnEncodingException;
  * @author <a href="mailto:weave@oculan.com">Brian Weaver </a>
  */
 public class SnmpCounter64 extends Object implements SnmpSyntax, Cloneable, Serializable {
-    /**
-     * defines the serialization version
-     */
+
+    /** defines the serialization version. */
     static final long serialVersionUID = -192572343143669856L;
 
     /**
      * The internal 64-bit unsigned quantity implemented as a 64-bit signed
-     * quantity
+     * quantity.
      */
     private BigInteger m_value;
 
@@ -120,12 +119,6 @@ public class SnmpCounter64 extends Object implements SnmpSyntax, Cloneable, Seri
      *
      * @param value
      *            The string encoded value.
-     * @throws java.lang.NumberFormatException
-     *             Thrown if the passed value is malformed and cannot be parsed.
-     * @throws java.lang.IllegalArgumentException
-     *             Throws if the passed value evaluates to a negative value.
-     * @throws java.lang.NullPointerException
-     *             Throws if the passed value is a null reference.
      */
     public SnmpCounter64(String value) {
         if (value == null)
@@ -178,6 +171,8 @@ public class SnmpCounter64 extends Object implements SnmpSyntax, Cloneable, Seri
      * @param encoder
      *            The ASN.1 encoder object
      * @return The byte immediantly after the last encoded byte.
+     * @throws AsnEncodingException
+     *             the asn encoding exception
      */
     @Override
     public int encodeASN(byte[] buf, int offset, AsnEncoder encoder) throws AsnEncodingException {
@@ -196,6 +191,8 @@ public class SnmpCounter64 extends Object implements SnmpSyntax, Cloneable, Seri
      * @param encoder
      *            The ASN.1 decoder object.
      * @return The byte immediantly after the last decoded byte of information.
+     * @throws AsnDecodingException
+     *             the asn decoding exception
      */
     @Override
     public int decodeASN(byte[] buf, int offset, AsnEncoder encoder) throws AsnDecodingException {
@@ -210,7 +207,7 @@ public class SnmpCounter64 extends Object implements SnmpSyntax, Cloneable, Seri
     }
 
     /**
-     * Returns a duplicte of the current object
+     * Returns a duplicte of the current object.
      *
      * @return A duplciate copy of the current object
      */
@@ -220,7 +217,7 @@ public class SnmpCounter64 extends Object implements SnmpSyntax, Cloneable, Seri
     }
 
     /**
-     * Returns a duplicte of the current object
+     * Returns a duplicte of the current object.
      *
      * @return A duplciate copy of the current object
      */
@@ -231,6 +228,8 @@ public class SnmpCounter64 extends Object implements SnmpSyntax, Cloneable, Seri
 
     /**
      * Returns the string representation of the object.
+     *
+     * @return the string
      */
     @Override
     public String toString() {

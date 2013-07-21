@@ -187,7 +187,7 @@ public class SnmpVarBind extends Object implements SnmpSyntax, Cloneable, Serial
     }
 
     /**
-     * Sets the value for the variable
+     * Sets the value for the variable.
      *
      * @param value
      *            The new value for the object
@@ -218,11 +218,10 @@ public class SnmpVarBind extends Object implements SnmpSyntax, Cloneable, Serial
      *            Offset to start encoding data
      * @param encoder
      *            The encoder used to convert the data
-     * @exception AnsEncodingException
-     *                Thrown if the encoder encounters an error while building
-     *                the buffer.
      * @return The offset of the next byte immediantly after the last encoded
      *         byte by this routine.
+     * @throws AsnEncodingException
+     *             the asn encoding exception
      */
     @Override
     public int encodeASN(byte[] buf, int offset, AsnEncoder encoder) throws AsnEncodingException {
@@ -258,9 +257,8 @@ public class SnmpVarBind extends Object implements SnmpSyntax, Cloneable, Serial
      *            The encoder used to convert the data
      * @return The byte offset immediantly after the last decoded byte of
      *         information.
-     * @exception AnsDecodingException
-     *                Thrown if an error occurs while attempting to decode the
-     *                data. This exception will be thrown byte encoder object.
+     * @throws AsnDecodingException
+     *             the asn decoding exception
      */
     @Override
     public int decodeASN(byte[] buf, int offset, AsnEncoder encoder) throws AsnDecodingException {
@@ -300,7 +298,7 @@ public class SnmpVarBind extends Object implements SnmpSyntax, Cloneable, Serial
     }
 
     /**
-     * Returns a newly created duplicate object to the caller
+     * Returns a newly created duplicate object to the caller.
      *
      * @return A newly created variable
      */
@@ -310,7 +308,7 @@ public class SnmpVarBind extends Object implements SnmpSyntax, Cloneable, Serial
     }
 
     /**
-     * Returns a newly created duplicate object to the caller
+     * Returns a newly created duplicate object to the caller.
      *
      * @return A newly created variable
      */
@@ -320,7 +318,9 @@ public class SnmpVarBind extends Object implements SnmpSyntax, Cloneable, Serial
     }
 
     /**
-     * Converts the object to a string representation
+     * Converts the object to a string representation.
+     *
+     * @return the string
      */
     @Override
     public String toString() {

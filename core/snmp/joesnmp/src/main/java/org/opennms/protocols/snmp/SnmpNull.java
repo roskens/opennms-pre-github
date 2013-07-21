@@ -56,7 +56,7 @@ public class SnmpNull extends Object implements SnmpSyntax, Cloneable, Serializa
     public static final byte ASNTYPE = SnmpSMI.SMI_NULL;
 
     /**
-     * Constructs a default SnmpNull class
+     * Constructs a default SnmpNull class.
      */
     public SnmpNull() {
         // do nothing
@@ -95,6 +95,8 @@ public class SnmpNull extends Object implements SnmpSyntax, Cloneable, Serializa
      * @param encoder
      *            The ASN.1 encoder object
      * @return The byte immediantly after the last encoded byte.
+     * @throws AsnEncodingException
+     *             the asn encoding exception
      */
     @Override
     public int encodeASN(byte[] buf, int offset, AsnEncoder encoder) throws AsnEncodingException {
@@ -112,6 +114,8 @@ public class SnmpNull extends Object implements SnmpSyntax, Cloneable, Serializa
      * @param encoder
      *            The ASN.1 decoder object.
      * @return The byte immediantly after the last decoded byte of information.
+     * @throws AsnDecodingException
+     *             the asn decoding exception
      */
     @Override
     public int decodeASN(byte[] buf, int offset, AsnEncoder encoder) throws AsnDecodingException {
@@ -146,7 +150,9 @@ public class SnmpNull extends Object implements SnmpSyntax, Cloneable, Serializa
     }
 
     /**
-     * Returns a string representation of the SNMP Null object
+     * Returns a string representation of the SNMP Null object.
+     *
+     * @return the string
      */
     @Override
     public String toString() {

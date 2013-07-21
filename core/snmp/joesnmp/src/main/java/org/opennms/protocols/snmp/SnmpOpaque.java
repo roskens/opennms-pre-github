@@ -115,6 +115,8 @@ public class SnmpOpaque extends SnmpOctetString {
 
     /**
      * Returns a string representation of the object.
+     *
+     * @return the string
      */
     @Override
     public String toString() {

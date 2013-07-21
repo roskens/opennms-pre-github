@@ -42,14 +42,11 @@ import org.opennms.protocols.snmp.asn1.AsnEncodingException;
  * @author <a href="mailto:weave@oculan.com">Brian Weaver </a>
  */
 public class SnmpInt32 extends Object implements SnmpSyntax, Cloneable, Serializable {
-    /**
-     * The internal 32-bit signed quantity
-     */
+
+    /** The internal 32-bit signed quantity. */
     private int m_value;
 
-    /**
-     * Added for serialization support
-     */
+    /** Added for serialization support. */
     static final long serialVersionUID = -3472172482048507843L;
 
     /**
@@ -102,11 +99,6 @@ public class SnmpInt32 extends Object implements SnmpSyntax, Cloneable, Serializ
      *
      * @param value
      *            The integer value represented as a String
-     * @throws java.lang.NumberFormatException
-     *             Thrown if the passed value cannot be turned into a valid
-     *             integer.
-     * @throws java.lang.NullPointerException
-     *             Thrown if the passed string is a null reference.
      */
     public SnmpInt32(String value) {
         if (value == null)
@@ -127,7 +119,7 @@ public class SnmpInt32 extends Object implements SnmpSyntax, Cloneable, Serializ
     }
 
     /**
-     * Used to set the 32-bit signed quantity
+     * Used to set the 32-bit signed quantity.
      *
      * @param value
      *            The new value for the object.
@@ -137,7 +129,7 @@ public class SnmpInt32 extends Object implements SnmpSyntax, Cloneable, Serializ
     }
 
     /**
-     * Used to set the 32-bit signed quantity
+     * Used to set the 32-bit signed quantity.
      *
      * @param value
      *            The new value for the object
@@ -167,6 +159,8 @@ public class SnmpInt32 extends Object implements SnmpSyntax, Cloneable, Serializ
      * @param encoder
      *            The ASN.1 encoder object
      * @return The byte immediantly after the last encoded byte.
+     * @throws AsnEncodingException
+     *             the asn encoding exception
      */
     @Override
     public int encodeASN(byte[] buf, int offset, AsnEncoder encoder) throws AsnEncodingException {
@@ -185,6 +179,8 @@ public class SnmpInt32 extends Object implements SnmpSyntax, Cloneable, Serializ
      * @param encoder
      *            The ASN.1 decoder object.
      * @return The byte immediantly after the last decoded byte of information.
+     * @throws AsnDecodingException
+     *             the asn decoding exception
      */
     @Override
     public int decodeASN(byte[] buf, int offset, AsnEncoder encoder) throws AsnDecodingException {
@@ -220,12 +216,17 @@ public class SnmpInt32 extends Object implements SnmpSyntax, Cloneable, Serializ
 
     /**
      * Returns the string representation of the object.
+     *
+     * @return the string
      */
     @Override
     public String toString() {
         return Integer.toString(getValue());
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof SnmpInt32) {
@@ -236,11 +237,21 @@ public class SnmpInt32 extends Object implements SnmpSyntax, Cloneable, Serializ
         return false;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
     @Override
     public int hashCode() {
         return 0;
     }
 
+    /**
+     * To integer.
+     *
+     * @param val
+     *            the val
+     * @return the integer
+     */
     public static Integer toInteger(SnmpInt32 val) {
         return (val == null ? null : Integer.valueOf(val.getValue()));
     }

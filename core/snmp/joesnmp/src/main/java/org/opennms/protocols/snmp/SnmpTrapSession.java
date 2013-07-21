@@ -110,9 +110,8 @@ public final class SnmpTrapSession extends Object {
      * </P>
      */
     private class TrapHandler implements SnmpPacketHandler {
-        /**
-         * Who to pass as the session parameter
-         */
+
+        /** Who to pass as the session parameter. */
         private SnmpTrapSession m_forWhom;
 
         /**
@@ -145,8 +144,8 @@ public final class SnmpTrapSession extends Object {
          *            The type of pdu
          * @param pdu
          *            The actual pdu
-         * @exception SnmpPduEncodingException
-         *                Thrown if the pdu fails to decode.
+         * @throws SnmpPduEncodingException
+         *             Thrown if the pdu fails to decode.
          */
         @Override
         public void processSnmpMessage(InetAddress agent, int port, SnmpInt32 version, SnmpOctetString community,
@@ -174,8 +173,8 @@ public final class SnmpTrapSession extends Object {
          *            The community string from the message.
          * @param pdu
          *            The actual pdu
-         * @exception SnmpPduEncodingException
-         *                Thrown if the pdu fails to decode.
+         * @throws SnmpPduEncodingException
+         *             Thrown if the pdu fails to decode.
          */
         @Override
         public void processSnmpTrap(InetAddress agent, int port, SnmpOctetString community, SnmpPduTrap pdu)
@@ -221,8 +220,8 @@ public final class SnmpTrapSession extends Object {
     /**
      * Used to disallow the default constructor.
      *
-     * @exception java.lang.UnsupportedOperationException
-     *                Thrown if the constructor is called.
+     * @throws UnsupportedOperationException
+     *             the unsupported operation exception
      */
     @SuppressWarnings("unused")
     private SnmpTrapSession() throws java.lang.UnsupportedOperationException {
@@ -234,11 +233,8 @@ public final class SnmpTrapSession extends Object {
      *
      * @param handler
      *            The handler associated for message processing.
-     * @exception java.net.SocketException
-     *                If thrown it is from the creation of a DatagramSocket.
-     * @exception java.lang.SecurityException
-     *                Thrown if the security manager disallows the creation of
-     *                the handler.
+     * @throws SocketException
+     *             the socket exception
      */
     public SnmpTrapSession(final SnmpTrapHandler handler) throws SocketException {
         m_encoder = (new SnmpParameters()).getEncoder();
@@ -250,8 +246,12 @@ public final class SnmpTrapSession extends Object {
      * The default SnmpTrapSession constructor that takes a packet handler as
      * parameter. Also changes the default port to listen on
      *
-     * @exception java.net.SocketException
-     *                If thrown it is from the creation of a DatagramSocket.
+     * @param handler
+     *            the handler
+     * @param port
+     *            the port
+     * @throws SocketException
+     *             the socket exception
      */
     public SnmpTrapSession(final SnmpTrapHandler handler, final int port) throws SocketException {
         m_encoder = (new SnmpParameters()).getEncoder();
@@ -259,6 +259,18 @@ public final class SnmpTrapSession extends Object {
         m_portal = new SnmpPortal(new TrapHandler(this), m_encoder, port);
     }
 
+    /**
+     * Instantiates a new snmp trap session.
+     *
+     * @param handler
+     *            the handler
+     * @param address
+     *            the address
+     * @param snmpTrapPort
+     *            the snmp trap port
+     * @throws SocketException
+     *             the socket exception
+     */
     public SnmpTrapSession(final SnmpTrapHandler handler, final InetAddress address, final int snmpTrapPort)
             throws SocketException {
         m_encoder = (new SnmpParameters()).getEncoder();
@@ -309,6 +321,8 @@ public final class SnmpTrapSession extends Object {
      * Returns true if the <CODE>close</CODE> method has been called. The
      * session cannot be used to send request after <CODE>close</CODE> has
      * been executed.
+     *
+     * @return true, if is closed
      */
     public boolean isClosed() {
         return m_portal.isClosed();
@@ -317,9 +331,6 @@ public final class SnmpTrapSession extends Object {
     /**
      * Used to close the session. Once called the session should be considered
      * invalid and unusable.
-     *
-     * @throws java.lang.IllegalStateException
-     *             Thrown if the session was already closed.
      */
     public void close() {
         if (m_portal.isClosed())
@@ -339,16 +350,13 @@ public final class SnmpTrapSession extends Object {
      *            The remote peer to send to.
      * @param trap
      *            The SnmpPduTrap to transmit
-     * @exception SnmpPduEncodingException
-     *                Thrown if an encoding exception occurs at the session
-     *                level
-     * @exception org.opennms.protocols.snmp.asn1.AsnEncodingException
-     *                Thrown if an encoding exception occurs in the AsnEncoder
-     *                object.
-     * @exception java.io.IOException
-     *                Thrown if an error occurs sending the encoded datagram
-     * @exception java.lang.IllegalStateException
-     *                Thrown if the session has been closed.
+     * @throws SnmpPduEncodingException
+     *             Thrown if an encoding exception occurs at the session
+     *             level
+     * @throws AsnEncodingException
+     *             the asn encoding exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      * @see SnmpRequest
      * @see SnmpParameters
      * @see SnmpPeer
@@ -428,16 +436,13 @@ public final class SnmpTrapSession extends Object {
      *            The remote peer to send to.
      * @param pdu
      *            The pdu to transmit
-     * @exception SnmpPduEncodingException
-     *                Thrown if an encoding exception occurs at the session
-     *                level
-     * @exception org.opennms.protocols.snmp.asn1.AsnEncodingException
-     *                Thrown if an encoding exception occurs in the AsnEncoder
-     *                object.
-     * @exception java.io.IOException
-     *                Thrown if an error occurs sending the encoded datagram
-     * @exception java.lang.IllegalStateException
-     *                Thrown if the session has been closed.
+     * @throws SnmpPduEncodingException
+     *             Thrown if an encoding exception occurs at the session
+     *             level
+     * @throws AsnEncodingException
+     *             the asn encoding exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      * @see SnmpRequest
      * @see SnmpParameters
      * @see SnmpPeer

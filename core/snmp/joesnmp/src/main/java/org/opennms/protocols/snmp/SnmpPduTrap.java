@@ -46,9 +46,8 @@ import org.opennms.protocols.snmp.asn1.AsnEncodingException;
  * @version 1.1.1.1
  */
 public class SnmpPduTrap extends Object implements SnmpSyntax, Cloneable {
-    /**
-     * The trap's enterprise object identifier
-     */
+
+    /** The trap's enterprise object identifier. */
     private SnmpObjectId m_enterprise;
 
     /**
@@ -149,6 +148,8 @@ public class SnmpPduTrap extends Object implements SnmpSyntax, Cloneable {
 
     /**
      * Used to get the enterpise identifier of the trap.
+     *
+     * @return the enterprise
      */
     public SnmpObjectId getEnterprise() {
         return m_enterprise;
@@ -177,6 +178,8 @@ public class SnmpPduTrap extends Object implements SnmpSyntax, Cloneable {
 
     /**
      * Gets the remote agent's IP address.
+     *
+     * @return the agent address
      */
     public SnmpIPAddress getAgentAddress() {
         return m_agentAddr;
@@ -194,6 +197,8 @@ public class SnmpPduTrap extends Object implements SnmpSyntax, Cloneable {
 
     /**
      * Returns the generic code for the trap.
+     *
+     * @return the generic
      */
     public int getGeneric() {
         return m_generic;
@@ -211,6 +216,8 @@ public class SnmpPduTrap extends Object implements SnmpSyntax, Cloneable {
 
     /**
      * Returns the specific code for the trap.
+     *
+     * @return the specific
      */
     public int getSpecific() {
         return m_specific;
@@ -228,6 +235,8 @@ public class SnmpPduTrap extends Object implements SnmpSyntax, Cloneable {
 
     /**
      * Returns the timeticks from the trap.
+     *
+     * @return the time stamp
      */
     public long getTimeStamp() {
         return m_tstamp;
@@ -245,6 +254,8 @@ public class SnmpPduTrap extends Object implements SnmpSyntax, Cloneable {
 
     /**
      * Returns the number of variables contained in the PDU.
+     *
+     * @return the length
      */
     public int getLength() {
         return m_variables.size();
@@ -297,7 +308,7 @@ public class SnmpPduTrap extends Object implements SnmpSyntax, Cloneable {
     }
 
     /**
-     * Removes the variable as defined by the index
+     * Removes the variable as defined by the index.
      *
      * @param ndx
      *            The index of the variable to remove
@@ -317,7 +328,7 @@ public class SnmpPduTrap extends Object implements SnmpSyntax, Cloneable {
     }
 
     /**
-     * Returns the PDU commmand in an 8-bit format
+     * Returns the PDU commmand in an 8-bit format.
      *
      * @return The pdu command
      */
@@ -338,8 +349,8 @@ public class SnmpPduTrap extends Object implements SnmpSyntax, Cloneable {
      * @param encoder
      *            The encoder object.
      * @return The offset of the byte immediantly after the last encoded byte.
-     * @exception AsnEncodingException
-     *                Thrown if the encoder finds an error in the buffer.
+     * @throws AsnEncodingException
+     *             Thrown if the encoder finds an error in the buffer.
      */
     @Override
     public int encodeASN(byte[] buf, int offset, AsnEncoder encoder) throws AsnEncodingException {
@@ -424,9 +435,9 @@ public class SnmpPduTrap extends Object implements SnmpSyntax, Cloneable {
      *            The decoder object.
      * @return The index of the byte immediantly after the last decoded byte of
      *         information.
-     * @exception AsnDecodingException
-     *                Thrown by the encoder if an error occurs trying to decode
-     *                the data buffer.
+     * @throws AsnDecodingException
+     *             Thrown by the encoder if an error occurs trying to decode
+     *             the data buffer.
      */
     @Override
     public int decodeASN(byte[] buf, int offset, AsnEncoder encoder) throws AsnDecodingException {
@@ -513,11 +524,17 @@ public class SnmpPduTrap extends Object implements SnmpSyntax, Cloneable {
         return offset;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.protocols.snmp.SnmpSyntax#duplicate()
+     */
     @Override
     public SnmpSyntax duplicate() {
         return new SnmpPduTrap(this);
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#clone()
+     */
     @Override
     public Object clone() {
         return new SnmpPduTrap(this);

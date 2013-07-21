@@ -50,9 +50,8 @@ import org.opennms.protocols.snmp.asn1.AsnEncodingException;
  * @version 1.1.1.1
  */
 class SnmpRequest implements Runnable {
-    /**
-     * The session that created this request
-     */
+
+    /** The session that created this request. */
     SnmpSession m_session; // the seesion who sent it
 
     /**
@@ -60,9 +59,7 @@ class SnmpRequest implements Runnable {
      */
     SnmpSyntax m_pdu; // the PDU
 
-    /**
-     * The SnmpHandler to invoke for this request
-     */
+    /** The SnmpHandler to invoke for this request. */
     SnmpHandler m_handler;
 
     /**

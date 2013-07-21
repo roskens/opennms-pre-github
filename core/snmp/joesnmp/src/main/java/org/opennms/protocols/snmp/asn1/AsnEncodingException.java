@@ -35,20 +35,19 @@ package org.opennms.protocols.snmp.asn1;
  * @author <a href="mailto:weave@oculan.com">Brian Weaver </a>
  */
 public class AsnEncodingException extends Exception {
-    /**
-     *
-     */
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 8151144874153521980L;
 
     /**
-     * The default exception constructor
+     * The default exception constructor.
      */
     public AsnEncodingException() {
         super();
     }
 
     /**
-     * The exception constructor
+     * The exception constructor.
      *
      * @param why
      *            The reason the exception is being raised

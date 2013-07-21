@@ -38,9 +38,8 @@ import java.io.PrintWriter;
  * @author <a href="mailto:weave@oculan.com">Brian Weaver </a>
  */
 public class SnmpBadConversionException extends Exception {
-    /**
-     *
-     */
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 5888208447180460071L;
 
     /**
@@ -60,7 +59,7 @@ public class SnmpBadConversionException extends Exception {
     }
 
     /**
-     * The exception constructor
+     * The exception constructor.
      *
      * @param why
      *            The message for the exception.
@@ -73,7 +72,7 @@ public class SnmpBadConversionException extends Exception {
     }
 
     /**
-     * The exception constructor
+     * The exception constructor.
      */
     public SnmpBadConversionException() {
         super();

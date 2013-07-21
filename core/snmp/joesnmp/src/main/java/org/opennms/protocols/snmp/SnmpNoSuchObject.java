@@ -57,6 +57,9 @@ public class SnmpNoSuchObject extends SnmpV2Error {
 
     /**
      * The class copy constructor.
+     *
+     * @param second
+     *            the second
      */
     public SnmpNoSuchObject(SnmpNoSuchObject second) {
         super(second);
@@ -94,6 +97,8 @@ public class SnmpNoSuchObject extends SnmpV2Error {
 
     /**
      * Returns the string representation of the object.
+     *
+     * @return the string
      */
     @Override
     public String toString() {

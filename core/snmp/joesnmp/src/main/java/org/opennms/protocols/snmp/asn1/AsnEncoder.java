@@ -41,6 +41,7 @@ import java.math.BigInteger;
  * @author <a href="mailto:weave@oculan.com>Brian Weaver </a>
  */
 public interface AsnEncoder {
+
     /**
      * The buildLength() method is used to encode an ASN.1 length into the
      * specified byte buffer. The encoding used is dependant on the implementor
@@ -56,8 +57,8 @@ public interface AsnEncoder {
      * @return Returns the new offset for the next encoding routine. If the
      *         startOffset is subtracted from the return value then the length
      *         of the encoded data can be determined.
-     * @exception AsnEncodingException
-     *                Thrown if an error occurs encoding the datatype.
+     * @throws AsnEncodingException
+     *             Thrown if an error occurs encoding the datatype.
      */
     public int buildLength(byte[] buf, int startOffset, int asnLength) throws AsnEncodingException;
 
@@ -74,8 +75,8 @@ public interface AsnEncoder {
      *         decoded length. The first object is an Integer object and
      *         contains the new offset for the next object in buf. The second
      *         object is an Integer and contains the actual decoded length.
-     * @exception AsnDecodingException
-     *                Thrown if an error occurs decoding the buffer.
+     * @throws AsnDecodingException
+     *             Thrown if an error occurs decoding the buffer.
      */
     public Object[] parseLength(byte[] buf, int startOffset) throws AsnDecodingException;
 
@@ -96,8 +97,8 @@ public interface AsnEncoder {
      * @return Returns the new offset for the next encoding routine. If
      *         startOffset is subtracted from the return value then the length
      *         of the encoded data can be determined.
-     * @exception AsnEncodingException
-     *                Thrown if an error occurs encoding the datatype.
+     * @throws AsnEncodingException
+     *             Thrown if an error occurs encoding the datatype.
      */
     public int buildHeader(byte[] buf, int startOffset, byte asnType, int asnLength) throws AsnEncodingException;
 
@@ -116,8 +117,8 @@ public interface AsnEncoder {
      *         object is a Byte object that represents the decoded ASN.1 Type.
      *         The third object is an Integer and contains the actual decoded
      *         length.
-     * @exception AsnDecodingException
-     *                Thrown if an error occurs decoding the buffer.
+     * @throws AsnDecodingException
+     *             Thrown if an error occurs decoding the buffer.
      */
     public Object[] parseHeader(byte[] buf, int startOffset) throws AsnDecodingException;
 
@@ -138,8 +139,8 @@ public interface AsnEncoder {
      * @return Returns the new offset for the next encoding routine. If
      *         startOffset is subtracted from the return value then the length
      *         of the encoded data can be determined.
-     * @exception AsnEncodingException
-     *                Thrown if an error occurs encoding the datatype.
+     * @throws AsnEncodingException
+     *             Thrown if an error occurs encoding the datatype.
      */
     public int buildInteger32(byte[] buf, int startOffset, byte asnType, int asnInt32) throws AsnEncodingException;
 
@@ -157,8 +158,8 @@ public interface AsnEncoder {
      *         new offset for the next object in buf. The second object is a
      *         Byte object that represents the decoded ASN.1 Type. The third
      *         object is an Integer and contains the actual decoded value.
-     * @exception AsnDecodingException
-     *                Thrown if an error occurs decoding the buffer.
+     * @throws AsnDecodingException
+     *             Thrown if an error occurs decoding the buffer.
      */
     public Object[] parseInteger32(byte[] buf, int startOffset) throws AsnDecodingException;
 
@@ -179,8 +180,8 @@ public interface AsnEncoder {
      * @return Returns the new offset for the next encoding routine. If
      *         startOffset is subtracted from the return value then the length
      *         of the encoded data can be determined.
-     * @exception AsnEncodingException
-     *                Thrown if an error occurs encoding the datatype.
+     * @throws AsnEncodingException
+     *             Thrown if an error occurs encoding the datatype.
      */
     public int buildUInteger32(byte[] buf, int startOffset, byte asnType, long asnUInt32) throws AsnEncodingException;
 
@@ -198,8 +199,8 @@ public interface AsnEncoder {
      *         new offset for the next object in buf. The second object is a
      *         Byte object that represents the decoded ASN.1 Type. The third
      *         object is a Long object and contains the actual decoded value.
-     * @exception AsnDecodingException
-     *                Thrown if an error occurs decoding the buffer.
+     * @throws AsnDecodingException
+     *             Thrown if an error occurs decoding the buffer.
      */
     public Object[] parseUInteger32(byte[] buf, int startOffset) throws AsnDecodingException;
 
@@ -220,8 +221,8 @@ public interface AsnEncoder {
      * @return Returns the new offset for the next encoding routine. If
      *         startOffset is subtracted from the return value then the length
      *         of the encoded data can be determined.
-     * @exception AsnEncodingException
-     *                Thrown if an error occurs encoding the datatype.
+     * @throws AsnEncodingException
+     *             Thrown if an error occurs encoding the datatype.
      */
     public int buildUInteger64(byte[] buf, int startOffset, byte asnType, BigInteger asnUInt64)
             throws AsnEncodingException;
@@ -241,8 +242,8 @@ public interface AsnEncoder {
      *         Byte object that represents the decoded ASN.1 Type. The third
      *         object is a BigInteger object and contains the actual decoded
      *         value.
-     * @exception AsnDecodingException
-     *                Thrown if an error occurs decoding the buffer.
+     * @throws AsnDecodingException
+     *             Thrown if an error occurs decoding the buffer.
      */
     public Object[] parseUInteger64(byte[] buf, int startOffset) throws AsnDecodingException;
 
@@ -261,8 +262,8 @@ public interface AsnEncoder {
      * @return Returns the new offset for the next encoding routine. If
      *         startOffset is subtracted from the return value then the length
      *         of the encoded data can be determined.
-     * @exception AsnEncodingException
-     *                Thrown if an error occurs encoding the datatype.
+     * @throws AsnEncodingException
+     *             Thrown if an error occurs encoding the datatype.
      */
     public int buildNull(byte[] buf, int startOffset, byte asnType) throws AsnEncodingException;
 
@@ -280,8 +281,8 @@ public interface AsnEncoder {
      *         ASN.1 type. The first object is an Integer object and contains
      *         the new offset for the next object in buf. The second object is a
      *         Byte object that represents the decoded ASN.1 Type.
-     * @exception AsnDecodingException
-     *                Thrown if an error occurs decoding the buffer.
+     * @throws AsnDecodingException
+     *             Thrown if an error occurs decoding the buffer.
      */
     public Object[] parseNull(byte[] buf, int startOffset) throws AsnDecodingException;
 
@@ -301,8 +302,8 @@ public interface AsnEncoder {
      * @return Returns the new offset for the next encoding routine. If
      *         startOffset is subtracted from the return value then the length
      *         of the encoded data can be determined.
-     * @exception AsnEncodingException
-     *                Thrown if an error occurs encoding the datatype.
+     * @throws AsnEncodingException
+     *             Thrown if an error occurs encoding the datatype.
      */
     public int buildString(byte[] buf, int startOffset, byte asnType, byte[] opaque) throws AsnEncodingException;
 
@@ -320,8 +321,8 @@ public interface AsnEncoder {
      *         contains the new offset for the next object in buf. The second
      *         object is a Byte object that represents the decoded ASN.1 Type.
      *         The third object is an array of primitive bytes.
-     * @exception AsnDecodingException
-     *                Thrown if an error occurs decoding the buffer.
+     * @throws AsnDecodingException
+     *             Thrown if an error occurs decoding the buffer.
      */
     public Object[] parseString(byte[] buf, int startOffset) throws AsnDecodingException;
 
@@ -341,8 +342,8 @@ public interface AsnEncoder {
      * @return Returns the new offset for the next encoding routine. If
      *         startOffset is subtracted from the return value then the length
      *         of the encoded data can be determined.
-     * @exception AsnEncodingException
-     *                Thrown if an error occurs encoding the datatype.
+     * @throws AsnEncodingException
+     *             Thrown if an error occurs encoding the datatype.
      */
     public int buildObjectId(byte[] buf, int startOffset, byte asnType, int[] oids) throws AsnEncodingException;
 
@@ -360,8 +361,8 @@ public interface AsnEncoder {
      *         and contains the new offset for the next object in buf. The
      *         second object is a Byte object that represents the decoded ASN.1
      *         Type. The third object is an array of primitive integers.
-     * @exception AsnDecodingException
-     *                Thrown if an error occurs decoding the buffer.
+     * @throws AsnDecodingException
+     *             Thrown if an error occurs decoding the buffer.
      */
     public Object[] parseObjectId(byte[] buf, int startOffset) throws AsnDecodingException;
 }

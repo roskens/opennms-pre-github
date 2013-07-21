@@ -44,9 +44,8 @@ import org.opennms.protocols.snmp.asn1.ASN1;
  * @version 1.1.1.1
  */
 public class SnmpV2PartyClock extends SnmpUInt32 {
-    /**
-     * Used to define the serialization formation
-     */
+
+    /** Used to define the serialization formation. */
     static final long serialVersionUID = -1875039304592596058L;
 
     /**
@@ -134,6 +133,8 @@ public class SnmpV2PartyClock extends SnmpUInt32 {
 
     /**
      * Returns the string representation of the object.
+     *
+     * @return the string
      */
     @Override
     public String toString() {
