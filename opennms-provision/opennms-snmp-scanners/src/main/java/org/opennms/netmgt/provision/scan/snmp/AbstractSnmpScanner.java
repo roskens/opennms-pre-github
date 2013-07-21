@@ -55,10 +55,13 @@ import org.springframework.util.Assert;
  */
 public class AbstractSnmpScanner implements Scanner {
 
+    /** The m_name. */
     private String m_name = null;
 
+    /** The m_snmp agent config factory. */
     private SnmpAgentConfigFactory m_snmpAgentConfigFactory = null;
 
+    /** The m_exchange collection. */
     private List<SnmpExchange> m_exchangeCollection = null;
 
     /**
@@ -78,6 +81,7 @@ public class AbstractSnmpScanner implements Scanner {
      * <p>
      * getName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -89,6 +93,7 @@ public class AbstractSnmpScanner implements Scanner {
      * <p>
      * setSnmpAgentConfigFactory
      * </p>
+     * .
      *
      * @param snmpPeerFactory
      *            a {@link org.opennms.netmgt.config.SnmpAgentConfigFactory}
@@ -106,6 +111,7 @@ public class AbstractSnmpScanner implements Scanner {
      * <p>
      * init
      * </p>
+     * .
      */
     @Override
     public void init() {
@@ -119,6 +125,7 @@ public class AbstractSnmpScanner implements Scanner {
      * <p>
      * onInit
      * </p>
+     * .
      */
     protected void onInit() {
     }
@@ -147,8 +154,11 @@ public class AbstractSnmpScanner implements Scanner {
     }
 
     /**
-     * @param context
-     * @return
+     * Creates the collection tracker.
+     *
+     * @param scanContext
+     *            the scan context
+     * @return the collection tracker
      */
     private CollectionTracker createCollectionTracker(final ScanContext scanContext) {
         List<Collectable> trackers = new ArrayList<Collectable>();
@@ -158,13 +168,42 @@ public class AbstractSnmpScanner implements Scanner {
         return new AggregateTracker(trackers);
     }
 
+    /**
+     * The Interface Storer.
+     */
     public static interface Storer {
+
+        /**
+         * Store result.
+         *
+         * @param scanContext
+         *            the scan context
+         * @param res
+         *            the res
+         */
         public void storeResult(ScanContext scanContext, SnmpResult res);
     }
 
+    /**
+     * The Interface SnmpExchange.
+     */
     public interface SnmpExchange {
+
+        /**
+         * Creates the tracker.
+         *
+         * @param context
+         *            the context
+         * @return the collection tracker
+         */
         public CollectionTracker createTracker(ScanContext context);
 
+        /**
+         * And store in.
+         *
+         * @param storer
+         *            the storer
+         */
         public void andStoreIn(Storer storer);
     }
 
@@ -172,6 +211,7 @@ public class AbstractSnmpScanner implements Scanner {
      * <p>
      * getSingleInstance
      * </p>
+     * .
      *
      * @param base
      *            a {@link java.lang.String} object.

@@ -64,6 +64,7 @@ public class SnmpNodeScanner extends AbstractSnmpScanner {
      * <p>
      * sysObjectId
      * </p>
+     * .
      *
      * @return a Storer object.
      */
@@ -80,6 +81,7 @@ public class SnmpNodeScanner extends AbstractSnmpScanner {
      * <p>
      * sysName
      * </p>
+     * .
      *
      * @return a Storer object.
      */
@@ -96,6 +98,7 @@ public class SnmpNodeScanner extends AbstractSnmpScanner {
      * <p>
      * sysDescription
      * </p>
+     * .
      *
      * @return a Storer object.
      */
@@ -112,6 +115,7 @@ public class SnmpNodeScanner extends AbstractSnmpScanner {
      * <p>
      * sysLocation
      * </p>
+     * .
      *
      * @return a Storer object.
      */
@@ -128,6 +132,7 @@ public class SnmpNodeScanner extends AbstractSnmpScanner {
      * <p>
      * sysContact
      * </p>
+     * .
      *
      * @return a Storer object.
      */

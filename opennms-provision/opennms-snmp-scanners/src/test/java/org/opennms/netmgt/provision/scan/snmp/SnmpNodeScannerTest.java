@@ -46,80 +46,144 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 
+/**
+ * The Class SnmpNodeScannerTest.
+ */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-proxy-snmp.xml" })
 @JUnitSnmpAgent(host = SnmpNodeScannerTest.TEST_IP_ADDRESS, resource = "classpath:org/opennms/netmgt/provision/scan/snmp/snmpTestData1.properties")
 public class SnmpNodeScannerTest implements InitializingBean {
+
+    /** The Constant TEST_IP_ADDRESS. */
     static final String TEST_IP_ADDRESS = "172.20.1.205";
 
+    /** The m_snmp peer factory. */
     @Autowired
     private SnmpPeerFactory m_snmpPeerFactory;
 
     /**
+     * The Class MockScanContext.
+     *
      * @author brozow
      */
     private static class MockScanContext implements ScanContext {
+
+        /** The m_sys object id. */
         String m_sysObjectId;
 
+        /** The m_sys contact. */
         String m_sysContact;
 
+        /** The m_sys description. */
         String m_sysDescription;
 
+        /** The m_sys location. */
         String m_sysLocation;
 
+        /** The m_sys name. */
         String m_sysName;
 
+        /** The m_agent address. */
         InetAddress m_agentAddress;
 
+        /**
+         * Instantiates a new mock scan context.
+         *
+         * @param agentAddress
+         *            the agent address
+         */
         public MockScanContext(InetAddress agentAddress) {
             m_agentAddress = agentAddress;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.provision.ScanContext#getAgentAddress(java.lang.String)
+         */
         @Override
         public InetAddress getAgentAddress(String agentType) {
             return m_agentAddress;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.provision.ScanContext#updateSysObjectId(java.lang.String)
+         */
         @Override
         public void updateSysObjectId(String sysObjectId) {
             m_sysObjectId = sysObjectId;
         }
 
+        /**
+         * Gets the sys object id.
+         *
+         * @return the sys object id
+         */
         public String getSysObjectId() {
             return m_sysObjectId;
         }
 
+        /**
+         * Gets the sys contact.
+         *
+         * @return the sys contact
+         */
         public String getSysContact() {
             return m_sysContact;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.provision.ScanContext#updateSysContact(java.lang.String)
+         */
         @Override
         public void updateSysContact(String sysContact) {
             m_sysContact = sysContact;
         }
 
+        /**
+         * Gets the sys description.
+         *
+         * @return the sys description
+         */
         public String getSysDescription() {
             return m_sysDescription;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.provision.ScanContext#updateSysDescription(java.lang.String)
+         */
         @Override
         public void updateSysDescription(String sysDescription) {
             m_sysDescription = sysDescription;
         }
 
+        /**
+         * Gets the sys location.
+         *
+         * @return the sys location
+         */
         public String getSysLocation() {
             return m_sysLocation;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.provision.ScanContext#updateSysLocation(java.lang.String)
+         */
         @Override
         public void updateSysLocation(String sysLocation) {
             m_sysLocation = sysLocation;
         }
 
+        /**
+         * Gets the sys name.
+         *
+         * @return the sys name
+         */
         public String getSysName() {
             return m_sysName;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.provision.ScanContext#updateSysName(java.lang.String)
+         */
         @Override
         public void updateSysName(String sysName) {
             m_sysName = sysName;
@@ -127,15 +191,26 @@ public class SnmpNodeScannerTest implements InitializingBean {
 
     }
 
+    /** The m_agent address. */
     private InetAddress m_agentAddress;
 
+    /** The m_scan context. */
     private MockScanContext m_scanContext;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
         MockLogAppender.setupLogging();
@@ -145,6 +220,12 @@ public class SnmpNodeScannerTest implements InitializingBean {
 
     }
 
+    /**
+     * Test scan.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testScan() throws Exception {
 
