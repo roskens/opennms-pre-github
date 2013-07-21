@@ -44,13 +44,17 @@ import java.util.Set;
  * SoftReferenceList class.
  * </p>
  *
+ * @param <T>
+ *            the generic type
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @version $Id: $
  */
 public class SoftReferenceList<T> extends AbstractSequentialList<T> {
 
+    /** The m_contents. */
     private final List<SoftReference<T>> m_contents = new LinkedList<SoftReference<T>>();
 
+    /** The queue. */
     private final ReferenceQueue<T> queue = new ReferenceQueue<T>();
 
     /** {@inheritDoc} */
@@ -64,6 +68,7 @@ public class SoftReferenceList<T> extends AbstractSequentialList<T> {
      * <p>
      * removeCollected
      * </p>
+     * .
      */
     public void removeCollected() {
         processQueue();
@@ -75,6 +80,9 @@ public class SoftReferenceList<T> extends AbstractSequentialList<T> {
         }
     }
 
+    /**
+     * Process queue.
+     */
     private void processQueue() {
         final Set<Reference<? extends T>> removed = new HashSet<Reference<? extends T>>();
         Reference<? extends T> ref;
@@ -91,69 +99,126 @@ public class SoftReferenceList<T> extends AbstractSequentialList<T> {
         return m_contents.size();
     }
 
+    /**
+     * The Class SoftReferenceListIterator.
+     *
+     * @param <E>
+     *            the element type
+     */
     private static class SoftReferenceListIterator<E> implements ListIterator<E> {
+
+        /** The m_it. */
         final ListIterator<SoftReference<E>> m_it;
 
+        /** The m_queue. */
         final ReferenceQueue<E> m_queue;
 
+        /**
+         * Instantiates a new soft reference list iterator.
+         *
+         * @param it
+         *            the it
+         * @param queue
+         *            the queue
+         */
         public SoftReferenceListIterator(final ListIterator<SoftReference<E>> it, final ReferenceQueue<E> queue) {
             m_it = it;
             m_queue = queue;
         }
 
+        /* (non-Javadoc)
+         * @see java.util.ListIterator#add(java.lang.Object)
+         */
         @Override
         public void add(final E o) {
             assertNotNull(o);
             m_it.add(createRef(o));
         }
 
+        /* (non-Javadoc)
+         * @see java.util.ListIterator#hasNext()
+         */
         @Override
         public boolean hasNext() {
             return m_it.hasNext();
         }
 
+        /* (non-Javadoc)
+         * @see java.util.ListIterator#hasPrevious()
+         */
         @Override
         public boolean hasPrevious() {
             return m_it.hasPrevious();
         }
 
+        /* (non-Javadoc)
+         * @see java.util.ListIterator#next()
+         */
         @Override
         public E next() {
             final SoftReference<E> ref = m_it.next();
             return ref.get();
         }
 
+        /* (non-Javadoc)
+         * @see java.util.ListIterator#nextIndex()
+         */
         @Override
         public int nextIndex() {
             return m_it.nextIndex();
         }
 
+        /* (non-Javadoc)
+         * @see java.util.ListIterator#previous()
+         */
         @Override
         public E previous() {
             final SoftReference<E> ref = m_it.previous();
             return ref.get();
         }
 
+        /* (non-Javadoc)
+         * @see java.util.ListIterator#previousIndex()
+         */
         @Override
         public int previousIndex() {
             return m_it.previousIndex();
         }
 
+        /* (non-Javadoc)
+         * @see java.util.ListIterator#remove()
+         */
         @Override
         public void remove() {
             m_it.remove();
         }
 
+        /* (non-Javadoc)
+         * @see java.util.ListIterator#set(java.lang.Object)
+         */
         @Override
         public void set(final E o) {
             assertNotNull(o);
             m_it.set(createRef(o));
         }
 
+        /**
+         * Creates the ref.
+         *
+         * @param element
+         *            the element
+         * @return the soft reference
+         */
         private SoftReference<E> createRef(final E element) {
             return new SoftReference<E>(element, m_queue);
         }
 
+        /**
+         * Assert not null.
+         *
+         * @param o
+         *            the o
+         */
         private void assertNotNull(final E o) {
             if (o == null) {
                 throw new NullPointerException("null cannot be added to SoftReferenceLists");

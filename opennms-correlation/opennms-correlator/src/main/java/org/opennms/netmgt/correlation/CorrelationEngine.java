@@ -46,6 +46,7 @@ public interface CorrelationEngine {
      * <p>
      * getName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -55,6 +56,7 @@ public interface CorrelationEngine {
      * <p>
      * getInterestingEvents
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -64,6 +66,7 @@ public interface CorrelationEngine {
      * <p>
      * correlate
      * </p>
+     * .
      *
      * @param e
      *            a {@link org.opennms.netmgt.xml.event.Event} object.

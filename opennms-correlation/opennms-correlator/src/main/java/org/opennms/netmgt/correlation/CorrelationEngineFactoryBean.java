@@ -54,20 +54,25 @@ import org.springframework.util.Assert;
  */
 public class CorrelationEngineFactoryBean implements FactoryBean<List<CorrelationEngine>>, InitializingBean,
         ApplicationContextAware {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(CorrelationEngineFactoryBean.class);
 
+    /** The m_correlation engines. */
     private List<CorrelationEngine> m_correlationEngines = Collections.emptyList();
 
+    /** The m_application context. */
     private ApplicationContext m_applicationContext;
 
     /**
      * <p>
      * getObject
      * </p>
+     * .
      *
      * @return a {@link java.lang.Object} object.
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @Override
     public List<CorrelationEngine> getObject() throws Exception {
@@ -78,6 +83,7 @@ public class CorrelationEngineFactoryBean implements FactoryBean<List<Correlatio
      * <p>
      * getObjectType
      * </p>
+     * .
      *
      * @return a {@link java.lang.Class} object.
      */
@@ -90,6 +96,7 @@ public class CorrelationEngineFactoryBean implements FactoryBean<List<Correlatio
      * <p>
      * isSingleton
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -102,9 +109,10 @@ public class CorrelationEngineFactoryBean implements FactoryBean<List<Correlatio
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -120,6 +128,11 @@ public class CorrelationEngineFactoryBean implements FactoryBean<List<Correlatio
         LOG.debug("Found {} engines.", m_correlationEngines.size());
     }
 
+    /**
+     * Gets the beans.
+     *
+     * @return the beans
+     */
     private Map<String, CorrelationEngine> getBeans() {
         return BeanFactoryUtils.beansOfTypeIncludingAncestors(m_applicationContext, CorrelationEngine.class);
     }

@@ -48,12 +48,16 @@ import org.opennms.netmgt.xml.event.Event;
  */
 public abstract class AbstractCorrelationEngine implements CorrelationEngine {
 
+    /** The Constant s_lastTimerId. */
     private static final AtomicInteger s_lastTimerId = new AtomicInteger(0);
 
+    /** The m_event ipc manager. */
     private EventIpcManager m_eventIpcManager;
 
+    /** The m_scheduler. */
     private Timer m_scheduler;
 
+    /** The m_pending tasks. */
     private final Map<Integer, TimerTask> m_pendingTasks = new ConcurrentHashMap<Integer, TimerTask>();
 
     /** {@inheritDoc} */
@@ -64,6 +68,7 @@ public abstract class AbstractCorrelationEngine implements CorrelationEngine {
      * <p>
      * getInterestingEvents
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -74,6 +79,7 @@ public abstract class AbstractCorrelationEngine implements CorrelationEngine {
      * <p>
      * setEventIpcManager
      * </p>
+     * .
      *
      * @param eventIpcManager
      *            a {@link org.opennms.netmgt.model.events.EventIpcManager}
@@ -87,6 +93,7 @@ public abstract class AbstractCorrelationEngine implements CorrelationEngine {
      * <p>
      * sendEvent
      * </p>
+     * .
      *
      * @param e
      *            a {@link org.opennms.netmgt.xml.event.Event} object.
@@ -99,6 +106,7 @@ public abstract class AbstractCorrelationEngine implements CorrelationEngine {
      * <p>
      * setTimer
      * </p>
+     * .
      *
      * @param millis
      *            a long.
@@ -114,6 +122,7 @@ public abstract class AbstractCorrelationEngine implements CorrelationEngine {
      * <p>
      * getTimerTask
      * </p>
+     * .
      *
      * @return a
      *         {@link org.opennms.netmgt.correlation.AbstractCorrelationEngine.RuleTimerTask}
@@ -129,6 +138,7 @@ public abstract class AbstractCorrelationEngine implements CorrelationEngine {
      * <p>
      * cancelTimer
      * </p>
+     * .
      *
      * @param timerId
      *            a {@link java.lang.Integer} object.
@@ -144,6 +154,7 @@ public abstract class AbstractCorrelationEngine implements CorrelationEngine {
      * <p>
      * timerExpired
      * </p>
+     * .
      *
      * @param timerId
      *            a {@link java.lang.Integer} object.
@@ -154,6 +165,7 @@ public abstract class AbstractCorrelationEngine implements CorrelationEngine {
      * <p>
      * setScheduler
      * </p>
+     * .
      *
      * @param scheduler
      *            a {@link java.util.Timer} object.
@@ -166,6 +178,7 @@ public abstract class AbstractCorrelationEngine implements CorrelationEngine {
      * <p>
      * runTimer
      * </p>
+     * .
      *
      * @param task
      *            a
@@ -177,18 +190,33 @@ public abstract class AbstractCorrelationEngine implements CorrelationEngine {
         timerExpired(task.getId());
     }
 
+    /**
+     * The Class RuleTimerTask.
+     */
     private class RuleTimerTask extends TimerTask {
 
+        /** The m_id. */
         private final Integer m_id;
 
+        /**
+         * Instantiates a new rule timer task.
+         */
         public RuleTimerTask() {
             m_id = s_lastTimerId.incrementAndGet();
         }
 
+        /**
+         * Gets the id.
+         *
+         * @return the id
+         */
         public Integer getId() {
             return m_id;
         }
 
+        /* (non-Javadoc)
+         * @see java.util.TimerTask#run()
+         */
         @Override
         public void run() {
             runTimer(this);

@@ -37,29 +37,46 @@ import org.opennms.netmgt.xml.event.Event;
 import org.springframework.beans.factory.InitializingBean;
 
 /**
+ * The Class MultiEngineBuilder.
+ *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  */
 public class MultiEngineBuilder implements InitializingBean {
 
+    /**
+     * The Class MyEngine.
+     */
     private static class MyEngine extends AbstractCorrelationEngine {
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.correlation.AbstractCorrelationEngine#correlate(org.opennms.netmgt.xml.event.Event)
+         */
         @Override
         public void correlate(Event e) {
             EventBuilder bldr = new EventBuilder("listLoaded", "TestEngine");
             sendEvent(bldr.getEvent());
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.correlation.AbstractCorrelationEngine#getInterestingEvents()
+         */
         @Override
         public List<String> getInterestingEvents() {
             String[] ueis = { "isListLoaded" };
             return Arrays.asList(ueis);
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.correlation.AbstractCorrelationEngine#timerExpired(java.lang.Integer)
+         */
         @Override
         protected void timerExpired(Integer timerId) {
 
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.correlation.CorrelationEngine#getName()
+         */
         @Override
         public String getName() {
             return "MyEngine";
@@ -67,12 +84,18 @@ public class MultiEngineBuilder implements InitializingBean {
 
     }
 
+    /** The m_engines. */
     CorrelationEngine[] m_engines;
 
+    /** The m_correlator. */
     CorrelationEngineRegistrar m_correlator;
 
+    /** The m_event ipc manager. */
     EventIpcManager m_eventIpcManager;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         MyEngine engine = new MyEngine();
@@ -81,10 +104,22 @@ public class MultiEngineBuilder implements InitializingBean {
         m_correlator.addCorrelationEngine(engine);
     }
 
+    /**
+     * Sets the correlator.
+     *
+     * @param correlator
+     *            the new correlator
+     */
     public void setCorrelator(CorrelationEngineRegistrar correlator) {
         m_correlator = correlator;
     }
 
+    /**
+     * Sets the event ipc manager.
+     *
+     * @param eventIpcManager
+     *            the new event ipc manager
+     */
     public void setEventIpcManager(EventIpcManager eventIpcManager) {
         m_eventIpcManager = eventIpcManager;
     }

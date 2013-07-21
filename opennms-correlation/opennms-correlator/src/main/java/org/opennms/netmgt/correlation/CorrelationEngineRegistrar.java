@@ -44,6 +44,7 @@ public interface CorrelationEngineRegistrar {
      * <p>
      * addCorrelationEngine
      * </p>
+     * .
      *
      * @param engine
      *            a {@link org.opennms.netmgt.correlation.CorrelationEngine}
@@ -55,10 +56,10 @@ public interface CorrelationEngineRegistrar {
      * <p>
      * addCorrelationEngine
      * </p>
+     * .
      *
-     * @param engine
-     *            a {@link org.opennms.netmgt.correlation.CorrelationEngine}
-     *            object.
+     * @param engines
+     *            the engines
      */
     public abstract void addCorrelationEngines(CorrelationEngine... engines);
 
@@ -66,6 +67,7 @@ public interface CorrelationEngineRegistrar {
      * <p>
      * getEngines
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -75,6 +77,7 @@ public interface CorrelationEngineRegistrar {
      * <p>
      * findEngineByName
      * </p>
+     * .
      *
      * @param name
      *            a {@link java.lang.String} object.

@@ -41,6 +41,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 
 /**
+ * The Class CorrelatorIntegrationTest.
+ *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
@@ -52,14 +54,24 @@ import org.springframework.test.context.ContextConfiguration;
 @JUnitConfigurationEnvironment
 public class CorrelatorIntegrationTest implements InitializingBean {
 
+    /** The m_event ipc mgr. */
     @Autowired
     private MockEventIpcManager m_eventIpcMgr;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Test it.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testIt() throws Exception {
 
@@ -75,6 +87,12 @@ public class CorrelatorIntegrationTest implements InitializingBean {
 
     }
 
+    /**
+     * Test timer.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testTimer() throws Exception {
 
@@ -87,6 +105,12 @@ public class CorrelatorIntegrationTest implements InitializingBean {
         verifyAnticipated();
     }
 
+    /**
+     * Test timer cancel.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testTimerCancel() throws Exception {
 
@@ -102,6 +126,12 @@ public class CorrelatorIntegrationTest implements InitializingBean {
 
     }
 
+    /**
+     * Test list engine loaded.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testListEngineLoaded() throws Exception {
 
@@ -113,15 +143,33 @@ public class CorrelatorIntegrationTest implements InitializingBean {
 
     }
 
+    /**
+     * Verify anticipated.
+     */
     private void verifyAnticipated() {
         m_eventIpcMgr.getEventAnticipator().verifyAnticipated(0, 0, 0, 0, 0);
     }
 
+    /**
+     * Creates the event.
+     *
+     * @param uei
+     *            the uei
+     * @param source
+     *            the source
+     * @return the event
+     */
     private static Event createEvent(String uei, String source) {
         EventBuilder bldr = new EventBuilder(uei, source);
         return bldr.getEvent();
     }
 
+    /**
+     * Anticipate event.
+     *
+     * @param e
+     *            the e
+     */
     private void anticipateEvent(Event e) {
         m_eventIpcMgr.getEventAnticipator().anticipateEvent(e);
     }

@@ -44,18 +44,27 @@ import org.opennms.netmgt.model.events.EventIpcManager;
 import org.opennms.netmgt.model.events.EventListener;
 
 /**
+ * The Class CorrelatorTest.
+ *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  */
 public class CorrelatorTest extends TestCase {
 
+    /** The mocks. */
     List<Object> mocks = new ArrayList<Object>();
 
+    /** The m_event ipc manager. */
     private EventIpcManager m_eventIpcManager;
 
+    /** The m_engine. */
     private CorrelationEngine m_engine;
 
+    /** The m_correlator. */
     private Correlator m_correlator;
 
+    /* (non-Javadoc)
+     * @see junit.framework.TestCase#setUp()
+     */
     @Override
     protected void setUp() throws Exception {
         super.setUp();
@@ -70,11 +79,20 @@ public class CorrelatorTest extends TestCase {
         m_correlator.setCorrelationEngines(Collections.singletonList(m_engine));
     }
 
+    /* (non-Javadoc)
+     * @see junit.framework.TestCase#tearDown()
+     */
     @Override
     protected void tearDown() throws Exception {
         super.tearDown();
     }
 
+    /**
+     * Test start stop.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testStartStop() throws Exception {
 
         List<String> interestingEvents = Collections.singletonList("uei.opennms.org:/testEvent");
@@ -94,6 +112,12 @@ public class CorrelatorTest extends TestCase {
         verifyMocks();
     }
 
+    /**
+     * Test register for events.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testRegisterForEvents() throws Exception {
 
         List<String> interestingEvents = Collections.singletonList("uei.opennms.org:/testEvent");
@@ -109,16 +133,31 @@ public class CorrelatorTest extends TestCase {
 
     }
 
+    /**
+     * Creates the mock.
+     *
+     * @param <T>
+     *            the generic type
+     * @param clazz
+     *            the clazz
+     * @return the t
+     */
     private <T> T createMock(Class<T> clazz) {
         T mock = EasyMock.createMock(clazz);
         mocks.add(mock);
         return mock;
     }
 
+    /**
+     * Replay mocks.
+     */
     private void replayMocks() {
         EasyMock.replay(mocks.toArray());
     }
 
+    /**
+     * Verify mocks.
+     */
     private void verifyMocks() {
         EasyMock.verify(mocks.toArray());
         EasyMock.reset(mocks.toArray());

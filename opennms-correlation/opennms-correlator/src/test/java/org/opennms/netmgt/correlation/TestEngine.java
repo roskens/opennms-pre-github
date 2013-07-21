@@ -34,10 +34,17 @@ import java.util.List;
 import org.opennms.netmgt.model.events.EventBuilder;
 import org.opennms.netmgt.xml.event.Event;
 
+/**
+ * The Class TestEngine.
+ */
 public class TestEngine extends AbstractCorrelationEngine {
 
+    /** The m_timer id. */
     Integer m_timerId = null;
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.correlation.AbstractCorrelationEngine#correlate(org.opennms.netmgt.xml.event.Event)
+     */
     @Override
     public void correlate(Event e) {
         if ("testDown".equals(e.getUei())) {
@@ -56,6 +63,9 @@ public class TestEngine extends AbstractCorrelationEngine {
 
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.correlation.AbstractCorrelationEngine#getInterestingEvents()
+     */
     @Override
     public List<String> getInterestingEvents() {
         List<String> ueis = new ArrayList<String>();
@@ -66,12 +76,18 @@ public class TestEngine extends AbstractCorrelationEngine {
         return ueis;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.correlation.AbstractCorrelationEngine#timerExpired(java.lang.Integer)
+     */
     @Override
     protected void timerExpired(Integer timerId) {
         EventBuilder bldr = new EventBuilder("timerExpired", "TestEngine");
         sendEvent(bldr.getEvent());
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.correlation.CorrelationEngine#getName()
+     */
     @Override
     public String getName() {
         return "TestEngine";
