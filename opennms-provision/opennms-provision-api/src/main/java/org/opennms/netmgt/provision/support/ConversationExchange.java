@@ -31,6 +31,11 @@ package org.opennms.netmgt.provision.support;
 /**
  * This class represents a single request-response transaction within a network
  * transaction.
+ *
+ * @param <Request>
+ *            the generic type
+ * @param <Response>
+ *            the generic type
  */
 public interface ConversationExchange<Request, Response> extends RequestBuilder<Request>, ResponseValidator<Response> {
 }

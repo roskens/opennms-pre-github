@@ -31,8 +31,25 @@ package org.opennms.netmgt.provision;
 import java.util.EventListener;
 
 /**
+ * The listener interface for receiving detectFuture events.
+ * The class that is interested in processing a detectFuture
+ * event implements this interface, and the object created
+ * with that class is registered with a component using the
+ * component's <code>addDetectFutureListener<code> method. When
+ * the detectFuture event occurs, that object's appropriate
+ * method is invoked.
+ *
+ * @param <F>
+ *            the generic type
+ * @see DetectFutureEvent
  */
 public interface DetectFutureListener<F extends DetectFuture> extends EventListener {
 
+    /**
+     * Operation complete.
+     *
+     * @param future
+     *            the future
+     */
     void operationComplete(F future);
 }

@@ -62,12 +62,18 @@ import org.slf4j.LoggerFactory;
  * CAUTION: This class is unused. This implementation has never been in
  * production.
  *
+ * @param <Request>
+ *            the generic type
+ * @param <Response>
+ *            the generic type
  * @author Seth
  */
 public abstract class AsyncBasicDetectorNettyImpl<Request, Response> extends AsyncBasicDetector<Request, Response> {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(AsyncBasicDetectorNettyImpl.class);
 
+    /** The Constant m_factory. */
     private static final ChannelFactory m_factory = new NioClientSocketChannelFactory(
                                                                                       Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors()
                                                                                       // TODO:
@@ -111,10 +117,6 @@ public abstract class AsyncBasicDetectorNettyImpl<Request, Response> extends Asy
      *            a {@link java.lang.String} object.
      * @param port
      *            a int.
-     * @param <Request>
-     *            a Request object.
-     * @param <Response>
-     *            a Response object.
      */
     public AsyncBasicDetectorNettyImpl(final String serviceName, final int port) {
         super(serviceName, port);
@@ -142,6 +144,7 @@ public abstract class AsyncBasicDetectorNettyImpl<Request, Response> extends Asy
      * <p>
      * dispose
      * </p>
+     * .
      */
     @Override
     public void dispose() {
@@ -194,10 +197,23 @@ public abstract class AsyncBasicDetectorNettyImpl<Request, Response> extends Asy
         return detectFuture;
     }
 
+    /**
+     * Append to pipeline.
+     *
+     * @param retval
+     *            the retval
+     */
     protected void appendToPipeline(ChannelPipeline retval) {
         // Do nothing by default.
     }
 
+    /**
+     * Gets the detector handler.
+     *
+     * @param conversation
+     *            the conversation
+     * @return the detector handler
+     */
     protected DetectorHandlerNettyImpl<Request, Response> getDetectorHandler(
             AsyncClientConversation<Request, Response> conversation) {
         DetectorHandlerNettyImpl<Request, Response> handler = new DetectorHandlerNettyImpl<Request, Response>();
@@ -212,17 +228,33 @@ public abstract class AsyncBasicDetectorNettyImpl<Request, Response> extends Asy
      * channel.
      * TODO: This doesn't work yet... need to figure out how to do retries with
      * Netty
+     *
+     * @see RetryChannelFutureEvent
      */
     private class RetryChannelFutureListener implements ChannelFutureListener {
+
+        /** The m_remote address. */
         private final SocketAddress m_remoteAddress;
 
+        /** The m_retries. */
         private int m_retries;
 
+        /**
+         * Instantiates a new retry channel future listener.
+         *
+         * @param remoteAddress
+         *            the remote address
+         * @param retries
+         *            the retries
+         */
         public RetryChannelFutureListener(SocketAddress remoteAddress, int retries) {
             m_remoteAddress = remoteAddress;
             m_retries = retries;
         }
 
+        /* (non-Javadoc)
+         * @see org.jboss.netty.channel.ChannelFutureListener#operationComplete(org.jboss.netty.channel.ChannelFuture)
+         */
         @Override
         public void operationComplete(ChannelFuture future) {
             final Throwable cause = future.getCause();
@@ -260,9 +292,13 @@ public abstract class AsyncBasicDetectorNettyImpl<Request, Response> extends Asy
     }
 
     /**
-     * @return
+     * Creates the client ssl context.
+     *
+     * @return the sSL context
      * @throws NoSuchAlgorithmException
+     *             the no such algorithm exception
      * @throws KeyManagementException
+     *             the key management exception
      */
     private static SSLContext createClientSSLContext() throws NoSuchAlgorithmException, KeyManagementException {
         final TrustManager[] tm = { new RelaxedX509TrustManager() };

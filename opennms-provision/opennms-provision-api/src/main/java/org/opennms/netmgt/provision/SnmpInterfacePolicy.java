@@ -31,16 +31,18 @@ package org.opennms.netmgt.provision;
 import org.opennms.netmgt.model.OnmsSnmpInterface;
 
 /**
- * SnmpInterfacePolicy
+ * SnmpInterfacePolicy.
  *
  * @author brozow
  * @version $Id: $
  */
 public interface SnmpInterfacePolicy extends OnmsPolicy {
+
     /**
      * <p>
      * apply
      * </p>
+     * .
      *
      * @param snmpIface
      *            a {@link org.opennms.netmgt.model.OnmsSnmpInterface} object.

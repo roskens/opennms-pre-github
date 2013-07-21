@@ -41,8 +41,10 @@ import org.opennms.netmgt.provision.DetectFutureListener;
  */
 public class DetectFutureFailedImpl implements DetectFuture {
 
+    /** The m_detector. */
     final AsyncServiceDetector m_detector;
 
+    /** The m_cause. */
     final Throwable m_cause;
 
     /**
@@ -54,6 +56,7 @@ public class DetectFutureFailedImpl implements DetectFuture {
      *            a {@link org.opennms.netmgt.provision.AsyncServiceDetector}
      *            object.
      * @param e
+     *            the e
      */
     public DetectFutureFailedImpl(final AsyncServiceDetector detector, Throwable e) {
         m_detector = detector;
@@ -64,6 +67,7 @@ public class DetectFutureFailedImpl implements DetectFuture {
      * <p>
      * getServiceDetector
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.provision.AsyncServiceDetector}
      *         object.
@@ -77,6 +81,7 @@ public class DetectFutureFailedImpl implements DetectFuture {
      * <p>
      * isServiceDetected
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -89,6 +94,7 @@ public class DetectFutureFailedImpl implements DetectFuture {
      * <p>
      * getException
      * </p>
+     * .
      *
      * @return a {@link java.lang.Throwable} object.
      */
@@ -97,29 +103,47 @@ public class DetectFutureFailedImpl implements DetectFuture {
         return m_cause;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.DetectFuture#setServiceDetected(boolean)
+     */
     @Override
     public void setServiceDetected(final boolean serviceDetected) {
         throw new UnsupportedOperationException(getClass().getName() + ".setServiceDetected() not supported");
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.DetectFuture#setException(java.lang.Throwable)
+     */
     @Override
     public void setException(final Throwable throwable) {
         throw new UnsupportedOperationException(getClass().getName() + ".setException() not supported");
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.DetectFuture#awaitFor()
+     */
     @Override
     public void awaitFor() throws InterruptedException {
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.DetectFuture#awaitForUninterruptibly()
+     */
     @Override
     public void awaitForUninterruptibly() {
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.DetectFuture#isDone()
+     */
     @Override
     public boolean isDone() {
         return true;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.DetectFuture#addListener(org.opennms.netmgt.provision.DetectFutureListener)
+     */
     @Override
     public DetectFuture addListener(final DetectFutureListener<DetectFuture> listener) {
         throw new UnsupportedOperationException(getClass().getName() + ".addListener() not supported");

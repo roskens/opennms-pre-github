@@ -44,13 +44,19 @@ import org.slf4j.LoggerFactory;
  * Abstract BasicDetector class.
  * </p>
  *
+ * @param <Request>
+ *            the generic type
+ * @param <Response>
+ *            the generic type
  * @author <a href=mailto:desloge@opennms.com>Donald Desloge</a>
  * @version $Id: $
  */
 public abstract class BasicDetector<Request, Response> extends SyncAbstractDetector {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(BasicDetector.class);
 
+    /** The m_conversation. */
     private ClientConversation<Request, Response> m_conversation = new ClientConversation<Request, Response>();
 
     /**
@@ -66,10 +72,6 @@ public abstract class BasicDetector<Request, Response> extends SyncAbstractDetec
      *            a int.
      * @param retries
      *            a int.
-     * @param <Request>
-     *            a Request object.
-     * @param <Response>
-     *            a Response object.
      */
     protected BasicDetector(String serviceName, int port, int timeout, int retries) {
         super(serviceName, port, timeout, retries);
@@ -143,6 +145,7 @@ public abstract class BasicDetector<Request, Response> extends SyncAbstractDetec
      * <p>
      * dispose
      * </p>
+     * .
      */
     @Override
     public void dispose() {
@@ -153,11 +156,23 @@ public abstract class BasicDetector<Request, Response> extends SyncAbstractDetec
      * <p>
      * getClient
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.provision.support.Client} object.
      */
     protected abstract Client<Request, Response> getClient();
 
+    /**
+     * Attempt conversation.
+     *
+     * @param client
+     *            the client
+     * @return true, if successful
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws Exception
+     *             the exception
+     */
     private boolean attemptConversation(Client<Request, Response> client) throws IOException, Exception {
         return getConversation().attemptConversation(client);
     }
@@ -166,6 +181,7 @@ public abstract class BasicDetector<Request, Response> extends SyncAbstractDetec
      * <p>
      * expectBanner
      * </p>
+     * .
      *
      * @param bannerValidator
      *            a
@@ -180,6 +196,7 @@ public abstract class BasicDetector<Request, Response> extends SyncAbstractDetec
      * <p>
      * send
      * </p>
+     * .
      *
      * @param requestBuilder
      *            a {@link org.opennms.netmgt.provision.support.RequestBuilder}
@@ -197,6 +214,7 @@ public abstract class BasicDetector<Request, Response> extends SyncAbstractDetec
      * <p>
      * send
      * </p>
+     * .
      *
      * @param request
      *            a Request object.
@@ -213,6 +231,7 @@ public abstract class BasicDetector<Request, Response> extends SyncAbstractDetec
      * <p>
      * getConversation
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.provision.support.ClientConversation}
      *         object.

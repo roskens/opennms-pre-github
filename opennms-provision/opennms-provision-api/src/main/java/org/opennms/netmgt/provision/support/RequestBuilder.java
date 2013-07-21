@@ -28,6 +28,18 @@
 
 package org.opennms.netmgt.provision.support;
 
+/**
+ * The Interface RequestBuilder.
+ *
+ * @param <Request>
+ *            the generic type
+ */
 public interface RequestBuilder<Request> {
+
+    /**
+     * Gets the request.
+     *
+     * @return the request
+     */
     Request getRequest();
 }

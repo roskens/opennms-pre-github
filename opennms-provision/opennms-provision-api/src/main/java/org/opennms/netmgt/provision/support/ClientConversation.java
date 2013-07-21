@@ -40,21 +40,29 @@ import org.slf4j.LoggerFactory;
  * ClientConversation class.
  * </p>
  *
+ * @param <Request>
+ *            the generic type
+ * @param <Response>
+ *            the generic type
  * @author Donald Desloge
  * @version $Id: $
  */
 public class ClientConversation<Request, Response> {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(ClientConversation.class);
 
+    /** The m_banner validator. */
     private ResponseValidator<Response> m_bannerValidator;
 
+    /** The m_conversation. */
     private final List<ConversationExchange<Request, Response>> m_conversation = new ArrayList<ConversationExchange<Request, Response>>();
 
     /**
      * <p>
      * expectBanner
      * </p>
+     * .
      *
      * @param bannerValidator
      *            a
@@ -69,6 +77,7 @@ public class ClientConversation<Request, Response> {
      * <p>
      * addExchange
      * </p>
+     * .
      *
      * @param request
      *            a Request object.
@@ -91,6 +100,7 @@ public class ClientConversation<Request, Response> {
      * <p>
      * addExchange
      * </p>
+     * .
      *
      * @param requestBuilder
      *            a {@link org.opennms.netmgt.provision.support.RequestBuilder}
@@ -108,6 +118,7 @@ public class ClientConversation<Request, Response> {
      * <p>
      * addExchange
      * </p>
+     * .
      *
      * @param exchange
      *            a
@@ -122,14 +133,15 @@ public class ClientConversation<Request, Response> {
      * <p>
      * attemptConversation
      * </p>
+     * .
      *
      * @param client
      *            a {@link org.opennms.netmgt.provision.support.Client} object.
      * @return a boolean.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws Exception
+     *             the exception
      */
     public boolean attemptConversation(Client<Request, Response> client) throws IOException, Exception {
 

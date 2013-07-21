@@ -40,20 +40,28 @@ import org.apache.commons.lang.builder.ToStringBuilder;
  * during a network transaction.
  * </p>
  *
+ * @param <Request>
+ *            the generic type
+ * @param <Response>
+ *            the generic type
  * @author Donald Desloge
  */
 public class AsyncClientConversation<Request, Response> {
 
+    /** The m_conversation. */
     private final List<ConversationExchange<Request, Response>> m_conversation = new ArrayList<ConversationExchange<Request, Response>>();
 
+    /** The m_is complete. */
     private boolean m_isComplete = false;
 
+    /** The m_has banner. */
     private boolean m_hasBanner = false;
 
     /**
      * <p>
      * addExchange
      * </p>
+     * .
      *
      * @param request
      *            a
@@ -68,6 +76,7 @@ public class AsyncClientConversation<Request, Response> {
      * <p>
      * setHasBanner
      * </p>
+     * .
      *
      * @param hasBanner
      *            a boolean.
@@ -80,6 +89,7 @@ public class AsyncClientConversation<Request, Response> {
      * <p>
      * hasBanner
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -91,6 +101,7 @@ public class AsyncClientConversation<Request, Response> {
      * <p>
      * hasExchanges
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -102,6 +113,7 @@ public class AsyncClientConversation<Request, Response> {
      * <p>
      * isComplete
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -113,6 +125,7 @@ public class AsyncClientConversation<Request, Response> {
      * <p>
      * validate
      * </p>
+     * .
      *
      * @param message
      *            a Response object.
@@ -132,6 +145,7 @@ public class AsyncClientConversation<Request, Response> {
      * <p>
      * getRequest
      * </p>
+     * .
      *
      * @return a Request object.
      */
@@ -139,10 +153,18 @@ public class AsyncClientConversation<Request, Response> {
         return extracted();
     }
 
+    /**
+     * Extracted.
+     *
+     * @return the request
+     */
     private Request extracted() {
         return m_conversation.isEmpty() ? null : m_conversation.get(0).getRequest();
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         ToStringBuilder builder = new ToStringBuilder(this);

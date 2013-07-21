@@ -42,6 +42,7 @@ public interface DetectFuture {
      * <p>
      * getServiceDetector
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.provision.AsyncServiceDetector}
      *         object.
@@ -52,6 +53,7 @@ public interface DetectFuture {
      * <p>
      * isServiceDetected
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -61,6 +63,7 @@ public interface DetectFuture {
      * <p>
      * getException
      * </p>
+     * .
      *
      * @return a {@link java.lang.Throwable} object.
      */
@@ -70,6 +73,7 @@ public interface DetectFuture {
      * <p>
      * setServiceDetected
      * </p>
+     * .
      *
      * @param serviceDetected
      *            a boolean.
@@ -80,6 +84,7 @@ public interface DetectFuture {
      * <p>
      * setException
      * </p>
+     * .
      *
      * @param throwable
      *            a {@link java.lang.Throwable} object.
@@ -90,8 +95,10 @@ public interface DetectFuture {
      * <p>
      * awaitFor
      * </p>
+     * .
      *
      * @throws InterruptedException
+     *             the interrupted exception
      */
     void awaitFor() throws InterruptedException;
 
@@ -99,6 +106,7 @@ public interface DetectFuture {
      * <p>
      * awaitForUninterruptibly
      * </p>
+     * .
      */
     void awaitForUninterruptibly();
 
@@ -106,6 +114,9 @@ public interface DetectFuture {
      * <p>
      * isDone
      * </p>
+     * .
+     *
+     * @return true, if is done
      */
     boolean isDone();
 
@@ -113,6 +124,11 @@ public interface DetectFuture {
      * <p>
      * addListener
      * </p>
+     * .
+     *
+     * @param listener
+     *            the listener
+     * @return the detect future
      */
     public DetectFuture addListener(DetectFutureListener<DetectFuture> listener);
 }

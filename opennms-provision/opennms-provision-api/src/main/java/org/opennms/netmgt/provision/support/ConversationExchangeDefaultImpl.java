@@ -30,26 +30,54 @@ package org.opennms.netmgt.provision.support;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 
+/**
+ * The Class ConversationExchangeDefaultImpl.
+ *
+ * @param <Request>
+ *            the generic type
+ * @param <RespType>
+ *            the generic type
+ */
 public class ConversationExchangeDefaultImpl<Request, RespType> implements ConversationExchange<Request, RespType> {
+
+    /** The m_request builder. */
     private final RequestBuilder<Request> m_requestBuilder;
 
+    /** The m_response validator. */
     private final ResponseValidator<RespType> m_responseValidator;
 
+    /**
+     * Instantiates a new conversation exchange default impl.
+     *
+     * @param reqBuilder
+     *            the req builder
+     * @param respValidator
+     *            the resp validator
+     */
     public ConversationExchangeDefaultImpl(RequestBuilder<Request> reqBuilder, ResponseValidator<RespType> respValidator) {
         m_requestBuilder = reqBuilder;
         m_responseValidator = respValidator;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.support.RequestBuilder#getRequest()
+     */
     @Override
     public Request getRequest() {
         return m_requestBuilder == null ? null : m_requestBuilder.getRequest();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.support.ResponseValidator#validate(java.lang.Object)
+     */
     @Override
     public boolean validate(RespType response) {
         return m_responseValidator.validate(response);
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         ToStringBuilder builder = new ToStringBuilder(this);

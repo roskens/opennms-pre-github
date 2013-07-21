@@ -68,6 +68,8 @@ public interface ServiceDetector {
 
     /**
      * Get the port where this service will be detected.
+     *
+     * @return the port
      */
     int getPort();
 
@@ -75,18 +77,22 @@ public interface ServiceDetector {
      * Set the port where the service will be detected.
      *
      * @param port
+     *            the new port
      */
     void setPort(int port);
 
     /**
      * Get the timeout for detecting the service.
+     *
+     * @return the timeout
      */
     int getTimeout();
 
     /**
      * Set the timeout for detecting the service.
      *
-     * @param port
+     * @param timeout
+     *            the new timeout
      */
     void setTimeout(int timeout);
 

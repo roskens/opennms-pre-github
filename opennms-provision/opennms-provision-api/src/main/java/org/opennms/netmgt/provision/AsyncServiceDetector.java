@@ -44,12 +44,11 @@ public interface AsyncServiceDetector extends ServiceDetector {
      * <p>
      * isServiceDetected
      * </p>
+     * .
      *
      * @param address
      *            a {@link java.net.InetAddress} object.
      * @return a {@link org.opennms.netmgt.provision.DetectFuture} object.
-     * @throws java.lang.Exception
-     *             if any.
      */
     public DetectFuture isServiceDetected(InetAddress address);
 

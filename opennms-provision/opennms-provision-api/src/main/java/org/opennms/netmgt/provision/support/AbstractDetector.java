@@ -41,19 +41,26 @@ import org.slf4j.LoggerFactory;
  */
 public abstract class AbstractDetector implements ServiceDetector {
 
+    /** The Constant LOG. */
     @SuppressWarnings("unused")
     private static final Logger LOG = LoggerFactory.getLogger(AbstractDetector.class);
 
+    /** The Constant DEFAULT_TIMEOUT. */
     private static final int DEFAULT_TIMEOUT = 2000;
 
+    /** The Constant DEFAULT_RETRIES. */
     private static final int DEFAULT_RETRIES = 1;
 
+    /** The m_port. */
     private int m_port;
 
+    /** The m_retries. */
     private int m_retries;
 
+    /** The m_timeout. */
     private int m_timeout;
 
+    /** The m_service name. */
     private String m_serviceName;
 
     /**
@@ -95,6 +102,7 @@ public abstract class AbstractDetector implements ServiceDetector {
      * <p>
      * init
      * </p>
+     * .
      */
     @Override
     public final void init() {
@@ -110,6 +118,7 @@ public abstract class AbstractDetector implements ServiceDetector {
      * <p>
      * onInit
      * </p>
+     * .
      */
     protected abstract void onInit();
 
@@ -117,6 +126,7 @@ public abstract class AbstractDetector implements ServiceDetector {
      * <p>
      * dispose
      * </p>
+     * .
      */
     @Override
     public abstract void dispose();
@@ -125,6 +135,7 @@ public abstract class AbstractDetector implements ServiceDetector {
      * <p>
      * setPort
      * </p>
+     * .
      *
      * @param port
      *            a int.
@@ -138,6 +149,7 @@ public abstract class AbstractDetector implements ServiceDetector {
      * <p>
      * getPort
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -150,6 +162,7 @@ public abstract class AbstractDetector implements ServiceDetector {
      * <p>
      * setRetries
      * </p>
+     * .
      *
      * @param retries
      *            a int.
@@ -162,6 +175,7 @@ public abstract class AbstractDetector implements ServiceDetector {
      * <p>
      * getRetries
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -173,6 +187,7 @@ public abstract class AbstractDetector implements ServiceDetector {
      * <p>
      * setTimeout
      * </p>
+     * .
      *
      * @param timeout
      *            a int.
@@ -186,6 +201,7 @@ public abstract class AbstractDetector implements ServiceDetector {
      * <p>
      * getTimeout
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -204,6 +220,7 @@ public abstract class AbstractDetector implements ServiceDetector {
      * <p>
      * getServiceName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

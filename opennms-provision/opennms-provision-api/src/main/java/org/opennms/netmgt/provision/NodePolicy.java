@@ -31,16 +31,18 @@ package org.opennms.netmgt.provision;
 import org.opennms.netmgt.model.OnmsNode;
 
 /**
- * NodePolicy
+ * NodePolicy.
  *
  * @author brozow
  * @version $Id: $
  */
 public interface NodePolicy extends OnmsPolicy {
+
     /**
      * <p>
      * apply
      * </p>
+     * .
      *
      * @param node
      *            a {@link org.opennms.netmgt.model.OnmsNode} object.

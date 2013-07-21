@@ -45,12 +45,19 @@ import org.opennms.netmgt.provision.DetectFutureListener;
  */
 public class DetectFutureNettyImpl implements DetectFuture {
 
+    /**
+     * The Class ServiceDetectionFailedException.
+     */
     public static class ServiceDetectionFailedException extends Exception {
+
+        /** The Constant serialVersionUID. */
         private static final long serialVersionUID = -3784608501286028523L;
     }
 
+    /** The m_detector. */
     private final AsyncBasicDetectorNettyImpl<?, ?> m_detector;
 
+    /** The m_future. */
     private final ChannelFuture m_future;
 
     /**
@@ -61,6 +68,8 @@ public class DetectFutureNettyImpl implements DetectFuture {
      * @param detector
      *            a {@link org.opennms.netmgt.provision.AsyncServiceDetector}
      *            object.
+     * @param future
+     *            the future
      */
     public DetectFutureNettyImpl(final AsyncBasicDetectorNettyImpl<?, ?> detector, final ChannelFuture future) {
         m_detector = detector;
@@ -71,6 +80,7 @@ public class DetectFutureNettyImpl implements DetectFuture {
      * <p>
      * getServiceDetector
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.provision.AsyncServiceDetector}
      *         object.
@@ -84,6 +94,7 @@ public class DetectFutureNettyImpl implements DetectFuture {
      * <p>
      * isServiceDetected
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -96,6 +107,7 @@ public class DetectFutureNettyImpl implements DetectFuture {
      * <p>
      * getException
      * </p>
+     * .
      *
      * @return a {@link java.lang.Throwable} object.
      */
@@ -120,21 +132,33 @@ public class DetectFutureNettyImpl implements DetectFuture {
         m_future.setFailure(throwable);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.DetectFuture#awaitFor()
+     */
     @Override
     public void awaitFor() throws InterruptedException {
         m_future.await();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.DetectFuture#awaitForUninterruptibly()
+     */
     @Override
     public void awaitForUninterruptibly() {
         m_future.awaitUninterruptibly();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.DetectFuture#isDone()
+     */
     @Override
     public boolean isDone() {
         return m_future.isDone();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.DetectFuture#addListener(org.opennms.netmgt.provision.DetectFutureListener)
+     */
     @Override
     public DetectFuture addListener(final DetectFutureListener<DetectFuture> listener) {
         final DetectFuture thisFuture = this;

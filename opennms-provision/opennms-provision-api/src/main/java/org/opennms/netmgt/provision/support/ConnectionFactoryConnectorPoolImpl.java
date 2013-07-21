@@ -46,7 +46,7 @@ import org.slf4j.LoggerFactory;
 /**
  * <p>
  * Factory for encapsulating a {@link NioSocketConnector} in such a way as to
- * allow us to reuse the connector for each
+ * allow us to reuse the connector for each.
  * {@link #connect(SocketAddress, SocketAddress, IoSessionInitializer, IoHandler)}
  * call.
  * </p>
@@ -61,6 +61,7 @@ import org.slf4j.LoggerFactory;
  */
 public class ConnectionFactoryConnectorPoolImpl extends ConnectionFactory {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(ConnectionFactoryConnectorPoolImpl.class);
 
     /**
@@ -74,18 +75,31 @@ public class ConnectionFactoryConnectorPoolImpl extends ConnectionFactory {
      */
     private final Object m_connectorMutex = new Object();
 
+    /** The m_port. */
     private Integer m_port = null;
 
+    /** The m_port mutex. */
     private final Object m_portMutex = new Object();
 
     /**
      * Create a new factory. Private because one should use
-     * {@link #getFactory(int)}
+     *
+     * @param timeoutInMillis
+     *            the timeout in millis {@link #getFactory(int)}
      */
     protected ConnectionFactoryConnectorPoolImpl(int timeoutInMillis) {
         super(timeoutInMillis);
     }
 
+    /**
+     * Gets the socket connector.
+     *
+     * @param timeout
+     *            the timeout
+     * @param handler
+     *            the handler
+     * @return the socket connector
+     */
     private static final NioSocketConnector getSocketConnector(long timeout, IoHandler handler) {
         NioSocketConnector connector = new NioSocketConnector();
         connector.setHandler(handler);
@@ -101,15 +115,17 @@ public class ConnectionFactoryConnectorPoolImpl extends ConnectionFactory {
      * </p>
      * <p>
      * You must dispose both the {@link ConnectionFactoryConnectorPoolImpl} and
-     * {@link ConnectFuture} when done by calling
-     * {@link #dispose(ConnectionFactoryConnectorPoolImpl, ConnectFuture)}.
-     * </p>
      *
      * @param remoteAddress
      *            Destination address
      * @param init
      *            Initialiser for the IoSession
-     * @return
+     * @param handler
+     *            the handler
+     * @return the connect future {@link ConnectFuture} when done by calling
+     *         {@link #dispose(ConnectionFactoryConnectorPoolImpl, ConnectFuture)}
+     *         .
+     *         </p>
      *         ConnectFuture from a Mina connect call
      */
     @Override
@@ -164,6 +180,19 @@ public class ConnectionFactoryConnectorPoolImpl extends ConnectionFactory {
         throw new IllegalStateException("Could not connect to socket because of excessive RejectedExecutionExceptions");
     }
 
+    /**
+     * Port switcher.
+     *
+     * @param connector
+     *            the connector
+     * @param remoteAddress
+     *            the remote address
+     * @param init
+     *            the init
+     * @param handler
+     *            the handler
+     * @return the io future listener
+     */
     private IoFutureListener<ConnectFuture> portSwitcher(final SocketConnector connector,
             final SocketAddress remoteAddress, final IoSessionInitializer<? extends ConnectFuture> init,
             final IoHandler handler) {
@@ -194,14 +223,17 @@ public class ConnectionFactoryConnectorPoolImpl extends ConnectionFactory {
     }
 
     /**
-     * Delegates completely to
-     * {@link #connect(SocketAddress, SocketAddress, IoSessionInitializer, IoHandler)}
-     * since we are reusing the same connector for all invocations.
+     * Delegates completely to.
      *
      * @param remoteAddress
-     * @param localAddress
+     *            the remote address
      * @param init
+     *            the init
      * @param handler
+     *            the handler
+     * @return the connect future
+     *         {@link #connect(SocketAddress, SocketAddress, IoSessionInitializer, IoHandler)}
+     *         since we are reusing the same connector for all invocations.
      */
     @Override
     public ConnectFuture reConnect(SocketAddress remoteAddress, IoSessionInitializer<? extends ConnectFuture> init,
@@ -209,6 +241,9 @@ public class ConnectionFactoryConnectorPoolImpl extends ConnectionFactory {
         return connect(remoteAddress, init, handler);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.support.ConnectionFactory#dispose()
+     */
     @Override
     protected void dispose() {
         synchronized (m_connectorMutex) {

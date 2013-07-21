@@ -51,7 +51,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * <p>
- * This {@link ConnectionFactory} type will create a new
+ * This {@link ConnectionFactory} type will create a new.
  * {@link NioSocketConnector} for every call to
  * {@link #connect(SocketAddress, SocketAddress, IoSessionInitializer)}. This is
  * a naive implementation that does not really take advantage of the
@@ -65,26 +65,42 @@ import org.slf4j.LoggerFactory;
  */
 public class ConnectionFactoryNewConnectorImpl extends ConnectionFactory {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(ConnectionFactoryNewConnectorImpl.class);
 
+    /** The Constant m_executor. */
     private static final Executor m_executor = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
 
+    /** The Constant m_processor. */
     private static final IoProcessor<NioSession> m_processor = new SimpleIoProcessorPool<NioSession>(
                                                                                                      NioProcessor.class,
                                                                                                      m_executor);
 
+    /** The m_port. */
     private ThreadLocal<Integer> m_port = new ThreadLocal<Integer>();
 
+    /** The m_port mutex. */
     private final Object m_portMutex = new Object();
 
     /**
      * Create a new factory. Private because one should use
-     * {@link #getFactory(int)}
+     *
+     * @param timeoutInMillis
+     *            the timeout in millis {@link #getFactory(int)}
      */
     protected ConnectionFactoryNewConnectorImpl(int timeoutInMillis) {
         super(timeoutInMillis);
     }
 
+    /**
+     * Gets the socket connector.
+     *
+     * @param timeout
+     *            the timeout
+     * @param handler
+     *            the handler
+     * @return the socket connector
+     */
     private static final NioSocketConnector getSocketConnector(long timeout, IoHandler handler) {
         // Create a new NioSocketConnector
         NioSocketConnector connector = new NioSocketConnector(m_executor, m_processor);
@@ -132,15 +148,17 @@ public class ConnectionFactoryNewConnectorImpl extends ConnectionFactory {
      * </p>
      * <p>
      * You must dispose both the {@link ConnectionFactoryNewConnectorImpl} and
-     * {@link ConnectFuture} when done by calling
-     * {@link #dispose(ConnectionFactoryNewConnectorImpl, ConnectFuture)}.
-     * </p>
      *
      * @param remoteAddress
      *            Destination address
      * @param init
      *            Initialiser for the IoSession
-     * @return
+     * @param handler
+     *            the handler
+     * @return the connect future {@link ConnectFuture} when done by calling
+     *         {@link #dispose(ConnectionFactoryNewConnectorImpl, ConnectFuture)}
+     *         .
+     *         </p>
      *         ConnectFuture from a Mina connect call
      */
     @Override
@@ -163,6 +181,13 @@ public class ConnectionFactoryNewConnectorImpl extends ConnectionFactory {
         return cf;
     }
 
+    /**
+     * Connector disposer.
+     *
+     * @param connector
+     *            the connector
+     * @return the io future listener
+     */
     private static IoFutureListener<ConnectFuture> connectorDisposer(final SocketConnector connector) {
         return new IoFutureListener<ConnectFuture>() {
 
@@ -190,6 +215,19 @@ public class ConnectionFactoryNewConnectorImpl extends ConnectionFactory {
         };
     }
 
+    /**
+     * Port switcher.
+     *
+     * @param connector
+     *            the connector
+     * @param remoteAddress
+     *            the remote address
+     * @param init
+     *            the init
+     * @param handler
+     *            the handler
+     * @return the io future listener
+     */
     private IoFutureListener<ConnectFuture> portSwitcher(final SocketConnector connector,
             final SocketAddress remoteAddress, final IoSessionInitializer<? extends ConnectFuture> init,
             final IoHandler handler) {
@@ -221,14 +259,17 @@ public class ConnectionFactoryNewConnectorImpl extends ConnectionFactory {
     }
 
     /**
-     * Delegates completely to
-     * {@link #connect(SocketAddress, SocketAddress, IoSessionInitializer, IoHandler)}
-     * since we are recreating connectors during each invocation.
+     * Delegates completely to.
      *
      * @param remoteAddress
-     * @param localAddress
+     *            the remote address
      * @param init
+     *            the init
      * @param handler
+     *            the handler
+     * @return the connect future
+     *         {@link #connect(SocketAddress, SocketAddress, IoSessionInitializer, IoHandler)}
+     *         since we are recreating connectors during each invocation.
      */
     @Override
     public ConnectFuture reConnect(SocketAddress remoteAddress, IoSessionInitializer<? extends ConnectFuture> init,
@@ -236,6 +277,9 @@ public class ConnectionFactoryNewConnectorImpl extends ConnectionFactory {
         return connect(remoteAddress, init, handler);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.support.ConnectionFactory#dispose()
+     */
     @Override
     protected void dispose() {
         // Do nothing; we dispose of every NioSocketConnector as soon as a

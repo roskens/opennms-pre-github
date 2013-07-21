@@ -44,6 +44,7 @@ import org.opennms.netmgt.provision.DetectFutureListener;
  */
 public class DetectFutureMinaImpl extends DefaultIoFuture implements DetectFuture {
 
+    /** The m_detector. */
     private final AsyncServiceDetector m_detector;
 
     /**
@@ -64,6 +65,7 @@ public class DetectFutureMinaImpl extends DefaultIoFuture implements DetectFutur
      * <p>
      * getServiceDetector
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.provision.AsyncServiceDetector}
      *         object.
@@ -77,6 +79,7 @@ public class DetectFutureMinaImpl extends DefaultIoFuture implements DetectFutur
      * <p>
      * isServiceDetected
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -89,6 +92,7 @@ public class DetectFutureMinaImpl extends DefaultIoFuture implements DetectFutur
      * <p>
      * getException
      * </p>
+     * .
      *
      * @return a {@link java.lang.Throwable} object.
      */
@@ -118,6 +122,7 @@ public class DetectFutureMinaImpl extends DefaultIoFuture implements DetectFutur
      * <p>
      * getObjectValue
      * </p>
+     * .
      *
      * @return a {@link java.lang.Object} object.
      */
@@ -125,16 +130,25 @@ public class DetectFutureMinaImpl extends DefaultIoFuture implements DetectFutur
         return super.getValue();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.DetectFuture#awaitFor()
+     */
     @Override
     public void awaitFor() throws InterruptedException {
         super.await();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.DetectFuture#awaitForUninterruptibly()
+     */
     @Override
     public void awaitForUninterruptibly() {
         super.awaitUninterruptibly();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.DetectFuture#addListener(org.opennms.netmgt.provision.DetectFutureListener)
+     */
     @Override
     public DetectFuture addListener(final DetectFutureListener<DetectFuture> listener) {
         super.addListener(new IoFutureListener<DetectFutureMinaImpl>() {

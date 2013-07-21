@@ -46,32 +46,45 @@ import org.springframework.beans.PropertyAccessorFactory;
  * Abstract BasePolicy class.
  * </p>
  *
+ * @param <T>
+ *            the generic type
  * @author ranger
  * @version $Id: $
  */
 public abstract class BasePolicy<T> {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(BasePolicy.class);
 
+    /**
+     * The Enum Match.
+     */
     public static enum Match {
-        ANY_PARAMETER, ALL_PARAMETERS, NO_PARAMETERS
+
+        /** The any parameter. */
+        ANY_PARAMETER,
+ /** The all parameters. */
+ ALL_PARAMETERS,
+ /** The no parameters. */
+ NO_PARAMETERS
     }
 
+    /** The m_match. */
     private Match m_match = Match.ANY_PARAMETER;
 
+    /** The m_criteria. */
     private final LinkedHashMap<String, String> m_criteria = new LinkedHashMap<String, String>();;
 
     /**
      * <p>
      * match
      * </p>
+     * .
      *
      * @param s
      *            a {@link java.lang.String} object.
      * @param matcher
      *            a {@link java.lang.String} object.
-     * @param <T>
-     *            a T object.
      * @return a boolean.
      */
     protected boolean match(final String s, final String matcher) {
@@ -89,6 +102,7 @@ public abstract class BasePolicy<T> {
      * <p>
      * getMatchBehavior
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -101,6 +115,7 @@ public abstract class BasePolicy<T> {
      * <p>
      * setMatchBehavior
      * </p>
+     * .
      *
      * @param matchBehavior
      *            a {@link java.lang.String} object.
@@ -120,6 +135,7 @@ public abstract class BasePolicy<T> {
      * <p>
      * setMatch
      * </p>
+     * .
      *
      * @param match
      *            the match to set
@@ -132,6 +148,7 @@ public abstract class BasePolicy<T> {
      * <p>
      * getMatch
      * </p>
+     * .
      *
      * @return the match
      */
@@ -143,6 +160,7 @@ public abstract class BasePolicy<T> {
      * <p>
      * getCriteria
      * </p>
+     * .
      *
      * @param key
      *            a {@link java.lang.String} object.
@@ -156,6 +174,7 @@ public abstract class BasePolicy<T> {
      * <p>
      * putCriteria
      * </p>
+     * .
      *
      * @param key
      *            a {@link java.lang.String} object.
@@ -171,6 +190,7 @@ public abstract class BasePolicy<T> {
      * <p>
      * getCriteria
      * </p>
+     * .
      *
      * @return the criteria
      */
@@ -182,6 +202,7 @@ public abstract class BasePolicy<T> {
      * <p>
      * matches
      * </p>
+     * .
      *
      * @param iface
      *            a T object.
@@ -201,6 +222,13 @@ public abstract class BasePolicy<T> {
 
     }
 
+    /**
+     * Match all.
+     *
+     * @param iface
+     *            the iface
+     * @return true, if successful
+     */
     private boolean matchAll(final T iface) {
         final BeanWrapper bean = PropertyAccessorFactory.forBeanPropertyAccess(iface);
 
@@ -218,6 +246,13 @@ public abstract class BasePolicy<T> {
 
     }
 
+    /**
+     * Match any.
+     *
+     * @param iface
+     *            the iface
+     * @return true, if successful
+     */
     private boolean matchAny(final T iface) {
         final BeanWrapper bean = PropertyAccessorFactory.forBeanPropertyAccess(iface);
 
@@ -234,10 +269,26 @@ public abstract class BasePolicy<T> {
         return false;
     }
 
+    /**
+     * Match none.
+     *
+     * @param iface
+     *            the iface
+     * @return true, if successful
+     */
     private boolean matchNone(final T iface) {
         return !matchAny(iface);
     }
 
+    /**
+     * Gets the property value as string.
+     *
+     * @param bean
+     *            the bean
+     * @param propertyName
+     *            the property name
+     * @return the property value as string
+     */
     private static String getPropertyValueAsString(final BeanWrapper bean, final String propertyName) {
         Object value = null;
         try {
@@ -262,6 +313,7 @@ public abstract class BasePolicy<T> {
      * <p>
      * act
      * </p>
+     * .
      *
      * @param iface
      *            a T object.
@@ -273,6 +325,7 @@ public abstract class BasePolicy<T> {
      * <p>
      * apply
      * </p>
+     * .
      *
      * @param iface
      *            a T object.

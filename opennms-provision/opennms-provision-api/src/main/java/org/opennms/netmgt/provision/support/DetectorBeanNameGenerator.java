@@ -33,7 +33,7 @@ import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.beans.factory.support.BeanNameGenerator;
 
 /**
- * DetectorBeanNameGenerator
+ * DetectorBeanNameGenerator.
  *
  * @author brozow
  * @version $Id: $

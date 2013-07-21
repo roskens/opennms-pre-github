@@ -50,10 +50,14 @@ import org.springframework.beans.BeanWrapperImpl;
  * @version $Id: $
  */
 public class PluginWrapper {
+
+    /** The m_required. */
     private Map<String, Set<String>> m_required = new TreeMap<String, Set<String>>();
 
+    /** The m_optional. */
     private Map<String, Set<String>> m_optional = new TreeMap<String, Set<String>>();
 
+    /** The m_class name. */
     private final String m_className;
 
     /**
@@ -63,8 +67,8 @@ public class PluginWrapper {
      *
      * @param className
      *            a {@link java.lang.String} object.
-     * @throws java.lang.ClassNotFoundException
-     *             if any.
+     * @throws ClassNotFoundException
+     *             the class not found exception
      */
     public PluginWrapper(String className) throws ClassNotFoundException {
         this(Class.forName(className));
@@ -77,8 +81,8 @@ public class PluginWrapper {
      *
      * @param clazz
      *            a {@link java.lang.Class} object.
-     * @throws java.lang.ClassNotFoundException
-     *             if any.
+     * @throws ClassNotFoundException
+     *             the class not found exception
      */
     public PluginWrapper(Class<?> clazz) throws ClassNotFoundException {
         m_className = clazz.getName();
@@ -106,6 +110,7 @@ public class PluginWrapper {
      * <p>
      * getClassName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -117,6 +122,7 @@ public class PluginWrapper {
      * <p>
      * getRequired
      * </p>
+     * .
      *
      * @return a {@link java.util.Map} object.
      */
@@ -135,6 +141,7 @@ public class PluginWrapper {
      * <p>
      * getRequiredKeys
      * </p>
+     * .
      *
      * @return a {@link java.util.Set} object.
      */
@@ -146,6 +153,7 @@ public class PluginWrapper {
      * <p>
      * getOptionalKeys
      * </p>
+     * .
      *
      * @return a {@link java.util.Set} object.
      */
@@ -157,6 +165,7 @@ public class PluginWrapper {
      * <p>
      * getRequiredItems
      * </p>
+     * .
      *
      * @return a {@link java.util.Map} object.
      */
@@ -168,6 +177,7 @@ public class PluginWrapper {
      * <p>
      * getOptionalItems
      * </p>
+     * .
      *
      * @return a {@link java.util.Map} object.
      */

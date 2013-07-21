@@ -36,6 +36,10 @@ import java.net.InetAddress;
  * Client interface.
  * </p>
  *
+ * @param <Request>
+ *            the generic type
+ * @param <Response>
+ *            the generic type
  * @author brozow
  * @version $Id: $
  */
@@ -45,6 +49,7 @@ public interface Client<Request, Response> {
      * <p>
      * connect
      * </p>
+     * .
      *
      * @param address
      *            a {@link java.net.InetAddress} object.
@@ -52,14 +57,10 @@ public interface Client<Request, Response> {
      *            a int.
      * @param timeout
      *            a int.
-     * @param <Request>
-     *            a Request object.
-     * @param <Response>
-     *            a Response object.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws Exception
+     *             the exception
      */
     public void connect(InetAddress address, int port, int timeout) throws IOException, Exception;
 
@@ -67,12 +68,13 @@ public interface Client<Request, Response> {
      * <p>
      * receiveBanner
      * </p>
+     * .
      *
      * @return a Response object.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws Exception
+     *             the exception
      */
     Response receiveBanner() throws IOException, Exception;
 
@@ -80,14 +82,15 @@ public interface Client<Request, Response> {
      * <p>
      * sendRequest
      * </p>
+     * .
      *
      * @param request
      *            a Request object.
      * @return a Response object.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws Exception
+     *             the exception
      */
     Response sendRequest(Request request) throws IOException, Exception;
 
@@ -95,6 +98,7 @@ public interface Client<Request, Response> {
      * <p>
      * close
      * </p>
+     * .
      */
     public void close();
 

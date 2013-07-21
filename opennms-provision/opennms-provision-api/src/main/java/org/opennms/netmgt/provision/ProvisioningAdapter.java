@@ -43,11 +43,11 @@ public interface ProvisioningAdapter {
     /**
      * This method is called by the Provisioner when a new node is provisioned.
      *
-     * @throws org.opennms.netmgt.provision.ProvisioningAdapterException
-     *             if any.
      * @param nodeId
      *            a int.
-     * @return
+     * @return the scheduled future
+     * @throws ProvisioningAdapterException
+     *             the provisioning adapter exception
      */
     ScheduledFuture<?> addNode(int nodeId) throws ProvisioningAdapterException;
 
@@ -55,10 +55,11 @@ public interface ProvisioningAdapter {
      * This method is called by the Provisioner when a node is updated through
      * provisioning.
      *
-     * @throws org.opennms.netmgt.provision.ProvisioningAdapterException
-     *             if any.
      * @param nodeId
      *            a int.
+     * @return the scheduled future
+     * @throws ProvisioningAdapterException
+     *             the provisioning adapter exception
      */
     ScheduledFuture<?> updateNode(int nodeId) throws ProvisioningAdapterException;
 
@@ -66,10 +67,11 @@ public interface ProvisioningAdapter {
      * This method is called by the Provisioner when a node is deleted through
      * provisioning.
      *
-     * @throws org.opennms.netmgt.provision.ProvisioningAdapterException
-     *             if any.
      * @param nodeId
      *            a int.
+     * @return the scheduled future
+     * @throws ProvisioningAdapterException
+     *             the provisioning adapter exception
      */
     ScheduledFuture<?> deleteNode(int nodeId) throws ProvisioningAdapterException;
 
@@ -77,6 +79,7 @@ public interface ProvisioningAdapter {
      * <p>
      * getName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -91,8 +94,9 @@ public interface ProvisioningAdapter {
      *
      * @param nodeid
      *            a int.
-     * @throws org.opennms.netmgt.provision.ProvisioningAdapterException
-     *             if any.
+     * @return the scheduled future
+     * @throws ProvisioningAdapterException
+     *             the provisioning adapter exception
      */
     ScheduledFuture<?> nodeConfigChanged(int nodeid) throws ProvisioningAdapterException;
 
@@ -101,8 +105,8 @@ public interface ProvisioningAdapter {
      * initialization prior to
      * receiving calls from the AdapterManager.
      *
-     * @throws org.opennms.netmgt.provision.ProvisioningAdapterException
-     *             if any.
+     * @throws ProvisioningAdapterException
+     *             the provisioning adapter exception
      */
     void init() throws ProvisioningAdapterException;
 

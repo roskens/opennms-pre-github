@@ -46,26 +46,33 @@ import org.slf4j.LoggerFactory;
  * CAUTION: This class is unused. This implementation has never been in
  * production.
  *
+ * @param <Request>
+ *            the generic type
+ * @param <Response>
+ *            the generic type
  * @author Seth
  */
 public class DetectorHandlerNettyImpl<Request, Response> extends SimpleChannelHandler {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(DetectorHandlerNettyImpl.class);
 
     // private DetectFuture m_future;
+    /** The m_conversation. */
     private AsyncClientConversation<Request, Response> m_conversation;
 
     /**
      * <p>
      * setFuture
      * </p>
+     * .
      *
-     * @param future
-     *            a {@link org.opennms.netmgt.provision.DetectFuture} object.
-     * @param <Request>
-     *            a Request object.
-     * @param <Response>
-     *            a Response object.
+     * @param ctx
+     *            the ctx
+     * @param event
+     *            the event
+     * @throws Exception
+     *             the exception
      */
     /*
      * public void setFuture(DetectFuture future) {
@@ -167,6 +174,7 @@ public class DetectorHandlerNettyImpl<Request, Response> extends SimpleChannelHa
      * <p>
      * setConversation
      * </p>
+     * .
      *
      * @param conversation
      *            a
@@ -181,6 +189,7 @@ public class DetectorHandlerNettyImpl<Request, Response> extends SimpleChannelHa
      * <p>
      * getConversation
      * </p>
+     * .
      *
      * @return a
      *         {@link org.opennms.netmgt.provision.support.AsyncClientConversation}

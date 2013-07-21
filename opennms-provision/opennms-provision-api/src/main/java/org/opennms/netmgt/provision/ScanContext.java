@@ -56,6 +56,7 @@ public interface ScanContext {
      * <p>
      * updateSysObjectId
      * </p>
+     * .
      *
      * @param sysObjectId
      *            a {@link java.lang.String} object.
@@ -66,6 +67,7 @@ public interface ScanContext {
      * <p>
      * updateSysName
      * </p>
+     * .
      *
      * @param sysName
      *            a {@link java.lang.String} object.
@@ -76,6 +78,7 @@ public interface ScanContext {
      * <p>
      * updateSysDescription
      * </p>
+     * .
      *
      * @param sysDescription
      *            a {@link java.lang.String} object.
@@ -86,6 +89,7 @@ public interface ScanContext {
      * <p>
      * updateSysLocation
      * </p>
+     * .
      *
      * @param sysLocation
      *            a {@link java.lang.String} object.
@@ -96,6 +100,7 @@ public interface ScanContext {
      * <p>
      * updateSysContact
      * </p>
+     * .
      *
      * @param sysContact
      *            a {@link java.lang.String} object.

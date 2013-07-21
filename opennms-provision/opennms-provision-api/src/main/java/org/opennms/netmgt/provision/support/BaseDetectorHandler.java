@@ -39,28 +39,32 @@ import org.slf4j.LoggerFactory;
  * BaseDetectorHandler class.
  * </p>
  *
+ * @param <Request>
+ *            the generic type
+ * @param <Response>
+ *            the generic type
  * @author Donald Desloge
  * @version $Id: $
  */
 public class BaseDetectorHandler<Request, Response> extends IoHandlerAdapter {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(BaseDetectorHandler.class);
 
+    /** The m_future. */
     private DetectFutureMinaImpl m_future;
 
+    /** The m_conversation. */
     private AsyncClientConversation<Request, Response> m_conversation;
 
     /**
      * <p>
      * setFuture
      * </p>
+     * .
      *
      * @param future
      *            a {@link org.opennms.netmgt.provision.DetectFuture} object.
-     * @param <Request>
-     *            a Request object.
-     * @param <Response>
-     *            a Response object.
      */
     public void setFuture(DetectFutureMinaImpl future) {
         m_future = future;
@@ -70,6 +74,7 @@ public class BaseDetectorHandler<Request, Response> extends IoHandlerAdapter {
      * <p>
      * getFuture
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.provision.DetectFuture} object.
      */
@@ -160,6 +165,7 @@ public class BaseDetectorHandler<Request, Response> extends IoHandlerAdapter {
      * <p>
      * setConversation
      * </p>
+     * .
      *
      * @param conversation
      *            a
@@ -174,6 +180,7 @@ public class BaseDetectorHandler<Request, Response> extends IoHandlerAdapter {
      * <p>
      * getConversation
      * </p>
+     * .
      *
      * @return a
      *         {@link org.opennms.netmgt.provision.support.AsyncClientConversation}

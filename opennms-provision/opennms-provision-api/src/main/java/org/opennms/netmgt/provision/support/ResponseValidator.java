@@ -29,9 +29,20 @@
 package org.opennms.netmgt.provision.support;
 
 /**
- * This interface is used to validate response objects that are part of
- * {@link AsyncClientConversation} or {@link ClientConversation} exchanges.
+ * This interface is used to validate response objects that are part of.
+ *
+ * @param <Response>
+ *            the generic type {@link AsyncClientConversation} or
+ *            {@link ClientConversation} exchanges.
  */
 public interface ResponseValidator<Response> {
+
+    /**
+     * Validate.
+     *
+     * @param response
+     *            the response
+     * @return true, if successful
+     */
     boolean validate(Response response);
 }

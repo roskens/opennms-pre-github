@@ -58,9 +58,10 @@ import org.slf4j.LoggerFactory;
  */
 public abstract class ConnectionFactory {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(ConnectionFactory.class);
 
-    /** Map of timeoutInMillis to a ConnectionFactory with that timeout */
+    /** Map of timeoutInMillis to a ConnectionFactory with that timeout. */
     private static final ConcurrentHashMap<Integer, ConnectionFactory> s_connectorPool = new ConcurrentHashMap<Integer, ConnectionFactory>();
 
     /**
@@ -69,9 +70,12 @@ public abstract class ConnectionFactory {
      */
     private int m_references = 0;
 
+    /** The m_timeout. */
     private final long m_timeout;
 
     /**
+     * Gets the timeout.
+     *
      * @return the timeout
      */
     public final long getTimeout() {
@@ -80,7 +84,9 @@ public abstract class ConnectionFactory {
 
     /**
      * Create a new factory. Private because one should use
-     * {@link #getFactory(int)}
+     *
+     * @param timeoutInMillis
+     *            the timeout in millis {@link #getFactory(int)}
      */
     protected ConnectionFactory(int timeoutInMillis) {
         m_timeout = timeoutInMillis;
@@ -98,7 +104,7 @@ public abstract class ConnectionFactory {
      *
      * @param timeoutInMillis
      *            Connection timeout
-     * @return
+     * @return the factory
      *         An appropriate Factory
      */
     public static final ConnectionFactory getFactory(int timeoutInMillis) {
@@ -125,6 +131,13 @@ public abstract class ConnectionFactory {
         }
     }
 
+    /**
+     * Creates a new Connection object.
+     *
+     * @param timeout
+     *            the timeout
+     * @return the connection factory
+     */
     private static final ConnectionFactory createConnectionFactory(int timeout) {
         // return new ConnectionFactoryConnectorPoolImpl(timeout);
         return new ConnectionFactoryNewConnectorImpl(timeout);
@@ -138,14 +151,15 @@ public abstract class ConnectionFactory {
      * </p>
      * <p>
      * You must dispose the {@link ConnectionFactory} when done by calling
-     * {@link #dispose(ConnectionFactory)}.
-     * </p>
      *
      * @param remoteAddress
      *            Destination address
      * @param init
      *            Initialiser for the IoSession
-     * @return
+     * @param handler
+     *            the handler
+     * @return the connect future {@link #dispose(ConnectionFactory)}.
+     *         </p>
      *         ConnectFuture from a Mina connect call
      */
     public abstract ConnectFuture connect(SocketAddress remoteAddress,
@@ -155,11 +169,15 @@ public abstract class ConnectionFactory {
      * Retry a connection. This does not consume a connection slot, so will not
      * block or throw {@link InterruptedException}. Use only if you have already
      * acquired a connection slot using
-     * {@link #connect(SocketAddress, IoSessionInitializer)}.
      *
      * @param remoteAddress
+     *            the remote address
      * @param init
-     * @return
+     *            the init
+     * @param handler
+     *            the handler
+     * @return the connect future
+     *         {@link #connect(SocketAddress, IoSessionInitializer)}.
      */
     public abstract ConnectFuture reConnect(SocketAddress remoteAddress,
             IoSessionInitializer<? extends ConnectFuture> init, IoHandler handler);
@@ -173,7 +191,7 @@ public abstract class ConnectionFactory {
      * Free up the resources used by a connection and connection factory.
      *
      * @param factory
-     * @param connection
+     *            the factory
      */
     public static final void dispose(ConnectionFactory factory) {
         // If the reference count on the factory is zero...

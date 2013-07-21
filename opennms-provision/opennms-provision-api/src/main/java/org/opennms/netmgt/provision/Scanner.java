@@ -42,6 +42,7 @@ public interface Scanner {
      * <p>
      * init
      * </p>
+     * .
      */
     public void init();
 
@@ -49,11 +50,12 @@ public interface Scanner {
      * <p>
      * scan
      * </p>
+     * .
      *
      * @param context
      *            a {@link org.opennms.netmgt.provision.ScanContext} object.
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     public void scan(ScanContext context) throws Exception;
 }

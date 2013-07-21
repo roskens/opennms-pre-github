@@ -37,27 +37,33 @@ import org.springframework.transaction.support.TransactionCallback;
 import org.springframework.transaction.support.TransactionTemplate;
 
 /**
- * SimplerQueuedProvisioningAdapter
+ * SimplerQueuedProvisioningAdapter.
  *
  * @author brozow
  * @version $Id: $
  */
 public abstract class SimplerQueuedProvisioningAdapter extends SimpleQueuedProvisioningAdapter {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(SimplerQueuedProvisioningAdapter.class);
 
+    /** The m_name. */
     private String m_name;
 
+    /** The m_delay. */
     protected long m_delay = 1;
 
+    /** The m_time unit. */
     protected TimeUnit m_timeUnit = TimeUnit.SECONDS;
 
+    /** The m_template. */
     protected TransactionTemplate m_template;
 
     /**
      * <p>
      * getTemplate
      * </p>
+     * .
      *
      * @return a
      *         {@link org.springframework.transaction.support.TransactionTemplate}
@@ -71,6 +77,7 @@ public abstract class SimplerQueuedProvisioningAdapter extends SimpleQueuedProvi
      * <p>
      * setTemplate
      * </p>
+     * .
      *
      * @param template
      *            a
@@ -97,6 +104,7 @@ public abstract class SimplerQueuedProvisioningAdapter extends SimpleQueuedProvi
      * <p>
      * setTimeUnit
      * </p>
+     * .
      *
      * @param timeUnit
      *            a {@link java.util.concurrent.TimeUnit} object.
@@ -109,6 +117,7 @@ public abstract class SimplerQueuedProvisioningAdapter extends SimpleQueuedProvi
      * <p>
      * setDelay
      * </p>
+     * .
      *
      * @param delay
      *            a long.
@@ -123,6 +132,9 @@ public abstract class SimplerQueuedProvisioningAdapter extends SimpleQueuedProvi
         return m_name;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.SimpleQueuedProvisioningAdapter#createScheduleForNode(int, org.opennms.netmgt.provision.SimpleQueuedProvisioningAdapter.AdapterOperationType)
+     */
     @Override
     AdapterOperationSchedule createScheduleForNode(int nodeId, AdapterOperationType adapterOperationType) {
         return new AdapterOperationSchedule(m_delay, 0, 1, m_timeUnit);
@@ -191,10 +203,26 @@ public abstract class SimplerQueuedProvisioningAdapter extends SimpleQueuedProvi
         assertNotNull(m_timeUnit, "timeUnit must be set");
     }
 
+    /**
+     * Assert not null.
+     *
+     * @param o
+     *            the o
+     * @param msg
+     *            the msg
+     */
     private void assertNotNull(Object o, String msg) {
         assertTrue(o != null, msg);
     }
 
+    /**
+     * Assert true.
+     *
+     * @param b
+     *            the b
+     * @param m
+     *            the m
+     */
     private void assertTrue(boolean b, String m) {
         if (!b)
             throw new IllegalStateException(m);
@@ -204,6 +232,7 @@ public abstract class SimplerQueuedProvisioningAdapter extends SimpleQueuedProvi
      * <p>
      * doAddNode
      * </p>
+     * .
      *
      * @param nodeid
      *            a int.
@@ -215,6 +244,7 @@ public abstract class SimplerQueuedProvisioningAdapter extends SimpleQueuedProvi
      * <p>
      * doUpdateNode
      * </p>
+     * .
      *
      * @param nodeid
      *            a int.
@@ -226,6 +256,7 @@ public abstract class SimplerQueuedProvisioningAdapter extends SimpleQueuedProvi
      * <p>
      * doDeleteNode
      * </p>
+     * .
      *
      * @param nodeid
      *            a int.
@@ -237,6 +268,7 @@ public abstract class SimplerQueuedProvisioningAdapter extends SimpleQueuedProvi
      * <p>
      * doNotifyConfigChange
      * </p>
+     * .
      *
      * @param nodeid
      *            a int.

@@ -38,20 +38,25 @@ import org.apache.mina.core.session.IdleStatus;
  * Abstract AsyncBasicDetector class.
  * </p>
  *
+ * @param <Request>
+ *            the generic type
+ * @param <Response>
+ *            the generic type
  * @author Donald Desloge
  * @version $Id: $
  */
 public abstract class AsyncBasicDetector<Request, Response> extends AsyncAbstractDetector {
 
+    /** The Constant CHARSET_UTF8. */
     protected static final Charset CHARSET_UTF8 = Charset.forName("UTF-8");
 
-    /**
-     * Default value of 3000ms = 3s
-     */
+    /** Default value of 3000ms = 3s. */
     private int m_idleTime = 3000;
 
+    /** The m_conversation. */
     private AsyncClientConversation<Request, Response> m_conversation = new AsyncClientConversation<Request, Response>();
 
+    /** The use ssl filter. */
     private boolean useSSLFilter = false;
 
     /**
@@ -63,10 +68,6 @@ public abstract class AsyncBasicDetector<Request, Response> extends AsyncAbstrac
      *            a {@link java.lang.String} object.
      * @param port
      *            a int.
-     * @param <Request>
-     *            a Request object.
-     * @param <Response>
-     *            a Response object.
      */
     public AsyncBasicDetector(final String serviceName, final int port) {
         super(serviceName, port);
@@ -94,6 +95,7 @@ public abstract class AsyncBasicDetector<Request, Response> extends AsyncAbstrac
      * <p>
      * expectBanner
      * </p>
+     * .
      *
      * @param bannerValidator
      *            a
@@ -109,6 +111,7 @@ public abstract class AsyncBasicDetector<Request, Response> extends AsyncAbstrac
      * <p>
      * send
      * </p>
+     * .
      *
      * @param request
      *            a Request object.
@@ -129,12 +132,11 @@ public abstract class AsyncBasicDetector<Request, Response> extends AsyncAbstrac
 
     /**
      * Set the time limit in milliseconds that the connection can wait before
-     * transitioning to the {@link IdleStatus#BOTH_IDLE},
-     * {@link IdleStatus#READER_IDLE},
-     * or {@link IdleStatus#WRITER_IDLE} states.
+     * transitioning to the {@link IdleStatus#BOTH_IDLE},.
      *
      * @param idleTime
-     *            a int.
+     *            a int. {@link IdleStatus#READER_IDLE},
+     *            or {@link IdleStatus#WRITER_IDLE} states.
      */
     public final void setIdleTime(final int idleTime) {
         m_idleTime = idleTime;
@@ -144,6 +146,7 @@ public abstract class AsyncBasicDetector<Request, Response> extends AsyncAbstrac
      * <p>
      * getIdleTime
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -155,6 +158,7 @@ public abstract class AsyncBasicDetector<Request, Response> extends AsyncAbstrac
      * <p>
      * getConversation
      * </p>
+     * .
      *
      * @return a
      *         {@link org.opennms.netmgt.provision.support.AsyncClientConversation}
@@ -168,6 +172,7 @@ public abstract class AsyncBasicDetector<Request, Response> extends AsyncAbstrac
      * <p>
      * startsWith
      * </p>
+     * .
      *
      * @param prefix
      *            a {@link java.lang.String} object.
@@ -191,6 +196,7 @@ public abstract class AsyncBasicDetector<Request, Response> extends AsyncAbstrac
      * <p>
      * find
      * </p>
+     * .
      *
      * @param regex
      *            a {@link java.lang.String} object.
@@ -226,6 +232,7 @@ public abstract class AsyncBasicDetector<Request, Response> extends AsyncAbstrac
      * <p>
      * isUseSSLFilter
      * </p>
+     * .
      *
      * @return a boolean.
      */

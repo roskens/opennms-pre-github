@@ -58,24 +58,41 @@ import org.slf4j.LoggerFactory;
  * AsyncBasicDetectorMinaImpl class.
  * </p>
  *
+ * @param <Request>
+ *            the generic type
+ * @param <Response>
+ *            the generic type
  * @author Donald Desloge
  * @version $Id: $
  */
 public abstract class AsyncBasicDetectorMinaImpl<Request, Response> extends AsyncBasicDetector<Request, Response> {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(AsyncBasicDetectorMinaImpl.class);
 
+    /** The m_detector handler. */
     private BaseDetectorHandler<Request, Response> m_detectorHandler = new BaseDetectorHandler<Request, Response>();
 
+    /** The m_filter logging. */
     private IoFilterAdapter m_filterLogging = null;
 
+    /** The m_protocol codec filter. */
     private ProtocolCodecFilter m_protocolCodecFilter = new ProtocolCodecFilter(new TextLineCodecFactory(CHARSET_UTF8));
 
+    /** The m_connection factory. */
     private final ConnectionFactory m_connectionFactory;
 
+    /**
+     * The Class SlightlyMoreVerboseLoggingFilter.
+     */
     private static class SlightlyMoreVerboseLoggingFilter extends LoggingFilter {
+
+        /** The m_logger. */
         protected Logger m_logger;
 
+        /**
+         * Instantiates a new slightly more verbose logging filter.
+         */
         public SlightlyMoreVerboseLoggingFilter() {
             super();
             m_logger = LoggerFactory.getLogger(LoggingFilter.class.getName());
@@ -83,6 +100,15 @@ public abstract class AsyncBasicDetectorMinaImpl<Request, Response> extends Asyn
 
         /**
          * Log the specific flavor of IDLE that is encountered.
+         *
+         * @param nextFilter
+         *            the next filter
+         * @param session
+         *            the session
+         * @param status
+         *            the status
+         * @throws Exception
+         *             the exception
          */
         @Override
         public void sessionIdle(NextFilter nextFilter, IoSession session, IdleStatus status) throws Exception {
@@ -106,10 +132,6 @@ public abstract class AsyncBasicDetectorMinaImpl<Request, Response> extends Asyn
      *            a {@link java.lang.String} object.
      * @param port
      *            a int.
-     * @param <Request>
-     *            a Request object.
-     * @param <Response>
-     *            a Response object.
      */
     public AsyncBasicDetectorMinaImpl(final String serviceName, final int port) {
         super(serviceName, port);
@@ -139,6 +161,7 @@ public abstract class AsyncBasicDetectorMinaImpl<Request, Response> extends Asyn
      * <p>
      * dispose
      * </p>
+     * .
      */
     @Override
     public void dispose() {
@@ -208,9 +231,13 @@ public abstract class AsyncBasicDetectorMinaImpl<Request, Response> extends Asyn
     }
 
     /**
-     * @return
+     * Creates the client ssl context.
+     *
+     * @return the sSL context
      * @throws NoSuchAlgorithmException
+     *             the no such algorithm exception
      * @throws KeyManagementException
+     *             the key management exception
      */
     private static final SSLContext createClientSSLContext() throws NoSuchAlgorithmException, KeyManagementException {
         final TrustManager[] tm = { new RelaxedX509TrustManager() };
@@ -225,10 +252,14 @@ public abstract class AsyncBasicDetectorMinaImpl<Request, Response> extends Asyn
      * an exception thrown. If so, it then attempts a retry if there are more
      * retries.
      *
-     * @param connector
      * @param detectFuture
+     *            the detect future
      * @param address
+     *            the address
+     * @param init
+     *            the init
      * @param retryAttempt
+     *            the retry attempt
      * @return IoFutureListener<ConnectFuture>
      */
     private final IoFutureListener<ConnectFuture> retryAttemptListener(final DetectFutureMinaImpl detectFuture,
@@ -263,6 +294,7 @@ public abstract class AsyncBasicDetectorMinaImpl<Request, Response> extends Asyn
      * <p>
      * setDetectorHandler
      * </p>
+     * .
      *
      * @param detectorHandler
      *            a
@@ -277,6 +309,7 @@ public abstract class AsyncBasicDetectorMinaImpl<Request, Response> extends Asyn
      * <p>
      * createDetectorHandler
      * </p>
+     * .
      *
      * @param future
      *            a {@link org.opennms.netmgt.provision.DetectFuture} object.
@@ -292,6 +325,7 @@ public abstract class AsyncBasicDetectorMinaImpl<Request, Response> extends Asyn
      * <p>
      * setLoggingFilter
      * </p>
+     * .
      *
      * @param filterLogging
      *            a {@link org.apache.mina.core.filterchain.IoFilterAdapter}
@@ -305,6 +339,7 @@ public abstract class AsyncBasicDetectorMinaImpl<Request, Response> extends Asyn
      * <p>
      * getLoggingFilter
      * </p>
+     * .
      *
      * @return a {@link org.apache.mina.core.filterchain.IoFilterAdapter}
      *         object.
@@ -317,6 +352,7 @@ public abstract class AsyncBasicDetectorMinaImpl<Request, Response> extends Asyn
      * <p>
      * setProtocolCodecFilter
      * </p>
+     * .
      *
      * @param protocolCodecFilter
      *            a {@link org.apache.mina.filter.codec.ProtocolCodecFilter}
@@ -330,6 +366,7 @@ public abstract class AsyncBasicDetectorMinaImpl<Request, Response> extends Asyn
      * <p>
      * getProtocolCodecFilter
      * </p>
+     * .
      *
      * @return a {@link org.apache.mina.filter.codec.ProtocolCodecFilter}
      *         object.
@@ -342,6 +379,7 @@ public abstract class AsyncBasicDetectorMinaImpl<Request, Response> extends Asyn
      * <p>
      * getDetectorHandler
      * </p>
+     * .
      *
      * @return a {@link org.apache.mina.core.service.IoHandler} object.
      */

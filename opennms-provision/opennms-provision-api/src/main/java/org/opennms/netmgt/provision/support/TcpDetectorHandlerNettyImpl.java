@@ -34,8 +34,17 @@ import org.jboss.netty.channel.ChannelStateEvent;
 /**
  * CAUTION: This class is unused. This implementation has never been in
  * production.
+ *
+ * @param <Request>
+ *            the generic type
+ * @param <Response>
+ *            the generic type
  */
 public class TcpDetectorHandlerNettyImpl<Request, Response> extends DetectorHandlerNettyImpl<Request, Response> {
+
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.support.DetectorHandlerNettyImpl#channelOpen(org.jboss.netty.channel.ChannelHandlerContext, org.jboss.netty.channel.ChannelStateEvent)
+     */
     @Override
     public void channelOpen(ChannelHandlerContext ctx, ChannelStateEvent event) throws Exception {
         // If the conversation has no banner and no request, then we are just
