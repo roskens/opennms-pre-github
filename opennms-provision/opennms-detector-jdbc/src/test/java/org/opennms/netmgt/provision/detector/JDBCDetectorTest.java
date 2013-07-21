@@ -52,6 +52,9 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 
+/**
+ * The Class JDBCDetectorTest.
+ */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/opennms/detectors.xml",
         "classpath:/META-INF/opennms/applicationContext-soa.xml",
@@ -61,17 +64,28 @@ import org.springframework.test.context.ContextConfiguration;
 @JUnitTemporaryDatabase
 public class JDBCDetectorTest implements InitializingBean {
 
+    /** The m_detector. */
     @Autowired
     public JdbcDetector m_detector;
 
+    /** The m_data source. */
     @Autowired
     DataSource m_dataSource;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Sets the up.
+     *
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     @Before
     public void setUp() throws UnknownHostException {
         MockLogAppender.setupLogging();
@@ -97,6 +111,12 @@ public class JDBCDetectorTest implements InitializingBean {
 
     }
 
+    /**
+     * Test detector success.
+     *
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     @Test(timeout = 90000)
     public void testDetectorSuccess() throws UnknownHostException {
 
@@ -105,6 +125,12 @@ public class JDBCDetectorTest implements InitializingBean {
         assertTrue("Service wasn't detected", m_detector.isServiceDetected(InetAddressUtils.addr("127.0.0.1")));
     }
 
+    /**
+     * Test detector fail wrong user.
+     *
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     @Test(timeout = 90000)
     public void testDetectorFailWrongUser() throws UnknownHostException {
         m_detector.setUser("wrongUser");
@@ -113,6 +139,12 @@ public class JDBCDetectorTest implements InitializingBean {
         assertFalse(m_detector.isServiceDetected(InetAddressUtils.addr("127.0.0.1")));
     }
 
+    /**
+     * Test detector fail wrong url.
+     *
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     @Test(timeout = 90000)
     public void testDetectorFailWrongUrl() throws UnknownHostException {
         m_detector.setUrl("jdbc:postgres://bogus:5432/blank");

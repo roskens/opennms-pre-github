@@ -35,6 +35,9 @@ import org.opennms.netmgt.provision.support.ResponseValidator;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+/**
+ * The Class JdbcStoredProcedureDetector.
+ */
 @Component
 /**
  * <p>JdbcStoredProcedureDetector class.</p>
@@ -45,12 +48,16 @@ import org.springframework.stereotype.Component;
 @Scope("prototype")
 public class JdbcStoredProcedureDetector extends AbstractJdbcDetector {
 
+    /** The Constant DEFAULT_STORED_PROCEDURE. */
     private static final String DEFAULT_STORED_PROCEDURE = "isRunning";
 
+    /** The Constant DEFAULT_SCHEMA. */
     private static final String DEFAULT_SCHEMA = "test";
 
+    /** The m_stored procedure. */
     private String m_storedProcedure;
 
+    /** The m_schema. */
     private String m_schema = "test";
 
     /**
@@ -71,6 +78,11 @@ public class JdbcStoredProcedureDetector extends AbstractJdbcDetector {
         send(storedProcedure(createProcedureCall(getSchema(), getStoredProcedure())), isValidProcedureCall());
     }
 
+    /**
+     * Checks if is valid procedure call.
+     *
+     * @return the response validator
+     */
     private static ResponseValidator<JDBCResponse> isValidProcedureCall() {
         return new ResponseValidator<JDBCResponse>() {
 
@@ -82,6 +94,13 @@ public class JdbcStoredProcedureDetector extends AbstractJdbcDetector {
         };
     }
 
+    /**
+     * Stored procedure.
+     *
+     * @param storedProcedure
+     *            the stored procedure
+     * @return the request builder
+     */
     private static RequestBuilder<JDBCRequest> storedProcedure(final String storedProcedure) {
         return new RequestBuilder<JDBCRequest>() {
 
@@ -95,6 +114,15 @@ public class JdbcStoredProcedureDetector extends AbstractJdbcDetector {
         };
     }
 
+    /**
+     * Creates the procedure call.
+     *
+     * @param schema
+     *            the schema
+     * @param procedure
+     *            the procedure
+     * @return the string
+     */
     private String createProcedureCall(String schema, String procedure) {
         if (schema != null) {
             return String.format("%s.%s", schema, procedure);
@@ -107,6 +135,7 @@ public class JdbcStoredProcedureDetector extends AbstractJdbcDetector {
      * <p>
      * setStoredProcedure
      * </p>
+     * .
      *
      * @param storedProcedure
      *            a {@link java.lang.String} object.
@@ -119,6 +148,7 @@ public class JdbcStoredProcedureDetector extends AbstractJdbcDetector {
      * <p>
      * getStoredProcedure
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -130,6 +160,7 @@ public class JdbcStoredProcedureDetector extends AbstractJdbcDetector {
      * <p>
      * setSchema
      * </p>
+     * .
      *
      * @param schema
      *            a {@link java.lang.String} object.
@@ -142,6 +173,7 @@ public class JdbcStoredProcedureDetector extends AbstractJdbcDetector {
      * <p>
      * getSchema
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

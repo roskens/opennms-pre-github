@@ -52,23 +52,30 @@ import org.slf4j.LoggerFactory;
  */
 public class JDBCClient implements Client<JDBCRequest, JDBCResponse> {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(JDBCClient.class);
 
+    /** The m_db driver. */
     private String m_dbDriver;
 
+    /** The m_user. */
     private String m_user;
 
+    /** The m_password. */
     private String m_password;
 
+    /** The m_url. */
     private String m_url;
 
     // private ResultSet m_result;
+    /** The m_connection. */
     private Connection m_connection;
 
     /**
      * <p>
      * close
      * </p>
+     * .
      */
     @Override
     public void close() {
@@ -105,14 +112,15 @@ public class JDBCClient implements Client<JDBCRequest, JDBCResponse> {
      * <p>
      * receiveBanner
      * </p>
+     * .
      *
      * @return a
-     *         {@link org.opennms.netmgt.provision.detector.jdbc.response.JDBCResponse}
-     *         object.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws Exception
+     *             the exception
+     *             {@link org.opennms.netmgt.provision.detector.jdbc.response.JDBCResponse}
+     *             object.
      */
     @Override
     public JDBCResponse receiveBanner() throws IOException, Exception {
@@ -125,18 +133,19 @@ public class JDBCClient implements Client<JDBCRequest, JDBCResponse> {
      * <p>
      * sendRequest
      * </p>
+     * .
      *
      * @param request
      *            a
-     *            {@link org.opennms.netmgt.provision.detector.jdbc.request.JDBCRequest}
-     *            object.
      * @return a
-     *         {@link org.opennms.netmgt.provision.detector.jdbc.response.JDBCResponse}
-     *         object.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws Exception
+     *             the exception
+     *             {@link org.opennms.netmgt.provision.detector.jdbc.request.JDBCRequest}
+     *             object.
+     *             {@link org.opennms.netmgt.provision.detector.jdbc.response.JDBCResponse}
+     *             object.
      */
     @Override
     public JDBCResponse sendRequest(JDBCRequest request) throws IOException, Exception {
@@ -147,6 +156,7 @@ public class JDBCClient implements Client<JDBCRequest, JDBCResponse> {
      * <p>
      * setDbDriver
      * </p>
+     * .
      *
      * @param dbDriver
      *            a {@link java.lang.String} object.
@@ -159,6 +169,7 @@ public class JDBCClient implements Client<JDBCRequest, JDBCResponse> {
      * <p>
      * getDbDriver
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -170,6 +181,7 @@ public class JDBCClient implements Client<JDBCRequest, JDBCResponse> {
      * <p>
      * setUser
      * </p>
+     * .
      *
      * @param user
      *            a {@link java.lang.String} object.
@@ -182,6 +194,7 @@ public class JDBCClient implements Client<JDBCRequest, JDBCResponse> {
      * <p>
      * getUser
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -193,6 +206,7 @@ public class JDBCClient implements Client<JDBCRequest, JDBCResponse> {
      * <p>
      * setPassword
      * </p>
+     * .
      *
      * @param password
      *            a {@link java.lang.String} object.
@@ -205,6 +219,7 @@ public class JDBCClient implements Client<JDBCRequest, JDBCResponse> {
      * <p>
      * getPassword
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -216,6 +231,7 @@ public class JDBCClient implements Client<JDBCRequest, JDBCResponse> {
      * <p>
      * setUrl
      * </p>
+     * .
      *
      * @param url
      *            a {@link java.lang.String} object.
@@ -228,6 +244,7 @@ public class JDBCClient implements Client<JDBCRequest, JDBCResponse> {
      * <p>
      * getUrl
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

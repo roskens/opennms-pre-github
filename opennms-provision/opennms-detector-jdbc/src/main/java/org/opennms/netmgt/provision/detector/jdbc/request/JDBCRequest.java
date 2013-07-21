@@ -46,7 +46,7 @@ import org.opennms.netmgt.provision.detector.jdbc.response.JDBCResponse;
  */
 public class JDBCRequest {
 
-    /** Constant <code>Null</code> */
+    /** Constant <code>Null</code>. */
     public static final JDBCRequest Null = new JDBCRequest() {
         @Override
         public JDBCResponse send(Connection conn) throws SQLException {
@@ -54,10 +54,13 @@ public class JDBCRequest {
         }
     };
 
+    /** The m_sqy query. */
     private String m_sqyQuery;
 
+    /** The m_stored procedure. */
     private String m_storedProcedure;
 
+    /** The m_schema. */
     private String m_schema = "test";
 
     /**
@@ -72,14 +75,15 @@ public class JDBCRequest {
      * <p>
      * send
      * </p>
+     * .
      *
      * @param conn
      *            a {@link java.sql.Connection} object.
      * @return a
-     *         {@link org.opennms.netmgt.provision.detector.jdbc.response.JDBCResponse}
-     *         object.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
+     *             {@link org.opennms.netmgt.provision.detector.jdbc.response.JDBCResponse}
+     *             object.
      */
     public JDBCResponse send(Connection conn) throws SQLException {
         if (getStoredProcedure() != null) {
@@ -111,6 +115,7 @@ public class JDBCRequest {
      * <p>
      * setStoredProcedure
      * </p>
+     * .
      *
      * @param storedProcedure
      *            a {@link java.lang.String} object.
@@ -123,6 +128,7 @@ public class JDBCRequest {
      * <p>
      * getStoredProcedure
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -134,6 +140,7 @@ public class JDBCRequest {
      * <p>
      * setSchema
      * </p>
+     * .
      *
      * @param schema
      *            a {@link java.lang.String} object.
@@ -146,6 +153,7 @@ public class JDBCRequest {
      * <p>
      * getSchema
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -157,6 +165,7 @@ public class JDBCRequest {
      * <p>
      * setSqyQuery
      * </p>
+     * .
      *
      * @param sqyQuery
      *            a {@link java.lang.String} object.
@@ -169,6 +178,7 @@ public class JDBCRequest {
      * <p>
      * getSqyQuery
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

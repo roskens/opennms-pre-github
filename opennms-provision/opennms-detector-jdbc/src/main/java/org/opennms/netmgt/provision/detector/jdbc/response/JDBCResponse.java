@@ -46,23 +46,28 @@ import org.slf4j.LoggerFactory;
  */
 public class JDBCResponse {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(JDBCResponse.class);
 
+    /** The m_result. */
     private ResultSet m_result;
 
+    /** The m_is valid procedure call. */
     private boolean m_isValidProcedureCall = false;
 
+    /** The m_is valid query. */
     private boolean m_isValidQuery = false;
 
     /**
      * <p>
      * receive
      * </p>
+     * .
      *
      * @param conn
      *            a {@link java.sql.Connection} object.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     public void receive(Connection conn) throws SQLException {
 
@@ -77,6 +82,7 @@ public class JDBCResponse {
      * <p>
      * resultSetNotNull
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -100,6 +106,7 @@ public class JDBCResponse {
      * <p>
      * validProcedureCall
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -111,6 +118,7 @@ public class JDBCResponse {
      * <p>
      * setValidProcedureCall
      * </p>
+     * .
      *
      * @param isValidProcedureCall
      *            a boolean.
@@ -123,6 +131,7 @@ public class JDBCResponse {
      * <p>
      * isValidProcedureCall
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -134,6 +143,7 @@ public class JDBCResponse {
      * <p>
      * isValidQuery
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -145,6 +155,7 @@ public class JDBCResponse {
      * <p>
      * setValidQuery
      * </p>
+     * .
      *
      * @param isValidQuery
      *            a boolean.

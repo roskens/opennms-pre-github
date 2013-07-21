@@ -35,6 +35,9 @@ import org.opennms.netmgt.provision.support.ResponseValidator;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+/**
+ * The Class JdbcQueryDetector.
+ */
 @Component
 /**
  * <p>JdbcQueryDetector class.</p>
@@ -45,6 +48,7 @@ import org.springframework.stereotype.Component;
 @Scope("prototype")
 public class JdbcQueryDetector extends AbstractJdbcDetector {
 
+    /** The m_sql query. */
     private String m_sqlQuery;
 
     /**
@@ -63,6 +67,11 @@ public class JdbcQueryDetector extends AbstractJdbcDetector {
         send(sqlQuery(getSqlQuery()), isValidQuery());
     }
 
+    /**
+     * Checks if is valid query.
+     *
+     * @return the response validator
+     */
     private static ResponseValidator<JDBCResponse> isValidQuery() {
         return new ResponseValidator<JDBCResponse>() {
             @Override
@@ -72,6 +81,13 @@ public class JdbcQueryDetector extends AbstractJdbcDetector {
         };
     }
 
+    /**
+     * Sql query.
+     *
+     * @param sqlQuery
+     *            the sql query
+     * @return the request builder
+     */
     private static RequestBuilder<JDBCRequest> sqlQuery(final String sqlQuery) {
         return new RequestBuilder<JDBCRequest>() {
             @Override
@@ -87,6 +103,7 @@ public class JdbcQueryDetector extends AbstractJdbcDetector {
      * <p>
      * setSqlQuery
      * </p>
+     * .
      *
      * @param sqlQuery
      *            a {@link java.lang.String} object.
@@ -99,6 +116,7 @@ public class JdbcQueryDetector extends AbstractJdbcDetector {
      * <p>
      * getSqlQuery
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

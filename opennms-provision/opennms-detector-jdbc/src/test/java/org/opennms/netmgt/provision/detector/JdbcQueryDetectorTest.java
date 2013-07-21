@@ -53,6 +53,9 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 
+/**
+ * The Class JdbcQueryDetectorTest.
+ */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/opennms/detectors.xml",
         "classpath:/META-INF/opennms/applicationContext-soa.xml",
@@ -61,17 +64,28 @@ import org.springframework.test.context.ContextConfiguration;
 @JUnitTemporaryDatabase
 public class JdbcQueryDetectorTest implements InitializingBean {
 
+    /** The m_detector. */
     @Autowired
     public JdbcQueryDetector m_detector;
 
+    /** The m_data source. */
     @Autowired
     public DataSource m_dataSource;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Sets the up.
+     *
+     * @throws SQLException
+     *             the sQL exception
+     */
     @Before
     public void setUp() throws SQLException {
         MockLogAppender.setupLogging();
@@ -98,17 +112,32 @@ public class JdbcQueryDetectorTest implements InitializingBean {
         m_detector.setSqlQuery("select count(nodeid) from node");
     }
 
+    /**
+     * Tear down.
+     */
     @After
     public void tearDown() {
         MockLogAppender.assertNoFatalOrGreater();
     }
 
+    /**
+     * Test detector success.
+     *
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     @Test(timeout = 90000)
     public void testDetectorSuccess() throws UnknownHostException {
         m_detector.init();
         assertTrue("JDBCQueryDetector should work", m_detector.isServiceDetected(InetAddressUtils.addr("127.0.0.1")));
     }
 
+    /**
+     * Test stored procedure fail.
+     *
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     @Test(timeout = 90000)
     public void testStoredProcedureFail() throws UnknownHostException {
         m_detector.setSqlQuery("bogus");
@@ -116,6 +145,12 @@ public class JdbcQueryDetectorTest implements InitializingBean {
         assertFalse(m_detector.isServiceDetected(InetAddressUtils.addr("127.0.0.1")));
     }
 
+    /**
+     * Test wrong user name.
+     *
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     @Test(timeout = 90000)
     public void testWrongUserName() throws UnknownHostException {
         m_detector.setUser("wrongUserName");

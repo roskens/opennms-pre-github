@@ -46,15 +46,19 @@ import org.opennms.netmgt.provision.support.ResponseValidator;
  */
 public abstract class AbstractJdbcDetector extends BasicDetector<JDBCRequest, JDBCResponse> {
 
-    /** Constant <code>DEFAULT_PORT=3306</code> */
+    /** Constant <code>DEFAULT_PORT=3306</code>. */
     protected static int DEFAULT_PORT = 3306;
 
+    /** The m_db driver. */
     private String m_dbDriver = DBTools.DEFAULT_JDBC_DRIVER;
 
+    /** The m_user. */
     private String m_user = DBTools.DEFAULT_DATABASE_USER;
 
+    /** The m_password. */
     private String m_password = DBTools.DEFAULT_DATABASE_PASSWORD;
 
+    /** The m_url. */
     private String m_url = DBTools.DEFAULT_URL;
 
     /**
@@ -76,6 +80,7 @@ public abstract class AbstractJdbcDetector extends BasicDetector<JDBCRequest, JD
      * <p>
      * resultSetNotNull
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.provision.support.ResponseValidator}
      *         object.
@@ -105,6 +110,7 @@ public abstract class AbstractJdbcDetector extends BasicDetector<JDBCRequest, JD
      * <p>
      * setDbDriver
      * </p>
+     * .
      *
      * @param dbDriver
      *            a {@link java.lang.String} object.
@@ -117,6 +123,7 @@ public abstract class AbstractJdbcDetector extends BasicDetector<JDBCRequest, JD
      * <p>
      * getDbDriver
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -128,6 +135,7 @@ public abstract class AbstractJdbcDetector extends BasicDetector<JDBCRequest, JD
      * <p>
      * setUser
      * </p>
+     * .
      *
      * @param username
      *            a {@link java.lang.String} object.
@@ -140,6 +148,7 @@ public abstract class AbstractJdbcDetector extends BasicDetector<JDBCRequest, JD
      * <p>
      * getUser
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -151,6 +160,7 @@ public abstract class AbstractJdbcDetector extends BasicDetector<JDBCRequest, JD
      * <p>
      * setPassword
      * </p>
+     * .
      *
      * @param password
      *            a {@link java.lang.String} object.
@@ -163,6 +173,7 @@ public abstract class AbstractJdbcDetector extends BasicDetector<JDBCRequest, JD
      * <p>
      * getPassword
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -174,6 +185,7 @@ public abstract class AbstractJdbcDetector extends BasicDetector<JDBCRequest, JD
      * <p>
      * setUrl
      * </p>
+     * .
      *
      * @param url
      *            a {@link java.lang.String} object.
@@ -186,6 +198,7 @@ public abstract class AbstractJdbcDetector extends BasicDetector<JDBCRequest, JD
      * <p>
      * getUrl
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
