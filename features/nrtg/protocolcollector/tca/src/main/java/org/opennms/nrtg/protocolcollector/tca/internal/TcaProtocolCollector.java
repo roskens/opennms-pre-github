@@ -49,12 +49,16 @@ import org.slf4j.LoggerFactory;
  */
 public class TcaProtocolCollector implements ProtocolCollector {
 
+    /** The logger. */
     private static Logger logger = LoggerFactory.getLogger(TcaProtocolCollector.class);
 
+    /** The Constant PROTOCOL. */
     private static final String PROTOCOL = "TCA";
 
+    /** The m_snmp strategy. */
     private SnmpStrategy m_snmpStrategy;
 
+    /** The keywords. */
     private final List<String> keywords = new ArrayList<String>();
     {
         keywords.add("inboundDelay");
@@ -65,14 +69,34 @@ public class TcaProtocolCollector implements ProtocolCollector {
 
     }
 
+    /**
+     * Gets the snmp strategy.
+     *
+     * @return the snmp strategy
+     */
     public SnmpStrategy getSnmpStrategy() {
         return m_snmpStrategy;
     }
 
+    /**
+     * Sets the snmp strategy.
+     *
+     * @param snmpStrategy
+     *            the new snmp strategy
+     */
     public void setSnmpStrategy(SnmpStrategy snmpStrategy) {
         m_snmpStrategy = snmpStrategy;
     }
 
+    /**
+     * Gets the composite value.
+     *
+     * @param keyword
+     *            the keyword
+     * @param snmpResult
+     *            the snmp result
+     * @return the composite value
+     */
     protected String getCompositeValue(String keyword, String snmpResult) {
         // String sampleSnmpResult =
         // "|25|1327451762,42,23,11,0,1|1327451763,11,0,11,0,1|1327451764,11,0,11,0,1|1327451765,11,0,11,0,1|1327451766,11,0,11,0,1|1327451767,11,0,11,0,1|1327451768,11,0,11,0,1|1327451769,11,0,11,0,1|1327451770,11,0,11,0,1|1327451771,11,0,11,0,1|1327451772,11,0,11,0,1|1327451773,11,0,11,0,1|1327451774,11,0,11,0,1|1327451775,11,0,11,0,1|1327451776,11,0,11,0,1|1327451777,11,0,11,0,1|1327451778,11,0,11,0,1|1327451779,11,0,11,0,1|1327451780,11,0,11,0,1|1327451781,11,0,11,0,1|1327451782,11,0,11,0,1|1327451783,11,0,11,0,1|1327451784,11,0,11,0,1|1327451785,11,0,11,0,1|1327451786,12,0,11,0,423|";
@@ -88,6 +112,9 @@ public class TcaProtocolCollector implements ProtocolCollector {
         return result;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.nrtg.api.ProtocolCollector#collect(org.opennms.nrtg.api.model.CollectionJob)
+     */
     @Override
     public CollectionJob collect(final CollectionJob collectionJob) {
         logger.info("TcaProtocolCollector is collecting collectionJob '{}'", collectionJob);

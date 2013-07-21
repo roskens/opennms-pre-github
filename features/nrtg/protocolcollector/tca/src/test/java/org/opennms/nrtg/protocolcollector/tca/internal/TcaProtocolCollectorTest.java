@@ -45,6 +45,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 
 /**
+ * The Class TcaProtocolCollectorTest.
+ *
  * @author Markus Neumann
  */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
@@ -53,25 +55,40 @@ import org.springframework.test.context.ContextConfiguration;
 @JUnitSnmpAgent(port = 9161, host = "127.0.0.1", resource = "classpath:juniperTcaSample.properties")
 public class TcaProtocolCollectorTest implements InitializingBean {
 
+    /** The protocol collector. */
     @Autowired
     private ProtocolCollector protocolCollector;
 
+    /** The collection job. */
     private CollectionJob collectionJob;
 
+    /** The localhost. */
     private InetAddress localhost;
 
+    /** The snmp agent config. */
     private SnmpAgentConfig snmpAgentConfig;
 
+    /** The destinations. */
     private Set<String> destinations;
 
+    /** The m_snmp peer factory. */
     @Autowired
     private SnmpPeerFactory m_snmpPeerFactory;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Setup.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setup() throws Exception {
         SnmpPeerFactory.setInstance(m_snmpPeerFactory);
@@ -83,6 +100,9 @@ public class TcaProtocolCollectorTest implements InitializingBean {
         destinations.add("test");
     }
 
+    /**
+     * Test get composite value.
+     */
     @Test
     public void testGetCompositeValue() {
         // snmpResult without "|amount-of-elements|"
@@ -107,6 +127,9 @@ public class TcaProtocolCollectorTest implements InitializingBean {
         Assert.assertNull(tcaProtocolCollector.getCompositeValue("inboundDelay", null));
     }
 
+    /**
+     * Test collect with compount mertic.
+     */
     @Test
     public void testCollectWithCompountMertic() {
 
@@ -123,11 +146,20 @@ public class TcaProtocolCollectorTest implements InitializingBean {
         Assert.assertEquals(result.getMetricValue(testMetric), testMetricValue);
     }
 
+    /**
+     * Test get protocol.
+     */
     @Test
     public void testGetProtocol() {
         Assert.assertEquals("TCA", protocolCollector.getProtcol());
     }
 
+    /**
+     * Test agent.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testAgent() throws Exception {
         SnmpValue snmpValue = SnmpUtils.get(snmpAgentConfig, SnmpObjId.get(".1.3.6.1.2.1.1.1.0"));
