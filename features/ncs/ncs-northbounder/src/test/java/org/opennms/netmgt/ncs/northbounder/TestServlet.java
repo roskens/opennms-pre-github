@@ -37,20 +37,35 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.IOUtils;
 
+/**
+ * The Class TestServlet.
+ */
 @SuppressWarnings("serial")
 public class TestServlet extends HttpServlet {
 
+    /** The m_posted. */
     private static String m_posted = null;
 
+    /* (non-Javadoc)
+     * @see javax.servlet.http.HttpServlet#doPost(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         m_posted = IOUtils.toString(req.getReader());
     }
 
+    /**
+     * Reset.
+     */
     public static void reset() {
         m_posted = null;
     }
 
+    /**
+     * Gets the posted.
+     *
+     * @return the posted
+     */
     public static String getPosted() {
         return m_posted;
     }

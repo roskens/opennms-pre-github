@@ -35,24 +35,48 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+/**
+ * The Class ServiceAlarmNotification.
+ */
 @XmlRootElement(name = "ServiceAlarmNotification")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class ServiceAlarmNotification {
 
+    /** The m_service alarms. */
     @XmlElement(name = "ServiceAlarm")
     List<ServiceAlarm> m_serviceAlarms;
 
+    /**
+     * Instantiates a new service alarm notification.
+     */
     public ServiceAlarmNotification() {
     }
 
+    /**
+     * Instantiates a new service alarm notification.
+     *
+     * @param alarms
+     *            the alarms
+     */
     public ServiceAlarmNotification(List<ServiceAlarm> alarms) {
         m_serviceAlarms = alarms;
     }
 
+    /**
+     * Gets the service alarms.
+     *
+     * @return the service alarms
+     */
     public List<ServiceAlarm> getServiceAlarms() {
         return m_serviceAlarms;
     }
 
+    /**
+     * Sets the service alarms.
+     *
+     * @param serviceAlarms
+     *            the new service alarms
+     */
     public void setServiceAlarms(List<ServiceAlarm> serviceAlarms) {
         m_serviceAlarms = serviceAlarms;
     }

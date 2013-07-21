@@ -57,10 +57,18 @@ import org.xml.sax.SAXException;
  */
 public class MarshallTest {
 
+    /** The m_marshaller. */
     private Marshaller m_marshaller;
 
+    /** The m_unmarshaller. */
     private Unmarshaller m_unmarshaller;
 
+    /**
+     * Sets the up.
+     *
+     * @throws JAXBException
+     *             the jAXB exception
+     */
     @Before
     public void setUp() throws JAXBException {
 
@@ -73,6 +81,17 @@ public class MarshallTest {
 
     }
 
+    /**
+     * Marshall to ut f8.
+     *
+     * @param <T>
+     *            the generic type
+     * @param t
+     *            the t
+     * @return the byte[]
+     * @throws JAXBException
+     *             the jAXB exception
+     */
     private <T> byte[] marshallToUTF8(T t) throws JAXBException {
 
         ByteArrayOutputStream out = new ByteArrayOutputStream();
@@ -86,11 +105,34 @@ public class MarshallTest {
         return utf8;
     }
 
+    /**
+     * Unmarshall from ut f8.
+     *
+     * @param <T>
+     *            the generic type
+     * @param utf8
+     *            the utf8
+     * @param expected
+     *            the expected
+     * @return the t
+     * @throws JAXBException
+     *             the jAXB exception
+     */
     private <T> T unmarshallFromUTF8(byte[] utf8, Class<T> expected) throws JAXBException {
         Source source = new StreamSource(new ByteArrayInputStream(utf8));
         return m_unmarshaller.unmarshal(source, expected).getValue();
     }
 
+    /**
+     * Test marshall.
+     *
+     * @throws JAXBException
+     *             the jAXB exception
+     * @throws UnsupportedEncodingException
+     *             the unsupported encoding exception
+     * @throws SAXException
+     *             the sAX exception
+     */
     @Test
     public void testMarshall() throws JAXBException, UnsupportedEncodingException, SAXException {
 

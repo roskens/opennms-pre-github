@@ -34,14 +34,22 @@ import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 
+/**
+ * The Class NCSNorthbounderManager.
+ */
 public class NCSNorthbounderManager implements InitializingBean, DisposableBean {
 
+    /** The m_service registry. */
     @Autowired
     private ServiceRegistry m_serviceRegistry;
 
+    /** The m_config dao. */
     @Autowired
     private NCSNorthbounderConfigDao m_configDao;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         NCSNorthbounderConfig config = m_configDao.getConfig();
@@ -52,6 +60,9 @@ public class NCSNorthbounderManager implements InitializingBean, DisposableBean 
 
     }
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.DisposableBean#destroy()
+     */
     @Override
     public void destroy() throws Exception {
     }

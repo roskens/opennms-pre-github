@@ -78,6 +78,7 @@ import org.slf4j.LoggerFactory;
  */
 public class NCSNorthbounder extends AbstractNorthbounder {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(NCSNorthbounder.class);
 
     // FIXME: This should be wired with Spring but is implmented as was in the
@@ -91,16 +92,27 @@ public class NCSNorthbounder extends AbstractNorthbounder {
         java.security.Security.addProvider(new EmptyKeyRelaxedTrustProvider());
     }
 
+    /** The Constant COMPONENT_NAME. */
     private static final String COMPONENT_NAME = "componentName";
 
+    /** The Constant COMPONENT_FOREIGN_ID. */
     private static final String COMPONENT_FOREIGN_ID = "componentForeignId";
 
+    /** The Constant COMPONENT_FOREIGN_SOURCE. */
     private static final String COMPONENT_FOREIGN_SOURCE = "componentForeignSource";
 
+    /** The Constant COMPONENT_TYPE. */
     private static final String COMPONENT_TYPE = "componentType";
 
+    /** The m_config. */
     private NCSNorthbounderConfig m_config;
 
+    /**
+     * Instantiates a new nCS northbounder.
+     *
+     * @param config
+     *            the config
+     */
     public NCSNorthbounder(NCSNorthbounderConfig config) {
         super("NCSNorthbounder");
 
@@ -110,6 +122,9 @@ public class NCSNorthbounder extends AbstractNorthbounder {
 
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.alarmd.api.support.AbstractNorthbounder#accepts(org.opennms.netmgt.alarmd.api.NorthboundAlarm)
+     */
     @Override
     public boolean accepts(NorthboundAlarm alarm) {
         if (!m_config.isEnabled())
@@ -145,6 +160,13 @@ public class NCSNorthbounder extends AbstractNorthbounder {
 
     }
 
+    /**
+     * To service alarms.
+     *
+     * @param alarms
+     *            the alarms
+     * @return the service alarm notification
+     */
     private ServiceAlarmNotification toServiceAlarms(List<NorthboundAlarm> alarms) {
 
         List<ServiceAlarm> serviceAlarms = new ArrayList<ServiceAlarm>(alarms.size());
@@ -156,6 +178,13 @@ public class NCSNorthbounder extends AbstractNorthbounder {
 
     }
 
+    /**
+     * To service alarm.
+     *
+     * @param alarm
+     *            the alarm
+     * @return the service alarm
+     */
     private ServiceAlarm toServiceAlarm(NorthboundAlarm alarm) {
         AlarmType alarmType = alarm.getAlarmType();
 
@@ -167,6 +196,13 @@ public class NCSNorthbounder extends AbstractNorthbounder {
         return new ServiceAlarm(id, name, alarmType == AlarmType.PROBLEM ? "Down" : "Up");
     }
 
+    /**
+     * Gets the parameter map.
+     *
+     * @param parmString
+     *            the parm string
+     * @return the parameter map
+     */
     Map<String, String> getParameterMap(String parmString) {
 
         Map<String, String> parmMap = new HashMap<String, String>();
@@ -191,6 +227,9 @@ public class NCSNorthbounder extends AbstractNorthbounder {
 
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.alarmd.api.support.AbstractNorthbounder#forwardAlarms(java.util.List)
+     */
     @Override
     public void forwardAlarms(List<NorthboundAlarm> alarms) throws NorthbounderException {
 
@@ -204,6 +243,12 @@ public class NCSNorthbounder extends AbstractNorthbounder {
         postAlarms(entity);
     }
 
+    /**
+     * Post alarms.
+     *
+     * @param entity
+     *            the entity
+     */
     private void postAlarms(HttpEntity entity) {
         // Need a configuration bean for these
 
@@ -270,6 +315,13 @@ public class NCSNorthbounder extends AbstractNorthbounder {
         LOG.debug(response != null ? response.getStatusLine().getReasonPhrase() : "Response was null");
     }
 
+    /**
+     * Creates the entity.
+     *
+     * @param alarms
+     *            the alarms
+     * @return the http entity
+     */
     private HttpEntity createEntity(List<NorthboundAlarm> alarms) {
 
         try {
@@ -290,6 +342,13 @@ public class NCSNorthbounder extends AbstractNorthbounder {
         }
     }
 
+    /**
+     * Determine http version.
+     *
+     * @param version
+     *            the version
+     * @return the http version
+     */
     private HttpVersion determineHttpVersion(String version) {
         HttpVersion httpVersion = null;
         if (version != "1.0") {
@@ -300,6 +359,21 @@ public class NCSNorthbounder extends AbstractNorthbounder {
         return httpVersion;
     }
 
+    /**
+     * Builds the params.
+     *
+     * @param protocolVersion
+     *            the protocol version
+     * @param connectionTimeout
+     *            the connection timeout
+     * @param socketTimeout
+     *            the socket timeout
+     * @param policy
+     *            the policy
+     * @param vHost
+     *            the v host
+     * @return the http params
+     */
     private HttpParams buildParams(HttpVersion protocolVersion, int connectionTimeout, int socketTimeout,
             String policy, String vHost) {
         HttpParams parms = new BasicHttpParams();
@@ -313,10 +387,21 @@ public class NCSNorthbounder extends AbstractNorthbounder {
         return parms;
     }
 
+    /**
+     * Gets the config.
+     *
+     * @return the config
+     */
     public NCSNorthbounderConfig getConfig() {
         return m_config;
     }
 
+    /**
+     * Sets the config.
+     *
+     * @param config
+     *            the new config
+     */
     public void setConfig(NCSNorthbounderConfig config) {
         m_config = config;
     }

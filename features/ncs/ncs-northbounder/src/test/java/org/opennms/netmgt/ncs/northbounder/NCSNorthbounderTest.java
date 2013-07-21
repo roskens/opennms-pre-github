@@ -52,7 +52,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
  * Tests the HTTP North Bound Interface
- * FIXME: This is far from completed
+ * FIXME: This is far from completed.
  *
  * @author <a mailto:brozow@opennms.org>Matt Brozowski</a>
  * @author <a mailto:david@opennms.org>David Hustace</a>
@@ -61,8 +61,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @TestExecutionListeners({ JUnitHttpServerExecutionListener.class })
 public class NCSNorthbounderTest {
 
+    /** The url. */
     String url = "https://localhost/fmpm/restful/NotificationMessageRelay";
 
+    /** The xml. */
     String xml = "" + "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n"
             + "<ServiceAlarmNotification xmlns=\"http://junosspace.juniper.net/monitoring\">\n"
             + "    <ServiceAlarm>\n" + "        <Id>FS:1</Id>\n" + "        <Name>NAM1</Name>\n"
@@ -73,6 +75,12 @@ public class NCSNorthbounderTest {
             + "    <ServiceAlarm>\n" + "        <Id>FS:4</Id>\n" + "        <Name>NAM4</Name>\n"
             + "        <Status>Up</Status>\n" + "    </ServiceAlarm>\n" + "</ServiceAlarmNotification>\n" + "";
 
+    /**
+     * Test test servlet.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @JUnitHttpServer(port = 10342, https = false, webapps = { @Webapp(context = "/fmpm", path = "src/test/resources/test-webapp") })
     public void testTestServlet() throws Exception {
@@ -97,6 +105,12 @@ public class NCSNorthbounderTest {
     // filter alarms
     // what about resolutions?
 
+    /**
+     * Test forward alarms.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @JUnitHttpServer(port = 10342, https = false, webapps = { @Webapp(context = "/fmpm", path = "src/test/resources/test-webapp") })
     public void testForwardAlarms() throws Exception {
@@ -119,6 +133,13 @@ public class NCSNorthbounderTest {
 
     }
 
+    /**
+     * Alarm.
+     *
+     * @param alarmId
+     *            the alarm id
+     * @return the northbound alarm
+     */
     private NorthboundAlarm alarm(int alarmId) {
         OnmsAlarm alarm = new OnmsAlarm();
         alarm.setId(alarmId);
@@ -131,6 +152,12 @@ public class NCSNorthbounderTest {
         return new NorthboundAlarm(alarm);
     }
 
+    /**
+     * Test forward alarms to https.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @JUnitHttpServer(port = 10342, https = true, webapps = { @Webapp(context = "/fmpm", path = "src/test/resources/test-webapp") })
     public void testForwardAlarmsToHttps() throws Exception {

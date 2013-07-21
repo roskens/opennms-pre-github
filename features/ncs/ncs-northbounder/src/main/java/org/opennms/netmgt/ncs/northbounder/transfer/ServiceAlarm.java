@@ -33,48 +33,100 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+/**
+ * The Class ServiceAlarm.
+ */
 @XmlRootElement(name = "ServiceAlarm")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class ServiceAlarm {
 
+    /** The m_id. */
     @XmlElement(name = "Id")
     private String m_id;
 
+    /** The m_name. */
     @XmlElement(name = "Name")
     private String m_name;
 
+    /** The m_status. */
     @XmlElement(name = "Status")
     private String m_status;
 
+    /**
+     * Instantiates a new service alarm.
+     */
     public ServiceAlarm() {
     }
 
+    /**
+     * Instantiates a new service alarm.
+     *
+     * @param id
+     *            the id
+     * @param name
+     *            the name
+     * @param status
+     *            the status
+     */
     public ServiceAlarm(String id, String name, String status) {
         m_id = id;
         m_name = name;
         m_status = status;
     }
 
+    /**
+     * Gets the id.
+     *
+     * @return the id
+     */
     public String getId() {
         return m_id;
     }
 
+    /**
+     * Sets the id.
+     *
+     * @param id
+     *            the new id
+     */
     public void setId(String id) {
         m_id = id;
     }
 
+    /**
+     * Gets the name.
+     *
+     * @return the name
+     */
     public String getName() {
         return m_name;
     }
 
+    /**
+     * Sets the name.
+     *
+     * @param name
+     *            the new name
+     */
     public void setName(String name) {
         m_name = name;
     }
 
+    /**
+     * Gets the status.
+     *
+     * @return the status
+     */
     public String getStatus() {
         return m_status;
     }
 
+    /**
+     * Sets the status.
+     *
+     * @param status
+     *            the new status
+     */
     public void setStatus(String status) {
         m_status = status;
     }

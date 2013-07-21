@@ -30,17 +30,31 @@ package org.opennms.netmgt.ncs.northbounder;
 
 import org.opennms.core.xml.AbstractJaxbConfigDao;
 
+/**
+ * The Class NCSNorthbounderConfigDao.
+ */
 public class NCSNorthbounderConfigDao extends AbstractJaxbConfigDao<NCSNorthbounderConfig, NCSNorthbounderConfig> {
 
+    /**
+     * Instantiates a new nCS northbounder config dao.
+     */
     public NCSNorthbounderConfigDao() {
         super(NCSNorthbounderConfig.class, "Config for NCS Northbounder");
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.core.xml.AbstractJaxbConfigDao#translateConfig(java.lang.Object)
+     */
     @Override
     protected NCSNorthbounderConfig translateConfig(NCSNorthbounderConfig config) {
         return config;
     }
 
+    /**
+     * Gets the config.
+     *
+     * @return the config
+     */
     public NCSNorthbounderConfig getConfig() {
         return getContainer().getObject();
     }

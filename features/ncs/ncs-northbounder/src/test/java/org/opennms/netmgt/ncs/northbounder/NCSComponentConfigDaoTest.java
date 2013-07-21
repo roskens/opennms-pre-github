@@ -36,8 +36,12 @@ import org.opennms.netmgt.ncs.northbounder.NCSNorthbounderConfig.HttpMethod;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 
+/**
+ * The Class NCSComponentConfigDaoTest.
+ */
 public class NCSComponentConfigDaoTest {
 
+    /** The xml. */
     String xml = "" + "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n"
             + "<ncs-northbounder-config enabled=\"true\" nagles-delay=\"10000\"" + "		scheme=\"https\" "
             + "		port=\"10321\"" + "		path=\"/fmpm/restful/NotificationMessageRelay\"" + "		query=\"queryString\""
@@ -49,6 +53,9 @@ public class NCSComponentConfigDaoTest {
      * private String m_query;
      * @XmlAttribute(name="fragment", required=false)
      * private String m_fragment;
+     */
+    /**
+     * Test load.
      */
     @Test
     public void testLoad() {
