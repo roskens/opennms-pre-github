@@ -54,6 +54,7 @@ import org.slf4j.LoggerFactory;
  */
 public class ServletInitializer extends Object {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(ServletInitializer.class);
 
     /**
@@ -77,8 +78,8 @@ public class ServletInitializer extends Object {
      * @param context
      *            the <code>ServletContext</code> instance in which your
      *            servlet is running
-     * @throws javax.servlet.ServletException
-     *             if any.
+     * @throws ServletException
+     *             the servlet exception
      */
     public static synchronized void init(ServletContext context) throws ServletException {
         if (context == null) {
@@ -163,6 +164,20 @@ public class ServletInitializer extends Object {
         // Vault.setDataSource(DataSourceFactory.getInstance());
     }
 
+    /**
+     * Load properties from file.
+     *
+     * @param opennmsProperties
+     *            the opennms properties
+     * @param propertiesFile
+     *            the properties file
+     * @throws FileNotFoundException
+     *             the file not found exception
+     * @throws ServletException
+     *             the servlet exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     private static void loadPropertiesFromFile(Properties opennmsProperties, String propertiesFile)
             throws FileNotFoundException, ServletException, IOException {
         InputStream configurationStream = new FileInputStream(propertiesFile);
@@ -170,6 +185,20 @@ public class ServletInitializer extends Object {
         configurationStream.close();
     }
 
+    /**
+     * Load properties from context resource.
+     *
+     * @param context
+     *            the context
+     * @param properties
+     *            the properties
+     * @param propertiesResource
+     *            the properties resource
+     * @throws ServletException
+     *             the servlet exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     private static void loadPropertiesFromContextResource(ServletContext context, Properties properties,
             String propertiesResource) throws ServletException, IOException {
         InputStream configurationStream = context.getResourceAsStream(propertiesResource);
@@ -193,8 +222,8 @@ public class ServletInitializer extends Object {
      * @param context
      *            the <code>ServletContext</code> instance in which your
      *            servlet is running
-     * @throws javax.servlet.ServletException
-     *             if any.
+     * @throws ServletException
+     *             the servlet exception
      */
     public static synchronized void destroy(ServletContext context) throws ServletException {
     }
@@ -203,8 +232,8 @@ public class ServletInitializer extends Object {
      * Return the absolute pathname of where OpenNMS's configuration can be
      * found.
      *
-     * @deprecated Use {@link Vault#getHomeDir Vault.getHomeDir}instead.
      * @return a {@link java.lang.String} object.
+     * @deprecated Use {@link Vault#getHomeDir Vault.getHomeDir}instead.
      */
     public static String getHomeDir() {
         return (Vault.getHomeDir());

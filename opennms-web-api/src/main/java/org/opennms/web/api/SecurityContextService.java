@@ -28,17 +28,20 @@
 
 package org.opennms.web.api;
 
+/**
+ * The Interface SecurityContextService.
+ */
 public interface SecurityContextService {
 
     /**
-     * Get the user name about the currently logged in user
+     * Get the user name about the currently logged in user.
      *
      * @return user name from security context otherwise null
      */
     public String getUsername();
 
     /**
-     * Get the user password about the currently logged in user
+     * Get the user password about the currently logged in user.
      *
      * @return user password from security context otherwise null
      */

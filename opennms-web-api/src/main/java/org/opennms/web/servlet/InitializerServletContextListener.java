@@ -55,8 +55,10 @@ import org.slf4j.LoggerFactory;
  */
 public class InitializerServletContextListener implements ServletContextListener {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(InitializerServletContextListener.class);
 
+    /** The rtc check timer. */
     private Timer rtcCheckTimer = null;
 
     /** {@inheritDoc} */
@@ -106,13 +108,27 @@ public class InitializerServletContextListener implements ServletContextListener
         }
     }
 
+    /**
+     * The Class RTCPostSubscriberTimerTask.
+     */
     public class RTCPostSubscriberTimerTask extends TimerTask {
+
+        /** The m_categorylist. */
         private CategoryList m_categorylist;
 
+        /**
+         * Instantiates a new rTC post subscriber timer task.
+         *
+         * @throws ServletException
+         *             the servlet exception
+         */
         public RTCPostSubscriberTimerTask() throws ServletException {
             m_categorylist = new CategoryList();
         }
 
+        /* (non-Javadoc)
+         * @see java.util.TimerTask#run()
+         */
         @Override
         public void run() {
             try {

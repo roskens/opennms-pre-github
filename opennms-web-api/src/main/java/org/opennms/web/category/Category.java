@@ -52,6 +52,7 @@ import org.slf4j.LoggerFactory;
  */
 public class Category {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(Category.class);
 
     /** The category definition (from the categories.xml file). */
@@ -203,6 +204,8 @@ public class Category {
      * other words, this method is only for debugging purposes, please do not
      * use in normal situations. Instead please use the public methods of this
      * class.
+     *
+     * @return the rtc category
      */
     org.opennms.netmgt.xml.rtc.Category getRtcCategory() {
         return m_rtcCategory;
@@ -282,12 +285,12 @@ public class Category {
      * Returns the outage background color for this category.
      *
      * @return a {@link java.lang.String} object.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public String getOutageColor() throws IOException, MarshalException, ValidationException {
         if (m_lastUpdated == null) {
@@ -301,12 +304,12 @@ public class Category {
      * Returns the availability background color for this category.
      *
      * @return a {@link java.lang.String} object.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public String getAvailColor() throws IOException, MarshalException, ValidationException {
         if (m_lastUpdated == null) {
@@ -320,12 +323,12 @@ public class Category {
      * Returns the outage CSS class for this category.
      *
      * @return a {@link java.lang.String} object.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public String getOutageClass() throws IOException, MarshalException, ValidationException {
         if (m_lastUpdated == null) {
@@ -339,12 +342,12 @@ public class Category {
      * Returns the availability CSS class for this category.
      *
      * @return a {@link java.lang.String} object.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public String getAvailClass() throws IOException, MarshalException, ValidationException {
         if (m_lastUpdated == null) {

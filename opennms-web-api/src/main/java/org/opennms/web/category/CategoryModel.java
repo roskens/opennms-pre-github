@@ -63,6 +63,7 @@ import org.slf4j.LoggerFactory;
  */
 public class CategoryModel extends Object {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(CategoryModel.class);
 
     /** The name of the category that includes all services and nodes. */
@@ -75,12 +76,12 @@ public class CategoryModel extends Object {
      * Return the <code>CategoryModel</code>.
      *
      * @return a {@link org.opennms.web.category.CategoryModel} object.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public static synchronized CategoryModel getInstance() throws IOException, MarshalException, ValidationException {
         if (CategoryModel.m_instance == null) {
@@ -96,7 +97,16 @@ public class CategoryModel extends Object {
     /** A reference to the CategoryFactory to get to category definitions. */
     private CatFactory m_factory = null;
 
-    /** The Log4J category for logging status and debug messages. */
+    /**
+     * The Log4J category for logging status and debug messages.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     */
 
     /**
      * Create the instance of the CategoryModel.
@@ -229,8 +239,8 @@ public class CategoryModel extends Object {
      * @param nodeId
      *            a int.
      * @return a double.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     public double getNodeAvailability(int nodeId) throws SQLException {
         Calendar cal = new GregorianCalendar();
@@ -253,8 +263,8 @@ public class CategoryModel extends Object {
      * @param end
      *            a {@link java.util.Date} object.
      * @return a double.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     public double getNodeAvailability(int nodeId, Date start, Date end) throws SQLException {
         if (start == null || end == null) {
@@ -307,8 +317,8 @@ public class CategoryModel extends Object {
      * @param nodeIds
      *            a {@link java.util.Set} object.
      * @return a {@link java.util.Map} object.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     public Map<Integer, Double> getNodeAvailability(Set<Integer> nodeIds) throws SQLException {
         Calendar cal = new GregorianCalendar();
@@ -331,8 +341,8 @@ public class CategoryModel extends Object {
      * @param end
      *            a {@link java.util.Date} object.
      * @return a {@link java.util.Map} object.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     public Map<Integer, Double> getNodeAvailability(Set<Integer> nodeIds, Date start, Date end) throws SQLException {
         if (nodeIds == null || nodeIds.size() == 0) {
@@ -402,8 +412,8 @@ public class CategoryModel extends Object {
      * @param ipAddr
      *            a {@link java.lang.String} object.
      * @return a double.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     public double getInterfaceAvailability(int nodeId, String ipAddr) throws SQLException {
         if (ipAddr == null) {
@@ -433,8 +443,8 @@ public class CategoryModel extends Object {
      * @param end
      *            a {@link java.util.Date} object.
      * @return a double.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     public double getInterfaceAvailability(int nodeId, String ipAddr, Date start, Date end) throws SQLException {
         if (ipAddr == null || start == null || end == null) {
@@ -491,8 +501,8 @@ public class CategoryModel extends Object {
      * @param serviceId
      *            a int.
      * @return a double.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     public double getServiceAvailability(int nodeId, String ipAddr, int serviceId) throws SQLException {
         if (ipAddr == null) {
@@ -523,8 +533,8 @@ public class CategoryModel extends Object {
      * @param end
      *            a {@link java.util.Date} object.
      * @return a double.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     public double getServiceAvailability(int nodeId, String ipAddr, int serviceId, Date start, Date end)
             throws SQLException {

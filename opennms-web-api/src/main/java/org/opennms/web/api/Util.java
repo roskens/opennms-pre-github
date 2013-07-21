@@ -61,8 +61,10 @@ import org.opennms.netmgt.utils.TcpEventProxy;
  */
 public abstract class Util extends Object {
 
+    /** The Constant EMPTY_STRING_ARRAY. */
     private static final String[] EMPTY_STRING_ARRAY = new String[0];
 
+    /** The Constant EMPTY_HASH_MAP. */
     private static final HashMap<String, Object> EMPTY_HASH_MAP = new HashMap<String, Object>();
 
     /**
@@ -100,6 +102,15 @@ public abstract class Util extends Object {
         }
     }
 
+    /**
+     * Calculate url base.
+     *
+     * @param request
+     *            the request
+     * @param path
+     *            the path
+     * @return the string
+     */
     public static String calculateUrlBase(final HttpServletRequest request, final String path) {
         if (request == null || path == null) {
             throw new IllegalArgumentException("Cannot take null parameters.");
@@ -112,13 +123,14 @@ public abstract class Util extends Object {
         return substituteUrl(request, tmpl).replaceAll("/+$", "") + "/" + path.replaceAll("^/+", "");
     }
 
-    /** Constant <code>substKeywords={ 's', 'h', 'p', 'x', 'c' }</code> */
+    /** Constant <code>substKeywords={ 's', 'h', 'p', 'x', 'c' }</code>. */
     protected static final char[] substKeywords = { 's', 'h', 'p', 'x', 'c' };
 
     /**
      * <p>
      * substituteUrl
      * </p>
+     * .
      *
      * @param request
      *            a {@link javax.servlet.http.HttpServletRequest} object.
@@ -152,6 +164,7 @@ public abstract class Util extends Object {
         return out.toString();
     }
 
+    /** The Constant hostHeaders. */
     protected static final String[] hostHeaders = { "X-Forwarded-Host", // Apache
                                                                         // ProxyPass
             "X-Host", // lighttpd
@@ -348,10 +361,10 @@ public abstract class Util extends Object {
      * Creates a query string of the format "key1=value1&amp;key2=value2" for
      * each parameter in the given <code>HttpServletRequest</code>.
      *
-     * @see #makeQueryString(HttpServletRequest, Map, String[] )
      * @param request
      *            a {@link javax.servlet.http.HttpServletRequest} object.
      * @return a {@link java.lang.String} object.
+     * @see #makeQueryString(HttpServletRequest, Map, String[] )
      */
     public static String makeQueryString(final HttpServletRequest request) {
         return (makeQueryString(request, EMPTY_HASH_MAP, EMPTY_STRING_ARRAY));
@@ -362,12 +375,12 @@ public abstract class Util extends Object {
      * each parameter in the given <code>HttpServletRequest</code> and key in
      * given <code>Map</code>.
      *
-     * @see #makeQueryString(HttpServletRequest, Map, String[] )
      * @param request
      *            a {@link javax.servlet.http.HttpServletRequest} object.
      * @param additions
      *            a {@link java.util.Map} object.
      * @return a {@link java.lang.String} object.
+     * @see #makeQueryString(HttpServletRequest, Map, String[] )
      */
     public static String makeQueryString(final HttpServletRequest request, final Map<String, Object> additions) {
         return (makeQueryString(request, additions, EMPTY_STRING_ARRAY));
@@ -378,12 +391,12 @@ public abstract class Util extends Object {
      * each parameter in the given <code>HttpServletRequest</code> that is not
      * listed in the ignore list.
      *
-     * @see #makeQueryString(HttpServletRequest, Map, String[] )
      * @param request
      *            a {@link javax.servlet.http.HttpServletRequest} object.
      * @param ignores
      *            an array of {@link java.lang.String} objects.
      * @return a {@link java.lang.String} object.
+     * @see #makeQueryString(HttpServletRequest, Map, String[] )
      */
     public static String makeQueryString(final HttpServletRequest request, final String[] ignores) {
         return (makeQueryString(request, EMPTY_HASH_MAP, ignores));
@@ -423,10 +436,10 @@ public abstract class Util extends Object {
      *            included in the query string
      * @param ignores
      *            the list of parameters and map entries not to include
-     * @return A string in the <em>x-www-form-urlencoded</em> format that is
-     *         suitable for adding to a URL as a query string.
      * @param ignoreType
      *            a {@link org.opennms.web.api.Util.IgnoreType} object.
+     * @return A string in the <em>x-www-form-urlencoded</em> format that is
+     *         suitable for adding to a URL as a query string.
      */
     public static String makeQueryString(final HttpServletRequest request, final Map<String, Object> additions,
             final String[] ignores, final IgnoreType ignoreType) {
@@ -489,14 +502,24 @@ public abstract class Util extends Object {
         return buffer.toString();
     }
 
+    /**
+     * The Enum IgnoreType.
+     */
     public static enum IgnoreType {
-        REQUEST_ONLY, ADDITIONS_ONLY, BOTH
+
+        /** The request only. */
+        REQUEST_ONLY,
+ /** The additions only. */
+ ADDITIONS_ONLY,
+ /** The both. */
+ BOTH
     }
 
     /**
      * <p>
      * getOrderedMap
      * </p>
+     * .
      *
      * @param names
      *            an array of {@link java.lang.String} objects.
@@ -516,6 +539,7 @@ public abstract class Util extends Object {
      * <p>
      * htmlify
      * </p>
+     * .
      *
      * @param input
      *            a {@link java.lang.String} object.
@@ -529,6 +553,7 @@ public abstract class Util extends Object {
      * <p>
      * createEventProxy
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.events.EventProxy} object.
      */
@@ -571,10 +596,10 @@ public abstract class Util extends Object {
      * DEFALUT DateFormat style for both the date and time. This is used by the
      * webui and a change here should get all time display in the webui changed.
      *
-     * @see java.text.DateFormat
      * @param date
      *            a {@link java.util.Date} object.
      * @return a {@link java.lang.String} object.
+     * @see java.text.DateFormat
      * @deprecated We should use the <code>fmt:formatDate</code> taglib at the
      *             JSP level
      *             instead of converting {@link Date} instances into
@@ -589,6 +614,7 @@ public abstract class Util extends Object {
      * <p>
      * convertToJsSafeString
      * </p>
+     * .
      *
      * @param str
      *            a {@link java.lang.String} object.

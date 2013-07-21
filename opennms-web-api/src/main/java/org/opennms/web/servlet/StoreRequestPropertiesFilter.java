@@ -49,8 +49,10 @@ import javax.servlet.http.HttpServletRequest;
  */
 public class StoreRequestPropertiesFilter implements Filter {
 
+    /** The m_servlet path attribute. */
     private String m_servletPathAttribute;
 
+    /** The m_relative servlet path attribute. */
     private String m_relativeServletPathAttribute;
 
     /** {@inheritDoc} */
@@ -84,6 +86,7 @@ public class StoreRequestPropertiesFilter implements Filter {
      * <p>
      * destroy
      * </p>
+     * .
      */
     @Override
     public void destroy() {

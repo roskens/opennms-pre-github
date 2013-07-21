@@ -53,10 +53,13 @@ import org.slf4j.LoggerFactory;
  */
 public class XssRequestWrapper extends HttpServletRequestWrapper {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(XssRequestWrapper.class);
 
+    /** The sanitized_parameters. */
     private Map<String, String[]> sanitized_parameters;
 
+    /** The original_parameters. */
     private Map<String, String[]> original_parameters;
 
     /**
@@ -130,6 +133,13 @@ public class XssRequestWrapper extends HttpServletRequestWrapper {
         return super.getRequest().getCharacterEncoding();
     }
 
+    /**
+     * Sanitize param map.
+     *
+     * @param raw
+     *            the raw
+     * @return the map
+     */
     private Map<String, String[]> sanitizeParamMap(Map<String, String[]> raw) {
         Map<String, String[]> res = new HashMap<String, String[]>();
         if (raw == null)
@@ -146,6 +156,9 @@ public class XssRequestWrapper extends HttpServletRequestWrapper {
         return res;
     }
 
+    /**
+     * Snz logger.
+     */
     private void snzLogger() {
         for (String key : (Set<String>) original_parameters.keySet()) {
             String[] rawVals = original_parameters.get(key);

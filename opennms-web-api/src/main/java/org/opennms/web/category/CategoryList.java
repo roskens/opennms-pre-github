@@ -63,8 +63,10 @@ import org.slf4j.LoggerFactory;
  */
 public class CategoryList {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(CategoryList.class);
 
+    /** The m_model. */
     protected CategoryModel m_model;
 
     /**
@@ -73,6 +75,7 @@ public class CategoryList {
      */
     protected Section[] m_sections;
 
+    /** The m_disconnect timeout. */
     private int m_disconnectTimeout;
 
     /**
@@ -80,8 +83,8 @@ public class CategoryList {
      * Constructor for CategoryList.
      * </p>
      *
-     * @throws javax.servlet.ServletException
-     *             if any.
+     * @throws ServletException
+     *             the servlet exception
      */
     public CategoryList() throws ServletException {
         try {
@@ -121,8 +124,8 @@ public class CategoryList {
      * @param categoryMap
      *            a {@link java.util.Map} object.
      * @return a {@link java.util.List} object.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public List<Section> getSections(Map<String, Category> categoryMap) throws IOException {
         if (m_sections != null) {
@@ -157,14 +160,15 @@ public class CategoryList {
      * <p>
      * getCategoryData
      * </p>
+     * .
      *
      * @return a {@link java.util.Map} object.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public Map<String, List<Category>> getCategoryData() throws IOException, MarshalException, ValidationException {
 
@@ -200,10 +204,10 @@ public class CategoryList {
      *
      * @param categoryData
      *            category data to evaluate. From getCategoryData().
+     * @return a long.
      * @returns the earliest update time. If one of the categories has no RTC
      *          data, -1 is returned. If no categories exist in categoryData, 0
      *          is returned.
-     * @return a long.
      */
     public long getEarliestUpdate(Map<String, List<Category>> categoryData) {
         long earliestUpdate = 0;
@@ -230,14 +234,15 @@ public class CategoryList {
      * <p>
      * isDisconnected
      * </p>
+     * .
      *
      * @return a boolean.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public boolean isDisconnected() throws IOException, MarshalException, ValidationException {
         return isDisconnected(getEarliestUpdate(getCategoryData()));
@@ -247,6 +252,7 @@ public class CategoryList {
      * <p>
      * isDisconnected
      * </p>
+     * .
      *
      * @param earliestUpdate
      *            a long.
@@ -264,6 +270,20 @@ public class CategoryList {
      * FIXME: This isn't used. This functionality is in category-box.jsp.
      * It is marked private so that no one can use it unless they fix
      * its accessability and this comment. :-P
+     */
+    /**
+     * Prints the box.
+     *
+     * @param out
+     *            the out
+     * @param response
+     *            the response
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     @SuppressWarnings("unused")
     private void printBox(Writer out, HttpServletResponse response) throws IOException, MarshalException,

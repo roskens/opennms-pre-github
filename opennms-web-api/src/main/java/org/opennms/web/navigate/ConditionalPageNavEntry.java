@@ -30,11 +30,16 @@ package org.opennms.web.navigate;
 
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * The Interface ConditionalPageNavEntry.
+ */
 public interface ConditionalPageNavEntry extends PageNavEntry {
+
     /**
      * <p>
      * evaluate
      * </p>
+     * .
      *
      * @param request
      *            a {@link javax.servlet.http.HttpServletRequest} object.

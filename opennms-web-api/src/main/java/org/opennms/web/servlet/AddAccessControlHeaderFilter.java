@@ -45,8 +45,13 @@ import javax.servlet.http.HttpServletResponse;
  * @since 1.9.90
  */
 public class AddAccessControlHeaderFilter implements Filter {
+
+    /** The m_origin. */
     private String m_origin = null;
 
+    /* (non-Javadoc)
+     * @see javax.servlet.Filter#doFilter(javax.servlet.ServletRequest, javax.servlet.ServletResponse, javax.servlet.FilterChain)
+     */
     @Override
     public void doFilter(final ServletRequest request, final ServletResponse response, final FilterChain chain)
             throws IOException, ServletException {
@@ -67,6 +72,7 @@ public class AddAccessControlHeaderFilter implements Filter {
      * <p>
      * destroy
      * </p>
+     * .
      */
     @Override
     public void destroy() {

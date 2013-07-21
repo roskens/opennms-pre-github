@@ -88,12 +88,12 @@ public class CategoryUtil extends Object {
      * @param category
      *            a {@link org.opennms.web.category.Category} object.
      * @return a {@link java.lang.String} object.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public static String getCategoryColor(Category category) throws IOException, MarshalException, ValidationException {
         if (category == null) {
@@ -109,12 +109,12 @@ public class CategoryUtil extends Object {
      * @param category
      *            a {@link org.opennms.web.category.Category} object.
      * @return a {@link java.lang.String} object.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public static String getCategoryClass(Category category) throws IOException, MarshalException, ValidationException {
         if (category == null) {
@@ -133,12 +133,12 @@ public class CategoryUtil extends Object {
      * @param value
      *            a double.
      * @return a {@link java.lang.String} object.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public static String getCategoryColor(Category category, double value) throws IOException, MarshalException,
             ValidationException {
@@ -158,12 +158,12 @@ public class CategoryUtil extends Object {
      * @param value
      *            a double.
      * @return a {@link java.lang.String} object.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public static String getCategoryClass(Category category, double value) throws IOException, MarshalException,
             ValidationException {
@@ -184,12 +184,12 @@ public class CategoryUtil extends Object {
      * @param value
      *            a double.
      * @return a {@link java.lang.String} object.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public static String getCategoryColor(double normal, double warning, double value) throws IOException,
             MarshalException, ValidationException {

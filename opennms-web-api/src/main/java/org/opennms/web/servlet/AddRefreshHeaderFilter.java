@@ -47,8 +47,11 @@ import javax.servlet.http.HttpServletResponse;
  * @since 1.8.1
  */
 public class AddRefreshHeaderFilter extends Object implements Filter {
+
+    /** The filter config. */
     protected FilterConfig filterConfig;
 
+    /** The seconds. */
     protected String seconds = "108000"; // default is 30 mins
 
     /**
@@ -91,6 +94,7 @@ public class AddRefreshHeaderFilter extends Object implements Filter {
      * <p>
      * destroy
      * </p>
+     * .
      */
     @Override
     public void destroy() {

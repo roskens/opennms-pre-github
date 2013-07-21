@@ -44,10 +44,13 @@ import org.slf4j.LoggerFactory;
  */
 public class DependencyCheckingContextListener implements ServletContextListener {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(DependencyCheckingContextListener.class);
 
+    /** The Constant IGNORE_ERRORS_PROPERTY. */
     private static final String IGNORE_ERRORS_PROPERTY = "dontBlameOpenNMS";
 
+    /** The Constant IGNORE_ERRORS_MESSAGE. */
     private static final String IGNORE_ERRORS_MESSAGE = "but don't blame OpenNMS for any errors that occur without switching back to a supported JVM and setting the property back to 'false', first.";
 
     /** {@inheritDoc} */
@@ -64,6 +67,12 @@ public class DependencyCheckingContextListener implements ServletContextListener
         }
     }
 
+    /**
+     * Check jvm name.
+     *
+     * @param context
+     *            the context
+     */
     private void checkJvmName(ServletContext context) {
         final String systemProperty = "java.vm.name";
         final String[] acceptableProperties = { "HotSpot(TM)", "BEA JRockit", "OpenJDK" };
@@ -91,6 +100,14 @@ public class DependencyCheckingContextListener implements ServletContextListener
         }
     }
 
+    /**
+     * Log and or die.
+     *
+     * @param context
+     *            the context
+     * @param message
+     *            the message
+     */
     private void logAndOrDie(ServletContext context, String message) {
         String webXmlPath = context.getRealPath("/WEB-INF/web.xml");
 

@@ -38,13 +38,14 @@ package org.opennms.web.servlet;
  * @since 1.8.1
  */
 public class MissingParameterException extends RuntimeException {
-    /**
-     *
-     */
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -3100193382920197884L;
 
+    /** The missing parameter. */
     protected String missingParameter;
 
+    /** The required parameters. */
     protected String[] requiredParameters;
 
     /**
@@ -104,6 +105,7 @@ public class MissingParameterException extends RuntimeException {
      * <p>
      * getMessage
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

@@ -28,11 +28,16 @@
 
 package org.opennms.web.navigate;
 
+/**
+ * The Interface PageNavEntry.
+ */
 public interface PageNavEntry {
+
     /**
      * <p>
      * getName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -42,6 +47,7 @@ public interface PageNavEntry {
      * <p>
      * getUrl
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

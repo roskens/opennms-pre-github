@@ -38,12 +38,28 @@ package org.opennms.web.navigate;
  * @since 1.8.1
  */
 public enum DisplayStatus {
-    NO_DISPLAY(false, false), DISPLAY_NO_LINK(true, false), DISPLAY_LINK(true, true);
 
+    /** The no display. */
+    NO_DISPLAY(false, false),
+ /** The display no link. */
+ DISPLAY_NO_LINK(true, false),
+ /** The display link. */
+ DISPLAY_LINK(true, true);
+
+    /** The m_display. */
     private boolean m_display;
 
+    /** The m_display link. */
     private boolean m_displayLink;
 
+    /**
+     * Instantiates a new display status.
+     *
+     * @param display
+     *            the display
+     * @param displayLink
+     *            the display link
+     */
     DisplayStatus(boolean display, boolean displayLink) {
         m_display = display;
         m_displayLink = displayLink;
@@ -53,6 +69,7 @@ public enum DisplayStatus {
      * <p>
      * isDisplay
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -64,6 +81,7 @@ public enum DisplayStatus {
      * <p>
      * isDisplayLink
      * </p>
+     * .
      *
      * @return a boolean.
      */
