@@ -36,9 +36,15 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * The Class IndexDao.
+ */
 public class IndexDao {
+
+    /** The m_name map. */
     private Map<String, Index> m_nameMap;
 
+    /** The m_table map. */
     private Map<String, List<Index>> m_tableMap;
 
     /**
@@ -54,6 +60,7 @@ public class IndexDao {
      * <p>
      * reset
      * </p>
+     * .
      */
     public void reset() {
         m_nameMap = new LinkedHashMap<String, Index>();
@@ -64,6 +71,7 @@ public class IndexDao {
      * <p>
      * add
      * </p>
+     * .
      *
      * @param i
      *            a {@link org.opennms.netmgt.dao.db.Index} object.
@@ -79,6 +87,13 @@ public class IndexDao {
         getIndexesForTableCreateIfEmpty(i.getTable().toLowerCase()).add(i);
     }
 
+    /**
+     * Gets the indexes for table create if empty.
+     *
+     * @param table
+     *            the table
+     * @return the indexes for table create if empty
+     */
     private List<Index> getIndexesForTableCreateIfEmpty(String table) {
         if (!m_tableMap.containsKey(table)) {
             m_tableMap.put(table, new LinkedList<Index>());
@@ -90,6 +105,7 @@ public class IndexDao {
      * <p>
      * getIndexesForTable
      * </p>
+     * .
      *
      * @param table
      *            a {@link java.lang.String} object.
@@ -107,6 +123,7 @@ public class IndexDao {
      * <p>
      * getAllIndexes
      * </p>
+     * .
      *
      * @return a {@link java.util.Collection} object.
      */
@@ -118,6 +135,7 @@ public class IndexDao {
      * <p>
      * remove
      * </p>
+     * .
      *
      * @param indexName
      *            a {@link java.lang.String} object.

@@ -41,7 +41,12 @@ import java.util.Map;
 import org.opennms.core.db.install.ColumnChange;
 import org.opennms.core.db.install.ColumnChangeReplacement;
 
+/**
+ * The Class EventSourceReplacement.
+ */
 public class EventSourceReplacement implements ColumnChangeReplacement {
+
+    /** The Constant m_replacement. */
     private static final String m_replacement = "OpenNMS.Eventd";
 
     /**
@@ -63,6 +68,7 @@ public class EventSourceReplacement implements ColumnChangeReplacement {
      * <p>
      * addColumnIfColumnIsNew
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -75,6 +81,7 @@ public class EventSourceReplacement implements ColumnChangeReplacement {
      * <p>
      * close
      * </p>
+     * .
      */
     @Override
     public void close() {

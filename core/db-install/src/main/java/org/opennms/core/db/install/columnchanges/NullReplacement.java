@@ -41,6 +41,9 @@ import java.util.Map;
 import org.opennms.core.db.install.ColumnChange;
 import org.opennms.core.db.install.ColumnChangeReplacement;
 
+/**
+ * The Class NullReplacement.
+ */
 public class NullReplacement implements ColumnChangeReplacement {
     /**
      * <p>
@@ -61,6 +64,7 @@ public class NullReplacement implements ColumnChangeReplacement {
      * <p>
      * addColumnIfColumnIsNew
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -73,6 +77,7 @@ public class NullReplacement implements ColumnChangeReplacement {
      * <p>
      * close
      * </p>
+     * .
      */
     @Override
     public void close() {

@@ -32,19 +32,24 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Map;
 
+/**
+ * The Interface ColumnChangeReplacement.
+ */
 public interface ColumnChangeReplacement {
+
     /**
      * <p>
      * getColumnReplacement
      * </p>
+     * .
      *
      * @param rs
      *            a {@link java.sql.ResultSet} object.
      * @param columnChanges
      *            a {@link java.util.Map} object.
      * @return a {@link java.lang.Object} object.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     public Object getColumnReplacement(ResultSet rs, Map<String, ColumnChange> columnChanges) throws SQLException;
 
@@ -52,6 +57,7 @@ public interface ColumnChangeReplacement {
      * <p>
      * addColumnIfColumnIsNew
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -61,9 +67,10 @@ public interface ColumnChangeReplacement {
      * <p>
      * close
      * </p>
+     * .
      *
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     public void close() throws SQLException;
 }

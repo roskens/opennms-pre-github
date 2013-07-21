@@ -41,11 +41,18 @@ import java.util.Map;
 import org.opennms.core.db.install.ColumnChange;
 import org.opennms.core.db.install.ColumnChangeReplacement;
 
+/**
+ * The Class MapStoreIdGetterReplacement.
+ */
 public class MapStoreIdGetterReplacement implements ColumnChangeReplacement {
+
+    /** The m_store foo. */
     private final AutoIntegerIdMapStoreReplacement m_storeFoo;
 
+    /** The m_index columns. */
     private final String[] m_indexColumns;
 
+    /** The m_no match okay. */
     private final boolean m_noMatchOkay;
 
     /**
@@ -55,12 +62,12 @@ public class MapStoreIdGetterReplacement implements ColumnChangeReplacement {
      *
      * @param storeFoo
      *            a
-     *            {@link org.opennms.netmgt.dao.db.columnchanges.AutoIntegerIdMapStoreReplacement}
-     *            object.
      * @param columns
      *            an array of {@link java.lang.String} objects.
      * @param noMatchOkay
      *            a boolean.
+     *            {@link org.opennms.netmgt.dao.db.columnchanges.AutoIntegerIdMapStoreReplacement}
+     *            object.
      */
     public MapStoreIdGetterReplacement(AutoIntegerIdMapStoreReplacement storeFoo, String[] columns, boolean noMatchOkay) {
         m_storeFoo = storeFoo;
@@ -78,6 +85,7 @@ public class MapStoreIdGetterReplacement implements ColumnChangeReplacement {
      * <p>
      * addColumnIfColumnIsNew
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -90,6 +98,7 @@ public class MapStoreIdGetterReplacement implements ColumnChangeReplacement {
      * <p>
      * close
      * </p>
+     * .
      */
     @Override
     public void close() {

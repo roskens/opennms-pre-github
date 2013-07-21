@@ -35,15 +35,24 @@ import java.util.regex.Pattern;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
+/**
+ * The Class Column.
+ */
 public class Column {
+
+    /** The m_name. */
     private String m_name = null;
 
+    /** The m_type. */
     private String m_type = null;
 
+    /** The m_size. */
     private int m_size = 0;
 
+    /** The m_not null. */
     private boolean m_notNull = false;
 
+    /** The m_default value. */
     private String m_defaultValue = null;
 
     /** {@inheritDoc} */
@@ -63,6 +72,7 @@ public class Column {
      * <p>
      * hashCode
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -75,6 +85,7 @@ public class Column {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -110,6 +121,7 @@ public class Column {
      * <p>
      * getName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -121,6 +133,7 @@ public class Column {
      * <p>
      * setName
      * </p>
+     * .
      *
      * @param name
      *            a {@link java.lang.String} object.
@@ -133,6 +146,7 @@ public class Column {
      * <p>
      * isNotNull
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -144,6 +158,7 @@ public class Column {
      * <p>
      * setNotNull
      * </p>
+     * .
      *
      * @param notNull
      *            a boolean.
@@ -156,6 +171,7 @@ public class Column {
      * <p>
      * getSize
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -167,6 +183,7 @@ public class Column {
      * <p>
      * setSize
      * </p>
+     * .
      *
      * @param size
      *            a int.
@@ -179,6 +196,7 @@ public class Column {
      * <p>
      * getType
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -190,6 +208,7 @@ public class Column {
      * <p>
      * setType
      * </p>
+     * .
      *
      * @param type
      *            a {@link java.lang.String} object.
@@ -202,6 +221,7 @@ public class Column {
      * <p>
      * getDefaultValue
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -213,6 +233,7 @@ public class Column {
      * <p>
      * hasDefaultValue
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -224,6 +245,7 @@ public class Column {
      * <p>
      * setDefaultValue
      * </p>
+     * .
      *
      * @param defaultValue
      *            a {@link java.lang.String} object.
@@ -240,11 +262,12 @@ public class Column {
      * <p>
      * parse
      * </p>
+     * .
      *
      * @param column
      *            a {@link java.lang.String} object.
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     public void parse(String column) throws Exception {
         Matcher m;
@@ -285,11 +308,12 @@ public class Column {
      * <p>
      * parseColumnType
      * </p>
+     * .
      *
      * @param columnType
      *            a {@link java.lang.String} object.
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     public void parseColumnType(String columnType) throws Exception {
         int start, end;
@@ -323,10 +347,11 @@ public class Column {
      * <p>
      * getColumnSqlType
      * </p>
+     * .
      *
      * @return a int.
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     public int getColumnSqlType() throws Exception {
         if (m_type.equals("integer")) {
@@ -366,14 +391,15 @@ public class Column {
      * <p>
      * normalizeColumnType
      * </p>
+     * .
      *
      * @param column
      *            a {@link java.lang.String} object.
      * @param hasSize
      *            a boolean.
      * @return a {@link java.lang.String} object.
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     public static String normalizeColumnType(String column, boolean hasSize) throws Exception {
         if (column.equals("integer") || column.equals("int4")) {
@@ -416,12 +442,13 @@ public class Column {
      * <p>
      * columnTypeSize
      * </p>
+     * .
      *
      * @param type
      *            a {@link java.lang.String} object.
      * @return a int.
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     public int columnTypeSize(String type) throws Exception {
         if (type.equals("boolean") || type.equals("character")) {

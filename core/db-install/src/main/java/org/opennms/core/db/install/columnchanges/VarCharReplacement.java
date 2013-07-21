@@ -41,7 +41,12 @@ import java.util.Map;
 import org.opennms.core.db.install.ColumnChange;
 import org.opennms.core.db.install.ColumnChangeReplacement;
 
+/**
+ * The Class VarCharReplacement.
+ */
 public class VarCharReplacement implements ColumnChangeReplacement {
+
+    /** The m_replacement. */
     private final String m_replacement;
 
     /**
@@ -66,6 +71,7 @@ public class VarCharReplacement implements ColumnChangeReplacement {
      * <p>
      * addColumnIfColumnIsNew
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -78,6 +84,7 @@ public class VarCharReplacement implements ColumnChangeReplacement {
      * <p>
      * close
      * </p>
+     * .
      */
     @Override
     public void close() {

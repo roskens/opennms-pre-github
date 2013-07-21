@@ -42,13 +42,21 @@ import javax.sql.DataSource;
 import org.opennms.netmgt.config.opennmsDataSources.JdbcDataSource;
 import org.opennms.netmgt.config.opennmsDataSources.Param;
 
+/**
+ * The Class SimpleDataSource.
+ */
 public class SimpleDataSource implements DataSource {
+
+    /** The m_driver. */
     private String m_driver;
 
+    /** The m_url. */
     private String m_url;
 
+    /** The m_properties. */
     private Properties m_properties = new Properties();
 
+    /** The m_timeout. */
     private Integer m_timeout = null;
 
     /**
@@ -64,8 +72,8 @@ public class SimpleDataSource implements DataSource {
      *            a {@link java.lang.String} object.
      * @param password
      *            a {@link java.lang.String} object.
-     * @throws java.lang.ClassNotFoundException
-     *             if any.
+     * @throws ClassNotFoundException
+     *             the class not found exception
      */
     public SimpleDataSource(String driver, String url, String user, String password) throws ClassNotFoundException {
         m_driver = driver;
@@ -84,10 +92,10 @@ public class SimpleDataSource implements DataSource {
      *
      * @param ds
      *            a
-     *            {@link org.opennms.netmgt.config.opennmsDataSources.JdbcDataSource}
-     *            object.
-     * @throws java.lang.ClassNotFoundException
-     *             if any.
+     * @throws ClassNotFoundException
+     *             the class not found exception
+     *             {@link org.opennms.netmgt.config.opennmsDataSources.JdbcDataSource}
+     *             object.
      */
     public SimpleDataSource(JdbcDataSource ds) throws ClassNotFoundException {
         this(ds.getClassName(), ds.getUrl(), ds.getUserName(), ds.getPassword());
@@ -101,10 +109,11 @@ public class SimpleDataSource implements DataSource {
      * <p>
      * getConnection
      * </p>
+     * .
      *
      * @return a {@link java.sql.Connection} object.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     @Override
     public Connection getConnection() throws SQLException {
@@ -129,10 +138,11 @@ public class SimpleDataSource implements DataSource {
      * <p>
      * getLogWriter
      * </p>
+     * .
      *
      * @return a {@link java.io.PrintWriter} object.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     @Override
     public PrintWriter getLogWriter() throws SQLException {
@@ -143,10 +153,11 @@ public class SimpleDataSource implements DataSource {
      * <p>
      * getLoginTimeout
      * </p>
+     * .
      *
      * @return a int.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     @Override
     public int getLoginTimeout() throws SQLException {
@@ -174,14 +185,15 @@ public class SimpleDataSource implements DataSource {
      * <p>
      * unwrap
      * </p>
+     * .
      *
-     * @param iface
-     *            a {@link java.lang.Class} object.
      * @param <T>
      *            a T object.
+     * @param iface
+     *            a {@link java.lang.Class} object.
      * @return a T object.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     @Override
     public <T> T unwrap(Class<T> iface) throws SQLException {
@@ -192,12 +204,13 @@ public class SimpleDataSource implements DataSource {
      * <p>
      * isWrapperFor
      * </p>
+     * .
      *
      * @param iface
      *            a {@link java.lang.Class} object.
      * @return a boolean.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     @Override
     public boolean isWrapperFor(Class<?> iface) throws SQLException {
@@ -208,6 +221,7 @@ public class SimpleDataSource implements DataSource {
      * <p>
      * getDriver
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -219,6 +233,7 @@ public class SimpleDataSource implements DataSource {
      * <p>
      * getPassword
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -230,6 +245,7 @@ public class SimpleDataSource implements DataSource {
      * <p>
      * getTimeout
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -241,6 +257,7 @@ public class SimpleDataSource implements DataSource {
      * <p>
      * getUrl
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -252,6 +269,7 @@ public class SimpleDataSource implements DataSource {
      * <p>
      * getUser
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -263,6 +281,7 @@ public class SimpleDataSource implements DataSource {
      * <p>
      * getProperties
      * </p>
+     * .
      *
      * @return a {@link java.util.Properties} object.
      */
@@ -274,6 +293,7 @@ public class SimpleDataSource implements DataSource {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

@@ -36,32 +36,45 @@ import java.util.regex.Pattern;
 
 import org.springframework.util.StringUtils;
 
+/**
+ * The Class Constraint.
+ */
 public class Constraint {
-    /** Constant <code>PRIMARY_KEY=1</code> */
+
+    /** Constant <code>PRIMARY_KEY=1</code>. */
     public static final int PRIMARY_KEY = 1;
 
-    /** Constant <code>FOREIGN_KEY=2</code> */
+    /** Constant <code>FOREIGN_KEY=2</code>. */
     public static final int FOREIGN_KEY = 2;
 
-    /** Constant <code>CHECK=3</code> */
+    /** Constant <code>CHECK=3</code>. */
     public static final int CHECK = 3;
 
+    /** The m_name. */
     private String m_name;
 
+    /** The m_type. */
     private int m_type;
 
+    /** The m_table. */
     private String m_table;
 
+    /** The m_columns. */
     private List<String> m_columns;
 
+    /** The m_ftable. */
     private String m_ftable;
 
+    /** The m_fcolumns. */
     private List<String> m_fcolumns;
 
+    /** The m_fdeltype. */
     private String m_fdeltype;
 
+    /** The m_fupdtype. */
     private String m_fupdtype;
 
+    /** The m_check expression. */
     private String m_checkExpression;
 
     /**
@@ -73,8 +86,8 @@ public class Constraint {
      *            a {@link java.lang.String} object.
      * @param constraint
      *            a {@link java.lang.String} object.
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     public Constraint(String table, String constraint) throws Exception {
         this.parse(constraint);
@@ -82,7 +95,7 @@ public class Constraint {
     }
 
     /**
-     * Construct a primary key constraint from it's required elements
+     * Construct a primary key constraint from it's required elements.
      *
      * @param table
      *            a {@link java.lang.String} object.
@@ -99,7 +112,7 @@ public class Constraint {
     }
 
     /**
-     * Construct a foreign key constraint from it's required elements
+     * Construct a foreign key constraint from it's required elements.
      *
      * @param table
      *            a {@link java.lang.String} object.
@@ -115,8 +128,8 @@ public class Constraint {
      *            a {@link java.lang.String} object.
      * @param fdeltype
      *            a {@link java.lang.String} object.
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     public Constraint(String table, String name, List<String> columns, String ftable, List<String> fcolumns,
             String fupdtype, String fdeltype) throws Exception {
@@ -131,7 +144,7 @@ public class Constraint {
     }
 
     /**
-     * Construct a check type constraint from it's required elements
+     * Construct a check type constraint from it's required elements.
      *
      * @param table
      *            a {@link java.lang.String} object.
@@ -151,6 +164,7 @@ public class Constraint {
      * <p>
      * setForeignUpdType
      * </p>
+     * .
      *
      * @param fupdtype
      *            a {@link java.lang.String} object.
@@ -163,6 +177,7 @@ public class Constraint {
      * <p>
      * getForeignUpdType
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -174,6 +189,7 @@ public class Constraint {
      * <p>
      * getName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -185,6 +201,7 @@ public class Constraint {
      * <p>
      * setName
      * </p>
+     * .
      *
      * @param name
      *            a {@link java.lang.String} object.
@@ -197,6 +214,7 @@ public class Constraint {
      * <p>
      * getType
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -208,6 +226,7 @@ public class Constraint {
      * <p>
      * setType
      * </p>
+     * .
      *
      * @param type
      *            a int.
@@ -220,6 +239,7 @@ public class Constraint {
      * <p>
      * isPrimaryKeyConstraint
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -231,6 +251,7 @@ public class Constraint {
      * <p>
      * isForeignKeyConstraint
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -242,6 +263,7 @@ public class Constraint {
      * <p>
      * isCheckConstraint
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -253,6 +275,7 @@ public class Constraint {
      * <p>
      * getTable
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -264,6 +287,7 @@ public class Constraint {
      * <p>
      * setTable
      * </p>
+     * .
      *
      * @param table
      *            a {@link java.lang.String} object.
@@ -276,6 +300,7 @@ public class Constraint {
      * <p>
      * setColumns
      * </p>
+     * .
      *
      * @param columns
      *            a {@link java.util.List} object.
@@ -291,6 +316,7 @@ public class Constraint {
      * <p>
      * getColumns
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -302,6 +328,7 @@ public class Constraint {
      * <p>
      * setColumn
      * </p>
+     * .
      *
      * @param column
      *            a {@link java.lang.String} object.
@@ -316,6 +343,7 @@ public class Constraint {
      * <p>
      * getForeignTable
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -327,6 +355,7 @@ public class Constraint {
      * <p>
      * setForeignTable
      * </p>
+     * .
      *
      * @param ftable
      *            a {@link java.lang.String} object.
@@ -339,6 +368,7 @@ public class Constraint {
      * <p>
      * getForeignColumns
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -350,6 +380,7 @@ public class Constraint {
      * <p>
      * setForeignColumn
      * </p>
+     * .
      *
      * @param fcolumn
      *            a {@link java.lang.String} object.
@@ -364,6 +395,7 @@ public class Constraint {
      * <p>
      * setForeignColumns
      * </p>
+     * .
      *
      * @param fcolumns
      *            a {@link java.util.List} object.
@@ -380,6 +412,7 @@ public class Constraint {
      * <p>
      * getForeignDelType
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -391,11 +424,12 @@ public class Constraint {
      * <p>
      * setForeignDelType
      * </p>
+     * .
      *
      * @param fdeltype
      *            a {@link java.lang.String} object.
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     public final void setForeignDelType(String fdeltype) throws Exception {
         if (fdeltype.equals("a") || fdeltype.equals("c") || fdeltype.equals("r") || fdeltype.equals("n")
@@ -410,6 +444,7 @@ public class Constraint {
      * <p>
      * getCheckExpression
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -421,6 +456,7 @@ public class Constraint {
      * <p>
      * setCheckExpression
      * </p>
+     * .
      *
      * @param expression
      *            a {@link java.lang.String} object.
@@ -433,6 +469,7 @@ public class Constraint {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -495,6 +532,14 @@ public class Constraint {
         return b.toString();
     }
 
+    /**
+     * Parses the.
+     *
+     * @param constraintSQL
+     *            the constraint sql
+     * @throws Exception
+     *             the exception
+     */
     private void parse(String constraintSQL) throws Exception {
         Matcher m;
 
@@ -569,6 +614,7 @@ public class Constraint {
      * <p>
      * equals
      * </p>
+     * .
      *
      * @param other_o
      *            a {@link java.lang.Object} object.
@@ -651,6 +697,7 @@ public class Constraint {
      * <p>
      * hashCode
      * </p>
+     * .
      *
      * @return a int.
      */

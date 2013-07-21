@@ -39,20 +39,30 @@ import java.util.regex.Pattern;
 
 import org.springframework.util.StringUtils;
 
+/**
+ * The Class Index.
+ */
 public class Index {
 
+    /** The m_name. */
     private String m_name;
 
+    /** The m_table. */
     private String m_table;
 
+    /** The m_using. */
     private String m_using;
 
+    /** The m_columns. */
     private List<String> m_columns;
 
+    /** The m_unique. */
     private boolean m_unique;
 
+    /** The m_where. */
     private String m_where;
 
+    /** The m_pattern. */
     private static Pattern m_pattern = Pattern.compile("(?i)create" + "(\\s+unique)?" + "\\s+index\\s+(\\S+)"
             + "\\s+on\\s+(\\S+)" + "(?:\\s+USING\\s+(\\S+))?" + "\\s*\\(([^)]+)\\)" + "(?:\\s+WHERE\\s+(.*?))?"
             + "\\s*(?:;|$)");
@@ -88,6 +98,7 @@ public class Index {
      * <p>
      * findIndexInString
      * </p>
+     * .
      *
      * @param create
      *            a {@link java.lang.String} object.
@@ -115,12 +126,13 @@ public class Index {
      * <p>
      * isOnDatabase
      * </p>
+     * .
      *
      * @param connection
      *            a {@link java.sql.Connection} object.
      * @return a boolean.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     public boolean isOnDatabase(Connection connection) throws SQLException {
         boolean exists;
@@ -144,11 +156,12 @@ public class Index {
      * <p>
      * removeFromDatabase
      * </p>
+     * .
      *
      * @param connection
      *            a {@link java.sql.Connection} object.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     public void removeFromDatabase(Connection connection) throws SQLException {
         Statement st = connection.createStatement();
@@ -163,11 +176,12 @@ public class Index {
      * <p>
      * addToDatabase
      * </p>
+     * .
      *
      * @param connection
      *            a {@link java.sql.Connection} object.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     public void addToDatabase(Connection connection) throws SQLException {
         Statement st = connection.createStatement();
@@ -182,6 +196,7 @@ public class Index {
      * <p>
      * getSql
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -215,6 +230,7 @@ public class Index {
      * <p>
      * getName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -226,6 +242,7 @@ public class Index {
      * <p>
      * getTable
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -237,6 +254,7 @@ public class Index {
      * <p>
      * isUnique
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -248,6 +266,7 @@ public class Index {
      * <p>
      * getColumns
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -259,10 +278,11 @@ public class Index {
      * <p>
      * getIndexUniquenessQuery
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     public String getIndexUniquenessQuery() throws Exception {
         String firstColumn = getColumns().get(0);

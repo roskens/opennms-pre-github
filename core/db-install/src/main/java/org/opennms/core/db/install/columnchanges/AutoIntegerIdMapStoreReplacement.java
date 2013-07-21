@@ -44,11 +44,18 @@ import org.opennms.core.db.install.ColumnChangeReplacement;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
+/**
+ * The Class AutoIntegerIdMapStoreReplacement.
+ */
 public class AutoIntegerIdMapStoreReplacement implements ColumnChangeReplacement {
+
+    /** The m_value. */
     private int m_value;
 
+    /** The m_index columns. */
     private final String[] m_indexColumns;
 
+    /** The m_id map. */
     private final Map<MultiColumnKey, Integer> m_idMap = new HashMap<MultiColumnKey, Integer>();
 
     /**
@@ -79,6 +86,7 @@ public class AutoIntegerIdMapStoreReplacement implements ColumnChangeReplacement
      * <p>
      * addColumnIfColumnIsNew
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -91,6 +99,7 @@ public class AutoIntegerIdMapStoreReplacement implements ColumnChangeReplacement
      * <p>
      * getIntegerForColumns
      * </p>
+     * .
      *
      * @param rs
      *            a {@link java.sql.ResultSet} object.
@@ -101,8 +110,8 @@ public class AutoIntegerIdMapStoreReplacement implements ColumnChangeReplacement
      * @param noMatchOkay
      *            a boolean.
      * @return a {@link java.lang.Integer} object.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     public Integer getIntegerForColumns(ResultSet rs, Map<String, ColumnChange> columnChanges, String[] columns,
             boolean noMatchOkay) throws SQLException {
@@ -114,6 +123,19 @@ public class AutoIntegerIdMapStoreReplacement implements ColumnChangeReplacement
         return oldInteger;
     }
 
+    /**
+     * Gets the key for columns.
+     *
+     * @param rs
+     *            the rs
+     * @param columnChanges
+     *            the column changes
+     * @param columns
+     *            the columns
+     * @return the key for columns
+     * @throws SQLException
+     *             the sQL exception
+     */
     private MultiColumnKey getKeyForColumns(ResultSet rs, Map<String, ColumnChange> columnChanges, String[] columns)
             throws SQLException {
         Object[] objects = new Object[columns.length];
@@ -132,13 +154,27 @@ public class AutoIntegerIdMapStoreReplacement implements ColumnChangeReplacement
         return new MultiColumnKey(objects);
     }
 
+    /**
+     * The Class MultiColumnKey.
+     */
     public class MultiColumnKey {
+
+        /** The m_keys. */
         private final Object[] m_keys;
 
+        /**
+         * Instantiates a new multi column key.
+         *
+         * @param keys
+         *            the keys
+         */
         public MultiColumnKey(Object[] keys) {
             m_keys = keys;
         }
 
+        /* (non-Javadoc)
+         * @see java.lang.Object#equals(java.lang.Object)
+         */
         @Override
         public boolean equals(Object otherObject) {
             if (!(otherObject instanceof MultiColumnKey)) {
@@ -165,11 +201,17 @@ public class AutoIntegerIdMapStoreReplacement implements ColumnChangeReplacement
             return true;
         }
 
+        /* (non-Javadoc)
+         * @see java.lang.Object#toString()
+         */
         @Override
         public String toString() {
             return StringUtils.arrayToDelimitedString(m_keys, ", ");
         }
 
+        /* (non-Javadoc)
+         * @see java.lang.Object#hashCode()
+         */
         @Override
         public int hashCode() {
             int value = 1;
@@ -187,6 +229,7 @@ public class AutoIntegerIdMapStoreReplacement implements ColumnChangeReplacement
      * <p>
      * close
      * </p>
+     * .
      */
     @Override
     public void close() {

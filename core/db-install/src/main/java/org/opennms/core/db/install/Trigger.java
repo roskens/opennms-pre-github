@@ -35,16 +35,24 @@ import java.sql.Statement;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * The Class Trigger.
+ */
 public class Trigger {
 
+    /** The m_name. */
     private String m_name;
 
+    /** The m_table. */
     private String m_table;
 
+    /** The m_stored procedure. */
     private String m_storedProcedure;
 
+    /** The m_sql. */
     private String m_sql;
 
+    /** The m_pattern. */
     private static Pattern m_pattern = Pattern.compile("(?i)" + "(CREATE TRIGGER (\\S+)\\s+"
             + "BEFORE (?:INSERT|UPDATE|INSERT OR UPDATE)\\s+" + "ON (\\S+) FOR EACH ROW\\s+"
             + "EXECUTE PROCEDURE (\\S+)\\(\\));");
@@ -74,6 +82,7 @@ public class Trigger {
      * <p>
      * findTriggerInString
      * </p>
+     * .
      *
      * @param create
      *            a {@link java.lang.String} object.
@@ -97,12 +106,13 @@ public class Trigger {
      * <p>
      * isOnDatabase
      * </p>
+     * .
      *
      * @param connection
      *            a {@link java.sql.Connection} object.
      * @return a boolean.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     public boolean isOnDatabase(Connection connection) throws SQLException {
         boolean exists;
@@ -129,11 +139,12 @@ public class Trigger {
      * <p>
      * removeFromDatabase
      * </p>
+     * .
      *
      * @param connection
      *            a {@link java.sql.Connection} object.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     public void removeFromDatabase(Connection connection) throws SQLException {
         Statement st = connection.createStatement();
@@ -148,11 +159,12 @@ public class Trigger {
      * <p>
      * addToDatabase
      * </p>
+     * .
      *
      * @param connection
      *            a {@link java.sql.Connection} object.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     public void addToDatabase(Connection connection) throws SQLException {
         Statement st = connection.createStatement();
@@ -167,6 +179,7 @@ public class Trigger {
      * <p>
      * getName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -178,6 +191,7 @@ public class Trigger {
      * <p>
      * getSql
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -189,6 +203,7 @@ public class Trigger {
      * <p>
      * getStoredProcedure
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -200,6 +215,7 @@ public class Trigger {
      * <p>
      * getTable
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

@@ -33,14 +33,18 @@ import java.util.List;
 
 import org.springframework.util.StringUtils;
 
+/**
+ * The Class BackupTablesFoundException.
+ */
 public class BackupTablesFoundException extends Exception {
-    /**
-     *
-     */
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -3888915116741506735L;
 
+    /** The m_old tables. */
     private List<String> m_oldTables;
 
+    /** The Constant s_ourMessage. */
     private static final String s_ourMessage = "One or more backup tables from a previous "
             + "install still exists--aborting installation.  " + "You either need to remove them or rename them "
             + "so they do not contain the string '_old_'.";
@@ -62,6 +66,7 @@ public class BackupTablesFoundException extends Exception {
      * <p>
      * getOldTables
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -73,6 +78,7 @@ public class BackupTablesFoundException extends Exception {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

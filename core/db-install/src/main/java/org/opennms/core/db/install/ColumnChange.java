@@ -28,23 +28,34 @@
 
 package org.opennms.core.db.install;
 
+/**
+ * The Class ColumnChange.
+ */
 public class ColumnChange {
+
+    /** The m_column. */
     private Column m_column = null;
 
+    /** The m_column replacement. */
     private ColumnChangeReplacement m_columnReplacement = null;
 
+    /** The m_upgrade timestamp. */
     private boolean m_upgradeTimestamp = false;
 
+    /** The m_select index. */
     private int m_selectIndex = 0;
 
+    /** The m_prepare index. */
     private int m_prepareIndex = 0;
 
+    /** The m_column type. */
     private int m_columnType = 0;
 
     /**
      * <p>
      * getColumn
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.dao.db.Column} object.
      */
@@ -56,6 +67,7 @@ public class ColumnChange {
      * <p>
      * setColumn
      * </p>
+     * .
      *
      * @param column
      *            a {@link org.opennms.netmgt.dao.db.Column} object.
@@ -68,6 +80,7 @@ public class ColumnChange {
      * <p>
      * getColumnReplacement
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.dao.db.ColumnChangeReplacement}
      *         object.
@@ -80,6 +93,7 @@ public class ColumnChange {
      * <p>
      * hasColumnReplacement
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -91,6 +105,7 @@ public class ColumnChange {
      * <p>
      * setColumnReplacement
      * </p>
+     * .
      *
      * @param columnReplacement
      *            a {@link org.opennms.netmgt.dao.db.ColumnChangeReplacement}
@@ -104,6 +119,7 @@ public class ColumnChange {
      * <p>
      * isUpgradeTimestamp
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -115,6 +131,7 @@ public class ColumnChange {
      * <p>
      * setUpgradeTimestamp
      * </p>
+     * .
      *
      * @param upgradeTimestamp
      *            a boolean.
@@ -127,6 +144,7 @@ public class ColumnChange {
      * <p>
      * getSelectIndex
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -138,6 +156,7 @@ public class ColumnChange {
      * <p>
      * setSelectIndex
      * </p>
+     * .
      *
      * @param selectIndex
      *            a int.
@@ -150,6 +169,7 @@ public class ColumnChange {
      * <p>
      * getPrepareIndex
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -161,6 +181,7 @@ public class ColumnChange {
      * <p>
      * setPrepareIndex
      * </p>
+     * .
      *
      * @param prepareIndex
      *            a int.
@@ -173,6 +194,7 @@ public class ColumnChange {
      * <p>
      * getColumnType
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -184,6 +206,7 @@ public class ColumnChange {
      * <p>
      * setColumnType
      * </p>
+     * .
      *
      * @param columnType
      *            a int.

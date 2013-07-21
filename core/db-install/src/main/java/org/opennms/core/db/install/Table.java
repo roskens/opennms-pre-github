@@ -33,17 +33,25 @@ import java.util.List;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
+/**
+ * The Class Table.
+ */
 public class Table {
+
+    /** The m_name. */
     private String m_name;
 
+    /** The m_columns. */
     private List<Column> m_columns;
 
+    /** The m_constraints. */
     private List<Constraint> m_constraints;
 
     /**
      * <p>
      * getColumns
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -55,6 +63,7 @@ public class Table {
      * <p>
      * setColumns
      * </p>
+     * .
      *
      * @param columns
      *            a {@link java.util.List} object.
@@ -67,6 +76,7 @@ public class Table {
      * <p>
      * getConstraints
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -78,6 +88,7 @@ public class Table {
      * <p>
      * setConstraints
      * </p>
+     * .
      *
      * @param constraints
      *            a {@link java.util.List} object.
@@ -90,6 +101,7 @@ public class Table {
      * <p>
      * getName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -101,6 +113,7 @@ public class Table {
      * <p>
      * setName
      * </p>
+     * .
      *
      * @param name
      *            a {@link java.lang.String} object.
@@ -113,9 +126,10 @@ public class Table {
      * <p>
      * setNotNullOnPrimaryKeyColumns
      * </p>
+     * .
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     public void setNotNullOnPrimaryKeyColumns() throws Exception {
         for (final Constraint constraint : getConstraints()) {
@@ -152,6 +166,9 @@ public class Table {
                                                                                                                   other.getName()).isEquals();
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
     @Override
     public int hashCode() {
         return new HashCodeBuilder(3, 73).append(m_name).append(m_columns).append(m_constraints).toHashCode();

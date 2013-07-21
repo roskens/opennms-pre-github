@@ -40,7 +40,12 @@ import java.util.Map;
 import org.opennms.core.db.install.ColumnChange;
 import org.opennms.core.db.install.ColumnChangeReplacement;
 
+/**
+ * The Class AutoIntegerReplacement.
+ */
 public class AutoIntegerReplacement implements ColumnChangeReplacement {
+
+    /** The m_value. */
     private int m_value;
 
     /**
@@ -59,6 +64,7 @@ public class AutoIntegerReplacement implements ColumnChangeReplacement {
      * <p>
      * getInt
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -76,6 +82,7 @@ public class AutoIntegerReplacement implements ColumnChangeReplacement {
      * <p>
      * addColumnIfColumnIsNew
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -88,6 +95,7 @@ public class AutoIntegerReplacement implements ColumnChangeReplacement {
      * <p>
      * close
      * </p>
+     * .
      */
     @Override
     public void close() {

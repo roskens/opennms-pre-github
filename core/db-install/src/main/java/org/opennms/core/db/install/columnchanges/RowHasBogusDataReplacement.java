@@ -41,9 +41,15 @@ import java.util.Map;
 import org.opennms.core.db.install.ColumnChange;
 import org.opennms.core.db.install.ColumnChangeReplacement;
 
+/**
+ * The Class RowHasBogusDataReplacement.
+ */
 public class RowHasBogusDataReplacement implements ColumnChangeReplacement {
+
+    /** The m_table. */
     private final String m_table;
 
+    /** The m_column. */
     private final String m_column;
 
     /**
@@ -74,6 +80,7 @@ public class RowHasBogusDataReplacement implements ColumnChangeReplacement {
      * <p>
      * addColumnIfColumnIsNew
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -86,6 +93,7 @@ public class RowHasBogusDataReplacement implements ColumnChangeReplacement {
      * <p>
      * close
      * </p>
+     * .
      */
     @Override
     public void close() {

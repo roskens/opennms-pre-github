@@ -34,9 +34,15 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * The Class TriggerDao.
+ */
 public class TriggerDao {
+
+    /** The m_name map. */
     private Map<String, Trigger> m_nameMap;
 
+    /** The m_table map. */
     private Map<String, List<Trigger>> m_tableMap;
 
     /**
@@ -52,6 +58,7 @@ public class TriggerDao {
      * <p>
      * reset
      * </p>
+     * .
      */
     public void reset() {
         m_nameMap = new LinkedHashMap<String, Trigger>();
@@ -62,6 +69,7 @@ public class TriggerDao {
      * <p>
      * add
      * </p>
+     * .
      *
      * @param t
      *            a {@link org.opennms.netmgt.dao.db.Trigger} object.
@@ -77,6 +85,13 @@ public class TriggerDao {
         getTriggersForTableCreateIfEmpty(t.getTable().toLowerCase()).add(t);
     }
 
+    /**
+     * Gets the triggers for table create if empty.
+     *
+     * @param table
+     *            the table
+     * @return the triggers for table create if empty
+     */
     private List<Trigger> getTriggersForTableCreateIfEmpty(String table) {
         if (!m_tableMap.containsKey(table)) {
             m_tableMap.put(table, new LinkedList<Trigger>());
@@ -88,6 +103,7 @@ public class TriggerDao {
      * <p>
      * getTriggersForTable
      * </p>
+     * .
      *
      * @param table
      *            a {@link java.lang.String} object.

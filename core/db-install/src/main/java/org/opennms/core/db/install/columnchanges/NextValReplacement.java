@@ -45,11 +45,18 @@ import javax.sql.DataSource;
 import org.opennms.core.db.install.ColumnChange;
 import org.opennms.core.db.install.ColumnChangeReplacement;
 
+/**
+ * The Class NextValReplacement.
+ */
 public class NextValReplacement implements ColumnChangeReplacement {
+
+    /** The m_sequence. */
     private final String m_sequence;
 
+    /** The m_connection. */
     private final Connection m_connection;
 
+    /** The m_statement. */
     private final PreparedStatement m_statement;
 
     /**
@@ -61,8 +68,8 @@ public class NextValReplacement implements ColumnChangeReplacement {
      *            a {@link java.lang.String} object.
      * @param dataSource
      *            a {@link javax.sql.DataSource} object.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     public NextValReplacement(String sequence, DataSource dataSource) throws SQLException {
         m_sequence = sequence;
@@ -71,6 +78,11 @@ public class NextValReplacement implements ColumnChangeReplacement {
         m_statement = m_connection.prepareStatement("SELECT nextval('" + m_sequence + "')");
     }
 
+    /**
+     * Gets the statement.
+     *
+     * @return the statement
+     */
     private PreparedStatement getStatement() {
         /*
          * if (m_statement == null) {
@@ -115,6 +127,7 @@ public class NextValReplacement implements ColumnChangeReplacement {
      * <p>
      * addColumnIfColumnIsNew
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -127,9 +140,10 @@ public class NextValReplacement implements ColumnChangeReplacement {
      * <p>
      * close
      * </p>
+     * .
      *
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     @Override
     public void close() throws SQLException {
@@ -140,9 +154,10 @@ public class NextValReplacement implements ColumnChangeReplacement {
      * <p>
      * finalize
      * </p>
+     * .
      *
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     @Override
     protected void finalize() throws SQLException {

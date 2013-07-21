@@ -42,7 +42,12 @@ import java.util.Map;
 import org.opennms.core.db.install.ColumnChange;
 import org.opennms.core.db.install.ColumnChangeReplacement;
 
+/**
+ * The Class TimeStampReplacement.
+ */
 public class TimeStampReplacement implements ColumnChangeReplacement {
+
+    /** The m_replacement. */
     private final Date m_replacement;
 
     /**
@@ -67,6 +72,7 @@ public class TimeStampReplacement implements ColumnChangeReplacement {
      * <p>
      * addColumnIfColumnIsNew
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -79,6 +85,7 @@ public class TimeStampReplacement implements ColumnChangeReplacement {
      * <p>
      * close
      * </p>
+     * .
      */
     @Override
     public void close() {

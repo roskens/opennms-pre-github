@@ -41,7 +41,12 @@ import java.util.Map;
 import org.opennms.core.db.install.ColumnChange;
 import org.opennms.core.db.install.ColumnChangeReplacement;
 
+/**
+ * The Class FixedIntegerReplacement.
+ */
 public class FixedIntegerReplacement implements ColumnChangeReplacement {
+
+    /** The m_replacement. */
     private final Integer m_replacement;
 
     /**
@@ -66,6 +71,7 @@ public class FixedIntegerReplacement implements ColumnChangeReplacement {
      * <p>
      * addColumnIfColumnIsNew
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -78,6 +84,7 @@ public class FixedIntegerReplacement implements ColumnChangeReplacement {
      * <p>
      * close
      * </p>
+     * .
      */
     @Override
     public void close() {
