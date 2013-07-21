@@ -45,6 +45,7 @@ public interface WebGroupManager {
      * <p>
      * getGroups
      * </p>
+     * .
      *
      * @return a {@link java.util.Collection} object.
      */
@@ -54,6 +55,7 @@ public interface WebGroupManager {
      * <p>
      * getGroup
      * </p>
+     * .
      *
      * @param groupName
      *            a {@link java.lang.String} object.

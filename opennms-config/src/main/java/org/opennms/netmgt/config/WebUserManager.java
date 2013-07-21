@@ -45,6 +45,7 @@ public interface WebUserManager {
      * <p>
      * getUsers
      * </p>
+     * .
      *
      * @return a {@link java.util.Collection} object.
      */
@@ -54,6 +55,7 @@ public interface WebUserManager {
      * <p>
      * getUser
      * </p>
+     * .
      *
      * @param name
      *            a {@link java.lang.String} object.

@@ -43,8 +43,10 @@ import org.opennms.netmgt.config.snmp.SnmpConfig;
  */
 public class SnmpConfigManager {
 
+    /** The m_config. */
     private SnmpConfig m_config;
 
+    /** The m_definitions. */
     private List<MergeableDefinition> m_definitions = new ArrayList<MergeableDefinition>();
 
     /**
@@ -118,6 +120,7 @@ public class SnmpConfigManager {
      * <p>
      * getConfig
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.config.snmp.SnmpConfig} object.
      */
@@ -125,15 +128,29 @@ public class SnmpConfigManager {
         return m_config;
     }
 
+    /**
+     * Gets the definitions.
+     *
+     * @return the definitions
+     */
     private List<MergeableDefinition> getDefinitions() {
         return m_definitions;
     }
 
+    /**
+     * Adds the definition.
+     *
+     * @param def
+     *            the def
+     */
     private void addDefinition(MergeableDefinition def) {
         m_definitions.add(def);
         getConfig().addDefinition(def.getConfigDef());
     }
 
+    /**
+     * Removes the empty definitions.
+     */
     private void removeEmptyDefinitions() {
         for (Iterator<MergeableDefinition> iter = getDefinitions().iterator(); iter.hasNext();) {
             MergeableDefinition def = iter.next();
@@ -173,10 +190,10 @@ public class SnmpConfigManager {
 
     /**
      * This method purges specifics and ranges from definitions that don't match
-     * the attributes specified in the event (the updateDef)
+     * the attributes specified in the event (the updateDef).
      *
-     * @param updatedDef
-     * @param eventDef
+     * @param eventDefinition
+     *            the event definition
      */
     private void purgeRangesFromDefinitions(MergeableDefinition eventDefinition) {
         for (MergeableDefinition def : getDefinitions()) {
@@ -185,6 +202,13 @@ public class SnmpConfigManager {
         removeEmptyDefinitions();
     }
 
+    /**
+     * Find matching definition.
+     *
+     * @param def
+     *            the def
+     * @return the mergeable definition
+     */
     private MergeableDefinition findMatchingDefinition(MergeableDefinition def) {
         for (MergeableDefinition d : getDefinitions()) {
             if (d.matches(def)) {
@@ -202,6 +226,8 @@ public class SnmpConfigManager {
      * </ul>
      * Otherwise they are not equal.
      *
+     * @param <T>
+     *            the generic type
      * @param obj1
      *            Object 1
      * @param obj2

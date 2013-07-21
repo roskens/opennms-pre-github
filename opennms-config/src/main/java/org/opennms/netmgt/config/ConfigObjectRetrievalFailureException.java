@@ -30,7 +30,12 @@ package org.opennms.netmgt.config;
 
 import org.springframework.orm.ObjectRetrievalFailureException;
 
+/**
+ * The Class ConfigObjectRetrievalFailureException.
+ */
 public class ConfigObjectRetrievalFailureException extends ObjectRetrievalFailureException {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -5906087948002738350L;
 
     /**

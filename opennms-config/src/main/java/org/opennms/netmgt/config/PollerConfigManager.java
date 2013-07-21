@@ -84,12 +84,17 @@ import org.slf4j.LoggerFactory;
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
  */
 public abstract class PollerConfigManager implements PollerConfig {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(PollerConfigManager.class);
 
+    /** The m_global lock. */
     private final ReadWriteLock m_globalLock = new ReentrantReadWriteLock();
 
+    /** The m_read lock. */
     private final Lock m_readLock = m_globalLock.readLock();
 
+    /** The m_write lock. */
     private final Lock m_writeLock = m_globalLock.writeLock();
 
     /**
@@ -103,10 +108,10 @@ public abstract class PollerConfigManager implements PollerConfig {
      *            a {@link java.lang.String} object.
      * @param verifyServer
      *            a boolean.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public PollerConfigManager(final InputStream stream, final String localServer, final boolean verifyServer)
             throws MarshalException, ValidationException {
@@ -116,11 +121,17 @@ public abstract class PollerConfigManager implements PollerConfig {
         setUpInternalData();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.PollerConfig#getReadLock()
+     */
     @Override
     public Lock getReadLock() {
         return m_readLock;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.PollerConfig#getWriteLock()
+     */
     @Override
     public Lock getWriteLock() {
         return m_writeLock;
@@ -130,6 +141,7 @@ public abstract class PollerConfigManager implements PollerConfig {
      * <p>
      * setUpInternalData
      * </p>
+     * .
      */
     protected void setUpInternalData() {
         createUrlIpMap();
@@ -141,13 +153,14 @@ public abstract class PollerConfigManager implements PollerConfig {
      * <p>
      * update
      * </p>
+     * .
      *
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     @Override
     public abstract void update() throws IOException, MarshalException, ValidationException;
@@ -156,22 +169,21 @@ public abstract class PollerConfigManager implements PollerConfig {
      * <p>
      * saveXml
      * </p>
+     * .
      *
      * @param xml
      *            a {@link java.lang.String} object.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     protected abstract void saveXml(String xml) throws IOException;
 
-    /**
-     * The config class loaded from the config file
-     */
+    /** The config class loaded from the config file. */
     protected PollerConfiguration m_config;
 
     /**
      * A mapping of the configured URLs to a list of the specific IPs configured
-     * in each - so as to avoid file reads
+     * in each - so as to avoid file reads.
      */
     private Map<String, List<String>> m_urlIPMap;
 
@@ -193,15 +205,13 @@ public abstract class PollerConfigManager implements PollerConfig {
      */
     private static boolean m_verifyServer;
 
-    /**
-     * The name of the local OpenNMS server
-     */
+    /** The name of the local OpenNMS server. */
     private static String m_localServer;
 
     /**
      * Go through the poller configuration and build a mapping of each
      * configured URL to a list of IPs configured in that URL - done at init()
-     * time so that repeated file reads can be avoided
+     * time so that repeated file reads can be avoided.
      */
     private void createUrlIpMap() {
         m_urlIPMap = new HashMap<String, List<String>>();
@@ -217,14 +227,14 @@ public abstract class PollerConfigManager implements PollerConfig {
     }
 
     /**
-     * Saves the current in-memory configuration to disk and reloads
+     * Saves the current in-memory configuration to disk and reloads.
      *
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws ValidationException
+     *             the validation exception
      */
     @Override
     public void save() throws MarshalException, IOException, ValidationException {
@@ -375,7 +385,7 @@ public abstract class PollerConfigManager implements PollerConfig {
 
     /**
      * This method returns the boolean flag pathOutageEnabled to indicate if
-     * path outage processing on nodeDown events is enabled
+     * path outage processing on nodeDown events is enabled.
      *
      * @return true if pathOutageEnabled
      */
@@ -885,6 +895,7 @@ public abstract class PollerConfigManager implements PollerConfig {
      * <p>
      * enumeratePackage
      * </p>
+     * .
      *
      * @return a {@link java.util.Enumeration} object.
      */
@@ -902,6 +913,7 @@ public abstract class PollerConfigManager implements PollerConfig {
      * <p>
      * services
      * </p>
+     * .
      *
      * @param pkg
      *            a {@link org.opennms.netmgt.config.poller.Package} object.
@@ -920,6 +932,7 @@ public abstract class PollerConfigManager implements PollerConfig {
      * <p>
      * includeURLs
      * </p>
+     * .
      *
      * @param pkg
      *            a {@link org.opennms.netmgt.config.poller.Package} object.
@@ -938,6 +951,7 @@ public abstract class PollerConfigManager implements PollerConfig {
      * <p>
      * parameters
      * </p>
+     * .
      *
      * @param svc
      *            a {@link org.opennms.netmgt.config.poller.Service} object.
@@ -957,6 +971,7 @@ public abstract class PollerConfigManager implements PollerConfig {
      * <p>
      * packages
      * </p>
+     * .
      *
      * @return a {@link java.lang.Iterable} object.
      */
@@ -973,6 +988,7 @@ public abstract class PollerConfigManager implements PollerConfig {
      * <p>
      * monitors
      * </p>
+     * .
      *
      * @return a {@link java.lang.Iterable} object.
      */
@@ -989,6 +1005,7 @@ public abstract class PollerConfigManager implements PollerConfig {
      * <p>
      * getThreads
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -1003,8 +1020,7 @@ public abstract class PollerConfigManager implements PollerConfig {
     }
 
     /**
-     * @param poller
-     * @return
+     * Initialize service monitors.
      */
     private void initializeServiceMonitors() {
         // Load up an instance of each monitor from the config
@@ -1029,6 +1045,7 @@ public abstract class PollerConfigManager implements PollerConfig {
      * <p>
      * getServiceMonitors
      * </p>
+     * .
      *
      * @return a {@link java.util.Map} object.
      */
@@ -1082,6 +1099,15 @@ public abstract class PollerConfigManager implements PollerConfig {
 
     }
 
+    /**
+     * Checks if is distributable to context.
+     *
+     * @param mc
+     *            the mc
+     * @param context
+     *            the context
+     * @return true, if is distributable to context
+     */
     private boolean isDistributableToContext(final Class<? extends ServiceMonitor> mc, final DistributionContext context) {
         final List<DistributionContext> supportedContexts = getSupportedDistributionContexts(mc);
         if (supportedContexts.contains(context) || supportedContexts.contains(DistributionContext.ALL)) {
@@ -1090,6 +1116,13 @@ public abstract class PollerConfigManager implements PollerConfig {
         return false;
     }
 
+    /**
+     * Gets the supported distribution contexts.
+     *
+     * @param mc
+     *            the mc
+     * @return the supported distribution contexts
+     */
     private List<DistributionContext> getSupportedDistributionContexts(final Class<? extends ServiceMonitor> mc) {
         final Distributable distributable = mc.getAnnotation(Distributable.class);
         final List<DistributionContext> declaredContexts = distributable == null ? Collections.singletonList(DistributionContext.DAEMON)
@@ -1097,6 +1130,15 @@ public abstract class PollerConfigManager implements PollerConfig {
         return declaredContexts;
     }
 
+    /**
+     * Find service monitor class.
+     *
+     * @param monitor
+     *            the monitor
+     * @return the class<? extends service monitor>
+     * @throws ClassNotFoundException
+     *             the class not found exception
+     */
     private Class<? extends ServiceMonitor> findServiceMonitorClass(final Monitor monitor)
             throws ClassNotFoundException {
         final Class<? extends ServiceMonitor> mc = Class.forName(monitor.getClassName()).asSubclass(ServiceMonitor.class);
@@ -1111,6 +1153,7 @@ public abstract class PollerConfigManager implements PollerConfig {
      * <p>
      * getNextOutageIdSql
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -1128,6 +1171,7 @@ public abstract class PollerConfigManager implements PollerConfig {
      * <p>
      * releaseAllServiceMonitors
      * </p>
+     * .
      */
     @Override
     public void releaseAllServiceMonitors() {

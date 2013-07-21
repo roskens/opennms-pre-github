@@ -65,11 +65,11 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public final class XmlrpcdConfigFactory {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(XmlrpcdConfigFactory.class);
 
-    /**
-     * The singleton instance of this factory
-     */
+    /** The singleton instance of this factory. */
     private static XmlrpcdConfigFactory m_singleton = null;
 
     /**
@@ -77,20 +77,20 @@ public final class XmlrpcdConfigFactory {
      */
     private static boolean m_loaded = false;
 
-    /**
-     * The config class loaded from the config file
-     */
+    /** The config class loaded from the config file. */
     private XmlrpcdConfiguration m_config;
 
     /**
-     * Private constructor
+     * Private constructor.
      *
-     * @exception java.io.IOException
-     *                Thrown if the specified config file cannot be read
-     * @exception org.exolab.castor.xml.MarshalException
-     *                Thrown if the file does not conform to the schema.
-     * @exception org.exolab.castor.xml.ValidationException
-     *                Thrown if the contents do not match the required schema.
+     * @param configFile
+     *            the config file
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     private XmlrpcdConfigFactory(String configFile) throws IOException, MarshalException, ValidationException {
         InputStream is = null;
@@ -105,22 +105,16 @@ public final class XmlrpcdConfigFactory {
     }
 
     /**
-     * Constructor for testing
+     * Constructor for testing.
      *
-     * @exception java.io.IOException
-     *                Thrown if the specified reader cannot be read
-     * @exception org.exolab.castor.xml.MarshalException
-     *                Thrown if the file does not conform to the schema.
-     * @exception org.exolab.castor.xml.ValidationException
-     *                Thrown if the contents do not match the required schema.
      * @param rdr
      *            a {@link java.io.Reader} object.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public XmlrpcdConfigFactory(Reader rdr) throws IOException, MarshalException, ValidationException {
         unmarshal(rdr);
@@ -133,15 +127,25 @@ public final class XmlrpcdConfigFactory {
      *
      * @param stream
      *            a {@link java.io.InputStream} object.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public XmlrpcdConfigFactory(InputStream stream) throws MarshalException, ValidationException {
         unmarshal(stream);
     }
 
+    /**
+     * Unmarshal.
+     *
+     * @param rdr
+     *            the rdr
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     */
     @Deprecated
     private void unmarshal(Reader rdr) throws MarshalException, ValidationException {
         m_config = CastorUtils.unmarshal(XmlrpcdConfiguration.class, rdr);
@@ -149,6 +153,16 @@ public final class XmlrpcdConfigFactory {
         handleLegacyConfiguration();
     }
 
+    /**
+     * Unmarshal.
+     *
+     * @param stream
+     *            the stream
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     */
     private void unmarshal(InputStream stream) throws MarshalException, ValidationException {
         m_config = CastorUtils.unmarshal(XmlrpcdConfiguration.class, stream);
 
@@ -159,18 +173,12 @@ public final class XmlrpcdConfigFactory {
      * Load the config from the default config file and create the singleton
      * instance of this factory.
      *
-     * @exception java.io.IOException
-     *                Thrown if the specified config file cannot be read
-     * @exception org.exolab.castor.xml.MarshalException
-     *                Thrown if the file does not conform to the schema.
-     * @exception org.exolab.castor.xml.ValidationException
-     *                Thrown if the contents do not match the required schema.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public static synchronized void init() throws IOException, MarshalException, ValidationException {
         if (m_loaded) {
@@ -187,20 +195,14 @@ public final class XmlrpcdConfigFactory {
      * Load the specified config file and create the singleton instance of this
      * factory.
      *
-     * @exception java.io.IOException
-     *                Thrown if the specified config file cannot be read
-     * @exception org.exolab.castor.xml.MarshalException
-     *                Thrown if the file does not conform to the schema.
-     * @exception org.exolab.castor.xml.ValidationException
-     *                Thrown if the contents do not match the required schema.
      * @param cfgFile
      *            a {@link java.io.File} object.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public static synchronized void init(File cfgFile) throws IOException, MarshalException, ValidationException {
         if (m_loaded) {
@@ -214,6 +216,9 @@ public final class XmlrpcdConfigFactory {
         setInstance(new XmlrpcdConfigFactory(cfgFile.getPath()));
     }
 
+    /**
+     * Handle legacy configuration.
+     */
     private void handleLegacyConfiguration() {
         String generatedSubscriptionName = null;
 
@@ -262,20 +267,14 @@ public final class XmlrpcdConfigFactory {
     }
 
     /**
-     * Reload the config from the default config file
+     * Reload the config from the default config file.
      *
-     * @exception java.io.IOException
-     *                Thrown if the specified config file cannot be read/loaded
-     * @exception org.exolab.castor.xml.MarshalException
-     *                Thrown if the file does not conform to the schema.
-     * @exception org.exolab.castor.xml.ValidationException
-     *                Thrown if the contents do not match the required schema.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public static synchronized void reload() throws IOException, MarshalException, ValidationException {
         m_singleton = null;
@@ -288,8 +287,6 @@ public final class XmlrpcdConfigFactory {
      * Return the singleton instance of this factory.
      *
      * @return The current factory instance.
-     * @throws java.lang.IllegalStateException
-     *             Thrown if the factory has not yet been initialized.
      */
     public static synchronized XmlrpcdConfigFactory getInstance() {
         if (!m_loaded) {
@@ -303,6 +300,7 @@ public final class XmlrpcdConfigFactory {
      * <p>
      * setInstance
      * </p>
+     * .
      *
      * @param instance
      *            a {@link org.opennms.netmgt.config.XmlrpcdConfigFactory}
@@ -327,13 +325,12 @@ public final class XmlrpcdConfigFactory {
      * Retrieves configured list of subscribed event uei for the given
      * subscribing server.
      *
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if a serverSubscription
-     *             element references a subscription name that doesn't exist
-     * @return an enumeration of subscribed event ueis.
      * @param server
      *            a {@link org.opennms.netmgt.config.xmlrpcd.ExternalServers}
      *            object.
+     * @return an enumeration of subscribed event ueis.
+     * @throws ValidationException
+     *             the validation exception
      */
     public synchronized List<SubscribedEvent> getEventList(ExternalServers server) throws ValidationException {
         List<SubscribedEvent> allEventsList = new ArrayList<SubscribedEvent>();

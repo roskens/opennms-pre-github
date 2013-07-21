@@ -42,10 +42,14 @@ import org.opennms.core.utils.InetAddressUtils;
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
  */
 public final class MergeableSpecific implements Comparable<String> {
+
+    /** The m_specific. */
     private String m_specific;
 
+    /** The Constant m_comparator. */
     private static final SpecificComparator m_comparator = new SpecificComparator();
 
+    /** The m_value. */
     private byte[] m_value;
 
     /**
@@ -77,6 +81,9 @@ public final class MergeableSpecific implements Comparable<String> {
         return m_comparator.compare(m_specific, specific);
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(final Object o) {
         if (!(o instanceof MergeableSpecific))
@@ -86,6 +93,9 @@ public final class MergeableSpecific implements Comparable<String> {
                                                                                    that.getSpecific()).isEquals();
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
     @Override
     public int hashCode() {
         return new HashCodeBuilder(7, 51).append(getValue()).append(getSpecific()).toHashCode();
@@ -95,6 +105,7 @@ public final class MergeableSpecific implements Comparable<String> {
      * <p>
      * getSpecific
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -106,6 +117,7 @@ public final class MergeableSpecific implements Comparable<String> {
      * <p>
      * setSpecific
      * </p>
+     * .
      *
      * @param specific
      *            a {@link java.lang.String} object.
@@ -118,6 +130,7 @@ public final class MergeableSpecific implements Comparable<String> {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -130,6 +143,7 @@ public final class MergeableSpecific implements Comparable<String> {
      * <p>
      * getValue
      * </p>
+     * .
      *
      * @return the value
      */

@@ -53,7 +53,7 @@ import org.opennms.netmgt.config.linkd.Package;
 public interface LinkdConfig {
 
     /**
-     * Determine the list of IPs the filter rule for this package allows
+     * Determine the list of IPs the filter rule for this package allows.
      *
      * @param pkg
      *            a {@link org.opennms.netmgt.config.linkd.Package} object.
@@ -111,20 +111,31 @@ public interface LinkdConfig {
      * <strong>Note: </strong>Evaluation of the interface against a package
      * filter will only work if the IP is already in the database.
      *
-     * @return true if the IP is part of at least one package, false otherwise
      * @param ipAddr
      *            a {@link java.lang.String} object.
+     * @return true if the IP is part of at least one package, false otherwise
      */
     List<String> getAllPackageMatches(InetAddress ipAddr);
 
+    /**
+     * Checks if is auto discovery enabled.
+     *
+     * @return true, if is auto discovery enabled
+     */
     boolean isAutoDiscoveryEnabled();
 
+    /**
+     * Checks if is vlan discovery enabled.
+     *
+     * @return true, if is vlan discovery enabled
+     */
     boolean isVlanDiscoveryEnabled();
 
     /**
      * <p>
      * enumeratePackage
      * </p>
+     * .
      *
      * @return a {@link java.util.Enumeration} object.
      */
@@ -134,6 +145,7 @@ public interface LinkdConfig {
      * <p>
      * getPackage
      * </p>
+     * .
      *
      * @param pkgName
      *            a {@link java.lang.String} object.
@@ -145,6 +157,7 @@ public interface LinkdConfig {
      * <p>
      * getThreads
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -154,6 +167,7 @@ public interface LinkdConfig {
      * <p>
      * enableDiscoveryDownload
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -163,17 +177,24 @@ public interface LinkdConfig {
      * <p>
      * useIpRouteDiscovery
      * </p>
+     * .
      *
      * @return a boolean.
      */
     boolean useIpRouteDiscovery();
 
+    /**
+     * Force ip route discovery on ethernet.
+     *
+     * @return true, if successful
+     */
     boolean forceIpRouteDiscoveryOnEthernet();
 
     /**
      * <p>
      * saveRouteTable
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -183,6 +204,7 @@ public interface LinkdConfig {
      * <p>
      * useCdpDiscovery
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -192,6 +214,7 @@ public interface LinkdConfig {
      * <p>
      * useBridgeDiscovery
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -201,6 +224,7 @@ public interface LinkdConfig {
      * <p>
      * useLldpDiscovery
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -210,6 +234,7 @@ public interface LinkdConfig {
      * <p>
      * useOspfDiscovery
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -219,6 +244,7 @@ public interface LinkdConfig {
      * <p>
      * saveStpNodeTable
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -228,6 +254,7 @@ public interface LinkdConfig {
      * <p>
      * saveStpInterfaceTable
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -237,6 +264,7 @@ public interface LinkdConfig {
      * <p>
      * getInitialSleepTime
      * </p>
+     * .
      *
      * @return a long.
      */
@@ -246,6 +274,7 @@ public interface LinkdConfig {
      * <p>
      * getSnmpPollInterval
      * </p>
+     * .
      *
      * @return a long.
      */
@@ -255,6 +284,7 @@ public interface LinkdConfig {
      * <p>
      * getDiscoveryLinkInterval
      * </p>
+     * .
      *
      * @return a long.
      */
@@ -267,13 +297,14 @@ public interface LinkdConfig {
      * <p>
      * Reload the configuration file
      * <p>
+     * .
      *
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     void reload() throws IOException, MarshalException, ValidationException;
 
@@ -281,13 +312,14 @@ public interface LinkdConfig {
      * <p>
      * save
      * </p>
+     * .
      *
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws ValidationException
+     *             the validation exception
      */
     void save() throws MarshalException, IOException, ValidationException;
 
@@ -313,6 +345,7 @@ public interface LinkdConfig {
      * <p>
      * VlanClassNameMap
      * <p>
+     * .
      */
     void update();
 
@@ -320,6 +353,7 @@ public interface LinkdConfig {
      * <p>
      * getConfiguration
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.config.linkd.LinkdConfiguration}
      *         object.
@@ -330,6 +364,7 @@ public interface LinkdConfig {
      * <p>
      * getVlanClassName
      * </p>
+     * .
      *
      * @param sysoid
      *            a {@link java.lang.String} object.
@@ -341,6 +376,7 @@ public interface LinkdConfig {
      * <p>
      * hasClassName
      * </p>
+     * .
      *
      * @param sysoid
      *            a {@link java.lang.String} object.
@@ -348,13 +384,42 @@ public interface LinkdConfig {
      */
     boolean hasClassName(String sysoid);
 
+    /**
+     * Gets the read lock.
+     *
+     * @return the read lock
+     */
     Lock getReadLock();
 
+    /**
+     * Gets the write lock.
+     *
+     * @return the write lock
+     */
     Lock getWriteLock();
 
+    /**
+     * Checks for ip route class name.
+     *
+     * @param sysoid
+     *            the sysoid
+     * @return true, if successful
+     */
     boolean hasIpRouteClassName(String sysoid);
 
+    /**
+     * Gets the ip route class name.
+     *
+     * @param sysoid
+     *            the sysoid
+     * @return the ip route class name
+     */
     String getIpRouteClassName(String sysoid);
 
+    /**
+     * Gets the default ip route class name.
+     *
+     * @return the default ip route class name
+     */
     String getDefaultIpRouteClassName();
 }

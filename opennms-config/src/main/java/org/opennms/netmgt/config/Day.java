@@ -51,10 +51,13 @@ import org.opennms.netmgt.config.groups.Role;
  */
 public class Day {
 
+    /** The m_calendar. */
     private Calendar m_calendar;
 
+    /** The m_role. */
     private Role m_role;
 
+    /** The m_group manager. */
     private GroupManager m_groupManager;
 
     /**
@@ -80,6 +83,7 @@ public class Day {
      * <p>
      * getDate
      * </p>
+     * .
      *
      * @return a java$util$Date object.
      */
@@ -91,6 +95,7 @@ public class Day {
      * <p>
      * getMonth
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -102,6 +107,7 @@ public class Day {
      * <p>
      * getDayOfMonth
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -113,6 +119,7 @@ public class Day {
      * <p>
      * getDayOfYear
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -124,6 +131,7 @@ public class Day {
      * <p>
      * getDayOfWeek
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -135,6 +143,7 @@ public class Day {
      * <p>
      * getTime
      * </p>
+     * .
      *
      * @param hours
      *            a int.
@@ -153,6 +162,7 @@ public class Day {
      * <p>
      * getEntries
      * </p>
+     * .
      *
      * @return an array of {@link org.opennms.web.admin.roles.CalendarEntry}
      *         objects.
@@ -177,6 +187,13 @@ public class Day {
         }
     }
 
+    /**
+     * Owner string.
+     *
+     * @param owners
+     *            the owners
+     * @return the string
+     */
     private String ownerString(List<Owner> owners) {
         boolean first = true;
         StringBuffer buf = new StringBuffer();

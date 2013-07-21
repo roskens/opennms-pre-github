@@ -47,6 +47,9 @@ import org.opennms.test.ThrowableAnticipator;
  */
 public class CapsdConfigManagerTest extends TestCase {
 
+    /**
+     * Test bogus.
+     */
     public void testBogus() {
         // Don't do anything... this is a place holder so we have at least one
         // test
@@ -59,6 +62,9 @@ public class CapsdConfigManagerTest extends TestCase {
     /**
      * Make sure that the constructor throws an exception when one of the
      * plugins cannot be loaded.
+     *
+     * @throws Exception
+     *             the exception
      */
     public void DISABLEDtestBadPlugin() throws Exception {
         InputStream reader = ConfigurationTestUtils.getInputStreamForResource(this,
@@ -87,6 +93,12 @@ public class CapsdConfigManagerTest extends TestCase {
         // assertNotNull("plugin for zero", plugin.getPlugin());
     }
 
+    /**
+     * Test http regex.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public final void testHttpRegex() throws Exception {
         CapsdConfigManager config = new DefaultCapsdConfigManager(
                                                                   Thread.currentThread().getContextClassLoader().getResourceAsStream("testHttpRegex.xml"));

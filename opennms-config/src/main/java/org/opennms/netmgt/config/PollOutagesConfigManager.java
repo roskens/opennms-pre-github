@@ -44,26 +44,43 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.util.Assert;
 
 /**
- * Represents a PollOutagesConfigManager
+ * Represents a PollOutagesConfigManager.
  *
  * @author brozow
  */
 public abstract class PollOutagesConfigManager extends AbstractJaxbConfigDao<Outages, Outages> implements
         PollOutagesConfig {
+
+    /** The m_global lock. */
     private final ReadWriteLock m_globalLock = new ReentrantReadWriteLock();
 
+    /** The m_read lock. */
     private final Lock m_readLock = m_globalLock.readLock();
 
+    /** The m_write lock. */
     private final Lock m_writeLock = m_globalLock.writeLock();
 
+    /**
+     * Instantiates a new poll outages config manager.
+     */
     public PollOutagesConfigManager() {
         super(Outages.class, "poll outage configuration");
     }
 
+    /**
+     * Gets the read lock.
+     *
+     * @return the read lock
+     */
     public Lock getReadLock() {
         return m_readLock;
     }
 
+    /**
+     * Gets the write lock.
+     *
+     * @return the write lock
+     */
     public Lock getWriteLock() {
         return m_writeLock;
     }
@@ -81,6 +98,9 @@ public abstract class PollOutagesConfigManager extends AbstractJaxbConfigDao<Out
         super.afterPropertiesSet();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.core.xml.AbstractJaxbConfigDao#translateConfig(java.lang.Object)
+     */
     @Override
     protected Outages translateConfig(final Outages outages) {
         return outages;
@@ -90,6 +110,7 @@ public abstract class PollOutagesConfigManager extends AbstractJaxbConfigDao<Out
      * <p>
      * getConfig
      * </p>
+     * .
      *
      * @return Returns the config.
      */
@@ -195,9 +216,8 @@ public abstract class PollOutagesConfigManager extends AbstractJaxbConfigDao<Out
      *
      * @param linterface
      *            the interface to be looked up
-     * @param getOutageSchedule
-     *            (out)
-     *            the outage
+     * @param out
+     *            the out
      * @return the interface is part of the specified outage
      */
     public boolean isInterfaceInOutage(final String linterface, final Outage out) {
@@ -243,8 +263,7 @@ public abstract class PollOutagesConfigManager extends AbstractJaxbConfigDao<Out
      *
      * @param cal
      *            the calendar to lookup
-     * @param getOutageSchedule
-     *            (outage)
+     * @param outage
      *            the outage
      * @return true if time is in outage
      */
@@ -264,9 +283,8 @@ public abstract class PollOutagesConfigManager extends AbstractJaxbConfigDao<Out
     /**
      * Return if current time is part of specified outage.
      *
-     * @param getOutageSchedule
-     *            (out)
-     *            the outage
+     * @param out
+     *            the out
      * @return true if current time is in outage
      */
     public boolean isCurTimeInOutage(final Outage out) {
@@ -277,10 +295,10 @@ public abstract class PollOutagesConfigManager extends AbstractJaxbConfigDao<Out
      * <p>
      * addOutage
      * </p>
+     * .
      *
-     * @param getOutageSchedule
-     *            (newOutage) a {@link org.opennms.netmgt.config.poller.Outage}
-     *            object.
+     * @param newOutage
+     *            the new outage
      */
     public void addOutage(final Outage newOutage) {
         getConfig().addOutage(newOutage);
@@ -290,6 +308,7 @@ public abstract class PollOutagesConfigManager extends AbstractJaxbConfigDao<Out
      * <p>
      * removeOutage
      * </p>
+     * .
      *
      * @param outageName
      *            a {@link java.lang.String} object.
@@ -302,9 +321,10 @@ public abstract class PollOutagesConfigManager extends AbstractJaxbConfigDao<Out
      * <p>
      * removeOutage
      * </p>
+     * .
      *
-     * @param getOutageSchedule
-     *            (outageToRemove) a
+     * @param outageToRemove
+     *            the outage to remove
      *            {@link org.opennms.netmgt.config.poller.Outage} object.
      */
     public void removeOutage(final Outage outageToRemove) {
@@ -315,13 +335,12 @@ public abstract class PollOutagesConfigManager extends AbstractJaxbConfigDao<Out
      * <p>
      * replaceOutage
      * </p>
+     * .
      *
-     * @param getOutageSchedule
-     *            (oldOutage) a {@link org.opennms.netmgt.config.poller.Outage}
-     *            object.
-     * @param getOutageSchedule
-     *            (newOutage) a {@link org.opennms.netmgt.config.poller.Outage}
-     *            object.
+     * @param oldOutage
+     *            the old outage
+     * @param newOutage
+     *            the new outage
      */
     public void replaceOutage(final Outage oldOutage, final Outage newOutage) {
         int count = getConfig().getOutageCount();
@@ -342,6 +361,7 @@ public abstract class PollOutagesConfigManager extends AbstractJaxbConfigDao<Out
      * <p>
      * getNodeIds
      * </p>
+     * .
      *
      * @param name
      *            a {@link java.lang.String} object.
@@ -373,6 +393,7 @@ public abstract class PollOutagesConfigManager extends AbstractJaxbConfigDao<Out
      * <p>
      * getEndOfOutage
      * </p>
+     * .
      *
      * @param outName
      *            a {@link java.lang.String} object.
@@ -391,9 +412,8 @@ public abstract class PollOutagesConfigManager extends AbstractJaxbConfigDao<Out
      * FIXME: This code is almost identical to isTimeInOutage... We need to fix
      * it
      *
-     * @param getOutageSchedule
-     *            (out) a {@link org.opennms.netmgt.config.poller.Outage}
-     *            object.
+     * @param out
+     *            the out
      * @return a {@link java.util.Calendar} object.
      */
     public static Calendar getEndOfOutage(final Outage out) {
@@ -406,13 +426,13 @@ public abstract class PollOutagesConfigManager extends AbstractJaxbConfigDao<Out
      * <p>
      * Return if nodeid is part of specified outage
      * </p>
+     * .
      *
      * @param lnodeid
      *            the nodeid to be looked up
+     * @param out
+     *            the out
      * @return the node iis part of the specified outage
-     * @param getOutageSchedule
-     *            (out) a {@link org.opennms.netmgt.config.poller.Outage}
-     *            object.
      */
     public boolean isNodeIdInOutage(final long lnodeid, final Outage out) {
         if (out == null)

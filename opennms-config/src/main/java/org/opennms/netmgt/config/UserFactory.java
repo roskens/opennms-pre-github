@@ -50,9 +50,8 @@ import org.opennms.core.utils.ConfigFileConstants;
  * @version $Id: $
  */
 public class UserFactory extends UserManager {
-    /**
-     * The static singleton instance of the UserFactory
-     */
+
+    /** The static singleton instance of the UserFactory. */
     private static UserManager instance;
 
     /**
@@ -60,37 +59,29 @@ public class UserFactory extends UserManager {
      */
     protected File usersFile;
 
-    /**
-     * Boolean indicating if the init() method has been called
-     */
+    /** Boolean indicating if the init() method has been called. */
     private static boolean initialized = false;
 
-    /**
-     *
-     */
+    /** The m_users conf file. */
     private File m_usersConfFile;
 
-    /**
-     *
-     */
+    /** The m_last modified. */
     private long m_lastModified;
 
-    /**
-     *
-     */
+    /** The m_file size. */
     private long m_fileSize;
 
     /**
-     * Initializes the factory
+     * Initializes the factory.
      *
-     * @throws java.io.IOException
-     *             if any.
-     * @throws java.io.FileNotFoundException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws FileNotFoundException
+     *             the file not found exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public UserFactory() throws MarshalException, ValidationException, FileNotFoundException, IOException {
         super(GroupFactory.getInstance());
@@ -101,15 +92,16 @@ public class UserFactory extends UserManager {
      * <p>
      * init
      * </p>
+     * .
      *
-     * @throws java.io.IOException
-     *             if any.
-     * @throws java.io.FileNotFoundException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws FileNotFoundException
+     *             the file not found exception
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public static synchronized void init() throws IOException, FileNotFoundException, MarshalException,
             ValidationException {
@@ -124,7 +116,7 @@ public class UserFactory extends UserManager {
 
     /**
      * Singleton static call to get the only instance that should exist for the
-     * UserFactory
+     * UserFactory.
      *
      * @return the single user factory instance
      */
@@ -149,15 +141,16 @@ public class UserFactory extends UserManager {
      * <p>
      * reload
      * </p>
+     * .
      *
-     * @throws java.io.IOException
-     *             if any.
-     * @throws java.io.FileNotFoundException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws FileNotFoundException
+     *             the file not found exception
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public void reload() throws IOException, FileNotFoundException, MarshalException, ValidationException {
         // Form the complete filename for the config file
@@ -189,6 +182,7 @@ public class UserFactory extends UserManager {
      * <p>
      * isUpdateNeeded
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -213,15 +207,16 @@ public class UserFactory extends UserManager {
      * <p>
      * update
      * </p>
+     * .
      *
-     * @throws java.io.IOException
-     *             if any.
-     * @throws java.io.FileNotFoundException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws FileNotFoundException
+     *             the file not found exception
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     @Override
     public void doUpdate() throws IOException, FileNotFoundException, MarshalException, ValidationException {
@@ -230,11 +225,17 @@ public class UserFactory extends UserManager {
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.UserManager#getLastModified()
+     */
     @Override
     public long getLastModified() {
         return m_lastModified;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.UserManager#getFileSize()
+     */
     @Override
     public long getFileSize() {
         return m_fileSize;

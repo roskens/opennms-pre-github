@@ -78,22 +78,23 @@ import org.slf4j.LoggerFactory;
  * @author <a href="http://www.opennms.org/">OpenNMS </a>
  */
 public class AmiPeerFactory {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(AmiPeerFactory.class);
 
+    /** The m_global lock. */
     private final ReadWriteLock m_globalLock = new ReentrantReadWriteLock();
 
+    /** The m_read lock. */
     private final Lock m_readLock = m_globalLock.readLock();
 
+    /** The m_write lock. */
     private final Lock m_writeLock = m_globalLock.writeLock();
 
-    /**
-     * The singleton instance of this factory
-     */
+    /** The singleton instance of this factory. */
     private static AmiPeerFactory m_singleton = null;
 
-    /**
-     * The config class loaded from the config file
-     */
+    /** The config class loaded from the config file. */
     private static AmiConfig m_config;
 
     /**
@@ -102,16 +103,16 @@ public class AmiPeerFactory {
     private static boolean m_loaded = false;
 
     /**
-     * Private constructor
+     * Private constructor.
      *
-     * @exception java.io.IOException
-     *                Thrown if the specified config file cannot be read
-     * @exception org.exolab.castor.xml.MarshalException
-     *                Thrown if the file does not conform to the schema.
-     * @exception org.exolab.castor.xml.ValidationException
-     *                Thrown if the contents do not match the required schema.
      * @param configFile
      *            the path to the config file to load in.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     private AmiPeerFactory(final String configFile) throws IOException, MarshalException, ValidationException {
         super();
@@ -120,10 +121,20 @@ public class AmiPeerFactory {
         IOUtils.closeQuietly(cfgIn);
     }
 
+    /**
+     * Gets the read lock.
+     *
+     * @return the read lock
+     */
     public Lock getReadLock() {
         return m_readLock;
     }
 
+    /**
+     * Gets the write lock.
+     *
+     * @return the write lock
+     */
     public Lock getWriteLock() {
         return m_writeLock;
     }
@@ -132,18 +143,12 @@ public class AmiPeerFactory {
      * Load the config from the default config file and create the singleton
      * instance of this factory.
      *
-     * @exception java.io.IOException
-     *                Thrown if the specified config file cannot be read
-     * @exception org.exolab.castor.xml.MarshalException
-     *                Thrown if the file does not conform to the schema.
-     * @exception org.exolab.castor.xml.ValidationException
-     *                Thrown if the contents do not match the required schema.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public static synchronized void init() throws IOException, MarshalException, ValidationException {
         if (m_loaded) {
@@ -159,20 +164,14 @@ public class AmiPeerFactory {
     }
 
     /**
-     * Reload the config from the default config file
+     * Reload the config from the default config file.
      *
-     * @exception java.io.IOException
-     *                Thrown if the specified config file cannot be read/loaded
-     * @exception org.exolab.castor.xml.MarshalException
-     *                Thrown if the file does not conform to the schema.
-     * @exception org.exolab.castor.xml.ValidationException
-     *                Thrown if the contents do not match the required schema.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public static synchronized void reload() throws IOException, MarshalException, ValidationException {
         m_singleton = null;
@@ -185,8 +184,6 @@ public class AmiPeerFactory {
      * Return the singleton instance of this factory.
      *
      * @return The current factory instance.
-     * @throws java.lang.IllegalStateException
-     *             Thrown if the factory has not yet been initialized.
      */
     public static synchronized AmiPeerFactory getInstance() {
         if (!m_loaded)
@@ -199,6 +196,7 @@ public class AmiPeerFactory {
      * <p>
      * setInstance
      * </p>
+     * .
      *
      * @param singleton
      *            a {@link org.opennms.netmgt.config.AmiPeerFactory} object.
@@ -212,6 +210,7 @@ public class AmiPeerFactory {
      * <p>
      * setAmiConfig
      * </p>
+     * .
      *
      * @param m_config
      *            a {@link org.opennms.netmgt.config.ami.AmiConfig} object.
@@ -221,10 +220,10 @@ public class AmiPeerFactory {
     }
 
     /**
-     * Saves the current settings to disk
+     * Saves the current settings to disk.
      *
-     * @throws java.lang.Exception
-     *             if saving settings to disk fails.
+     * @throws Exception
+     *             the exception
      */
     public void saveCurrent() throws Exception {
         getWriteLock().lock();
@@ -263,6 +262,7 @@ public class AmiPeerFactory {
      * basic logic should be fine as it's all IP address manipulation
      *
      * @throws UnknownHostException
+     *             the unknown host exception
      */
     void optimize() throws UnknownHostException {
         getWriteLock().lock();
@@ -418,6 +418,7 @@ public class AmiPeerFactory {
      * <p>
      * getAgentConfig
      * </p>
+     * .
      *
      * @param agentInetAddress
      *            a {@link java.net.InetAddress} object.
@@ -475,6 +476,14 @@ public class AmiPeerFactory {
         }
     }
 
+    /**
+     * Sets the ami agent config.
+     *
+     * @param agentConfig
+     *            the agent config
+     * @param def
+     *            the def
+     */
     private void setAmiAgentConfig(final AmiAgentConfig agentConfig, final Definition def) {
         setCommonAttributes(agentConfig, def);
         agentConfig.setPassword(determinePassword(def));
@@ -485,7 +494,9 @@ public class AmiPeerFactory {
      * agentConfig.
      *
      * @param agentConfig
+     *            the agent config
      * @param def
+     *            the def
      */
     private void setCommonAttributes(final AmiAgentConfig agentConfig, final Definition def) {
         agentConfig.setRetries(determineRetries(def));
@@ -495,9 +506,10 @@ public class AmiPeerFactory {
     }
 
     /**
-     * Helper method to search the ami-config for the appropriate username
+     * Helper method to search the ami-config for the appropriate username.
      *
      * @param def
+     *            the def
      * @return a string containing the username. will return the default if none
      *         is set.
      */
@@ -507,9 +519,10 @@ public class AmiPeerFactory {
     }
 
     /**
-     * Helper method to search the ami-config for the appropriate password
+     * Helper method to search the ami-config for the appropriate password.
      *
      * @param def
+     *            the def
      * @return a string containing the password. will return the default if none
      *         is set.
      */
@@ -519,9 +532,10 @@ public class AmiPeerFactory {
     }
 
     /**
-     * Helper method to search the ami-config
+     * Helper method to search the ami-config.
      *
      * @param def
+     *            the def
      * @return a long containing the timeout, AmiAgentConfig.DEFAULT_TIMEOUT if
      *         not specified.
      */
@@ -531,6 +545,13 @@ public class AmiPeerFactory {
             : def.getTimeout());
     }
 
+    /**
+     * Determine retries.
+     *
+     * @param def
+     *            the def
+     * @return the int
+     */
     private int determineRetries(final Definition def) {
         final int retries = AmiAgentConfig.DEFAULT_RETRIES;
         return (def.getRetry() == 0 ? (m_config.getRetry() == 0 ? retries : m_config.getRetry()) : def.getRetry());
@@ -540,6 +561,7 @@ public class AmiPeerFactory {
      * <p>
      * getAmiConfig
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.config.ami.AmiConfig} object.
      */

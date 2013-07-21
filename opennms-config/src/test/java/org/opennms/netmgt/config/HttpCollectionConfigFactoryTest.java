@@ -38,10 +38,22 @@ import org.exolab.castor.xml.MarshalException;
 import org.exolab.castor.xml.ValidationException;
 
 /**
+ * The Class HttpCollectionConfigFactoryTest.
+ *
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
  */
 public class HttpCollectionConfigFactoryTest extends TestCase {
 
+    /**
+     * Test http collection config factory reader.
+     *
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws UnsupportedEncodingException
+     *             the unsupported encoding exception
+     */
     public void testHttpCollectionConfigFactoryReader() throws MarshalException, ValidationException,
             UnsupportedEncodingException {
         InputStream rdr = new ByteArrayInputStream(

@@ -57,23 +57,24 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public abstract class BasicScheduleUtils {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(BasicScheduleUtils.class);
 
-    /**
-     * The day of the week values to name mapping
-     */
+    /** The day of the week values to name mapping. */
     protected static Map<String, Integer> m_dayOfWeekMap;
 
-    /** Constant <code>FORMAT1="dd-MMM-yyyy HH:mm:ss"</code> */
+    /** Constant <code>FORMAT1="dd-MMM-yyyy HH:mm:ss"</code>. */
     public static String FORMAT1 = "dd-MMM-yyyy HH:mm:ss";
 
-    /** Constant <code>FORMAT2="HH:mm:ss"</code> */
+    /** Constant <code>FORMAT2="HH:mm:ss"</code>. */
     public static String FORMAT2 = "HH:mm:ss";
 
     /**
      * <p>
      * isTimeInSchedule
      * </p>
+     * .
      *
      * @param cal
      *            a {@link java.util.Calendar} object.
@@ -224,6 +225,7 @@ public abstract class BasicScheduleUtils {
      * <p>
      * getDayOfWeekIndex
      * </p>
+     * .
      *
      * @param dayName
      *            a {@link java.lang.String} object.
@@ -238,6 +240,7 @@ public abstract class BasicScheduleUtils {
      * <p>
      * getEndOfSchedule
      * </p>
+     * .
      *
      * @param out
      *            a {@link org.opennms.netmgt.config.common.BasicSchedule}
@@ -301,7 +304,7 @@ public abstract class BasicScheduleUtils {
     }
 
     /**
-     * Create the day of week mapping
+     * Create the day of week mapping.
      */
     private static void createDayOfWeekMapping() {
         if (BasicScheduleUtils.m_dayOfWeekMap == null) {
@@ -320,6 +323,7 @@ public abstract class BasicScheduleUtils {
      * <p>
      * isTimeInSchedule
      * </p>
+     * .
      *
      * @param time
      *            a {@link java.util.Date} object.
@@ -338,6 +342,7 @@ public abstract class BasicScheduleUtils {
      * <p>
      * isDaily
      * </p>
+     * .
      *
      * @param time
      *            a {@link org.opennms.netmgt.config.common.Time} object.
@@ -351,6 +356,7 @@ public abstract class BasicScheduleUtils {
      * <p>
      * isWeekly
      * </p>
+     * .
      *
      * @param time
      *            a {@link org.opennms.netmgt.config.common.Time} object.
@@ -364,6 +370,7 @@ public abstract class BasicScheduleUtils {
      * <p>
      * isMonthly
      * </p>
+     * .
      *
      * @param time
      *            a {@link org.opennms.netmgt.config.common.Time} object.
@@ -377,6 +384,7 @@ public abstract class BasicScheduleUtils {
      * <p>
      * isSpecific
      * </p>
+     * .
      *
      * @param time
      *            a {@link org.opennms.netmgt.config.common.Time} object.
@@ -397,6 +405,7 @@ public abstract class BasicScheduleUtils {
      * <p>
      * getSpecificTime
      * </p>
+     * .
      *
      * @param specificString
      *            a {@link java.lang.String} object.
@@ -412,6 +421,7 @@ public abstract class BasicScheduleUtils {
      * <p>
      * getMonthlyTime
      * </p>
+     * .
      *
      * @param referenceTime
      *            a {@link java.util.Date} object.
@@ -433,6 +443,7 @@ public abstract class BasicScheduleUtils {
      * <p>
      * getWeeklyTime
      * </p>
+     * .
      *
      * @param referenceTime
      *            a {@link java.util.Date} object.
@@ -454,6 +465,7 @@ public abstract class BasicScheduleUtils {
      * <p>
      * getDailyTime
      * </p>
+     * .
      *
      * @param referenceTime
      *            a {@link java.util.Date} object.
@@ -472,6 +484,7 @@ public abstract class BasicScheduleUtils {
      * <p>
      * getInterval
      * </p>
+     * .
      *
      * @param ref
      *            a {@link java.util.Date} object.
@@ -499,6 +512,7 @@ public abstract class BasicScheduleUtils {
      * <p>
      * nextDay
      * </p>
+     * .
      *
      * @param date
      *            a {@link java.util.Date} object.
@@ -515,6 +529,7 @@ public abstract class BasicScheduleUtils {
      * <p>
      * nextWeek
      * </p>
+     * .
      *
      * @param date
      *            a {@link java.util.Date} object.
@@ -531,6 +546,7 @@ public abstract class BasicScheduleUtils {
      * <p>
      * nextMonth
      * </p>
+     * .
      *
      * @param date
      *            a {@link java.util.Date} object.
@@ -547,6 +563,7 @@ public abstract class BasicScheduleUtils {
      * <p>
      * getIntervals
      * </p>
+     * .
      *
      * @param start
      *            a {@link java.util.Date} object.
@@ -593,6 +610,7 @@ public abstract class BasicScheduleUtils {
      * <p>
      * getIntervals
      * </p>
+     * .
      *
      * @param interval
      *            a {@link org.opennms.core.utils.TimeInterval} object.
@@ -610,6 +628,7 @@ public abstract class BasicScheduleUtils {
      * <p>
      * getIntervalsCovering
      * </p>
+     * .
      *
      * @param start
      *            a {@link java.util.Date} object.
@@ -637,6 +656,7 @@ public abstract class BasicScheduleUtils {
      * <p>
      * getIntervalsCovering
      * </p>
+     * .
      *
      * @param interval
      *            a {@link org.opennms.core.utils.TimeInterval} object.
@@ -652,6 +672,13 @@ public abstract class BasicScheduleUtils {
         return getIntervalsCovering(interval.getStart(), interval.getEnd(), sched, owner);
     }
 
+    /**
+     * Gets the basic outage schedule.
+     *
+     * @param out
+     *            the out
+     * @return the basic outage schedule
+     */
     static BasicSchedule getBasicOutageSchedule(final Outage out) {
         if (out == null)
             return null;
@@ -667,6 +694,13 @@ public abstract class BasicScheduleUtils {
         return schedule;
     }
 
+    /**
+     * Gets the group schedule.
+     *
+     * @param schedule
+     *            the schedule
+     * @return the group schedule
+     */
     public static BasicSchedule getGroupSchedule(final Schedule schedule) {
         if (schedule == null)
             return null;
@@ -683,6 +717,13 @@ public abstract class BasicScheduleUtils {
         return basicSchedule;
     }
 
+    /**
+     * Gets the rancid schedule.
+     *
+     * @param schedule
+     *            the schedule
+     * @return the rancid schedule
+     */
     public static BasicSchedule getRancidSchedule(org.opennms.netmgt.config.rancid.adapter.Schedule schedule) {
         if (schedule == null)
             return null;

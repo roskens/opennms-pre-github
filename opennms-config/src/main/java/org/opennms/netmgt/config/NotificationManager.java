@@ -87,77 +87,77 @@ import org.springframework.util.Assert;
  * @version $Id: $
  */
 public abstract class NotificationManager {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(NotificationManager.class);
 
-    /**
-     * Object containing all Notification objects parsed from the xml file
-     */
+    /** Object containing all Notification objects parsed from the xml file. */
     public Notifications m_notifications;
 
-    /**
-     *
-     */
+    /** The old header. */
     private Header oldHeader;
 
-    /** Constant <code>PARAM_TYPE="-t"</code> */
+    /** Constant <code>PARAM_TYPE="-t"</code>. */
     public static final String PARAM_TYPE = "-t";
 
-    /** Constant <code>PARAM_DESTINATION="-d"</code> */
+    /** Constant <code>PARAM_DESTINATION="-d"</code>. */
     public static final String PARAM_DESTINATION = "-d";
 
-    /** Constant <code>PARAM_TEXT_MSG="-tm"</code> */
+    /** Constant <code>PARAM_TEXT_MSG="-tm"</code>. */
     public static final String PARAM_TEXT_MSG = "-tm";
 
-    /** Constant <code>PARAM_NUM_MSG="-nm"</code> */
+    /** Constant <code>PARAM_NUM_MSG="-nm"</code>. */
     public static final String PARAM_NUM_MSG = "-nm";
 
-    /** Constant <code>PARAM_RESPONSE="-r"</code> */
+    /** Constant <code>PARAM_RESPONSE="-r"</code>. */
     public static final String PARAM_RESPONSE = "-r";
 
-    /** Constant <code>PARAM_NODE="-nodeid"</code> */
+    /** Constant <code>PARAM_NODE="-nodeid"</code>. */
     public static final String PARAM_NODE = "-nodeid";
 
-    /** Constant <code>PARAM_INTERFACE="-interface"</code> */
+    /** Constant <code>PARAM_INTERFACE="-interface"</code>. */
     public static final String PARAM_INTERFACE = "-interface";
 
-    /** Constant <code>PARAM_SERVICE="-service"</code> */
+    /** Constant <code>PARAM_SERVICE="-service"</code>. */
     public static final String PARAM_SERVICE = "-service";
 
-    /** Constant <code>PARAM_SUBJECT="-subject"</code> */
+    /** Constant <code>PARAM_SUBJECT="-subject"</code>. */
     public static final String PARAM_SUBJECT = "-subject";
 
-    /** Constant <code>PARAM_EMAIL="-email"</code> */
+    /** Constant <code>PARAM_EMAIL="-email"</code>. */
     public static final String PARAM_EMAIL = "-email";
 
-    /** Constant <code>PARAM_PAGER_EMAIL="-pemail"</code> */
+    /** Constant <code>PARAM_PAGER_EMAIL="-pemail"</code>. */
     public static final String PARAM_PAGER_EMAIL = "-pemail";
 
-    /** Constant <code>PARAM_XMPP_ADDRESS="-xmpp"</code> */
+    /** Constant <code>PARAM_XMPP_ADDRESS="-xmpp"</code>. */
     public static final String PARAM_XMPP_ADDRESS = "-xmpp";
 
-    /** Constant <code>PARAM_TEXT_PAGER_PIN="-tp"</code> */
+    /** Constant <code>PARAM_TEXT_PAGER_PIN="-tp"</code>. */
     public static final String PARAM_TEXT_PAGER_PIN = "-tp";
 
-    /** Constant <code>PARAM_NUM_PAGER_PIN="-np"</code> */
+    /** Constant <code>PARAM_NUM_PAGER_PIN="-np"</code>. */
     public static final String PARAM_NUM_PAGER_PIN = "-np";
 
-    /** Constant <code>PARAM_WORK_PHONE="-wphone"</code> */
+    /** Constant <code>PARAM_WORK_PHONE="-wphone"</code>. */
     public static final String PARAM_WORK_PHONE = "-wphone";
 
-    /** Constant <code>PARAM_HOME_PHONE="-hphone"</code> */
+    /** Constant <code>PARAM_HOME_PHONE="-hphone"</code>. */
     public static final String PARAM_HOME_PHONE = "-hphone";
 
-    /** Constant <code>PARAM_MOBILE_PHONE="-mphone"</code> */
+    /** Constant <code>PARAM_MOBILE_PHONE="-mphone"</code>. */
     public static final String PARAM_MOBILE_PHONE = "-mphone";
 
-    /** Constant <code>PARAM_TUI_PIN="-tuipin"</code> */
+    /** Constant <code>PARAM_TUI_PIN="-tuipin"</code>. */
     public static final String PARAM_TUI_PIN = "-tuipin";
 
-    /** Constant <code>PARAM_MICROBLOG_USERNAME="-ublog"</code> */
+    /** Constant <code>PARAM_MICROBLOG_USERNAME="-ublog"</code>. */
     public static final String PARAM_MICROBLOG_USERNAME = "-ublog";
 
+    /** The m_config manager. */
     NotifdConfigManager m_configManager;
 
+    /** The m_data source. */
     private DataSource m_dataSource;
 
     /**
@@ -166,6 +166,7 @@ public abstract class NotificationManager {
      */
     private static final String NOTIFD_EXPANSION_PARM = "%(noticeid)%";
 
+    /** The m_expand re. */
     private static RE m_expandRE;
 
     /**
@@ -223,10 +224,6 @@ public abstract class NotificationManager {
      * Constructor for NotificationManager.
      * </p>
      *
-     * @throws MarshalException
-     *             if any.
-     * @throws ValidationException
-     *             if any.
      * @param configManager
      *            a {@link org.opennms.netmgt.config.NotifdConfigManager}
      *            object.
@@ -242,13 +239,14 @@ public abstract class NotificationManager {
      * <p>
      * parseXML
      * </p>
+     * .
      *
      * @param reader
      *            a {@link java.io.Reader} object.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     @Deprecated
     public synchronized void parseXML(final Reader reader) throws MarshalException, ValidationException {
@@ -260,13 +258,14 @@ public abstract class NotificationManager {
      * <p>
      * parseXML
      * </p>
+     * .
      *
      * @param stream
      *            a {@link java.io.InputStream} object.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public synchronized void parseXML(final InputStream stream) throws MarshalException, ValidationException {
         m_notifications = CastorUtils.unmarshal(Notifications.class, stream, true);
@@ -277,16 +276,17 @@ public abstract class NotificationManager {
      * <p>
      * hasUei
      * </p>
+     * .
      *
      * @param uei
      *            a {@link java.lang.String} object.
      * @return a boolean.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public boolean hasUei(final String uei) throws IOException, MarshalException, ValidationException {
         update();
@@ -309,18 +309,19 @@ public abstract class NotificationManager {
      * <p>
      * getNotifForEvent
      * </p>
+     * .
      *
      * @param event
      *            a {@link org.opennms.netmgt.xml.event.Event} object.
      * @return an array of
-     *         {@link org.opennms.netmgt.config.notifications.Notification}
-     *         objects.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     *             {@link org.opennms.netmgt.config.notifications.Notification}
+     *             objects.
      */
     public Notification[] getNotifForEvent(final Event event) throws IOException, MarshalException, ValidationException {
         update();
@@ -422,6 +423,7 @@ public abstract class NotificationManager {
      * <p>
      * getConfigManager
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.config.NotifdConfigManager} object.
      */
@@ -433,6 +435,7 @@ public abstract class NotificationManager {
      * <p>
      * nodeInterfaceServiceValid
      * </p>
+     * .
      *
      * @param notif
      *            a {@link org.opennms.netmgt.config.notifications.Notification}
@@ -482,6 +485,15 @@ public abstract class NotificationManager {
         return isRuleMatchingFilter(notif, rule);
     }
 
+    /**
+     * Checks if is rule matching filter.
+     *
+     * @param notif
+     *            the notif
+     * @param rule
+     *            the rule
+     * @return true, if is rule matching filter
+     */
     private boolean isRuleMatchingFilter(final Notification notif, final String rule) {
         try {
             return FilterDaoFactory.getInstance().isRuleMatching(rule);
@@ -492,8 +504,11 @@ public abstract class NotificationManager {
     }
 
     /**
-     * @return
+     * Gets the connection.
+     *
+     * @return the connection
      * @throws SQLException
+     *             the sQL exception
      */
     private Connection getConnection() throws SQLException {
         return m_dataSource.getConnection();
@@ -505,14 +520,14 @@ public abstract class NotificationManager {
      *
      * @return int, the sequence id from the database, 0 by default if there is
      *         database trouble
-     * @throws java.sql.SQLException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public int getNoticeId() throws SQLException, IOException, MarshalException, ValidationException {
         return getNxtId(m_configManager.getNextNotifIdSql());
@@ -522,21 +537,31 @@ public abstract class NotificationManager {
      * <p>
      * getUserNotifId
      * </p>
+     * .
      *
      * @return a int.
-     * @throws java.sql.SQLException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public int getUserNotifId() throws SQLException, IOException, MarshalException, ValidationException {
         return getNxtId(m_configManager.getNextUserNotifIdSql());
     }
 
+    /**
+     * Gets the nxt id.
+     *
+     * @param sql
+     *            the sql
+     * @return the nxt id
+     * @throws SQLException
+     *             the sQL exception
+     */
     private int getNxtId(final String sql) throws SQLException {
         int id = 0;
         Connection connection = null;
@@ -569,12 +594,12 @@ public abstract class NotificationManager {
      * @param noticeId
      *            a int.
      * @return a boolean.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public boolean noticeOutstanding(final int noticeId) throws IOException, MarshalException, ValidationException {
         boolean outstanding = false;
@@ -616,6 +641,7 @@ public abstract class NotificationManager {
      * <p>
      * acknowledgeNotice
      * </p>
+     * .
      *
      * @param event
      *            a {@link org.opennms.netmgt.xml.event.Event} object.
@@ -624,14 +650,14 @@ public abstract class NotificationManager {
      * @param matchList
      *            an array of {@link java.lang.String} objects.
      * @return a {@link java.util.Collection} object.
-     * @throws java.sql.SQLException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public Collection<Integer> acknowledgeNotice(final Event event, final String uei, final String[] matchList)
             throws SQLException, IOException, MarshalException, ValidationException {
@@ -733,10 +759,11 @@ public abstract class NotificationManager {
      * <p>
      * getActiveNodes
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     public List<Integer> getActiveNodes() throws SQLException {
         String NODE_QUERY = "SELECT   n.nodeid " + "FROM     node n " + "WHERE    n.nodetype != 'D' "
@@ -773,6 +800,7 @@ public abstract class NotificationManager {
      * <p>
      * getServiceNoticeStatus
      * </p>
+     * .
      *
      * @param nodeID
      *            a {@link java.lang.String} object.
@@ -781,8 +809,8 @@ public abstract class NotificationManager {
      * @param service
      *            a {@link java.lang.String} object.
      * @return a {@link java.lang.String} object.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     public String getServiceNoticeStatus(final String nodeID, final String ipaddr, final String service)
             throws SQLException {
@@ -820,13 +848,8 @@ public abstract class NotificationManager {
      * <p>
      * updateNoticeWithUserInfo
      * </p>
+     * .
      *
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
      * @param userId
      *            a {@link java.lang.String} object.
      * @param noticeId
@@ -837,8 +860,14 @@ public abstract class NotificationManager {
      *            a {@link java.lang.String} object.
      * @param autoNotify
      *            a {@link java.lang.String} object.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public void updateNoticeWithUserInfo(final String userId, final int noticeId, final String media,
             final String contactInfo, final String autoNotify) throws SQLException, MarshalException,
@@ -876,16 +905,16 @@ public abstract class NotificationManager {
      * This method inserts a row into the notifications table in the database.
      * This row indicates that the page has been sent out.
      *
-     * @param queueID
-     *            a {@link java.lang.String} object.
-     * @param notification
-     *            TODO
      * @param notifyId
      *            a int.
      * @param params
      *            a {@link java.util.Map} object.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @param queueID
+     *            a {@link java.lang.String} object.
+     * @param notification
+     *            TODO
+     * @throws SQLException
+     *             the sQL exception
      */
     public void insertNotice(final int notifyId, final Map<String, String> params, final String queueID,
             final Notification notification) throws SQLException {
@@ -970,11 +999,13 @@ public abstract class NotificationManager {
 
     /**
      * This method queries the database in search of a service id for a given
-     * serivice name
+     * serivice name.
      *
      * @param service
      *            the name of the service
      * @return the serviceID of the service
+     * @throws SQLException
+     *             the sQL exception
      */
     private int getServiceId(final String service) throws SQLException {
         int serviceID = 0;
@@ -1005,14 +1036,15 @@ public abstract class NotificationManager {
      * <p>
      * getNotifications
      * </p>
+     * .
      *
      * @return a {@link java.util.Map} object.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public Map<String, Notification> getNotifications() throws IOException, MarshalException, ValidationException {
         update();
@@ -1031,10 +1063,11 @@ public abstract class NotificationManager {
      * <p>
      * getServiceNames
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     public List<String> getServiceNames() throws SQLException {
         Connection connection = null;
@@ -1066,17 +1099,18 @@ public abstract class NotificationManager {
      * <p>
      * getNotification
      * </p>
+     * .
      *
      * @param name
      *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.config.notifications.Notification}
      *         object.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public Notification getNotification(final String name) throws IOException, MarshalException, ValidationException {
         update();
@@ -1088,14 +1122,15 @@ public abstract class NotificationManager {
      * <p>
      * getNotificationNames
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public List<String> getNotificationNames() throws IOException, MarshalException, ValidationException {
         update();
@@ -1113,17 +1148,18 @@ public abstract class NotificationManager {
      * <p>
      * removeNotification
      * </p>
+     * .
      *
      * @param name
      *            a {@link java.lang.String} object.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws java.lang.ClassNotFoundException
-     *             if any.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws ClassNotFoundException
+     *             the class not found exception
      */
     public synchronized void removeNotification(final String name) throws MarshalException, ValidationException,
             IOException, ClassNotFoundException {
@@ -1136,14 +1172,14 @@ public abstract class NotificationManager {
      *
      * @param notice
      *            The Notification to add.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws java.lang.ClassNotFoundException
-     *             if any.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws ClassNotFoundException
+     *             the class not found exception
      */
     public synchronized void addNotification(final Notification notice) throws MarshalException, ValidationException,
             IOException, ClassNotFoundException {
@@ -1158,20 +1194,21 @@ public abstract class NotificationManager {
      * <p>
      * replaceNotification
      * </p>
+     * .
      *
      * @param oldName
      *            a {@link java.lang.String} object.
      * @param newNotice
      *            a {@link org.opennms.netmgt.config.notifications.Notification}
      *            object.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws java.lang.ClassNotFoundException
-     *             if any.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws ClassNotFoundException
+     *             the class not found exception
      */
     public synchronized void replaceNotification(final String oldName, final Notification newNotice)
             throws MarshalException, ValidationException, IOException, ClassNotFoundException {
@@ -1214,14 +1251,14 @@ public abstract class NotificationManager {
      *            The name of the notification.
      * @param status
      *            The status (either "on" or "off").
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws java.lang.ClassNotFoundException
-     *             if any.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws ClassNotFoundException
+     *             the class not found exception
      */
     public synchronized void updateStatus(final String name, final String status) throws MarshalException,
             ValidationException, IOException, ClassNotFoundException {
@@ -1238,15 +1275,16 @@ public abstract class NotificationManager {
      * <p>
      * saveCurrent
      * </p>
+     * .
      *
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws java.lang.ClassNotFoundException
-     *             if any.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws ClassNotFoundException
+     *             the class not found exception
      */
     public synchronized void saveCurrent() throws MarshalException, ValidationException, IOException,
             ClassNotFoundException {
@@ -1267,16 +1305,19 @@ public abstract class NotificationManager {
      * <p>
      * saveXML
      * </p>
+     * .
      *
      * @param xmlString
      *            a {@link java.lang.String} object.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     protected abstract void saveXML(String xmlString) throws IOException;
 
     /**
+     * Rebuild header.
      *
+     * @return the header
      */
     private Header rebuildHeader() {
         Header header = oldHeader;
@@ -1290,13 +1331,14 @@ public abstract class NotificationManager {
      * <p>
      * update
      * </p>
+     * .
      *
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public abstract void update() throws IOException, MarshalException, ValidationException;
 
@@ -1304,6 +1346,7 @@ public abstract class NotificationManager {
      * <p>
      * rebuildParameterMap
      * </p>
+     * .
      *
      * @param notifId
      *            a int.
@@ -1312,8 +1355,8 @@ public abstract class NotificationManager {
      * @param skipNumericPrefix
      *            a boolean.
      * @return a {@link java.util.Map} object.
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     public Map<String, String> rebuildParameterMap(final int notifId, final String resolutionPrefix,
             final boolean skipNumericPrefix) throws Exception {
@@ -1394,6 +1437,7 @@ public abstract class NotificationManager {
      * <p>
      * forEachUserNotification
      * </p>
+     * .
      *
      * @param notifId
      *            a int.
@@ -1410,6 +1454,7 @@ public abstract class NotificationManager {
      * <p>
      * getQueueForNotification
      * </p>
+     * .
      *
      * @param notifId
      *            a int.
@@ -1426,6 +1471,7 @@ public abstract class NotificationManager {
      * <p>
      * expandMapValues
      * </p>
+     * .
      *
      * @param map
      *            a {@link java.util.Map} object.

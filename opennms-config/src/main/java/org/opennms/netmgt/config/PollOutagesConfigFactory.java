@@ -56,9 +56,8 @@ import org.springframework.core.io.Resource;
  * @version $Id: $
  */
 public final class PollOutagesConfigFactory extends PollOutagesConfigManager {
-    /**
-     * The singleton instance of this factory
-     */
+
+    /** The singleton instance of this factory. */
     private static PollOutagesConfigFactory m_singleton = null;
 
     /**
@@ -67,14 +66,10 @@ public final class PollOutagesConfigFactory extends PollOutagesConfigManager {
     private static boolean m_loaded = false;
 
     /**
-     * Private constructor
+     * Private constructor.
      *
-     * @exception java.io.IOException
-     *                Thrown if the specified config file cannot be read
-     * @exception org.exolab.castor.xml.MarshalException
-     *                Thrown if the file does not conform to the schema.
-     * @exception org.exolab.castor.xml.ValidationException
-     *                Thrown if the contents do not match the required schema.
+     * @param configFile
+     *            the config file
      */
     PollOutagesConfigFactory(final String configFile) {
         setConfigResource(new FileSystemResource(configFile));
@@ -82,6 +77,9 @@ public final class PollOutagesConfigFactory extends PollOutagesConfigManager {
 
     /**
      * Create a PollOutagesConfigFactory using the specified Spring resource.
+     *
+     * @param resource
+     *            the resource
      */
     public PollOutagesConfigFactory(final Resource resource) {
         setConfigResource(resource);
@@ -91,18 +89,12 @@ public final class PollOutagesConfigFactory extends PollOutagesConfigManager {
      * Load the config from the default config file and create the singleton
      * instance of this factory.
      *
-     * @exception java.io.IOException
-     *                Thrown if the specified config file cannot be read
-     * @exception org.exolab.castor.xml.MarshalException
-     *                Thrown if the file does not conform to the schema.
-     * @exception org.exolab.castor.xml.ValidationException
-     *                Thrown if the contents do not match the required schema.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public static synchronized void init() throws IOException, MarshalException, ValidationException {
         if (m_loaded) {
@@ -119,21 +111,14 @@ public final class PollOutagesConfigFactory extends PollOutagesConfigManager {
     }
 
     /**
-     * Reload the config from the default config file
+     * Reload the config from the default config file.
      *
-     * @exception java.io.IOException
-     *                Thrown if the specified config file cannot be
-     *                read/loaded
-     * @exception org.exolab.castor.xml.MarshalException
-     *                Thrown if the file does not conform to the schema.
-     * @exception org.exolab.castor.xml.ValidationException
-     *                Thrown if the contents do not match the required schema.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public static void reload() throws IOException, MarshalException, ValidationException {
         init();
@@ -144,8 +129,6 @@ public final class PollOutagesConfigFactory extends PollOutagesConfigManager {
      * Return the singleton instance of this factory.
      *
      * @return The current factory instance.
-     * @throws java.lang.IllegalStateException
-     *             Thrown if the factory has not yet been initialized.
      */
     public static PollOutagesConfigFactory getInstance() {
         if (!m_loaded)
@@ -158,6 +141,7 @@ public final class PollOutagesConfigFactory extends PollOutagesConfigManager {
      * <p>
      * setInstance
      * </p>
+     * .
      *
      * @param instance
      *            a {@link org.opennms.netmgt.config.PollOutagesConfigFactory}
@@ -170,14 +154,14 @@ public final class PollOutagesConfigFactory extends PollOutagesConfigManager {
     }
 
     /**
-     * Saves the current in-memory configuration to disk and reloads
+     * Saves the current in-memory configuration to disk and reloads.
      *
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws ValidationException
+     *             the validation exception
      */
     public void saveCurrent() throws MarshalException, IOException, ValidationException {
         getWriteLock().lock();
@@ -221,13 +205,14 @@ public final class PollOutagesConfigFactory extends PollOutagesConfigManager {
      * <p>
      * update
      * </p>
+     * .
      *
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     @Override
     public void update() throws IOException, MarshalException, ValidationException {

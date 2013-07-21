@@ -40,30 +40,46 @@ import org.opennms.test.FileAnticipator;
 import org.springframework.core.io.FileSystemResource;
 
 /**
+ * The Class EventconfFactorySaveTest.
+ *
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  * @author <a href="mailto:cmiskell@opennms.org">Craig Miskell</a>
  */
 public class EventconfFactorySaveTest extends TestCase {
+
+    /** The Constant knownUEI1. */
     private static final String knownUEI1 = "uei.opennms.org/internal/capsd/snmpConflictsWithDb";
 
+    /** The Constant knownSubfileUEI1. */
     private static final String knownSubfileUEI1 = "uei.opennms.org/IETF/Bridge/traps/newRoot";
 
+    /** The Constant newUEI. */
     private static final String newUEI = "uei.opennms.org/custom/addedUEI";
 
+    /** The Constant newEventLabel. */
     private static final String newEventLabel = "A New Event which is added to the eventconf";
 
+    /** The Constant newDescr. */
     private static final String newDescr = "A slightly longer descriptive bit of text";
 
+    /** The Constant newDest. */
     private static final String newDest = "logndisplay";
 
+    /** The Constant newContent. */
     private static final String newContent = "Test message";
 
+    /** The Constant newSeverity. */
     private static final String newSeverity = "Warning";
 
+    /** The m_fa. */
     private FileAnticipator m_fa;
 
+    /** The m_event conf dao. */
     private DefaultEventConfDao m_eventConfDao;
 
+    /* (non-Javadoc)
+     * @see junit.framework.TestCase#setUp()
+     */
     @Override
     protected void setUp() throws Exception {
         super.setUp();
@@ -89,6 +105,9 @@ public class EventconfFactorySaveTest extends TestCase {
         m_eventConfDao.afterPropertiesSet();
     }
 
+    /* (non-Javadoc)
+     * @see junit.framework.TestCase#tearDown()
+     */
     @Override
     protected void tearDown() throws Exception {
         m_fa.deleteExpected();
@@ -97,17 +116,31 @@ public class EventconfFactorySaveTest extends TestCase {
     }
 
     /**
-     * Copys sourceDir/relativeFilePath to destDir/relativeFilePath
+     * Copys sourceDir/relativeFilePath to destDir/relativeFilePath.
      *
+     * @param fa
+     *            the fa
      * @param sourceDir
+     *            the source dir
      * @param destDir
-     * @param relativeFilePath
+     *            the dest dir
+     * @param file
+     *            the file
+     * @return the file
+     * @throws Exception
+     *             the exception
      */
     private static File createTempCopy(FileAnticipator fa, File sourceDir, File destDir, String file) throws Exception {
         FileUtils.copyFile(new File(sourceDir, file), new File(destDir, file));
         return fa.expecting(destDir, file);
     }
 
+    /**
+     * Test save.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testSave() throws Exception {
         String newUEI1 = "uei.opennms.org/custom/newTestUEI1";
         String newUEI2 = "uei.opennms.org/custom/newTestUEI2";
@@ -161,6 +194,11 @@ public class EventconfFactorySaveTest extends TestCase {
 
     }
 
+    /**
+     * Gets the addable event.
+     *
+     * @return the addable event
+     */
     private static Event getAddableEvent() {
         Event event = new Event();
         event.setUei(newUEI);
@@ -174,6 +212,12 @@ public class EventconfFactorySaveTest extends TestCase {
         return event;
     }
 
+    /**
+     * Check addable event.
+     *
+     * @param event
+     *            the event
+     */
     private static void checkAddableEvent(Event event) {
         assertEquals("Should be the new UEI", newUEI, event.getUei());
         assertEquals(newEventLabel, event.getEventLabel());
@@ -183,6 +227,9 @@ public class EventconfFactorySaveTest extends TestCase {
         assertEquals(newSeverity, event.getSeverity());
     }
 
+    /**
+     * Test add event.
+     */
     public void testAddEvent() {
         Event event = getAddableEvent();
 
@@ -211,7 +258,7 @@ public class EventconfFactorySaveTest extends TestCase {
     }
 
     /**
-     * Test adding and event to a specific file
+     * Test adding and event to a specific file.
      */
     public void testAddEventToProgrammaticStore() {
         Event event = getAddableEvent();
@@ -246,6 +293,9 @@ public class EventconfFactorySaveTest extends TestCase {
         }
     }
 
+    /**
+     * Test remove event to programmatic store.
+     */
     public void testRemoveEventToProgrammaticStore() {
         Event event = getAddableEvent();
 

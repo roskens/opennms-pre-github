@@ -47,7 +47,12 @@ import org.springframework.core.io.Resource;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataRetrievalFailureException;
 
+/**
+ * The Class DefaultEventConfDao.
+ */
 public class DefaultEventConfDao implements EventConfDao, InitializingBean {
+
+    /** The Constant DEFAULT_PROGRAMMATIC_STORE_RELATIVE_PATH. */
     private static final String DEFAULT_PROGRAMMATIC_STORE_RELATIVE_PATH = "events/programmatic.events.xml";
 
     /**
@@ -56,20 +61,37 @@ public class DefaultEventConfDao implements EventConfDao, InitializingBean {
      */
     private String m_programmaticStoreRelativePath = DEFAULT_PROGRAMMATIC_STORE_RELATIVE_PATH;
 
+    /** The m_events. */
     private Events m_events;
 
+    /** The m_config resource. */
     private Resource m_configResource;
 
+    /** The m_partition. */
     private Partition m_partition;
 
+    /**
+     * Gets the programmatic store relative url.
+     *
+     * @return the programmatic store relative url
+     */
     public String getProgrammaticStoreRelativeUrl() {
         return m_programmaticStoreRelativePath;
     }
 
+    /**
+     * Sets the programmatic store relative url.
+     *
+     * @param programmaticStoreRelativeUrl
+     *            the new programmatic store relative url
+     */
     public void setProgrammaticStoreRelativeUrl(String programmaticStoreRelativeUrl) {
         m_programmaticStoreRelativePath = programmaticStoreRelativeUrl;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.EventConfDao#reload()
+     */
     @Override
     public void reload() throws DataAccessException {
         try {
@@ -79,6 +101,9 @@ public class DefaultEventConfDao implements EventConfDao, InitializingBean {
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.EventConfDao#getEvents(java.lang.String)
+     */
     @Override
     public List<Event> getEvents(final String uei) {
         List<Event> events = m_events.forEachEvent(new ArrayList<Event>(), new EventCallback<List<Event>>() {
@@ -95,6 +120,9 @@ public class DefaultEventConfDao implements EventConfDao, InitializingBean {
         return events.isEmpty() ? null : events;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.EventConfDao#getEventUEIs()
+     */
     @Override
     public List<String> getEventUEIs() {
         return m_events.forEachEvent(new ArrayList<String>(), new EventCallback<List<String>>() {
@@ -108,6 +136,9 @@ public class DefaultEventConfDao implements EventConfDao, InitializingBean {
 
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.EventConfDao#getEventLabels()
+     */
     @Override
     public Map<String, String> getEventLabels() {
         return m_events.forEachEvent(new TreeMap<String, String>(), new EventCallback<Map<String, String>>() {
@@ -121,6 +152,9 @@ public class DefaultEventConfDao implements EventConfDao, InitializingBean {
         });
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.EventConfDao#getEventLabel(java.lang.String)
+     */
     @Override
     public String getEventLabel(final String uei) {
         Event event = findByUei(uei);
@@ -128,11 +162,19 @@ public class DefaultEventConfDao implements EventConfDao, InitializingBean {
 
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.EventConfDao#saveCurrent()
+     */
     @Override
     public void saveCurrent() {
         m_events.save(m_configResource);
     }
 
+    /**
+     * Gets the all events.
+     *
+     * @return the all events
+     */
     public List<Event> getAllEvents() {
         return m_events.forEachEvent(new ArrayList<Event>(), new EventCallback<List<Event>>() {
 
@@ -144,6 +186,9 @@ public class DefaultEventConfDao implements EventConfDao, InitializingBean {
         });
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.EventConfDao#getEventsByLabel()
+     */
     @Override
     public List<Event> getEventsByLabel() {
         SortedSet<Event> events = m_events.forEachEvent(new TreeSet<Event>(new EventLabelComparator()),
@@ -159,12 +204,18 @@ public class DefaultEventConfDao implements EventConfDao, InitializingBean {
         return new ArrayList<Event>(events);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.EventConfDao#addEvent(org.opennms.netmgt.xml.eventconf.Event)
+     */
     @Override
     public void addEvent(Event event) {
         m_events.addEvent(event);
         m_events.initialize(m_partition);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.EventConfDao#addEventToProgrammaticStore(org.opennms.netmgt.xml.eventconf.Event)
+     */
     @Override
     public void addEventToProgrammaticStore(Event event) {
         Events programmaticEvents = m_events.getLoadEventsByFile(m_programmaticStoreRelativePath);
@@ -178,6 +229,9 @@ public class DefaultEventConfDao implements EventConfDao, InitializingBean {
 
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.EventConfDao#removeEventFromProgrammaticStore(org.opennms.netmgt.xml.eventconf.Event)
+     */
     @Override
     public boolean removeEventFromProgrammaticStore(Event event) {
         Events programmaticEvents = m_events.getLoadEventsByFile(m_programmaticStoreRelativePath);
@@ -194,11 +248,17 @@ public class DefaultEventConfDao implements EventConfDao, InitializingBean {
 
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.EventConfDao#isSecureTag(java.lang.String)
+     */
     @Override
     public boolean isSecureTag(String tag) {
         return m_events.isSecureTag(tag);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.EventConfDao#findByUei(java.lang.String)
+     */
     @Override
     public Event findByUei(final String uei) {
         return m_events.findFirstMatchingEvent(new EventCriteria() {
@@ -210,25 +270,48 @@ public class DefaultEventConfDao implements EventConfDao, InitializingBean {
         });
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.EventConfDao#findByEvent(org.opennms.netmgt.xml.event.Event)
+     */
     @Override
     public Event findByEvent(final org.opennms.netmgt.xml.event.Event matchingEvent) {
         return m_events.findFirstMatchingEvent(matchingEvent);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.EventConfDao#getRootEvents()
+     */
     @Override
     public Events getRootEvents() {
         return m_events;
     }
 
+    /**
+     * Sets the config resource.
+     *
+     * @param configResource
+     *            the new config resource
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     public void setConfigResource(Resource configResource) throws IOException {
         m_configResource = configResource;
     }
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws DataAccessException {
         loadConfig();
     }
 
+    /**
+     * Load config.
+     *
+     * @throws DataAccessException
+     *             the data access exception
+     */
     private synchronized void loadConfig() throws DataAccessException {
         try {
             Events events = JaxbUtils.unmarshal(Events.class, m_configResource);

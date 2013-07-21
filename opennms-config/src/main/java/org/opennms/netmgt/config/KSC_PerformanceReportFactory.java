@@ -66,12 +66,12 @@ public class KSC_PerformanceReportFactory {
     /** File name of the KSC_PerformanceReport.xml */
     private static File s_configFile = null;
 
-    /** An instance of the ReportsList configuration */
+    /** An instance of the ReportsList configuration. */
     private ReportsList m_config;
 
     /**
      * The array of values that may be used in the timespan declaration of a
-     * graph
+     * graph.
      */
     public static final String[] TIMESPAN_OPTIONS = { "1_hour", "2_hour", "4_hour", "6_hour", "8_hour", "12_hour",
             "1_day", "2_day", "7_day", "1_month", "3_month", "6_month", "1_year", "Today", "Yesterday",
@@ -94,14 +94,14 @@ public class KSC_PerformanceReportFactory {
      * Init routine. Must be called before calling getInstance() to instantiate
      * *
      *
-     * @throws java.io.IOException
-     *             if any.
-     * @throws java.io.FileNotFoundException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws FileNotFoundException
+     *             the file not found exception
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public static synchronized void init() throws IOException, FileNotFoundException, MarshalException,
             ValidationException {
@@ -117,11 +117,11 @@ public class KSC_PerformanceReportFactory {
 
     /**
      * Singleton static call to get the only instance that should exist for the
-     * KSC_PerformanceReportFactory
+     * KSC_PerformanceReportFactory.
      *
      * @return the single KSC_PerformanceReportFactory instance
-     * @throws java.lang.IllegalStateException
-     *             if any.
+     * @throws IllegalStateException
+     *             the illegal state exception
      */
     public static synchronized KSC_PerformanceReportFactory getInstance() throws IllegalStateException {
         assertInitialized();
@@ -132,14 +132,14 @@ public class KSC_PerformanceReportFactory {
     /**
      * Parses the KSC_PerformanceReport.xml via the Castor classes.
      *
-     * @throws java.io.IOException
-     *             if any.
-     * @throws java.io.FileNotFoundException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws FileNotFoundException
+     *             the file not found exception
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public synchronized void reload() throws IOException, FileNotFoundException, MarshalException, ValidationException {
         if (s_configFile == null)
@@ -152,10 +152,19 @@ public class KSC_PerformanceReportFactory {
         m_reportList = createReportList();
     }
 
+    /**
+     * Sets the config file.
+     *
+     * @param configFile
+     *            the new config file
+     */
     public static void setConfigFile(final File configFile) {
         s_configFile = configFile;
     }
 
+    /**
+     * Sets the ids on all reports.
+     */
     private void setIdsOnAllReports() {
         int i = 0;
 
@@ -178,14 +187,14 @@ public class KSC_PerformanceReportFactory {
     /**
      * Saves the KSC_PerformanceReport.xml data.
      *
-     * @throws java.io.IOException
-     *             if any.
-     * @throws java.io.FileNotFoundException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws FileNotFoundException
+     *             the file not found exception
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public synchronized void saveCurrent() throws IOException, FileNotFoundException, MarshalException,
             ValidationException {
@@ -198,10 +207,18 @@ public class KSC_PerformanceReportFactory {
         reload();
     }
 
+    /**
+     * Assert initialized.
+     */
     private static void assertInitialized() {
         Assert.state(isInitialized(), "KSC_PerformanceReportFactory.init() has not been called");
     }
 
+    /**
+     * Checks if is initialized.
+     *
+     * @return true, if is initialized
+     */
     private static boolean isInitialized() {
         return s_instance != null;
     }
@@ -222,6 +239,7 @@ public class KSC_PerformanceReportFactory {
      * <p>
      * getReportByIndex
      * </p>
+     * .
      *
      * @param index
      *            a int.
@@ -231,6 +249,11 @@ public class KSC_PerformanceReportFactory {
         return m_reportList.get(index);
     }
 
+    /**
+     * Creates a new KSC_PerformanceReport object.
+     *
+     * @return the map< integer, report>
+     */
     private Map<Integer, Report> createReportList() {
         Map<Integer, Report> reports = new LinkedHashMap<Integer, Report>(m_config.getReportCount());
 
@@ -249,6 +272,7 @@ public class KSC_PerformanceReportFactory {
      * <p>
      * getReportList
      * </p>
+     * .
      *
      * @return a {@link java.util.Map} object.
      */
@@ -271,20 +295,20 @@ public class KSC_PerformanceReportFactory {
     }
 
     /**
-     * Deletes the indexed report and updates file configuration
+     * Deletes the indexed report and updates file configuration.
      *
      * @param index
      *            a int.
-     * @throws java.lang.ArrayIndexOutOfBoundsException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws java.io.FileNotFoundException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws ArrayIndexOutOfBoundsException
+     *             the array index out of bounds exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws FileNotFoundException
+     *             the file not found exception
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public void deleteReportAndSave(int index) throws ArrayIndexOutOfBoundsException, IOException,
             FileNotFoundException, MarshalException, ValidationException {
@@ -297,11 +321,25 @@ public class KSC_PerformanceReportFactory {
         saveCurrent();
     }
 
+    /**
+     * Adds the report.
+     *
+     * @param report
+     *            the report
+     */
     public void addReport(Report report) {
         m_config.addReport(report);
         setIdsOnAllReports();
     }
 
+    /**
+     * Sets the report.
+     *
+     * @param index
+     *            the index
+     * @param report
+     *            the report
+     */
     public void setReport(int index, Report report) {
         int arrayIndex = getArrayIndex(index);
         if (arrayIndex == -1) {
@@ -317,6 +355,13 @@ public class KSC_PerformanceReportFactory {
         setIdsOnAllReports();
     }
 
+    /**
+     * Gets the array index.
+     *
+     * @param index
+     *            the index
+     * @return the array index
+     */
     private int getArrayIndex(int index) {
         int i = 0;
         for (Report report : m_config.getReportCollection()) {
@@ -342,8 +387,9 @@ public class KSC_PerformanceReportFactory {
      *            a {@link java.util.Calendar} object.
      * @param end_time
      *            a {@link java.util.Calendar} object.
-     * @throws java.lang.IllegalArgumentException
-     *             if any.
+     * @return the begin end time
+     * @throws IllegalArgumentException
+     *             the illegal argument exception
      */
     public static synchronized void getBeginEndTime(String interval, Calendar begin_time, Calendar end_time)
             throws IllegalArgumentException {

@@ -57,26 +57,27 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public abstract class NotifdConfigManager {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(NotifdConfigManager.class);
 
-    /**
-     *
-     */
+    /** The configuration. */
     protected NotifdConfiguration configuration;
 
     /**
      * <p>
      * parseXml
      * </p>
+     * .
      *
      * @param stream
      *            a {@link java.io.InputStream} object.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public synchronized void parseXml(InputStream stream) throws MarshalException, ValidationException, IOException {
         configuration = CastorUtils.unmarshal(NotifdConfiguration.class, stream);
@@ -87,14 +88,14 @@ public abstract class NotifdConfigManager {
      * Getter for the field <code>configuration</code>.
      * </p>
      *
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
      * @return a {@link org.opennms.netmgt.config.notifd.NotifdConfiguration}
      *         object.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public NotifdConfiguration getConfiguration() throws IOException, MarshalException, ValidationException {
         update();
@@ -106,13 +107,14 @@ public abstract class NotifdConfigManager {
      * <p>
      * update
      * </p>
+     * .
      *
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     protected abstract void update() throws IOException, MarshalException, ValidationException;
 
@@ -120,14 +122,15 @@ public abstract class NotifdConfigManager {
      * <p>
      * getNotificationStatus
      * </p>
+     * .
      *
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
      * @return a {@link java.lang.String} object.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public String getNotificationStatus() throws IOException, MarshalException, ValidationException {
         update();
@@ -135,14 +138,14 @@ public abstract class NotifdConfigManager {
     }
 
     /**
-     * Turns the notifd service on
+     * Turns the notifd service on.
      *
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public final void turnNotifdOn() throws MarshalException, ValidationException, IOException {
         configuration.setStatus("on");
@@ -150,14 +153,14 @@ public abstract class NotifdConfigManager {
     }
 
     /**
-     * Turns the notifd service off
+     * Turns the notifd service off.
      *
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public final void turnNotifdOff() throws MarshalException, ValidationException, IOException {
         configuration.setStatus("off");
@@ -168,14 +171,15 @@ public abstract class NotifdConfigManager {
      * <p>
      * getNotificationMatch
      * </p>
+     * .
      *
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
      * @return a boolean.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public boolean getNotificationMatch() throws IOException, MarshalException, ValidationException {
         update();
@@ -186,13 +190,14 @@ public abstract class NotifdConfigManager {
      * <p>
      * saveCurrent
      * </p>
+     * .
      *
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public synchronized void saveCurrent() throws MarshalException, ValidationException, IOException {
         // marshall to a string first, then write the string to the file. This
@@ -209,11 +214,12 @@ public abstract class NotifdConfigManager {
      * <p>
      * saveXml
      * </p>
+     * .
      *
      * @param xml
      *            a {@link java.lang.String} object.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     protected abstract void saveXml(String xml) throws IOException;
 
@@ -221,14 +227,15 @@ public abstract class NotifdConfigManager {
      * <p>
      * getNextNotifIdSql
      * </p>
+     * .
      *
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
      * @return a {@link java.lang.String} object.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public String getNextNotifIdSql() throws IOException, MarshalException, ValidationException {
         return getConfiguration().getNextNotifId();
@@ -239,6 +246,7 @@ public abstract class NotifdConfigManager {
      * <p>
      * matchNotificationParameters
      * </p>
+     * .
      *
      * @param event
      *            a {@link org.opennms.netmgt.xml.event.Event} object.
@@ -295,14 +303,15 @@ public abstract class NotifdConfigManager {
      * <p>
      * getNextUserNotifIdSql
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public String getNextUserNotifIdSql() throws IOException, MarshalException, ValidationException {
         return getConfiguration().getNextUserNotifId();
@@ -312,14 +321,15 @@ public abstract class NotifdConfigManager {
      * <p>
      * getAutoAcknowledges
      * </p>
+     * .
      *
      * @return a {@link java.util.Collection} object.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public Collection<AutoAcknowledge> getAutoAcknowledges() throws MarshalException, ValidationException, IOException {
         return getConfiguration().getAutoAcknowledgeCollection();
@@ -329,14 +339,15 @@ public abstract class NotifdConfigManager {
      * <p>
      * getOutageCalendarNames
      * </p>
+     * .
      *
      * @return a {@link java.util.Collection} object.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public Collection<String> getOutageCalendarNames() throws MarshalException, ValidationException, IOException {
         return getConfiguration().getOutageCalendarCollection();

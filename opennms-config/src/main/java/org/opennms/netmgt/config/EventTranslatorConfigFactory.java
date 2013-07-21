@@ -82,18 +82,17 @@ import org.springframework.beans.PropertyAccessorFactory;
  * @author <a href="http://www.opennms.org/">OpenNMS </a>
  */
 public final class EventTranslatorConfigFactory implements EventTranslatorConfig {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(EventTranslatorConfigFactory.class);
 
-    /**
-     * The singleton instance of this factory
-     */
+    /** The singleton instance of this factory. */
     private static EventTranslatorConfig m_singleton = null;
 
-    /**
-     * The config class loaded from the config file
-     */
+    /** The config class loaded from the config file. */
     private EventTranslatorConfiguration m_config;
 
+    /** The m_translation specs. */
     private List<TranslationSpec> m_translationSpecs;
 
     /**
@@ -101,20 +100,22 @@ public final class EventTranslatorConfigFactory implements EventTranslatorConfig
      */
     private static boolean m_loaded = false;
 
-    /**
-     * connection factory for use with sql-value
-     */
+    /** connection factory for use with sql-value. */
     private DataSource m_dbConnFactory = null;
 
     /**
-     * Private constructor
+     * Private constructor.
      *
-     * @exception java.io.IOException
-     *                Thrown if the specified config file cannot be read
-     * @exception org.exolab.castor.xml.MarshalException
-     *                Thrown if the file does not conform to the schema.
-     * @exception org.exolab.castor.xml.ValidationException
-     *                Thrown if the contents do not match the required schema.
+     * @param configFile
+     *            the config file
+     * @param dbConnFactory
+     *            the db conn factory
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     private EventTranslatorConfigFactory(String configFile, DataSource dbConnFactory) throws IOException,
             MarshalException, ValidationException {
@@ -138,22 +139,44 @@ public final class EventTranslatorConfigFactory implements EventTranslatorConfig
      *            a {@link java.io.Reader} object.
      * @param dbConnFactory
      *            a {@link javax.sql.DataSource} object.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public EventTranslatorConfigFactory(InputStream rdr, DataSource dbConnFactory) throws MarshalException,
             ValidationException {
         unmarshall(rdr, dbConnFactory);
     }
 
+    /**
+     * Unmarshall.
+     *
+     * @param stream
+     *            the stream
+     * @param dbConnFactory
+     *            the db conn factory
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     */
     private synchronized void unmarshall(InputStream stream, DataSource dbConnFactory) throws MarshalException,
             ValidationException {
         m_config = CastorUtils.unmarshal(EventTranslatorConfiguration.class, stream);
         m_dbConnFactory = dbConnFactory;
     }
 
+    /**
+     * Unmarshall.
+     *
+     * @param stream
+     *            the stream
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     */
     private synchronized void unmarshall(InputStream stream) throws MarshalException, ValidationException {
         unmarshall(stream, null);
     }
@@ -161,8 +184,8 @@ public final class EventTranslatorConfigFactory implements EventTranslatorConfig
     /**
      * Simply marshals the config without messing with the singletons.
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @Override
     public void update() throws Exception {
@@ -188,24 +211,18 @@ public final class EventTranslatorConfigFactory implements EventTranslatorConfig
      * Load the config from the default config file and create the singleton
      * instance of this factory.
      *
-     * @exception java.io.IOException
-     *                Thrown if the specified config file cannot be read
-     * @exception org.exolab.castor.xml.MarshalException
-     *                Thrown if the file does not conform to the schema.
-     * @exception org.exolab.castor.xml.ValidationException
-     *                Thrown if the contents do not match the required schema.
-     * @throws java.lang.ClassNotFoundException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
-     * @throws java.sql.SQLException
-     *             if any.
-     * @throws java.beans.PropertyVetoException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws ClassNotFoundException
+     *             the class not found exception
+     * @throws SQLException
+     *             the sQL exception
+     * @throws PropertyVetoException
+     *             the property veto exception
      */
     public static synchronized void init() throws IOException, MarshalException, ValidationException,
             ClassNotFoundException, SQLException, PropertyVetoException {
@@ -225,26 +242,20 @@ public final class EventTranslatorConfigFactory implements EventTranslatorConfig
     }
 
     /**
-     * Reload the config from the default config file
+     * Reload the config from the default config file.
      *
-     * @exception java.io.IOException
-     *                Thrown if the specified config file cannot be read/loaded
-     * @exception org.exolab.castor.xml.MarshalException
-     *                Thrown if the file does not conform to the schema.
-     * @exception org.exolab.castor.xml.ValidationException
-     *                Thrown if the contents do not match the required schema.
-     * @throws java.lang.ClassNotFoundException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
-     * @throws java.sql.SQLException
-     *             if any.
-     * @throws java.beans.PropertyVetoException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws ClassNotFoundException
+     *             the class not found exception
+     * @throws SQLException
+     *             the sQL exception
+     * @throws PropertyVetoException
+     *             the property veto exception
      */
     public static synchronized void reload() throws IOException, MarshalException, ValidationException,
             ClassNotFoundException, SQLException, PropertyVetoException {
@@ -258,8 +269,6 @@ public final class EventTranslatorConfigFactory implements EventTranslatorConfig
      * Return the singleton instance of this factory.
      *
      * @return The current factory instance.
-     * @throws java.lang.IllegalStateException
-     *             Thrown if the factory has not yet been initialized.
      */
     public static synchronized EventTranslatorConfig getInstance() {
         if (!m_loaded)
@@ -272,6 +281,7 @@ public final class EventTranslatorConfigFactory implements EventTranslatorConfig
      * <p>
      * setInstance
      * </p>
+     * .
      *
      * @param singleton
      *            a {@link org.opennms.netmgt.config.EventTranslatorConfig}
@@ -299,6 +309,7 @@ public final class EventTranslatorConfigFactory implements EventTranslatorConfig
      * <p>
      * getUEIList
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -307,6 +318,11 @@ public final class EventTranslatorConfigFactory implements EventTranslatorConfig
         return getTranslationUEIs();
     }
 
+    /**
+     * Gets the translation ue is.
+     *
+     * @return the translation ue is
+     */
     private List<String> getTranslationUEIs() {
         Translation translation = getConfig().getTranslation();
         if (translation == null)
@@ -319,9 +335,20 @@ public final class EventTranslatorConfigFactory implements EventTranslatorConfig
         return ueis;
     }
 
+    /**
+     * The Class TranslationFailedException.
+     */
     static class TranslationFailedException extends RuntimeException {
+
+        /** The Constant serialVersionUID. */
         private static final long serialVersionUID = -7219413891842193464L;
 
+        /**
+         * Instantiates a new translation failed exception.
+         *
+         * @param msg
+         *            the msg
+         */
         TranslationFailedException(String msg) {
             super(msg);
         }
@@ -347,6 +374,11 @@ public final class EventTranslatorConfigFactory implements EventTranslatorConfig
         return events;
     }
 
+    /**
+     * Gets the translation specs.
+     *
+     * @return the translation specs
+     */
     private List<TranslationSpec> getTranslationSpecs() {
         if (m_translationSpecs == null)
             m_translationSpecs = constructTranslationSpecs();
@@ -354,6 +386,11 @@ public final class EventTranslatorConfigFactory implements EventTranslatorConfig
         return m_translationSpecs;
     }
 
+    /**
+     * Construct translation specs.
+     *
+     * @return the list
+     */
     private List<TranslationSpec> constructTranslationSpecs() {
         List<TranslationSpec> specs = new ArrayList<TranslationSpec>();
         for (EventTranslationSpec eventTrans : m_config.getTranslation().getEventTranslationSpecCollection()) {
@@ -362,16 +399,35 @@ public final class EventTranslatorConfigFactory implements EventTranslatorConfig
         return specs;
     }
 
+    /**
+     * The Class TranslationSpec.
+     */
     class TranslationSpec {
+
+        /** The m_spec. */
         private EventTranslationSpec m_spec;
 
+        /** The m_translation mappings. */
         private List<TranslationMapping> m_translationMappings;
 
+        /**
+         * Instantiates a new translation spec.
+         *
+         * @param spec
+         *            the spec
+         */
         TranslationSpec(EventTranslationSpec spec) {
             m_spec = spec;
             m_translationMappings = null; // lazy init
         }
 
+        /**
+         * Translate.
+         *
+         * @param e
+         *            the e
+         * @return the list
+         */
         public List<Event> translate(Event e) {
             // short circuit here is the uei doesn't match
             if (!ueiMatches(e))
@@ -388,14 +444,29 @@ public final class EventTranslatorConfigFactory implements EventTranslatorConfig
             return events;
         }
 
+        /**
+         * Gets the uei.
+         *
+         * @return the uei
+         */
         String getUei() {
             return m_spec.getUei();
         }
 
+        /**
+         * Gets the event translation spec.
+         *
+         * @return the event translation spec
+         */
         public EventTranslationSpec getEventTranslationSpec() {
             return m_spec;
         }
 
+        /**
+         * Construct translation mappings.
+         *
+         * @return the list
+         */
         private List<TranslationMapping> constructTranslationMappings() {
             if (m_spec.getMappings() == null)
                 return Collections.emptyList();
@@ -411,12 +482,24 @@ public final class EventTranslatorConfigFactory implements EventTranslatorConfig
             return Collections.unmodifiableList(transMaps);
         }
 
+        /**
+         * Gets the translation mappings.
+         *
+         * @return the translation mappings
+         */
         List<TranslationMapping> getTranslationMappings() {
             if (m_translationMappings == null)
                 m_translationMappings = constructTranslationMappings();
             return Collections.unmodifiableList(m_translationMappings);
         }
 
+        /**
+         * Matches.
+         *
+         * @param e
+         *            the e
+         * @return true, if successful
+         */
         boolean matches(Event e) {
             // short circuit if the eui doesn't match
             if (!ueiMatches(e)) {
@@ -434,6 +517,13 @@ public final class EventTranslatorConfigFactory implements EventTranslatorConfig
             return false;
         }
 
+        /**
+         * Uei matches.
+         *
+         * @param e
+         *            the e
+         * @return true, if successful
+         */
         private boolean ueiMatches(Event e) {
             return e.getUei().equals(m_spec.getUei()) || m_spec.getUei().endsWith("/")
                     && e.getUei().startsWith(m_spec.getUei());
@@ -441,16 +531,35 @@ public final class EventTranslatorConfigFactory implements EventTranslatorConfig
 
     }
 
+    /**
+     * The Class TranslationMapping.
+     */
     class TranslationMapping {
+
+        /** The m_mapping. */
         Mapping m_mapping;
 
+        /** The m_assignments. */
         List<AssignmentSpec> m_assignments;
 
+        /**
+         * Instantiates a new translation mapping.
+         *
+         * @param mapping
+         *            the mapping
+         */
         TranslationMapping(Mapping mapping) {
             m_mapping = mapping;
             m_assignments = null; // lazy init
         }
 
+        /**
+         * Translate.
+         *
+         * @param srcEvent
+         *            the src event
+         * @return the event
+         */
         public Event translate(Event srcEvent) {
             // if the event doesn't match the mapping then don't apply the
             // translation
@@ -466,6 +575,13 @@ public final class EventTranslatorConfigFactory implements EventTranslatorConfig
             return targetEvent;
         }
 
+        /**
+         * Clone event.
+         *
+         * @param srcEvent
+         *            the src event
+         * @return the event
+         */
         private Event cloneEvent(Event srcEvent) {
             Event clonedEvent = EventUtil.cloneEvent(srcEvent);
             /*
@@ -484,16 +600,31 @@ public final class EventTranslatorConfigFactory implements EventTranslatorConfig
             return clonedEvent;
         }
 
+        /**
+         * Gets the mapping.
+         *
+         * @return the mapping
+         */
         public Mapping getMapping() {
             return m_mapping;
         }
 
+        /**
+         * Gets the assignment specs.
+         *
+         * @return the assignment specs
+         */
         private List<AssignmentSpec> getAssignmentSpecs() {
             if (m_assignments == null)
                 m_assignments = constructAssignmentSpecs();
             return m_assignments;
         }
 
+        /**
+         * Construct assignment specs.
+         *
+         * @return the list
+         */
         private List<AssignmentSpec> constructAssignmentSpecs() {
             Mapping mapping = getMapping();
             List<AssignmentSpec> assignments = new ArrayList<AssignmentSpec>();
@@ -506,6 +637,13 @@ public final class EventTranslatorConfigFactory implements EventTranslatorConfig
             return assignments;
         }
 
+        /**
+         * Assignments match.
+         *
+         * @param e
+         *            the e
+         * @return true, if successful
+         */
         private boolean assignmentsMatch(Event e) {
             AssignmentSpec assignSpec = null;
             for (Iterator<AssignmentSpec> it = getAssignmentSpecs().iterator(); it.hasNext();) {
@@ -520,57 +658,132 @@ public final class EventTranslatorConfigFactory implements EventTranslatorConfig
             return true;
         }
 
+        /**
+         * Matches.
+         *
+         * @param e
+         *            the e
+         * @return true, if successful
+         */
         boolean matches(Event e) {
             return assignmentsMatch(e);
         }
     }
 
+    /**
+     * The Class AssignmentSpec.
+     */
     abstract class AssignmentSpec {
+
+        /** The m_assignment. */
         private Assignment m_assignment;
 
+        /** The m_value spec. */
         private ValueSpec m_valueSpec;
 
+        /**
+         * Instantiates a new assignment spec.
+         *
+         * @param assignment
+         *            the assignment
+         */
         AssignmentSpec(Assignment assignment) {
             m_assignment = assignment;
             m_valueSpec = null; // lazy init
         }
 
+        /**
+         * Apply.
+         *
+         * @param srcEvent
+         *            the src event
+         * @param targetEvent
+         *            the target event
+         */
         public void apply(Event srcEvent, Event targetEvent) {
             setValue(targetEvent, getValueSpec().getResult(srcEvent));
         }
 
+        /**
+         * Gets the assignment.
+         *
+         * @return the assignment
+         */
         private Assignment getAssignment() {
             return m_assignment;
         }
 
+        /**
+         * Gets the attribute name.
+         *
+         * @return the attribute name
+         */
         protected String getAttributeName() {
             return getAssignment().getName();
         }
 
+        /**
+         * Construct value spec.
+         *
+         * @return the value spec
+         */
         private ValueSpec constructValueSpec() {
             Value val = getAssignment().getValue();
 
             return EventTranslatorConfigFactory.this.getValueSpec(val);
         }
 
+        /**
+         * Sets the value.
+         *
+         * @param targetEvent
+         *            the target event
+         * @param value
+         *            the value
+         */
         protected abstract void setValue(Event targetEvent, String value);
 
+        /**
+         * Gets the value spec.
+         *
+         * @return the value spec
+         */
         private ValueSpec getValueSpec() {
             if (m_valueSpec == null)
                 m_valueSpec = constructValueSpec();
             return m_valueSpec;
         }
 
+        /**
+         * Matches.
+         *
+         * @param e
+         *            the e
+         * @return true, if successful
+         */
         boolean matches(Event e) {
             return getValueSpec().matches(e);
         }
     }
 
+    /**
+     * The Class FieldAssignmentSpec.
+     */
     class FieldAssignmentSpec extends AssignmentSpec {
+
+        /**
+         * Instantiates a new field assignment spec.
+         *
+         * @param field
+         *            the field
+         */
         FieldAssignmentSpec(Assignment field) {
             super(field);
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.config.EventTranslatorConfigFactory.AssignmentSpec#setValue(org.opennms.netmgt.xml.event.Event, java.lang.String)
+         */
         @Override
         protected void setValue(Event targetEvent, String value) {
             try {
@@ -585,11 +798,24 @@ public final class EventTranslatorConfigFactory implements EventTranslatorConfig
 
     }
 
+    /**
+     * The Class ParameterAssignmentSpec.
+     */
     class ParameterAssignmentSpec extends AssignmentSpec {
+
+        /**
+         * Instantiates a new parameter assignment spec.
+         *
+         * @param assign
+         *            the assign
+         */
         ParameterAssignmentSpec(Assignment assign) {
             super(assign);
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.config.EventTranslatorConfigFactory.AssignmentSpec#setValue(org.opennms.netmgt.xml.event.Event, java.lang.String)
+         */
         @Override
         protected void setValue(Event targetEvent, String value) {
             if (value == null) {
@@ -621,6 +847,13 @@ public final class EventTranslatorConfigFactory implements EventTranslatorConfig
         }
     }
 
+    /**
+     * Gets the value spec.
+     *
+     * @param val
+     *            the val
+     * @return the value spec
+     */
     ValueSpec getValueSpec(Value val) {
         if ("field".equals(val.getType()))
             return new FieldValueSpec(val);
@@ -634,20 +867,51 @@ public final class EventTranslatorConfigFactory implements EventTranslatorConfig
             return new ValueSpecUnspecified();
     }
 
+    /**
+     * The Class ValueSpec.
+     */
     abstract class ValueSpec {
 
+        /**
+         * Matches.
+         *
+         * @param e
+         *            the e
+         * @return true, if successful
+         */
         public abstract boolean matches(Event e);
 
+        /**
+         * Gets the result.
+         *
+         * @param srcEvent
+         *            the src event
+         * @return the result
+         */
         public abstract String getResult(Event srcEvent);
     }
 
+    /**
+     * The Class ConstantValueSpec.
+     */
     class ConstantValueSpec extends ValueSpec {
+
+        /** The m_constant. */
         Value m_constant;
 
+        /**
+         * Instantiates a new constant value spec.
+         *
+         * @param constant
+         *            the constant
+         */
         public ConstantValueSpec(Value constant) {
             m_constant = constant;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.config.EventTranslatorConfigFactory.ValueSpec#matches(org.opennms.netmgt.xml.event.Event)
+         */
         @Override
         public boolean matches(Event e) {
             if (m_constant.getMatches() != null) {
@@ -657,6 +921,9 @@ public final class EventTranslatorConfigFactory implements EventTranslatorConfig
             return true;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.config.EventTranslatorConfigFactory.ValueSpec#getResult(org.opennms.netmgt.xml.event.Event)
+         */
         @Override
         public String getResult(Event srcEvent) {
             return m_constant.getResult();
@@ -664,8 +931,14 @@ public final class EventTranslatorConfigFactory implements EventTranslatorConfig
 
     }
 
+    /**
+     * The Class ValueSpecUnspecified.
+     */
     class ValueSpecUnspecified extends ValueSpec {
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.config.EventTranslatorConfigFactory.ValueSpec#matches(org.opennms.netmgt.xml.event.Event)
+         */
         @Override
         public boolean matches(Event e) {
             // TODO: this should probably throw an exception since it makes no
@@ -673,6 +946,9 @@ public final class EventTranslatorConfigFactory implements EventTranslatorConfig
             return true;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.config.EventTranslatorConfigFactory.ValueSpec#getResult(org.opennms.netmgt.xml.event.Event)
+         */
         @Override
         public String getResult(Event srcEvent) {
             return "value unspecified";
@@ -680,22 +956,44 @@ public final class EventTranslatorConfigFactory implements EventTranslatorConfig
 
     }
 
+    /**
+     * The Class SqlValueSpec.
+     */
     class SqlValueSpec extends ValueSpec {
+
+        /** The m_val. */
         Value m_val;
 
+        /** The m_nested values. */
         List<ValueSpec> m_nestedValues;
 
+        /**
+         * Instantiates a new sql value spec.
+         *
+         * @param val
+         *            the val
+         */
         public SqlValueSpec(Value val) {
             m_val = val;
             m_nestedValues = null; // lazy init
         }
 
+        /**
+         * Gets the nested values.
+         *
+         * @return the nested values
+         */
         public List<ValueSpec> getNestedValues() {
             if (m_nestedValues == null)
                 m_nestedValues = constructNestedValues();
             return m_nestedValues;
         }
 
+        /**
+         * Construct nested values.
+         *
+         * @return the list
+         */
         private List<ValueSpec> constructNestedValues() {
             List<ValueSpec> nestedValues = new ArrayList<ValueSpec>();
             for (Value val : m_val.getValueCollection()) {
@@ -704,6 +1002,9 @@ public final class EventTranslatorConfigFactory implements EventTranslatorConfig
             return nestedValues;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.config.EventTranslatorConfigFactory.ValueSpec#matches(org.opennms.netmgt.xml.event.Event)
+         */
         @Override
         public boolean matches(Event e) {
             for (ValueSpec nestedVal : getNestedValues()) {
@@ -722,35 +1023,76 @@ public final class EventTranslatorConfigFactory implements EventTranslatorConfig
             return true;
         }
 
+        /**
+         * The Class Query.
+         */
         private class Query {
+
+            /** The m_querier. */
             SingleResultQuerier m_querier;
 
+            /** The m_args. */
             Object[] m_args;
 
+            /**
+             * Instantiates a new query.
+             *
+             * @param querier
+             *            the querier
+             * @param args
+             *            the args
+             */
             Query(SingleResultQuerier querier, Object[] args) {
                 m_querier = querier;
                 m_args = args;
             }
 
+            /**
+             * Gets the row count.
+             *
+             * @return the row count
+             */
             public int getRowCount() {
                 return m_querier.getCount();
             }
 
+            /**
+             * Execute.
+             *
+             * @return the int
+             */
             public int execute() {
                 m_querier.execute(m_args);
                 return getRowCount();
             }
 
+            /**
+             * Reproduce statement.
+             *
+             * @return the string
+             */
             public String reproduceStatement() {
                 return m_querier.reproduceStatement(m_args);
             }
 
+            /**
+             * Gets the result.
+             *
+             * @return the result
+             */
             public Object getResult() {
                 return m_querier.getResult();
             }
 
         }
 
+        /**
+         * Creates the query.
+         *
+         * @param srcEvent
+         *            the src event
+         * @return the query
+         */
         public Query createQuery(Event srcEvent) {
             Object[] args = new Object[getNestedValues().size()];
             SingleResultQuerier querier = new SingleResultQuerier(m_dbConnFactory, m_val.getResult());
@@ -761,6 +1103,9 @@ public final class EventTranslatorConfigFactory implements EventTranslatorConfig
             return new Query(querier, args);
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.config.EventTranslatorConfigFactory.ValueSpec#getResult(org.opennms.netmgt.xml.event.Event)
+         */
         @Override
         public String getResult(Event srcEvent) {
             Query query = createQuery(srcEvent);
@@ -781,13 +1126,27 @@ public final class EventTranslatorConfigFactory implements EventTranslatorConfig
 
     }
 
+    /**
+     * The Class AttributeValueSpec.
+     */
     abstract class AttributeValueSpec extends ValueSpec {
+
+        /** The m_val. */
         Value m_val;
 
+        /**
+         * Instantiates a new attribute value spec.
+         *
+         * @param val
+         *            the val
+         */
         AttributeValueSpec(Value val) {
             m_val = val;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.config.EventTranslatorConfigFactory.ValueSpec#matches(org.opennms.netmgt.xml.event.Event)
+         */
         @Override
         public boolean matches(Event e) {
 
@@ -815,6 +1174,9 @@ public final class EventTranslatorConfigFactory implements EventTranslatorConfig
             }
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.config.EventTranslatorConfigFactory.ValueSpec#getResult(org.opennms.netmgt.xml.event.Event)
+         */
         @Override
         public String getResult(Event srcEvent) {
             if (m_val.getMatches() == null)
@@ -838,10 +1200,22 @@ public final class EventTranslatorConfigFactory implements EventTranslatorConfig
             return PropertiesUtils.substitute(m_val.getResult(), matches);
         }
 
+        /**
+         * Gets the attribute name.
+         *
+         * @return the attribute name
+         */
         public String getAttributeName() {
             return m_val.getName();
         }
 
+        /**
+         * Gets the attribute value.
+         *
+         * @param e
+         *            the e
+         * @return the attribute value
+         */
         public abstract String getAttributeValue(Event e);
     }
 
@@ -849,8 +1223,14 @@ public final class EventTranslatorConfigFactory implements EventTranslatorConfig
     // to be broken. It if probably a Hack and we probably need to have
     // a better way to access the Spring property editors and convert
     // to a string more correctly.
+    /**
+     * The Class StringPropertyEditor.
+     */
     class StringPropertyEditor extends PropertyEditorSupport {
 
+        /* (non-Javadoc)
+         * @see java.beans.PropertyEditorSupport#setValue(java.lang.Object)
+         */
         @Override
         public void setValue(Object value) {
             if (value == null || value instanceof String)
@@ -859,11 +1239,17 @@ public final class EventTranslatorConfigFactory implements EventTranslatorConfig
                 super.setValue(value.toString());
         }
 
+        /* (non-Javadoc)
+         * @see java.beans.PropertyEditorSupport#getAsText()
+         */
         @Override
         public String getAsText() {
             return (String) super.getValue();
         }
 
+        /* (non-Javadoc)
+         * @see java.beans.PropertyEditorSupport#setAsText(java.lang.String)
+         */
         @Override
         public void setAsText(String text) throws IllegalArgumentException {
             super.setValue(text);
@@ -871,11 +1257,24 @@ public final class EventTranslatorConfigFactory implements EventTranslatorConfig
 
     }
 
+    /**
+     * The Class FieldValueSpec.
+     */
     class FieldValueSpec extends AttributeValueSpec {
+
+        /**
+         * Instantiates a new field value spec.
+         *
+         * @param val
+         *            the val
+         */
         public FieldValueSpec(Value val) {
             super(val);
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.config.EventTranslatorConfigFactory.AttributeValueSpec#getAttributeValue(org.opennms.netmgt.xml.event.Event)
+         */
         @Override
         public String getAttributeValue(Event e) {
             try {
@@ -888,6 +1287,13 @@ public final class EventTranslatorConfigFactory implements EventTranslatorConfig
             }
         }
 
+        /**
+         * Gets the bean wrapper.
+         *
+         * @param e
+         *            the e
+         * @return the bean wrapper
+         */
         private BeanWrapper getBeanWrapper(Event e) {
             BeanWrapper bean = PropertyAccessorFactory.forBeanPropertyAccess(e);
             bean.registerCustomEditor(String.class, new StringPropertyEditor());
@@ -895,11 +1301,24 @@ public final class EventTranslatorConfigFactory implements EventTranslatorConfig
         }
     }
 
+    /**
+     * The Class ParameterValueSpec.
+     */
     class ParameterValueSpec extends AttributeValueSpec {
+
+        /**
+         * Instantiates a new parameter value spec.
+         *
+         * @param val
+         *            the val
+         */
         ParameterValueSpec(Value val) {
             super(val);
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.config.EventTranslatorConfigFactory.AttributeValueSpec#getAttributeValue(org.opennms.netmgt.xml.event.Event)
+         */
         @Override
         public String getAttributeValue(Event e) {
 

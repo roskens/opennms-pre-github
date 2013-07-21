@@ -54,16 +54,30 @@ import org.opennms.netmgt.config.users.User;
  */
 public class WebRoleManagerImpl implements WebRoleManager, WebUserManager, WebGroupManager {
 
+    /** The m_group manager. */
     private GroupManager m_groupManager;
 
+    /** The m_user manager. */
     private UserManager m_userManager;
 
+    /**
+     * The Class InvalidUser.
+     */
     private class InvalidUser extends WebUser {
 
+        /**
+         * Instantiates a new invalid user.
+         *
+         * @param name
+         *            the name
+         */
         public InvalidUser(String name) {
             super(name);
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.config.WebUser#toString()
+         */
         @Override
         public String toString() {
             return "Invalid User [" + getName() + "]";
@@ -71,13 +85,25 @@ public class WebRoleManagerImpl implements WebRoleManager, WebUserManager, WebGr
 
     }
 
+    /**
+     * The Class InvalidGroup.
+     */
     private class InvalidGroup extends WebGroup {
 
+        /**
+         * Instantiates a new invalid group.
+         *
+         * @param name
+         *            the name
+         */
         public InvalidGroup(String name) {
             super(name);
             super.setUsers(new ArrayList<WebUser>());
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.config.WebGroup#toString()
+         */
         @Override
         public String toString() {
             return "Invalid Group [" + getName() + "]";
@@ -85,6 +111,13 @@ public class WebRoleManagerImpl implements WebRoleManager, WebUserManager, WebGr
 
     }
 
+    /**
+     * Gets the backing user.
+     *
+     * @param name
+     *            the name
+     * @return the backing user
+     */
     private User getBackingUser(String name) {
         try {
             return m_userManager.getUser(name);
@@ -97,6 +130,11 @@ public class WebRoleManagerImpl implements WebRoleManager, WebUserManager, WebGr
         }
     }
 
+    /**
+     * Gets the backing users.
+     *
+     * @return the backing users
+     */
     private Collection<User> getBackingUsers() {
         try {
             return m_userManager.getUsers().values();
@@ -109,10 +147,24 @@ public class WebRoleManagerImpl implements WebRoleManager, WebUserManager, WebGr
         }
     }
 
+    /**
+     * Gets the backing role.
+     *
+     * @param roleName
+     *            the role name
+     * @return the backing role
+     */
     private Role getBackingRole(String roleName) {
         return m_groupManager.getRole(roleName);
     }
 
+    /**
+     * Gets the backing group.
+     *
+     * @param groupName
+     *            the group name
+     * @return the backing group
+     */
     private Group getBackingGroup(String groupName) {
         try {
             return m_groupManager.getGroup(groupName);
@@ -125,6 +177,11 @@ public class WebRoleManagerImpl implements WebRoleManager, WebUserManager, WebGr
         }
     }
 
+    /**
+     * Gets the backing groups.
+     *
+     * @return the backing groups
+     */
     private Collection<Group> getBackingGroups() {
         try {
             return m_groupManager.getGroups().values();
@@ -137,6 +194,15 @@ public class WebRoleManagerImpl implements WebRoleManager, WebUserManager, WebGr
         }
     }
 
+    /**
+     * Gets the users schedule for role.
+     *
+     * @param role
+     *            the role
+     * @param time
+     *            the time
+     * @return the users schedule for role
+     */
     private Collection<WebUser> getUsersScheduleForRole(WebRole role, Date time) {
         try {
 
@@ -157,10 +223,24 @@ public class WebRoleManagerImpl implements WebRoleManager, WebUserManager, WebGr
 
     }
 
+    /**
+     * Gets the web role.
+     *
+     * @param role
+     *            the role
+     * @return the web role
+     */
     private WebRole getWebRole(Role role) {
         return new ManagedRole(role);
     }
 
+    /**
+     * Gets the web user.
+     *
+     * @param userName
+     *            the user name
+     * @return the web user
+     */
     private WebUser getWebUser(String userName) {
         User u = getBackingUser(userName);
         if (u == null) {
@@ -170,6 +250,13 @@ public class WebRoleManagerImpl implements WebRoleManager, WebUserManager, WebGr
         }
     }
 
+    /**
+     * Gets the web user.
+     *
+     * @param user
+     *            the user
+     * @return the web user
+     */
     private WebUser getWebUser(User user) {
         if (user == null) {
             return new InvalidUser("Select A Valid User...");
@@ -178,6 +265,13 @@ public class WebRoleManagerImpl implements WebRoleManager, WebUserManager, WebGr
         }
     }
 
+    /**
+     * Gets the web group.
+     *
+     * @param groupName
+     *            the group name
+     * @return the web group
+     */
     private WebGroup getWebGroup(String groupName) {
         Group g = getBackingGroup(groupName);
         if (g == null) {
@@ -187,6 +281,13 @@ public class WebRoleManagerImpl implements WebRoleManager, WebUserManager, WebGr
         }
     }
 
+    /**
+     * Gets the web group.
+     *
+     * @param group
+     *            the group
+     * @return the web group
+     */
     private WebGroup getWebGroup(Group group) {
         if (group == null) {
             return new InvalidGroup("Select a valid group...");
@@ -195,6 +296,13 @@ public class WebRoleManagerImpl implements WebRoleManager, WebUserManager, WebGr
         }
     }
 
+    /**
+     * Gets the managed role.
+     *
+     * @param webRole
+     *            the web role
+     * @return the managed role
+     */
     private ManagedRole getManagedRole(WebRole webRole) {
         if (webRole instanceof ManagedRole) {
             return (ManagedRole) webRole;
@@ -213,6 +321,7 @@ public class WebRoleManagerImpl implements WebRoleManager, WebUserManager, WebGr
      * <p>
      * createRole
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.config.WebRole} object.
      */
@@ -221,23 +330,45 @@ public class WebRoleManagerImpl implements WebRoleManager, WebUserManager, WebGr
         return new ManagedRole();
     }
 
+    /**
+     * The Class ManagedRole.
+     */
     class ManagedRole extends WebRole {
+
+        /** The Constant DESCR. */
         private static final int DESCR = 0;
 
+        /** The Constant USER. */
         private static final int USER = 1;
 
+        /** The Constant GROUP. */
         private static final int GROUP = 2;
 
+        /** The Constant NAME. */
         private static final int NAME = 3;
 
+        /** The m_flags. */
         BitSet m_flags = new BitSet();
 
+        /** The m_role. */
         Role m_role;
 
+        /**
+         * Instantiates a new managed role.
+         *
+         * @param roleName
+         *            the role name
+         */
         ManagedRole(String roleName) {
             this(getBackingRole(roleName));
         }
 
+        /**
+         * Instantiates a new managed role.
+         *
+         * @param role
+         *            the role
+         */
         ManagedRole(Role role) {
             super(role.getName());
             m_role = role;
@@ -246,35 +377,53 @@ public class WebRoleManagerImpl implements WebRoleManager, WebUserManager, WebGr
             super.setMembershipGroup(getWebGroup(role.getMembershipGroup()));
         }
 
+        /**
+         * Instantiates a new managed role.
+         */
         ManagedRole() {
             super();
             m_role = null;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.config.WebRole#setDescription(java.lang.String)
+         */
         @Override
         public void setDescription(String description) {
             super.setDescription(description);
             m_flags.set(DESCR);
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.config.WebRole#setDefaultUser(org.opennms.netmgt.config.WebUser)
+         */
         @Override
         public void setDefaultUser(WebUser defaultUser) {
             super.setDefaultUser(defaultUser);
             m_flags.set(USER);
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.config.WebRole#setMembershipGroup(org.opennms.netmgt.config.WebGroup)
+         */
         @Override
         public void setMembershipGroup(WebGroup memberShipGroup) {
             super.setMembershipGroup(memberShipGroup);
             m_flags.set(GROUP);
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.config.WebRole#setName(java.lang.String)
+         */
         @Override
         public void setName(String name) {
             super.setName(name);
             m_flags.set(NAME);
         }
 
+        /**
+         * Save.
+         */
         public void save() {
             try {
                 Role role = (m_role == null ? new Role() : m_role);
@@ -308,6 +457,9 @@ public class WebRoleManagerImpl implements WebRoleManager, WebUserManager, WebGr
 
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.config.WebRole#getCurrentUsers()
+         */
         @Override
         public Collection<WebUser> getCurrentUsers() {
             if (m_role == null) {
@@ -316,21 +468,40 @@ public class WebRoleManagerImpl implements WebRoleManager, WebUserManager, WebGr
             return getUsersScheduleForRole(this, new Date());
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.config.WebRole#getCalendar(java.util.Date)
+         */
         @Override
         public WebCalendar getCalendar(Date month) {
             return new MonthlyCalendar(month, m_role, m_groupManager);
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.config.WebRole#getSchedule(int)
+         */
         @Override
         public Schedule getSchedule(int schedIndex) {
             return m_role.getSchedule(schedIndex);
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.config.WebRole#getTime(int, int)
+         */
         @Override
         public Time getTime(int schedIndex, int timeIndex) {
             return getSchedule(schedIndex).getTime(timeIndex);
         }
 
+        /**
+         * Adds the entry.
+         *
+         * @param user
+         *            the user
+         * @param startDate
+         *            the start date
+         * @param endDate
+         *            the end date
+         */
         public void addEntry(String user, Date startDate, Date endDate) {
             // TODO Auto-generated method stub
 
@@ -338,26 +509,60 @@ public class WebRoleManagerImpl implements WebRoleManager, WebUserManager, WebGr
 
     }
 
+    /**
+     * The Class ManagedUser.
+     */
     class ManagedUser extends WebUser {
+
+        /** The m_user. */
         User m_user;
 
+        /**
+         * Instantiates a new managed user.
+         *
+         * @param userId
+         *            the user id
+         */
         ManagedUser(String userId) {
             this(getBackingUser(userId));
         }
 
+        /**
+         * Instantiates a new managed user.
+         *
+         * @param user
+         *            the user
+         */
         ManagedUser(User user) {
             super(user.getUserId());
             m_user = user;
         }
     }
 
+    /**
+     * The Class ManagedGroup.
+     */
     class ManagedGroup extends WebGroup {
+
+        /** The m_group. */
         Group m_group;
 
+        /**
+         * Instantiates a new managed group.
+         *
+         * @param groupName
+         *            the group name
+         */
         ManagedGroup(String groupName) {
             this(getBackingGroup(groupName));
         }
 
+        /**
+         * Instantiates a new managed group.
+         *
+         * @param group
+         *            the group
+         */
         ManagedGroup(Group group) {
             super(group.getName());
 
@@ -368,6 +573,13 @@ public class WebRoleManagerImpl implements WebRoleManager, WebUserManager, WebGr
             super.setUsers(users);
         }
 
+        /**
+         * Gets the users.
+         *
+         * @param group
+         *            the group
+         * @return the users
+         */
         private List<String> getUsers(Group group) {
             return group.getUserCollection();
         }
@@ -393,6 +605,7 @@ public class WebRoleManagerImpl implements WebRoleManager, WebUserManager, WebGr
      * <p>
      * getRoles
      * </p>
+     * .
      *
      * @return a {@link java.util.Collection} object.
      */
@@ -438,6 +651,7 @@ public class WebRoleManagerImpl implements WebRoleManager, WebUserManager, WebGr
      * <p>
      * getUsers
      * </p>
+     * .
      *
      * @return a {@link java.util.Collection} object.
      */
@@ -460,6 +674,7 @@ public class WebRoleManagerImpl implements WebRoleManager, WebUserManager, WebGr
      * <p>
      * getGroups
      * </p>
+     * .
      *
      * @return a {@link java.util.Collection} object.
      */

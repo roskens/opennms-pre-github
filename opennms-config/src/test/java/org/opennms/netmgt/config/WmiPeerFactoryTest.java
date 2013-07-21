@@ -54,9 +54,14 @@ public class WmiPeerFactoryTest extends TestCase {
     }
 
     /**
+     * Test one specific.
+     *
      * @throws MarshalException
+     *             the marshal exception
      * @throws ValidationException
+     *             the validation exception
      * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public final void testOneSpecific() throws MarshalException, ValidationException, IOException {
 
@@ -80,8 +85,11 @@ public class WmiPeerFactoryTest extends TestCase {
      * in the definition.
      *
      * @throws MarshalException
+     *             the marshal exception
      * @throws ValidationException
+     *             the validation exception
      * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public final void testAddAdjacentSpecificToDef() throws MarshalException, ValidationException, IOException {
 
@@ -104,6 +112,16 @@ public class WmiPeerFactoryTest extends TestCase {
         assertEquals("192.168.0.6", factory.getConfig().getDefinition(0).getRange(0).getEnd());
     }
 
+    /**
+     * Test add adjacent specific to def i pv6.
+     *
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     public final void testAddAdjacentSpecificToDefIPv6() throws MarshalException, ValidationException, IOException {
 
         String amiConfigXml = "<?xml version=\"1.0\"?>\n" + "<wmi-config retry=\"3\" timeout=\"800\"\n"
@@ -129,6 +147,16 @@ public class WmiPeerFactoryTest extends TestCase {
                      factory.getConfig().getDefinition(0).getRange(0).getEnd());
     }
 
+    /**
+     * Test add adjacent specific to def i pv6 with same scope id.
+     *
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     public final void testAddAdjacentSpecificToDefIPv6WithSameScopeId() throws MarshalException, ValidationException,
             IOException {
 
@@ -155,6 +183,16 @@ public class WmiPeerFactoryTest extends TestCase {
                      factory.getConfig().getDefinition(0).getRange(0).getEnd());
     }
 
+    /**
+     * Test add adjacent specific to def i pv6 with different scope ids.
+     *
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     public final void testAddAdjacentSpecificToDefIPv6WithDifferentScopeIds() throws MarshalException,
             ValidationException, IOException {
 
@@ -189,8 +227,11 @@ public class WmiPeerFactoryTest extends TestCase {
      * deleted.
      *
      * @throws MarshalException
+     *             the marshal exception
      * @throws ValidationException
+     *             the validation exception
      * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public void testRecombineSpecificIntoRange() throws MarshalException, ValidationException, IOException {
 
@@ -230,8 +271,11 @@ public class WmiPeerFactoryTest extends TestCase {
      * deleted.
      *
      * @throws MarshalException
+     *             the marshal exception
      * @throws ValidationException
+     *             the validation exception
      * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public void testRecombineSpecificIntoRangeWithDifferentScopeIds() throws MarshalException, ValidationException,
             IOException {
@@ -272,8 +316,11 @@ public class WmiPeerFactoryTest extends TestCase {
      * a range in a current definition.
      *
      * @throws MarshalException
+     *             the marshal exception
      * @throws ValidationException
+     *             the validation exception
      * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public final void testNewSpecificSameAsBeginInOldDef() throws MarshalException, ValidationException, IOException {
 
@@ -303,8 +350,11 @@ public class WmiPeerFactoryTest extends TestCase {
      * a range in a current definition.
      *
      * @throws MarshalException
+     *             the marshal exception
      * @throws ValidationException
+     *             the validation exception
      * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public final void testNewSpecificSameAsEndInOldDef() throws MarshalException, ValidationException, IOException {
 
@@ -335,8 +385,11 @@ public class WmiPeerFactoryTest extends TestCase {
      * definition.
      *
      * @throws MarshalException
+     *             the marshal exception
      * @throws ValidationException
+     *             the validation exception
      * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public void testOverlapsTwoRanges() throws MarshalException, ValidationException, IOException {
 

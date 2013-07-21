@@ -50,15 +50,17 @@ import org.opennms.netmgt.config.eventd.EventdConfiguration;
  * @author david
  */
 public class EventdConfigManager {
+
+    /** The m_global lock. */
     private final ReadWriteLock m_globalLock = new ReentrantReadWriteLock();
 
+    /** The m_read lock. */
     private final Lock m_readLock = m_globalLock.readLock();
 
+    /** The m_write lock. */
     private final Lock m_writeLock = m_globalLock.writeLock();
 
-    /**
-     * The config class loaded from the config file
-     */
+    /** The config class loaded from the config file. */
     protected EventdConfiguration m_config;
 
     /**
@@ -68,12 +70,12 @@ public class EventdConfigManager {
      *
      * @param stream
      *            a {@link java.io.InputStream} object.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     protected EventdConfigManager(final InputStream stream) throws MarshalException, ValidationException, IOException {
         m_config = CastorUtils.unmarshal(EventdConfiguration.class, stream);
@@ -87,12 +89,12 @@ public class EventdConfigManager {
      *
      * @param configFile
      *            a {@link java.lang.String} object.
-     * @throws java.io.FileNotFoundException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws FileNotFoundException
+     *             the file not found exception
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public EventdConfigManager(final String configFile) throws FileNotFoundException, MarshalException,
             ValidationException {
@@ -107,10 +109,20 @@ public class EventdConfigManager {
         }
     }
 
+    /**
+     * Gets the read lock.
+     *
+     * @return the read lock
+     */
     public Lock getReadLock() {
         return m_readLock;
     }
 
+    /**
+     * Gets the write lock.
+     *
+     * @return the write lock
+     */
     public Lock getWriteLock() {
         return m_writeLock;
     }

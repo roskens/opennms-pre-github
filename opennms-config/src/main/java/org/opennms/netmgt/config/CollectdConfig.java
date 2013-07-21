@@ -36,13 +36,21 @@ import java.util.LinkedList;
 import org.opennms.netmgt.config.collectd.CollectdConfiguration;
 import org.opennms.netmgt.config.collectd.Package;
 
+/**
+ * The Class CollectdConfig.
+ */
 public class CollectdConfig {
+
+    /** The m_config. */
     private CollectdConfiguration m_config;
 
+    /** The m_packages. */
     private Collection<CollectdPackage> m_packages;
 
+    /** The m_local server. */
     private String m_localServer;
 
+    /** The m_verify server. */
     private boolean m_verifyServer;
 
     /**
@@ -68,6 +76,14 @@ public class CollectdConfig {
 
     }
 
+    /**
+     * Creates the package objects.
+     *
+     * @param localServer
+     *            the local server
+     * @param verifyServer
+     *            the verify server
+     */
     private void createPackageObjects(String localServer, boolean verifyServer) {
         m_packages = new LinkedList<CollectdPackage>();
         Enumeration<Package> pkgEnum = m_config.enumeratePackage();
@@ -81,6 +97,7 @@ public class CollectdConfig {
      * <p>
      * getConfig
      * </p>
+     * .
      *
      * @return a
      *         {@link org.opennms.netmgt.config.collectd.CollectdConfiguration}
@@ -94,6 +111,7 @@ public class CollectdConfig {
      * <p>
      * getPackages
      * </p>
+     * .
      *
      * @return a {@link java.util.Collection} object.
      */
@@ -105,6 +123,7 @@ public class CollectdConfig {
      * <p>
      * getThreads
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -117,10 +136,8 @@ public class CollectdConfig {
      * which, the iplist is selected per package via the configured filter rules
      * from the database.
      *
-     * @param localServer2
      * @param localServer
      *            TODO
-     * @param verifyServer2
      * @param verifyServer
      *            TODO
      */
@@ -139,6 +156,7 @@ public class CollectdConfig {
      * <p>
      * rebuildPackageIpListMap
      * </p>
+     * .
      */
     public void rebuildPackageIpListMap() {
         createPackageIpListMap(m_localServer, m_verifyServer);
@@ -148,6 +166,7 @@ public class CollectdConfig {
      * <p>
      * initialize
      * </p>
+     * .
      *
      * @param localServer
      *            TODO
@@ -163,6 +182,7 @@ public class CollectdConfig {
      * <p>
      * getPackage
      * </p>
+     * .
      *
      * @param name
      *            a {@link java.lang.String} object.
@@ -179,7 +199,7 @@ public class CollectdConfig {
     }
 
     /**
-     * Returns true if collection domain exists
+     * Returns true if collection domain exists.
      *
      * @param name
      *            The domain name to check

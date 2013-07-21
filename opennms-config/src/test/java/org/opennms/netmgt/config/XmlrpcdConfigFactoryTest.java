@@ -38,8 +38,21 @@ import org.exolab.castor.xml.ValidationException;
 import org.opennms.netmgt.config.xmlrpcd.ExternalServers;
 import org.opennms.netmgt.config.xmlrpcd.Subscription;
 
+/**
+ * The Class XmlrpcdConfigFactoryTest.
+ */
 public class XmlrpcdConfigFactoryTest extends TestCase {
 
+    /**
+     * Test read old style configuration.
+     *
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     public void testReadOldStyleConfiguration() throws MarshalException, ValidationException, IOException {
         XmlrpcdConfigFactory f = new XmlrpcdConfigFactory(
                                                           this.getClass().getResourceAsStream("xmlrpcd-configuration-old.xml"));
@@ -63,6 +76,16 @@ public class XmlrpcdConfigFactoryTest extends TestCase {
         assertEquals("subscription should have 6 UEIs", 6, s.getSubscribedEventCount());
     }
 
+    /**
+     * Test read new style configuration.
+     *
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     public void testReadNewStyleConfiguration() throws MarshalException, ValidationException, IOException {
         XmlrpcdConfigFactory f = new XmlrpcdConfigFactory(
                                                           this.getClass().getResourceAsStream("xmlrpcd-configuration-new.xml"));

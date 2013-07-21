@@ -47,13 +47,21 @@ import org.opennms.netmgt.filter.FilterDaoFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The Class CollectdPackage.
+ */
 public class CollectdPackage {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(CollectdPackage.class);
 
+    /** The m_pkg. */
     private Package m_pkg;
 
+    /** The m_ip list. */
     private List<InetAddress> m_ipList;
 
+    /** The m_include ur ls. */
     private List<IncludeURL> m_includeURLs;
 
     /**
@@ -79,6 +87,12 @@ public class CollectdPackage {
 
     }
 
+    /**
+     * Creates the include ur ls.
+     *
+     * @param pkg
+     *            the pkg
+     */
     private void createIncludeURLs(Package pkg) {
         Enumeration<String> urlEnum = pkg.enumerateIncludeUrl();
         while (urlEnum.hasMoreElements()) {
@@ -90,6 +104,7 @@ public class CollectdPackage {
      * <p>
      * getPackage
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.config.collectd.Package} object.
      */
@@ -124,6 +139,13 @@ public class CollectdPackage {
         return result;
     }
 
+    /**
+     * Checks for specific.
+     *
+     * @param addr
+     *            the addr
+     * @return true, if successful
+     */
     protected boolean hasSpecific(byte[] addr) {
         for (String espec : getPackage().getSpecific()) {
             if (new ByteArrayComparator().compare(toIpAddrBytes(espec), addr) == 0) {
@@ -137,6 +159,7 @@ public class CollectdPackage {
      * <p>
      * hasIncludeRange
      * </p>
+     * .
      *
      * @param addr
      *            a long.
@@ -160,6 +183,7 @@ public class CollectdPackage {
      * <p>
      * getName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -167,6 +191,15 @@ public class CollectdPackage {
         return m_pkg.getName();
     }
 
+    /**
+     * Checks for exclude range.
+     *
+     * @param addr
+     *            the addr
+     * @param has_specific
+     *            the has_specific
+     * @return true, if successful
+     */
     protected boolean hasExcludeRange(String addr, boolean has_specific) {
         for (ExcludeRange rng : getPackage().getExcludeRange()) {
             if (isInetAddressInRange(addr, rng.getBegin(), rng.getEnd())) {
@@ -180,6 +213,7 @@ public class CollectdPackage {
      * <p>
      * putIpList
      * </p>
+     * .
      *
      * @param ipList
      *            a {@link java.util.List} object.
@@ -192,6 +226,7 @@ public class CollectdPackage {
      * <p>
      * getIpList
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -199,6 +234,13 @@ public class CollectdPackage {
         return m_ipList;
     }
 
+    /**
+     * Interface in filter.
+     *
+     * @param iface
+     *            the iface
+     * @return true, if successful
+     */
     protected boolean interfaceInFilter(String iface) {
         if (iface == null)
             return false;
@@ -223,6 +265,7 @@ public class CollectdPackage {
      * <p>
      * getIncludeURLs
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -230,6 +273,15 @@ public class CollectdPackage {
         return m_includeURLs;
     }
 
+    /**
+     * Checks for specific url.
+     *
+     * @param iface
+     *            the iface
+     * @param has_specific
+     *            the has_specific
+     * @return true, if successful
+     */
     protected boolean hasSpecificUrl(String iface, boolean has_specific) {
         for (Iterator<IncludeURL> it = getIncludeURLs().iterator(); it.hasNext() && !has_specific;) {
             IncludeURL includeURL = it.next();
@@ -281,6 +333,15 @@ public class CollectdPackage {
         return packagePassed;
     }
 
+    /**
+     * Gets the filter rule.
+     *
+     * @param localServer
+     *            the local server
+     * @param verifyServer
+     *            the verify server
+     * @return the filter rule
+     */
     String getFilterRule(String localServer, boolean verifyServer) {
         Package pkg = getPackage();
         String filter = pkg.getFilter().getContent();
@@ -296,6 +357,14 @@ public class CollectdPackage {
         return filterRules.toString();
     }
 
+    /**
+     * Creates the ip list.
+     *
+     * @param localServer
+     *            the local server
+     * @param verifyServer
+     *            the verify server
+     */
     void createIpList(final String localServer, final boolean verifyServer) {
         Package pkg = getPackage();
         //
@@ -317,6 +386,7 @@ public class CollectdPackage {
      * <p>
      * getService
      * </p>
+     * .
      *
      * @param svcName
      *            a {@link java.lang.String} object.
@@ -336,6 +406,7 @@ public class CollectdPackage {
      * <p>
      * storeByIfAlias
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -347,6 +418,7 @@ public class CollectdPackage {
      * <p>
      * ifAliasComment
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -358,6 +430,7 @@ public class CollectdPackage {
      * <p>
      * getStorFlagOverride
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -369,6 +442,7 @@ public class CollectdPackage {
      * <p>
      * ifAliasDomain
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -380,6 +454,7 @@ public class CollectdPackage {
      * <p>
      * storeByNodeId
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

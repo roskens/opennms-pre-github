@@ -45,6 +45,7 @@ public interface WebRoleManager {
      * <p>
      * getRoles
      * </p>
+     * .
      *
      * @return a {@link java.util.Collection} object.
      */
@@ -54,6 +55,7 @@ public interface WebRoleManager {
      * <p>
      * deleteRole
      * </p>
+     * .
      *
      * @param roleName
      *            a {@link java.lang.String} object.
@@ -64,6 +66,7 @@ public interface WebRoleManager {
      * <p>
      * getRole
      * </p>
+     * .
      *
      * @param roleName
      *            a {@link java.lang.String} object.
@@ -75,6 +78,7 @@ public interface WebRoleManager {
      * <p>
      * saveRole
      * </p>
+     * .
      *
      * @param role
      *            a {@link org.opennms.web.admin.roles.WebRole} object.
@@ -85,6 +89,7 @@ public interface WebRoleManager {
      * <p>
      * createRole
      * </p>
+     * .
      *
      * @return a {@link org.opennms.web.admin.roles.WebRole} object.
      */

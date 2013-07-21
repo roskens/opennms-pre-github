@@ -54,14 +54,11 @@ import org.opennms.netmgt.config.rtc.RTCConfiguration;
  * @version $Id: $
  */
 public final class RTCConfigFactory {
-    /**
-     * The singleton instance of this factory
-     */
+
+    /** The singleton instance of this factory. */
     private static RTCConfigFactory m_singleton = null;
 
-    /**
-     * The config class loaded from the config file
-     */
+    /** The config class loaded from the config file. */
     private RTCConfiguration m_config;
 
     /**
@@ -71,9 +68,13 @@ public final class RTCConfigFactory {
 
     /**
      * Parse the rolling window in the properties file in the format <xx>h <yy>m
-     * <zz>s into a long value of milliseconds
+     * <zz>s into a long value of milliseconds.
      *
+     * @param rolling
+     *            the rolling
      * @return the rolling window as milliseconds
+     * @throws IllegalArgumentException
+     *             the illegal argument exception
      */
     private long parseRollingWindow(String rolling) throws IllegalArgumentException {
         String hrStr = null;
@@ -140,14 +141,16 @@ public final class RTCConfigFactory {
     }
 
     /**
-     * Private constructor
+     * Private constructor.
      *
-     * @exception java.io.IOException
-     *                Thrown if the specified config file cannot be read
-     * @exception org.exolab.castor.xml.MarshalException
-     *                Thrown if the file does not conform to the schema.
-     * @exception org.exolab.castor.xml.ValidationException
-     *                Thrown if the contents do not match the required schema.
+     * @param configFile
+     *            the config file
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     private RTCConfigFactory(String configFile) throws IOException, MarshalException, ValidationException {
         InputStream stream = null;
@@ -168,17 +171,27 @@ public final class RTCConfigFactory {
      *
      * @param stream
      *            a {@link java.io.InputStream} object.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public RTCConfigFactory(InputStream stream) throws IOException, MarshalException, ValidationException {
         marshal(stream);
     }
 
+    /**
+     * Marshal.
+     *
+     * @param stream
+     *            the stream
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     */
     private void marshal(InputStream stream) throws MarshalException, ValidationException {
         m_config = CastorUtils.unmarshal(RTCConfiguration.class, stream);
     }
@@ -187,6 +200,7 @@ public final class RTCConfigFactory {
      * <p>
      * setInstance
      * </p>
+     * .
      *
      * @param instance
      *            a {@link org.opennms.netmgt.config.RTCConfigFactory} object.
@@ -200,18 +214,12 @@ public final class RTCConfigFactory {
      * Load the config from the default config file and create the singleton
      * instance of this factory.
      *
-     * @exception java.io.IOException
-     *                Thrown if the specified config file cannot be read
-     * @exception org.exolab.castor.xml.MarshalException
-     *                Thrown if the file does not conform to the schema.
-     * @exception org.exolab.castor.xml.ValidationException
-     *                Thrown if the contents do not match the required schema.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public static synchronized void init() throws IOException, MarshalException, ValidationException {
         if (m_loaded) {
@@ -226,20 +234,14 @@ public final class RTCConfigFactory {
     }
 
     /**
-     * Reload the config from the default config file
+     * Reload the config from the default config file.
      *
-     * @exception java.io.IOException
-     *                Thrown if the specified config file cannot be read/loaded
-     * @exception org.exolab.castor.xml.MarshalException
-     *                Thrown if the file does not conform to the schema.
-     * @exception org.exolab.castor.xml.ValidationException
-     *                Thrown if the contents do not match the required schema.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public static synchronized void reload() throws IOException, MarshalException, ValidationException {
         m_singleton = null;
@@ -252,8 +254,6 @@ public final class RTCConfigFactory {
      * Return the singleton instance of this factory.
      *
      * @return The current factory instance.
-     * @throws java.lang.IllegalStateException
-     *             Thrown if the factory has not yet been initialized.
      */
     public static synchronized RTCConfigFactory getInstance() {
         if (!m_loaded)

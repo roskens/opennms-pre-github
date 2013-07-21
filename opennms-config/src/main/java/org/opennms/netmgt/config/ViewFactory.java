@@ -70,9 +70,8 @@ import org.springframework.core.io.FileSystemResource;
  * @version $Id: $
  */
 public class ViewFactory {
-    /**
-     * The static singleton instance of the ViewFactory
-     */
+
+    /** The static singleton instance of the ViewFactory. */
     private static ViewFactory instance;
 
     /**
@@ -80,20 +79,17 @@ public class ViewFactory {
      */
     protected static File usersFile;
 
-    /**
-     * A mapping of views ids to the View objects
-     */
+    /** A mapping of views ids to the View objects. */
     protected static HashMap<String, View> m_views;
 
-    /**
-     * Boolean indicating if the init() method has been called
-     */
+    /** Boolean indicating if the init() method has been called. */
     private static boolean initialized = false;
 
+    /** The old header. */
     private static Header oldHeader;
 
     /**
-     * Initializes the factory
+     * Initializes the factory.
      */
     ViewFactory() {
     }
@@ -102,13 +98,14 @@ public class ViewFactory {
      * <p>
      * init
      * </p>
+     * .
      *
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public static synchronized void init() throws IOException, MarshalException, ValidationException {
         if (!initialized) {
@@ -118,7 +115,7 @@ public class ViewFactory {
 
     /**
      * Singleton static call to get the only instance that should exist for the
-     * ViewFactory
+     * ViewFactory.
      *
      * @return the single view factory instance
      */
@@ -136,12 +133,12 @@ public class ViewFactory {
     /**
      * Parses the views.xml via the Castor classes
      *
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public static synchronized void reload() throws IOException, MarshalException, ValidationException {
         Viewinfo viewinfo = CastorUtils.unmarshal(Viewinfo.class,
@@ -166,8 +163,8 @@ public class ViewFactory {
      *            a {@link java.lang.String} object.
      * @param details
      *            a {@link org.opennms.netmgt.config.views.View} object.
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     public synchronized void saveView(String name, View details) throws Exception {
         if (name == null || details == null) {
@@ -189,8 +186,8 @@ public class ViewFactory {
      *
      * @param name
      *            a {@link java.lang.String} object.
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     public synchronized void deleteUser(String name) throws Exception {
         // Check if the user exists
@@ -239,8 +236,8 @@ public class ViewFactory {
      *            a {@link java.lang.String} object.
      * @param newName
      *            a {@link java.lang.String} object.
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     public synchronized void renameUser(String oldName, String newName) throws Exception {
         // Get the old data
@@ -284,6 +281,13 @@ public class ViewFactory {
     /**
      * When this method is called users name is changed. Also overwrites the
      * "views.xml" file
+     *
+     * @param oldName
+     *            the old name
+     * @param newName
+     *            the new name
+     * @throws Exception
+     *             the exception
      */
     /*
      * public synchronized void renameGroup(String oldName, String newName)
@@ -374,8 +378,8 @@ public class ViewFactory {
      *
      * @param name
      *            a {@link java.lang.String} object.
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     public synchronized void deleteView(String name) throws Exception {
         // Check if the view exists
@@ -397,15 +401,16 @@ public class ViewFactory {
      * <p>
      * saveViews
      * </p>
+     * .
      *
      * @param views
      *            a {@link org.opennms.netmgt.config.views.Views} object.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public synchronized void saveViews(Views views) throws IOException, MarshalException, ValidationException {
         // make a backup and save to xml
@@ -445,6 +450,7 @@ public class ViewFactory {
      * <p>
      * getCategoryComments
      * </p>
+     * .
      *
      * @param viewName
      *            a {@link java.lang.String} object.
@@ -469,6 +475,13 @@ public class ViewFactory {
         return null;
     }
 
+    /**
+     * Strip white space.
+     *
+     * @param comment
+     *            the comment
+     * @return the string
+     */
     private String stripWhiteSpace(String comment) {
         StringBuffer buffer = new StringBuffer(comment);
 

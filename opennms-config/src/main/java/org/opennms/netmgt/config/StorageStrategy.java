@@ -39,10 +39,12 @@ import org.opennms.netmgt.config.datacollection.Parameter;
  * </p>
  */
 public interface StorageStrategy {
+
     /**
      * <p>
      * getRelativePathForAttribute
      * </p>
+     * .
      *
      * @param resourceParent
      *            a {@link java.lang.String} object.
@@ -58,6 +60,7 @@ public interface StorageStrategy {
      * <p>
      * setResourceTypeName
      * </p>
+     * .
      *
      * @param name
      *            a {@link java.lang.String} object.
@@ -74,9 +77,9 @@ public interface StorageStrategy {
      *
      * @param resource
      *            a
-     *            {@link org.opennms.netmgt.config.collector.CollectionResource}
-     *            object
      * @return a {@link java.lang.String} object.
+     *         {@link org.opennms.netmgt.config.collector.CollectionResource}
+     *         object
      */
     public String getResourceNameFromIndex(CollectionResource resource);
 
@@ -98,9 +101,12 @@ public interface StorageStrategy {
      * <p>
      * setParameters
      * </p>
+     * .
      *
      * @param parameterCollection
      *            a {@link java.util.List} object.
+     * @throws IllegalArgumentException
+     *             the illegal argument exception
      */
     public void setParameters(List<Parameter> parameterCollection) throws IllegalArgumentException;
 

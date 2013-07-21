@@ -71,11 +71,11 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public final class SnmpInterfacePollerConfigFactory extends SnmpInterfacePollerConfigManager {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(SnmpInterfacePollerConfigFactory.class);
 
-    /**
-     * The singleton instance of this factory
-     */
+    /** The singleton instance of this factory. */
     private static SnmpInterfacePollerConfig m_singleton = null;
 
     /**
@@ -83,9 +83,7 @@ public final class SnmpInterfacePollerConfigFactory extends SnmpInterfacePollerC
      */
     private static boolean m_loaded = false;
 
-    /**
-     * Loaded version
-     */
+    /** Loaded version. */
     private long m_currentVersion = -1L;
 
     /**
@@ -101,12 +99,12 @@ public final class SnmpInterfacePollerConfigFactory extends SnmpInterfacePollerC
      *            a {@link java.lang.String} object.
      * @param verifyServer
      *            a boolean.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public SnmpInterfacePollerConfigFactory(long currentVersion, InputStream stream, String localServer,
             boolean verifyServer) throws MarshalException, ValidationException, IOException {
@@ -118,18 +116,12 @@ public final class SnmpInterfacePollerConfigFactory extends SnmpInterfacePollerC
      * Load the config from the default config file and create the singleton
      * instance of this factory.
      *
-     * @exception java.io.IOException
-     *                Thrown if the specified config file cannot be read
-     * @exception org.exolab.castor.xml.MarshalException
-     *                Thrown if the file does not conform to the schema.
-     * @exception org.exolab.castor.xml.ValidationException
-     *                Thrown if the contents do not match the required schema.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public static synchronized void init() throws IOException, MarshalException, ValidationException {
         if (m_loaded) {
@@ -162,20 +154,14 @@ public final class SnmpInterfacePollerConfigFactory extends SnmpInterfacePollerC
     }
 
     /**
-     * Reload the config from the default config file
+     * Reload the config from the default config file.
      *
-     * @exception java.io.IOException
-     *                Thrown if the specified config file cannot be read/loaded
-     * @exception org.exolab.castor.xml.MarshalException
-     *                Thrown if the file does not conform to the schema.
-     * @exception org.exolab.castor.xml.ValidationException
-     *                Thrown if the contents do not match the required schema.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public static synchronized void reload() throws IOException, MarshalException, ValidationException {
         init();
@@ -201,8 +187,6 @@ public final class SnmpInterfacePollerConfigFactory extends SnmpInterfacePollerC
      * Return the singleton instance of this factory.
      *
      * @return The current factory instance.
-     * @throws java.lang.IllegalStateException
-     *             Thrown if the factory has not yet been initialized.
      */
     public static synchronized SnmpInterfacePollerConfig getInstance() {
         if (!m_loaded) {
@@ -216,6 +200,7 @@ public final class SnmpInterfacePollerConfigFactory extends SnmpInterfacePollerC
      * <p>
      * setInstance
      * </p>
+     * .
      *
      * @param instance
      *            a {@link org.opennms.netmgt.config.SnmpInterfacePollerConfig}
@@ -230,13 +215,14 @@ public final class SnmpInterfacePollerConfigFactory extends SnmpInterfacePollerC
      * <p>
      * update
      * </p>
+     * .
      *
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     @Override
     public synchronized void update() throws IOException, MarshalException, ValidationException {

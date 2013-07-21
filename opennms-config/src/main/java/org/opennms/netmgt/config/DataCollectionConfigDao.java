@@ -42,16 +42,17 @@ import org.opennms.netmgt.model.RrdRepository;
  */
 public interface DataCollectionConfigDao {
 
-    /** Constant <code>NODE_ATTRIBUTES=-1</code> */
+    /** Constant <code>NODE_ATTRIBUTES=-1</code>. */
     static final int NODE_ATTRIBUTES = -1;
 
-    /** Constant <code>ALL_IF_ATTRIBUTES=-2</code> */
+    /** Constant <code>ALL_IF_ATTRIBUTES=-2</code>. */
     static final int ALL_IF_ATTRIBUTES = -2;
 
     /**
      * <p>
      * getSnmpStorageFlag
      * </p>
+     * .
      *
      * @param collectionName
      *            a {@link java.lang.String} object.
@@ -63,6 +64,7 @@ public interface DataCollectionConfigDao {
      * <p>
      * getMibObjectList
      * </p>
+     * .
      *
      * @param cName
      *            a {@link java.lang.String} object.
@@ -80,6 +82,7 @@ public interface DataCollectionConfigDao {
      * <p>
      * getConfiguredResourceTypes
      * </p>
+     * .
      *
      * @return a {@link java.util.Map} object.
      */
@@ -89,6 +92,7 @@ public interface DataCollectionConfigDao {
      * <p>
      * getRrdRepository
      * </p>
+     * .
      *
      * @param collectionName
      *            a {@link java.lang.String} object.
@@ -100,6 +104,7 @@ public interface DataCollectionConfigDao {
      * <p>
      * getStep
      * </p>
+     * .
      *
      * @param collectionName
      *            a {@link java.lang.String} object.
@@ -111,6 +116,7 @@ public interface DataCollectionConfigDao {
      * <p>
      * getRRAList
      * </p>
+     * .
      *
      * @param collectionName
      *            a {@link java.lang.String} object.
@@ -122,6 +128,7 @@ public interface DataCollectionConfigDao {
      * <p>
      * getRrdPath
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -131,6 +138,7 @@ public interface DataCollectionConfigDao {
      * <p>
      * getRootDataCollection
      * </p>
+     * .
      *
      * @return a
      *         {@link org.opennms.netmgt.config.datacollection.DatacollectionConfig}
@@ -138,10 +146,25 @@ public interface DataCollectionConfigDao {
      */
     DatacollectionConfig getRootDataCollection();
 
+    /**
+     * Gets the available data collection groups.
+     *
+     * @return the available data collection groups
+     */
     List<String> getAvailableDataCollectionGroups();
 
+    /**
+     * Gets the available system defs.
+     *
+     * @return the available system defs
+     */
     List<String> getAvailableSystemDefs();
 
+    /**
+     * Gets the available mib groups.
+     *
+     * @return the available mib groups
+     */
     List<String> getAvailableMibGroups();
 
 }

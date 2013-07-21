@@ -50,22 +50,23 @@ import org.opennms.netmgt.config.capsd.SmbAuth;
  * @version $Id: $
  */
 public interface CapsdConfig {
+
     /**
      * This integer value is used to represent the primary SNMP interface
-     * ifindex in the ipinterface table for SNMP hosts that don't support
-     * the MIB2 ipAddrTable
+     * ifindex in the ipinterface table for SNMP hosts that don't support the
+     * MIB2 ipAddrTable.
      */
     static final int LAME_SNMP_HOST_IFINDEX = -100;
 
     /**
-     * Saves the current in-memory configuration to disk and reloads
+     * Saves the current in-memory configuration to disk and reloads.
      *
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws ValidationException
+     *             the validation exception
      */
     void save() throws MarshalException, IOException, ValidationException;
 
@@ -101,6 +102,7 @@ public interface CapsdConfig {
      * <p>
      * getRescanFrequency
      * </p>
+     * .
      *
      * @return a long.
      */
@@ -110,6 +112,7 @@ public interface CapsdConfig {
      * <p>
      * getInitialSleepTime
      * </p>
+     * .
      *
      * @return a long.
      */
@@ -119,6 +122,7 @@ public interface CapsdConfig {
      * <p>
      * getMaxSuspectThreadPoolSize
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -128,6 +132,7 @@ public interface CapsdConfig {
      * <p>
      * getMaxRescanThreadPoolSize
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -146,6 +151,7 @@ public interface CapsdConfig {
      * <p>
      * getDeletePropagationEnabled
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -163,6 +169,7 @@ public interface CapsdConfig {
      * <p>
      * isXmlRpcEnabled
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -172,6 +179,7 @@ public interface CapsdConfig {
      * <p>
      * getProtocolPlugin
      * </p>
+     * .
      *
      * @param svcName
      *            a {@link java.lang.String} object.
@@ -183,6 +191,7 @@ public interface CapsdConfig {
      * <p>
      * addProtocolPlugin
      * </p>
+     * .
      *
      * @param plugin
      *            a {@link org.opennms.netmgt.config.capsd.ProtocolPlugin}
@@ -194,6 +203,7 @@ public interface CapsdConfig {
      * <p>
      * determinePrimarySnmpInterface
      * </p>
+     * .
      *
      * @param addressList
      *            a {@link java.util.List} object.
@@ -207,6 +217,7 @@ public interface CapsdConfig {
      * <p>
      * getConfiguredProtocols
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -216,6 +227,7 @@ public interface CapsdConfig {
      * <p>
      * getProtocolPlugins
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -225,6 +237,7 @@ public interface CapsdConfig {
      * <p>
      * getProtocolConfigurations
      * </p>
+     * .
      *
      * @param plugin
      *            a {@link org.opennms.netmgt.config.capsd.ProtocolPlugin}
@@ -237,12 +250,13 @@ public interface CapsdConfig {
      * <p>
      * getSpecifics
      * </p>
+     * .
      *
      * @param pluginConf
      *            a
-     *            {@link org.opennms.netmgt.config.capsd.ProtocolConfiguration}
-     *            object.
      * @return a {@link java.util.List} object.
+     *         {@link org.opennms.netmgt.config.capsd.ProtocolConfiguration}
+     *         object.
      */
     List<String> getSpecifics(ProtocolConfiguration pluginConf);
 
@@ -250,12 +264,13 @@ public interface CapsdConfig {
      * <p>
      * getRanges
      * </p>
+     * .
      *
      * @param pluginConf
      *            a
-     *            {@link org.opennms.netmgt.config.capsd.ProtocolConfiguration}
-     *            object.
      * @return a {@link java.util.List} object.
+     *         {@link org.opennms.netmgt.config.capsd.ProtocolConfiguration}
+     *         object.
      */
     List<Range> getRanges(ProtocolConfiguration pluginConf);
 
@@ -263,6 +278,7 @@ public interface CapsdConfig {
      * <p>
      * getPluginProperties
      * </p>
+     * .
      *
      * @param plugin
      *            a {@link org.opennms.netmgt.config.capsd.ProtocolPlugin}
@@ -275,12 +291,13 @@ public interface CapsdConfig {
      * <p>
      * getProtocolConfigurationProperties
      * </p>
+     * .
      *
      * @param pluginConf
      *            a
-     *            {@link org.opennms.netmgt.config.capsd.ProtocolConfiguration}
-     *            object.
      * @return a {@link java.util.List} object.
+     *         {@link org.opennms.netmgt.config.capsd.ProtocolConfiguration}
+     *         object.
      */
     List<Property> getProtocolConfigurationProperties(ProtocolConfiguration pluginConf);
 }

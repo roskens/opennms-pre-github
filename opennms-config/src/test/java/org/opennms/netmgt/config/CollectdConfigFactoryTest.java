@@ -45,12 +45,22 @@ import org.opennms.test.OpenNMSConfigurationExecutionListener;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+/**
+ * The Class CollectdConfigFactoryTest.
+ */
 @RunWith(SpringJUnit4ClassRunner.class)
 @TestExecutionListeners({ OpenNMSConfigurationExecutionListener.class })
 public class CollectdConfigFactoryTest {
 
+    /** The m_factory. */
     private CollectdConfigFactory m_factory;
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
 
@@ -72,6 +82,9 @@ public class CollectdConfigFactoryTest {
         }
     }
 
+    /**
+     * Test get name.
+     */
     @Test
     public void testGetName() {
         String pkgName = "example1";

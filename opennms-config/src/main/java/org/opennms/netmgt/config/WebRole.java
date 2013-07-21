@@ -47,14 +47,19 @@ import org.opennms.netmgt.config.groups.Time;
  */
 public abstract class WebRole {
 
+    /** The m_name. */
     private String m_name;
 
+    /** The m_description. */
     private String m_description;
 
+    /** The m_default user. */
     private WebUser m_defaultUser;
 
+    /** The m_membership group. */
     private WebGroup m_membershipGroup;
 
+    /** The m_new entries. */
     private List<WebSchedEntry> m_newEntries = new ArrayList<WebSchedEntry>();
 
     /**
@@ -81,6 +86,7 @@ public abstract class WebRole {
      * <p>
      * getDefaultUser
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.config.WebUser} object.
      */
@@ -92,6 +98,7 @@ public abstract class WebRole {
      * <p>
      * setDefaultUser
      * </p>
+     * .
      *
      * @param defaultUser
      *            a {@link org.opennms.netmgt.config.WebUser} object.
@@ -104,6 +111,7 @@ public abstract class WebRole {
      * <p>
      * getDescription
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -115,6 +123,7 @@ public abstract class WebRole {
      * <p>
      * setDescription
      * </p>
+     * .
      *
      * @param description
      *            a {@link java.lang.String} object.
@@ -127,6 +136,7 @@ public abstract class WebRole {
      * <p>
      * getMembershipGroup
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.config.WebGroup} object.
      */
@@ -138,6 +148,7 @@ public abstract class WebRole {
      * <p>
      * setMembershipGroup
      * </p>
+     * .
      *
      * @param memberShipGroup
      *            a {@link org.opennms.netmgt.config.WebGroup} object.
@@ -150,6 +161,7 @@ public abstract class WebRole {
      * <p>
      * getName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -161,6 +173,7 @@ public abstract class WebRole {
      * <p>
      * setName
      * </p>
+     * .
      *
      * @param name
      *            a {@link java.lang.String} object.
@@ -173,6 +186,7 @@ public abstract class WebRole {
      * <p>
      * getSchedule
      * </p>
+     * .
      *
      * @param schedIndex
      *            a int.
@@ -184,6 +198,7 @@ public abstract class WebRole {
      * <p>
      * getTime
      * </p>
+     * .
      *
      * @param schedIndex
      *            a int.
@@ -197,6 +212,7 @@ public abstract class WebRole {
      * <p>
      * getCurrentUsers
      * </p>
+     * .
      *
      * @return a {@link java.util.Collection} object.
      */
@@ -206,6 +222,7 @@ public abstract class WebRole {
      * <p>
      * getWeeklyCalendar
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.config.WebCalendar} object.
      */
@@ -217,6 +234,7 @@ public abstract class WebRole {
      * <p>
      * getCalendar
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.config.WebCalendar} object.
      */
@@ -228,6 +246,7 @@ public abstract class WebRole {
      * <p>
      * getCalendar
      * </p>
+     * .
      *
      * @param month
      *            a {@link java.util.Date} object.
@@ -239,6 +258,7 @@ public abstract class WebRole {
      * <p>
      * addEntry
      * </p>
+     * .
      *
      * @param entry
      *            a {@link org.opennms.netmgt.config.WebSchedEntry} object.
@@ -252,6 +272,7 @@ public abstract class WebRole {
      * <p>
      * getNewEntries
      * </p>
+     * .
      *
      * @return a {@link java.util.Collection} object.
      */

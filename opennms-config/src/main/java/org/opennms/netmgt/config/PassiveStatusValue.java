@@ -40,8 +40,10 @@ import org.opennms.netmgt.model.PollStatus;
  */
 public class PassiveStatusValue {
 
+    /** The m_key. */
     private PassiveStatusKey m_key;
 
+    /** The m_status. */
     private PollStatus m_status;
 
     /**
@@ -81,6 +83,7 @@ public class PassiveStatusValue {
      * <p>
      * getStatus
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.PollStatus} object.
      */
@@ -92,6 +95,7 @@ public class PassiveStatusValue {
      * <p>
      * setStatus
      * </p>
+     * .
      *
      * @param status
      *            a {@link org.opennms.netmgt.model.PollStatus} object.
@@ -104,6 +108,7 @@ public class PassiveStatusValue {
      * <p>
      * getKey
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.config.PassiveStatusKey} object.
      */
@@ -115,6 +120,7 @@ public class PassiveStatusValue {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

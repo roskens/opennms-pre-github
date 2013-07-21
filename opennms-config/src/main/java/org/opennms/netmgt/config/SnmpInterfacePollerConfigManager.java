@@ -72,6 +72,8 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public abstract class SnmpInterfacePollerConfigManager implements SnmpInterfacePollerConfig {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(SnmpInterfacePollerConfigManager.class);
 
     /**
@@ -85,12 +87,12 @@ public abstract class SnmpInterfacePollerConfigManager implements SnmpInterfaceP
      *            a {@link java.lang.String} object.
      * @param verifyServer
      *            a boolean.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public SnmpInterfacePollerConfigManager(InputStream stream, String localServer, boolean verifyServer)
             throws MarshalException, ValidationException, IOException {
@@ -103,13 +105,14 @@ public abstract class SnmpInterfacePollerConfigManager implements SnmpInterfaceP
      * <p>
      * update
      * </p>
+     * .
      *
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     @Override
     public abstract void update() throws IOException, MarshalException, ValidationException;
@@ -118,22 +121,21 @@ public abstract class SnmpInterfacePollerConfigManager implements SnmpInterfaceP
      * <p>
      * saveXml
      * </p>
+     * .
      *
      * @param xml
      *            a {@link java.lang.String} object.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     protected abstract void saveXml(String xml) throws IOException;
 
-    /**
-     * The config class loaded from the config file
-     */
+    /** The config class loaded from the config file. */
     private SnmpInterfacePollerConfiguration m_config;
 
     /**
      * A mapping of the configured URLs to a list of the specific IPs configured
-     * in each - so as to avoid file reads
+     * in each - so as to avoid file reads.
      */
     private Map<String, List<String>> m_urlIPMap;
 
@@ -143,6 +145,7 @@ public abstract class SnmpInterfacePollerConfigManager implements SnmpInterfaceP
      */
     private Map<Package, List<InetAddress>> m_pkgIpMap;
 
+    /** The m_pkg int map. */
     private Map<String, Map<String, Interface>> m_pkgIntMap;
 
     /**
@@ -151,15 +154,13 @@ public abstract class SnmpInterfacePollerConfigManager implements SnmpInterfaceP
      */
     private static boolean m_verifyServer;
 
-    /**
-     * The name of the local OpenNMS server
-     */
+    /** The name of the local OpenNMS server. */
     private static String m_localServer;
 
     /**
      * Go through the poller configuration and build a mapping of each
      * configured URL to a list of IPs configured in that URL - done at init()
-     * time so that repeated file reads can be avoided
+     * time so that repeated file reads can be avoided.
      */
     private void createUrlIpMap() {
         m_urlIPMap = new HashMap<String, List<String>>();
@@ -181,15 +182,16 @@ public abstract class SnmpInterfacePollerConfigManager implements SnmpInterfaceP
      * <p>
      * reloadXML
      * </p>
+     * .
      *
      * @param stream
      *            a {@link java.io.InputStream} object.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     protected synchronized void reloadXML(InputStream stream) throws MarshalException, ValidationException, IOException {
         m_config = CastorUtils.unmarshal(SnmpInterfacePollerConfiguration.class, stream);
@@ -198,14 +200,14 @@ public abstract class SnmpInterfacePollerConfigManager implements SnmpInterfaceP
     }
 
     /**
-     * Saves the current in-memory configuration to disk and reloads
+     * Saves the current in-memory configuration to disk and reloads.
      *
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws ValidationException
+     *             the validation exception
      */
     public synchronized void save() throws MarshalException, IOException, ValidationException {
 
@@ -234,6 +236,7 @@ public abstract class SnmpInterfacePollerConfigManager implements SnmpInterfaceP
      * <p>
      * getPackage
      * </p>
+     * .
      *
      * @param name
      *            a {@link java.lang.String} object.
@@ -255,6 +258,7 @@ public abstract class SnmpInterfacePollerConfigManager implements SnmpInterfaceP
      * <p>
      * addPackage
      * </p>
+     * .
      *
      * @param pkg
      *            a
@@ -360,12 +364,13 @@ public abstract class SnmpInterfacePollerConfigManager implements SnmpInterfaceP
      * <p>
      * getIpList
      * </p>
+     * .
      *
      * @param pkg
      *            a
-     *            {@link org.opennms.netmgt.config.snmpinterfacepoller.Package}
-     *            object.
      * @return a {@link java.util.List} object.
+     *         {@link org.opennms.netmgt.config.snmpinterfacepoller.Package}
+     *         object.
      */
     public List<InetAddress> getIpList(Package pkg) {
         StringBuffer filterRules = new StringBuffer(pkg.getFilter().getContent());
@@ -605,6 +610,7 @@ public abstract class SnmpInterfacePollerConfigManager implements SnmpInterfaceP
      * <p>
      * enumeratePackage
      * </p>
+     * .
      *
      * @return a {@link java.util.Enumeration} object.
      */
@@ -616,6 +622,7 @@ public abstract class SnmpInterfacePollerConfigManager implements SnmpInterfaceP
      * <p>
      * packages
      * </p>
+     * .
      *
      * @return a {@link java.lang.Iterable} object.
      */
@@ -627,12 +634,13 @@ public abstract class SnmpInterfacePollerConfigManager implements SnmpInterfaceP
      * <p>
      * includeURLs
      * </p>
+     * .
      *
      * @param pkg
      *            a
-     *            {@link org.opennms.netmgt.config.snmpinterfacepoller.Package}
-     *            object.
      * @return a {@link java.lang.Iterable} object.
+     *         {@link org.opennms.netmgt.config.snmpinterfacepoller.Package}
+     *         object.
      */
     public Iterable<String> includeURLs(Package pkg) {
         return pkg.getIncludeUrlCollection();
@@ -642,6 +650,7 @@ public abstract class SnmpInterfacePollerConfigManager implements SnmpInterfaceP
      * <p>
      * getThreads
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -654,6 +663,7 @@ public abstract class SnmpInterfacePollerConfigManager implements SnmpInterfaceP
      * <p>
      * getThreads
      * </p>
+     * .
      *
      * @return a long.
      */
@@ -666,6 +676,7 @@ public abstract class SnmpInterfacePollerConfigManager implements SnmpInterfaceP
      * <p>
      * getService
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -678,6 +689,7 @@ public abstract class SnmpInterfacePollerConfigManager implements SnmpInterfaceP
      * <p>
      * useCriteriaFilters
      * </p>
+     * .
      *
      * @return a boolean.
      */

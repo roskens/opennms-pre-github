@@ -41,18 +41,25 @@ import org.slf4j.LoggerFactory;
 import org.springframework.core.io.FileSystemResource;
 
 /**
- * JAXB Based JMX Data Collection Config DAO
+ * JAXB Based JMX Data Collection Config DAO.
  *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 public class JMXDataCollectionConfigDao extends AbstractJaxbConfigDao<JmxDatacollectionConfig, JmxDatacollectionConfig> {
 
+    /** The Constant LOG. */
     public static final Logger LOG = LoggerFactory.getLogger(JMXDataCollectionConfigDao.class);
 
+    /**
+     * Instantiates a new jMX data collection config dao.
+     */
     public JMXDataCollectionConfigDao() {
         super(JmxDatacollectionConfig.class, "jmx-data-collection");
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.core.xml.AbstractJaxbConfigDao#translateConfig(java.lang.Object)
+     */
     @Override
     protected JmxDatacollectionConfig translateConfig(JmxDatacollectionConfig config) {
         for (JmxCollection collection : config.getJmxCollection()) {
@@ -72,6 +79,11 @@ public class JMXDataCollectionConfigDao extends AbstractJaxbConfigDao<JmxDatacol
         return config;
     }
 
+    /**
+     * Gets the config.
+     *
+     * @return the config
+     */
     public JmxDatacollectionConfig getConfig() {
         return getContainer().getObject();
     }

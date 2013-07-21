@@ -39,6 +39,7 @@ package org.opennms.netmgt.config;
  */
 public class WebUser {
 
+    /** The m_name. */
     private String m_name;
 
     /**
@@ -57,6 +58,7 @@ public class WebUser {
      * <p>
      * getName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -68,6 +70,7 @@ public class WebUser {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -90,6 +93,7 @@ public class WebUser {
      * <p>
      * hashCode
      * </p>
+     * .
      *
      * @return a int.
      */

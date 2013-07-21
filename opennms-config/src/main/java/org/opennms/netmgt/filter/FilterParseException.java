@@ -41,14 +41,10 @@ import java.io.PrintWriter;
  */
 public class FilterParseException extends RuntimeException {
 
-    /**
-     *
-     */
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -1504582717903933407L;
 
-    /**
-     * The encapsulated throwable if any
-     */
+    /** The encapsulated throwable if any. */
     private Throwable m_delegate;
 
     /**

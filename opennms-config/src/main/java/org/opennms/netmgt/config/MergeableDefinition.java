@@ -48,6 +48,7 @@ final class MergeableDefinition {
      */
     private final Definition m_snmpConfigDef;
 
+    /** The m_config ranges. */
     private IPAddressRangeSet m_configRanges = new IPAddressRangeSet();
 
     /**
@@ -70,6 +71,11 @@ final class MergeableDefinition {
         }
     }
 
+    /**
+     * Gets the address ranges.
+     *
+     * @return the address ranges
+     */
     public IPAddressRangeSet getAddressRanges() {
         return m_configRanges;
     }
@@ -79,9 +85,8 @@ final class MergeableDefinition {
      * that has the same attributes as the params in the configureSNMP event and
      * the IP specific/range needs to be merged into the definition.
      *
-     * @param eventDefefinition
-     *            a {@link org.opennms.netmgt.config.MergeableDefinition}
-     *            object.
+     * @param eventDefinition
+     *            the event definition
      */
     protected void mergeMatchingAttributeDef(MergeableDefinition eventDefinition) {
 
@@ -107,6 +112,7 @@ final class MergeableDefinition {
      * <p>
      * getConfigDef
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.config.snmp.Definition} object.
      */
@@ -114,10 +120,28 @@ final class MergeableDefinition {
         return m_snmpConfigDef;
     }
 
+    /**
+     * Are equals.
+     *
+     * @param <T>
+     *            the generic type
+     * @param object1
+     *            the object1
+     * @param object2
+     *            the object2
+     * @return true, if successful
+     */
     private final <T> boolean areEquals(T object1, T object2) {
         return SnmpConfigManager.areEquals(object1, object2);
     }
 
+    /**
+     * Matches.
+     *
+     * @param other
+     *            the other
+     * @return true, if successful
+     */
     boolean matches(MergeableDefinition other) {
         return areEquals(getConfigDef().getReadCommunity(), other.getConfigDef().getReadCommunity())
                 && areEquals(getConfigDef().getPort(), other.getConfigDef().getPort())
@@ -141,6 +165,13 @@ final class MergeableDefinition {
                 && areEquals(getConfigDef().getWriteCommunity(), other.getConfigDef().getWriteCommunity());
     }
 
+    /**
+     * Checks if is empty.
+     *
+     * @param s
+     *            the s
+     * @return true, if is empty
+     */
     boolean isEmpty(String s) {
         return s == null || "".equals(s.trim());
     }
@@ -166,6 +197,12 @@ final class MergeableDefinition {
                 && !getConfigDef().hasSecurityLevel();
     }
 
+    /**
+     * Removes the ranges.
+     *
+     * @param eventDefinition
+     *            the event definition
+     */
     void removeRanges(MergeableDefinition eventDefinition) {
 
         m_configRanges.removeAll(eventDefinition.getAddressRanges());

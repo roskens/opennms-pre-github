@@ -58,11 +58,17 @@ import org.opennms.netmgt.xml.event.Parm;
  */
 public class SnmpEventInfoTest {
 
+    /**
+     * Test config range create out of order.
+     */
     @Test(expected = IllegalArgumentException.class)
     public void testConfigRangeCreateOutOfOrder() {
         new IPAddressRange("192.168.1.2", "192.168.1.1");
     }
 
+    /**
+     * Test address incr.
+     */
     @Test
     public void testAddressIncr() {
         IPAddress ipA = new IPAddress("::5");
@@ -79,6 +85,9 @@ public class SnmpEventInfoTest {
 
     }
 
+    /**
+     * Test config address decr.
+     */
     @Test
     public void testConfigAddressDecr() {
         IPAddress a = new IPAddress("::6");
@@ -94,6 +103,9 @@ public class SnmpEventInfoTest {
         assertEquals("ff::ffff:1:7fff", d.decr().toString());
     }
 
+    /**
+     * Test contains addr.
+     */
     @Test
     public void testContainsAddr() {
         IPAddressRange range = new IPAddressRange("192.168.1.1", "192.168.1.3");
@@ -104,6 +116,9 @@ public class SnmpEventInfoTest {
         assertFalse(range.contains("192.168.1.4"));
     }
 
+    /**
+     * Test follows.
+     */
     @Test
     public void testFollows() {
         IPAddressRange s = new IPAddressRange("192.168.1.5", "192.168.1.6");
@@ -114,6 +129,9 @@ public class SnmpEventInfoTest {
         assertFalse(r.comesAfter(s));
     }
 
+    /**
+     * Test contains addr i pv6.
+     */
     @Test
     public void testContainsAddrIPv6() {
         IPAddressRange r = new IPAddressRange("2001:db8::10", "2001:db8::20");
@@ -125,6 +143,9 @@ public class SnmpEventInfoTest {
         assertFalse(r.contains("2001:db8::21"));
     }
 
+    /**
+     * Test contains range.
+     */
     @Test
     public void testContainsRange() {
         IPAddressRange r = new IPAddressRange("192.168.1.1", "192.168.1.10");
@@ -137,6 +158,9 @@ public class SnmpEventInfoTest {
 
     }
 
+    /**
+     * Test preceeds range.
+     */
     @Test
     public void testPreceedsRange() {
         IPAddressRange r = new IPAddressRange("192.168.1.10", "192.168.1.20");
@@ -146,6 +170,9 @@ public class SnmpEventInfoTest {
         assertFalse(r.comesBefore(new IPAddressRange("192.168.1.7", "192.168.1.9")));
     }
 
+    /**
+     * Test overlaps range.
+     */
     @Test
     public void testOverlapsRange() {
         IPAddressRange r = new IPAddressRange("192.168.1.10", "192.168.1.20");
@@ -161,6 +188,9 @@ public class SnmpEventInfoTest {
 
     }
 
+    /**
+     * Test adjacent range.
+     */
     @Test
     public void testAdjacentRange() {
         IPAddressRange r = new IPAddressRange("192.168.1.10", "192.168.1.20");
@@ -170,6 +200,9 @@ public class SnmpEventInfoTest {
         assertTrue(r.adjoins(new IPAddressRange("192.168.1.21", "192.168.1.21")));
     }
 
+    /**
+     * Test config range equals.
+     */
     @Test
     public void testConfigRangeEquals() {
         IPAddressRange r = new IPAddressRange("192.168.1.10", "192.168.1.20");
@@ -178,6 +211,9 @@ public class SnmpEventInfoTest {
         assertFalse(r.equals(new IPAddressRange("192.168.1.10", "192.168.1.19")));
     }
 
+    /**
+     * Test combine.
+     */
     @Test
     public void testCombine() {
         IPAddressRange rr = new IPAddressRange("192.168.1.10", "192.168.1.20");
@@ -197,6 +233,9 @@ public class SnmpEventInfoTest {
                      rr.combine(new IPAddressRange("192.168.1.21", "192.168.1.24")));
     }
 
+    /**
+     * Test remove.
+     */
     @Test
     public void testRemove() {
         IPAddressRange r = new IPAddressRange("192.168.1.10", "192.168.1.20");
@@ -213,6 +252,9 @@ public class SnmpEventInfoTest {
                           r.remove(new IPAddressRange("192.168.1.15", "192.168.1.15")));
     }
 
+    /**
+     * Test list add.
+     */
     @Test
     public void testListAdd() {
         IPAddressRange r = new IPAddressRange("192.168.1.10", "192.168.1.20");
@@ -249,6 +291,9 @@ public class SnmpEventInfoTest {
 
     }
 
+    /**
+     * Test list remove.
+     */
     @Test
     public void testListRemove() {
         IPAddressRange r = new IPAddressRange("192.168.1.1", "192.168.1.100"); // {[1..100]}
@@ -287,6 +332,9 @@ public class SnmpEventInfoTest {
 
     }
 
+    /**
+     * Test create def for snmp v1.
+     */
     @Test
     public void testCreateDefForSnmpV1() {
         SnmpEventInfo snmpEventInfo = new SnmpEventInfo();
@@ -334,6 +382,9 @@ public class SnmpEventInfoTest {
         assertNull(def.getPrivacyProtocol());
     }
 
+    /**
+     * Test create def for snmp v3.
+     */
     @Test
     public void testCreateDefForSnmpV3() {
         SnmpEventInfo snmpEventInfo = new SnmpEventInfo();
@@ -384,6 +435,9 @@ public class SnmpEventInfoTest {
     /**
      * This tests the ability of a configureSNMP event to change the community
      * string of a specific address.
+     *
+     * @throws Exception
+     *             the exception
      */
     @Test
     public final void testModifySpecificInDef() throws Exception {
@@ -417,6 +471,9 @@ public class SnmpEventInfoTest {
     /**
      * This tests the ability of a configureSNMP event to change the community
      * string of a specific address.
+     *
+     * @throws Exception
+     *             the exception
      */
     @Test
     public final void testModifySpecificInDefIPv6() throws Exception {
@@ -452,6 +509,9 @@ public class SnmpEventInfoTest {
      * contains a specific
      * that is adjacent. The two specifics should be converted to a single range
      * in the definition.
+     *
+     * @throws Exception
+     *             the exception
      */
     @Test
     public final void testAddAdjacentSpecificToDef() throws Exception {
@@ -488,6 +548,9 @@ public class SnmpEventInfoTest {
      * contains a specific
      * that is adjacent. The two specifics should be converted to a single range
      * in the definition.
+     *
+     * @throws Exception
+     *             the exception
      */
     @Test
     public final void testAddAdjacentSpecificToDefIPv6() throws Exception {
@@ -525,6 +588,9 @@ public class SnmpEventInfoTest {
      * contains a specific
      * that is adjacent. The two specifics should be converted to a single range
      * in the definition.
+     *
+     * @throws Exception
+     *             the exception
      */
     @Test
     public final void testAddSpecificBetweenAdjacentsSpecifics() throws Exception {
@@ -559,6 +625,9 @@ public class SnmpEventInfoTest {
      * contains a specific
      * that is adjacent. The two specifics should be converted to a single range
      * in the definition.
+     *
+     * @throws Exception
+     *             the exception
      */
     @Test
     public final void testAddSpecificBetweenAdjacentsSpecificsMostlyZeros() throws Exception {
@@ -593,6 +662,9 @@ public class SnmpEventInfoTest {
      * contains a specific
      * that is adjacent. The two specifics should be converted to a single range
      * in the definition.
+     *
+     * @throws Exception
+     *             the exception
      */
     @Test
     public final void testAddSpecificBetweenAdjacentsSpecificsIPv6() throws Exception {
@@ -622,6 +694,12 @@ public class SnmpEventInfoTest {
 
     }
 
+    /**
+     * Test add specific between adjacent specific and range.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public final void testAddSpecificBetweenAdjacentSpecificAndRange() throws Exception {
 
@@ -658,6 +736,9 @@ public class SnmpEventInfoTest {
      * that the previous range is split into 2 ranges and the new range is now
      * contained in a new
      * separate definition.
+     *
+     * @throws Exception
+     *             the exception
      */
     @Test
     public void testSplitRange() throws Exception {
@@ -703,6 +784,9 @@ public class SnmpEventInfoTest {
      * range is converted into 2
      * new ranges and the new specific is added to a new definition in the
      * config.
+     *
+     * @throws Exception
+     *             the exception
      */
     @Test
     public void testRemoveSpecificFromRange() throws Exception {
@@ -738,6 +822,12 @@ public class SnmpEventInfoTest {
 
     }
 
+    /**
+     * Test remove specific near end of range.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testRemoveSpecificNearEndOfRange() throws Exception {
         String snmpConfigXml = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n"
@@ -772,6 +862,12 @@ public class SnmpEventInfoTest {
 
     }
 
+    /**
+     * Test remove specific at end of range.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testRemoveSpecificAtEndOfRange() throws Exception {
         String snmpConfigXml = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n"
@@ -813,6 +909,9 @@ public class SnmpEventInfoTest {
      * the single IP address that was in a different existing defintion that
      * will now be removed and the definition
      * deleted.
+     *
+     * @throws Exception
+     *             the exception
      */
     @Test
     public void testRecombineSpecificIntoRange() throws Exception {
@@ -851,6 +950,9 @@ public class SnmpEventInfoTest {
     /**
      * This tests the ability to remove a specific IP from one definition with a
      * newly specified range.
+     *
+     * @throws Exception
+     *             the exception
      */
     @Test
     public void testRemoveSpecificInSeparateDefWithNewRange() throws Exception {
@@ -886,6 +988,12 @@ public class SnmpEventInfoTest {
 
     }
 
+    /**
+     * Test remove trivial entry.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testRemoveTrivialEntry() throws Exception {
 
@@ -917,6 +1025,7 @@ public class SnmpEventInfoTest {
      * This tests the behavior of specifying an invalid range.
      *
      * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     @Test
     public void testInvalidRange() throws IOException {
@@ -944,6 +1053,9 @@ public class SnmpEventInfoTest {
      * This tests the addition of a new specific definition that is the same
      * address as the beginning of
      * a range in a current definition.
+     *
+     * @throws Exception
+     *             the exception
      */
     @Test
     public void testNewSpecifcSameAsBeginInOldDef() throws Exception {
@@ -984,6 +1096,9 @@ public class SnmpEventInfoTest {
      * addresses that overlaps
      * the end of one range and the beginning of another range in a current
      * definition.
+     *
+     * @throws Exception
+     *             the exception
      */
     @Test
     public void testOverlapsTwoRanges() throws Exception {
@@ -1019,6 +1134,16 @@ public class SnmpEventInfoTest {
         assertXmlEquals(expectedConfig, actualConfig);
     }
 
+    /**
+     * Test overlaps two ranges and combines them.
+     *
+     * @param firstIp
+     *            the first ip
+     * @param lastIp
+     *            the last ip
+     * @throws Exception
+     *             the exception
+     */
     public void testOverlapsTwoRangesAndCombinesThem(String firstIp, String lastIp) throws Exception {
 
         String snmpConfigXml = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n"
@@ -1049,6 +1174,12 @@ public class SnmpEventInfoTest {
         assertXmlEquals(expectedConfig, actualConfig);
     }
 
+    /**
+     * Test combine overlapping ranges.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testCombineOverlappingRanges() throws Exception {
         testOverlapsTwoRangesAndCombinesThem("192.168.1.15", "192.168.1.35");
@@ -1066,6 +1197,9 @@ public class SnmpEventInfoTest {
      * for which it overlaps
      * one range in the merging definition and creates 2 adjacent ranges that
      * should be merged together.
+     *
+     * @throws Exception
+     *             the exception
      */
     @Test
     public void testRecombineRanges() throws Exception {
@@ -1106,6 +1240,9 @@ public class SnmpEventInfoTest {
      * range overlaps the current definition's
      * range and overlaps the end of one range and the beginning of another
      * range of the merging definition.
+     *
+     * @throws Exception
+     *             the exception
      */
     @Test
     public void testRecombineRangesNonAdjacentRange() throws Exception {
@@ -1143,6 +1280,9 @@ public class SnmpEventInfoTest {
     /**
      * This tests moving the specific from a current defition to a new
      * defintion.
+     *
+     * @throws Exception
+     *             the exception
      */
     @Test
     public final void testAddNewSpecificToConfig() throws Exception {
@@ -1179,6 +1319,7 @@ public class SnmpEventInfoTest {
      * Therefore a new defintion should NOT BE added.
      *
      * @throws Exception
+     *             the exception
      */
     @Test
     public void testEmptySnmpConfigAddDefinitionWhichMatchesDefaults() throws Exception {
@@ -1205,6 +1346,9 @@ public class SnmpEventInfoTest {
      * In earlier Versions of OpenNMS max-repetitions and max-vars-per-pdu
      * weren't considered in the optimization.
      * So this test checks if it is now considered.
+     *
+     * @throws Exception
+     *             the exception
      */
     @Test
     public void testMaxRepetitionsAndMaxVarsPerPdu() throws Exception {
@@ -1233,6 +1377,9 @@ public class SnmpEventInfoTest {
 
     /**
      * Tests if the proxy host is considered in the optimization code.
+     *
+     * @throws Exception
+     *             the exception
      */
     @Test
     public void testProxyHost() throws Exception {
@@ -1262,6 +1409,7 @@ public class SnmpEventInfoTest {
      * tests that from a given event a SnmpEventInfo object can be created.
      *
      * @throws UnknownHostException
+     *             the unknown host exception
      */
     @Test
     public void testCreateFromEvent() throws UnknownHostException {

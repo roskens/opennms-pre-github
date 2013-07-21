@@ -58,52 +58,85 @@ import org.slf4j.LoggerFactory;
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
  */
 public class SnmpEventInfo {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(SnmpEventInfo.class);
 
+    /** The m_first ip address. */
     private String m_firstIPAddress = null;
 
+    /** The m_last ip address. */
     private String m_lastIPAddress = null;
 
+    /** The m_read community string. */
     private String m_readCommunityString = null;
 
+    /** The m_write community string. */
     private String m_writeCommunityString = null;
 
+    /** The m_timeout. */
     private int m_timeout = 0;
 
+    /** The m_retry count. */
     private int m_retryCount = 0;
 
+    /** The m_version. */
     private String m_version = null;
 
+    /** The m_port. */
     private int m_port = 0;
 
+    /** The m_security level. */
     private int m_securityLevel = 0;
 
+    /** The m_security name. */
     private String m_securityName = null;
 
+    /** The m_max vars per pdu. */
     private int m_maxVarsPerPdu = 0;
 
+    /** The m_max repetitions. */
     private int m_maxRepetitions = 0;
 
+    /** The m_max request size. */
     private int m_maxRequestSize = 0;
 
+    /** The m_auth pass phrase. */
     private String m_authPassPhrase = null;
 
+    /** The m_auth protocol. */
     private String m_authProtocol = null;
 
+    /** The m_priv protocol. */
     private String m_privProtocol = null;
 
+    /** The m_priv pass phrase. */
     private String m_privPassPhrase = null;
 
+    /** The m_engine id. */
     private String m_engineId = null;
 
+    /** The m_context engine id. */
     private String m_contextEngineId = null;
 
+    /** The m_context name. */
     private String m_contextName = null;
 
+    /** The m_enterprise id. */
     private String m_enterpriseId = null;
 
+    /** The m_proxy host. */
     private String m_proxyHost = null;
 
+    /**
+     * Compute int value.
+     *
+     * @param parmContent
+     *            the parm content
+     * @return the int
+     * @throws IllegalArgumentException
+     *             the illegal argument exception
+     */
     private static int computeIntValue(String parmContent) throws IllegalArgumentException {
         int val = 0;
         try {
@@ -116,7 +149,7 @@ public class SnmpEventInfo {
     }
 
     /**
-     * Default constructor
+     * Default constructor.
      */
     public SnmpEventInfo() {
     }
@@ -230,18 +263,40 @@ public class SnmpEventInfo {
         setReadCommunityString(communityString);
     }
 
+    /**
+     * Sets the read community string.
+     *
+     * @param readCommunityString
+     *            the new read community string
+     */
     public void setReadCommunityString(String readCommunityString) {
         m_readCommunityString = readCommunityString;
     }
 
+    /**
+     * Gets the read community string.
+     *
+     * @return the read community string
+     */
     public String getReadCommunityString() {
         return m_readCommunityString;
     }
 
+    /**
+     * Sets the write community string.
+     *
+     * @param writeCommunityString
+     *            the new write community string
+     */
     public void setWriteCommunityString(String writeCommunityString) {
         m_writeCommunityString = writeCommunityString;
     }
 
+    /**
+     * Gets the write community string.
+     *
+     * @return the write community string
+     */
     public String getWriteCommunityString() {
         return m_writeCommunityString;
     }
@@ -250,6 +305,7 @@ public class SnmpEventInfo {
      * <p>
      * getFirstIPAddress
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -261,11 +317,12 @@ public class SnmpEventInfo {
      * <p>
      * setFirstIPAddress
      * </p>
+     * .
      *
      * @param firstIPAddress
      *            a {@link java.lang.String} object.
-     * @throws java.net.UnknownHostException
-     *             if any.
+     * @throws UnknownHostException
+     *             the unknown host exception
      */
     public void setFirstIPAddress(String firstIPAddress) throws UnknownHostException {
         m_firstIPAddress = firstIPAddress;
@@ -275,6 +332,7 @@ public class SnmpEventInfo {
      * <p>
      * setFirstIPAddress
      * </p>
+     * .
      *
      * @param firstIPAddress
      *            a {@link java.net.InetAddress} object.
@@ -291,6 +349,7 @@ public class SnmpEventInfo {
      * <p>
      * getLastIPAddress
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -302,11 +361,12 @@ public class SnmpEventInfo {
      * <p>
      * setLastIPAddress
      * </p>
+     * .
      *
      * @param lastIPAddress
      *            a {@link java.lang.String} object.
-     * @throws java.net.UnknownHostException
-     *             if any.
+     * @throws UnknownHostException
+     *             the unknown host exception
      */
     public void setLastIPAddress(String lastIPAddress) throws UnknownHostException {
         if (StringUtils.isBlank(lastIPAddress)) {
@@ -319,6 +379,7 @@ public class SnmpEventInfo {
      * <p>
      * setLastIPAddress
      * </p>
+     * .
      *
      * @param lastIPAddress
      *            a {@link java.net.InetAddress} object.
@@ -331,98 +392,230 @@ public class SnmpEventInfo {
         }
     }
 
+    /**
+     * Gets the max vars per pdu.
+     *
+     * @return the max vars per pdu
+     */
     public int getMaxVarsPerPdu() {
         return m_maxVarsPerPdu;
     }
 
+    /**
+     * Sets the max vars per pdu.
+     *
+     * @param maxVarsPerPdu
+     *            the new max vars per pdu
+     */
     public void setMaxVarsPerPdu(final int maxVarsPerPdu) {
         m_maxVarsPerPdu = maxVarsPerPdu;
     }
 
+    /**
+     * Gets the max repetitions.
+     *
+     * @return the max repetitions
+     */
     public int getMaxRepetitions() {
         return m_maxRepetitions;
     }
 
+    /**
+     * Sets the max repetitions.
+     *
+     * @param maxRepetitions
+     *            the new max repetitions
+     */
     public void setMaxRepetitions(final int maxRepetitions) {
         m_maxRepetitions = maxRepetitions;
     }
 
+    /**
+     * Gets the auth passphrase.
+     *
+     * @return the auth passphrase
+     */
     public String getAuthPassphrase() {
         return m_authPassPhrase;
     }
 
+    /**
+     * Sets the auth pass phrase.
+     *
+     * @param authPassPhrase
+     *            the new auth pass phrase
+     */
     public void setAuthPassPhrase(final String authPassPhrase) {
         m_authPassPhrase = authPassPhrase;
     }
 
+    /**
+     * Gets the auth protocol.
+     *
+     * @return the auth protocol
+     */
     public String getAuthProtocol() {
         return m_authProtocol;
     }
 
+    /**
+     * Sets the auth protocol.
+     *
+     * @param authProtocol
+     *            the new auth protocol
+     */
     public void setAuthProtocol(final String authProtocol) {
         m_authProtocol = authProtocol;
     }
 
+    /**
+     * Sets the priv protocol.
+     *
+     * @param privProtocol
+     *            the new priv protocol
+     */
     public void setPrivProtocol(final String privProtocol) {
         m_privProtocol = privProtocol;
     }
 
+    /**
+     * Gets the priv protocol.
+     *
+     * @return the priv protocol
+     */
     public String getPrivProtocol() {
         return m_privProtocol;
     }
 
+    /**
+     * Gets the priv pass phrase.
+     *
+     * @return the priv pass phrase
+     */
     public String getPrivPassPhrase() {
         return m_privPassPhrase;
     }
 
+    /**
+     * Sets the priv pass phrase.
+     *
+     * @param privPassPhrase
+     *            the new priv pass phrase
+     */
     public void setPrivPassPhrase(final String privPassPhrase) {
         m_privPassPhrase = privPassPhrase;
     }
 
+    /**
+     * Gets the engine id.
+     *
+     * @return the engine id
+     */
     public String getEngineId() {
         return m_engineId;
     }
 
+    /**
+     * Sets the engine id.
+     *
+     * @param engineId
+     *            the new engine id
+     */
     public void setEngineId(final String engineId) {
         m_engineId = engineId;
     }
 
+    /**
+     * Gets the context engine id.
+     *
+     * @return the context engine id
+     */
     public String getContextEngineId() {
         return m_contextEngineId;
     }
 
+    /**
+     * Sets the context engine id.
+     *
+     * @param contextEngineId
+     *            the new context engine id
+     */
     public void setContextEngineId(final String contextEngineId) {
         m_contextEngineId = contextEngineId;
     }
 
+    /**
+     * Sets the context name.
+     *
+     * @param contextName
+     *            the new context name
+     */
     public void setContextName(final String contextName) {
         m_contextName = contextName;
     }
 
+    /**
+     * Gets the context name.
+     *
+     * @return the context name
+     */
     public String getContextName() {
         return m_contextName;
     }
 
+    /**
+     * Sets the enterprise id.
+     *
+     * @param enterpriseId
+     *            the new enterprise id
+     */
     public void setEnterpriseId(final String enterpriseId) {
         m_enterpriseId = enterpriseId;
     }
 
+    /**
+     * Gets the enterprise id.
+     *
+     * @return the enterprise id
+     */
     public String getEnterpriseId() {
         return m_enterpriseId;
     }
 
+    /**
+     * Gets the security name.
+     *
+     * @return the security name
+     */
     public String getSecurityName() {
         return m_securityName;
     }
 
+    /**
+     * Sets the security name.
+     *
+     * @param securityName
+     *            the new security name
+     */
     public void setSecurityName(final String securityName) {
         m_securityName = securityName;
     }
 
+    /**
+     * Sets the security level.
+     *
+     * @param securityLevel
+     *            the new security level
+     */
     public void setSecurityLevel(final int securityLevel) {
         m_securityLevel = securityLevel;
     }
 
+    /**
+     * Gets the security level.
+     *
+     * @return the security level
+     */
     public int getSecurityLevel() {
         return m_securityLevel;
     }
@@ -431,6 +624,7 @@ public class SnmpEventInfo {
      * <p>
      * getRetryCount
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -442,6 +636,7 @@ public class SnmpEventInfo {
      * <p>
      * setRetryCount
      * </p>
+     * .
      *
      * @param retryCount
      *            a int.
@@ -454,6 +649,7 @@ public class SnmpEventInfo {
      * <p>
      * getTimeout
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -465,6 +661,7 @@ public class SnmpEventInfo {
      * <p>
      * setTimeout
      * </p>
+     * .
      *
      * @param timeout
      *            a int.
@@ -477,6 +674,7 @@ public class SnmpEventInfo {
      * <p>
      * getVersion
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -488,6 +686,7 @@ public class SnmpEventInfo {
      * <p>
      * setVersion
      * </p>
+     * .
      *
      * @param version
      *            a {@link java.lang.String} object.
@@ -500,6 +699,7 @@ public class SnmpEventInfo {
      * <p>
      * getPort
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -511,6 +711,7 @@ public class SnmpEventInfo {
      * <p>
      * setPort
      * </p>
+     * .
      *
      * @param port
      *            a int.
@@ -519,18 +720,40 @@ public class SnmpEventInfo {
         m_port = port;
     }
 
+    /**
+     * Gets the max request size.
+     *
+     * @return the max request size
+     */
     public int getMaxRequestSize() {
         return m_maxRequestSize;
     }
 
+    /**
+     * Sets the max request size.
+     *
+     * @param maxRequestSize
+     *            the new max request size
+     */
     public void setMaxRequestSize(int maxRequestSize) {
         m_maxRequestSize = maxRequestSize;
     }
 
+    /**
+     * Gets the proxy host.
+     *
+     * @return the proxy host
+     */
     public String getProxyHost() {
         return m_proxyHost;
     }
 
+    /**
+     * Sets the proxy host.
+     *
+     * @param proxyHost
+     *            the new proxy host
+     */
     public void setProxyHost(String proxyHost) {
         m_proxyHost = proxyHost;
     }
@@ -539,6 +762,7 @@ public class SnmpEventInfo {
      * <p>
      * getRange
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.config.common.Range} object.
      */
@@ -700,16 +924,25 @@ public class SnmpEventInfo {
         return definition;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(Object obj) {
         return EqualsBuilder.reflectionEquals(this, obj);
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
     @Override
     public int hashCode() {
         return HashCodeBuilder.reflectionHashCode(this);
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);

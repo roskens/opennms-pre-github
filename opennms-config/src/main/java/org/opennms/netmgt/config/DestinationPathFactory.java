@@ -50,45 +50,37 @@ import org.opennms.core.utils.ConfigFileConstants;
  * @version $Id: $
  */
 public class DestinationPathFactory extends DestinationPathManager {
-    /**
-     *
-     */
+
+    /** The instance. */
     private static DestinationPathFactory instance;
 
-    /**
-     *
-     */
+    /** The m_notif conf file. */
     @SuppressWarnings("unused")
     private static File m_notifConfFile;
 
-    /**
-     * Boolean indicating if the init() method has been called
-     */
+    /** Boolean indicating if the init() method has been called. */
     private static boolean initialized = false;
 
-    /**
-     *
-     */
+    /** The m_paths conf file. */
     private static File m_pathsConfFile;
 
-    /**
-     *
-     */
+    /** The m_last modified. */
     private static long m_lastModified;
 
     /**
      * <p>
      * init
      * </p>
+     * .
      *
-     * @throws java.io.IOException
-     *             if any.
-     * @throws java.io.FileNotFoundException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws FileNotFoundException
+     *             the file not found exception
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public static synchronized void init() throws IOException, FileNotFoundException, MarshalException,
             ValidationException {
@@ -119,15 +111,16 @@ public class DestinationPathFactory extends DestinationPathManager {
      * <p>
      * reload
      * </p>
+     * .
      *
-     * @throws java.io.IOException
-     *             if any.
-     * @throws java.io.FileNotFoundException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws FileNotFoundException
+     *             the file not found exception
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public void reload() throws IOException, FileNotFoundException, MarshalException, ValidationException {
         m_pathsConfFile = ConfigFileConstants.getFile(ConfigFileConstants.DESTINATION_PATHS_CONF_FILE_NAME);
@@ -154,15 +147,16 @@ public class DestinationPathFactory extends DestinationPathManager {
      * <p>
      * update
      * </p>
+     * .
      *
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
-     * @throws java.io.FileNotFoundException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws FileNotFoundException
+     *             the file not found exception
      */
     @Override
     public void update() throws IOException, MarshalException, ValidationException, FileNotFoundException {

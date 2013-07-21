@@ -38,10 +38,13 @@ package org.opennms.netmgt.config;
  */
 public class PassiveStatusKey {
 
+    /** The m_node label. */
     private String m_nodeLabel;
 
+    /** The m_ip addr. */
     private String m_ipAddr;
 
+    /** The m_service name. */
     private String m_serviceName;
 
     /**
@@ -66,6 +69,7 @@ public class PassiveStatusKey {
      * <p>
      * getIpAddr
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -77,6 +81,7 @@ public class PassiveStatusKey {
      * <p>
      * getNodeLabel
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -88,6 +93,7 @@ public class PassiveStatusKey {
      * <p>
      * getServiceName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -110,6 +116,7 @@ public class PassiveStatusKey {
      * <p>
      * hashCode
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -122,6 +129,7 @@ public class PassiveStatusKey {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

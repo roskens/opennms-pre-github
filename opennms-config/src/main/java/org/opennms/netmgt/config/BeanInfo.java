@@ -45,26 +45,36 @@ import java.util.List;
  * @version $Id: $
  */
 public class BeanInfo {
+
+    /** The mbean name. */
     private String mbeanName;
 
+    /** The object name. */
     private String objectName;
 
+    /** The key field. */
     private String keyField;
 
+    /** The excludes. */
     private String excludes;
 
+    /** The key alias. */
     private String keyAlias;
 
+    /** The operations. */
     private ArrayList<Object> operations;
 
+    /** The attributes. */
     private List<String> attributes;
 
+    /** The composite attributes. */
     private List<String> compositeAttributes;
 
     /**
      * <p>
      * getCompositeAttributeNames
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -111,6 +121,7 @@ public class BeanInfo {
      * <p>
      * getAttributeNames
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -122,6 +133,7 @@ public class BeanInfo {
      * <p>
      * addOperations
      * </p>
+     * .
      *
      * @param attr
      *            a {@link java.lang.Object} object.

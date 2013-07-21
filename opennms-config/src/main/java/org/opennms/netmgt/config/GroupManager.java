@@ -75,41 +75,49 @@ import org.slf4j.LoggerFactory;
  * @author <a href="mailto:dj@gregor.com">DJ Gregor</a>
  */
 public abstract class GroupManager {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(GroupManager.class);
 
+    /** The Constant EMPTY_STRING_ARRAY. */
     private static final String[] EMPTY_STRING_ARRAY = new String[0];
 
-    /**
-     * The duty schedules for each group
-     */
+    /** The duty schedules for each group. */
     protected static HashMap<String, List<DutySchedule>> m_dutySchedules;
 
-    /**
-     * A mapping of Group object by name
-     */
+    /** A mapping of Group object by name. */
     private Map<String, Group> m_groups;
 
+    /** The m_roles. */
     private Map<String, Role> m_roles;
 
+    /** The m_old header. */
     private Header m_oldHeader;
 
     /**
      * <p>
      * parseXml
      * </p>
+     * .
      *
      * @param stream
      *            a {@link java.io.InputStream} object.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     protected synchronized void parseXml(InputStream stream) throws MarshalException, ValidationException {
         Groupinfo groupinfo = CastorUtils.unmarshal(Groupinfo.class, stream);
         initializeGroupsAndRoles(groupinfo);
     }
 
+    /**
+     * Initialize groups and roles.
+     *
+     * @param groupinfo
+     *            the groupinfo
+     */
     private void initializeGroupsAndRoles(Groupinfo groupinfo) {
         Groups groups = groupinfo.getGroups();
         m_groups = new LinkedHashMap<String, Group>();
@@ -129,7 +137,7 @@ public abstract class GroupManager {
     }
 
     /**
-     * Set the groups data
+     * Set the groups data.
      *
      * @param grp
      *            a {@link java.util.Map} object.
@@ -139,15 +147,15 @@ public abstract class GroupManager {
     }
 
     /**
-     * Get the groups
+     * Get the groups.
      *
      * @return a {@link java.util.Map} object.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public Map<String, Group> getGroups() throws IOException, MarshalException, ValidationException {
 
@@ -157,6 +165,17 @@ public abstract class GroupManager {
 
     }
 
+    /**
+     * Gets the onms group list.
+     *
+     * @return the onms group list
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     public OnmsGroupList getOnmsGroupList() throws MarshalException, ValidationException, IOException {
         final OnmsGroupList list = new OnmsGroupList();
 
@@ -168,6 +187,19 @@ public abstract class GroupManager {
         return list;
     }
 
+    /**
+     * Gets the onms group.
+     *
+     * @param groupName
+     *            the group name
+     * @return the onms group
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     public OnmsGroup getOnmsGroup(final String groupName) throws MarshalException, ValidationException, IOException {
         final Group castorGroup = getGroup(groupName);
         if (castorGroup == null)
@@ -180,6 +212,14 @@ public abstract class GroupManager {
         return group;
     }
 
+    /**
+     * Save.
+     *
+     * @param group
+     *            the group
+     * @throws Exception
+     *             the exception
+     */
     public synchronized void save(final OnmsGroup group) throws Exception {
         Group castorGroup = getGroup(group.getName());
         if (castorGroup == null) {
@@ -196,28 +236,29 @@ public abstract class GroupManager {
      * <p>
      * update
      * </p>
+     * .
      *
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public abstract void update() throws IOException, MarshalException, ValidationException;
 
     /**
-     * Returns a boolean indicating if the group name appears in the xml file
+     * Returns a boolean indicating if the group name appears in the xml file.
      *
-     * @return true if the group exists in the xml file, false otherwise
      * @param groupName
      *            a {@link java.lang.String} object.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @return true if the group exists in the xml file, false otherwise
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public boolean hasGroup(String groupName) throws IOException, MarshalException, ValidationException {
         update();
@@ -229,14 +270,15 @@ public abstract class GroupManager {
      * <p>
      * getGroupNames
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public List<String> getGroupNames() throws IOException, MarshalException, ValidationException {
         update();
@@ -245,17 +287,17 @@ public abstract class GroupManager {
     }
 
     /**
-     * Get a group using its name
+     * Get a group using its name.
      *
      * @param name
      *            the name of the group to return
      * @return Group, the group specified by name
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public Group getGroup(String name) throws IOException, MarshalException, ValidationException {
         update();
@@ -267,9 +309,10 @@ public abstract class GroupManager {
      * <p>
      * saveGroups
      * </p>
+     * .
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     public synchronized void saveGroups() throws Exception {
         Header header = m_oldHeader;
@@ -339,12 +382,12 @@ public abstract class GroupManager {
      * @param time
      *            the time to check for a duty schedule
      * @return boolean, true if the group is on duty, false otherwise.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public boolean isGroupOnDuty(String group, Calendar time) throws IOException, MarshalException, ValidationException {
         update();
@@ -371,12 +414,12 @@ public abstract class GroupManager {
      * @param time
      *            the time to check for a duty schedule
      * @return long, the time in milliseconds until the group is next on duty
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public long groupNextOnDuty(String group, Calendar time) throws IOException, MarshalException, ValidationException {
         long next = -1;
@@ -401,11 +444,12 @@ public abstract class GroupManager {
      * <p>
      * saveXml
      * </p>
+     * .
      *
      * @param data
      *            a {@link java.lang.String} object.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     protected abstract void saveXml(String data) throws IOException;
 
@@ -416,8 +460,8 @@ public abstract class GroupManager {
      *            a {@link java.lang.String} object.
      * @param details
      *            a {@link org.opennms.netmgt.config.groups.Group} object.
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     public synchronized void saveGroup(String name, Group details) throws Exception {
         if (name == null || details == null) {
@@ -433,11 +477,12 @@ public abstract class GroupManager {
      * <p>
      * saveRole
      * </p>
+     * .
      *
      * @param role
      *            a {@link org.opennms.netmgt.config.groups.Role} object.
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     public void saveRole(Role role) throws Exception {
         m_roles.put(role.getName(), role);
@@ -450,8 +495,8 @@ public abstract class GroupManager {
      *
      * @param name
      *            a {@link java.lang.String} object.
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     public synchronized void deleteUser(String name) throws Exception {
         // Check if the user exists
@@ -484,8 +529,8 @@ public abstract class GroupManager {
      *
      * @param name
      *            a {@link java.lang.String} object.
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     public synchronized void deleteGroup(String name) throws Exception {
         // Check if the group exists
@@ -506,11 +551,12 @@ public abstract class GroupManager {
      * <p>
      * deleteRole
      * </p>
+     * .
      *
      * @param name
      *            a {@link java.lang.String} object.
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     public void deleteRole(String name) throws Exception {
         if (name != null && !name.equals("")) {
@@ -532,8 +578,8 @@ public abstract class GroupManager {
      *            a {@link java.lang.String} object.
      * @param newName
      *            a {@link java.lang.String} object.
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     public synchronized void renameGroup(String oldName, String newName) throws Exception {
         if (oldName != null && !oldName.equals("")) {
@@ -557,8 +603,8 @@ public abstract class GroupManager {
      *            a {@link java.lang.String} object.
      * @param newName
      *            a {@link java.lang.String} object.
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     public synchronized void renameUser(String oldName, String newName) throws Exception {
         // Get the old data
@@ -597,6 +643,7 @@ public abstract class GroupManager {
      * <p>
      * getRoleNames
      * </p>
+     * .
      *
      * @return an array of {@link java.lang.String} objects.
      */
@@ -608,6 +655,7 @@ public abstract class GroupManager {
      * <p>
      * getRoles
      * </p>
+     * .
      *
      * @return a {@link java.util.Collection} object.
      */
@@ -619,6 +667,7 @@ public abstract class GroupManager {
      * <p>
      * getRole
      * </p>
+     * .
      *
      * @param roleName
      *            a {@link java.lang.String} object.
@@ -632,18 +681,19 @@ public abstract class GroupManager {
      * <p>
      * userHasRole
      * </p>
+     * .
      *
      * @param userId
      *            a {@link java.lang.String} object.
      * @param roleid
      *            a {@link java.lang.String} object.
      * @return a boolean.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public boolean userHasRole(String userId, String roleid) throws MarshalException, ValidationException, IOException {
         update();
@@ -660,18 +710,19 @@ public abstract class GroupManager {
      * <p>
      * getSchedulesForRoleAt
      * </p>
+     * .
      *
      * @param roleId
      *            a {@link java.lang.String} object.
      * @param time
      *            a {@link java.util.Date} object.
      * @return a {@link java.util.List} object.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public List<Schedule> getSchedulesForRoleAt(String roleId, Date time) throws MarshalException, ValidationException,
             IOException {
@@ -690,18 +741,19 @@ public abstract class GroupManager {
      * <p>
      * getUserSchedulesForRole
      * </p>
+     * .
      *
      * @param userId
      *            a {@link java.lang.String} object.
      * @param roleId
      *            a {@link java.lang.String} object.
      * @return a {@link java.util.List} object.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public List<Schedule> getUserSchedulesForRole(String userId, String roleId) throws MarshalException,
             ValidationException, IOException {
@@ -721,6 +773,7 @@ public abstract class GroupManager {
      * <p>
      * isUserScheduledForRole
      * </p>
+     * .
      *
      * @param userId
      *            a {@link java.lang.String} object.
@@ -729,12 +782,12 @@ public abstract class GroupManager {
      * @param time
      *            a {@link java.util.Date} object.
      * @return a boolean.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public boolean isUserScheduledForRole(String userId, String roleId, Date time) throws MarshalException,
             ValidationException, IOException {
@@ -764,6 +817,7 @@ public abstract class GroupManager {
      * <p>
      * getRoleScheduleEntries
      * </p>
+     * .
      *
      * @param roleid
      *            a {@link java.lang.String} object.
@@ -772,12 +826,12 @@ public abstract class GroupManager {
      * @param end
      *            a {@link java.util.Date} object.
      * @return a {@link org.opennms.core.utils.OwnedIntervalSequence} object.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public OwnedIntervalSequence getRoleScheduleEntries(String roleid, Date start, Date end) throws MarshalException,
             ValidationException, IOException {
@@ -809,6 +863,7 @@ public abstract class GroupManager {
      * <p>
      * findGroupsForUser
      * </p>
+     * .
      *
      * @param user
      *            a {@link java.lang.String} object.

@@ -48,7 +48,17 @@ import org.opennms.netmgt.config.discovery.IncludeRange;
 import org.opennms.netmgt.config.discovery.Specific;
 import org.opennms.netmgt.model.discovery.IPPollAddress;
 
+/**
+ * The Class DiscoveryConfigFactoryTest.
+ */
 public class DiscoveryConfigFactoryTest {
+
+    /**
+     * Test add to specifics from url via url.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testAddToSpecificsFromURLViaURL() throws Exception {
         final List<IPPollAddress> specifics = new ArrayList<IPPollAddress>();
@@ -67,6 +77,12 @@ public class DiscoveryConfigFactoryTest {
         assertEquals("fe80:0000:0000:0000:ffff:eeee:dddd:cccc", InetAddressUtils.str(specifics.get(7).getAddress()));
     }
 
+    /**
+     * Test add to specifics from url via stream.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testAddToSpecificsFromURLViaStream() throws Exception {
         final List<IPPollAddress> specifics = new ArrayList<IPPollAddress>();
@@ -85,6 +101,12 @@ public class DiscoveryConfigFactoryTest {
         assertEquals("fe80:0000:0000:0000:ffff:eeee:dddd:cccc", InetAddressUtils.str(specifics.get(7).getAddress()));
     }
 
+    /**
+     * Test multiple excludes.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testMultipleExcludes() throws Exception {
         final DiscoveryConfigFactory factory = new DiscoveryConfigFactory() {
@@ -146,6 +168,12 @@ public class DiscoveryConfigFactoryTest {
 
     }
 
+    /**
+     * Test single ip exclude.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testSingleIPExclude() throws Exception {
         final DiscoveryConfigFactory factory = new DiscoveryConfigFactory() {

@@ -70,16 +70,21 @@ public class ViewsDisplayFactory {
     /** Map of view objects by name. */
     protected Map<String, View> m_viewsMap;
 
+    /** The m_view info. */
     private Viewinfo m_viewInfo;
 
     /**
      * Empty private constructor so this class cannot be instantiated outside
      * itself.
      *
-     * @throws IOException
-     * @throws FileNotFoundException
-     * @throws ValidationException
      * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws FileNotFoundException
+     *             the file not found exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     private ViewsDisplayFactory() throws MarshalException, ValidationException, FileNotFoundException, IOException {
         reload();
@@ -92,14 +97,14 @@ public class ViewsDisplayFactory {
      *
      * @param file
      *            a {@link java.lang.String} object.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
-     * @throws java.io.FileNotFoundException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws FileNotFoundException
+     *             the file not found exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public ViewsDisplayFactory(String file) throws MarshalException, ValidationException, FileNotFoundException,
             IOException {
@@ -110,14 +115,14 @@ public class ViewsDisplayFactory {
     /**
      * Be sure to call this method before calling getInstance().
      *
-     * @throws java.io.IOException
-     *             if any.
-     * @throws java.io.FileNotFoundException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws FileNotFoundException
+     *             the file not found exception
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public static synchronized void init() throws IOException, FileNotFoundException, MarshalException,
             ValidationException {
@@ -128,11 +133,9 @@ public class ViewsDisplayFactory {
 
     /**
      * Singleton static call to get the only instance that should exist for the
-     * ViewsDisplayFactory
+     * ViewsDisplayFactory.
      *
      * @return the single views display factory instance
-     * @throws java.lang.IllegalStateException
-     *             if init has not been called
      */
     public static synchronized ViewsDisplayFactory getInstance() {
         if (m_instance == null) {
@@ -145,14 +148,14 @@ public class ViewsDisplayFactory {
     /**
      * Parses the viewsdisplay.xml via the Castor classes
      *
-     * @throws java.io.IOException
-     *             if any.
-     * @throws java.io.FileNotFoundException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws FileNotFoundException
+     *             the file not found exception
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public synchronized void reload() throws IOException, FileNotFoundException, MarshalException, ValidationException {
         InputStream stream = null;
@@ -166,11 +169,24 @@ public class ViewsDisplayFactory {
         }
     }
 
+    /**
+     * Unmarshal.
+     *
+     * @param stream
+     *            the stream
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     */
     private void unmarshal(InputStream stream) throws MarshalException, ValidationException {
         m_viewInfo = CastorUtils.unmarshal(Viewinfo.class, stream);
         updateViewsMap();
     }
 
+    /**
+     * Update views map.
+     */
     private void updateViewsMap() {
         Map<String, View> viewsMap = new HashMap<String, View>();
 
@@ -181,6 +197,13 @@ public class ViewsDisplayFactory {
         m_viewsMap = viewsMap;
     }
 
+    /**
+     * Gets the stream.
+     *
+     * @return the stream
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     private InputStream getStream() throws IOException {
         File viewsDisplayFile = getViewsDisplayFile();
         m_lastModified = viewsDisplayFile.lastModified();
@@ -192,6 +215,7 @@ public class ViewsDisplayFactory {
      * <p>
      * setViewsDisplayFile
      * </p>
+     * .
      *
      * @param viewsDisplayFile
      *            a {@link java.io.File} object.
@@ -204,10 +228,11 @@ public class ViewsDisplayFactory {
      * <p>
      * getViewsDisplayFile
      * </p>
+     * .
      *
      * @return a {@link java.io.File} object.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public File getViewsDisplayFile() throws IOException {
         if (m_viewsDisplayFile == null) {
@@ -217,17 +242,17 @@ public class ViewsDisplayFactory {
     }
 
     /**
-     * Can be null
+     * Can be null.
      *
      * @param viewName
      *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.config.viewsdisplay.View} object.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public View getView(String viewName) throws IOException, MarshalException, ValidationException {
         if (viewName == null) {
@@ -245,6 +270,7 @@ public class ViewsDisplayFactory {
      * <p>
      * getDefaultView
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.config.viewsdisplay.View} object.
      */
@@ -256,12 +282,12 @@ public class ViewsDisplayFactory {
      * Reload the viewsdisplay.xml file if it has been changed since we last
      * read it.
      *
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     protected void updateFromFile() throws IOException, MarshalException, ValidationException {
         if (m_lastModified != m_viewsDisplayFile.lastModified()) {
@@ -273,6 +299,7 @@ public class ViewsDisplayFactory {
      * <p>
      * setInstance
      * </p>
+     * .
      *
      * @param instance
      *            a {@link org.opennms.netmgt.config.ViewsDisplayFactory}
@@ -287,6 +314,7 @@ public class ViewsDisplayFactory {
      * <p>
      * getDisconnectTimeout
      * </p>
+     * .
      *
      * @return a int.
      */

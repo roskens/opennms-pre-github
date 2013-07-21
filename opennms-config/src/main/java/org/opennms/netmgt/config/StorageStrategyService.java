@@ -41,6 +41,7 @@ public interface StorageStrategyService {
      * <p>
      * getAgentConfig
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.snmp.SnmpAgentConfig} object.
      */
@@ -59,6 +60,7 @@ public interface StorageStrategyService {
      * <p>
      * getSnmpInterfaceLabel
      * </p>
+     * .
      *
      * @param ifIndex
      *            a int.

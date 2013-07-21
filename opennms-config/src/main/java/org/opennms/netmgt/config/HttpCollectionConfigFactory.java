@@ -55,11 +55,14 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class HttpCollectionConfigFactory {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(HttpCollectionConfigFactory.class);
 
     /** The singleton instance. */
     private static HttpCollectionConfigFactory m_instance;
 
+    /** The m_loaded from file. */
     private static boolean m_loadedFromFile = false;
 
     /** Boolean indicating if the init() method has been called. */
@@ -71,6 +74,7 @@ public class HttpCollectionConfigFactory {
      */
     protected static long m_lastModified;
 
+    /** The m_config. */
     private static HttpDatacollectionConfig m_config;
 
     /**
@@ -80,12 +84,12 @@ public class HttpCollectionConfigFactory {
      *
      * @param configFile
      *            a {@link java.lang.String} object.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public HttpCollectionConfigFactory(String configFile) throws MarshalException, ValidationException, IOException {
         InputStream is = null;
@@ -106,15 +110,25 @@ public class HttpCollectionConfigFactory {
      *
      * @param stream
      *            a {@link java.io.InputStream} object.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public HttpCollectionConfigFactory(InputStream stream) throws MarshalException, ValidationException {
         initialize(stream);
     }
 
+    /**
+     * Initialize.
+     *
+     * @param stream
+     *            the stream
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     */
     private void initialize(InputStream stream) throws MarshalException, ValidationException {
         LOG.debug("initialize: initializing http collection config factory.");
         m_config = CastorUtils.unmarshal(HttpDatacollectionConfig.class, stream);
@@ -123,14 +137,14 @@ public class HttpCollectionConfigFactory {
     /**
      * Be sure to call this method before calling getInstance().
      *
-     * @throws java.io.IOException
-     *             if any.
-     * @throws java.io.FileNotFoundException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws FileNotFoundException
+     *             the file not found exception
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public static synchronized void init() throws IOException, FileNotFoundException, MarshalException,
             ValidationException {
@@ -144,11 +158,9 @@ public class HttpCollectionConfigFactory {
     }
 
     /**
-     * Singleton static call to get the only instance that should exist
+     * Singleton static call to get the only instance that should exist.
      *
      * @return the single factory instance
-     * @throws java.lang.IllegalStateException
-     *             if init has not been called
      */
     public static synchronized HttpCollectionConfigFactory getInstance() {
 
@@ -163,6 +175,7 @@ public class HttpCollectionConfigFactory {
      * <p>
      * setInstance
      * </p>
+     * .
      *
      * @param instance
      *            a
@@ -178,15 +191,16 @@ public class HttpCollectionConfigFactory {
      * <p>
      * reload
      * </p>
+     * .
      *
-     * @throws java.io.IOException
-     *             if any.
-     * @throws java.io.FileNotFoundException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws FileNotFoundException
+     *             the file not found exception
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public synchronized void reload() throws IOException, FileNotFoundException, MarshalException, ValidationException {
         m_instance = null;
@@ -198,12 +212,12 @@ public class HttpCollectionConfigFactory {
      * since we last
      * read it.
      *
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     protected void updateFromFile() throws IOException, MarshalException, ValidationException {
         if (m_loadedFromFile) {
@@ -218,6 +232,7 @@ public class HttpCollectionConfigFactory {
      * <p>
      * getConfig
      * </p>
+     * .
      *
      * @return a
      *         {@link org.opennms.netmgt.config.httpdatacollection.HttpDatacollectionConfig}
@@ -231,6 +246,7 @@ public class HttpCollectionConfigFactory {
      * <p>
      * setConfig
      * </p>
+     * .
      *
      * @param m_config
      *            a
@@ -245,6 +261,7 @@ public class HttpCollectionConfigFactory {
      * <p>
      * getHttpCollection
      * </p>
+     * .
      *
      * @param collectionName
      *            a {@link java.lang.String} object.
@@ -272,6 +289,7 @@ public class HttpCollectionConfigFactory {
      * <p>
      * getRrdRepository
      * </p>
+     * .
      *
      * @param collectionName
      *            a {@link java.lang.String} object.
@@ -290,6 +308,7 @@ public class HttpCollectionConfigFactory {
      * <p>
      * getStep
      * </p>
+     * .
      *
      * @param cName
      *            a {@link java.lang.String} object.
@@ -307,6 +326,7 @@ public class HttpCollectionConfigFactory {
      * <p>
      * getRRAList
      * </p>
+     * .
      *
      * @param cName
      *            a {@link java.lang.String} object.
@@ -325,6 +345,7 @@ public class HttpCollectionConfigFactory {
      * <p>
      * getRrdPath
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

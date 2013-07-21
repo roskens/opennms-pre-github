@@ -46,17 +46,15 @@ import org.opennms.core.utils.ConfigFileConstants;
  * @version $Id: $
  */
 public class NotificationCommandFactory extends NotificationCommandManager {
-    /**
-     */
+
+    /** The instance. */
     private static NotificationCommandFactory instance;
 
-    /**
-     * Boolean indicating if the init() method has been called
-     */
+    /** Boolean indicating if the init() method has been called. */
     private static boolean initialized = false;
 
     /**
-     *
+     * Instantiates a new notification command factory.
      */
     private NotificationCommandFactory() {
     }
@@ -65,13 +63,14 @@ public class NotificationCommandFactory extends NotificationCommandManager {
      * <p>
      * init
      * </p>
+     * .
      *
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public static synchronized void init() throws IOException, MarshalException, ValidationException {
         if (!initialized) {
@@ -101,15 +100,16 @@ public class NotificationCommandFactory extends NotificationCommandManager {
      * <p>
      * update
      * </p>
+     * .
      *
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
-     * @throws java.io.FileNotFoundException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws FileNotFoundException
+     *             the file not found exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     @Override
     public void update() throws MarshalException, ValidationException, FileNotFoundException, IOException {

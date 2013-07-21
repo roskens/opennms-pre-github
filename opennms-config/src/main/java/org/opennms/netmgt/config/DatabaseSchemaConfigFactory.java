@@ -62,25 +62,25 @@ import org.opennms.netmgt.config.filter.Table;
  * @author <a href="mailto:sowmya@opennms.org">Sowmya Nataraj </a>
  */
 public final class DatabaseSchemaConfigFactory {
+
+    /** The m_global lock. */
     private final ReadWriteLock m_globalLock = new ReentrantReadWriteLock();
 
+    /** The m_read lock. */
     private final Lock m_readLock = m_globalLock.readLock();
 
+    /** The m_write lock. */
     private final Lock m_writeLock = m_globalLock.writeLock();
 
-    /**
-     * The singleton instance of this factory
-     */
+    /** The singleton instance of this factory. */
     private static DatabaseSchemaConfigFactory m_singleton = null;
 
-    /**
-     * The config class loaded from the config file
-     */
+    /** The config class loaded from the config file. */
     private DatabaseSchema m_config;
 
     /**
      * The set of tables that can be joined directly or indirectly to the
-     * primary table
+     * primary table.
      */
     // FIXME: m_joinable is never read
     // private Set m_joinable = null;
@@ -97,16 +97,16 @@ public final class DatabaseSchemaConfigFactory {
     private static boolean m_loaded = false;
 
     /**
-     * Private constructor
+     * Private constructor.
      *
-     * @throws ValidationException
+     * @param configFile
+     *            the config file
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      * @throws MarshalException
-     * @exception java.io.IOException
-     *                Thrown if the specified config file cannot be read
-     * @exception org.exolab.castor.xml.MarshalException
-     *                Thrown if the file does not conform to the schema.
-     * @exception org.exolab.castor.xml.ValidationException
-     *                Thrown if the contents do not match the required schema.
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     private DatabaseSchemaConfigFactory(final String configFile) throws IOException, MarshalException,
             ValidationException {
@@ -127,20 +127,30 @@ public final class DatabaseSchemaConfigFactory {
      *
      * @param is
      *            a {@link java.io.InputStream} object.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public DatabaseSchemaConfigFactory(final InputStream is) throws MarshalException, ValidationException {
         m_config = CastorUtils.unmarshal(DatabaseSchema.class, is);
         finishConstruction();
     }
 
+    /**
+     * Gets the read lock.
+     *
+     * @return the read lock
+     */
     public Lock getReadLock() {
         return m_readLock;
     }
 
+    /**
+     * Gets the write lock.
+     *
+     * @return the write lock
+     */
     public Lock getWriteLock() {
         return m_writeLock;
     }
@@ -149,18 +159,12 @@ public final class DatabaseSchemaConfigFactory {
      * Load the config from the default config file and create the singleton
      * instance of this factory.
      *
-     * @exception java.io.IOException
-     *                Thrown if the specified config file cannot be read
-     * @exception org.exolab.castor.xml.MarshalException
-     *                Thrown if the file does not conform to the schema.
-     * @exception org.exolab.castor.xml.ValidationException
-     *                Thrown if the contents do not match the required schema.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public static synchronized void init() throws IOException, MarshalException, ValidationException {
         if (m_loaded) {
@@ -175,20 +179,14 @@ public final class DatabaseSchemaConfigFactory {
     }
 
     /**
-     * Reload the config from the default config file
+     * Reload the config from the default config file.
      *
-     * @exception java.io.IOException
-     *                Thrown if the specified config file cannot be read/loaded
-     * @exception org.exolab.castor.xml.MarshalException
-     *                Thrown if the file does not conform to the schema.
-     * @exception org.exolab.castor.xml.ValidationException
-     *                Thrown if the contents do not match the required schema.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public static synchronized void reload() throws IOException, MarshalException, ValidationException {
         m_singleton = null;
@@ -201,8 +199,6 @@ public final class DatabaseSchemaConfigFactory {
      * Return the singleton instance of this factory.
      *
      * @return The current factory instance.
-     * @throws java.lang.IllegalStateException
-     *             Thrown if the factory has not yet been initialized.
      */
     public static synchronized DatabaseSchemaConfigFactory getInstance() {
         if (!m_loaded)
@@ -215,6 +211,7 @@ public final class DatabaseSchemaConfigFactory {
      * <p>
      * setInstance
      * </p>
+     * .
      *
      * @param instance
      *            a
@@ -265,7 +262,7 @@ public final class DatabaseSchemaConfigFactory {
     }
 
     /**
-     * Construct m_primaryJoins
+     * Construct m_primaryJoins.
      */
     private void finishConstruction() {
         Set<String> joinableSet = new HashSet<String>();
@@ -316,12 +313,12 @@ public final class DatabaseSchemaConfigFactory {
     }
 
     /**
-     * Find the table which has a visible column named 'colName'
+     * Find the table which has a visible column named 'colName'.
      *
-     * @return the table containing column 'colName', null if colName is not a
-     *         valid column or if is not visible.
      * @param colName
      *            a {@link java.lang.String} object.
+     * @return the table containing column 'colName', null if colName is not a
+     *         valid column or if is not visible.
      */
     public Table findTableByVisibleColumn(final String colName) {
         Table table = null;

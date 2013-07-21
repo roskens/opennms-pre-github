@@ -46,16 +46,22 @@ import org.opennms.netmgt.config.groups.Time;
  */
 public class WebSchedEntry {
 
+    /** The m_sched index. */
     int m_schedIndex;
 
+    /** The m_time index. */
     int m_timeIndex;
 
+    /** The m_user. */
     String m_user;
 
+    /** The m_type. */
     String m_type;
 
+    /** The m_begins. */
     String m_begins;
 
+    /** The m_ends. */
     String m_ends;
 
     /**
@@ -109,6 +115,7 @@ public class WebSchedEntry {
      * <p>
      * isNew
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -120,6 +127,7 @@ public class WebSchedEntry {
      * <p>
      * update
      * </p>
+     * .
      *
      * @param role
      *            a {@link org.opennms.netmgt.config.groups.Role} object.
@@ -132,6 +140,12 @@ public class WebSchedEntry {
         }
     }
 
+    /**
+     * Modify role.
+     *
+     * @param role
+     *            the role
+     */
     private void modifyRole(Role role) {
         Schedule sched = role.getSchedule(m_schedIndex);
         Time time = sched.getTime(m_timeIndex);
@@ -141,6 +155,12 @@ public class WebSchedEntry {
         time.setEnds(m_ends);
     }
 
+    /**
+     * Adds the to role.
+     *
+     * @param role
+     *            the role
+     */
     private void addToRole(Role role) {
         Schedule sched = new Schedule();
         sched.setName(m_user);

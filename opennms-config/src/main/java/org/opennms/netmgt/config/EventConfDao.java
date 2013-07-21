@@ -49,9 +49,10 @@ public interface EventConfDao {
      * <p>
      * reload
      * </p>
+     * .
      *
-     * @throws org.springframework.dao.DataAccessException
-     *             if any.
+     * @throws DataAccessException
+     *             the data access exception
      */
     void reload() throws DataAccessException;
 
@@ -59,6 +60,7 @@ public interface EventConfDao {
      * <p>
      * getEvents
      * </p>
+     * .
      *
      * @param uei
      *            a {@link java.lang.String} object.
@@ -70,6 +72,7 @@ public interface EventConfDao {
      * <p>
      * getEventUEIs
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -79,6 +82,7 @@ public interface EventConfDao {
      * <p>
      * getEventLabels
      * </p>
+     * .
      *
      * @return a {@link java.util.Map} object.
      */
@@ -88,6 +92,7 @@ public interface EventConfDao {
      * <p>
      * getEventLabel
      * </p>
+     * .
      *
      * @param uei
      *            a {@link java.lang.String} object.
@@ -99,6 +104,7 @@ public interface EventConfDao {
      * <p>
      * saveCurrent
      * </p>
+     * .
      */
     void saveCurrent();
 
@@ -106,6 +112,7 @@ public interface EventConfDao {
      * <p>
      * getEventsByLabel
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -143,9 +150,9 @@ public interface EventConfDao {
      *
      * @param event
      *            The fully configured Event object to remove.
+     * @return a boolean.
      * @returns true if the event was removed, false if it wasn't found (either
      *          not in the programmatic store, or the store didn't exist)
-     * @return a boolean.
      */
     boolean removeEventFromProgrammaticStore(Event event);
 
@@ -153,6 +160,7 @@ public interface EventConfDao {
      * <p>
      * isSecureTag
      * </p>
+     * .
      *
      * @param tag
      *            a {@link java.lang.String} object.
@@ -164,6 +172,7 @@ public interface EventConfDao {
      * <p>
      * findByUei
      * </p>
+     * .
      *
      * @param uei
      *            a {@link java.lang.String} object.
@@ -175,6 +184,7 @@ public interface EventConfDao {
      * <p>
      * findByEvent
      * </p>
+     * .
      *
      * @param matchingEvent
      *            a {@link org.opennms.netmgt.xml.event.Event} object.
@@ -186,6 +196,7 @@ public interface EventConfDao {
      * <p>
      * getRootEvents
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.xml.eventconf.Events} object.
      */

@@ -40,14 +40,27 @@ import org.exolab.castor.xml.ValidationException;
 import org.opennms.core.test.MockLogAppender;
 import org.springframework.core.io.ByteArrayResource;
 
+/**
+ * The Class PollOutagesConfigManagerTest.
+ */
 public class PollOutagesConfigManagerTest extends TestCase {
 
+    /** The m_manager. */
     private PollOutagesConfigManager m_manager;
 
+    /**
+     * The main method.
+     *
+     * @param args
+     *            the arguments
+     */
     public static void main(String[] args) {
         junit.textui.TestRunner.run(PollOutagesConfigManagerTest.class);
     }
 
+    /* (non-Javadoc)
+     * @see junit.framework.TestCase#setUp()
+     */
     @Override
     protected void setUp() throws Exception {
         MockLogAppender.setupLogging();
@@ -85,17 +98,35 @@ public class PollOutagesConfigManagerTest extends TestCase {
         m_manager.afterPropertiesSet();
     }
 
+    /* (non-Javadoc)
+     * @see junit.framework.TestCase#tearDown()
+     */
     @Override
     protected void tearDown() throws Exception {
         MockLogAppender.assertNoWarningsOrGreater();
     }
 
+    /**
+     * Gets the time.
+     *
+     * @param timeString
+     *            the time string
+     * @return the time
+     * @throws ParseException
+     *             the parse exception
+     */
     private long getTime(String timeString) throws ParseException {
         Date date = new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss").parse(timeString);
         return date.getTime();
 
     }
 
+    /**
+     * Test is time in outage weekly.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testIsTimeInOutageWeekly() throws Exception {
 
         assertTrue(m_manager.isTimeInOutage(getTime("21-FEB-2005 14:00:00"), "one"));

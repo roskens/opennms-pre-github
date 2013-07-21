@@ -44,12 +44,16 @@ import org.opennms.core.utils.Owner;
  */
 public class CalendarEntry {
 
+    /** The m_start. */
     Date m_start;
 
+    /** The m_end. */
     Date m_end;
 
+    /** The m_descr. */
     String m_descr;
 
+    /** The m_labels. */
     List<Owner> m_labels;
 
     /**
@@ -77,6 +81,7 @@ public class CalendarEntry {
      * <p>
      * getStartTime
      * </p>
+     * .
      *
      * @return a {@link java.util.Date} object.
      */
@@ -88,6 +93,7 @@ public class CalendarEntry {
      * <p>
      * getEndTime
      * </p>
+     * .
      *
      * @return a {@link java.util.Date} object.
      */
@@ -99,6 +105,7 @@ public class CalendarEntry {
      * <p>
      * getDescription
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -110,6 +117,7 @@ public class CalendarEntry {
      * <p>
      * getLabels
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */

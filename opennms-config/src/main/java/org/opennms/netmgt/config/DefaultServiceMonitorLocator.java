@@ -40,12 +40,18 @@ import java.util.Map;
 import org.opennms.netmgt.poller.ServiceMonitor;
 import org.opennms.netmgt.poller.ServiceMonitorLocator;
 
+/**
+ * The Class DefaultServiceMonitorLocator.
+ */
 public class DefaultServiceMonitorLocator implements ServiceMonitorLocator, Serializable {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 4852206182208816721L;
 
+    /** The m_service name. */
     String m_serviceName;
 
+    /** The m_service class. */
     Class<? extends ServiceMonitor> m_serviceClass;
 
     /**
@@ -72,6 +78,7 @@ public class DefaultServiceMonitorLocator implements ServiceMonitorLocator, Seri
      * <p>
      * getServiceMonitor
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.poller.ServiceMonitor} object.
      */
@@ -94,6 +101,7 @@ public class DefaultServiceMonitorLocator implements ServiceMonitorLocator, Seri
      * <p>
      * getServiceName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -106,6 +114,7 @@ public class DefaultServiceMonitorLocator implements ServiceMonitorLocator, Seri
      * <p>
      * getServiceLocatorKey
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

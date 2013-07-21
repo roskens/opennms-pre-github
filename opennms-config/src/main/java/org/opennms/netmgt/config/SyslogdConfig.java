@@ -40,10 +40,12 @@ import org.opennms.netmgt.config.syslogd.UeiList;
  * @version $Id: $
  */
 public interface SyslogdConfig {
+
     /**
      * <p>
      * getSyslogPort
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -53,6 +55,7 @@ public interface SyslogdConfig {
      * <p>
      * getListenAddress
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      * @since 1.8.1
@@ -63,6 +66,7 @@ public interface SyslogdConfig {
      * <p>
      * getNewSuspectOnMessage
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -72,6 +76,7 @@ public interface SyslogdConfig {
      * <p>
      * getForwardingRegexp
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -81,6 +86,7 @@ public interface SyslogdConfig {
      * <p>
      * getMatchingGroupHost
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -90,6 +96,7 @@ public interface SyslogdConfig {
      * <p>
      * getMatchingGroupMessage
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -99,6 +106,7 @@ public interface SyslogdConfig {
      * <p>
      * getParser
      * </p>
+     * .
      *
      * @return the parser class to use when parsing syslog messages, as a
      *         string.
@@ -109,6 +117,7 @@ public interface SyslogdConfig {
      * <p>
      * getUeiList
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.config.syslogd.UeiList} object.
      */
@@ -118,6 +127,7 @@ public interface SyslogdConfig {
      * <p>
      * getHideMessages
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.config.syslogd.HideMessage} object.
      */
@@ -127,6 +137,7 @@ public interface SyslogdConfig {
      * <p>
      * getDiscardUei
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

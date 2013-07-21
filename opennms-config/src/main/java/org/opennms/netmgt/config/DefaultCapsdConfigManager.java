@@ -53,11 +53,11 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class DefaultCapsdConfigManager extends CapsdConfigManager {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(DefaultCapsdConfigManager.class);
 
-    /**
-     * Timestamp of the file for the currently loaded configuration
-     */
+    /** Timestamp of the file for the currently loaded configuration. */
     private long m_currentVersion = -1L;
 
     /**
@@ -76,10 +76,10 @@ public class DefaultCapsdConfigManager extends CapsdConfigManager {
      *
      * @param is
      *            a {@link java.io.InputStream} object.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public DefaultCapsdConfigManager(InputStream is) throws MarshalException, ValidationException {
         super(is);
@@ -89,15 +89,16 @@ public class DefaultCapsdConfigManager extends CapsdConfigManager {
      * <p>
      * update
      * </p>
+     * .
      *
-     * @throws java.io.IOException
-     *             if any.
-     * @throws java.io.FileNotFoundException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws FileNotFoundException
+     *             the file not found exception
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     @Override
     protected synchronized void update() throws IOException, FileNotFoundException, MarshalException,

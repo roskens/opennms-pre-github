@@ -69,17 +69,19 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public abstract class CapsdConfigManager implements CapsdConfig {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(CapsdConfigManager.class);
 
     /**
      * The string indicating the start of the comments in a line containing the
-     * IP address in a file URL
+     * IP address in a file URL.
      */
     private static final String COMMENT_STR = " #";
 
     /**
      * This character at the start of a line indicates a comment line in a URL
-     * file
+     * file.
      */
     private static final char COMMENT_CHAR = '#';
 
@@ -101,9 +103,7 @@ public abstract class CapsdConfigManager implements CapsdConfig {
     // "       on (n.nodeid = ip.nodeid)" +
     // "    where n.foreignsource is null)";
 
-    /**
-     * The config class loaded from the config file
-     */
+    /** The config class loaded from the config file. */
     private CapsdConfiguration m_config;
 
     /**
@@ -127,10 +127,10 @@ public abstract class CapsdConfigManager implements CapsdConfig {
      *
      * @param is
      *            a {@link java.io.InputStream} object.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public CapsdConfigManager(InputStream is) throws MarshalException, ValidationException {
         m_config = CastorUtils.unmarshal(CapsdConfiguration.class, is);
@@ -140,11 +140,12 @@ public abstract class CapsdConfigManager implements CapsdConfig {
      * <p>
      * saveXml
      * </p>
+     * .
      *
      * @param xml
      *            a {@link java.lang.String} object.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     protected abstract void saveXml(String xml) throws IOException;
 
@@ -152,15 +153,16 @@ public abstract class CapsdConfigManager implements CapsdConfig {
      * <p>
      * update
      * </p>
+     * .
      *
-     * @throws java.io.IOException
-     *             if any.
-     * @throws java.io.FileNotFoundException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws FileNotFoundException
+     *             the file not found exception
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     protected abstract void update() throws IOException, FileNotFoundException, MarshalException, ValidationException;
 
@@ -168,13 +170,14 @@ public abstract class CapsdConfigManager implements CapsdConfig {
      * <p>
      * loadXml
      * </p>
+     * .
      *
      * @param is
      *            a {@link java.io.InputStream} object.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     protected void loadXml(InputStream is) throws MarshalException, ValidationException {
         m_config = CastorUtils.unmarshal(CapsdConfiguration.class, is);
@@ -197,14 +200,14 @@ public abstract class CapsdConfigManager implements CapsdConfig {
     }
 
     /**
-     * Saves the current in-memory configuration to disk and reloads
+     * Saves the current in-memory configuration to disk and reloads.
      *
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws ValidationException
+     *             the validation exception
      */
     @Override
     public synchronized void save() throws MarshalException, IOException, ValidationException {
@@ -451,6 +454,7 @@ public abstract class CapsdConfigManager implements CapsdConfig {
      * <p>
      * getRescanFrequency
      * </p>
+     * .
      *
      * @return a long.
      */
@@ -472,6 +476,7 @@ public abstract class CapsdConfigManager implements CapsdConfig {
      * <p>
      * getInitialSleepTime
      * </p>
+     * .
      *
      * @return a long.
      */
@@ -493,6 +498,7 @@ public abstract class CapsdConfigManager implements CapsdConfig {
      * <p>
      * getMaxSuspectThreadPoolSize
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -505,6 +511,7 @@ public abstract class CapsdConfigManager implements CapsdConfig {
      * <p>
      * getMaxRescanThreadPoolSize
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -536,6 +543,7 @@ public abstract class CapsdConfigManager implements CapsdConfig {
      * <p>
      * getDeletePropagationEnabled
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -566,6 +574,7 @@ public abstract class CapsdConfigManager implements CapsdConfig {
      * <p>
      * isXmlRpcEnabled
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -707,6 +716,7 @@ public abstract class CapsdConfigManager implements CapsdConfig {
      * <p>
      * getProtocolPlugins
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -715,18 +725,44 @@ public abstract class CapsdConfigManager implements CapsdConfig {
         return m_config.getProtocolPluginCollection();
     }
 
+    /**
+     * Gets the ip managements.
+     *
+     * @return the ip managements
+     */
     private List<IpManagement> getIpManagements() {
         return m_config.getIpManagementCollection();
     }
 
+    /**
+     * Gets the ranges.
+     *
+     * @param mgt
+     *            the mgt
+     * @return the ranges
+     */
     private List<Range> getRanges(IpManagement mgt) {
         return mgt.getRangeCollection();
     }
 
+    /**
+     * Gets the specifics.
+     *
+     * @param mgt
+     *            the mgt
+     * @return the specifics
+     */
     private List<String> getSpecifics(IpManagement mgt) {
         return mgt.getSpecificCollection();
     }
 
+    /**
+     * Gets the include urls.
+     *
+     * @param mgt
+     *            the mgt
+     * @return the include urls
+     */
     private List<String> getIncludeUrls(IpManagement mgt) {
         return mgt.getIncludeUrlCollection();
     }
@@ -761,6 +797,13 @@ public abstract class CapsdConfigManager implements CapsdConfig {
         return pluginConf.getSpecificCollection();
     }
 
+    /**
+     * Gets the smb auths.
+     *
+     * @param cfg
+     *            the cfg
+     * @return the smb auths
+     */
     private List<SmbAuth> getSmbAuths(SmbConfig cfg) {
         return cfg.getSmbAuthCollection();
     }

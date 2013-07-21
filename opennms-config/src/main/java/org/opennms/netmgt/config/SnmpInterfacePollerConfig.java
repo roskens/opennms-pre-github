@@ -44,7 +44,10 @@ import org.exolab.castor.xml.ValidationException;
  * @version $Id: $
  */
 public interface SnmpInterfacePollerConfig {
+
     /**
+     * Gets the interval.
+     *
      * @return the Default interval
      */
     public long getInterval();
@@ -53,6 +56,7 @@ public interface SnmpInterfacePollerConfig {
      * <p>
      * getThreads
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -62,6 +66,7 @@ public interface SnmpInterfacePollerConfig {
      * <p>
      * useCriteriaFilters
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -71,6 +76,7 @@ public interface SnmpInterfacePollerConfig {
      * <p>
      * getService
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -80,6 +86,7 @@ public interface SnmpInterfacePollerConfig {
      * <p>
      * getCriticalServiceIds
      * </p>
+     * .
      *
      * @return an array of {@link java.lang.String} objects.
      */
@@ -89,6 +96,7 @@ public interface SnmpInterfacePollerConfig {
      * <p>
      * getAllPackageMatches
      * </p>
+     * .
      *
      * @param ipaddr
      *            a {@link java.lang.String} object.
@@ -100,6 +108,7 @@ public interface SnmpInterfacePollerConfig {
      * <p>
      * getPackageName
      * </p>
+     * .
      *
      * @param ipaddr
      *            a {@link java.lang.String} object.
@@ -111,6 +120,7 @@ public interface SnmpInterfacePollerConfig {
      * <p>
      * getInterfaceOnPackage
      * </p>
+     * .
      *
      * @param pkgName
      *            a {@link java.lang.String} object.
@@ -122,6 +132,7 @@ public interface SnmpInterfacePollerConfig {
      * <p>
      * getStatus
      * </p>
+     * .
      *
      * @param pkgName
      *            a {@link java.lang.String} object.
@@ -135,6 +146,7 @@ public interface SnmpInterfacePollerConfig {
      * <p>
      * getInterval
      * </p>
+     * .
      *
      * @param pkgName
      *            a {@link java.lang.String} object.
@@ -148,6 +160,7 @@ public interface SnmpInterfacePollerConfig {
      * <p>
      * getCriteria
      * </p>
+     * .
      *
      * @param pkgName
      *            a {@link java.lang.String} object.
@@ -161,6 +174,7 @@ public interface SnmpInterfacePollerConfig {
      * <p>
      * hasPort
      * </p>
+     * .
      *
      * @param pkgName
      *            a {@link java.lang.String} object.
@@ -174,6 +188,7 @@ public interface SnmpInterfacePollerConfig {
      * <p>
      * getPort
      * </p>
+     * .
      *
      * @param pkgName
      *            a {@link java.lang.String} object.
@@ -187,6 +202,7 @@ public interface SnmpInterfacePollerConfig {
      * <p>
      * hasTimeout
      * </p>
+     * .
      *
      * @param pkgName
      *            a {@link java.lang.String} object.
@@ -200,6 +216,7 @@ public interface SnmpInterfacePollerConfig {
      * <p>
      * getTimeout
      * </p>
+     * .
      *
      * @param pkgName
      *            a {@link java.lang.String} object.
@@ -213,6 +230,7 @@ public interface SnmpInterfacePollerConfig {
      * <p>
      * hasRetries
      * </p>
+     * .
      *
      * @param pkgName
      *            a {@link java.lang.String} object.
@@ -226,6 +244,7 @@ public interface SnmpInterfacePollerConfig {
      * <p>
      * getRetries
      * </p>
+     * .
      *
      * @param pkgName
      *            a {@link java.lang.String} object.
@@ -239,6 +258,7 @@ public interface SnmpInterfacePollerConfig {
      * <p>
      * hasMaxVarsPerPdu
      * </p>
+     * .
      *
      * @param pkgName
      *            a {@link java.lang.String} object.
@@ -252,6 +272,7 @@ public interface SnmpInterfacePollerConfig {
      * <p>
      * getMaxVarsPerPdu
      * </p>
+     * .
      *
      * @param pkgName
      *            a {@link java.lang.String} object.
@@ -265,6 +286,7 @@ public interface SnmpInterfacePollerConfig {
      * <p>
      * rebuildPackageIpListMap
      * </p>
+     * .
      */
     public void rebuildPackageIpListMap();
 
@@ -272,13 +294,14 @@ public interface SnmpInterfacePollerConfig {
      * <p>
      * update
      * </p>
+     * .
      *
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public void update() throws IOException, MarshalException, ValidationException;
 }

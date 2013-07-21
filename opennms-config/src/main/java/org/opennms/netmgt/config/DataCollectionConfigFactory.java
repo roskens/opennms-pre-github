@@ -49,15 +49,14 @@ import org.springframework.core.io.FileSystemResource;
  */
 public final class DataCollectionConfigFactory {
 
-    /**
-     * The singleton instance of this factory
-     */
+    /** The singleton instance of this factory. */
     private static DataCollectionConfigDao m_singleton = null;
 
     /**
      * <p>
      * setInstance
      * </p>
+     * .
      *
      * @param instance
      *            a {@link org.opennms.netmgt.config.DataCollectionConfigDao}
@@ -71,10 +70,8 @@ public final class DataCollectionConfigFactory {
      * Load the config from the default config file and create the singleton
      * instance of this factory.
      *
-     * @exception java.io.IOException
-     *                Thrown if the specified config file cannot be read
-     * @throws java.io.IOException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public static synchronized void init() throws IOException {
         if (m_singleton == null) {
@@ -87,12 +84,10 @@ public final class DataCollectionConfigFactory {
     }
 
     /**
-     * Reload the config from the default config file
+     * Reload the config from the default config file.
      *
-     * @exception java.io.IOException
-     *                Thrown if the specified config file cannot be read
-     * @throws java.io.IOException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public static synchronized void reload() throws IOException {
         m_singleton = null;
@@ -110,6 +105,12 @@ public final class DataCollectionConfigFactory {
         return m_singleton;
     }
 
+    /**
+     * The main method.
+     *
+     * @param args
+     *            the arguments
+     */
     public static void main(String[] args) {
         try {
             DataCollectionConfigFactory.init();

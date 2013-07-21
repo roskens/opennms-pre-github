@@ -44,10 +44,13 @@ import org.opennms.netmgt.config.groups.Role;
  */
 public class Week {
 
+    /** The m_calendar. */
     private Calendar m_calendar;
 
+    /** The m_role. */
     private Role m_role;
 
+    /** The m_group manager. */
     private GroupManager m_groupManager;
 
     /**
@@ -86,6 +89,7 @@ public class Week {
      * <p>
      * getWeekOfYear
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -97,6 +101,7 @@ public class Week {
      * <p>
      * getDays
      * </p>
+     * .
      *
      * @return an array of {@link org.opennms.netmgt.config.Day} objects.
      */

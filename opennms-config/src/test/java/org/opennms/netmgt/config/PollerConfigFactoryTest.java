@@ -51,12 +51,22 @@ import org.opennms.netmgt.mock.MockNetwork;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 
+/**
+ * The Class PollerConfigFactoryTest.
+ */
 public class PollerConfigFactoryTest extends TestCase {
 
+    /**
+     * The main method.
+     *
+     * @param args
+     *            the arguments
+     */
     public static void main(String[] args) {
         junit.textui.TestRunner.run(PollerConfigFactoryTest.class);
     }
 
+    /** The Constant POLLER_CONFIG. */
     public static final String POLLER_CONFIG = "\n" + "<poller-configuration\n" + "   threads=\"10\"\n"
             + "   nextOutageId=\"SELECT nextval(\'outageNxtId\')\"\n" + "   serviceUnresponsiveEnabled=\"false\">\n"
             + "   <node-outage status=\"on\" pollAllIfNoCriticalServiceDefined=\"true\"></node-outage>\n"
@@ -71,6 +81,9 @@ public class PollerConfigFactoryTest extends TestCase {
             + "   <monitor service=\"ICMP\" class-name=\"org.opennms.netmgt.mock.MockMonitor\"/>\n"
             + "</poller-configuration>\n";
 
+    /* (non-Javadoc)
+     * @see junit.framework.TestCase#setUp()
+     */
     @Override
     protected void setUp() throws Exception {
         super.setUp();
@@ -118,21 +131,48 @@ public class PollerConfigFactoryTest extends TestCase {
 
     }
 
+    /* (non-Javadoc)
+     * @see junit.framework.TestCase#tearDown()
+     */
     @Override
     protected void tearDown() throws Exception {
         super.tearDown();
         MockLogAppender.assertNoWarningsOrGreater();
     }
 
+    /**
+     * The Class TestPollerConfigManager.
+     */
     static class TestPollerConfigManager extends PollerConfigManager {
+
+        /** The m_xml. */
         private String m_xml;
 
+        /**
+         * Instantiates a new test poller config manager.
+         *
+         * @param xml
+         *            the xml
+         * @param localServer
+         *            the local server
+         * @param verifyServer
+         *            the verify server
+         * @throws MarshalException
+         *             the marshal exception
+         * @throws ValidationException
+         *             the validation exception
+         * @throws IOException
+         *             Signals that an I/O exception has occurred.
+         */
         public TestPollerConfigManager(String xml, String localServer, boolean verifyServer) throws MarshalException,
                 ValidationException, IOException {
             super(new ByteArrayInputStream(xml.getBytes("UTF-8")), localServer, verifyServer);
             save();
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.config.PollerConfigManager#update()
+         */
         @Override
         public void update() throws IOException, MarshalException, ValidationException {
             m_config = CastorUtils.unmarshal(PollerConfiguration.class,
@@ -140,16 +180,30 @@ public class PollerConfigFactoryTest extends TestCase {
             setUpInternalData();
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.config.PollerConfigManager#saveXml(java.lang.String)
+         */
         @Override
         protected void saveXml(String xml) throws IOException {
             m_xml = xml;
         }
 
+        /**
+         * Gets the xml.
+         *
+         * @return the xml
+         */
         public String getXml() {
             return m_xml;
         }
     }
 
+    /**
+     * Test poller config factory.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testPollerConfigFactory() throws Exception {
         TestPollerConfigManager factory = new TestPollerConfigManager(POLLER_CONFIG, "localhost", false);
         assertNull(factory.getPackage("TestPkg"));
@@ -192,6 +246,12 @@ public class PollerConfigFactoryTest extends TestCase {
 
     }
 
+    /**
+     * Test interface in package.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testInterfaceInPackage() throws Exception {
         TestPollerConfigManager factory = new TestPollerConfigManager(POLLER_CONFIG, "localhost", false);
         Package pkg = factory.getPackage("default");
@@ -201,6 +261,12 @@ public class PollerConfigFactoryTest extends TestCase {
 
     }
 
+    /**
+     * Test specific.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testSpecific() throws Exception {
         TestPollerConfigManager factory = new TestPollerConfigManager(POLLER_CONFIG, "localhost", false);
         assertNull(factory.getPackage("TestPkg"));

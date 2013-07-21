@@ -37,15 +37,15 @@ import org.opennms.netmgt.eventd.datablock.EventConfData;
 import org.opennms.netmgt.xml.eventconf.Events;
 import org.springframework.core.io.Resource;
 
+/**
+ * The Class EventConfiguration.
+ */
 class EventConfiguration {
-    /**
-     * Map of configured event files and their events
-     */
+
+    /** Map of configured event files and their events. */
     private Map<Resource, Events> m_eventFiles = new HashMap<Resource, Events>();
 
-    /**
-     * The mapping of all the event configuration objects for searching
-     */
+    /** The mapping of all the event configuration objects for searching. */
     private EventConfData m_eventConfData = new EventConfData();
 
     /**
@@ -62,6 +62,7 @@ class EventConfiguration {
      * <p>
      * getEventConfData
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.eventd.datablock.EventConfData}
      *         object.
@@ -74,6 +75,7 @@ class EventConfiguration {
      * <p>
      * setEventConfData
      * </p>
+     * .
      *
      * @param eventConfData
      *            a {@link org.opennms.netmgt.eventd.datablock.EventConfData}
@@ -87,6 +89,7 @@ class EventConfiguration {
      * <p>
      * getEventFiles
      * </p>
+     * .
      *
      * @return a {@link java.util.Map} object.
      */
@@ -98,6 +101,7 @@ class EventConfiguration {
      * <p>
      * setEventFiles
      * </p>
+     * .
      *
      * @param eventFiles
      *            a {@link java.util.Map} object.
@@ -110,6 +114,7 @@ class EventConfiguration {
      * <p>
      * getSecureTags
      * </p>
+     * .
      *
      * @return a {@link java.util.Set} object.
      */
@@ -121,6 +126,7 @@ class EventConfiguration {
      * <p>
      * setSecureTags
      * </p>
+     * .
      *
      * @param secureTags
      *            a {@link java.util.Set} object.
@@ -133,6 +139,7 @@ class EventConfiguration {
      * <p>
      * getEventCount
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -144,6 +151,7 @@ class EventConfiguration {
      * <p>
      * incrementEventCount
      * </p>
+     * .
      *
      * @param incrementCount
      *            a int.

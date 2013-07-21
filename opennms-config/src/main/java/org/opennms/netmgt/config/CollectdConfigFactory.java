@@ -44,6 +44,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.util.Assert;
 
 /**
+ * A factory for creating CollectdConfig objects.
+ *
  * @author <a href="mailto:jamesz@opennms.com">James Zuo</a>
  * @author <a href="mailto:mike@opennms.org">Mike Davidson</a>
  * @author <a href="mailto:sowmya@opennms.org">Sowmya Nataraj</a>
@@ -62,8 +64,11 @@ import org.springframework.util.Assert;
  * @version $Id: $
  */
 public class CollectdConfigFactory {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(CollectdConfigFactory.class);
 
+    /** The Constant SELECT_METHOD_MIN. */
     static final String SELECT_METHOD_MIN = "min";
 
     /**
@@ -97,16 +102,20 @@ public class CollectdConfigFactory {
     }
 
     /**
-     * Private constructor
+     * Private constructor.
      *
-     * @param verifyServer
+     * @param configFile
+     *            the config file
      * @param localServer
-     * @exception java.io.IOException
-     *                Thrown if the specified config file cannot be read
-     * @exception org.exolab.castor.xml.MarshalException
-     *                Thrown if the file does not conform to the schema.
-     * @exception org.exolab.castor.xml.ValidationException
-     *                Thrown if the contents do not match the required schema.
+     *            the local server
+     * @param verifyServer
+     *            the verify server
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     private CollectdConfigFactory(String configFile, String localServer, boolean verifyServer) throws IOException,
             MarshalException, ValidationException {
@@ -133,10 +142,10 @@ public class CollectdConfigFactory {
      *            a {@link java.lang.String} object.
      * @param verifyServer
      *            a boolean.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public CollectdConfigFactory(InputStream stream, String localServer, boolean verifyServer) throws MarshalException,
             ValidationException {
@@ -148,18 +157,12 @@ public class CollectdConfigFactory {
      * Load the config from the default config file and create the singleton
      * instance of this factory.
      *
-     * @exception java.io.IOException
-     *                Thrown if the specified config file cannot be read
-     * @exception org.exolab.castor.xml.MarshalException
-     *                Thrown if the file does not conform to the schema.
-     * @exception org.exolab.castor.xml.ValidationException
-     *                Thrown if the contents do not match the required schema.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public static synchronized void init() throws IOException, MarshalException, ValidationException {
         if (isInitialized()) {
@@ -180,20 +183,14 @@ public class CollectdConfigFactory {
     }
 
     /**
-     * Reload the config from the default config file
+     * Reload the config from the default config file.
      *
-     * @exception java.io.IOException
-     *                Thrown if the specified config file cannot be read/loaded
-     * @exception org.exolab.castor.xml.MarshalException
-     *                Thrown if the file does not conform to the schema.
-     * @exception org.exolab.castor.xml.ValidationException
-     *                Thrown if the contents do not match the required schema.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public static synchronized void reload() throws IOException, MarshalException, ValidationException {
         m_singleton = null;
@@ -202,14 +199,14 @@ public class CollectdConfigFactory {
     }
 
     /**
-     * Saves the current in-memory configuration to disk and reloads
+     * Saves the current in-memory configuration to disk and reloads.
      *
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws ValidationException
+     *             the validation exception
      */
     public synchronized void saveCurrent() throws MarshalException, IOException, ValidationException {
         File cfgFile = ConfigFileConstants.getFile(ConfigFileConstants.COLLECTD_CONFIG_FILE_NAME);
@@ -225,8 +222,6 @@ public class CollectdConfigFactory {
      * Return the singleton instance of this factory.
      *
      * @return The current factory instance.
-     * @throws java.lang.IllegalStateException
-     *             Thrown if the factory has not yet been initialized.
      */
     public static synchronized CollectdConfigFactory getInstance() {
         Assert.state(isInitialized(), "The factory has not been initialized");
@@ -238,6 +233,7 @@ public class CollectdConfigFactory {
      * <p>
      * setInstance
      * </p>
+     * .
      *
      * @param instance
      *            a {@link org.opennms.netmgt.config.CollectdConfigFactory}
@@ -251,6 +247,7 @@ public class CollectdConfigFactory {
      * <p>
      * getCollectdConfig
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.config.CollectdConfig} object.
      */
@@ -262,6 +259,7 @@ public class CollectdConfigFactory {
      * <p>
      * getPackage
      * </p>
+     * .
      *
      * @param name
      *            a {@link java.lang.String} object.
@@ -272,7 +270,7 @@ public class CollectdConfigFactory {
     }
 
     /**
-     * Returns true if collection package exists
+     * Returns true if collection package exists.
      *
      * @param name
      *            The package name to check
@@ -283,7 +281,7 @@ public class CollectdConfigFactory {
     }
 
     /**
-     * Returns true if collection domain exists
+     * Returns true if collection domain exists.
      *
      * @param name
      *            The domain name to check
@@ -309,6 +307,11 @@ public class CollectdConfigFactory {
         return m_collectdConfig.isServiceCollectionEnabled(ipAddr, svcName);
     }
 
+    /**
+     * Checks if is initialized.
+     *
+     * @return true, if is initialized
+     */
     private static boolean isInitialized() {
         return m_singleton != null;
     }

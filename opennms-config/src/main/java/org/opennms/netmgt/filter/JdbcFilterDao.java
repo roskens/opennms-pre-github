@@ -67,28 +67,38 @@ import org.springframework.util.Assert;
  * @version $Id: $
  */
 public class JdbcFilterDao implements FilterDao, InitializingBean {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(JdbcFilterDao.class);
 
+    /** The Constant SQL_KEYWORD_PATTERN. */
     private static final Pattern SQL_KEYWORD_PATTERN = Pattern.compile("\\s+(?:AND|OR|(?:NOT )?(?:LIKE|IN)|IS (?:NOT )?DISTINCT FROM)\\s+|(?:\\s+IS (?:NOT )?NULL|::(?:TIMESTAMP|INET))(?!\\w)|(?<!\\w)(?:NOT\\s+|IPLIKE(?=\\())",
                                                                        Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE);
 
+    /** The Constant SQL_QUOTE_PATTERN. */
     private static final Pattern SQL_QUOTE_PATTERN = Pattern.compile("'(?:[^']|'')*'|\"(?:[^\"]|\"\")*\"");
 
+    /** The Constant SQL_ESCAPED_PATTERN. */
     private static final Pattern SQL_ESCAPED_PATTERN = Pattern.compile("###@(\\d+)@###");
 
+    /** The Constant SQL_VALUE_COLUMN_PATTERN. */
     private static final Pattern SQL_VALUE_COLUMN_PATTERN = Pattern.compile("[a-zA-Z0-9_\\-]*[a-zA-Z][a-zA-Z0-9_\\-]*");
 
+    /** The Constant SQL_IPLIKE_PATTERN. */
     private static final Pattern SQL_IPLIKE_PATTERN = Pattern.compile("(\\w+)\\s+IPLIKE\\s+([0-9.*,-]+|###@\\d+@###)",
                                                                       Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE);
 
+    /** The m_data source. */
     private DataSource m_dataSource;
 
+    /** The m_database schema config factory. */
     private DatabaseSchemaConfigFactory m_databaseSchemaConfigFactory;
 
     /**
      * <p>
      * setDataSource
      * </p>
+     * .
      *
      * @param dataSource
      *            a {@link javax.sql.DataSource} object.
@@ -101,6 +111,7 @@ public class JdbcFilterDao implements FilterDao, InitializingBean {
      * <p>
      * getDataSource
      * </p>
+     * .
      *
      * @return a {@link javax.sql.DataSource} object.
      */
@@ -112,6 +123,7 @@ public class JdbcFilterDao implements FilterDao, InitializingBean {
      * <p>
      * setDatabaseSchemaConfigFactory
      * </p>
+     * .
      *
      * @param factory
      *            a
@@ -126,6 +138,7 @@ public class JdbcFilterDao implements FilterDao, InitializingBean {
      * <p>
      * getDatabaseSchemaConfigFactory
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.config.DatabaseSchemaConfigFactory}
      *         object.
@@ -138,6 +151,7 @@ public class JdbcFilterDao implements FilterDao, InitializingBean {
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      */
     @Override
     public void afterPropertiesSet() {
@@ -281,6 +295,17 @@ public class JdbcFilterDao implements FilterDao, InitializingBean {
         return getIPAddressList(rule, false);
     }
 
+    /**
+     * Gets the iP address list.
+     *
+     * @param rule
+     *            the rule
+     * @param filterDeleted
+     *            the filter deleted
+     * @return the iP address list
+     * @throws FilterParseException
+     *             the filter parse exception
+     */
     private List<InetAddress> getIPAddressList(final String rule, final boolean filterDeleted)
             throws FilterParseException {
         final List<InetAddress> resultList = new ArrayList<InetAddress>();
@@ -421,12 +446,13 @@ public class JdbcFilterDao implements FilterDao, InitializingBean {
      * <p>
      * getNodeMappingStatement
      * </p>
+     * .
      *
      * @param rule
      *            a {@link java.lang.String} object.
      * @return a {@link java.lang.String} object.
-     * @throws org.opennms.netmgt.filter.FilterParseException
-     *             if any.
+     * @throws FilterParseException
+     *             the filter parse exception
      */
     public String getNodeMappingStatement(final String rule) throws FilterParseException {
         final List<Table> tables = new ArrayList<Table>();
@@ -445,12 +471,13 @@ public class JdbcFilterDao implements FilterDao, InitializingBean {
      * <p>
      * getIPServiceMappingStatement
      * </p>
+     * .
      *
      * @param rule
      *            a {@link java.lang.String} object.
      * @return a {@link java.lang.String} object.
-     * @throws org.opennms.netmgt.filter.FilterParseException
-     *             if any.
+     * @throws FilterParseException
+     *             the filter parse exception
      */
     public String getIPServiceMappingStatement(final String rule) throws FilterParseException {
         final List<Table> tables = new ArrayList<Table>();
@@ -469,12 +496,13 @@ public class JdbcFilterDao implements FilterDao, InitializingBean {
      * <p>
      * getInterfaceWithServiceStatement
      * </p>
+     * .
      *
      * @param rule
      *            a {@link java.lang.String} object.
      * @return a {@link java.lang.String} object.
-     * @throws org.opennms.netmgt.filter.FilterParseException
-     *             if any.
+     * @throws FilterParseException
+     *             the filter parse exception
      */
     public String getInterfaceWithServiceStatement(final String rule) throws FilterParseException {
         final List<Table> tables = new ArrayList<Table>();
@@ -494,11 +522,11 @@ public class JdbcFilterDao implements FilterDao, InitializingBean {
      * This method parses a rule and returns the SQL select statement equivalent
      * of the rule.
      *
-     * @return the SQL select statement
      * @param rule
      *            a {@link java.lang.String} object.
-     * @throws org.opennms.netmgt.filter.FilterParseException
-     *             if any.
+     * @return the SQL select statement
+     * @throws FilterParseException
+     *             the filter parse exception
      */
     protected String getSQLStatement(final String rule) throws FilterParseException {
         final List<Table> tables = new ArrayList<Table>();
@@ -521,17 +549,17 @@ public class JdbcFilterDao implements FilterDao, InitializingBean {
      * blank. This select is then ANDed with the filter rule to get the complete
      * SQL statement.
      *
+     * @param rule
+     *            a {@link java.lang.String} object.
      * @param nodeId
      *            a node id to constrain against
      * @param ipaddr
      *            an ipaddress to constrain against
      * @param service
      *            a service name to constrain against
-     * @param rule
-     *            a {@link java.lang.String} object.
      * @return a {@link java.lang.String} object.
-     * @throws org.opennms.netmgt.filter.FilterParseException
-     *             if any.
+     * @throws FilterParseException
+     *             the filter parse exception
      */
     protected String getSQLStatement(final String rule, final long nodeId, final String ipaddr, final String service)
             throws FilterParseException {
@@ -560,7 +588,15 @@ public class JdbcFilterDao implements FilterDao, InitializingBean {
      * Unary Operators - \\s+IS (?:NOT )?NULL(?!\\w)
      * Typecasts - ::(?:TIMESTAMP|INET)(?!\\w)
      * Unary Logic - (?&lt;!\\w)NOT\\s+
-     * Functions - (?&lt;!\\w)IPLIKE(?=\\()
+     * Functions - (?&lt;!\\w)IPLIKE(?=\\().
+     *
+     * @param tables
+     *            the tables
+     * @param rule
+     *            the rule
+     * @return the string
+     * @throws FilterParseException
+     *             the filter parse exception
      */
 
     /**
@@ -728,8 +764,8 @@ public class JdbcFilterDao implements FilterDao, InitializingBean {
      * @param column
      *            the column to add
      * @return table.column string
-     * @exception FilterParseException
-     *                if the column is not found in the schema
+     * @throws FilterParseException
+     *             if the column is not found in the schema
      */
     private String addColumn(final List<Table> tables, final String column) throws FilterParseException {
         m_databaseSchemaConfigFactory.getReadLock().lock();

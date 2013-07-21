@@ -72,9 +72,13 @@ import org.junit.Test;
 import org.opennms.netmgt.config.snmp.Range;
 
 /**
+ * The Class RangeComparatorTest.
  */
 public class RangeComparatorTest {
 
+    /**
+     * Test compare.
+     */
     @Test
     public void testCompare() {
         List<Range> ranges = new ArrayList<Range>();

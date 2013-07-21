@@ -41,12 +41,19 @@ import org.opennms.netmgt.snmp.SnmpV3User;
  * @version $Id: $
  */
 public interface TrapdConfig {
+
+    /**
+     * Gets the snmp trap address.
+     *
+     * @return the snmp trap address
+     */
     public abstract String getSnmpTrapAddress();
 
     /**
      * <p>
      * getSnmpTrapPort
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -56,6 +63,7 @@ public interface TrapdConfig {
      * <p>
      * getNewSuspectOnTrap
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -65,6 +73,7 @@ public interface TrapdConfig {
      * <p>
      * getSnmpV3Users
      * </p>
+     * .
      *
      * @return a java.util.List.
      */

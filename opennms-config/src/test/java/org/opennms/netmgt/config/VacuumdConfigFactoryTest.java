@@ -41,10 +41,12 @@ import org.opennms.core.test.ConfigurationTestUtils;
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  */
 public class VacuumdConfigFactoryTest extends TestCase {
+
     /**
      * Check the default vacuumd-configuration.xml file.
      *
      * @throws Exception
+     *             the exception
      */
     public void testLoadDefaultConfig() throws Exception {
         InputStream is = ConfigurationTestUtils.getInputStreamForConfigFile("vacuumd-configuration.xml");

@@ -57,7 +57,7 @@ import org.springframework.core.io.FileSystemResource;
 import org.springframework.dao.DataAccessResourceFailureException;
 
 /**
- * DataCollectionConfigParser
+ * DataCollectionConfigParser.
  *
  * @author <a href="mail:agalue@opennms.org">Alejandro Galue</a>
  */
@@ -68,17 +68,32 @@ import org.springframework.dao.DataAccessResourceFailureException;
 // FIXME How to apply rules about duplicates? Just warn?, Override?, Override
 // with priorities? Silent ignore?
 public class DataCollectionConfigParser {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(DataCollectionConfigParser.class);
 
+    /** The config directory. */
     private String configDirectory;
 
+    /** The external groups map. */
     private final Map<String, DatacollectionGroup> externalGroupsMap;
 
+    /**
+     * Instantiates a new data collection config parser.
+     *
+     * @param configDirectory
+     *            the config directory
+     */
     public DataCollectionConfigParser(String configDirectory) {
         this.configDirectory = configDirectory;
         this.externalGroupsMap = new ConcurrentHashMap<String, DatacollectionGroup>();
     }
 
+    /**
+     * Gets the external group map.
+     *
+     * @return the external group map
+     */
     protected Map<String, DatacollectionGroup> getExternalGroupMap() {
         return Collections.unmodifiableMap(externalGroupsMap);
     }
@@ -87,6 +102,7 @@ public class DataCollectionConfigParser {
      * Update/Validate SNMP collection.
      *
      * @param collection
+     *            the collection
      */
     public void parseCollection(SnmpCollection collection) {
         if (collection.getIncludeCollectionCount() > 0) {
@@ -135,6 +151,7 @@ public class DataCollectionConfigParser {
      * Verify the sub-groups of SNMP collection.
      *
      * @param collection
+     *            the collection
      */
     private void checkCollection(SnmpCollection collection) {
         if (collection.getSystems() == null)
@@ -150,8 +167,10 @@ public class DataCollectionConfigParser {
      * have the same name.
      * </p>
      *
-     * @param globalContainer
+     * @param resourceTypes
+     *            the resource types
      * @param resourceType
+     *            the resource type
      * @return true, if the list contains the resourceType
      */
     private boolean contains(Collection<ResourceType> resourceTypes, ResourceType resourceType) {
@@ -169,8 +188,10 @@ public class DataCollectionConfigParser {
      * same name.
      * </p>
      *
-     * @param globalContainer
+     * @param groups
+     *            the groups
      * @param group
+     *            the group
      * @return true, if the list contains the mib object group
      */
     private boolean contains(Collection<Group> groups, Group group) {
@@ -188,8 +209,10 @@ public class DataCollectionConfigParser {
      * have the same name.
      * </p>
      *
-     * @param globalContainer
+     * @param systemDefs
+     *            the system defs
      * @param systemDef
+     *            the system def
      * @return true, if the list contains the system definition
      */
     // TODO Include sysoid and sysoidMask on validation process
@@ -366,6 +389,15 @@ public class DataCollectionConfigParser {
         }
     }
 
+    /**
+     * Should add.
+     *
+     * @param sysDef
+     *            the sys def
+     * @param excludeList
+     *            the exclude list
+     * @return true, if successful
+     */
     private boolean shouldAdd(String sysDef, List<String> excludeList) {
         if (excludeList != null) {
             for (String re : excludeList) {
@@ -384,6 +416,14 @@ public class DataCollectionConfigParser {
         return true;
     }
 
+    /**
+     * Throw exception.
+     *
+     * @param msg
+     *            the msg
+     * @param e
+     *            the e
+     */
     private void throwException(String msg, Throwable e) {
         if (e == null) {
             LOG.error(msg);

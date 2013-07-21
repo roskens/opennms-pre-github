@@ -52,8 +52,11 @@ import org.springframework.util.Assert;
  * @version $Id: $
  */
 public class GroupManagerGroupDao implements GroupDao, InitializingBean {
+
+    /** The Constant CASTOR_EXCEPTION_TRANSLATOR. */
     private static final GroupManagerCastorExceptionTranslator CASTOR_EXCEPTION_TRANSLATOR = new GroupManagerCastorExceptionTranslator();
 
+    /** The m_group manager. */
     private GroupManager m_groupManager;
 
     /** {@inheritDoc} */
@@ -106,6 +109,7 @@ public class GroupManagerGroupDao implements GroupDao, InitializingBean {
      * <p>
      * getGroupNames
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -122,6 +126,7 @@ public class GroupManagerGroupDao implements GroupDao, InitializingBean {
      * <p>
      * getGroups
      * </p>
+     * .
      *
      * @return a {@link java.util.Map} object.
      */
@@ -148,6 +153,7 @@ public class GroupManagerGroupDao implements GroupDao, InitializingBean {
      * <p>
      * getRoleNames
      * </p>
+     * .
      *
      * @return an array of {@link java.lang.String} objects.
      */
@@ -171,6 +177,7 @@ public class GroupManagerGroupDao implements GroupDao, InitializingBean {
      * <p>
      * getRoles
      * </p>
+     * .
      *
      * @return a {@link java.util.Collection} object.
      */
@@ -281,6 +288,7 @@ public class GroupManagerGroupDao implements GroupDao, InitializingBean {
      * <p>
      * saveGroups
      * </p>
+     * .
      */
     @Override
     public void saveGroups() {
@@ -322,6 +330,7 @@ public class GroupManagerGroupDao implements GroupDao, InitializingBean {
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      */
     @Override
     public void afterPropertiesSet() {
@@ -332,6 +341,7 @@ public class GroupManagerGroupDao implements GroupDao, InitializingBean {
      * <p>
      * getGroupManager
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.config.GroupManager} object.
      */
@@ -343,6 +353,7 @@ public class GroupManagerGroupDao implements GroupDao, InitializingBean {
      * <p>
      * setGroupManager
      * </p>
+     * .
      *
      * @param groupManager
      *            a {@link org.opennms.netmgt.config.GroupManager} object.
@@ -351,7 +362,20 @@ public class GroupManagerGroupDao implements GroupDao, InitializingBean {
         m_groupManager = groupManager;
     }
 
+    /**
+     * The Class GroupManagerCastorExceptionTranslator.
+     */
     public static class GroupManagerCastorExceptionTranslator extends MarshallingExceptionTranslator {
+
+        /**
+         * Translate.
+         *
+         * @param task
+         *            the task
+         * @param e
+         *            the e
+         * @return the data access exception
+         */
         public DataAccessException translate(String task, Throwable e) {
             return new ConfigObjectRetrievalFailureException("General error while " + task + ": " + e, e);
         }

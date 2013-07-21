@@ -51,6 +51,8 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public abstract class NotificationCommandManager {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(NotificationCommandManager.class);
 
     /**
@@ -64,10 +66,10 @@ public abstract class NotificationCommandManager {
      *
      * @param reader
      *            contains the XML file to be parsed
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     protected void parseXML(InputStream reader) throws MarshalException, ValidationException {
         NotificationCommands config = CastorUtils.unmarshal(NotificationCommands.class, reader);
@@ -84,6 +86,13 @@ public abstract class NotificationCommandManager {
         m_commands = commands;
     }
 
+    /**
+     * Gets the commands from config.
+     *
+     * @param config
+     *            the config
+     * @return the commands from config
+     */
     private static List<Command> getCommandsFromConfig(NotificationCommands config) {
         if (config == null) {
             LOG.warn("no notification commands found");
@@ -96,9 +105,10 @@ public abstract class NotificationCommandManager {
      * <p>
      * update
      * </p>
+     * .
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     public abstract void update() throws Exception;
 

@@ -68,21 +68,32 @@ import org.springframework.core.io.Resource;
 public class DefaultDataCollectionConfigDao extends AbstractJaxbConfigDao<DatacollectionConfig, DatacollectionConfig>
         implements DataCollectionConfigDao {
 
+    /** The Constant LOG. */
     public static final Logger LOG = LoggerFactory.getLogger(DefaultDataCollectionConfigDao.class);
 
+    /** The m_config directory. */
     private String m_configDirectory;
 
     // have we validated the config since last reloading?
+    /** The m_validated. */
     private boolean m_validated = false;
 
+    /** The m_validation exception. */
     private RuntimeException m_validationException = null;
 
+    /** The data collection groups. */
     private List<String> dataCollectionGroups = new ArrayList<String>();
 
+    /**
+     * Instantiates a new default data collection config dao.
+     */
     public DefaultDataCollectionConfigDao() {
         super(DatacollectionConfig.class, "data-collection");
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.core.xml.AbstractJaxbConfigDao#loadConfig(org.springframework.core.io.Resource)
+     */
     @Override
     protected DatacollectionConfig loadConfig(final Resource resource) {
         m_validated = false;
@@ -90,6 +101,9 @@ public class DefaultDataCollectionConfigDao extends AbstractJaxbConfigDao<Dataco
         return super.loadConfig(resource);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.core.xml.AbstractJaxbConfigDao#translateConfig(java.lang.Object)
+     */
     @Override
     protected DatacollectionConfig translateConfig(final DatacollectionConfig config) {
         final DataCollectionConfigParser parser = new DataCollectionConfigParser(getConfigDirectory());
@@ -114,10 +128,21 @@ public class DefaultDataCollectionConfigDao extends AbstractJaxbConfigDao<Dataco
         return config;
     }
 
+    /**
+     * Sets the config directory.
+     *
+     * @param configDirectory
+     *            the new config directory
+     */
     public void setConfigDirectory(String configDirectory) {
         this.m_configDirectory = configDirectory;
     }
 
+    /**
+     * Gets the config directory.
+     *
+     * @return the config directory
+     */
     public String getConfigDirectory() {
         if (m_configDirectory == null) {
             final StringBuffer sb = new StringBuffer(ConfigFileConstants.getHome());
@@ -131,12 +156,18 @@ public class DefaultDataCollectionConfigDao extends AbstractJaxbConfigDao<Dataco
         return m_configDirectory;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.DataCollectionConfigDao#getSnmpStorageFlag(java.lang.String)
+     */
     @Override
     public String getSnmpStorageFlag(final String collectionName) {
         final SnmpCollection collection = getSnmpCollection(getContainer(), collectionName);
         return collection == null ? null : collection.getSnmpStorageFlag();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.DataCollectionConfigDao#getMibObjectList(java.lang.String, java.lang.String, java.lang.String, int)
+     */
     @Override
     public List<MibObject> getMibObjectList(final String cName, final String aSysoid, final String anAddress,
             final int ifType) {
@@ -290,6 +321,9 @@ public class DefaultDataCollectionConfigDao extends AbstractJaxbConfigDao<Dataco
         return mibObjectList;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.DataCollectionConfigDao#getConfiguredResourceTypes()
+     */
     @Override
     public Map<String, ResourceType> getConfiguredResourceTypes() {
         final Map<String, ResourceType> map = new HashMap<String, ResourceType>();
@@ -319,6 +353,9 @@ public class DefaultDataCollectionConfigDao extends AbstractJaxbConfigDao<Dataco
         return Collections.unmodifiableMap(map);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.DataCollectionConfigDao#getRrdRepository(java.lang.String)
+     */
     @Override
     public RrdRepository getRrdRepository(final String collectionName) {
         final RrdRepository repo = new RrdRepository();
@@ -329,18 +366,27 @@ public class DefaultDataCollectionConfigDao extends AbstractJaxbConfigDao<Dataco
         return repo;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.DataCollectionConfigDao#getStep(java.lang.String)
+     */
     @Override
     public int getStep(final String collectionName) {
         final SnmpCollection collection = getSnmpCollection(getContainer(), collectionName);
         return collection == null ? -1 : collection.getRrd().getStep();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.DataCollectionConfigDao#getRRAList(java.lang.String)
+     */
     @Override
     public List<String> getRRAList(final String collectionName) {
         final SnmpCollection collection = getSnmpCollection(getContainer(), collectionName);
         return collection == null ? null : collection.getRrd().getRraCollection();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.DataCollectionConfigDao#getRrdPath()
+     */
     @Override
     public String getRrdPath() {
         final String rrdPath = getContainer().getObject().getRrdRepository();
@@ -360,6 +406,15 @@ public class DefaultDataCollectionConfigDao extends AbstractJaxbConfigDao<Dataco
 
     /* Private Methods */
 
+    /**
+     * Gets the snmp collection.
+     *
+     * @param container
+     *            the container
+     * @param collectionName
+     *            the collection name
+     * @return the snmp collection
+     */
     private static SnmpCollection getSnmpCollection(final FileReloadContainer<DatacollectionConfig> container,
             final String collectionName) {
         for (final SnmpCollection collection : container.getObject().getSnmpCollection()) {
@@ -551,6 +606,13 @@ public class DefaultDataCollectionConfigDao extends AbstractJaxbConfigDao<Dataco
         }
     }
 
+    /**
+     * Gets the collection group map.
+     *
+     * @param container
+     *            the container
+     * @return the collection group map
+     */
     private static Map<String, Map<String, Group>> getCollectionGroupMap(
             FileReloadContainer<DatacollectionConfig> container) {
         // Build collection map which is a hash map of Collection
@@ -590,6 +652,14 @@ public class DefaultDataCollectionConfigDao extends AbstractJaxbConfigDao<Dataco
         return Collections.unmodifiableMap(collectionGroupMap);
     }
 
+    /**
+     * Validate resource types.
+     *
+     * @param container
+     *            the container
+     * @param allowedResourceTypes
+     *            the allowed resource types
+     */
     private static void validateResourceTypes(final FileReloadContainer<DatacollectionConfig> container,
             final Set<String> allowedResourceTypes) {
         final String configuredString;
@@ -633,16 +703,25 @@ public class DefaultDataCollectionConfigDao extends AbstractJaxbConfigDao<Dataco
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.DataCollectionConfigDao#getRootDataCollection()
+     */
     @Override
     public DatacollectionConfig getRootDataCollection() {
         return getContainer().getObject();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.DataCollectionConfigDao#getAvailableDataCollectionGroups()
+     */
     @Override
     public List<String> getAvailableDataCollectionGroups() {
         return dataCollectionGroups;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.DataCollectionConfigDao#getAvailableSystemDefs()
+     */
     @Override
     public List<String> getAvailableSystemDefs() {
         List<String> systemDefs = new ArrayList<String>();
@@ -656,6 +735,9 @@ public class DefaultDataCollectionConfigDao extends AbstractJaxbConfigDao<Dataco
         return systemDefs;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.DataCollectionConfigDao#getAvailableMibGroups()
+     */
     @Override
     public List<String> getAvailableMibGroups() {
         List<String> groups = new ArrayList<String>();

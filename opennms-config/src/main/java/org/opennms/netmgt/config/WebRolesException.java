@@ -38,9 +38,8 @@ package org.opennms.netmgt.config;
  * @since 1.8.1
  */
 public class WebRolesException extends RuntimeException {
-    /**
-     *
-     */
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 7520091278102237241L;
 
     /**

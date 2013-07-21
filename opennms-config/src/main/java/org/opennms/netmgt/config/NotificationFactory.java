@@ -54,33 +54,24 @@ import org.opennms.core.utils.ConfigFileConstants;
  * @version $Id: $
  */
 public class NotificationFactory extends NotificationManager {
-    /**
-     * Singleton instance
-     */
+
+    /** Singleton instance. */
     private static NotificationFactory instance;
 
-    /**
-     * Configuration file handle
-     */
+    /** Configuration file handle. */
     protected File m_notifConfFile;
 
-    /**
-     * Boolean indicating if the init() method has been called
-     */
+    /** Boolean indicating if the init() method has been called. */
     private static boolean initialized = false;
 
-    /**
-     *
-     */
+    /** The m_notice conf file. */
     private File m_noticeConfFile;
 
-    /**
-     *
-     */
+    /** The m_last modified. */
     private long m_lastModified;
 
     /**
-     *
+     * Instantiates a new notification factory.
      */
     private NotificationFactory() {
         super(NotifdConfigFactory.getInstance(), DataSourceFactory.getInstance());
@@ -104,21 +95,22 @@ public class NotificationFactory extends NotificationManager {
      * <p>
      * init
      * </p>
+     * .
      *
-     * @throws java.io.IOException
-     *             if any.
-     * @throws java.io.FileNotFoundException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
-     * @throws java.lang.ClassNotFoundException
-     *             if any.
-     * @throws java.sql.SQLException
-     *             if any.
-     * @throws java.beans.PropertyVetoException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws FileNotFoundException
+     *             the file not found exception
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws ClassNotFoundException
+     *             the class not found exception
+     * @throws SQLException
+     *             the sQL exception
+     * @throws PropertyVetoException
+     *             the property veto exception
      */
     public static synchronized void init() throws IOException, FileNotFoundException, MarshalException,
             ValidationException, ClassNotFoundException, SQLException, PropertyVetoException {
@@ -134,13 +126,14 @@ public class NotificationFactory extends NotificationManager {
      * <p>
      * reload
      * </p>
+     * .
      *
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public synchronized void reload() throws IOException, MarshalException, ValidationException {
         m_noticeConfFile = ConfigFileConstants.getFile(ConfigFileConstants.NOTIFICATIONS_CONF_FILE_NAME);
@@ -172,13 +165,14 @@ public class NotificationFactory extends NotificationManager {
      * <p>
      * update
      * </p>
+     * .
      *
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     @Override
     public void update() throws IOException, MarshalException, ValidationException {

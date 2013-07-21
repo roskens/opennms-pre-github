@@ -35,30 +35,64 @@ import java.util.Enumeration;
 import java.util.List;
 
 /* wrapper object to deal with old castor resources */
+/**
+ * The Class BasicSchedule.
+ */
 public class BasicSchedule {
 
+    /** The m_name. */
     private String m_name;
 
+    /** The m_type. */
     private String m_type;
 
+    /** The m_times. */
     private List<Time> m_times = new ArrayList<Time>();
 
+    /**
+     * Gets the name.
+     *
+     * @return the name
+     */
     public String getName() {
         return m_name;
     }
 
+    /**
+     * Sets the name.
+     *
+     * @param name
+     *            the new name
+     */
     public void setName(final String name) {
         m_name = name;
     }
 
+    /**
+     * Gets the type.
+     *
+     * @return the type
+     */
     public String getType() {
         return m_type;
     }
 
+    /**
+     * Sets the type.
+     *
+     * @param type
+     *            the new type
+     */
     public void setType(final String type) {
         m_type = type;
     }
 
+    /**
+     * Sets the time collection.
+     *
+     * @param times
+     *            the new time collection
+     */
     public void setTimeCollection(final Collection<Time> times) {
         synchronized (m_times) {
             if (m_times == times)
@@ -68,24 +102,46 @@ public class BasicSchedule {
         }
     }
 
+    /**
+     * Gets the time collection.
+     *
+     * @return the time collection
+     */
     public Collection<Time> getTimeCollection() {
         synchronized (m_times) {
             return m_times;
         }
     }
 
+    /**
+     * Enumerate time.
+     *
+     * @return the enumeration
+     */
     public Enumeration<Time> enumerateTime() {
         synchronized (m_times) {
             return Collections.enumeration(m_times);
         }
     }
 
+    /**
+     * Gets the time count.
+     *
+     * @return the time count
+     */
     public int getTimeCount() {
         synchronized (m_times) {
             return m_times.size();
         }
     }
 
+    /**
+     * Gets the time.
+     *
+     * @param index
+     *            the index
+     * @return the time
+     */
     public Time getTime(final int index) {
         synchronized (m_times) {
             return m_times.get(index);

@@ -48,14 +48,20 @@ import org.springframework.util.Assert;
  * @version $Id: $
  */
 public class DefaultPollerConfigDao implements InitializingBean {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(DefaultPollerConfigDao.class);
 
+    /** The m_config resource. */
     private Resource m_configResource;
 
+    /** The m_local server. */
     private String m_localServer;
 
+    /** The m_verify server. */
     private Boolean m_verifyServer;
 
+    /** The m_poller config. */
     private PollerConfig m_pollerConfig;
 
     /**
@@ -70,9 +76,10 @@ public class DefaultPollerConfigDao implements InitializingBean {
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -83,6 +90,12 @@ public class DefaultPollerConfigDao implements InitializingBean {
         loadConfig();
     }
 
+    /**
+     * Load config.
+     *
+     * @throws Exception
+     *             the exception
+     */
     private void loadConfig() throws Exception {
         InputStream stream = null;
         long lastModified;
@@ -109,6 +122,7 @@ public class DefaultPollerConfigDao implements InitializingBean {
      * <p>
      * getPollerConfig
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.config.PollerConfig} object.
      */
@@ -116,6 +130,12 @@ public class DefaultPollerConfigDao implements InitializingBean {
         return m_pollerConfig;
     }
 
+    /**
+     * Sets the poller config.
+     *
+     * @param pollerConfig
+     *            the new poller config
+     */
     private void setPollerConfig(PollerConfig pollerConfig) {
         m_pollerConfig = pollerConfig;
     }
@@ -124,6 +144,7 @@ public class DefaultPollerConfigDao implements InitializingBean {
      * <p>
      * getConfigResource
      * </p>
+     * .
      *
      * @return a {@link org.springframework.core.io.Resource} object.
      */
@@ -135,6 +156,7 @@ public class DefaultPollerConfigDao implements InitializingBean {
      * <p>
      * setConfigResource
      * </p>
+     * .
      *
      * @param configResource
      *            a {@link org.springframework.core.io.Resource} object.
@@ -147,6 +169,7 @@ public class DefaultPollerConfigDao implements InitializingBean {
      * <p>
      * getLocalServer
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -158,6 +181,7 @@ public class DefaultPollerConfigDao implements InitializingBean {
      * <p>
      * setLocalServer
      * </p>
+     * .
      *
      * @param localServer
      *            a {@link java.lang.String} object.
@@ -170,6 +194,7 @@ public class DefaultPollerConfigDao implements InitializingBean {
      * <p>
      * isVerifyServer
      * </p>
+     * .
      *
      * @return a {@link java.lang.Boolean} object.
      */
@@ -181,6 +206,7 @@ public class DefaultPollerConfigDao implements InitializingBean {
      * <p>
      * setVerifyServer
      * </p>
+     * .
      *
      * @param verifyServer
      *            a {@link java.lang.Boolean} object.

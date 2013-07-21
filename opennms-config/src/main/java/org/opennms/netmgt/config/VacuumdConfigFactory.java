@@ -68,16 +68,14 @@ import org.springframework.util.Assert;
  * @version $Id: $
  */
 public final class VacuumdConfigFactory {
-    /**
-     * The singleton instance of this factory
-     */
+
+    /** The singleton instance of this factory. */
     private static VacuumdConfigFactory m_singleton = null;
 
+    /** The m_loaded from file. */
     private static boolean m_loadedFromFile = false;
 
-    /**
-     * The config class loaded from the config file
-     */
+    /** The config class loaded from the config file. */
     private VacuumdConfiguration m_config;
 
     /**
@@ -87,10 +85,10 @@ public final class VacuumdConfigFactory {
      *
      * @param stream
      *            a {@link java.io.InputStream} object.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public VacuumdConfigFactory(InputStream stream) throws MarshalException, ValidationException {
         m_config = CastorUtils.unmarshal(VacuumdConfiguration.class, stream);
@@ -100,18 +98,12 @@ public final class VacuumdConfigFactory {
      * Load the config from the default config file and create the singleton
      * instance of this factory.
      *
-     * @exception java.io.IOException
-     *                Thrown if the specified config file cannot be read
-     * @exception org.exolab.castor.xml.MarshalException
-     *                Thrown if the file does not conform to the schema.
-     * @exception org.exolab.castor.xml.ValidationException
-     *                Thrown if the contents do not match the required schema.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public static synchronized void init() throws IOException, MarshalException, ValidationException {
         if (m_singleton != null) {
@@ -137,20 +129,14 @@ public final class VacuumdConfigFactory {
     }
 
     /**
-     * Reload the config from the default config file
+     * Reload the config from the default config file.
      *
-     * @exception java.io.IOException
-     *                Thrown if the specified config file cannot be read/loaded
-     * @exception org.exolab.castor.xml.MarshalException
-     *                Thrown if the file does not conform to the schema.
-     * @exception org.exolab.castor.xml.ValidationException
-     *                Thrown if the contents do not match the required schema.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public static synchronized void reload() throws IOException, MarshalException, ValidationException {
         if (m_loadedFromFile) {
@@ -164,8 +150,6 @@ public final class VacuumdConfigFactory {
      * Return the singleton instance of this factory.
      *
      * @return The current factory instance.
-     * @throws java.lang.IllegalStateException
-     *             Thrown if the factory has not yet been initialized.
      */
     public static synchronized VacuumdConfigFactory getInstance() {
         Assert.state(m_singleton != null, "The factory has not been initialized");
@@ -184,7 +168,7 @@ public final class VacuumdConfigFactory {
     }
 
     /**
-     * Returns a Collection of automations defined in the config
+     * Returns a Collection of automations defined in the config.
      *
      * @return a {@link java.util.Collection} object.
      */
@@ -193,7 +177,7 @@ public final class VacuumdConfigFactory {
     }
 
     /**
-     * Returns a Collection of triggers defined in the config
+     * Returns a Collection of triggers defined in the config.
      *
      * @return a {@link java.util.Collection} object.
      */
@@ -202,7 +186,7 @@ public final class VacuumdConfigFactory {
     }
 
     /**
-     * Returns a Collection of actions defined in the config
+     * Returns a Collection of actions defined in the config.
      *
      * @return a {@link java.util.Collection} object.
      */
@@ -224,6 +208,7 @@ public final class VacuumdConfigFactory {
      * <p>
      * getActionEvents
      * </p>
+     * .
      *
      * @return a {@link java.util.Collection} object.
      */
@@ -235,6 +220,7 @@ public final class VacuumdConfigFactory {
      * <p>
      * getPeriod
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -243,7 +229,7 @@ public final class VacuumdConfigFactory {
     }
 
     /**
-     * Returns a Trigger with a name matching the string parameter
+     * Returns a Trigger with a name matching the string parameter.
      *
      * @param triggerName
      *            a {@link java.lang.String} object.
@@ -259,7 +245,7 @@ public final class VacuumdConfigFactory {
     }
 
     /**
-     * Returns an Action with a name matching the string parmater
+     * Returns an Action with a name matching the string parmater.
      *
      * @param actionName
      *            a {@link java.lang.String} object.
@@ -275,7 +261,7 @@ public final class VacuumdConfigFactory {
     }
 
     /**
-     * Returns an Automation with a name matching the string parameter
+     * Returns an Automation with a name matching the string parameter.
      *
      * @param autoName
      *            a {@link java.lang.String} object.
@@ -291,13 +277,13 @@ public final class VacuumdConfigFactory {
     }
 
     /**
-     * Returns the AutoEvent associated with the auto-event-name
+     * Returns the AutoEvent associated with the auto-event-name.
      *
-     * @deprecated Use {@link ActionEvent} objects instead. Access these objects
-     *             with {@link #getActionEvent(String)}.
      * @param name
      *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.config.vacuumd.AutoEvent} object.
+     * @deprecated Use {@link ActionEvent} objects instead. Access these objects
+     *             with {@link #getActionEvent(String)}.
      */
     public synchronized AutoEvent getAutoEvent(String name) {
         for (AutoEvent ae : getAutoEvents()) {
@@ -312,6 +298,7 @@ public final class VacuumdConfigFactory {
      * <p>
      * getSqlStatements
      * </p>
+     * .
      *
      * @return an array of {@link java.lang.String} objects.
      */
@@ -328,6 +315,7 @@ public final class VacuumdConfigFactory {
      * <p>
      * getStatements
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -339,6 +327,7 @@ public final class VacuumdConfigFactory {
      * <p>
      * getActionEvent
      * </p>
+     * .
      *
      * @param name
      *            a {@link java.lang.String} object.

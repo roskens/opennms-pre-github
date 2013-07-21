@@ -44,8 +44,17 @@ import org.opennms.core.utils.TimeInterval;
 import org.opennms.core.xml.CastorUtils;
 import org.opennms.netmgt.config.groups.Schedule;
 
+/**
+ * The Class BasicScheduleUtilsTest.
+ */
 public class BasicScheduleUtilsTest extends IntervalTestCase {
 
+    /**
+     * Test simple schedule excluded.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testSimpleScheduleExcluded() throws Exception {
         String schedSpec = "           <schedule name=\"simple\" type=\"specific\">"
@@ -62,6 +71,12 @@ public class BasicScheduleUtilsTest extends IntervalTestCase {
 
     }
 
+    /**
+     * Test simple schedule included.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testSimpleScheduleIncluded() throws Exception {
         String schedSpec = "           <schedule name=\"simple\" type=\"specific\">"
@@ -78,6 +93,12 @@ public class BasicScheduleUtilsTest extends IntervalTestCase {
 
     }
 
+    /**
+     * Test double schedule included.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testDoubleScheduleIncluded() throws Exception {
         String schedSpec = "           <schedule name=\"double\" type=\"specific\">"
@@ -96,6 +117,12 @@ public class BasicScheduleUtilsTest extends IntervalTestCase {
 
     }
 
+    /**
+     * Test complex schedule included.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testComplexScheduleIncluded() throws Exception {
         String schedSpec = "           <schedule name=\"complex\" type=\"specific\">"
@@ -120,6 +147,12 @@ public class BasicScheduleUtilsTest extends IntervalTestCase {
 
     }
 
+    /**
+     * Test specific interval.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testSpecificInterval() throws Exception {
         String schedSpec = "           <schedule name=\"simple\" type=\"specific\">"
@@ -135,6 +168,12 @@ public class BasicScheduleUtilsTest extends IntervalTestCase {
 
     }
 
+    /**
+     * Test monthly interval.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testMonthlyInterval() throws Exception {
         String schedSpec = "           <schedule name=\"simple\" type=\"specific\">"
@@ -150,6 +189,12 @@ public class BasicScheduleUtilsTest extends IntervalTestCase {
 
     }
 
+    /**
+     * Test weekly interval.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testWeeklyInterval() throws Exception {
         String schedSpec = "           <schedule name=\"simple\" type=\"specific\">"
@@ -165,6 +210,12 @@ public class BasicScheduleUtilsTest extends IntervalTestCase {
 
     }
 
+    /**
+     * Test get intervals weekly.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testGetIntervalsWeekly() throws Exception {
         String schedSpec = "           <schedule name=\"simple\" type=\"weekly\">"
@@ -195,6 +246,12 @@ public class BasicScheduleUtilsTest extends IntervalTestCase {
         assertTimeIntervalSequence(expected, intervals);
     }
 
+    /**
+     * Test get intervals monthly.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testGetIntervalsMonthly() throws Exception {
         String schedSpec = "           <schedule name=\"simple\" type=\"monthly\">"
@@ -215,6 +272,12 @@ public class BasicScheduleUtilsTest extends IntervalTestCase {
         assertTimeIntervalSequence(expected, intervals);
     }
 
+    /**
+     * Test get intervals daily.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testGetIntervalsDaily() throws Exception {
         String schedSpec = "           <schedule name=\"simple\" type=\"daily\">"

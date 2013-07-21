@@ -93,6 +93,8 @@ import org.springframework.util.Assert;
  * @author <a href="http://www.opennms.org/">OpenNMS </a>
  */
 public final class EventExpander implements EventProcessor, InitializingBean {
+
+    /** The m_event conf dao. */
     private EventConfDao m_eventConfDao;
 
     /**
@@ -116,12 +118,6 @@ public final class EventExpander implements EventProcessor, InitializingBean {
      * The default trap UEI - if the trap lookup into the 'event.conf' fails,
      * the trap event is loaded with information from this default UEI
      */
-    /*
-     * This is never used
-     * TODO: delete this code soon
-     * private static final String DEFAULT_TRAP_UEI =
-     * "uei.opennms.org/default/trap";
-     */
     public EventExpander() {
     }
 
@@ -129,6 +125,7 @@ public final class EventExpander implements EventProcessor, InitializingBean {
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      */
     @Override
     public void afterPropertiesSet() {
@@ -364,11 +361,11 @@ public final class EventExpander implements EventProcessor, InitializingBean {
      * defaults to the event's Universal Event Identifier.
      * </p>
      *
+     * @param dao
+     *            the dao
      * @param event
      *            The event to find a configuration for.
      * @return The matching configuration event, if any.
-     * @exception java.lang.NullPointerException
-     *                Thrown if the event parameter that was passed is null.
      */
     public static org.opennms.netmgt.xml.eventconf.Event lookup(EventConfDao dao, Event event) {
         if (event == null) {
@@ -398,7 +395,14 @@ public final class EventExpander implements EventProcessor, InitializingBean {
     }
 
     /**
-     * Expand parms in the event logmsg
+     * Expand parms in the event logmsg.
+     *
+     * @param logmsg
+     *            the logmsg
+     * @param event
+     *            the event
+     * @param decode
+     *            the decode
      */
     private void expandParms(Logmsg logmsg, Event event, Map<String, Map<String, String>> decode) {
         String strRet = org.opennms.netmgt.eventd.datablock.EventUtil.expandParms(logmsg.getContent(), event, decode);
@@ -408,7 +412,12 @@ public final class EventExpander implements EventProcessor, InitializingBean {
     }
 
     /**
-     * Expand parms in the event autoaction(s)
+     * Expand parms in the event autoaction(s).
+     *
+     * @param autoactions
+     *            the autoactions
+     * @param event
+     *            the event
      */
     private void expandParms(Autoaction[] autoactions, Event event) {
         boolean expanded = false;
@@ -427,7 +436,12 @@ public final class EventExpander implements EventProcessor, InitializingBean {
     }
 
     /**
-     * Expand parms in the event operaction(s)
+     * Expand parms in the event operaction(s).
+     *
+     * @param operactions
+     *            the operactions
+     * @param event
+     *            the event
      */
     private void expandParms(Operaction[] operactions, Event event) {
         boolean expanded = false;
@@ -446,7 +460,12 @@ public final class EventExpander implements EventProcessor, InitializingBean {
     }
 
     /**
-     * Expand parms in the event tticket
+     * Expand parms in the event tticket.
+     *
+     * @param tticket
+     *            the tticket
+     * @param event
+     *            the event
      */
     private void expandParms(Tticket tticket, Event event) {
         String strRet = EventUtil.expandParms(tticket.getContent(), event);
@@ -465,7 +484,12 @@ public final class EventExpander implements EventProcessor, InitializingBean {
      * dump of all parmblocks - %parm[ <name>]% is replaced by the value of the
      * parameter named 'name', if present - %parm[# <num>]% is replaced by the
      * value of the parameter number 'num', if present - %parm[##]% is replaced
-     * by the number of parameters
+     * by the number of parameters.
+     *
+     * @param event
+     *            the event
+     * @param decode
+     *            the decode
      */
     private void expandParms(Event event, Map<String, Map<String, String>> decode) {
         String strRet = null;
@@ -748,6 +772,7 @@ public final class EventExpander implements EventProcessor, InitializingBean {
      * <p>
      * getEventConfDao
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.config.EventConfDao} object.
      */
@@ -759,6 +784,7 @@ public final class EventExpander implements EventProcessor, InitializingBean {
      * <p>
      * setEventConfDao
      * </p>
+     * .
      *
      * @param eventConfDao
      *            a {@link org.opennms.netmgt.config.EventConfDao} object.

@@ -130,10 +130,17 @@ public interface PollerConfig {
      */
     void rebuildPackageIpListMap();
 
+    /**
+     * Parameters.
+     *
+     * @param svc
+     *            the svc
+     * @return the iterable
+     */
     Iterable<Parameter> parameters(final Service svc);
 
     /**
-     * Determine the list of IPs the filter rule for this package allows
+     * Determine the list of IPs the filter rule for this package allows.
      *
      * @param pkg
      *            a {@link org.opennms.netmgt.config.poller.Package} object.
@@ -309,6 +316,7 @@ public interface PollerConfig {
      * <p>
      * getAllPackageMatches
      * </p>
+     * .
      *
      * @param ipAddr
      *            a {@link java.lang.String} object.
@@ -320,6 +328,7 @@ public interface PollerConfig {
      * <p>
      * getNextOutageIdSql
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -329,6 +338,7 @@ public interface PollerConfig {
      * <p>
      * enumeratePackage
      * </p>
+     * .
      *
      * @return a {@link java.util.Enumeration} object.
      */
@@ -338,6 +348,7 @@ public interface PollerConfig {
      * <p>
      * getPackage
      * </p>
+     * .
      *
      * @param pkgName
      *            a {@link java.lang.String} object.
@@ -349,6 +360,7 @@ public interface PollerConfig {
      * <p>
      * getServiceSelectorForPackage
      * </p>
+     * .
      *
      * @param pkg
      *            a {@link org.opennms.netmgt.config.poller.Package} object.
@@ -360,6 +372,7 @@ public interface PollerConfig {
      * <p>
      * getThreads
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -369,6 +382,7 @@ public interface PollerConfig {
      * <p>
      * getServiceMonitors
      * </p>
+     * .
      *
      * @return a {@link java.util.Map} object.
      */
@@ -378,6 +392,7 @@ public interface PollerConfig {
      * <p>
      * releaseAllServiceMonitors
      * </p>
+     * .
      */
     public void releaseAllServiceMonitors();
 
@@ -385,6 +400,7 @@ public interface PollerConfig {
      * <p>
      * getServiceMonitor
      * </p>
+     * .
      *
      * @param svcName
      *            a {@link java.lang.String} object.
@@ -396,13 +412,14 @@ public interface PollerConfig {
      * <p>
      * update
      * </p>
+     * .
      *
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public void update() throws IOException, MarshalException, ValidationException;
 
@@ -410,13 +427,14 @@ public interface PollerConfig {
      * <p>
      * save
      * </p>
+     * .
      *
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws ValidationException
+     *             the validation exception
      */
     public void save() throws MarshalException, IOException, ValidationException;
 
@@ -424,6 +442,7 @@ public interface PollerConfig {
      * <p>
      * addPackage
      * </p>
+     * .
      *
      * @param pkg
      *            a {@link org.opennms.netmgt.config.poller.Package} object.
@@ -434,6 +453,7 @@ public interface PollerConfig {
      * <p>
      * addMonitor
      * </p>
+     * .
      *
      * @param svcName
      *            a {@link java.lang.String} object.
@@ -446,6 +466,7 @@ public interface PollerConfig {
      * <p>
      * getConfiguration
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.config.poller.PollerConfiguration}
      *         object.
@@ -456,6 +477,7 @@ public interface PollerConfig {
      * <p>
      * getServiceMonitorLocators
      * </p>
+     * .
      *
      * @param context
      *            a {@link org.opennms.netmgt.poller.DistributionContext}
@@ -464,8 +486,18 @@ public interface PollerConfig {
      */
     Collection<ServiceMonitorLocator> getServiceMonitorLocators(DistributionContext context);
 
+    /**
+     * Gets the read lock.
+     *
+     * @return the read lock
+     */
     Lock getReadLock();
 
+    /**
+     * Gets the write lock.
+     *
+     * @return the write lock
+     */
     Lock getWriteLock();
 
 }

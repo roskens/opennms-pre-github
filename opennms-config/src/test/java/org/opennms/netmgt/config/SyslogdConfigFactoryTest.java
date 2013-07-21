@@ -41,10 +41,20 @@ import org.opennms.netmgt.config.syslogd.UeiMatch;
 import org.opennms.netmgt.mock.MockNetwork;
 import org.opennms.test.DaoTestConfigBean;
 
+/**
+ * The Class SyslogdConfigFactoryTest.
+ */
 public class SyslogdConfigFactoryTest {
 
+    /** The m_factory. */
     private SyslogdConfigFactory m_factory;
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
 
@@ -64,28 +74,43 @@ public class SyslogdConfigFactoryTest {
                                                                                               "/etc/syslogd-configuration.xml"));
     }
 
+    /**
+     * Test set up.
+     */
     @Test
     public void testSetUp() {
     }
 
+    /**
+     * Test my host name grouping.
+     */
     @Test
     public void testMyHostNameGrouping() {
         Assert.assertEquals(6, m_factory.getMatchingGroupHost());
 
     }
 
+    /**
+     * Test my message group.
+     */
     @Test
     public void testMyMessageGroup() {
         Assert.assertEquals(8, m_factory.getMatchingGroupMessage());
 
     }
 
+    /**
+     * Test pattern.
+     */
     @Test
     public void testPattern() {
         Assert.assertEquals("^.*\\s(19|20)\\d\\d([-/.])(0[1-9]|1[012])\\2(0[1-9]|[12][0-9]|3[01])(\\s+)(\\S+)(\\s)(\\S.+)",
                             m_factory.getForwardingRegexp());
     }
 
+    /**
+     * Test uei.
+     */
     @Test
     public void testUEI() {
         List<UeiMatch> ueiList = m_factory.getUeiList().getUeiMatchCollection();
@@ -100,6 +125,9 @@ public class SyslogdConfigFactoryTest {
         Assert.assertEquals("uei.opennms.org/tests/syslogd/regexUeiRewriteTest", uei.getUei());
     }
 
+    /**
+     * Test hide these messages.
+     */
     @Test
     public void testHideTheseMessages() {
         for (HideMatch hide : m_factory.getHideMessages().getHideMatchCollection()) {
@@ -113,6 +141,12 @@ public class SyslogdConfigFactoryTest {
         }
     }
 
+    /**
+     * Test import files.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testImportFiles() throws Exception {
         SyslogdConfigFactory factory = new SyslogdConfigFactory(

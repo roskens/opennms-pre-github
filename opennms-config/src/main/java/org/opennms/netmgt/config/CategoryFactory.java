@@ -59,20 +59,20 @@ import org.springframework.core.io.Resource;
  * @author <a href="http://www.opennms.org/">OpenNMS </a>
  */
 public final class CategoryFactory implements CatFactory {
+
+    /** The m_global lock. */
     private final ReadWriteLock m_globalLock = new ReentrantReadWriteLock();
 
+    /** The m_read lock. */
     private final Lock m_readLock = m_globalLock.readLock();
 
+    /** The m_write lock. */
     private final Lock m_writeLock = m_globalLock.writeLock();
 
-    /**
-     * The singleton instance of this factory
-     */
+    /** The singleton instance of this factory. */
     private static CatFactory m_singleton = null;
 
-    /**
-     * The config class loaded from the config file
-     */
+    /** The config class loaded from the config file. */
     private Catinfo m_config;
 
     /**
@@ -81,14 +81,16 @@ public final class CategoryFactory implements CatFactory {
     private static boolean m_loaded = false;
 
     /**
-     * Private constructor
+     * Private constructor.
      *
-     * @exception java.io.IOException
-     *                Thrown if the specified config file cannot be read
-     * @exception org.exolab.castor.xml.MarshalException
-     *                Thrown if the file does not conform to the schema.
-     * @exception org.exolab.castor.xml.ValidationException
-     *                Thrown if the contents do not match the required schema.
+     * @param configFile
+     *            the config file
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     private CategoryFactory(final String configFile) throws IOException, MarshalException, ValidationException {
         this(new FileSystemResource(configFile));
@@ -101,22 +103,28 @@ public final class CategoryFactory implements CatFactory {
      *
      * @param resource
      *            a {@link org.springframework.core.io.Resource} object.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public CategoryFactory(final Resource resource) throws IOException, MarshalException, ValidationException {
         m_config = CastorUtils.unmarshal(Catinfo.class, resource);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.categories.CatFactory#getReadLock()
+     */
     @Override
     public Lock getReadLock() {
         return m_readLock;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.categories.CatFactory#getWriteLock()
+     */
     @Override
     public Lock getWriteLock() {
         return m_writeLock;
@@ -126,18 +134,12 @@ public final class CategoryFactory implements CatFactory {
      * Load the config from the default config file and create the singleton
      * instance of this factory.
      *
-     * @exception java.io.IOException
-     *                Thrown if the specified config file cannot be read
-     * @exception org.exolab.castor.xml.MarshalException
-     *                Thrown if the file does not conform to the schema.
-     * @exception org.exolab.castor.xml.ValidationException
-     *                Thrown if the contents do not match the required schema.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public static synchronized void init() throws IOException, MarshalException, ValidationException {
         if (m_loaded) {
@@ -151,20 +153,14 @@ public final class CategoryFactory implements CatFactory {
     }
 
     /**
-     * Reload the config from the default config file
+     * Reload the config from the default config file.
      *
-     * @exception java.io.IOException
-     *                Thrown if the specified config file cannot be read/loaded
-     * @exception org.exolab.castor.xml.MarshalException
-     *                Thrown if the file does not conform to the schema.
-     * @exception org.exolab.castor.xml.ValidationException
-     *                Thrown if the contents do not match the required schema.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public static synchronized void reload() throws IOException, MarshalException, ValidationException {
         m_singleton = null;
@@ -177,8 +173,6 @@ public final class CategoryFactory implements CatFactory {
      * Return the singleton instance of this factory.
      *
      * @return The current factory instance.
-     * @throws java.lang.IllegalStateException
-     *             Thrown if the factory has not yet been initialized.
      */
     public static synchronized CatFactory getInstance() {
         if (!m_loaded)
@@ -191,6 +185,7 @@ public final class CategoryFactory implements CatFactory {
      * <p>
      * setInstance
      * </p>
+     * .
      *
      * @param singleton
      *            a {@link org.opennms.netmgt.config.categories.CatFactory}

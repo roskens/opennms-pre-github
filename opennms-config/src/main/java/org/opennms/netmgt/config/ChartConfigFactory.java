@@ -52,27 +52,32 @@ import org.opennms.core.utils.ConfigFileConstants;
  */
 public class ChartConfigFactory extends ChartConfigManager {
 
+    /** The m_initialized. */
     private static boolean m_initialized = false;
 
+    /** The m_instance. */
     private static ChartConfigFactory m_instance = null;
 
+    /** The m_chart config file. */
     private static File m_chartConfigFile;
 
+    /** The m_last modified. */
     private static long m_lastModified;
 
     /**
      * <p>
      * init
      * </p>
+     * .
      *
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
-     * @throws java.io.FileNotFoundException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws FileNotFoundException
+     *             the file not found exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public static synchronized void init() throws MarshalException, ValidationException, FileNotFoundException,
             IOException {
@@ -87,15 +92,16 @@ public class ChartConfigFactory extends ChartConfigManager {
      * <p>
      * reload
      * </p>
+     * .
      *
-     * @throws java.io.IOException
-     *             if any.
-     * @throws java.io.FileNotFoundException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws FileNotFoundException
+     *             the file not found exception
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public static synchronized void reload() throws IOException, FileNotFoundException, MarshalException,
             ValidationException {
@@ -128,13 +134,14 @@ public class ChartConfigFactory extends ChartConfigManager {
      * <p>
      * update
      * </p>
+     * .
      *
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     @Override
     public void update() throws IOException, MarshalException, ValidationException {
@@ -147,6 +154,7 @@ public class ChartConfigFactory extends ChartConfigManager {
      * <p>
      * getInstance
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.config.ChartConfigFactory} object.
      */
@@ -162,6 +170,7 @@ public class ChartConfigFactory extends ChartConfigManager {
      * <p>
      * setInstance
      * </p>
+     * .
      *
      * @param instance
      *            a {@link org.opennms.netmgt.config.ChartConfigFactory} object.

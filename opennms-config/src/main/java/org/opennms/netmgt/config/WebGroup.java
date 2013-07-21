@@ -41,8 +41,10 @@ import java.util.Collection;
  */
 public class WebGroup {
 
+    /** The m_name. */
     private final String m_name;
 
+    /** The m_users. */
     private Collection<WebUser> m_users;
 
     /**
@@ -61,6 +63,7 @@ public class WebGroup {
      * <p>
      * getName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -72,6 +75,7 @@ public class WebGroup {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -84,6 +88,7 @@ public class WebGroup {
      * <p>
      * getUsers
      * </p>
+     * .
      *
      * @return a {@link java.util.Collection} object.
      */
@@ -95,6 +100,7 @@ public class WebGroup {
      * <p>
      * setUsers
      * </p>
+     * .
      *
      * @param users
      *            a {@link java.util.Collection} object.
@@ -117,6 +123,7 @@ public class WebGroup {
      * <p>
      * hashCode
      * </p>
+     * .
      *
      * @return a int.
      */

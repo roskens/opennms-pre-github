@@ -43,11 +43,17 @@ import org.springframework.dao.DataAccessResourceFailureException;
  * @version $Id: $
  */
 public class FilterDaoFactory {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(FilterDaoFactory.class);
 
+    /** The m_filter dao. */
     private static FilterDao m_filterDao;
 
     // Only static methods, so don't let the constructor be called
+    /**
+     * Instantiates a new filter dao factory.
+     */
     private FilterDaoFactory() {
     }
 
@@ -55,6 +61,7 @@ public class FilterDaoFactory {
      * <p>
      * getInstance
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.dao.FilterDao} object.
      */
@@ -70,6 +77,7 @@ public class FilterDaoFactory {
      * <p>
      * setInstance
      * </p>
+     * .
      *
      * @param filterDao
      *            a {@link org.opennms.netmgt.dao.FilterDao} object.
@@ -83,6 +91,7 @@ public class FilterDaoFactory {
      * <p>
      * init
      * </p>
+     * .
      */
     protected static synchronized void init() {
         if (m_filterDao != null) {

@@ -68,16 +68,16 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public abstract class ThreshdConfigManager {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(ThreshdConfigManager.class);
 
-    /**
-     * The config class loaded from the config file
-     */
+    /** The config class loaded from the config file. */
     protected ThreshdConfiguration m_config;
 
     /**
      * A mapping of the configured URLs to a list of the specific IPs configured
-     * in each - so as to avoid file reads
+     * in each - so as to avoid file reads.
      */
     private Map<String, List<String>> m_urlIPMap;
 
@@ -93,9 +93,7 @@ public abstract class ThreshdConfigManager {
      */
     protected boolean m_verifyServer;
 
-    /**
-     * The name of the local OpenNMS server
-     */
+    /** The name of the local OpenNMS server. */
     protected String m_localServer;
 
     /**
@@ -109,10 +107,10 @@ public abstract class ThreshdConfigManager {
      *            a {@link java.lang.String} object.
      * @param verifyServer
      *            a boolean.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public ThreshdConfigManager(InputStream stream, String localServer, boolean verifyServer) throws MarshalException,
             ValidationException {
@@ -130,7 +128,7 @@ public abstract class ThreshdConfigManager {
     /**
      * Go through the configuration and build a mapping of each configured URL
      * to a list of IPs configured in that URL - done at init() time so that
-     * repeated file reads can be avoided
+     * repeated file reads can be avoided.
      */
     protected void createUrlIpMap() {
         m_urlIPMap = new HashMap<String, List<String>>();
@@ -199,14 +197,14 @@ public abstract class ThreshdConfigManager {
     }
 
     /**
-     * Saves the current in-memory configuration to disk and reloads
+     * Saves the current in-memory configuration to disk and reloads.
      *
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws ValidationException
+     *             the validation exception
      */
     public synchronized void saveCurrent() throws MarshalException, IOException, ValidationException {
 
@@ -228,13 +226,14 @@ public abstract class ThreshdConfigManager {
      * <p>
      * reloadXML
      * </p>
+     * .
      *
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public abstract void reloadXML() throws IOException, MarshalException, ValidationException;
 
@@ -242,11 +241,12 @@ public abstract class ThreshdConfigManager {
      * <p>
      * saveXML
      * </p>
+     * .
      *
      * @param xmlString
      *            a {@link java.lang.String} object.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     protected abstract void saveXML(String xmlString) throws IOException;
 
@@ -264,6 +264,7 @@ public abstract class ThreshdConfigManager {
      * <p>
      * getPackage
      * </p>
+     * .
      *
      * @param name
      *            a {@link java.lang.String} object.

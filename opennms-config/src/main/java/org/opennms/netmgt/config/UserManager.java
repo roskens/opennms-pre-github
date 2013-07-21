@@ -74,32 +74,57 @@ import org.opennms.netmgt.model.OnmsUserList;
  * @author <a href="mailto:ranger@opennms.org">Benjamin Reed</a>
  */
 public abstract class UserManager {
+
+    /** The Constant HEX. */
     private static final char[] HEX = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
 
+    /** The Constant m_passwordEncryptor. */
     private static final PasswordEncryptor m_passwordEncryptor = new StrongPasswordEncryptor();
 
+    /** The m_read write lock. */
     private final ReadWriteLock m_readWriteLock = new ReentrantReadWriteLock();
 
+    /** The m_read lock. */
     private final Lock m_readLock = m_readWriteLock.readLock();
 
+    /** The m_write lock. */
     private final Lock m_writeLock = m_readWriteLock.writeLock();
 
+    /**
+     * The Enum ContactType.
+     */
     public enum ContactType {
-        email, pagerEmail, xmppAddress, microblog, numericPage, textPage, workPhone, mobilePhone, homePhone
+
+        /** The email. */
+        email,
+ /** The pager email. */
+ pagerEmail,
+ /** The xmpp address. */
+ xmppAddress,
+ /** The microblog. */
+ microblog,
+ /** The numeric page. */
+ numericPage,
+ /** The text page. */
+ textPage,
+ /** The work phone. */
+ workPhone,
+ /** The mobile phone. */
+ mobilePhone,
+ /** The home phone. */
+ homePhone
     }
 
+    /** The m_group manager. */
     protected GroupManager m_groupManager;
 
-    /**
-     * A mapping of user IDs to the User objects
-     */
+    /** A mapping of user IDs to the User objects. */
     protected Map<String, User> m_users;
 
-    /**
-     * The duty schedules for each user
-     */
+    /** The duty schedules for each user. */
     protected HashMap<String, List<DutySchedule>> m_dutySchedules;
 
+    /** The old header. */
     private Header oldHeader;
 
     /**
@@ -118,13 +143,14 @@ public abstract class UserManager {
      * <p>
      * parseXML
      * </p>
+     * .
      *
      * @param in
      *            a {@link java.io.InputStream} object.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public void parseXML(final InputStream in) throws MarshalException, ValidationException {
         m_writeLock.lock();
@@ -153,8 +179,8 @@ public abstract class UserManager {
      *            a {@link java.lang.String} object.
      * @param details
      *            a {@link org.opennms.netmgt.config.users.User} object.
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     public void saveUser(final String name, final User details) throws Exception {
         m_writeLock.lock();
@@ -166,6 +192,16 @@ public abstract class UserManager {
         }
     }
 
+    /**
+     * _write user.
+     *
+     * @param name
+     *            the name
+     * @param details
+     *            the details
+     * @throws Exception
+     *             the exception
+     */
     private void _writeUser(final String name, final User details) throws Exception {
         if (name == null || details == null) {
             throw new Exception("UserFactory:saveUser  null");
@@ -176,6 +212,14 @@ public abstract class UserManager {
         _saveCurrent();
     }
 
+    /**
+     * Save.
+     *
+     * @param user
+     *            the user
+     * @throws Exception
+     *             the exception
+     */
     public void save(final OnmsUser user) throws Exception {
         m_writeLock.lock();
 
@@ -239,12 +283,12 @@ public abstract class UserManager {
      * @param time
      *            the time to check for a duty schedule
      * @return boolean, true if the user is on duty, false otherwise.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public boolean isUserOnDuty(final String user, final Calendar time) throws IOException, MarshalException,
             ValidationException {
@@ -273,12 +317,12 @@ public abstract class UserManager {
      * Return a <code>Map</code> of usernames to user instances.
      *
      * @return a {@link java.util.Map} object.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public Map<String, User> getUsers() throws IOException, MarshalException, ValidationException {
 
@@ -292,6 +336,17 @@ public abstract class UserManager {
         }
     }
 
+    /**
+     * Gets the onms user list.
+     *
+     * @return the onms user list
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     public OnmsUserList getOnmsUserList() throws MarshalException, ValidationException, IOException {
         final OnmsUserList list = new OnmsUserList();
 
@@ -309,6 +364,19 @@ public abstract class UserManager {
         }
     }
 
+    /**
+     * Gets the onms user.
+     *
+     * @param username
+     *            the username
+     * @return the onms user
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     public OnmsUser getOnmsUser(final String username) throws MarshalException, ValidationException, IOException {
         m_readLock.lock();
 
@@ -319,6 +387,19 @@ public abstract class UserManager {
         }
     }
 
+    /**
+     * _get onms user.
+     *
+     * @param username
+     *            the username
+     * @return the onms user
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     */
     private OnmsUser _getOnmsUser(final String username) throws IOException, MarshalException, ValidationException {
         final User castorUser = _getUser(username);
         if (castorUser == null)
@@ -335,17 +416,17 @@ public abstract class UserManager {
     }
 
     /**
-     * Returns a boolean indicating if the user name appears in the XML file
+     * Returns a boolean indicating if the user name appears in the XML file.
      *
-     * @return true if the user exists in the XML file, false otherwise
      * @param userName
      *            a {@link java.lang.String} object.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @return true if the user exists in the XML file, false otherwise
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public boolean hasUser(final String userName) throws IOException, MarshalException, ValidationException {
 
@@ -363,14 +444,15 @@ public abstract class UserManager {
      * <p>
      * getUserNames
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public List<String> getUserNames() throws IOException, MarshalException, ValidationException {
 
@@ -384,6 +466,11 @@ public abstract class UserManager {
         }
     }
 
+    /**
+     * _get user names.
+     *
+     * @return the list
+     */
     private List<String> _getUserNames() {
         final List<String> userNames = new ArrayList<String>();
         userNames.addAll(m_users.keySet());
@@ -391,17 +478,17 @@ public abstract class UserManager {
     }
 
     /**
-     * Get a user by name
+     * Get a user by name.
      *
      * @param name
      *            the name of the user to return
      * @return the user specified by name
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public User getUser(final String name) throws IOException, MarshalException, ValidationException {
 
@@ -415,22 +502,29 @@ public abstract class UserManager {
         }
     }
 
+    /**
+     * _get user.
+     *
+     * @param name
+     *            the name
+     * @return the user
+     */
     private User _getUser(final String name) {
         return m_users.get(name);
     }
 
     /**
-     * Get a user's telephone PIN by name
+     * Get a user's telephone PIN by name.
      *
      * @param name
      *            the name of the user to return
      * @return the telephone PIN of the user specified by name
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public String getTuiPin(final String name) throws IOException, MarshalException, ValidationException {
 
@@ -445,17 +539,17 @@ public abstract class UserManager {
     }
 
     /**
-     * Get a user's telephone PIN by User object
+     * Get a user's telephone PIN by User object.
      *
-     * @return the telephone PIN of the user specified by user
      * @param user
      *            a {@link org.opennms.netmgt.config.users.User} object.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @return the telephone PIN of the user specified by user
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public String getTuiPin(final User user) throws IOException, MarshalException, ValidationException {
 
@@ -470,20 +564,20 @@ public abstract class UserManager {
     }
 
     /**
-     * Get a user's microblog username by username
+     * Get a user's microblog username by username.
      *
      * @param name
      *            the username of the user whose microblog username should be
      *            returned
      * @return the microblog username of the specified user
-     * @throws java.io.IOException
-     *             if any.
-     * @throws java.io.FileNotFoundException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws FileNotFoundException
+     *             the file not found exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public String getMicroblogName(final String name) throws MarshalException, ValidationException,
             FileNotFoundException, IOException {
@@ -491,20 +585,20 @@ public abstract class UserManager {
     }
 
     /**
-     * Get a user's microblog username by User
+     * Get a user's microblog username by User.
      *
      * @param user
      *            the user object of the user whose microblog username should be
      *            returned
      * @return the microblog username of the specified user
-     * @throws java.io.IOException
-     *             if any.
-     * @throws java.io.FileNotFoundException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws FileNotFoundException
+     *             the file not found exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public String getMicroblogName(final User user) throws MarshalException, ValidationException,
             FileNotFoundException, IOException {
@@ -512,19 +606,19 @@ public abstract class UserManager {
     }
 
     /**
-     * Get the contact info given a command string
+     * Get the contact info given a command string.
      *
      * @param userID
      *            the name of the user
      * @param command
      *            the command to look up the contact info for
      * @return the contact information
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public String getContactInfo(final String userID, final String command) throws IOException, MarshalException,
             ValidationException {
@@ -543,18 +637,19 @@ public abstract class UserManager {
      * <p>
      * getContactInfo
      * </p>
+     * .
      *
      * @param user
      *            a {@link org.opennms.netmgt.config.users.User} object.
      * @param command
      *            a {@link java.lang.String} object.
      * @return a {@link java.lang.String} object.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public String getContactInfo(final User user, final String command) throws IOException, MarshalException,
             ValidationException {
@@ -569,6 +664,15 @@ public abstract class UserManager {
         }
     }
 
+    /**
+     * _get contact info.
+     *
+     * @param user
+     *            the user
+     * @param command
+     *            the command
+     * @return the string
+     */
     private String _getContactInfo(final User user, final String command) {
         if (user == null)
             return "";
@@ -582,19 +686,19 @@ public abstract class UserManager {
     }
 
     /**
-     * Get the contact service provider, given a command string
+     * Get the contact service provider, given a command string.
      *
      * @param userID
      *            the name of the user
      * @param command
      *            the command to look up the contact info for
      * @return the contact information
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public String getContactServiceProvider(final String userID, final String command) throws IOException,
             MarshalException, ValidationException {
@@ -613,18 +717,19 @@ public abstract class UserManager {
      * <p>
      * getContactServiceProvider
      * </p>
+     * .
      *
      * @param user
      *            a {@link org.opennms.netmgt.config.users.User} object.
      * @param command
      *            a {@link java.lang.String} object.
      * @return a {@link java.lang.String} object.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public String getContactServiceProvider(final User user, final String command) throws IOException,
             MarshalException, ValidationException {
@@ -638,6 +743,15 @@ public abstract class UserManager {
         }
     }
 
+    /**
+     * _get contact service provider.
+     *
+     * @param user
+     *            the user
+     * @param command
+     *            the command
+     * @return the string
+     */
     private String _getContactServiceProvider(final User user, final String command) {
         if (user == null)
             return "";
@@ -652,119 +766,119 @@ public abstract class UserManager {
     }
 
     /**
-     * Get a email by name
+     * Get a email by name.
      *
      * @param userID
      *            the user ID of the user to return
      * @return String the email specified by name
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public String getEmail(final String userID) throws IOException, MarshalException, ValidationException {
         return getContactInfo(userID, ContactType.email.toString());
     }
 
     /**
-     * Get a email by user
+     * Get a email by user.
      *
      * @param user
      *            the user to find the email for
      * @return String the email specified by name
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public String getEmail(final User user) throws IOException, MarshalException, ValidationException {
         return getContactInfo(user, ContactType.email.toString());
     }
 
     /**
-     * Get a pager email by name
+     * Get a pager email by name.
      *
      * @param userID
      *            the user ID of the user to return
      * @return String the pager email
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public String getPagerEmail(final String userID) throws IOException, MarshalException, ValidationException {
         return getContactInfo(userID, ContactType.pagerEmail.toString());
     }
 
     /**
-     * Get a pager email by user
+     * Get a pager email by user.
      *
      * @param user
      *            a {@link org.opennms.netmgt.config.users.User} object.
      * @return String the pager email
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public String getPagerEmail(final User user) throws IOException, MarshalException, ValidationException {
         return getContactInfo(user, ContactType.pagerEmail.toString());
     }
 
     /**
-     * Get a numeric pin
+     * Get a numeric pin.
      *
      * @param userID
      *            the user ID of the user to return
      * @return String the numeric pin
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public String getNumericPin(final String userID) throws IOException, MarshalException, ValidationException {
         return getContactInfo(userID, ContactType.numericPage.toString());
     }
 
     /**
-     * Get a numeric pin
+     * Get a numeric pin.
      *
-     * @return String the numeric pin
      * @param user
      *            a {@link org.opennms.netmgt.config.users.User} object.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @return String the numeric pin
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public String getNumericPin(final User user) throws IOException, MarshalException, ValidationException {
         return getContactInfo(user, ContactType.numericPage.toString());
     }
 
     /**
-     * Get an XMPP address by name
+     * Get an XMPP address by name.
      *
      * @param userID
      *            the user ID of the user to return
      * @return String the XMPP address
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public String getXMPPAddress(final String userID) throws IOException, MarshalException, ValidationException {
 
@@ -780,17 +894,17 @@ public abstract class UserManager {
     }
 
     /**
-     * Get an XMPP address by name
+     * Get an XMPP address by name.
      *
      * @param user
      *            a {@link org.opennms.netmgt.config.users.User} object.
      * @return String the XMPP address
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public String getXMPPAddress(final User user) throws IOException, MarshalException, ValidationException {
 
@@ -804,6 +918,13 @@ public abstract class UserManager {
         }
     }
 
+    /**
+     * _get xmpp address.
+     *
+     * @param user
+     *            the user
+     * @return the string
+     */
     private String _getXMPPAddress(final User user) {
         if (user == null)
             return "";
@@ -818,204 +939,204 @@ public abstract class UserManager {
     }
 
     /**
-     * Get a numeric service provider
+     * Get a numeric service provider.
      *
      * @param userID
      *            the user ID of the user to return
      * @return String the service provider
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public String getNumericPage(final String userID) throws IOException, MarshalException, ValidationException {
         return getContactServiceProvider(userID, ContactType.numericPage.toString());
     }
 
     /**
-     * Get a numeric service provider
+     * Get a numeric service provider.
      *
-     * @return String the service provider
      * @param user
      *            a {@link org.opennms.netmgt.config.users.User} object.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @return String the service provider
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public String getNumericPage(final User user) throws IOException, MarshalException, ValidationException {
         return getContactServiceProvider(user, ContactType.numericPage.toString());
     }
 
     /**
-     * Get a text pin
+     * Get a text pin.
      *
      * @param userID
      *            the user ID of the user to return
      * @return String the text pin
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public String getTextPin(final String userID) throws IOException, MarshalException, ValidationException {
         return getContactInfo(userID, ContactType.textPage.toString());
     }
 
     /**
-     * Get a text pin
+     * Get a text pin.
      *
-     * @return String the text pin
      * @param user
      *            a {@link org.opennms.netmgt.config.users.User} object.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @return String the text pin
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public String getTextPin(final User user) throws IOException, MarshalException, ValidationException {
         return getContactInfo(user, ContactType.textPage.toString());
     }
 
     /**
-     * Get a Text Page Service Provider
+     * Get a Text Page Service Provider.
      *
      * @param userID
      *            the user ID of the user to return
      * @return String the text page service provider.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public String getTextPage(final String userID) throws IOException, MarshalException, ValidationException {
         return getContactServiceProvider(userID, ContactType.textPage.toString());
     }
 
     /**
-     * Get a Text Page Service Provider
+     * Get a Text Page Service Provider.
      *
-     * @return String the text page service provider.
      * @param user
      *            a {@link org.opennms.netmgt.config.users.User} object.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @return String the text page service provider.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public String getTextPage(final User user) throws IOException, MarshalException, ValidationException {
         return getContactServiceProvider(user, ContactType.textPage.toString());
     }
 
     /**
-     * Get a work phone number
+     * Get a work phone number.
      *
      * @param userID
      *            the user ID of the user to return
      * @return String the work phone number
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public String getWorkPhone(final String userID) throws MarshalException, ValidationException, IOException {
         return getContactInfo(userID, ContactType.workPhone.toString());
     }
 
     /**
-     * Get a work phone number
+     * Get a work phone number.
      *
-     * @return String the work phone number
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
      * @param user
      *            a {@link org.opennms.netmgt.config.users.User} object.
+     * @return String the work phone number
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public String getWorkPhone(final User user) throws MarshalException, ValidationException, IOException {
         return getContactInfo(user, ContactType.workPhone.toString());
     }
 
     /**
-     * Get a mobile phone number
+     * Get a mobile phone number.
      *
      * @param userID
      *            the user ID of the user to return
      * @return String the mobile phone number
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public String getMobilePhone(final String userID) throws MarshalException, ValidationException, IOException {
         return getContactInfo(userID, ContactType.mobilePhone.toString());
     }
 
     /**
-     * Get a mobile phone number
+     * Get a mobile phone number.
      *
-     * @return String the mobile phone number
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
      * @param user
      *            a {@link org.opennms.netmgt.config.users.User} object.
+     * @return String the mobile phone number
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public String getMobilePhone(final User user) throws MarshalException, ValidationException, IOException {
         return getContactInfo(user, ContactType.mobilePhone.toString());
     }
 
     /**
-     * Get a home phone number
+     * Get a home phone number.
      *
      * @param userID
      *            the user ID of the user to return
      * @return String the home phone number
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public String getHomePhone(final String userID) throws MarshalException, ValidationException, IOException {
         return getContactInfo(userID, ContactType.homePhone.toString());
     }
 
     /**
-     * Get a home phone number
+     * Get a home phone number.
      *
-     * @return String the home phone number
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
      * @param user
      *            a {@link org.opennms.netmgt.config.users.User} object.
+     * @return String the home phone number
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public String getHomePhone(final User user) throws MarshalException, ValidationException, IOException {
         return getContactInfo(user, ContactType.homePhone.toString());
@@ -1025,11 +1146,12 @@ public abstract class UserManager {
      * <p>
      * saveUsers
      * </p>
+     * .
      *
      * @param usersList
      *            a {@link java.util.Collection} object.
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     public void saveUsers(final Collection<User> usersList) throws Exception {
         m_writeLock.lock();
@@ -1052,8 +1174,8 @@ public abstract class UserManager {
      *
      * @param name
      *            a {@link java.lang.String} object.
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     public void deleteUser(final String name) throws Exception {
         m_writeLock.lock();
@@ -1081,6 +1203,9 @@ public abstract class UserManager {
 
     /**
      * Saves into "users.xml" file
+     *
+     * @throws Exception
+     *             the exception
      */
     private void _saveCurrent() throws Exception {
         final Users users = new Users();
@@ -1112,11 +1237,12 @@ public abstract class UserManager {
      * <p>
      * saveXML
      * </p>
+     * .
      *
      * @param writerString
      *            a {@link java.lang.String} object.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     protected abstract void saveXML(final String writerString) throws IOException;
 
@@ -1128,8 +1254,8 @@ public abstract class UserManager {
      *            a {@link java.lang.String} object.
      * @param newName
      *            a {@link java.lang.String} object.
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     public void renameUser(final String oldName, final String newName) throws Exception {
         m_writeLock.lock();
@@ -1165,14 +1291,16 @@ public abstract class UserManager {
 
     /**
      * Sets the password for this user, assuming that the value passed in is
-     * already encrypted properly
+     * already encrypted properly.
      *
      * @param userID
      *            the user ID to change the password for
      * @param aPassword
      *            the encrypted password
-     * @throws java.lang.Exception
-     *             if any.
+     * @param salted
+     *            the salted
+     * @throws Exception
+     *             the exception
      */
     public void setEncryptedPassword(final String userID, final String aPassword, final boolean salted)
             throws Exception {
@@ -1194,14 +1322,14 @@ public abstract class UserManager {
     }
 
     /**
-     * Sets the password for this user, first encrypting it
+     * Sets the password for this user, first encrypting it.
      *
      * @param userID
      *            the user ID to change the password for
      * @param aPassword
      *            the password
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     public void setUnencryptedPassword(final String userID, final String aPassword) throws Exception {
         m_writeLock.lock();
@@ -1225,6 +1353,7 @@ public abstract class UserManager {
      * <p>
      * encryptedPassword
      * </p>
+     * .
      *
      * @param aPassword
      *            a {@link java.lang.String} object.
@@ -1255,8 +1384,11 @@ public abstract class UserManager {
     }
 
     /**
+     * Hex to string.
+     *
      * @param data
-     * @return
+     *            the data
+     * @return the string
      */
     private String hexToString(final byte[] data) {
         // check to see if the byte array has an even number of elements
@@ -1306,6 +1438,15 @@ public abstract class UserManager {
         }
     }
 
+    /**
+     * Check salted password.
+     *
+     * @param raw
+     *            the raw
+     * @param encrypted
+     *            the encrypted
+     * @return true, if successful
+     */
     public boolean checkSaltedPassword(final String raw, final String encrypted) {
         return m_passwordEncryptor.checkPassword(raw, encrypted);
     }
@@ -1314,18 +1455,31 @@ public abstract class UserManager {
      * <p>
      * update
      * </p>
+     * .
      *
-     * @throws java.io.IOException
-     *             if any.
-     * @throws java.io.FileNotFoundException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws FileNotFoundException
+     *             the file not found exception
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     protected abstract void doUpdate() throws IOException, FileNotFoundException, MarshalException, ValidationException;
 
+    /**
+     * Update.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws FileNotFoundException
+     *             the file not found exception
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     */
     public final void update() throws IOException, FileNotFoundException, MarshalException, ValidationException {
         m_writeLock.lock();
         try {
@@ -1339,16 +1493,17 @@ public abstract class UserManager {
      * <p>
      * getUsersWithRole
      * </p>
+     * .
      *
      * @param roleid
      *            a {@link java.lang.String} object.
      * @return an array of {@link java.lang.String} objects.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public String[] getUsersWithRole(final String roleid) throws IOException, MarshalException, ValidationException {
         update();
@@ -1361,6 +1516,19 @@ public abstract class UserManager {
         }
     }
 
+    /**
+     * _get users with role.
+     *
+     * @param roleid
+     *            the roleid
+     * @return the string[]
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     private String[] _getUsersWithRole(final String roleid) throws MarshalException, ValidationException, IOException {
         final List<String> usersWithRole = new ArrayList<String>();
 
@@ -1377,20 +1545,21 @@ public abstract class UserManager {
      * <p>
      * userHasRole
      * </p>
+     * .
      *
      * @param user
      *            a {@link org.opennms.netmgt.config.users.User} object.
      * @param roleid
      *            a {@link java.lang.String} object.
      * @return a boolean.
-     * @throws java.io.FileNotFoundException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws FileNotFoundException
+     *             the file not found exception
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public boolean userHasRole(final User user, final String roleid) throws FileNotFoundException, MarshalException,
             ValidationException, IOException {
@@ -1404,6 +1573,21 @@ public abstract class UserManager {
         }
     }
 
+    /**
+     * _user has role.
+     *
+     * @param user
+     *            the user
+     * @param roleid
+     *            the roleid
+     * @return true, if successful
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     private boolean _userHasRole(final User user, final String roleid) throws MarshalException, ValidationException,
             IOException {
         if (roleid == null)
@@ -1416,6 +1600,7 @@ public abstract class UserManager {
      * <p>
      * isUserScheduledForRole
      * </p>
+     * .
      *
      * @param user
      *            a {@link org.opennms.netmgt.config.users.User} object.
@@ -1424,14 +1609,14 @@ public abstract class UserManager {
      * @param time
      *            a {@link java.util.Date} object.
      * @return a boolean.
-     * @throws java.io.FileNotFoundException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws FileNotFoundException
+     *             the file not found exception
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public boolean isUserScheduledForRole(final User user, final String roleid, final Date time)
             throws FileNotFoundException, MarshalException, ValidationException, IOException {
@@ -1445,6 +1630,23 @@ public abstract class UserManager {
         }
     }
 
+    /**
+     * _is user scheduled for role.
+     *
+     * @param user
+     *            the user
+     * @param roleid
+     *            the roleid
+     * @param time
+     *            the time
+     * @return true, if successful
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     private boolean _isUserScheduledForRole(final User user, final String roleid, final Date time)
             throws MarshalException, ValidationException, IOException {
         if (roleid == null)
@@ -1457,18 +1659,19 @@ public abstract class UserManager {
      * <p>
      * getUsersScheduledForRole
      * </p>
+     * .
      *
      * @param roleid
      *            a {@link java.lang.String} object.
      * @param time
      *            a {@link java.util.Date} object.
      * @return an array of {@link java.lang.String} objects.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public String[] getUsersScheduledForRole(final String roleid, final Date time) throws MarshalException,
             ValidationException, IOException {
@@ -1494,16 +1697,17 @@ public abstract class UserManager {
      * <p>
      * hasRole
      * </p>
+     * .
      *
      * @param roleid
      *            a {@link java.lang.String} object.
      * @return a boolean.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public boolean hasRole(final String roleid) throws MarshalException, ValidationException, IOException {
         m_readLock.lock();
@@ -1518,16 +1722,17 @@ public abstract class UserManager {
      * <p>
      * countUsersWithRole
      * </p>
+     * .
      *
      * @param roleid
      *            a {@link java.lang.String} object.
      * @return a int.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public int countUsersWithRole(final String roleid) throws MarshalException, ValidationException, IOException {
         m_readLock.lock();
@@ -1541,11 +1746,38 @@ public abstract class UserManager {
         }
     }
 
+    /**
+     * Checks if is update needed.
+     *
+     * @return true, if is update needed
+     */
     public abstract boolean isUpdateNeeded();
 
+    /**
+     * Gets the last modified.
+     *
+     * @return the last modified
+     */
     public abstract long getLastModified();
 
+    /**
+     * Gets the file size.
+     *
+     * @return the file size
+     */
     public abstract long getFileSize();
 
+    /**
+     * Reload.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws FileNotFoundException
+     *             the file not found exception
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     */
     public abstract void reload() throws IOException, FileNotFoundException, MarshalException, ValidationException;
 }

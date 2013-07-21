@@ -42,6 +42,7 @@ import org.opennms.netmgt.xml.event.Event;
  */
 public interface EventTranslatorConfig {
 
+    /** The Constant TRANSLATOR_NAME. */
     static final String TRANSLATOR_NAME = "event-translator";
 
     /**
@@ -53,7 +54,7 @@ public interface EventTranslatorConfig {
     List<String> getUEIList();
 
     /**
-     * Determine if the @param e is a translation event
+     * Determine if the @param e is a translation event.
      *
      * @param e
      *            Event
@@ -62,7 +63,7 @@ public interface EventTranslatorConfig {
     boolean isTranslationEvent(Event e);
 
     /**
-     * Translate the @param e to a new event
+     * Translate the @param e to a new event.
      *
      * @param e
      *            Event
@@ -74,9 +75,10 @@ public interface EventTranslatorConfig {
      * <p>
      * update
      * </p>
+     * .
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     void update() throws Exception;
 

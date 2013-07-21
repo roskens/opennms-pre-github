@@ -64,11 +64,11 @@ import org.slf4j.LoggerFactory;
  * @author <a href="http://www.opennms.org/">OpenNMS </a>
  */
 public final class LinkdConfigFactory extends LinkdConfigManager {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(LinkdConfigFactory.class);
 
-    /**
-     * The singleton instance of this factory
-     */
+    /** The singleton instance of this factory. */
     private static LinkdConfig m_singleton = null;
 
     /**
@@ -76,9 +76,7 @@ public final class LinkdConfigFactory extends LinkdConfigManager {
      */
     private static boolean m_loaded = false;
 
-    /**
-     * Loaded version
-     */
+    /** Loaded version. */
     private long m_currentVersion = -1L;
 
     /**
@@ -90,12 +88,12 @@ public final class LinkdConfigFactory extends LinkdConfigManager {
      *            a long.
      * @param stream
      *            a {@link java.io.InputStream} object.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public LinkdConfigFactory(final long currentVersion, final InputStream stream) throws MarshalException,
             ValidationException, IOException {
@@ -107,18 +105,12 @@ public final class LinkdConfigFactory extends LinkdConfigManager {
      * Load the config from the default config file and create the singleton
      * instance of this factory.
      *
-     * @exception java.io.IOException
-     *                Thrown if the specified config file cannot be read
-     * @exception org.exolab.castor.xml.MarshalException
-     *                Thrown if the file does not conform to the schema.
-     * @exception org.exolab.castor.xml.ValidationException
-     *                Thrown if the contents do not match the required schema.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public static synchronized void init() throws IOException, MarshalException, ValidationException {
         if (m_loaded) {
@@ -158,8 +150,6 @@ public final class LinkdConfigFactory extends LinkdConfigManager {
      * Return the singleton instance of this factory.
      *
      * @return The current factory instance.
-     * @throws java.lang.IllegalStateException
-     *             Thrown if the factory has not yet been initialized.
      */
     public static synchronized LinkdConfig getInstance() {
         if (!m_loaded) {
@@ -173,6 +163,7 @@ public final class LinkdConfigFactory extends LinkdConfigManager {
      * <p>
      * setInstance
      * </p>
+     * .
      *
      * @param instance
      *            a {@link org.opennms.netmgt.config.LinkdConfig} object.
@@ -186,13 +177,14 @@ public final class LinkdConfigFactory extends LinkdConfigManager {
      * <p>
      * reload
      * </p>
+     * .
      *
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     @Override
     public void reload() throws IOException, MarshalException, ValidationException {
@@ -222,6 +214,7 @@ public final class LinkdConfigFactory extends LinkdConfigManager {
      * <p>
      * update
      * </p>
+     * .
      */
     @Override
     public void update() {
@@ -238,15 +231,16 @@ public final class LinkdConfigFactory extends LinkdConfigManager {
      * <p>
      * reloadXML
      * </p>
+     * .
      *
      * @param stream
      *            a {@link java.io.InputStream} object.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     protected void reloadXML(final InputStream stream) throws MarshalException, ValidationException, IOException {
         getWriteLock().lock();
@@ -262,14 +256,14 @@ public final class LinkdConfigFactory extends LinkdConfigManager {
     }
 
     /**
-     * Saves the current in-memory configuration to disk
+     * Saves the current in-memory configuration to disk.
      *
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws ValidationException
+     *             the validation exception
      */
     @Override
     public void save() throws MarshalException, IOException, ValidationException {
@@ -292,15 +286,16 @@ public final class LinkdConfigFactory extends LinkdConfigManager {
      * <p>
      * reloadXML
      * </p>
+     * .
      *
      * @param reader
      *            a {@link java.io.Reader} object.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     @Deprecated
     protected void reloadXML(final Reader reader) throws MarshalException, ValidationException, IOException {

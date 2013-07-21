@@ -51,37 +51,30 @@ import org.opennms.core.utils.ConfigFileConstants;
  * @version $Id: $
  */
 public class GroupFactory extends GroupManager {
-    /**
-     * The static singleton instance object
-     */
+
+    /** The static singleton instance object. */
     private static GroupManager s_instance;
 
-    /**
-     * Boolean indicating if the init() method has been called
-     */
+    /** Boolean indicating if the init() method has been called. */
     private static boolean s_initialized = false;
 
-    /**
-     *
-     */
+    /** The m_groups conf file. */
     private File m_groupsConfFile;
 
-    /**
-     *
-     */
+    /** The m_last modified. */
     private long m_lastModified;
 
     /**
-     * Constructor which parses the file
+     * Constructor which parses the file.
      *
-     * @throws java.io.IOException
-     *             if any.
-     * @throws java.io.FileNotFoundException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws FileNotFoundException
+     *             the file not found exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public GroupFactory() throws MarshalException, ValidationException, FileNotFoundException, IOException {
         super();
@@ -92,15 +85,16 @@ public class GroupFactory extends GroupManager {
      * <p>
      * init
      * </p>
+     * .
      *
-     * @throws java.io.IOException
-     *             if any.
-     * @throws java.io.FileNotFoundException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws FileNotFoundException
+     *             the file not found exception
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public static synchronized void init() throws IOException, FileNotFoundException, MarshalException,
             ValidationException {
@@ -114,7 +108,7 @@ public class GroupFactory extends GroupManager {
 
     /**
      * Singleton static call to get the only instance that should exist for the
-     * GroupFactory
+     * GroupFactory.
      *
      * @return the single group factory instance
      */
@@ -126,6 +120,7 @@ public class GroupFactory extends GroupManager {
      * <p>
      * setInstance
      * </p>
+     * .
      *
      * @param mgr
      *            a {@link org.opennms.netmgt.config.GroupManager} object.
@@ -138,14 +133,14 @@ public class GroupFactory extends GroupManager {
     /**
      * Parses the groups.xml via the Castor classes
      *
-     * @throws java.io.IOException
-     *             if any.
-     * @throws java.io.FileNotFoundException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws FileNotFoundException
+     *             the file not found exception
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public synchronized void reload() throws IOException, FileNotFoundException, MarshalException, ValidationException {
         File confFile = ConfigFileConstants.getFile(ConfigFileConstants.GROUPS_CONF_FILE_NAME);
@@ -154,10 +149,16 @@ public class GroupFactory extends GroupManager {
     }
 
     /**
+     * Reload from file.
+     *
      * @param confFile
+     *            the conf file
      * @throws FileNotFoundException
+     *             the file not found exception
      * @throws MarshalException
+     *             the marshal exception
      * @throws ValidationException
+     *             the validation exception
      */
     private void reloadFromFile(File confFile) throws FileNotFoundException, MarshalException, ValidationException {
         m_groupsConfFile = confFile;
@@ -188,13 +189,14 @@ public class GroupFactory extends GroupManager {
      * <p>
      * update
      * </p>
+     * .
      *
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     @Override
     public void update() throws IOException, MarshalException, ValidationException {

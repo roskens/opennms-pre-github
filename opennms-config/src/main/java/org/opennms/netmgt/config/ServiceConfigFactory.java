@@ -59,11 +59,11 @@ import org.slf4j.LoggerFactory;
  * @author <a href="mailto:weave@oculan.com">Weave</a>
  */
 public final class ServiceConfigFactory {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(ServiceConfigFactory.class);
 
-    /**
-     * The singleton instance of this factory
-     */
+    /** The singleton instance of this factory. */
     private static ServiceConfigFactory m_singleton = null;
 
     /**
@@ -82,8 +82,8 @@ public final class ServiceConfigFactory {
      *
      * @param configFile
      *            The name of the configuration file.
-     * @exception java.io.IOException
-     *                Thrown if the specified config file cannot be read
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     private ServiceConfigFactory(String configFile) throws IOException {
         m_config = JaxbUtils.unmarshal(ServiceConfiguration.class, new File(configFile));
@@ -93,10 +93,8 @@ public final class ServiceConfigFactory {
      * Load the config from the default config file and create the singleton
      * instance of this factory.
      *
-     * @exception java.io.IOException
-     *                Thrown if the specified config file cannot be read
-     * @throws java.io.IOException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public static synchronized void init() throws IOException {
         if (m_loaded) {
@@ -114,12 +112,10 @@ public final class ServiceConfigFactory {
     }
 
     /**
-     * Reload the config from the default config file
+     * Reload the config from the default config file.
      *
-     * @exception java.io.IOException
-     *                Thrown if the specified config file cannot be read/loaded
-     * @throws java.io.IOException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public static synchronized void reload() throws IOException {
         m_singleton = null;
@@ -134,8 +130,6 @@ public final class ServiceConfigFactory {
      * change unless the <code>reload</code> method is called.
      *
      * @return The singular instance of the factory class.
-     * @throws java.lang.IllegalStateException
-     *             Thrown if the factory has not yet been initialized.
      */
     public static synchronized ServiceConfigFactory getInstance() {
         if (!m_loaded)
@@ -148,6 +142,7 @@ public final class ServiceConfigFactory {
      * <p>
      * setInstance
      * </p>
+     * .
      *
      * @param instance
      *            a {@link org.opennms.netmgt.config.ServiceConfigFactory}

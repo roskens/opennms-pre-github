@@ -45,6 +45,7 @@ public interface WebCalendar {
      * <p>
      * getMonthAndYear
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -54,6 +55,7 @@ public interface WebCalendar {
      * <p>
      * getPreviousMonth
      * </p>
+     * .
      *
      * @return a java$util$Date object.
      */
@@ -63,6 +65,7 @@ public interface WebCalendar {
      * <p>
      * getNextMonth
      * </p>
+     * .
      *
      * @return a java$util$Date object.
      */
@@ -72,6 +75,7 @@ public interface WebCalendar {
      * <p>
      * getWeeks
      * </p>
+     * .
      *
      * @return an array of {@link org.opennms.web.admin.roles.Week} objects.
      */

@@ -43,12 +43,15 @@ import org.opennms.netmgt.config.snmp.Range;
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
  */
 public class RangeComparator implements Comparator<Range>, Serializable {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -6090811413071744038L;
 
     /**
      * <p>
      * compare
      * </p>
+     * .
      *
      * @param rng1
      *            a {@link org.opennms.netmgt.config.common.Range} object.

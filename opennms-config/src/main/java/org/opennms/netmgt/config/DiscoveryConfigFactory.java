@@ -79,26 +79,29 @@ import org.springframework.core.io.FileSystemResource;
  * @author <a href="mailto:mike@opennms.org">Mike Davidson </a>
  */
 public class DiscoveryConfigFactory {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(DiscoveryConfigFactory.class);
 
+    /** The m_global lock. */
     private final ReadWriteLock m_globalLock = new ReentrantReadWriteLock();
 
+    /** The m_read lock. */
     private final Lock m_readLock = m_globalLock.readLock();
 
+    /** The m_write lock. */
     private final Lock m_writeLock = m_globalLock.writeLock();
 
+    /** The Constant COMMENT_STR. */
     public static final String COMMENT_STR = "#";
 
+    /** The Constant COMMENT_CHAR. */
     public static final char COMMENT_CHAR = '#';
 
-    /**
-     * The singleton instance of this factory
-     */
+    /** The singleton instance of this factory. */
     private static DiscoveryConfigFactory m_singleton = null;
 
-    /**
-     * The config class loaded from the config file
-     */
+    /** The config class loaded from the config file. */
     private DiscoveryConfiguration m_config;
 
     /**
@@ -107,32 +110,59 @@ public class DiscoveryConfigFactory {
     private static boolean m_loaded = false;
 
     /**
-     * Private constructor
+     * Private constructor.
      *
-     * @exception java.io.IOException
-     *                Thrown if the specified config file cannot be read
-     * @exception org.exolab.castor.xml.MarshalException
-     *                Thrown if the file does not conform to the schema.
-     * @exception org.exolab.castor.xml.ValidationException
-     *                Thrown if the contents do not match the required schema.
+     * @param configFile
+     *            the config file
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     private DiscoveryConfigFactory(final String configFile) throws IOException, MarshalException, ValidationException {
         final FileSystemResource resource = new FileSystemResource(configFile);
         setConfig(resource);
     }
 
+    /**
+     * Instantiates a new discovery config factory.
+     */
     protected DiscoveryConfigFactory() {
     }
 
+    /**
+     * Sets the config.
+     *
+     * @param resource
+     *            the new config
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     protected void setConfig(final FileSystemResource resource) throws MarshalException, ValidationException,
             IOException {
         m_config = CastorUtils.unmarshal(DiscoveryConfiguration.class, resource);
     }
 
+    /**
+     * Gets the read lock.
+     *
+     * @return the read lock
+     */
     public Lock getReadLock() {
         return m_readLock;
     }
 
+    /**
+     * Gets the write lock.
+     *
+     * @return the write lock
+     */
     public Lock getWriteLock() {
         return m_writeLock;
     }
@@ -141,18 +171,12 @@ public class DiscoveryConfigFactory {
      * Load the config from the default config file and create the singleton
      * instance of this factory.
      *
-     * @exception java.io.IOException
-     *                Thrown if the specified config file cannot be read
-     * @exception org.exolab.castor.xml.MarshalException
-     *                Thrown if the file does not conform to the schema.
-     * @exception org.exolab.castor.xml.ValidationException
-     *                Thrown if the contents do not match the required schema.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public static synchronized void init() throws IOException, MarshalException, ValidationException {
         if (m_loaded) {
@@ -180,20 +204,14 @@ public class DiscoveryConfigFactory {
     }
 
     /**
-     * Reload the config from the default config file
+     * Reload the config from the default config file.
      *
-     * @exception java.io.IOException
-     *                Thrown if the specified config file cannot be read/loaded
-     * @exception org.exolab.castor.xml.MarshalException
-     *                Thrown if the file does not conform to the schema.
-     * @exception org.exolab.castor.xml.ValidationException
-     *                Thrown if the contents do not match the required schema.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public static synchronized void reload() throws IOException, MarshalException, ValidationException {
         m_singleton = null;
@@ -206,8 +224,6 @@ public class DiscoveryConfigFactory {
      * Return the singleton instance of this factory.
      *
      * @return The current factory instance.
-     * @throws java.lang.IllegalStateException
-     *             Thrown if the factory has not yet been initialized.
      */
     public static synchronized DiscoveryConfigFactory getInstance() {
         if (!m_loaded)
@@ -218,6 +234,9 @@ public class DiscoveryConfigFactory {
 
     /**
      * Set the singleton instance of this factory.
+     *
+     * @param factory
+     *            the new instance
      */
     public static synchronized void setInstance(final DiscoveryConfigFactory factory) {
         m_singleton = factory;
@@ -239,11 +258,12 @@ public class DiscoveryConfigFactory {
      * <p>
      * saveXml
      * </p>
+     * .
      *
      * @param xml
      *            a {@link java.lang.String} object.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     protected void saveXml(final String xml) throws IOException {
         if (xml != null) {
@@ -266,17 +286,18 @@ public class DiscoveryConfigFactory {
      * <p>
      * saveConfiguration
      * </p>
+     * .
      *
      * @param configuration
      *            a
-     *            {@link org.opennms.netmgt.config.discovery.DiscoveryConfiguration}
-     *            object.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     *             {@link org.opennms.netmgt.config.discovery.DiscoveryConfiguration}
+     *             object.
      */
     public void saveConfiguration(final DiscoveryConfiguration configuration) throws MarshalException,
             ValidationException, IOException {
@@ -347,6 +368,7 @@ public class DiscoveryConfigFactory {
      * <p>
      * addToSpecificsFromURL
      * </p>
+     * .
      *
      * @param specifics
      *            a {@link java.util.List} object.
@@ -357,8 +379,8 @@ public class DiscoveryConfigFactory {
      * @param retries
      *            a int.
      * @return a boolean.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public static boolean addToSpecificsFromURL(final List<IPPollAddress> specifics, final InputStream is,
             final long timeout, final int retries) throws IOException {
@@ -406,6 +428,7 @@ public class DiscoveryConfigFactory {
      * <p>
      * getURLSpecifics
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -451,6 +474,7 @@ public class DiscoveryConfigFactory {
      * <p>
      * getRanges
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -516,6 +540,7 @@ public class DiscoveryConfigFactory {
      * <p>
      * getSpecifics
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -565,6 +590,7 @@ public class DiscoveryConfigFactory {
      * <p>
      * isExcluded
      * </p>
+     * .
      *
      * @param address
      *            a {@link java.net.InetAddress} object.
@@ -594,6 +620,7 @@ public class DiscoveryConfigFactory {
      * <p>
      * getIntraPacketDelay
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -610,6 +637,7 @@ public class DiscoveryConfigFactory {
      * <p>
      * getExcludingInterator
      * </p>
+     * .
      *
      * @param it
      *            a {@link java.util.Iterator} object.
@@ -629,6 +657,7 @@ public class DiscoveryConfigFactory {
      * <p>
      * getConfiguredAddresses
      * </p>
+     * .
      *
      * @return a {@link java.lang.Iterable} object.
      */
@@ -657,6 +686,7 @@ public class DiscoveryConfigFactory {
      * <p>
      * getRestartSleepTime
      * </p>
+     * .
      *
      * @return a long.
      */
@@ -673,6 +703,7 @@ public class DiscoveryConfigFactory {
      * <p>
      * getInitialSleepTime
      * </p>
+     * .
      *
      * @return a long.
      */

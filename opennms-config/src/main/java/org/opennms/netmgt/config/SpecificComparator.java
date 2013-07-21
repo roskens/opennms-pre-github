@@ -41,10 +41,12 @@ import org.opennms.core.utils.InetAddressUtils;
  * @author <a href="mailto:david@openmms.org">David Hustace</a>
  */
 public class SpecificComparator implements Comparator<String>, Serializable {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 5791618124389187729L;
 
     /**
-     * returns the difference of spec1 - spec2
+     * returns the difference of spec1 - spec2.
      *
      * @param spec1
      *            a {@link java.lang.String} object.

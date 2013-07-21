@@ -48,8 +48,9 @@ import org.opennms.netmgt.config.groups.Schedule;
  * @version $Id: $
  */
 public interface GroupDao {
+
     /**
-     * Set the groups data
+     * Set the groups data.
      *
      * @param groups
      *            a {@link java.util.Map} object.
@@ -57,18 +58,18 @@ public interface GroupDao {
     void setGroups(Map<String, Group> groups);
 
     /**
-     * Get the groups
+     * Get the groups.
      *
      * @return a {@link java.util.Map} object.
      */
     Map<String, Group> getGroups();
 
     /**
-     * Returns a boolean indicating if the group name appears in the xml file
+     * Returns a boolean indicating if the group name appears in the xml file.
      *
-     * @return true if the group exists in the xml file, false otherwise
      * @param groupName
      *            a {@link java.lang.String} object.
+     * @return true if the group exists in the xml file, false otherwise
      */
     boolean hasGroup(String groupName);
 
@@ -76,13 +77,14 @@ public interface GroupDao {
      * <p>
      * getGroupNames
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
     List<String> getGroupNames();
 
     /**
-     * Get a group using its name
+     * Get a group using its name.
      *
      * @param name
      *            the name of the group to return
@@ -94,6 +96,7 @@ public interface GroupDao {
      * <p>
      * saveGroups
      * </p>
+     * .
      */
     void saveGroups();
 
@@ -136,6 +139,7 @@ public interface GroupDao {
      * <p>
      * saveRole
      * </p>
+     * .
      *
      * @param role
      *            a {@link org.opennms.netmgt.config.groups.Role} object.
@@ -164,6 +168,7 @@ public interface GroupDao {
      * <p>
      * deleteRole
      * </p>
+     * .
      *
      * @param name
      *            a {@link java.lang.String} object.
@@ -196,6 +201,7 @@ public interface GroupDao {
      * <p>
      * getRoleNames
      * </p>
+     * .
      *
      * @return an array of {@link java.lang.String} objects.
      */
@@ -205,6 +211,7 @@ public interface GroupDao {
      * <p>
      * getRoles
      * </p>
+     * .
      *
      * @return a {@link java.util.Collection} object.
      */
@@ -214,6 +221,7 @@ public interface GroupDao {
      * <p>
      * getRole
      * </p>
+     * .
      *
      * @param roleName
      *            a {@link java.lang.String} object.
@@ -225,6 +233,7 @@ public interface GroupDao {
      * <p>
      * userHasRole
      * </p>
+     * .
      *
      * @param userId
      *            a {@link java.lang.String} object.
@@ -238,6 +247,7 @@ public interface GroupDao {
      * <p>
      * getSchedulesForRoleAt
      * </p>
+     * .
      *
      * @param roleId
      *            a {@link java.lang.String} object.
@@ -251,6 +261,7 @@ public interface GroupDao {
      * <p>
      * getUserSchedulesForRole
      * </p>
+     * .
      *
      * @param userId
      *            a {@link java.lang.String} object.
@@ -264,6 +275,7 @@ public interface GroupDao {
      * <p>
      * isUserScheduledForRole
      * </p>
+     * .
      *
      * @param userId
      *            a {@link java.lang.String} object.
@@ -279,6 +291,7 @@ public interface GroupDao {
      * <p>
      * getRoleScheduleEntries
      * </p>
+     * .
      *
      * @param roleid
      *            a {@link java.lang.String} object.
@@ -294,6 +307,7 @@ public interface GroupDao {
      * <p>
      * findGroupsForUser
      * </p>
+     * .
      *
      * @param user
      *            a {@link java.lang.String} object.
@@ -305,6 +319,7 @@ public interface GroupDao {
      * <p>
      * getDefaultMapForUser
      * </p>
+     * .
      *
      * @param user
      *            a {@link java.lang.String} object.

@@ -72,16 +72,14 @@ import org.springframework.core.io.Resource;
  * @version $Id: $
  */
 public final class JMXDataCollectionConfigFactory {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(JMXDataCollectionConfigFactory.class);
 
-    /**
-     * The singleton instance of this factory
-     */
+    /** The singleton instance of this factory. */
     private static JMXDataCollectionConfigFactory m_singleton = null;
 
-    /**
-     * The config class loaded from the config file
-     */
+    /** The config class loaded from the config file. */
     private JmxDatacollectionConfig m_config;
 
     /**
@@ -94,9 +92,7 @@ public final class JMXDataCollectionConfigFactory {
      */
     private Map<String, Map<String, Mbean>> m_collectionGroupMap;
 
-    /**
-     * Map of JmxCollection objects indexed by data collection name
-     */
+    /** Map of JmxCollection objects indexed by data collection name. */
     private Map<String, JmxCollection> m_collectionMap;
 
     /**
@@ -112,15 +108,23 @@ public final class JMXDataCollectionConfigFactory {
     }
 
     /**
-     * Private constructor
+     * Private constructor.
      *
-     * @exception java.io.IOException
-     *                Thrown if the specified config file cannot be read
+     * @param configFile
+     *            the config file
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     private JMXDataCollectionConfigFactory(String configFile) throws IOException {
         initialize(new FileSystemResource(configFile));
     }
 
+    /**
+     * Initialize.
+     *
+     * @param resource
+     *            the resource
+     */
     private void initialize(Resource resource) {
         JMXDataCollectionConfigDao dao = new JMXDataCollectionConfigDao();
         dao.setConfigResource(resource);
@@ -129,6 +133,9 @@ public final class JMXDataCollectionConfigFactory {
         buildCollectionMap();
     }
 
+    /**
+     * Builds the collection map.
+     */
     private void buildCollectionMap() {
         // Build collection map which is a hash map of Collection
         // objects indexed by collection name...also build
@@ -181,8 +188,8 @@ public final class JMXDataCollectionConfigFactory {
      * Load the config from the default config file and create the singleton
      * instance of this factory.
      *
-     * @exception java.io.IOException
-     *                Thrown if the specified config file cannot be read
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public static synchronized void init() throws IOException {
         if (m_loaded) {
@@ -205,10 +212,10 @@ public final class JMXDataCollectionConfigFactory {
     }
 
     /**
-     * Reload the config from the default config file
+     * Reload the config from the default config file.
      *
-     * @exception java.io.IOException
-     *                Thrown if the specified config file cannot be read/loaded
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public static synchronized void reload() throws IOException {
         m_singleton = null;
@@ -221,8 +228,6 @@ public final class JMXDataCollectionConfigFactory {
      * Return the singleton instance of this factory.
      *
      * @return The current factory instance.
-     * @throws java.lang.IllegalStateException
-     *             Thrown if the factory has not yet been initialized.
      */
     public static synchronized JMXDataCollectionConfigFactory getInstance() {
         if (!m_loaded)
@@ -235,6 +240,7 @@ public final class JMXDataCollectionConfigFactory {
      * <p>
      * setInstance
      * </p>
+     * .
      *
      * @param singleton
      *            a
@@ -309,6 +315,7 @@ public final class JMXDataCollectionConfigFactory {
      * <p>
      * getMBeanInfo
      * </p>
+     * .
      *
      * @param cName
      *            a {@link java.lang.String} object.
@@ -369,6 +376,7 @@ public final class JMXDataCollectionConfigFactory {
      * <p>
      * getMBeanInfo_save
      * </p>
+     * .
      *
      * @param cName
      *            a {@link java.lang.String} object.
@@ -463,9 +471,9 @@ public final class JMXDataCollectionConfigFactory {
     /**
      * Retrieves the configured path to the RRD file repository.
      *
-     * @return RRD repository path.
      * @param collectionName
      *            a {@link java.lang.String} object.
+     * @return RRD repository path.
      */
     public RrdRepository getRrdRepository(String collectionName) {
         RrdRepository repo = new RrdRepository();
@@ -481,6 +489,7 @@ public final class JMXDataCollectionConfigFactory {
      * <p>
      * getRrdPath
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

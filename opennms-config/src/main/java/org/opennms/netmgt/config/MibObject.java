@@ -51,6 +51,7 @@ public class MibObject implements Collectable {
      */
     private String m_oid;
 
+    /** The m_snmp obj id. */
     private SnmpObjId m_snmpObjId = null;
 
     /**
@@ -85,10 +86,13 @@ public class MibObject implements Collectable {
      */
     private String m_instance;
 
+    /** The m_group name. */
     private String m_groupName;
 
+    /** The m_group if type. */
     private String m_groupIfType;
 
+    /** The m_resource type. */
     private ResourceType m_resourceType;
 
     /**
@@ -107,7 +111,7 @@ public class MibObject implements Collectable {
     public static final String INSTANCE_IFADDRESS = "ifAddress";
 
     /**
-     * Constructor
+     * Constructor.
      */
     public MibObject() {
         m_oid = null;
@@ -182,12 +186,12 @@ public class MibObject implements Collectable {
      * while keyword values will be dereferenced and will be assigned a valued
      * which is dependent on the SNMP agent's IP address.
      *
-     * @see #INSTANCE_IFINDEX
-     * @see #INSTANCE_IFADDRESS
-     * @see #INSTANCE_IFINDEX
-     * @see #INSTANCE_IFADDRESS
      * @param instance
      *            a {@link java.lang.String} object.
+     * @see #INSTANCE_IFINDEX
+     * @see #INSTANCE_IFADDRESS
+     * @see #INSTANCE_IFINDEX
+     * @see #INSTANCE_IFADDRESS
      */
     public void setInstance(String instance) {
         m_instance = instance;
@@ -197,6 +201,7 @@ public class MibObject implements Collectable {
      * <p>
      * setGroupName
      * </p>
+     * .
      *
      * @param groupName
      *            a {@link java.lang.String} object.
@@ -265,6 +270,7 @@ public class MibObject implements Collectable {
      * <p>
      * getGroupName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -316,6 +322,7 @@ public class MibObject implements Collectable {
      * <p>
      * hashCode
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -348,6 +355,7 @@ public class MibObject implements Collectable {
      * <p>
      * getCollectionTracker
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.snmp.CollectionTracker} object.
      */
@@ -365,6 +373,7 @@ public class MibObject implements Collectable {
      * <p>
      * getCollectionTracker
      * </p>
+     * .
      *
      * @param instances
      *            a {@link org.opennms.netmgt.snmp.SnmpInstId} object.
@@ -383,6 +392,7 @@ public class MibObject implements Collectable {
      * <p>
      * getCollectionTrackers
      * </p>
+     * .
      *
      * @param objList
      *            a {@link java.util.List} object.
@@ -403,6 +413,7 @@ public class MibObject implements Collectable {
      * <p>
      * getCollectionTrackers
      * </p>
+     * .
      *
      * @param objList
      *            a {@link java.util.List} object.
@@ -425,6 +436,7 @@ public class MibObject implements Collectable {
      * <p>
      * getSnmpObjId
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.snmp.SnmpObjId} object.
      */
@@ -442,6 +454,7 @@ public class MibObject implements Collectable {
      * <p>
      * setGroupIfType
      * </p>
+     * .
      *
      * @param groupIfType
      *            a {@link java.lang.String} object.
@@ -454,6 +467,7 @@ public class MibObject implements Collectable {
      * <p>
      * getGroupIfType
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -465,6 +479,7 @@ public class MibObject implements Collectable {
      * <p>
      * setResourceType
      * </p>
+     * .
      *
      * @param resourceType
      *            a
@@ -479,6 +494,7 @@ public class MibObject implements Collectable {
      * <p>
      * getResourceType
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.config.datacollection.ResourceType}
      *         object.

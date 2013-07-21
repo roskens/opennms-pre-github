@@ -56,11 +56,14 @@ import org.slf4j.LoggerFactory;
  * @author <a href="http://www.opennms.org">OpenNMS</a>
  */
 public class WmiDataCollectionConfigFactory {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(WmiDataCollectionConfigFactory.class);
 
     /** The singleton instance. */
     private static WmiDataCollectionConfigFactory m_instance;
 
+    /** The m_loaded from file. */
     private static boolean m_loadedFromFile = false;
 
     /** Boolean indicating if the init() method has been called. */
@@ -72,6 +75,7 @@ public class WmiDataCollectionConfigFactory {
      */
     protected static long m_lastModified;
 
+    /** The m_config. */
     private static WmiDatacollectionConfig m_config;
 
     /**
@@ -81,12 +85,12 @@ public class WmiDataCollectionConfigFactory {
      *
      * @param configFile
      *            a {@link java.lang.String} object.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public WmiDataCollectionConfigFactory(String configFile) throws MarshalException, ValidationException, IOException {
         InputStream is = null;
@@ -108,15 +112,25 @@ public class WmiDataCollectionConfigFactory {
      *
      * @param is
      *            a {@link java.io.InputStream} object.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public WmiDataCollectionConfigFactory(InputStream is) throws MarshalException, ValidationException {
         initialize(is);
     }
 
+    /**
+     * Initialize.
+     *
+     * @param stream
+     *            the stream
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     */
     private void initialize(InputStream stream) throws MarshalException, ValidationException {
         LOG.debug("initialize: initializing WMI collection config factory.");
         m_config = CastorUtils.unmarshal(WmiDatacollectionConfig.class, stream);
@@ -125,14 +139,14 @@ public class WmiDataCollectionConfigFactory {
     /**
      * Be sure to call this method before calling getInstance().
      *
-     * @throws java.io.IOException
-     *             if any.
-     * @throws java.io.FileNotFoundException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws FileNotFoundException
+     *             the file not found exception
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public static synchronized void init() throws IOException, FileNotFoundException, MarshalException,
             ValidationException {
@@ -146,11 +160,9 @@ public class WmiDataCollectionConfigFactory {
     }
 
     /**
-     * Singleton static call to get the only instance that should exist
+     * Singleton static call to get the only instance that should exist.
      *
      * @return the single factory instance
-     * @throws java.lang.IllegalStateException
-     *             if init has not been called
      */
     public static synchronized WmiDataCollectionConfigFactory getInstance() {
 
@@ -165,6 +177,7 @@ public class WmiDataCollectionConfigFactory {
      * <p>
      * setInstance
      * </p>
+     * .
      *
      * @param instance
      *            a
@@ -180,15 +193,16 @@ public class WmiDataCollectionConfigFactory {
      * <p>
      * reload
      * </p>
+     * .
      *
-     * @throws java.io.IOException
-     *             if any.
-     * @throws java.io.FileNotFoundException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws FileNotFoundException
+     *             the file not found exception
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public synchronized void reload() throws IOException, FileNotFoundException, MarshalException, ValidationException {
         m_instance = null;
@@ -200,12 +214,12 @@ public class WmiDataCollectionConfigFactory {
      * since we last
      * read it.
      *
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     protected void updateFromFile() throws IOException, MarshalException, ValidationException {
         if (m_loadedFromFile) {
@@ -220,6 +234,7 @@ public class WmiDataCollectionConfigFactory {
      * <p>
      * getConfig
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.config.wmi.WmiDatacollectionConfig}
      *         object.
@@ -232,6 +247,7 @@ public class WmiDataCollectionConfigFactory {
      * <p>
      * setConfig
      * </p>
+     * .
      *
      * @param m_config
      *            a
@@ -246,6 +262,7 @@ public class WmiDataCollectionConfigFactory {
      * <p>
      * getWmiCollection
      * </p>
+     * .
      *
      * @param collectionName
      *            a {@link java.lang.String} object.
@@ -270,6 +287,7 @@ public class WmiDataCollectionConfigFactory {
      * <p>
      * getRrdRepository
      * </p>
+     * .
      *
      * @param collectionName
      *            a {@link java.lang.String} object.
@@ -288,6 +306,7 @@ public class WmiDataCollectionConfigFactory {
      * <p>
      * getStep
      * </p>
+     * .
      *
      * @param cName
      *            a {@link java.lang.String} object.
@@ -305,6 +324,7 @@ public class WmiDataCollectionConfigFactory {
      * <p>
      * getRRAList
      * </p>
+     * .
      *
      * @param cName
      *            a {@link java.lang.String} object.
@@ -323,6 +343,7 @@ public class WmiDataCollectionConfigFactory {
      * <p>
      * getRrdPath
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

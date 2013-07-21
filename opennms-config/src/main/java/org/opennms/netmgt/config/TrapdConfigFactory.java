@@ -55,14 +55,11 @@ import org.springframework.core.io.FileSystemResource;
  * @author <a href="http://www.opennms.org/">OpenNMS </a>
  */
 public final class TrapdConfigFactory implements TrapdConfig {
-    /**
-     * The singleton instance of this factory
-     */
+
+    /** The singleton instance of this factory. */
     private static TrapdConfig m_singleton = null;
 
-    /**
-     * The config class loaded from the config file
-     */
+    /** The config class loaded from the config file. */
     private TrapdConfiguration m_config;
 
     /**
@@ -71,14 +68,16 @@ public final class TrapdConfigFactory implements TrapdConfig {
     private static boolean m_loaded = false;
 
     /**
-     * Private constructor
+     * Private constructor.
      *
-     * @exception java.io.IOException
-     *                Thrown if the specified config file cannot be read
-     * @exception org.exolab.castor.xml.MarshalException
-     *                Thrown if the file does not conform to the schema.
-     * @exception org.exolab.castor.xml.ValidationException
-     *                Thrown if the contents do not match the required schema.
+     * @param configFile
+     *            the config file
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     private TrapdConfigFactory(String configFile) throws IOException, MarshalException, ValidationException {
         m_config = CastorUtils.unmarshal(TrapdConfiguration.class, new FileSystemResource(configFile));
@@ -91,10 +90,10 @@ public final class TrapdConfigFactory implements TrapdConfig {
      *
      * @param stream
      *            a {@link java.io.InputStream} object.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public TrapdConfigFactory(InputStream stream) throws MarshalException, ValidationException {
         m_config = CastorUtils.unmarshal(TrapdConfiguration.class, stream);
@@ -104,18 +103,12 @@ public final class TrapdConfigFactory implements TrapdConfig {
      * Load the config from the default config file and create the singleton
      * instance of this factory.
      *
-     * @exception java.io.IOException
-     *                Thrown if the specified config file cannot be read
-     * @exception org.exolab.castor.xml.MarshalException
-     *                Thrown if the file does not conform to the schema.
-     * @exception org.exolab.castor.xml.ValidationException
-     *                Thrown if the contents do not match the required schema.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public static synchronized void init() throws IOException, MarshalException, ValidationException {
         if (m_loaded) {
@@ -131,20 +124,14 @@ public final class TrapdConfigFactory implements TrapdConfig {
     }
 
     /**
-     * Reload the config from the default config file
+     * Reload the config from the default config file.
      *
-     * @exception java.io.IOException
-     *                Thrown if the specified config file cannot be read/loaded
-     * @exception org.exolab.castor.xml.MarshalException
-     *                Thrown if the file does not conform to the schema.
-     * @exception org.exolab.castor.xml.ValidationException
-     *                Thrown if the contents do not match the required schema.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public static synchronized void reload() throws IOException, MarshalException, ValidationException {
         m_singleton = null;
@@ -157,8 +144,6 @@ public final class TrapdConfigFactory implements TrapdConfig {
      * Return the singleton instance of this factory.
      *
      * @return The current factory instance.
-     * @throws java.lang.IllegalStateException
-     *             Thrown if the factory has not yet been initialized.
      */
     public static synchronized TrapdConfig getInstance() {
         if (!m_loaded)
@@ -171,6 +156,7 @@ public final class TrapdConfigFactory implements TrapdConfig {
      * <p>
      * setInstance
      * </p>
+     * .
      *
      * @param config
      *            a {@link org.opennms.netmgt.config.TrapdConfig} object.
@@ -180,6 +166,9 @@ public final class TrapdConfigFactory implements TrapdConfig {
         m_loaded = true;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.TrapdConfig#getSnmpTrapAddress()
+     */
     @Override
     public synchronized String getSnmpTrapAddress() {
         return m_config.getSnmpTrapAddress();
@@ -206,6 +195,9 @@ public final class TrapdConfigFactory implements TrapdConfig {
         return m_config.getNewSuspectOnTrap();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.TrapdConfig#getSnmpV3Users()
+     */
     @Override
     public synchronized List<SnmpV3User> getSnmpV3Users() {
         List<SnmpV3User> snmpUsers = new ArrayList<SnmpV3User>();

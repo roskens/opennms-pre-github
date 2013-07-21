@@ -47,28 +47,43 @@ import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
 
 /**
- * DataCollectionConfigParserTest
+ * DataCollectionConfigParserTest.
  *
  * @author <a href="mail:agalue@opennms.org">Alejandro Galue</a>
  */
 public class DataCollectionConfigParserTest {
 
+    /** The Constant resourceTypesCount. */
     private static final int resourceTypesCount = 141;
 
+    /** The Constant systemDefCount. */
     private static final int systemDefCount = 149;
 
+    /** The Constant groupsCount. */
     private static final int groupsCount = 228;
 
+    /**
+     * Sets the up.
+     */
     @Before
     public void setUp() {
         MockLogAppender.setupLogging();
     }
 
+    /**
+     * Tear down.
+     */
     @After
     public void tearDown() {
         MockLogAppender.assertNoErrorOrGreater();
     }
 
+    /**
+     * Test load with empty config.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testLoadWithEmptyConfig() throws Exception {
         // Create a SNMP collection
@@ -92,6 +107,12 @@ public class DataCollectionConfigParserTest {
         Assert.assertNull(collection.getGroups());
     }
 
+    /**
+     * Test load with only external references.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testLoadWithOnlyExternalReferences() throws Exception {
         // Create DatacollectionConfig
@@ -124,6 +145,12 @@ public class DataCollectionConfigParserTest {
                                                                           // ignored
     }
 
+    /**
+     * Test load hybrid configuration.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testLoadHybridConfiguration() throws Exception {
         // Create DatacollectionConfig
@@ -152,6 +179,12 @@ public class DataCollectionConfigParserTest {
         Assert.assertEquals(64, collection.getGroups().getGroupCount());
     }
 
+    /**
+     * Test load simple.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testLoadSimple() throws Exception {
         // Create DatacollectionConfig
@@ -180,6 +213,12 @@ public class DataCollectionConfigParserTest {
         Assert.assertEquals(27, collection.getGroups().getGroupCount());
     }
 
+    /**
+     * Test load simple with exclusions.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testLoadSimpleWithExclusions() throws Exception {
         // Create DatacollectionConfig
@@ -222,6 +261,12 @@ public class DataCollectionConfigParserTest {
                                                                          // AS)
     }
 
+    /**
+     * Test single system defs.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testSingleSystemDefs() throws Exception {
         // Create DatacollectionConfig
@@ -250,6 +295,12 @@ public class DataCollectionConfigParserTest {
         Assert.assertEquals(31, collection.getGroups().getGroupCount());
     }
 
+    /**
+     * Test precedence.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testPrecedence() throws Exception {
         // Create DatacollectionConfig
@@ -295,6 +346,11 @@ public class DataCollectionConfigParserTest {
         }
     }
 
+    /**
+     * Gets the datacollection directory.
+     *
+     * @return the datacollection directory
+     */
     private static File getDatacollectionDirectory() {
         File configFile = ConfigurationTestUtils.getFileForConfigFile("datacollection-config.xml");
         File configFolder = new File(configFile.getParentFile(), "datacollection");
@@ -303,6 +359,12 @@ public class DataCollectionConfigParserTest {
         return configFolder;
     }
 
+    /**
+     * Execute parser.
+     *
+     * @param collection
+     *            the collection
+     */
     private static void executeParser(SnmpCollection collection) {
         File configFolder = getDatacollectionDirectory();
         DataCollectionConfigParser parser = new DataCollectionConfigParser(configFolder.getAbsolutePath());
@@ -310,6 +372,12 @@ public class DataCollectionConfigParserTest {
         validateParser(parser);
     }
 
+    /**
+     * Validate parser.
+     *
+     * @param parser
+     *            the parser
+     */
     private static void validateParser(DataCollectionConfigParser parser) {
         Map<String, DatacollectionGroup> groupMap = parser.getExternalGroupMap();
         int currentResourceTypes = 0;

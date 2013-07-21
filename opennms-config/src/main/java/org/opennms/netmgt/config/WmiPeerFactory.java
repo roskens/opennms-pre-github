@@ -77,16 +77,14 @@ import org.springframework.core.io.FileSystemResource;
  * @author <a href="mailto:matt.raykowski@gmail.com">Matt Raykowski</a>
  */
 public class WmiPeerFactory {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(WmiPeerFactory.class);
 
-    /**
-     * The singleton instance of this factory
-     */
+    /** The singleton instance of this factory. */
     private static WmiPeerFactory m_singleton = null;
 
-    /**
-     * The config class loaded from the config file
-     */
+    /** The config class loaded from the config file. */
     private static WmiConfig m_config;
 
     /**
@@ -95,16 +93,16 @@ public class WmiPeerFactory {
     private static boolean m_loaded = false;
 
     /**
-     * Private constructor
+     * Private constructor.
      *
-     * @exception java.io.IOException
-     *                Thrown if the specified config file cannot be read
-     * @exception org.exolab.castor.xml.MarshalException
-     *                Thrown if the file does not conform to the schema.
-     * @exception org.exolab.castor.xml.ValidationException
-     *                Thrown if the contents do not match the required schema.
      * @param configFile
      *            the path to the config file to load in.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     private WmiPeerFactory(String configFile) throws IOException, MarshalException, ValidationException {
         m_config = CastorUtils.unmarshal(WmiConfig.class, new FileSystemResource(configFile));
@@ -117,10 +115,10 @@ public class WmiPeerFactory {
      *
      * @param stream
      *            a {@link java.io.InputStream} object.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public WmiPeerFactory(InputStream stream) throws MarshalException, ValidationException {
         m_config = CastorUtils.unmarshal(WmiConfig.class, stream);
@@ -130,18 +128,12 @@ public class WmiPeerFactory {
      * Load the config from the default config file and create the singleton
      * instance of this factory.
      *
-     * @exception java.io.IOException
-     *                Thrown if the specified config file cannot be read
-     * @exception org.exolab.castor.xml.MarshalException
-     *                Thrown if the file does not conform to the schema.
-     * @exception org.exolab.castor.xml.ValidationException
-     *                Thrown if the contents do not match the required schema.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public static synchronized void init() throws IOException, MarshalException, ValidationException {
         if (m_loaded) {
@@ -160,20 +152,14 @@ public class WmiPeerFactory {
     }
 
     /**
-     * Reload the config from the default config file
+     * Reload the config from the default config file.
      *
-     * @exception java.io.IOException
-     *                Thrown if the specified config file cannot be read/loaded
-     * @exception org.exolab.castor.xml.MarshalException
-     *                Thrown if the file does not conform to the schema.
-     * @exception org.exolab.castor.xml.ValidationException
-     *                Thrown if the contents do not match the required schema.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public static synchronized void reload() throws IOException, MarshalException, ValidationException {
         m_singleton = null;
@@ -184,16 +170,18 @@ public class WmiPeerFactory {
 
     /**
      * Package-private access. Should only be used for unit testing.
+     *
+     * @return the config
      */
     WmiConfig getConfig() {
         return m_config;
     }
 
     /**
-     * Saves the current settings to disk
+     * Saves the current settings to disk.
      *
-     * @throws java.lang.Exception
-     *             if saving settings to disk fails.
+     * @throws Exception
+     *             the exception
      */
     public static synchronized void saveCurrent() throws Exception {
         optimize();
@@ -225,6 +213,7 @@ public class WmiPeerFactory {
      * basic logic should be fine as it's all IP address manipulation
      *
      * @throws UnknownHostException
+     *             the unknown host exception
      */
     static void optimize() throws UnknownHostException {
 
@@ -376,8 +365,6 @@ public class WmiPeerFactory {
      * Return the singleton instance of this factory.
      *
      * @return The current factory instance.
-     * @throws java.lang.IllegalStateException
-     *             Thrown if the factory has not yet been initialized.
      */
     public static synchronized WmiPeerFactory getInstance() {
         if (!m_loaded)
@@ -390,6 +377,7 @@ public class WmiPeerFactory {
      * <p>
      * setInstance
      * </p>
+     * .
      *
      * @param singleton
      *            a {@link org.opennms.netmgt.config.WmiPeerFactory} object.
@@ -403,6 +391,7 @@ public class WmiPeerFactory {
      * <p>
      * getAgentConfig
      * </p>
+     * .
      *
      * @param agentInetAddress
      *            a {@link java.net.InetAddress} object.
@@ -464,6 +453,14 @@ public class WmiPeerFactory {
 
     }
 
+    /**
+     * Sets the wmi agent config.
+     *
+     * @param agentConfig
+     *            the agent config
+     * @param def
+     *            the def
+     */
     private void setWmiAgentConfig(WmiAgentConfig agentConfig, Definition def) {
         setCommonAttributes(agentConfig, def);
         agentConfig.setPassword(determinePassword(def));
@@ -474,7 +471,9 @@ public class WmiPeerFactory {
      * agentConfig.
      *
      * @param agentConfig
+     *            the agent config
      * @param def
+     *            the def
      */
     private void setCommonAttributes(WmiAgentConfig agentConfig, Definition def) {
         agentConfig.setRetries(determineRetries(def));
@@ -485,9 +484,10 @@ public class WmiPeerFactory {
     }
 
     /**
-     * Helper method to search the wmi-config for the appropriate username
+     * Helper method to search the wmi-config for the appropriate username.
      *
      * @param def
+     *            the def
      * @return a string containing the username. will return the default if none
      *         is set.
      */
@@ -501,6 +501,7 @@ public class WmiPeerFactory {
      * domain/workgroup.
      *
      * @param def
+     *            the def
      * @return a string containing the domain. will return the default if none
      *         is set.
      */
@@ -510,9 +511,10 @@ public class WmiPeerFactory {
     }
 
     /**
-     * Helper method to search the wmi-config for the appropriate password
+     * Helper method to search the wmi-config for the appropriate password.
      *
      * @param def
+     *            the def
      * @return a string containing the password. will return the default if none
      *         is set.
      */
@@ -522,9 +524,10 @@ public class WmiPeerFactory {
     }
 
     /**
-     * Helper method to search the wmi-config
+     * Helper method to search the wmi-config.
      *
      * @param def
+     *            the def
      * @return a long containing the timeout, WmiAgentConfig.DEFAULT_TIMEOUT if
      *         not specified.
      */
@@ -534,6 +537,13 @@ public class WmiPeerFactory {
             : def.getTimeout());
     }
 
+    /**
+     * Determine retries.
+     *
+     * @param def
+     *            the def
+     * @return the int
+     */
     private int determineRetries(Definition def) {
         int retries = WmiAgentConfig.DEFAULT_RETRIES;
         return (def.getRetry() == 0 ? (m_config.getRetry() == 0 ? retries : m_config.getRetry()) : def.getRetry());
@@ -543,6 +553,7 @@ public class WmiPeerFactory {
      * <p>
      * getWmiConfig
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.config.wmi.WmiConfig} object.
      */
@@ -554,6 +565,7 @@ public class WmiPeerFactory {
      * <p>
      * setWmiConfig
      * </p>
+     * .
      *
      * @param m_config
      *            a {@link org.opennms.netmgt.config.wmi.WmiConfig} object.

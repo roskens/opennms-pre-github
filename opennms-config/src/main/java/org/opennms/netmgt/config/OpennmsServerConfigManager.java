@@ -41,9 +41,8 @@ import org.opennms.netmgt.config.server.LocalServer;
  * </p>
  */
 public class OpennmsServerConfigManager {
-    /**
-     * The config class loaded from the config file
-     */
+
+    /** The config class loaded from the config file. */
     private LocalServer m_config;
 
     /**
@@ -53,10 +52,10 @@ public class OpennmsServerConfigManager {
      *
      * @param is
      *            a {@link java.io.InputStream} object.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     protected OpennmsServerConfigManager(final InputStream is) throws MarshalException, ValidationException {
         m_config = CastorUtils.unmarshal(LocalServer.class, is);
@@ -72,7 +71,7 @@ public class OpennmsServerConfigManager {
     }
 
     /**
-     * Return the default critical path IP
+     * Return the default critical path IP.
      *
      * @return the default critical path IP
      */
@@ -81,7 +80,7 @@ public class OpennmsServerConfigManager {
     }
 
     /**
-     * Return the default critical path service
+     * Return the default critical path service.
      *
      * @return the default critical path service
      */
@@ -90,7 +89,7 @@ public class OpennmsServerConfigManager {
     }
 
     /**
-     * Return the default critical path timeout
+     * Return the default critical path timeout.
      *
      * @return the default critical path timeout
      */
@@ -99,7 +98,7 @@ public class OpennmsServerConfigManager {
     }
 
     /**
-     * Return the default critical path retries
+     * Return the default critical path retries.
      *
      * @return the default critical path retries
      */

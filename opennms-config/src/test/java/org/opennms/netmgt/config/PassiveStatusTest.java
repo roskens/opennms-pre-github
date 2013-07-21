@@ -30,10 +30,16 @@ package org.opennms.netmgt.config;
 
 import junit.framework.TestCase;
 
+/**
+ * The Class PassiveStatusTest.
+ */
 public class PassiveStatusTest extends TestCase {
 
     /*
      * Test method for 'org.opennms.netmgt.config.PassiveStatus.equals(Object)'
+     */
+    /**
+     * Test equals object.
      */
     public void testEqualsObject() {
         PassiveStatusKey ps = new PassiveStatusKey("node1", "1.1.1.1", "ICMP");

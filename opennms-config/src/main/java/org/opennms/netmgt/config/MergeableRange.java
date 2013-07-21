@@ -44,14 +44,20 @@ import org.slf4j.LoggerFactory;
  * @author <a href="mailto:david@opennms.org>David Hustace</a>
  */
 final class MergeableRange implements Comparable<Range> {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(MergeableRange.class);
 
+    /** The m_range. */
     private Range m_range;
 
+    /** The Constant m_comparator. */
     private static final RangeComparator m_comparator = new RangeComparator();
 
+    /** The m_first. */
     private final MergeableSpecific m_first;
 
+    /** The m_last. */
     private final MergeableSpecific m_last;
 
     /**
@@ -77,6 +83,7 @@ final class MergeableRange implements Comparable<Range> {
      * <p>
      * compareTo
      * </p>
+     * .
      *
      * @param range
      *            a {@link org.opennms.netmgt.config.common.Range} object.
@@ -104,6 +111,7 @@ final class MergeableRange implements Comparable<Range> {
      * <p>
      * hashCode
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -116,6 +124,7 @@ final class MergeableRange implements Comparable<Range> {
      * <p>
      * equals
      * </p>
+     * .
      *
      * @param range
      *            a {@link org.opennms.netmgt.config.MergeableRange} object.
@@ -134,6 +143,7 @@ final class MergeableRange implements Comparable<Range> {
      * <p>
      * equals
      * </p>
+     * .
      *
      * @param range
      *            a {@link org.opennms.netmgt.config.common.Range} object.
@@ -147,6 +157,7 @@ final class MergeableRange implements Comparable<Range> {
      * <p>
      * getRange
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.config.common.Range} object.
      */
@@ -160,6 +171,7 @@ final class MergeableRange implements Comparable<Range> {
      * <p>
      * coversSpecific
      * </p>
+     * .
      *
      * @param spec
      *            a {@link java.lang.String} object.
@@ -178,6 +190,7 @@ final class MergeableRange implements Comparable<Range> {
      * <p>
      * overlapsBegin
      * </p>
+     * .
      *
      * @param rng
      *            a {@link org.opennms.netmgt.config.common.Range} object.
@@ -196,6 +209,7 @@ final class MergeableRange implements Comparable<Range> {
      * <p>
      * withInRange
      * </p>
+     * .
      *
      * @param rng
      *            a {@link org.opennms.netmgt.config.common.Range} object.
@@ -214,6 +228,7 @@ final class MergeableRange implements Comparable<Range> {
      * <p>
      * overlapsEnd
      * </p>
+     * .
      *
      * @param rng
      *            a {@link org.opennms.netmgt.config.common.Range} object.
@@ -233,6 +248,7 @@ final class MergeableRange implements Comparable<Range> {
      * <p>
      * eclipses
      * </p>
+     * .
      *
      * @param rng
      *            a {@link org.opennms.netmgt.config.common.Range} object.
@@ -251,6 +267,7 @@ final class MergeableRange implements Comparable<Range> {
      * <p>
      * isAdjacentToBegin
      * </p>
+     * .
      *
      * @param nextRange
      *            a {@link org.opennms.netmgt.config.common.Range} object.
@@ -264,6 +281,7 @@ final class MergeableRange implements Comparable<Range> {
      * <p>
      * isAdjacentToEnd
      * </p>
+     * .
      *
      * @param nextRange
      *            a {@link org.opennms.netmgt.config.common.Range} object.
@@ -278,9 +296,9 @@ final class MergeableRange implements Comparable<Range> {
      * creates a new range to the right of the specific ending with the
      * current Range's end address.
      *
-     * @return a new Range to be added to Definition
      * @param spec
      *            a {@link java.lang.String} object.
+     * @return a new Range to be added to Definition
      */
     protected Range removeSpecificFromRange(final String spec) {
 
@@ -314,6 +332,7 @@ final class MergeableRange implements Comparable<Range> {
      * <p>
      * getFirst
      * </p>
+     * .
      *
      * @return the first
      */
@@ -325,6 +344,7 @@ final class MergeableRange implements Comparable<Range> {
      * <p>
      * getLast
      * </p>
+     * .
      *
      * @return the last
      */

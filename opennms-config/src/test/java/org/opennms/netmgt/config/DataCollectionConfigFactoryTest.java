@@ -41,10 +41,16 @@ import org.junit.Test;
 import org.opennms.test.ThrowableAnticipator;
 import org.springframework.core.io.ByteArrayResource;
 
+/**
+ * The Class DataCollectionConfigFactoryTest.
+ */
 public class DataCollectionConfigFactoryTest {
+
+    /** The Constant m_rrdRepository. */
     private static final File m_rrdRepository = new File(System.getProperty("java.io.tmpdir") + File.separator
             + "wonka" + File.separator + "rrd" + File.separator + "snmp");
 
+    /** The Constant m_xml. */
     private static final String m_xml = "<?xml version=\"1.0\"?>\n" + "<datacollection-config\n"
             + "   rrdRepository = \""
             + m_rrdRepository.getAbsolutePath()
@@ -100,11 +106,22 @@ public class DataCollectionConfigFactoryTest {
             + "   </snmp-collection>\n"
             + "</datacollection-config>\n" + "";
 
+    /** The Constant m_brocadeXmlFragment. */
     private static final String m_brocadeXmlFragment = "       <resourceType name=\"brocadeIndex\" label=\"Brocade Switches\">\n"
             + "         <persistenceSelectorStrategy class=\"foo\"/>\n"
             + "         <storageStrategy class=\"foo\"/>\n"
             + "       </resourceType>\n";
 
+    /**
+     * Test set instance.
+     *
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     @Test
     public void testSetInstance() throws MarshalException, ValidationException, IOException {
         initDataCollectionFactory(m_xml);
@@ -120,6 +137,16 @@ public class DataCollectionConfigFactoryTest {
                           DataCollectionConfigFactory.getInstance().getConfiguredResourceTypes().keySet().toArray(new String[0]));
     }
 
+    /**
+     * Test valid resource type.
+     *
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     @Test
     public void testValidResourceType() throws MarshalException, ValidationException, IOException {
         String modifiedXml = m_xml.replaceFirst("ifIndex", "brocadeIndex").replaceFirst("<groups",
@@ -142,6 +169,16 @@ public class DataCollectionConfigFactoryTest {
                           DataCollectionConfigFactory.getInstance().getConfiguredResourceTypes().keySet().toArray(new String[0]));
     }
 
+    /**
+     * Test invalid resource type.
+     *
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     @Test
     public void testInvalidResourceType() throws MarshalException, ValidationException, IOException {
         String modifiedXml = m_xml.replaceFirst("ifIndex", "brocadeIndex");
@@ -162,6 +199,12 @@ public class DataCollectionConfigFactoryTest {
         ta.verifyAnticipated();
     }
 
+    /**
+     * Inits the data collection factory.
+     *
+     * @param xmlConfig
+     *            the xml config
+     */
     private static void initDataCollectionFactory(String xmlConfig) {
         DefaultDataCollectionConfigDao dataCollectionDao = new DefaultDataCollectionConfigDao();
         dataCollectionDao.setConfigResource(new ByteArrayResource(xmlConfig.getBytes()));

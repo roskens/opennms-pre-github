@@ -48,10 +48,13 @@ import org.opennms.netmgt.config.groups.Role;
  */
 public class MonthlyCalendar extends AbstractWebCalendar {
 
+    /** The m_calendar. */
     private GregorianCalendar m_calendar;
 
+    /** The m_role. */
     private Role m_role;
 
+    /** The m_group manager. */
     private GroupManager m_groupManager;
 
     /**
@@ -77,6 +80,7 @@ public class MonthlyCalendar extends AbstractWebCalendar {
      * <p>
      * getMonth
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -84,6 +88,11 @@ public class MonthlyCalendar extends AbstractWebCalendar {
         return m_calendar.get(Calendar.MONTH);
     }
 
+    /**
+     * Gets the year.
+     *
+     * @return the year
+     */
     private int getYear() {
         return m_calendar.get(Calendar.YEAR);
     }
@@ -92,6 +101,7 @@ public class MonthlyCalendar extends AbstractWebCalendar {
      * <p>
      * getMonthAndYear
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -100,10 +110,22 @@ public class MonthlyCalendar extends AbstractWebCalendar {
         return new SimpleDateFormat("MMMM yyyy").format(m_calendar.getTime());
     }
 
+    /**
+     * Checks if is first of week.
+     *
+     * @param cal
+     *            the cal
+     * @return true, if is first of week
+     */
     private boolean isFirstOfWeek(Calendar cal) {
         return (cal.get(Calendar.DAY_OF_WEEK) == cal.getFirstDayOfWeek());
     }
 
+    /**
+     * Gets the date of first week.
+     *
+     * @return the date of first week
+     */
     private Calendar getDateOfFirstWeek() {
         Calendar first = getFirstOfMonth();
         if (!isFirstOfWeek(first)) {
@@ -114,6 +136,11 @@ public class MonthlyCalendar extends AbstractWebCalendar {
 
     }
 
+    /**
+     * Gets the first of month.
+     *
+     * @return the first of month
+     */
     private Calendar getFirstOfMonth() {
         return new GregorianCalendar(getYear(), getMonth(), 1);
     }
@@ -122,6 +149,7 @@ public class MonthlyCalendar extends AbstractWebCalendar {
      * <p>
      * getWeeks
      * </p>
+     * .
      *
      * @return an array of {@link org.opennms.web.admin.roles.Week} objects.
      */
@@ -137,6 +165,13 @@ public class MonthlyCalendar extends AbstractWebCalendar {
         return weeks.toArray(new Week[weeks.size()]);
     }
 
+    /**
+     * Checks if is this month.
+     *
+     * @param weekBegin
+     *            the week begin
+     * @return true, if is this month
+     */
     private boolean isThisMonth(Calendar weekBegin) {
         return weekBegin.get(Calendar.MONTH) == getMonth();
     }
@@ -145,6 +180,7 @@ public class MonthlyCalendar extends AbstractWebCalendar {
      * <p>
      * getNextMonth
      * </p>
+     * .
      *
      * @return a java$util$Date object.
      */
@@ -157,6 +193,7 @@ public class MonthlyCalendar extends AbstractWebCalendar {
      * <p>
      * getPreviousMonth
      * </p>
+     * .
      *
      * @return a java$util$Date object.
      */

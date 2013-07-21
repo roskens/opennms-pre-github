@@ -79,23 +79,39 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.util.StringUtils;
 
 /**
+ * The Class EventconfFactoryTest.
+ *
  * @author brozow
  */
 public class EventconfFactoryTest {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(EventconfFactoryTest.class);
 
+    /** The Constant knownUEI1. */
     private static final String knownUEI1 = "uei.opennms.org/internal/capsd/snmpConflictsWithDb";
 
+    /** The Constant knownLabel1. */
     private static final String knownLabel1 = "OpenNMS-defined capsd event: snmpConflictsWithDb";
 
+    /** The Constant knownSubfileUEI1. */
     private static final String knownSubfileUEI1 = "uei.opennms.org/IETF/Bridge/traps/newRoot";
 
+    /** The Constant knownSubfileLabel1. */
     private static final String knownSubfileLabel1 = "BRIDGE-MIB defined trap event: newRoot";
 
+    /** The Constant unknownUEI1. */
     private static final String unknownUEI1 = "uei.opennms.org/foo/thisShouldBeAnUnknownUEI";
 
+    /** The m_event conf dao. */
     DefaultEventConfDao m_eventConfDao;
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
         m_eventConfDao = new DefaultEventConfDao();
@@ -104,16 +120,25 @@ public class EventconfFactoryTest {
         m_eventConfDao.afterPropertiesSet();
     }
 
+    /**
+     * Test is secure tag when exists.
+     */
     @Test
     public void testIsSecureTagWhenExists() {
         assertTrue("isSecureTag(\"logmsg\") should be true", m_eventConfDao.isSecureTag("logmsg"));
     }
 
+    /**
+     * Test is secure tag when does not exist.
+     */
     @Test
     public void testIsSecureTagWhenDoesNotExist() {
         assertFalse("isSecureTag(\"foobarbaz\") should be false", m_eventConfDao.isSecureTag("foobarbaz"));
     }
 
+    /**
+     * Test find by uei known.
+     */
     @Test
     public void testFindByUeiKnown() {
         Event eventConf = m_eventConfDao.findByUei(knownUEI1);
@@ -122,12 +147,18 @@ public class EventconfFactoryTest {
         assertEquals("label", knownLabel1, eventConf.getEventLabel());
     }
 
+    /**
+     * Test find by uei unknown.
+     */
     @Test
     public void testFindByUeiUnknown() {
         Event eventConf = m_eventConfDao.findByUei(unknownUEI1);
         assertNull("returned event configuration for unknown UEI '" + unknownUEI1 + "' should be null", eventConf);
     }
 
+    /**
+     * Test find by event uei known.
+     */
     @Test
     public void testFindByEventUeiKnown() {
         EventBuilder bldr = new EventBuilder(knownUEI1, "testFindByEventUeiKnown");
@@ -138,6 +169,12 @@ public class EventconfFactoryTest {
         assertEquals("UEI", bldr.getEvent().getUei(), eventConf.getUei());
     }
 
+    /**
+     * Test find by event uei known1000 times.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testFindByEventUeiKnown1000Times() throws Exception {
 
@@ -163,42 +200,99 @@ public class EventconfFactoryTest {
         assertEquals("UEI", bldr.getEvent().getUei(), eventConf.getUei());
     }
 
+    /**
+     * The Class EventCreator.
+     */
     public class EventCreator {
 
+        /** The m_event builder. */
         private EventBuilder m_eventBuilder;
 
+        /**
+         * Instantiates a new event creator.
+         */
         public EventCreator() {
             setEventBuilder(new EventBuilder(null, "trapd"));
         }
 
+        /**
+         * Sets the community.
+         *
+         * @param community
+         *            the new community
+         */
         public void setCommunity(String community) {
             getEventBuilder().setCommunity(community);
         }
 
+        /**
+         * Sets the time stamp.
+         *
+         * @param timeStamp
+         *            the new time stamp
+         */
         public void setTimeStamp(long timeStamp) {
             getEventBuilder().setSnmpTimeStamp(timeStamp);
         }
 
+        /**
+         * Sets the version.
+         *
+         * @param version
+         *            the new version
+         */
         public void setVersion(String version) {
             getEventBuilder().setSnmpVersion(version);
         }
 
+        /**
+         * Sets the generic.
+         *
+         * @param generic
+         *            the new generic
+         */
         private void setGeneric(int generic) {
             getEventBuilder().setGeneric(generic);
         }
 
+        /**
+         * Sets the specific.
+         *
+         * @param specific
+         *            the new specific
+         */
         private void setSpecific(int specific) {
             getEventBuilder().setSpecific(specific);
         }
 
+        /**
+         * Sets the enterprise id.
+         *
+         * @param enterpriseId
+         *            the new enterprise id
+         */
         private void setEnterpriseId(String enterpriseId) {
             getEventBuilder().setEnterpriseId(enterpriseId);
         }
 
+        /**
+         * Sets the agent address.
+         *
+         * @param agentAddress
+         *            the new agent address
+         */
         public void setAgentAddress(InetAddress agentAddress) {
             getEventBuilder().setHost(InetAddressUtils.toIpAddrString(agentAddress));
         }
 
+        /**
+         * Process var bind.
+         *
+         * @param name
+         *            the name
+         * @param value
+         *            the value
+         */
         public void processVarBind(SnmpObjId name, SnmpValue value) {
             getEventBuilder().addParam(SyntaxToEvent.processSyntax(name.toString(), value));
             if (EventConstants.OID_SNMP_IFINDEX.isPrefixOf(name)) {
@@ -206,6 +300,12 @@ public class EventconfFactoryTest {
             }
         }
 
+        /**
+         * Sets the trap address.
+         *
+         * @param trapAddress
+         *            the new trap address
+         */
         public void setTrapAddress(InetAddress trapAddress) {
             getEventBuilder().setSnmpHost(str(trapAddress));
             getEventBuilder().setInterface(trapAddress);
@@ -215,6 +315,12 @@ public class EventconfFactoryTest {
             }
         }
 
+        /**
+         * Sets the trap identity.
+         *
+         * @param trapIdentity
+         *            the new trap identity
+         */
         public void setTrapIdentity(TrapIdentity trapIdentity) {
             setGeneric(trapIdentity.getGeneric());
             setSpecific(trapIdentity.getSpecific());
@@ -223,19 +329,41 @@ public class EventconfFactoryTest {
             LOG.debug("setTrapIdentity: SNMP trap {}", trapIdentity);
         }
 
+        /**
+         * Gets the event.
+         *
+         * @return the event
+         */
         public org.opennms.netmgt.xml.event.Event getEvent() {
             return getEventBuilder().getEvent();
         }
 
+        /**
+         * Gets the event builder.
+         *
+         * @return the event builder
+         */
         private EventBuilder getEventBuilder() {
             return m_eventBuilder;
         }
 
+        /**
+         * Sets the event builder.
+         *
+         * @param eventBuilder
+         *            the new event builder
+         */
         private void setEventBuilder(EventBuilder eventBuilder) {
             m_eventBuilder = eventBuilder;
         }
     }
 
+    /**
+     * Test find by trap.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testFindByTrap() throws Exception {
         String enterpriseId = ".1.3.6.1.4.1.5813.1";
@@ -271,6 +399,12 @@ public class EventconfFactoryTest {
         assertEquals("uei.opennms.org/traps/eventTrap", eventConf.getUei());
     }
 
+    /**
+     * Test find by trap1000 times.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testFindByTrap1000Times() throws Exception {
         String enterpriseId = ".1.3.6.1.4.1.5813.1";
@@ -317,6 +451,9 @@ public class EventconfFactoryTest {
         assertEquals("uei.opennms.org/traps/eventTrap", eventConf.getUei());
     }
 
+    /**
+     * Test find by event unknown.
+     */
     @Test
     public void testFindByEventUnknown() {
         EventBuilder bldr = new EventBuilder(unknownUEI1, "testFindByEventUnknown");
@@ -325,6 +462,9 @@ public class EventconfFactoryTest {
                    eventConf);
     }
 
+    /**
+     * Test get events by label.
+     */
     @Test
     public void testGetEventsByLabel() {
         List<Event> events = getEventsByLabel();
@@ -345,10 +485,18 @@ public class EventconfFactoryTest {
 
     }
 
+    /**
+     * Gets the events by label.
+     *
+     * @return the events by label
+     */
     private List<Event> getEventsByLabel() {
         return m_eventConfDao.getEventsByLabel();
     }
 
+    /**
+     * Test get event by uei.
+     */
     @Test
     public void testGetEventByUEI() {
         List<Event> result = m_eventConfDao.getEvents(knownUEI1);
@@ -366,6 +514,9 @@ public class EventconfFactoryTest {
         assertEquals("UEI should be " + knownSubfileUEI1, knownSubfileUEI1, firstEvent.getUei());
     }
 
+    /**
+     * Test get event ueis.
+     */
     @Test
     public void testGetEventUEIS() {
         List<String> ueis = m_eventConfDao.getEventUEIs();
@@ -373,6 +524,9 @@ public class EventconfFactoryTest {
         assertTrue("Must contain known UEI", ueis.contains(knownSubfileUEI1));
     }
 
+    /**
+     * Test get labels.
+     */
     @Test
     public void testGetLabels() {
         Map<String, String> labels = m_eventConfDao.getEventLabels();
@@ -382,6 +536,9 @@ public class EventconfFactoryTest {
         assertEquals("Must have known Label", labels.get(knownSubfileUEI1), knownSubfileLabel1);
     }
 
+    /**
+     * Test get label.
+     */
     @Test
     public void testGetLabel() {
         assertEquals("Must have correct label" + knownLabel1, knownLabel1, m_eventConfDao.getEventLabel(knownUEI1));
@@ -389,6 +546,9 @@ public class EventconfFactoryTest {
                      m_eventConfDao.getEventLabel(knownSubfileUEI1));
     }
 
+    /**
+     * Test get alarm type.
+     */
     @Test
     public void testGetAlarmType() {
         Event event = new Event();
@@ -405,6 +565,9 @@ public class EventconfFactoryTest {
     }
 
     // Ensure reload does indeed reload fresh data
+    /**
+     * Test reload.
+     */
     @Test
     public void testReload() {
         String newUEI = "uei.opennms.org/custom/newTestUEI";
@@ -441,6 +604,9 @@ public class EventconfFactoryTest {
     /**
      * Test an eventconf.xml with only &lt;event&gt; elements and no
      * &lt;event-file&gt; elements.
+     *
+     * @throws Exception
+     *             the exception
      */
     @Test
     public void testLoadConfigurationSingleConfig() throws Exception {
@@ -451,6 +617,9 @@ public class EventconfFactoryTest {
      * Test an eventconf.xml with &lt;event&gt; elements and &lt;event-file&gt;
      * elements that contain absolute paths. The included &lt;event-file&gt;
      * has no errors.
+     *
+     * @throws Exception
+     *             the exception
      */
     @Test
     public void testLoadConfigurationTwoDeepConfigAbsolutePaths() throws Exception {
@@ -461,6 +630,9 @@ public class EventconfFactoryTest {
      * Test an eventconf.xml with &lt;event&gt; elements and &lt;event-file&gt;
      * elements that contain absolute paths. The included &lt;event-file&gt;
      * references additional &lt;event-file&gt;s which is an error.
+     *
+     * @throws Exception
+     *             the exception
      */
     @Test
     public void testLoadConfigurationThreeDeepConfig() throws Exception {
@@ -485,6 +657,9 @@ public class EventconfFactoryTest {
      * Test an eventconf.xml with &lt;event&gt; elements and &lt;event-file&gt;
      * elements that contain absolute paths. The included &lt;event-file&gt;
      * has a &lt;global&gt; element which is an error.
+     *
+     * @throws Exception
+     *             the exception
      */
     @Test
     public void testLoadConfigurationTwoDeepConfigWithGlobal() throws Exception {
@@ -509,6 +684,9 @@ public class EventconfFactoryTest {
      * Test an eventconf.xml with &lt;event&gt; elements and &lt;event-file&gt;
      * elements that contain relative paths. The included &lt;event-file&gt;
      * has no errors.
+     *
+     * @throws Exception
+     *             the exception
      */
     @Test
     public void testLoadConfigurationRelativeTwoDeepConfig() throws Exception {
@@ -521,6 +699,7 @@ public class EventconfFactoryTest {
      * should fail because the relative path cannot be resolved.
      *
      * @throws Exception
+     *             the exception
      */
     @Test
     public void testLoadConfigurationWithNoFileRelativePathFailure() throws Exception {
@@ -547,6 +726,7 @@ public class EventconfFactoryTest {
      * should fail because the relative path cannot be resolved.
      *
      * @throws Exception
+     *             the exception
      */
     @Test
     public void testLoadConfigurationWithClassPathInclude() throws Exception {
@@ -556,6 +736,9 @@ public class EventconfFactoryTest {
     /**
      * Test that every file included in eventconf.xml actually exists on disk
      * and that there are no files on disk that aren't included.
+     *
+     * @throws Exception
+     *             the exception
      */
     @Test
     public void testIncludedEventFilesExistAndNoExtras() throws Exception {
@@ -600,6 +783,9 @@ public class EventconfFactoryTest {
 
     /**
      * Test the standard eventconf.xml configuration file and its include files.
+     *
+     * @throws Exception
+     *             the exception
      */
     @Test
     public void testLoadStandardConfiguration() throws Exception {
@@ -608,10 +794,34 @@ public class EventconfFactoryTest {
         dao.afterPropertiesSet();
     }
 
+    /**
+     * Load configuration.
+     *
+     * @param relativeResourcePath
+     *            the relative resource path
+     * @return the default event conf dao
+     * @throws DataAccessException
+     *             the data access exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     private DefaultEventConfDao loadConfiguration(String relativeResourcePath) throws DataAccessException, IOException {
         return loadConfiguration(relativeResourcePath, true);
     }
 
+    /**
+     * Load configuration.
+     *
+     * @param relativeResourcePath
+     *            the relative resource path
+     * @param passFile
+     *            the pass file
+     * @return the default event conf dao
+     * @throws DataAccessException
+     *             the data access exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     private DefaultEventConfDao loadConfiguration(String relativeResourcePath, boolean passFile)
             throws DataAccessException, IOException {
         DefaultEventConfDao dao = new DefaultEventConfDao();
@@ -629,6 +839,15 @@ public class EventconfFactoryTest {
         return dao;
     }
 
+    /**
+     * Gets the filtered input stream for config.
+     *
+     * @param resourceSuffix
+     *            the resource suffix
+     * @return the filtered input stream for config
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     private InputStream getFilteredInputStreamForConfig(String resourceSuffix) throws IOException {
         URL url = getUrlForRelativeResourcePath(resourceSuffix);
 
@@ -639,82 +858,146 @@ public class EventconfFactoryTest {
                                                                                         new File(url.getFile()).getParent() });
     }
 
+    /**
+     * Gets the url for relative resource path.
+     *
+     * @param resourceSuffix
+     *            the resource suffix
+     * @return the url for relative resource path
+     */
     private URL getUrlForRelativeResourcePath(String resourceSuffix) {
         URL url = getClass().getResource(getResourceForRelativePath(resourceSuffix));
         assertNotNull("URL for resource " + getResourceForRelativePath(resourceSuffix) + " must not be null", url);
         return url;
     }
 
+    /**
+     * Gets the resource for relative path.
+     *
+     * @param resourceSuffix
+     *            the resource suffix
+     * @return the resource for relative path
+     */
     private String getResourceForRelativePath(String resourceSuffix) {
         return "/org/opennms/netmgt/config/eventd/" + resourceSuffix;
     }
 
+    /**
+     * The Class MockFileSystemResourceWithInputStream.
+     */
     private class MockFileSystemResourceWithInputStream implements Resource {
+
+        /** The m_delegate. */
         private Resource m_delegate;
 
+        /** The m_input stream. */
         private InputStream m_inputStream;
 
+        /**
+         * Instantiates a new mock file system resource with input stream.
+         *
+         * @param file
+         *            the file
+         * @param inputStream
+         *            the input stream
+         */
         public MockFileSystemResourceWithInputStream(File file, InputStream inputStream) {
             m_delegate = new FileSystemResource(file);
 
             m_inputStream = inputStream;
         }
 
+        /* (non-Javadoc)
+         * @see org.springframework.core.io.InputStreamSource#getInputStream()
+         */
         @Override
         public InputStream getInputStream() {
             return m_inputStream;
         }
 
+        /* (non-Javadoc)
+         * @see org.springframework.core.io.Resource#createRelative(java.lang.String)
+         */
         @Override
         public Resource createRelative(String relative) throws IOException {
             return m_delegate.createRelative(relative);
         }
 
+        /* (non-Javadoc)
+         * @see org.springframework.core.io.Resource#exists()
+         */
         @Override
         public boolean exists() {
             return m_delegate.exists();
         }
 
+        /* (non-Javadoc)
+         * @see org.springframework.core.io.Resource#getDescription()
+         */
         @Override
         public String getDescription() {
             return m_delegate.getDescription();
         }
 
+        /* (non-Javadoc)
+         * @see org.springframework.core.io.Resource#getFile()
+         */
         @Override
         public File getFile() throws IOException {
             return m_delegate.getFile();
         }
 
+        /* (non-Javadoc)
+         * @see org.springframework.core.io.Resource#getFilename()
+         */
         @Override
         public String getFilename() {
             return m_delegate.getFilename();
         }
 
+        /* (non-Javadoc)
+         * @see org.springframework.core.io.Resource#getURL()
+         */
         @Override
         public URL getURL() throws IOException {
             return m_delegate.getURL();
         }
 
+        /* (non-Javadoc)
+         * @see org.springframework.core.io.Resource#isOpen()
+         */
         @Override
         public boolean isOpen() {
             return m_delegate.isOpen();
         }
 
+        /* (non-Javadoc)
+         * @see org.springframework.core.io.Resource#getURI()
+         */
         @Override
         public URI getURI() throws IOException {
             return m_delegate.getURI();
         }
 
+        /* (non-Javadoc)
+         * @see org.springframework.core.io.Resource#isReadable()
+         */
         @Override
         public boolean isReadable() {
             return m_delegate.isReadable();
         }
 
+        /* (non-Javadoc)
+         * @see org.springframework.core.io.Resource#lastModified()
+         */
         @Override
         public long lastModified() throws IOException {
             return m_delegate.lastModified();
         }
 
+        /* (non-Javadoc)
+         * @see org.springframework.core.io.Resource#contentLength()
+         */
         @Override
         public long contentLength() throws IOException {
             return m_delegate.contentLength();

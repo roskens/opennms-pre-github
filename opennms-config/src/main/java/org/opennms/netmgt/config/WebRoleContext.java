@@ -38,21 +38,29 @@ package org.opennms.netmgt.config;
  * @since 1.8.1
  */
 public class WebRoleContext {
+
+    /** The s_manager. */
     private static WebRoleManagerImpl s_manager = null;
 
     /**
      * <p>
      * init
      * </p>
+     * .
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     public static void init() throws Exception {
         GroupFactory.init();
         UserFactory.init();
     }
 
+    /**
+     * Gets the manager.
+     *
+     * @return the manager
+     */
     private static WebRoleManagerImpl getManager() {
         if (s_manager == null) {
             s_manager = new WebRoleManagerImpl(GroupFactory.getInstance(), UserFactory.getInstance());
@@ -65,6 +73,7 @@ public class WebRoleContext {
      * <p>
      * getWebRoleManager
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.config.WebRoleManager} object.
      */
@@ -76,6 +85,7 @@ public class WebRoleContext {
      * <p>
      * getWebUserManager
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.config.WebUserManager} object.
      */
@@ -87,6 +97,7 @@ public class WebRoleContext {
      * <p>
      * getWebGroupManager
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.config.WebGroupManager} object.
      */

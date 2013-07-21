@@ -39,8 +39,10 @@ import org.opennms.core.utils.IpListFromUrl;
  */
 public class IncludeURL {
 
+    /** The m_url name. */
     private String m_urlName;
 
+    /** The m_ip list. */
     private List<String> m_ipList;
 
     /**
@@ -60,6 +62,7 @@ public class IncludeURL {
      * <p>
      * getName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -71,6 +74,7 @@ public class IncludeURL {
      * <p>
      * setIpList
      * </p>
+     * .
      *
      * @param ipList
      *            a {@link java.util.List} object.
@@ -83,6 +87,7 @@ public class IncludeURL {
      * <p>
      * getIpList
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -97,20 +102,18 @@ public class IncludeURL {
      * returned.
      *
      * <pre>
-     *  The file URL is read and each entry in this file checked. Each line
-     *   in the URL file can be one of -
-     *   &lt;IP&gt;&lt;space&gt;#&lt;comments&gt;
-     *   or
-     *   &lt;IP&gt;
-     *   or
-     *   #&lt;comments&gt;
+     * The file URL is read and each entry in this file checked. Each line
+     * in the URL file can be one of -
+     * &lt;IP&gt;&lt;space&gt;#&lt;comments&gt;
+     * or
+     * &lt;IP&gt;
+     * or
+     * #&lt;comments&gt;
      *
-     *   Lines starting with a '#' are ignored and so are characters after
-     *   a '&lt;space&gt;#' in a line.
+     * Lines starting with a '#' are ignored and so are characters after
+     * a '&lt;space&gt;#' in a line.
      * </pre>
      *
-     * @param url
-     *            The url file to read
      * @param addr
      *            The interface to test against the package's URL
      * @return True if the interface is included in the url, false otherwise.
@@ -128,6 +131,9 @@ public class IncludeURL {
         return bRet;
     }
 
+    /**
+     * Creates the ip list.
+     */
     void createIpList() {
         List<String> iplist = IpListFromUrl.parse(getName());
         if (iplist.size() > 0) {

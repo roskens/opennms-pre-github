@@ -87,9 +87,10 @@ public interface PollOutagesConfig {
      * <p>
      * update
      * </p>
+     * .
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     public abstract void update() throws Exception;
 

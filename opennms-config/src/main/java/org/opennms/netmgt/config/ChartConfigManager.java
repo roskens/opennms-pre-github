@@ -48,21 +48,23 @@ import org.opennms.netmgt.config.charts.ChartConfiguration;
  */
 public abstract class ChartConfigManager {
 
+    /** The m_configuration. */
     static ChartConfiguration m_configuration = null;
 
     /**
      * <p>
      * parseXml
      * </p>
+     * .
      *
      * @param stream
      *            a {@link java.io.InputStream} object.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public static synchronized void parseXml(InputStream stream) throws MarshalException, ValidationException,
             IOException {
@@ -73,11 +75,12 @@ public abstract class ChartConfigManager {
      * <p>
      * saveXml
      * </p>
+     * .
      *
      * @param xml
      *            a {@link java.lang.String} object.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     protected abstract void saveXml(String xml) throws IOException;
 
@@ -85,13 +88,14 @@ public abstract class ChartConfigManager {
      * <p>
      * saveCurrent
      * </p>
+     * .
      *
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public synchronized void saveCurrent() throws MarshalException, ValidationException, IOException {
         // Marshal to a string first, then write the string to the file. This
@@ -108,15 +112,16 @@ public abstract class ChartConfigManager {
      * <p>
      * getConfiguration
      * </p>
+     * .
      *
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
      * @return a {@link org.opennms.netmgt.config.charts.ChartConfiguration}
      *         object.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public ChartConfiguration getConfiguration() throws IOException, MarshalException, ValidationException {
         return m_configuration;
@@ -126,6 +131,7 @@ public abstract class ChartConfigManager {
      * <p>
      * setConfiguration
      * </p>
+     * .
      *
      * @param configuration
      *            a {@link org.opennms.netmgt.config.charts.ChartConfiguration}
@@ -139,13 +145,14 @@ public abstract class ChartConfigManager {
      * <p>
      * update
      * </p>
+     * .
      *
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     protected abstract void update() throws IOException, MarshalException, ValidationException;
 

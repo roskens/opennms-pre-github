@@ -40,10 +40,14 @@ import org.opennms.netmgt.snmp.SnmpAgentConfig;
 import org.springframework.core.io.Resource;
 
 /**
+ * The Class ConfigureSnmpTest.
+ *
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  */
 public class ConfigureSnmpTest extends TestCase {
+
+    /** The m_starting def count. */
     private final int m_startingDefCount = 5;
 
     /*
@@ -64,6 +68,7 @@ public class ConfigureSnmpTest extends TestCase {
      * a long and back to an IP address.
      *
      * @throws UnknownHostException
+     *             the unknown host exception
      */
     public void testToIpAddrString() throws UnknownHostException {
         String addr = "192.168.1.1";
@@ -71,12 +76,14 @@ public class ConfigureSnmpTest extends TestCase {
     }
 
     /**
-     * Test method for
-     * {@link org.opennms.netmgt.config.SnmpPeerFactory#createSnmpEventInfo(org.opennms.netmgt.xml.event.Event)}
-     * .
-     * Tests creating an SNMP config definition from a configureSNMP event.
+     * Test method for.
      *
      * @throws UnknownHostException
+     *             the unknown host exception
+     *             {@link org.opennms.netmgt.config.SnmpPeerFactory#createSnmpEventInfo(org.opennms.netmgt.xml.event.Event)}
+     *             .
+     *             Tests creating an SNMP config definition from a configureSNMP
+     *             event.
      */
     public void testCreateSnmpEventInfo() throws UnknownHostException {
         EventBuilder bldr = createConfigureSnmpEventBuilder("192.168.1.1", null);
@@ -95,6 +102,7 @@ public class ConfigureSnmpTest extends TestCase {
      * to the running config.
      *
      * @throws UnknownHostException
+     *             the unknown host exception
      */
     public void testSnmpEventInfoClassWithSpecific() throws UnknownHostException {
         final String addr = "192.168.0.5";
@@ -115,6 +123,7 @@ public class ConfigureSnmpTest extends TestCase {
      * replace it with a range 192.168.0.5 - 192.168.0.7.
      *
      * @throws UnknownHostException
+     *             the unknown host exception
      */
     public void testSnmpEventInfoClassWithRangeReplacingSpecific() throws UnknownHostException {
         final String addr1 = "192.168.0.5";
@@ -140,6 +149,7 @@ public class ConfigureSnmpTest extends TestCase {
      * sets a current range.
      *
      * @throws UnknownHostException
+     *             the unknown host exception
      */
     public void testSnmpEventInfoClassWithRangeSuperSettingDefRanges() throws UnknownHostException {
         final String addr1 = "192.168.99.1";
@@ -166,6 +176,7 @@ public class ConfigureSnmpTest extends TestCase {
      * specific from one definition into another.
      *
      * @throws UnknownHostException
+     *             the unknown host exception
      */
     public void testSplicingSpecificsIntoRanges() throws UnknownHostException {
         assertEquals(3, SnmpPeerFactory.getSnmpConfig().getDefinition(2).getRangeCount());
@@ -193,6 +204,7 @@ public class ConfigureSnmpTest extends TestCase {
      * range.
      *
      * @throws UnknownHostException
+     *             the unknown host exception
      */
     public void testSplice2() throws UnknownHostException {
         assertEquals(3, SnmpPeerFactory.getSnmpConfig().getDefinition(3).getRangeCount());
@@ -217,6 +229,15 @@ public class ConfigureSnmpTest extends TestCase {
 
     }
 
+    /**
+     * Creates the configure snmp event builder.
+     *
+     * @param firstIp
+     *            the first ip
+     * @param lastIp
+     *            the last ip
+     * @return the event builder
+     */
     private EventBuilder createConfigureSnmpEventBuilder(final String firstIp, final String lastIp) {
 
         EventBuilder bldr = new EventBuilder(EventConstants.CONFIGURE_SNMP_EVENT_UEI, "ConfigureSnmpTest");
@@ -227,6 +248,14 @@ public class ConfigureSnmpTest extends TestCase {
         return bldr;
     }
 
+    /**
+     * Adds the community string to event.
+     *
+     * @param bldr
+     *            the bldr
+     * @param commStr
+     *            the comm str
+     */
     private void addCommunityStringToEvent(final EventBuilder bldr, final String commStr) {
         bldr.addParam(EventConstants.PARM_COMMUNITY_STRING, commStr);
     }

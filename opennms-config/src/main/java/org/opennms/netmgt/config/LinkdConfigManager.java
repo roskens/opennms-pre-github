@@ -68,25 +68,31 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public abstract class LinkdConfigManager implements LinkdConfig {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(LinkdConfigManager.class);
 
+    /** The m_global lock. */
     private final ReadWriteLock m_globalLock = new ReentrantReadWriteLock();
 
+    /** The m_read lock. */
     private final Lock m_readLock = m_globalLock.readLock();
 
+    /** The m_write lock. */
     private final Lock m_writeLock = m_globalLock.writeLock();
 
+    /** The Constant DEFAULT_IP_ROUTE_CLASS_NAME. */
     public static final String DEFAULT_IP_ROUTE_CLASS_NAME = "org.opennms.netmgt.linkd.snmp.IpCidrRouteTable";
 
     /**
      * Object containing all Linkd-configuration objects parsed from the XML
-     * file
+     * file.
      */
     protected static LinkdConfiguration m_config;
 
     /**
      * A mapping of the configured URLs to a list of the specific IPs configured
-     * in each - so as to avoid file reads
+     * in each - so as to avoid file reads.
      */
     private static Map<String, List<String>> m_urlIPMap = new HashMap<String, List<String>>();
 
@@ -96,45 +102,40 @@ public abstract class LinkdConfigManager implements LinkdConfig {
      */
     private static Map<org.opennms.netmgt.config.linkd.Package, List<InetAddress>> m_pkgIpMap = new HashMap<org.opennms.netmgt.config.linkd.Package, List<InetAddress>>();
 
-    /**
-     * The HashMap that associates the OIDS masks to class name for Vlans
-     */
+    /** The HashMap that associates the OIDS masks to class name for Vlans. */
     private static Map<String, String> m_oidMask2VlanclassName = new HashMap<String, String>();
 
-    /**
-     * The HashMap that associates the OIDS masks to class name for IpRoutes
-     */
+    /** The HashMap that associates the OIDS masks to class name for IpRoutes. */
     private static Map<String, String> m_oidMask2IpRouteclassName = new HashMap<String, String>();
 
     /**
      * <p>
      * Constructor for LinkdConfigManager.
      * </p>
-     *
-     * @param stream
-     *            a {@link java.io.InputStream} object.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
      */
     public LinkdConfigManager() {
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.LinkdConfig#getReadLock()
+     */
     @Override
     public Lock getReadLock() {
         return m_readLock;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.LinkdConfig#getWriteLock()
+     */
     @Override
     public Lock getWriteLock() {
         return m_writeLock;
     }
 
     /**
-     * Whether autodiscovery is enabled in linkd-config (default: false)
+     * Whether autodiscovery is enabled in linkd-config (default: false).
+     *
+     * @return true, if is auto discovery enabled
      */
     @Override
     public boolean isAutoDiscoveryEnabled() {
@@ -149,7 +150,9 @@ public abstract class LinkdConfigManager implements LinkdConfig {
     }
 
     /**
-     * Whether vlan discovery is enabled in linkd-config (default: true)
+     * Whether vlan discovery is enabled in linkd-config (default: true).
+     *
+     * @return true, if is vlan discovery enabled
      */
     @Override
     public boolean isVlanDiscoveryEnabled() {
@@ -203,6 +206,9 @@ public abstract class LinkdConfigManager implements LinkdConfig {
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.LinkdConfig#isInterfaceInPackageRange(java.net.InetAddress, org.opennms.netmgt.config.linkd.Package)
+     */
     @Override
     public boolean isInterfaceInPackageRange(final InetAddress iface, final org.opennms.netmgt.config.linkd.Package pkg) {
         if (pkg == null)
@@ -270,6 +276,7 @@ public abstract class LinkdConfigManager implements LinkdConfig {
      * <p>
      * enumeratePackage
      * </p>
+     * .
      *
      * @return a {@link java.util.Enumeration} object.
      */
@@ -441,6 +448,7 @@ public abstract class LinkdConfigManager implements LinkdConfig {
      * <p>
      * useIpRouteDiscovery
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -455,6 +463,7 @@ public abstract class LinkdConfigManager implements LinkdConfig {
      * <p>
      * saveRouteTable
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -469,6 +478,7 @@ public abstract class LinkdConfigManager implements LinkdConfig {
      * <p>
      * useCdpDiscovery
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -483,6 +493,7 @@ public abstract class LinkdConfigManager implements LinkdConfig {
      * <p>
      * useBridgeDiscovery
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -497,6 +508,7 @@ public abstract class LinkdConfigManager implements LinkdConfig {
      * <p>
      * useLldpDiscovery
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -511,6 +523,7 @@ public abstract class LinkdConfigManager implements LinkdConfig {
      * <p>
      * useOspfDiscovery
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -525,6 +538,7 @@ public abstract class LinkdConfigManager implements LinkdConfig {
      * <p>
      * saveStpNodeTable
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -539,6 +553,7 @@ public abstract class LinkdConfigManager implements LinkdConfig {
      * <p>
      * enableDiscoveryDownload
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -553,6 +568,7 @@ public abstract class LinkdConfigManager implements LinkdConfig {
      * <p>
      * saveStpInterfaceTable
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -563,6 +579,9 @@ public abstract class LinkdConfigManager implements LinkdConfig {
         return true;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.LinkdConfig#getInitialSleepTime()
+     */
     @Override
     public long getInitialSleepTime() {
         if (m_config.hasInitial_sleep_time())
@@ -570,6 +589,9 @@ public abstract class LinkdConfigManager implements LinkdConfig {
         return 1800000;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.LinkdConfig#getSnmpPollInterval()
+     */
     @Override
     public long getSnmpPollInterval() {
         if (m_config.hasSnmp_poll_interval())
@@ -577,6 +599,9 @@ public abstract class LinkdConfigManager implements LinkdConfig {
         return 900000;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.LinkdConfig#getDiscoveryLinkInterval()
+     */
     @Override
     public long getDiscoveryLinkInterval() {
         if (m_config.hasSnmp_poll_interval())
@@ -588,6 +613,7 @@ public abstract class LinkdConfigManager implements LinkdConfig {
      * <p>
      * getThreads
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -613,6 +639,7 @@ public abstract class LinkdConfigManager implements LinkdConfig {
      * <p>
      * update
      * </p>
+     * .
      */
     @Override
     public abstract void update();
@@ -649,6 +676,9 @@ public abstract class LinkdConfigManager implements LinkdConfig {
         }
     }
 
+    /**
+     * Update url ip map.
+     */
     protected void updateUrlIpMap() {
         m_urlIPMap.clear();
         for (final org.opennms.netmgt.config.linkd.Package pkg : m_config.getPackageCollection()) {
@@ -663,6 +693,9 @@ public abstract class LinkdConfigManager implements LinkdConfig {
         }
     }
 
+    /**
+     * Update ip route class names.
+     */
     protected void updateIpRouteClassNames() {
         m_oidMask2IpRouteclassName.clear();
         getWriteLock().lock();
@@ -689,6 +722,9 @@ public abstract class LinkdConfigManager implements LinkdConfig {
         }
     }
 
+    /**
+     * Update vlan class names.
+     */
     protected void updateVlanClassNames() {
         m_oidMask2VlanclassName.clear();
         getWriteLock().lock();
@@ -757,6 +793,13 @@ public abstract class LinkdConfigManager implements LinkdConfig {
         }
     }
 
+    /**
+     * Gets the root oid.
+     *
+     * @param snmpObj
+     *            the snmp obj
+     * @return the root oid
+     */
     private SnmpObjectId getRootOid(final SnmpObjectId snmpObj) {
         getReadLock().lock();
         try {
@@ -817,14 +860,18 @@ public abstract class LinkdConfigManager implements LinkdConfig {
      * <p>
      * saveXml
      * </p>
+     * .
      *
      * @param xml
      *            a {@link java.lang.String} object.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     protected abstract void saveXml(final String xml) throws IOException;
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.LinkdConfig#forceIpRouteDiscoveryOnEthernet()
+     */
     @Override
     public boolean forceIpRouteDiscoveryOnEthernet() {
         if (m_config.hasForceIpRouteDiscoveryOnEthernet())
