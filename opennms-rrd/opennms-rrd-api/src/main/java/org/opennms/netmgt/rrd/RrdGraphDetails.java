@@ -38,14 +38,14 @@ import java.io.InputStream;
  * @version $Id: $
  */
 public interface RrdGraphDetails {
+
     /**
      * Gets the PNG image representing the graph. If a graph wasn't created,
      * an RrdException will be thrown.
      *
      * @return InputStream containg a PNG image representing the graph
-     * @throws org.opennms.netmgt.rrd.RrdException
-     *             if there is an error getting an input stream for
-     *             the graph, such as if no graph image was created
+     * @throws RrdException
+     *             the rrd exception
      */
     public InputStream getInputStream() throws RrdException;
 
@@ -54,8 +54,8 @@ public interface RrdGraphDetails {
      *
      * @return PRINT lines associated with the graph command. If there were
      *         no PRINT lines, an empty array is returned.
-     * @throws org.opennms.netmgt.rrd.RrdException
-     *             if there is an error getting the PRINT lines
+     * @throws RrdException
+     *             the rrd exception
      */
     public String[] getPrintLines() throws RrdException;
 
@@ -65,9 +65,8 @@ public interface RrdGraphDetails {
      * @return height of the PNG image in pixels. This is the height of the
      *         entire PNG image, not just the height of the graph box within
      *         the image.
-     * @throws org.opennms.netmgt.rrd.RrdException
-     *             if no graph image was produced or if there is an
-     *             error getting the height
+     * @throws RrdException
+     *             the rrd exception
      */
     public int getHeight() throws RrdException;
 
@@ -77,9 +76,8 @@ public interface RrdGraphDetails {
      * @return width of the PNG image in pixels. This is the width of the
      *         entire PNG image, not just the width of the graph box within
      *         the image.
-     * @throws org.opennms.netmgt.rrd.RrdException
-     *             if no graph image was produced or if there is an
-     *             error getting the height
+     * @throws RrdException
+     *             the rrd exception
      */
     public int getWidth() throws RrdException;
 }

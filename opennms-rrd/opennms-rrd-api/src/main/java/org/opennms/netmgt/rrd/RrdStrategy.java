@@ -40,6 +40,10 @@ import java.util.Properties;
  * Defines an abstract strategy for manipulating round robin database file. This
  * is used by the RrdUtils to implement the appropriate behavior
  *
+ * @param <D>
+ *            the generic type
+ * @param <F>
+ *            the generic type
  * @author ranger
  * @version $Id: $
  */
@@ -49,6 +53,7 @@ public interface RrdStrategy<D extends Object, F extends Object> {
      * <p>
      * setConfigurationProperties
      * </p>
+     * .
      *
      * @param props
      *            a {@link java.util.Properties} object.
@@ -56,7 +61,7 @@ public interface RrdStrategy<D extends Object, F extends Object> {
     public void setConfigurationProperties(Properties props);
 
     /**
-     * Get the file extension appropriate for files of this type
+     * Get the file extension appropriate for files of this type.
      *
      * @return a {@link java.lang.String} object.
      */
@@ -83,8 +88,8 @@ public interface RrdStrategy<D extends Object, F extends Object> {
      *            defined lower step
      * @return an object representing the definition of an round robin database.
      *         Can be null if the database exists already.
-     * @throws java.lang.Exception
-     *             If an error occurs while creating the definition
+     * @throws Exception
+     *             the exception
      */
     public D createDefinition(String creator, String directory, String rrdName, int step,
             List<RrdDataSource> dataSources, List<String> rraList) throws Exception;
@@ -101,8 +106,8 @@ public interface RrdStrategy<D extends Object, F extends Object> {
      *            attributeId to rrd track names. default there is only one
      *            track per datasource, but it is possible to store multiple
      *            tracks in one datasource
-     * @throws java.lang.Exception
-     *             if an error occurs create the file
+     * @throws Exception
+     *             the exception
      */
     public void createFile(D rrdDef, Map<String, String> attributeMappings) throws Exception;
 
@@ -115,14 +120,14 @@ public interface RrdStrategy<D extends Object, F extends Object> {
      *            the name of the associated rrd file
      * @return an open rrd reference that can by used in calls to updateFile and
      *         closeFile
-     * @throws java.lang.Exception
-     *             if an error occurs opening the file
+     * @throws Exception
+     *             the exception
      */
     public F openFile(String fileName) throws Exception;
 
     /**
      * Updates the supplied round robin database with the given timestamp:value
-     * point
+     * point.
      *
      * @param rrd
      *            an rrd object created using openFile
@@ -130,18 +135,18 @@ public interface RrdStrategy<D extends Object, F extends Object> {
      *            the owner of the rrd
      * @param data
      *            a string of the form <timestamp>: <datavalue>
-     * @throws java.lang.Exception
-     *             if an error occurs updating the file
+     * @throws Exception
+     *             the exception
      */
     public void updateFile(F rrd, String owner, String data) throws Exception;
 
     /**
-     * This closes the supplied round robin database
+     * This closes the supplied round robin database.
      *
      * @param rrd
      *            an rrd object created using openFile
-     * @throws java.lang.Exception
-     *             if an error occurs closing the file
+     * @throws Exception
+     *             the exception
      */
     public void closeFile(F rrd) throws Exception;
 
@@ -158,10 +163,10 @@ public interface RrdStrategy<D extends Object, F extends Object> {
      *            a step interval of the round robin database
      * @return The last value as a Double (if the last value didn't exist
      *         returns a Double.NaN)
-     * @throws java.lang.NumberFormatException
-     *             if any.
-     * @throws org.opennms.netmgt.rrd.RrdException
-     *             if any.
+     * @throws NumberFormatException
+     *             the number format exception
+     * @throws RrdException
+     *             the rrd exception
      */
     public Double fetchLastValue(String rrdFile, String ds, int interval) throws NumberFormatException, RrdException;
 
@@ -174,16 +179,16 @@ public interface RrdStrategy<D extends Object, F extends Object> {
      *            a name the represents a round robin database
      * @param ds
      *            a name the represents a data source to be used
+     * @param consolidationFunction
+     *            a {@link java.lang.String} object.
      * @param interval
      *            a step interval of the round robin database
      * @return The last value as a Double (if the last value didn't exist
      *         returns a Double.NaN)
-     * @throws java.lang.NumberFormatException
-     *             if any.
-     * @throws org.opennms.netmgt.rrd.RrdException
-     *             if any.
-     * @param consolidationFunction
-     *            a {@link java.lang.String} object.
+     * @throws NumberFormatException
+     *             the number format exception
+     * @throws RrdException
+     *             the rrd exception
      */
     public Double fetchLastValue(String rrdFile, String ds, String consolidationFunction, int interval)
             throws NumberFormatException, RrdException;
@@ -206,10 +211,10 @@ public interface RrdStrategy<D extends Object, F extends Object> {
      *            an acceptable range for which the last value will be returned
      * @return The last value as a Double (if the last value didn't exist
      *         returns a Double.NaN)
-     * @throws java.lang.NumberFormatException
-     *             if any.
-     * @throws org.opennms.netmgt.rrd.RrdException
-     *             if any.
+     * @throws NumberFormatException
+     *             the number format exception
+     * @throws RrdException
+     *             the rrd exception
      */
     public Double fetchLastValueInRange(String rrdFile, String ds, int interval, int range)
             throws NumberFormatException, RrdException;
@@ -225,10 +230,10 @@ public interface RrdStrategy<D extends Object, F extends Object> {
      *            the directory that all referenced files are relative to
      * @return an input stream representing the bytes of a graph image as a PNG
      *         file
-     * @throws java.io.IOException
-     *             if an IOError occurs
-     * @throws org.opennms.netmgt.rrd.RrdException
-     *             if an RRD error occurs
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws RrdException
+     *             the rrd exception
      */
     public InputStream createGraph(String command, File workDir) throws IOException, RrdException;
 
@@ -243,10 +248,10 @@ public interface RrdStrategy<D extends Object, F extends Object> {
      *            the directory that all referenced files are relative to
      * @return details for the graph including an InputStream, any PRINTed
      *         lines, and graph dimensions.
-     * @throws java.io.IOException
-     *             if an IOError occurs
-     * @throws org.opennms.netmgt.rrd.RrdException
-     *             if an RRD error occurs
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws RrdException
+     *             the rrd exception
      */
     public RrdGraphDetails createGraphReturnDetails(String command, File workDir) throws IOException, RrdException;
 

@@ -28,15 +28,24 @@
 
 package org.opennms.netmgt.rrd;
 
+/**
+ * The Class RrdDataSource.
+ */
 public class RrdDataSource {
+
+    /** The m_name. */
     private String m_name;
 
+    /** The m_type. */
     private String m_type;
 
+    /** The m_heart beat. */
     private int m_heartBeat;
 
+    /** The m_min. */
     private String m_min;
 
+    /** The m_max. */
     private String m_max;
 
     /**
@@ -67,6 +76,7 @@ public class RrdDataSource {
      * <p>
      * getHeartBeat
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -78,6 +88,7 @@ public class RrdDataSource {
      * <p>
      * getMax
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -89,6 +100,7 @@ public class RrdDataSource {
      * <p>
      * getMin
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -100,6 +112,7 @@ public class RrdDataSource {
      * <p>
      * getName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -111,6 +124,7 @@ public class RrdDataSource {
      * <p>
      * getType
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

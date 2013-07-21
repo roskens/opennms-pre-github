@@ -43,16 +43,19 @@ import org.slf4j.LoggerFactory;
  * Provides access to the rrd configuration data.
  */
 public abstract class RrdConfig {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(RrdConfig.class);
 
+    /** The m_properties. */
     private static Properties m_properties = null;
 
     /**
      * This loads the configuration file.
      *
      * @return a Properties object representing the configuration properties
-     * @throws java.io.IOException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public static Properties getProperties() throws IOException {
         if (m_properties == null) {

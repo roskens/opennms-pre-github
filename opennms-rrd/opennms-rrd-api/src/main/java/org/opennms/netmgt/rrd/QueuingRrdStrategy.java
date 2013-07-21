@@ -95,14 +95,17 @@ import org.slf4j.LoggerFactory;
  */
 public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.CreateOperation, String>, Runnable {
 
+    /** The m_log. */
     private Logger m_log = LoggerFactory.getLogger(QueuingRrdStrategy.class);
 
+    /** The m_configuration properties. */
     private Properties m_configurationProperties;
 
     /**
      * <p>
      * getConfigurationProperties
      * </p>
+     * .
      *
      * @return a {@link java.util.Properties} object.
      */
@@ -116,38 +119,53 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
         this.m_configurationProperties = configurationParameters;
     }
 
+    /** The m_delegate. */
     RrdStrategy<Object, Object> m_delegate;
 
+    /** The Constant UPDATE. */
     static final int UPDATE = 0;
 
+    /** The Constant CREATE. */
     static final int CREATE = 1;
 
+    /** The m_write threads. */
     private int m_writeThreads;
 
+    /** The m_queue creates. */
     private boolean m_queueCreates;
 
+    /** The m_prioritize significant updates. */
     private boolean m_prioritizeSignificantUpdates;
 
+    /** The m_in sig high water mark. */
     private long m_inSigHighWaterMark;
 
+    /** The m_sig high water mark. */
     private long m_sigHighWaterMark;
 
+    /** The m_queue high water mark. */
     private long m_queueHighWaterMark;
 
+    /** The m_modulus. */
     private long m_modulus;
 
+    /** The m_category. */
     private String m_category;
 
+    /** The m_max insig update seconds. */
     private long m_maxInsigUpdateSeconds;
 
+    /** The m_write thread sleep time. */
     private long m_writeThreadSleepTime;
 
+    /** The m_write thread exit delay. */
     private long m_writeThreadExitDelay;
 
     /**
      * <p>
      * getWriteThreads
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -159,6 +177,7 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
      * <p>
      * setWriteThreads
      * </p>
+     * .
      *
      * @param writeThreads
      *            a int.
@@ -171,6 +190,7 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
      * <p>
      * queueCreates
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -182,6 +202,7 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
      * <p>
      * setQueueCreates
      * </p>
+     * .
      *
      * @param queueCreates
      *            a boolean.
@@ -194,6 +215,7 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
      * <p>
      * prioritizeSignificantUpdates
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -205,6 +227,7 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
      * <p>
      * setPrioritizeSignificantUpdates
      * </p>
+     * .
      *
      * @param prioritizeSignificantUpdates
      *            a boolean.
@@ -217,6 +240,7 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
      * <p>
      * getInSigHighWaterMark
      * </p>
+     * .
      *
      * @return a long.
      */
@@ -228,6 +252,7 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
      * <p>
      * setInSigHighWaterMark
      * </p>
+     * .
      *
      * @param inSigHighWaterMark
      *            a long.
@@ -240,6 +265,7 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
      * <p>
      * getSigHighWaterMark
      * </p>
+     * .
      *
      * @return a long.
      */
@@ -251,6 +277,7 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
      * <p>
      * setSigHighWaterMark
      * </p>
+     * .
      *
      * @param sigHighWaterMark
      *            a long.
@@ -263,6 +290,7 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
      * <p>
      * getQueueHighWaterMark
      * </p>
+     * .
      *
      * @return a long.
      */
@@ -274,6 +302,7 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
      * <p>
      * setQueueHighWaterMark
      * </p>
+     * .
      *
      * @param queueHighWaterMark
      *            a long.
@@ -286,6 +315,7 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
      * <p>
      * getModulus
      * </p>
+     * .
      *
      * @return a long.
      */
@@ -297,6 +327,7 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
      * <p>
      * setModulus
      * </p>
+     * .
      *
      * @param modulus
      *            a long.
@@ -309,6 +340,7 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
      * <p>
      * getCategory
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -320,6 +352,7 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
      * <p>
      * setCategory
      * </p>
+     * .
      *
      * @param category
      *            a {@link java.lang.String} object.
@@ -334,6 +367,7 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
      * <p>
      * getMaxInsigUpdateSeconds
      * </p>
+     * .
      *
      * @return a long.
      */
@@ -345,6 +379,7 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
      * <p>
      * setMaxInsigUpdateSeconds
      * </p>
+     * .
      *
      * @param maxInsigUpdateSeconds
      *            a long.
@@ -357,6 +392,7 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
      * <p>
      * getWriteThreadSleepTime
      * </p>
+     * .
      *
      * @return a long.
      */
@@ -368,6 +404,7 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
      * <p>
      * setWriteThreadSleepTime
      * </p>
+     * .
      *
      * @param writeThreadSleepTime
      *            a long.
@@ -380,6 +417,7 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
      * <p>
      * getWriteThreadExitDelay
      * </p>
+     * .
      *
      * @return a long.
      */
@@ -391,6 +429,7 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
      * <p>
      * setWriteThreadExitDelay
      * </p>
+     * .
      *
      * @param writeThreadExitDelay
      *            a long.
@@ -399,72 +438,116 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
         m_writeThreadExitDelay = writeThreadExitDelay;
     }
 
+    /** The files with significant work. */
     LinkedList<String> filesWithSignificantWork = new LinkedList<String>();
 
+    /** The files with insignificant work. */
     LinkedList<String> filesWithInsignificantWork = new LinkedList<String>();
 
+    /** The pending file operations. */
     Map<String, LinkedList<Operation>> pendingFileOperations = new HashMap<String, LinkedList<Operation>>();
 
+    /** The file assignments. */
     Map<Thread, String> fileAssignments = new HashMap<Thread, String>();
 
+    /** The reserved files. */
     Set<String> reservedFiles = new HashSet<String>();
 
+    /** The m_total operations pending. */
     private long m_totalOperationsPending = 0;
 
+    /** The m_enqueued operations. */
     private long m_enqueuedOperations = 0;
 
+    /** The m_dequeued operations. */
     private long m_dequeuedOperations = 0;
 
+    /** The m_significant ops enqueued. */
     private long m_significantOpsEnqueued = 0;
 
+    /** The m_significant ops dequeued. */
     private long m_significantOpsDequeued = 0;
 
+    /** The m_significant ops completed. */
     private long m_significantOpsCompleted = 0;
 
+    /** The m_dequeued items. */
     private long m_dequeuedItems = 0;
 
+    /** The m_creates completed. */
     private long m_createsCompleted = 0;
 
+    /** The m_updates completed. */
     private long m_updatesCompleted = 0;
 
+    /** The m_errors. */
     private long m_errors = 0;
 
+    /** The threads running. */
     int threadsRunning = 0;
 
+    /** The m_start time. */
     private long m_startTime = 0;
 
+    /** The m_promotion count. */
     private long m_promotionCount = 0;
 
+    /** The last lap. */
     long lastLap = System.currentTimeMillis();
 
+    /** The last stats time. */
     long lastStatsTime = 0;
 
+    /** The last enqueued. */
     long lastEnqueued = 0;
 
+    /** The last dequeued. */
     long lastDequeued = 0;
 
+    /** The last significant enqueued. */
     long lastSignificantEnqueued = 0;
 
+    /** The last significant dequeued. */
     long lastSignificantDequeued = 0;
 
+    /** The last significant completed. */
     long lastSignificantCompleted = 0;
 
+    /** The last dequeued items. */
     long lastDequeuedItems = 0;
 
+    /** The last ops pending. */
     long lastOpsPending = 0;
 
     /**
-     * This is the base class for an enqueue able operation
+     * This is the base class for an enqueue able operation.
      */
     abstract static class Operation {
+
+        /** The file name. */
         String fileName;
 
+        /** The type. */
         int type;
 
+        /** The data. */
         Object data;
 
+        /** The significant. */
         boolean significant;
 
+        /**
+         * Instantiates a new operation.
+         *
+         * @param fileName
+         *            the file name
+         * @param type
+         *            the type
+         * @param data
+         *            the data
+         * @param significant
+         *            the significant
+         */
         Operation(String fileName, int type, Object data, boolean significant) {
             this.fileName = fileName;
             this.type = type;
@@ -472,49 +555,107 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
             this.significant = significant;
         }
 
+        /**
+         * Gets the count.
+         *
+         * @return the count
+         */
         int getCount() {
             return 1;
         }
 
+        /**
+         * Gets the file name.
+         *
+         * @return the file name
+         */
         String getFileName() {
             return this.fileName;
         }
 
+        /**
+         * Gets the type.
+         *
+         * @return the type
+         */
         int getType() {
             return this.type;
         }
 
+        /**
+         * Gets the data.
+         *
+         * @return the data
+         */
         Object getData() {
             return this.data;
         }
 
+        /**
+         * Checks if is significant.
+         *
+         * @return true, if is significant
+         */
         boolean isSignificant() {
             return significant;
         }
 
+        /**
+         * Adds the to pending list.
+         *
+         * @param pendingOperations
+         *            the pending operations
+         */
         void addToPendingList(LinkedList<Operation> pendingOperations) {
             pendingOperations.add(this);
         }
 
+        /**
+         * Process.
+         *
+         * @param rrd
+         *            the rrd
+         * @return the object
+         * @throws Exception
+         *             the exception
+         */
         abstract Object process(Object rrd) throws Exception;
 
     }
 
     /**
-     * This class represents an operation to create an rrd file
+     * This class represents an operation to create an rrd file.
      */
     public class CreateOperation extends Operation {
 
+        /** The attribute mappings. */
         private Map<String, String> attributeMappings;
 
+        /**
+         * Instantiates a new creates the operation.
+         *
+         * @param fileName
+         *            the file name
+         * @param rrdDef
+         *            the rrd def
+         */
         CreateOperation(String fileName, Object rrdDef) {
             super(fileName, CREATE, rrdDef, true);
         }
 
+        /**
+         * Sets the attribute mappings.
+         *
+         * @param attributeMappings
+         *            the attribute mappings
+         */
         public void setAttributeMappings(Map<String, String> attributeMappings) {
             this.attributeMappings = attributeMappings;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.rrd.QueuingRrdStrategy.Operation#process(java.lang.Object)
+         */
         @Override
         Object process(Object rrd) throws Exception {
             // if the rrd is already open we are confused
@@ -542,14 +683,35 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
      */
     public class UpdateOperation extends Operation {
 
+        /**
+         * Instantiates a new update operation.
+         *
+         * @param fileName
+         *            the file name
+         * @param data
+         *            the data
+         */
         UpdateOperation(String fileName, String data) {
             super(fileName, UPDATE, data, true);
         }
 
+        /**
+         * Instantiates a new update operation.
+         *
+         * @param fileName
+         *            the file name
+         * @param data
+         *            the data
+         * @param significant
+         *            the significant
+         */
         UpdateOperation(String fileName, String data, boolean significant) {
             super(fileName, UPDATE, data, significant);
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.rrd.QueuingRrdStrategy.Operation#process(java.lang.Object)
+         */
         @Override
         Object process(Object rrd) throws Exception {
             // open the file if we need to
@@ -585,18 +747,32 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
      */
     public class ZeroUpdateOperation extends UpdateOperation {
 
+        /** The time stamp. */
         long timeStamp;
 
+        /** The interval. */
         long interval = 0;
 
+        /** The count. */
         int count;
 
+        /**
+         * Instantiates a new zero update operation.
+         *
+         * @param fileName
+         *            the file name
+         * @param intitialTimeStamp
+         *            the intitial time stamp
+         */
         ZeroUpdateOperation(String fileName, long intitialTimeStamp) {
             super(fileName, "0", false);
             timeStamp = intitialTimeStamp;
             count = 1;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.rrd.QueuingRrdStrategy.UpdateOperation#process(java.lang.Object)
+         */
         @Override
         Object process(Object rrd) throws Exception {
             long ts = getFirstTimeStamp();
@@ -624,31 +800,69 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
             return rrd;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.rrd.QueuingRrdStrategy.Operation#getCount()
+         */
         @Override
         public int getCount() {
             return count;
         }
 
+        /**
+         * Sets the count.
+         *
+         * @param newCount
+         *            the new count
+         */
         public void setCount(int newCount) {
             this.count = newCount;
         }
 
+        /**
+         * Gets the first time stamp.
+         *
+         * @return the first time stamp
+         */
         public long getFirstTimeStamp() {
             return timeStamp;
         }
 
+        /**
+         * Gets the last time stamp.
+         *
+         * @return the last time stamp
+         */
         public long getLastTimeStamp() {
             return timeStamp + interval * (count - 1);
         }
 
+        /**
+         * Gets the interval.
+         *
+         * @return the interval
+         */
         public long getInterval() {
             return interval;
         }
 
+        /**
+         * Sets the interval.
+         *
+         * @param newInterval
+         *            the new interval
+         */
         public void setInterval(long newInterval) {
             interval = newInterval;
         }
 
+        /**
+         * Merge updates.
+         *
+         * @param op
+         *            the op
+         * @throws IllegalArgumentException
+         *             the illegal argument exception
+         */
         public void mergeUpdates(ZeroUpdateOperation op) throws IllegalArgumentException {
             long opSpacing = op.getFirstTimeStamp() - getLastTimeStamp();
             long tolerance = getInterval() / 5;
@@ -675,6 +889,9 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
 
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.rrd.QueuingRrdStrategy.Operation#addToPendingList(java.util.LinkedList)
+         */
         @Override
         void addToPendingList(LinkedList<Operation> pendingOperations) {
             if (pendingOperations.size() > 0 && pendingOperations.getLast() instanceof ZeroUpdateOperation) {
@@ -695,6 +912,7 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
      * <p>
      * makeCreateOperation
      * </p>
+     * .
      *
      * @param fileName
      *            a {@link java.lang.String} object.
@@ -711,6 +929,7 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
      * <p>
      * makeUpdateOperation
      * </p>
+     * .
      *
      * @param fileName
      *            a {@link java.lang.String} object.
@@ -778,6 +997,11 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
         }
     }
 
+    /**
+     * Queue is full.
+     *
+     * @return true, if successful
+     */
     private boolean queueIsFull() {
         if (m_queueHighWaterMark <= 0)
             return false;
@@ -785,6 +1009,11 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
             return getTotalOperationsPending() >= m_queueHighWaterMark;
     }
 
+    /**
+     * Sig queue is full.
+     *
+     * @return true, if successful
+     */
     private boolean sigQueueIsFull() {
         if (m_sigHighWaterMark <= 0)
             return false;
@@ -792,6 +1021,11 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
             return getTotalOperationsPending() >= m_sigHighWaterMark;
     }
 
+    /**
+     * In sig queue is full.
+     *
+     * @return true, if successful
+     */
     private boolean inSigQueueIsFull() {
         if (m_inSigHighWaterMark <= 0)
             return false;
@@ -858,6 +1092,9 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
      * We need to track which files are being processed by which threads so that
      * we don't try to process updates for the same file on more than one
      * thread.
+     *
+     * @param op
+     *            the op
      */
     private synchronized void storeAssignment(Operation op) {
         // look and see if there a pending ops list for this file
@@ -893,7 +1130,7 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
 
     /**
      * Ensure that files with insignificant changes are getting promoted if
-     * necessary
+     * necessary.
      */
     private synchronized void promoteAgedFiles() {
 
@@ -937,7 +1174,11 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
 
     /**
      * Return true if and only if all the operations in the list are
-     * insignificant
+     * insignificant.
+     *
+     * @param pendingOps
+     *            the pending ops
+     * @return true, if successful
      */
     private boolean hasOnlyInsignificant(LinkedList<Operation> pendingOps) {
         for (Operation op : pendingOps) {
@@ -954,6 +1195,10 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
      * that file. Note: this is not synchronized as it is called from getNext
      * which
      * is thread safe
+     *
+     * @param newAssignment
+     *            the new assignment
+     * @return the linked list
      */
     private LinkedList<Operation> takeAssignment(String newAssignment) {
 
@@ -966,7 +1211,9 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
     }
 
     /**
-     * Return the name of the next file with available work
+     * Return the name of the next file with available work.
+     *
+     * @return the string
      */
     private String selectNewAssignment() {
         for (Iterator<String> it = filesWithSignificantWork.iterator(); it.hasNext();) {
@@ -988,7 +1235,7 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
 
     /**
      * Record that fact that the current thread has finished process operations
-     * for its current assignment
+     * for its current assignment.
      */
     private synchronized void completeAssignment() {
         // remove any existing reservation of the current thread
@@ -1013,6 +1260,7 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
      * <p>
      * getDelegate
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.rrd.RrdStrategy} object.
      */
@@ -1033,11 +1281,12 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
      * <p>
      * closeFile
      * </p>
+     * .
      *
      * @param rrd
      *            a {@link java.lang.String} object.
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @Override
     public void closeFile(String rrd) throws Exception {
@@ -1052,6 +1301,7 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
      * <p>
      * createDefinition
      * </p>
+     * .
      *
      * @param creator
      *            a {@link java.lang.String} object.
@@ -1073,8 +1323,8 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
      *            a {@link java.util.List} object.
      * @return a {@link org.opennms.netmgt.rrd.QueuingRrdStrategy.Operation}
      *         object.
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     public Operation createDefinition(String creator, String directory, String dsName, int step, String dsType,
             int dsHeartbeat, String dsMin, String dsMax, List<String> rraList) throws Exception {
@@ -1103,12 +1353,15 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
      * <p>
      * createFile
      * </p>
+     * .
      *
      * @param op
      *            a {@link org.opennms.netmgt.rrd.QueuingRrdStrategy.Operation}
      *            object.
-     * @throws java.lang.Exception
-     *             if any.
+     * @param attributeMappings
+     *            the attribute mappings
+     * @throws Exception
+     *             the exception
      */
     @Override
     public void createFile(CreateOperation op, Map<String, String> attributeMappings) throws Exception {
@@ -1184,6 +1437,7 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
      * <p>
      * run
      * </p>
+     * .
      */
     @Override
     public void run() {
@@ -1219,7 +1473,7 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
 
     /**
      * Actually process the operations be calling the underlying delegate
-     * strategy
+     * strategy.
      */
     private void processPendingOperations() {
         Object rrd = null;
@@ -1252,7 +1506,10 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
     }
 
     /**
-     * close the rrd file
+     * close the rrd file.
+     *
+     * @param rrd
+     *            the rrd
      */
     private void processClose(Object rrd) {
         if (rrd != null) {
@@ -1343,6 +1600,7 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
      * <p>
      * logStats
      * </p>
+     * .
      */
     public void logStats() {
         // TODO: Seth 2010-05-21: Change this so that it avoids the overhead of
@@ -1350,10 +1608,24 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
         logLapTime(getStats());
     }
 
+    /**
+     * Log lap time.
+     *
+     * @param message
+     *            the message
+     */
     void logLapTime(String message) {
         m_log.debug("{} {}", message, getLapTime());
     }
 
+    /**
+     * Log lap time.
+     *
+     * @param message
+     *            the message
+     * @param t
+     *            the t
+     */
     void logLapTime(String message, Throwable t) {
         m_log.debug("{} {}", message, getLapTime(), t);
     }
@@ -1362,6 +1634,7 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
      * <p>
      * getLapTime
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -1376,6 +1649,7 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
      * <p>
      * getGraphLeftOffset
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -1388,6 +1662,7 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
      * <p>
      * getGraphRightOffset
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -1400,6 +1675,7 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
      * <p>
      * getGraphTopOffsetWithText
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -1412,6 +1688,7 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
      * <p>
      * getDefaultFileExtension
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -1430,6 +1707,7 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
      * <p>
      * getTotalOperationsPending
      * </p>
+     * .
      *
      * @return a long.
      */
@@ -1441,6 +1719,7 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
      * <p>
      * setTotalOperationsPending
      * </p>
+     * .
      *
      * @param totalOperationsPending
      *            a long.
@@ -1453,6 +1732,7 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
      * <p>
      * getCreatesCompleted
      * </p>
+     * .
      *
      * @return a long.
      */
@@ -1464,6 +1744,7 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
      * <p>
      * setCreatesCompleted
      * </p>
+     * .
      *
      * @param createsCompleted
      *            a long.
@@ -1476,6 +1757,7 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
      * <p>
      * getUpdatesCompleted
      * </p>
+     * .
      *
      * @return a long.
      */
@@ -1487,6 +1769,7 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
      * <p>
      * setUpdatesCompleted
      * </p>
+     * .
      *
      * @param updatesCompleted
      *            a long.
@@ -1499,6 +1782,7 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
      * <p>
      * getErrors
      * </p>
+     * .
      *
      * @return a long.
      */
@@ -1510,6 +1794,7 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
      * <p>
      * setErrors
      * </p>
+     * .
      *
      * @param errors
      *            a long.
@@ -1522,6 +1807,7 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
      * <p>
      * getPromotionCount
      * </p>
+     * .
      *
      * @return a long.
      */
@@ -1533,6 +1819,7 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
      * <p>
      * setPromotionCount
      * </p>
+     * .
      *
      * @param promotionCount
      *            a long.
@@ -1545,6 +1832,7 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
      * <p>
      * getSignificantOpsEnqueued
      * </p>
+     * .
      *
      * @return a long.
      */
@@ -1556,6 +1844,7 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
      * <p>
      * setSignificantOpsEnqueued
      * </p>
+     * .
      *
      * @param significantOpsEnqueued
      *            a long.
@@ -1568,6 +1857,7 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
      * <p>
      * getSignificantOpsDequeued
      * </p>
+     * .
      *
      * @return a long.
      */
@@ -1579,6 +1869,7 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
      * <p>
      * setSignificantOpsDequeued
      * </p>
+     * .
      *
      * @param significantOpsDequeued
      *            a long.
@@ -1591,6 +1882,7 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
      * <p>
      * getEnqueuedOperations
      * </p>
+     * .
      *
      * @return a long.
      */
@@ -1602,6 +1894,7 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
      * <p>
      * setEnqueuedOperations
      * </p>
+     * .
      *
      * @param enqueuedOperations
      *            a long.
@@ -1614,6 +1907,7 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
      * <p>
      * getDequeuedOperations
      * </p>
+     * .
      *
      * @return a long.
      */
@@ -1625,6 +1919,7 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
      * <p>
      * setDequeuedOperations
      * </p>
+     * .
      *
      * @param dequeuedOperations
      *            a long.
@@ -1637,6 +1932,7 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
      * <p>
      * getDequeuedItems
      * </p>
+     * .
      *
      * @return a long.
      */
@@ -1648,6 +1944,7 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
      * <p>
      * setDequeuedItems
      * </p>
+     * .
      *
      * @param dequeuedItems
      *            a long.
@@ -1660,6 +1957,7 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
      * <p>
      * getSignificantOpsCompleted
      * </p>
+     * .
      *
      * @return a long.
      */
@@ -1671,6 +1969,7 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
      * <p>
      * setSignificantOpsCompleted
      * </p>
+     * .
      *
      * @param significantOpsCompleted
      *            a long.
@@ -1683,6 +1982,7 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
      * <p>
      * getStartTime
      * </p>
+     * .
      *
      * @return a long.
      */
@@ -1694,6 +1994,7 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
      * <p>
      * setStartTime
      * </p>
+     * .
      *
      * @param updateStart
      *            a long.

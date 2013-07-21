@@ -47,10 +47,13 @@ import java.util.Properties;
  */
 public class MultiOutputRrdStrategy implements RrdStrategy<List<Object>, List<Object>> {
 
+    /** The m_strategies. */
     private final List<RrdStrategy<Object, Object>> m_strategies = new ArrayList<RrdStrategy<Object, Object>>();
 
+    /** The m_graph strategy index. */
     private int m_graphStrategyIndex;
 
+    /** The m_fetch strategy index. */
     private int m_fetchStrategyIndex;
 
     /** {@inheritDoc} */
@@ -63,6 +66,7 @@ public class MultiOutputRrdStrategy implements RrdStrategy<List<Object>, List<Ob
      * <p>
      * getDelegates
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -74,6 +78,7 @@ public class MultiOutputRrdStrategy implements RrdStrategy<List<Object>, List<Ob
      * <p>
      * setDelegates
      * </p>
+     * .
      *
      * @param delegates
      *            a {@link java.util.List} object.
@@ -89,6 +94,7 @@ public class MultiOutputRrdStrategy implements RrdStrategy<List<Object>, List<Ob
      * <p>
      * getGraphStrategyIndex
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -100,6 +106,7 @@ public class MultiOutputRrdStrategy implements RrdStrategy<List<Object>, List<Ob
      * <p>
      * setGraphStrategyIndex
      * </p>
+     * .
      *
      * @param graphStrategyIndex
      *            a int.
@@ -112,6 +119,7 @@ public class MultiOutputRrdStrategy implements RrdStrategy<List<Object>, List<Ob
      * <p>
      * getFetchStrategyIndex
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -123,6 +131,7 @@ public class MultiOutputRrdStrategy implements RrdStrategy<List<Object>, List<Ob
      * <p>
      * setFetchStrategyIndex
      * </p>
+     * .
      *
      * @param fetchStrategyIndex
      *            a int.
@@ -135,11 +144,12 @@ public class MultiOutputRrdStrategy implements RrdStrategy<List<Object>, List<Ob
      * <p>
      * closeFile
      * </p>
+     * .
      *
      * @param rrd
      *            a {@link java.util.List} object.
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @Override
     public void closeFile(List<Object> rrd) throws Exception {
@@ -203,6 +213,7 @@ public class MultiOutputRrdStrategy implements RrdStrategy<List<Object>, List<Ob
      * <p>
      * getDefaultFileExtension
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -215,6 +226,7 @@ public class MultiOutputRrdStrategy implements RrdStrategy<List<Object>, List<Ob
      * <p>
      * getGraphLeftOffset
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -227,6 +239,7 @@ public class MultiOutputRrdStrategy implements RrdStrategy<List<Object>, List<Ob
      * <p>
      * getGraphRightOffset
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -239,6 +252,7 @@ public class MultiOutputRrdStrategy implements RrdStrategy<List<Object>, List<Ob
      * <p>
      * getGraphTopOffsetWithText
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -251,6 +265,7 @@ public class MultiOutputRrdStrategy implements RrdStrategy<List<Object>, List<Ob
      * <p>
      * getStats
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

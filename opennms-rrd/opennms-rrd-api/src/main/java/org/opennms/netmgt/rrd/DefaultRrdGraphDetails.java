@@ -37,18 +37,24 @@ import java.io.InputStream;
  * @version $Id: $
  */
 public class DefaultRrdGraphDetails implements RrdGraphDetails {
+
+    /** The m_input stream. */
     private InputStream m_inputStream;
 
+    /** The m_print lines. */
     private String[] m_printLines;
 
+    /** The m_width. */
     private int m_width;
 
+    /** The m_height. */
     private int m_height;
 
     /**
      * <p>
      * getHeight
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -61,6 +67,7 @@ public class DefaultRrdGraphDetails implements RrdGraphDetails {
      * <p>
      * setHeight
      * </p>
+     * .
      *
      * @param height
      *            a int.
@@ -73,6 +80,7 @@ public class DefaultRrdGraphDetails implements RrdGraphDetails {
      * <p>
      * getInputStream
      * </p>
+     * .
      *
      * @return a {@link java.io.InputStream} object.
      */
@@ -85,6 +93,7 @@ public class DefaultRrdGraphDetails implements RrdGraphDetails {
      * <p>
      * setInputStream
      * </p>
+     * .
      *
      * @param inputStream
      *            a {@link java.io.InputStream} object.
@@ -97,6 +106,7 @@ public class DefaultRrdGraphDetails implements RrdGraphDetails {
      * <p>
      * getPrintLines
      * </p>
+     * .
      *
      * @return an array of {@link java.lang.String} objects.
      */
@@ -109,6 +119,7 @@ public class DefaultRrdGraphDetails implements RrdGraphDetails {
      * <p>
      * setPrintLines
      * </p>
+     * .
      *
      * @param printLines
      *            an array of {@link java.lang.String} objects.
@@ -121,6 +132,7 @@ public class DefaultRrdGraphDetails implements RrdGraphDetails {
      * <p>
      * getWidth
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -133,6 +145,7 @@ public class DefaultRrdGraphDetails implements RrdGraphDetails {
      * <p>
      * setWidth
      * </p>
+     * .
      *
      * @param width
      *            a int.

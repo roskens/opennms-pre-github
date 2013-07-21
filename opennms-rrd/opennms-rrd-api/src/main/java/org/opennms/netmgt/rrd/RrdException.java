@@ -30,13 +30,11 @@ package org.opennms.netmgt.rrd;
 
 /**
  * This exception indicates an error has occurred creating, updating, or
- * fetching data from an Rrd file
+ * fetching data from an Rrd file.
  */
 public class RrdException extends Exception {
 
-    /**
-     *
-     */
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 5251168945484451493L;
 
     /**
