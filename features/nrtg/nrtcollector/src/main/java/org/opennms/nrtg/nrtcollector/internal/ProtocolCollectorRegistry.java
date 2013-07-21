@@ -36,5 +36,13 @@ import org.opennms.nrtg.api.ProtocolCollector;
  * @author Simon Walter
  */
 public interface ProtocolCollectorRegistry {
+
+    /**
+     * Gets the protocol collector.
+     *
+     * @param protocol
+     *            the protocol
+     * @return the protocol collector
+     */
     ProtocolCollector getProtocolCollector(String protocol);
 }

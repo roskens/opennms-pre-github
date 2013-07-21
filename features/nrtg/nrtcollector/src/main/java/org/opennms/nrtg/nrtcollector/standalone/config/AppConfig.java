@@ -44,13 +44,18 @@ import org.springframework.jms.listener.AbstractMessageListenerContainer;
 import org.springframework.jms.listener.DefaultMessageListenerContainer;
 
 /**
- * Java class as Spring configuration
+ * Java class as Spring configuration.
  *
  * @author Markus Neumann
  */
 @Configuration
 public class AppConfig {
 
+    /**
+     * Connection factory.
+     *
+     * @return the caching connection factory
+     */
     @Bean(name = "connectionFactory")
     public CachingConnectionFactory connectionFactory() {
         CachingConnectionFactory cachingConnectionFactory = new CachingConnectionFactory();
@@ -61,11 +66,21 @@ public class AppConfig {
         return cachingConnectionFactory;
     }
 
+    /**
+     * Jms exception listener.
+     *
+     * @return the exception listener
+     */
     @Bean(name = "jmsExceptionListener")
     private ExceptionListener jmsExceptionListener() {
         return new JmsExceptionListener();
     }
 
+    /**
+     * Amq connection factory.
+     *
+     * @return the connection factory
+     */
     @Bean(name = "amqConnectionFactory")
     public ConnectionFactory amqConnectionFactory() {
         ConnectionFactory connectionFactory = new ActiveMQConnectionFactory(
@@ -77,6 +92,11 @@ public class AppConfig {
     //
     // JMS Template
     //
+    /**
+     * Jms template.
+     *
+     * @return the jms template
+     */
     @Bean(name = "JmsTemplate")
     public JmsTemplate jmsTemplate() {
         JmsTemplate jmsTemplate = new JmsTemplate(connectionFactory());
@@ -88,6 +108,11 @@ public class AppConfig {
     //
     // JMS DLMC
     //
+    /**
+     * Listener container.
+     *
+     * @return the abstract message listener container
+     */
     @Bean(name = "listenerContainer")
     public AbstractMessageListenerContainer listenerContainer() {
         DefaultMessageListenerContainer listenerContainer = new DefaultMessageListenerContainer();
@@ -99,6 +124,11 @@ public class AppConfig {
         return listenerContainer;
     }
 
+    /**
+     * Collector jms dlmc.
+     *
+     * @return the nrt collector
+     */
     @Bean(name = "nrtCollector")
     public NrtCollector collectorJmsDLMC() {
         NrtCollectorJMSDLMC collector = new NrtCollectorJMSDLMC();

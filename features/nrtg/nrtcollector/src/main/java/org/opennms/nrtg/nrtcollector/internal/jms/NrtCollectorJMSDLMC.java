@@ -34,7 +34,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.jms.listener.AbstractMessageListenerContainer;
 
 /**
- * A JMS based NrtCollector listening to CollectionJobs using a
+ * A JMS based NrtCollector listening to CollectionJobs using a.
  * {@link org.springframework.jms.listener.AbstractMessageListenerContainer}.
  * Received Jobs will be send to a {@link CollectionJobListener} configured via
  * spring.
@@ -43,14 +43,25 @@ import org.springframework.jms.listener.AbstractMessageListenerContainer;
  */
 public class NrtCollectorJMSDLMC implements NrtCollector {
 
+    /** The Constant logger. */
     private static final Logger logger = LoggerFactory.getLogger(NrtCollectorJMSDLMC.class);
 
+    /** The listener container. */
     private AbstractMessageListenerContainer listenerContainer;
 
+    /**
+     * Sets the listener container.
+     *
+     * @param listenerContainer
+     *            the new listener container
+     */
     public void setListenerContainer(AbstractMessageListenerContainer listenerContainer) {
         this.listenerContainer = listenerContainer;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.nrtg.nrtcollector.api.NrtCollector#start()
+     */
     @Override
     public void start() {
         logger.info("Starting instance: " + this.hashCode() + " with destination: ["
@@ -60,11 +71,17 @@ public class NrtCollectorJMSDLMC implements NrtCollector {
         listenerContainer.start();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.nrtg.nrtcollector.api.NrtCollector#terminated()
+     */
     @Override
     public boolean terminated() {
         return !listenerContainer.isRunning();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.nrtg.nrtcollector.api.NrtCollector#stop()
+     */
     @Override
     public void stop() {
         logger.info("Stopping instance: " + this.hashCode());

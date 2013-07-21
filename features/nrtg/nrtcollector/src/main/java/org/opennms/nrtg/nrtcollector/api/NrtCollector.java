@@ -50,12 +50,12 @@ public interface NrtCollector {
     /**
      * Tells the main thread if the satellite instance is terminated.
      *
-     * @return
+     * @return true, if successful
      */
     boolean terminated();
 
     /**
-     * Stops the nrtcollector and cleans up all the resources
+     * Stops the nrtcollector and cleans up all the resources.
      */
     void stop();
 }

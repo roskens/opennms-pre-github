@@ -44,10 +44,18 @@ import org.springframework.stereotype.Component;
 @Component
 public class NrtCollectorStarter {
 
+    /** The Constant logger. */
     private static final Logger logger = LoggerFactory.getLogger(NrtCollectorStarter.class);
 
+    /** The context. */
     private static AbstractApplicationContext context;
 
+    /**
+     * The main method.
+     *
+     * @param args
+     *            the arguments
+     */
     public static void main(String[] args) {
         context = new AnnotationConfigApplicationContext(
                                                          org.opennms.nrtg.nrtcollector.standalone.config.AppConfig.class);
@@ -65,6 +73,11 @@ public class NrtCollectorStarter {
         context.close();
     }
 
+    /**
+     * Gets the context.
+     *
+     * @return the context
+     */
     public static AbstractApplicationContext getContext() {
         return context;
     }

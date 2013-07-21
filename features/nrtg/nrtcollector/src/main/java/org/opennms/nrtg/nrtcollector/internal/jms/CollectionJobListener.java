@@ -55,32 +55,59 @@ import org.springframework.jms.support.converter.SimpleMessageConverter;
  */
 public class CollectionJobListener implements MessageListener {
 
+    /** The Constant logger. */
     private static final Logger logger = LoggerFactory.getLogger(CollectionJobListener.class);
 
+    /** The simple message converter. */
     private final SimpleMessageConverter simpleMessageConverter = new SimpleMessageConverter();
 
+    /** The jms template. */
     private JmsTemplate jmsTemplate;
 
+    /** The protocol collector registry. */
     private ProtocolCollectorRegistry protocolCollectorRegistry;
 
+    /** The counter. */
     private static AtomicInteger counter = new AtomicInteger(0);
 
+    /**
+     * Instantiates a new collection job listener.
+     */
     public CollectionJobListener() {
     }
 
+    /**
+     * Instantiates a new collection job listener.
+     *
+     * @param jmsTemplate
+     *            the jms template
+     */
     public CollectionJobListener(JmsTemplate jmsTemplate) {
         this.jmsTemplate = jmsTemplate;
     }
 
+    /**
+     * Sets the jms template.
+     *
+     * @param jmsTemplate
+     *            the new jms template
+     */
     public void setJmsTemplate(JmsTemplate jmsTemplate) {
         this.jmsTemplate = jmsTemplate;
     }
 
+    /**
+     * Gets the protocol collector registry.
+     *
+     * @return the protocol collector registry
+     */
     public ProtocolCollectorRegistry getProtocolCollectorRegistry() {
         return protocolCollectorRegistry;
     }
 
     /**
+     * Sets the protocol collector registry.
+     *
      * @param protocolCollectorRegistry
      *            the protocolCollectorRegistry to set
      */
@@ -88,6 +115,9 @@ public class CollectionJobListener implements MessageListener {
         this.protocolCollectorRegistry = protocolCollectorRegistry;
     }
 
+    /* (non-Javadoc)
+     * @see javax.jms.MessageListener#onMessage(javax.jms.Message)
+     */
     @Override
     public void onMessage(Message message) {
 

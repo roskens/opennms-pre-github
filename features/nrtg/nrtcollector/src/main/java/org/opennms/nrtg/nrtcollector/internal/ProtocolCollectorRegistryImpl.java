@@ -34,14 +34,18 @@ import java.util.List;
 import org.opennms.nrtg.api.ProtocolCollector;
 
 /**
- * OSGI Implementation
+ * OSGI Implementation.
  *
  * @author Simon Walter
  */
 public class ProtocolCollectorRegistryImpl implements ProtocolCollectorRegistry {
 
+    /** The protocol collectors. */
     private List<ProtocolCollector> protocolCollectors = new ArrayList<ProtocolCollector>();
 
+    /* (non-Javadoc)
+     * @see org.opennms.nrtg.nrtcollector.internal.ProtocolCollectorRegistry#getProtocolCollector(java.lang.String)
+     */
     @Override
     public ProtocolCollector getProtocolCollector(String protocol) {
         for (ProtocolCollector pc : protocolCollectors) {
@@ -51,10 +55,21 @@ public class ProtocolCollectorRegistryImpl implements ProtocolCollectorRegistry 
         throw new RuntimeException("Unknown protocol! " + protocol);
     }
 
+    /**
+     * Sets the protocol collectors.
+     *
+     * @param protocolCollectors
+     *            the new protocol collectors
+     */
     public void setProtocolCollectors(List<ProtocolCollector> protocolCollectors) {
         this.protocolCollectors = protocolCollectors;
     }
 
+    /**
+     * Gets the protocol collectors.
+     *
+     * @return the protocol collectors
+     */
     public List<ProtocolCollector> getProtocolCollectors() {
         return protocolCollectors;
     }
