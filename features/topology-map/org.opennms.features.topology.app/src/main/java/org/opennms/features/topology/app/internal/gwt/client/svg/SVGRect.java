@@ -30,23 +30,49 @@ package org.opennms.features.topology.app.internal.gwt.client.svg;
 
 import com.google.gwt.dom.client.Element;
 
+/**
+ * The Class SVGRect.
+ */
 public class SVGRect extends Element {
 
+    /**
+     * Instantiates a new sVG rect.
+     */
     protected SVGRect() {
     };
 
+    /**
+     * Gets the height.
+     *
+     * @return the height
+     */
     public final native int getHeight() /*-{
                                         return this.height;
                                         }-*/;
 
+    /**
+     * Gets the width.
+     *
+     * @return the width
+     */
     public final native int getWidth() /*-{
                                        return this.width;
                                        }-*/;
 
+    /**
+     * Gets the x.
+     *
+     * @return the x
+     */
     public final native int getX() /*-{
                                    return this.x;
                                    }-*/;
 
+    /**
+     * Gets the y.
+     *
+     * @return the y
+     */
     public final native int getY() /*-{
                                    return this.y;
                                    }-*/;

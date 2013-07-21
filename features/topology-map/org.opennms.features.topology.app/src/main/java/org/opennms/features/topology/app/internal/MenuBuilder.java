@@ -40,16 +40,38 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+/**
+ * The Class MenuBuilder.
+ *
+ * @param <T>
+ *            the generic type
+ * @param <K>
+ *            the key type
+ */
 public abstract class MenuBuilder<T, K> {
 
+    /** The Constant TOP_LEVEL_ADDITIONS. */
     private static final String TOP_LEVEL_ADDITIONS = "Additions";
 
+    /** The m_menu bar. */
     protected LinkedHashMap<String, Object> m_menuBar = new LinkedHashMap<String, Object>();
 
+    /** The m_menu order. */
     private List<String> m_menuOrder = new ArrayList<String>();
 
+    /** The m_submenu order map. */
     private Map<String, List<String>> m_submenuOrderMap = new HashMap<String, List<String>>();
 
+    /**
+     * Adds the.
+     *
+     * @param menuPath
+     *            the menu path
+     * @param command
+     *            the command
+     * @param menu
+     *            the menu
+     */
     private void add(List<String> menuPath, T command, Map<String, Object> menu) {
         if (menuPath.isEmpty()) {
             return;
@@ -85,10 +107,26 @@ public abstract class MenuBuilder<T, K> {
         }
     }
 
+    /**
+     * Adds the.
+     *
+     * @param menuPath
+     *            the menu path
+     * @param command
+     *            the command
+     */
     private void add(LinkedList<String> menuPath, T command) {
         add(menuPath, command, m_menuBar);
     }
 
+    /**
+     * Adds the menu command.
+     *
+     * @param t
+     *            the t
+     * @param menuPosition
+     *            the menu position
+     */
     public void addMenuCommand(T t, String menuPosition) {
         if (menuPosition != null) {
             LinkedList<String> menuPath = new LinkedList<String>(Arrays.asList(menuPosition.split("\\|")));
@@ -96,8 +134,21 @@ public abstract class MenuBuilder<T, K> {
         }
     }
 
+    /**
+     * Adds the menu items.
+     *
+     * @param subMenu
+     *            the sub menu
+     * @param value
+     *            the value
+     */
     protected abstract void addMenuItems(K subMenu, Map<String, Object> value);
 
+    /**
+     * Gets the sorted menu items.
+     *
+     * @return the sorted menu items
+     */
     protected Set<Entry<String, Object>> getSortedMenuItems() {
         LinkedHashMap<String, Object> sortedList = new LinkedHashMap<String, Object>();
 
@@ -141,6 +192,13 @@ public abstract class MenuBuilder<T, K> {
         return sortedList.entrySet();
     }
 
+    /**
+     * Removes the label properties.
+     *
+     * @param commandKey
+     *            the command key
+     * @return the string
+     */
     protected String removeLabelProperties(String commandKey) {
         if (commandKey.contains("?")) {
             return commandKey.substring(0, commandKey.indexOf('?'));
@@ -150,6 +208,13 @@ public abstract class MenuBuilder<T, K> {
 
     }
 
+    /**
+     * Gets the label properties.
+     *
+     * @param commandLabel
+     *            the command label
+     * @return the label properties
+     */
     private Map<String, String> getLabelProperties(String commandLabel) {
         Map<String, String> propMap = new HashMap<String, String>();
 
@@ -168,6 +233,15 @@ public abstract class MenuBuilder<T, K> {
         return propMap;
     }
 
+    /**
+     * Gets the sorted submenu group.
+     *
+     * @param parentMenuName
+     *            the parent menu name
+     * @param value
+     *            the value
+     * @return the sorted submenu group
+     */
     protected Set<Entry<String, Object>> getSortedSubmenuGroup(final String parentMenuName, Map<String, Object> value) {
 
         LinkedHashMap<String, Object> sortedList = new LinkedHashMap<String, Object>();
@@ -238,14 +312,35 @@ public abstract class MenuBuilder<T, K> {
         return sortedList.entrySet();
     }
 
+    /**
+     * Sets the top level menu order.
+     *
+     * @param menuOrder
+     *            the new top level menu order
+     */
     public void setTopLevelMenuOrder(List<String> menuOrder) {
         m_menuOrder = menuOrder;
     }
 
+    /**
+     * Sets the sub menu group oder.
+     *
+     * @param submenOrderMap
+     *            the submen order map
+     */
     public void setSubMenuGroupOder(Map<String, List<String>> submenOrderMap) {
         m_submenuOrderMap = submenOrderMap;
     }
 
+    /**
+     * Gets the group for label.
+     *
+     * @param label
+     *            the label
+     * @param submenuOrder
+     *            the submenu order
+     * @return the group for label
+     */
     private String getGroupForLabel(String label, List<String> submenuOrder) {
         String group = null;
         String[] groupParams = label.split("\\?");

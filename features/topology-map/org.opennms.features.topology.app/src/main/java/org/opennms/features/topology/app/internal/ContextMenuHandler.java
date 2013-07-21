@@ -28,14 +28,20 @@
 
 package org.opennms.features.topology.app.internal;
 
+/**
+ * The Interface ContextMenuHandler.
+ */
 public interface ContextMenuHandler {
 
     /**
-     * Show the Context Menu for this target at specified left and top location
+     * Show the Context Menu for this target at specified left and top location.
      *
      * @param target
+     *            the target
      * @param left
+     *            the left
      * @param top
+     *            the top
      */
     public void show(Object target, int left, int top);
 }

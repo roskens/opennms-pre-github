@@ -35,29 +35,66 @@ import javax.xml.bind.annotation.XmlTransient;
 
 import org.opennms.features.topology.api.topo.AbstractVertex;
 
+/**
+ * The Class TestVertex.
+ */
 public class TestVertex extends AbstractVertex {
 
+    /** The m_edges. */
     List<TestEdge> m_edges = new ArrayList<TestEdge>();
 
+    /**
+     * Instantiates a new test vertex.
+     *
+     * @param id
+     *            the id
+     */
     public TestVertex(String id) {
         super("test", id);
     }
 
+    /**
+     * Instantiates a new test vertex.
+     *
+     * @param id
+     *            the id
+     * @param x
+     *            the x
+     * @param y
+     *            the y
+     */
     public TestVertex(String id, int x, int y) {
         this(id);
         setX(x);
         setY(y);
     }
 
+    /**
+     * Gets the edges.
+     *
+     * @return the edges
+     */
     @XmlTransient
     public List<TestEdge> getEdges() {
         return m_edges;
     }
 
+    /**
+     * Adds the edge.
+     *
+     * @param edge
+     *            the edge
+     */
     void addEdge(TestEdge edge) {
         m_edges.add(edge);
     }
 
+    /**
+     * Removes the edge.
+     *
+     * @param edge
+     *            the edge
+     */
     void removeEdge(TestEdge edge) {
         m_edges.remove(edge);
     }

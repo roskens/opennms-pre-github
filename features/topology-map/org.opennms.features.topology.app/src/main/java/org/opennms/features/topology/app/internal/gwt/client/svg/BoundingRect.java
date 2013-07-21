@@ -30,30 +30,61 @@ package org.opennms.features.topology.app.internal.gwt.client.svg;
 
 import com.google.gwt.touch.client.Point;
 
+/**
+ * The Class BoundingRect.
+ */
 public class BoundingRect {
 
+    /** The m_top left. */
     Point m_topLeft;
 
+    /** The m_bottom right. */
     Point m_bottomRight;
 
+    /**
+     * Gets the center x.
+     *
+     * @return the center x
+     */
     public double getCenterX() {
         return (m_topLeft.getX() + m_bottomRight.getX()) / 2;
     }
 
+    /**
+     * Gets the center y.
+     *
+     * @return the center y
+     */
     public double getCenterY() {
         return (m_topLeft.getY() + m_bottomRight.getY()) / 2;
     }
 
+    /**
+     * Gets the width.
+     *
+     * @return the width
+     */
     public double getWidth() {
         double width = m_bottomRight.getX() - m_topLeft.getX() + 100;
 
         return width;
     }
 
+    /**
+     * Gets the height.
+     *
+     * @return the height
+     */
     public double getHeight() {
         return m_bottomRight.getY() - m_topLeft.getY() + 100;
     }
 
+    /**
+     * Adds the point.
+     *
+     * @param point
+     *            the point
+     */
     public void addPoint(Point point) {
         if (m_topLeft == null) {
             m_topLeft = point;
@@ -69,6 +100,11 @@ public class BoundingRect {
         }
     }
 
+    /**
+     * Checks if is empty.
+     *
+     * @return true, if is empty
+     */
     public boolean isEmpty() {
         return m_bottomRight == null && m_topLeft == null;
     }

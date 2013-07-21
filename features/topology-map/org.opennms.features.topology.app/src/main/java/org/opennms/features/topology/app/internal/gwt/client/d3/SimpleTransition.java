@@ -28,16 +28,35 @@
 
 package org.opennms.features.topology.app.internal.gwt.client.d3;
 
+/**
+ * The Class SimpleTransition.
+ */
 public class SimpleTransition extends D3Behavior {
 
+    /** The m_duration. */
     private int m_duration;
 
+    /** The m_delay. */
     private int m_delay;
 
+    /** The m_property. */
     private String m_property;
 
+    /** The m_value. */
     private double m_value;
 
+    /**
+     * Instantiates a new simple transition.
+     *
+     * @param property
+     *            the property
+     * @param value
+     *            the value
+     * @param duration
+     *            the duration
+     * @param delay
+     *            the delay
+     */
     public SimpleTransition(String property, int value, int duration, int delay) {
         m_duration = duration;
         m_delay = delay;
@@ -45,10 +64,25 @@ public class SimpleTransition extends D3Behavior {
         m_value = value;
     }
 
+    /**
+     * Instantiates a new simple transition.
+     *
+     * @param property
+     *            the property
+     * @param d
+     *            the d
+     * @param duration
+     *            the duration
+     * @param delay
+     *            the delay
+     */
     public SimpleTransition(String property, double d, int duration, int delay) {
 
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.app.internal.gwt.client.d3.D3Behavior#run(org.opennms.features.topology.app.internal.gwt.client.d3.D3)
+     */
     @Override
     public D3 run(D3 selection) {
         return selection.transition().duration(m_duration).delay(m_delay).attr(m_property, m_value);

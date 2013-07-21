@@ -40,8 +40,14 @@ import org.opennms.features.topology.api.topo.VertexRef;
 import edu.uci.ics.jung.algorithms.layout.KKLayout;
 import edu.uci.ics.jung.graph.SparseGraph;
 
+/**
+ * The Class KKLayoutAlgorithm.
+ */
 public class KKLayoutAlgorithm extends AbstractLayoutAlgorithm {
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.app.internal.jung.AbstractLayoutAlgorithm#updateLayout(org.opennms.features.topology.api.GraphContainer)
+     */
     @Override
     public void updateLayout(final GraphContainer graphContainer) {
 

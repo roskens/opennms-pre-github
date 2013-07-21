@@ -31,8 +31,14 @@ package org.opennms.features.topology.app.internal;
 import org.opennms.features.topology.api.GraphContainer;
 import org.opennms.features.topology.api.LayoutAlgorithm;
 
+/**
+ * The Class ManualLayoutAlgorithm.
+ */
 public class ManualLayoutAlgorithm implements LayoutAlgorithm {
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.LayoutAlgorithm#updateLayout(org.opennms.features.topology.api.GraphContainer)
+     */
     @Override
     public void updateLayout(GraphContainer graph) {
         // don't layout anything

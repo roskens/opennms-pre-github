@@ -59,10 +59,14 @@ import com.vaadin.data.Property.ValueChangeListener;
 import com.vaadin.shared.MouseEventDetails;
 import com.vaadin.ui.AbstractComponent;
 
+/**
+ * The Class TopologyComponent.
+ */
 @JavaScript({ "gwt/public/topologywidget/js/d3.v3.js", "gwt/public/topologywidget/js/d3.interpolate-zoom.v0.js" })
 public class TopologyComponent extends AbstractComponent implements ChangeListener, ValueChangeListener,
         MapViewManagerListener {
 
+    /** The m_rpc. */
     TopologyComponentServerRpc m_rpc = new TopologyComponentServerRpc() {
 
         private static final long serialVersionUID = 6945103738578953304L;
@@ -148,28 +152,62 @@ public class TopologyComponent extends AbstractComponent implements ChangeListen
 
     };
 
+    /**
+     * The listener interface for receiving vertexUpdate events.
+     * The class that is interested in processing a vertexUpdate
+     * event implements this interface, and the object created
+     * with that class is registered with a component using the
+     * component's <code>addVertexUpdateListener<code> method. When
+     * the vertexUpdate event occurs, that object's appropriate
+     * method is invoked.
+     *
+     * @see VertexUpdateEvent
+     */
     public interface VertexUpdateListener {
+
+        /**
+         * On vertex update.
+         */
         public void onVertexUpdate();
     }
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 1L;
 
+    /** The m_graph container. */
     private final GraphContainer m_graphContainer;
 
+    /** The m_graph. */
     private Graph m_graph;
 
+    /** The m_menu item state listener. */
     private final List<MenuItemUpdateListener> m_menuItemStateListener = new ArrayList<MenuItemUpdateListener>();
 
+    /** The m_context menu handler. */
     private final ContextMenuHandler m_contextMenuHandler;
 
+    /** The m_icon repo manager. */
     private final IconRepositoryManager m_iconRepoManager;
 
+    /** The m_active tool. */
     private String m_activeTool = "pan";
 
+    /** The m_block selection events. */
     private boolean m_blockSelectionEvents = false;
 
+    /** The m_vertex update listeners. */
     private Set<VertexUpdateListener> m_vertexUpdateListeners = new CopyOnWriteArraySet<VertexUpdateListener>();
 
+    /**
+     * Instantiates a new topology component.
+     *
+     * @param dataSource
+     *            the data source
+     * @param iconRepositoryManager
+     *            the icon repository manager
+     * @param contextMenuHandler
+     *            the context menu handler
+     */
     public TopologyComponent(GraphContainer dataSource, IconRepositoryManager iconRepositoryManager,
             ContextMenuHandler contextMenuHandler) {
         m_graphContainer = dataSource;
@@ -199,6 +237,12 @@ public class TopologyComponent extends AbstractComponent implements ChangeListen
         updateGraph();
     }
 
+    /**
+     * Sets the scale data source.
+     *
+     * @param scale
+     *            the new scale data source
+     */
     private void setScaleDataSource(Property<Double> scale) {
         // Listens the new data source if possible
         if (scale != null && Property.ValueChangeNotifier.class.isAssignableFrom(scale.getClass())) {
@@ -206,11 +250,17 @@ public class TopologyComponent extends AbstractComponent implements ChangeListen
         }
     }
 
+    /* (non-Javadoc)
+     * @see com.vaadin.ui.AbstractComponent#getState()
+     */
     @Override
     protected TopologyComponentState getState() {
         return (TopologyComponentState) super.getState();
     }
 
+    /**
+     * Update graph.
+     */
     public void updateGraph() {
         BoundingBox boundingBox = getBoundingBox();
         getState().setBoundX(boundingBox.getX());
@@ -232,11 +282,26 @@ public class TopologyComponent extends AbstractComponent implements ChangeListen
         }
     }
 
+    /**
+     * Gets the bounding box.
+     *
+     * @return the bounding box
+     */
     private BoundingBox getBoundingBox() {
 
         return getViewManager().getCurrentBoundingBox();
     }
 
+    /**
+     * Select vertices.
+     *
+     * @param shiftModifierPressed
+     *            the shift modifier pressed
+     * @param ctrlModifierPressed
+     *            the ctrl modifier pressed
+     * @param vertexKeys
+     *            the vertex keys
+     */
     private void selectVertices(boolean shiftModifierPressed, boolean ctrlModifierPressed, String... vertexKeys) {
         m_blockSelectionEvents = true;
         List<VertexRef> vertexRefsToSelect = new ArrayList<VertexRef>(vertexKeys.length);
@@ -265,6 +330,12 @@ public class TopologyComponent extends AbstractComponent implements ChangeListen
         m_blockSelectionEvents = false;
     }
 
+    /**
+     * Select edge.
+     *
+     * @param edgeKey
+     *            the edge key
+     */
     private void selectEdge(String edgeKey) {
         Edge edge = getGraph().getEdgeByKey(edgeKey);
 
@@ -272,6 +343,12 @@ public class TopologyComponent extends AbstractComponent implements ChangeListen
 
     }
 
+    /**
+     * Update vertex.
+     *
+     * @param vertexUpdate
+     *            the vertex update
+     */
     private void updateVertex(String vertexUpdate) {
         String[] vertexProps = vertexUpdate.split("\\|");
 
@@ -291,33 +368,68 @@ public class TopologyComponent extends AbstractComponent implements ChangeListen
         }
     }
 
+    /**
+     * Sets the scale.
+     *
+     * @param scale
+     *            the new scale
+     */
     protected void setScale(double scale) {
         m_graphContainer.setScale(scale);
     }
 
+    /**
+     * Gets the graph.
+     *
+     * @return the graph
+     */
     protected Graph getGraph() {
         return m_graph;
     }
 
+    /**
+     * Sets the graph.
+     *
+     * @param graph
+     *            the new graph
+     */
     private void setGraph(Graph graph) {
         m_graph = graph;
         getViewManager().setMapBounds(graph.getLayout().getBounds());
     }
 
+    /**
+     * Adds the menu item state listener.
+     *
+     * @param listener
+     *            the listener
+     */
     public void addMenuItemStateListener(MenuItemUpdateListener listener) {
         m_menuItemStateListener.add(listener);
     }
 
+    /**
+     * Removes the menu item state listener.
+     *
+     * @param listener
+     *            the listener
+     */
     public void removeMenuItemStateListener(MenuItemUpdateListener listener) {
         m_menuItemStateListener.remove(listener);
     }
 
+    /**
+     * Update menu items.
+     */
     private void updateMenuItems() {
         for (MenuItemUpdateListener listener : m_menuItemStateListener) {
             listener.updateMenuItems();
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.GraphContainer.ChangeListener#graphChanged(org.opennms.features.topology.api.GraphContainer)
+     */
     @Override
     public void graphChanged(GraphContainer container) {
         Graph graph = container.getGraph();
@@ -328,7 +440,10 @@ public class TopologyComponent extends AbstractComponent implements ChangeListen
     }
 
     /**
-     * ValueChange listener for the scale property
+     * ValueChange listener for the scale property.
+     *
+     * @param event
+     *            the event
      */
     @Override
     public void valueChange(ValueChangeEvent event) {
@@ -339,6 +454,12 @@ public class TopologyComponent extends AbstractComponent implements ChangeListen
 
     }
 
+    /**
+     * Sets the active tool.
+     *
+     * @param toolname
+     *            the new active tool
+     */
     public void setActiveTool(String toolname) {
         if (!m_activeTool.equals(toolname)) {
             m_activeTool = toolname;
@@ -347,6 +468,12 @@ public class TopologyComponent extends AbstractComponent implements ChangeListen
         }
     }
 
+    /**
+     * Compute bounds for selected.
+     *
+     * @param selectionContext
+     *            the selection context
+     */
     private void computeBoundsForSelected(SelectionContext selectionContext) {
         if (selectionContext.getSelectedVertexRefs().size() > 0) {
             Collection<? extends Vertex> visible = m_graphContainer.getGraph().getDisplayVertices();
@@ -365,20 +492,37 @@ public class TopologyComponent extends AbstractComponent implements ChangeListen
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.MapViewManagerListener#boundingBoxChanged(org.opennms.features.topology.api.MapViewManager)
+     */
     @Override
     public void boundingBoxChanged(MapViewManager viewManager) {
         setScale(viewManager.getScale());
         updateGraph();
     }
 
+    /**
+     * Gets the view manager.
+     *
+     * @return the view manager
+     */
     public MapViewManager getViewManager() {
         return m_graphContainer.getMapViewManager();
     }
 
+    /**
+     * Adds the vertex update listener.
+     *
+     * @param listener
+     *            the listener
+     */
     public void addVertexUpdateListener(VertexUpdateListener listener) {
         m_vertexUpdateListeners.add(listener);
     }
 
+    /**
+     * Fire vertex updated.
+     */
     private void fireVertexUpdated() {
         for (VertexUpdateListener listener : m_vertexUpdateListeners) {
             listener.onVertexUpdate();

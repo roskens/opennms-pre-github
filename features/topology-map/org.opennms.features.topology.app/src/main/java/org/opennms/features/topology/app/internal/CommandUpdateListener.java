@@ -28,7 +28,24 @@
 
 package org.opennms.features.topology.app.internal;
 
+/**
+ * The listener interface for receiving commandUpdate events.
+ * The class that is interested in processing a commandUpdate
+ * event implements this interface, and the object created
+ * with that class is registered with a component using the
+ * component's <code>addCommandUpdateListener<code> method. When
+ * the commandUpdate event occurs, that object's appropriate
+ * method is invoked.
+ *
+ * @see CommandUpdateEvent
+ */
 public interface CommandUpdateListener {
 
+    /**
+     * Invoked when menu bar update occurs.
+     *
+     * @param commandManager
+     *            the command manager
+     */
     public void menuBarUpdated(CommandManager commandManager);
 }

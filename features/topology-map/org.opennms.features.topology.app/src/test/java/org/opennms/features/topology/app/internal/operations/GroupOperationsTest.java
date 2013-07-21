@@ -65,14 +65,28 @@ import com.vaadin.ui.Form;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.Window;
 
+/**
+ * The Class GroupOperationsTest.
+ */
 public class GroupOperationsTest {
 
+    /**
+     * The Class TestOperationContext.
+     */
     private static class TestOperationContext implements OperationContext {
 
+        /** The m_graph container. */
         private final GraphContainer m_graphContainer;
 
+        /** The m_window. */
         private final UI m_window;
 
+        /**
+         * Instantiates a new test operation context.
+         *
+         * @param graphContainer
+         *            the graph container
+         */
         public TestOperationContext(GraphContainer graphContainer) {
             m_graphContainer = graphContainer;
             m_window = new UI() {
@@ -84,21 +98,33 @@ public class GroupOperationsTest {
             };
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.features.topology.api.OperationContext#getMainWindow()
+         */
         @Override
         public UI getMainWindow() {
             return m_window;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.features.topology.api.OperationContext#getGraphContainer()
+         */
         @Override
         public GraphContainer getGraphContainer() {
             return m_graphContainer;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.features.topology.api.OperationContext#isChecked()
+         */
         @Override
         public boolean isChecked() {
             return false;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.features.topology.api.OperationContext#getDisplayLocation()
+         */
         @Override
         public DisplayLocation getDisplayLocation() {
             return DisplayLocation.MENUBAR;
@@ -106,10 +132,24 @@ public class GroupOperationsTest {
 
     }
 
+    /**
+     * Gets the operation context.
+     *
+     * @param mockedContainer
+     *            the mocked container
+     * @return the operation context
+     */
     private static TestOperationContext getOperationContext(GraphContainer mockedContainer) {
         return new TestOperationContext(mockedContainer);
     }
 
+    /**
+     * Gets the form.
+     *
+     * @param prompt
+     *            the prompt
+     * @return the form
+     */
     private static Form getForm(final Window prompt) {
         for (Iterator<Component> itr = prompt.iterator(); itr.hasNext();) {
             Component component = itr.next();
@@ -120,6 +160,13 @@ public class GroupOperationsTest {
         throw new IllegalArgumentException("prompt does not have a form");
     }
 
+    /**
+     * Gets the prompt.
+     *
+     * @param context
+     *            the context
+     * @return the prompt
+     */
     private static Window getPrompt(final OperationContext context) {
         UI window = context.getMainWindow();
         assertEquals(1, window.getWindows().size());
@@ -128,8 +175,17 @@ public class GroupOperationsTest {
         return prompt;
     }
 
+    /** The m_topology provider. */
     private SimpleGraphProvider m_topologyProvider;
 
+    /**
+     * Sets the up.
+     *
+     * @throws MalformedURLException
+     *             the malformed url exception
+     * @throws JAXBException
+     *             the jAXB exception
+     */
     @Before
     public void setUp() throws MalformedURLException, JAXBException {
         if (m_topologyProvider == null) {
@@ -142,6 +198,9 @@ public class GroupOperationsTest {
         MockLogAppender.setupLogging();
     }
 
+    /**
+     * Tear down.
+     */
     @After
     public void tearDown() {
         if (m_topologyProvider != null) {
@@ -149,6 +208,9 @@ public class GroupOperationsTest {
         }
     }
 
+    /**
+     * Test a bunch of group operations.
+     */
     @Test
     public void testABunchOfGroupOperations() {
 
@@ -508,6 +570,16 @@ public class GroupOperationsTest {
         EasyMock.verify(graphContainer, selectionManager);
     }
 
+    /**
+     * Rename group.
+     *
+     * @param graphContainer
+     *            the graph container
+     * @param group
+     *            the group
+     * @param newLabel
+     *            the new label
+     */
     private static void renameGroup(GraphContainer graphContainer, Vertex group, String newLabel) {
         RenameGroupOperation operation = new RenameGroupOperation();
         OperationContext context = getOperationContext(graphContainer);
@@ -539,6 +611,9 @@ public class GroupOperationsTest {
         }
     }
 
+    /**
+     * Test add group to itself.
+     */
     @Test
     // We try to add a group to its own. This should fail!
     public void testAddGroupToItself() {
@@ -625,6 +700,9 @@ public class GroupOperationsTest {
 
     }
 
+    /**
+     * Test create group operation.
+     */
     @Test
     public void testCreateGroupOperation() {
         m_topologyProvider.resetContainer();

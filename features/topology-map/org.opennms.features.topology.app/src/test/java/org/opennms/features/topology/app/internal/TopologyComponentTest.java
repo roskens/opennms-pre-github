@@ -52,14 +52,26 @@ import org.opennms.features.topology.app.internal.support.IconRepositoryManager;
 import com.vaadin.server.PaintException;
 import com.vaadin.server.PaintTarget;
 
+/**
+ * The Class TopologyComponentTest.
+ */
 @Ignore
 public class TopologyComponentTest {
 
+    /**
+     * Sets the up.
+     */
     @Before
     public void setUp() {
         MockLogAppender.setupLogging();
     }
 
+    /**
+     * Test topology component graph.
+     *
+     * @throws PaintException
+     *             the paint exception
+     */
     @Test
     @Ignore("Figure out how to verify mock paint calls")
     public void testTopologyComponentGraph() throws PaintException {
@@ -89,11 +101,24 @@ public class TopologyComponentTest {
         EasyMock.verify(target, selectionManager);
     }
 
+    /**
+     * Gets the topology component.
+     *
+     * @param dataSource
+     *            the data source
+     * @return the topology component
+     */
     private static TopologyComponent getTopologyComponent(GraphContainer dataSource) {
         TopologyComponent topologyComponent = new TopologyComponent(dataSource, new IconRepositoryManager(), null);
         return topologyComponent;
     }
 
+    /**
+     * Test topology component graph update.
+     *
+     * @throws PaintException
+     *             the paint exception
+     */
     @Test
     @Ignore("Figure out how to verify mock paint calls")
     public void testTopologyComponentGraphUpdate() throws PaintException {
@@ -146,6 +171,12 @@ public class TopologyComponentTest {
 
     }
 
+    /**
+     * Test topology component graph update group.
+     *
+     * @throws PaintException
+     *             the paint exception
+     */
     @Test
     @Ignore("Figure out how to verify mock paint calls")
     public void testTopologyComponentGraphUpdateGroup() throws PaintException {
@@ -220,6 +251,12 @@ public class TopologyComponentTest {
 
     }
 
+    /**
+     * Test topology component send correct edge ids.
+     *
+     * @throws PaintException
+     *             the paint exception
+     */
     @Test
     @Ignore
     public void testTopologyComponentSendCorrectEdgeIds() throws PaintException {
@@ -290,6 +327,14 @@ public class TopologyComponentTest {
         EasyMock.verify(target2);
     }
 
+    /**
+     * Mocked default topr data.
+     *
+     * @param target
+     *            the target
+     * @throws PaintException
+     *             the paint exception
+     */
     private static void mockedDefaultToprData(PaintTarget target) throws PaintException {
         mockInitialSetup(target);
 
@@ -305,10 +350,30 @@ public class TopologyComponentTest {
 
     }
 
+    /**
+     * Mock initial setup.
+     *
+     * @param target
+     *            the target
+     * @throws PaintException
+     *             the paint exception
+     */
     private static void mockInitialSetup(PaintTarget target) throws PaintException {
         mockGraphAttrs(target, 0, true);
     }
 
+    /**
+     * Mock graph attrs.
+     *
+     * @param target
+     *            the target
+     * @param semanticZoomLevel
+     *            the semantic zoom level
+     * @param fitToView
+     *            the fit to view
+     * @throws PaintException
+     *             the paint exception
+     */
     private static void mockGraphAttrs(PaintTarget target, int semanticZoomLevel, boolean fitToView)
             throws PaintException {
         target.addAttribute("activeTool", "pan");
@@ -319,6 +384,14 @@ public class TopologyComponentTest {
         target.addAttribute(EasyMock.eq("boundHeight"), EasyMock.anyInt());
     }
 
+    /**
+     * Mock default graph.
+     *
+     * @param target
+     *            the target
+     * @throws PaintException
+     *             the paint exception
+     */
     private static void mockDefaultGraph(PaintTarget target) throws PaintException {
         mockGraphTagStart(target);
         mockVertex(target);
@@ -330,14 +403,38 @@ public class TopologyComponentTest {
         mockGraphTagEnd(target);
     }
 
+    /**
+     * Mock graph tag end.
+     *
+     * @param target
+     *            the target
+     * @throws PaintException
+     *             the paint exception
+     */
     private static void mockGraphTagEnd(PaintTarget target) throws PaintException {
         target.endTag("graph");
     }
 
+    /**
+     * Mock graph tag start.
+     *
+     * @param target
+     *            the target
+     * @throws PaintException
+     *             the paint exception
+     */
     private static void mockGraphTagStart(PaintTarget target) throws PaintException {
         target.startTag("graph");
     }
 
+    /**
+     * Mock edge.
+     *
+     * @param target
+     *            the target
+     * @throws PaintException
+     *             the paint exception
+     */
     private static void mockEdge(PaintTarget target) throws PaintException {
         target.startTag("edge");
         target.addAttribute(eq("key"), EasyMock.notNull(String.class));
@@ -349,6 +446,20 @@ public class TopologyComponentTest {
         target.endTag("edge");
     }
 
+    /**
+     * Mock edge with keys.
+     *
+     * @param target
+     *            the target
+     * @param edgeKey
+     *            the edge key
+     * @param sourceId
+     *            the source id
+     * @param targetId
+     *            the target id
+     * @throws PaintException
+     *             the paint exception
+     */
     private static void mockEdgeWithKeys(PaintTarget target, String edgeKey, String sourceId, String targetId)
             throws PaintException {
         target.startTag("edge");
@@ -359,6 +470,14 @@ public class TopologyComponentTest {
         target.endTag("edge");
     }
 
+    /**
+     * Mock vertex.
+     *
+     * @param target
+     *            the target
+     * @throws PaintException
+     *             the paint exception
+     */
     private static void mockVertex(PaintTarget target) throws PaintException {
         target.startTag("vertex");
         target.addAttribute(EasyMock.eq("key"), EasyMock.notNull(String.class));
@@ -374,6 +493,16 @@ public class TopologyComponentTest {
         target.endTag("vertex");
     }
 
+    /**
+     * Mock vertex with key.
+     *
+     * @param target
+     *            the target
+     * @param key
+     *            the key
+     * @throws PaintException
+     *             the paint exception
+     */
     private static void mockVertexWithKey(PaintTarget target, String key) throws PaintException {
         target.startTag("vertex");
         target.addAttribute("key", key);
@@ -388,6 +517,13 @@ public class TopologyComponentTest {
         target.endTag("vertex");
     }
 
+    /**
+     * Eq.
+     *
+     * @param arg
+     *            the arg
+     * @return the string
+     */
     private static String eq(String arg) {
         return EasyMock.eq(arg);
     }

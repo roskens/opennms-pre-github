@@ -30,59 +30,134 @@ package org.opennms.features.topology.app.internal.gwt.client.svg;
 
 import com.google.gwt.dom.client.Element;
 
+/**
+ * The Class SVGElement.
+ */
 public class SVGElement extends Element {
 
+    /**
+     * Instantiates a new sVG element.
+     */
     protected SVGElement() {
     }
 
+    /**
+     * Wrap element.
+     *
+     * @param svg
+     *            the svg
+     * @return the sVG element
+     */
     public static final native SVGElement wrapElement(Element svg) /*-{
                                                                    return elem;
                                                                    }-*/;
 
+    /**
+     * Creates the svg matrix.
+     *
+     * @return the sVG matrix
+     */
     public final native SVGMatrix createSVGMatrix() /*-{
                                                     return this.createSVGMatrix();
                                                     }-*/;
 
+    /**
+     * Gets the ctm.
+     *
+     * @return the ctm
+     */
     public final native SVGMatrix getCTM() /*-{
                                            return this.getCTM();
                                            }-*/;
 
+    /**
+     * Creates the svg point.
+     *
+     * @return the sVG point
+     */
     public final native SVGPoint createSVGPoint() /*-{
                                                   return this.createSVGPoint();
                                                   }-*/;
 
+    /**
+     * Sets the x.
+     *
+     * @param x
+     *            the new x
+     */
     public final native void setX(int x) /*-{
                                          this.x = x;
                                          }-*/;
 
+    /**
+     * Sets the y.
+     *
+     * @param y
+     *            the new y
+     */
     public final native void setY(int y) /*-{
                                          this.y = y;
                                          }-*/;
 
+    /**
+     * Gets the b box.
+     *
+     * @return the b box
+     */
     public final native SVGRect getBBox() /*-{
                                           return this.getBBox();
                                           }-*/;
 
+    /**
+     * Gets the bounding client rect.
+     *
+     * @return the bounding client rect
+     */
     public final native ClientRect getBoundingClientRect() /*-{
                                                            return this.getBoundingClientRect();
                                                            }-*/;
 
+    /**
+     * Inverse.
+     *
+     * @return the sVG matrix
+     */
     public final native SVGMatrix inverse() /*-{
                                             return this.inverse();
                                             }-*/;
 
+    /**
+     * Gets the width.
+     *
+     * @return the width
+     */
     public final native SVGAnimatedLength getWidth() /*-{
                                                      return this.width;
                                                      }-*/;
 
+    /**
+     * Gets the height.
+     *
+     * @return the height
+     */
     public final native SVGAnimatedLength getHeight() /*-{
                                                       return this.height;
                                                       }-*/;
 
+    /**
+     * Creates the svg length.
+     *
+     * @return the sVG length
+     */
     public final native SVGLength createSVGLength() /*-{
                                                     return this.createSVGLength();
                                                     }-*/;
 
+    /**
+     * Gets the screen ctm.
+     *
+     * @return the screen ctm
+     */
     public final native SVGMatrix getScreenCTM() /*-{
                                                  return this.getScreenCTM();
                                                  }-*/;

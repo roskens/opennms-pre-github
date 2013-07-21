@@ -36,20 +36,59 @@ import org.opennms.features.topology.api.topo.VertexRef;
 
 import com.vaadin.event.Action;
 
+/**
+ * The Interface Command.
+ */
 public interface Command {
 
+    /**
+     * Do command.
+     *
+     * @param target
+     *            the target
+     * @param operationContext
+     *            the operation context
+     */
     public abstract void doCommand(List<VertexRef> target, OperationContext operationContext);
 
+    /**
+     * Undo command.
+     */
     public abstract void undoCommand();
 
+    /**
+     * Gets the menu position.
+     *
+     * @return the menu position
+     */
     public abstract String getMenuPosition();
 
+    /**
+     * Gets the context menu position.
+     *
+     * @return the context menu position
+     */
     public abstract String getContextMenuPosition();
 
+    /**
+     * Checks if is action.
+     *
+     * @return true, if is action
+     */
     public abstract boolean isAction();
 
+    /**
+     * Gets the action.
+     *
+     * @return the action
+     */
     public abstract Action getAction();
 
+    /**
+     * Gets the operation.
+     *
+     * @return the operation
+     */
     public abstract Operation getOperation();
 
 }

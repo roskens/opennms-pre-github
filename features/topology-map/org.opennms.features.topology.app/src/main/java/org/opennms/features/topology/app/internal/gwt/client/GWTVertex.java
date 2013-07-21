@@ -34,120 +34,273 @@ import org.opennms.features.topology.app.internal.gwt.client.d3.Func;
 
 import com.google.gwt.core.client.JavaScriptObject;
 
+/**
+ * The Class GWTVertex.
+ */
 public class GWTVertex extends JavaScriptObject {
 
-    /**
-     * CSS Class name for a vertex
-     */
+    /** CSS Class name for a vertex. */
     public static final String VERTEX_CLASS_NAME = ".vertex";
 
+    /** The Constant SELECTED_VERTEX_CLASS_NAME. */
     public static final String SELECTED_VERTEX_CLASS_NAME = ".vertex.selected";
 
+    /** The s_bg image path. */
     private static String s_bgImagePath;
 
+    /**
+     * Instantiates a new gWT vertex.
+     */
     protected GWTVertex() {
     };
 
+    /**
+     * Creates the.
+     *
+     * @param id
+     *            the id
+     * @param x
+     *            the x
+     * @param y
+     *            the y
+     * @return the gWT vertex
+     */
     public static native GWTVertex create(String id, int x, int y) /*-{
                                                                    return {"id":id, "x":x, "y":y, "initialX":0, "initialY":0, "selected":false, "iconUrl":"", "semanticZoomLevel":0, "group":null, "status":"", "statusCount":""};
                                                                    }-*/;
 
+    /**
+     * Gets the id.
+     *
+     * @return the id
+     */
     public final native String getId()/*-{
                                       return this.id;
                                       }-*/;
 
+    /**
+     * Sets the selected.
+     *
+     * @param selected
+     *            the new selected
+     */
     public final native void setSelected(boolean selected) /*-{
                                                            this.selected = selected;
                                                            }-*/;
 
+    /**
+     * Checks if is selected.
+     *
+     * @return true, if is selected
+     */
     public final native boolean isSelected() /*-{
                                              return this.selected;
                                              }-*/;
 
+    /**
+     * Sets the label.
+     *
+     * @param label
+     *            the new label
+     */
     public final native void setLabel(String label) /*-{
                                                     this.label = label;
                                                     }-*/;
 
+    /**
+     * Gets the label.
+     *
+     * @return the label
+     */
     public final native String getLabel() /*-{
                                           return this.label;
                                           }-*/;
 
+    /**
+     * Sets the status.
+     *
+     * @param status
+     *            the new status
+     */
     public final native void setStatus(String status) /*-{
                                                       this.status = status;
                                                       }-*/;
 
+    /**
+     * Gets the status.
+     *
+     * @return the status
+     */
     public final native String getStatus()/*-{
                                           return this.status;
                                           }-*/;
 
+    /**
+     * Sets the status count.
+     *
+     * @param count
+     *            the new status count
+     */
     public final native void setStatusCount(String count) /*-{
                                                           this.statusCount = count;
                                                           }-*/;
 
+    /**
+     * Gets the status count.
+     *
+     * @return the status count
+     */
     public final native String getStatusCount() /*-{
                                                 return this.statusCount;
                                                 }-*/;
 
+    /**
+     * Sets the ip addr.
+     *
+     * @param ipAddr
+     *            the new ip addr
+     */
     public final native void setIpAddr(String ipAddr) /*-{
                                                       this.ipAddr = ipAddr;
                                                       }-*/;
 
+    /**
+     * Gets the ip addr.
+     *
+     * @return the ip addr
+     */
     public final native void getIpAddr() /*-{
                                          return this.ipAddr;
                                          }-*/;
 
+    /**
+     * Sets the node id.
+     *
+     * @param nodeID
+     *            the new node id
+     */
     public final native void setNodeID(int nodeID) /*-{
                                                    this.nodeID = nodeID;
                                                    }-*/;
 
+    /**
+     * Gets the node id.
+     *
+     * @return the node id
+     */
     public final native void getNodeID() /*-{
                                          return this.nodeID;
                                          }-*/;
 
+    /**
+     * Gets the x.
+     *
+     * @return the x
+     */
     public final native int getX()/*-{
                                   return this.x;
                                   }-*/;
 
+    /**
+     * Gets the y.
+     *
+     * @return the y
+     */
     public final native int getY()/*-{
                                   return this.y;
                                   }-*/;
 
+    /**
+     * Sets the x.
+     *
+     * @param newX
+     *            the new x
+     */
     public final native void setX(int newX) /*-{
                                             this.x = newX;
                                             }-*/;
 
+    /**
+     * Sets the y.
+     *
+     * @param newY
+     *            the new y
+     */
     public final native void setY(int newY) /*-{
                                             this.y = newY;
                                             }-*/;
 
+    /**
+     * Gets the initial x.
+     *
+     * @return the initial x
+     */
     public final native int getInitialX()/*-{
                                          return this.initialX;
                                          }-*/;
 
+    /**
+     * Gets the initial y.
+     *
+     * @return the initial y
+     */
     public final native int getInitialY()/*-{
                                          return this.initialY;
                                          }-*/;
 
+    /**
+     * Sets the initial x.
+     *
+     * @param initialX
+     *            the new initial x
+     */
     public final native void setInitialX(int initialX) /*-{
                                                        this.initialX = initialX;
                                                        }-*/;
 
+    /**
+     * Sets the initial y.
+     *
+     * @param initialY
+     *            the new initial y
+     */
     public final native void setInitialY(int initialY) /*-{
                                                        this.initialY = initialY;
                                                        }-*/;
 
+    /**
+     * Gets the tooltip text.
+     *
+     * @return the tooltip text
+     */
     public final String getTooltipText() {
         return getLabel();
     }
 
+    /**
+     * Gets the icon url.
+     *
+     * @return the icon url
+     */
     public final native String getIconUrl() /*-{
                                             return this.iconUrl;
                                             }-*/;
 
+    /**
+     * Sets the icon url.
+     *
+     * @param iconUrl
+     *            the new icon url
+     */
     public final native void setIconUrl(String iconUrl) /*-{
                                                         this.iconUrl = iconUrl;
                                                         }-*/;
 
+    /**
+     * Selected fill.
+     *
+     * @return the func
+     */
     static Func<String, GWTVertex> selectedFill() {
         return new Func<String, GWTVertex>() {
 
@@ -158,6 +311,11 @@ public class GWTVertex extends JavaScriptObject {
         };
     }
 
+    /**
+     * Selection filter.
+     *
+     * @return the func
+     */
     protected static Func<String, GWTVertex> selectionFilter() {
         return new Func<String, GWTVertex>() {
 
@@ -169,6 +327,11 @@ public class GWTVertex extends JavaScriptObject {
         };
     }
 
+    /**
+     * Gets the circle id.
+     *
+     * @return the circle id
+     */
     protected static Func<String, GWTVertex> getCircleId() {
         return new Func<String, GWTVertex>() {
 
@@ -180,6 +343,11 @@ public class GWTVertex extends JavaScriptObject {
         };
     }
 
+    /**
+     * Gets the status class.
+     *
+     * @return the status class
+     */
     protected static Func<String, GWTVertex> getStatusClass() {
         return new Func<String, GWTVertex>() {
 
@@ -194,6 +362,11 @@ public class GWTVertex extends JavaScriptObject {
         };
     }
 
+    /**
+     * Gets the status count text.
+     *
+     * @return the status count text
+     */
     protected static Func<String, GWTVertex> getStatusCountText() {
         return new Func<String, GWTVertex>() {
 
@@ -205,6 +378,11 @@ public class GWTVertex extends JavaScriptObject {
         };
     }
 
+    /**
+     * Show status count.
+     *
+     * @return the func
+     */
     protected static Func<String, GWTVertex> showStatusCount() {
         return new Func<String, GWTVertex>() {
 
@@ -215,6 +393,11 @@ public class GWTVertex extends JavaScriptObject {
         };
     }
 
+    /**
+     * Gets the class name.
+     *
+     * @return the class name
+     */
     protected static Func<String, GWTVertex> getClassName() {
         return new Func<String, GWTVertex>() {
 
@@ -225,6 +408,11 @@ public class GWTVertex extends JavaScriptObject {
         };
     }
 
+    /**
+     * Gets the translation.
+     *
+     * @return the translation
+     */
     static Func<String, GWTVertex> getTranslation() {
         return new Func<String, GWTVertex>() {
 
@@ -236,6 +424,11 @@ public class GWTVertex extends JavaScriptObject {
         };
     }
 
+    /**
+     * Label.
+     *
+     * @return the func
+     */
     static Func<String, GWTVertex> label() {
         return new Func<String, GWTVertex>() {
 
@@ -247,6 +440,11 @@ public class GWTVertex extends JavaScriptObject {
         };
     }
 
+    /**
+     * Icon url.
+     *
+     * @return the func
+     */
     static Func<String, GWTVertex> iconUrl() {
         return new Func<String, GWTVertex>() {
 
@@ -258,6 +456,11 @@ public class GWTVertex extends JavaScriptObject {
         };
     }
 
+    /**
+     * Draw.
+     *
+     * @return the d3 behavior
+     */
     public static D3Behavior draw() {
         return new D3Behavior() {
 
@@ -270,14 +473,30 @@ public class GWTVertex extends JavaScriptObject {
         };
     }
 
+    /**
+     * Sets the background image.
+     *
+     * @param bgImagePath
+     *            the new background image
+     */
     public static void setBackgroundImage(String bgImagePath) {
         s_bgImagePath = bgImagePath;
     }
 
+    /**
+     * Gets the background image.
+     *
+     * @return the background image
+     */
     public static String getBackgroundImage() {
         return s_bgImagePath;
     }
 
+    /**
+     * Creates the.
+     *
+     * @return the d3 behavior
+     */
     public static D3Behavior create() {
         return new D3Behavior() {
 
@@ -331,6 +550,12 @@ public class GWTVertex extends JavaScriptObject {
         };
     }
 
+    /**
+     * Log document.
+     *
+     * @param doc
+     *            the doc
+     */
     public static final native void logDocument(Object doc)/*-{
                                                            $wnd.console.log(doc)
                                                            }-*/;

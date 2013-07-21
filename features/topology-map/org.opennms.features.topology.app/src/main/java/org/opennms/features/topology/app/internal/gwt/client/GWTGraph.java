@@ -36,11 +36,22 @@ import org.opennms.features.topology.app.internal.gwt.client.svg.SVGMatrix;
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.JsArray;
 
+/**
+ * The Class GWTGraph.
+ */
 public final class GWTGraph extends JavaScriptObject {
 
+    /**
+     * Instantiates a new gWT graph.
+     */
     protected GWTGraph() {
     }
 
+    /**
+     * Creates the.
+     *
+     * @return the gWT graph
+     */
     public static final native GWTGraph create() /*-{
                                                  return { "vertices":[], "edges":[], "idToVMap":{},
                                                  "clientX":0, "clientY":0,
@@ -48,27 +59,64 @@ public final class GWTGraph extends JavaScriptObject {
                                                  "fitToView":false, "bounds":{"x":0, "y":0, "width":100, "height":100}};
                                                  }-*/;
 
+    /**
+     * Gets the vertices.
+     *
+     * @return the vertices
+     */
     public final native JsArray<GWTVertex> getVertices()/*-{
                                                         return this.vertices;
                                                         }-*/;
 
+    /**
+     * Gets the edges.
+     *
+     * @return the edges
+     */
     public final native JsArray<GWTEdge> getEdges()/*-{
                                                    return this.edges;
                                                    }-*/;
 
+    /**
+     * Put.
+     *
+     * @param id
+     *            the id
+     * @param vertex
+     *            the vertex
+     */
     private final native void put(String id, GWTVertex vertex) /*-{
                                                                this.idToVMap[id] = vertex;
                                                                }-*/;
 
+    /**
+     * Gets the.
+     *
+     * @param id
+     *            the id
+     * @return the gWT vertex
+     */
     private final native GWTVertex get(String id) /*-{
                                                   return this.idToVMap[id];
                                                   }-*/;
 
+    /**
+     * Adds the vertex.
+     *
+     * @param vertex
+     *            the vertex
+     */
     public void addVertex(GWTVertex vertex) {
         getVertices().push(vertex);
         put(vertex.getId(), vertex);
     }
 
+    /**
+     * Removes the vertex.
+     *
+     * @param vertex
+     *            the vertex
+     */
     public void removeVertex(GWTVertex vertex) {
         int index = findIndex(vertex);
         if (index >= 0) {
@@ -81,6 +129,13 @@ public final class GWTGraph extends JavaScriptObject {
         }
     }
 
+    /**
+     * Find vertex by id.
+     *
+     * @param id
+     *            the id
+     * @return the gWT vertex
+     */
     public GWTVertex findVertexById(String id) {
         for (int i = 0; i < getVertices().length(); i++) {
             GWTVertex v = getVertices().get(i);
@@ -91,6 +146,13 @@ public final class GWTGraph extends JavaScriptObject {
         return null;
     }
 
+    /**
+     * Find edge indices.
+     *
+     * @param vertex
+     *            the vertex
+     * @return the integer[]
+     */
     private Integer[] findEdgeIndices(GWTVertex vertex) {
         List<Integer> indexArray = new ArrayList<Integer>();
 
@@ -103,10 +165,25 @@ public final class GWTGraph extends JavaScriptObject {
         return indexArray.toArray(new Integer[0]);
     }
 
+    /**
+     * Splice.
+     *
+     * @param vertices
+     *            the vertices
+     * @param index
+     *            the index
+     */
     private final native void splice(JsArray<?> vertices, int index) /*-{
                                                                      vertices.splice(index, 1);
                                                                      }-*/;
 
+    /**
+     * Find index.
+     *
+     * @param vertex
+     *            the vertex
+     * @return the int
+     */
     private int findIndex(GWTVertex vertex) {
         for (int i = 0; i < getVertices().length(); i++) {
             GWTVertex v = getVertices().get(i);
@@ -117,34 +194,82 @@ public final class GWTGraph extends JavaScriptObject {
         return -1;
     }
 
+    /**
+     * Adds the edge.
+     *
+     * @param edge
+     *            the edge
+     */
     public void addEdge(GWTEdge edge) {
         getEdges().push(edge);
     }
 
+    /**
+     * Gets the vertex.
+     *
+     * @param vertexKey
+     *            the vertex key
+     * @return the vertex
+     */
     public GWTVertex getVertex(String vertexKey) {
         return get(vertexKey);
     }
 
+    /**
+     * Sets the client x.
+     *
+     * @param clientX
+     *            the new client x
+     */
     public native void setClientX(int clientX) /*-{
                                                this.clientX = clientX;
                                                }-*/;
 
+    /**
+     * Sets the client y.
+     *
+     * @param clientY
+     *            the new client y
+     */
     public native void setClientY(int clientY) /*-{
                                                this.clientY = clientY;
                                                }-*/;
 
+    /**
+     * Sets the viewport transform.
+     *
+     * @param viewportTransform
+     *            the new viewport transform
+     */
     public native void setViewportTransform(SVGMatrix viewportTransform) /*-{
                                                                          this.viewTransform = viewportTransform;
                                                                          }-*/;
 
+    /**
+     * Sets the old scale.
+     *
+     * @param oldScale
+     *            the new old scale
+     */
     public native void setOldScale(double oldScale) /*-{
                                                     this.oldScale = oldScale;
                                                     }-*/;
 
+    /**
+     * Sets the bounding box.
+     *
+     * @param bounds
+     *            the new bounding box
+     */
     public native void setBoundingBox(GWTBoundingBox bounds) /*-{
                                                              this.bounds = bounds;
                                                              }-*/;
 
+    /**
+     * Gets the bounding box.
+     *
+     * @return the bounding box
+     */
     public native GWTBoundingBox getBoundingBox() /*-{
                                                   return this.bounds;
                                                   }-*/;

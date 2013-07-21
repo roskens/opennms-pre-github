@@ -31,8 +31,14 @@ package org.opennms.features.topology.app.internal.operations;
 import org.opennms.features.topology.api.LayoutAlgorithm;
 import org.opennms.features.topology.app.internal.jung.ISOMLayoutAlgorithm;
 
+/**
+ * The Class ISOMLayoutOperation.
+ */
 public class ISOMLayoutOperation extends LayoutOperation {
 
+    /**
+     * Instantiates a new iSOM layout operation.
+     */
     public ISOMLayoutOperation() {
         super(new LayoutFactory() {
 
@@ -45,6 +51,9 @@ public class ISOMLayoutOperation extends LayoutOperation {
         });
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.Operation#getId()
+     */
     @Override
     public String getId() {
         return getClass().getSimpleName();

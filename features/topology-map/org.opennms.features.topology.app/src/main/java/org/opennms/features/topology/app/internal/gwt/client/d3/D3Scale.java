@@ -31,23 +31,57 @@ package org.opennms.features.topology.app.internal.gwt.client.d3;
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.JsArray;
 
+/**
+ * The Class D3Scale.
+ */
 public class D3Scale extends JavaScriptObject {
 
+    /**
+     * Instantiates a new d3 scale.
+     */
     protected D3Scale() {
     }
 
+    /**
+     * Ordinal.
+     *
+     * @return the d3 scale
+     */
     public final native D3Scale ordinal() /*-{
                                           return this.ordinal();
                                           }-*/;
 
+    /**
+     * Domain.
+     *
+     * @param array
+     *            the array
+     * @return the d3 scale
+     */
     public final native D3Scale domain(JsArray<?> array) /*-{
                                                          return this.domain(array);
                                                          }-*/;
 
+    /**
+     * Domain.
+     *
+     * @param data
+     *            the data
+     * @return the d3 scale
+     */
     public final native D3Scale domain(int[] data) /*-{
                                                    return this.domain(data);
                                                    }-*/;
 
+    /**
+     * Range points.
+     *
+     * @param rangeArray
+     *            the range array
+     * @param i
+     *            the i
+     * @return the java script object
+     */
     public final native JavaScriptObject rangePoints(JsArray<?> rangeArray, int i) /*-{
                                                                                    return this.rangePoints(rangeArray, i);
                                                                                    }-*/;

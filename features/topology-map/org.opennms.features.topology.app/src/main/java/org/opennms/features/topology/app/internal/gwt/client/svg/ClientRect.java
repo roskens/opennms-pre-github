@@ -30,31 +30,67 @@ package org.opennms.features.topology.app.internal.gwt.client.svg;
 
 import com.google.gwt.core.client.JavaScriptObject;
 
+/**
+ * The Class ClientRect.
+ */
 public class ClientRect extends JavaScriptObject {
 
+    /**
+     * Instantiates a new client rect.
+     */
     protected ClientRect() {
     };
 
+    /**
+     * Gets the bottom.
+     *
+     * @return the bottom
+     */
     public final native int getBottom() /*-{
                                         return this.bottom;
                                         }-*/;
 
+    /**
+     * Gets the height.
+     *
+     * @return the height
+     */
     public final native int getHeight() /*-{
                                         return this.height;
                                         }-*/;
 
+    /**
+     * Gets the right.
+     *
+     * @return the right
+     */
     public final native int getRight() /*-{
                                        return this.right;
                                        }-*/;
 
+    /**
+     * Gets the left.
+     *
+     * @return the left
+     */
     public final native int getLeft() /*-{
                                       return this.left;
                                       }-*/;
 
+    /**
+     * Gets the top.
+     *
+     * @return the top
+     */
     public final native int getTop() /*-{
                                      return this.top;
                                      }-*/;
 
+    /**
+     * Gets the width.
+     *
+     * @return the width
+     */
     public final native int getWidth() /*-{
                                        return this.width;
                                        }-*/;

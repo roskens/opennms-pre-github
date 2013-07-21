@@ -30,19 +30,40 @@ package org.opennms.features.topology.app.internal.gwt.client.svg;
 
 import com.google.gwt.dom.client.Element;
 
+/**
+ * The Class SVGGElement.
+ */
 public class SVGGElement extends Element {
 
+    /**
+     * Instantiates a new sVGG element.
+     */
     protected SVGGElement() {
     }
 
+    /**
+     * Gets the ctm.
+     *
+     * @return the ctm
+     */
     public final native SVGMatrix getCTM() /*-{
                                            return this.getCTM();
                                            }-*/;
 
+    /**
+     * Gets the b box.
+     *
+     * @return the b box
+     */
     public final native SVGRect getBBox() /*-{
                                           return this.getBBox();
                                           }-*/;
 
+    /**
+     * Gets the bounding client rect.
+     *
+     * @return the bounding client rect
+     */
     public final native ClientRect getBoundingClientRect() /*-{
                                                            return this.getBoundingClientRect();
                                                            }-*/;

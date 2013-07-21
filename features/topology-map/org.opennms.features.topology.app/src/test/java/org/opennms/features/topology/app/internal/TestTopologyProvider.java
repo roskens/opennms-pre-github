@@ -36,8 +36,17 @@ import org.opennms.features.topology.api.topo.Edge;
 import org.opennms.features.topology.api.topo.GraphProvider;
 import org.opennms.features.topology.api.topo.Vertex;
 
+/**
+ * The Class TestTopologyProvider.
+ */
 public class TestTopologyProvider extends AbstractTopologyProvider implements GraphProvider {
 
+    /**
+     * Instantiates a new test topology provider.
+     *
+     * @param namespace
+     *            the namespace
+     */
     public TestTopologyProvider(String namespace) {
         super("test");
 
@@ -58,16 +67,25 @@ public class TestTopologyProvider extends AbstractTopologyProvider implements Gr
         edge.setStyleName("default");
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.topo.GraphProvider#save()
+     */
     @Override
     public void save() {
         // Do nothing
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.topo.GraphProvider#refresh()
+     */
     @Override
     public void refresh() {
         // Do nothing
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.topo.GraphProvider#load(java.lang.String)
+     */
     @Override
     public void load(String filename) {
         clearEdges();

@@ -31,8 +31,14 @@ package org.opennms.features.topology.app.internal.operations;
 import org.opennms.features.topology.api.LayoutAlgorithm;
 import org.opennms.features.topology.app.internal.jung.RealUltimateLayoutAlgorithm;
 
+/**
+ * The Class RealUltimateLayoutOperation.
+ */
 public class RealUltimateLayoutOperation extends LayoutOperation {
 
+    /**
+     * Instantiates a new real ultimate layout operation.
+     */
     public RealUltimateLayoutOperation() {
         super(new LayoutFactory() {
 
@@ -45,6 +51,9 @@ public class RealUltimateLayoutOperation extends LayoutOperation {
         });
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.Operation#getId()
+     */
     @Override
     public String getId() {
         return getClass().getSimpleName();

@@ -54,8 +54,14 @@ import com.vaadin.ui.Form;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.Window;
 
+/**
+ * The Class RenameGroupOperation.
+ */
 public class RenameGroupOperation implements Constants, Operation {
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.Operation#execute(java.util.List, org.opennms.features.topology.api.OperationContext)
+     */
     @Override
     public Undoer execute(final List<VertexRef> targets, final OperationContext operationContext) {
         if (targets == null || targets.isEmpty() || targets.size() != 1) {
@@ -195,11 +201,17 @@ public class RenameGroupOperation implements Constants, Operation {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.Operation#display(java.util.List, org.opennms.features.topology.api.OperationContext)
+     */
     @Override
     public boolean display(List<VertexRef> targets, OperationContext operationContext) {
         return targets != null && targets.size() == 1 && targets.get(0) != null;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.Operation#enabled(java.util.List, org.opennms.features.topology.api.OperationContext)
+     */
     @Override
     public boolean enabled(List<VertexRef> targets, OperationContext operationContext) {
         // Only allow the operation on single non-leaf vertices (groups)
@@ -207,6 +219,9 @@ public class RenameGroupOperation implements Constants, Operation {
                 && operationContext.getGraphContainer().getBaseTopology().getVertex(targets.get(0)).isGroup();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.Operation#getId()
+     */
     @Override
     public String getId() {
         return "RenameGroup";

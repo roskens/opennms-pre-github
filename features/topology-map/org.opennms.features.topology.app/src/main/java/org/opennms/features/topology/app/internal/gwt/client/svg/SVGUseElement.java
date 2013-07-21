@@ -30,11 +30,22 @@ package org.opennms.features.topology.app.internal.gwt.client.svg;
 
 import com.google.gwt.dom.client.Element;
 
+/**
+ * The Class SVGUseElement.
+ */
 public class SVGUseElement extends Element {
 
+    /**
+     * Instantiates a new sVG use element.
+     */
     protected SVGUseElement() {
     }
 
+    /**
+     * Gets the b box.
+     *
+     * @return the b box
+     */
     public final native SVGRect getBBox() /*-{
                                           return this.getBBox();
                                           }-*/;

@@ -32,16 +32,33 @@ import java.util.List;
 
 import org.opennms.features.topology.app.internal.gwt.client.d3.D3;
 
+/**
+ * The Interface SVGTopologyMap.
+ */
 public interface SVGTopologyMap {
 
+    /** The edge css class. */
     public static String EDGE_CSS_CLASS = ".edge";
 
+    /** The vertex css class. */
     public static String VERTEX_CSS_CLASS = ".vertex";
 
+    /** The vertex selected css class. */
     public static String VERTEX_SELECTED_CSS_CLASS = ".vertex .selected";
 
+    /**
+     * Sets the vertex selection.
+     *
+     * @param vertIds
+     *            the new vertex selection
+     */
     void setVertexSelection(List<String> vertIds);
 
+    /**
+     * Select all vertex elements.
+     *
+     * @return the d3
+     */
     D3 selectAllVertexElements();
 
 }

@@ -41,14 +41,27 @@ import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
 
+/**
+ * The Class HistoryOperation.
+ */
 public class HistoryOperation implements Operation {
 
+    /** The m_command manager. */
     private CommandManager m_commandManager;
 
+    /**
+     * Instantiates a new history operation.
+     *
+     * @param commandManager
+     *            the command manager
+     */
     public HistoryOperation(CommandManager commandManager) {
         m_commandManager = commandManager;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.Operation#execute(java.util.List, org.opennms.features.topology.api.OperationContext)
+     */
     @Override
     public Undoer execute(List<VertexRef> targets, OperationContext operationContext) {
         UI mainWindow = operationContext.getMainWindow();
@@ -67,16 +80,25 @@ public class HistoryOperation implements Operation {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.Operation#display(java.util.List, org.opennms.features.topology.api.OperationContext)
+     */
     @Override
     public boolean display(List<VertexRef> targets, OperationContext operationContext) {
         return true;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.Operation#enabled(java.util.List, org.opennms.features.topology.api.OperationContext)
+     */
     @Override
     public boolean enabled(List<VertexRef> targets, OperationContext operationContext) {
         return true;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.Operation#getId()
+     */
     @Override
     public String getId() {
         return null;

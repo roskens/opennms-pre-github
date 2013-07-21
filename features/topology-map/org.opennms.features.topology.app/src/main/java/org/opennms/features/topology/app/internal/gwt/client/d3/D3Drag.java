@@ -32,11 +32,26 @@ import org.opennms.features.topology.app.internal.gwt.client.d3.D3Events.Handler
 
 import com.google.gwt.core.client.JavaScriptObject;
 
+/**
+ * The Class D3Drag.
+ */
 public class D3Drag extends JavaScriptObject {
 
+    /**
+     * Instantiates a new d3 drag.
+     */
     protected D3Drag() {
     };
 
+    /**
+     * On.
+     *
+     * @param event
+     *            the event
+     * @param handler
+     *            the handler
+     * @return the d3 drag
+     */
     public final native D3Drag on(String event, Handler<?> handler) /*-{
 
                                                                     var f = function(d, i) {

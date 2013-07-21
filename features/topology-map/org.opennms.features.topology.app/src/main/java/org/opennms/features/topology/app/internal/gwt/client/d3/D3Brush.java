@@ -32,11 +32,26 @@ import org.opennms.features.topology.app.internal.gwt.client.d3.D3Events.Handler
 
 import com.google.gwt.core.client.JavaScriptObject;
 
+/**
+ * The Class D3Brush.
+ */
 public class D3Brush extends JavaScriptObject {
 
+    /**
+     * Instantiates a new d3 brush.
+     */
     protected D3Brush() {
     };
 
+    /**
+     * On.
+     *
+     * @param event
+     *            the event
+     * @param handler
+     *            the handler
+     * @return the d3 brush
+     */
     public final native D3Brush on(String event, Handler<?> handler) /*-{
                                                                      var f = function(d, i) {
                                                                      return handler.@org.opennms.features.topology.app.internal.gwt.client.d3.D3Events.Handler::call(Ljava/lang/Object;I)(d,i);

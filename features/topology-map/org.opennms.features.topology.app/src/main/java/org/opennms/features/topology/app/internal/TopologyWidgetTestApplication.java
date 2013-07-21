@@ -90,6 +90,9 @@ import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.VerticalSplitPanel;
 
+/**
+ * The Class TopologyWidgetTestApplication.
+ */
 @SuppressWarnings("serial")
 @Theme("topo_default")
 @JavaScript({ "http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js", "chromeFrameCheck.js" })
@@ -98,52 +101,82 @@ public class TopologyWidgetTestApplication extends UI implements CommandUpdateLi
         ContextMenuHandler, WidgetUpdateListener, WidgetContext, UriFragmentChangedListener,
         GraphContainer.ChangeListener, MapViewManagerListener, VertexUpdateListener, SelectionListener {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 6837501987137310938L;
 
+    /** The m_log. */
     private Logger m_log = LoggerFactory.getLogger(getClass());
 
+    /** The Constant LABEL_PROPERTY. */
     private static final String LABEL_PROPERTY = "label";
 
+    /** The m_topology component. */
     private TopologyComponent m_topologyComponent;
 
+    /** The m_tree. */
     private VertexSelectionTree m_tree;
 
+    /** The m_graph container. */
     private final GraphContainer m_graphContainer;
 
+    /** The m_selection manager. */
     private SelectionManager m_selectionManager;
 
+    /** The m_command manager. */
     private final CommandManager m_commandManager;
 
+    /** The m_menu bar. */
     private MenuBar m_menuBar;
 
+    /** The m_context menu. */
     private TopoContextMenu m_contextMenu;
 
+    /** The m_layout. */
     private VerticalLayout m_layout;
 
+    /** The m_root layout. */
     private VerticalLayout m_rootLayout;
 
+    /** The m_icon repository manager. */
     private final IconRepositoryManager m_iconRepositoryManager;
 
+    /** The m_widget manager. */
     private WidgetManager m_widgetManager;
 
+    /** The m_tree widget manager. */
     private WidgetManager m_treeWidgetManager;
 
+    /** The m_tree accordion. */
     private Accordion m_treeAccordion;
 
+    /** The m_tree map split panel. */
     private HorizontalSplitPanel m_treeMapSplitPanel;
 
+    /** The m_zoom level label. */
     private final Label m_zoomLevelLabel = new Label("0");
 
+    /** The m_history manager. */
     private final HistoryManager m_historyManager;
 
+    /** The m_header html. */
     private String m_headerHtml;
 
+    /** The m_show header. */
     private boolean m_showHeader = true;
 
+    /** The m_header provider. */
     private OnmsHeaderProvider m_headerProvider = null;
 
+    /** The m_user name. */
     private String m_userName;
 
+    /**
+     * Gets the header.
+     *
+     * @param request
+     *            the request
+     * @return the header
+     */
     private String getHeader(HttpServletRequest request) {
         if (m_headerProvider == null) {
             return "";
@@ -152,6 +185,20 @@ public class TopologyWidgetTestApplication extends UI implements CommandUpdateLi
         }
     }
 
+    /**
+     * Instantiates a new topology widget test application.
+     *
+     * @param commandManager
+     *            the command manager
+     * @param historyManager
+     *            the history manager
+     * @param graphContainer
+     *            the graph container
+     * @param iconRepoManager
+     *            the icon repo manager
+     * @param selectionManager
+     *            the selection manager
+     */
     public TopologyWidgetTestApplication(CommandManager commandManager, HistoryManager historyManager,
             GraphContainer graphContainer, IconRepositoryManager iconRepoManager, SelectionManager selectionManager) {
         // Ensure that selection changes trigger a history save operation
@@ -165,6 +212,9 @@ public class TopologyWidgetTestApplication extends UI implements CommandUpdateLi
         m_graphContainer.setSelectionManager(selectionManager);
     }
 
+    /* (non-Javadoc)
+     * @see com.vaadin.ui.UI#init(com.vaadin.server.VaadinRequest)
+     */
     @Override
     protected void init(VaadinRequest request) {
         m_headerHtml = getHeader(new HttpServletRequestVaadinImpl(request));
@@ -178,6 +228,9 @@ public class TopologyWidgetTestApplication extends UI implements CommandUpdateLi
 
     }
 
+    /**
+     * Setup listeners.
+     */
     private void setupListeners() {
         Page.getCurrent().addUriFragmentChangedListener(this);
         m_selectionManager.addSelectionListener(this);
@@ -187,6 +240,9 @@ public class TopologyWidgetTestApplication extends UI implements CommandUpdateLi
         m_commandManager.addCommandUpdateListener(this);
     }
 
+    /**
+     * Creates the layouts.
+     */
     private void createLayouts() {
         m_rootLayout = new VerticalLayout();
         m_rootLayout.setSizeFull();
@@ -197,6 +253,9 @@ public class TopologyWidgetTestApplication extends UI implements CommandUpdateLi
         addContentLayout();
     }
 
+    /**
+     * Setup error handler.
+     */
     private void setupErrorHandler() {
         UI.getCurrent().setErrorHandler(new DefaultErrorHandler() {
 
@@ -210,6 +269,9 @@ public class TopologyWidgetTestApplication extends UI implements CommandUpdateLi
         });
     }
 
+    /**
+     * Adds the header.
+     */
     private void addHeader() {
         if (m_headerHtml != null) {
             InputStream is = null;
@@ -230,6 +292,9 @@ public class TopologyWidgetTestApplication extends UI implements CommandUpdateLi
         }
     }
 
+    /**
+     * Adds the content layout.
+     */
     private void addContentLayout() {
         m_layout = new VerticalLayout();
         m_layout.setSizeFull();
@@ -257,6 +322,11 @@ public class TopologyWidgetTestApplication extends UI implements CommandUpdateLi
         }
     }
 
+    /**
+     * Creates the map layout.
+     *
+     * @return the absolute layout
+     */
     private AbsoluteLayout createMapLayout() {
         final Property<Double> scale = m_graphContainer.getScaleProperty();
 
@@ -361,6 +431,12 @@ public class TopologyWidgetTestApplication extends UI implements CommandUpdateLi
 
     }
 
+    /**
+     * Load user settings.
+     *
+     * @param request
+     *            the request
+     */
     private void loadUserSettings(VaadinRequest request) {
         m_userName = request.getRemoteUser();
         m_graphContainer.setUserName(m_userName);
@@ -379,9 +455,10 @@ public class TopologyWidgetTestApplication extends UI implements CommandUpdateLi
     }
 
     /**
-     * Update the Accordion View with installed widgets
+     * Update the Accordion View with installed widgets.
      *
      * @param treeWidgetManager
+     *            the tree widget manager
      */
     private void updateAccordionView(WidgetManager treeWidgetManager) {
         if (m_treeAccordion != null) {
@@ -404,6 +481,7 @@ public class TopologyWidgetTestApplication extends UI implements CommandUpdateLi
      * included.
      *
      * @param widgetManager
+     *            the widget manager
      */
     private void updateWidgetView(WidgetManager widgetManager) {
         if (m_layout != null) {
@@ -432,6 +510,10 @@ public class TopologyWidgetTestApplication extends UI implements CommandUpdateLi
     /**
      * Gets a {@link TabSheet} view for all widgets in this manager.
      *
+     * @param manager
+     *            the manager
+     * @param widgetContext
+     *            the widget context
      * @return TabSheet
      */
     private Component getTabSheet(WidgetManager manager, WidgetContext widgetContext) {
@@ -517,7 +599,7 @@ public class TopologyWidgetTestApplication extends UI implements CommandUpdateLi
      * Creates the west area layout including the
      * accordion and tree views.
      *
-     * @return
+     * @return the layout
      */
     private Layout createWestLayout() {
         m_tree = createTree();
@@ -564,6 +646,11 @@ public class TopologyWidgetTestApplication extends UI implements CommandUpdateLi
         return absLayout;
     }
 
+    /**
+     * Creates the tree.
+     *
+     * @return the vertex selection tree
+     */
     private VertexSelectionTree createTree() {
         VertexSelectionTree tree = new VertexSelectionTree("Nodes", m_graphContainer);
         tree.setMultiSelect(true);
@@ -580,11 +667,22 @@ public class TopologyWidgetTestApplication extends UI implements CommandUpdateLi
         return tree;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.app.internal.MenuItemUpdateListener#updateMenuItems()
+     */
     @Override
     public void updateMenuItems() {
         updateMenuItems(m_menuBar.getItems());
     }
 
+    /**
+     * Update context menu items.
+     *
+     * @param target
+     *            the target
+     * @param items
+     *            the items
+     */
     private void updateContextMenuItems(Object target, List<TopoContextMenuItem> items) {
         for (TopoContextMenuItem contextItem : items) {
             if (contextItem.hasChildren()) {
@@ -595,6 +693,12 @@ public class TopologyWidgetTestApplication extends UI implements CommandUpdateLi
         }
     }
 
+    /**
+     * Update menu items.
+     *
+     * @param menuItems
+     *            the menu items
+     */
     private void updateMenuItems(List<MenuItem> menuItems) {
         for (MenuItem menuItem : menuItems) {
             if (menuItem.hasChildren()) {
@@ -605,6 +709,9 @@ public class TopologyWidgetTestApplication extends UI implements CommandUpdateLi
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.app.internal.CommandUpdateListener#menuBarUpdated(org.opennms.features.topology.app.internal.CommandManager)
+     */
     @Override
     public void menuBarUpdated(CommandManager commandManager) {
         if (m_menuBar != null) {
@@ -626,6 +733,9 @@ public class TopologyWidgetTestApplication extends UI implements CommandUpdateLi
         updateMenuItems();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.app.internal.ContextMenuHandler#show(java.lang.Object, int, int)
+     */
     @Override
     public void show(Object target, int left, int top) {
         updateContextMenuItems(target, m_contextMenu.getItems());
@@ -634,6 +744,12 @@ public class TopologyWidgetTestApplication extends UI implements CommandUpdateLi
         m_contextMenu.open(left, top);
     }
 
+    /**
+     * Update sub menu display.
+     *
+     * @param items
+     *            the items
+     */
     private static void updateSubMenuDisplay(List<TopoContextMenuItem> items) {
         for (TopoContextMenuItem item : items) {
             if (!item.hasChildren())
@@ -654,10 +770,21 @@ public class TopologyWidgetTestApplication extends UI implements CommandUpdateLi
         }
     }
 
+    /**
+     * Gets the widget manager.
+     *
+     * @return the widget manager
+     */
     public WidgetManager getWidgetManager() {
         return m_widgetManager;
     }
 
+    /**
+     * Sets the widget manager.
+     *
+     * @param widgetManager
+     *            the new widget manager
+     */
     public void setWidgetManager(WidgetManager widgetManager) {
         if (m_widgetManager != null) {
             m_widgetManager.removeUpdateListener(this);
@@ -666,6 +793,9 @@ public class TopologyWidgetTestApplication extends UI implements CommandUpdateLi
         m_widgetManager.addUpdateListener(this);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.app.internal.WidgetUpdateListener#widgetListUpdated(org.opennms.features.topology.app.internal.WidgetManager)
+     */
     @Override
     public void widgetListUpdated(WidgetManager widgetManager) {
         if (!isClosing()) {
@@ -677,10 +807,21 @@ public class TopologyWidgetTestApplication extends UI implements CommandUpdateLi
         }
     }
 
+    /**
+     * Gets the tree widget manager.
+     *
+     * @return the tree widget manager
+     */
     public WidgetManager getTreeWidgetManager() {
         return m_treeWidgetManager;
     }
 
+    /**
+     * Sets the tree widget manager.
+     *
+     * @param treeWidgetManager
+     *            the new tree widget manager
+     */
     public void setTreeWidgetManager(WidgetManager treeWidgetManager) {
         if (m_treeWidgetManager != null) {
             m_treeWidgetManager.removeUpdateListener(this);
@@ -690,13 +831,20 @@ public class TopologyWidgetTestApplication extends UI implements CommandUpdateLi
         m_treeWidgetManager.addUpdateListener(this);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.WidgetContext#getGraphContainer()
+     */
     @Override
     public GraphContainer getGraphContainer() {
         return m_graphContainer;
     }
 
+    /** The m_setting fragment. */
     int m_settingFragment = 0;
 
+    /* (non-Javadoc)
+     * @see com.vaadin.server.Page.UriFragmentChangedListener#uriFragmentChanged(com.vaadin.server.Page.UriFragmentChangedEvent)
+     */
     @Override
     public void uriFragmentChanged(UriFragmentChangedEvent event) {
         m_settingFragment++;
@@ -705,6 +853,9 @@ public class TopologyWidgetTestApplication extends UI implements CommandUpdateLi
         m_settingFragment--;
     }
 
+    /**
+     * Save history.
+     */
     private void saveHistory() {
         if (m_settingFragment == 0) {
             String fragment = m_historyManager.create(m_userName, m_graphContainer);
@@ -712,45 +863,73 @@ public class TopologyWidgetTestApplication extends UI implements CommandUpdateLi
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.GraphContainer.ChangeListener#graphChanged(org.opennms.features.topology.api.GraphContainer)
+     */
     @Override
     public void graphChanged(GraphContainer graphContainer) {
         m_zoomLevelLabel.setValue("" + graphContainer.getSemanticZoomLevel());
     }
 
+    /**
+     * Sets the semantic zoom level.
+     *
+     * @param szl
+     *            the new semantic zoom level
+     */
     private void setSemanticZoomLevel(int szl) {
         m_zoomLevelLabel.setValue(String.valueOf(szl));
         m_graphContainer.redoLayout();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.MapViewManagerListener#boundingBoxChanged(org.opennms.features.topology.api.MapViewManager)
+     */
     @Override
     public void boundingBoxChanged(MapViewManager viewManager) {
         saveHistory();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.app.internal.TopologyComponent.VertexUpdateListener#onVertexUpdate()
+     */
     @Override
     public void onVertexUpdate() {
         saveHistory();
     }
 
+    /**
+     * Sets the header provider.
+     *
+     * @param headerProvider
+     *            the new header provider
+     */
     public void setHeaderProvider(OnmsHeaderProvider headerProvider) {
         m_headerProvider = headerProvider;
     }
 
     /**
-     * Parameter is a String because config has String values
+     * Parameter is a String because config has String values.
      *
      * @param boolVal
+     *            the new show header
      */
     // @Override
     public void setShowHeader(String boolVal) {
         m_showHeader = "true".equals(boolVal);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.SelectionListener#selectionChanged(org.opennms.features.topology.api.SelectionContext)
+     */
     @Override
     public void selectionChanged(SelectionContext selectionManager) {
         saveHistory();
     }
 
+    /* (non-Javadoc)
+     * @see com.vaadin.ui.UI#detach()
+     */
     @Override
     public void detach() {
         m_commandManager.removeCommandUpdateListener(this);

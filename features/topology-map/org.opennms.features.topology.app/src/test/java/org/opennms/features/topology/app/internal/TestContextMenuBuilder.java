@@ -43,15 +43,28 @@ import org.opennms.features.topology.app.internal.TopoContextMenu.TopoContextMen
 
 import com.vaadin.event.Action;
 
+/**
+ * The Class TestContextMenuBuilder.
+ */
 public class TestContextMenuBuilder {
 
+    /** The m_c menu. */
     TopoContextMenu m_cMenu;
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
         m_cMenu = null;
     }
 
+    /**
+     * Creates the context menu test.
+     */
     @Test
     public void createContextMenuTest() {
         ContextMenuBuilder builder = new ContextMenuBuilder();
@@ -69,6 +82,11 @@ public class TestContextMenuBuilder {
         assertNotNull(submenuItem.getOperation());
     }
 
+    /**
+     * Creates the empy command.
+     *
+     * @return the command
+     */
     private Command createEmpyCommand() {
         return new Command() {
 

@@ -36,8 +36,12 @@ import org.opennms.features.topology.api.topo.Vertex;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The Class SimpleLayoutAlgorithm.
+ */
 public class SimpleLayoutAlgorithm implements LayoutAlgorithm {
 
+    /** The Constant s_log. */
     private static final Logger s_log = LoggerFactory.getLogger(SimpleLayoutAlgorithm.class);
 
     /*

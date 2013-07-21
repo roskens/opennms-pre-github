@@ -35,33 +35,59 @@ import org.opennms.features.topology.app.internal.gwt.client.view.TopologyView;
 
 import com.google.gwt.dom.client.Element;
 
+/**
+ * The Class PanHandler.
+ */
 public class PanHandler implements DragBehaviorHandler {
+
+    /** The drag behavior key. */
     public static String DRAG_BEHAVIOR_KEY = "panHandler";
 
+    /** The m_pan object. */
     protected PanObject m_panObject;
 
+    /** The m_topology view. */
     TopologyView<TopologyViewRenderer> m_topologyView;
 
+    /** The m_service registry. */
     ServiceRegistry m_serviceRegistry;
 
+    /** The m_topology component. */
     VTopologyComponent m_topologyComponent;
 
+    /**
+     * Instantiates a new pan handler.
+     *
+     * @param vtopologyComp
+     *            the vtopology comp
+     * @param serviceRegistry
+     *            the service registry
+     */
     public PanHandler(VTopologyComponent vtopologyComp, ServiceRegistry serviceRegistry) {
         m_topologyComponent = vtopologyComp;
         m_topologyView = vtopologyComp.getTopologyView();
         m_serviceRegistry = serviceRegistry;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.app.internal.gwt.client.handler.DragBehaviorHandler#onDragStart(com.google.gwt.dom.client.Element)
+     */
     @Override
     public void onDragStart(Element elem) {
         m_panObject = new PanObject(m_topologyView);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.app.internal.gwt.client.handler.DragBehaviorHandler#onDrag(com.google.gwt.dom.client.Element)
+     */
     @Override
     public void onDrag(Element elem) {
         m_panObject.move();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.app.internal.gwt.client.handler.DragBehaviorHandler#onDragEnd(com.google.gwt.dom.client.Element)
+     */
     @Override
     public void onDragEnd(Element elem) {
         m_panObject = null;

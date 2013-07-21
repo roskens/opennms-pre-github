@@ -64,8 +64,20 @@ import com.vaadin.ui.Select;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.Window;
 
+/**
+ * The Class AddVertexToGroupOperation.
+ */
 public class AddVertexToGroupOperation implements Constants, Operation {
 
+    /**
+     * Find groups.
+     *
+     * @param provider
+     *            the provider
+     * @param vertices
+     *            the vertices
+     * @return the collection
+     */
     private static Collection<Vertex> findGroups(GraphProvider provider, Collection<Vertex> vertices) {
         final Collection<Vertex> groups = new ArrayList<Vertex>();
         for (Vertex vertex : vertices) {
@@ -89,8 +101,8 @@ public class AddVertexToGroupOperation implements Constants, Operation {
      *
      * @param target
      *            The target.
-     * @param selectoinManager
-     *            The SelectionManager.
+     * @param selectionManager
+     *            the selection manager
      * @return All vertices which should be considered as a target.
      */
     private static Collection<VertexRef> determineTargets(final VertexRef target,
@@ -106,9 +118,11 @@ public class AddVertexToGroupOperation implements Constants, Operation {
      * this group to be added to the group. We do not want the children of the
      * group to be added to the target as well.
      *
-     * @param selectedVertices
      * @param provider
-     * @return
+     *            the provider
+     * @param selectedVertices
+     *            the selected vertices
+     * @return the collection
      */
     private static Collection<VertexRef> removeChildren(GraphProvider provider, Collection<VertexRef> selectedVertices) {
         List<VertexRef> returnList = new ArrayList<VertexRef>();
@@ -123,6 +137,9 @@ public class AddVertexToGroupOperation implements Constants, Operation {
         return returnList;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.Operation#execute(java.util.List, org.opennms.features.topology.api.OperationContext)
+     */
     @Override
     public Undoer execute(List<VertexRef> targets, final OperationContext operationContext) {
         if (targets == null || targets.isEmpty())
@@ -272,16 +289,25 @@ public class AddVertexToGroupOperation implements Constants, Operation {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.Operation#display(java.util.List, org.opennms.features.topology.api.OperationContext)
+     */
     @Override
     public boolean display(List<VertexRef> targets, OperationContext operationContext) {
         return true;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.Operation#enabled(java.util.List, org.opennms.features.topology.api.OperationContext)
+     */
     @Override
     public boolean enabled(List<VertexRef> targets, OperationContext operationContext) {
         return targets.size() == 1;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.Operation#getId()
+     */
     @Override
     public String getId() {
         return null;

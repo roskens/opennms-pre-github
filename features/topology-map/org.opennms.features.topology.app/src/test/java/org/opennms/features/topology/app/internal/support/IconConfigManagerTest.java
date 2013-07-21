@@ -34,8 +34,14 @@ import java.util.Hashtable;
 
 import org.junit.Test;
 
+/**
+ * The Class IconConfigManagerTest.
+ */
 public class IconConfigManagerTest {
 
+    /**
+     * Test parse config.
+     */
     @Test
     public void testParseConfig() {
         Dictionary<String, Object> props = new Hashtable<String, Object>();

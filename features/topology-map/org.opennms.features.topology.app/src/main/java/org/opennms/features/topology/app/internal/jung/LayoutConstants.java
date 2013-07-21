@@ -28,14 +28,21 @@
 
 package org.opennms.features.topology.app.internal.jung;
 
+/**
+ * The Interface LayoutConstants.
+ */
 public interface LayoutConstants {
 
+    /** The Constant ELBOW_ROOM. */
     public static final int ELBOW_ROOM = 200;
 
+    /** The Constant LAYOUT_HEIGHT. */
     public static final int LAYOUT_HEIGHT = 2000;
 
+    /** The Constant LAYOUT_WIDTH. */
     public static final int LAYOUT_WIDTH = LAYOUT_HEIGHT * 16 / 9;
 
+    /** The Constant LAYOUT_REPULSION. */
     public static final int LAYOUT_REPULSION = 200;
 
 }

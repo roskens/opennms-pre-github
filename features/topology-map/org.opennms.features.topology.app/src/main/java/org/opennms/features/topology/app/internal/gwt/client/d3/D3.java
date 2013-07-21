@@ -39,15 +39,35 @@ import com.google.gwt.core.client.JsArrayNumber;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.NativeEvent;
 
+/**
+ * The Class D3.
+ */
 public class D3 extends JavaScriptObject {
 
+    /**
+     * Instantiates a new d3.
+     */
     protected D3() {
     };
 
+    /**
+     * Select.
+     *
+     * @param elementId
+     *            the element id
+     * @return the d3
+     */
     public final native D3 select(String elementId) /*-{
                                                     return this.select(elementId);
                                                     }-*/;
 
+    /**
+     * Select element.
+     *
+     * @param selector
+     *            the selector
+     * @return the element
+     */
     public final native Element selectElement(String selector) /*-{
                                                                var retElement = this.select(selector);
                                                                if(retElement.length > 0){
@@ -57,26 +77,76 @@ public class D3 extends JavaScriptObject {
                                                                return null;
                                                                }-*/;
 
+    /**
+     * Gets the element.
+     *
+     * @param selection
+     *            the selection
+     * @param index
+     *            the index
+     * @return the element
+     */
     public static final native Element getElement(D3 selection, int index) /*-{
                                                                            return selection[0][index];
                                                                            }-*/;
 
+    /**
+     * Select.
+     *
+     * @param elem
+     *            the elem
+     * @return the d3
+     */
     public final native D3 select(Element elem) /*-{
                                                 return this.select(elem);
                                                 }-*/;
 
+    /**
+     * Append.
+     *
+     * @param tagName
+     *            the tag name
+     * @return the d3
+     */
     public final native D3 append(String tagName) /*-{
                                                   return this.append(tagName);
                                                   }-*/;
 
+    /**
+     * Attr.
+     *
+     * @param propName
+     *            the prop name
+     * @param value
+     *            the value
+     * @return the d3
+     */
     public final native D3 attr(String propName, int value) /*-{
                                                             return this.attr(propName, value);
                                                             }-*/;
 
+    /**
+     * Attr.
+     *
+     * @param propName
+     *            the prop name
+     * @param func
+     *            the func
+     * @return the d3
+     */
     public final native D3 attr(String propName, JavaScriptObject func) /*-{
                                                                         return this.attr(propName, func);
                                                                         }-*/;
 
+    /**
+     * Attr.
+     *
+     * @param attrName
+     *            the attr name
+     * @param func
+     *            the func
+     * @return the d3
+     */
     public final native D3 attr(String attrName, Func<?, ?> func) /*-{
                                                                   var f = function(d, i){
                                                                   return func.@org.opennms.features.topology.app.internal.gwt.client.d3.Func::call(Ljava/lang/Object;I)(d,i);
@@ -84,6 +154,15 @@ public class D3 extends JavaScriptObject {
                                                                   return this.attr(attrName, f);
                                                                   }-*/;
 
+    /**
+     * Attr tween.
+     *
+     * @param attrName
+     *            the attr name
+     * @param func
+     *            the func
+     * @return the d3
+     */
     public final native D3 attrTween(String attrName, Func<?, ?> func) /*-{
                                                                        var f = function(d, i){
                                                                        return func.@org.opennms.features.topology.app.internal.gwt.client.d3.Func::call(Ljava/lang/Object;I)(d,i);
@@ -91,6 +170,21 @@ public class D3 extends JavaScriptObject {
                                                                        return this.attrTween(attrName, f);
                                                                        }-*/;
 
+    /**
+     * Attr tween zoom.
+     *
+     * @param string
+     *            the string
+     * @param boundingBox
+     *            the bounding box
+     * @param oldBBox
+     *            the old b box
+     * @param width
+     *            the width
+     * @param height
+     *            the height
+     * @return the d3
+     */
     public final native D3 attrTweenZoom(String string, GWTBoundingBox boundingBox, GWTBoundingBox oldBBox, int width,
             int height) /*-{
                         var width = 1000,
@@ -132,6 +226,12 @@ public class D3 extends JavaScriptObject {
                         return this.attr("transform", transform(start)).transition().duration(i.duration * 2).attrTween(string, function(){ function(t){ return transform(i(t))} });
                         }-*/;
 
+    /**
+     * Html.
+     *
+     * @param func
+     *            the func
+     */
     public final native void html(Func<?, ?> func) /*-{
                                                    var f = function(d, i){
                                                    return func.@org.opennms.features.topology.app.internal.gwt.client.d3.Func::call(Ljava/lang/Object;I)(d,i);
@@ -140,10 +240,30 @@ public class D3 extends JavaScriptObject {
 
                                                    }-*/;
 
+    /**
+     * Html.
+     *
+     * @param html
+     *            the html
+     */
     public final native void html(String html) /*-{
                                                this.html(html);
                                                }-*/;
 
+    /**
+     * Zoom transition.
+     *
+     * @param selection
+     *            the selection
+     * @param width
+     *            the width
+     * @param height
+     *            the height
+     * @param p0
+     *            the p0
+     * @param p1
+     *            the p1
+     */
     public final native void zoomTransition(D3 selection, int width, int height, JsArrayInteger p0, JsArrayInteger p1) /*-{
                                                                                                                        transition(p0, p1);
 
@@ -181,6 +301,12 @@ public class D3 extends JavaScriptObject {
                                                                                                                        }
                                                                                                                        }-*/;
 
+    /**
+     * Timer.
+     *
+     * @param func
+     *            the func
+     */
     public final native void timer(BooleanFunc func) /*-{
                                                      var f = function(){
                                                      return func.@org.opennms.features.topology.app.internal.gwt.client.d3.BooleanFunc::call()();
@@ -188,6 +314,9 @@ public class D3 extends JavaScriptObject {
                                                      $wnd.d3.timer(f);
                                                      }-*/;
 
+    /**
+     * Timer.
+     */
     public final native void timer() /*-{
                                      $wnd.d3.timer(function() {
                                      $wnd.console.log("timer tick");
@@ -196,42 +325,112 @@ public class D3 extends JavaScriptObject {
                                      })
                                      }-*/;
 
+    /**
+     * Select all.
+     *
+     * @param selectionName
+     *            the selection name
+     * @return the d3
+     */
     public final native D3 selectAll(String selectionName) /*-{
                                                            return this.selectAll(selectionName);
                                                            }-*/;
 
+    /**
+     * Data.
+     *
+     * @param array
+     *            the array
+     * @return the d3
+     */
     public final native D3 data(JsArray<?> array) /*-{
                                                   return this.data(array);
                                                   }-*/;
 
+    /**
+     * Enter.
+     *
+     * @return the d3
+     */
     public final native D3 enter() /*-{
                                    return this.enter();
                                    }-*/;
 
+    /**
+     * Update.
+     *
+     * @return the d3
+     */
     public final native D3 update() /*-{
                                     return this.update();
                                     }-*/;
 
+    /**
+     * Attr.
+     *
+     * @param propName
+     *            the prop name
+     * @param value
+     *            the value
+     * @return the d3
+     */
     public final native D3 attr(String propName, String value) /*-{
                                                                return this.attr(propName, value);
                                                                }-*/;
 
+    /**
+     * Attr.
+     *
+     * @param propName
+     *            the prop name
+     * @param value
+     *            the value
+     * @return the d3
+     */
     public final native D3 attr(String propName, double value) /*-{
                                                                return this.attr(propName, value);
                                                                }-*/;
 
+    /**
+     * Scale.
+     *
+     * @return the d3 scale
+     */
     public final native D3Scale scale() /*-{
                                         return this.scale;
                                         }-*/;
 
+    /**
+     * Style.
+     *
+     * @param styleName
+     *            the style name
+     * @param value
+     *            the value
+     * @return the d3
+     */
     public final native D3 style(String styleName, String value) /*-{
                                                                  return this.style(styleName, value);
                                                                  }-*/;
 
+    /**
+     * Transition.
+     *
+     * @return the d3
+     */
     public final native D3 transition() /*-{
                                         return this.transition();
                                         }-*/;
 
+    /**
+     * Style tween.
+     *
+     * @param name
+     *            the name
+     * @param t
+     *            the t
+     * @return the d3
+     */
     public final native D3 styleTween(String name, Tween<?, ?> t) /*-{
 
                                                                   function interpolate(a, b) {
@@ -251,22 +450,57 @@ public class D3 extends JavaScriptObject {
                                                                   return this.styleTween(name, tween);
                                                                   }-*/;
 
+    /**
+     * Duration.
+     *
+     * @param duration
+     *            the duration
+     * @return the d3
+     */
     public final native D3 duration(int duration) /*-{
                                                   return this.duration(duration);
                                                   }-*/;
 
+    /**
+     * Delay.
+     *
+     * @param delayInMilliSeconds
+     *            the delay in milli seconds
+     * @return the d3
+     */
     public final native D3 delay(int delayInMilliSeconds) /*-{
                                                           return this.delay(delayInMilliSeconds);
                                                           }-*/;
 
+    /**
+     * Exit.
+     *
+     * @return the d3
+     */
     public final native D3 exit() /*-{
                                   return this.exit();
                                   }-*/;
 
+    /**
+     * Removes the.
+     *
+     * @return the d3
+     */
     public final native D3 remove() /*-{
                                     return this.remove();
                                     }-*/;
 
+    /**
+     * Data.
+     *
+     * @param <T>
+     *            the generic type
+     * @param data
+     *            the data
+     * @param func
+     *            the func
+     * @return the d3
+     */
     public final native <T extends JavaScriptObject> D3 data(JsArray<T> data, Func<?, T> func) /*-{
                                                                                                var f = function(d, i) {
                                                                                                return func.@org.opennms.features.topology.app.internal.gwt.client.d3.Func::call(Ljava/lang/Object;I)(d,i);
@@ -275,14 +509,35 @@ public class D3 extends JavaScriptObject {
 
                                                                                                }-*/;
 
+    /**
+     * Text.
+     *
+     * @param textFunc
+     *            the text func
+     * @return the d3
+     */
     public final native D3 text(JavaScriptObject textFunc) /*-{
                                                            return this.text(textFunc);
                                                            }-*/;
 
+    /**
+     * Text.
+     *
+     * @param t
+     *            the t
+     * @return the d3
+     */
     public final native D3 text(String t) /*-{
                                           return this.text(t);
                                           }-*/;
 
+    /**
+     * Text.
+     *
+     * @param func
+     *            the func
+     * @return the d3
+     */
     public final native D3 text(Func<String, ?> func) /*-{
                                                       var f = function(d, i){
                                                       return func.@org.opennms.features.topology.app.internal.gwt.client.d3.Func::call(Ljava/lang/Object;I)(d,i);
@@ -291,6 +546,12 @@ public class D3 extends JavaScriptObject {
 
                                                       }-*/;
 
+    /**
+     * Each.
+     *
+     * @param handler
+     *            the handler
+     */
     public final native void each(Handler<?> handler) /*-{
                                                       var f = function(d, i){
                                                       return handler.@org.opennms.features.topology.app.internal.gwt.client.d3.D3Events.Handler::call(Ljava/lang/Object;I)(d,i);
@@ -299,10 +560,12 @@ public class D3 extends JavaScriptObject {
                                                       }-*/;
 
     /**
-     * Only used for transitions
+     * Only used for transitions.
      *
      * @param type
-     * @param handler
+     *            the type
+     * @param func
+     *            the func
      */
     public final native void each(String type, AnonymousFunc func) /*-{
                                                                    var f = function(){
@@ -312,6 +575,15 @@ public class D3 extends JavaScriptObject {
                                                                    return this.each(type, f);
                                                                    }-*/;
 
+    /**
+     * On.
+     *
+     * @param event
+     *            the event
+     * @param handler
+     *            the handler
+     * @return the d3
+     */
     public final native D3 on(String event, Handler<?> handler) /*-{
                                                                 var f = function(d, i) {
                                                                 return handler.@org.opennms.features.topology.app.internal.gwt.client.d3.D3Events.Handler::call(Ljava/lang/Object;I)(d,i);
@@ -320,6 +592,15 @@ public class D3 extends JavaScriptObject {
                                                                 return this.on(event, f);
                                                                 }-*/;
 
+    /**
+     * Style.
+     *
+     * @param styleName
+     *            the style name
+     * @param func
+     *            the func
+     * @return the d3
+     */
     public final native D3 style(String styleName, Func<String, ?> func) /*-{
                                                                          var f = function(d, i){
                                                                          return func.@org.opennms.features.topology.app.internal.gwt.client.d3.Func::call(Ljava/lang/Object;I)(d,i);
@@ -328,6 +609,11 @@ public class D3 extends JavaScriptObject {
 
                                                                          }-*/;
 
+    /**
+     * Gets the event.
+     *
+     * @return the event
+     */
     public static final native NativeEvent getEvent() /*-{
                                                       if(typeof($wnd.d3.event.sourceEvent) != "undefined"){
                                                       return $wnd.d3.event.sourceEvent;
@@ -335,24 +621,49 @@ public class D3 extends JavaScriptObject {
                                                       return $wnd.d3.event;
                                                       }-*/;
 
+    /**
+     * Event prevent default.
+     */
     public static final native void eventPreventDefault() /*-{
                                                           $wnd.d3.event.preventDefault();
                                                           }-*/;
 
+    /**
+     * D3.
+     *
+     * @return the d3
+     */
     public static final native D3 d3() /*-{
                                        return $wnd.d3;
                                        }-*/;
 
+    /**
+     * Property.
+     *
+     * @param propertName
+     *            the propert name
+     * @return the java script object
+     */
     public static final native JavaScriptObject property(String propertName) /*-{
                                                                              return function(d,i){
                                                                              return d[propertName];
                                                                              };
                                                                              }-*/;
 
+    /**
+     * Gets the drag behavior.
+     *
+     * @return the drag behavior
+     */
     public static final native D3Drag getDragBehavior() /*-{
                                                         return $wnd.d3.behavior.drag();
                                                         }-*/;
 
+    /**
+     * Drag.
+     *
+     * @return the java script object
+     */
     public static final native JavaScriptObject drag() /*-{
 
                                                        var drag = $wnd.d3.behavior.drag();
@@ -369,16 +680,24 @@ public class D3 extends JavaScriptObject {
                                                        return drag;
                                                        }-*/;
 
+    /**
+     * Call.
+     *
+     * @param behavior
+     *            the behavior
+     * @return the d3
+     */
     public final native D3 call(JavaScriptObject behavior) /*-{
                                                            return this.call(behavior);
                                                            }-*/;
 
     /**
      * Takes a D3Behavior and returns the current selection passed into the run
-     * method
+     * method.
      *
      * @param behavior
-     * @return
+     *            the behavior
+     * @return the d3
      */
     public final native D3 call(D3Behavior behavior) /*-{
                                                      behavior.@org.opennms.features.topology.app.internal.gwt.client.d3.D3Behavior::run(Lorg/opennms/features/topology/app/internal/gwt/client/d3/D3;)(this);
@@ -386,10 +705,11 @@ public class D3 extends JavaScriptObject {
                                                      }-*/;
 
     /**
-     * Takes a D3Behavior and returns the resulting selection
+     * Takes a D3Behavior and returns the resulting selection.
      *
      * @param behavior
-     * @return
+     *            the behavior
+     * @return the d3
      */
     public final native D3 with(D3Behavior behavior) /*-{
                                                      return behavior.@org.opennms.features.topology.app.internal.gwt.client.d3.D3Behavior::run(Lorg/opennms/features/topology/app/internal/gwt/client/d3/D3;)(this);
@@ -400,33 +720,77 @@ public class D3 extends JavaScriptObject {
      * And the behavior is expected to return the created selection
      *
      * @param behavior
-     * @return
+     *            the behavior
+     * @return the d3
      */
     public final D3 create(D3Behavior behavior) {
         return with(behavior);
     };
 
+    /**
+     * Gets the mouse.
+     *
+     * @param elem
+     *            the elem
+     * @return the mouse
+     */
     public static final native JsArrayInteger getMouse(Element elem) /*-{
                                                                      return $wnd.d3.mouse(elem);
 
                                                                      }-*/;
 
+    /**
+     * Gets the mouse.
+     *
+     * @param select
+     *            the select
+     * @return the mouse
+     */
     public static final native JsArrayNumber getMouse(D3 select) /*-{
                                                                  return $wnd.d3.mouse(select);
                                                                  }-*/;
 
+    /**
+     * Attr.
+     *
+     * @param property
+     *            the property
+     * @return the string
+     */
     public final native String attr(String property) /*-{
                                                      return this.attr(property);
                                                      }-*/;
 
+    /**
+     * Gets the transform.
+     *
+     * @param transform
+     *            the transform
+     * @return the transform
+     */
     public static final native D3Transform getTransform(String transform)/*-{
                                                                          return $wnd.d3.transform(transform);
                                                                          }-*/;
 
+    /**
+     * Gets the brush.
+     *
+     * @return the brush
+     */
     public final native D3Brush getBrush() /*-{
                                            return this.svg.brush();
                                            }-*/;
 
+    /**
+     * Xml.
+     *
+     * @param iconUrl
+     *            the icon url
+     * @param mimeType
+     *            the mime type
+     * @param handler
+     *            the handler
+     */
     public final native void xml(String iconUrl, String mimeType, XMLHandler<?> handler) /*-{
                                                                                          var f = function(d) {
                                                                                          return handler.@org.opennms.features.topology.app.internal.gwt.client.d3.D3Events.XMLHandler::call(Ljava/lang/Object;)(d);
@@ -434,11 +798,23 @@ public class D3 extends JavaScriptObject {
                                                                                          this.xml(iconUrl, mimeType, f);
                                                                                          }-*/;
 
+    /**
+     * Length.
+     *
+     * @return the int
+     */
     public final native int length() /*-{
                                      return this.data().length;
 
                                      }-*/;
 
+    /**
+     * Style.
+     *
+     * @param style
+     *            the style
+     * @return the string
+     */
     public final native String style(String style) /*-{
                                                    return this.style(style);
                                                    }-*/;

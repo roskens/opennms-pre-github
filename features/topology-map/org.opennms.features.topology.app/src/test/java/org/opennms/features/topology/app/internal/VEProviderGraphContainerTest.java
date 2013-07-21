@@ -1,3 +1,30 @@
+/*******************************************************************************
+ * This file is part of OpenNMS(R).
+ *
+ * Copyright (C) 2012 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published
+ * by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * OpenNMS(R) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with OpenNMS(R).  If not, see:
+ *      http://www.gnu.org/licenses/
+ *
+ * For more information contact:
+ *     OpenNMS(R) Licensing <license@opennms.org>
+ *     http://www.opennms.org/
+ *     http://www.opennms.com/
+ *******************************************************************************/
 package org.opennms.features.topology.app.internal;
 
 import static org.junit.Assert.assertEquals;
@@ -27,22 +54,35 @@ import org.opennms.features.topology.api.topo.SimpleEdgeProvider;
 import org.opennms.features.topology.api.topo.Vertex;
 import org.opennms.features.topology.api.topo.VertexRef;
 
+/**
+ * The Class VEProviderGraphContainerTest.
+ */
 public class VEProviderGraphContainerTest {
 
+    /** The m_graph provider. */
     private GraphProvider m_graphProvider;
 
+    /** The m_edge provider. */
     private EdgeProvider m_edgeProvider;
 
+    /** The m_graph container. */
     private GraphContainer m_graphContainer;
 
+    /** The m_expected vertices. */
     private Set<VertexRef> m_expectedVertices = new HashSet<VertexRef>();
 
+    /** The m_expected vertex styles. */
     private Map<VertexRef, String> m_expectedVertexStyles = new HashMap<VertexRef, String>();
 
+    /** The m_expected edges. */
     private Set<EdgeRef> m_expectedEdges = new HashSet<EdgeRef>();
 
+    /** The m_expected edge styles. */
     private Map<EdgeRef, String> m_expectedEdgeStyles = new HashMap<EdgeRef, String>();
 
+    /**
+     * Sets the up.
+     */
     @Before
     public void setUp() {
 
@@ -76,6 +116,9 @@ public class VEProviderGraphContainerTest {
         m_graphContainer = graphContainer;
     }
 
+    /**
+     * Test graph provider.
+     */
     @Test
     public void testGraphProvider() {
         List<? extends Vertex> roots = m_graphProvider.getRootGroup();
@@ -91,6 +134,12 @@ public class VEProviderGraphContainerTest {
         assertEquals(root, m_graphProvider.getParent(children.get(0)));
     }
 
+    /**
+     * Test container.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testContainer() throws Exception {
 
@@ -135,6 +184,9 @@ public class VEProviderGraphContainerTest {
 
     }
 
+    /**
+     * Verify.
+     */
     private void verify() {
         if (!m_expectedVertices.isEmpty()) {
             fail("Expected Vertices not seen: " + m_expectedVertices);
@@ -145,6 +197,11 @@ public class VEProviderGraphContainerTest {
         }
     }
 
+    /**
+     * Verifier.
+     *
+     * @return the graph visitor
+     */
     private GraphVisitor verifier() {
         return new BaseGraphVisitor() {
 
@@ -166,18 +223,41 @@ public class VEProviderGraphContainerTest {
         };
     }
 
+    /**
+     * Expect vertex.
+     *
+     * @param namespace
+     *            the namespace
+     * @param vertexId
+     *            the vertex id
+     * @param styles
+     *            the styles
+     */
     private void expectVertex(String namespace, String vertexId, String styles) {
         AbstractVertexRef vertexRef = new AbstractVertexRef(namespace, vertexId);
         m_expectedVertices.add(vertexRef);
         m_expectedVertexStyles.put(vertexRef, styles);
     }
 
+    /**
+     * Expect edge.
+     *
+     * @param namespace
+     *            the namespace
+     * @param edgeId
+     *            the edge id
+     * @param styles
+     *            the styles
+     */
     private void expectEdge(String namespace, String edgeId, String styles) {
         AbstractEdgeRef edgeRef = new AbstractEdgeRef(namespace, edgeId);
         m_expectedEdges.add(edgeRef);
         m_expectedEdgeStyles.put(edgeRef, styles);
     }
 
+    /**
+     * Reset.
+     */
     private void reset() {
         m_expectedVertices.clear();
         m_expectedEdges.clear();

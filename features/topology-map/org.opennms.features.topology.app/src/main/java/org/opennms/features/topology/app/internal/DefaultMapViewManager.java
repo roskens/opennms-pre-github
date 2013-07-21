@@ -1,3 +1,30 @@
+/*******************************************************************************
+ * This file is part of OpenNMS(R).
+ *
+ * Copyright (C) 2012 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published
+ * by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * OpenNMS(R) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with OpenNMS(R).  If not, see:
+ *      http://www.gnu.org/licenses/
+ *
+ * For more information contact:
+ *     OpenNMS(R) Licensing <license@opennms.org>
+ *     http://www.opennms.org/
+ *     http://www.opennms.com/
+ *******************************************************************************/
 package org.opennms.features.topology.app.internal;
 
 import java.util.Set;
@@ -8,36 +35,57 @@ import org.opennms.features.topology.api.MapViewManager;
 import org.opennms.features.topology.api.MapViewManagerListener;
 import org.opennms.features.topology.api.Point;
 
+/**
+ * The Class DefaultMapViewManager.
+ */
 public class DefaultMapViewManager implements MapViewManager {
 
+    /** The m_map bounds. */
     private BoundingBox m_mapBounds = new BoundingBox(0, 0, 100, 100);
 
+    /** The m_view port width. */
     private int m_viewPortWidth = 100;
 
+    /** The m_view port height. */
     private int m_viewPortHeight = 100;
 
+    /** The m_scale. */
     private double m_scale = 0.0;
 
+    /** The m_center. */
     private Point m_center = new Point(0, 0);
 
+    /** The m_listeners. */
     private Set<MapViewManagerListener> m_listeners = new CopyOnWriteArraySet<MapViewManagerListener>();
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.MapViewManager#addListener(org.opennms.features.topology.api.MapViewManagerListener)
+     */
     @Override
     public void addListener(MapViewManagerListener listener) {
         m_listeners.add(listener);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.MapViewManager#removeListener(org.opennms.features.topology.api.MapViewManagerListener)
+     */
     @Override
     public void removeListener(MapViewManagerListener listener) {
         m_listeners.remove(listener);
     }
 
+    /**
+     * Fire update.
+     */
     private void fireUpdate() {
         for (MapViewManagerListener listener : m_listeners) {
             listener.boundingBoxChanged(this);
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.MapViewManager#setMapBounds(org.opennms.features.topology.api.BoundingBox)
+     */
     @Override
     public void setMapBounds(BoundingBox boundingBox) {
         m_mapBounds = boundingBox;
@@ -46,6 +94,9 @@ public class DefaultMapViewManager implements MapViewManager {
         fireUpdate();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.MapViewManager#setViewPort(int, int)
+     */
     @Override
     public void setViewPort(int width, int height) {
         int oldWidth = m_viewPortWidth;
@@ -59,11 +110,17 @@ public class DefaultMapViewManager implements MapViewManager {
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.MapViewManager#getViewPortAspectRatio()
+     */
     @Override
     public double getViewPortAspectRatio() {
         return m_viewPortWidth < 0 ? -1 : m_viewPortWidth / (double) m_viewPortHeight;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.MapViewManager#setCenter(org.opennms.features.topology.api.Point)
+     */
     @Override
     public void setCenter(Point point) {
         Point oldCenter = m_center;
@@ -73,6 +130,9 @@ public class DefaultMapViewManager implements MapViewManager {
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.MapViewManager#zoomToPoint(double, org.opennms.features.topology.api.Point)
+     */
     @Override
     public void zoomToPoint(double scale, Point center) {
         double oldScale = m_scale;
@@ -88,6 +148,9 @@ public class DefaultMapViewManager implements MapViewManager {
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.MapViewManager#getCurrentBoundingBox()
+     */
     @Override
     public BoundingBox getCurrentBoundingBox() {
         if (m_viewPortWidth < 0 || m_mapBounds == null) {
@@ -102,12 +165,18 @@ public class DefaultMapViewManager implements MapViewManager {
         return new BoundingBox(m_center, width, height);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.MapViewManager#getScale()
+     */
     @Override
     public double getScale() {
         return m_scale;
 
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.MapViewManager#setScale(double)
+     */
     @Override
     public void setScale(double scale) {
         double oldScale = m_scale;
@@ -120,6 +189,9 @@ public class DefaultMapViewManager implements MapViewManager {
 
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.MapViewManager#setBoundingBox(org.opennms.features.topology.api.BoundingBox)
+     */
     @Override
     public void setBoundingBox(BoundingBox boundingBox) {
         BoundingBox oldBoundingBox = getCurrentBoundingBox();
@@ -142,16 +214,25 @@ public class DefaultMapViewManager implements MapViewManager {
 
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.MapViewManager#getViewPortHeight()
+     */
     @Override
     public int getViewPortHeight() {
         return m_viewPortHeight;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.MapViewManager#getViewPortWidth()
+     */
     @Override
     public int getViewPortWidth() {
         return m_viewPortWidth;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return "Map bounds [ " + m_mapBounds + "]  || view [ width: " + getViewPortWidth() + " :: height: "

@@ -42,13 +42,24 @@ import org.slf4j.LoggerFactory;
  */
 public class WidgetManager {
 
+    /** The m_view contributors. */
     private List<IViewContribution> m_viewContributors = new CopyOnWriteArrayList<IViewContribution>();
 
+    /** The m_listeners. */
     private List<WidgetUpdateListener> m_listeners = new CopyOnWriteArrayList<WidgetUpdateListener>();
 
+    /**
+     * Instantiates a new widget manager.
+     */
     public WidgetManager() {
     }
 
+    /**
+     * Adds the update listener.
+     *
+     * @param listener
+     *            the listener
+     */
     public void addUpdateListener(WidgetUpdateListener listener) {
         LoggerFactory.getLogger(this.getClass()).info("Adding WidgetUpdateListener {} to WidgetManager {}", listener,
                                                       this);
@@ -58,6 +69,12 @@ public class WidgetManager {
         }
     }
 
+    /**
+     * Removes the update listener.
+     *
+     * @param listener
+     *            the listener
+     */
     public void removeUpdateListener(WidgetUpdateListener listener) {
         LoggerFactory.getLogger(this.getClass()).info("Removing WidgetUpdateListener {} from WidgetManager {}",
                                                       listener, this);
@@ -66,12 +83,17 @@ public class WidgetManager {
         }
     }
 
+    /**
+     * Widget count.
+     *
+     * @return the int
+     */
     public int widgetCount() {
         return m_viewContributors.size();
     }
 
     /**
-     * Gets the list of Widgets as IViewContributions
+     * Gets the list of Widgets as IViewContributions.
      *
      * @return List<IViewContribution>
      */
@@ -88,6 +110,12 @@ public class WidgetManager {
         return Collections.unmodifiableList(widgets);
     }
 
+    /**
+     * On bind.
+     *
+     * @param viewContribution
+     *            the view contribution
+     */
     public synchronized void onBind(IViewContribution viewContribution) {
         LoggerFactory.getLogger(this.getClass()).info("Binding IViewContribution {} to WidgetManager {}",
                                                       viewContribution, this);
@@ -101,12 +129,21 @@ public class WidgetManager {
         }
     }
 
+    /**
+     * Update widget listeners.
+     */
     private void updateWidgetListeners() {
         for (WidgetUpdateListener listener : m_listeners) {
             listener.widgetListUpdated(this);
         }
     }
 
+    /**
+     * On unbind.
+     *
+     * @param viewContribution
+     *            the view contribution
+     */
     public synchronized void onUnbind(IViewContribution viewContribution) {
         LoggerFactory.getLogger(this.getClass()).info("Unbinding IViewContribution {} from WidgetManager {}",
                                                       viewContribution, this);

@@ -31,8 +31,14 @@ package org.opennms.features.topology.app.internal.operations;
 import org.opennms.features.topology.api.LayoutAlgorithm;
 import org.opennms.features.topology.app.internal.jung.CircleLayoutAlgorithm;
 
+/**
+ * The Class CircleLayoutOperation.
+ */
 public class CircleLayoutOperation extends LayoutOperation {
 
+    /**
+     * Instantiates a new circle layout operation.
+     */
     public CircleLayoutOperation() {
         super(new LayoutFactory() {
 
@@ -45,6 +51,9 @@ public class CircleLayoutOperation extends LayoutOperation {
         });
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.Operation#getId()
+     */
     @Override
     public String getId() {
         return getClass().getSimpleName();

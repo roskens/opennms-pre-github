@@ -41,8 +41,14 @@ import org.opennms.features.topology.api.topo.VertexRef;
 import edu.uci.ics.jung.algorithms.layout.CircleLayout;
 import edu.uci.ics.jung.graph.SparseGraph;
 
+/**
+ * The Class CircleLayoutAlgorithm.
+ */
 public class CircleLayoutAlgorithm extends AbstractLayoutAlgorithm {
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.app.internal.jung.AbstractLayoutAlgorithm#updateLayout(org.opennms.features.topology.api.GraphContainer)
+     */
     @Override
     public void updateLayout(final GraphContainer graphContainer) {
 
@@ -72,6 +78,9 @@ public class CircleLayoutAlgorithm extends AbstractLayoutAlgorithm {
 
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.app.internal.jung.AbstractLayoutAlgorithm#selectLayoutSize(org.opennms.features.topology.api.GraphContainer)
+     */
     @Override
     protected Dimension selectLayoutSize(GraphContainer g) {
         int vertexCount = g.getGraph().getDisplayVertices().size();

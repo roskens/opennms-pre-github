@@ -40,12 +40,28 @@ import com.vaadin.ui.MenuBar;
 import com.vaadin.ui.MenuBar.Command;
 import com.vaadin.ui.MenuBar.MenuItem;
 
+/**
+ * The Class MenuBarBuilder.
+ */
 public class MenuBarBuilder extends MenuBuilder<MenuBar.Command, MenuItem> {
 
+    /**
+     * Instantiates a new menu bar builder.
+     */
     public MenuBarBuilder() {
 
     }
 
+    /**
+     * Adds the.
+     *
+     * @param menuPath
+     *            the menu path
+     * @param command
+     *            the command
+     * @param menu
+     *            the menu
+     */
     private void add(List<String> menuPath, Command command, Map<String, Object> menu) {
         if (menuPath.isEmpty()) {
             return;
@@ -81,6 +97,11 @@ public class MenuBarBuilder extends MenuBuilder<MenuBar.Command, MenuItem> {
         }
     }
 
+    /**
+     * Gets the.
+     *
+     * @return the menu bar
+     */
     @SuppressWarnings("unchecked")
     public MenuBar get() {
         MenuBar menuBar = new MenuBar();
@@ -98,6 +119,9 @@ public class MenuBarBuilder extends MenuBuilder<MenuBar.Command, MenuItem> {
         return menuBar;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.app.internal.MenuBuilder#addMenuItems(java.lang.Object, java.util.Map)
+     */
     @SuppressWarnings("unchecked")
     @Override
     protected void addMenuItems(MenuItem subMenu, Map<String, Object> value) {

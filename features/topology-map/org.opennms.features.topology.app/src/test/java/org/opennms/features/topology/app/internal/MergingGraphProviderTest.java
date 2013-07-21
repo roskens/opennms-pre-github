@@ -1,3 +1,30 @@
+/*******************************************************************************
+ * This file is part of OpenNMS(R).
+ *
+ * Copyright (C) 2012 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published
+ * by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * OpenNMS(R) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with OpenNMS(R).  If not, see:
+ *      http://www.gnu.org/licenses/
+ *
+ * For more information contact:
+ *     OpenNMS(R) Licensing <license@opennms.org>
+ *     http://www.opennms.org/
+ *     http://www.opennms.com/
+ *******************************************************************************/
 package org.opennms.features.topology.app.internal;
 
 import static org.junit.Assert.assertEquals;
@@ -17,14 +44,23 @@ import org.opennms.features.topology.api.topo.GraphProvider;
 import org.opennms.features.topology.api.topo.SimpleEdgeProvider;
 import org.opennms.features.topology.api.topo.Vertex;
 
+/**
+ * The Class MergingGraphProviderTest.
+ */
 public class MergingGraphProviderTest {
 
+    /** The m_graph provider. */
     private GraphProvider m_graphProvider;
 
+    /** The m_edge provider. */
     private EdgeProvider m_edgeProvider;
 
+    /** The m_merged provider. */
     private MergingGraphProvider m_mergedProvider;
 
+    /**
+     * Sets the up.
+     */
     @Before
     public void setUp() {
 
@@ -52,6 +88,9 @@ public class MergingGraphProviderTest {
         m_mergedProvider = new MergingGraphProvider(m_graphProvider, providerManager);
     }
 
+    /**
+     * Test graph provider.
+     */
     @Test
     public void testGraphProvider() {
         List<? extends Vertex> roots = m_graphProvider.getRootGroup();
@@ -67,18 +106,27 @@ public class MergingGraphProviderTest {
         assertEquals(root, m_graphProvider.getParent(children.get(0)));
     }
 
+    /**
+     * Test get vertex.
+     */
     @Test
     public void testGetVertex() {
         assertEquals("vertex1", m_mergedProvider.getVertex("nodes", "v1").getLabel());
         assertEquals("vertex2", m_mergedProvider.getVertex(new AbstractVertexRef("nodes", "v2")).getLabel());
     }
 
+    /**
+     * Test get edge.
+     */
     @Test
     public void testGetEdge() {
         assertEquals("edge1", m_mergedProvider.getEdge("nodes", "e1").getLabel());
         assertEquals("ncsedge2", m_mergedProvider.getEdge(new AbstractEdgeRef("ncs", "ncs2")).getLabel());
     }
 
+    /**
+     * Test get edges.
+     */
     @Test
     public void testGetEdges() {
         // with no criteria set.. just base edges

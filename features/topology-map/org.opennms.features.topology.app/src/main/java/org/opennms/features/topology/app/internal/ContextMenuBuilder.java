@@ -35,8 +35,16 @@ import java.util.Set;
 import org.opennms.features.topology.api.Operation;
 import org.opennms.features.topology.app.internal.TopoContextMenu.TopoContextMenuItem;
 
+/**
+ * The Class ContextMenuBuilder.
+ */
 public class ContextMenuBuilder extends MenuBuilder<Command, TopoContextMenuItem> {
 
+    /**
+     * Gets the.
+     *
+     * @return the topo context menu
+     */
     public TopoContextMenu get() {
         TopoContextMenu cMenu = new TopoContextMenu();
 
@@ -54,6 +62,9 @@ public class ContextMenuBuilder extends MenuBuilder<Command, TopoContextMenuItem
         return cMenu;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.app.internal.MenuBuilder#addMenuItems(java.lang.Object, java.util.Map)
+     */
     @Override
     protected void addMenuItems(TopoContextMenuItem subMenu, Map<String, Object> value) {
 

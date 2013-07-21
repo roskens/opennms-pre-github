@@ -31,8 +31,14 @@ package org.opennms.features.topology.app.internal.operations;
 import org.opennms.features.topology.api.LayoutAlgorithm;
 import org.opennms.features.topology.app.internal.ManualLayoutAlgorithm;
 
+/**
+ * The Class ManualLayoutOperation.
+ */
 public class ManualLayoutOperation extends LayoutOperation {
 
+    /**
+     * Instantiates a new manual layout operation.
+     */
     public ManualLayoutOperation() {
         super(new LayoutFactory() {
 
@@ -45,6 +51,9 @@ public class ManualLayoutOperation extends LayoutOperation {
         });
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.Operation#getId()
+     */
     @Override
     public String getId() {
         return getClass().getSimpleName();

@@ -30,27 +30,62 @@ package org.opennms.features.topology.app.internal.gwt.client.svg;
 
 import com.google.gwt.core.client.JavaScriptObject;
 
+/**
+ * The Class SVGPoint.
+ */
 public class SVGPoint extends JavaScriptObject {
 
+    /**
+     * Instantiates a new sVG point.
+     */
     protected SVGPoint() {
     }
 
+    /**
+     * Sets the x.
+     *
+     * @param x
+     *            the new x
+     */
     public final native void setX(int x) /*-{
                                          this.x = x
                                          }-*/;
 
+    /**
+     * Sets the y.
+     *
+     * @param y
+     *            the new y
+     */
     public final native void setY(int y) /*-{
                                          this.y = y;
                                          }-*/;
 
+    /**
+     * Matrix transform.
+     *
+     * @param m
+     *            the m
+     * @return the sVG point
+     */
     public final native SVGPoint matrixTransform(SVGMatrix m) /*-{
                                                               return this.matrixTransform(m);
                                                               }-*/;
 
+    /**
+     * Gets the x.
+     *
+     * @return the x
+     */
     public final native double getX() /*-{
                                       return this.x;
                                       }-*/;
 
+    /**
+     * Gets the y.
+     *
+     * @return the y
+     */
     public final native double getY() /*-{
                                       return this.y;
                                       }-*/;

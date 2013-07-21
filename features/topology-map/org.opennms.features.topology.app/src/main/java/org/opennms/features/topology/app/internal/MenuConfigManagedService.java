@@ -33,15 +33,28 @@ import java.util.Dictionary;
 import org.osgi.service.cm.ConfigurationException;
 import org.osgi.service.cm.ManagedService;
 
+/**
+ * The Class MenuConfigManagedService.
+ */
 public class MenuConfigManagedService implements ManagedService {
 
+    /** The m_command manager. */
     private CommandManager m_commandManager;
 
+    /**
+     * Sets the command manager.
+     *
+     * @param commandManager
+     *            the new command manager
+     */
     public void setCommandManager(CommandManager commandManager) {
         m_commandManager = commandManager;
     }
 
     // Implements OSGi API
+    /* (non-Javadoc)
+     * @see org.osgi.service.cm.ManagedService#updated(java.util.Dictionary)
+     */
     @Override
     public void updated(Dictionary<String, ?> properties) throws ConfigurationException {
         m_commandManager.updateMenuConfig(properties);

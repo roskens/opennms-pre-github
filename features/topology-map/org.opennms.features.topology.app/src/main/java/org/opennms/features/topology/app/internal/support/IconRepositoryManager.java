@@ -38,22 +38,43 @@ import java.util.Map;
 import org.opennms.features.topology.api.IconRepository;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The Class IconRepositoryManager.
+ */
 public class IconRepositoryManager {
 
+    /**
+     * The Class ConfigIconRepository.
+     */
     private class ConfigIconRepository implements IconRepository {
 
+        /** The m_icon map. */
         private Map<String, String> m_iconMap = new HashMap<String, String>();
 
+        /* (non-Javadoc)
+         * @see org.opennms.features.topology.api.IconRepository#contains(java.lang.String)
+         */
         @Override
         public boolean contains(String type) {
             return m_iconMap.containsKey(type);
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.features.topology.api.IconRepository#getIconUrl(java.lang.String)
+         */
         @Override
         public String getIconUrl(String type) {
             return m_iconMap.get(type);
         }
 
+        /**
+         * Adds the icon config.
+         *
+         * @param key
+         *            the key
+         * @param url
+         *            the url
+         */
         public void addIconConfig(String key, String url) {
             if (m_iconMap.containsKey(key)) {
                 m_iconMap.remove(key);
@@ -63,18 +84,35 @@ public class IconRepositoryManager {
 
     }
 
+    /** The m_icon repos. */
     private List<IconRepository> m_iconRepos = new ArrayList<IconRepository>();
 
+    /** The m_config repo. */
     private ConfigIconRepository m_configRepo = new ConfigIconRepository();
 
+    /**
+     * Instantiates a new icon repository manager.
+     */
     public IconRepositoryManager() {
         m_iconRepos.add(m_configRepo);
     }
 
+    /**
+     * Adds the repository.
+     *
+     * @param iconRepo
+     *            the icon repo
+     */
     public void addRepository(IconRepository iconRepo) {
         m_iconRepos.add(iconRepo);
     }
 
+    /**
+     * On bind.
+     *
+     * @param iconRepo
+     *            the icon repo
+     */
     public synchronized void onBind(IconRepository iconRepo) {
         try {
             addRepository(iconRepo);
@@ -83,6 +121,12 @@ public class IconRepositoryManager {
         }
     }
 
+    /**
+     * On unbind.
+     *
+     * @param iconRepo
+     *            the icon repo
+     */
     public synchronized void onUnbind(IconRepository iconRepo) {
         try {
             m_iconRepos.remove(iconRepo);
@@ -91,6 +135,13 @@ public class IconRepositoryManager {
         }
     }
 
+    /**
+     * Lookup icon url for exact key.
+     *
+     * @param key
+     *            the key
+     * @return the string
+     */
     public String lookupIconUrlForExactKey(String key) {
         for (IconRepository iconRepo : m_iconRepos) {
             if (iconRepo.contains(key)) {
@@ -100,6 +151,13 @@ public class IconRepositoryManager {
         return null;
     }
 
+    /**
+     * Find icon url by key.
+     *
+     * @param key
+     *            the key
+     * @return the string
+     */
     public String findIconUrlByKey(String key) {
 
         if (key != null) {
@@ -136,6 +194,12 @@ public class IconRepositoryManager {
 
     }
 
+    /**
+     * Update icon config.
+     *
+     * @param properties
+     *            the properties
+     */
     public void updateIconConfig(Dictionary<String, ?> properties) {
         Enumeration<String> keys = properties.keys();
 

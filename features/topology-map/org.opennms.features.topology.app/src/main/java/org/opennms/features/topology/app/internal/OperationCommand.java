@@ -38,29 +38,67 @@ import org.opennms.features.topology.api.topo.VertexRef;
 
 import com.vaadin.event.Action;
 
+/**
+ * The Class OperationCommand.
+ */
 public class OperationCommand extends Action implements Command {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -6018957365232489699L;
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.app.internal.Command#getAction()
+     */
     @Override
     public Action getAction() {
         return this;
     }
 
+    /** The m_operation. */
     Operation m_operation;
 
+    /** The m_props. */
     Map<String, String> m_props;
 
+    /**
+     * Instantiates a new operation command.
+     *
+     * @param caption
+     *            the caption
+     * @param operation
+     *            the operation
+     * @param props
+     *            the props
+     */
     public OperationCommand(String caption, Operation operation, Map<String, String> props) {
         super(caption == null ? props.get(Operation.OPERATION_LABEL) : caption);
         m_operation = operation;
         m_props = props;
     }
 
+    /**
+     * Instantiates a new operation command.
+     *
+     * @param caption
+     *            the caption
+     * @param menuLocation
+     *            the menu location
+     * @param contextMenuLocation
+     *            the context menu location
+     */
     public OperationCommand(String caption, String menuLocation, String contextMenuLocation) {
         this(caption, null, getProperties(menuLocation, contextMenuLocation));
     }
 
+    /**
+     * Gets the properties.
+     *
+     * @param menuLocation
+     *            the menu location
+     * @param contextMenuLocation
+     *            the context menu location
+     * @return the properties
+     */
     public static Map<String, String> getProperties(String menuLocation, String contextMenuLocation) {
         Map<String, String> props = new HashMap<String, String>();
         if (menuLocation != null) {
@@ -117,16 +155,25 @@ public class OperationCommand extends Action implements Command {
         return contextLocation != null;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return getCaption();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.app.internal.Command#getOperation()
+     */
     @Override
     public Operation getOperation() {
         return m_operation;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.app.internal.Command#getContextMenuPosition()
+     */
     @Override
     public String getContextMenuPosition() {
         String contextLocation = m_props.get(Operation.OPERATION_CONTEXT_LOCATION);

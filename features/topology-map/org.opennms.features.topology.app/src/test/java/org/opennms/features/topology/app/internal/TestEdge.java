@@ -34,12 +34,28 @@ import org.opennms.features.topology.api.topo.SimpleConnector;
 import com.vaadin.data.Item;
 import com.vaadin.data.util.BeanItem;
 
+/**
+ * The Class TestEdge.
+ */
 public class TestEdge extends AbstractEdge {
 
+    /**
+     * Instantiates a new test edge.
+     *
+     * @param id
+     *            the id
+     * @param source
+     *            the source
+     * @param target
+     *            the target
+     */
     public TestEdge(String id, SimpleConnector source, SimpleConnector target) {
         super("test", id, source, target);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.topo.AbstractEdge#getItem()
+     */
     @Override
     public Item getItem() {
         return new BeanItem<TestEdge>(this);

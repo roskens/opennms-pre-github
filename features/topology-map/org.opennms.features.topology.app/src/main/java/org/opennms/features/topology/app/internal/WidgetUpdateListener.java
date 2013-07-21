@@ -28,7 +28,24 @@
 
 package org.opennms.features.topology.app.internal;
 
+/**
+ * The listener interface for receiving widgetUpdate events.
+ * The class that is interested in processing a widgetUpdate
+ * event implements this interface, and the object created
+ * with that class is registered with a component using the
+ * component's <code>addWidgetUpdateListener<code> method. When
+ * the widgetUpdate event occurs, that object's appropriate
+ * method is invoked.
+ *
+ * @see WidgetUpdateEvent
+ */
 public interface WidgetUpdateListener {
 
+    /**
+     * Invoked when widget list update occurs.
+     *
+     * @param widgetManager
+     *            the widget manager
+     */
     public void widgetListUpdated(WidgetManager widgetManager);
 }

@@ -28,7 +28,21 @@
 
 package org.opennms.features.topology.app.internal;
 
+/**
+ * The listener interface for receiving menuItemUpdate events.
+ * The class that is interested in processing a menuItemUpdate
+ * event implements this interface, and the object created
+ * with that class is registered with a component using the
+ * component's <code>addMenuItemUpdateListener<code> method. When
+ * the menuItemUpdate event occurs, that object's appropriate
+ * method is invoked.
+ *
+ * @see MenuItemUpdateEvent
+ */
 public interface MenuItemUpdateListener {
 
+    /**
+     * Update menu items.
+     */
     public void updateMenuItems();
 }

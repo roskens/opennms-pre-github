@@ -55,8 +55,14 @@ import com.vaadin.ui.FormFieldFactory;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.Window;
 
+/**
+ * The Class RemoveVertexFromGroupOperation.
+ */
 public class RemoveVertexFromGroupOperation implements Constants, Operation {
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.Operation#execute(java.util.List, org.opennms.features.topology.api.OperationContext)
+     */
     @Override
     public Undoer execute(final List<VertexRef> targets, final OperationContext operationContext) {
         if (targets == null || targets.isEmpty() || targets.size() != 1) {
@@ -178,17 +184,26 @@ public class RemoveVertexFromGroupOperation implements Constants, Operation {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.Operation#display(java.util.List, org.opennms.features.topology.api.OperationContext)
+     */
     @Override
     public boolean display(List<VertexRef> targets, OperationContext operationContext) {
         return true;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.Operation#enabled(java.util.List, org.opennms.features.topology.api.OperationContext)
+     */
     @Override
     public boolean enabled(List<VertexRef> targets, OperationContext operationContext) {
         return (targets.size() == 1)
                 && (operationContext.getGraphContainer().getBaseTopology().hasChildren(targets.get(0)));
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.Operation#getId()
+     */
     @Override
     public String getId() {
         return "RemoveVertexFromGroup";

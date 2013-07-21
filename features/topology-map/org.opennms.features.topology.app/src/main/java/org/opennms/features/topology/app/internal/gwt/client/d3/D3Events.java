@@ -28,30 +28,94 @@
 
 package org.opennms.features.topology.app.internal.gwt.client.d3;
 
+/**
+ * The Enum D3Events.
+ */
 public enum D3Events {
 
-    CLICK("click"), MOUSE_DOWN("mousedown"), KEY_DOWN("keydown"), CONTEXT_MENU("contextmenu"), DRAG_START("dragstart"), DRAG(
-            "drag"), DRAG_END("dragend"), MOUSE_OVER("mouseover"), MOUSE_OUT("mouseout"), DOUBLE_CLICK("dblclick");
+    /** The click. */
+    CLICK("click"), /** The mouse down. */
+ MOUSE_DOWN("mousedown"), /** The key down. */
+ KEY_DOWN("keydown"), /** The context menu. */
+ CONTEXT_MENU("contextmenu"), /** The drag start. */
+ DRAG_START("dragstart"), /** The drag. */
+ DRAG(
+            "drag"),
+ /** The drag end. */
+ DRAG_END("dragend"),
+ /** The mouse over. */
+ MOUSE_OVER("mouseover"),
+ /** The mouse out. */
+ MOUSE_OUT("mouseout"),
+ /** The double click. */
+ DOUBLE_CLICK("dblclick");
 
+    /** The m_event. */
     private String m_event;
 
+    /**
+     * Instantiates a new d3 events.
+     *
+     * @param event
+     *            the event
+     */
     D3Events(String event) {
         m_event = event;
     }
 
+    /**
+     * Event.
+     *
+     * @return the string
+     */
     public String event() {
         return m_event;
     }
 
+    /**
+     * The Interface Handler.
+     *
+     * @param <T>
+     *            the generic type
+     */
     public interface Handler<T> {
+
+        /**
+         * Call.
+         *
+         * @param t
+         *            the t
+         * @param index
+         *            the index
+         */
         public void call(T t, int index);
     }
 
+    /**
+     * The Interface XMLHandler.
+     *
+     * @param <T>
+     *            the generic type
+     */
     public interface XMLHandler<T> {
+
+        /**
+         * Call.
+         *
+         * @param t
+         *            the t
+         */
         public void call(T t);
     }
 
+    /**
+     * The Interface AnonymousHandler.
+     */
     public interface AnonymousHandler {
+
+        /**
+         * Call.
+         */
         public void call();
     }
 }

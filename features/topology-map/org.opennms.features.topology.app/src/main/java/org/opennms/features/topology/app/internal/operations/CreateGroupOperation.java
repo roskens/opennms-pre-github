@@ -59,8 +59,14 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.Window;
 
+/**
+ * The Class CreateGroupOperation.
+ */
 public class CreateGroupOperation implements Constants, Operation {
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.Operation#execute(java.util.List, org.opennms.features.topology.api.OperationContext)
+     */
     @Override
     public Undoer execute(final List<VertexRef> targets, final OperationContext operationContext) {
         if (targets == null || targets.isEmpty())
@@ -199,6 +205,14 @@ public class CreateGroupOperation implements Constants, Operation {
         return null;
     }
 
+    /**
+     * Adds the validators.
+     *
+     * @param promptForm
+     *            the prompt form
+     * @param graphContainer
+     *            the graph container
+     */
     private void addValidators(final Form promptForm, final GraphContainer graphContainer) {
         // Add validators to the fields
         ((TextField) promptForm.getField("Group Label")).setNullRepresentation("");
@@ -268,16 +282,25 @@ public class CreateGroupOperation implements Constants, Operation {
 
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.Operation#display(java.util.List, org.opennms.features.topology.api.OperationContext)
+     */
     @Override
     public boolean display(List<VertexRef> targets, OperationContext operationContext) {
         return true;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.Operation#enabled(java.util.List, org.opennms.features.topology.api.OperationContext)
+     */
     @Override
     public boolean enabled(List<VertexRef> targets, OperationContext operationContext) {
         return targets.size() > 0;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.Operation#getId()
+     */
     @Override
     public String getId() {
         return null;

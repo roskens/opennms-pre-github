@@ -28,6 +28,13 @@
 
 package org.opennms.features.topology.app.internal.gwt.client.d3;
 
+/**
+ * The Interface AnonymousFunc.
+ */
 public interface AnonymousFunc {
+
+    /**
+     * Call.
+     */
     void call();
 }

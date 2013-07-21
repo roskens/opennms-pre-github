@@ -28,6 +28,24 @@
 
 package org.opennms.features.topology.app.internal.gwt.client.d3;
 
+/**
+ * The Interface Func.
+ *
+ * @param <T>
+ *            the generic type
+ * @param <D>
+ *            the generic type
+ */
 public interface Func<T, D> {
+
+    /**
+     * Call.
+     *
+     * @param datum
+     *            the datum
+     * @param index
+     *            the index
+     * @return the t
+     */
     T call(D datum, int index);
 }

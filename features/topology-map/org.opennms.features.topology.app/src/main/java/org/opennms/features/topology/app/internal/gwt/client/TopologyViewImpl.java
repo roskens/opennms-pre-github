@@ -1,3 +1,30 @@
+/*******************************************************************************
+ * This file is part of OpenNMS(R).
+ *
+ * Copyright (C) 2012 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published
+ * by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * OpenNMS(R) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with OpenNMS(R).  If not, see:
+ *      http://www.gnu.org/licenses/
+ *
+ * For more information contact:
+ *     OpenNMS(R) Licensing <license@opennms.org>
+ *     http://www.opennms.org/
+ *     http://www.opennms.com/
+ *******************************************************************************/
 package org.opennms.features.topology.app.internal.gwt.client;
 
 import org.opennms.features.topology.app.internal.gwt.client.VTopologyComponent.GraphUpdateListener;
@@ -23,57 +50,88 @@ import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.vaadin.client.VTooltip;
 
+/**
+ * The Class TopologyViewImpl.
+ */
 public class TopologyViewImpl extends Composite implements TopologyView<TopologyViewRenderer>, GraphUpdateListener {
 
+    /** The ui binder. */
     private static TopologyViewImplUiBinder uiBinder = GWT.create(TopologyViewImplUiBinder.class);
 
+    /**
+     * The Interface TopologyViewImplUiBinder.
+     */
     interface TopologyViewImplUiBinder extends UiBinder<Widget, TopologyViewImpl> {
     }
 
+    /** The m_presenter. */
     private Presenter<TopologyViewRenderer> m_presenter;
 
+    /** The m_svg. */
     @UiField
     Element m_svg;
 
+    /** The m_svg view port. */
     @UiField
     Element m_svgViewPort;
 
+    /** The m_edge group. */
     @UiField
     Element m_edgeGroup;
 
+    /** The m_vertex group. */
     @UiField
     Element m_vertexGroup;
 
+    /** The m_reference map. */
     @UiField
     Element m_referenceMap;
 
+    /** The m_reference map viewport. */
     @UiField
     Element m_referenceMapViewport;
 
+    /** The m_reference map border. */
     @UiField
     Element m_referenceMapBorder;
 
+    /** The m_marquee. */
     @UiField
     Element m_marquee;
 
+    /** The m_margin container. */
     @UiField
     Element m_marginContainer;
 
+    /** The m_widget container. */
     @UiField
     HTMLPanel m_widgetContainer;
 
+    /** The m_topology view renderer. */
     TopologyViewRenderer m_topologyViewRenderer;
 
+    /** The m_is refresh. */
     private boolean m_isRefresh;
 
+    /**
+     * Gets the left margin.
+     *
+     * @return the left margin
+     */
     public int getLeftMargin() {
         return LEFT_MARGIN;
     }
 
+    /**
+     * Instantiates a new topology view impl.
+     */
     public TopologyViewImpl() {
         initWidget(uiBinder.createAndBindUi(this));
     }
 
+    /* (non-Javadoc)
+     * @see com.google.gwt.user.client.ui.Widget#onLoad()
+     */
     @Override
     protected void onLoad() {
         super.onLoad();
@@ -83,51 +141,83 @@ public class TopologyViewImpl extends Composite implements TopologyView<Topology
 
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.app.internal.gwt.client.view.TopologyView#setPresenter(org.opennms.features.topology.app.internal.gwt.client.view.TopologyView.Presenter)
+     */
     @Override
     public void setPresenter(Presenter<TopologyViewRenderer> presenter) {
         m_presenter = presenter;
         m_presenter.addGraphUpdateListener(this);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.app.internal.gwt.client.view.TopologyView#getSVGElement()
+     */
     @Override
     public SVGElement getSVGElement() {
         return m_svg.cast();
     }
 
+    /**
+     * Gets the margin container.
+     *
+     * @return the margin container
+     */
     private SVGGElement getMarginContainer() {
         return m_marginContainer.cast();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.app.internal.gwt.client.view.TopologyView#getSVGViewPort()
+     */
     @Override
     public SVGGElement getSVGViewPort() {
         return m_svgViewPort.cast();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.app.internal.gwt.client.view.TopologyView#getEdgeGroup()
+     */
     @Override
     public Element getEdgeGroup() {
         return m_edgeGroup;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.app.internal.gwt.client.view.TopologyView#getVertexGroup()
+     */
     @Override
     public Element getVertexGroup() {
         return m_vertexGroup;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.app.internal.gwt.client.view.TopologyView#getReferenceViewPort()
+     */
     @Override
     public Element getReferenceViewPort() {
         return m_referenceMapViewport;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.app.internal.gwt.client.view.TopologyView#getMarqueeElement()
+     */
     @Override
     public Element getMarqueeElement() {
         return m_marquee;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.app.internal.gwt.client.view.TopologyView#repaintNow(org.opennms.features.topology.app.internal.gwt.client.GWTGraph)
+     */
     @Override
     public void repaintNow(GWTGraph graph) {
         m_presenter.getViewRenderer().draw(graph, this, graph.getBoundingBox());
     }
 
+    /* (non-Javadoc)
+     * @see com.google.gwt.user.client.ui.Composite#onBrowserEvent(com.google.gwt.user.client.Event)
+     */
     @Override
     public void onBrowserEvent(final Event event) {
         super.onBrowserEvent(event);
@@ -155,15 +245,29 @@ public class TopologyViewImpl extends Composite implements TopologyView<Topology
 
     }
 
+    /**
+     * Gets the view port scale.
+     *
+     * @return the view port scale
+     */
     private double getViewPortScale() {
         D3Transform transform = D3.getTransform(D3.d3().select(getSVGViewPort()).attr("transform"));
         return transform.getScale().get(0);
     }
 
+    /**
+     * Console log.
+     *
+     * @param obj
+     *            the obj
+     */
     private native void consoleLog(Object obj) /*-{
                                                $wnd.console.log(obj);
                                                }-*/;
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.app.internal.gwt.client.VTopologyComponent.GraphUpdateListener#onGraphUpdated(org.opennms.features.topology.app.internal.gwt.client.GWTGraph, org.opennms.features.topology.app.internal.gwt.client.GWTBoundingBox)
+     */
     @Override
     public void onGraphUpdated(GWTGraph graph, GWTBoundingBox oldBBox) {
         if (m_presenter.getViewRenderer() != null) {
@@ -171,6 +275,9 @@ public class TopologyViewImpl extends Composite implements TopologyView<Topology
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.app.internal.gwt.client.view.TopologyView#calculateNewTransform(org.opennms.features.topology.app.internal.gwt.client.GWTBoundingBox)
+     */
     @Override
     public SVGMatrix calculateNewTransform(GWTBoundingBox bounds) {
         int iconMargin = 50;
@@ -194,6 +301,13 @@ public class TopologyViewImpl extends Composite implements TopologyView<Topology
         return transform;
     }
 
+    /**
+     * Edge stroke width tween.
+     *
+     * @param scale
+     *            the scale
+     * @return the tween
+     */
     private Tween<String, GWTEdge> edgeStrokeWidthTween(final double scale) {
         return new Tween<String, GWTEdge>() {
 
@@ -209,12 +323,22 @@ public class TopologyViewImpl extends Composite implements TopologyView<Topology
         };
     }
 
+    /**
+     * Matrix transform.
+     *
+     * @param matrix
+     *            the matrix
+     * @return the string
+     */
     String matrixTransform(SVGMatrix matrix) {
         String m = "matrix(" + matrix.getA() + ", " + matrix.getB() + ", " + matrix.getC() + ", " + matrix.getD()
                 + ", " + matrix.getE() + ", " + matrix.getF() + ")";
         return D3.getTransform(m).toString();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.app.internal.gwt.client.view.TopologyView#getCenterPos(org.opennms.features.topology.app.internal.gwt.client.GWTBoundingBox)
+     */
     @Override
     public SVGPoint getCenterPos(GWTBoundingBox box) {
         SVGGElement g = getSVGViewPort().cast();
@@ -229,6 +353,9 @@ public class TopologyViewImpl extends Composite implements TopologyView<Topology
         return center;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.app.internal.gwt.client.view.TopologyView#getPoint(int, int)
+     */
     @Override
     public SVGPoint getPoint(int clientX, int clientY) {
         SVGGElement g = getSVGViewPort().cast();
@@ -244,11 +371,17 @@ public class TopologyViewImpl extends Composite implements TopologyView<Topology
         return center;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.app.internal.gwt.client.view.TopologyView#getPhysicalWidth()
+     */
     @Override
     public int getPhysicalWidth() {
         return getSVGElement().getParentElement().getOffsetWidth() - getLeftMargin();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.app.internal.gwt.client.view.TopologyView#getPhysicalHeight()
+     */
     @Override
     public int getPhysicalHeight() {
         return getSVGElement().getParentElement().getOffsetHeight();

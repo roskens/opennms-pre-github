@@ -1,3 +1,30 @@
+/*******************************************************************************
+ * This file is part of OpenNMS(R).
+ *
+ * Copyright (C) 2012 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published
+ * by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * OpenNMS(R) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with OpenNMS(R).  If not, see:
+ *      http://www.gnu.org/licenses/
+ *
+ * For more information contact:
+ *     OpenNMS(R) Licensing <license@opennms.org>
+ *     http://www.opennms.org/
+ *     http://www.opennms.com/
+ *******************************************************************************/
 package org.opennms.features.topology.app.internal;
 
 import org.opennms.features.topology.api.topo.AbstractEdge;
@@ -9,50 +36,115 @@ import org.opennms.features.topology.api.topo.Vertex;
 import org.opennms.features.topology.api.topo.VertexRef;
 import org.opennms.features.topology.plugins.topo.simple.SimpleGraphProvider;
 
+/**
+ * The Class SimpleGraphBuilder.
+ */
 public class SimpleGraphBuilder {
 
+    /** The m_graph provider. */
     private final GraphProvider m_graphProvider;
 
+    /** The m_current vertex. */
     private AbstractVertex m_currentVertex;
 
+    /** The m_current edge. */
     private AbstractEdge m_currentEdge;
 
+    /**
+     * Instantiates a new simple graph builder.
+     *
+     * @param namespace
+     *            the namespace
+     */
     public SimpleGraphBuilder(String namespace) {
         m_graphProvider = new SimpleGraphProvider(namespace);
     }
 
+    /**
+     * Vertex.
+     *
+     * @param id
+     *            the id
+     * @return the simple graph builder
+     */
     public SimpleGraphBuilder vertex(String id) {
         m_currentVertex = new AbstractVertex(ns(), id);
         m_graphProvider.addVertices(m_currentVertex);
         return this;
     }
 
+    /**
+     * Parent.
+     *
+     * @param parentId
+     *            the parent id
+     * @return the simple graph builder
+     */
     public SimpleGraphBuilder parent(String parentId) {
         Vertex parent = m_graphProvider.getVertex(ns(), parentId);
         m_graphProvider.setParent(m_currentVertex, parent);
         return this;
     }
 
+    /**
+     * V label.
+     *
+     * @param label
+     *            the label
+     * @return the simple graph builder
+     */
     public SimpleGraphBuilder vLabel(String label) {
         m_currentVertex.setLabel(label);
         return this;
     }
 
+    /**
+     * V tooltip.
+     *
+     * @param tooltipText
+     *            the tooltip text
+     * @return the simple graph builder
+     */
     public SimpleGraphBuilder vTooltip(String tooltipText) {
         m_currentVertex.setTooltipText(tooltipText);
         return this;
     }
 
+    /**
+     * V icon key.
+     *
+     * @param iconKey
+     *            the icon key
+     * @return the simple graph builder
+     */
     public SimpleGraphBuilder vIconKey(String iconKey) {
         m_currentVertex.setIconKey(iconKey);
         return this;
     }
 
+    /**
+     * V style name.
+     *
+     * @param styleName
+     *            the style name
+     * @return the simple graph builder
+     */
     public SimpleGraphBuilder vStyleName(String styleName) {
         m_currentVertex.setStyleName(styleName);
         return this;
     }
 
+    /**
+     * Edge.
+     *
+     * @param id
+     *            the id
+     * @param srcId
+     *            the src id
+     * @param tgtId
+     *            the tgt id
+     * @return the simple graph builder
+     */
     public SimpleGraphBuilder edge(String id, String srcId, String tgtId) {
 
         VertexRef srcVertex = m_graphProvider.getVertex(ns(), srcId);
@@ -78,25 +170,56 @@ public class SimpleGraphBuilder {
         return this;
     }
 
+    /**
+     * E label.
+     *
+     * @param label
+     *            the label
+     * @return the simple graph builder
+     */
     public SimpleGraphBuilder eLabel(String label) {
         m_currentEdge.setLabel(label);
         return this;
     }
 
+    /**
+     * E tooltip.
+     *
+     * @param tooltipText
+     *            the tooltip text
+     * @return the simple graph builder
+     */
     public SimpleGraphBuilder eTooltip(String tooltipText) {
         m_currentEdge.setTooltipText(tooltipText);
         return this;
     }
 
+    /**
+     * E style name.
+     *
+     * @param styleName
+     *            the style name
+     * @return the simple graph builder
+     */
     public SimpleGraphBuilder eStyleName(String styleName) {
         m_currentEdge.setStyleName(styleName);
         return this;
     }
 
+    /**
+     * Gets the.
+     *
+     * @return the graph provider
+     */
     public GraphProvider get() {
         return m_graphProvider;
     }
 
+    /**
+     * Ns.
+     *
+     * @return the string
+     */
     private String ns() {
         return m_graphProvider.getVertexNamespace();
     }

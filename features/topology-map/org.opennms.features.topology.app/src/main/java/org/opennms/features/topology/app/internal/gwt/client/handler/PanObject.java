@@ -38,14 +38,23 @@ import org.opennms.features.topology.app.internal.gwt.client.view.TopologyView;
 
 import com.google.gwt.user.client.Event;
 
+/**
+ * The Class PanObject.
+ */
 public class PanObject extends DragObject {
-    /**
-     *
-     */
+
+    /** The m_state tf. */
     private SVGMatrix m_stateTf;
 
+    /** The m_state origin. */
     private SVGPoint m_stateOrigin;
 
+    /**
+     * Instantiates a new pan object.
+     *
+     * @param topologyView
+     *            the topology view
+     */
     public PanObject(TopologyView<TopologyViewRenderer> topologyView) {
         super(topologyView, topologyView.getSVGViewPort(), topologyView.getSVGElement(),
               D3.d3().selectAll(GWTVertex.VERTEX_CLASS_NAME));
@@ -57,6 +66,9 @@ public class PanObject extends DragObject {
         m_stateOrigin = topologyView.getPoint((int) eventPoint.getX(), (int) eventPoint.getY());
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.app.internal.gwt.client.handler.DragObject#move()
+     */
     @Override
     public void move() {
         Event event = D3.getEvent().cast();

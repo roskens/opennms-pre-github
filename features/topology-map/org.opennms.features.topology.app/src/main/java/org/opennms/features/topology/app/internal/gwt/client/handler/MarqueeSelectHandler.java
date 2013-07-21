@@ -45,53 +45,105 @@ import org.opennms.features.topology.app.internal.gwt.client.view.TopologyView;
 import com.google.gwt.core.client.JsArray;
 import com.google.gwt.dom.client.Element;
 
+/**
+ * The Class MarqueeSelectHandler.
+ */
 public class MarqueeSelectHandler implements DragBehaviorHandler {
 
+    /**
+     * The Class Interval.
+     */
     public class Interval {
 
+        /** The m_lo. */
         private int m_lo;
 
+        /**
+         * Gets the lo.
+         *
+         * @return the lo
+         */
         public int getLo() {
             return m_lo;
         }
 
+        /** The m_hi. */
         private int m_hi;
 
+        /**
+         * Gets the hi.
+         *
+         * @return the hi
+         */
         public int getHi() {
             return m_hi;
         }
 
+        /**
+         * Instantiates a new interval.
+         *
+         * @param lo
+         *            the lo
+         * @param hi
+         *            the hi
+         */
         public Interval(int lo, int hi) {
             m_lo = Math.min(lo, hi);
             m_hi = Math.max(lo, hi);
         }
 
+        /**
+         * Contains.
+         *
+         * @param value
+         *            the value
+         * @return true, if successful
+         */
         public boolean contains(int value) {
             return m_lo <= value && value <= m_hi;
         }
     }
 
+    /** The drag behavior key. */
     public static String DRAG_BEHAVIOR_KEY = "marqueeHandler";
 
+    /** The m_dragging. */
     private boolean m_dragging = false;
 
+    /** The m_x1. */
     private int m_x1;
 
+    /** The m_y1. */
     private int m_y1;
 
+    /** The m_offset x. */
     private int m_offsetX;
 
+    /** The m_offset y. */
     private int m_offsetY;
 
+    /** The m_svg topology map. */
     private SVGTopologyMap m_svgTopologyMap;
 
+    /** The m_topology view. */
     private TopologyView<TopologyViewRenderer> m_topologyView;
 
+    /**
+     * Instantiates a new marquee select handler.
+     *
+     * @param topologyMap
+     *            the topology map
+     * @param topologyView
+     *            the topology view
+     */
     public MarqueeSelectHandler(SVGTopologyMap topologyMap, TopologyView<TopologyViewRenderer> topologyView) {
         m_svgTopologyMap = topologyMap;
         m_topologyView = topologyView;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.app.internal.gwt.client.handler.DragBehaviorHandler#onDragStart(com.google.gwt.dom.client.Element)
+     */
     @Override
     public void onDragStart(Element elem) {
         if (!m_dragging) {
@@ -112,10 +164,19 @@ public class MarqueeSelectHandler implements DragBehaviorHandler {
         }
     }
 
+    /**
+     * Console log.
+     *
+     * @param log
+     *            the log
+     */
     public final native void consoleLog(Object log)/*-{
                                                    $wnd.console.log(log);
                                                    }-*/;
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.app.internal.gwt.client.handler.DragBehaviorHandler#onDrag(com.google.gwt.dom.client.Element)
+     */
     @Override
     public void onDrag(Element elem) {
         if (m_dragging) {
@@ -127,6 +188,9 @@ public class MarqueeSelectHandler implements DragBehaviorHandler {
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.app.internal.gwt.client.handler.DragBehaviorHandler#onDragEnd(com.google.gwt.dom.client.Element)
+     */
     @Override
     public void onDragEnd(Element elem) {
         m_dragging = false;
@@ -146,11 +210,26 @@ public class MarqueeSelectHandler implements DragBehaviorHandler {
         m_svgTopologyMap.setVertexSelection(vertIds);
     }
 
+    /**
+     * Sets the marquee.
+     *
+     * @param x
+     *            the x
+     * @param y
+     *            the y
+     * @param width
+     *            the width
+     * @param height
+     *            the height
+     */
     private void setMarquee(int x, int y, int width, int height) {
         D3.d3().select(m_topologyView.getMarqueeElement()).attr("x", x).attr("y", y).attr("width", width).attr("height",
                                                                                                                height);
     }
 
+    /**
+     * Select vertices.
+     */
     private void selectVertices() {
         D3 vertices = m_svgTopologyMap.selectAllVertexElements();
         JsArray<JsArray<SVGElement>> selection = vertices.cast();
@@ -174,6 +253,13 @@ public class MarqueeSelectHandler implements DragBehaviorHandler {
 
     }
 
+    /**
+     * In selection.
+     *
+     * @param elem
+     *            the elem
+     * @return true, if successful
+     */
     private boolean inSelection(SVGElement elem) {
         SVGElement marquee = m_topologyView.getMarqueeElement().cast();
         SVGRect mBBox = marquee.getBBox();

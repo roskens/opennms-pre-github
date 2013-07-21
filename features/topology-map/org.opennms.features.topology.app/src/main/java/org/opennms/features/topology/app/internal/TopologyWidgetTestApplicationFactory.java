@@ -36,22 +36,41 @@ import org.osgi.service.blueprint.container.BlueprintContainer;
 
 import com.vaadin.ui.UI;
 
+/**
+ * A factory for creating TopologyWidgetTestApplication objects.
+ */
 public class TopologyWidgetTestApplicationFactory extends AbstractApplicationFactory {
 
+    /** The m_blueprint container. */
     private final BlueprintContainer m_blueprintContainer;
 
+    /** The m_bean name. */
     private final String m_beanName;
 
+    /**
+     * Instantiates a new topology widget test application factory.
+     *
+     * @param container
+     *            the container
+     * @param beanName
+     *            the bean name
+     */
     public TopologyWidgetTestApplicationFactory(BlueprintContainer container, String beanName) {
         m_blueprintContainer = container;
         m_beanName = beanName;
     }
 
+    /* (non-Javadoc)
+     * @see org.ops4j.pax.vaadin.AbstractApplicationFactory#getUIClass()
+     */
     @Override
     public Class<? extends UI> getUIClass() {
         return TopologyWidgetTestApplication.class;
     }
 
+    /* (non-Javadoc)
+     * @see org.ops4j.pax.vaadin.AbstractApplicationFactory#getAdditionalHeaders()
+     */
     @Override
     public Map<String, String> getAdditionalHeaders() {
         final Map<String, String> headers = new HashMap<String, String>();
@@ -62,6 +81,9 @@ public class TopologyWidgetTestApplicationFactory extends AbstractApplicationFac
         return headers;
     }
 
+    /* (non-Javadoc)
+     * @see org.ops4j.pax.vaadin.AbstractApplicationFactory#getUI()
+     */
     @Override
     public UI getUI() {
         TopologyWidgetTestApplication application = (TopologyWidgetTestApplication) m_blueprintContainer.getComponentInstance(m_beanName);

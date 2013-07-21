@@ -36,8 +36,14 @@ import org.opennms.features.topology.api.OperationContext;
 import org.opennms.features.topology.api.topo.Vertex;
 import org.opennms.features.topology.api.topo.VertexRef;
 
+/**
+ * The Class DeleteGroupOperation.
+ */
 public class DeleteGroupOperation implements Operation {
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.Operation#execute(java.util.List, org.opennms.features.topology.api.OperationContext)
+     */
     @Override
     public Undoer execute(List<VertexRef> targets, OperationContext operationContext) {
         if (targets == null || targets.isEmpty() || targets.size() != 1) {
@@ -72,11 +78,17 @@ public class DeleteGroupOperation implements Operation {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.Operation#display(java.util.List, org.opennms.features.topology.api.OperationContext)
+     */
     @Override
     public boolean display(List<VertexRef> targets, OperationContext operationContext) {
         return targets != null && targets.size() == 1 && targets.get(0) != null;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.Operation#enabled(java.util.List, org.opennms.features.topology.api.OperationContext)
+     */
     @Override
     public boolean enabled(List<VertexRef> targets, OperationContext operationContext) {
         // Only allow the operation on single non-leaf vertices (groups)
@@ -84,6 +96,9 @@ public class DeleteGroupOperation implements Operation {
                 && operationContext.getGraphContainer().getBaseTopology().getVertex(targets.get(0)).isGroup();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.Operation#getId()
+     */
     @Override
     public String getId() {
         return "DeleteGroup";

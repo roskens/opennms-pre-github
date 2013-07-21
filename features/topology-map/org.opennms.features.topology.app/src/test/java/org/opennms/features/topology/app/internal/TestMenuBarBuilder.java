@@ -50,8 +50,14 @@ import com.vaadin.ui.MenuBar;
 import com.vaadin.ui.MenuBar.Command;
 import com.vaadin.ui.MenuBar.MenuItem;
 
+/**
+ * The Class TestMenuBarBuilder.
+ */
 public class TestMenuBarBuilder {
 
+    /**
+     * Creates the menu test.
+     */
     @Test
     public void createMenuTest() {
         MenuBarBuilder builder = new MenuBarBuilder();
@@ -69,6 +75,9 @@ public class TestMenuBarBuilder {
         assertEquals("View", menuItems.get(2).getText());
     }
 
+    /**
+     * Creates the top level menu with additions test.
+     */
     @Test
     public void createTopLevelMenuWithAdditionsTest() {
         MenuBarBuilder builder = new MenuBarBuilder();
@@ -91,6 +100,9 @@ public class TestMenuBarBuilder {
         assertEquals("Help", menuItems.get(5).getText());
     }
 
+    /**
+     * Menu item no order test.
+     */
     @Test
     public void menuItemNoOrderTest() {
         MenuBarBuilder builder = new MenuBarBuilder();
@@ -112,6 +124,9 @@ public class TestMenuBarBuilder {
         assertEquals("View", menuItems.get(5).getText());
     }
 
+    /**
+     * Menu order no additional test.
+     */
     @Test
     public void menuOrderNoAdditionalTest() {
         MenuBarBuilder builder = new MenuBarBuilder();
@@ -134,6 +149,9 @@ public class TestMenuBarBuilder {
         assertEquals("Test2", menuItems.get(5).getText());
     }
 
+    /**
+     * Submenu alphabetical order test.
+     */
     @Test
     public void submenuAlphabeticalOrderTest() {
         CommandManager cmdManager = new CommandManager();
@@ -161,6 +179,9 @@ public class TestMenuBarBuilder {
 
     }
 
+    /**
+     * Grouping separator test.
+     */
     @Test
     public void groupingSeparatorTest() {
         CommandManager cmdManager = new CommandManager();
@@ -187,6 +208,9 @@ public class TestMenuBarBuilder {
         assertEquals("Operation4", subMenuItems.get(4).getText());
     }
 
+    /**
+     * Layout edit menu grouping test.
+     */
     @Test
     public void layoutEditMenuGroupingTest() {
         CommandManager cmdManager = new CommandManager();
@@ -215,6 +239,9 @@ public class TestMenuBarBuilder {
         assertEquals("Redo Layout", subMenuItems.get(6).getText());
     }
 
+    /**
+     * Layout edit menu grouping no group test.
+     */
     @Test
     public void layoutEditMenuGroupingNoGroupTest() {
         CommandManager cmdManager = new CommandManager();
@@ -243,6 +270,9 @@ public class TestMenuBarBuilder {
 
     }
 
+    /**
+     * Submenu group order alphabetically test.
+     */
     @Test
     public void submenuGroupOrderAlphabeticallyTest() {
         CommandManager cmdManager = new CommandManager();
@@ -269,6 +299,9 @@ public class TestMenuBarBuilder {
         assertEquals("Operation4", subMenuItems.get(4).getText());
     }
 
+    /**
+     * Submenu checked menu item test.
+     */
     @Test
     @Ignore
     public void submenuCheckedMenuItemTest() {
@@ -289,6 +322,11 @@ public class TestMenuBarBuilder {
         assertTrue(menuItem.isCheckable());
     }
 
+    /**
+     * Gets the checked test operation.
+     *
+     * @return the checked test operation
+     */
     private CheckedOperation getCheckedTestOperation() {
         return new CheckedOperation() {
 
@@ -336,6 +374,9 @@ public class TestMenuBarBuilder {
         };
     }
 
+    /**
+     * Command manager parse config test.
+     */
     @Test
     public void commandManagerParseConfigTest() {
         Dictionary<String, String> props = new Hashtable<String, String>();
@@ -366,6 +407,17 @@ public class TestMenuBarBuilder {
 
     }
 
+    /**
+     * Gets the props.
+     *
+     * @param menuLocation
+     *            the menu location
+     * @param label
+     *            the label
+     * @param contextMenuLocation
+     *            the context menu location
+     * @return the props
+     */
     private Map<String, String> getProps(String menuLocation, String label, String contextMenuLocation) {
         Map<String, String> props = new HashMap<String, String>();
         props.put("operation.menuLocation", menuLocation);
@@ -374,6 +426,11 @@ public class TestMenuBarBuilder {
         return props;
     }
 
+    /**
+     * Gets the test operation.
+     *
+     * @return the test operation
+     */
     private Operation getTestOperation() {
         return new Operation() {
 
@@ -403,6 +460,11 @@ public class TestMenuBarBuilder {
         };
     }
 
+    /**
+     * Creates the empy command.
+     *
+     * @return the command
+     */
     private Command createEmpyCommand() {
 
         return new Command() {
@@ -416,6 +478,7 @@ public class TestMenuBarBuilder {
         };
     }
 
+    /** The menu command. */
     private Command menuCommand = new Command() {
         private static final long serialVersionUID = 1L;
 

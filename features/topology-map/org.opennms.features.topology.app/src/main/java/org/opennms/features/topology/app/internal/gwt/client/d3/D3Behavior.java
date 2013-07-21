@@ -28,7 +28,17 @@
 
 package org.opennms.features.topology.app.internal.gwt.client.d3;
 
+/**
+ * The Class D3Behavior.
+ */
 public abstract class D3Behavior {
 
+    /**
+     * Run.
+     *
+     * @param selection
+     *            the selection
+     * @return the d3
+     */
     public abstract D3 run(D3 selection);
 }

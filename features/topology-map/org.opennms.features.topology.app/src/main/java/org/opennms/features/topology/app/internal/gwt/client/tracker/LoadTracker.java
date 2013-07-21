@@ -42,16 +42,31 @@ import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.EventListener;
 import com.google.gwt.user.client.ui.Image;
 
+/**
+ * The Class LoadTracker.
+ */
 public class LoadTracker {
 
+    /**
+     * The Class ImageTracker.
+     */
     public class ImageTracker {
 
+        /** The m_handler list. */
         private List<LoadTrackerHandler> m_handlerList = new ArrayList<LoadTrackerHandler>();
 
+        /** The m_image. */
         private Image m_image;
 
+        /** The m_load complete. */
         private boolean m_loadComplete = false;
 
+        /**
+         * Instantiates a new image tracker.
+         *
+         * @param imageUrl
+         *            the image url
+         */
         public ImageTracker(String imageUrl) {
             m_image = new Image(imageUrl);
             Event.setEventListener(m_image.getElement(), new EventListener() {
@@ -72,12 +87,21 @@ public class LoadTracker {
             // Document.get().getBody().appendChild(m_image.getElement());
         }
 
+        /**
+         * Call handlers.
+         */
         protected void callHandlers() {
             for (LoadTrackerHandler handler : m_handlerList) {
                 handler.onImageLoad(m_image);
             }
         }
 
+        /**
+         * Adds the load handler.
+         *
+         * @param handler
+         *            the handler
+         */
         public void addLoadHandler(LoadTrackerHandler handler) {
             if (!m_loadComplete) {
                 m_handlerList.add(handler);
@@ -88,16 +112,30 @@ public class LoadTracker {
 
     }
 
+    /**
+     * The Interface LoadTrackerHandler.
+     */
     public interface LoadTrackerHandler {
 
+        /**
+         * On image load.
+         *
+         * @param img
+         *            the img
+         */
         public void onImageLoad(Image img);
 
     }
 
+    /** The m_instance. */
     private static LoadTracker m_instance = null;
 
+    /** The m_tracker div id. */
     private static String m_trackerDivId = "loadTracker";
 
+    /**
+     * Instantiates a new load tracker.
+     */
     protected LoadTracker() {
         if (Document.get().getElementById(m_trackerDivId) == null) {
             Element div = DOM.createDiv();
@@ -110,6 +148,11 @@ public class LoadTracker {
         }
     }
 
+    /**
+     * Gets the.
+     *
+     * @return the load tracker
+     */
     public static LoadTracker get() {
         if (m_instance == null) {
             m_instance = new LoadTracker();
@@ -118,8 +161,17 @@ public class LoadTracker {
         return m_instance;
     }
 
+    /** The m_tracker list. */
     Map<String, ImageTracker> m_trackerList = new HashMap<String, ImageTracker>();
 
+    /**
+     * Track image load.
+     *
+     * @param imageUrl
+     *            the image url
+     * @param handler
+     *            the handler
+     */
     public void trackImageLoad(String imageUrl, LoadTrackerHandler handler) {
         if (!m_trackerList.containsKey(imageUrl)) {
             ImageTracker imgTracker = new ImageTracker(imageUrl);

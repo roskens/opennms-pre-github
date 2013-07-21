@@ -33,15 +33,36 @@ import java.util.Map;
 
 import com.google.gwt.dom.client.Element;
 
+/**
+ * The Class DragHandlerManager.
+ */
 public class DragHandlerManager {
+
+    /** The m_drag handlers. */
     Map<String, DragBehaviorHandler> m_dragHandlers = new HashMap<String, DragBehaviorHandler>();
 
+    /** The m_current handler. */
     DragBehaviorHandler m_currentHandler;
 
+    /**
+     * Adds the drag behavior handler.
+     *
+     * @param key
+     *            the key
+     * @param handler
+     *            the handler
+     */
     public void addDragBehaviorHandler(String key, DragBehaviorHandler handler) {
         m_dragHandlers.put(key, handler);
     }
 
+    /**
+     * Sets the current drag handler.
+     *
+     * @param key
+     *            the key
+     * @return true, if successful
+     */
     public boolean setCurrentDragHandler(String key) {
         if (m_dragHandlers.containsKey(key)) {
             m_currentHandler = m_dragHandlers.get(key);
@@ -50,14 +71,32 @@ public class DragHandlerManager {
         return false;
     }
 
+    /**
+     * On drag start.
+     *
+     * @param elem
+     *            the elem
+     */
     public void onDragStart(Element elem) {
         m_currentHandler.onDragStart(elem);
     }
 
+    /**
+     * On drag.
+     *
+     * @param elem
+     *            the elem
+     */
     public void onDrag(Element elem) {
         m_currentHandler.onDrag(elem);
     }
 
+    /**
+     * On drag end.
+     *
+     * @param elem
+     *            the elem
+     */
     public void onDragEnd(Element elem) {
         m_currentHandler.onDragEnd(elem);
     }

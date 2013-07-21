@@ -45,36 +45,69 @@ import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceRegistration;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The Class TopologySelector.
+ */
 public class TopologySelector {
 
+    /** The m_bundle context. */
     private BundleContext m_bundleContext;
 
+    /** The m_operations. */
     private final Map<GraphProvider, TopologySelectorOperation> m_operations = new HashMap<GraphProvider, TopologySelector.TopologySelectorOperation>();
 
+    /** The m_registrations. */
     private final Map<GraphProvider, ServiceRegistration<CheckedOperation>> m_registrations = new HashMap<GraphProvider, ServiceRegistration<CheckedOperation>>();
 
+    /**
+     * The Class TopologySelectorOperation.
+     */
     private class TopologySelectorOperation extends AbstractCheckedOperation {
 
+        /** The m_topology provider. */
         private GraphProvider m_topologyProvider;
 
+        /** The m_meta data. */
         private Map<?, ?> m_metaData;
 
+        /**
+         * Instantiates a new topology selector operation.
+         *
+         * @param topologyProvider
+         *            the topology provider
+         * @param metaData
+         *            the meta data
+         */
         public TopologySelectorOperation(GraphProvider topologyProvider, Map<?, ?> metaData) {
             m_topologyProvider = topologyProvider;
             m_metaData = metaData;
         }
 
+        /**
+         * Gets the label.
+         *
+         * @return the label
+         */
         public String getLabel() {
             return m_metaData.get("label") == null ? "No Label for Topology Provider"
                 : (String) m_metaData.get("label");
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.features.topology.api.Operation#execute(java.util.List, org.opennms.features.topology.api.OperationContext)
+         */
         @Override
         public Undoer execute(List<VertexRef> targets, OperationContext operationContext) {
             execute(operationContext.getGraphContainer());
             return null;
         }
 
+        /**
+         * Execute.
+         *
+         * @param container
+         *            the container
+         */
         private void execute(GraphContainer container) {
             LoggerFactory.getLogger(getClass()).debug("Active provider is: {}", m_topologyProvider);
             boolean redoLayout = true;
@@ -88,28 +121,43 @@ public class TopologySelector {
             }
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.features.topology.api.Operation#display(java.util.List, org.opennms.features.topology.api.OperationContext)
+         */
         @Override
         public boolean display(List<VertexRef> targets, OperationContext operationContext) {
             return true;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.features.topology.api.Operation#getId()
+         */
         @Override
         public String getId() {
             return getLabel();
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.features.topology.api.AbstractCheckedOperation#isChecked(org.opennms.features.topology.api.GraphContainer)
+         */
         @Override
         protected boolean isChecked(GraphContainer container) {
             GraphProvider activeGraphProvider = container.getBaseTopology();
             return m_topologyProvider.equals(activeGraphProvider);
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.features.topology.api.AbstractCheckedOperation#createHistory(org.opennms.features.topology.api.GraphContainer)
+         */
         @Override
         public Map<String, String> createHistory(GraphContainer container) {
             return Collections.singletonMap(this.getClass().getName() + "." + getLabel(),
                                             Boolean.toString(isChecked(container)));
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.features.topology.api.HistoryOperation#applyHistory(org.opennms.features.topology.api.GraphContainer, java.util.Map)
+         */
         @Override
         public void applyHistory(GraphContainer container, Map<String, String> settings) {
             // If the class name and label tuple is set to true, then set the
@@ -120,10 +168,24 @@ public class TopologySelector {
         }
     }
 
+    /**
+     * Sets the bundle context.
+     *
+     * @param bundleContext
+     *            the new bundle context
+     */
     public void setBundleContext(BundleContext bundleContext) {
         m_bundleContext = bundleContext;
     }
 
+    /**
+     * Adds the graph provider.
+     *
+     * @param topologyProvider
+     *            the topology provider
+     * @param metaData
+     *            the meta data
+     */
     public synchronized void addGraphProvider(GraphProvider topologyProvider, Map<?, ?> metaData) {
         try {
             LoggerFactory.getLogger(getClass()).debug("Adding graph provider: " + topologyProvider);
@@ -145,6 +207,14 @@ public class TopologySelector {
         }
     }
 
+    /**
+     * Removes the graph provider.
+     *
+     * @param topologyProvider
+     *            the topology provider
+     * @param metaData
+     *            the meta data
+     */
     public synchronized void removeGraphProvider(GraphProvider topologyProvider, Map<?, ?> metaData) {
         try {
             LoggerFactory.getLogger(getClass()).debug("Removing graph provider: {}", topologyProvider);

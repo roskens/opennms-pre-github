@@ -30,10 +30,32 @@ package org.opennms.features.topology.app.internal.gwt.client.handler;
 
 import com.google.gwt.dom.client.Element;
 
+/**
+ * The Interface DragBehaviorHandler.
+ */
 public interface DragBehaviorHandler {
+
+    /**
+     * On drag start.
+     *
+     * @param elem
+     *            the elem
+     */
     public void onDragStart(Element elem);
 
+    /**
+     * On drag.
+     *
+     * @param elem
+     *            the elem
+     */
     public void onDrag(Element elem);
 
+    /**
+     * On drag end.
+     *
+     * @param elem
+     *            the elem
+     */
     public void onDragEnd(Element elem);
 }

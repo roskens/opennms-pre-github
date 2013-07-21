@@ -28,12 +28,24 @@
 
 package org.opennms.features.topology.app.internal.gwt.client.d3;
 
+/**
+ * The Class TransitionBuilder.
+ */
 public class TransitionBuilder {
 
+    /** The m_behavior. */
     D3Behavior m_behavior;
 
+    /** The m_delay. */
     int m_delay = 0;
 
+    /**
+     * Fade out.
+     *
+     * @param duration
+     *            the duration
+     * @return the transition builder
+     */
     public TransitionBuilder fadeOut(int duration) {
         SimpleTransition transition = new SimpleTransition("opacity", 0, duration, m_delay);
 
@@ -41,10 +53,28 @@ public class TransitionBuilder {
         return this;
     }
 
+    /**
+     * Fade out.
+     *
+     * @param duration
+     *            the duration
+     * @param delay
+     *            the delay
+     * @return the d3 behavior
+     */
     public static D3Behavior fadeOut(int duration, int delay) {
         return new SimpleTransition("opacity", 0, duration, delay);
     }
 
+    /**
+     * Fade in.
+     *
+     * @param duration
+     *            the duration
+     * @param delay
+     *            the delay
+     * @return the d3 behavior
+     */
     public static D3Behavior fadeIn(int duration, int delay) {
         return new SimpleTransition("opacity", 1, duration, delay);
     }

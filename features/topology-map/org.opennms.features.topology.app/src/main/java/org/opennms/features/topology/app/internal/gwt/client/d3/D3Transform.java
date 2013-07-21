@@ -32,15 +32,31 @@ import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.JsArrayInteger;
 import com.google.gwt.core.client.JsArrayNumber;
 
+/**
+ * The Class D3Transform.
+ */
 public class D3Transform extends JavaScriptObject {
 
+    /**
+     * Instantiates a new d3 transform.
+     */
     protected D3Transform() {
     };
 
+    /**
+     * Gets the translate.
+     *
+     * @return the translate
+     */
     public final native JsArrayInteger getTranslate() /*-{
                                                       return this.translate;
                                                       }-*/;
 
+    /**
+     * Gets the x.
+     *
+     * @return the x
+     */
     public final native int getX() /*-{
                                    if(this.translate != "undefined"){
                                    return this.translate[0];
@@ -48,6 +64,11 @@ public class D3Transform extends JavaScriptObject {
                                    return -1;
                                    }-*/;
 
+    /**
+     * Gets the y.
+     *
+     * @return the y
+     */
     public final native int getY() /*-{
                                    if(this.translate != "undefined"){
                                    return this.translate[1];
@@ -55,22 +76,47 @@ public class D3Transform extends JavaScriptObject {
                                    return -1;
                                    }-*/;
 
+    /**
+     * Gets the scale.
+     *
+     * @return the scale
+     */
     public final native JsArrayNumber getScale() /*-{
                                                  return this.scale;
                                                  }-*/;
 
+    /**
+     * Gets the scale x.
+     *
+     * @return the scale x
+     */
     public final native double getScaleX() /*-{
                                            return this.scale[0];
                                            }-*/;
 
+    /**
+     * Gets the scale y.
+     *
+     * @return the scale y
+     */
     public final native double getScaleY() /*-{
                                            return this.scale[1];
                                            }-*/;
 
+    /**
+     * Gets the rotate.
+     *
+     * @return the rotate
+     */
     public final native double getRotate() /*-{
                                            return this.rotate;
                                            }-*/;
 
+    /**
+     * Gets the skew.
+     *
+     * @return the skew
+     */
     public final native double getSkew() /*-{
                                          return this.skew;
                                          }-*/;

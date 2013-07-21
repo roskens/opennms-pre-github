@@ -31,8 +31,14 @@ package org.opennms.features.topology.app.internal.operations;
 import org.opennms.features.topology.api.LayoutAlgorithm;
 import org.opennms.features.topology.app.internal.jung.FRLayoutAlgorithm;
 
+/**
+ * The Class FRLayoutOperation.
+ */
 public class FRLayoutOperation extends LayoutOperation {
 
+    /**
+     * Instantiates a new fR layout operation.
+     */
     public FRLayoutOperation() {
         super(new LayoutFactory() {
 
@@ -45,6 +51,9 @@ public class FRLayoutOperation extends LayoutOperation {
         });
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.Operation#getId()
+     */
     @Override
     public String getId() {
         return getClass().getSimpleName();

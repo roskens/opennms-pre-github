@@ -36,8 +36,14 @@ import org.opennms.features.topology.api.OperationContext;
 import org.opennms.features.topology.api.OperationContext.DisplayLocation;
 import org.opennms.features.topology.api.topo.VertexRef;
 
+/**
+ * The Class RedoLayoutOperation.
+ */
 public class RedoLayoutOperation implements Operation {
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.Operation#execute(java.util.List, org.opennms.features.topology.api.OperationContext)
+     */
     @Override
     public Undoer execute(List<VertexRef> targets, OperationContext operationContext) {
         DisplayState graphContainer = operationContext.getGraphContainer();
@@ -46,17 +52,26 @@ public class RedoLayoutOperation implements Operation {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.Operation#display(java.util.List, org.opennms.features.topology.api.OperationContext)
+     */
     @Override
     public boolean display(List<VertexRef> targets, OperationContext operationContext) {
         return (operationContext.getDisplayLocation() == DisplayLocation.MENUBAR)
                 || (targets != null && targets.size() == 0);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.Operation#enabled(java.util.List, org.opennms.features.topology.api.OperationContext)
+     */
     @Override
     public boolean enabled(List<VertexRef> targets, OperationContext operationContext) {
         return true;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.Operation#getId()
+     */
     @Override
     public String getId() {
         return "RedoLayout";

@@ -51,32 +51,57 @@ import org.opennms.features.topology.plugins.topo.simple.SimpleGraphProvider;
 
 import com.vaadin.ui.UI;
 
+/**
+ * The Class ConnectOperationTest.
+ */
 public class ConnectOperationTest {
 
+    /**
+     * The Class TestOperationContext.
+     */
     private static class TestOperationContext implements OperationContext {
 
+        /** The m_graph container. */
         private GraphContainer m_graphContainer;
 
+        /**
+         * Instantiates a new test operation context.
+         *
+         * @param graphContainer
+         *            the graph container
+         */
         public TestOperationContext(GraphContainer graphContainer) {
             m_graphContainer = graphContainer;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.features.topology.api.OperationContext#getMainWindow()
+         */
         @Override
         public UI getMainWindow() {
             return EasyMock.createMock(UI.class);
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.features.topology.api.OperationContext#getGraphContainer()
+         */
         @Override
         public GraphContainer getGraphContainer() {
             return m_graphContainer;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.features.topology.api.OperationContext#isChecked()
+         */
         @Override
         public boolean isChecked() {
             // TODO Auto-generated method stub
             return false;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.features.topology.api.OperationContext#getDisplayLocation()
+         */
         @Override
         public DisplayLocation getDisplayLocation() {
             return DisplayLocation.MENUBAR;
@@ -84,16 +109,32 @@ public class ConnectOperationTest {
 
     }
 
+    /**
+     * Gets the operation context.
+     *
+     * @param mockedContainer
+     *            the mocked container
+     * @return the operation context
+     */
     private static TestOperationContext getOperationContext(GraphContainer mockedContainer) {
         return new TestOperationContext(mockedContainer);
     }
 
+    /**
+     * Adds the vertex to topr.
+     *
+     * @return the vertex ref
+     */
     private VertexRef addVertexToTopr() {
         return m_topologyProvider.addVertex(0, 0);
     }
 
+    /** The m_topology provider. */
     private GraphProvider m_topologyProvider;
 
+    /**
+     * Sets the up.
+     */
     @Before
     public void setUp() {
         if (m_topologyProvider == null) {
@@ -105,6 +146,9 @@ public class ConnectOperationTest {
         MockLogAppender.setupLogging();
     }
 
+    /**
+     * Tear down.
+     */
     @After
     public void tearDown() {
         if (m_topologyProvider != null) {
@@ -112,6 +156,9 @@ public class ConnectOperationTest {
         }
     }
 
+    /**
+     * Test connect vertices operation.
+     */
     @Test
     public void testConnectVerticesOperation() {
 

@@ -34,68 +34,157 @@ import org.opennms.features.topology.app.internal.gwt.client.d3.Func;
 
 import com.google.gwt.core.client.JavaScriptObject;
 
+/**
+ * The Class GWTEdge.
+ */
 public final class GWTEdge extends JavaScriptObject {
 
+    /** The Constant SVG_EDGE_ELEMENT. */
     public static final String SVG_EDGE_ELEMENT = "path";
 
+    /** The Constant EDGE_WIDTH. */
     public static final int EDGE_WIDTH = 3;
 
+    /**
+     * Instantiates a new gWT edge.
+     */
     protected GWTEdge() {
     };
 
+    /**
+     * Creates the.
+     *
+     * @param id
+     *            the id
+     * @param source
+     *            the source
+     * @param target
+     *            the target
+     * @return the gWT edge
+     */
     public static final native GWTEdge create(String id, GWTVertex source, GWTVertex target) /*-{
                                                                                              return {"id":id, "source":source, "target":target, "cssClass": "path", "linkNum":1, "tooltipText": ""};
                                                                                              }-*/;
 
+    /**
+     * Gets the source.
+     *
+     * @return the source
+     */
     public final native GWTVertex getSource() /*-{
                                               return this.source;
                                               }-*/;
 
+    /**
+     * Gets the target.
+     *
+     * @return the target
+     */
     public final native GWTVertex getTarget() /*-{
                                               return this.target;
                                               }-*/;
 
+    /**
+     * Gets the id.
+     *
+     * @return the id
+     */
     public final native String getId() /*-{
                                        return this.id;
                                        }-*/;
 
+    /**
+     * Checks if is selected.
+     *
+     * @return true, if is selected
+     */
     @SuppressWarnings("unused")
     private final native boolean isSelected() /*-{
                                               return this.selected === undefined ? false : this.selected;
                                               }-*/;
 
+    /**
+     * Sets the selected.
+     *
+     * @param selected
+     *            the new selected
+     */
     public final native void setSelected(boolean selected) /*-{
                                                            this.selected = selected;
                                                            }-*/;
 
+    /**
+     * Sets the css class.
+     *
+     * @param cssClass
+     *            the new css class
+     */
     public final native void setCssClass(String cssClass) /*-{
                                                           this.cssClass = cssClass;
                                                           }-*/;
 
+    /**
+     * Gets the css class.
+     *
+     * @return the css class
+     */
     public final native String getCssClass() /*-{
                                              return this.cssClass;
                                              }-*/;
 
+    /**
+     * Sets the link num.
+     *
+     * @param num
+     *            the new link num
+     */
     public final native void setLinkNum(int num) /*-{
                                                  this.linkNum = num;
                                                  }-*/;
 
+    /**
+     * Gets the link num.
+     *
+     * @return the link num
+     */
     public final native int getLinkNum() /*-{
                                          return this.linkNum;
                                          }-*/;
 
+    /**
+     * Sets the tooltip text.
+     *
+     * @param tooltipText
+     *            the new tooltip text
+     */
     public final native void setTooltipText(String tooltipText) /*-{
                                                                 this.tooltipText = tooltipText;
                                                                 }-*/;
 
+    /**
+     * Gets the tooltip text.
+     *
+     * @return the tooltip text
+     */
     public final native String getTooltipText()/*-{
                                                return this.tooltipText;
                                                }-*/;
 
+    /**
+     * Console log.
+     *
+     * @param obj
+     *            the obj
+     */
     public static final native void consoleLog(Object obj)/*-{
                                                           $wnd.console.log(obj);
                                                           }-*/;
 
+    /**
+     * Draw.
+     *
+     * @return the d3 behavior
+     */
     public static D3Behavior draw() {
         return new D3Behavior() {
 
@@ -106,6 +195,11 @@ public final class GWTEdge extends JavaScriptObject {
         };
     }
 
+    /**
+     * Creates the path.
+     *
+     * @return the func
+     */
     protected static Func<String, GWTEdge> createPath() {
         return new Func<String, GWTEdge>() {
 
@@ -125,6 +219,11 @@ public final class GWTEdge extends JavaScriptObject {
         };
     }
 
+    /**
+     * Gets the css style class.
+     *
+     * @return the css style class
+     */
     protected static Func<String, GWTEdge> getCssStyleClass() {
         return new Func<String, GWTEdge>() {
 
@@ -135,6 +234,11 @@ public final class GWTEdge extends JavaScriptObject {
         };
     }
 
+    /**
+     * Creates the.
+     *
+     * @return the d3 behavior
+     */
     public static D3Behavior create() {
         return new D3Behavior() {
 

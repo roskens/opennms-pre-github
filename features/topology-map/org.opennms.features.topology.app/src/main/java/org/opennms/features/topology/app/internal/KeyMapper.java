@@ -31,18 +31,32 @@ package org.opennms.features.topology.app.internal;
 import java.io.Serializable;
 import java.util.Hashtable;
 
+/**
+ * The Class KeyMapper.
+ */
 public class KeyMapper implements Serializable {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 1997604505886247127L;
 
+    /** The last key. */
     private int lastKey = 0;
 
+    /** The object key map. */
     private final Hashtable<Object, String> objectKeyMap = new Hashtable<Object, String>();
 
+    /** The key object map. */
     private final Hashtable<String, Object> keyObjectMap = new Hashtable<String, Object>();
 
+    /** The m_prefix. */
     private String m_prefix;
 
+    /**
+     * Instantiates a new key mapper.
+     *
+     * @param prefix
+     *            the prefix
+     */
     public KeyMapper(String prefix) {
         m_prefix = prefix;
     }
@@ -52,6 +66,7 @@ public class KeyMapper implements Serializable {
      *
      * @param o
      *            the object.
+     * @return the string
      */
     public String key(Object o) {
 
@@ -73,6 +88,11 @@ public class KeyMapper implements Serializable {
         return key;
     }
 
+    /**
+     * Gets the next key.
+     *
+     * @return the next key
+     */
     private String getNextKey() {
         return m_prefix + String.valueOf(++lastKey);
     }

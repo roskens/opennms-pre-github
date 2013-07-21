@@ -32,14 +32,27 @@ import java.util.Dictionary;
 import org.osgi.service.cm.ConfigurationException;
 import org.osgi.service.cm.ManagedService;
 
+/**
+ * The Class IconConfigManager.
+ */
 public class IconConfigManager implements ManagedService {
 
+    /** The m_icon repo manager. */
     private IconRepositoryManager m_iconRepoManager;
 
+    /**
+     * Sets the icon repository manager.
+     *
+     * @param iconRepoManager
+     *            the new icon repository manager
+     */
     public void setIconRepositoryManager(IconRepositoryManager iconRepoManager) {
         m_iconRepoManager = iconRepoManager;
     }
 
+    /* (non-Javadoc)
+     * @see org.osgi.service.cm.ManagedService#updated(java.util.Dictionary)
+     */
     @Override
     public void updated(Dictionary<String, ?> properties) throws ConfigurationException {
         m_iconRepoManager.updateIconConfig(properties);

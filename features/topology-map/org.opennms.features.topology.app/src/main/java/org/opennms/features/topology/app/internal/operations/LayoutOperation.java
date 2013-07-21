@@ -37,18 +37,40 @@ import org.opennms.features.topology.api.LayoutAlgorithm;
 import org.opennms.features.topology.api.OperationContext;
 import org.opennms.features.topology.api.topo.VertexRef;
 
+/**
+ * The Class LayoutOperation.
+ */
 public abstract class LayoutOperation extends AbstractCheckedOperation {
 
+    /** The m_factory. */
     private final LayoutFactory m_factory;
 
+    /**
+     * A factory for creating Layout objects.
+     */
     protected static interface LayoutFactory {
+
+        /**
+         * Gets the layout algorithm.
+         *
+         * @return the layout algorithm
+         */
         LayoutAlgorithm getLayoutAlgorithm();
     }
 
+    /**
+     * Instantiates a new layout operation.
+     *
+     * @param factory
+     *            the factory
+     */
     public LayoutOperation(LayoutFactory factory) {
         m_factory = factory;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.Operation#execute(java.util.List, org.opennms.features.topology.api.OperationContext)
+     */
     @Override
     public final Undoer execute(List<VertexRef> targets, OperationContext operationContext) {
         execute(operationContext.getGraphContainer());
@@ -57,16 +79,25 @@ public abstract class LayoutOperation extends AbstractCheckedOperation {
 
     /**
      * Set the layout algorithm.
+     *
+     * @param container
+     *            the container
      */
     private void execute(GraphContainer container) {
         container.setLayoutAlgorithm(m_factory.getLayoutAlgorithm());
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.Operation#display(java.util.List, org.opennms.features.topology.api.OperationContext)
+     */
     @Override
     public boolean display(List<VertexRef> targets, OperationContext operationContext) {
         return true;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.AbstractCheckedOperation#isChecked(org.opennms.features.topology.api.GraphContainer)
+     */
     @Override
     protected final boolean isChecked(GraphContainer container) {
         if (container.getLayoutAlgorithm().getClass().getName().equals(m_factory.getLayoutAlgorithm().getClass().getName())) {
@@ -75,6 +106,9 @@ public abstract class LayoutOperation extends AbstractCheckedOperation {
         return false;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.HistoryOperation#applyHistory(org.opennms.features.topology.api.GraphContainer, java.util.Map)
+     */
     @Override
     public void applyHistory(GraphContainer container, Map<String, String> settings) {
         // If the setting for this operation is set to true, then set the layout

@@ -31,8 +31,14 @@ package org.opennms.features.topology.app.internal.operations;
 import org.opennms.features.topology.api.LayoutAlgorithm;
 import org.opennms.features.topology.app.internal.SimpleLayoutAlgorithm;
 
+/**
+ * The Class SimpleLayoutOperation.
+ */
 public class SimpleLayoutOperation extends LayoutOperation {
 
+    /**
+     * Instantiates a new simple layout operation.
+     */
     public SimpleLayoutOperation() {
         super(new LayoutFactory() {
 
@@ -45,6 +51,9 @@ public class SimpleLayoutOperation extends LayoutOperation {
         });
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.Operation#getId()
+     */
     @Override
     public String getId() {
         return getClass().getSimpleName();

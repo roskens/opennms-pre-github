@@ -44,8 +44,14 @@ import edu.uci.ics.jung.algorithms.layout.ISOMLayout;
 import edu.uci.ics.jung.algorithms.layout.SpringLayout;
 import edu.uci.ics.jung.graph.SparseGraph;
 
+/**
+ * The Class RealUltimateLayoutAlgorithm.
+ */
 public class RealUltimateLayoutAlgorithm extends AbstractLayoutAlgorithm {
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.app.internal.jung.AbstractLayoutAlgorithm#updateLayout(org.opennms.features.topology.api.GraphContainer)
+     */
     @Override
     public void updateLayout(GraphContainer graphContainer) {
 
@@ -77,6 +83,18 @@ public class RealUltimateLayoutAlgorithm extends AbstractLayoutAlgorithm {
 
     }
 
+    /**
+     * Do spring layout.
+     *
+     * @param graphLayout
+     *            the graph layout
+     * @param jungGraph
+     *            the jung graph
+     * @param size
+     *            the size
+     * @param repulsion
+     *            the repulsion
+     */
     private void doSpringLayout(final Layout graphLayout, SparseGraph<VertexRef, EdgeRef> jungGraph, Dimension size,
             int repulsion) {
         SpringLayout<VertexRef, EdgeRef> layout = new SpringLayout<VertexRef, EdgeRef>(jungGraph);
@@ -96,6 +114,20 @@ public class RealUltimateLayoutAlgorithm extends AbstractLayoutAlgorithm {
         }
     }
 
+    /**
+     * Do fr layout.
+     *
+     * @param graphLayout
+     *            the graph layout
+     * @param jungGraph
+     *            the jung graph
+     * @param size
+     *            the size
+     * @param xOffset
+     *            the x offset
+     * @param yOffset
+     *            the y offset
+     */
     private void doFRLayout(final Layout graphLayout, SparseGraph<VertexRef, EdgeRef> jungGraph, Dimension size,
             final int xOffset, final int yOffset) {
         FRLayout<VertexRef, EdgeRef> layout = new FRLayout<VertexRef, EdgeRef>(jungGraph);
@@ -112,6 +144,16 @@ public class RealUltimateLayoutAlgorithm extends AbstractLayoutAlgorithm {
 
     }
 
+    /**
+     * Do isom layout.
+     *
+     * @param graphLayout
+     *            the graph layout
+     * @param jungGraph
+     *            the jung graph
+     * @param size
+     *            the size
+     */
     private void doISOMLayout(final Layout graphLayout, SparseGraph<VertexRef, EdgeRef> jungGraph, Dimension size) {
         ISOMLayout<VertexRef, EdgeRef> layout = new ISOMLayout<VertexRef, EdgeRef>(jungGraph);
         layout.setInitializer(initializer(graphLayout));

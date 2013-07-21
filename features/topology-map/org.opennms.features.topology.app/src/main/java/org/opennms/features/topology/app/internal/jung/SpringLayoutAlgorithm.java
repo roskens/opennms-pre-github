@@ -41,8 +41,14 @@ import org.opennms.features.topology.api.topo.VertexRef;
 import edu.uci.ics.jung.algorithms.layout.SpringLayout;
 import edu.uci.ics.jung.graph.SparseGraph;
 
+/**
+ * The Class SpringLayoutAlgorithm.
+ */
 public class SpringLayoutAlgorithm extends AbstractLayoutAlgorithm {
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.app.internal.jung.AbstractLayoutAlgorithm#updateLayout(org.opennms.features.topology.api.GraphContainer)
+     */
     @Override
     public void updateLayout(final GraphContainer graphContainer) {
 

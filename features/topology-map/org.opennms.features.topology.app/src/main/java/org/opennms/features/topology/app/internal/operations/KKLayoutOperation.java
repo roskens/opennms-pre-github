@@ -31,8 +31,14 @@ package org.opennms.features.topology.app.internal.operations;
 import org.opennms.features.topology.api.LayoutAlgorithm;
 import org.opennms.features.topology.app.internal.jung.KKLayoutAlgorithm;
 
+/**
+ * The Class KKLayoutOperation.
+ */
 public class KKLayoutOperation extends LayoutOperation {
 
+    /**
+     * Instantiates a new kK layout operation.
+     */
     public KKLayoutOperation() {
         super(new LayoutFactory() {
 
@@ -45,6 +51,9 @@ public class KKLayoutOperation extends LayoutOperation {
         });
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.Operation#getId()
+     */
     @Override
     public String getId() {
         return getClass().getSimpleName();
