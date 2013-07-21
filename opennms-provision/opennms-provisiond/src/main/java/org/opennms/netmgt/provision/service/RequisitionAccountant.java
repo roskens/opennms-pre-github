@@ -37,9 +37,15 @@ import org.opennms.netmgt.provision.persist.OnmsNodeRequisition;
 import org.opennms.netmgt.provision.service.operations.ImportOperationsManager;
 import org.opennms.netmgt.provision.service.operations.SaveOrUpdateOperation;
 
+/**
+ * The Class RequisitionAccountant.
+ */
 public class RequisitionAccountant extends AbstractRequisitionVisitor {
+
+    /** The m_ops mgr. */
     private final ImportOperationsManager m_opsMgr;
 
+    /** The m_current op. */
     private SaveOrUpdateOperation m_currentOp;
 
     /**

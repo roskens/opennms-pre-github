@@ -47,25 +47,56 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.Assert;
 
+/**
+ * The Class NodeInfoScan.
+ */
 final class NodeInfoScan implements RunInBatch {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(NodeInfoScan.class);
 
+    /** The m_agent config factory. */
     private final SnmpAgentConfigFactory m_agentConfigFactory;
 
+    /** The m_agent address. */
     private final InetAddress m_agentAddress;
 
+    /** The m_foreign source. */
     private final String m_foreignSource;
 
+    /** The m_node. */
     private OnmsNode m_node;
 
+    /** The m_node id. */
     private Integer m_nodeId;
 
+    /** The restore categories. */
     private boolean restoreCategories = false;
 
+    /** The m_provision service. */
     private final ProvisionService m_provisionService;
 
+    /** The m_scan progress. */
     private final ScanProgress m_scanProgress;
 
+    /**
+     * Instantiates a new node info scan.
+     *
+     * @param node
+     *            the node
+     * @param agentAddress
+     *            the agent address
+     * @param foreignSource
+     *            the foreign source
+     * @param scanProgress
+     *            the scan progress
+     * @param agentConfigFactory
+     *            the agent config factory
+     * @param provisionService
+     *            the provision service
+     * @param nodeId
+     *            the node id
+     */
     NodeInfoScan(OnmsNode node, InetAddress agentAddress, String foreignSource, ScanProgress scanProgress,
             SnmpAgentConfigFactory agentConfigFactory, ProvisionService provisionService, Integer nodeId) {
         m_node = node;
@@ -94,42 +125,94 @@ final class NodeInfoScan implements RunInBatch {
         });
     }
 
+    /**
+     * Gets the agent address.
+     *
+     * @return the agent address
+     */
     private InetAddress getAgentAddress() {
         return m_agentAddress;
     }
 
+    /**
+     * Gets the agent config.
+     *
+     * @param primaryAddress
+     *            the primary address
+     * @return the agent config
+     */
     private SnmpAgentConfig getAgentConfig(InetAddress primaryAddress) {
         return getAgentConfigFactory().getAgentConfig(primaryAddress);
     }
 
+    /**
+     * Gets the agent config factory.
+     *
+     * @return the agent config factory
+     */
     private SnmpAgentConfigFactory getAgentConfigFactory() {
         return m_agentConfigFactory;
     }
 
+    /**
+     * Gets the foreign source.
+     *
+     * @return the foreign source
+     */
     private String getForeignSource() {
         return m_foreignSource;
     }
 
+    /**
+     * Gets the provision service.
+     *
+     * @return the provision service
+     */
     private ProvisionService getProvisionService() {
         return m_provisionService;
     }
 
+    /**
+     * Abort.
+     *
+     * @param reason
+     *            the reason
+     */
     private void abort(String reason) {
         m_scanProgress.abort(reason);
     }
 
+    /**
+     * Gets the node.
+     *
+     * @return the node
+     */
     private OnmsNode getNode() {
         return m_node;
     }
 
+    /**
+     * Gets the node id.
+     *
+     * @return the node id
+     */
     private Integer getNodeId() {
         return m_nodeId;
     }
 
+    /**
+     * Sets the node.
+     *
+     * @param node
+     *            the new node
+     */
     private void setNode(OnmsNode node) {
         m_node = node;
     }
 
+    /**
+     * Collect node info.
+     */
     private void collectNodeInfo() {
         Assert.notNull(getAgentConfigFactory(), "agentConfigFactory was not injected");
         InetAddress primaryAddress = getAgentAddress();
@@ -189,10 +272,18 @@ final class NodeInfoScan implements RunInBatch {
         }
     }
 
+    /**
+     * Gets the effective foreign source.
+     *
+     * @return the effective foreign source
+     */
     private String getEffectiveForeignSource() {
         return getForeignSource() == null ? "default" : getForeignSource();
     }
 
+    /**
+     * Do persist node info.
+     */
     private void doPersistNodeInfo() {
         if (restoreCategories) {
             LOG.debug("doPersistNodeInfo: Restoring {} categories to DB", getNode().getCategories().size());
@@ -202,6 +293,11 @@ final class NodeInfoScan implements RunInBatch {
         }
     }
 
+    /**
+     * Checks if is aborted.
+     *
+     * @return true, if is aborted
+     */
     private boolean isAborted() {
         return m_scanProgress.isAborted();
     }

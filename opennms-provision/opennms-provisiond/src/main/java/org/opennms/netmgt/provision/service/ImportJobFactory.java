@@ -44,6 +44,7 @@ import org.quartz.spi.TriggerFiredBundle;
  */
 public class ImportJobFactory implements JobFactory {
 
+    /** The m_provisioner. */
     private Provisioner m_provisioner;
 
     /** {@inheritDoc} */
@@ -66,6 +67,13 @@ public class ImportJobFactory implements JobFactory {
         }
     }
 
+    /**
+     * Gets the job class.
+     *
+     * @param jobDetail
+     *            the job detail
+     * @return the job class
+     */
     @SuppressWarnings("unchecked")
     private Class<ImportJob> getJobClass(JobDetail jobDetail) {
         return (Class<ImportJob>) jobDetail.getJobClass();
@@ -75,6 +83,7 @@ public class ImportJobFactory implements JobFactory {
      * <p>
      * setProvisioner
      * </p>
+     * .
      *
      * @param provisioner
      *            a {@link org.opennms.netmgt.provision.service.Provisioner}
@@ -84,6 +93,11 @@ public class ImportJobFactory implements JobFactory {
         m_provisioner = provisioner;
     }
 
+    /**
+     * Gets the provisioner.
+     *
+     * @return the provisioner
+     */
     private Provisioner getProvisioner() {
         return m_provisioner;
     }

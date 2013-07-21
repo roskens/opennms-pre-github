@@ -38,10 +38,13 @@ package org.opennms.netmgt.provision.service;
  */
 public class WorkDuration {
 
+    /** The m_name. */
     private String m_name = null;
 
+    /** The m_start. */
     private long m_start = -1L;
 
+    /** The m_end. */
     private long m_end = -1L;
 
     /**
@@ -69,6 +72,7 @@ public class WorkDuration {
      * <p>
      * setName
      * </p>
+     * .
      *
      * @param name
      *            a {@link java.lang.String} object.
@@ -81,6 +85,7 @@ public class WorkDuration {
      * <p>
      * start
      * </p>
+     * .
      */
     public void start() {
         m_start = System.currentTimeMillis();
@@ -90,6 +95,7 @@ public class WorkDuration {
      * <p>
      * end
      * </p>
+     * .
      */
     public void end() {
         m_end = System.currentTimeMillis();
@@ -99,6 +105,7 @@ public class WorkDuration {
      * <p>
      * getLength
      * </p>
+     * .
      *
      * @return a long.
      */
@@ -113,6 +120,7 @@ public class WorkDuration {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -121,6 +129,11 @@ public class WorkDuration {
         return (m_name == null ? "" : m_name + ": ") + (m_start == -1L ? "has not begun" : elapsedTime());
     }
 
+    /**
+     * Elapsed time.
+     *
+     * @return the string
+     */
     private String elapsedTime() {
 
         long duration = getLength();

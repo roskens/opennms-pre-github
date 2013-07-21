@@ -57,22 +57,29 @@ import org.springframework.util.StringUtils;
  * @version $Id: $
  */
 public class ImportScheduler implements InitializingBean {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(ImportScheduler.class);
 
-    /** Constant <code>JOB_GROUP="Provisiond"</code> */
+    /** Constant <code>JOB_GROUP="Provisiond"</code>. */
     protected static final String JOB_GROUP = "Provisiond";
 
+    /** The m_scheduler. */
     @Autowired
     private Scheduler m_scheduler;
 
+    /** The m_provisioner. */
     @Autowired
     private Provisioner m_provisioner;
 
+    /** The m_config dao. */
     @Autowired
     private ProvisiondConfigurationDao m_configDao;
 
+    /** The m_lock. */
     private Object m_lock = new Object();
 
+    /** The m_import job factory. */
     private JobFactory m_importJobFactory;
 
     /**
@@ -91,6 +98,10 @@ public class ImportScheduler implements InitializingBean {
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
+     *
+     * @throws Exception
+     *             the exception
      */
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -111,9 +122,10 @@ public class ImportScheduler implements InitializingBean {
      * <p>
      * start
      * </p>
+     * .
      *
-     * @throws org.quartz.SchedulerException
-     *             if any.
+     * @throws SchedulerException
+     *             the scheduler exception
      */
     public void start() throws SchedulerException {
         getScheduler().start();
@@ -123,9 +135,10 @@ public class ImportScheduler implements InitializingBean {
      * <p>
      * pause
      * </p>
+     * .
      *
-     * @throws org.quartz.SchedulerException
-     *             if any.
+     * @throws SchedulerException
+     *             the scheduler exception
      */
     public void pause() throws SchedulerException {
         getScheduler().pauseAll();
@@ -135,9 +148,10 @@ public class ImportScheduler implements InitializingBean {
      * <p>
      * standBy
      * </p>
+     * .
      *
-     * @throws org.quartz.SchedulerException
-     *             if any.
+     * @throws SchedulerException
+     *             the scheduler exception
      */
     public void standBy() throws SchedulerException {
         getScheduler().standby();
@@ -147,9 +161,10 @@ public class ImportScheduler implements InitializingBean {
      * <p>
      * resume
      * </p>
+     * .
      *
-     * @throws org.quartz.SchedulerException
-     *             if any.
+     * @throws SchedulerException
+     *             the scheduler exception
      */
     public void resume() throws SchedulerException {
         getScheduler().resumeAll();
@@ -159,9 +174,10 @@ public class ImportScheduler implements InitializingBean {
      * <p>
      * stop
      * </p>
+     * .
      *
-     * @throws org.quartz.SchedulerException
-     *             if any.
+     * @throws SchedulerException
+     *             the scheduler exception
      */
     public void stop() throws SchedulerException {
         getScheduler().shutdown();
@@ -173,8 +189,8 @@ public class ImportScheduler implements InitializingBean {
      * and re-adding
      * shouldn't be an issue.
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     protected void rebuildImportSchedule() throws Exception {
 
@@ -210,10 +226,10 @@ public class ImportScheduler implements InitializingBean {
 
     /**
      * Iterates of current job list and removes each job from the underlying
-     * schedule
+     * schedule.
      *
-     * @throws org.quartz.SchedulerException
-     *             if any.
+     * @throws SchedulerException
+     *             the scheduler exception
      */
     protected void removeCurrentJobsFromSchedule() throws SchedulerException {
 
@@ -238,6 +254,7 @@ public class ImportScheduler implements InitializingBean {
      * <p>
      * buildImportSchedule
      * </p>
+     * .
      */
     protected void buildImportSchedule() {
 
@@ -274,6 +291,7 @@ public class ImportScheduler implements InitializingBean {
      * <p>
      * getScheduler
      * </p>
+     * .
      *
      * @return a {@link org.quartz.Scheduler} object.
      */
@@ -285,6 +303,7 @@ public class ImportScheduler implements InitializingBean {
      * <p>
      * setProvisioner
      * </p>
+     * .
      *
      * @param provisioner
      *            a {@link org.opennms.netmgt.provision.service.Provisioner}
@@ -298,6 +317,7 @@ public class ImportScheduler implements InitializingBean {
      * <p>
      * getProvisioner
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.provision.service.Provisioner}
      *         object.
@@ -310,6 +330,7 @@ public class ImportScheduler implements InitializingBean {
      * <p>
      * setImportJobFactory
      * </p>
+     * .
      *
      * @param importJobFactory
      *            a {@link org.quartz.spi.JobFactory} object.
@@ -322,6 +343,7 @@ public class ImportScheduler implements InitializingBean {
      * <p>
      * getImportJobFactory
      * </p>
+     * .
      *
      * @return a {@link org.quartz.spi.JobFactory} object.
      */
@@ -329,6 +351,9 @@ public class ImportScheduler implements InitializingBean {
         return m_importJobFactory;
     }
 
+    /**
+     * Prints the current schedule.
+     */
     private void printCurrentSchedule() {
 
         try {

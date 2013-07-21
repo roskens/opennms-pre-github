@@ -63,6 +63,8 @@ import org.slf4j.LoggerFactory;
  * @see <A HREF="http://www.ietf.org/rfc/rfc1213.txt">RFC1213 </A>
  */
 public final class IfTable extends SnmpTable<IfTableEntry> {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(IfTable.class);
 
     /**
@@ -105,6 +107,7 @@ public final class IfTable extends SnmpTable<IfTableEntry> {
      * <p>
      * getOperStatus
      * </p>
+     * .
      *
      * @param ifIndex
      *            a int.
@@ -118,6 +121,7 @@ public final class IfTable extends SnmpTable<IfTableEntry> {
      * <p>
      * getAdminStatus
      * </p>
+     * .
      *
      * @param ifIndex
      *            a int.
@@ -131,6 +135,7 @@ public final class IfTable extends SnmpTable<IfTableEntry> {
      * <p>
      * getIfType
      * </p>
+     * .
      *
      * @param ifIndex
      *            a int.
@@ -144,6 +149,7 @@ public final class IfTable extends SnmpTable<IfTableEntry> {
      * <p>
      * getIfDescr
      * </p>
+     * .
      *
      * @param ifIndex
      *            a int.
@@ -157,6 +163,7 @@ public final class IfTable extends SnmpTable<IfTableEntry> {
      * <p>
      * getIfSpeed
      * </p>
+     * .
      *
      * @param ifIndex
      *            a int.
@@ -170,6 +177,7 @@ public final class IfTable extends SnmpTable<IfTableEntry> {
      * <p>
      * getPhysAddr
      * </p>
+     * .
      *
      * @param ifIndex
      *            a int.
@@ -183,6 +191,7 @@ public final class IfTable extends SnmpTable<IfTableEntry> {
      * <p>
      * updateSnmpInterfaceData
      * </p>
+     * .
      *
      * @param node
      *            a {@link org.opennms.netmgt.model.OnmsNode} object.
@@ -197,6 +206,7 @@ public final class IfTable extends SnmpTable<IfTableEntry> {
      * <p>
      * updateSnmpInterfaceData
      * </p>
+     * .
      *
      * @param node
      *            a {@link org.opennms.netmgt.model.OnmsNode} object.
@@ -224,6 +234,7 @@ public final class IfTable extends SnmpTable<IfTableEntry> {
      * <p>
      * getIfIndices
      * </p>
+     * .
      *
      * @return a {@link java.util.Set} object.
      */

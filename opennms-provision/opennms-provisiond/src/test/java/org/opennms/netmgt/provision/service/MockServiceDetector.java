@@ -33,51 +33,79 @@ import java.net.InetAddress;
 import org.opennms.netmgt.provision.SyncServiceDetector;
 
 /**
- * MockServiceDetector
+ * MockServiceDetector.
  *
  * @author brozow
  */
 public class MockServiceDetector implements SyncServiceDetector {
 
+    /** The m_service name. */
     private String m_serviceName;
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.ServiceDetector#init()
+     */
     @Override
     public void init() {
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.ServiceDetector#getServiceName()
+     */
     @Override
     public String getServiceName() {
         return m_serviceName;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.ServiceDetector#setServiceName(java.lang.String)
+     */
     @Override
     public void setServiceName(String serviceName) {
         m_serviceName = serviceName;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.SyncServiceDetector#isServiceDetected(java.net.InetAddress)
+     */
     @Override
     public boolean isServiceDetected(InetAddress address) {
         return true;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.ServiceDetector#dispose()
+     */
     @Override
     public void dispose() {
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.ServiceDetector#getPort()
+     */
     @Override
     public int getPort() {
         return 12345;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.ServiceDetector#setPort(int)
+     */
     @Override
     public void setPort(int port) {
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.ServiceDetector#getTimeout()
+     */
     @Override
     public int getTimeout() {
         return 2000;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.ServiceDetector#setTimeout(int)
+     */
     @Override
     public void setTimeout(int timeout) {
     }

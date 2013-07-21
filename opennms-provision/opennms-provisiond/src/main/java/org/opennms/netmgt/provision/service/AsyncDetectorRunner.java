@@ -37,11 +37,18 @@ import org.opennms.netmgt.provision.DetectFutureListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The Class AsyncDetectorRunner.
+ */
 class AsyncDetectorRunner implements Async<Boolean> {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(AsyncDetectorRunner.class);
 
+    /** The m_iface scan. */
     private final IpInterfaceScan m_ifaceScan;
 
+    /** The m_detector. */
     private final AsyncServiceDetector m_detector;
 
     /**
@@ -73,6 +80,11 @@ class AsyncDetectorRunner implements Async<Boolean> {
         }
     }
 
+    /**
+     * Gets the host address.
+     *
+     * @return the host address
+     */
     private String getHostAddress() {
         return InetAddressUtils.str(m_ifaceScan.getAddress());
     }
@@ -83,6 +95,13 @@ class AsyncDetectorRunner implements Async<Boolean> {
         return String.format("Run detector %s on address %s", m_detector.getServiceName(), getHostAddress());
     }
 
+    /**
+     * Listener.
+     *
+     * @param cb
+     *            the cb
+     * @return the detect future listener
+     */
     private DetectFutureListener<DetectFuture> listener(final Callback<Boolean> cb) {
         return new DetectFutureListener<DetectFuture>() {
             @Override

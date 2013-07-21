@@ -55,35 +55,47 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 
 /**
- * DefaultPluginRegistry
+ * DefaultPluginRegistry.
  *
  * @author brozow
  * @version $Id: $
  */
 public class DefaultPluginRegistry implements PluginRegistry, InitializingBean {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(DefaultPluginRegistry.class);
 
+    /** The m_sync detectors. */
     @Autowired(required = false)
     Set<SyncServiceDetector> m_syncDetectors;
 
+    /** The m_async detectors. */
     @Autowired(required = false)
     Set<AsyncServiceDetector> m_asyncDetectors;
 
+    /** The m_node policies. */
     @Autowired(required = false)
     Set<NodePolicy> m_nodePolicies;
 
+    /** The m_ip interface policies. */
     @Autowired(required = false)
     Set<IpInterfacePolicy> m_ipInterfacePolicies;
 
+    /** The m_snmp interface policies. */
     @Autowired(required = false)
     Set<SnmpInterfacePolicy> m_snmpInterfacePolicies;
 
+    /** The m_service registry. */
     @Autowired
     ServiceRegistry m_serviceRegistry;
 
+    /** The m_application context. */
     @Autowired
     private ApplicationContext m_applicationContext;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
@@ -94,14 +106,40 @@ public class DefaultPluginRegistry implements PluginRegistry, InitializingBean {
         addAllExtensions(m_snmpInterfacePolicies, SnmpInterfacePolicy.class, OnmsPolicy.class);
     }
 
+    /**
+     * Debug.
+     *
+     * @param format
+     *            the format
+     * @param args
+     *            the args
+     */
     private static void debug(String format, Object... args) {
         LOG.debug(String.format(format, args));
     }
 
+    /**
+     * Info.
+     *
+     * @param format
+     *            the format
+     * @param args
+     *            the args
+     */
     private static void info(String format, Object... args) {
         LOG.info(String.format(format, args));
     }
 
+    /**
+     * Error.
+     *
+     * @param cause
+     *            the cause
+     * @param format
+     *            the format
+     * @param args
+     *            the args
+     */
     private static void error(Throwable cause, String format, Object... args) {
         if (cause == null) {
             LOG.error(String.format(format, args));
@@ -110,6 +148,16 @@ public class DefaultPluginRegistry implements PluginRegistry, InitializingBean {
         }
     }
 
+    /**
+     * Adds the all extensions.
+     *
+     * @param <T>
+     *            the generic type
+     * @param extensions
+     *            the extensions
+     * @param extensionPoints
+     *            the extension points
+     */
     private <T> void addAllExtensions(Collection<T> extensions, Class<?>... extensionPoints) {
         if (extensions == null || extensions.isEmpty()) {
             info("Found NO Extensions for ExtensionPoints %s", Arrays.toString(extensionPoints));
@@ -147,10 +195,30 @@ public class DefaultPluginRegistry implements PluginRegistry, InitializingBean {
         return pluginInstance;
     }
 
+    /**
+     * Beans of type.
+     *
+     * @param <T>
+     *            the generic type
+     * @param pluginClass
+     *            the plugin class
+     * @return the map
+     */
     private <T> Map<String, T> beansOfType(Class<T> pluginClass) {
         return BeanFactoryUtils.beansOfTypeIncludingAncestors(m_applicationContext, pluginClass, true, true);
     }
 
+    /**
+     * Bean with name of type.
+     *
+     * @param <T>
+     *            the generic type
+     * @param beanName
+     *            the bean name
+     * @param pluginClass
+     *            the plugin class
+     * @return the t
+     */
     private <T> T beanWithNameOfType(String beanName, Class<T> pluginClass) {
         Map<String, T> beans = beansOfType(pluginClass);
         T bean = beans.get(beanName);

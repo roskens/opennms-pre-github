@@ -96,23 +96,30 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 /**
- * DefaultProvisionService
+ * DefaultProvisionService.
  *
  * @author brozow
  * @version $Id: $
  */
 @Service
 public class DefaultProvisionService implements ProvisionService, InitializingBean {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(DefaultProvisionService.class);
 
+    /** The Constant FOREIGN_SOURCE_FOR_DISCOVERED_NODES. */
     private static final String FOREIGN_SOURCE_FOR_DISCOVERED_NODES = null;
 
     /**
-     * ServiceTypeFulfiller
+     * ServiceTypeFulfiller.
      *
      * @author brozow
      */
     private final class ServiceTypeFulfiller extends AbstractEntityVisitor {
+
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.model.AbstractEntityVisitor#visitMonitoredService(org.opennms.netmgt.model.OnmsMonitoredService)
+         */
         @Override
         public void visitMonitoredService(OnmsMonitoredService monSvc) {
             OnmsServiceType dbType = monSvc.getServiceType();
@@ -123,49 +130,66 @@ public class DefaultProvisionService implements ProvisionService, InitializingBe
         }
     }
 
+    /** The m_dist poller dao. */
     @Autowired
     private DistPollerDao m_distPollerDao;
 
+    /** The m_node dao. */
     @Autowired
     private NodeDao m_nodeDao;
 
+    /** The m_ip interface dao. */
     @Autowired
     private IpInterfaceDao m_ipInterfaceDao;
 
+    /** The m_snmp interface dao. */
     @Autowired
     private SnmpInterfaceDao m_snmpInterfaceDao;
 
+    /** The m_monitored service dao. */
     @Autowired
     private MonitoredServiceDao m_monitoredServiceDao;
 
+    /** The m_service type dao. */
     @Autowired
     private ServiceTypeDao m_serviceTypeDao;
 
+    /** The m_category dao. */
     @Autowired
     private CategoryDao m_categoryDao;
 
+    /** The m_event forwarder. */
     @Autowired
     @Qualifier("transactionAware")
     private EventForwarder m_eventForwarder;
 
+    /** The m_foreign source repository. */
     @Autowired
     @Qualifier("fastFused")
     private ForeignSourceRepository m_foreignSourceRepository;
 
+    /** The m_pending foreign source repository. */
     @Autowired
     @Qualifier("fastPending")
     private ForeignSourceRepository m_pendingForeignSourceRepository;
 
+    /** The m_plugin registry. */
     @Autowired
     private PluginRegistry m_pluginRegistry;
 
+    /** The m_transaction manager. */
     @Autowired
     private PlatformTransactionManager m_transactionManager;
 
+    /** The m_type cache. */
     private final ThreadLocal<HashMap<String, OnmsServiceType>> m_typeCache = new ThreadLocal<HashMap<String, OnmsServiceType>>();
 
+    /** The m_category cache. */
     private final ThreadLocal<HashMap<String, OnmsCategory>> m_categoryCache = new ThreadLocal<HashMap<String, OnmsCategory>>();
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
@@ -176,6 +200,7 @@ public class DefaultProvisionService implements ProvisionService, InitializingBe
      * <p>
      * isDiscoveryEnabled
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -184,6 +209,9 @@ public class DefaultProvisionService implements ProvisionService, InitializingBe
         return System.getProperty("org.opennms.provisiond.enableDiscovery", "true").equalsIgnoreCase("true");
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.service.ProvisionService#isRequisitionedEntityDeletionEnabled()
+     */
     @Override
     public boolean isRequisitionedEntityDeletionEnabled() {
         return System.getProperty("org.opennms.provisiond.enableDeletionOfRequisitionedEntities", "false").equalsIgnoreCase("true");
@@ -236,6 +264,13 @@ public class DefaultProvisionService implements ProvisionService, InitializingBe
 
     }
 
+    /**
+     * Should delete.
+     *
+     * @param node
+     *            the node
+     * @return true, if successful
+     */
     private boolean shouldDelete(final OnmsNode node) {
         String foreignSource = node.getForeignSource();
 
@@ -267,6 +302,13 @@ public class DefaultProvisionService implements ProvisionService, InitializingBe
 
     }
 
+    /**
+     * Should delete.
+     *
+     * @param iface
+     *            the iface
+     * @return true, if successful
+     */
     private boolean shouldDelete(final OnmsIpInterface iface) {
 
         String foreignSource = iface.getNode().getForeignSource();
@@ -299,6 +341,13 @@ public class DefaultProvisionService implements ProvisionService, InitializingBe
 
     }
 
+    /**
+     * Should delete.
+     *
+     * @param monSvc
+     *            the mon svc
+     * @return true, if successful
+     */
     private boolean shouldDelete(final OnmsMonitoredService monSvc) {
         String foreignSource = monSvc.getIpInterface().getNode().getForeignSource();
 
@@ -318,6 +367,13 @@ public class DefaultProvisionService implements ProvisionService, InitializingBe
 
     }
 
+    /**
+     * Checks if is requisitioned.
+     *
+     * @param node
+     *            the node
+     * @return true, if is requisitioned
+     */
     public boolean isRequisitioned(OnmsNode node) {
         String foreignSource = node.getForeignSource();
         String foreignId = node.getForeignId();
@@ -338,6 +394,13 @@ public class DefaultProvisionService implements ProvisionService, InitializingBe
 
     }
 
+    /**
+     * Checks if is requisitioned.
+     *
+     * @param ip
+     *            the ip
+     * @return true, if is requisitioned
+     */
     public boolean isRequisitioned(OnmsIpInterface ip) {
         String foreignSource = ip.getNode().getForeignSource();
         String foreignId = ip.getNode().getForeignId();
@@ -360,6 +423,13 @@ public class DefaultProvisionService implements ProvisionService, InitializingBe
 
     }
 
+    /**
+     * Checks if is requisitioned.
+     *
+     * @param monSvc
+     *            the mon svc
+     * @return true, if is requisitioned
+     */
     public boolean isRequisitioned(OnmsMonitoredService monSvc) {
         String foreignSource = monSvc.getIpInterface().getNode().getForeignSource();
         String foreignId = monSvc.getIpInterface().getNode().getForeignId();
@@ -389,6 +459,16 @@ public class DefaultProvisionService implements ProvisionService, InitializingBe
         return reqSvc != null;
     }
 
+    /**
+     * Assert not null.
+     *
+     * @param o
+     *            the o
+     * @param format
+     *            the format
+     * @param args
+     *            the args
+     */
     private void assertNotNull(final Object o, final String format, final Object... args) {
         if (o == null) {
             throw new IllegalArgumentException(String.format(format, args));
@@ -504,6 +584,15 @@ public class DefaultProvisionService implements ProvisionService, InitializingBe
 
     }
 
+    /**
+     * Adds the monitored service.
+     *
+     * @param iface
+     *            the iface
+     * @param svcName
+     *            the svc name
+     * @return the onms monitored service
+     */
     private OnmsMonitoredService addMonitoredService(final OnmsIpInterface iface, final String svcName) {
         final OnmsServiceType svcType = createServiceTypeIfNecessary(svcName);
 
@@ -538,6 +627,9 @@ public class DefaultProvisionService implements ProvisionService, InitializingBe
         return addMonitoredService(iface, svcName);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.service.ProvisionService#updateMonitoredServiceState(java.lang.Integer, java.lang.String, java.lang.String)
+     */
     @Transactional
     @Override
     public OnmsMonitoredService updateMonitoredServiceState(final Integer nodeId, final String ipAddress,
@@ -594,6 +686,7 @@ public class DefaultProvisionService implements ProvisionService, InitializingBe
      * <p>
      * clearCache
      * </p>
+     * .
      */
     @Transactional
     @Override
@@ -608,6 +701,13 @@ public class DefaultProvisionService implements ProvisionService, InitializingBe
         return createDistPollerIfNecessary(new OnmsDistPoller(dpName, dpAddr));
     }
 
+    /**
+     * Creates the dist poller if necessary.
+     *
+     * @param scannedDistPoller
+     *            the scanned dist poller
+     * @return the onms dist poller
+     */
     public OnmsDistPoller createDistPollerIfNecessary(OnmsDistPoller scannedDistPoller) {
 
         final OnmsDistPoller distPoller = scannedDistPoller == null ? new OnmsDistPoller("localhost", "127.0.0.1")
@@ -710,12 +810,20 @@ public class DefaultProvisionService implements ProvisionService, InitializingBe
         m_nodeDao.flush();
     }
 
+    /**
+     * Preload existing types.
+     */
     private void preloadExistingTypes() {
         if (m_typeCache.get() == null) {
             m_typeCache.set(loadServiceTypeMap());
         }
     }
 
+    /**
+     * Load service type map.
+     *
+     * @return the hash map
+     */
     @Transactional(readOnly = true)
     private HashMap<String, OnmsServiceType> loadServiceTypeMap() {
         final HashMap<String, OnmsServiceType> serviceTypeMap = new HashMap<String, OnmsServiceType>();
@@ -725,6 +833,13 @@ public class DefaultProvisionService implements ProvisionService, InitializingBe
         return serviceTypeMap;
     }
 
+    /**
+     * Load service type.
+     *
+     * @param serviceName
+     *            the service name
+     * @return the onms service type
+     */
     @Transactional
     private OnmsServiceType loadServiceType(final String serviceName) {
         return new CreateIfNecessaryTemplate<OnmsServiceType, ServiceTypeDao>(m_transactionManager, m_serviceTypeDao) {
@@ -745,12 +860,20 @@ public class DefaultProvisionService implements ProvisionService, InitializingBe
         }.execute();
     }
 
+    /**
+     * Preload existing categories.
+     */
     private void preloadExistingCategories() {
         if (m_categoryCache.get() == null) {
             m_categoryCache.set(loadCategoryMap());
         }
     }
 
+    /**
+     * Load category map.
+     *
+     * @return the hash map
+     */
     @Transactional(readOnly = true)
     private HashMap<String, OnmsCategory> loadCategoryMap() {
         final HashMap<String, OnmsCategory> categoryMap = new HashMap<String, OnmsCategory>();
@@ -760,6 +883,13 @@ public class DefaultProvisionService implements ProvisionService, InitializingBe
         return categoryMap;
     }
 
+    /**
+     * Load category.
+     *
+     * @param name
+     *            the name
+     * @return the onms category
+     */
     @Transactional
     private OnmsCategory loadCategory(final String name) {
         return new CreateIfNecessaryTemplate<OnmsCategory, CategoryDao>(m_transactionManager, m_categoryDao) {
@@ -780,6 +910,13 @@ public class DefaultProvisionService implements ProvisionService, InitializingBe
 
     }
 
+    /**
+     * Find nodeby node label.
+     *
+     * @param label
+     *            the label
+     * @return the onms node
+     */
     @Transactional(readOnly = true)
     private OnmsNode findNodebyNodeLabel(final String label) {
         Collection<OnmsNode> nodes = m_nodeDao.findByLabel(label);
@@ -791,11 +928,31 @@ public class DefaultProvisionService implements ProvisionService, InitializingBe
         return null;
     }
 
+    /**
+     * Find nodeby foreign id.
+     *
+     * @param foreignSource
+     *            the foreign source
+     * @param foreignId
+     *            the foreign id
+     * @return the onms node
+     */
     @Transactional(readOnly = true)
     private OnmsNode findNodebyForeignId(final String foreignSource, final String foreignId) {
         return m_nodeDao.findByForeignId(foreignSource, foreignId);
     }
 
+    /**
+     * Find parent.
+     *
+     * @param foreignSource
+     *            the foreign source
+     * @param parentForeignId
+     *            the parent foreign id
+     * @param parentNodeLabel
+     *            the parent node label
+     * @return the onms node
+     */
     @Transactional(readOnly = true)
     private OnmsNode findParent(final String foreignSource, final String parentForeignId, final String parentNodeLabel) {
         if (parentForeignId != null) {
@@ -809,6 +966,14 @@ public class DefaultProvisionService implements ProvisionService, InitializingBe
         return null;
     }
 
+    /**
+     * Sets the path dependency.
+     *
+     * @param node
+     *            the node
+     * @param parent
+     *            the parent
+     */
     private void setPathDependency(final OnmsNode node, final OnmsNode parent) {
         if (node == null)
             return;
@@ -823,6 +988,14 @@ public class DefaultProvisionService implements ProvisionService, InitializingBe
 
     }
 
+    /**
+     * Sets the parent.
+     *
+     * @param node
+     *            the node
+     * @param parent
+     *            the parent
+     */
     @Transactional
     private void setParent(final OnmsNode node, final OnmsNode parent) {
         if (node == null)
@@ -846,6 +1019,7 @@ public class DefaultProvisionService implements ProvisionService, InitializingBe
      * <p>
      * getScheduleForNodes
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -866,6 +1040,15 @@ public class DefaultProvisionService implements ProvisionService, InitializingBe
         return scheduledNodes;
     }
 
+    /**
+     * Creates the schedule for node.
+     *
+     * @param node
+     *            the node
+     * @param force
+     *            the force
+     * @return the node scan schedule
+     */
     private NodeScanSchedule createScheduleForNode(final OnmsNode node, final boolean force) {
         Assert.notNull(node, "Node may not be null");
         final String actualForeignSource = node.getForeignSource();
@@ -907,6 +1090,7 @@ public class DefaultProvisionService implements ProvisionService, InitializingBe
      * <p>
      * getForeignSourceRepository
      * </p>
+     * .
      *
      * @return a
      *         {@link org.opennms.netmgt.provision.persist.ForeignSourceRepository}
@@ -964,6 +1148,13 @@ public class DefaultProvisionService implements ProvisionService, InitializingBe
 
     }
 
+    /**
+     * Gets the db node.
+     *
+     * @param node
+     *            the node
+     * @return the db node
+     */
     @Transactional(readOnly = true)
     private OnmsNode getDbNode(final OnmsNode node) {
         OnmsNode dbNode;
@@ -975,6 +1166,13 @@ public class DefaultProvisionService implements ProvisionService, InitializingBe
         return dbNode;
     }
 
+    /**
+     * Save or update.
+     *
+     * @param node
+     *            the node
+     * @return the onms node
+     */
     @Transactional
     private OnmsNode saveOrUpdate(final OnmsNode node) {
         final Set<OnmsCategory> updatedCategories = new HashSet<OnmsCategory>();
@@ -995,6 +1193,13 @@ public class DefaultProvisionService implements ProvisionService, InitializingBe
 
     }
 
+    /**
+     * Save or update.
+     *
+     * @param iface
+     *            the iface
+     * @return the onms ip interface
+     */
     @Transactional
     private OnmsIpInterface saveOrUpdate(final OnmsIpInterface iface) {
         iface.visit(new ServiceTypeFulfiller());
@@ -1054,13 +1259,14 @@ public class DefaultProvisionService implements ProvisionService, InitializingBe
      * <p>
      * getPluginsForForeignSource
      * </p>
+     * .
      *
+     * @param <T>
+     *            a T object.
      * @param pluginClass
      *            a {@link java.lang.Class} object.
      * @param foreignSourceName
      *            a {@link java.lang.String} object.
-     * @param <T>
-     *            a T object.
      * @return a {@link java.util.List} object.
      */
     public <T> List<T> getPluginsForForeignSource(final Class<T> pluginClass, final String foreignSourceName) {
@@ -1216,6 +1422,13 @@ public class DefaultProvisionService implements ProvisionService, InitializingBe
 
     }
 
+    /**
+     * Gets the hostname for ip.
+     *
+     * @param address
+     *            the address
+     * @return the hostname for ip
+     */
     private String getHostnameForIp(final String address) {
         return addr(address).getCanonicalHostName();
     }

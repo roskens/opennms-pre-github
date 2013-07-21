@@ -30,12 +30,16 @@ package org.opennms.netmgt.provision.service.operations;
 
 import org.opennms.netmgt.provision.service.ProvisionService;
 
+/**
+ * A factory for creating ImportOperation objects.
+ */
 public interface ImportOperationFactory {
 
     /**
      * <p>
      * createInsertOperation
      * </p>
+     * .
      *
      * @param foreignSource
      *            a {@link java.lang.String} object.
@@ -49,9 +53,8 @@ public interface ImportOperationFactory {
      *            a {@link java.lang.String} object.
      * @param provisionService
      *            a
-     *            {@link org.opennms.netmgt.provision.service.ProvisionService}
-     *            object.
-     * @return a
+     * @return a {@link org.opennms.netmgt.provision.service.ProvisionService}
+     *         object.
      *         {@link org.opennms.netmgt.provision.service.operations.SaveOrUpdateOperation}
      *         object.
      */
@@ -62,6 +65,7 @@ public interface ImportOperationFactory {
      * <p>
      * createUpdateOperation
      * </p>
+     * .
      *
      * @param nodeId
      *            a {@link java.lang.Integer} object.
@@ -77,9 +81,8 @@ public interface ImportOperationFactory {
      *            a {@link java.lang.String} object.
      * @param service
      *            a
-     *            {@link org.opennms.netmgt.provision.service.ProvisionService}
-     *            object.
-     * @return a
+     * @return a {@link org.opennms.netmgt.provision.service.ProvisionService}
+     *         object.
      *         {@link org.opennms.netmgt.provision.service.operations.UpdateOperation}
      *         object.
      */
@@ -90,6 +93,7 @@ public interface ImportOperationFactory {
      * <p>
      * createDeleteOperation
      * </p>
+     * .
      *
      * @param nodeId
      *            a {@link java.lang.Integer} object.
@@ -99,9 +103,8 @@ public interface ImportOperationFactory {
      *            a {@link java.lang.String} object.
      * @param provisionService
      *            a
-     *            {@link org.opennms.netmgt.provision.service.ProvisionService}
-     *            object.
-     * @return a
+     * @return a {@link org.opennms.netmgt.provision.service.ProvisionService}
+     *         object.
      *         {@link org.opennms.netmgt.provision.service.operations.ImportOperation}
      *         object.
      */

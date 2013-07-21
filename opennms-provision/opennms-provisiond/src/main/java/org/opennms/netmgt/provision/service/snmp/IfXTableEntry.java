@@ -54,44 +54,43 @@ import org.opennms.netmgt.snmp.AbstractSnmpStore;
  * @see <A HREF="http://www.ietf.org/rfc/rfc1573.txt">RFC1573 </A>
  */
 public final class IfXTableEntry extends SnmpTableEntry {
-    /**
-     * Lookup strings for specific table entries
-     */
+
+    /** Lookup strings for specific table entries. */
     public static final String IF_NAME = "ifName";
 
-    /** Constant <code>IF_IN_MCAST_PKTS="ifInMulticastPkts"</code> */
+    /** Constant <code>IF_IN_MCAST_PKTS="ifInMulticastPkts"</code>. */
     public static final String IF_IN_MCAST_PKTS = "ifInMulticastPkts";
 
-    /** Constant <code>IF_IN_BCAST_PKTS="ifInBroadcastPkts"</code> */
+    /** Constant <code>IF_IN_BCAST_PKTS="ifInBroadcastPkts"</code>. */
     public static final String IF_IN_BCAST_PKTS = "ifInBroadcastPkts";
 
-    /** Constant <code>IF_OUT_MCAST_PKTS="ifOutMulticastPkts"</code> */
+    /** Constant <code>IF_OUT_MCAST_PKTS="ifOutMulticastPkts"</code>. */
     public static final String IF_OUT_MCAST_PKTS = "ifOutMulticastPkts";
 
-    /** Constant <code>IF_OUT_BCAST_PKTS="ifOutBroadcastPkts"</code> */
+    /** Constant <code>IF_OUT_BCAST_PKTS="ifOutBroadcastPkts"</code>. */
     public static final String IF_OUT_BCAST_PKTS = "ifOutBroadcastPkts";
 
     /**
      * Constant
-     * <code>IF_LINK_UP_DOWN_TRAP_ENABLE="ifLinkUpDownTrapEnable"</code>
+     * <code>IF_LINK_UP_DOWN_TRAP_ENABLE="ifLinkUpDownTrapEnable"</code>.
      */
     public static final String IF_LINK_UP_DOWN_TRAP_ENABLE = "ifLinkUpDownTrapEnable";
 
-    /** Constant <code>IF_HIGH_SPEED="ifHighSpeed"</code> */
+    /** Constant <code>IF_HIGH_SPEED="ifHighSpeed"</code>. */
     public static final String IF_HIGH_SPEED = "ifHighSpeed";
 
-    /** Constant <code>IF_PROMISCUOUS_MODE="ifPromiscuousMode"</code> */
+    /** Constant <code>IF_PROMISCUOUS_MODE="ifPromiscuousMode"</code>. */
     public static final String IF_PROMISCUOUS_MODE = "ifPromiscuousMode";
 
-    /** Constant <code>IF_CONNECTOR_PRESENT="ifConnectorPresent"</code> */
+    /** Constant <code>IF_CONNECTOR_PRESENT="ifConnectorPresent"</code>. */
     public static final String IF_CONNECTOR_PRESENT = "ifConnectorPresent";
 
-    /** Constant <code>IF_ALIAS="ifAlias"</code> */
+    /** Constant <code>IF_ALIAS="ifAlias"</code>. */
     public static final String IF_ALIAS = "ifAlias";
 
     /**
      * Constant
-     * <code>IF_COUNTER_DISCONTINUITY_TIME="ifCounterDiscontinuityTime"</code>
+     * <code>IF_COUNTER_DISCONTINUITY_TIME="ifCounterDiscontinuityTime"</code>.
      */
     public static final String IF_COUNTER_DISCONTINUITY_TIME = "ifCounterDiscontinuityTime";
 
@@ -110,11 +109,11 @@ public final class IfXTableEntry extends SnmpTableEntry {
     /**
      * Number of object identifiers making up the interface extensions table
      * WARNING: This value must be incremented by one for each new object added
-     * to the ms_elemList variable
+     * to the ms_elemList variable.
      */
     static int NUM_OIDS = 10;
 
-    /** Constant <code>ms_elemList</code> */
+    /** Constant <code>ms_elemList</code>. */
     public static NamedSnmpVar[] ms_elemList = null;
 
     /**
@@ -178,6 +177,7 @@ public final class IfXTableEntry extends SnmpTableEntry {
      * <p>
      * getIfName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -189,6 +189,7 @@ public final class IfXTableEntry extends SnmpTableEntry {
      * <p>
      * getIfAlias
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

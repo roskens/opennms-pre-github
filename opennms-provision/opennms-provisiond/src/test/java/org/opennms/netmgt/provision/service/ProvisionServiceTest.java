@@ -51,7 +51,7 @@ import org.springframework.core.io.UrlResource;
 import org.springframework.test.context.ContextConfiguration;
 
 /**
- * ProvisionServiceTest
+ * ProvisionServiceTest.
  *
  * @author brozow
  */
@@ -67,6 +67,7 @@ import org.springframework.test.context.ContextConfiguration;
 @JUnitConfigurationEnvironment(systemProperties = "org.opennms.provisiond.enableDiscovery=false")
 public class ProvisionServiceTest implements InitializingBean {
 
+    /** The m_prov service. */
     @Autowired
     ProvisionService m_provService;
 
@@ -186,16 +187,25 @@ public class ProvisionServiceTest implements InitializingBean {
      * Also need an indication of where transactions should live
      */
 
+    /**
+     * Sets the up.
+     */
     @Before
     public void setUp() {
         MockLogAppender.setupLogging();
     }
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Dw verify url handler.
+     */
     @Before
     public void dwVerifyUrlHandler() {
         GenericURLFactory.initialize();
@@ -203,9 +213,10 @@ public class ProvisionServiceTest implements InitializingBean {
 
     /**
      * This test should be set to Ignore until a DNS server can be integrated
-     * into unit tests
+     * into unit tests.
      *
      * @throws MalformedURLException
+     *             the malformed url exception
      */
     @Test
     @Ignore
@@ -230,6 +241,12 @@ public class ProvisionServiceTest implements InitializingBean {
         Assert.assertNotNull(inf);
     }
 
+    /**
+     * Test life cycle.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @Ignore
     public void testLifeCycle() throws Exception {

@@ -33,17 +33,20 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * LifeCycle
+ * LifeCycle.
  *
  * @author brozow
  * @version $Id: $
  */
 public class LifeCycle {
 
+    /** The Constant OF_STRINGS. */
     private static final String[] OF_STRINGS = new String[0];
 
+    /** The m_life cycle name. */
     private final String m_lifeCycleName;
 
+    /** The m_phases. */
     private final List<String> m_phases;
 
     /**
@@ -77,6 +80,7 @@ public class LifeCycle {
      * <p>
      * getLifeCycleName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -88,6 +92,7 @@ public class LifeCycle {
      * <p>
      * addPhase
      * </p>
+     * .
      *
      * @param phaseName
      *            a {@link java.lang.String} object.
@@ -104,6 +109,7 @@ public class LifeCycle {
      * <p>
      * addPhases
      * </p>
+     * .
      *
      * @param phases
      *            a {@link java.lang.String} object.
@@ -120,6 +126,7 @@ public class LifeCycle {
      * <p>
      * getPhaseNames
      * </p>
+     * .
      *
      * @return an array of {@link java.lang.String} objects.
      */

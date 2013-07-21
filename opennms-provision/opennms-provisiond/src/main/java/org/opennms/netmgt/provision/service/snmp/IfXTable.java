@@ -92,6 +92,7 @@ public final class IfXTable extends SnmpTable<IfXTableEntry> {
      * <p>
      * getIfName
      * </p>
+     * .
      *
      * @param ifIndex
      *            a int.
@@ -105,6 +106,7 @@ public final class IfXTable extends SnmpTable<IfXTableEntry> {
      * <p>
      * getIfAlias
      * </p>
+     * .
      *
      * @param ifIndex
      *            a int.
@@ -118,6 +120,7 @@ public final class IfXTable extends SnmpTable<IfXTableEntry> {
      * <p>
      * updateSnmpInterfaceData
      * </p>
+     * .
      *
      * @param node
      *            a {@link org.opennms.netmgt.model.OnmsNode} object.
@@ -132,6 +135,7 @@ public final class IfXTable extends SnmpTable<IfXTableEntry> {
      * <p>
      * updateSnmpInterfaceData
      * </p>
+     * .
      *
      * @param node
      *            a {@link org.opennms.netmgt.model.OnmsNode} object.

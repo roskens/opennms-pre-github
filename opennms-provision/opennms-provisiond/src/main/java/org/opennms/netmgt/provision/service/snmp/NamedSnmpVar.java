@@ -220,11 +220,9 @@ public final class NamedSnmpVar {
     /**
      * Returns the class object associated with the class name stored in m_type.
      *
-     * @exception java.lang.ClassNotFoundException
-     *                Thrown from this method if forName() fails.
      * @return a {@link java.lang.Class} object.
-     * @throws java.lang.ClassNotFoundException
-     *             if any.
+     * @throws ClassNotFoundException
+     *             the class not found exception
      */
     public Class<?> getTypeClass() throws ClassNotFoundException {
         if (m_typeClass == null) {
@@ -255,6 +253,7 @@ public final class NamedSnmpVar {
      * <p>
      * getSnmpObjId
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.snmp.SnmpObjId} object.
      */
@@ -275,6 +274,7 @@ public final class NamedSnmpVar {
      * <p>
      * getCollectionTracker
      * </p>
+     * .
      *
      * @param instances
      *            a {@link java.util.Set} object.
@@ -307,14 +307,15 @@ public final class NamedSnmpVar {
      * <p>
      * getTrackersFor
      * </p>
+     * .
      *
      * @param columns
      *            an array of
-     *            {@link org.opennms.netmgt.provision.service.snmp.NamedSnmpVar}
-     *            objects.
      * @param instances
      *            a {@link java.util.Set} object.
      * @return an array of {@link org.opennms.netmgt.snmp.CollectionTracker}
+     *         objects.
+     *         {@link org.opennms.netmgt.provision.service.snmp.NamedSnmpVar}
      *         objects.
      */
     public static CollectionTracker[] getTrackersFor(final NamedSnmpVar[] columns, final Set<SnmpInstId> instances) {
@@ -332,12 +333,13 @@ public final class NamedSnmpVar {
      * <p>
      * getTrackersFor
      * </p>
+     * .
      *
      * @param ms_elemList
      *            an array of
-     *            {@link org.opennms.netmgt.provision.service.snmp.NamedSnmpVar}
-     *            objects.
      * @return an array of {@link org.opennms.netmgt.snmp.CollectionTracker}
+     *         objects.
+     *         {@link org.opennms.netmgt.provision.service.snmp.NamedSnmpVar}
      *         objects.
      */
     public static CollectionTracker[] getTrackersFor(final NamedSnmpVar[] ms_elemList) {

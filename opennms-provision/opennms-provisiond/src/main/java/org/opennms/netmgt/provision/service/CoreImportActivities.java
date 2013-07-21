@@ -49,21 +49,37 @@ import org.slf4j.LoggerFactory;
 import org.springframework.core.io.Resource;
 
 /**
- * CoreImportActivities
+ * CoreImportActivities.
  *
  * @author brozow
  * @version $Id: $
  */
 @ActivityProvider
 public class CoreImportActivities {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(CoreImportActivities.class);
 
+    /** The m_provision service. */
     ProvisionService m_provisionService;
 
+    /**
+     * Instantiates a new core import activities.
+     *
+     * @param provisionService
+     *            the provision service
+     */
     public CoreImportActivities(final ProvisionService provisionService) {
         m_provisionService = provisionService;
     }
 
+    /**
+     * Load spec file.
+     *
+     * @param resource
+     *            the resource
+     * @return the requisition import
+     */
     @Activity(lifecycle = "import", phase = "validate", schedulingHint = "import")
     public RequisitionImport loadSpecFile(final Resource resource) {
         final RequisitionImport ri = new RequisitionImport();
@@ -80,6 +96,15 @@ public class CoreImportActivities {
         return ri;
     }
 
+    /**
+     * Audit nodes.
+     *
+     * @param ri
+     *            the ri
+     * @param rescanExisting
+     *            the rescan existing
+     * @return the import operations manager
+     */
     @Activity(lifecycle = "import", phase = "audit", schedulingHint = "import")
     public ImportOperationsManager auditNodes(final RequisitionImport ri, final Boolean rescanExisting) {
         if (ri.isAborted()) {
@@ -108,6 +133,16 @@ public class CoreImportActivities {
         return opsMgr;
     }
 
+    /**
+     * Scan nodes.
+     *
+     * @param currentPhase
+     *            the current phase
+     * @param opsMgr
+     *            the ops mgr
+     * @param ri
+     *            the ri
+     */
     @Activity(lifecycle = "import", phase = "scan", schedulingHint = "import")
     public void scanNodes(final Phase currentPhase, final ImportOperationsManager opsMgr, final RequisitionImport ri) {
         if (ri.isAborted()) {
@@ -131,6 +166,16 @@ public class CoreImportActivities {
 
     }
 
+    /**
+     * Scan node.
+     *
+     * @param operation
+     *            the operation
+     * @param ri
+     *            the ri
+     * @param rescanExisting
+     *            the rescan existing
+     */
     @Activity(lifecycle = "nodeImport", phase = "scan", schedulingHint = "import")
     public void scanNode(final ImportOperation operation, final RequisitionImport ri, final Boolean rescanExisting) {
         if (ri.isAborted()) {
@@ -149,6 +194,14 @@ public class CoreImportActivities {
         }
     }
 
+    /**
+     * Persist node.
+     *
+     * @param operation
+     *            the operation
+     * @param ri
+     *            the ri
+     */
     @Activity(lifecycle = "nodeImport", phase = "persist", schedulingHint = "import")
     public void persistNode(final ImportOperation operation, final RequisitionImport ri) {
         if (ri.isAborted()) {
@@ -162,6 +215,14 @@ public class CoreImportActivities {
 
     }
 
+    /**
+     * Relate nodes.
+     *
+     * @param currentPhase
+     *            the current phase
+     * @param ri
+     *            the ri
+     */
     @Activity(lifecycle = "import", phase = "relate", schedulingHint = "import")
     public void relateNodes(final BatchTask currentPhase, final RequisitionImport ri) {
         if (ri.isAborted()) {
@@ -186,6 +247,17 @@ public class CoreImportActivities {
 
     }
 
+    /**
+     * Parent setter.
+     *
+     * @param provisionService
+     *            the provision service
+     * @param nodeReq
+     *            the node req
+     * @param foreignSource
+     *            the foreign source
+     * @return the runnable
+     */
     private static Runnable parentSetter(final ProvisionService provisionService, final OnmsNodeRequisition nodeReq,
             final String foreignSource) {
         return new Runnable() {
@@ -225,14 +297,38 @@ public class CoreImportActivities {
         };
     }
 
+    /**
+     * Info.
+     *
+     * @param format
+     *            the format
+     * @param args
+     *            the args
+     */
     protected void info(String format, Object... args) {
         LOG.info(format, args);
     }
 
+    /**
+     * Debug.
+     *
+     * @param format
+     *            the format
+     * @param args
+     *            the args
+     */
     protected void debug(String format, Object... args) {
         LOG.debug(format, args);
     }
 
+    /**
+     * Warn.
+     *
+     * @param format
+     *            the format
+     * @param args
+     *            the args
+     */
     protected void warn(String format, Object... args) {
         LOG.warn(format, args);
     }

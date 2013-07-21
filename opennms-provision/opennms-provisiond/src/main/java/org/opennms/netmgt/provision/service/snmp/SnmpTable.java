@@ -42,13 +42,24 @@ import org.opennms.netmgt.snmp.SnmpResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The Class SnmpTable.
+ *
+ * @param <T>
+ *            the generic type
+ */
 public abstract class SnmpTable<T extends SnmpTableEntry> extends AggregateTracker {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(SnmpTable.class);
 
+    /** The m_results. */
     private Map<SnmpInstId, T> m_results = new TreeMap<SnmpInstId, T>();
 
+    /** The m_address. */
     private InetAddress m_address;
 
+    /** The m_table name. */
     private String m_tableName;
 
     /**
@@ -64,8 +75,6 @@ public abstract class SnmpTable<T extends SnmpTableEntry> extends AggregateTrack
      *            an array of
      *            {@link org.opennms.netmgt.provision.service.snmp.NamedSnmpVar}
      *            objects.
-     * @param <T>
-     *            a T object.
      */
     protected SnmpTable(InetAddress address, String tableName, NamedSnmpVar[] columns) {
         this(address, tableName, columns, null);
@@ -82,10 +91,10 @@ public abstract class SnmpTable<T extends SnmpTableEntry> extends AggregateTrack
      *            a {@link java.lang.String} object.
      * @param columns
      *            an array of
-     *            {@link org.opennms.netmgt.provision.service.snmp.NamedSnmpVar}
-     *            objects.
      * @param instances
      *            a {@link java.util.Set} object.
+     *            {@link org.opennms.netmgt.provision.service.snmp.NamedSnmpVar}
+     *            objects.
      */
     protected SnmpTable(InetAddress address, String tableName, NamedSnmpVar[] columns, Set<SnmpInstId> instances) {
         super(NamedSnmpVar.getTrackersFor(columns, instances));
@@ -108,6 +117,7 @@ public abstract class SnmpTable<T extends SnmpTableEntry> extends AggregateTrack
      * <p>
      * createTableEntry
      * </p>
+     * .
      *
      * @param base
      *            a {@link org.opennms.netmgt.snmp.SnmpObjId} object.
@@ -123,6 +133,7 @@ public abstract class SnmpTable<T extends SnmpTableEntry> extends AggregateTrack
      * <p>
      * getInstances
      * </p>
+     * .
      *
      * @return a {@link java.util.Set} object.
      */
@@ -134,6 +145,7 @@ public abstract class SnmpTable<T extends SnmpTableEntry> extends AggregateTrack
      * <p>
      * getEntries
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -151,6 +163,7 @@ public abstract class SnmpTable<T extends SnmpTableEntry> extends AggregateTrack
      * <p>
      * getEntry
      * </p>
+     * .
      *
      * @param inst
      *            a {@link org.opennms.netmgt.snmp.SnmpInstId} object.
@@ -167,6 +180,7 @@ public abstract class SnmpTable<T extends SnmpTableEntry> extends AggregateTrack
      * <p>
      * getEntry
      * </p>
+     * .
      *
      * @param inst
      *            a int.

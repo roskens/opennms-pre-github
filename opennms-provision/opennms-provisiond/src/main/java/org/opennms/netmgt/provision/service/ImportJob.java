@@ -34,16 +34,17 @@ import org.quartz.JobExecutionException;
 import org.springframework.util.Assert;
 
 /**
- * Wrapper object for the doImport method of the Provisioner
+ * Wrapper object for the doImport method of the Provisioner.
  *
  * @author ranger
  * @version $Id: $
  */
 public class ImportJob implements Job {
 
+    /** The m_provisioner. */
     private Provisioner m_provisioner;
 
-    /** Constant <code>KEY="url"</code> */
+    /** Constant <code>KEY="url"</code>. */
     protected static final String KEY = "url";
 
     /** {@inheritDoc} */
@@ -65,6 +66,7 @@ public class ImportJob implements Job {
      * <p>
      * setProvisioner
      * </p>
+     * .
      *
      * @param provisioner
      *            a {@link org.opennms.netmgt.provision.service.Provisioner}
@@ -74,6 +76,11 @@ public class ImportJob implements Job {
         m_provisioner = provisioner;
     }
 
+    /**
+     * Gets the provisioner.
+     *
+     * @return the provisioner
+     */
     Provisioner getProvisioner() {
         return m_provisioner;
     }

@@ -41,16 +41,21 @@ import org.opennms.core.tasks.DefaultTaskCoordinator;
 import org.opennms.core.test.MockLogAppender;
 
 /**
- * LifeCycleDefinitionTest
+ * LifeCycleDefinitionTest.
  *
  * @author brozow
  */
 public class LifeCycleTest {
 
+    /** The m_expected phases. */
     private final String[] m_expectedPhases = new String[] { "phase1", "phase2", "phase3" };
 
+    /** The m_life cycle repository. */
     private DefaultLifeCycleRepository m_lifeCycleRepository;
 
+    /**
+     * Sets the up.
+     */
     @Before
     public void setUp() {
         MockLogAppender.setupLogging();
@@ -59,6 +64,9 @@ public class LifeCycleTest {
         m_lifeCycleRepository = new DefaultLifeCycleRepository(coordinator);
     }
 
+    /**
+     * Test build life cycle.
+     */
     @Test
     public void testBuildLifeCycle() {
 
@@ -77,6 +85,9 @@ public class LifeCycleTest {
         assertArrayEquals(m_expectedPhases, phases.toArray(new String[0]));
     }
 
+    /**
+     * Test build life cycle from array.
+     */
     @Test
     public void testBuildLifeCycleFromArray() {
 

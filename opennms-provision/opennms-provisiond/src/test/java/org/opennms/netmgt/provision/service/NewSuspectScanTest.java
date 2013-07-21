@@ -88,45 +88,63 @@ import org.springframework.test.context.ContextConfiguration;
 @DirtiesContext
 public class NewSuspectScanTest extends ProvisioningTestCase implements InitializingBean {
 
+    /** The m_provisioner. */
     @Autowired
     private Provisioner m_provisioner;
 
+    /** The m_service type dao. */
     @Autowired
     private ServiceTypeDao m_serviceTypeDao;
 
+    /** The m_monitored service dao. */
     @Autowired
     private MonitoredServiceDao m_monitoredServiceDao;
 
+    /** The m_ip interface dao. */
     @Autowired
     private IpInterfaceDao m_ipInterfaceDao;
 
+    /** The m_snmp interface dao. */
     @Autowired
     private SnmpInterfaceDao m_snmpInterfaceDao;
 
+    /** The m_node dao. */
     @Autowired
     private MockNodeDao m_nodeDao;
 
+    /** The m_dist poller dao. */
     @Autowired
     private DistPollerDao m_distPollerDao;
 
+    /** The m_provision service. */
     @Autowired
     private ProvisionService m_provisionService;
 
+    /** The m_event subscriber. */
     @Autowired
     private MockEventIpcManager m_eventSubscriber;
 
+    /** The m_populator. */
     @Autowired
     private DatabasePopulator m_populator;
 
+    /** The m_foreign source repository. */
     private ForeignSourceRepository m_foreignSourceRepository;
 
+    /** The m_foreign source. */
     private ForeignSource m_foreignSource;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Sets the up logging.
+     */
     @BeforeClass
     public static void setUpLogging() {
         Properties props = new Properties();
@@ -137,6 +155,12 @@ public class NewSuspectScanTest extends ProvisioningTestCase implements Initiali
         MockLogAppender.setupLogging(props);
     }
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
         if (m_distPollerDao.findAll().size() == 0) {
@@ -160,12 +184,21 @@ public class NewSuspectScanTest extends ProvisioningTestCase implements Initiali
         m_provisioner.start();
     }
 
+    /**
+     * Tear down.
+     */
     @After
     public void tearDown() throws InterruptedException {
         m_populator.resetDatabase();
         waitForEverything();
     }
 
+    /**
+     * Test scan new suspect.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test(timeout = 300000)
     @JUnitSnmpAgents({ @JUnitSnmpAgent(host = "172.20.2.201", resource = "classpath:snmpTestData3.properties"),
             @JUnitSnmpAgent(host = "172.20.2.204", resource = "classpath:snmpTestData3.properties") })
@@ -219,6 +252,12 @@ public class NewSuspectScanTest extends ProvisioningTestCase implements Initiali
 
     }
 
+    /**
+     * Test scan new suspect no snmp.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test(timeout = 300000)
     public void testScanNewSuspectNoSnmp() throws Exception {
         final int nextNodeId = m_nodeDao.getNextNodeId();
@@ -263,6 +302,12 @@ public class NewSuspectScanTest extends ProvisioningTestCase implements Initiali
 
     }
 
+    /**
+     * Test scan new suspect no ip addr table.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test(timeout = 300000)
     // 192.0.2.0/24 reserved by IANA for testing purposes
     @JUnitSnmpAgent(host = "192.0.2.123", resource = "classpath:no-ipaddrtable.properties")
@@ -314,6 +359,16 @@ public class NewSuspectScanTest extends ProvisioningTestCase implements Initiali
 
     }
 
+    /**
+     * Run scan.
+     *
+     * @param scan
+     *            the scan
+     * @throws InterruptedException
+     *             the interrupted exception
+     * @throws ExecutionException
+     *             the execution exception
+     */
     public void runScan(final NewSuspectScan scan) throws InterruptedException, ExecutionException {
         final Task t = scan.createTask();
         t.schedule();
@@ -321,26 +376,56 @@ public class NewSuspectScanTest extends ProvisioningTestCase implements Initiali
         waitForEverything();
     }
 
+    /**
+     * Gets the dist poller dao.
+     *
+     * @return the dist poller dao
+     */
     private DistPollerDao getDistPollerDao() {
         return m_distPollerDao;
     }
 
+    /**
+     * Gets the node dao.
+     *
+     * @return the node dao
+     */
     private NodeDao getNodeDao() {
         return m_nodeDao;
     }
 
+    /**
+     * Gets the interface dao.
+     *
+     * @return the interface dao
+     */
     private IpInterfaceDao getInterfaceDao() {
         return m_ipInterfaceDao;
     }
 
+    /**
+     * Gets the snmp interface dao.
+     *
+     * @return the snmp interface dao
+     */
     private SnmpInterfaceDao getSnmpInterfaceDao() {
         return m_snmpInterfaceDao;
     }
 
+    /**
+     * Gets the monitored service dao.
+     *
+     * @return the monitored service dao
+     */
     private MonitoredServiceDao getMonitoredServiceDao() {
         return m_monitoredServiceDao;
     }
 
+    /**
+     * Gets the service type dao.
+     *
+     * @return the service type dao
+     */
     private ServiceTypeDao getServiceTypeDao() {
         return m_serviceTypeDao;
     }

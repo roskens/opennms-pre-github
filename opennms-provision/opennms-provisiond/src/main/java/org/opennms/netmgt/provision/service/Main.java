@@ -33,12 +33,16 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 
+/**
+ * The Class Main.
+ */
 public class Main {
 
     /**
      * <p>
      * main
      * </p>
+     * .
      *
      * @param args
      *            an array of {@link java.lang.String} objects.

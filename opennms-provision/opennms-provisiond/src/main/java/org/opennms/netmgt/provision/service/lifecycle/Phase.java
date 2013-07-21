@@ -51,12 +51,17 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class Phase extends BatchTask {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(Phase.class);
 
+    /** The m_lifecycle. */
     private LifeCycleInstance m_lifecycle;
 
+    /** The m_name. */
     private String m_name;
 
+    /** The m_providers. */
     private Object[] m_providers;
 
     /**
@@ -68,12 +73,12 @@ public class Phase extends BatchTask {
      *            a {@link org.opennms.core.tasks.ContainerTask} object.
      * @param lifecycle
      *            a
-     *            {@link org.opennms.netmgt.provision.service.lifecycle.LifeCycleInstance}
-     *            object.
      * @param name
      *            a {@link java.lang.String} object.
      * @param providers
      *            an array of {@link java.lang.Object} objects.
+     *            {@link org.opennms.netmgt.provision.service.lifecycle.LifeCycleInstance}
+     *            object.
      */
     public Phase(ContainerTask<?> parent, LifeCycleInstance lifecycle, String name, Object[] providers) {
         super(lifecycle.getCoordinator(), parent);
@@ -88,6 +93,7 @@ public class Phase extends BatchTask {
      * <p>
      * getName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -99,6 +105,7 @@ public class Phase extends BatchTask {
      * <p>
      * getLifeCycleInstance
      * </p>
+     * .
      *
      * @return a
      *         {@link org.opennms.netmgt.provision.service.lifecycle.LifeCycleInstance}
@@ -112,6 +119,7 @@ public class Phase extends BatchTask {
      * <p>
      * createNestedLifeCycle
      * </p>
+     * .
      *
      * @param lifeCycleName
      *            a {@link java.lang.String} object.
@@ -127,6 +135,7 @@ public class Phase extends BatchTask {
      * <p>
      * addPhaseMethods
      * </p>
+     * .
      */
     public void addPhaseMethods() {
         for (Object provider : m_providers) {
@@ -138,6 +147,7 @@ public class Phase extends BatchTask {
      * <p>
      * addPhaseMethods
      * </p>
+     * .
      *
      * @param provider
      *            a {@link java.lang.Object} object.
@@ -173,6 +183,13 @@ public class Phase extends BatchTask {
     // return methods.toArray(new PhaseMethod[methods.size()]);
     // }
 
+    /**
+     * Checks if is phase method.
+     *
+     * @param method
+     *            the method
+     * @return the string
+     */
     private String isPhaseMethod(Method method) {
         Activity activity = method.getAnnotation(Activity.class);
         if (activity != null && activity.phase().equals(m_name) && activity.lifecycle().equals(m_lifecycle.getName())) {
@@ -181,17 +198,47 @@ public class Phase extends BatchTask {
         return null;
     }
 
+    /**
+     * Creates the phase method.
+     *
+     * @param provider
+     *            the provider
+     * @param method
+     *            the method
+     * @param schedulingHint
+     *            the scheduling hint
+     * @return the phase method
+     */
     PhaseMethod createPhaseMethod(Object provider, Method method, String schedulingHint) {
         return new PhaseMethod(this, provider, method, schedulingHint);
     }
 
+    /**
+     * The Class PhaseMethod.
+     */
     public static class PhaseMethod extends BatchTask {
+
+        /** The m_phase. */
         private Phase m_phase;
 
+        /** The m_target. */
         private Object m_target;
 
+        /** The m_method. */
         private Method m_method;
 
+        /**
+         * Instantiates a new phase method.
+         *
+         * @param phase
+         *            the phase
+         * @param target
+         *            the target
+         * @param method
+         *            the method
+         * @param schedulingHint
+         *            the scheduling hint
+         */
         public PhaseMethod(Phase phase, Object target, Method method, String schedulingHint) {
             super(phase.getCoordinator(), phase);
             m_phase = phase;
@@ -200,6 +247,11 @@ public class Phase extends BatchTask {
             add(phaseRunner(), schedulingHint);
         }
 
+        /**
+         * Phase runner.
+         *
+         * @return the runnable
+         */
         private Runnable phaseRunner() {
             return new Runnable() {
                 @Override
@@ -218,6 +270,16 @@ public class Phase extends BatchTask {
             };
         }
 
+        /**
+         * Do invoke.
+         *
+         * @param lifeCycle
+         *            the life cycle
+         * @throws IllegalAccessException
+         *             the illegal access exception
+         * @throws InvocationTargetException
+         *             the invocation target exception
+         */
         private void doInvoke(LifeCycleInstance lifeCycle) throws IllegalAccessException, InvocationTargetException {
 
             lifeCycle.setAttribute("currentPhase", m_phase);
@@ -235,6 +297,13 @@ public class Phase extends BatchTask {
             }
         }
 
+        /**
+         * Find arguments.
+         *
+         * @param lifeCycle
+         *            the life cycle
+         * @return the object[]
+         */
         private Object[] findArguments(LifeCycleInstance lifeCycle) {
 
             Type[] types = m_method.getGenericParameterTypes();
@@ -262,6 +331,19 @@ public class Phase extends BatchTask {
             return args;
         }
 
+        /**
+         * Gets the parameter annotation.
+         *
+         * @param <T>
+         *            the generic type
+         * @param method
+         *            the method
+         * @param parmIndex
+         *            the parm index
+         * @param annotationClass
+         *            the annotation class
+         * @return the parameter annotation
+         */
         private <T extends Annotation> T getParameterAnnotation(Method method, int parmIndex, Class<T> annotationClass) {
             Annotation[] annotations = method.getParameterAnnotations()[parmIndex];
 
@@ -274,6 +356,9 @@ public class Phase extends BatchTask {
             return null;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.core.tasks.BatchTask#toString()
+         */
         @Override
         public String toString() {
             return String.format("%s.%s(%s)", m_target.getClass().getSimpleName(), m_method.getName(),
@@ -286,6 +371,7 @@ public class Phase extends BatchTask {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

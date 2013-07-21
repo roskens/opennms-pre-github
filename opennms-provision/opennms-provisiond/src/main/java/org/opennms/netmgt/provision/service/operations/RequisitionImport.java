@@ -34,17 +34,35 @@ import org.opennms.netmgt.provision.persist.requisition.Requisition;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The Class RequisitionImport.
+ */
 public class RequisitionImport {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(RequisitionImport.class);
 
+    /** The m_requisition. */
     private Requisition m_requisition;
 
+    /** The m_throwable. */
     private Throwable m_throwable;
 
+    /**
+     * Gets the requisition.
+     *
+     * @return the requisition
+     */
     public Requisition getRequisition() {
         return m_requisition;
     }
 
+    /**
+     * Sets the requisition.
+     *
+     * @param requisition
+     *            the new requisition
+     */
     public void setRequisition(final Requisition requisition) {
         m_requisition = requisition;
         try {
@@ -59,10 +77,21 @@ public class RequisitionImport {
         }
     }
 
+    /**
+     * Gets the error.
+     *
+     * @return the error
+     */
     public Throwable getError() {
         return m_throwable;
     }
 
+    /**
+     * Abort.
+     *
+     * @param t
+     *            the t
+     */
     public void abort(final Throwable t) {
         if (m_throwable == null) {
             m_throwable = t;
@@ -72,6 +101,11 @@ public class RequisitionImport {
         }
     }
 
+    /**
+     * Checks if is aborted.
+     *
+     * @return true, if is aborted
+     */
     public boolean isAborted() {
         if (m_throwable != null)
             return true;

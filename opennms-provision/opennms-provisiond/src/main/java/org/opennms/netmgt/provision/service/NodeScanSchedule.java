@@ -41,14 +41,20 @@ import org.joda.time.Duration;
  * @version $Id: $
  */
 public class NodeScanSchedule {
+
+    /** The m_node id. */
     private int m_nodeId;
 
+    /** The m_foreign source. */
     private String m_foreignSource;
 
+    /** The m_foreign id. */
     private String m_foreignId;
 
+    /** The m_initial delay. */
     private Duration m_initialDelay;
 
+    /** The m_scan interval. */
     private Duration m_scanInterval;
 
     /**
@@ -80,6 +86,7 @@ public class NodeScanSchedule {
      * <p>
      * getForeignId
      * </p>
+     * .
      *
      * @return the foreignId
      */
@@ -91,6 +98,7 @@ public class NodeScanSchedule {
      * <p>
      * getNodeId
      * </p>
+     * .
      *
      * @return the nodeId
      */
@@ -102,6 +110,7 @@ public class NodeScanSchedule {
      * <p>
      * getForeignSource
      * </p>
+     * .
      *
      * @return the foreignSource
      */
@@ -113,6 +122,7 @@ public class NodeScanSchedule {
      * <p>
      * getInitialDelay
      * </p>
+     * .
      *
      * @return the initialDelay
      */
@@ -124,6 +134,7 @@ public class NodeScanSchedule {
      * <p>
      * getScanInterval
      * </p>
+     * .
      *
      * @return the scanInterval
      */
@@ -135,6 +146,7 @@ public class NodeScanSchedule {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -150,6 +162,7 @@ public class NodeScanSchedule {
      * <p>
      * hashCode
      * </p>
+     * .
      *
      * @return a int.
      */

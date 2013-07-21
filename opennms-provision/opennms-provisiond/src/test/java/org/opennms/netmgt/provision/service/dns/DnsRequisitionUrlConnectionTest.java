@@ -69,18 +69,28 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @TestExecutionListeners(listeners = { JUnitDNSServerExecutionListener.class })
 public class DnsRequisitionUrlConnectionTest {
 
+    /** The Constant TEST_URL. */
     private static final String TEST_URL = "dns://localhost:9153/example.com";
 
+    /**
+     * Sets the up.
+     */
     @BeforeClass
     public static void setUp() {
         MockLogAppender.setupLogging();
     }
 
+    /**
+     * Register factory.
+     */
     @Before
     public void registerFactory() {
         GenericURLFactory.initialize();
     }
 
+    /**
+     * Dwo validate multipath url.
+     */
     @Test
     public void dwoValidateMultipathUrl() {
 
@@ -114,6 +124,9 @@ public class DnsRequisitionUrlConnectionTest {
 
     }
 
+    /**
+     * Dwo parse zone.
+     */
     @Test
     public void dwoParseZone() {
         MalformedURLException e = null;
@@ -156,6 +169,9 @@ public class DnsRequisitionUrlConnectionTest {
         Assert.assertEquals("raleigh", DnsRequisitionUrlConnection.parseForeignSource(url));
     }
 
+    /**
+     * Dwo validate invalid query parm in url.
+     */
     @Test
     public void dwoValidateInvalidQueryParmInUrl() {
 
@@ -186,6 +202,12 @@ public class DnsRequisitionUrlConnectionTest {
 
     }
 
+    /**
+     * Dwo parse url for matching expression.
+     *
+     * @throws MalformedURLException
+     *             the malformed url exception
+     */
     @Test
     public void dwoParseUrlForMatchingExpression() throws MalformedURLException {
         URL url = new URL("dns://localhost/localhost/?expression=abc[0-9]");
@@ -200,6 +222,18 @@ public class DnsRequisitionUrlConnectionTest {
 
     }
 
+    /**
+     * Dwo url as resource.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws JAXBException
+     *             the jAXB exception
+     */
     @Test
     @JUnitDNSServer(port = 9153, zones = { @DNSZone(name = "example.com", entries = { @DNSEntry(hostname = "www", address = "72.14.204.99") }) })
     public void dwoUrlAsResource() throws IOException, MarshalException, ValidationException, JAXBException {
@@ -220,6 +254,18 @@ public class DnsRequisitionUrlConnectionTest {
         resourceStream.close();
     }
 
+    /**
+     * Dwo url as resource using matching expression.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws JAXBException
+     *             the jAXB exception
+     */
     @Test
     @JUnitDNSServer(port = 9153, zones = { @DNSZone(name = "example.com", entries = {
             @DNSEntry(hostname = "www", address = "72.14.204.99"),
@@ -243,6 +289,18 @@ public class DnsRequisitionUrlConnectionTest {
         resourceStream.close();
     }
 
+    /**
+     * Dwo url as resource using non matching expression.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws JAXBException
+     *             the jAXB exception
+     */
     @Test
     @JUnitDNSServer(port = 9153, zones = { @DNSZone(name = "example.com", entries = {
             @DNSEntry(hostname = "www", address = "72.14.204.99"),
@@ -266,6 +324,18 @@ public class DnsRequisitionUrlConnectionTest {
         resourceStream.close();
     }
 
+    /**
+     * Dwo url as resource using complex matching expression.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws JAXBException
+     *             the jAXB exception
+     */
     @Test
     @JUnitDNSServer(port = 9153, zones = { @DNSZone(name = "example.com", entries = { @DNSEntry(hostname = "www", address = "72.14.204.99") }) })
     public void dwoUrlAsResourceUsingComplexMatchingExpression() throws IOException, MarshalException,
@@ -287,6 +357,12 @@ public class DnsRequisitionUrlConnectionTest {
         resourceStream.close();
     }
 
+    /**
+     * Dwo dns requisition url connection.
+     *
+     * @throws MalformedURLException
+     *             the malformed url exception
+     */
     @Test
     public void dwoDnsRequisitionUrlConnection() throws MalformedURLException {
         URLConnection c = new DnsRequisitionUrlConnection(new URL(TEST_URL));
@@ -295,9 +371,10 @@ public class DnsRequisitionUrlConnectionTest {
 
     /**
      * Just test that connection doesn't get implementation without fixing this
-     * test
+     * test.
      *
      * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     @Test
     @JUnitDNSServer(port = 9153, zones = { @DNSZone(name = "example.com", entries = { @DNSEntry(hostname = "www", address = "72.14.204.99") }) })
@@ -306,6 +383,12 @@ public class DnsRequisitionUrlConnectionTest {
         c.connect();
     }
 
+    /**
+     * Dwo get input stream.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     @Test
     @JUnitDNSServer(port = 9153, zones = { @DNSZone(name = "example.com", entries = { @DNSEntry(hostname = "www", address = "72.14.204.99") }) })
     public void dwoGetInputStream() throws IOException {
@@ -315,6 +398,12 @@ public class DnsRequisitionUrlConnectionTest {
         s.close();
     }
 
+    /**
+     * Dwo get url.
+     *
+     * @throws MalformedURLException
+     *             the malformed url exception
+     */
     @Test
     public void dwoGetURL() throws MalformedURLException {
         URLConnection c = new DnsRequisitionUrlConnection(new URL(TEST_URL));
@@ -325,6 +414,12 @@ public class DnsRequisitionUrlConnectionTest {
         Assert.assertNull(c.getURL().getUserInfo());
     }
 
+    /**
+     * Dwo to string.
+     *
+     * @throws MalformedURLException
+     *             the malformed url exception
+     */
     @Test
     public void dwoToString() throws MalformedURLException {
         URLConnection c = new DnsRequisitionUrlConnection(new URL(TEST_URL));

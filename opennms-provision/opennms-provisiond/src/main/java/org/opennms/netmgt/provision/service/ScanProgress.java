@@ -42,6 +42,7 @@ public interface ScanProgress {
      * <p>
      * abort
      * </p>
+     * .
      *
      * @param message
      *            a {@link java.lang.String} object.
@@ -52,6 +53,7 @@ public interface ScanProgress {
      * <p>
      * isAborted
      * </p>
+     * .
      *
      * @return a boolean.
      */

@@ -74,29 +74,42 @@ import org.springframework.util.Assert;
  * @version $Id: $
  */
 public class NodeScan implements RunInBatch {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(NodeScan.class);
 
+    /** The m_node id. */
     private Integer m_nodeId;
 
+    /** The m_foreign source. */
     private String m_foreignSource;
 
+    /** The m_foreign id. */
     private String m_foreignId;
 
+    /** The m_scan stamp. */
     private Date m_scanStamp;
 
+    /** The m_provision service. */
     private ProvisionService m_provisionService;
 
+    /** The m_event forwarder. */
     private EventForwarder m_eventForwarder;
 
+    /** The m_agent config factory. */
     private SnmpAgentConfigFactory m_agentConfigFactory;
 
+    /** The m_task coordinator. */
     private DefaultTaskCoordinator m_taskCoordinator;
 
     // NOTE TO SELF: This is referenced from the AgentScan inner class
+    /** The m_aborted. */
     private boolean m_aborted = false;
 
+    /** The m_node. */
     private OnmsNode m_node;
 
+    /** The m_agent found. */
     private boolean m_agentFound = false;
 
     /**
@@ -112,8 +125,6 @@ public class NodeScan implements RunInBatch {
      *            a {@link java.lang.String} object.
      * @param provisionService
      *            a
-     *            {@link org.opennms.netmgt.provision.service.ProvisionService}
-     *            object.
      * @param eventForwarder
      *            a {@link org.opennms.netmgt.model.events.EventForwarder}
      *            object.
@@ -122,6 +133,8 @@ public class NodeScan implements RunInBatch {
      *            object.
      * @param taskCoordinator
      *            a {@link org.opennms.core.tasks.DefaultTaskCoordinator}
+     *            object.
+     *            {@link org.opennms.netmgt.provision.service.ProvisionService}
      *            object.
      */
     public NodeScan(final Integer nodeId, final String foreignSource, final String foreignId,
@@ -142,6 +155,7 @@ public class NodeScan implements RunInBatch {
      * <p>
      * getForeignSource
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -153,6 +167,7 @@ public class NodeScan implements RunInBatch {
      * <p>
      * getForeignId
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -164,6 +179,7 @@ public class NodeScan implements RunInBatch {
      * <p>
      * getNodeId
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -175,6 +191,7 @@ public class NodeScan implements RunInBatch {
      * <p>
      * getNode
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.OnmsNode} object.
      */
@@ -183,6 +200,8 @@ public class NodeScan implements RunInBatch {
     }
 
     /**
+     * Sets the agent found.
+     *
      * @param agentFound
      *            the agentFound to set
      */
@@ -191,6 +210,8 @@ public class NodeScan implements RunInBatch {
     }
 
     /**
+     * Checks if is agent found.
+     *
      * @return the agentFound
      */
     private boolean isAgentFound() {
@@ -201,6 +222,7 @@ public class NodeScan implements RunInBatch {
      * <p>
      * getScanStamp
      * </p>
+     * .
      *
      * @return a {@link java.util.Date} object.
      */
@@ -212,6 +234,7 @@ public class NodeScan implements RunInBatch {
      * <p>
      * getProvisionService
      * </p>
+     * .
      *
      * @return the provisionService
      */
@@ -223,6 +246,7 @@ public class NodeScan implements RunInBatch {
      * <p>
      * getEventForwarder
      * </p>
+     * .
      *
      * @return the eventForwarder
      */
@@ -234,6 +258,7 @@ public class NodeScan implements RunInBatch {
      * <p>
      * getTaskCoordinator
      * </p>
+     * .
      *
      * @return a {@link org.opennms.core.tasks.DefaultTaskCoordinator} object.
      */
@@ -245,6 +270,7 @@ public class NodeScan implements RunInBatch {
      * <p>
      * isAborted
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -256,6 +282,7 @@ public class NodeScan implements RunInBatch {
      * <p>
      * abort
      * </p>
+     * .
      *
      * @param reason
      *            a {@link java.lang.String} object.
@@ -277,6 +304,11 @@ public class NodeScan implements RunInBatch {
 
     }
 
+    /**
+     * Creates the task.
+     *
+     * @return the task
+     */
     Task createTask() {
         return getTaskCoordinator().createBatch().add(NodeScan.this).get();
     }
@@ -310,6 +342,15 @@ public class NodeScan implements RunInBatch {
 
     }
 
+    /**
+     * Schedule.
+     *
+     * @param executor
+     *            the executor
+     * @param schedule
+     *            the schedule
+     * @return the scheduled future
+     */
     ScheduledFuture<?> schedule(ScheduledExecutorService executor, NodeScanSchedule schedule) {
 
         final Runnable r = new Runnable() {
@@ -343,6 +384,7 @@ public class NodeScan implements RunInBatch {
      * <p>
      * loadNode
      * </p>
+     * .
      *
      * @param loadNode
      *            a {@link org.opennms.core.tasks.BatchTask} object.
@@ -368,6 +410,7 @@ public class NodeScan implements RunInBatch {
      * <p>
      * createAgentScan
      * </p>
+     * .
      *
      * @param agentAddress
      *            a {@link java.net.InetAddress} object.
@@ -380,21 +423,40 @@ public class NodeScan implements RunInBatch {
         return new AgentScan(getNodeId(), getNode(), agentAddress, agentType);
     }
 
+    /**
+     * Creates the no agent scan.
+     *
+     * @return the no agent scan
+     */
     NoAgentScan createNoAgentScan() {
         return new NoAgentScan(getNodeId(), getNode());
     }
 
     /**
-     * AgentScan
+     * AgentScan.
      *
      * @author brozow
      */
     public class AgentScan extends BaseAgentScan implements NeedsContainer, ScanProgress {
 
+        /** The m_agent address. */
         private InetAddress m_agentAddress;
 
+        /** The m_agent type. */
         private String m_agentType;
 
+        /**
+         * Instantiates a new agent scan.
+         *
+         * @param nodeId
+         *            the node id
+         * @param node
+         *            the node
+         * @param agentAddress
+         *            the agent address
+         * @param agentType
+         *            the agent type
+         */
         public AgentScan(final Integer nodeId, final OnmsNode node, final InetAddress agentAddress,
                 final String agentType) {
             super(nodeId, node);
@@ -402,27 +464,54 @@ public class NodeScan implements RunInBatch {
             m_agentType = agentType;
         }
 
+        /**
+         * Gets the agent address.
+         *
+         * @return the agent address
+         */
         public InetAddress getAgentAddress() {
             return m_agentAddress;
         }
 
+        /**
+         * Gets the agent type.
+         *
+         * @return the agent type
+         */
         public String getAgentType() {
             return m_agentType;
         }
 
+        /**
+         * Sets the node.
+         *
+         * @param node
+         *            the new node
+         */
         public void setNode(final OnmsNode node) {
             m_node = node;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.provision.service.NodeScan.BaseAgentScan#toString()
+         */
         @Override
         public String toString() {
             return new ToStringBuilder(this).append("address", m_agentAddress).append("type", m_agentType).toString();
         }
 
+        /**
+         * Gets the event forwarder.
+         *
+         * @return the event forwarder
+         */
         public EventForwarder getEventForwarder() {
             return m_eventForwarder;
         }
 
+        /**
+         * Completed.
+         */
         void completed() {
             if (!isAborted()) {
                 final EventBuilder bldr = new EventBuilder(
@@ -434,6 +523,9 @@ public class NodeScan implements RunInBatch {
             }
         }
 
+        /**
+         * Delete obsolete resources.
+         */
         void deleteObsoleteResources() {
             if (!isAborted()) {
                 getProvisionService().updateNodeScanStamp(getNodeId(), getScanStamp());
@@ -442,10 +534,21 @@ public class NodeScan implements RunInBatch {
             }
         }
 
+        /**
+         * Gets the agent config factory.
+         *
+         * @return the agent config factory
+         */
         public SnmpAgentConfigFactory getAgentConfigFactory() {
             return m_agentConfigFactory;
         }
 
+        /**
+         * Detect ip address table.
+         *
+         * @param currentPhase
+         *            the current phase
+         */
         public void detectIpAddressTable(final BatchTask currentPhase) {
             final OnmsNode node = getNode();
 
@@ -516,6 +619,12 @@ public class NodeScan implements RunInBatch {
             walkTable(currentPhase, provisionedIps, ipAddressTracker);
         }
 
+        /**
+         * Detect ip interface table.
+         *
+         * @param currentPhase
+         *            the current phase
+         */
         public void detectIpInterfaceTable(final BatchTask currentPhase) {
             final OnmsNode node = getNode();
 
@@ -590,6 +699,16 @@ public class NodeScan implements RunInBatch {
             walkTable(currentPhase, provisionedIps, ipIfTracker);
         }
 
+        /**
+         * Walk table.
+         *
+         * @param currentPhase
+         *            the current phase
+         * @param provisionedIps
+         *            the provisioned ips
+         * @param tracker
+         *            the tracker
+         */
         private void walkTable(final BatchTask currentPhase, final Set<InetAddress> provisionedIps,
                 final TableTracker tracker) {
             final OnmsNode node = getNode();
@@ -639,6 +758,12 @@ public class NodeScan implements RunInBatch {
             }
         }
 
+        /**
+         * Detect physical interfaces.
+         *
+         * @param currentPhase
+         *            the current phase
+         */
         public void detectPhysicalInterfaces(final BatchTask currentPhase) {
             if (isAborted()) {
                 return;
@@ -699,6 +824,9 @@ public class NodeScan implements RunInBatch {
             }
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.core.tasks.NeedsContainer#run(org.opennms.core.tasks.ContainerTask)
+         */
         @Override
         public void run(final ContainerTask<?> parent) {
             parent.getBuilder().addSequence(new NodeInfoScan(getNode(), getAgentAddress(), getForeignSource(), this,
@@ -732,16 +860,39 @@ public class NodeScan implements RunInBatch {
         }
     }
 
+    /**
+     * The Class NoAgentScan.
+     */
     public class NoAgentScan extends BaseAgentScan implements NeedsContainer {
 
+        /**
+         * Instantiates a new no agent scan.
+         *
+         * @param nodeId
+         *            the node id
+         * @param node
+         *            the node
+         */
         private NoAgentScan(final Integer nodeId, final OnmsNode node) {
             super(nodeId, node);
         }
 
+        /**
+         * Sets the node.
+         *
+         * @param node
+         *            the new node
+         */
         private void setNode(final OnmsNode node) {
             m_node = node;
         }
 
+        /**
+         * Apply node policies.
+         *
+         * @param phase
+         *            the phase
+         */
         private void applyNodePolicies(final BatchTask phase) {
             final List<NodePolicy> nodePolicies = getProvisionService().getNodePoliciesForForeignSource(getForeignSource() == null ? "default"
                                                                                                             : getForeignSource());
@@ -761,6 +912,12 @@ public class NodeScan implements RunInBatch {
 
         }
 
+        /**
+         * Stamp provisioned interfaces.
+         *
+         * @param phase
+         *            the phase
+         */
         void stampProvisionedInterfaces(final BatchTask phase) {
             if (!isAborted()) {
 
@@ -773,11 +930,23 @@ public class NodeScan implements RunInBatch {
             }
         }
 
+        /**
+         * Delete obsolete resources.
+         *
+         * @param phase
+         *            the phase
+         */
         void deleteObsoleteResources(final BatchTask phase) {
             getProvisionService().updateNodeScanStamp(getNodeId(), getScanStamp());
             getProvisionService().deleteObsoleteInterfaces(getNodeId(), getScanStamp());
         }
 
+        /**
+         * Do persist node info.
+         *
+         * @param phase
+         *            the phase
+         */
         private void doPersistNodeInfo(final BatchTask phase) {
             if (!isAborted()) {
                 getProvisionService().updateNodeAttributes(getNode());
@@ -785,6 +954,9 @@ public class NodeScan implements RunInBatch {
             LOG.debug("Finished phase {}", phase);
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.core.tasks.NeedsContainer#run(org.opennms.core.tasks.ContainerTask)
+         */
         @Override
         public void run(final ContainerTask<?> parent) {
             parent.getBuilder().addSequence(new RunInBatch() {
@@ -812,49 +984,106 @@ public class NodeScan implements RunInBatch {
 
     }
 
+    /**
+     * The Class BaseAgentScan.
+     */
     public class BaseAgentScan {
 
+        /** The m_node. */
         private OnmsNode m_node;
 
+        /** The m_node id. */
         private Integer m_nodeId;
 
+        /**
+         * Instantiates a new base agent scan.
+         *
+         * @param nodeId
+         *            the node id
+         * @param node
+         *            the node
+         */
         private BaseAgentScan(final Integer nodeId, final OnmsNode node) {
             m_nodeId = nodeId;
             m_node = node;
         }
 
+        /**
+         * Gets the scan stamp.
+         *
+         * @return the scan stamp
+         */
         public Date getScanStamp() {
             return m_scanStamp;
         }
 
+        /**
+         * Gets the node.
+         *
+         * @return the node
+         */
         public OnmsNode getNode() {
             return m_node;
         }
 
+        /**
+         * Gets the node id.
+         *
+         * @return the node id
+         */
         public Integer getNodeId() {
             return m_nodeId;
         }
 
+        /**
+         * Checks if is aborted.
+         *
+         * @return true, if is aborted
+         */
         public boolean isAborted() {
             return NodeScan.this.isAborted();
         }
 
+        /**
+         * Abort.
+         *
+         * @param reason
+         *            the reason
+         */
         public void abort(final String reason) {
             NodeScan.this.abort(reason);
         }
 
+        /**
+         * Gets the foreign source.
+         *
+         * @return the foreign source
+         */
         public String getForeignSource() {
             return getNode().getForeignSource();
         }
 
+        /**
+         * Gets the foreign id.
+         *
+         * @return the foreign id
+         */
         public String getForeignId() {
             return getNode().getForeignId();
         }
 
+        /**
+         * Gets the provision service.
+         *
+         * @return the provision service
+         */
         public ProvisionService getProvisionService() {
             return m_provisionService;
         }
 
+        /* (non-Javadoc)
+         * @see java.lang.Object#toString()
+         */
         @Override
         public String toString() {
             return new ToStringBuilder(this).append("foreign source", getForeignSource()).append("foreign id",
@@ -863,6 +1092,14 @@ public class NodeScan implements RunInBatch {
                                                                                                                                          m_scanStamp).toString();
         }
 
+        /**
+         * Update ip interface.
+         *
+         * @param currentPhase
+         *            the current phase
+         * @param iface
+         *            the iface
+         */
         void updateIpInterface(final BatchTask currentPhase, final OnmsIpInterface iface) {
             getProvisionService().updateIpInterfaceAttributes(getNodeId(), iface);
             if (iface.isManaged()) {
@@ -871,6 +1108,15 @@ public class NodeScan implements RunInBatch {
             }
         }
 
+        /**
+         * Ip updater.
+         *
+         * @param currentPhase
+         *            the current phase
+         * @param iface
+         *            the iface
+         * @return the runnable
+         */
         protected Runnable ipUpdater(final BatchTask currentPhase, final OnmsIpInterface iface) {
             Runnable r = new Runnable() {
                 @Override
@@ -887,6 +1133,7 @@ public class NodeScan implements RunInBatch {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -902,6 +1149,7 @@ public class NodeScan implements RunInBatch {
      * <p>
      * detectAgents
      * </p>
+     * .
      *
      * @param currentPhase
      *            a {@link org.opennms.core.tasks.BatchTask} object.
@@ -926,6 +1174,7 @@ public class NodeScan implements RunInBatch {
      * <p>
      * handleAgentUndetected
      * </p>
+     * .
      *
      * @param currentPhase
      *            a {@link org.opennms.core.tasks.BatchTask} object.
@@ -938,6 +1187,14 @@ public class NodeScan implements RunInBatch {
 
     }
 
+    /**
+     * On agent found.
+     *
+     * @param currentPhase
+     *            the current phase
+     * @param primaryIface
+     *            the primary iface
+     */
     private void onAgentFound(final ContainerTask<?> currentPhase, final OnmsIpInterface primaryIface) {
         // Make AgentScan a NeedContainer class and have that call run
         currentPhase.add(createAgentScan(primaryIface.getIpAddress(), "SNMP"));
@@ -948,6 +1205,7 @@ public class NodeScan implements RunInBatch {
      * <p>
      * scanCompleted
      * </p>
+     * .
      *
      * @param currentPhase
      *            a {@link org.opennms.core.tasks.BatchTask} object.

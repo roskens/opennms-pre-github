@@ -34,7 +34,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Activity
+ * Activity.
  *
  * @author brozow
  * @version $Id: $
@@ -43,10 +43,25 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 public @interface Activity {
 
+    /**
+     * Phase.
+     *
+     * @return the string
+     */
     String phase();
 
+    /**
+     * Lifecycle.
+     *
+     * @return the string
+     */
     String lifecycle();
 
+    /**
+     * Scheduling hint.
+     *
+     * @return the string
+     */
     String schedulingHint() default "unset";
 
 }

@@ -46,15 +46,25 @@ import org.opennms.netmgt.provision.persist.MockForeignSourceRepository;
 import org.opennms.netmgt.provision.persist.requisition.Requisition;
 import org.springframework.core.io.UrlResource;
 
+/**
+ * The Class HandlerTest.
+ */
 public class HandlerTest {
 
+    /** The Constant DNS_URL. */
     private static final String DNS_URL = "dns://127.0.0.1:53/localhost";
 
+    /**
+     * Sets the up.
+     */
     @Before
     public void setUp() {
         MockLogAppender.setupLogging();
     }
 
+    /**
+     * Register factory.
+     */
     @Before
     public void registerFactory() {
 
@@ -62,6 +72,12 @@ public class HandlerTest {
 
     }
 
+    /**
+     * Dw open connection url.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     @Test
     @Ignore
     public void dwOpenConnectionURL() throws IOException {
@@ -78,6 +94,12 @@ public class HandlerTest {
         Assert.assertTrue("127.0.0.1".equals(r.getNodes().get(0).getInterfaces().get(0).getIpAddr()));
     }
 
+    /**
+     * Dw parse url.
+     *
+     * @throws MalformedURLException
+     *             the malformed url exception
+     */
     @Test
     public void dwParseURL() throws MalformedURLException {
 

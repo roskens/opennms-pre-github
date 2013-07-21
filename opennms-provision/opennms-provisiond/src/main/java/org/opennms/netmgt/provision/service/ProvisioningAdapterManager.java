@@ -50,22 +50,28 @@ import org.springframework.util.Assert;
  */
 @EventListener(name = "ProvisioningAdapterManager:EventListener", logPrefix = "provisiond")
 public class ProvisioningAdapterManager implements InitializingBean {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(ProvisioningAdapterManager.class);
 
+    /** The m_plugin registry. */
     private PluginRegistry m_pluginRegistry;
 
+    /** The m_adapters. */
     private Collection<ProvisioningAdapter> m_adapters;
 
     // may use this at some point
+    /** The m_event forwarder. */
     private volatile EventForwarder m_eventForwarder;
 
     /**
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -77,6 +83,7 @@ public class ProvisioningAdapterManager implements InitializingBean {
      * <p>
      * getPluginRegistry
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.provision.service.PluginRegistry}
      *         object.
@@ -89,6 +96,7 @@ public class ProvisioningAdapterManager implements InitializingBean {
      * <p>
      * setPluginRegistry
      * </p>
+     * .
      *
      * @param pluginRegistry
      *            a {@link org.opennms.netmgt.provision.service.PluginRegistry}
@@ -102,6 +110,7 @@ public class ProvisioningAdapterManager implements InitializingBean {
      * <p>
      * handleNodeAddedEvent
      * </p>
+     * .
      *
      * @param e
      *            a {@link org.opennms.netmgt.xml.event.Event} object.
@@ -124,6 +133,7 @@ public class ProvisioningAdapterManager implements InitializingBean {
      * <p>
      * handleNodeUpdatedEvent
      * </p>
+     * .
      *
      * @param e
      *            a {@link org.opennms.netmgt.xml.event.Event} object.
@@ -147,6 +157,7 @@ public class ProvisioningAdapterManager implements InitializingBean {
      * <p>
      * handleNodeDeletedEvent
      * </p>
+     * .
      *
      * @param e
      *            a {@link org.opennms.netmgt.xml.event.Event} object.
@@ -197,6 +208,7 @@ public class ProvisioningAdapterManager implements InitializingBean {
      * <p>
      * handleNodeChangedEvent
      * </p>
+     * .
      *
      * @param e
      *            a {@link org.opennms.netmgt.xml.event.Event} object.
@@ -224,6 +236,7 @@ public class ProvisioningAdapterManager implements InitializingBean {
      * <p>
      * setEventForwarder
      * </p>
+     * .
      *
      * @param eventForwarder
      *            a {@link org.opennms.netmgt.model.events.EventForwarder}
@@ -237,6 +250,7 @@ public class ProvisioningAdapterManager implements InitializingBean {
      * <p>
      * getEventForwarder
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.events.EventForwarder} object.
      */
@@ -248,6 +262,7 @@ public class ProvisioningAdapterManager implements InitializingBean {
      * <p>
      * initializeAdapters
      * </p>
+     * .
      */
     public void initializeAdapters() {
         for (ProvisioningAdapter adapter : m_adapters) {

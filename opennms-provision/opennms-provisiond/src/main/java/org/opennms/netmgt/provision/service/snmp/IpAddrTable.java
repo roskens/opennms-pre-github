@@ -57,6 +57,8 @@ import org.slf4j.LoggerFactory;
  * @see <A HREF="http://www.ietf.org/rfc/rfc1213.txt">RFC1213 </A>
  */
 public class IpAddrTable extends SnmpTable<IpAddrTableEntry> {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(IpAddrTable.class);
 
     /**
@@ -99,6 +101,7 @@ public class IpAddrTable extends SnmpTable<IpAddrTableEntry> {
      * <p>
      * getIfIndices
      * </p>
+     * .
      *
      * @return a {@link java.util.Set} object.
      */
@@ -117,6 +120,7 @@ public class IpAddrTable extends SnmpTable<IpAddrTableEntry> {
      * <p>
      * getIfAddress
      * </p>
+     * .
      *
      * @param ifIndex
      *            a int.
@@ -131,6 +135,7 @@ public class IpAddrTable extends SnmpTable<IpAddrTableEntry> {
      * <p>
      * getNetMask
      * </p>
+     * .
      *
      * @param ifIndex
      *            a int.
@@ -146,6 +151,7 @@ public class IpAddrTable extends SnmpTable<IpAddrTableEntry> {
      * <p>
      * getNetMask
      * </p>
+     * .
      *
      * @param address
      *            a {@link java.net.InetAddress} object.
@@ -159,6 +165,7 @@ public class IpAddrTable extends SnmpTable<IpAddrTableEntry> {
      * <p>
      * getIfIndex
      * </p>
+     * .
      *
      * @param address
      *            a {@link java.net.InetAddress} object.
@@ -172,6 +179,7 @@ public class IpAddrTable extends SnmpTable<IpAddrTableEntry> {
      * <p>
      * getEntryByIfIndex
      * </p>
+     * .
      *
      * @param ifIndex
      *            a int.
@@ -197,6 +205,7 @@ public class IpAddrTable extends SnmpTable<IpAddrTableEntry> {
      * <p>
      * getEntry
      * </p>
+     * .
      *
      * @param address
      *            a {@link java.net.InetAddress} object.
@@ -212,6 +221,7 @@ public class IpAddrTable extends SnmpTable<IpAddrTableEntry> {
      * <p>
      * updateIpInterfaceData
      * </p>
+     * .
      *
      * @param node
      *            a {@link org.opennms.netmgt.model.OnmsNode} object.
@@ -226,6 +236,7 @@ public class IpAddrTable extends SnmpTable<IpAddrTableEntry> {
      * <p>
      * updateIpInterfaceData
      * </p>
+     * .
      *
      * @param node
      *            a {@link org.opennms.netmgt.model.OnmsNode} object.
@@ -270,6 +281,7 @@ public class IpAddrTable extends SnmpTable<IpAddrTableEntry> {
      * <p>
      * getIpAddresses
      * </p>
+     * .
      *
      * @return a {@link java.util.Set} object.
      */

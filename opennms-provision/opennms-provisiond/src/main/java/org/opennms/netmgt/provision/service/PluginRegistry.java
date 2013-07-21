@@ -50,11 +50,12 @@ public interface PluginRegistry {
      * <p>
      * getAllPlugins
      * </p>
+     * .
      *
-     * @param pluginClass
-     *            a {@link java.lang.Class} object.
      * @param <T>
      *            a T object.
+     * @param pluginClass
+     *            a {@link java.lang.Class} object.
      * @return a {@link java.util.Collection} object.
      */
     public abstract <T> Collection<T> getAllPlugins(Class<T> pluginClass);
@@ -63,16 +64,17 @@ public interface PluginRegistry {
      * <p>
      * getPluginInstance
      * </p>
+     * .
      *
+     * @param <T>
+     *            a T object.
      * @param pluginClass
      *            a {@link java.lang.Class} object.
      * @param pluginConfig
      *            a
-     *            {@link org.opennms.netmgt.provision.persist.foreignsource.PluginConfig}
-     *            object.
-     * @param <T>
-     *            a T object.
      * @return a T object.
+     *         {@link org.opennms.netmgt.provision.persist.foreignsource.PluginConfig}
+     *         object.
      */
     public abstract <T> T getPluginInstance(Class<T> pluginClass, PluginConfig pluginConfig);
 

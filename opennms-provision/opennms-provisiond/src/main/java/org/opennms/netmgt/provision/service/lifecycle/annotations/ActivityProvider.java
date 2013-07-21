@@ -36,7 +36,7 @@ import java.lang.annotation.Target;
 import org.springframework.stereotype.Component;
 
 /**
- * ActivityProvider
+ * ActivityProvider.
  *
  * @author brozow
  * @version $Id: $

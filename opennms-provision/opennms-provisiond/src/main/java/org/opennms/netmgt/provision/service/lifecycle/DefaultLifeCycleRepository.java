@@ -45,8 +45,10 @@ import org.opennms.core.tasks.DefaultTaskCoordinator;
  */
 public class DefaultLifeCycleRepository implements LifeCycleRepository {
 
+    /** The m_life cycles. */
     private final Map<String, LifeCycle> m_lifeCycles = new HashMap<String, LifeCycle>();
 
+    /** The m_coordinator. */
     private final DefaultTaskCoordinator m_coordinator;
 
     /**
@@ -66,6 +68,7 @@ public class DefaultLifeCycleRepository implements LifeCycleRepository {
      * <p>
      * createNestedLifeCycleInstance
      * </p>
+     * .
      *
      * @param containingPhase
      *            a {@link org.opennms.core.tasks.BatchTask} object.
@@ -90,6 +93,7 @@ public class DefaultLifeCycleRepository implements LifeCycleRepository {
      * <p>
      * createLifeCycleInstance
      * </p>
+     * .
      *
      * @param lifeCycleName
      *            a {@link java.lang.String} object.
@@ -107,6 +111,13 @@ public class DefaultLifeCycleRepository implements LifeCycleRepository {
                                             lifeCycle.getPhaseNames(), providers);
     }
 
+    /**
+     * Gets the life cycle.
+     *
+     * @param lifeCycleName
+     *            the life cycle name
+     * @return the life cycle
+     */
     private LifeCycle getLifeCycle(String lifeCycleName) {
         LifeCycle lifeCycle = m_lifeCycles.get(lifeCycleName);
 
@@ -121,6 +132,7 @@ public class DefaultLifeCycleRepository implements LifeCycleRepository {
      * <p>
      * addLifeCycle
      * </p>
+     * .
      *
      * @param lifeCycle
      *            a
@@ -135,6 +147,7 @@ public class DefaultLifeCycleRepository implements LifeCycleRepository {
      * <p>
      * setLifeCycles
      * </p>
+     * .
      *
      * @param lifecycles
      *            a {@link java.util.List} object.

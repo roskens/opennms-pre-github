@@ -87,41 +87,62 @@ import org.springframework.transaction.annotation.Transactional;
 @JUnitConfigurationEnvironment(systemProperties = "org.opennms.provisiond.enableDiscovery=false")
 @DirtiesContext
 public class ProvisionerRescanTest implements InitializingBean {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(ProvisionerRescanTest.class);
 
+    /** The m_mock event ipc manager. */
     @Autowired
     private MockEventIpcManager m_mockEventIpcManager;
 
+    /** The m_provisioner. */
     @Autowired
     private Provisioner m_provisioner;
 
+    /** The m_node dao. */
     @Autowired
     private NodeDao m_nodeDao;
 
+    /** The m_resource loader. */
     @Autowired
     private ResourceLoader m_resourceLoader;
 
+    /** The m_provision service. */
     @Autowired
     private ProvisionService m_provisionService;
 
+    /** The m_pausible executor. */
     @Autowired
     @Qualifier("scheduledExecutor")
     private PausibleScheduledThreadPoolExecutor m_scheduledExecutor;
 
+    /** The m_snmp peer factory. */
     @Autowired
     private SnmpPeerFactory m_snmpPeerFactory;
 
+    /** The m_event anticipator. */
     private EventAnticipator m_eventAnticipator;
 
+    /** The m_foreign source repository. */
     private ForeignSourceRepository m_foreignSourceRepository;
 
+    /** The m_foreign source. */
     private ForeignSource m_foreignSource;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
         MockLogAppender.setupLogging(true, "ERROR");
@@ -161,12 +182,21 @@ public class ProvisionerRescanTest implements InitializingBean {
         m_scheduledExecutor.pause();
     }
 
+    /**
+     * Tear down.
+     */
     @After
     public void tearDown() {
         // remove property set during tests
         System.getProperties().remove("org.opennms.provisiond.enableDeletionOfRequisitionedEntities");
     }
 
+    /**
+     * Sets the up logging.
+     *
+     * @param logLevel
+     *            the new up logging
+     */
     private void setupLogging(final String logLevel) {
         final Properties config = new Properties();
         config.setProperty("log4j.logger.org.hibernate", "ERROR");
@@ -177,6 +207,12 @@ public class ProvisionerRescanTest implements InitializingBean {
     }
 
     // fail if we take more than five minutes
+    /**
+     * Test no rescan on import.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test(timeout = 300000)
     @Transactional
     @JUnitSnmpAgents({
@@ -222,6 +258,9 @@ public class ProvisionerRescanTest implements InitializingBean {
         setupLogging("ERROR");
     }
 
+    /**
+     * Anticipate no rescan second node events.
+     */
     private void anticipateNoRescanSecondNodeEvents() {
         final String name = this.getClass().getSimpleName();
 
@@ -243,10 +282,25 @@ public class ProvisionerRescanTest implements InitializingBean {
         }
     }
 
+    /**
+     * Import from resource.
+     *
+     * @param path
+     *            the path
+     * @param rescanExisting
+     *            the rescan existing
+     * @throws Exception
+     *             the exception
+     */
     private void importFromResource(final String path, final Boolean rescanExisting) throws Exception {
         m_provisioner.importModelFromResource(m_resourceLoader.getResource(path), rescanExisting);
     }
 
+    /**
+     * Gets the node dao.
+     *
+     * @return the node dao
+     */
     private NodeDao getNodeDao() {
         return m_nodeDao;
     }

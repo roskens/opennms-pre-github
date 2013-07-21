@@ -54,14 +54,20 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class IpInterfaceScan implements RunInBatch {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(IpInterfaceScan.class);
 
+    /** The m_provision service. */
     private ProvisionService m_provisionService;
 
+    /** The m_address. */
     private InetAddress m_address;
 
+    /** The m_node id. */
     private Integer m_nodeId;
 
+    /** The m_foreign source. */
     private String m_foreignSource;
 
     /**
@@ -92,6 +98,7 @@ public class IpInterfaceScan implements RunInBatch {
      * <p>
      * getForeignSource
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -103,6 +110,7 @@ public class IpInterfaceScan implements RunInBatch {
      * <p>
      * getNodeId
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -114,6 +122,7 @@ public class IpInterfaceScan implements RunInBatch {
      * <p>
      * getAddress
      * </p>
+     * .
      *
      * @return a {@link java.net.InetAddress} object.
      */
@@ -125,6 +134,7 @@ public class IpInterfaceScan implements RunInBatch {
      * <p>
      * getProvisionService
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.provision.service.ProvisionService}
      *         object.
@@ -137,6 +147,7 @@ public class IpInterfaceScan implements RunInBatch {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -150,6 +161,7 @@ public class IpInterfaceScan implements RunInBatch {
      * <p>
      * servicePersister
      * </p>
+     * .
      *
      * @param currentPhase
      *            a {@link org.opennms.core.tasks.BatchTask} object.
@@ -191,6 +203,15 @@ public class IpInterfaceScan implements RunInBatch {
         };
     }
 
+    /**
+     * Run detector.
+     *
+     * @param detector
+     *            the detector
+     * @param cb
+     *            the cb
+     * @return the runnable
+     */
     Runnable runDetector(final SyncServiceDetector detector, final Callback<Boolean> cb) {
         return new Runnable() {
             @Override
@@ -214,10 +235,26 @@ public class IpInterfaceScan implements RunInBatch {
         };
     }
 
+    /**
+     * Run detector.
+     *
+     * @param detector
+     *            the detector
+     * @return the async
+     */
     Async<Boolean> runDetector(final AsyncServiceDetector detector) {
         return new AsyncDetectorRunner(this, detector);
     }
 
+    /**
+     * Creates the detector task.
+     *
+     * @param currentPhase
+     *            the current phase
+     * @param detector
+     *            the detector
+     * @return the task
+     */
     Task createDetectorTask(final BatchTask currentPhase, final ServiceDetector detector) {
         if (detector instanceof SyncServiceDetector) {
             return createSyncDetectorTask(currentPhase, (SyncServiceDetector) detector);
@@ -226,11 +263,29 @@ public class IpInterfaceScan implements RunInBatch {
         }
     }
 
+    /**
+     * Creates the async detector task.
+     *
+     * @param currentPhase
+     *            the current phase
+     * @param asyncDetector
+     *            the async detector
+     * @return the task
+     */
     private Task createAsyncDetectorTask(final BatchTask currentPhase, final AsyncServiceDetector asyncDetector) {
         return currentPhase.getCoordinator().createTask(currentPhase, runDetector(asyncDetector),
                                                         servicePersister(currentPhase, asyncDetector.getServiceName()));
     }
 
+    /**
+     * Creates the sync detector task.
+     *
+     * @param currentPhase
+     *            the current phase
+     * @param syncDetector
+     *            the sync detector
+     * @return the task
+     */
     private Task createSyncDetectorTask(final BatchTask currentPhase, final SyncServiceDetector syncDetector) {
         return currentPhase.getCoordinator().createTask(currentPhase,
                                                         runDetector(syncDetector,
@@ -253,6 +308,12 @@ public class IpInterfaceScan implements RunInBatch {
 
     }
 
+    /**
+     * Sets the up agent info.
+     *
+     * @param currentphase
+     *            the new up agent info
+     */
     private void setupAgentInfo(final BatchTask currentphase) {
         getProvisionService().setIsPrimaryFlag(getNodeId(), str(getAddress()));
     }

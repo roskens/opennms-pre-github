@@ -35,7 +35,7 @@ import org.opennms.core.tasks.BatchTask;
 import org.opennms.core.tasks.DefaultTaskCoordinator;
 
 /**
- * LifeCycle
+ * LifeCycle.
  *
  * @author brozow
  * @version $Id: $
@@ -46,6 +46,7 @@ public interface LifeCycleInstance {
      * <p>
      * getPhaseNames
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -55,6 +56,7 @@ public interface LifeCycleInstance {
      * <p>
      * getName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -64,6 +66,7 @@ public interface LifeCycleInstance {
      * <p>
      * setAttribute
      * </p>
+     * .
      *
      * @param key
      *            a {@link java.lang.String} object.
@@ -79,6 +82,7 @@ public interface LifeCycleInstance {
      * <p>
      * getAttribute
      * </p>
+     * .
      *
      * @param key
      *            a {@link java.lang.String} object.
@@ -90,11 +94,12 @@ public interface LifeCycleInstance {
      * <p>
      * findAttributeByType
      * </p>
+     * .
      *
-     * @param clazz
-     *            a {@link java.lang.Class} object.
      * @param <T>
      *            a T object.
+     * @param clazz
+     *            a {@link java.lang.Class} object.
      * @return a T object.
      */
     <T> T findAttributeByType(Class<T> clazz);
@@ -103,13 +108,14 @@ public interface LifeCycleInstance {
      * <p>
      * getAttribute
      * </p>
+     * .
      *
+     * @param <T>
+     *            a T object.
      * @param key
      *            a {@link java.lang.String} object.
      * @param type
      *            a {@link java.lang.Class} object.
-     * @param <T>
-     *            a T object.
      * @return a T object.
      */
     <T> T getAttribute(String key, Class<T> type);
@@ -118,12 +124,13 @@ public interface LifeCycleInstance {
      * <p>
      * getAttribute
      * </p>
+     * .
      *
+     * @param <T>
+     *            a T object.
      * @param key
      *            a {@link java.lang.String} object.
      * @param defaultValue
-     *            a T object.
-     * @param <T>
      *            a T object.
      * @return a T object.
      */
@@ -133,6 +140,7 @@ public interface LifeCycleInstance {
      * <p>
      * createNestedLifeCycle
      * </p>
+     * .
      *
      * @param currentPhase
      *            a {@link org.opennms.core.tasks.BatchTask} object.
@@ -148,6 +156,7 @@ public interface LifeCycleInstance {
      * <p>
      * trigger
      * </p>
+     * .
      */
     void trigger();
 
@@ -155,11 +164,12 @@ public interface LifeCycleInstance {
      * <p>
      * waitFor
      * </p>
+     * .
      *
-     * @throws java.lang.InterruptedException
-     *             if any.
-     * @throws java.util.concurrent.ExecutionException
-     *             if any.
+     * @throws InterruptedException
+     *             the interrupted exception
+     * @throws ExecutionException
+     *             the execution exception
      */
     void waitFor() throws InterruptedException, ExecutionException;
 
@@ -167,6 +177,7 @@ public interface LifeCycleInstance {
      * <p>
      * getCoordinator
      * </p>
+     * .
      *
      * @return a {@link org.opennms.core.tasks.DefaultTaskCoordinator} object.
      */

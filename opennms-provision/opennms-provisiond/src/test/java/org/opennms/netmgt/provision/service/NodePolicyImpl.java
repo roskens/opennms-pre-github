@@ -32,21 +32,39 @@ import org.opennms.netmgt.model.OnmsNode;
 import org.opennms.netmgt.provision.NodePolicy;
 
 /**
- * NodePolicy
+ * NodePolicy.
  *
  * @author brozow
  */
 public class NodePolicyImpl implements NodePolicy {
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.NodePolicy#apply(org.opennms.netmgt.model.OnmsNode)
+     */
     @Override
     public OnmsNode apply(OnmsNode entity) {
         return entity;
     }
 
+    /**
+     * Gets the parameter.
+     *
+     * @param key
+     *            the key
+     * @return the parameter
+     */
     public String getParameter(String key) {
         return null;
     }
 
+    /**
+     * Sets the parameter.
+     *
+     * @param key
+     *            the key
+     * @param value
+     *            the value
+     */
     public void setParameter(String key, String value) {
 
     }

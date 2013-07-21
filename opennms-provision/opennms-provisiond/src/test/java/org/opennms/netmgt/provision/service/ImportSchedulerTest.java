@@ -57,6 +57,9 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 
+/**
+ * The Class ImportSchedulerTest.
+ */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
         "classpath:/META-INF/opennms/applicationContext-mockDao.xml",
@@ -68,30 +71,50 @@ import org.springframework.test.context.ContextConfiguration;
         "classpath:/mockForeignSourceContext.xml", "classpath:/importerServiceTest.xml" })
 @JUnitConfigurationEnvironment(systemProperties = "org.opennms.provisiond.enableDiscovery=false")
 public class ImportSchedulerTest implements InitializingBean {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(ImportSchedulerTest.class);
 
+    /** The m_factory. */
     @Autowired
     ImportJobFactory m_factory;
 
+    /** The m_provisioner. */
     @Autowired
     Provisioner m_provisioner;
 
+    /** The m_import scheduler. */
     @Autowired
     ImportScheduler m_importScheduler;
 
+    /** The m_dao. */
     @Autowired
     ProvisiondConfigurationDao m_dao;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Sets the up.
+     */
     @Before
     public void setUp() {
         MockLogAppender.setupLogging();
     }
 
+    /**
+     * Creates the job and verify import job factory is registered.
+     *
+     * @throws SchedulerException
+     *             the scheduler exception
+     * @throws InterruptedException
+     *             the interrupted exception
+     */
     @Test
     public void createJobAndVerifyImportJobFactoryIsRegistered() throws SchedulerException, InterruptedException {
 
@@ -174,12 +197,21 @@ public class ImportSchedulerTest implements InitializingBean {
 
     }
 
+    /**
+     * Dw remove current jobs from schedule.
+     *
+     * @throws SchedulerException
+     *             the scheduler exception
+     */
     @Test
     @Ignore
     public void dwRemoveCurrentJobsFromSchedule() throws SchedulerException {
         fail("Not yet implemented");
     }
 
+    /**
+     * Dw build import schedule.
+     */
     @Test
     @Ignore
     public void dwBuildImportSchedule() {

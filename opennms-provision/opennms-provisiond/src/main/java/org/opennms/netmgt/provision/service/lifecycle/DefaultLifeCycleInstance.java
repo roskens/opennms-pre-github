@@ -41,7 +41,12 @@ import org.opennms.core.tasks.SequenceTask;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The Class DefaultLifeCycleInstance.
+ */
 class DefaultLifeCycleInstance extends SequenceTask implements LifeCycleInstance {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(DefaultLifeCycleInstance.class);
 
     /*
@@ -56,18 +61,25 @@ class DefaultLifeCycleInstance extends SequenceTask implements LifeCycleInstance
      * only strange case is 'fan-out' of lifecycles
      */
 
+    /** The m_containing phase. */
     final BatchTask m_containingPhase;
 
+    /** The m_repository. */
     final LifeCycleRepository m_repository;
 
+    /** The m_coordinator. */
     final DefaultTaskCoordinator m_coordinator;
 
+    /** The m_name. */
     final String m_name;
 
+    /** The m_phases. */
     final Phase[] m_phases;
 
+    /** The m_providers. */
     final Object[] m_providers;
 
+    /** The m_attributes. */
     final Map<String, Object> m_attributes = new HashMap<String, Object>();
 
     /**
@@ -79,8 +91,6 @@ class DefaultLifeCycleInstance extends SequenceTask implements LifeCycleInstance
      *            a {@link org.opennms.core.tasks.BatchTask} object.
      * @param repository
      *            a
-     *            {@link org.opennms.netmgt.provision.service.lifecycle.LifeCycleRepository}
-     *            object.
      * @param coordinator
      *            a {@link org.opennms.core.tasks.DefaultTaskCoordinator}
      *            object.
@@ -90,6 +100,8 @@ class DefaultLifeCycleInstance extends SequenceTask implements LifeCycleInstance
      *            an array of {@link java.lang.String} objects.
      * @param providers
      *            an array of {@link java.lang.Object} objects.
+     *            {@link org.opennms.netmgt.provision.service.lifecycle.LifeCycleRepository}
+     *            object.
      */
     public DefaultLifeCycleInstance(BatchTask containingPhase, LifeCycleRepository repository,
             DefaultTaskCoordinator coordinator, String lifeCycleName, String[] phaseNames, Object[] providers) {
@@ -120,8 +132,6 @@ class DefaultLifeCycleInstance extends SequenceTask implements LifeCycleInstance
      *
      * @param repository
      *            a
-     *            {@link org.opennms.netmgt.provision.service.lifecycle.LifeCycleRepository}
-     *            object.
      * @param coordinator
      *            a {@link org.opennms.core.tasks.DefaultTaskCoordinator}
      *            object.
@@ -131,6 +141,8 @@ class DefaultLifeCycleInstance extends SequenceTask implements LifeCycleInstance
      *            an array of {@link java.lang.String} objects.
      * @param providers
      *            an array of {@link java.lang.Object} objects.
+     *            {@link org.opennms.netmgt.provision.service.lifecycle.LifeCycleRepository}
+     *            object.
      */
     public DefaultLifeCycleInstance(LifeCycleRepository repository, DefaultTaskCoordinator coordinator,
             String lifeCycleName, String[] phaseNames, Object[] providers) {
@@ -141,6 +153,7 @@ class DefaultLifeCycleInstance extends SequenceTask implements LifeCycleInstance
      * <p>
      * getPhaseNames
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -157,6 +170,7 @@ class DefaultLifeCycleInstance extends SequenceTask implements LifeCycleInstance
      * <p>
      * getName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -175,12 +189,13 @@ class DefaultLifeCycleInstance extends SequenceTask implements LifeCycleInstance
      * <p>
      * getAttribute
      * </p>
+     * .
      *
+     * @param <T>
+     *            a T object.
      * @param key
      *            a {@link java.lang.String} object.
      * @param defaultValue
-     *            a T object.
-     * @param <T>
      *            a T object.
      * @return a T object.
      */
@@ -198,10 +213,11 @@ class DefaultLifeCycleInstance extends SequenceTask implements LifeCycleInstance
      * <p>
      * getClass
      * </p>
+     * .
      *
-     * @param t
-     *            a T object.
      * @param <T>
+     *            a T object.
+     * @param t
      *            a T object.
      * @return a {@link java.lang.Class} object.
      */
@@ -250,6 +266,7 @@ class DefaultLifeCycleInstance extends SequenceTask implements LifeCycleInstance
      * <p>
      * trigger
      * </p>
+     * .
      */
     @Override
     public void trigger() {
@@ -264,6 +281,7 @@ class DefaultLifeCycleInstance extends SequenceTask implements LifeCycleInstance
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

@@ -32,21 +32,39 @@ import org.opennms.netmgt.model.OnmsIpInterface;
 import org.opennms.netmgt.provision.IpInterfacePolicy;
 
 /**
- * IpInterfacePolicy
+ * IpInterfacePolicy.
  *
  * @author brozow
  */
 public class IpInterfacePolicyImpl implements IpInterfacePolicy {
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.IpInterfacePolicy#apply(org.opennms.netmgt.model.OnmsIpInterface)
+     */
     @Override
     public OnmsIpInterface apply(OnmsIpInterface entity) {
         return entity;
     }
 
+    /**
+     * Gets the parameter.
+     *
+     * @param key
+     *            the key
+     * @return the parameter
+     */
     public String getParameter(String key) {
         return null;
     }
 
+    /**
+     * Sets the parameter.
+     *
+     * @param key
+     *            the key
+     * @param value
+     *            the value
+     */
     public void setParameter(String key, String value) {
 
     }

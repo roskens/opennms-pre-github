@@ -51,16 +51,23 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class NewSuspectScan implements RunInBatch {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(NewSuspectScan.class);
 
+    /** The m_ip address. */
     private InetAddress m_ipAddress;
 
+    /** The m_provision service. */
     private ProvisionService m_provisionService;
 
+    /** The m_event forwarder. */
     private EventForwarder m_eventForwarder;
 
+    /** The m_agent config factory. */
     private SnmpAgentConfigFactory m_agentConfigFactory;
 
+    /** The m_task coordinator. */
     private DefaultTaskCoordinator m_taskCoordinator;
 
     /**
@@ -72,8 +79,6 @@ public class NewSuspectScan implements RunInBatch {
      *            a {@link java.net.InetAddress} object.
      * @param provisionService
      *            a
-     *            {@link org.opennms.netmgt.provision.service.ProvisionService}
-     *            object.
      * @param eventForwarder
      *            a {@link org.opennms.netmgt.model.events.EventForwarder}
      *            object.
@@ -82,6 +87,8 @@ public class NewSuspectScan implements RunInBatch {
      *            object.
      * @param taskCoordinator
      *            a {@link org.opennms.core.tasks.DefaultTaskCoordinator}
+     *            object.
+     *            {@link org.opennms.netmgt.provision.service.ProvisionService}
      *            object.
      */
     public NewSuspectScan(final InetAddress ipAddress, final ProvisionService provisionService,
@@ -98,6 +105,7 @@ public class NewSuspectScan implements RunInBatch {
      * <p>
      * createTask
      * </p>
+     * .
      *
      * @return a {@link org.opennms.core.tasks.Task} object.
      */
@@ -115,6 +123,7 @@ public class NewSuspectScan implements RunInBatch {
      * <p>
      * scanUndiscoveredNode
      * </p>
+     * .
      *
      * @param phase
      *            a {@link org.opennms.core.tasks.BatchTask} object.
@@ -135,6 +144,11 @@ public class NewSuspectScan implements RunInBatch {
         }
     }
 
+    /**
+     * Creates the scan progress.
+     *
+     * @return the scan progress
+     */
     private ScanProgress createScanProgress() {
         return new ScanProgress() {
             private boolean m_aborted = false;
@@ -156,6 +170,7 @@ public class NewSuspectScan implements RunInBatch {
      * <p>
      * reparentNodes
      * </p>
+     * .
      *
      * @param batch
      *            a {@link org.opennms.core.tasks.BatchTask} object.

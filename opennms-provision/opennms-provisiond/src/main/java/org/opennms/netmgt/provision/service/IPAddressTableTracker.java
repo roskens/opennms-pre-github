@@ -49,68 +49,110 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * PhysInterfaceTableTracker
+ * PhysInterfaceTableTracker.
  *
  * @author brozow
  * @version $Id: $
  */
 public class IPAddressTableTracker extends TableTracker {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(IPAddressTableTracker.class);
 
+    /** The Constant IP_ADDRESS_PREFIX_TABLE_ENTRY. */
     public static final SnmpObjId IP_ADDRESS_PREFIX_TABLE_ENTRY = SnmpObjId.get(".1.3.6.1.2.1.4.32.1");
 
+    /** The Constant IP_ADDRESS_TABLE_ENTRY. */
     public static final SnmpObjId IP_ADDRESS_TABLE_ENTRY = SnmpObjId.get(".1.3.6.1.2.1.4.34.1");
 
+    /** The Constant IP_ADDRESS_IF_INDEX. */
     public static final SnmpObjId IP_ADDRESS_IF_INDEX = SnmpObjId.get(IP_ADDRESS_TABLE_ENTRY, "3");
 
+    /** The Constant IP_ADDRESS_TYPE_INDEX. */
     public static final SnmpObjId IP_ADDRESS_TYPE_INDEX = SnmpObjId.get(IP_ADDRESS_TABLE_ENTRY, "4");
 
+    /** The Constant IP_ADDRESS_PREFIX_INDEX. */
     public static final SnmpObjId IP_ADDRESS_PREFIX_INDEX = SnmpObjId.get(IP_ADDRESS_TABLE_ENTRY, "5");
 
+    /** The Constant IP_ADDRESS_PREFIX_ORIGIN_INDEX. */
     public static final SnmpObjId IP_ADDRESS_PREFIX_ORIGIN_INDEX = SnmpObjId.get(IP_ADDRESS_PREFIX_TABLE_ENTRY, "5");
 
+    /** The Constant IP_ADDRESS_ORIGIN_INDEX. */
     public static final SnmpObjId IP_ADDRESS_ORIGIN_INDEX = SnmpObjId.get(IP_ADDRESS_TABLE_ENTRY, "6");
 
+    /** The Constant IP_ADDRESS_STATUS_INDEX. */
     public static final SnmpObjId IP_ADDRESS_STATUS_INDEX = SnmpObjId.get(IP_ADDRESS_TABLE_ENTRY, "7");
 
+    /** The Constant IP_ADDRESS_CREATED_INDEX. */
     public static final SnmpObjId IP_ADDRESS_CREATED_INDEX = SnmpObjId.get(IP_ADDRESS_TABLE_ENTRY, "8");
 
+    /** The Constant IP_ADDRESS_LAST_CHANGED_INDEX. */
     public static final SnmpObjId IP_ADDRESS_LAST_CHANGED_INDEX = SnmpObjId.get(IP_ADDRESS_TABLE_ENTRY, "9");
 
+    /** The Constant IP_ADDRESS_ROW_STATUS_INDEX. */
     public static final SnmpObjId IP_ADDRESS_ROW_STATUS_INDEX = SnmpObjId.get(IP_ADDRESS_TABLE_ENTRY, "10");
 
+    /** The Constant IP_ADDRESS_STORAGE_TYPE_INDEX. */
     public static final SnmpObjId IP_ADDRESS_STORAGE_TYPE_INDEX = SnmpObjId.get(IP_ADDRESS_TABLE_ENTRY, "11");
 
+    /** The Constant TYPE_IPV4. */
     public static final int TYPE_IPV4 = 1;
 
+    /** The Constant TYPE_IPV6. */
     public static final int TYPE_IPV6 = 2;
 
+    /** The Constant TYPE_IPV4Z. */
     public static final int TYPE_IPV4Z = 3;
 
+    /** The Constant TYPE_IPV6Z. */
     public static final int TYPE_IPV6Z = 4;
 
+    /** The Constant TYPE_DNS. */
     public static final int TYPE_DNS = 16;
 
+    /** The Constant IP_ADDRESS_TYPE_UNICAST. */
     private static final int IP_ADDRESS_TYPE_UNICAST = 1;
 
     // private static final int IP_ADDRESS_TYPE_ANYCAST = 2;
     // private static final int IP_ADDRESS_TYPE_BROADCAST = 3;
 
+    /** The s_table columns. */
     private static SnmpObjId[] s_tableColumns = new SnmpObjId[] { IP_ADDRESS_IF_INDEX, IP_ADDRESS_PREFIX_INDEX,
             IP_ADDRESS_TYPE_INDEX };
 
+    /**
+     * The Class IPAddressRow.
+     */
     class IPAddressRow extends SnmpRowResult {
 
+        /**
+         * Instantiates a new iP address row.
+         *
+         * @param columnCount
+         *            the column count
+         * @param instance
+         *            the instance
+         */
         public IPAddressRow(final int columnCount, final SnmpInstId instance) {
             super(columnCount, instance);
             LOG.debug("column count = {}, instance = {}", columnCount, instance);
         }
 
+        /**
+         * Gets the if index.
+         *
+         * @return the if index
+         */
         public Integer getIfIndex() {
             final SnmpValue value = getValue(IP_ADDRESS_IF_INDEX);
             return value.toInt();
         }
 
+        /**
+         * Gets the ip address.
+         *
+         * @return the ip address
+         */
         public String getIpAddress() {
             final SnmpResult result = getResult(IP_ADDRESS_IF_INDEX);
             SnmpInstId instance = result.getInstance();
@@ -159,11 +201,21 @@ public class IPAddressTableTracker extends TableTracker {
             return null;
         }
 
+        /**
+         * Gets the type.
+         *
+         * @return the type
+         */
         public Integer getType() {
             final SnmpValue value = getValue(IP_ADDRESS_TYPE_INDEX);
             return value.toInt();
         }
 
+        /**
+         * Gets the net mask.
+         *
+         * @return the net mask
+         */
         private InetAddress getNetMask() {
             final SnmpValue value = getValue(IP_ADDRESS_PREFIX_INDEX);
 
@@ -214,6 +266,11 @@ public class IPAddressTableTracker extends TableTracker {
             }
         }
 
+        /**
+         * Creates the interface from row.
+         *
+         * @return the onms ip interface
+         */
         public OnmsIpInterface createInterfaceFromRow() {
 
             final Integer ifIndex = getIfIndex();
@@ -243,6 +300,13 @@ public class IPAddressTableTracker extends TableTracker {
             return iface;
         }
 
+        /**
+         * Gets the result.
+         *
+         * @param base
+         *            the base
+         * @return the result
+         */
         private SnmpResult getResult(final SnmpObjId base) {
             for (final SnmpResult result : getResults()) {
                 if (base.equals(result.getBase())) {
@@ -292,6 +356,7 @@ public class IPAddressTableTracker extends TableTracker {
      * <p>
      * processIPInterfaceRow
      * </p>
+     * .
      *
      * @param row
      *            a

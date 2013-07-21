@@ -33,12 +33,16 @@ import java.util.List;
 import org.opennms.netmgt.xml.event.Event;
 import org.springframework.core.io.Resource;
 
+/**
+ * The Interface ProvisionMonitor.
+ */
 public interface ProvisionMonitor {
 
     /**
      * <p>
      * beginProcessingOps
      * </p>
+     * .
      *
      * @param deleteCount
      *            a int.
@@ -53,6 +57,7 @@ public interface ProvisionMonitor {
      * <p>
      * finishProcessingOps
      * </p>
+     * .
      */
     void finishProcessingOps();
 
@@ -60,6 +65,7 @@ public interface ProvisionMonitor {
      * <p>
      * beginPreprocessingOps
      * </p>
+     * .
      */
     void beginPreprocessingOps();
 
@@ -67,6 +73,7 @@ public interface ProvisionMonitor {
      * <p>
      * finishPreprocessingOps
      * </p>
+     * .
      */
     void finishPreprocessingOps();
 
@@ -74,6 +81,7 @@ public interface ProvisionMonitor {
      * <p>
      * beginPreprocessing
      * </p>
+     * .
      *
      * @param oper
      *            a
@@ -86,6 +94,7 @@ public interface ProvisionMonitor {
      * <p>
      * finishPreprocessing
      * </p>
+     * .
      *
      * @param oper
      *            a
@@ -98,6 +107,7 @@ public interface ProvisionMonitor {
      * <p>
      * beginPersisting
      * </p>
+     * .
      *
      * @param oper
      *            a
@@ -110,6 +120,7 @@ public interface ProvisionMonitor {
      * <p>
      * finishPersisting
      * </p>
+     * .
      *
      * @param oper
      *            a
@@ -122,13 +133,14 @@ public interface ProvisionMonitor {
      * <p>
      * beginSendingEvents
      * </p>
+     * .
      *
      * @param oper
      *            a
-     *            {@link org.opennms.netmgt.provision.service.operations.ImportOperation}
-     *            object.
      * @param events
      *            a {@link java.util.List} object.
+     *            {@link org.opennms.netmgt.provision.service.operations.ImportOperation}
+     *            object.
      */
     void beginSendingEvents(ImportOperation oper, List<Event> events);
 
@@ -136,13 +148,14 @@ public interface ProvisionMonitor {
      * <p>
      * finishSendingEvents
      * </p>
+     * .
      *
      * @param oper
      *            a
-     *            {@link org.opennms.netmgt.provision.service.operations.ImportOperation}
-     *            object.
      * @param events
      *            a {@link java.util.List} object.
+     *            {@link org.opennms.netmgt.provision.service.operations.ImportOperation}
+     *            object.
      */
     void finishSendingEvents(ImportOperation oper, List<Event> events);
 
@@ -150,6 +163,7 @@ public interface ProvisionMonitor {
      * <p>
      * beginLoadingResource
      * </p>
+     * .
      *
      * @param resource
      *            a {@link org.springframework.core.io.Resource} object.
@@ -160,6 +174,7 @@ public interface ProvisionMonitor {
      * <p>
      * finishLoadingResource
      * </p>
+     * .
      *
      * @param resource
      *            a {@link org.springframework.core.io.Resource} object.
@@ -170,6 +185,7 @@ public interface ProvisionMonitor {
      * <p>
      * beginImporting
      * </p>
+     * .
      */
     void beginImporting();
 
@@ -177,6 +193,7 @@ public interface ProvisionMonitor {
      * <p>
      * finishImporting
      * </p>
+     * .
      */
     void finishImporting();
 
@@ -184,6 +201,7 @@ public interface ProvisionMonitor {
      * <p>
      * beginAuditNodes
      * </p>
+     * .
      */
     void beginAuditNodes();
 
@@ -191,6 +209,7 @@ public interface ProvisionMonitor {
      * <p>
      * finishAuditNodes
      * </p>
+     * .
      */
     void finishAuditNodes();
 
@@ -198,6 +217,7 @@ public interface ProvisionMonitor {
      * <p>
      * beginRelateNodes
      * </p>
+     * .
      */
     void beginRelateNodes();
 
@@ -205,6 +225,7 @@ public interface ProvisionMonitor {
      * <p>
      * finishRelateNodes
      * </p>
+     * .
      */
     void finishRelateNodes();
 

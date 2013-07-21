@@ -52,21 +52,38 @@ import org.opennms.netmgt.snmp.SnmpWalker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The Class ScanManager.
+ */
 public class ScanManager {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(ScanManager.class);
 
+    /** The m_address. */
     private final InetAddress m_address;
 
+    /** The m_system group. */
     private SystemGroup m_systemGroup;
 
+    /** The m_if table. */
     private IfTable m_ifTable;
 
+    /** The m_ip addr table. */
     private IpAddrTable m_ipAddrTable;
 
+    /** The m_ip address table. */
     private IpAddressTable m_ipAddressTable;
 
+    /** The m_if x table. */
     private IfXTable m_ifXTable;
 
+    /**
+     * Instantiates a new scan manager.
+     *
+     * @param address
+     *            the address
+     */
     ScanManager(InetAddress address) {
         m_address = address;
     }
@@ -75,6 +92,7 @@ public class ScanManager {
      * <p>
      * getSystemGroup
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.provision.service.snmp.SystemGroup}
      *         object.
@@ -87,6 +105,7 @@ public class ScanManager {
      * <p>
      * getIfTable
      * </p>
+     * .
      *
      * @return the ifTable
      */
@@ -98,6 +117,7 @@ public class ScanManager {
      * <p>
      * getIpAddrTable
      * </p>
+     * .
      *
      * @return the ipAddrTable
      */
@@ -105,6 +125,11 @@ public class ScanManager {
         return m_ipAddrTable;
     }
 
+    /**
+     * Gets the ip address table.
+     *
+     * @return the ip address table
+     */
     public IpAddressTable getIpAddressTable() {
         return m_ipAddressTable;
     }
@@ -113,6 +138,7 @@ public class ScanManager {
      * <p>
      * getIfXTable
      * </p>
+     * .
      *
      * @return the ifXTable
      */
@@ -120,6 +146,13 @@ public class ScanManager {
         return m_ifXTable;
     }
 
+    /**
+     * Gets the net mask.
+     *
+     * @param ifIndex
+     *            the if index
+     * @return the net mask
+     */
     InetAddress getNetMask(final int ifIndex) {
         final InetAddress ipAddressNetmask = getIpAddressTable().getNetMask(ifIndex);
         if (ipAddressNetmask == null) {
@@ -129,14 +162,30 @@ public class ScanManager {
         }
     }
 
+    /**
+     * Checks if is snmp data for interfaces up to date.
+     *
+     * @return true, if is snmp data for interfaces up to date
+     */
     boolean isSnmpDataForInterfacesUpToDate() {
         return (!getIfTable().failed() && !getIpAddrTable().failed()) || !getIpAddressTable().failed();
     }
 
+    /**
+     * Checks if is snmp data for node up to date.
+     *
+     * @return true, if is snmp data for node up to date
+     */
     boolean isSnmpDataForNodeUpToDate() {
         return !getSystemGroup().failed();
     }
 
+    /**
+     * Update snmp data.
+     *
+     * @param node
+     *            the node
+     */
     void updateSnmpData(final OnmsNode node) {
 
         try {
@@ -209,6 +258,7 @@ public class ScanManager {
      * <p>
      * createCollectionTracker
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.snmp.AggregateTracker} object.
      */

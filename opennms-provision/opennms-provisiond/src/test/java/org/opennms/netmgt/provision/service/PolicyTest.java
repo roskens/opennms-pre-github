@@ -57,6 +57,9 @@ import org.springframework.core.io.ResourceLoader;
 import org.springframework.jdbc.core.simple.SimpleJdbcOperations;
 import org.springframework.test.context.ContextConfiguration;
 
+/**
+ * The Class PolicyTest.
+ */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
         "classpath:/META-INF/opennms/applicationContext-dao.xml",
@@ -72,22 +75,39 @@ import org.springframework.test.context.ContextConfiguration;
 @Ignore("This is a bad feature.. it doesn't account for provision ordering correctly")
 public class PolicyTest {
 
+    /**
+     * The Interface BackgroundTask.
+     */
     public static interface BackgroundTask {
+
+        /**
+         * Await.
+         *
+         * @throws InterruptedException
+         *             the interrupted exception
+         */
         public void await() throws InterruptedException;
     }
 
+    /** The m_jdbc operations. */
     @Autowired
     private SimpleJdbcOperations m_jdbcOperations;
 
+    /** The m_provisioner. */
     @Autowired
     private Provisioner m_provisioner;
 
+    /** The m_resource loader. */
     @Autowired
     private ResourceLoader m_resourceLoader;
 
+    /** The m_event subscriber. */
     @Autowired
     private MockEventIpcManager m_eventSubscriber;
 
+    /**
+     * Sets the up.
+     */
     @Before
     public void setUp() {
         MockLogAppender.setupLogging();
@@ -119,6 +139,12 @@ public class PolicyTest {
         m_provisioner.getProvisionService().setForeignSourceRepository(mfsr);
     }
 
+    /**
+     * Test snmp poll policy.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @JUnitSnmpAgents(value = {
             @JUnitSnmpAgent(host = "10.7.15.240", port = 161, resource = "classpath:snmpwalk-NMS-5414.properties"),
@@ -171,51 +197,131 @@ public class PolicyTest {
 
     }
 
+    /**
+     * Count snmp ifs with poll setting.
+     *
+     * @param pollSetting
+     *            the poll setting
+     * @return the int
+     */
     private int countSnmpIfsWithPollSetting(String pollSetting) {
         return m_jdbcOperations.queryForInt("select count(*) from snmpinterface where snmppoll = ?", pollSetting);
     }
 
+    /**
+     * Find matching snmp if.
+     *
+     * @param property
+     *            the property
+     * @param value
+     *            the value
+     * @return the integer
+     */
     private Integer findMatchingSnmpIf(String property, String value) {
         String columnName = "snmp" + property.toLowerCase();
         return m_jdbcOperations.queryForInt("select id from snmpinterface where " + columnName + " ilike ?", "%"
                 + value + "%");
     }
 
+    /**
+     * Gets the poll setting.
+     *
+     * @param snmpIfId
+     *            the snmp if id
+     * @return the poll setting
+     */
     private String getPollSetting(Integer snmpIfId) {
         return m_jdbcOperations.queryForObject("select snmppoll from snmpinterface where id = ?", String.class,
                                                snmpIfId);
     }
 
+    /**
+     * Gets the ip interface count.
+     *
+     * @param snmpIfId
+     *            the snmp if id
+     * @return the ip interface count
+     */
     private int getIpInterfaceCount(Integer snmpIfId) {
         return m_jdbcOperations.queryForInt("select count(*) from ipinterface where snmpinterfaceid = ?", snmpIfId);
     }
 
+    /**
+     * Gets the if index.
+     *
+     * @param snmpIfId
+     *            the snmp if id
+     * @return the if index
+     */
     private int getIfIndex(Integer snmpIfId) {
         return m_jdbcOperations.queryForInt("select snmpifindex from snmpinterface where id = ?", snmpIfId);
     }
 
+    /**
+     * Gets the node id.
+     *
+     * @param snmpIfId
+     *            the snmp if id
+     * @return the node id
+     */
     private int getNodeId(Integer snmpIfId) {
         return m_jdbcOperations.queryForInt("select nodeId from snmpinterface where id = ?", snmpIfId);
     }
 
+    /**
+     * Gets the node id.
+     *
+     * @return the node id
+     */
     private int getNodeId() {
         return m_jdbcOperations.queryForInt("select nodeId from node order by nodelabel limit 1");
     }
 
+    /**
+     * Gets the foreign id.
+     *
+     * @param nodeId
+     *            the node id
+     * @return the foreign id
+     */
     private String getForeignId(Integer nodeId) {
         return m_jdbcOperations.queryForObject("select foreignId from node where nodeid = ?", String.class, nodeId);
     }
 
+    /**
+     * Gets the foreign source.
+     *
+     * @param nodeId
+     *            the node id
+     * @return the foreign source
+     */
     private String getForeignSource(Integer nodeId) {
         return m_jdbcOperations.queryForObject("select foreignSource from node where nodeid = ?", String.class, nodeId);
     }
 
+    /**
+     * Run scan.
+     *
+     * @param scan
+     *            the scan
+     * @throws InterruptedException
+     *             the interrupted exception
+     * @throws ExecutionException
+     *             the execution exception
+     */
     public void runScan(final NodeScan scan) throws InterruptedException, ExecutionException {
         final Task t = scan.createTask();
         t.schedule();
         t.waitFor();
     }
 
+    /**
+     * Anticipate events.
+     *
+     * @param ueis
+     *            the ueis
+     * @return the background task
+     */
     private BackgroundTask anticipateEvents(String... ueis) {
         final CountDownLatch eventRecieved = new CountDownLatch(1);
         m_eventSubscriber.addEventListener(new EventListener() {

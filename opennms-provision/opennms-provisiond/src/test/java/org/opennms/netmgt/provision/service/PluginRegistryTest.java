@@ -47,7 +47,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
- * PluginRegistryTest
+ * PluginRegistryTest.
  *
  * @author brozow
  */
@@ -55,26 +55,51 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ContextConfiguration(locations = { "classpath:/pluginRegistryTest-context.xml" })
 public class PluginRegistryTest implements InitializingBean {
 
+    /** The m_app context. */
     @Autowired
     ApplicationContext m_appContext;
 
+    /** The m_plugin registry. */
     @Autowired
     PluginRegistry m_pluginRegistry;
 
+    /**
+     * The Interface BeanMatcher.
+     *
+     * @param <T>
+     *            the generic type
+     */
     interface BeanMatcher<T> {
+
+        /**
+         * Matches.
+         *
+         * @param t
+         *            the t
+         * @return true, if successful
+         */
         boolean matches(T t);
     }
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Sets the up.
+     */
     @Before
     public void setUp() {
         MockLogAppender.setupLogging();
     }
 
+    /**
+     * Test go.
+     */
     @Test
     public void testGo() {
 
@@ -87,6 +112,15 @@ public class PluginRegistryTest implements InitializingBean {
 
     }
 
+    /**
+     * Gets the beans of type.
+     *
+     * @param <T>
+     *            the generic type
+     * @param clazz
+     *            the clazz
+     * @return the beans of type
+     */
     public <T> Map<String, T> getBeansOfType(Class<T> clazz) {
         return m_appContext.getBeansOfType(clazz, true, true);
     }

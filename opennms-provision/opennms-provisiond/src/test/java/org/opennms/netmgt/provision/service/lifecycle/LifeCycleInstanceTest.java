@@ -43,7 +43,7 @@ import org.opennms.netmgt.provision.service.lifecycle.annotations.ActivityProvid
 import org.opennms.netmgt.provision.service.lifecycle.annotations.Attribute;
 
 /**
- * LifecycleTest
+ * LifecycleTest.
  *
  * @author brozow
  */
@@ -192,16 +192,24 @@ public class LifeCycleInstanceTest {
      * simple interface
      */
 
+    /** The Constant PHASE_DATA. */
     private static final String PHASE_DATA = "phaseData";
 
+    /** The Constant NESTED_DATA. */
     public static final String NESTED_DATA = "nestedData";
 
+    /** The Constant NEST_LEVEL. */
     public static final String NEST_LEVEL = "nestLevel";
 
+    /** The Constant MAX_DEPTH. */
     public static final String MAX_DEPTH = "maxDepth";
 
+    /** The m_life cycle factory. */
     private LifeCycleRepository m_lifeCycleFactory;
 
+    /**
+     * Sets the up.
+     */
     @Before
     public void setUp() {
         MockLogAppender.setupLogging();
@@ -222,14 +230,31 @@ public class LifeCycleInstanceTest {
 
     }
 
+    /**
+     * The Class PhaseTestActivities.
+     */
     @ActivityProvider
     public static class PhaseTestActivities extends ActivityProviderSupport {
 
+        /**
+         * Append phase.
+         *
+         * @param lifecycle
+         *            the lifecycle
+         * @param value
+         *            the value
+         */
         private void appendPhase(LifeCycleInstance lifecycle, final String value) {
             appendToStringAttribute(lifecycle, PHASE_DATA, value);
         }
 
         // this should be called first
+        /**
+         * Do phase one.
+         *
+         * @param lifecycle
+         *            the lifecycle
+         */
         @Activity(phase = "phase1", lifecycle = "sample")
         public void doPhaseOne(LifeCycleInstance lifecycle) {
 
@@ -238,6 +263,12 @@ public class LifeCycleInstanceTest {
         }
 
         // this should be called last
+        /**
+         * Do phase three.
+         *
+         * @param lifecycle
+         *            the lifecycle
+         */
         @Activity(phase = "phase3", lifecycle = "sample")
         public void doPhaseThree(LifeCycleInstance lifecycle) {
 
@@ -246,6 +277,12 @@ public class LifeCycleInstanceTest {
         }
 
         // this should be called in the middle
+        /**
+         * Do phase two.
+         *
+         * @param lifecycle
+         *            the lifecycle
+         */
         @Activity(phase = "phase2", lifecycle = "sample")
         public void doPhaseTwo(LifeCycleInstance lifecycle) {
 
@@ -254,6 +291,12 @@ public class LifeCycleInstanceTest {
         }
 
         // this should not be called
+        /**
+         * Do phase invalid life cycle.
+         *
+         * @param lifecycle
+         *            the lifecycle
+         */
         @Activity(phase = "phase3", lifecycle = "invalidLifecycle")
         public void doPhaseInvalidLifeCycle(LifeCycleInstance lifecycle) {
 
@@ -262,6 +305,12 @@ public class LifeCycleInstanceTest {
         }
 
         // this should not be called
+        /**
+         * Do phase invalid.
+         *
+         * @param lifecycle
+         *            the lifecycle
+         */
         @Activity(phase = "invalidPhase", lifecycle = "sample")
         public void doPhaseInvalid(LifeCycleInstance lifecycle) {
 
@@ -275,6 +324,9 @@ public class LifeCycleInstanceTest {
 
     // if we don't call trigger then the getAttribute should return ""
 
+    /**
+     * Test life cycle attributes.
+     */
     @Test
     public void testLifeCycleAttributes() {
         LifeCycleInstance lifecycle = m_lifeCycleFactory.createLifeCycleInstance("sample", new PhaseTestActivities());
@@ -284,6 +336,12 @@ public class LifeCycleInstanceTest {
         assertEquals("phase1 phase2 phase3", lifecycle.getAttribute(PHASE_DATA, String.class));
     }
 
+    /**
+     * Test trigger life cycle.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testTriggerLifeCycle() throws Exception {
         LifeCycleInstance lifecycle = m_lifeCycleFactory.createLifeCycleInstance("sample", new PhaseTestActivities());
@@ -295,10 +353,22 @@ public class LifeCycleInstanceTest {
         assertEquals("phase1 phase2 phase3", lifecycle.getAttribute(PHASE_DATA, String.class));
     }
 
+    /**
+     * The Class InjectionTestActivities.
+     */
     @ActivityProvider
     public static class InjectionTestActivities {
 
         // this should be called first
+        /**
+         * Do phase one.
+         *
+         * @param phase1
+         *            the phase1
+         * @param dataAccumulator
+         *            the data accumulator
+         * @return the integer
+         */
         @Activity(phase = "phase1", lifecycle = "injection")
         @Attribute("one")
         public Integer doPhaseOne(Phase phase1, Vector<String> dataAccumulator) {
@@ -310,6 +380,15 @@ public class LifeCycleInstanceTest {
         }
 
         // this should be called in the middle
+        /**
+         * Do phase two.
+         *
+         * @param phase2
+         *            the phase2
+         * @param dataAccumulator
+         *            the data accumulator
+         * @return the integer
+         */
         @Activity(phase = "phase2", lifecycle = "injection")
         @Attribute("two")
         public Integer doPhaseTwo(Phase phase2, Vector<String> dataAccumulator) {
@@ -321,6 +400,18 @@ public class LifeCycleInstanceTest {
         }
 
         // this should be called last
+        /**
+         * Do phase three.
+         *
+         * @param one
+         *            the one
+         * @param phase3
+         *            the phase3
+         * @param dataAccumulator
+         *            the data accumulator
+         * @param two
+         *            the two
+         */
         @Activity(phase = "phase3", lifecycle = "injection")
         public void doPhaseThree(@Attribute("one")
         Integer one, Phase phase3, Vector<String> dataAccumulator, @Attribute("two")
@@ -334,6 +425,12 @@ public class LifeCycleInstanceTest {
 
     }
 
+    /**
+     * Test injection life cycle.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testInjectionLifeCycle() throws Exception {
         LifeCycleInstance lifecycle = m_lifeCycleFactory.createLifeCycleInstance("injection",
@@ -360,21 +457,45 @@ public class LifeCycleInstanceTest {
 
     }
 
+    /**
+     * The Class NestedLifeCycleActivites.
+     */
     @ActivityProvider
     public static class NestedLifeCycleActivites extends ActivityProviderSupport {
 
+        /** The m_life cycle repository. */
         @SuppressWarnings("unused")
         private final LifeCycleRepository m_lifeCycleRepository;
 
+        /**
+         * Instantiates a new nested life cycle activites.
+         *
+         * @param lifeCycleRepository
+         *            the life cycle repository
+         */
         public NestedLifeCycleActivites(LifeCycleRepository lifeCycleRepository) {
             m_lifeCycleRepository = lifeCycleRepository;
         }
 
+        /**
+         * Append phase.
+         *
+         * @param lifecycle
+         *            the lifecycle
+         * @param phase
+         *            the phase
+         */
         private void appendPhase(LifeCycleInstance lifecycle, final String phase) {
             appendToStringAttribute(lifecycle, NESTED_DATA, phase);
         }
 
         // this should be called first
+        /**
+         * Do phase one.
+         *
+         * @param lifecycle
+         *            the lifecycle
+         */
         @Activity(phase = "phase1", lifecycle = "sample")
         public void doPhaseOne(LifeCycleInstance lifecycle) {
 
@@ -383,6 +504,12 @@ public class LifeCycleInstanceTest {
         }
 
         // this should be called last
+        /**
+         * Do phase three.
+         *
+         * @param lifecycle
+         *            the lifecycle
+         */
         @Activity(phase = "phase3", lifecycle = "sample")
         public void doPhaseThree(LifeCycleInstance lifecycle) {
 
@@ -391,6 +518,17 @@ public class LifeCycleInstanceTest {
         }
 
         // this should be called in the middle
+        /**
+         * Do phase two.
+         *
+         * @param lifecycle
+         *            the lifecycle
+         * @param currentPhase
+         *            the current phase
+         * @return the life cycle instance
+         * @throws Exception
+         *             the exception
+         */
         @Activity(phase = "phase2", lifecycle = "sample")
         public LifeCycleInstance doPhaseTwo(LifeCycleInstance lifecycle, Phase currentPhase) throws Exception {
 
@@ -419,11 +557,25 @@ public class LifeCycleInstanceTest {
             return nested;
         }
 
+        /**
+         * Gets the prefix.
+         *
+         * @param lifecycle
+         *            the lifecycle
+         * @return the prefix
+         */
         private String getPrefix(LifeCycleInstance lifecycle) {
             int nestLevel = lifecycle.getAttribute(NEST_LEVEL, 0);
             return buildPrefix(nestLevel);
         }
 
+        /**
+         * Builds the prefix.
+         *
+         * @param nestLevel
+         *            the nest level
+         * @return the string
+         */
         private String buildPrefix(int nestLevel) {
             StringBuilder buf = new StringBuilder();
             buildPrefixHelper(nestLevel, buf);
@@ -431,6 +583,14 @@ public class LifeCycleInstanceTest {
 
         }
 
+        /**
+         * Builds the prefix helper.
+         *
+         * @param nestLevel
+         *            the nest level
+         * @param buf
+         *            the buf
+         */
         private void buildPrefixHelper(int nestLevel, StringBuilder buf) {
             if (nestLevel == 0) {
                 return;
@@ -442,6 +602,12 @@ public class LifeCycleInstanceTest {
 
     }
 
+    /**
+     * Test nested life cycle.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testNestedLifeCycle() throws Exception {
 
@@ -459,8 +625,21 @@ public class LifeCycleInstanceTest {
 
     }
 
+    /**
+     * The Class ActivityProviderSupport.
+     */
     public static class ActivityProviderSupport {
 
+        /**
+         * Append to string attribute.
+         *
+         * @param lifecycle
+         *            the lifecycle
+         * @param key
+         *            the key
+         * @param value
+         *            the value
+         */
         protected void appendToStringAttribute(LifeCycleInstance lifecycle, String key, String value) {
             lifecycle.setAttribute(key, lifecycle.getAttribute(key, "") + value);
         }

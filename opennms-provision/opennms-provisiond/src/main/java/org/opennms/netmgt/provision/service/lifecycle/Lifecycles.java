@@ -29,20 +29,20 @@
 package org.opennms.netmgt.provision.service.lifecycle;
 
 /**
- * Lifecycle
+ * Lifecycle.
  *
  * @author brozow
  * @version $Id: $
  */
 public interface Lifecycles {
 
-    /** Constant <code>IMPORT="import"</code> */
+    /** Constant <code>IMPORT="import"</code>. */
     public static String IMPORT = "import";
 
-    /** Constant <code>NODE="node"</code> */
+    /** Constant <code>NODE="node"</code>. */
     public static String NODE = "node";
 
-    /** Constant <code>RESOURCE="resource"</code> */
+    /** Constant <code>RESOURCE="resource"</code>. */
     public static String RESOURCE = "resource";
 
 }

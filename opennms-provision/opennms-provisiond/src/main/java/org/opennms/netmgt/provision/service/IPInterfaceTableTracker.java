@@ -41,42 +41,64 @@ import org.opennms.netmgt.snmp.SnmpValue;
 import org.opennms.netmgt.snmp.TableTracker;
 
 /**
- * PhysInterfaceTableTracker
+ * PhysInterfaceTableTracker.
  *
  * @author brozow
  * @version $Id: $
  */
 public class IPInterfaceTableTracker extends TableTracker {
 
-    /** Constant <code>IP_ADDR_TABLE_ENTRY</code> */
+    /** Constant <code>IP_ADDR_TABLE_ENTRY</code>. */
     public static final SnmpObjId IP_ADDR_TABLE_ENTRY = SnmpObjId.get(".1.3.6.1.2.1.4.20.1");
 
-    /** Constant <code>IP_ADDR_ENT_ADDR</code> */
+    /** Constant <code>IP_ADDR_ENT_ADDR</code>. */
     public static final SnmpObjId IP_ADDR_ENT_ADDR = SnmpObjId.get(IP_ADDR_TABLE_ENTRY, "1");
 
-    /** Constant <code>IP_ADDR_IF_INDEX</code> */
+    /** Constant <code>IP_ADDR_IF_INDEX</code>. */
     public static final SnmpObjId IP_ADDR_IF_INDEX = SnmpObjId.get(IP_ADDR_TABLE_ENTRY, "2");
 
-    /** Constant <code>IP_ADDR_ENT_NETMASK</code> */
+    /** Constant <code>IP_ADDR_ENT_NETMASK</code>. */
     public static final SnmpObjId IP_ADDR_ENT_NETMASK = SnmpObjId.get(IP_ADDR_TABLE_ENTRY, "3");
 
-    /** Constant <code>IP_ADDR_ENT_BCASTADDR</code> */
+    /** Constant <code>IP_ADDR_ENT_BCASTADDR</code>. */
     public static final SnmpObjId IP_ADDR_ENT_BCASTADDR = SnmpObjId.get(IP_ADDR_TABLE_ENTRY, "4");
 
+    /** The s_table columns. */
     private static SnmpObjId[] s_tableColumns = new SnmpObjId[] { IP_ADDR_ENT_ADDR, IP_ADDR_IF_INDEX,
             IP_ADDR_ENT_NETMASK, IP_ADDR_ENT_BCASTADDR };
 
+    /**
+     * The Class IPInterfaceRow.
+     */
     class IPInterfaceRow extends SnmpRowResult {
 
+        /**
+         * Instantiates a new iP interface row.
+         *
+         * @param columnCount
+         *            the column count
+         * @param instance
+         *            the instance
+         */
         public IPInterfaceRow(int columnCount, SnmpInstId instance) {
             super(columnCount, instance);
         }
 
+        /**
+         * Gets the if index.
+         *
+         * @return the if index
+         */
         public Integer getIfIndex() {
             SnmpValue value = getValue(IP_ADDR_IF_INDEX);
             return value == null ? null : value.toInt();
         }
 
+        /**
+         * Gets the ip address.
+         *
+         * @return the ip address
+         */
         public String getIpAddress() {
             SnmpValue value = getValue(IP_ADDR_ENT_ADDR);
             if (value != null) {
@@ -95,11 +117,21 @@ public class IPInterfaceTableTracker extends TableTracker {
             return null;
         }
 
+        /**
+         * Gets the net mask.
+         *
+         * @return the net mask
+         */
         private InetAddress getNetMask() {
             SnmpValue value = getValue(IP_ADDR_ENT_NETMASK);
             return value == null ? null : value.toInetAddress();
         }
 
+        /**
+         * Creates the interface from row.
+         *
+         * @return the onms ip interface
+         */
         public OnmsIpInterface createInterfaceFromRow() {
 
             String ipAddr = getIpAddress();
@@ -164,6 +196,7 @@ public class IPInterfaceTableTracker extends TableTracker {
      * <p>
      * processIPInterfaceRow
      * </p>
+     * .
      *
      * @param row
      *            a

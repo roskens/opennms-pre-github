@@ -56,15 +56,42 @@ import org.slf4j.LoggerFactory;
  * @author david
  */
 public class ImportOperationsManager {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(ImportOperationsManager.class);
 
+    /**
+     * The Class NullUpdateOperation.
+     */
     public static final class NullUpdateOperation extends UpdateOperation {
+
+        /**
+         * Instantiates a new null update operation.
+         *
+         * @param nodeId
+         *            the node id
+         * @param foreignSource
+         *            the foreign source
+         * @param foreignId
+         *            the foreign id
+         * @param nodeLabel
+         *            the node label
+         * @param building
+         *            the building
+         * @param city
+         *            the city
+         * @param provisionService
+         *            the provision service
+         */
         public NullUpdateOperation(final Integer nodeId, final String foreignSource, final String foreignId,
                 final String nodeLabel, final String building, final String city,
                 final ProvisionService provisionService) {
             super(nodeId, foreignSource, foreignId, nodeLabel, building, city, provisionService);
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.provision.service.operations.UpdateOperation#doPersist()
+         */
         @Override
         protected void doPersist() {
             LOG.debug("Skipping persist for node {}: rescanExisting is false", getNode());
@@ -81,14 +108,19 @@ public class ImportOperationsManager {
      */
     private final List<ImportOperation> m_inserts = new LinkedList<ImportOperation>();
 
+    /** The m_updates. */
     private final List<ImportOperation> m_updates = new LinkedList<ImportOperation>();
 
+    /** The m_provision service. */
     private final ProvisionService m_provisionService;
 
+    /** The m_foreign id to node map. */
     private final Map<String, Integer> m_foreignIdToNodeMap;
 
+    /** The m_rescan existing. */
     private Boolean m_rescanExisting;
 
+    /** The m_foreign source. */
     private String m_foreignSource;
 
     /**
@@ -100,10 +132,10 @@ public class ImportOperationsManager {
      *            a {@link java.util.Map} object.
      * @param provisionService
      *            a
-     *            {@link org.opennms.netmgt.provision.service.ProvisionService}
-     *            object.
      * @param rescanExisting
      *            TODO
+     *            {@link org.opennms.netmgt.provision.service.ProvisionService}
+     *            object.
      */
     public ImportOperationsManager(Map<String, Integer> foreignIdToNodeMap, ProvisionService provisionService,
             final Boolean rescanExisting) {
@@ -116,6 +148,7 @@ public class ImportOperationsManager {
      * <p>
      * foundNode
      * </p>
+     * .
      *
      * @param foreignId
      *            a {@link java.lang.String} object.
@@ -140,10 +173,30 @@ public class ImportOperationsManager {
         return ret;
     }
 
+    /**
+     * Node exists.
+     *
+     * @param foreignId
+     *            the foreign id
+     * @return true, if successful
+     */
     private boolean nodeExists(String foreignId) {
         return m_foreignIdToNodeMap.containsKey(foreignId);
     }
 
+    /**
+     * Insert node.
+     *
+     * @param foreignId
+     *            the foreign id
+     * @param nodeLabel
+     *            the node label
+     * @param building
+     *            the building
+     * @param city
+     *            the city
+     * @return the save or update operation
+     */
     private SaveOrUpdateOperation insertNode(final String foreignId, final String nodeLabel, final String building,
             final String city) {
         SaveOrUpdateOperation insertOperation = new InsertOperation(getForeignSource(), foreignId, nodeLabel, building,
@@ -152,6 +205,19 @@ public class ImportOperationsManager {
         return insertOperation;
     }
 
+    /**
+     * Update node.
+     *
+     * @param foreignId
+     *            the foreign id
+     * @param nodeLabel
+     *            the node label
+     * @param building
+     *            the building
+     * @param city
+     *            the city
+     * @return the save or update operation
+     */
     private SaveOrUpdateOperation updateNode(final String foreignId, final String nodeLabel, final String building,
             final String city) {
         final Integer nodeId = processForeignId(foreignId);
@@ -173,6 +239,7 @@ public class ImportOperationsManager {
      * tracking nodes to be deleted.
      *
      * @param foreignId
+     *            the foreign id
      * @return a nodeId
      */
     private Integer processForeignId(String foreignId) {
@@ -183,6 +250,7 @@ public class ImportOperationsManager {
      * <p>
      * getOperationCount
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -194,6 +262,7 @@ public class ImportOperationsManager {
      * <p>
      * getInsertCount
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -205,6 +274,7 @@ public class ImportOperationsManager {
      * <p>
      * getUpdateCount
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -216,6 +286,7 @@ public class ImportOperationsManager {
      * <p>
      * getDeleteCount
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -223,15 +294,25 @@ public class ImportOperationsManager {
         return m_foreignIdToNodeMap.size();
     }
 
+    /**
+     * The Class DeleteIterator.
+     */
     private class DeleteIterator implements Iterator<ImportOperation> {
 
+        /** The m_foreign id iterator. */
         private final Iterator<Entry<String, Integer>> m_foreignIdIterator = m_foreignIdToNodeMap.entrySet().iterator();
 
+        /* (non-Javadoc)
+         * @see java.util.Iterator#hasNext()
+         */
         @Override
         public boolean hasNext() {
             return m_foreignIdIterator.hasNext();
         }
 
+        /* (non-Javadoc)
+         * @see java.util.Iterator#next()
+         */
         @Override
         public ImportOperation next() {
             Entry<String, Integer> entry = m_foreignIdIterator.next();
@@ -239,6 +320,9 @@ public class ImportOperationsManager {
 
         }
 
+        /* (non-Javadoc)
+         * @see java.util.Iterator#remove()
+         */
         @Override
         public void remove() {
             m_foreignIdIterator.remove();
@@ -246,12 +330,20 @@ public class ImportOperationsManager {
 
     }
 
+    /**
+     * The Class OperationIterator.
+     */
     private class OperationIterator implements Iterator<ImportOperation>, Enumeration<ImportOperation> {
 
+        /** The m_iter iter. */
         Iterator<Iterator<ImportOperation>> m_iterIter;
 
+        /** The m_current iter. */
         Iterator<ImportOperation> m_currentIter;
 
+        /**
+         * Instantiates a new operation iterator.
+         */
         OperationIterator() {
             List<Iterator<ImportOperation>> iters = new ArrayList<Iterator<ImportOperation>>(3);
             iters.add(new DeleteIterator());
@@ -260,6 +352,9 @@ public class ImportOperationsManager {
             m_iterIter = iters.iterator();
         }
 
+        /* (non-Javadoc)
+         * @see java.util.Iterator#hasNext()
+         */
         @Override
         public boolean hasNext() {
             while ((m_currentIter == null || !m_currentIter.hasNext()) && m_iterIter.hasNext()) {
@@ -270,21 +365,33 @@ public class ImportOperationsManager {
             return (m_currentIter == null ? false : m_currentIter.hasNext());
         }
 
+        /* (non-Javadoc)
+         * @see java.util.Iterator#next()
+         */
         @Override
         public ImportOperation next() {
             return m_currentIter.next();
         }
 
+        /* (non-Javadoc)
+         * @see java.util.Iterator#remove()
+         */
         @Override
         public void remove() {
             m_currentIter.remove();
         }
 
+        /* (non-Javadoc)
+         * @see java.util.Enumeration#hasMoreElements()
+         */
         @Override
         public boolean hasMoreElements() {
             return hasNext();
         }
 
+        /* (non-Javadoc)
+         * @see java.util.Enumeration#nextElement()
+         */
         @Override
         public ImportOperation nextElement() {
             return next();
@@ -296,6 +403,7 @@ public class ImportOperationsManager {
      * <p>
      * shutdownAndWaitForCompletion
      * </p>
+     * .
      *
      * @param executorService
      *            a {@link java.util.concurrent.ExecutorService} object.
@@ -318,6 +426,7 @@ public class ImportOperationsManager {
      * <p>
      * getOperations
      * </p>
+     * .
      *
      * @return a {@link java.util.Collection} object.
      */
@@ -325,6 +434,17 @@ public class ImportOperationsManager {
         return Collections.list(new OperationIterator());
     }
 
+    /**
+     * Sequence.
+     *
+     * @param pool
+     *            the pool
+     * @param a
+     *            the a
+     * @param b
+     *            the b
+     * @return the runnable
+     */
     @SuppressWarnings("unused")
     private Runnable sequence(final Executor pool, final Runnable a, final Runnable b) {
         return new Runnable() {
@@ -340,6 +460,7 @@ public class ImportOperationsManager {
      * <p>
      * setForeignSource
      * </p>
+     * .
      *
      * @param foreignSource
      *            a {@link java.lang.String} object.
@@ -352,6 +473,7 @@ public class ImportOperationsManager {
      * <p>
      * getForeignSource
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -359,6 +481,11 @@ public class ImportOperationsManager {
         return m_foreignSource;
     }
 
+    /**
+     * Gets the rescan existing.
+     *
+     * @return the rescan existing
+     */
     public Boolean getRescanExisting() {
         return m_rescanExisting;
     }
@@ -367,6 +494,7 @@ public class ImportOperationsManager {
      * <p>
      * auditNodes
      * </p>
+     * .
      *
      * @param requisition
      *            a
@@ -377,6 +505,13 @@ public class ImportOperationsManager {
         requisition.visit(new RequisitionAccountant(this));
     }
 
+    /**
+     * Persister.
+     *
+     * @param oper
+     *            the oper
+     * @return the runnable
+     */
     @SuppressWarnings("unused")
     private Runnable persister(final ImportOperation oper) {
         Runnable r = new Runnable() {
@@ -388,6 +523,13 @@ public class ImportOperationsManager {
         return r;
     }
 
+    /**
+     * Scanner.
+     *
+     * @param oper
+     *            the oper
+     * @return the runnable
+     */
     @SuppressWarnings("unused")
     private Runnable scanner(final ImportOperation oper) {
         return new Runnable() {

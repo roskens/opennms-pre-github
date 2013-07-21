@@ -44,13 +44,21 @@ import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.PropertyAccessorFactory;
 
+/**
+ * The Class SaveOrUpdateOperation.
+ */
 public abstract class SaveOrUpdateOperation extends ImportOperation {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(SaveOrUpdateOperation.class);
 
+    /** The m_node. */
     private final OnmsNode m_node;
 
+    /** The m_current interface. */
     private OnmsIpInterface m_currentInterface;
 
+    /** The m_scan manager. */
     private ScanManager m_scanManager;
 
     /**
@@ -119,6 +127,7 @@ public abstract class SaveOrUpdateOperation extends ImportOperation {
      * <p>
      * getScanManager
      * </p>
+     * .
      *
      * @return a
      *         {@link org.opennms.netmgt.provision.service.operations.ScanManager}
@@ -132,6 +141,7 @@ public abstract class SaveOrUpdateOperation extends ImportOperation {
      * <p>
      * foundInterface
      * </p>
+     * .
      *
      * @param ipAddr
      *            a {@link java.lang.String} object.
@@ -175,6 +185,7 @@ public abstract class SaveOrUpdateOperation extends ImportOperation {
      * <p>
      * scan
      * </p>
+     * .
      */
     @Override
     public void scan() {
@@ -185,6 +196,7 @@ public abstract class SaveOrUpdateOperation extends ImportOperation {
      * <p>
      * updateSnmpData
      * </p>
+     * .
      */
     protected void updateSnmpData() {
         if (m_scanManager != null) {
@@ -196,6 +208,7 @@ public abstract class SaveOrUpdateOperation extends ImportOperation {
      * <p>
      * foundMonitoredService
      * </p>
+     * .
      *
      * @param serviceName
      *            a {@link java.lang.String} object.
@@ -215,6 +228,7 @@ public abstract class SaveOrUpdateOperation extends ImportOperation {
      * <p>
      * foundCategory
      * </p>
+     * .
      *
      * @param name
      *            a {@link java.lang.String} object.
@@ -228,6 +242,7 @@ public abstract class SaveOrUpdateOperation extends ImportOperation {
      * <p>
      * getNode
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.OnmsNode} object.
      */
@@ -239,6 +254,7 @@ public abstract class SaveOrUpdateOperation extends ImportOperation {
      * <p>
      * foundAsset
      * </p>
+     * .
      *
      * @param name
      *            a {@link java.lang.String} object.

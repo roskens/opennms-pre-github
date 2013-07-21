@@ -42,10 +42,14 @@ import org.opennms.netmgt.model.OnmsNode;
  * @version $Id: $
  */
 public class ScanResource {
+
+    /** The m_type. */
     private String m_type;
 
+    /** The m_node. */
     private OnmsNode m_node = null;
 
+    /** The m_attributes. */
     private final Map<String, String> m_attributes = new HashMap<String, String>();
 
     /**
@@ -64,6 +68,7 @@ public class ScanResource {
      * <p>
      * getType
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -75,6 +80,7 @@ public class ScanResource {
      * <p>
      * setNode
      * </p>
+     * .
      *
      * @param node
      *            a {@link org.opennms.netmgt.model.OnmsNode} object.
@@ -87,6 +93,7 @@ public class ScanResource {
      * <p>
      * getNode
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.OnmsNode} object.
      */
@@ -99,6 +106,7 @@ public class ScanResource {
      * <p>
      * setAttribute
      * </p>
+     * .
      *
      * @param key
      *            a {@link java.lang.String} object.
@@ -127,6 +135,7 @@ public class ScanResource {
      * <p>
      * getAttribute
      * </p>
+     * .
      *
      * @param key
      *            a {@link java.lang.String} object.

@@ -52,19 +52,19 @@ import java.net.InetAddress;
 public final class IpAddrTableEntry extends SnmpTableEntry {
     // Lookup strings for specific table entries
     //
-    /** Constant <code>IP_ADDR_ENT_ADDR="ipAdEntAddr"</code> */
+    /** Constant <code>IP_ADDR_ENT_ADDR="ipAdEntAddr"</code>. */
     public static final String IP_ADDR_ENT_ADDR = "ipAdEntAddr";
 
-    /** Constant <code>IP_ADDR_IF_INDEX="ipAdEntIfIndex"</code> */
+    /** Constant <code>IP_ADDR_IF_INDEX="ipAdEntIfIndex"</code>. */
     public static final String IP_ADDR_IF_INDEX = "ipAdEntIfIndex";
 
-    /** Constant <code>IP_ADDR_ENT_NETMASK="ipAdEntNetMask"</code> */
+    /** Constant <code>IP_ADDR_ENT_NETMASK="ipAdEntNetMask"</code>. */
     public static final String IP_ADDR_ENT_NETMASK = "ipAdEntNetMask";
 
-    /** Constant <code>IP_ADDR_ENT_BCASTADDR="ipAdEntBcastAddr"</code> */
+    /** Constant <code>IP_ADDR_ENT_BCASTADDR="ipAdEntBcastAddr"</code>. */
     public static final String IP_ADDR_ENT_BCASTADDR = "ipAdEntBcastAddr";
 
-    /** Constant <code>ms_elemList</code> */
+    /** Constant <code>ms_elemList</code>. */
     public static NamedSnmpVar[] ms_elemList = null;
 
     /**
@@ -120,6 +120,7 @@ public final class IpAddrTableEntry extends SnmpTableEntry {
      * <p>
      * getIpAdEntAddr
      * </p>
+     * .
      *
      * @return a {@link java.net.InetAddress} object.
      */
@@ -131,6 +132,7 @@ public final class IpAddrTableEntry extends SnmpTableEntry {
      * <p>
      * getIpAdEntIfIndex
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -142,6 +144,7 @@ public final class IpAddrTableEntry extends SnmpTableEntry {
      * <p>
      * getIpAdEntNetMask
      * </p>
+     * .
      *
      * @return a {@link java.net.InetAddress} object.
      */
@@ -153,6 +156,7 @@ public final class IpAddrTableEntry extends SnmpTableEntry {
      * <p>
      * getIpAdEntBcastAddr
      * </p>
+     * .
      *
      * @return a {@link java.net.InetAddress} object.
      */

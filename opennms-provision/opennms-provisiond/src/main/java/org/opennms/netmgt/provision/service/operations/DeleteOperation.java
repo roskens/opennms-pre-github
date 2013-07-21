@@ -30,8 +30,12 @@ package org.opennms.netmgt.provision.service.operations;
 
 import org.opennms.netmgt.provision.service.ProvisionService;
 
+/**
+ * The Class DeleteOperation.
+ */
 public class DeleteOperation extends ImportOperation {
 
+    /** The m_node id. */
     private Integer m_nodeId;
 
     /**
@@ -59,6 +63,7 @@ public class DeleteOperation extends ImportOperation {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -71,6 +76,7 @@ public class DeleteOperation extends ImportOperation {
      * <p>
      * scan
      * </p>
+     * .
      */
     @Override
     public void scan() {

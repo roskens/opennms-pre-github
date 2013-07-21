@@ -63,12 +63,18 @@ import org.springframework.transaction.annotation.Transactional;
  */
 public interface ProvisionService {
 
+    /**
+     * Checks if is requisitioned entity deletion enabled.
+     *
+     * @return true, if is requisitioned entity deletion enabled
+     */
     boolean isRequisitionedEntityDeletionEnabled();
 
     /**
      * <p>
      * isDiscoveryEnabled
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -117,6 +123,7 @@ public interface ProvisionService {
      * <p>
      * updateNodeAttributes
      * </p>
+     * .
      *
      * @param node
      *            a {@link org.opennms.netmgt.model.OnmsNode} object.
@@ -129,6 +136,7 @@ public interface ProvisionService {
      * <p>
      * getDbNodeInitCat
      * </p>
+     * .
      *
      * @param nodeId
      *            a {@link java.lang.Integer} object.
@@ -141,6 +149,7 @@ public interface ProvisionService {
      * <p>
      * updateIpInterfaceAttributes
      * </p>
+     * .
      *
      * @param nodeId
      *            a {@link java.lang.Integer} object.
@@ -155,6 +164,7 @@ public interface ProvisionService {
      * <p>
      * updateSnmpInterfaceAttributes
      * </p>
+     * .
      *
      * @param nodeId
      *            a {@link java.lang.Integer} object.
@@ -169,6 +179,7 @@ public interface ProvisionService {
      * <p>
      * addMonitoredService
      * </p>
+     * .
      *
      * @param ipInterfaceId
      *            a {@link java.lang.Integer} object.
@@ -183,6 +194,7 @@ public interface ProvisionService {
      * <p>
      * addMonitoredService
      * </p>
+     * .
      *
      * @param nodeId
      *            a {@link java.lang.Integer} object.
@@ -199,6 +211,7 @@ public interface ProvisionService {
      * <p>
      * updateMonitoredServiceState
      * </p>
+     * .
      *
      * @param nodeId
      *            a {@link java.lang.Integer} object.
@@ -215,6 +228,7 @@ public interface ProvisionService {
      * <p>
      * getRequisitionedNode
      * </p>
+     * .
      *
      * @param foreignSource
      *            a {@link java.lang.String} object.
@@ -238,6 +252,7 @@ public interface ProvisionService {
      * <p>
      * deleteInterface
      * </p>
+     * .
      *
      * @param nodeId
      *            a {@link java.lang.Integer} object.
@@ -251,6 +266,7 @@ public interface ProvisionService {
      * <p>
      * deleteService
      * </p>
+     * .
      *
      * @param nodeId
      *            a {@link java.lang.Integer} object.
@@ -263,7 +279,7 @@ public interface ProvisionService {
     void deleteService(Integer nodeId, InetAddress addr, String service);
 
     /**
-     * Insert the provided node into the database
+     * Insert the provided node into the database.
      *
      * @param node
      *            a {@link org.opennms.netmgt.model.OnmsNode} object.
@@ -318,6 +334,8 @@ public interface ProvisionService {
      *            parentNodeId by foreignId.
      * @param foreignId
      *            the foreignId for the node being set
+     * @param parentForeignSource
+     *            the parent foreign source
      * @param parentForeignId
      *            the foreignId of the parent node
      * @param parentNodeLabel
@@ -340,6 +358,7 @@ public interface ProvisionService {
      * <p>
      * getScheduleForNode
      * </p>
+     * .
      *
      * @param nodeId
      *            a int.
@@ -354,6 +373,7 @@ public interface ProvisionService {
      * <p>
      * setForeignSourceRepository
      * </p>
+     * .
      *
      * @param foriengSourceRepository
      *            a
@@ -366,6 +386,7 @@ public interface ProvisionService {
      * <p>
      * loadRequisition
      * </p>
+     * .
      *
      * @param resource
      *            a {@link org.springframework.core.io.Resource} object.
@@ -379,6 +400,7 @@ public interface ProvisionService {
      * <p>
      * getDetectorsForForeignSource
      * </p>
+     * .
      *
      * @param foreignSource
      *            a {@link java.lang.String} object.
@@ -390,6 +412,7 @@ public interface ProvisionService {
      * <p>
      * getNodePoliciesForForeignSource
      * </p>
+     * .
      *
      * @param foreignSourceName
      *            a {@link java.lang.String} object.
@@ -401,6 +424,7 @@ public interface ProvisionService {
      * <p>
      * getIpInterfacePoliciesForForeignSource
      * </p>
+     * .
      *
      * @param foreignSourceName
      *            a {@link java.lang.String} object.
@@ -412,6 +436,7 @@ public interface ProvisionService {
      * <p>
      * getSnmpInterfacePoliciesForForeignSource
      * </p>
+     * .
      *
      * @param foreignSourceName
      *            a {@link java.lang.String} object.
@@ -423,6 +448,7 @@ public interface ProvisionService {
      * <p>
      * updateNodeScanStamp
      * </p>
+     * .
      *
      * @param nodeId
      *            a {@link java.lang.Integer} object.
@@ -436,6 +462,7 @@ public interface ProvisionService {
      * <p>
      * deleteObsoleteInterfaces
      * </p>
+     * .
      *
      * @param nodeId
      *            a {@link java.lang.Integer} object.
@@ -449,6 +476,7 @@ public interface ProvisionService {
      * <p>
      * setIsPrimaryFlag
      * </p>
+     * .
      *
      * @param nodeId
      *            a {@link java.lang.Integer} object.
@@ -463,6 +491,7 @@ public interface ProvisionService {
      * <p>
      * getPrimaryInterfaceForNode
      * </p>
+     * .
      *
      * @param node
      *            a {@link org.opennms.netmgt.model.OnmsNode} object.
@@ -475,6 +504,7 @@ public interface ProvisionService {
      * <p>
      * createUndiscoveredNode
      * </p>
+     * .
      *
      * @param ipAddress
      *            a {@link java.lang.String} object.
@@ -487,6 +517,7 @@ public interface ProvisionService {
      * <p>
      * getNode
      * </p>
+     * .
      *
      * @param nodeId
      *            a {@link java.lang.Integer} object.

@@ -30,6 +30,9 @@ package org.opennms.netmgt.provision.service.operations;
 
 import org.opennms.netmgt.provision.service.ProvisionService;
 
+/**
+ * The Class InsertOperation.
+ */
 public class InsertOperation extends SaveOrUpdateOperation {
 
     /**
@@ -61,6 +64,7 @@ public class InsertOperation extends SaveOrUpdateOperation {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

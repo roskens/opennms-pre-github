@@ -38,12 +38,16 @@ package org.opennms.netmgt.provision.service;
  */
 public class WorkEffort {
 
+    /** The m_name. */
     private String m_name;
 
+    /** The m_total time. */
     private long m_totalTime;
 
+    /** The m_section count. */
     private long m_sectionCount;
 
+    /** The m_pending section. */
     private ThreadLocal<WorkDuration> m_pendingSection = new ThreadLocal<WorkDuration>();
 
     /**
@@ -62,6 +66,7 @@ public class WorkEffort {
      * <p>
      * begin
      * </p>
+     * .
      */
     public void begin() {
         WorkDuration pending = new WorkDuration();
@@ -73,6 +78,7 @@ public class WorkEffort {
      * <p>
      * end
      * </p>
+     * .
      */
     public void end() {
         WorkDuration pending = m_pendingSection.get();
@@ -84,6 +90,7 @@ public class WorkEffort {
      * <p>
      * getTotalTime
      * </p>
+     * .
      *
      * @return a long.
      */
@@ -95,6 +102,7 @@ public class WorkEffort {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

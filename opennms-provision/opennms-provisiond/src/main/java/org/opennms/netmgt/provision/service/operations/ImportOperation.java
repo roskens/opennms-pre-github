@@ -32,9 +32,15 @@ import org.opennms.netmgt.provision.service.ProvisionService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The Class ImportOperation.
+ */
 public abstract class ImportOperation {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(ImportOperation.class);
 
+    /** The m_provision service. */
     private final ProvisionService m_provisionService;
 
     /**
@@ -55,6 +61,7 @@ public abstract class ImportOperation {
      * <p>
      * scan
      * </p>
+     * .
      */
     public abstract void scan();
 
@@ -62,6 +69,7 @@ public abstract class ImportOperation {
      * <p>
      * getProvisionService
      * </p>
+     * .
      *
      * @return the provisionService
      */
@@ -73,6 +81,7 @@ public abstract class ImportOperation {
      * <p>
      * doPersist
      * </p>
+     * .
      */
     protected abstract void doPersist();
 
@@ -80,6 +89,7 @@ public abstract class ImportOperation {
      * <p>
      * persist
      * </p>
+     * .
      */
     public void persist() {
 

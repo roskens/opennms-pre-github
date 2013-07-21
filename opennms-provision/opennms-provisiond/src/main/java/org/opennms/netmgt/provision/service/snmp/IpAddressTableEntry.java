@@ -60,14 +60,19 @@ import org.slf4j.LoggerFactory;
  * @see <A HREF="http://www.ietf.org/rfc/rfc1213.txt">RFC1213 </A>
  */
 public final class IpAddressTableEntry extends SnmpTableEntry {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(IpAddressTableEntry.class);
 
     // Lookup strings for specific table entries
 
+    /** The Constant IP_ADDRESS_IF_INDEX. */
     public static final String IP_ADDRESS_IF_INDEX = "ipAddressIfIndex";
 
+    /** The Constant IP_ADDR_ENT_NETMASK. */
     public static final String IP_ADDR_ENT_NETMASK = "ipAddressPrefix";
 
+    /** The Constant IP_ADDR_TYPE. */
     public static final String IP_ADDR_TYPE = "ipAddressType";
 
     /**
@@ -78,12 +83,13 @@ public final class IpAddressTableEntry extends SnmpTableEntry {
      */
     public static final String TABLE_OID = "..1.3.6.1.2.1.4.34.1";
 
-    /** Constant <code>ms_elemList</code> */
+    /** Constant <code>ms_elemList</code>. */
     public static NamedSnmpVar[] ms_elemList = new NamedSnmpVar[] {
             new NamedSnmpVar(NamedSnmpVar.SNMPOBJECTID, IP_ADDRESS_IF_INDEX, TABLE_OID + ".3", 1),
             new NamedSnmpVar(NamedSnmpVar.SNMPOBJECTID, IP_ADDR_ENT_NETMASK, TABLE_OID + ".5", 2),
             new NamedSnmpVar(NamedSnmpVar.SNMPOBJECTID, IP_ADDR_TYPE, TABLE_OID + ".4", 3) };
 
+    /** The m_inet address. */
     private InetAddress m_inetAddress = null;
 
     /**
@@ -106,6 +112,7 @@ public final class IpAddressTableEntry extends SnmpTableEntry {
      * <p>
      * getIpAdEntAddr
      * </p>
+     * .
      *
      * @return a {@link java.net.InetAddress} object.
      */
@@ -117,6 +124,7 @@ public final class IpAddressTableEntry extends SnmpTableEntry {
      * <p>
      * getIpAdEntIfIndex
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -128,6 +136,7 @@ public final class IpAddressTableEntry extends SnmpTableEntry {
      * <p>
      * getIpAdEntNetMask
      * </p>
+     * .
      *
      * @return a {@link java.net.InetAddress} object.
      */
@@ -163,6 +172,9 @@ public final class IpAddressTableEntry extends SnmpTableEntry {
     /**
      * This is a hack, we get the IP address from the instance information when
      * storing one of the columns. :P
+     *
+     * @param result
+     *            the result
      */
     @Override
     public void storeResult(final SnmpResult result) {

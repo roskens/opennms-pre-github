@@ -34,7 +34,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Attribute
+ * Attribute.
  *
  * @author brozow
  * @version $Id: $
@@ -42,5 +42,11 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ ElementType.METHOD, ElementType.PARAMETER })
 public @interface Attribute {
+
+    /**
+     * Value.
+     *
+     * @return the string
+     */
     String value();
 }

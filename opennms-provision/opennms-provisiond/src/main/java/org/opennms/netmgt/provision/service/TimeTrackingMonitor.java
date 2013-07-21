@@ -46,30 +46,43 @@ import org.springframework.core.io.Resource;
  */
 public class TimeTrackingMonitor implements ProvisionMonitor {
 
+    /** The m_import duration. */
     private WorkDuration m_importDuration = new WorkDuration("Importing");
 
+    /** The m_audit duration. */
     private WorkDuration m_auditDuration = new WorkDuration("Auditing");
 
+    /** The m_loading duration. */
     private WorkDuration m_loadingDuration = new WorkDuration("Loading");
 
+    /** The m_processing duration. */
     private WorkDuration m_processingDuration = new WorkDuration("Processing");
 
+    /** The m_preprocessing duration. */
     private WorkDuration m_preprocessingDuration = new WorkDuration("Scanning");
 
+    /** The m_relate duration. */
     private WorkDuration m_relateDuration = new WorkDuration("Relating");
 
+    /** The m_preprocessing effort. */
     private WorkEffort m_preprocessingEffort = new WorkEffort("Scan Effort");
 
+    /** The m_processing effort. */
     private WorkEffort m_processingEffort = new WorkEffort("Write Effort");
 
+    /** The m_event effort. */
     private WorkEffort m_eventEffort = new WorkEffort("Event Sending Effort");
 
+    /** The m_delete count. */
     private int m_deleteCount;
 
+    /** The m_insert count. */
     private int m_insertCount;
 
+    /** The m_update count. */
     private int m_updateCount;
 
+    /** The m_event count. */
     private int m_eventCount;
 
     /** {@inheritDoc} */
@@ -85,6 +98,7 @@ public class TimeTrackingMonitor implements ProvisionMonitor {
      * <p>
      * finishProcessingOps
      * </p>
+     * .
      */
     @Override
     public void finishProcessingOps() {
@@ -95,6 +109,7 @@ public class TimeTrackingMonitor implements ProvisionMonitor {
      * <p>
      * beginPreprocessingOps
      * </p>
+     * .
      */
     @Override
     public void beginPreprocessingOps() {
@@ -105,6 +120,7 @@ public class TimeTrackingMonitor implements ProvisionMonitor {
      * <p>
      * finishPreprocessingOps
      * </p>
+     * .
      */
     @Override
     public void finishPreprocessingOps() {
@@ -171,6 +187,7 @@ public class TimeTrackingMonitor implements ProvisionMonitor {
      * <p>
      * beginImporting
      * </p>
+     * .
      */
     @Override
     public void beginImporting() {
@@ -181,6 +198,7 @@ public class TimeTrackingMonitor implements ProvisionMonitor {
      * <p>
      * finishImporting
      * </p>
+     * .
      */
     @Override
     public void finishImporting() {
@@ -191,6 +209,7 @@ public class TimeTrackingMonitor implements ProvisionMonitor {
      * <p>
      * beginAuditNodes
      * </p>
+     * .
      */
     @Override
     public void beginAuditNodes() {
@@ -201,6 +220,7 @@ public class TimeTrackingMonitor implements ProvisionMonitor {
      * <p>
      * finishAuditNodes
      * </p>
+     * .
      */
     @Override
     public void finishAuditNodes() {
@@ -211,6 +231,7 @@ public class TimeTrackingMonitor implements ProvisionMonitor {
      * <p>
      * beginRelateNodes
      * </p>
+     * .
      */
     @Override
     public void beginRelateNodes() {
@@ -221,6 +242,7 @@ public class TimeTrackingMonitor implements ProvisionMonitor {
      * <p>
      * finishRelateNodes
      * </p>
+     * .
      */
     @Override
     public void finishRelateNodes() {
@@ -231,6 +253,7 @@ public class TimeTrackingMonitor implements ProvisionMonitor {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

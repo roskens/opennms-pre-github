@@ -29,7 +29,7 @@
 package org.opennms.netmgt.provision.service;
 
 /**
- * SubNodePolicy
+ * SubNodePolicy.
  *
  * @author brozow
  */

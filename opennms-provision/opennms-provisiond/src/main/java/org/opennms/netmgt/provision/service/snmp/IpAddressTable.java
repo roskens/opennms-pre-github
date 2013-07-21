@@ -60,10 +60,13 @@ import org.opennms.netmgt.snmp.SnmpObjId;
  */
 public class IpAddressTable extends SnmpTable<IpAddressTableEntry> {
 
+    /** The Constant INSTANCE_TYPE_IPV4. */
     protected static final int INSTANCE_TYPE_IPV4 = 1;
 
+    /** The Constant INSTANCE_TYPE_IPV6. */
     protected static final int INSTANCE_TYPE_IPV6 = 2;
 
+    /** The m_addresses. */
     private final Set<InetAddress> m_addresses;
 
     /**
@@ -90,6 +93,8 @@ public class IpAddressTable extends SnmpTable<IpAddressTableEntry> {
      *
      * @param address
      *            a {@link java.net.InetAddress} object.
+     * @param inetAddresses
+     *            the inet addresses
      * @param ipAddresses
      *            a {@link java.util.Set} object.
      */
@@ -109,6 +114,7 @@ public class IpAddressTable extends SnmpTable<IpAddressTableEntry> {
      * <p>
      * getIfIndices
      * </p>
+     * .
      *
      * @return a {@link java.util.Set} object.
      */
@@ -127,6 +133,7 @@ public class IpAddressTable extends SnmpTable<IpAddressTableEntry> {
      * <p>
      * getIfAddress
      * </p>
+     * .
      *
      * @param ifIndex
      *            a int.
@@ -141,6 +148,7 @@ public class IpAddressTable extends SnmpTable<IpAddressTableEntry> {
      * <p>
      * getNetMask
      * </p>
+     * .
      *
      * @param ifIndex
      *            a int.
@@ -156,6 +164,7 @@ public class IpAddressTable extends SnmpTable<IpAddressTableEntry> {
      * <p>
      * getNetMask
      * </p>
+     * .
      *
      * @param address
      *            a {@link java.net.InetAddress} object.
@@ -169,6 +178,7 @@ public class IpAddressTable extends SnmpTable<IpAddressTableEntry> {
      * <p>
      * getIfIndex
      * </p>
+     * .
      *
      * @param address
      *            a {@link java.net.InetAddress} object.
@@ -182,6 +192,7 @@ public class IpAddressTable extends SnmpTable<IpAddressTableEntry> {
      * <p>
      * getEntryByIfIndex
      * </p>
+     * .
      *
      * @param ifIndex
      *            a int.
@@ -207,6 +218,7 @@ public class IpAddressTable extends SnmpTable<IpAddressTableEntry> {
      * <p>
      * getEntry
      * </p>
+     * .
      *
      * @param address
      *            a {@link java.net.InetAddress} object.
@@ -222,6 +234,7 @@ public class IpAddressTable extends SnmpTable<IpAddressTableEntry> {
      * <p>
      * updateIpInterfaceData
      * </p>
+     * .
      *
      * @param node
      *            a {@link org.opennms.netmgt.model.OnmsNode} object.
@@ -236,6 +249,7 @@ public class IpAddressTable extends SnmpTable<IpAddressTableEntry> {
      * <p>
      * updateIpInterfaceData
      * </p>
+     * .
      *
      * @param node
      *            a {@link org.opennms.netmgt.model.OnmsNode} object.
@@ -280,6 +294,7 @@ public class IpAddressTable extends SnmpTable<IpAddressTableEntry> {
      * <p>
      * getIpAddresses
      * </p>
+     * .
      *
      * @return a {@link java.util.Set} object.
      */
@@ -292,10 +307,26 @@ public class IpAddressTable extends SnmpTable<IpAddressTableEntry> {
 
     }
 
+    /**
+     * Creates the table.
+     *
+     * @param address
+     *            the address
+     * @param ipAddresses
+     *            the ip addresses
+     * @return the ip address table
+     */
     public static IpAddressTable createTable(final InetAddress address, final Set<InetAddress> ipAddresses) {
         return new IpAddressTable(address, ipAddresses, getInstanceIds(ipAddresses));
     }
 
+    /**
+     * Gets the instance ids.
+     *
+     * @param ipAddresses
+     *            the ip addresses
+     * @return the instance ids
+     */
     public static Set<SnmpInstId> getInstanceIds(final Set<InetAddress> ipAddresses) {
         final Set<SnmpInstId> ids = new HashSet<SnmpInstId>();
         for (final InetAddress addr : ipAddresses) {
@@ -304,6 +335,13 @@ public class IpAddressTable extends SnmpTable<IpAddressTableEntry> {
         return ids;
     }
 
+    /**
+     * Gets the instance for address.
+     *
+     * @param address
+     *            the address
+     * @return the instance for address
+     */
     public static SnmpInstId getInstanceForAddress(final InetAddress address) {
         final int type;
         if (address instanceof Inet4Address) {

@@ -71,6 +71,9 @@ import org.springframework.core.io.ResourceLoader;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 
+/**
+ * The Class DragonWaveNodeSwitchingTest.
+ */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
         "classpath:/META-INF/opennms/applicationContext-mockDao.xml",
@@ -84,26 +87,36 @@ import org.springframework.test.context.ContextConfiguration;
 @DirtiesContext
 public class DragonWaveNodeSwitchingTest extends ProvisioningTestCase implements InitializingBean, MockSnmpDataProviderAware {
 
+    /** The m_node dao. */
     @Autowired
     private MockNodeDao m_nodeDao;
 
+    /** The m_provisioner. */
     @Autowired
     private Provisioner m_provisioner;
 
+    /** The m_resource loader. */
     @Autowired
     private ResourceLoader m_resourceLoader;
 
+    /** The m_event subscriber. */
     @Autowired
     private MockEventIpcManager m_eventSubscriber;
 
+    /** The m_snmp peer factory. */
     @Autowired
     private SnmpPeerFactory m_snmpPeerFactory;
 
+    /** The m_populator. */
     @Autowired
     private DatabasePopulator m_populator;
 
+    /** The m_mock snmp data provider. */
     private MockSnmpDataProvider m_mockSnmpDataProvider;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
@@ -114,6 +127,9 @@ public class DragonWaveNodeSwitchingTest extends ProvisioningTestCase implements
         assertTrue(m_snmpPeerFactory instanceof ProxySnmpAgentConfigFactory);
     }
 
+    /**
+     * Sets the up snmp config.
+     */
     @BeforeClass
     public static void setUpSnmpConfig() {
         Properties props = new Properties();
@@ -124,6 +140,12 @@ public class DragonWaveNodeSwitchingTest extends ProvisioningTestCase implements
         MockLogAppender.setupLogging(props);
     }
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
         final ForeignSource fs = new ForeignSource();
@@ -135,6 +157,12 @@ public class DragonWaveNodeSwitchingTest extends ProvisioningTestCase implements
         m_provisioner.start();
     }
 
+    /**
+     * Tear down.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @After
     public void tearDown() throws Exception {
         m_eventSubscriber.getEventAnticipator().reset();
@@ -142,6 +170,16 @@ public class DragonWaveNodeSwitchingTest extends ProvisioningTestCase implements
         waitForEverything();
     }
 
+    /**
+     * Run scan.
+     *
+     * @param scan
+     *            the scan
+     * @throws InterruptedException
+     *             the interrupted exception
+     * @throws ExecutionException
+     *             the execution exception
+     */
     public void runScan(final NodeScan scan) throws InterruptedException, ExecutionException {
         final Task t = scan.createTask();
         t.schedule();
@@ -149,6 +187,12 @@ public class DragonWaveNodeSwitchingTest extends ProvisioningTestCase implements
         waitForEverything();
     }
 
+    /**
+     * Test initial setup.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @JUnitSnmpAgents({ @JUnitSnmpAgent(host = "192.168.255.22", port = 161, resource = "classpath:/dw/walks/node1-walk.properties") })
     public void testInitialSetup() throws Exception {
@@ -204,6 +248,12 @@ public class DragonWaveNodeSwitchingTest extends ProvisioningTestCase implements
 
     }
 
+    /**
+     * Test a setup.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @JUnitSnmpAgents({ @JUnitSnmpAgent(host = "192.168.255.22", resource = "classpath:/dw/walks/node3-walk.properties") })
     public void testASetup() throws Exception {
@@ -226,11 +276,22 @@ public class DragonWaveNodeSwitchingTest extends ProvisioningTestCase implements
         assertEquals(".1.3.6.1.4.1.7262.1", onmsNode.getSysObjectId());
     }
 
+    /**
+     * Import resource.
+     *
+     * @param location
+     *            the location
+     * @throws Exception
+     *             the exception
+     */
     private void importResource(final String location) throws Exception {
         m_provisioner.importModelFromResource(m_resourceLoader.getResource(location), true);
         waitForEverything();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.core.test.snmp.MockSnmpDataProviderAware#setMockSnmpDataProvider(org.opennms.core.test.snmp.MockSnmpDataProvider)
+     */
     @Override
     public void setMockSnmpDataProvider(final MockSnmpDataProvider provider) {
         m_mockSnmpDataProvider = provider;
