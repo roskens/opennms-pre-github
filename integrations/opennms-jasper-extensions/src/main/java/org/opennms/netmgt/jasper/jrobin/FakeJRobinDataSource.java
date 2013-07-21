@@ -34,18 +34,32 @@ import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRField;
 
+/**
+ * The Class FakeJRobinDataSource.
+ */
 public class FakeJRobinDataSource implements JRDataSource {
 
+    /** The increment. */
     private static long INCREMENT = 300L * 1000L;
 
+    /** The m_rows. */
     private int m_rows;
 
+    /** The m_fields. */
     private String[] m_fields;
 
+    /** The m_current row. */
     private int m_currentRow = 0;
 
+    /** The m_end. */
     private long m_end;
 
+    /**
+     * Instantiates a new fake j robin data source.
+     *
+     * @param queryString
+     *            the query string
+     */
     public FakeJRobinDataSource(String queryString) {
         String[] stringArray = queryString.split(":");
         m_rows = Integer.parseInt(stringArray[0]);
@@ -54,6 +68,9 @@ public class FakeJRobinDataSource implements JRDataSource {
         m_end = ((System.currentTimeMillis() / INCREMENT) * INCREMENT);
     }
 
+    /* (non-Javadoc)
+     * @see net.sf.jasperreports.engine.JRDataSource#getFieldValue(net.sf.jasperreports.engine.JRField)
+     */
     @Override
     public Object getFieldValue(JRField field) throws JRException {
         if ("Timestamp".equals(field.getName())) {
@@ -64,6 +81,13 @@ public class FakeJRobinDataSource implements JRDataSource {
         return index == null ? null : Double.valueOf(m_currentRow * index);
     }
 
+    /**
+     * Gets the column index.
+     *
+     * @param fieldName
+     *            the field name
+     * @return the column index
+     */
     private Integer getColumnIndex(String fieldName) {
         for (int i = 0; i < m_fields.length; i++) {
             if (m_fields[i].equals(fieldName)) {
@@ -73,6 +97,9 @@ public class FakeJRobinDataSource implements JRDataSource {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see net.sf.jasperreports.engine.JRDataSource#next()
+     */
     @Override
     public boolean next() throws JRException {
         m_currentRow++;

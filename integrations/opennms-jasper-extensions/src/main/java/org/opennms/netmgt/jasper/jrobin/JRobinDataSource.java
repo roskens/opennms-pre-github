@@ -37,28 +37,55 @@ import net.sf.jasperreports.engine.JRField;
 
 import org.opennms.netmgt.jasper.jrobin.RrdXportCmd.XPort;
 
+/**
+ * The Class JRobinDataSource.
+ */
 public class JRobinDataSource implements JRDataSource {
 
+    /** The m_current row. */
     private int m_currentRow = -1;
 
+    /** The m_timestamps. */
     private long[] m_timestamps;
 
+    /** The m_step. */
     private long m_step;
 
+    /** The m_xports. */
     private List<XPort> m_xports;
 
+    /**
+     * Instantiates a new j robin data source.
+     *
+     * @param step
+     *            the step
+     * @param timestamps
+     *            the timestamps
+     * @param xports
+     *            the xports
+     */
     public JRobinDataSource(long step, long[] timestamps, List<XPort> xports) {
         m_step = step;
         m_timestamps = timestamps;
         m_xports = xports;
     }
 
+    /* (non-Javadoc)
+     * @see net.sf.jasperreports.engine.JRDataSource#getFieldValue(net.sf.jasperreports.engine.JRField)
+     */
     @Override
     public Object getFieldValue(JRField field) throws JRException {
         Object computeFieldValue = computeFieldValue(field);
         return computeFieldValue;
     }
 
+    /**
+     * Compute field value.
+     *
+     * @param field
+     *            the field
+     * @return the object
+     */
     private Object computeFieldValue(JRField field) {
         if ("Timestamp".equalsIgnoreCase(getColumnName(field))) {
             return new Date(m_timestamps[m_currentRow] * 1000L);
@@ -69,11 +96,25 @@ public class JRobinDataSource implements JRDataSource {
         return xport == null ? null : Double.valueOf(xport.values[m_currentRow]);
     }
 
+    /**
+     * Gets the column name.
+     *
+     * @param field
+     *            the field
+     * @return the column name
+     */
     private String getColumnName(JRField field) {
         return field.getDescription() == null || field.getDescription().trim().equals("") ? field.getName()
             : field.getDescription();
     }
 
+    /**
+     * Find x port for field.
+     *
+     * @param description
+     *            the description
+     * @return the x port
+     */
     private XPort findXPortForField(String description) {
         for (XPort xport : m_xports) {
             if (xport.legend.equalsIgnoreCase(description)) {
@@ -83,6 +124,9 @@ public class JRobinDataSource implements JRDataSource {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see net.sf.jasperreports.engine.JRDataSource#next()
+     */
     @Override
     public boolean next() throws JRException {
         m_currentRow++;

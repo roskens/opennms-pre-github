@@ -36,23 +36,43 @@ import net.sf.jasperreports.engine.JRDataset;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.query.JRAbstractQueryExecuter;
 
+/**
+ * The Class JRobinQueryExecutor.
+ */
 public class JRobinQueryExecutor extends JRAbstractQueryExecuter {
 
+    /**
+     * Instantiates a new j robin query executor.
+     *
+     * @param dataset
+     *            the dataset
+     * @param parametersMap
+     *            the parameters map
+     */
     protected JRobinQueryExecutor(JRDataset dataset, Map<?, ?> parametersMap) {
         super(dataset, parametersMap);
         parseQuery();
     }
 
+    /* (non-Javadoc)
+     * @see net.sf.jasperreports.engine.query.JRQueryExecuter#cancelQuery()
+     */
     @Override
     public boolean cancelQuery() throws JRException {
         return false;
     }
 
+    /* (non-Javadoc)
+     * @see net.sf.jasperreports.engine.query.JRQueryExecuter#close()
+     */
     @Override
     public void close() {
 
     }
 
+    /* (non-Javadoc)
+     * @see net.sf.jasperreports.engine.query.JRQueryExecuter#createDatasource()
+     */
     @Override
     public JRDataSource createDatasource() throws JRException {
         try {
@@ -62,6 +82,9 @@ public class JRobinQueryExecutor extends JRAbstractQueryExecuter {
         }
     }
 
+    /* (non-Javadoc)
+     * @see net.sf.jasperreports.engine.query.JRAbstractQueryExecuter#getParameterReplacement(java.lang.String)
+     */
     @Override
     protected String getParameterReplacement(String parameterName) {
         Object parameterVal = getParameterValue(parameterName);

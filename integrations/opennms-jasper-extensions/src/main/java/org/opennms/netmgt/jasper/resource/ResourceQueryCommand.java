@@ -30,8 +30,18 @@ package org.opennms.netmgt.jasper.resource;
 
 import net.sf.jasperreports.engine.JRDataSource;
 
+/**
+ * The Class ResourceQueryCommand.
+ */
 public class ResourceQueryCommand {
 
+    /**
+     * Execute command.
+     *
+     * @param command
+     *            the command
+     * @return the jR data source
+     */
     JRDataSource executeCommand(String command) {
 
         ResourceQuery query = new ResourceQueryCommandParser().parseQueryCommand(command);

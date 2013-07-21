@@ -34,16 +34,30 @@ import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRField;
 
+/**
+ * The Class RrdtoolDataSource.
+ */
 public class RrdtoolDataSource implements JRDataSource {
 
+    /** The m_current row. */
     private int m_currentRow = -1;
 
+    /** The m_data. */
     private Xport m_data;
 
+    /**
+     * Instantiates a new rrdtool data source.
+     *
+     * @param data
+     *            the data
+     */
     public RrdtoolDataSource(Xport data) {
         this.m_data = data;
     }
 
+    /* (non-Javadoc)
+     * @see net.sf.jasperreports.engine.JRDataSource#getFieldValue(net.sf.jasperreports.engine.JRField)
+     */
     @Override
     public Object getFieldValue(JRField field) throws JRException {
         if ("Timestamp".equalsIgnoreCase(getColumnName(field))) {
@@ -56,17 +70,34 @@ public class RrdtoolDataSource implements JRDataSource {
         return new Double(m_data.getData().getRow(m_currentRow).getV(index).getContent());
     }
 
+    /**
+     * Gets the column name.
+     *
+     * @param field
+     *            the field
+     * @return the column name
+     */
     private String getColumnName(JRField field) {
         return field.getDescription() == null || field.getDescription().trim().equals("") ? field.getName()
             : field.getDescription();
     }
 
+    /* (non-Javadoc)
+     * @see net.sf.jasperreports.engine.JRDataSource#next()
+     */
     @Override
     public boolean next() throws JRException {
         m_currentRow++;
         return m_data == null || m_data.getData() == null ? false : m_currentRow < m_data.getData().getRowCount();
     }
 
+    /**
+     * Gets the column index.
+     *
+     * @param field
+     *            the field
+     * @return the column index
+     */
     private int getColumnIndex(JRField field) {
         String column = getColumnName(field);
         int i = 0;

@@ -43,14 +43,37 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.FileCopyUtils;
 
+/**
+ * The Class RrdtoolXportCmd.
+ */
 public class RrdtoolXportCmd {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(RrdtoolXportCmd.class);
 
+    /**
+     * Execute command.
+     *
+     * @param queryString
+     *            the query string
+     * @return the jR data source
+     * @throws JRException
+     *             the jR exception
+     */
     public JRDataSource executeCommand(String queryString) throws JRException {
         Xport data = getXportData(queryString);
         return new RrdtoolDataSource(data);
     }
 
+    /**
+     * Gets the xport data.
+     *
+     * @param queryString
+     *            the query string
+     * @return the xport data
+     * @throws JRException
+     *             the jR exception
+     */
     private Xport getXportData(String queryString) throws JRException {
         String rrdBinary = getRrdBinary();
         if (rrdBinary == null) {
@@ -86,6 +109,11 @@ public class RrdtoolXportCmd {
         return data;
     }
 
+    /**
+     * Gets the rrd binary.
+     *
+     * @return the rrd binary
+     */
     private String getRrdBinary() {
         if (System.getProperty("rrd.binary") != null) {
             return System.getProperty("rrd.binary");

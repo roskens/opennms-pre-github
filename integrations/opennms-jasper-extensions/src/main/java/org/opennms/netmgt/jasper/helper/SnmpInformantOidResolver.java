@@ -47,6 +47,7 @@ import org.slf4j.LoggerFactory;
 public class SnmpInformantOidResolver extends JRDefaultScriptlet {
 
     // Logging to reporting log
+    /** The logger. */
     private final Logger logger = LoggerFactory.getLogger("OpenNMS.Report." + SnmpInformantOidResolver.class.getName());
 
     /**
@@ -82,6 +83,13 @@ public class SnmpInformantOidResolver extends JRDefaultScriptlet {
         return stringBuilder.toString();
     }
 
+    /**
+     * Ascii oid to string.
+     *
+     * @param string2convert
+     *            the string2convert
+     * @return the string
+     */
     public String asciiOidToString(String string2convert) {
         StringBuilder stringBuilder = new StringBuilder();
         StringTokenizer st = new StringTokenizer(string2convert, ".");

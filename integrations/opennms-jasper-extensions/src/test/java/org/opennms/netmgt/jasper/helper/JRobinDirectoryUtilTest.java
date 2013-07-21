@@ -37,21 +37,40 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
+/**
+ * The Class JRobinDirectoryUtilTest.
+ */
 public class JRobinDirectoryUtilTest {
+
+    /** The jrb directory. */
     private static String JRB_DIRECTORY = "src/test/resources/share/rrd/snmp";
 
+    /** The rrd tool directory. */
     private static String RRD_TOOL_DIRECTORY = "src/test/resources/share/rrd";
 
+    /** The node id. */
     private static String NODE_ID = "9";
 
+    /** The interface. */
     private static String INTERFACE = "me1-0002baaacffe";
 
+    /**
+     * Setup.
+     */
     @Before
     public void setup() {
         System.setProperty("org.opennms.rrd.storeByGroup", "true");
         System.setProperty("org.opennms.rrd.strategyClass", "org.opennms.netmgt.rrd.jrobin.JRobinRrdStrategy");
     }
 
+    /**
+     * Test j robin directory lookup local.
+     *
+     * @throws FileNotFoundException
+     *             the file not found exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     @Test
     @Ignore
     public void testJRobinDirectoryLookupLocal() throws FileNotFoundException, IOException {
@@ -72,6 +91,12 @@ public class JRobinDirectoryUtilTest {
         assertEquals("ifOutOctets", lookup.getIfOutOctetsDataSource(rrdDirectory, nodeId, iFace));
     }
 
+    /**
+     * Test j robin directory lookup.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     @Test
     public void testJRobinDirectoryLookup() throws IOException {
         JRobinDirectoryUtil lookup = new JRobinDirectoryUtil();
@@ -89,6 +114,14 @@ public class JRobinDirectoryUtilTest {
                      lookup.getIfOutOctetsJrb(JRB_DIRECTORY, NODE_ID, INTERFACE));
     }
 
+    /**
+     * Test j robin directory util rrd extension.
+     *
+     * @throws FileNotFoundException
+     *             the file not found exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     @Test
     public void testJRobinDirectoryUtilRrdExtension() throws FileNotFoundException, IOException {
         System.setProperty("org.opennms.rrd.strategyClass", "org.opennms.netmgt.rrd.jrobin.JniRrdStrategy");
@@ -107,6 +140,14 @@ public class JRobinDirectoryUtilTest {
                      lookupUtil.getIfOutOctetsJrb(RRD_TOOL_DIRECTORY, NODE_ID, INTERFACE));
     }
 
+    /**
+     * Test j robin directory util custom extension.
+     *
+     * @throws FileNotFoundException
+     *             the file not found exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     @Test
     public void testJRobinDirectoryUtilCustomExtension() throws FileNotFoundException, IOException {
         System.setProperty("org.opennms.rrd.fileExtension", ".jrb");
@@ -131,6 +172,9 @@ public class JRobinDirectoryUtilTest {
 
     }
 
+    /**
+     * Test get interface directory.
+     */
     @Test
     public void testGetInterfaceDirectory() {
         JRobinDirectoryUtil lookup = new JRobinDirectoryUtil();
@@ -141,6 +185,9 @@ public class JRobinDirectoryUtilTest {
         assertEquals("me1-0002baaacffe", lookup.getInterfaceDirectory(snmpifname, snmpifdescr, snmpphysaddr));
     }
 
+    /**
+     * Test get interface directory no snmp phys addr.
+     */
     @Test
     public void testGetInterfaceDirectoryNoSnmpPhysAddr() {
         JRobinDirectoryUtil lookup = new JRobinDirectoryUtil();
@@ -154,6 +201,9 @@ public class JRobinDirectoryUtilTest {
         assertEquals("me1", lookup.getInterfaceDirectory(snmpifname, snmpifdescr, snmpphysaddr));
     }
 
+    /**
+     * Test get interface directory no snmp if name.
+     */
     @Test
     public void testGetInterfaceDirectoryNoSnmpIfName() {
         JRobinDirectoryUtil lookup = new JRobinDirectoryUtil();
@@ -164,6 +214,9 @@ public class JRobinDirectoryUtilTest {
         assertEquals("me1-0002baaacffe", lookup.getInterfaceDirectory(snmpifname, snmpifdescr, snmpphysaddr));
     }
 
+    /**
+     * Test get interface directory atm.
+     */
     @Test
     public void testGetInterfaceDirectoryATM() {
         JRobinDirectoryUtil lookup = new JRobinDirectoryUtil();

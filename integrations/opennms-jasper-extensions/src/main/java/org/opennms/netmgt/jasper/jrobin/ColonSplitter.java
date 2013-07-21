@@ -28,15 +28,32 @@
 
 package org.opennms.netmgt.jasper.jrobin;
 
+/**
+ * The Class ColonSplitter.
+ */
 class ColonSplitter {
+
+    /** The cmd. */
     private String cmd;
 
+    /** The Constant COLON. */
     private static final String COLON = "@#@";
 
+    /**
+     * Instantiates a new colon splitter.
+     *
+     * @param command
+     *            the command
+     */
     ColonSplitter(String command) {
         this.cmd = command;
     }
 
+    /**
+     * Split.
+     *
+     * @return the string[]
+     */
     String[] split() {
         String[] tokens = cmd.replaceAll("\\\\:", COLON).split(":");
         for (int i = 0; i < tokens.length; i++) {

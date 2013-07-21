@@ -44,18 +44,32 @@ import net.sf.jasperreports.engine.export.JRXhtmlExporter;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * The Class ResourceQueryExecuterTest.
+ */
 public class ResourceQueryExecuterTest {
 
+    /** The m_jasper report. */
     private JasperReport m_jasperReport;
 
+    /** The m_jasper print. */
     private JasperPrint m_jasperPrint;
 
+    /**
+     * Sets the up.
+     */
     @Before
     public void setUp() {
         File reportDir = new File("target/reports");
         reportDir.mkdirs();
     }
 
+    /**
+     * Test.
+     *
+     * @throws JRException
+     *             the jR exception
+     */
     @Test
     public void test() throws JRException {
         compile();
@@ -64,6 +78,12 @@ public class ResourceQueryExecuterTest {
         xhtml();
     }
 
+    /**
+     * Xhtml.
+     *
+     * @throws JRException
+     *             the jR exception
+     */
     private void xhtml() throws JRException {
         File destFile = new File("target/reports/ResourceTypeTest.x.html");
 
@@ -75,10 +95,22 @@ public class ResourceQueryExecuterTest {
         exporter.exportReport();
     }
 
+    /**
+     * Pdf.
+     *
+     * @throws JRException
+     *             the jR exception
+     */
     private void pdf() throws JRException {
         JasperExportManager.exportReportToPdfFile(m_jasperPrint, "target/reports/ResourceTypeTest.pdf");
     }
 
+    /**
+     * Fill.
+     *
+     * @throws JRException
+     *             the jR exception
+     */
     private void fill() throws JRException {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("nodeid", 1);
@@ -87,6 +119,12 @@ public class ResourceQueryExecuterTest {
         m_jasperPrint = JasperFillManager.fillReport(m_jasperReport, params);
     }
 
+    /**
+     * Compile.
+     *
+     * @throws JRException
+     *             the jR exception
+     */
     private void compile() throws JRException {
         m_jasperReport = JasperCompileManager.compileReport("src/test/resources/ResourceTest.jrxml");
     }

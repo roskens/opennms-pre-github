@@ -34,8 +34,14 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
+/**
+ * The Class ResourceQueryParserTest.
+ */
 public class ResourceQueryParserTest {
 
+    /**
+     * Test command parsing.
+     */
     @Test
     public void testCommandParsing() {
         ResourceQueryCommandParser parser = new ResourceQueryCommandParser();
@@ -47,6 +53,9 @@ public class ResourceQueryParserTest {
         assertEquals("nsVpnMonitor", rQuery.getResourceName());
     }
 
+    /**
+     * Test command parsing with filter.
+     */
     @Test
     public void testCommandParsingWithFilter() {
         ResourceQueryCommandParser parser = new ResourceQueryCommandParser();
@@ -64,6 +73,9 @@ public class ResourceQueryParserTest {
 
     }
 
+    /**
+     * Test command parsing with string property.
+     */
     @Test
     public void testCommandParsingWithStringProperty() {
         ResourceQueryCommandParser parser = new ResourceQueryCommandParser();
@@ -87,14 +99,29 @@ public class ResourceQueryParserTest {
 
     }
 
+    /**
+     * Gets the resource query.
+     *
+     * @return the resource query
+     */
     private String getResourceQuery() {
         return "--rrdDir /Users/thedesloge/git/opennms/integrations/opennms-jasper-extensions/src/test/resources/share/rrd/snmp  --nodeid 10 --resourceType nsVpnMonitor";
     }
 
+    /**
+     * Gets the resource query with filter.
+     *
+     * @return the resource query with filter
+     */
     private String getResourceQueryWithFilter() {
         return "--rrdDir /Users/thedesloge/git/opennms/integrations/opennms-jasper-extensions/src/test/resources/share/rrd/snmp --nodeid 10 --resourceType nsVpnMonitor --dsName http.dump,icmp.jrb";
     }
 
+    /**
+     * Gets the resource query with string property.
+     *
+     * @return the resource query with string property
+     */
     private String getResourceQueryWithStringProperty() {
         return "--rrdDir /Users/thedesloge/git/opennms/integrations/opennms-jasper-extensions/src/test/resources/share/rrd/snmp --nodeid 10 --resourceType nsVpnMonitor --dsName http.dump,icmp.jrb --string nsVpnMonVpnName,name2";
     }

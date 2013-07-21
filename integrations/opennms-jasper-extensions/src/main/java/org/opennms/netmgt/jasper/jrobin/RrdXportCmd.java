@@ -39,16 +39,28 @@ import org.jrobin.core.Util;
 import org.jrobin.data.DataProcessor;
 import org.jrobin.graph.RrdGraphConstants;
 
+/**
+ * The Class RrdXportCmd.
+ */
 class RrdXportCmd extends RrdToolCmd implements RrdGraphConstants {
+
+    /** The dproc. */
     private DataProcessor dproc;
 
+    /** The xports. */
     private List<XPort> xports;
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.jasper.jrobin.RrdToolCmd#getCmdType()
+     */
     @Override
     String getCmdType() {
         return "xport";
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.jasper.jrobin.RrdToolCmd#execute()
+     */
     @Override
     JRDataSource execute() throws RrdException, IOException {
         String startStr = getOptionValue("s", "start", DEFAULT_START);
@@ -82,6 +94,15 @@ class RrdXportCmd extends RrdToolCmd implements RrdGraphConstants {
         return result;
     }
 
+    /**
+     * Xport.
+     *
+     * @return the jR data source
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws RrdException
+     *             the rrd exception
+     */
     private JRDataSource xport() throws IOException, RrdException {
         dproc.processData();
         long[] timestamps = dproc.getTimestamps();
@@ -96,6 +117,14 @@ class RrdXportCmd extends RrdToolCmd implements RrdGraphConstants {
         return new JRobinDataSource(dproc.getStep(), timestamps, xports);
     }
 
+    /**
+     * Parses the def.
+     *
+     * @param word
+     *            the word
+     * @throws RrdException
+     *             the rrd exception
+     */
     private void parseDef(String word) throws RrdException {
         // DEF:vname=rrd:ds-name:CF
         String[] tokens1 = new ColonSplitter(word).split();
@@ -109,6 +138,14 @@ class RrdXportCmd extends RrdToolCmd implements RrdGraphConstants {
         dproc.addDatasource(tokens2[0], tokens2[1], tokens1[2], tokens1[3]);
     }
 
+    /**
+     * Parses the c def.
+     *
+     * @param word
+     *            the word
+     * @throws RrdException
+     *             the rrd exception
+     */
     private void parseCDef(String word) throws RrdException {
         // CDEF:vname=rpn-expression
         String[] tokens1 = new ColonSplitter(word).split();
@@ -122,6 +159,14 @@ class RrdXportCmd extends RrdToolCmd implements RrdGraphConstants {
         dproc.addDatasource(tokens2[0], tokens2[1]);
     }
 
+    /**
+     * Parses the xport.
+     *
+     * @param word
+     *            the word
+     * @throws RrdException
+     *             the rrd exception
+     */
     private void parseXport(String word) throws RrdException {
         // XPORT:vname[:legend]
         String[] tokens = new ColonSplitter(word).split();
@@ -133,11 +178,25 @@ class RrdXportCmd extends RrdToolCmd implements RrdGraphConstants {
         }
     }
 
+    /**
+     * The Class XPort.
+     */
     static class XPort {
+
+        /** The legend. */
         String name, legend;
 
+        /** The values. */
         double[] values;
 
+        /**
+         * Instantiates a new x port.
+         *
+         * @param name
+         *            the name
+         * @param legend
+         *            the legend
+         */
         XPort(String name, String legend) {
             this.name = name;
             this.legend = legend != null ? legend : "";

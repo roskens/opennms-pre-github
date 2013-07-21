@@ -35,11 +35,25 @@ import java.util.List;
 
 import org.jrobin.core.RrdException;
 
+/**
+ * The Class RrdCmdScanner.
+ */
 class RrdCmdScanner {
+
+    /** The words. */
     private LinkedList<String> words = new LinkedList<String>();
 
+    /** The buff. */
     private StringBuffer buff;
 
+    /**
+     * Instantiates a new rrd cmd scanner.
+     *
+     * @param command
+     *            the command
+     * @throws RrdException
+     *             the rrd exception
+     */
     RrdCmdScanner(String command) throws RrdException {
         String cmd = command.trim();
         // parse words
@@ -80,6 +94,11 @@ class RrdCmdScanner {
         finishWord();
     }
 
+    /**
+     * Gets the cmd type.
+     *
+     * @return the cmd type
+     */
     String getCmdType() {
         if (words.size() > 0) {
             return words.get(0);
@@ -88,6 +107,12 @@ class RrdCmdScanner {
         }
     }
 
+    /**
+     * Append word.
+     *
+     * @param c
+     *            the c
+     */
     private void appendWord(char c) {
         if (buff == null) {
             buff = new StringBuffer("");
@@ -95,6 +120,9 @@ class RrdCmdScanner {
         buff.append(c);
     }
 
+    /**
+     * Finish word.
+     */
     private void finishWord() {
         if (buff != null) {
             words.add(buff.toString());
@@ -102,18 +130,37 @@ class RrdCmdScanner {
         }
     }
 
+    /**
+     * Inits the word.
+     */
     private void initWord() {
         if (buff == null) {
             buff = new StringBuffer("");
         }
     }
 
+    /**
+     * Dump.
+     */
     void dump() {
         for (String word : words) {
             System.out.println(word);
         }
     }
 
+    /**
+     * Gets the option value.
+     *
+     * @param shortForm
+     *            the short form
+     * @param longForm
+     *            the long form
+     * @param defaultValue
+     *            the default value
+     * @return the option value
+     * @throws RrdException
+     *             the rrd exception
+     */
     String getOptionValue(String shortForm, String longForm, String defaultValue) throws RrdException {
         String value = null;
         if (shortForm != null) {
@@ -128,10 +175,30 @@ class RrdCmdScanner {
         return value;
     }
 
+    /**
+     * Gets the option value.
+     *
+     * @param shortForm
+     *            the short form
+     * @param longForm
+     *            the long form
+     * @return the option value
+     * @throws RrdException
+     *             the rrd exception
+     */
     String getOptionValue(String shortForm, String longForm) throws RrdException {
         return getOptionValue(shortForm, longForm, null);
     }
 
+    /**
+     * Gets the option value.
+     *
+     * @param fullForm
+     *            the full form
+     * @return the option value
+     * @throws RrdException
+     *             the rrd exception
+     */
     private String getOptionValue(String fullForm) throws RrdException {
         Iterator<String> iter = words.listIterator();
         while (iter.hasNext()) {
@@ -160,6 +227,15 @@ class RrdCmdScanner {
         return null;
     }
 
+    /**
+     * Gets the boolean option.
+     *
+     * @param shortForm
+     *            the short form
+     * @param longForm
+     *            the long form
+     * @return the boolean option
+     */
     boolean getBooleanOption(String shortForm, String longForm) {
         Iterator<String> iter = words.listIterator();
         while (iter.hasNext()) {
@@ -173,6 +249,17 @@ class RrdCmdScanner {
         return false;
     }
 
+    /**
+     * Gets the multiple options.
+     *
+     * @param shortForm
+     *            the short form
+     * @param longForm
+     *            the long form
+     * @return the multiple options
+     * @throws RrdException
+     *             the rrd exception
+     */
     String[] getMultipleOptions(String shortForm, String longForm) throws RrdException {
         List<String> values = new ArrayList<String>();
         for (;;) {
@@ -185,10 +272,22 @@ class RrdCmdScanner {
         return values.toArray(new String[values.size()]);
     }
 
+    /**
+     * Gets the remaining words.
+     *
+     * @return the remaining words
+     */
     String[] getRemainingWords() {
         return words.toArray(new String[words.size()]);
     }
 
+    /**
+     * Checks if is separator.
+     *
+     * @param c
+     *            the c
+     * @return true, if is separator
+     */
     boolean isSeparator(char c) {
         return Character.isWhitespace(c);
     }

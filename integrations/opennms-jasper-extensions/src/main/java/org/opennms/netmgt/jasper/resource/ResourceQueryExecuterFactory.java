@@ -35,19 +35,31 @@ import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.query.JRQueryExecuter;
 import net.sf.jasperreports.engine.query.JRQueryExecuterFactory;
 
+/**
+ * A factory for creating ResourceQueryExecuter objects.
+ */
 public class ResourceQueryExecuterFactory implements JRQueryExecuterFactory {
 
+    /* (non-Javadoc)
+     * @see net.sf.jasperreports.engine.query.JRQueryExecuterFactory#createQueryExecuter(net.sf.jasperreports.engine.JRDataset, java.util.Map)
+     */
     @SuppressWarnings("unchecked")
     @Override
     public JRQueryExecuter createQueryExecuter(JRDataset dataset, Map parameters) throws JRException {
         return new ResourceQueryExecuter(dataset, parameters);
     }
 
+    /* (non-Javadoc)
+     * @see net.sf.jasperreports.engine.query.JRQueryExecuterFactory#getBuiltinParameters()
+     */
     @Override
     public Object[] getBuiltinParameters() {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see net.sf.jasperreports.engine.query.JRQueryExecuterFactory#supportsQueryParameterType(java.lang.String)
+     */
     @Override
     public boolean supportsQueryParameterType(String parameterType) {
         return true;

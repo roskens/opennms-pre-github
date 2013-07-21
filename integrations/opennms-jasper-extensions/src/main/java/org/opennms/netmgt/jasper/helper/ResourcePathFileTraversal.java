@@ -36,12 +36,23 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+/**
+ * The Class ResourcePathFileTraversal.
+ */
 public class ResourcePathFileTraversal {
 
+    /** The m_file. */
     private final File m_file;
 
+    /** The m_data source filter list. */
     private List<String> m_dataSourceFilterList = new ArrayList<String>();
 
+    /**
+     * Instantiates a new resource path file traversal.
+     *
+     * @param f
+     *            the f
+     */
     public ResourcePathFileTraversal(File f) {
         m_file = f;
         if (!m_file.exists()) {
@@ -49,6 +60,11 @@ public class ResourcePathFileTraversal {
         }
     }
 
+    /**
+     * Traverse directory.
+     *
+     * @return the list
+     */
     public List<String> traverseDirectory() {
         List<String> paths = new ArrayList<String>();
 
@@ -58,6 +74,12 @@ public class ResourcePathFileTraversal {
         return paths;
     }
 
+    /**
+     * Adds the top level if necessary.
+     *
+     * @param paths
+     *            the paths
+     */
     private void addTopLevelIfNecessary(List<String> paths) {
         File[] fList = m_file.listFiles();
         if (fList != null) {
@@ -71,6 +93,14 @@ public class ResourcePathFileTraversal {
 
     }
 
+    /**
+     * Traverse directory.
+     *
+     * @param f
+     *            the f
+     * @param dirPaths
+     *            the dir paths
+     */
     private void traverseDirectory(File f, List<String> dirPaths) {
         if (f.isDirectory()) {
 
@@ -89,10 +119,24 @@ public class ResourcePathFileTraversal {
         onFile(f);
     }
 
+    /**
+     * On file.
+     *
+     * @param f
+     *            the f
+     */
     private void onFile(File f) {
         System.err.println(f.getName());
     }
 
+    /**
+     * On directory.
+     *
+     * @param f
+     *            the f
+     * @param dirPaths
+     *            the dir paths
+     */
     private void onDirectory(File f, List<String> dirPaths) {
         if (System.getProperty("org.opennms.rrd.storeByGroup") != null
                 && System.getProperty("org.opennms.rrd.storeByGroup").toLowerCase().equals("true")) {
@@ -111,6 +155,15 @@ public class ResourcePathFileTraversal {
 
     }
 
+    /**
+     * Validate data source.
+     *
+     * @param f
+     *            the f
+     * @return true, if successful
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     private boolean validateDataSource(File f) throws IOException {
         FilenameFilter dsFilenameFilter = new FilenameFilter() {
 
@@ -137,6 +190,13 @@ public class ResourcePathFileTraversal {
         return true;
     }
 
+    /**
+     * Validate files.
+     *
+     * @param f
+     *            the f
+     * @return true, if successful
+     */
     private boolean validateFiles(final File f) {
         List<FilenameFilter> filterList = getFilenameFilters();
         for (FilenameFilter filter : filterList) {
@@ -150,6 +210,11 @@ public class ResourcePathFileTraversal {
 
     }
 
+    /**
+     * Gets the filename filters.
+     *
+     * @return the filename filters
+     */
     private List<FilenameFilter> getFilenameFilters() {
         List<FilenameFilter> filters = new ArrayList<FilenameFilter>();
         for (final String dsName : m_dataSourceFilterList) {
@@ -165,6 +230,12 @@ public class ResourcePathFileTraversal {
         return filters;
     }
 
+    /**
+     * Adds the datasource filters.
+     *
+     * @param dsNames
+     *            the ds names
+     */
     public void addDatasourceFilters(String[] dsNames) {
 
         if (dsNames != null) {
@@ -175,6 +246,12 @@ public class ResourcePathFileTraversal {
 
     }
 
+    /**
+     * Adds the datasource filter.
+     *
+     * @param dataSource
+     *            the data source
+     */
     public void addDatasourceFilter(String dataSource) {
         m_dataSourceFilterList.add(dataSource);
     }

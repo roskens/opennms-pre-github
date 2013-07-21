@@ -45,12 +45,20 @@ import net.sf.jasperreports.engine.export.JRXhtmlExporter;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * The Class JRobinQueryExecuterTest.
+ */
 public class JRobinQueryExecuterTest {
 
+    /** The m_jasper report. */
     private JasperReport m_jasperReport;
 
+    /** The m_jasper print. */
     private JasperPrint m_jasperPrint;
 
+    /**
+     * Sets the up.
+     */
     @Before
     public void setUp() {
         File reportDir = new File("target/reports");
@@ -58,7 +66,10 @@ public class JRobinQueryExecuterTest {
     }
 
     /**
+     * Test.
      *
+     * @throws JRException
+     *             the jR exception
      */
     @Test
     public void test() throws JRException {
@@ -68,6 +79,12 @@ public class JRobinQueryExecuterTest {
         xhtml();
     }
 
+    /**
+     * Test no data report.
+     *
+     * @throws JRException
+     *             the jR exception
+     */
     @Test
     public void testNoDataReport() throws JRException {
         compileNoDataReport();
@@ -75,12 +92,24 @@ public class JRobinQueryExecuterTest {
         pdf();
     }
 
+    /**
+     * Compile.
+     *
+     * @throws JRException
+     *             the jR exception
+     */
     public void compile() throws JRException {
         // jrxml compiling process
         m_jasperReport = JasperCompileManager.compileReport("src/test/resources/RrdGraph.jrxml");
 
     }
 
+    /**
+     * Compile no data report.
+     *
+     * @throws JRException
+     *             the jR exception
+     */
     public void compileNoDataReport() throws JRException {
         // jrxml compiling process
         m_jasperReport = JasperCompileManager.compileReport("src/test/resources/NoDataReport.jrxml");
@@ -88,7 +117,10 @@ public class JRobinQueryExecuterTest {
     }
 
     /**
+     * Fill.
      *
+     * @throws JRException
+     *             the jR exception
      */
     public void fill() throws JRException {
         long start = System.currentTimeMillis();
@@ -101,7 +133,10 @@ public class JRobinQueryExecuterTest {
     }
 
     /**
+     * Pdf.
      *
+     * @throws JRException
+     *             the jR exception
      */
     public void pdf() throws JRException {
         long start = System.currentTimeMillis();
@@ -110,7 +145,10 @@ public class JRobinQueryExecuterTest {
     }
 
     /**
+     * Xhtml.
      *
+     * @throws JRException
+     *             the jR exception
      */
     public void xhtml() throws JRException {
         long start = System.currentTimeMillis();

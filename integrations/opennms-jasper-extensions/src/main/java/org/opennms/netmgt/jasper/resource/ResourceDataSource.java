@@ -43,18 +43,44 @@ import net.sf.jasperreports.engine.JRField;
 
 import org.opennms.netmgt.jasper.helper.ResourcePathFileTraversal;
 
+/**
+ * The Class ResourceDataSource.
+ */
 public class ResourceDataSource implements JRDataSource {
 
+    /**
+     * The Class ResourceFilterFields.
+     */
     private class ResourceFilterFields {
+
+        /** The m_fields. */
         private String[] m_fields;
 
+        /** The m_str props. */
         private String[] m_strProps;
 
+        /**
+         * Instantiates a new resource filter fields.
+         *
+         * @param fields
+         *            the fields
+         * @param strProps
+         *            the str props
+         */
         public ResourceFilterFields(String[] fields, String[] strProps) {
             m_fields = fields;
             m_strProps = strProps;
         }
 
+        /**
+         * Gets the value for field.
+         *
+         * @param fieldName
+         *            the field name
+         * @param curPath
+         *            the cur path
+         * @return the value for field
+         */
         public String getValueForField(String fieldName, String curPath) {
             if (contains(fieldName, m_fields)) {
                 return getFilenameForField(fieldName, curPath);
@@ -67,6 +93,15 @@ public class ResourceDataSource implements JRDataSource {
 
         }
 
+        /**
+         * Gets the strings property value.
+         *
+         * @param fieldName
+         *            the field name
+         * @param curPath
+         *            the cur path
+         * @return the strings property value
+         */
         private String getStringsPropertyValue(String fieldName, String curPath) {
             File curDir = new File(curPath);
             FilenameFilter filter = new FilenameFilter() {
@@ -99,6 +134,15 @@ public class ResourceDataSource implements JRDataSource {
             return null;
         }
 
+        /**
+         * Gets the filename for field.
+         *
+         * @param dsName
+         *            the ds name
+         * @param curPath
+         *            the cur path
+         * @return the filename for field
+         */
         private String getFilenameForField(String dsName, String curPath) {
             File curDir = new File(curPath);
             FilenameFilter filter = new FilenameFilter() {
@@ -117,6 +161,15 @@ public class ResourceDataSource implements JRDataSource {
 
         }
 
+        /**
+         * Gets the filename from d sfile.
+         *
+         * @param file
+         *            the file
+         * @param dsName
+         *            the ds name
+         * @return the filename from d sfile
+         */
         private String getFilenameFromDSfile(File file, String dsName) {
             Properties props = new Properties();
             String filename = "";
@@ -134,6 +187,11 @@ public class ResourceDataSource implements JRDataSource {
             return file.getParent() + File.separator + filename + "" + getFileExtension();
         }
 
+        /**
+         * Gets the file extension.
+         *
+         * @return the file extension
+         */
         private String getFileExtension() {
             String jniStrategy = System.getProperty("org.opennms.rrd.strategyClass");
             String rrdFileExtension = System.getProperty("org.opennms.rrd.fileExtension");
@@ -151,10 +209,26 @@ public class ResourceDataSource implements JRDataSource {
 
         }
 
+        /**
+         * Contains field.
+         *
+         * @param fieldName
+         *            the field name
+         * @return true, if successful
+         */
         public boolean containsField(String fieldName) {
             return (contains(fieldName, m_fields) || contains(fieldName, m_strProps));
         }
 
+        /**
+         * Contains.
+         *
+         * @param fieldName
+         *            the field name
+         * @param array
+         *            the array
+         * @return true, if successful
+         */
         private boolean contains(String fieldName, String[] array) {
             if (array != null) {
                 for (String fName : array) {
@@ -167,17 +241,32 @@ public class ResourceDataSource implements JRDataSource {
         }
     }
 
+    /** The m_current row. */
     private int m_currentRow = -1;
 
+    /** The m_paths. */
     private List<String> m_paths;
 
+    /** The m_filter fields. */
     private ResourceFilterFields m_filterFields;
 
+    /**
+     * Instantiates a new resource data source.
+     *
+     * @param query
+     *            the query
+     */
     public ResourceDataSource(ResourceQuery query) {
         extractPaths(query);
         m_filterFields = new ResourceFilterFields(query.getFilters(), query.getStringProperties());
     }
 
+    /**
+     * Extract paths.
+     *
+     * @param query
+     *            the query
+     */
     private void extractPaths(ResourceQuery query) {
         ResourcePathFileTraversal traverser = new ResourcePathFileTraversal(new File(query.constructBasePath()));
         traverser.addDatasourceFilters(query.getFilters());
@@ -186,11 +275,21 @@ public class ResourceDataSource implements JRDataSource {
         System.err.println("paths: " + m_paths);
     }
 
+    /* (non-Javadoc)
+     * @see net.sf.jasperreports.engine.JRDataSource#getFieldValue(net.sf.jasperreports.engine.JRField)
+     */
     @Override
     public Object getFieldValue(JRField field) throws JRException {
         return computeValueForField(field);
     }
 
+    /**
+     * Compute value for field.
+     *
+     * @param field
+     *            the field
+     * @return the object
+     */
     private Object computeValueForField(JRField field) {
         if (field.getName().toLowerCase().equals("path")) {
             String pathField = m_paths.get(m_currentRow);
@@ -206,11 +305,23 @@ public class ResourceDataSource implements JRDataSource {
         }
     }
 
+    /**
+     * Calculate field value.
+     *
+     * @param field
+     *            the field
+     * @param absolutePath
+     *            the absolute path
+     * @return the string
+     */
     private String calculateFieldValue(JRField field, String absolutePath) {
         // TODO: check if there are dsName filters
         return m_filterFields.getValueForField(field.getName(), absolutePath);
     }
 
+    /* (non-Javadoc)
+     * @see net.sf.jasperreports.engine.JRDataSource#next()
+     */
     @Override
     public boolean next() throws JRException {
         m_currentRow++;

@@ -40,64 +40,110 @@ import org.exolab.castor.xml.Unmarshaller;
 import org.junit.Assert;
 import org.junit.Test;
 
+/**
+ * The Class RrdtoolDataSourceTest.
+ */
 public class RrdtoolDataSourceTest {
 
+    /**
+     * The Class RrdField.
+     */
     private class RrdField implements JRField {
 
+        /** The name. */
         private String name;
 
+        /** The value. */
         private Class<?> value;
 
+        /**
+         * Instantiates a new rrd field.
+         *
+         * @param name
+         *            the name
+         * @param value
+         *            the value
+         */
         public RrdField(String name, Class<?> value) {
             this.name = name;
             this.value = value;
         }
 
+        /* (non-Javadoc)
+         * @see net.sf.jasperreports.engine.JRPropertiesHolder#getParentProperties()
+         */
         @Override
         public JRPropertiesHolder getParentProperties() {
             return null;
         }
 
+        /* (non-Javadoc)
+         * @see net.sf.jasperreports.engine.JRPropertiesHolder#getPropertiesMap()
+         */
         @Override
         public JRPropertiesMap getPropertiesMap() {
             return null;
         }
 
+        /* (non-Javadoc)
+         * @see net.sf.jasperreports.engine.JRPropertiesHolder#hasProperties()
+         */
         @Override
         public boolean hasProperties() {
             return false;
         }
 
+        /* (non-Javadoc)
+         * @see net.sf.jasperreports.engine.JRField#getDescription()
+         */
         @Override
         public String getDescription() {
             return null;
         }
 
+        /* (non-Javadoc)
+         * @see net.sf.jasperreports.engine.JRField#getName()
+         */
         @Override
         public String getName() {
             return name;
         }
 
+        /* (non-Javadoc)
+         * @see net.sf.jasperreports.engine.JRField#getValueClass()
+         */
         @Override
         public Class<?> getValueClass() {
             return value;
         }
 
+        /* (non-Javadoc)
+         * @see net.sf.jasperreports.engine.JRField#getValueClassName()
+         */
         @Override
         public String getValueClassName() {
             return value.getName();
         }
 
+        /* (non-Javadoc)
+         * @see net.sf.jasperreports.engine.JRField#setDescription(java.lang.String)
+         */
         @Override
         public void setDescription(String arg0) {
         }
 
+        /* (non-Javadoc)
+         * @see java.lang.Object#clone()
+         */
         @Override
         public Object clone() {
             return null;
         }
     }
 
+    /**
+     * Test command.
+     */
     @Test
     public void testCommand() {
         System.setProperty("rrd.binary", "/usr/bin/rrdtool");
@@ -108,12 +154,24 @@ public class RrdtoolDataSourceTest {
         System.err.println("single line: " + command);
     }
 
+    /**
+     * Test empty data.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testEmptyData() throws Exception {
         RrdtoolDataSource ds = new RrdtoolDataSource(null);
         Assert.assertFalse(ds.next());
     }
 
+    /**
+     * Test rrd data.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testRrdData() throws Exception {
         Reader reader = new FileReader("src/test/resources/rrdtool-xport.xml");

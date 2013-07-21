@@ -30,60 +30,132 @@ package org.opennms.netmgt.jasper.resource;
 
 import java.io.File;
 
+/**
+ * The Class ResourceQuery.
+ */
 public class ResourceQuery {
+
+    /** The m_rrd dir. */
     private String m_rrdDir;
 
+    /** The m_node. */
     private String m_node;
 
+    /** The m_resource name. */
     private String m_resourceName;
 
+    /** The m_filters. */
     private String[] m_filters;
 
+    /** The m_str properties. */
     private String[] m_strProperties;
 
+    /**
+     * Instantiates a new resource query.
+     */
     public ResourceQuery() {
     }
 
+    /**
+     * Gets the rrd dir.
+     *
+     * @return the rrd dir
+     */
     public String getRrdDir() {
         return m_rrdDir;
     }
 
+    /**
+     * Sets the rrd dir.
+     *
+     * @param rrdDir
+     *            the new rrd dir
+     */
     public void setRrdDir(String rrdDir) {
         m_rrdDir = rrdDir;
     }
 
+    /**
+     * Gets the node id.
+     *
+     * @return the node id
+     */
     public String getNodeId() {
         return m_node;
     }
 
+    /**
+     * Sets the node id.
+     *
+     * @param node
+     *            the new node id
+     */
     public void setNodeId(String node) {
         m_node = node;
     }
 
+    /**
+     * Gets the resource name.
+     *
+     * @return the resource name
+     */
     public String getResourceName() {
         return m_resourceName;
     }
 
+    /**
+     * Sets the resource name.
+     *
+     * @param resourceName
+     *            the new resource name
+     */
     public void setResourceName(String resourceName) {
         m_resourceName = resourceName;
     }
 
+    /**
+     * Gets the filters.
+     *
+     * @return the filters
+     */
     public String[] getFilters() {
         return m_filters;
     }
 
+    /**
+     * Sets the filters.
+     *
+     * @param filters
+     *            the new filters
+     */
     public void setFilters(String[] filters) {
         m_filters = filters;
     }
 
+    /**
+     * Construct base path.
+     *
+     * @return the string
+     */
     public String constructBasePath() {
         return getRrdDir() + File.separator + getNodeId() + File.separator + getResourceName();
     }
 
+    /**
+     * Gets the string properties.
+     *
+     * @return the string properties
+     */
     public String[] getStringProperties() {
         return m_strProperties;
     }
 
+    /**
+     * Sets the string properties.
+     *
+     * @param strProperties
+     *            the new string properties
+     */
     public void setStringProperties(String[] strProperties) {
         m_strProperties = strProperties;
     }

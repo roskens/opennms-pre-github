@@ -36,12 +36,26 @@ import net.sf.jasperreports.engine.JRException;
 
 import org.opennms.netmgt.jasper.jrobin.JRobinQueryExecutor;
 
+/**
+ * The Class RrdtoolQueryExecutor.
+ */
 public class RrdtoolQueryExecutor extends JRobinQueryExecutor {
 
+    /**
+     * Instantiates a new rrdtool query executor.
+     *
+     * @param dataset
+     *            the dataset
+     * @param parametersMap
+     *            the parameters map
+     */
     protected RrdtoolQueryExecutor(JRDataset dataset, Map<?, ?> parametersMap) {
         super(dataset, parametersMap);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.jasper.jrobin.JRobinQueryExecutor#createDatasource()
+     */
     @Override
     public JRDataSource createDatasource() throws JRException {
         try {

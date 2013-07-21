@@ -41,9 +41,11 @@ import java.util.GregorianCalendar;
 public class TimeRange {
 
     /**
-     * Implement last year, last month, this year, this month
+     * Implement last year, last month, this year, this month.
      */
     private enum TIME_RANGE {
+
+        /** The last seven days. */
         LAST_SEVEN_DAYS {
             @Override
             public Date getStartDate() {
@@ -53,6 +55,8 @@ public class TimeRange {
             }
 
         },
+
+        /** The last month. */
         LAST_MONTH {
             @Override
             public Date getStartDate() {
@@ -69,6 +73,8 @@ public class TimeRange {
             }
 
         },
+
+        /** The last year. */
         LAST_YEAR {
             @Override
             public Date getStartDate() {
@@ -83,6 +89,8 @@ public class TimeRange {
             }
 
         },
+
+        /** The this month. */
         THIS_MONTH {
             @Override
             public Date getStartDate() {
@@ -91,6 +99,8 @@ public class TimeRange {
             }
 
         },
+
+        /** The this year. */
         THIS_YEAR {
             @Override
             public Date getStartDate() {
@@ -100,8 +110,18 @@ public class TimeRange {
 
         };
 
+        /**
+         * Gets the start date.
+         *
+         * @return the start date
+         */
         public abstract Date getStartDate();
 
+        /**
+         * Gets the end date.
+         *
+         * @return the end date
+         */
         public Date getEndDate() {
             return new Date(new GregorianCalendar(new GregorianCalendar().get(Calendar.YEAR),
                                                   new GregorianCalendar().get(Calendar.MONTH),
@@ -110,7 +130,7 @@ public class TimeRange {
     }
 
     /**
-     * Constructor init now
+     * Constructor init now.
      */
     public TimeRange() {
     }
@@ -119,6 +139,7 @@ public class TimeRange {
      * <p>
      * getStartDate
      * </p>
+     * .
      *
      * @param range
      *            a {@link java.lang.String} object
@@ -144,6 +165,7 @@ public class TimeRange {
      * <p>
      * getEndDate
      * </p>
+     * .
      *
      * @param range
      *            a {@link java.lang.String} object

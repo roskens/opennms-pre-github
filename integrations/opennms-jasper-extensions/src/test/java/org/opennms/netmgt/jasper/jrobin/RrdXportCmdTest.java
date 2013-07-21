@@ -38,22 +38,51 @@ import net.sf.jasperreports.engine.JRException;
 import org.jrobin.core.RrdException;
 import org.junit.Test;
 
+/**
+ * The Class RrdXportCmdTest.
+ */
 public class RrdXportCmdTest {
 
+    /**
+     * Test execute.
+     *
+     * @throws RrdException
+     *             the rrd exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws JRException
+     *             the jR exception
+     */
     @Test
     public void testExecute() throws RrdException, IOException, JRException {
         JRobinDataSource dataSource = (JRobinDataSource) new RrdXportCmd().executeCommand(getQueryString());
         assertTrue(dataSource.next());
     }
 
+    /**
+     * Gets the query string.
+     *
+     * @return the query string
+     */
     private String getQueryString() {
         return "--start 1287005100 --end 1287018990 DEF:xx=src/test/resources/http-8980.jrb:http-8980:AVERAGE DEF:zz=src/test/resources/ssh.jrb:ssh:AVERAGE XPORT:xx:HttpLatency XPORT:zz:SshLatency";
     }
 
+    /**
+     * Gets the windows string.
+     *
+     * @return the windows string
+     */
     private String getWindowsString() {
         return "--start 1287005100 --end 1287018990 DEF:xx=\\jrbs\\http-8980.jrb:http-8980:AVERAGE DEF:zz=\\jrbs\\ssh.jrb:ssh:AVERAGE XPORT:xx:HttpLatency XPORT:zz:SshLatency";
     }
 
+    /**
+     * Test colon splitter.
+     *
+     * @throws RrdException
+     *             the rrd exception
+     */
     @Test
     public void testColonSplitter() throws RrdException {
         String[] splitter = new ColonSplitter("DEF:xx=C\\:\\jrbs\\http-8980.jrb:http-8980:AVERAGE").split();

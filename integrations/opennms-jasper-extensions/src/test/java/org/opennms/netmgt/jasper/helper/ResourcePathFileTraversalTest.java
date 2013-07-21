@@ -41,15 +41,27 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * The Class ResourcePathFileTraversalTest.
+ */
 public class ResourcePathFileTraversalTest {
 
+<<<<<<< HEAD
     private static final String STORE_BY_GROUP = "org.opennms.rrd.storeByGroup";
     private String m_sourceDir = "target/test-classes/share/rrd/snmp";
     private String m_baseDir = "target/file-traversal-test";
+=======
+    /** The m_base dir. */
+    private String m_baseDir = "src/test/resources/share/rrd/snmp";
+
+    /** The m_resource name. */
+>>>>>>> fix checkstyle: Add missing javadoc comment
     private String m_resourceName = "nsVpnMonitor";
 
+    /** The m_node id. */
     private int m_nodeId = 10;
 
+<<<<<<< HEAD
     @Before
     public void setUp() throws IOException {
         final File baseDir = new File(m_baseDir);
@@ -62,6 +74,11 @@ public class ResourcePathFileTraversalTest {
         FileUtils.deleteDirectory(new File(m_baseDir));
     }
 
+=======
+    /**
+     * Test find all paths recursive.
+     */
+>>>>>>> fix checkstyle: Add missing javadoc comment
     @Test
     public void testFindAllPathsRecursive() {
         final ResourcePathFileTraversal traverser = new ResourcePathFileTraversal(new File(m_baseDir + "/" + m_nodeId + "/" + m_resourceName));
@@ -72,6 +89,9 @@ public class ResourcePathFileTraversalTest {
         assertTrue(paths.get(1).matches(".*/10/nsVpnMonitor/tun_id_2"));
     }
 
+    /**
+     * Test find top level only if passes filename check.
+     */
     @Test
     public void testFindTopLevelOnlyIfPassesFilenameCheck() {
         final ResourcePathFileTraversal traverser = new ResourcePathFileTraversal(new File(m_baseDir + "/" + m_nodeId + "/opennms-jvm"));
@@ -81,6 +101,9 @@ public class ResourcePathFileTraversalTest {
         assertEquals(0, paths.size());
     }
 
+    /**
+     * Test find paths with filter one file.
+     */
     @Test
     public void testFindPathsWithFilterOneFile() {
         final ResourcePathFileTraversal traverser = new ResourcePathFileTraversal(new File(m_baseDir + "/" + m_nodeId + "/" + m_resourceName));
@@ -92,6 +115,9 @@ public class ResourcePathFileTraversalTest {
         assertTrue(paths.get(0).matches(".*/10/nsVpnMonitor/tun_id_2"));
     }
 
+    /**
+     * Test find paths with and filter.
+     */
     @Test
     public void testFindPathsWithAndFilter() {
         final ResourcePathFileTraversal traverser = new ResourcePathFileTraversal(new File(m_baseDir + "/" + m_nodeId + "/" + m_resourceName));
@@ -104,6 +130,9 @@ public class ResourcePathFileTraversalTest {
         assertTrue(paths.get(0).matches(".*/10/nsVpnMonitor/tun_id_3"));
     }
 
+    /**
+     * Test find paths with filter no extensions.
+     */
     @Test
     public void testFindPathsWithFilterNoExtensions() {
         final ResourcePathFileTraversal traverser = new ResourcePathFileTraversal(new File(m_baseDir + "/" + m_nodeId + "/" + m_resourceName));
@@ -116,6 +145,9 @@ public class ResourcePathFileTraversalTest {
         assertTrue(paths.get(0).matches(".*/10/nsVpnMonitor/tun_id_3"));
     }
 
+    /**
+     * Test find paths with store by group.
+     */
     @Test
     public void testFindPathsWithStoreByGroup() {
         System.setProperty(STORE_BY_GROUP, "true");

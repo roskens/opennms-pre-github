@@ -43,13 +43,28 @@ import net.sf.jasperreports.engine.design.JRDesignField;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * The Class ResourceCommandTest.
+ */
 public class ResourceCommandTest {
 
+    /**
+     * Sets the up.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     @Before
     public void setUp() throws IOException {
         System.setProperty("org.opennms.rrd.storeByGroup", "False");
     }
 
+    /**
+     * Test datasource with no filters.
+     *
+     * @throws JRException
+     *             the jR exception
+     */
     @Test
     public void testDatasourceWithNoFilters() throws JRException {
         JRDataSource dataSource = new ResourceQueryCommand().executeCommand(getCommand());
@@ -70,6 +85,12 @@ public class ResourceCommandTest {
 
     }
 
+    /**
+     * Test datasource with filters.
+     *
+     * @throws JRException
+     *             the jR exception
+     */
     @Test
     public void testDatasourceWithFilters() throws JRException {
         JRDataSource dataSource = new ResourceQueryCommand().executeCommand(getCommandWithFilter());
@@ -88,6 +109,12 @@ public class ResourceCommandTest {
         assertTrue(dsFieldValue.matches(".*src/test/resources/share/rrd/snmp/10/nsVpnMonitor/tun_id_1/nsVpnMonBytesIn.jrb"));
     }
 
+    /**
+     * Test data source with string properties.
+     *
+     * @throws JRException
+     *             the jR exception
+     */
     @Test
     public void testDataSourceWithStringProperties() throws JRException {
         JRDataSource dataSource = new ResourceQueryCommand().executeCommand("--rrdDir src/test/resources/share/rrd/snmp"
@@ -120,6 +147,12 @@ public class ResourceCommandTest {
         assertFalse(dataSource.next());
     }
 
+    /**
+     * Test no datasource with filters.
+     *
+     * @throws JRException
+     *             the jR exception
+     */
     @Test
     public void testNoDatasourceWithFilters() throws JRException {
         JRDataSource dataSource = new ResourceQueryCommand().executeCommand(getCommandWithBogusFilter());
@@ -129,14 +162,29 @@ public class ResourceCommandTest {
         assertFalse(next);
     }
 
+    /**
+     * Gets the command with bogus filter.
+     *
+     * @return the command with bogus filter
+     */
     private String getCommandWithBogusFilter() {
         return "--rrdDir src/test/resources/share/rrd/snmp  --nodeid 10 --resourceType nsVpnMonitor --dsName bogus";
     }
 
+    /**
+     * Gets the command.
+     *
+     * @return the command
+     */
     private String getCommand() {
         return "--rrdDir src/test/resources/share/rrd/snmp  --nodeid 10 --resourceType nsVpnMonitor";
     }
 
+    /**
+     * Gets the command with filter.
+     *
+     * @return the command with filter
+     */
     private String getCommandWithFilter() {
         return "--rrdDir src/test/resources/share/rrd/snmp  --nodeid 10 --resourceType nsVpnMonitor --dsName nsVpnMonBytesIn";
     }

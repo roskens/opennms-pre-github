@@ -38,13 +38,34 @@ import net.sf.jasperreports.engine.util.JRProperties;
 
 import org.opennms.core.utils.RrdLabelUtils;
 
+/**
+ * The Class JRobinDirectoryUtil.
+ */
 public class JRobinDirectoryUtil {
 
+    /**
+     * Checks if is store by group.
+     *
+     * @return true, if is store by group
+     */
     public boolean isStoreByGroup() {
         return JRProperties.getBooleanProperty("org.opennms.rrd.storeByGroup")
                 || Boolean.getBoolean("org.opennms.rrd.storeByGroup");
     }
 
+    /**
+     * Gets the if in octets data source.
+     *
+     * @param rrdDirectory
+     *            the rrd directory
+     * @param nodeId
+     *            the node id
+     * @param iFace
+     *            the i face
+     * @return the if in octets data source
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     public String getIfInOctetsDataSource(String rrdDirectory, String nodeId, String iFace) throws IOException {
         StringBuffer directory = new StringBuffer();
         directory.append(rrdDirectory).append(File.separator).append(nodeId).append(File.separator).append(iFace);
@@ -64,6 +85,19 @@ public class JRobinDirectoryUtil {
         }
     }
 
+    /**
+     * Gets the if out octets data source.
+     *
+     * @param rrdDirectory
+     *            the rrd directory
+     * @param nodeId
+     *            the node id
+     * @param iFace
+     *            the i face
+     * @return the if out octets data source
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     public String getIfOutOctetsDataSource(String rrdDirectory, String nodeId, String iFace) throws IOException {
         StringBuffer directory = new StringBuffer();
         directory.append(rrdDirectory).append(File.separator).append(nodeId).append(File.separator).append(iFace);
@@ -86,6 +120,17 @@ public class JRobinDirectoryUtil {
         }
     }
 
+    /**
+     * Check ds property file for.
+     *
+     * @param ifOctetsDS
+     *            the if octets ds
+     * @param directory
+     *            the directory
+     * @return true, if successful
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     private boolean checkDsPropertyFileFor(String ifOctetsDS, String directory) throws IOException {
         File f = new File(directory.toString() + "" + File.separator + "ds.properties");
         if (f.exists()) {
@@ -101,16 +146,65 @@ public class JRobinDirectoryUtil {
 
     }
 
+    /**
+     * Gets the if in octets jrb.
+     *
+     * @param rrdDirectory
+     *            the rrd directory
+     * @param nodeId
+     *            the node id
+     * @param iFace
+     *            the i face
+     * @return the if in octets jrb
+     * @throws FileNotFoundException
+     *             the file not found exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     public String getIfInOctetsJrb(String rrdDirectory, String nodeId, String iFace) throws FileNotFoundException,
             IOException {
         return getOctetsFile(rrdDirectory, nodeId, iFace, "ifHCInOctets", "ifInOctets");
     }
 
+    /**
+     * Gets the if out octets jrb.
+     *
+     * @param rrdDirectory
+     *            the rrd directory
+     * @param nodeId
+     *            the node id
+     * @param iFace
+     *            the i face
+     * @return the if out octets jrb
+     * @throws FileNotFoundException
+     *             the file not found exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     public String getIfOutOctetsJrb(String rrdDirectory, String nodeId, String iFace) throws FileNotFoundException,
             IOException {
         return getOctetsFile(rrdDirectory, nodeId, iFace, "ifHCOutOctets", "ifOutOctets");
     }
 
+    /**
+     * Gets the octets file.
+     *
+     * @param rrdDirectory
+     *            the rrd directory
+     * @param nodeId
+     *            the node id
+     * @param iFace
+     *            the i face
+     * @param ifHCFilename
+     *            the if hc filename
+     * @param ifFilename
+     *            the if filename
+     * @return the octets file
+     * @throws FileNotFoundException
+     *             the file not found exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     private String getOctetsFile(String rrdDirectory, String nodeId, String iFace, String ifHCFilename,
             String ifFilename) throws FileNotFoundException, IOException {
         StringBuffer directory = new StringBuffer();
@@ -130,11 +224,25 @@ public class JRobinDirectoryUtil {
         return directory.toString();
     }
 
+    /**
+     * Check if hc exists.
+     *
+     * @param ifHCFilename
+     *            the if hc filename
+     * @param dir
+     *            the dir
+     * @return true, if successful
+     */
     private boolean checkIfHCExists(String ifHCFilename, String dir) {
         File ifOctets = new File(dir + "" + File.separator + ifHCFilename + getExtension());
         return ifOctets.exists();
     }
 
+    /**
+     * Gets the extension.
+     *
+     * @return the extension
+     */
     private String getExtension() {
         if (JRProperties.getProperty("org.opennms.rrd.fileExtension") != null) {
             return JRProperties.getProperty("org.opennms.rrd.fileExtension");
@@ -150,6 +258,16 @@ public class JRobinDirectoryUtil {
 
     }
 
+    /**
+     * Append store by group.
+     *
+     * @param directory
+     *            the directory
+     * @throws FileNotFoundException
+     *             the file not found exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     private void appendStoreByGroup(StringBuffer directory) throws FileNotFoundException, IOException {
         File f = new File(directory.toString() + "" + File.separator + "ds.properties");
         if (f.exists()) {
@@ -167,6 +285,17 @@ public class JRobinDirectoryUtil {
         }
     }
 
+    /**
+     * Gets the interface directory.
+     *
+     * @param snmpifname
+     *            the snmpifname
+     * @param snmpifdescr
+     *            the snmpifdescr
+     * @param snmpphysaddr
+     *            the snmpphysaddr
+     * @return the interface directory
+     */
     public String getInterfaceDirectory(String snmpifname, String snmpifdescr, String snmpphysaddr) {
         return RrdLabelUtils.computeLabelForRRD(snmpifname, snmpifdescr, snmpphysaddr);
     }

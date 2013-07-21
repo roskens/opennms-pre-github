@@ -43,6 +43,9 @@ import org.junit.Test;
  */
 public class SnmpInformantOidResolverTest {
 
+    /**
+     * Test string to ascii oid.
+     */
     @Test
     public void testStringToAsciiOid() {
         SnmpInformantOidResolver oidResolver = new SnmpInformantOidResolver();
@@ -51,6 +54,9 @@ public class SnmpInformantOidResolverTest {
                             oidResolver.stringToAsciiOid("Broadcom NetLink [TM]-Gigabit-Ethernet"));
     }
 
+    /**
+     * Test ascii oid to string.
+     */
     @Test
     public void testAsciiOidToString() {
         SnmpInformantOidResolver oidResolver = new SnmpInformantOidResolver();

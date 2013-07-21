@@ -32,8 +32,14 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
+/**
+ * The Class ResourceIdParserTest.
+ */
 public class ResourceIdParserTest {
 
+    /**
+     * Test get node id.
+     */
     @Test
     public void testGetNodeId() {
         String resourceId = "node[7].responseTime[172.20.1.5]";
@@ -42,6 +48,9 @@ public class ResourceIdParserTest {
         assertEquals("7", parser.getNodeId(resourceId));
     }
 
+    /**
+     * Test get resource.
+     */
     @Test
     public void testGetResource() {
         String resourceId = "node[7].responseTime[172.20.1.5]";

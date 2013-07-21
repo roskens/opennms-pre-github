@@ -36,13 +36,22 @@ import org.opennms.netmgt.jasper.jrobin.JRobinQueryExecutorFactory;
 import org.opennms.netmgt.jasper.resource.ResourceQueryExecuterFactory;
 import org.opennms.netmgt.jasper.rrdtool.RrdtoolQueryExecutorFactory;
 
+/**
+ * The Class OnmsQueryExecutorFactoryBundle.
+ */
 public class OnmsQueryExecutorFactoryBundle implements QueryExecuterFactoryBundle {
 
+    /* (non-Javadoc)
+     * @see net.sf.jasperreports.engine.query.QueryExecuterFactoryBundle#getLanguages()
+     */
     @Override
     public String[] getLanguages() {
         return new String[] { "jrobin", "rrdtool", "resourceQuery" };
     }
 
+    /* (non-Javadoc)
+     * @see net.sf.jasperreports.engine.query.QueryExecuterFactoryBundle#getQueryExecuterFactory(java.lang.String)
+     */
     @Override
     public JRQueryExecuterFactory getQueryExecuterFactory(String language) throws JRException {
         String reportLanguage = checkReportLanguage(language);
@@ -58,6 +67,13 @@ public class OnmsQueryExecutorFactoryBundle implements QueryExecuterFactoryBundl
         }
     }
 
+    /**
+     * Check report language.
+     *
+     * @param language
+     *            the language
+     * @return the string
+     */
     private String checkReportLanguage(String language) {
         boolean found = false;
         for (String lng : getLanguages()) {

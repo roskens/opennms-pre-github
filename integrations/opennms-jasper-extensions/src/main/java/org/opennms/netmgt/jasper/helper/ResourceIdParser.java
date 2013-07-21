@@ -31,25 +31,54 @@ package org.opennms.netmgt.jasper.helper;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * The Class ResourceIdParser.
+ */
 public class ResourceIdParser {
 
+    /** The m_node pattern. */
     Pattern m_nodePattern;
 
+    /** The m_resource pattern. */
     Pattern m_resourcePattern;
 
+    /**
+     * Instantiates a new resource id parser.
+     */
     public ResourceIdParser() {
         m_nodePattern = Pattern.compile("node\\W(\\d.*?)\\W");
         m_resourcePattern = Pattern.compile("responseTime\\W(.*)\\W");
     }
 
+    /**
+     * Gets the node id.
+     *
+     * @param resourceId
+     *            the resource id
+     * @return the node id
+     */
     public String getNodeId(String resourceId) {
         return getMatch(m_nodePattern.matcher(resourceId));
     }
 
+    /**
+     * Gets the resource.
+     *
+     * @param resourceId
+     *            the resource id
+     * @return the resource
+     */
     public String getResource(String resourceId) {
         return getMatch(m_resourcePattern.matcher(resourceId));
     }
 
+    /**
+     * Gets the match.
+     *
+     * @param m
+     *            the m
+     * @return the match
+     */
     private String getMatch(Matcher m) {
         m.find();
         return m.group(1);
