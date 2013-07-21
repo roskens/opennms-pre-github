@@ -66,40 +66,63 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class JRobinRrdStrategy implements RrdStrategy<RrdDef, RrdDb> {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(JRobinRrdStrategy.class);
 
+    /** The Constant BACKEND_FACTORY_PROPERTY. */
     private static final String BACKEND_FACTORY_PROPERTY = "org.jrobin.core.RrdBackendFactory";
 
+    /** The Constant DEFAULT_BACKEND_FACTORY. */
     private static final String DEFAULT_BACKEND_FACTORY = "FILE";
 
     /*
      * Ensure that we only initialize certain things *once* per
      * Java VM, not once per instantiation of this class.
      */
+    /** The s_initialized. */
     private static boolean s_initialized = false;
 
+    /** The m_configuration properties. */
     private Properties m_configurationProperties;
 
     /**
      * An extremely simple Plottable for holding static datasources that
      * can't be represented with an SDEF -- currently used only for PERCENT
-     * pseudo-VDEFs
+     * pseudo-VDEFs.
      *
      * @author jeffg
      */
     class ConstantStaticDef extends Plottable {
+
+        /** The m_start time. */
         private double m_startTime = Double.NEGATIVE_INFINITY;
 
+        /** The m_end time. */
         private double m_endTime = Double.POSITIVE_INFINITY;
 
+        /** The m_value. */
         private double m_value = Double.NaN;
 
+        /**
+         * Instantiates a new constant static def.
+         *
+         * @param startTime
+         *            the start time
+         * @param endTime
+         *            the end time
+         * @param value
+         *            the value
+         */
         ConstantStaticDef(long startTime, long endTime, double value) {
             m_startTime = startTime;
             m_endTime = endTime;
             m_value = value;
         }
 
+        /* (non-Javadoc)
+         * @see org.jrobin.data.Plottable#getValue(long)
+         */
         @Override
         public double getValue(long timestamp) {
             if (m_startTime <= timestamp && m_endTime >= timestamp) {
@@ -114,6 +137,7 @@ public class JRobinRrdStrategy implements RrdStrategy<RrdDef, RrdDb> {
      * <p>
      * getConfigurationProperties
      * </p>
+     * .
      *
      * @return a {@link java.util.Properties} object.
      */
@@ -146,8 +170,8 @@ public class JRobinRrdStrategy implements RrdStrategy<RrdDef, RrdDb> {
      *
      * @param rrdFile
      *            a {@link org.jrobin.core.RrdDb} object.
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @Override
     public void closeFile(final RrdDb rrdFile) throws Exception {
@@ -195,8 +219,10 @@ public class JRobinRrdStrategy implements RrdStrategy<RrdDef, RrdDb> {
      *
      * @param rrdDef
      *            a {@link org.jrobin.core.RrdDef} object.
-     * @throws java.lang.Exception
-     *             if any.
+     * @param attributeMappings
+     *            the attribute mappings
+     * @throws Exception
+     *             the exception
      */
     @Override
     public void createFile(final RrdDef rrdDef, Map<String, String> attributeMappings) throws Exception {
@@ -239,8 +265,8 @@ public class JRobinRrdStrategy implements RrdStrategy<RrdDef, RrdDb> {
      * Initialized the RrdDb to use the FILE factory because the NIO factory
      * uses too much memory for our implementation.
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     public JRobinRrdStrategy() throws Exception {
         String home = System.getProperty("opennms.home");
@@ -331,6 +357,13 @@ public class JRobinRrdStrategy implements RrdStrategy<RrdDef, RrdDb> {
         }
     }
 
+    /**
+     * Gets the color.
+     *
+     * @param colorValue
+     *            the color value
+     * @return the color
+     */
     private Color getColor(final String colorValue) {
         int rVal = Integer.parseInt(colorValue.substring(0, 2), 16);
         int gVal = Integer.parseInt(colorValue.substring(2, 4), 16);
@@ -346,6 +379,15 @@ public class JRobinRrdStrategy implements RrdStrategy<RrdDef, RrdDb> {
     // For compatibility with RRDtool defs, the colour value for
     // LINE and AREA is optional. If it's missing, the line is rendered
     // invisibly.
+    /**
+     * Gets the color or invisible.
+     *
+     * @param array
+     *            the array
+     * @param index
+     *            the index
+     * @return the color or invisible
+     */
     private Color getColorOrInvisible(final String[] array, final int index) {
         if (array.length > index) {
             return getColor(array[index]);
@@ -410,14 +452,15 @@ public class JRobinRrdStrategy implements RrdStrategy<RrdDef, RrdDb> {
      * <p>
      * createGraphDef
      * </p>
+     * .
      *
      * @param workDir
      *            a {@link java.io.File} object.
-     * @param commandArray
-     *            an array of {@link java.lang.String} objects.
+     * @param inputArray
+     *            the input array
      * @return a {@link org.jrobin.graph.RrdGraphDef} object.
-     * @throws org.jrobin.core.RrdException
-     *             if any.
+     * @throws RrdException
+     *             the rrd exception
      */
     protected RrdGraphDef createGraphDef(final File workDir, final String[] inputArray) throws RrdException {
         RrdGraphDef graphDef = new RrdGraphDef();
@@ -721,6 +764,13 @@ public class JRobinRrdStrategy implements RrdStrategy<RrdDef, RrdDb> {
         return graphDef;
     }
 
+    /**
+     * Split def.
+     *
+     * @param definition
+     *            the definition
+     * @return the string[]
+     */
     private String[] splitDef(final String definition) {
         // LOG.debug("splitDef({})", definition);
         final String[] def;
@@ -747,6 +797,14 @@ public class JRobinRrdStrategy implements RrdStrategy<RrdDef, RrdDb> {
         return def;
     }
 
+    /**
+     * Process rrd font argument.
+     *
+     * @param graphDef
+     *            the graph def
+     * @param argParm
+     *            the arg parm
+     */
     private void processRrdFontArgument(RrdGraphDef graphDef, String argParm) {
         /*
          * String[] argValue = tokenize(argParm, ":", true);
@@ -770,6 +828,17 @@ public class JRobinRrdStrategy implements RrdStrategy<RrdDef, RrdDb> {
          */
     }
 
+    /**
+     * Tokenize.
+     *
+     * @param line
+     *            the line
+     * @param delimiters
+     *            the delimiters
+     * @param processQuotes
+     *            the process quotes
+     * @return the string[]
+     */
     private String[] tokenize(final String line, final String delimiters, final boolean processQuotes) {
         String passthroughTokens = "lcrjgsJ"; /*
                                                * see
@@ -780,8 +849,14 @@ public class JRobinRrdStrategy implements RrdStrategy<RrdDef, RrdDb> {
     }
 
     /**
+     * Parses the graph color.
+     *
+     * @param graphDef
+     *            the graph def
      * @param colorArg
      *            Should have the form COLORTAG#RRGGBB[AA]
+     * @throws IllegalArgumentException
+     *             the illegal argument exception
      * @see http://www.jrobin.org/support/man/rrdgraph.html
      */
     private void parseGraphColor(final RrdGraphDef graphDef, final String colorArg) throws IllegalArgumentException {
@@ -849,6 +924,7 @@ public class JRobinRrdStrategy implements RrdStrategy<RrdDef, RrdDb> {
      * <p>
      * getGraphLeftOffset
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -861,6 +937,7 @@ public class JRobinRrdStrategy implements RrdStrategy<RrdDef, RrdDb> {
      * <p>
      * getGraphRightOffset
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -873,6 +950,7 @@ public class JRobinRrdStrategy implements RrdStrategy<RrdDef, RrdDb> {
      * <p>
      * getGraphTopOffsetWithText
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -885,6 +963,7 @@ public class JRobinRrdStrategy implements RrdStrategy<RrdDef, RrdDb> {
      * <p>
      * getDefaultFileExtension
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -897,6 +976,7 @@ public class JRobinRrdStrategy implements RrdStrategy<RrdDef, RrdDb> {
      * <p>
      * tokenizeWithQuotingAndEscapes
      * </p>
+     * .
      *
      * @param line
      *            a {@link java.lang.String} object.
@@ -1013,6 +1093,7 @@ public class JRobinRrdStrategy implements RrdStrategy<RrdDef, RrdDb> {
      * <p>
      * escapeIfNotPathSepInDEF
      * </p>
+     * .
      *
      * @param encountered
      *            a char.
@@ -1031,6 +1112,24 @@ public class JRobinRrdStrategy implements RrdStrategy<RrdDef, RrdDb> {
         }
     }
 
+    /**
+     * Adds the vdef ds.
+     *
+     * @param graphDef
+     *            the graph def
+     * @param sourceName
+     *            the source name
+     * @param rhs
+     *            the rhs
+     * @param start
+     *            the start
+     * @param end
+     *            the end
+     * @param defs
+     *            the defs
+     * @throws RrdException
+     *             the rrd exception
+     */
     protected void addVdefDs(RrdGraphDef graphDef, String sourceName, String[] rhs, double start, double end,
             Map<String, List<String>> defs) throws RrdException {
         if (rhs.length == 2) {

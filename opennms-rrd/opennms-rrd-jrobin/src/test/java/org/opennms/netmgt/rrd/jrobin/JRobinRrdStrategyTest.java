@@ -66,10 +66,18 @@ import org.springframework.util.StringUtils;
  */
 public class JRobinRrdStrategyTest {
 
+    /** The m_strategy. */
     private RrdStrategy<RrdDef, RrdDb> m_strategy;
 
+    /** The m_file anticipator. */
     private FileAnticipator m_fileAnticipator;
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
         // Make sure that AWT headless mode is enabled
@@ -83,6 +91,12 @@ public class JRobinRrdStrategyTest {
         m_fileAnticipator = new FileAnticipator(false);
     }
 
+    /**
+     * Tear down.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @After
     public void tearDown() throws Exception {
         if (m_fileAnticipator.isInitialized()) {
@@ -91,11 +105,20 @@ public class JRobinRrdStrategyTest {
         m_fileAnticipator.tearDown();
     }
 
+    /**
+     * Test initialize.
+     */
     @Test
     public void testInitialize() {
         // Don't do anything... just check that setUp works
     }
 
+    /**
+     * Test command without drawing.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testCommandWithoutDrawing() throws Exception {
         long end = System.currentTimeMillis();
@@ -119,6 +142,12 @@ public class JRobinRrdStrategyTest {
         ta.verifyAnticipated();
     }
 
+    /**
+     * Test def with escaped characters.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testDefWithEscapedCharacters() throws Exception {
         long end = System.currentTimeMillis() / 1000;
@@ -142,6 +171,12 @@ public class JRobinRrdStrategyTest {
                    t.getMessage().contains("fe80:0000:0000:0000:0000:0000:0000:0000%5"));
     }
 
+    /**
+     * Test create.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testCreate() throws Exception {
         File rrdFile = createRrdFile();
@@ -156,6 +191,12 @@ public class JRobinRrdStrategyTest {
         m_strategy.closeFile(openedFile);
     }
 
+    /**
+     * Test update.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testUpdate() throws Exception {
         File rrdFile = createRrdFile();
@@ -165,6 +206,12 @@ public class JRobinRrdStrategyTest {
         m_strategy.closeFile(openedFile);
     }
 
+    /**
+     * Test sample set floating point value good.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testSampleSetFloatingPointValueGood() throws Exception {
         File rrdFile = createRrdFile();
@@ -180,6 +227,12 @@ public class JRobinRrdStrategyTest {
         assertEquals("values item 0", 1.234, values[0], 0.0);
     }
 
+    /**
+     * Test sample vdef percentile.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testSampleVDEFPercentile() throws Exception {
         Double[] vals = { 39.0, 94.0, 95.0, 101.0, 155.0, 262.0, 274.0, 302.0, 319.0, 402.0, 466.0, 468.0, 494.0,
@@ -273,6 +326,9 @@ public class JRobinRrdStrategyTest {
      * This test fails because of
      * <a href="http://bugzilla.opennms.org/show_bug.cgi?id=2272">bug #2272</a>
      * in org.jrobin.core.Sample.
+     *
+     * @throws Exception
+     *             the exception
      */
     @Test
     @Ignore("fails due to bug 2272")
@@ -294,6 +350,9 @@ public class JRobinRrdStrategyTest {
      * This test fails because of
      * <a href="http://bugzilla.opennms.org/show_bug.cgi?id=2272">bug #2272</a>
      * in org.jrobin.core.Sample.
+     *
+     * @throws Exception
+     *             the exception
      */
     @Test
     @Ignore("fails due to bug 2272")
@@ -316,6 +375,12 @@ public class JRobinRrdStrategyTest {
         ta.verifyAnticipated();
     }
 
+    /**
+     * Test comment with newlines.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testCommentWithNewlines() throws Exception {
         long end = System.currentTimeMillis();
@@ -343,6 +408,12 @@ public class JRobinRrdStrategyTest {
                     firstHeight == secondHeight);
     }
 
+    /**
+     * Test gprint with newlines.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testGprintWithNewlines() throws Exception {
         long end = System.currentTimeMillis();
@@ -372,6 +443,12 @@ public class JRobinRrdStrategyTest {
                     firstHeight == secondHeight);
     }
 
+    /**
+     * Test print.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testPrint() throws Exception {
         long end = System.currentTimeMillis();
@@ -394,6 +471,12 @@ public class JRobinRrdStrategyTest {
         assertEquals("graph printLines item 0 as a double", 1.0, d, 0.0);
     }
 
+    /**
+     * Test print through interface.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testPrintThroughInterface() throws Exception {
         long end = System.currentTimeMillis();
@@ -414,6 +497,12 @@ public class JRobinRrdStrategyTest {
         assertEquals("graph printLines item 0 as a double", 1.0, d, 0.0);
     }
 
+    /**
+     * Test tw qn e no q no e.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testTWQnENoQNoE() throws Exception {
         String input = "This string has no quoting and no escapes";
@@ -422,6 +511,12 @@ public class JRobinRrdStrategyTest {
         assertEquals(Arrays.asList(expected), Arrays.asList(actual));
     }
 
+    /**
+     * Test tw qn e no q no e with def unix.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testTWQnENoQNoEWithDEFUnix() throws Exception {
         if (File.separatorChar != '/') {
@@ -436,6 +531,12 @@ public class JRobinRrdStrategyTest {
         assertEquals(Arrays.asList(expected), Arrays.asList(actual));
     }
 
+    /**
+     * Test tw qn e no q no e with def windows.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testTWQnENoQNoEWithDEFWindows() throws Exception {
         // This test case inspired by bug #2223
@@ -451,6 +552,13 @@ public class JRobinRrdStrategyTest {
         assertEquals(Arrays.asList(expected), Arrays.asList(actual));
     }
 
+    /**
+     * Creates the rrd file.
+     *
+     * @return the file
+     * @throws Exception
+     *             the exception
+     */
     public File createRrdFile() throws Exception {
         String rrdFileBase = "foo";
 

@@ -48,10 +48,14 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class JRobinRrdGraphDetails implements RrdGraphDetails {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(JRobinRrdGraphDetails.class);
 
+    /** The m_rrd graph. */
     private RrdGraph m_rrdGraph;
 
+    /** The m_graph command. */
     private String m_graphCommand;
 
     /**
@@ -73,6 +77,7 @@ public class JRobinRrdGraphDetails implements RrdGraphDetails {
      * <p>
      * getRrdGraph
      * </p>
+     * .
      *
      * @return a {@link org.jrobin.graph.RrdGraph} object.
      */
@@ -84,6 +89,7 @@ public class JRobinRrdGraphDetails implements RrdGraphDetails {
      * <p>
      * getGraphCommand
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -95,10 +101,11 @@ public class JRobinRrdGraphDetails implements RrdGraphDetails {
      * <p>
      * getInputStream
      * </p>
+     * .
      *
      * @return a {@link java.io.InputStream} object.
-     * @throws org.opennms.netmgt.rrd.RrdException
-     *             if any.
+     * @throws RrdException
+     *             the rrd exception
      */
     @Override
     public InputStream getInputStream() throws RrdException {
@@ -111,6 +118,7 @@ public class JRobinRrdGraphDetails implements RrdGraphDetails {
      * <p>
      * getPrintLines
      * </p>
+     * .
      *
      * @return an array of {@link java.lang.String} objects.
      */
@@ -123,10 +131,11 @@ public class JRobinRrdGraphDetails implements RrdGraphDetails {
      * <p>
      * getHeight
      * </p>
+     * .
      *
      * @return a int.
-     * @throws org.opennms.netmgt.rrd.RrdException
-     *             if any.
+     * @throws RrdException
+     *             the rrd exception
      */
     @Override
     public int getHeight() throws RrdException {
@@ -139,10 +148,11 @@ public class JRobinRrdGraphDetails implements RrdGraphDetails {
      * <p>
      * getWidth
      * </p>
+     * .
      *
      * @return a int.
-     * @throws org.opennms.netmgt.rrd.RrdException
-     *             if any.
+     * @throws RrdException
+     *             the rrd exception
      */
     @Override
     public int getWidth() throws RrdException {
@@ -151,6 +161,12 @@ public class JRobinRrdGraphDetails implements RrdGraphDetails {
         return m_rrdGraph.getRrdGraphInfo().getWidth();
     }
 
+    /**
+     * Assert graph produced.
+     *
+     * @throws RrdException
+     *             the rrd exception
+     */
     private void assertGraphProduced() throws RrdException {
         if (m_rrdGraph.getRrdGraphInfo().getBytes() == null) {
             String message = "no graph was produced by JRobin for command '"
