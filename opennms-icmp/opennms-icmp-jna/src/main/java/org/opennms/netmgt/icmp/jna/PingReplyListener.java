@@ -53,5 +53,5 @@ public interface PingReplyListener {
      * @param packet
      *            the packet
      */
-    public void onPingReply(InetAddress inetAddress, EchoPacket packet);
+    void onPingReply(InetAddress inetAddress, EchoPacket packet);
 }

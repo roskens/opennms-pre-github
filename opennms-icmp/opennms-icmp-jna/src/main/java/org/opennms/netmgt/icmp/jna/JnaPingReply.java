@@ -92,7 +92,7 @@ public final class JnaPingReply implements ResponseWithId<JnaPingRequestId>, Ech
      *
      * @return a {@link java.net.InetAddress} object.
      */
-    public final InetAddress getAddress() {
+    public InetAddress getAddress() {
         return m_address;
     }
 
