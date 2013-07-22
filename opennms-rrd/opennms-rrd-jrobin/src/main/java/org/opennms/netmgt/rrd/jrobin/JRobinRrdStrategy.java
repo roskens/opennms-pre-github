@@ -1014,15 +1014,18 @@ public class JRobinRrdStrategy implements RrdStrategy<RrdDef, RrdDb> {
         boolean quoting = false;
         boolean escaping = false;
         boolean debugTokens = Boolean.getBoolean("org.opennms.netmgt.rrd.debugTokens");
-        if (!LOG.isDebugEnabled())
+        if (!LOG.isDebugEnabled()) {
             debugTokens = false;
+        }
 
-        if (debugTokens)
+        if (debugTokens) {
             LOG.debug("tokenize: line={}, delims={}", line, delims);
+        }
         for (int i = 0; i < line.length(); i++) {
             char ch = line.charAt(i);
-            if (debugTokens)
+            if (debugTokens) {
                 LOG.debug("tokenize: checking char: {}", ch);
+            }
             if (escaping) {
                 if (ch == 'n') {
                     currToken.append(escapeIfNotPathSepInDEF(ch, '\n', currToken));
@@ -1042,48 +1045,58 @@ public class JRobinRrdStrategy implements RrdStrategy<RrdDef, RrdDb> {
                     }
                 }
                 escaping = false;
-                if (debugTokens)
+                if (debugTokens) {
                     LOG.debug("tokenize: escaped. appended to {}", currToken);
+                }
             } else if (ch == '\\') {
-                if (debugTokens)
+                if (debugTokens) {
                     LOG.debug("tokenize: found a backslash... escaping currToken = {}", currToken);
-                if (quoting && !processQuoted)
+                }
+                if (quoting && !processQuoted) {
                     currToken.append(ch);
-                else
+                } else {
                     escaping = true;
+                }
             } else if (ch == '\"') {
-                if (!processQuoted)
+                if (!processQuoted) {
                     currToken.append(ch);
+                }
                 if (quoting) {
-                    if (debugTokens)
+                    if (debugTokens) {
                         LOG.debug("tokenize: found a quote ending quotation currToken = {}", currToken);
+                    }
                     quoting = false;
                 } else {
-                    if (debugTokens)
+                    if (debugTokens) {
                         LOG.debug("tokenize: found a quote beginning quotation  currToken = {}", currToken);
+                    }
                     quoting = true;
                 }
             } else if (!quoting && delims.indexOf(ch) >= 0) {
-                if (debugTokens)
+                if (debugTokens) {
                     LOG.debug("tokenize: found a token: {} ending token [{}] and starting a new one", ch, currToken);
+                }
                 tokenList.add(currToken.toString());
                 currToken = new StringBuffer();
             } else {
-                if (debugTokens)
+                if (debugTokens) {
                     LOG.debug("tokenize: appending {} to token: {}", ch, currToken);
+                }
                 currToken.append(ch);
             }
 
         }
 
         if (escaping || quoting) {
-            if (debugTokens)
+            if (debugTokens) {
                 LOG.debug("tokenize: ended string but escaping = {} and quoting = {}", escaping, quoting);
+            }
             throw new IllegalArgumentException("unable to tokenize string " + line + " with token chars " + delims);
         }
 
-        if (debugTokens)
+        if (debugTokens) {
             LOG.debug("tokenize: reached end of string.  completing token {}", currToken);
+        }
         tokenList.add(currToken.toString());
 
         return (String[]) tokenList.toArray(new String[tokenList.size()]);
