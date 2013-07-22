@@ -71,7 +71,7 @@ public interface SurveillanceService {
      *            a {@link org.opennms.web.svclayer.ProgressMonitor} object.
      * @return a {@link org.opennms.web.svclayer.SimpleWebTable} object.
      */
-    public SimpleWebTable createSurveillanceTable(String surveillanceViewName, ProgressMonitor progressMonitor);
+    SimpleWebTable createSurveillanceTable(String surveillanceViewName, ProgressMonitor progressMonitor);
 
     /**
      * <p>
@@ -83,7 +83,7 @@ public interface SurveillanceService {
      *            a {@link java.lang.String} object.
      * @return a {@link java.lang.String} object.
      */
-    public String getHeaderRefreshSeconds(String viewName);
+    String getHeaderRefreshSeconds(String viewName);
 
     /**
      * <p>
@@ -95,7 +95,7 @@ public interface SurveillanceService {
      *            a {@link java.lang.String} object.
      * @return a boolean.
      */
-    public boolean isViewName(String viewName);
+    boolean isViewName(String viewName);
 
     /**
      * <p>
@@ -105,5 +105,5 @@ public interface SurveillanceService {
      *
      * @return a {@link java.util.List} object.
      */
-    public List<String> getViewNames();
+    List<String> getViewNames();
 }

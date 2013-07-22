@@ -48,5 +48,5 @@ public interface SimplePageable {
      * @param direction
      *            a int.
      */
-    public void adjustPage(int direction);
+    void adjustPage(int direction);
 }

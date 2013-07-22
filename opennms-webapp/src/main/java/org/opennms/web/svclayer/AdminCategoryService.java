@@ -61,7 +61,7 @@ public interface AdminCategoryService {
      *         {@link org.opennms.web.svclayer.support.DefaultAdminCategoryService.CategoryAndMemberNodes}
      *         object.
      */
-    public CategoryAndMemberNodes getCategory(String categoryIdString);
+    CategoryAndMemberNodes getCategory(String categoryIdString);
 
     /**
      * <p>
@@ -71,7 +71,7 @@ public interface AdminCategoryService {
      *
      * @return a {@link java.util.List} object.
      */
-    public List<OnmsNode> findAllNodes();
+    List<OnmsNode> findAllNodes();
 
     /**
      * <p>
@@ -85,7 +85,7 @@ public interface AdminCategoryService {
      *         {@link org.opennms.web.svclayer.support.DefaultAdminCategoryService.EditModel}
      *         object.
      */
-    public EditModel findCategoryAndAllNodes(String categoryIdString);
+    EditModel findCategoryAndAllNodes(String categoryIdString);
 
     /**
      * <p>
@@ -102,8 +102,7 @@ public interface AdminCategoryService {
      * @param toDelete
      *            an array of {@link java.lang.String} objects.
      */
-    @Transactional(readOnly = false)
-    public void performEdit(String editAction, String editAction2, String[] toAdd, String[] toDelete);
+    @Transactional(readOnly = false) void performEdit(String editAction, String editAction2, String[] toAdd, String[] toDelete);
 
     /**
      * <p>
@@ -115,8 +114,7 @@ public interface AdminCategoryService {
      *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.model.OnmsCategory} object.
      */
-    @Transactional(readOnly = false)
-    public OnmsCategory addNewCategory(String name);
+    @Transactional(readOnly = false) OnmsCategory addNewCategory(String name);
 
     /**
      * <p>
@@ -128,7 +126,7 @@ public interface AdminCategoryService {
      *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.model.OnmsCategory} object.
      */
-    public OnmsCategory getCategoryWithName(String newCategoryName);
+    OnmsCategory getCategoryWithName(String newCategoryName);
 
     /**
      * <p>
@@ -138,7 +136,7 @@ public interface AdminCategoryService {
      *
      * @return a {@link java.util.List} object.
      */
-    public List<OnmsCategory> findAllCategories();
+    List<OnmsCategory> findAllCategories();
 
     /**
      * <p>
@@ -149,8 +147,7 @@ public interface AdminCategoryService {
      * @param categoryIdString
      *            a {@link java.lang.String} object.
      */
-    @Transactional(readOnly = false)
-    public void removeCategory(String categoryIdString);
+    @Transactional(readOnly = false) void removeCategory(String categoryIdString);
 
     /**
      * <p>
@@ -162,7 +159,7 @@ public interface AdminCategoryService {
      *            a int.
      * @return a {@link java.util.List} object.
      */
-    public List<OnmsCategory> findByNode(int nodeId);
+    List<OnmsCategory> findByNode(int nodeId);
 
     /**
      * <p>
@@ -176,7 +173,7 @@ public interface AdminCategoryService {
      *         {@link org.opennms.web.svclayer.support.DefaultAdminCategoryService.NodeEditModel}
      *         object.
      */
-    public NodeEditModel findNodeCategories(String nodeIdString);
+    NodeEditModel findNodeCategories(String nodeIdString);
 
     /**
      * <p>
@@ -193,7 +190,6 @@ public interface AdminCategoryService {
      * @param toDelete
      *            an array of {@link java.lang.String} objects.
      */
-    @Transactional(readOnly = false)
-    public void performNodeEdit(String nodeIdString, String editAction, String[] toAdd, String[] toDelete);
+    @Transactional(readOnly = false) void performNodeEdit(String nodeIdString, String editAction, String[] toAdd, String[] toDelete);
 
 }

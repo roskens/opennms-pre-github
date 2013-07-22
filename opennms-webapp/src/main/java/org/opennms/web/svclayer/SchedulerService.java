@@ -56,7 +56,7 @@ public interface SchedulerService {
      *
      * @return a {@link java.util.List} object.
      */
-    public abstract List<TriggerDescription> getTriggerDescriptions();
+    List<TriggerDescription> getTriggerDescriptions();
 
     /**
      * <p>
@@ -67,8 +67,7 @@ public interface SchedulerService {
      * @param triggerName
      *            a {@link java.lang.String} object.
      */
-    @Transactional(readOnly = false)
-    public abstract void removeTrigger(String triggerName);
+    @Transactional(readOnly = false) void removeTrigger(String triggerName);
 
     /**
      * <p>
@@ -79,8 +78,7 @@ public interface SchedulerService {
      * @param triggerNames
      *            an array of {@link java.lang.String} objects.
      */
-    @Transactional(readOnly = false)
-    public abstract void removeTriggers(String[] triggerNames);
+    @Transactional(readOnly = false) void removeTriggers(String[] triggerNames);
 
     /**
      * <p>
@@ -92,7 +90,7 @@ public interface SchedulerService {
      *            a {@link java.lang.String} object.
      * @return a {@link java.lang.Boolean} object.
      */
-    public abstract Boolean exists(String triggerName);
+    Boolean exists(String triggerName);
 
     /**
      * <p>
@@ -114,8 +112,7 @@ public interface SchedulerService {
      *            object.
      * @return a {@link java.lang.String} object.
      */
-    @Transactional(readOnly = false)
-    public abstract String addCronTrigger(String id, ReportParameters criteria, DeliveryOptions deliveryOptions,
+    @Transactional(readOnly = false) String addCronTrigger(String id, ReportParameters criteria, DeliveryOptions deliveryOptions,
             String cronExpression, RequestContext context);
 
     /**
@@ -136,8 +133,7 @@ public interface SchedulerService {
      *            object.
      * @return a {@link java.lang.String} object.
      */
-    @Transactional(readOnly = false)
-    public abstract String execute(String id, ReportParameters criteria, DeliveryOptions deliveryOptions,
+    @Transactional(readOnly = false) String execute(String id, ReportParameters criteria, DeliveryOptions deliveryOptions,
             RequestContext context);
 
 }

@@ -53,7 +53,7 @@ public interface DistributedPollerService {
      * @return a {@link org.opennms.web.svclayer.LocationMonitorListModel}
      *         object.
      */
-    public LocationMonitorListModel getLocationMonitorList();
+    LocationMonitorListModel getLocationMonitorList();
 
     /**
      * <p>
@@ -69,7 +69,7 @@ public interface DistributedPollerService {
      * @return a {@link org.opennms.web.svclayer.LocationMonitorListModel}
      *         object.
      */
-    public LocationMonitorListModel getLocationMonitorDetails(LocationMonitorIdCommand command, BindException errors);
+    LocationMonitorListModel getLocationMonitorDetails(LocationMonitorIdCommand command, BindException errors);
 
     /**
      * <p>
@@ -83,8 +83,7 @@ public interface DistributedPollerService {
      * @param errors
      *            a {@link org.springframework.validation.BindException} object.
      */
-    @Transactional(readOnly = false)
-    public void pauseLocationMonitor(LocationMonitorIdCommand command, BindException errors);
+    @Transactional(readOnly = false) void pauseLocationMonitor(LocationMonitorIdCommand command, BindException errors);
 
     /**
      * <p>
@@ -98,8 +97,7 @@ public interface DistributedPollerService {
      * @param errors
      *            a {@link org.springframework.validation.BindException} object.
      */
-    @Transactional(readOnly = false)
-    public void resumeLocationMonitor(LocationMonitorIdCommand command, BindException errors);
+    @Transactional(readOnly = false) void resumeLocationMonitor(LocationMonitorIdCommand command, BindException errors);
 
     /**
      * <p>
@@ -113,19 +111,16 @@ public interface DistributedPollerService {
      * @param errors
      *            a {@link org.springframework.validation.BindException} object.
      */
-    @Transactional(readOnly = false)
-    public void deleteLocationMonitor(LocationMonitorIdCommand command, BindException errors);
+    @Transactional(readOnly = false) void deleteLocationMonitor(LocationMonitorIdCommand command, BindException errors);
 
     /**
      * Pause all the locations monitors.
      */
-    @Transactional(readOnly = false)
-    public void pauseAllLocationMonitors();
+    @Transactional(readOnly = false) void pauseAllLocationMonitors();
 
     /**
      * Resume all the locations monitors (those that have been stopped are not
      * resumed).
      */
-    @Transactional(readOnly = false)
-    public void resumeAllLocationMonitors();
+    @Transactional(readOnly = false) void resumeAllLocationMonitors();
 }

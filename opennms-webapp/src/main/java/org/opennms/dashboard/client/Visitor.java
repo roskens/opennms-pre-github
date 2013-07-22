@@ -45,7 +45,7 @@ public interface Visitor {
      * </p>
      * .
      */
-    public void visitAll();
+    void visitAll();
 
     /**
      * <p>
@@ -57,7 +57,7 @@ public interface Visitor {
      *            a {@link org.opennms.dashboard.client.SurveillanceGroup}
      *            object.
      */
-    public void visitGroup(SurveillanceGroup group);
+    void visitGroup(SurveillanceGroup group);
 
     /**
      * <p>
@@ -72,5 +72,5 @@ public interface Visitor {
      *            a {@link org.opennms.dashboard.client.SurveillanceGroup}
      *            object.
      */
-    public void visitIntersection(SurveillanceGroup row, SurveillanceGroup column);
+    void visitIntersection(SurveillanceGroup row, SurveillanceGroup column);
 }

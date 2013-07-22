@@ -62,5 +62,5 @@ public interface NodeListService {
      *            a {@link org.opennms.web.command.NodeListCommand} object.
      * @return a {@link org.opennms.web.svclayer.support.NodeListModel} object.
      */
-    public NodeListModel createNodeList(NodeListCommand command);
+    NodeListModel createNodeList(NodeListCommand command);
 }

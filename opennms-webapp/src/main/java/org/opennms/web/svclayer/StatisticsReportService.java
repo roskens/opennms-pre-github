@@ -54,7 +54,7 @@ public interface StatisticsReportService {
      *
      * @return a {@link java.util.List} object.
      */
-    public List<StatisticsReport> getStatisticsReports();
+    List<StatisticsReport> getStatisticsReports();
 
     /**
      * <p>
@@ -70,5 +70,5 @@ public interface StatisticsReportService {
      * @return a {@link org.opennms.web.svclayer.support.StatisticsReportModel}
      *         object.
      */
-    public StatisticsReportModel getReport(StatisticsReportCommand command, BindException errors);
+    StatisticsReportModel getReport(StatisticsReportCommand command, BindException errors);
 }

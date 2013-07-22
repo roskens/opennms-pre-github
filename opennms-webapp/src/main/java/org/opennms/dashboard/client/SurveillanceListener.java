@@ -51,7 +51,7 @@ public interface SurveillanceListener {
      * @param viewer
      *            a {@link org.opennms.dashboard.client.Dashlet} object.
      */
-    public void onAllClicked(Dashlet viewer);
+    void onAllClicked(Dashlet viewer);
 
     /**
      * <p>
@@ -65,7 +65,7 @@ public interface SurveillanceListener {
      *            a {@link org.opennms.dashboard.client.SurveillanceGroup}
      *            object.
      */
-    public void onSurveillanceGroupClicked(Dashlet viewer, SurveillanceGroup group);
+    void onSurveillanceGroupClicked(Dashlet viewer, SurveillanceGroup group);
 
     /**
      * <p>
@@ -80,6 +80,6 @@ public interface SurveillanceListener {
      *            {@link org.opennms.dashboard.client.SurveillanceIntersection}
      *            object.
      */
-    public void onIntersectionClicked(Dashlet viewer, SurveillanceIntersection intersection);
+    void onIntersectionClicked(Dashlet viewer, SurveillanceIntersection intersection);
 
 }

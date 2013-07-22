@@ -43,7 +43,7 @@ public interface NavBarEntry {
      *
      * @return a {@link java.lang.String} object.
      */
-    public abstract String getName();
+    String getName();
 
     /**
      * <p>
@@ -53,7 +53,7 @@ public interface NavBarEntry {
      *
      * @return a {@link java.lang.String} object.
      */
-    public abstract String getUrl();
+    String getUrl();
 
     /**
      * <p>
@@ -65,5 +65,5 @@ public interface NavBarEntry {
      *            a {@link javax.servlet.http.HttpServletRequest} object.
      * @return a {@link org.opennms.web.navigate.DisplayStatus} object.
      */
-    public abstract DisplayStatus evaluate(HttpServletRequest request);
+    DisplayStatus evaluate(HttpServletRequest request);
 }

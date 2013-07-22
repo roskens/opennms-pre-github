@@ -93,7 +93,7 @@ public class DefaultSurveillanceService implements SurveillanceService {
          *            the progress monitor
          * @return the surveillance status[][]
          */
-        public SurveillanceStatus[][] calculateCellStatus(SurveillanceView sView, ProgressMonitor progressMonitor);
+        SurveillanceStatus[][] calculateCellStatus(SurveillanceView sView, ProgressMonitor progressMonitor);
 
         /**
          * Gets the phase count.
@@ -102,7 +102,7 @@ public class DefaultSurveillanceService implements SurveillanceService {
          *            the s view
          * @return the phase count
          */
-        public int getPhaseCount(SurveillanceView sView);
+        int getPhaseCount(SurveillanceView sView);
     }
 
     /**

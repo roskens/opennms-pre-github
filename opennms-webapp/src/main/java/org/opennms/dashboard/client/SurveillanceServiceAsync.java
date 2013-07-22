@@ -48,7 +48,7 @@ public interface SurveillanceServiceAsync {
      *            a {@link com.google.gwt.user.client.rpc.AsyncCallback} object.
      * @return the surveillance data
      */
-    public void getSurveillanceData(AsyncCallback<SurveillanceData> cb);
+    void getSurveillanceData(AsyncCallback<SurveillanceData> cb);
 
     /**
      * <p>
@@ -62,7 +62,7 @@ public interface SurveillanceServiceAsync {
      *            a {@link com.google.gwt.user.client.rpc.AsyncCallback} object.
      * @return the alarms for set
      */
-    public void getAlarmsForSet(SurveillanceSet set, AsyncCallback<Alarm[]> cb);
+    void getAlarmsForSet(SurveillanceSet set, AsyncCallback<Alarm[]> cb);
 
     /**
      * <p>
@@ -76,7 +76,7 @@ public interface SurveillanceServiceAsync {
      *            a {@link com.google.gwt.user.client.rpc.AsyncCallback} object.
      * @return the notifications for set
      */
-    public void getNotificationsForSet(SurveillanceSet set, AsyncCallback<Notification[]> cb);
+    void getNotificationsForSet(SurveillanceSet set, AsyncCallback<Notification[]> cb);
 
     /**
      * <p>
@@ -90,7 +90,7 @@ public interface SurveillanceServiceAsync {
      *            a {@link com.google.gwt.user.client.rpc.AsyncCallback} object.
      * @return the node names
      */
-    public void getNodeNames(SurveillanceSet set, AsyncCallback<String[]> cb);
+    void getNodeNames(SurveillanceSet set, AsyncCallback<String[]> cb);
 
     /**
      * <p>
@@ -104,7 +104,7 @@ public interface SurveillanceServiceAsync {
      *            a {@link com.google.gwt.user.client.rpc.AsyncCallback} object.
      * @return the resources
      */
-    public void getResources(SurveillanceSet set, AsyncCallback<String[][]> cb);
+    void getResources(SurveillanceSet set, AsyncCallback<String[][]> cb);
 
     /**
      * <p>
@@ -118,7 +118,7 @@ public interface SurveillanceServiceAsync {
      *            a {@link com.google.gwt.user.client.rpc.AsyncCallback} object.
      * @return the child resources
      */
-    public void getChildResources(String resourceId, AsyncCallback<String[][]> cb);
+    void getChildResources(String resourceId, AsyncCallback<String[][]> cb);
 
     /**
      * <p>
@@ -132,7 +132,7 @@ public interface SurveillanceServiceAsync {
      *            a {@link com.google.gwt.user.client.rpc.AsyncCallback} object.
      * @return the prefab graphs
      */
-    public void getPrefabGraphs(String resourceId, AsyncCallback<String[][]> cb);
+    void getPrefabGraphs(String resourceId, AsyncCallback<String[][]> cb);
 
     /**
      * <p>
@@ -146,5 +146,5 @@ public interface SurveillanceServiceAsync {
      *            a {@link com.google.gwt.user.client.rpc.AsyncCallback} object.
      * @return the rtc for set
      */
-    public void getRtcForSet(SurveillanceSet set, AsyncCallback<NodeRtc[]> cb);
+    void getRtcForSet(SurveillanceSet set, AsyncCallback<NodeRtc[]> cb);
 }

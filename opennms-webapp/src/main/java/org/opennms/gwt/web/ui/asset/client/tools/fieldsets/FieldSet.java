@@ -44,52 +44,52 @@ public interface FieldSet extends FocusHandler, ChangeHandler {
     /**
      * Clears the status changed from a {@link FieldSet}.
      */
-    public abstract void clearChanged();
+    void clearChanged();
 
     /**
      * clears all error strings from a {@link FieldSet}.
      */
-    public abstract void clearErrors();
+    void clearErrors();
 
     /**
      * clears all warning strings from a {@link FieldSet}.
      */
-    public abstract void clearWarnings();
+    void clearWarnings();
 
     /**
      * Gets the enabled.
      *
      * @return boolean enabled if writing/changes are allowed/active.
      */
-    public abstract Boolean getEnabled();
+    Boolean getEnabled();
 
     /**
      * Get the complete error string for the {@link FieldSet}.
      *
      * @return String error
      */
-    public abstract String getError();
+    String getError();
 
     /**
      * Get the description/label text of the {@link FieldSet}.
      *
      * @return String label
      */
-    public abstract String getLabel();
+    String getLabel();
 
     /**
      * Gets the value.
      *
      * @return actual value of {@link FieldSet}.
      */
-    public abstract String getValue();
+    String getValue();
 
     /**
      * Get the complete warning string for the {@link FieldSet}.
      *
      * @return String warning
      */
-    public abstract String getWarning();
+    String getWarning();
 
     /**
      * Set the {@link FieldSet} into write/write-protected mode.
@@ -97,7 +97,7 @@ public interface FieldSet extends FocusHandler, ChangeHandler {
      * @param enabled
      *            to get write-mode disable to get write-protected mode
      */
-    public abstract void setEnabled(Boolean enabled);
+    void setEnabled(Boolean enabled);
 
     /**
      * Set a error string to the {@link FieldSet}.
@@ -105,7 +105,7 @@ public interface FieldSet extends FocusHandler, ChangeHandler {
      * @param error
      *            the new error
      */
-    public abstract void setError(String error);
+    void setError(String error);
 
     /**
      * Sets a text into the description/label of the {@link FieldSet}.
@@ -113,7 +113,7 @@ public interface FieldSet extends FocusHandler, ChangeHandler {
      * @param label
      *            the new label
      */
-    public abstract void setLabel(String label);
+    void setLabel(String label);
 
     /**
      * Sets a value into the value/input of the {@link FieldSet}.
@@ -121,7 +121,7 @@ public interface FieldSet extends FocusHandler, ChangeHandler {
      * @param value
      *            the new value
      */
-    public abstract void setValue(String value);
+    void setValue(String value);
 
     /**
      * Set a warning string to the {@link FieldSet}.
@@ -129,5 +129,5 @@ public interface FieldSet extends FocusHandler, ChangeHandler {
      * @param warning
      *            the new warning
      */
-    public abstract void setWarning(String warning);
+    void setWarning(String warning);
 }

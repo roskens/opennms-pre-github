@@ -55,7 +55,7 @@ public interface TroubleTicketProxy {
      * @param attributes
      *            the attributes
      */
-    public void createTicket(Integer alarmId, Map<String, String> attributes);
+    void createTicket(Integer alarmId, Map<String, String> attributes);
 
     /**
      * <p>
@@ -66,7 +66,7 @@ public interface TroubleTicketProxy {
      * @param alarmId
      *            a {@link java.lang.Integer} object.
      */
-    public void updateTicket(Integer alarmId);
+    void updateTicket(Integer alarmId);
 
     /**
      * <p>
@@ -77,5 +77,5 @@ public interface TroubleTicketProxy {
      * @param alarmId
      *            a {@link java.lang.Integer} object.
      */
-    public void closeTicket(Integer alarmId);
+    void closeTicket(Integer alarmId);
 }

@@ -52,7 +52,7 @@ public interface WebOutageRepository {
      *            a {@link org.opennms.web.outage.filter.OutageCriteria} object.
      * @return a int.
      */
-    public abstract int countMatchingOutages(OutageCriteria criteria);
+    int countMatchingOutages(OutageCriteria criteria);
 
     /**
      * <p>
@@ -64,7 +64,7 @@ public interface WebOutageRepository {
      *            a int.
      * @return a {@link org.opennms.web.outage.Outage} object.
      */
-    public abstract Outage getOutage(int OutageId);
+    Outage getOutage(int OutageId);
 
     /**
      * <p>
@@ -76,7 +76,7 @@ public interface WebOutageRepository {
      *            a {@link org.opennms.web.outage.filter.OutageCriteria} object.
      * @return an array of {@link org.opennms.web.outage.Outage} objects.
      */
-    public abstract Outage[] getMatchingOutages(OutageCriteria criteria);
+    Outage[] getMatchingOutages(OutageCriteria criteria);
 
     /**
      * <p>
@@ -88,7 +88,7 @@ public interface WebOutageRepository {
      *            a {@link org.opennms.web.outage.filter.OutageCriteria} object.
      * @return a int.
      */
-    public abstract int countMatchingOutageSummaries(OutageCriteria criteria);
+    int countMatchingOutageSummaries(OutageCriteria criteria);
 
     /**
      * <p>
@@ -101,14 +101,14 @@ public interface WebOutageRepository {
      * @return an array of {@link org.opennms.netmgt.model.outage.OutageSummary}
      *         objects.
      */
-    public abstract OutageSummary[] getMatchingOutageSummaries(OutageCriteria criteria);
+    OutageSummary[] getMatchingOutageSummaries(OutageCriteria criteria);
 
     /**
      * Count the current number of nodes with outages.
      *
      * @return the int
      */
-    public abstract int countCurrentOutages();
+    int countCurrentOutages();
 
     /**
      * Get the current list of outages by node.
@@ -117,5 +117,5 @@ public interface WebOutageRepository {
      *            the number of outages to return.
      * @return the current outages
      */
-    public abstract OutageSummary[] getCurrentOutages(int rows);
+    OutageSummary[] getCurrentOutages(int rows);
 }

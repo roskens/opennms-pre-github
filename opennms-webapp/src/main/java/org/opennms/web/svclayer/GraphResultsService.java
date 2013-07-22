@@ -61,5 +61,5 @@ public interface GraphResultsService {
      *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.web.graph.GraphResults} object.
      */
-    public GraphResults findResults(String[] resources, String[] reports, long start, long end, String relativeTime);
+    GraphResults findResults(String[] resources, String[] reports, long start, long end, String relativeTime);
 }

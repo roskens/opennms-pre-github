@@ -58,7 +58,7 @@ public interface KscReportService {
      *            a int.
      * @return a {@link org.opennms.netmgt.config.kscReports.Report} object.
      */
-    public Report buildNodeReport(int nodeId);
+    Report buildNodeReport(int nodeId);
 
     /**
      * <p>
@@ -70,7 +70,7 @@ public interface KscReportService {
      *            a String.
      * @return a {@link org.opennms.netmgt.config.kscReports.Report} object.
      */
-    public Report buildNodeSourceReport(String nodeSource);
+    Report buildNodeSourceReport(String nodeSource);
 
     /**
      * <p>
@@ -82,7 +82,7 @@ public interface KscReportService {
      *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.config.kscReports.Report} object.
      */
-    public Report buildDomainReport(String domain);
+    Report buildDomainReport(String domain);
 
     /**
      * <p>
@@ -94,7 +94,7 @@ public interface KscReportService {
      *            a {@link org.opennms.netmgt.config.kscReports.Graph} object.
      * @return a {@link org.opennms.netmgt.model.OnmsResource} object.
      */
-    public OnmsResource getResourceFromGraph(Graph graph);
+    OnmsResource getResourceFromGraph(Graph graph);
 
     /**
      * <p>
@@ -106,7 +106,7 @@ public interface KscReportService {
      *            a {@link java.util.List} object.
      * @return a {@link java.util.List} object.
      */
-    public List<OnmsResource> getResourcesFromGraphs(List<Graph> graphs);
+    List<OnmsResource> getResourcesFromGraphs(List<Graph> graphs);
 
     /**
      * <p>
@@ -118,7 +118,7 @@ public interface KscReportService {
      *            a boolean.
      * @return a java$util$Map object.
      */
-    public Map<String, String> getTimeSpans(boolean includeNone);
+    Map<String, String> getTimeSpans(boolean includeNone);
 
     /**
      * <p>
@@ -128,5 +128,5 @@ public interface KscReportService {
      *
      * @return a java$util$Map object.
      */
-    public Map<Integer, String> getReportList();
+    Map<Integer, String> getReportList();
 }

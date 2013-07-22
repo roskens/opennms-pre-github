@@ -49,16 +49,16 @@ import org.opennms.web.alarm.filter.OnmsSeveritySqlType;
 public interface SQLType<T> {
 
     /** The Constant INT. */
-    public static final SQLType<Integer> INT = new IntegerSqlType();
+    SQLType<Integer> INT = new IntegerSqlType();
 
     /** The Constant STRING. */
-    public static final SQLType<String> STRING = new StringSqlType();
+    SQLType<String> STRING = new StringSqlType();
 
     /** The Constant DATE. */
-    public static final SQLType<Date> DATE = new DateSqlType();
+    SQLType<Date> DATE = new DateSqlType();
 
     /** The Constant SEVERITY. */
-    public static final SQLType<OnmsSeverity> SEVERITY = new OnmsSeveritySqlType();
+    SQLType<OnmsSeverity> SEVERITY = new OnmsSeveritySqlType();
 
     /**
      * <p>
@@ -70,7 +70,7 @@ public interface SQLType<T> {
      *            a T object.
      * @return a {@link java.lang.String} object.
      */
-    public String getValueAsString(T value);
+    String getValueAsString(T value);
 
     /**
      * <p>
@@ -82,7 +82,7 @@ public interface SQLType<T> {
      *            a T object.
      * @return a {@link java.lang.String} object.
      */
-    public String formatValue(T value);
+    String formatValue(T value);
 
     /**
      * <p>
@@ -99,7 +99,7 @@ public interface SQLType<T> {
      * @throws SQLException
      *             the sQL exception
      */
-    public void bindParam(PreparedStatement ps, int parameterIndex, T value) throws SQLException;
+    void bindParam(PreparedStatement ps, int parameterIndex, T value) throws SQLException;
 
     /**
      * <p>
@@ -113,6 +113,6 @@ public interface SQLType<T> {
      *            a T object.
      * @return an array of T objects.
      */
-    public T[] createArray(T value1, T value2);
+    T[] createArray(T value1, T value2);
 
 }

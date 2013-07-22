@@ -62,7 +62,7 @@ public interface AdminApplicationService {
      *         {@link org.opennms.web.svclayer.support.DefaultAdminApplicationService.ApplicationAndMemberServices}
      *         object.
      */
-    public ApplicationAndMemberServices getApplication(String applicationIdString);
+    ApplicationAndMemberServices getApplication(String applicationIdString);
 
     /**
      * <p>
@@ -72,7 +72,7 @@ public interface AdminApplicationService {
      *
      * @return a {@link java.util.List} object.
      */
-    public List<OnmsMonitoredService> findAllMonitoredServices();
+    List<OnmsMonitoredService> findAllMonitoredServices();
 
     /**
      * <p>
@@ -86,7 +86,7 @@ public interface AdminApplicationService {
      *         {@link org.opennms.web.svclayer.support.DefaultAdminApplicationService.EditModel}
      *         object.
      */
-    public EditModel findApplicationAndAllMonitoredServices(String applicationIdString);
+    EditModel findApplicationAndAllMonitoredServices(String applicationIdString);
 
     /**
      * <p>
@@ -103,8 +103,7 @@ public interface AdminApplicationService {
      * @param toDelete
      *            an array of {@link java.lang.String} objects.
      */
-    @Transactional(readOnly = false)
-    public void performEdit(String editAction, String editAction2, String[] toAdd, String[] toDelete);
+    @Transactional(readOnly = false) void performEdit(String editAction, String editAction2, String[] toAdd, String[] toDelete);
 
     /**
      * <p>
@@ -116,8 +115,7 @@ public interface AdminApplicationService {
      *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.model.OnmsApplication} object.
      */
-    @Transactional(readOnly = false)
-    public OnmsApplication addNewApplication(String name);
+    @Transactional(readOnly = false) OnmsApplication addNewApplication(String name);
 
     /**
      * <p>
@@ -127,7 +125,7 @@ public interface AdminApplicationService {
      *
      * @return a {@link java.util.List} object.
      */
-    public List<OnmsApplication> findAllApplications();
+    List<OnmsApplication> findAllApplications();
 
     /**
      * <p>
@@ -138,8 +136,7 @@ public interface AdminApplicationService {
      * @param applicationIdString
      *            a {@link java.lang.String} object.
      */
-    @Transactional(readOnly = false)
-    public void removeApplication(String applicationIdString);
+    @Transactional(readOnly = false) void removeApplication(String applicationIdString);
 
     /**
      * <p>
@@ -151,7 +148,7 @@ public interface AdminApplicationService {
      *            a int.
      * @return a {@link java.util.List} object.
      */
-    public List<OnmsApplication> findByMonitoredService(int id);
+    List<OnmsApplication> findByMonitoredService(int id);
 
     /**
      * <p>
@@ -168,8 +165,7 @@ public interface AdminApplicationService {
      * @param toDelete
      *            an array of {@link java.lang.String} objects.
      */
-    @Transactional(readOnly = false)
-    public void performServiceEdit(String ifServiceIdString, String editAction, String[] toAdd, String[] toDelete);
+    @Transactional(readOnly = false) void performServiceEdit(String ifServiceIdString, String editAction, String[] toAdd, String[] toDelete);
 
     /**
      * <p>
@@ -183,6 +179,6 @@ public interface AdminApplicationService {
      *         {@link org.opennms.web.svclayer.support.DefaultAdminApplicationService.ServiceEditModel}
      *         object.
      */
-    public ServiceEditModel findServiceApplications(String ifServiceIdString);
+    ServiceEditModel findServiceApplications(String ifServiceIdString);
 
 }

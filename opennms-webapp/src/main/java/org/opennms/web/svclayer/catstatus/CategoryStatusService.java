@@ -51,6 +51,6 @@ public interface CategoryStatusService {
      *
      * @return a {@link java.util.Collection} object.
      */
-    public Collection<StatusSection> getCategoriesStatus();
+    Collection<StatusSection> getCategoriesStatus();
 
 }

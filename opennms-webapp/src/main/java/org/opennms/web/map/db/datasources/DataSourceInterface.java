@@ -48,7 +48,7 @@ public interface DataSourceInterface {
      *            a {@link java.lang.Object} object.
      * @return the status of velem, -1 if no status is found for velem
      */
-    public String getStatus(Object id);
+    String getStatus(Object id);
 
     /**
      * Gets the severity of the element with id in input using params in input.
@@ -57,7 +57,7 @@ public interface DataSourceInterface {
      *            a {@link java.lang.Object} object.
      * @return the severity of velem, -1 if no severity is found for velem
      */
-    public String getSeverity(Object id);
+    String getSeverity(Object id);
 
     /**
      * Gets the availability of the element with id in input using params in
@@ -68,6 +68,6 @@ public interface DataSourceInterface {
      * @return the availability of velem, -1 if no availability is found for
      *         velem
      */
-    public double getAvailability(Object id);
+    double getAvailability(Object id);
 
 }

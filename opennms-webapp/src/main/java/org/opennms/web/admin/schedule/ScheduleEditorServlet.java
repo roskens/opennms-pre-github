@@ -94,7 +94,7 @@ public class ScheduleEditorServlet extends HttpServlet {
          *
          * @return the file name
          */
-        public String getFileName();
+        String getFileName();
 
         /**
          * Sets the file name.
@@ -102,7 +102,7 @@ public class ScheduleEditorServlet extends HttpServlet {
          * @param fileName
          *            the new file name
          */
-        public void setFileName(String fileName);
+        void setFileName(String fileName);
 
         /**
          * Load schedules.
@@ -110,7 +110,7 @@ public class ScheduleEditorServlet extends HttpServlet {
          * @throws ServletException
          *             the servlet exception
          */
-        public void loadSchedules() throws ServletException;
+        void loadSchedules() throws ServletException;
 
         /**
          * Save schedules.
@@ -118,7 +118,7 @@ public class ScheduleEditorServlet extends HttpServlet {
          * @throws ServletException
          *             the servlet exception
          */
-        public void saveSchedules() throws ServletException;
+        void saveSchedules() throws ServletException;
 
         /**
          * Delete schedule.
@@ -128,7 +128,7 @@ public class ScheduleEditorServlet extends HttpServlet {
          * @throws ServletException
          *             the servlet exception
          */
-        public void deleteSchedule(int index) throws ServletException;
+        void deleteSchedule(int index) throws ServletException;
 
         /**
          * Adds the schedule.
@@ -138,7 +138,7 @@ public class ScheduleEditorServlet extends HttpServlet {
          * @throws ServletException
          *             the servlet exception
          */
-        public void addSchedule(BasicSchedule schedule) throws ServletException;
+        void addSchedule(BasicSchedule schedule) throws ServletException;
 
         /**
          * Sets the schedule.
@@ -150,7 +150,7 @@ public class ScheduleEditorServlet extends HttpServlet {
          * @throws ServletException
          *             the servlet exception
          */
-        public void setSchedule(int index, BasicSchedule schedule) throws ServletException;
+        void setSchedule(int index, BasicSchedule schedule) throws ServletException;
 
         /**
          * Creates the schedule.
@@ -161,7 +161,7 @@ public class ScheduleEditorServlet extends HttpServlet {
          *            the type
          * @return the basic schedule
          */
-        public BasicSchedule createSchedule(String name, String type);
+        BasicSchedule createSchedule(String name, String type);
 
         /**
          * Gets the schedule.
@@ -170,14 +170,14 @@ public class ScheduleEditorServlet extends HttpServlet {
          *            the index
          * @return the schedule
          */
-        public BasicSchedule getSchedule(int index);
+        BasicSchedule getSchedule(int index);
 
         /**
          * Gets the schedule.
          *
          * @return the schedule
          */
-        public BasicSchedule[] getSchedule();
+        BasicSchedule[] getSchedule();
     }
 
     /**
@@ -337,7 +337,7 @@ public class ScheduleEditorServlet extends HttpServlet {
          * @throws ServletException
          *             the servlet exception
          */
-        public String doOp(HttpServletRequest request, HttpServletResponse response, ScheduleMapping map)
+        String doOp(HttpServletRequest request, HttpServletResponse response, ScheduleMapping map)
                 throws ServletException;
     }
 
@@ -436,7 +436,7 @@ public class ScheduleEditorServlet extends HttpServlet {
          *            the result
          * @return the string
          */
-        public String get(String result);
+        String get(String result);
     }
 
     /**

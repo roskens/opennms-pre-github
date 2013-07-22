@@ -48,6 +48,6 @@ public interface ErrorHandler {
      * @param e
      *            a {@link java.lang.Throwable} object.
      */
-    public void error(Throwable e);
+    void error(Throwable e);
 
 }

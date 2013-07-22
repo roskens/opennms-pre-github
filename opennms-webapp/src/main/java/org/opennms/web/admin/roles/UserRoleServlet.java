@@ -86,7 +86,7 @@ public class UserRoleServlet extends javax.servlet.http.HttpServlet implements j
          * @throws ServletException
          *             the servlet exception
          */
-        public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException;
+        String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException;
     }
 
     /**

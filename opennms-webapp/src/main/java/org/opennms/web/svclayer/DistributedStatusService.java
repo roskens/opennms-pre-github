@@ -61,7 +61,7 @@ public interface DistributedStatusService {
      *         {@link org.opennms.web.command.DistributedStatusDetailsCommand}
      *         object.
      */
-    public SimpleWebTable createStatusTable(DistributedStatusDetailsCommand command, Errors errors);
+    SimpleWebTable createStatusTable(DistributedStatusDetailsCommand command, Errors errors);
 
     /**
      * <p>
@@ -75,7 +75,7 @@ public interface DistributedStatusService {
      *            a java$util$Date object.
      * @return a {@link org.opennms.web.svclayer.SimpleWebTable} object.
      */
-    public SimpleWebTable createFacilityStatusTable(Date startDate, Date endDate);
+    SimpleWebTable createFacilityStatusTable(Date startDate, Date endDate);
 
     /**
      * <p>
@@ -97,7 +97,7 @@ public interface DistributedStatusService {
      *         {@link org.opennms.web.svclayer.support.DistributedStatusHistoryModel}
      *         object.
      */
-    public DistributedStatusHistoryModel createHistoryModel(String locationName, String monitorId,
+    DistributedStatusHistoryModel createHistoryModel(String locationName, String monitorId,
             String applicationName, String timeSpan, String previousLocation);
 
     /**
@@ -108,5 +108,5 @@ public interface DistributedStatusService {
      *
      * @return a int.
      */
-    public int getApplicationCount();
+    int getApplicationCount();
 }

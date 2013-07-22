@@ -56,5 +56,5 @@ public interface ChooseResourceService {
      * @return a {@link org.opennms.web.svclayer.support.ChooseResourceModel}
      *         object.
      */
-    public ChooseResourceModel findChildResources(String resourceId, String endUrl);
+    ChooseResourceModel findChildResources(String resourceId, String endUrl);
 }

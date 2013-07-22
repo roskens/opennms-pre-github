@@ -52,7 +52,7 @@ public interface RtcService {
      *
      * @return a {@link org.opennms.web.svclayer.support.RtcNodeModel} object.
      */
-    public RtcNodeModel getNodeList();
+    RtcNodeModel getNodeList();
 
     /**
      * <p>
@@ -66,7 +66,7 @@ public interface RtcService {
      *            a {@link org.opennms.netmgt.model.OnmsCriteria} object.
      * @return a {@link org.opennms.web.svclayer.support.RtcNodeModel} object.
      */
-    public RtcNodeModel getNodeListForCriteria(OnmsCriteria serviceCriteria, OnmsCriteria outageCriteria);
+    RtcNodeModel getNodeListForCriteria(OnmsCriteria serviceCriteria, OnmsCriteria outageCriteria);
 
     /**
      * <p>
@@ -76,7 +76,7 @@ public interface RtcService {
      *
      * @return a {@link org.opennms.netmgt.model.OnmsCriteria} object.
      */
-    public OnmsCriteria createServiceCriteria();
+    OnmsCriteria createServiceCriteria();
 
     /**
      * <p>
@@ -86,5 +86,5 @@ public interface RtcService {
      *
      * @return a {@link org.opennms.netmgt.model.OnmsCriteria} object.
      */
-    public OnmsCriteria createOutageCriteria();
+    OnmsCriteria createOutageCriteria();
 }

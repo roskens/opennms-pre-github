@@ -50,5 +50,5 @@ public interface Validator {
      * @return "" means it is valid. "Message" means not valid, with the
      *         returned reason.
      */
-    public String validate(Object object);
+    String validate(Object object);
 }

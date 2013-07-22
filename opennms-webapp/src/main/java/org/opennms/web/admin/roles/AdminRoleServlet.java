@@ -110,7 +110,7 @@ public class AdminRoleServlet extends HttpServlet implements Servlet {
          * @throws ServletException
          *             the servlet exception
          */
-        public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException;
+        String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException;
     }
 
     /**

@@ -49,7 +49,7 @@ public interface Filter {
      *
      * @return a {@link java.lang.String} object.
      */
-    public String getSql();
+    String getSql();
 
     /**
      * <p>
@@ -59,7 +59,7 @@ public interface Filter {
      *
      * @return a {@link java.lang.String} object.
      */
-    public String getParamSql();
+    String getParamSql();
 
     /**
      * <p>
@@ -75,7 +75,7 @@ public interface Filter {
      * @throws SQLException
      *             the sQL exception
      */
-    public int bindParams(PreparedStatement ps, int parameterIndex) throws SQLException;
+    int bindParams(PreparedStatement ps, int parameterIndex) throws SQLException;
 
     /**
      * <p>
@@ -85,7 +85,7 @@ public interface Filter {
      *
      * @return a {@link java.lang.String} object.
      */
-    public String getDescription();
+    String getDescription();
 
     /**
      * <p>
@@ -95,5 +95,5 @@ public interface Filter {
      *
      * @return a {@link java.lang.String} object.
      */
-    public String getTextDescription();
+    String getTextDescription();
 }

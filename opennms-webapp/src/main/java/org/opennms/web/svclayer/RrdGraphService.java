@@ -64,7 +64,7 @@ public interface RrdGraphService {
      *            the height
      * @return a {@link java.io.InputStream} object.
      */
-    public InputStream getPrefabGraph(String resourceId, String report, long start, long end, Integer width,
+    InputStream getPrefabGraph(String resourceId, String report, long start, long end, Integer width,
             Integer height);
 
     /**
@@ -93,7 +93,7 @@ public interface RrdGraphService {
      *            a long.
      * @return a {@link java.io.InputStream} object.
      */
-    public InputStream getAdhocGraph(String resourceId, String title, String[] dataSources,
+    InputStream getAdhocGraph(String resourceId, String title, String[] dataSources,
             String[] aggregateFunctions, String[] colors, String[] dataSourceTitles, String[] styles, long start,
             long end);
 }

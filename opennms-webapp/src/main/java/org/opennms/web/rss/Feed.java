@@ -49,7 +49,7 @@ public interface Feed {
      *
      * @return a {@link java.lang.String} object.
      */
-    public String getUrlBase();
+    String getUrlBase();
 
     /**
      * <p>
@@ -60,7 +60,7 @@ public interface Feed {
      * @param base
      *            a {@link java.lang.String} object.
      */
-    public void setUrlBase(String base);
+    void setUrlBase(String base);
 
     /**
      * <p>
@@ -70,7 +70,7 @@ public interface Feed {
      *
      * @return a {@link java.lang.String} object.
      */
-    public String getFeedType();
+    String getFeedType();
 
     /**
      * <p>
@@ -81,7 +81,7 @@ public interface Feed {
      * @param type
      *            a {@link java.lang.String} object.
      */
-    public void setFeedType(String type);
+    void setFeedType(String type);
 
     /**
      * <p>
@@ -91,7 +91,7 @@ public interface Feed {
      *
      * @return a int.
      */
-    public int getMaxEntries();
+    int getMaxEntries();
 
     /**
      * <p>
@@ -102,7 +102,7 @@ public interface Feed {
      * @param maxEntries
      *            a int.
      */
-    public void setMaxEntries(int maxEntries);
+    void setMaxEntries(int maxEntries);
 
     /**
      * <p>
@@ -112,7 +112,7 @@ public interface Feed {
      *
      * @return a {@link javax.servlet.ServletRequest} object.
      */
-    public ServletRequest getRequest();
+    ServletRequest getRequest();
 
     /**
      * <p>
@@ -123,7 +123,7 @@ public interface Feed {
      * @param request
      *            a {@link javax.servlet.ServletRequest} object.
      */
-    public void setRequest(ServletRequest request);
+    void setRequest(ServletRequest request);
 
     /**
      * <p>
@@ -133,6 +133,6 @@ public interface Feed {
      *
      * @return a {@link java.lang.String} object.
      */
-    public String render();
+    String render();
 
 }

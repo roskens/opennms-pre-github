@@ -50,7 +50,7 @@ public interface Filter {
      *
      * @return a {@link java.lang.String} object.
      */
-    public String getSql();
+    String getSql();
 
     /**
      * Returns a parameterized SQL where clause. Remember to include a
@@ -58,7 +58,7 @@ public interface Filter {
      *
      * @return a {@link java.lang.String} object.
      */
-    public String getParamSql();
+    String getParamSql();
 
     /**
      * Binds the parameter values corresponding to the ? tokens in the string
@@ -73,7 +73,7 @@ public interface Filter {
      * @throws SQLException
      *             the sQL exception
      */
-    public int bindParam(PreparedStatement ps, int parameterIndex) throws SQLException;
+    int bindParam(PreparedStatement ps, int parameterIndex) throws SQLException;
 
     /**
      * Returns a terse string (including a "=") that describes this filter in
@@ -90,7 +90,7 @@ public interface Filter {
      *
      * @return a {@link java.lang.String} object.
      */
-    public String getDescription();
+    String getDescription();
 
     /**
      * Returns a terse but human-readable string describing this filter in such
@@ -108,7 +108,7 @@ public interface Filter {
      *
      * @return a {@link java.lang.String} object.
      */
-    public String getTextDescription();
+    String getTextDescription();
 
     /**
      * Criterion used to construction an OnmsCritieria.
@@ -116,6 +116,6 @@ public interface Filter {
      * @return A Criterion that represents a criteria restriction
      *         imposed by this filter
      */
-    public Criterion getCriterion();
+    Criterion getCriterion();
 
 }

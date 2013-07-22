@@ -55,7 +55,7 @@ public interface ResourceService {
      *
      * @return a {@link java.io.File} object.
      */
-    public File getRrdDirectory();
+    File getRrdDirectory();
 
     /**
      * <p>
@@ -65,7 +65,7 @@ public interface ResourceService {
      *
      * @return a {@link java.util.List} object.
      */
-    public List<OnmsResource> findTopLevelResources();
+    List<OnmsResource> findTopLevelResources();
 
     /**
      * <p>
@@ -75,7 +75,7 @@ public interface ResourceService {
      *
      * @return a {@link java.util.List} object.
      */
-    public List<OnmsResource> findNodeResources();
+    List<OnmsResource> findNodeResources();
 
     /**
      * <p>
@@ -85,7 +85,7 @@ public interface ResourceService {
      *
      * @return a {@link java.util.List} object.
      */
-    public List<OnmsResource> findDomainResources();
+    List<OnmsResource> findDomainResources();
 
     /**
      * <p>
@@ -95,7 +95,7 @@ public interface ResourceService {
      *
      * @return a {@link java.util.List} object.
      */
-    public List<OnmsResource> findNodeSourceResources();
+    List<OnmsResource> findNodeSourceResources();
 
     /**
      * <p>
@@ -107,7 +107,7 @@ public interface ResourceService {
      *            a int.
      * @return a {@link java.util.List} object.
      */
-    public List<OnmsResource> findNodeChildResources(int nodeId);
+    List<OnmsResource> findNodeChildResources(int nodeId);
 
     /**
      * <p>
@@ -119,7 +119,7 @@ public interface ResourceService {
      *            a {@link java.lang.String} object.
      * @return a {@link java.util.List} object.
      */
-    public List<OnmsResource> findDomainChildResources(String domain);
+    List<OnmsResource> findDomainChildResources(String domain);
 
     /**
      * <p>
@@ -131,7 +131,7 @@ public interface ResourceService {
      *            a {@link java.lang.String} object.
      * @return a {@link java.util.List} object.
      */
-    public List<OnmsResource> findNodeSourceChildResources(String nodeSource);
+    List<OnmsResource> findNodeSourceChildResources(String nodeSource);
 
     /**
      * <p>
@@ -145,7 +145,7 @@ public interface ResourceService {
      *            a {@link java.lang.String} object.
      * @return a {@link java.util.List} object.
      */
-    public List<OnmsResource> findChildResources(OnmsResource resource, String... resourceTypeMatches);
+    List<OnmsResource> findChildResources(OnmsResource resource, String... resourceTypeMatches);
 
     /**
      * <p>
@@ -157,7 +157,7 @@ public interface ResourceService {
      *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.model.OnmsResource} object.
      */
-    public OnmsResource getResourceById(String id);
+    OnmsResource getResourceById(String id);
 
     /**
      * <p>
@@ -169,7 +169,7 @@ public interface ResourceService {
      *            a {@link org.opennms.netmgt.model.OnmsResource} object.
      * @return an array of {@link org.opennms.netmgt.model.PrefabGraph} objects.
      */
-    public PrefabGraph[] findPrefabGraphsForResource(OnmsResource resource);
+    PrefabGraph[] findPrefabGraphsForResource(OnmsResource resource);
 
     /**
      * <p>
@@ -181,7 +181,7 @@ public interface ResourceService {
      *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.model.PrefabGraph} object.
      */
-    public PrefabGraph getPrefabGraph(String name);
+    PrefabGraph getPrefabGraph(String name);
 
     /**
      * <p>
@@ -195,7 +195,7 @@ public interface ResourceService {
      *            a {@link java.lang.String} object.
      * @return an array of {@link org.opennms.netmgt.model.PrefabGraph} objects.
      */
-    public PrefabGraph[] findPrefabGraphsForChildResources(OnmsResource resource, String... resourceTypeMatches);
+    PrefabGraph[] findPrefabGraphsForChildResources(OnmsResource resource, String... resourceTypeMatches);
 
     /**
      * <p>
@@ -206,7 +206,7 @@ public interface ResourceService {
      * @param resource
      *            a {@link org.opennms.netmgt.model.OnmsResource} object.
      */
-    public void promoteGraphAttributesForResource(OnmsResource resource);
+    void promoteGraphAttributesForResource(OnmsResource resource);
 
     /**
      * <p>
@@ -217,7 +217,7 @@ public interface ResourceService {
      * @param resourceId
      *            a {@link java.lang.String} object.
      */
-    public void promoteGraphAttributesForResource(String resourceId);
+    void promoteGraphAttributesForResource(String resourceId);
 
     /**
      * <p>
@@ -229,5 +229,5 @@ public interface ResourceService {
      *            a {@link java.lang.String} object.
      * @return a {@link java.util.List} object.
      */
-    public List<OnmsResource> getResourceListById(String resourceId);
+    List<OnmsResource> getResourceListById(String resourceId);
 }

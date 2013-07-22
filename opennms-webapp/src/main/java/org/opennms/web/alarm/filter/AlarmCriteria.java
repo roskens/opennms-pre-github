@@ -63,7 +63,7 @@ public class AlarmCriteria {
          * @throws E
          *             the e
          */
-        public void visitAckType(AcknowledgeType ackType) throws E;
+        void visitAckType(AcknowledgeType ackType) throws E;
 
         /**
          * Visit filter.
@@ -73,7 +73,7 @@ public class AlarmCriteria {
          * @throws E
          *             the e
          */
-        public void visitFilter(Filter filter) throws E;
+        void visitFilter(Filter filter) throws E;
 
         /**
          * Visit sort style.
@@ -83,7 +83,7 @@ public class AlarmCriteria {
          * @throws E
          *             the e
          */
-        public void visitSortStyle(SortStyle sortStyle) throws E;
+        void visitSortStyle(SortStyle sortStyle) throws E;
 
         /**
          * Visit limit.
@@ -95,7 +95,7 @@ public class AlarmCriteria {
          * @throws E
          *             the e
          */
-        public void visitLimit(int limit, int offset) throws E;
+        void visitLimit(int limit, int offset) throws E;
     }
 
     /**

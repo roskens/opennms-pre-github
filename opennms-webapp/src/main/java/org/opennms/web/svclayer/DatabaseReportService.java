@@ -56,6 +56,6 @@ public interface DatabaseReportService {
      *            object.
      * @return a {@link java.lang.String} object.
      */
-    public String execute(ReportParameters criteria, RequestContext context);
+    String execute(ReportParameters criteria, RequestContext context);
 
 }

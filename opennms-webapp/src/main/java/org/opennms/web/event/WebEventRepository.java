@@ -53,7 +53,7 @@ public interface WebEventRepository {
      *            a {@link org.opennms.web.event.filter.EventCriteria} object.
      * @return a int.
      */
-    public abstract int countMatchingEvents(EventCriteria criteria);
+    int countMatchingEvents(EventCriteria criteria);
 
     /**
      * <p>
@@ -65,7 +65,7 @@ public interface WebEventRepository {
      *            a {@link org.opennms.web.event.filter.EventCriteria} object.
      * @return an array of int.
      */
-    public abstract int[] countMatchingEventsBySeverity(EventCriteria criteria);
+    int[] countMatchingEventsBySeverity(EventCriteria criteria);
 
     /**
      * <p>
@@ -77,7 +77,7 @@ public interface WebEventRepository {
      *            a int.
      * @return a {@link org.opennms.web.event.Event} object.
      */
-    public abstract Event getEvent(int eventId);
+    Event getEvent(int eventId);
 
     /**
      * <p>
@@ -89,7 +89,7 @@ public interface WebEventRepository {
      *            a {@link org.opennms.web.event.filter.EventCriteria} object.
      * @return an array of {@link org.opennms.web.event.Event} objects.
      */
-    public abstract Event[] getMatchingEvents(EventCriteria criteria);
+    Event[] getMatchingEvents(EventCriteria criteria);
 
     /**
      * <p>
@@ -104,7 +104,7 @@ public interface WebEventRepository {
      * @param criteria
      *            a {@link org.opennms.web.event.filter.EventCriteria} object.
      */
-    public abstract void acknowledgeMatchingEvents(String user, Date timestamp, EventCriteria criteria);
+    void acknowledgeMatchingEvents(String user, Date timestamp, EventCriteria criteria);
 
     /**
      * <p>
@@ -117,7 +117,7 @@ public interface WebEventRepository {
      * @param timestamp
      *            a java$util$Date object.
      */
-    public abstract void acknowledgeAll(String user, Date timestamp);
+    void acknowledgeAll(String user, Date timestamp);
 
     /**
      * <p>
@@ -128,7 +128,7 @@ public interface WebEventRepository {
      * @param criteria
      *            a {@link org.opennms.web.event.filter.EventCriteria} object.
      */
-    public abstract void unacknowledgeMatchingEvents(EventCriteria criteria);
+    void unacknowledgeMatchingEvents(EventCriteria criteria);
 
     /**
      * <p>
@@ -136,5 +136,5 @@ public interface WebEventRepository {
      * </p>
      * .
      */
-    public abstract void unacknowledgeAll();
+    void unacknowledgeAll();
 }

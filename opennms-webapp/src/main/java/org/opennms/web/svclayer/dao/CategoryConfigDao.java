@@ -61,7 +61,7 @@ public interface CategoryConfigDao {
      *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.config.categories.Category} object.
      */
-    public Category getCategoryByLabel(String label);
+    Category getCategoryByLabel(String label);
 
     /**
      * <p>
@@ -71,6 +71,6 @@ public interface CategoryConfigDao {
      *
      * @return a {@link java.util.Collection} object.
      */
-    public Collection<Category> findAll();
+    Collection<Category> findAll();
 
 }

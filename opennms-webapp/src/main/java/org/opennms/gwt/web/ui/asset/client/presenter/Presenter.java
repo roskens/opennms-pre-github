@@ -45,5 +45,5 @@ public interface Presenter {
      * @param container
      *            the container
      */
-    public abstract void go(final HasWidgets container);
+    void go(final HasWidgets container);
 }
