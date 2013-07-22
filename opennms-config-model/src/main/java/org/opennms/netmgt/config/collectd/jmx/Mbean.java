@@ -39,6 +39,8 @@ package org.opennms.netmgt.config.collectd.jmx;
 //- Imported classes and packages -/
 //---------------------------------/
 
+import java.io.IOException;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -248,68 +250,85 @@ public class Mbean implements java.io.Serializable {
      */
     @Override()
     public boolean equals(final java.lang.Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
+        }
 
         if (obj instanceof Mbean) {
 
             Mbean temp = (Mbean) obj;
             if (this._name != null) {
-                if (temp._name == null)
+                if (temp._name == null) {
                     return false;
-                else if (!(this._name.equals(temp._name)))
+                } else if (!(this._name.equals(temp._name))) {
                     return false;
-            } else if (temp._name != null)
+                }
+            } else if (temp._name != null) {
                 return false;
+            }
             if (this._objectname != null) {
-                if (temp._objectname == null)
+                if (temp._objectname == null) {
                     return false;
-                else if (!(this._objectname.equals(temp._objectname)))
+                } else if (!(this._objectname.equals(temp._objectname))) {
                     return false;
-            } else if (temp._objectname != null)
+                }
+            } else if (temp._objectname != null) {
                 return false;
+            }
             if (this._keyfield != null) {
-                if (temp._keyfield == null)
+                if (temp._keyfield == null) {
                     return false;
-                else if (!(this._keyfield.equals(temp._keyfield)))
+                } else if (!(this._keyfield.equals(temp._keyfield))) {
                     return false;
-            } else if (temp._keyfield != null)
+                }
+            } else if (temp._keyfield != null) {
                 return false;
+            }
             if (this._exclude != null) {
-                if (temp._exclude == null)
+                if (temp._exclude == null) {
                     return false;
-                else if (!(this._exclude.equals(temp._exclude)))
+                } else if (!(this._exclude.equals(temp._exclude))) {
                     return false;
-            } else if (temp._exclude != null)
+                }
+            } else if (temp._exclude != null) {
                 return false;
+            }
             if (this._keyAlias != null) {
-                if (temp._keyAlias == null)
+                if (temp._keyAlias == null) {
                     return false;
-                else if (!(this._keyAlias.equals(temp._keyAlias)))
+                } else if (!(this._keyAlias.equals(temp._keyAlias))) {
                     return false;
-            } else if (temp._keyAlias != null)
+                }
+            } else if (temp._keyAlias != null) {
                 return false;
+            }
             if (this._attribList != null) {
-                if (temp._attribList == null)
+                if (temp._attribList == null) {
                     return false;
-                else if (!(this._attribList.equals(temp._attribList)))
+                } else if (!(this._attribList.equals(temp._attribList))) {
                     return false;
-            } else if (temp._attribList != null)
+                }
+            } else if (temp._attribList != null) {
                 return false;
+            }
             if (this._includeMbeanList != null) {
-                if (temp._includeMbeanList == null)
+                if (temp._includeMbeanList == null) {
                     return false;
-                else if (!(this._includeMbeanList.equals(temp._includeMbeanList)))
+                } else if (!(this._includeMbeanList.equals(temp._includeMbeanList))) {
                     return false;
-            } else if (temp._includeMbeanList != null)
+                }
+            } else if (temp._includeMbeanList != null) {
                 return false;
+            }
             if (this._compAttribList != null) {
-                if (temp._compAttribList == null)
+                if (temp._compAttribList == null) {
                     return false;
-                else if (!(this._compAttribList.equals(temp._compAttribList)))
+                } else if (!(this._compAttribList.equals(temp._compAttribList))) {
                     return false;
-            } else if (temp._compAttribList != null)
+                }
+            } else if (temp._compAttribList != null) {
                 return false;
+            }
             return true;
         }
         return false;

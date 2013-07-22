@@ -273,8 +273,9 @@ public class Security implements Serializable {
      *            the new do not override
      */
     public void setDoNotOverride(final List<String> doNotOverride) {
-        if (m_doNotOverride == doNotOverride)
+        if (m_doNotOverride == doNotOverride) {
             return;
+        }
         m_doNotOverride.clear();
         m_doNotOverride.addAll(doNotOverride);
     }
@@ -330,16 +331,20 @@ public class Security implements Serializable {
      */
     @Override
     public boolean equals(final Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (!(obj instanceof Security))
+        }
+        if (!(obj instanceof Security)) {
             return false;
+        }
         final Security other = (Security) obj;
         if (m_doNotOverride == null) {
-            if (other.m_doNotOverride != null)
+            if (other.m_doNotOverride != null) {
                 return false;
+            }
         } else if (!m_doNotOverride.equals(other.m_doNotOverride)) {
             return false;
         }

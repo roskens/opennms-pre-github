@@ -445,8 +445,9 @@ public class Events implements Serializable {
      *            the new event
      */
     public void setEvent(final List<Event> events) {
-        if (m_events == events)
+        if (m_events == events) {
             return;
+        }
         m_events.clear();
         m_events.addAll(events);
     }
@@ -499,8 +500,9 @@ public class Events implements Serializable {
      *            the new event file
      */
     public void setEventFile(final List<String> eventFiles) {
-        if (m_eventFiles == eventFiles)
+        if (m_eventFiles == eventFiles) {
             return;
+        }
         m_eventFiles.clear();
         m_eventFiles.addAll(eventFiles);
     }
@@ -554,28 +556,34 @@ public class Events implements Serializable {
      */
     @Override
     public boolean equals(final Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (!(obj instanceof Events))
+        }
+        if (!(obj instanceof Events)) {
             return false;
+        }
         final Events other = (Events) obj;
         if (m_eventFiles == null) {
-            if (other.m_eventFiles != null)
+            if (other.m_eventFiles != null) {
                 return false;
+            }
         } else if (!m_eventFiles.equals(other.m_eventFiles)) {
             return false;
         }
         if (m_events == null) {
-            if (other.m_events != null)
+            if (other.m_events != null) {
                 return false;
+            }
         } else if (!m_events.equals(other.m_events)) {
             return false;
         }
         if (m_global == null) {
-            if (other.m_global != null)
+            if (other.m_global != null) {
                 return false;
+            }
         } else if (!m_global.equals(other.m_global)) {
             return false;
         }
@@ -869,11 +877,12 @@ public class Events implements Serializable {
                             + "' could not be closed.  Nested exception: " + e, e);
                 }
             } finally {
-                if (fileWriter != null)
+                if (fileWriter != null) {
                     try {
                         fileWriter.close();
                     } catch (Exception e) {
                     }
+                }
             }
         }
 

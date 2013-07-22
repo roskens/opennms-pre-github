@@ -35,6 +35,7 @@
 
 package org.opennms.netmgt.config.snmp;
 
+import java.io.IOException;
 import java.io.Reader;
 import java.io.Serializable;
 
@@ -296,10 +297,12 @@ public class Configuration implements Serializable {
      */
     @Override()
     public boolean equals(final Object obj) {
-        if (obj instanceof Configuration == false)
+        if (obj instanceof Configuration == false) {
             return false;
-        if (this == obj)
+        }
+        if (this == obj) {
             return true;
+        }
 
         final Configuration temp = (Configuration) obj;
 

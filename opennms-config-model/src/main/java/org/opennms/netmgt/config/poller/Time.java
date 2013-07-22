@@ -95,40 +95,49 @@ public class Time implements Serializable {
      */
     @Override
     public boolean equals(final Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
+        }
 
         if (obj instanceof Time) {
 
             Time temp = (Time) obj;
             if (this._id != null) {
-                if (temp._id == null)
+                if (temp._id == null) {
                     return false;
-                else if (!(this._id.equals(temp._id)))
+                } else if (!(this._id.equals(temp._id))) {
                     return false;
-            } else if (temp._id != null)
+                }
+            } else if (temp._id != null) {
                 return false;
+            }
             if (this._day != null) {
-                if (temp._day == null)
+                if (temp._day == null) {
                     return false;
-                else if (!(this._day.equals(temp._day)))
+                } else if (!(this._day.equals(temp._day))) {
                     return false;
-            } else if (temp._day != null)
+                }
+            } else if (temp._day != null) {
                 return false;
+            }
             if (this._begins != null) {
-                if (temp._begins == null)
+                if (temp._begins == null) {
                     return false;
-                else if (!(this._begins.equals(temp._begins)))
+                } else if (!(this._begins.equals(temp._begins))) {
                     return false;
-            } else if (temp._begins != null)
+                }
+            } else if (temp._begins != null) {
                 return false;
+            }
             if (this._ends != null) {
-                if (temp._ends == null)
+                if (temp._ends == null) {
                     return false;
-                else if (!(this._ends.equals(temp._ends)))
+                } else if (!(this._ends.equals(temp._ends))) {
                     return false;
-            } else if (temp._ends != null)
+                }
+            } else if (temp._ends != null) {
                 return false;
+            }
             return true;
         }
         return false;

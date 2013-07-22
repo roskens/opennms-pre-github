@@ -392,28 +392,34 @@ public class Varbind implements Serializable {
      */
     @Override
     public boolean equals(final Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (!(obj instanceof Varbind))
+        }
+        if (!(obj instanceof Varbind)) {
             return false;
+        }
         final Varbind other = (Varbind) obj;
         if (m_textualConvention == null) {
-            if (other.m_textualConvention != null)
+            if (other.m_textualConvention != null) {
                 return false;
+            }
         } else if (!m_textualConvention.equals(other.m_textualConvention)) {
             return false;
         }
         if (m_values == null) {
-            if (other.m_values != null)
+            if (other.m_values != null) {
                 return false;
+            }
         } else if (!m_values.equals(other.m_values)) {
             return false;
         }
         if (m_vbnumber == null) {
-            if (other.m_vbnumber != null)
+            if (other.m_vbnumber != null) {
                 return false;
+            }
         } else if (!m_vbnumber.equals(other.m_vbnumber)) {
             return false;
         }
@@ -427,13 +433,15 @@ public class Varbind implements Serializable {
      */
     public EventMatcher constructMatcher() {
         // ignore this is vbnumber is null
-        if (m_vbnumber == null)
+        if (m_vbnumber == null) {
             return EventMatchers.trueMatcher();
+        }
 
         List<EventMatcher> valueMatchers = new ArrayList<EventMatcher>(m_values.size());
         for (String value : m_values) {
-            if (value == null)
+            if (value == null) {
                 continue;
+            }
             if (value.startsWith("~")) {
                 valueMatchers.add(valueMatchesRegexMatcher(varbind(m_vbnumber), value));
             } else if (value.endsWith("%")) {

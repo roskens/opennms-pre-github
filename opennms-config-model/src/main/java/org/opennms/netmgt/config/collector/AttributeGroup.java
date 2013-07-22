@@ -175,20 +175,24 @@ public class AttributeGroup {
      * @return true, if successful
      */
     private boolean doShouldPersist() {
-        if ("ignore".equals(getIfType()))
+        if ("ignore".equals(getIfType())) {
             return true;
-        if ("all".equals(getIfType()))
+        }
+        if ("all".equals(getIfType())) {
             return true;
+        }
 
         String type = String.valueOf(m_resource.getType());
 
-        if (type.equals(getIfType()))
+        if (type.equals(getIfType())) {
             return true;
+        }
 
         StringTokenizer tokenizer = new StringTokenizer(getIfType(), ",");
         while (tokenizer.hasMoreTokens()) {
-            if (type.equals(tokenizer.nextToken()))
+            if (type.equals(tokenizer.nextToken())) {
                 return true;
+            }
         }
         return false;
     }

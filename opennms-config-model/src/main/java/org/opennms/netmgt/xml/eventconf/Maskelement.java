@@ -428,22 +428,27 @@ public class Maskelement implements Serializable {
      */
     @Override
     public boolean equals(final Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (!(obj instanceof Maskelement))
+        }
+        if (!(obj instanceof Maskelement)) {
             return false;
+        }
         final Maskelement other = (Maskelement) obj;
         if (m_name == null) {
-            if (other.m_name != null)
+            if (other.m_name != null) {
                 return false;
+            }
         } else if (!m_name.equals(other.m_name)) {
             return false;
         }
         if (m_values == null) {
-            if (other.m_values != null)
+            if (other.m_values != null) {
                 return false;
+            }
         } else if (!m_values.equals(other.m_values)) {
             return false;
         }
@@ -458,8 +463,9 @@ public class Maskelement implements Serializable {
     public EventMatcher constructMatcher() {
         List<EventMatcher> valueMatchers = new ArrayList<EventMatcher>(m_values.size());
         for (String value : m_values) {
-            if (value == null)
+            if (value == null) {
                 continue;
+            }
             if (value.startsWith("~")) {
                 valueMatchers.add(valueMatchesRegexMatcher(field(m_name), value));
             } else if (value.endsWith("%")) {

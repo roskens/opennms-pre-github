@@ -119,19 +119,22 @@ public class Collect implements Serializable {
      */
     @Override()
     public boolean equals(final Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
+        }
 
         if (obj instanceof Collect) {
 
             final Collect temp = (Collect) obj;
             if (m_includeGroups != null) {
-                if (temp.m_includeGroups == null)
+                if (temp.m_includeGroups == null) {
                     return false;
-                else if (!(m_includeGroups.equals(temp.m_includeGroups)))
+                } else if (!(m_includeGroups.equals(temp.m_includeGroups))) {
                     return false;
-            } else if (temp.m_includeGroups != null)
+                }
+            } else if (temp.m_includeGroups != null) {
                 return false;
+            }
             return true;
         }
         return false;

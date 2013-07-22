@@ -91,8 +91,9 @@ public class StorageStrategy implements Serializable {
      *            the clazz
      */
     public StorageStrategy(final String clazz) {
-        if (clazz != null)
+        if (clazz != null) {
             m_clazz = clazz.intern();
+        }
     }
 
     /**
@@ -142,26 +143,31 @@ public class StorageStrategy implements Serializable {
      */
     @Override()
     public boolean equals(final Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
+        }
 
         if (obj instanceof StorageStrategy) {
 
             final StorageStrategy temp = (StorageStrategy) obj;
             if (m_clazz != null) {
-                if (temp.m_clazz == null)
+                if (temp.m_clazz == null) {
                     return false;
-                else if (!(m_clazz.equals(temp.m_clazz)))
+                } else if (!(m_clazz.equals(temp.m_clazz))) {
                     return false;
-            } else if (temp.m_clazz != null)
+                }
+            } else if (temp.m_clazz != null) {
                 return false;
+            }
             if (m_parameters != null) {
-                if (temp.m_parameters == null)
+                if (temp.m_parameters == null) {
                     return false;
-                else if (!(m_parameters.equals(temp.m_parameters)))
+                } else if (!(m_parameters.equals(temp.m_parameters))) {
                     return false;
-            } else if (temp.m_parameters != null)
+                }
+            } else if (temp.m_parameters != null) {
                 return false;
+            }
             return true;
         }
         return false;
@@ -399,8 +405,9 @@ public class StorageStrategy implements Serializable {
      *            the Vector to copy.
      */
     public void setParameter(final List<Parameter> parameters) {
-        if (m_parameters == parameters)
+        if (m_parameters == parameters) {
             return;
+        }
         m_parameters.clear();
         m_parameters.addAll(parameters);
     }

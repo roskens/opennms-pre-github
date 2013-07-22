@@ -185,10 +185,12 @@ public class SnmpConfig extends Configuration implements Serializable {
      */
     @Override()
     public boolean equals(final Object obj) {
-        if (obj instanceof Configuration == false)
+        if (obj instanceof Configuration == false) {
             return false;
-        if (this == obj)
+        }
+        if (this == obj) {
             return true;
+        }
 
         final SnmpConfig temp = (SnmpConfig) obj;
 

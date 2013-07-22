@@ -271,8 +271,9 @@ public class Filters implements Serializable {
      *            the new filter
      */
     public void setFilter(final List<Filter> filters) {
-        if (m_filters == filters)
+        if (m_filters == filters) {
             return;
+        }
         m_filters.clear();
         m_filters.addAll(filters);
     }
@@ -328,16 +329,20 @@ public class Filters implements Serializable {
      */
     @Override
     public boolean equals(final Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (!(obj instanceof Filters))
+        }
+        if (!(obj instanceof Filters)) {
             return false;
+        }
         final Filters other = (Filters) obj;
         if (m_filters == null) {
-            if (other.m_filters != null)
+            if (other.m_filters != null) {
                 return false;
+            }
         } else if (!m_filters.equals(other.m_filters)) {
             return false;
         }

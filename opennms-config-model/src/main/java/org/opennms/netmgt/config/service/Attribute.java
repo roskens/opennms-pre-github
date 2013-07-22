@@ -110,26 +110,31 @@ public class Attribute implements Serializable {
      */
     @Override()
     public boolean equals(final java.lang.Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
+        }
 
         if (obj instanceof Attribute) {
 
             Attribute temp = (Attribute) obj;
             if (this._name != null) {
-                if (temp._name == null)
+                if (temp._name == null) {
                     return false;
-                else if (!(this._name.equals(temp._name)))
+                } else if (!(this._name.equals(temp._name))) {
                     return false;
-            } else if (temp._name != null)
+                }
+            } else if (temp._name != null) {
                 return false;
+            }
             if (this._value != null) {
-                if (temp._value == null)
+                if (temp._value == null) {
                     return false;
-                else if (!(this._value.equals(temp._value)))
+                } else if (!(this._value.equals(temp._value))) {
                     return false;
-            } else if (temp._value != null)
+                }
+            } else if (temp._value != null) {
                 return false;
+            }
             return true;
         }
         return false;

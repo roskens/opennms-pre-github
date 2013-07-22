@@ -196,40 +196,49 @@ public class Service implements Serializable {
      */
     @Override()
     public boolean equals(final java.lang.Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
+        }
 
         if (obj instanceof Service) {
 
             Service temp = (Service) obj;
             if (this._name != null) {
-                if (temp._name == null)
+                if (temp._name == null) {
                     return false;
-                else if (!(this._name.equals(temp._name)))
+                } else if (!(this._name.equals(temp._name))) {
                     return false;
-            } else if (temp._name != null)
+                }
+            } else if (temp._name != null) {
                 return false;
+            }
             if (this._className != null) {
-                if (temp._className == null)
+                if (temp._className == null) {
                     return false;
-                else if (!(this._className.equals(temp._className)))
+                } else if (!(this._className.equals(temp._className))) {
                     return false;
-            } else if (temp._className != null)
+                }
+            } else if (temp._className != null) {
                 return false;
+            }
             if (this._attributeList != null) {
-                if (temp._attributeList == null)
+                if (temp._attributeList == null) {
                     return false;
-                else if (!(this._attributeList.equals(temp._attributeList)))
+                } else if (!(this._attributeList.equals(temp._attributeList))) {
                     return false;
-            } else if (temp._attributeList != null)
+                }
+            } else if (temp._attributeList != null) {
                 return false;
+            }
             if (this._invokeList != null) {
-                if (temp._invokeList == null)
+                if (temp._invokeList == null) {
                     return false;
-                else if (!(this._invokeList.equals(temp._invokeList)))
+                } else if (!(this._invokeList.equals(temp._invokeList))) {
                     return false;
-            } else if (temp._invokeList != null)
+                }
+            } else if (temp._invokeList != null) {
                 return false;
+            }
             return true;
         }
         return false;

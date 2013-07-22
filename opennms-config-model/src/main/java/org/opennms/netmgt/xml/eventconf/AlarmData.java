@@ -358,8 +358,9 @@ public class AlarmData implements Serializable {
      *            the new update field list
      */
     public void setUpdateFieldList(final List<UpdateField> updateFields) {
-        if (m_updateFields == updateFields)
+        if (m_updateFields == updateFields) {
             return;
+        }
         m_updateFields.clear();
         m_updateFields.addAll(updateFields);
     }
@@ -393,52 +394,62 @@ public class AlarmData implements Serializable {
      */
     @Override
     public boolean equals(final Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (!(obj instanceof AlarmData))
+        }
+        if (!(obj instanceof AlarmData)) {
             return false;
+        }
         final AlarmData other = (AlarmData) obj;
         if (m_alarmType == null) {
-            if (other.m_alarmType != null)
+            if (other.m_alarmType != null) {
                 return false;
+            }
         } else if (!m_alarmType.equals(other.m_alarmType)) {
             return false;
         }
         if (m_autoClean == null) {
-            if (other.m_autoClean != null)
+            if (other.m_autoClean != null) {
                 return false;
+            }
         } else if (!m_autoClean.equals(other.m_autoClean)) {
             return false;
         }
         if (m_clearKey == null) {
-            if (other.m_clearKey != null)
+            if (other.m_clearKey != null) {
                 return false;
+            }
         } else if (!m_clearKey.equals(other.m_clearKey)) {
             return false;
         }
         if (m_reductionKey == null) {
-            if (other.m_reductionKey != null)
+            if (other.m_reductionKey != null) {
                 return false;
+            }
         } else if (!m_reductionKey.equals(other.m_reductionKey)) {
             return false;
         }
         if (m_updateFields == null) {
-            if (other.m_updateFields != null)
+            if (other.m_updateFields != null) {
                 return false;
+            }
         } else if (!m_updateFields.equals(other.m_updateFields)) {
             return false;
         }
         if (m_x733AlarmType == null) {
-            if (other.m_x733AlarmType != null)
+            if (other.m_x733AlarmType != null) {
                 return false;
+            }
         } else if (!m_x733AlarmType.equals(other.m_x733AlarmType)) {
             return false;
         }
         if (m_x733ProbableCause == null) {
-            if (other.m_x733ProbableCause != null)
+            if (other.m_x733ProbableCause != null) {
                 return false;
+            }
         } else if (!m_x733ProbableCause.equals(other.m_x733ProbableCause)) {
             return false;
         }

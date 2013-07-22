@@ -321,46 +321,55 @@ public class Snmp implements Serializable {
      */
     @Override
     public boolean equals(final Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (!(obj instanceof Snmp))
+        }
+        if (!(obj instanceof Snmp)) {
             return false;
+        }
         final Snmp other = (Snmp) obj;
         if (m_community == null) {
-            if (other.m_community != null)
+            if (other.m_community != null) {
                 return false;
+            }
         } else if (!m_community.equals(other.m_community)) {
             return false;
         }
         if (m_generic == null) {
-            if (other.m_generic != null)
+            if (other.m_generic != null) {
                 return false;
+            }
         } else if (!m_generic.equals(other.m_generic)) {
             return false;
         }
         if (m_id == null) {
-            if (other.m_id != null)
+            if (other.m_id != null) {
                 return false;
+            }
         } else if (!m_id.equals(other.m_id)) {
             return false;
         }
         if (m_idText == null) {
-            if (other.m_idText != null)
+            if (other.m_idText != null) {
                 return false;
+            }
         } else if (!m_idText.equals(other.m_idText)) {
             return false;
         }
         if (m_specific == null) {
-            if (other.m_specific != null)
+            if (other.m_specific != null) {
                 return false;
+            }
         } else if (!m_specific.equals(other.m_specific)) {
             return false;
         }
         if (m_version == null) {
-            if (other.m_version != null)
+            if (other.m_version != null) {
                 return false;
+            }
         } else if (!m_version.equals(other.m_version)) {
             return false;
         }

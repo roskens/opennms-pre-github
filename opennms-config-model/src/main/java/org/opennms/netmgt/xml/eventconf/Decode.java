@@ -192,22 +192,27 @@ public class Decode implements Serializable {
      */
     @Override
     public boolean equals(final Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (!(obj instanceof Decode))
+        }
+        if (!(obj instanceof Decode)) {
             return false;
+        }
         final Decode other = (Decode) obj;
         if (m_varbinddecodedstring == null) {
-            if (other.m_varbinddecodedstring != null)
+            if (other.m_varbinddecodedstring != null) {
                 return false;
+            }
         } else if (!m_varbinddecodedstring.equals(other.m_varbinddecodedstring)) {
             return false;
         }
         if (m_varbindvalue == null) {
-            if (other.m_varbindvalue != null)
+            if (other.m_varbindvalue != null) {
                 return false;
+            }
         } else if (!m_varbindvalue.equals(other.m_varbindvalue)) {
             return false;
         }

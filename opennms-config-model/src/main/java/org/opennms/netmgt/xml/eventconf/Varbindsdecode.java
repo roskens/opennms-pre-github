@@ -160,8 +160,9 @@ public class Varbindsdecode implements Serializable {
      *            the new decode
      */
     public void setDecode(final List<Decode> decodes) {
-        if (m_decodes == decodes)
+        if (m_decodes == decodes) {
             return;
+        }
         m_decodes.clear();
         m_decodes.addAll(decodes);
     }
@@ -344,22 +345,27 @@ public class Varbindsdecode implements Serializable {
      */
     @Override
     public boolean equals(final Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (!(obj instanceof Varbindsdecode))
+        }
+        if (!(obj instanceof Varbindsdecode)) {
             return false;
+        }
         final Varbindsdecode other = (Varbindsdecode) obj;
         if (m_decodes == null) {
-            if (other.m_decodes != null)
+            if (other.m_decodes != null) {
                 return false;
+            }
         } else if (!m_decodes.equals(other.m_decodes)) {
             return false;
         }
         if (m_parmid == null) {
-            if (other.m_parmid != null)
+            if (other.m_parmid != null) {
                 return false;
+            }
         } else if (!m_parmid.equals(other.m_parmid)) {
             return false;
         }

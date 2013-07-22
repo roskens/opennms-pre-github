@@ -135,8 +135,9 @@ public class Rrd implements Serializable {
      */
     @Override()
     public boolean equals(final Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
+        }
 
         if (obj instanceof Rrd) {
             final Rrd temp = (Rrd) obj;

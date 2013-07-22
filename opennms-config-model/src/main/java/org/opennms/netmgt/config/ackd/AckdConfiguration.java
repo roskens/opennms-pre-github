@@ -186,53 +186,72 @@ public class AckdConfiguration implements Serializable {
      */
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (getClass() != obj.getClass())
+        }
+        if (getClass() != obj.getClass()) {
             return false;
+        }
         AckdConfiguration other = (AckdConfiguration) obj;
         if (_ackExpression == null) {
-            if (other._ackExpression != null)
+            if (other._ackExpression != null) {
                 return false;
-        } else if (!_ackExpression.equals(other._ackExpression))
+            }
+        } else if (!_ackExpression.equals(other._ackExpression)) {
             return false;
+        }
         if (_alarmSync == null) {
-            if (other._alarmSync != null)
+            if (other._alarmSync != null) {
                 return false;
-        } else if (!_alarmSync.equals(other._alarmSync))
+            }
+        } else if (!_alarmSync.equals(other._alarmSync)) {
             return false;
+        }
         if (_alarmidMatchExpression == null) {
-            if (other._alarmidMatchExpression != null)
+            if (other._alarmidMatchExpression != null) {
                 return false;
-        } else if (!_alarmidMatchExpression.equals(other._alarmidMatchExpression))
+            }
+        } else if (!_alarmidMatchExpression.equals(other._alarmidMatchExpression)) {
             return false;
+        }
         if (_clearExpression == null) {
-            if (other._clearExpression != null)
+            if (other._clearExpression != null) {
                 return false;
-        } else if (!_clearExpression.equals(other._clearExpression))
+            }
+        } else if (!_clearExpression.equals(other._clearExpression)) {
             return false;
+        }
         if (_escalateExpression == null) {
-            if (other._escalateExpression != null)
+            if (other._escalateExpression != null) {
                 return false;
-        } else if (!_escalateExpression.equals(other._escalateExpression))
+            }
+        } else if (!_escalateExpression.equals(other._escalateExpression)) {
             return false;
+        }
         if (_notifyidMatchExpression == null) {
-            if (other._notifyidMatchExpression != null)
+            if (other._notifyidMatchExpression != null) {
                 return false;
-        } else if (!_notifyidMatchExpression.equals(other._notifyidMatchExpression))
+            }
+        } else if (!_notifyidMatchExpression.equals(other._notifyidMatchExpression)) {
             return false;
+        }
         if (_readers == null) {
-            if (other._readers != null)
+            if (other._readers != null) {
                 return false;
-        } else if (!_readers.equals(other._readers))
+            }
+        } else if (!_readers.equals(other._readers)) {
             return false;
+        }
         if (_unackExpression == null) {
-            if (other._unackExpression != null)
+            if (other._unackExpression != null) {
                 return false;
-        } else if (!_unackExpression.equals(other._unackExpression))
+            }
+        } else if (!_unackExpression.equals(other._unackExpression)) {
             return false;
+        }
         return true;
     }
 

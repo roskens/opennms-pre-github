@@ -158,26 +158,31 @@ public class IpList implements Serializable {
      */
     @Override()
     public boolean equals(final Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
+        }
 
         if (obj instanceof IpList) {
 
             final IpList temp = (IpList) obj;
             if (m_ipAddresses != null) {
-                if (temp.m_ipAddresses == null)
+                if (temp.m_ipAddresses == null) {
                     return false;
-                else if (!(m_ipAddresses.equals(temp.m_ipAddresses)))
+                } else if (!(m_ipAddresses.equals(temp.m_ipAddresses))) {
                     return false;
-            } else if (temp.m_ipAddresses != null)
+                }
+            } else if (temp.m_ipAddresses != null) {
                 return false;
+            }
             if (m_ipAddressMasks != null) {
-                if (temp.m_ipAddressMasks == null)
+                if (temp.m_ipAddressMasks == null) {
                     return false;
-                else if (!(m_ipAddressMasks.equals(temp.m_ipAddressMasks)))
+                } else if (!(m_ipAddressMasks.equals(temp.m_ipAddressMasks))) {
                     return false;
-            } else if (temp.m_ipAddressMasks != null)
+                }
+            } else if (temp.m_ipAddressMasks != null) {
                 return false;
+            }
             return true;
         }
         return false;

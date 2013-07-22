@@ -166,16 +166,20 @@ public class Global implements Serializable {
      */
     @Override
     public boolean equals(final Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (!(obj instanceof Global))
+        }
+        if (!(obj instanceof Global)) {
             return false;
+        }
         final Global other = (Global) obj;
         if (m_security == null) {
-            if (other.m_security != null)
+            if (other.m_security != null) {
                 return false;
+            }
         } else if (!m_security.equals(other.m_security)) {
             return false;
         }

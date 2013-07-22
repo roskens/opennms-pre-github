@@ -119,19 +119,22 @@ public class Outages implements Serializable {
      */
     @Override
     public boolean equals(final Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
+        }
 
         if (obj instanceof Outages) {
 
             Outages temp = (Outages) obj;
             if (this._outageList != null) {
-                if (temp._outageList == null)
+                if (temp._outageList == null) {
                     return false;
-                else if (!(this._outageList.equals(temp._outageList)))
+                } else if (!(this._outageList.equals(temp._outageList))) {
                     return false;
-            } else if (temp._outageList != null)
+                }
+            } else if (temp._outageList != null) {
                 return false;
+            }
             return true;
         }
         return false;

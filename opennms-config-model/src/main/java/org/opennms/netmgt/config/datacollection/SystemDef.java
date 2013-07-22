@@ -153,8 +153,9 @@ public class SystemDef implements Serializable {
      *            the new sysoid
      */
     public void setSysoid(final String sysoid) {
-        if (m_systemDefChoice == null)
+        if (m_systemDefChoice == null) {
             m_systemDefChoice = new SystemDefChoice();
+        }
         m_systemDefChoice.setSysoid(sysoid);
         m_systemDefChoice.setSysoidMask(null);
     }
@@ -176,8 +177,9 @@ public class SystemDef implements Serializable {
      *            the new sysoid mask
      */
     public void setSysoidMask(final String sysoidMask) {
-        if (m_systemDefChoice == null)
+        if (m_systemDefChoice == null) {
             m_systemDefChoice = new SystemDefChoice();
+        }
         m_systemDefChoice.setSysoid(null);
         m_systemDefChoice.setSysoidMask(sysoidMask);
     }
@@ -243,40 +245,49 @@ public class SystemDef implements Serializable {
      */
     @Override()
     public boolean equals(final Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
+        }
 
         if (obj instanceof SystemDef) {
 
             final SystemDef temp = (SystemDef) obj;
             if (m_name != null) {
-                if (temp.m_name == null)
+                if (temp.m_name == null) {
                     return false;
-                else if (!(m_name.equals(temp.m_name)))
+                } else if (!(m_name.equals(temp.m_name))) {
                     return false;
-            } else if (temp.m_name != null)
+                }
+            } else if (temp.m_name != null) {
                 return false;
+            }
             if (m_systemDefChoice != null) {
-                if (temp.m_systemDefChoice == null)
+                if (temp.m_systemDefChoice == null) {
                     return false;
-                else if (!(m_systemDefChoice.equals(temp.m_systemDefChoice)))
+                } else if (!(m_systemDefChoice.equals(temp.m_systemDefChoice))) {
                     return false;
-            } else if (temp.m_systemDefChoice != null)
+                }
+            } else if (temp.m_systemDefChoice != null) {
                 return false;
+            }
             if (m_ipList != null) {
-                if (temp.m_ipList == null)
+                if (temp.m_ipList == null) {
                     return false;
-                else if (!(m_ipList.equals(temp.m_ipList)))
+                } else if (!(m_ipList.equals(temp.m_ipList))) {
                     return false;
-            } else if (temp.m_ipList != null)
+                }
+            } else if (temp.m_ipList != null) {
                 return false;
+            }
             if (m_collect != null) {
-                if (temp.m_collect == null)
+                if (temp.m_collect == null) {
                     return false;
-                else if (!(m_collect.equals(temp.m_collect)))
+                } else if (!(m_collect.equals(temp.m_collect))) {
                     return false;
-            } else if (temp.m_collect != null)
+                }
+            } else if (temp.m_collect != null) {
                 return false;
+            }
             return true;
         }
         return false;

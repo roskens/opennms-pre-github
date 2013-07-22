@@ -192,22 +192,27 @@ public class Script implements Serializable {
      */
     @Override
     public boolean equals(final Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (!(obj instanceof Script))
+        }
+        if (!(obj instanceof Script)) {
             return false;
+        }
         final Script other = (Script) obj;
         if (m_content == null) {
-            if (other.m_content != null)
+            if (other.m_content != null) {
                 return false;
+            }
         } else if (!m_content.equals(other.m_content)) {
             return false;
         }
         if (m_language == null) {
-            if (other.m_language != null)
+            if (other.m_language != null) {
                 return false;
+            }
         } else if (!m_language.equals(other.m_language)) {
             return false;
         }

@@ -123,22 +123,27 @@ public class Tticket implements java.io.Serializable {
      */
     @Override
     public boolean equals(final Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (!(obj instanceof Tticket))
+        }
+        if (!(obj instanceof Tticket)) {
             return false;
+        }
         final Tticket other = (Tticket) obj;
         if (m_content == null) {
-            if (other.m_content != null)
+            if (other.m_content != null) {
                 return false;
+            }
         } else if (!m_content.equals(other.m_content)) {
             return false;
         }
         if (m_state == null) {
-            if (other.m_state != null)
+            if (other.m_state != null) {
                 return false;
+            }
         } else if (!m_state.equals(other.m_state)) {
             return false;
         }

@@ -28,6 +28,7 @@
 
 package org.opennms.netmgt.config.datacollection;
 
+import java.io.IOException;
 import java.io.Reader;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -149,53 +150,66 @@ public class MibObj implements java.io.Serializable {
      */
     @Override()
     public boolean equals(final java.lang.Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
+        }
 
         if (obj instanceof MibObj) {
             final MibObj temp = (MibObj) obj;
             if (m_oid != null) {
-                if (temp.m_oid == null)
+                if (temp.m_oid == null) {
                     return false;
-                else if (!(m_oid.equals(temp.m_oid)))
+                } else if (!(m_oid.equals(temp.m_oid))) {
                     return false;
-            } else if (temp.m_oid != null)
+                }
+            } else if (temp.m_oid != null) {
                 return false;
+            }
             if (m_instance != null) {
-                if (temp.m_instance == null)
+                if (temp.m_instance == null) {
                     return false;
-                else if (!(m_instance.equals(temp.m_instance)))
+                } else if (!(m_instance.equals(temp.m_instance))) {
                     return false;
-            } else if (temp.m_instance != null)
+                }
+            } else if (temp.m_instance != null) {
                 return false;
+            }
             if (m_alias != null) {
-                if (temp.m_alias == null)
+                if (temp.m_alias == null) {
                     return false;
-                else if (!(m_alias.equals(temp.m_alias)))
+                } else if (!(m_alias.equals(temp.m_alias))) {
                     return false;
-            } else if (temp.m_alias != null)
+                }
+            } else if (temp.m_alias != null) {
                 return false;
+            }
             if (m_type != null) {
-                if (temp.m_type == null)
+                if (temp.m_type == null) {
                     return false;
-                else if (!(m_type.equals(temp.m_type)))
+                } else if (!(m_type.equals(temp.m_type))) {
                     return false;
-            } else if (temp.m_type != null)
+                }
+            } else if (temp.m_type != null) {
                 return false;
+            }
             if (m_maxval != null) {
-                if (temp.m_maxval == null)
+                if (temp.m_maxval == null) {
                     return false;
-                else if (!(m_maxval.equals(temp.m_maxval)))
+                } else if (!(m_maxval.equals(temp.m_maxval))) {
                     return false;
-            } else if (temp.m_maxval != null)
+                }
+            } else if (temp.m_maxval != null) {
                 return false;
+            }
             if (m_minval != null) {
-                if (temp.m_minval == null)
+                if (temp.m_minval == null) {
                     return false;
-                else if (!(m_minval.equals(temp.m_minval)))
+                } else if (!(m_minval.equals(temp.m_minval))) {
                     return false;
-            } else if (temp.m_minval != null)
+                }
+            } else if (temp.m_minval != null) {
                 return false;
+            }
             return true;
         }
         return false;

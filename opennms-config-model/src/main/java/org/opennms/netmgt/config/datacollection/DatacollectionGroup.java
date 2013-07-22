@@ -218,40 +218,49 @@ public class DatacollectionGroup implements Serializable {
      */
     @Override()
     public boolean equals(final Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
+        }
 
         if (obj instanceof DatacollectionGroup) {
 
             final DatacollectionGroup temp = (DatacollectionGroup) obj;
             if (m_name != null) {
-                if (temp.m_name == null)
+                if (temp.m_name == null) {
                     return false;
-                else if (!(m_name.equals(temp.m_name)))
+                } else if (!(m_name.equals(temp.m_name))) {
                     return false;
-            } else if (temp.m_name != null)
+                }
+            } else if (temp.m_name != null) {
                 return false;
+            }
             if (m_resourceTypes != null) {
-                if (temp.m_resourceTypes == null)
+                if (temp.m_resourceTypes == null) {
                     return false;
-                else if (!(m_resourceTypes.equals(temp.m_resourceTypes)))
+                } else if (!(m_resourceTypes.equals(temp.m_resourceTypes))) {
                     return false;
-            } else if (temp.m_resourceTypes != null)
+                }
+            } else if (temp.m_resourceTypes != null) {
                 return false;
+            }
             if (m_groups != null) {
-                if (temp.m_groups == null)
+                if (temp.m_groups == null) {
                     return false;
-                else if (!(m_groups.equals(temp.m_groups)))
+                } else if (!(m_groups.equals(temp.m_groups))) {
                     return false;
-            } else if (temp.m_groups != null)
+                }
+            } else if (temp.m_groups != null) {
                 return false;
+            }
             if (m_systemDefs != null) {
-                if (temp.m_systemDefs == null)
+                if (temp.m_systemDefs == null) {
                     return false;
-                else if (!(m_systemDefs.equals(temp.m_systemDefs)))
+                } else if (!(m_systemDefs.equals(temp.m_systemDefs))) {
                     return false;
-            } else if (temp.m_systemDefs != null)
+                }
+            } else if (temp.m_systemDefs != null) {
                 return false;
+            }
             return true;
         }
         return false;
@@ -672,8 +681,9 @@ public class DatacollectionGroup implements Serializable {
      *            the Vector to copy.
      */
     public void setGroup(final List<Group> groups) {
-        if (m_groups == groups)
+        if (m_groups == groups) {
             return;
+        }
         m_groups.clear();
         m_groups.addAll(groups);
     }
@@ -741,8 +751,9 @@ public class DatacollectionGroup implements Serializable {
      *            the Vector to copy.
      */
     public void setResourceType(final List<ResourceType> resourceTypes) {
-        if (m_resourceTypes == resourceTypes)
+        if (m_resourceTypes == resourceTypes) {
             ;
+        }
         m_resourceTypes.clear();
         m_resourceTypes.addAll(resourceTypes);
     }
@@ -799,8 +810,9 @@ public class DatacollectionGroup implements Serializable {
      *            the Vector to copy.
      */
     public void setSystemDef(final List<SystemDef> systemDefs) {
-        if (m_systemDefs == systemDefs)
+        if (m_systemDefs == systemDefs) {
             return;
+        }
         m_systemDefs.clear();
         m_systemDefs.addAll(systemDefs);
     }

@@ -209,40 +209,49 @@ public class Group implements Serializable {
      */
     @Override()
     public boolean equals(final Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
+        }
 
         if (obj instanceof Group) {
 
             final Group temp = (Group) obj;
             if (m_name != null) {
-                if (temp.m_name == null)
+                if (temp.m_name == null) {
                     return false;
-                else if (!(m_name.equals(temp.m_name)))
+                } else if (!(m_name.equals(temp.m_name))) {
                     return false;
-            } else if (temp.m_name != null)
+                }
+            } else if (temp.m_name != null) {
                 return false;
+            }
             if (m_ifType != null) {
-                if (temp.m_ifType == null)
+                if (temp.m_ifType == null) {
                     return false;
-                else if (!(m_ifType.equals(temp.m_ifType)))
+                } else if (!(m_ifType.equals(temp.m_ifType))) {
                     return false;
-            } else if (temp.m_ifType != null)
+                }
+            } else if (temp.m_ifType != null) {
                 return false;
+            }
             if (m_mibObjects != null) {
-                if (temp.m_mibObjects == null)
+                if (temp.m_mibObjects == null) {
                     return false;
-                else if (!(m_mibObjects.equals(temp.m_mibObjects)))
+                } else if (!(m_mibObjects.equals(temp.m_mibObjects))) {
                     return false;
-            } else if (temp.m_mibObjects != null)
+                }
+            } else if (temp.m_mibObjects != null) {
                 return false;
+            }
             if (m_includeGroups != null) {
-                if (temp.m_includeGroups == null)
+                if (temp.m_includeGroups == null) {
                     return false;
-                else if (!(m_includeGroups.equals(temp.m_includeGroups)))
+                } else if (!(m_includeGroups.equals(temp.m_includeGroups))) {
                     return false;
-            } else if (temp.m_includeGroups != null)
+                }
+            } else if (temp.m_includeGroups != null) {
                 return false;
+            }
             return true;
         }
         return false;
@@ -631,8 +640,9 @@ public class Group implements Serializable {
      *            the Vector to copy.
      */
     public void setIncludeGroup(final List<String> includeGroups) {
-        if (m_includeGroups == includeGroups)
+        if (m_includeGroups == includeGroups) {
             return;
+        }
         m_includeGroups.clear();
         m_includeGroups.addAll(includeGroups);
     }
@@ -691,8 +701,9 @@ public class Group implements Serializable {
      *            the Vector to copy.
      */
     public void setMibObj(final List<MibObj> mibObjs) {
-        if (m_mibObjects == mibObjs)
+        if (m_mibObjects == mibObjs) {
             return;
+        }
         m_mibObjects.clear();
         m_mibObjects.addAll(mibObjs);
     }

@@ -78,19 +78,22 @@ public class Interface implements Serializable {
      */
     @Override
     public boolean equals(final Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
+        }
 
         if (obj instanceof Interface) {
 
             Interface temp = (Interface) obj;
             if (this._address != null) {
-                if (temp._address == null)
+                if (temp._address == null) {
                     return false;
-                else if (!(this._address.equals(temp._address)))
+                } else if (!(this._address.equals(temp._address))) {
                     return false;
-            } else if (temp._address != null)
+                }
+            } else if (temp._address != null) {
                 return false;
+            }
             return true;
         }
         return false;

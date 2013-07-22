@@ -167,29 +167,35 @@ public class Outage extends BasicSchedule implements Serializable {
      */
     @Override
     public boolean equals(final Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
+        }
 
-        if (super.equals(obj) == false)
+        if (super.equals(obj) == false) {
             return false;
+        }
 
         if (obj instanceof Outage) {
 
             Outage temp = (Outage) obj;
             if (this._interfaceList != null) {
-                if (temp._interfaceList == null)
+                if (temp._interfaceList == null) {
                     return false;
-                else if (!(this._interfaceList.equals(temp._interfaceList)))
+                } else if (!(this._interfaceList.equals(temp._interfaceList))) {
                     return false;
-            } else if (temp._interfaceList != null)
+                }
+            } else if (temp._interfaceList != null) {
                 return false;
+            }
             if (this._nodeList != null) {
-                if (temp._nodeList == null)
+                if (temp._nodeList == null) {
                     return false;
-                else if (!(this._nodeList.equals(temp._nodeList)))
+                } else if (!(this._nodeList.equals(temp._nodeList))) {
                     return false;
-            } else if (temp._nodeList != null)
+                }
+            } else if (temp._nodeList != null) {
                 return false;
+            }
             return true;
         }
         return false;

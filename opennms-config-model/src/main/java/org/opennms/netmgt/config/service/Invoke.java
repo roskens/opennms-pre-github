@@ -179,35 +179,43 @@ public class Invoke implements Serializable {
      */
     @Override()
     public boolean equals(final java.lang.Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
+        }
 
         if (obj instanceof Invoke) {
 
             Invoke temp = (Invoke) obj;
             if (this._method != null) {
-                if (temp._method == null)
+                if (temp._method == null) {
                     return false;
-                else if (!(this._method.equals(temp._method)))
+                } else if (!(this._method.equals(temp._method))) {
                     return false;
-            } else if (temp._method != null)
+                }
+            } else if (temp._method != null) {
                 return false;
-            if (this._pass != temp._pass)
+            }
+            if (this._pass != temp._pass) {
                 return false;
+            }
             if (this._at != null) {
-                if (temp._at == null)
+                if (temp._at == null) {
                     return false;
-                else if (!(this._at.equals(temp._at)))
+                } else if (!(this._at.equals(temp._at))) {
                     return false;
-            } else if (temp._at != null)
+                }
+            } else if (temp._at != null) {
                 return false;
+            }
             if (this._argumentList != null) {
-                if (temp._argumentList == null)
+                if (temp._argumentList == null) {
                     return false;
-                else if (!(this._argumentList.equals(temp._argumentList)))
+                } else if (!(this._argumentList.equals(temp._argumentList))) {
                     return false;
-            } else if (temp._argumentList != null)
+                }
+            } else if (temp._argumentList != null) {
                 return false;
+            }
             return true;
         }
         return false;

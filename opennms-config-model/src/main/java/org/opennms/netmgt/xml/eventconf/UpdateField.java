@@ -164,22 +164,27 @@ public class UpdateField implements Serializable {
      */
     @Override
     public boolean equals(final Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (!(obj instanceof UpdateField))
+        }
+        if (!(obj instanceof UpdateField)) {
             return false;
+        }
         final UpdateField other = (UpdateField) obj;
         if (m_fieldName == null) {
-            if (other.m_fieldName != null)
+            if (other.m_fieldName != null) {
                 return false;
+            }
         } else if (!m_fieldName.equals(other.m_fieldName)) {
             return false;
         }
         if (m_updateOnReduction == null) {
-            if (other.m_updateOnReduction != null)
+            if (other.m_updateOnReduction != null) {
                 return false;
+            }
         } else if (!m_updateOnReduction.equals(other.m_updateOnReduction)) {
             return false;
         }

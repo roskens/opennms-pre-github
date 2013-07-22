@@ -442,46 +442,55 @@ public class Correlation implements Serializable {
      */
     @Override
     public boolean equals(final Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (!(obj instanceof Correlation))
+        }
+        if (!(obj instanceof Correlation)) {
             return false;
+        }
         final Correlation other = (Correlation) obj;
         if (m_cmax == null) {
-            if (other.m_cmax != null)
+            if (other.m_cmax != null) {
                 return false;
+            }
         } else if (!m_cmax.equals(other.m_cmax)) {
             return false;
         }
         if (m_cmin == null) {
-            if (other.m_cmin != null)
+            if (other.m_cmin != null) {
                 return false;
+            }
         } else if (!m_cmin.equals(other.m_cmin)) {
             return false;
         }
         if (m_ctime == null) {
-            if (other.m_ctime != null)
+            if (other.m_ctime != null) {
                 return false;
+            }
         } else if (!m_ctime.equals(other.m_ctime)) {
             return false;
         }
         if (m_cueis == null) {
-            if (other.m_cueis != null)
+            if (other.m_cueis != null) {
                 return false;
+            }
         } else if (!m_cueis.equals(other.m_cueis)) {
             return false;
         }
         if (m_path == null) {
-            if (other.m_path != null)
+            if (other.m_path != null) {
                 return false;
+            }
         } else if (!m_path.equals(other.m_path)) {
             return false;
         }
         if (m_state == null) {
-            if (other.m_state != null)
+            if (other.m_state != null) {
                 return false;
+            }
         } else if (!m_state.equals(other.m_state)) {
             return false;
         }

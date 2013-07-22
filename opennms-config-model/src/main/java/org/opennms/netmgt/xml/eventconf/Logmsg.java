@@ -251,28 +251,34 @@ public class Logmsg implements Serializable {
      */
     @Override
     public boolean equals(final Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (!(obj instanceof Logmsg))
+        }
+        if (!(obj instanceof Logmsg)) {
             return false;
+        }
         final Logmsg other = (Logmsg) obj;
         if (m_content == null) {
-            if (other.m_content != null)
+            if (other.m_content != null) {
                 return false;
+            }
         } else if (!m_content.equals(other.m_content)) {
             return false;
         }
         if (m_dest == null) {
-            if (other.m_dest != null)
+            if (other.m_dest != null) {
                 return false;
+            }
         } else if (!m_dest.equals(other.m_dest)) {
             return false;
         }
         if (m_notify == null) {
-            if (other.m_notify != null)
+            if (other.m_notify != null) {
                 return false;
+            }
         } else if (!m_notify.equals(other.m_notify)) {
             return false;
         }

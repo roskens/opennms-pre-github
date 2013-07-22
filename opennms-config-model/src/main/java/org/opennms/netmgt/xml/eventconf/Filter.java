@@ -216,28 +216,34 @@ public class Filter implements Serializable {
      */
     @Override
     public boolean equals(final Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (!(obj instanceof Filter))
+        }
+        if (!(obj instanceof Filter)) {
             return false;
+        }
         final Filter other = (Filter) obj;
         if (m_eventparm == null) {
-            if (other.m_eventparm != null)
+            if (other.m_eventparm != null) {
                 return false;
+            }
         } else if (!m_eventparm.equals(other.m_eventparm)) {
             return false;
         }
         if (m_pattern == null) {
-            if (other.m_pattern != null)
+            if (other.m_pattern != null) {
                 return false;
+            }
         } else if (!m_pattern.equals(other.m_pattern)) {
             return false;
         }
         if (m_replacement == null) {
-            if (other.m_replacement != null)
+            if (other.m_replacement != null) {
                 return false;
+            }
         } else if (!m_replacement.equals(other.m_replacement)) {
             return false;
         }

@@ -306,8 +306,9 @@ public class SnmpCollection implements Serializable {
      */
     @Override()
     public boolean equals(final Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
+        }
 
         if (obj instanceof SnmpCollection) {
             final SnmpCollection temp = (SnmpCollection) obj;
@@ -633,8 +634,9 @@ public class SnmpCollection implements Serializable {
      *            the Vector to copy.
      */
     public void setIncludeCollection(final List<IncludeCollection> includeCollections) {
-        if (m_includeCollections == includeCollections)
+        if (m_includeCollections == includeCollections) {
             return;
+        }
         m_includeCollections.clear();
         m_includeCollections.addAll(includeCollections);
     }
@@ -713,8 +715,9 @@ public class SnmpCollection implements Serializable {
      *            the Vector to copy.
      */
     public void setResourceType(final List<ResourceType> resourceTypes) {
-        if (m_resourceTypes == resourceTypes)
+        if (m_resourceTypes == resourceTypes) {
             return;
+        }
         m_resourceTypes.clear();
         m_resourceTypes.addAll(resourceTypes);
     }

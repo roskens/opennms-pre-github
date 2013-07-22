@@ -115,23 +115,30 @@ public class ReaderSchedule implements Serializable {
      */
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (getClass() != obj.getClass())
+        }
+        if (getClass() != obj.getClass()) {
             return false;
+        }
         ReaderSchedule other = (ReaderSchedule) obj;
         if (_interval == null) {
-            if (other._interval != null)
+            if (other._interval != null) {
                 return false;
-        } else if (!_interval.equals(other._interval))
+            }
+        } else if (!_interval.equals(other._interval)) {
             return false;
+        }
         if (_unit == null) {
-            if (other._unit != null)
+            if (other._unit != null) {
                 return false;
-        } else if (!_unit.equals(other._unit))
+            }
+        } else if (!_unit.equals(other._unit)) {
             return false;
+        }
         return true;
     }
 

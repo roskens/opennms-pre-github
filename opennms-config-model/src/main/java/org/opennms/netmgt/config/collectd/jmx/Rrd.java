@@ -39,6 +39,8 @@ package org.opennms.netmgt.config.collectd.jmx;
 //- Imported classes and packages -/
 //---------------------------------/
 
+import java.io.IOException;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -136,21 +138,25 @@ public class Rrd implements java.io.Serializable {
      */
     @Override()
     public boolean equals(final java.lang.Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
+        }
 
         if (obj instanceof Rrd) {
 
             Rrd temp = (Rrd) obj;
-            if (this._step != temp._step)
+            if (this._step != temp._step) {
                 return false;
+            }
             if (this._rraList != null) {
-                if (temp._rraList == null)
+                if (temp._rraList == null) {
                     return false;
-                else if (!(this._rraList.equals(temp._rraList)))
+                } else if (!(this._rraList.equals(temp._rraList))) {
                     return false;
-            } else if (temp._rraList != null)
+                }
+            } else if (temp._rraList != null) {
                 return false;
+            }
             return true;
         }
         return false;

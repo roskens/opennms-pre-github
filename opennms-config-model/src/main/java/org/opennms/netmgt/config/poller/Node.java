@@ -87,14 +87,16 @@ public class Node implements Serializable {
      */
     @Override
     public boolean equals(final Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
+        }
 
         if (obj instanceof Node) {
 
             Node temp = (Node) obj;
-            if (this._id != temp._id)
+            if (this._id != temp._id) {
                 return false;
+            }
             return true;
         }
         return false;

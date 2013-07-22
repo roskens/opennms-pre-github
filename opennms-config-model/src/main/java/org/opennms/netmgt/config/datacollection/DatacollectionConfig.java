@@ -128,26 +128,31 @@ public class DatacollectionConfig implements Serializable {
      */
     @Override()
     public boolean equals(final Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
+        }
 
         if (obj instanceof DatacollectionConfig) {
 
             final DatacollectionConfig temp = (DatacollectionConfig) obj;
             if (m_rrdRepository != null) {
-                if (temp.m_rrdRepository == null)
+                if (temp.m_rrdRepository == null) {
                     return false;
-                else if (!(m_rrdRepository.equals(temp.m_rrdRepository)))
+                } else if (!(m_rrdRepository.equals(temp.m_rrdRepository))) {
                     return false;
-            } else if (temp.m_rrdRepository != null)
+                }
+            } else if (temp.m_rrdRepository != null) {
                 return false;
+            }
             if (m_snmpCollections != null) {
-                if (temp.m_snmpCollections == null)
+                if (temp.m_snmpCollections == null) {
                     return false;
-                else if (!(m_snmpCollections.equals(temp.m_snmpCollections)))
+                } else if (!(m_snmpCollections.equals(temp.m_snmpCollections))) {
                     return false;
-            } else if (temp.m_snmpCollections != null)
+                }
+            } else if (temp.m_snmpCollections != null) {
                 return false;
+            }
             return true;
         }
         return false;
@@ -388,8 +393,9 @@ public class DatacollectionConfig implements Serializable {
      *            the Vector to copy.
      */
     public void setSnmpCollection(final List<SnmpCollection> snmpCollections) {
-        if (m_snmpCollections == snmpCollections)
+        if (m_snmpCollections == snmpCollections) {
             return;
+        }
         m_snmpCollections.clear();
         m_snmpCollections.addAll(snmpCollections);
     }

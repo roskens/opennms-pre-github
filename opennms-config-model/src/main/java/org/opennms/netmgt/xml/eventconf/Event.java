@@ -1100,8 +1100,9 @@ public class Event implements Serializable {
      *            the new autoaction
      */
     public void setAutoaction(final List<Autoaction> autoactions) {
-        if (m_autoactions == autoactions)
+        if (m_autoactions == autoactions) {
             return;
+        }
         m_autoactions.clear();
         m_autoactions.addAll(autoactions);
     }
@@ -1190,8 +1191,9 @@ public class Event implements Serializable {
      *            the new forward
      */
     public void setForward(final List<Forward> forwards) {
-        if (m_forwards == forwards)
+        if (m_forwards == forwards) {
             return;
+        }
         m_forwards.clear();
         m_forwards.addAll(forwards);
     }
@@ -1240,8 +1242,9 @@ public class Event implements Serializable {
      *            the new loggroup
      */
     public void setLoggroup(final List<String> loggroups) {
-        if (m_loggroups == loggroups)
+        if (m_loggroups == loggroups) {
             return;
+        }
         m_loggroups.clear();
         m_loggroups.addAll(loggroups);
     }
@@ -1320,8 +1323,9 @@ public class Event implements Serializable {
      *            the new operaction
      */
     public void setOperaction(final List<Operaction> operactions) {
-        if (m_operactions == operactions)
+        if (m_operactions == operactions) {
             return;
+        }
         m_operactions.clear();
         m_operactions.addAll(operactions);
     }
@@ -1380,8 +1384,9 @@ public class Event implements Serializable {
      *            the new script
      */
     public void setScript(final List<Script> scripts) {
-        if (m_scripts == scripts)
+        if (m_scripts == scripts) {
             return;
+        }
         m_scripts.clear();
         m_scripts.addAll(scripts);
     }
@@ -1470,8 +1475,9 @@ public class Event implements Serializable {
      *            the new varbindsdecode
      */
     public void setVarbindsdecode(final List<Varbindsdecode> decodes) {
-        if (m_varbindsdecodes == decodes)
+        if (m_varbindsdecodes == decodes) {
             return;
+        }
         m_varbindsdecodes.clear();
         m_varbindsdecodes.addAll(decodes);
     }
@@ -1546,130 +1552,153 @@ public class Event implements Serializable {
      */
     @Override
     public boolean equals(final Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (!(obj instanceof Event))
+        }
+        if (!(obj instanceof Event)) {
             return false;
+        }
         final Event other = (Event) obj;
         if (m_alarmData == null) {
-            if (other.m_alarmData != null)
+            if (other.m_alarmData != null) {
                 return false;
+            }
         } else if (!m_alarmData.equals(other.m_alarmData)) {
             return false;
         }
         if (m_autoacknowledge == null) {
-            if (other.m_autoacknowledge != null)
+            if (other.m_autoacknowledge != null) {
                 return false;
+            }
         } else if (!m_autoacknowledge.equals(other.m_autoacknowledge)) {
             return false;
         }
         if (m_autoactions == null) {
-            if (other.m_autoactions != null)
+            if (other.m_autoactions != null) {
                 return false;
+            }
         } else if (!m_autoactions.equals(other.m_autoactions)) {
             return false;
         }
         if (m_correlation == null) {
-            if (other.m_correlation != null)
+            if (other.m_correlation != null) {
                 return false;
+            }
         } else if (!m_correlation.equals(other.m_correlation)) {
             return false;
         }
         if (m_descr == null) {
-            if (other.m_descr != null)
+            if (other.m_descr != null) {
                 return false;
+            }
         } else if (!m_descr.equals(other.m_descr)) {
             return false;
         }
         if (m_eventLabel == null) {
-            if (other.m_eventLabel != null)
+            if (other.m_eventLabel != null) {
                 return false;
+            }
         } else if (!m_eventLabel.equals(other.m_eventLabel)) {
             return false;
         }
         if (m_filters == null) {
-            if (other.m_filters != null)
+            if (other.m_filters != null) {
                 return false;
+            }
         } else if (!m_filters.equals(other.m_filters)) {
             return false;
         }
         if (m_forwards == null) {
-            if (other.m_forwards != null)
+            if (other.m_forwards != null) {
                 return false;
+            }
         } else if (!m_forwards.equals(other.m_forwards)) {
             return false;
         }
         if (m_loggroups == null) {
-            if (other.m_loggroups != null)
+            if (other.m_loggroups != null) {
                 return false;
+            }
         } else if (!m_loggroups.equals(other.m_loggroups)) {
             return false;
         }
         if (m_logmsg == null) {
-            if (other.m_logmsg != null)
+            if (other.m_logmsg != null) {
                 return false;
+            }
         } else if (!m_logmsg.equals(other.m_logmsg)) {
             return false;
         }
         if (m_mask == null) {
-            if (other.m_mask != null)
+            if (other.m_mask != null) {
                 return false;
+            }
         } else if (!m_mask.equals(other.m_mask)) {
             return false;
         }
         if (m_mouseovertext == null) {
-            if (other.m_mouseovertext != null)
+            if (other.m_mouseovertext != null) {
                 return false;
+            }
         } else if (!m_mouseovertext.equals(other.m_mouseovertext)) {
             return false;
         }
         if (m_operactions == null) {
-            if (other.m_operactions != null)
+            if (other.m_operactions != null) {
                 return false;
+            }
         } else if (!m_operactions.equals(other.m_operactions)) {
             return false;
         }
         if (m_operinstruct == null) {
-            if (other.m_operinstruct != null)
+            if (other.m_operinstruct != null) {
                 return false;
+            }
         } else if (!m_operinstruct.equals(other.m_operinstruct)) {
             return false;
         }
         if (m_scripts == null) {
-            if (other.m_scripts != null)
+            if (other.m_scripts != null) {
                 return false;
+            }
         } else if (!m_scripts.equals(other.m_scripts)) {
             return false;
         }
         if (m_severity == null) {
-            if (other.m_severity != null)
+            if (other.m_severity != null) {
                 return false;
+            }
         } else if (!m_severity.equals(other.m_severity)) {
             return false;
         }
         if (m_snmp == null) {
-            if (other.m_snmp != null)
+            if (other.m_snmp != null) {
                 return false;
+            }
         } else if (!m_snmp.equals(other.m_snmp)) {
             return false;
         }
         if (m_tticket == null) {
-            if (other.m_tticket != null)
+            if (other.m_tticket != null) {
                 return false;
+            }
         } else if (!m_tticket.equals(other.m_tticket)) {
             return false;
         }
         if (m_uei == null) {
-            if (other.m_uei != null)
+            if (other.m_uei != null) {
                 return false;
+            }
         } else if (!m_uei.equals(other.m_uei)) {
             return false;
         }
         if (m_varbindsdecodes == null) {
-            if (other.m_varbindsdecodes != null)
+            if (other.m_varbindsdecodes != null) {
                 return false;
+            }
         } else if (!m_varbindsdecodes.equals(other.m_varbindsdecodes)) {
             return false;
         }

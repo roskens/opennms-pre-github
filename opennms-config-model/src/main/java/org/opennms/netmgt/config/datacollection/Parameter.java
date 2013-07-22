@@ -98,26 +98,31 @@ public class Parameter implements Serializable {
      */
     @Override()
     public boolean equals(final Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
+        }
 
         if (obj instanceof Parameter) {
 
             final Parameter temp = (Parameter) obj;
             if (m_key != null) {
-                if (temp.m_key == null)
+                if (temp.m_key == null) {
                     return false;
-                else if (!(m_key.equals(temp.m_key)))
+                } else if (!(m_key.equals(temp.m_key))) {
                     return false;
-            } else if (temp.m_key != null)
+                }
+            } else if (temp.m_key != null) {
                 return false;
+            }
             if (m_value != null) {
-                if (temp.m_value == null)
+                if (temp.m_value == null) {
                     return false;
-                else if (!(m_value.equals(temp.m_value)))
+                } else if (!(m_value.equals(temp.m_value))) {
                     return false;
-            } else if (temp.m_value != null)
+                }
+            } else if (temp.m_value != null) {
                 return false;
+            }
             return true;
         }
         return false;

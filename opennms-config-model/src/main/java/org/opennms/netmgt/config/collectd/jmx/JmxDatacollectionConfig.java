@@ -39,6 +39,8 @@ package org.opennms.netmgt.config.collectd.jmx;
 //- Imported classes and packages -/
 //---------------------------------/
 
+import java.io.IOException;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -137,26 +139,31 @@ public class JmxDatacollectionConfig implements java.io.Serializable {
      */
     @Override()
     public boolean equals(final java.lang.Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
+        }
 
         if (obj instanceof JmxDatacollectionConfig) {
 
             JmxDatacollectionConfig temp = (JmxDatacollectionConfig) obj;
             if (this._rrdRepository != null) {
-                if (temp._rrdRepository == null)
+                if (temp._rrdRepository == null) {
                     return false;
-                else if (!(this._rrdRepository.equals(temp._rrdRepository)))
+                } else if (!(this._rrdRepository.equals(temp._rrdRepository))) {
                     return false;
-            } else if (temp._rrdRepository != null)
+                }
+            } else if (temp._rrdRepository != null) {
                 return false;
+            }
             if (this._jmxCollectionList != null) {
-                if (temp._jmxCollectionList == null)
+                if (temp._jmxCollectionList == null) {
                     return false;
-                else if (!(this._jmxCollectionList.equals(temp._jmxCollectionList)))
+                } else if (!(this._jmxCollectionList.equals(temp._jmxCollectionList))) {
                     return false;
-            } else if (temp._jmxCollectionList != null)
+                }
+            } else if (temp._jmxCollectionList != null) {
                 return false;
+            }
             return true;
         }
         return false;

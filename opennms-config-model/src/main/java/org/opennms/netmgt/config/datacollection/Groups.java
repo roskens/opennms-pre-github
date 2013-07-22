@@ -123,19 +123,22 @@ public class Groups implements Serializable {
      */
     @Override()
     public boolean equals(final Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
+        }
 
         if (obj instanceof Groups) {
 
             final Groups temp = (Groups) obj;
             if (m_groups != null) {
-                if (temp.m_groups == null)
+                if (temp.m_groups == null) {
                     return false;
-                else if (!(m_groups.equals(temp.m_groups)))
+                } else if (!(m_groups.equals(temp.m_groups))) {
                     return false;
-            } else if (temp.m_groups != null)
+                }
+            } else if (temp.m_groups != null) {
                 return false;
+            }
             return true;
         }
         return false;
@@ -346,8 +349,9 @@ public class Groups implements Serializable {
      *            the Vector to copy.
      */
     public void setGroup(final List<Group> groups) {
-        if (m_groups == groups)
+        if (m_groups == groups) {
             return;
+        }
         m_groups.clear();
         m_groups.addAll(groups);
     }

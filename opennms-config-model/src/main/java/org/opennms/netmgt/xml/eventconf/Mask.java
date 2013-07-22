@@ -397,8 +397,9 @@ public class Mask implements Serializable {
      *            the new maskelement
      */
     public void setMaskelement(final List<Maskelement> elements) {
-        if (m_maskElements == elements)
+        if (m_maskElements == elements) {
             return;
+        }
         m_maskElements.clear();
         m_maskElements.addAll(elements);
     }
@@ -451,8 +452,9 @@ public class Mask implements Serializable {
      *            the new varbind
      */
     public void setVarbind(final List<Varbind> varbinds) {
-        if (m_varbinds == varbinds)
+        if (m_varbinds == varbinds) {
             return;
+        }
         m_varbinds.clear();
         m_varbinds.addAll(varbinds);
     }
@@ -509,22 +511,27 @@ public class Mask implements Serializable {
      */
     @Override
     public boolean equals(final Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (!(obj instanceof Mask))
+        }
+        if (!(obj instanceof Mask)) {
             return false;
+        }
         final Mask other = (Mask) obj;
         if (m_maskElements == null) {
-            if (other.m_maskElements != null)
+            if (other.m_maskElements != null) {
                 return false;
+            }
         } else if (!m_maskElements.equals(other.m_maskElements)) {
             return false;
         }
         if (m_varbinds == null) {
-            if (other.m_varbinds != null)
+            if (other.m_varbinds != null) {
                 return false;
+            }
         } else if (!m_varbinds.equals(other.m_varbinds)) {
             return false;
         }

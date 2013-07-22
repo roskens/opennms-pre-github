@@ -134,19 +134,22 @@ public class Systems implements Serializable {
      */
     @Override()
     public boolean equals(final Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
+        }
 
         if (obj instanceof Systems) {
 
             final Systems temp = (Systems) obj;
             if (m_systemDefs != null) {
-                if (temp.m_systemDefs == null)
+                if (temp.m_systemDefs == null) {
                     return false;
-                else if (!(m_systemDefs.equals(temp.m_systemDefs)))
+                } else if (!(m_systemDefs.equals(temp.m_systemDefs))) {
                     return false;
-            } else if (temp.m_systemDefs != null)
+                }
+            } else if (temp.m_systemDefs != null) {
                 return false;
+            }
             return true;
         }
         return false;
@@ -358,8 +361,9 @@ public class Systems implements Serializable {
      *            the Vector to copy.
      */
     public void setSystemDef(final List<SystemDef> systemDefs) {
-        if (m_systemDefs == systemDefs)
+        if (m_systemDefs == systemDefs) {
             return;
+        }
         m_systemDefs.clear();
         m_systemDefs.addAll(systemDefs);
     }

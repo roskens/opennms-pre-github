@@ -93,47 +93,58 @@ public class ResourceType implements Serializable {
      */
     @Override()
     public boolean equals(final Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
+        }
 
         if (obj instanceof ResourceType) {
 
             final ResourceType temp = (ResourceType) obj;
             if (m_name != null) {
-                if (temp.m_name == null)
+                if (temp.m_name == null) {
                     return false;
-                else if (!(m_name.equals(temp.m_name)))
+                } else if (!(m_name.equals(temp.m_name))) {
                     return false;
-            } else if (temp.m_name != null)
+                }
+            } else if (temp.m_name != null) {
                 return false;
+            }
             if (m_label != null) {
-                if (temp.m_label == null)
+                if (temp.m_label == null) {
                     return false;
-                else if (!(m_label.equals(temp.m_label)))
+                } else if (!(m_label.equals(temp.m_label))) {
                     return false;
-            } else if (temp.m_label != null)
+                }
+            } else if (temp.m_label != null) {
                 return false;
+            }
             if (m_resourceLabel != null) {
-                if (temp.m_resourceLabel == null)
+                if (temp.m_resourceLabel == null) {
                     return false;
-                else if (!(m_resourceLabel.equals(temp.m_resourceLabel)))
+                } else if (!(m_resourceLabel.equals(temp.m_resourceLabel))) {
                     return false;
-            } else if (temp.m_resourceLabel != null)
+                }
+            } else if (temp.m_resourceLabel != null) {
                 return false;
+            }
             if (m_persistenceSelectorStrategy != null) {
-                if (temp.m_persistenceSelectorStrategy == null)
+                if (temp.m_persistenceSelectorStrategy == null) {
                     return false;
-                else if (!(m_persistenceSelectorStrategy.equals(temp.m_persistenceSelectorStrategy)))
+                } else if (!(m_persistenceSelectorStrategy.equals(temp.m_persistenceSelectorStrategy))) {
                     return false;
-            } else if (temp.m_persistenceSelectorStrategy != null)
+                }
+            } else if (temp.m_persistenceSelectorStrategy != null) {
                 return false;
+            }
             if (m_storageStrategy != null) {
-                if (temp.m_storageStrategy == null)
+                if (temp.m_storageStrategy == null) {
                     return false;
-                else if (!(m_storageStrategy.equals(temp.m_storageStrategy)))
+                } else if (!(m_storageStrategy.equals(temp.m_storageStrategy))) {
                     return false;
-            } else if (temp.m_storageStrategy != null)
+                }
+            } else if (temp.m_storageStrategy != null) {
                 return false;
+            }
             return true;
         }
         return false;

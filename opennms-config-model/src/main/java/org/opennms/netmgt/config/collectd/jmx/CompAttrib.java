@@ -39,6 +39,8 @@ package org.opennms.netmgt.config.collectd.jmx;
 //- Imported classes and packages -/
 //---------------------------------/
 
+import java.io.IOException;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -148,40 +150,49 @@ public class CompAttrib implements java.io.Serializable {
      */
     @Override()
     public boolean equals(final java.lang.Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
+        }
 
         if (obj instanceof CompAttrib) {
 
             CompAttrib temp = (CompAttrib) obj;
             if (this._name != null) {
-                if (temp._name == null)
+                if (temp._name == null) {
                     return false;
-                else if (!(this._name.equals(temp._name)))
+                } else if (!(this._name.equals(temp._name))) {
                     return false;
-            } else if (temp._name != null)
+                }
+            } else if (temp._name != null) {
                 return false;
+            }
             if (this._alias != null) {
-                if (temp._alias == null)
+                if (temp._alias == null) {
                     return false;
-                else if (!(this._alias.equals(temp._alias)))
+                } else if (!(this._alias.equals(temp._alias))) {
                     return false;
-            } else if (temp._alias != null)
+                }
+            } else if (temp._alias != null) {
                 return false;
+            }
             if (this._type != null) {
-                if (temp._type == null)
+                if (temp._type == null) {
                     return false;
-                else if (!(this._type.equals(temp._type)))
+                } else if (!(this._type.equals(temp._type))) {
                     return false;
-            } else if (temp._type != null)
+                }
+            } else if (temp._type != null) {
                 return false;
+            }
             if (this._compMemberList != null) {
-                if (temp._compMemberList == null)
+                if (temp._compMemberList == null) {
                     return false;
-                else if (!(this._compMemberList.equals(temp._compMemberList)))
+                } else if (!(this._compMemberList.equals(temp._compMemberList))) {
                     return false;
-            } else if (temp._compMemberList != null)
+                }
+            } else if (temp._compMemberList != null) {
                 return false;
+            }
             return true;
         }
         return false;

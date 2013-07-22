@@ -138,19 +138,22 @@ public class ServiceConfiguration implements Serializable {
      */
     @Override()
     public boolean equals(final Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
+        }
 
         if (obj instanceof ServiceConfiguration) {
 
             ServiceConfiguration temp = (ServiceConfiguration) obj;
             if (this._serviceList != null) {
-                if (temp._serviceList == null)
+                if (temp._serviceList == null) {
                     return false;
-                else if (!(this._serviceList.equals(temp._serviceList)))
+                } else if (!(this._serviceList.equals(temp._serviceList))) {
                     return false;
-            } else if (temp._serviceList != null)
+                }
+            } else if (temp._serviceList != null) {
                 return false;
+            }
             return true;
         }
         return false;

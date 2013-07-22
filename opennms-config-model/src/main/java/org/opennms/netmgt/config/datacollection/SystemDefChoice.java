@@ -32,6 +32,8 @@ package org.opennms.netmgt.config.datacollection;
 //- Imported classes and packages -/
 //---------------------------------/
 
+import java.io.IOException;
+
 import org.exolab.castor.xml.Marshaller;
 import org.exolab.castor.xml.Unmarshaller;
 
@@ -84,26 +86,31 @@ public class SystemDefChoice implements java.io.Serializable {
      */
     @Override()
     public boolean equals(final java.lang.Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
+        }
 
         if (obj instanceof SystemDefChoice) {
 
             SystemDefChoice temp = (SystemDefChoice) obj;
             if (this._sysoid != null) {
-                if (temp._sysoid == null)
+                if (temp._sysoid == null) {
                     return false;
-                else if (!(this._sysoid.equals(temp._sysoid)))
+                } else if (!(this._sysoid.equals(temp._sysoid))) {
                     return false;
-            } else if (temp._sysoid != null)
+                }
+            } else if (temp._sysoid != null) {
                 return false;
+            }
             if (this._sysoidMask != null) {
-                if (temp._sysoidMask == null)
+                if (temp._sysoidMask == null) {
                     return false;
-                else if (!(this._sysoidMask.equals(temp._sysoidMask)))
+                } else if (!(this._sysoidMask.equals(temp._sysoidMask))) {
                     return false;
-            } else if (temp._sysoidMask != null)
+                }
+            } else if (temp._sysoidMask != null) {
                 return false;
+            }
             return true;
         }
         return false;

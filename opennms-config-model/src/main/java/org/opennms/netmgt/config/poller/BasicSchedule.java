@@ -128,33 +128,40 @@ public class BasicSchedule implements java.io.Serializable {
      */
     @Override
     public boolean equals(final java.lang.Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
+        }
 
         if (obj instanceof BasicSchedule) {
 
             BasicSchedule temp = (BasicSchedule) obj;
             if (this._name != null) {
-                if (temp._name == null)
+                if (temp._name == null) {
                     return false;
-                else if (!(this._name.equals(temp._name)))
+                } else if (!(this._name.equals(temp._name))) {
                     return false;
-            } else if (temp._name != null)
+                }
+            } else if (temp._name != null) {
                 return false;
+            }
             if (this._type != null) {
-                if (temp._type == null)
+                if (temp._type == null) {
                     return false;
-                else if (!(this._type.equals(temp._type)))
+                } else if (!(this._type.equals(temp._type))) {
                     return false;
-            } else if (temp._type != null)
+                }
+            } else if (temp._type != null) {
                 return false;
+            }
             if (this._timeList != null) {
-                if (temp._timeList == null)
+                if (temp._timeList == null) {
                     return false;
-                else if (!(this._timeList.equals(temp._timeList)))
+                } else if (!(this._timeList.equals(temp._timeList))) {
                     return false;
-            } else if (temp._timeList != null)
+                }
+            } else if (temp._timeList != null) {
                 return false;
+            }
             return true;
         }
         return false;

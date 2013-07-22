@@ -184,8 +184,9 @@ public class Attr {
      */
     @Override
     public boolean equals(Object object) {
-        if (object == null)
+        if (object == null) {
             return false;
+        }
 
         Attr aMibObject;
 

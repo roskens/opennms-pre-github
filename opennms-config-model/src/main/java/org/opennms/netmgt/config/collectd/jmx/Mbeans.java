@@ -39,6 +39,8 @@ package org.opennms.netmgt.config.collectd.jmx;
 //- Imported classes and packages -/
 //---------------------------------/
 
+import java.io.IOException;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -129,19 +131,22 @@ public class Mbeans implements java.io.Serializable {
      */
     @Override()
     public boolean equals(final java.lang.Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
+        }
 
         if (obj instanceof Mbeans) {
 
             Mbeans temp = (Mbeans) obj;
             if (this._mbeanList != null) {
-                if (temp._mbeanList == null)
+                if (temp._mbeanList == null) {
                     return false;
-                else if (!(this._mbeanList.equals(temp._mbeanList)))
+                } else if (!(this._mbeanList.equals(temp._mbeanList))) {
                     return false;
-            } else if (temp._mbeanList != null)
+                }
+            } else if (temp._mbeanList != null) {
                 return false;
+            }
             return true;
         }
         return false;

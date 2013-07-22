@@ -133,33 +133,40 @@ public class IncludeCollection implements Serializable {
      */
     @Override()
     public boolean equals(final Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
+        }
 
         if (obj instanceof IncludeCollection) {
 
             final IncludeCollection temp = (IncludeCollection) obj;
             if (m_systemDef != null) {
-                if (temp.m_systemDef == null)
+                if (temp.m_systemDef == null) {
                     return false;
-                else if (!(m_systemDef.equals(temp.m_systemDef)))
+                } else if (!(m_systemDef.equals(temp.m_systemDef))) {
                     return false;
-            } else if (temp.m_systemDef != null)
+                }
+            } else if (temp.m_systemDef != null) {
                 return false;
+            }
             if (m_dataCollectionGroup != null) {
-                if (temp.m_dataCollectionGroup == null)
+                if (temp.m_dataCollectionGroup == null) {
                     return false;
-                else if (!(m_dataCollectionGroup.equals(temp.m_dataCollectionGroup)))
+                } else if (!(m_dataCollectionGroup.equals(temp.m_dataCollectionGroup))) {
                     return false;
-            } else if (temp.m_dataCollectionGroup != null)
+                }
+            } else if (temp.m_dataCollectionGroup != null) {
                 return false;
+            }
             if (m_excludeFilters != null) {
-                if (temp.m_excludeFilters == null)
+                if (temp.m_excludeFilters == null) {
                     return false;
-                else if (!(m_excludeFilters.equals(temp.m_excludeFilters)))
+                } else if (!(m_excludeFilters.equals(temp.m_excludeFilters))) {
                     return false;
-            } else if (temp.m_excludeFilters != null)
+                }
+            } else if (temp.m_excludeFilters != null) {
                 return false;
+            }
             return true;
         }
         return false;

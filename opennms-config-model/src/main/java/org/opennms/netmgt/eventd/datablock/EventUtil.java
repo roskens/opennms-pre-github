@@ -234,11 +234,13 @@ public final class EventUtil {
      * @return a {@link java.lang.String} object.
      */
     public static String getValueAsString(Value pvalue) {
-        if (pvalue == null)
+        if (pvalue == null) {
             return null;
+        }
 
-        if (pvalue.getContent() == null)
+        if (pvalue.getContent() == null) {
             return null;
+        }
 
         String result = "";
         String encoding = pvalue.getEncoding();
@@ -267,8 +269,9 @@ public final class EventUtil {
         final StringBuffer b = new StringBuffer();
         for (int i = 0; i < data.length; ++i) {
             final int x = (int) data[i] & 0xff;
-            if (x < 16)
+            if (x < 16) {
                 b.append("0");
+            }
             b.append(Integer.toString(x, 16).toLowerCase());
         }
         return b.toString();
@@ -355,10 +358,11 @@ public final class EventUtil {
                     // do nothing
                 }
             }
-            if (nodeLabel != null)
+            if (nodeLabel != null) {
                 retParmVal = nodeLabel;
-            else
+            } else {
                 retParmVal = "Unknown";
+            }
         } else if (parm.equals(TAG_TIME)) {
             String eventTime = event.getTime(); // This will be in GMT
             try {
@@ -397,8 +401,9 @@ public final class EventUtil {
             }
         } else if (parm.equals(TAG_INTERFACE_RESOLVE)) {
             InetAddress addr = event.getInterfaceAddress();
-            if (addr != null)
+            if (addr != null) {
                 retParmVal = addr.getHostName();
+            }
         } else if (parm.equals(TAG_IFALIAS)) {
             String ifAlias = null;
             if (event.getNodeid() > 0 && event.getInterface() != null) {
@@ -409,10 +414,11 @@ public final class EventUtil {
                     LOG.info("ifAlias Unavailable for {}:{}", event.getNodeid(), event.getInterface(), sqlE);
                 }
             }
-            if (ifAlias != null)
+            if (ifAlias != null) {
                 retParmVal = ifAlias;
-            else
+            } else {
                 retParmVal = ifString;
+            }
         } else if (parm.equals(TAG_PERCENT_SIGN)) {
             String pctSign = "%";
             retParmVal = pctSign;
@@ -422,31 +428,35 @@ public final class EventUtil {
             retParmVal = event.getService();
         } else if (parm.equals(TAG_SNMP)) {
             Snmp info = event.getSnmp();
-            if (info == null)
+            if (info == null) {
                 retParmVal = null;
-            else {
+            } else {
                 StringBuffer snmpStr = new StringBuffer(info.getId());
-                if (info.getIdtext() != null)
+                if (info.getIdtext() != null) {
                     snmpStr.append(ATTRIB_DELIM + escape(info.getIdtext().trim(), ATTRIB_DELIM));
-                else
+                } else {
                     snmpStr.append(ATTRIB_DELIM + "undefined");
+                }
 
                 snmpStr.append(ATTRIB_DELIM + info.getVersion());
 
-                if (info.hasSpecific())
+                if (info.hasSpecific()) {
                     snmpStr.append(ATTRIB_DELIM + Integer.toString(info.getSpecific()));
-                else
+                } else {
                     snmpStr.append(ATTRIB_DELIM + "undefined");
+                }
 
-                if (info.hasGeneric())
+                if (info.hasGeneric()) {
                     snmpStr.append(ATTRIB_DELIM + Integer.toString(info.getGeneric()));
-                else
+                } else {
                     snmpStr.append(ATTRIB_DELIM + "undefined");
+                }
 
                 if (info.getCommunity() != null) {
                     snmpStr.append(ATTRIB_DELIM + info.getCommunity().trim());
-                } else
+                } else {
                     snmpStr.append(ATTRIB_DELIM + "undefined");
+                }
 
                 retParmVal = snmpStr.toString();
             }
@@ -511,10 +521,11 @@ public final class EventUtil {
             if (event.getNodeid() > 0) {
                 assetFieldValue = getAssetFieldValue(parm, event.getNodeid());
             }
-            if (assetFieldValue != null)
+            if (assetFieldValue != null) {
                 retParmVal = assetFieldValue;
-            else
+            } else {
                 retParmVal = "Unknown";
+            }
         }
 
         return (retParmVal == null ? null : retParmVal.trim());
@@ -536,12 +547,14 @@ public final class EventUtil {
 
             for (Parm evParm : event.getParmCollection()) {
                 Value parmValue = evParm.getValue();
-                if (parmValue == null)
+                if (parmValue == null) {
                     continue;
+                }
 
                 String parmValueStr = getValueAsString(parmValue);
-                if (parmValueStr == null)
+                if (parmValueStr == null) {
                     continue;
+                }
 
                 if (ret.length() == 0) {
                     ret.append(parmValueStr);
@@ -570,8 +583,9 @@ public final class EventUtil {
 
             for (Parm evParm : event.getParmCollection()) {
                 String parmName = evParm.getParmName();
-                if (parmName == null)
+                if (parmName == null) {
                     continue;
+                }
 
                 if (ret.length() == 0) {
                     ret.append(parmName.trim());
@@ -598,12 +612,14 @@ public final class EventUtil {
 
             for (final Parm evParm : event.getParmCollection()) {
                 final String parmName = evParm.getParmName();
-                if (parmName == null)
+                if (parmName == null) {
                     continue;
+                }
 
                 final Value parmValue = evParm.getValue();
-                if (parmValue == null)
+                if (parmValue == null) {
                     continue;
+                }
 
                 final String parmValueStr = getValueAsString(parmValue);
                 if (ret.length() != 0) {
@@ -1001,8 +1017,9 @@ public final class EventUtil {
                                                                  InetAddressUtils.getInetAddress(ipaddr));
                 if (ipif != null) {
                     DbSnmpInterfaceEntry snmpif = DbSnmpInterfaceEntry.get(dbConn, nodeId, ipif.getIfIndex());
-                    if (snmpif != null)
+                    if (snmpif != null) {
                         ifAlias = snmpif.getAlias();
+                    }
                 }
             } finally {
                 // Close the statement
