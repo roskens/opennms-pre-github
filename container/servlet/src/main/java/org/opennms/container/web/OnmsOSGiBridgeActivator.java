@@ -123,8 +123,9 @@ public class OnmsOSGiBridgeActivator implements RegistrationHook, ServiceListene
 
         Map<String, String> onmsProperties = onmsRegistration.getProperties() == null ? Collections.<String, String> emptyMap()
             : onmsRegistration.getProperties();
-        if (OSGI_SOURCE.equals(onmsProperties.get(REGISTRATION_SOURCE)))
+        if (OSGI_SOURCE.equals(onmsProperties.get(REGISTRATION_SOURCE))) {
             return;
+        }
 
         Class<?>[] providerInterfaces = onmsRegistration.getProvidedInterfaces();
         String[] serviceClasses = new String[providerInterfaces.length];
@@ -150,8 +151,9 @@ public class OnmsOSGiBridgeActivator implements RegistrationHook, ServiceListene
     @Override
     public void registrationRemoved(Registration onmsRegistration) {
         ServiceRegistration<?> osgiRegistration = m_onmsRegistration2osgiRegistrationMap.remove(onmsRegistration);
-        if (osgiRegistration == null)
+        if (osgiRegistration == null) {
             return;
+        }
         osgiRegistration.unregister();
     }
 
@@ -186,16 +188,19 @@ public class OnmsOSGiBridgeActivator implements RegistrationHook, ServiceListene
         System.err.println("registerWithOnmsRegistry: " + reference.getBundle());
 
         // skip this service if this should not be exported
-        if (!isOnmsExported(reference))
+        if (!isOnmsExported(reference)) {
             return;
+        }
 
         // skip this service if its came from the opennms registry originally
-        if (isOnmsSource(reference))
+        if (isOnmsSource(reference)) {
             return;
+        }
 
         // if this service is already registered then skip it
-        if (m_osgiReference2onmsRegistrationMap.containsKey(reference))
+        if (m_osgiReference2onmsRegistrationMap.containsKey(reference)) {
             return;
+        }
 
         String[] classNames = (String[]) reference.getProperty(Constants.OBJECTCLASS);
 
@@ -212,8 +217,9 @@ public class OnmsOSGiBridgeActivator implements RegistrationHook, ServiceListene
                 if (val instanceof Object[]) {
                     Object[] a = (Object[]) val;
                     for (int i = 0; i < a.length; i++) {
-                        if (i != 0)
+                        if (i != 0) {
                             buf.append(',');
+                        }
                         buf.append(a[i]);
                     }
                 } else {
@@ -289,8 +295,9 @@ public class OnmsOSGiBridgeActivator implements RegistrationHook, ServiceListene
 
         Registration onmsRegistration = m_osgiReference2onmsRegistrationMap.remove(reference);
 
-        if (onmsRegistration == null)
+        if (onmsRegistration == null) {
             return;
+        }
 
         onmsRegistration.unregister();
 
