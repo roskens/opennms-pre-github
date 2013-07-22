@@ -50,6 +50,6 @@ public interface InventoryReportService {
      *         {@link org.opennms.report.inventory.svclayer.InventoryReportCriteria}
      *         object.
      */
-    public boolean runReport(InventoryReportCriteria criteria);
+    boolean runReport(InventoryReportCriteria criteria);
 
 }

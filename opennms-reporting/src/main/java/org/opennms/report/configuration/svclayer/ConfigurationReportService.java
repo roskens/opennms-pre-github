@@ -50,6 +50,6 @@ public interface ConfigurationReportService {
      *         {@link org.opennms.report.configuration.svclayer.ConfigurationReportCriteria}
      *         object.
      */
-    public boolean runReport(ConfigurationReportCriteria criteria);
+    boolean runReport(ConfigurationReportCriteria criteria);
 
 }
