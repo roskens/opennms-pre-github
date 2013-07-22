@@ -110,8 +110,9 @@ public class AclCategoryNodeServiceImpl implements AclItemService {
     /** {@inheritDoc} */
     @Override
     public Set<Integer> getAclItems(Set<AuthorityView> authorities) {
-        if (!ready)
+        if (!ready) {
             init();
+        }
         return authItemsHelper.getAuthoritiesItems(authorities);
     }
 

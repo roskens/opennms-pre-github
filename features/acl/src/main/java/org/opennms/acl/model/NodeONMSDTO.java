@@ -124,8 +124,9 @@ public class NodeONMSDTO {
     @Override
     public boolean equals(Object o) {
 
-        if (!(o instanceof NodeONMSDTO))
+        if (!(o instanceof NodeONMSDTO)) {
             return false;
+        }
         NodeONMSDTO node = (NodeONMSDTO) o;
         return (dpname.equalsIgnoreCase(node.getDpname()) && nodelabel.equalsIgnoreCase(node.getNodelabel()) && nodeid == node.getNodeid());
     }

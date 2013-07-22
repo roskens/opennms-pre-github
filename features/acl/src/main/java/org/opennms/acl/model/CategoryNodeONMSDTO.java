@@ -126,8 +126,9 @@ public class CategoryNodeONMSDTO {
     @Override
     public boolean equals(Object o) {
 
-        if (!(o instanceof CategoryNodeONMSDTO))
+        if (!(o instanceof CategoryNodeONMSDTO)) {
             return false;
+        }
         CategoryNodeONMSDTO category = (CategoryNodeONMSDTO) o;
         return (categoryName.equalsIgnoreCase(category.getCategoryName())
                 && categoryDescription.equalsIgnoreCase(category.getCategoryDescription()) && categoryId == category.categoryId);
