@@ -122,8 +122,9 @@ public final class OpennmsServerConfigFactory extends OpennmsServerConfigManager
      * @return The current factory instance.
      */
     public static synchronized OpennmsServerConfigFactory getInstance() {
-        if (!m_loaded)
+        if (!m_loaded) {
             throw new IllegalStateException("The factory has not been initialized");
+        }
 
         return m_singleton;
     }

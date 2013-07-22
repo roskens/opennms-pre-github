@@ -167,8 +167,9 @@ public abstract class PollOutagesConfigManager extends AbstractJaxbConfigDao<Out
      */
     public String getOutageType(final String name) {
         final Outage out = getOutage(name);
-        if (out == null)
+        if (out == null) {
             return null;
+        }
         return out.getType();
     }
 
@@ -181,8 +182,9 @@ public abstract class PollOutagesConfigManager extends AbstractJaxbConfigDao<Out
      */
     public Time[] getOutageTimes(final String name) {
         final Outage out = getOutage(name);
-        if (out == null)
+        if (out == null) {
             return null;
+        }
         return out.getTime();
     }
 
@@ -195,8 +197,9 @@ public abstract class PollOutagesConfigManager extends AbstractJaxbConfigDao<Out
      */
     public Interface[] getInterfaces(final String name) {
         final Outage out = getOutage(name);
-        if (out == null)
+        if (out == null) {
             return null;
+        }
         return out.getInterface();
     }
 
@@ -206,8 +209,9 @@ public abstract class PollOutagesConfigManager extends AbstractJaxbConfigDao<Out
     @Override
     public boolean isInterfaceInOutage(final String linterface, final String outName) {
         final Outage out = getOutage(outName);
-        if (out == null)
+        if (out == null) {
             return false;
+        }
         return isInterfaceInOutage(linterface, out);
     }
 
@@ -221,8 +225,9 @@ public abstract class PollOutagesConfigManager extends AbstractJaxbConfigDao<Out
      * @return the interface is part of the specified outage
      */
     public boolean isInterfaceInOutage(final String linterface, final Outage out) {
-        if (out == null)
+        if (out == null) {
             return false;
+        }
 
         for (final Interface ointerface : out.getInterfaceCollection()) {
             if (ointerface.getAddress().equals("match-any") || ointerface.getAddress().equals(linterface)) {
@@ -238,8 +243,9 @@ public abstract class PollOutagesConfigManager extends AbstractJaxbConfigDao<Out
      */
     public boolean isTimeInOutage(final Calendar cal, final String outName) {
         final Outage out = getOutage(outName);
-        if (out == null)
+        if (out == null) {
             return false;
+        }
 
         return isTimeInOutage(cal, out);
     }
@@ -250,8 +256,9 @@ public abstract class PollOutagesConfigManager extends AbstractJaxbConfigDao<Out
     @Override
     public boolean isTimeInOutage(final long time, final String outName) {
         final Outage out = getOutage(outName);
-        if (out == null)
+        if (out == null) {
             return false;
+        }
 
         final Calendar cal = Calendar.getInstance();
         cal.setTimeInMillis(time);
@@ -370,8 +377,9 @@ public abstract class PollOutagesConfigManager extends AbstractJaxbConfigDao<Out
      */
     public Node[] getNodeIds(final String name) {
         final Outage out = getOutage(name);
-        if (BasicScheduleUtils.getBasicOutageSchedule(out) == null)
+        if (BasicScheduleUtils.getBasicOutageSchedule(out) == null) {
             return null;
+        }
         return out.getNode();
     }
 
@@ -384,8 +392,9 @@ public abstract class PollOutagesConfigManager extends AbstractJaxbConfigDao<Out
     @Override
     public boolean isNodeIdInOutage(final long lnodeid, final String outName) {
         final Outage out = getOutage(outName);
-        if (out == null)
+        if (out == null) {
             return false;
+        }
         return isNodeIdInOutage(lnodeid, out);
     }
 
@@ -401,8 +410,9 @@ public abstract class PollOutagesConfigManager extends AbstractJaxbConfigDao<Out
      */
     public Calendar getEndOfOutage(final String outName) {
         final Outage out = getOutage(outName);
-        if (out == null)
+        if (out == null) {
             return null;
+        }
         return getEndOfOutage(out);
     }
 
@@ -435,8 +445,9 @@ public abstract class PollOutagesConfigManager extends AbstractJaxbConfigDao<Out
      * @return the node iis part of the specified outage
      */
     public boolean isNodeIdInOutage(final long lnodeid, final Outage out) {
-        if (out == null)
+        if (out == null) {
             return false;
+        }
 
         for (final Node onode : out.getNodeCollection()) {
             if (onode.getId() == lnodeid) {

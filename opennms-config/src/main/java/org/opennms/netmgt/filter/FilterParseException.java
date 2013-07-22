@@ -87,8 +87,9 @@ public class FilterParseException extends RuntimeException {
      */
     @Override
     public void printStackTrace() {
-        if (m_delegate != null)
+        if (m_delegate != null) {
             m_delegate.printStackTrace();
+        }
         super.printStackTrace();
     }
 
@@ -99,8 +100,9 @@ public class FilterParseException extends RuntimeException {
      */
     @Override
     public void printStackTrace(PrintStream ps) {
-        if (m_delegate != null)
+        if (m_delegate != null) {
             m_delegate.printStackTrace(ps);
+        }
         super.printStackTrace(ps);
     }
 
@@ -113,8 +115,9 @@ public class FilterParseException extends RuntimeException {
      */
     @Override
     public void printStackTrace(PrintWriter pw) {
-        if (m_delegate != null)
+        if (m_delegate != null) {
             m_delegate.printStackTrace(pw);
+        }
         super.printStackTrace(pw);
     }
 }

@@ -132,8 +132,9 @@ public final class ServiceConfigFactory {
      * @return The singular instance of the factory class.
      */
     public static synchronized ServiceConfigFactory getInstance() {
-        if (!m_loaded)
+        if (!m_loaded) {
             throw new IllegalStateException("Factory not initialized");
+        }
 
         return m_singleton;
     }

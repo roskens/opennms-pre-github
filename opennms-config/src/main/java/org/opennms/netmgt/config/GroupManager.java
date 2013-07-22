@@ -202,8 +202,9 @@ public abstract class GroupManager {
      */
     public OnmsGroup getOnmsGroup(final String groupName) throws MarshalException, ValidationException, IOException {
         final Group castorGroup = getGroup(groupName);
-        if (castorGroup == null)
+        if (castorGroup == null) {
             return null;
+        }
 
         final OnmsGroup group = new OnmsGroup(groupName);
         group.setComments(castorGroup.getComments());
@@ -317,8 +318,9 @@ public abstract class GroupManager {
     public synchronized void saveGroups() throws Exception {
         Header header = m_oldHeader;
 
-        if (header != null)
+        if (header != null) {
             header.setCreated(EventConstants.formatToString(new Date()));
+        }
 
         Groups groups = new Groups();
         for (Group grp : m_groups.values()) {
@@ -332,8 +334,9 @@ public abstract class GroupManager {
 
         Groupinfo groupinfo = new Groupinfo();
         groupinfo.setGroups(groups);
-        if (roles.getRoleCount() > 0)
+        if (roles.getRoleCount() > 0) {
             groupinfo.setRoles(roles);
+        }
         groupinfo.setHeader(header);
 
         m_oldHeader = header;
@@ -538,8 +541,9 @@ public abstract class GroupManager {
             if (m_groups.containsKey(name)) {
                 // Remove the group.
                 m_groups.remove(name);
-            } else
+            } else {
                 throw new Exception("GroupFactory:delete Group doesnt exist:" + name);
+            }
         } else {
             throw new Exception("GroupFactory:delete Invalid user group:" + name);
         }
@@ -562,10 +566,12 @@ public abstract class GroupManager {
         if (name != null && !name.equals("")) {
             if (m_roles.containsKey(name)) {
                 m_roles.remove(name);
-            } else
+            } else {
                 throw new Exception("GroupFacotry:deleteRole Role doesn't exist: " + name);
-        } else
+            }
+        } else {
             throw new Exception("GroupFactory:deleteRole Invalid role name: " + name);
+        }
 
         saveGroups();
     }

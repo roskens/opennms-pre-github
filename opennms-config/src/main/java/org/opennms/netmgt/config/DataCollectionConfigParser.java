@@ -140,8 +140,9 @@ public class DataCollectionConfigParser {
         Set<ResourceType> resourceTypes = new HashSet<ResourceType>();
         for (DatacollectionGroup group : externalGroupsMap.values()) {
             for (ResourceType rt : group.getResourceTypeCollection()) {
-                if (!contains(resourceTypes, rt))
+                if (!contains(resourceTypes, rt)) {
                     resourceTypes.add(rt);
+                }
             }
         }
         return resourceTypes;
@@ -154,10 +155,12 @@ public class DataCollectionConfigParser {
      *            the collection
      */
     private void checkCollection(SnmpCollection collection) {
-        if (collection.getSystems() == null)
+        if (collection.getSystems() == null) {
             collection.setSystems(new Systems());
-        if (collection.getGroups() == null)
+        }
+        if (collection.getGroups() == null) {
             collection.setGroups(new Groups());
+        }
     }
 
     /**
@@ -175,8 +178,9 @@ public class DataCollectionConfigParser {
      */
     private boolean contains(Collection<ResourceType> resourceTypes, ResourceType resourceType) {
         for (ResourceType rt : resourceTypes) {
-            if (resourceType.getName().equals(rt.getName()))
+            if (resourceType.getName().equals(rt.getName())) {
                 return true;
+            }
         }
         return false;
     }
@@ -196,8 +200,9 @@ public class DataCollectionConfigParser {
      */
     private boolean contains(Collection<Group> groups, Group group) {
         for (Group g : groups) {
-            if (group.getName().equals(g.getName()))
+            if (group.getName().equals(g.getName())) {
                 return true;
+            }
         }
         return false;
     }
@@ -218,8 +223,9 @@ public class DataCollectionConfigParser {
     // TODO Include sysoid and sysoidMask on validation process
     private boolean contains(List<SystemDef> systemDefs, SystemDef systemDef) {
         for (SystemDef sd : systemDefs) {
-            if (systemDef.getName().equals(sd.getName()))
+            if (systemDef.getName().equals(sd.getName())) {
                 return true;
+            }
         }
         return false;
     }

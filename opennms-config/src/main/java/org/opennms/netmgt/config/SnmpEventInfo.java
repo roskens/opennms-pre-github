@@ -175,8 +175,9 @@ public class SnmpEventInfo {
         for (Parm parm : event.getParmCollection()) {
             parmName = parm.getParmName();
             parmValue = parm.getValue();
-            if (parmValue == null)
+            if (parmValue == null) {
                 continue;
+            }
             parmContent = parmValue.getContent();
 
             try {
@@ -805,46 +806,66 @@ public class SnmpEventInfo {
         bldr.addParam(EventConstants.PARM_FIRST_IP_ADDRESS, getFirstIPAddress());
         bldr.addParam(EventConstants.PARM_LAST_IP_ADDRESS, getLastIPAddress());
 
-        if (!StringUtils.isEmpty(getAuthPassphrase()))
+        if (!StringUtils.isEmpty(getAuthPassphrase())) {
             bldr.addParam(EventConstants.PARM_SNMP_AUTH_PASSPHRASE, getAuthPassphrase());
-        if (!StringUtils.isEmpty(getAuthProtocol()))
+        }
+        if (!StringUtils.isEmpty(getAuthProtocol())) {
             bldr.addParam(EventConstants.PARM_SNMP_AUTH_PROTOCOL, getAuthProtocol());
-        if (!StringUtils.isEmpty(getContextEngineId()))
+        }
+        if (!StringUtils.isEmpty(getContextEngineId())) {
             bldr.addParam(EventConstants.PARM_SNMP_CONTEXT_ENGINE_ID, getContextEngineId());
-        if (!StringUtils.isEmpty(getContextName()))
+        }
+        if (!StringUtils.isEmpty(getContextName())) {
             bldr.addParam(EventConstants.PARM_SNMP_CONTEXT_NAME, getContextName());
-        if (!StringUtils.isEmpty(getEngineId()))
+        }
+        if (!StringUtils.isEmpty(getEngineId())) {
             bldr.addParam(EventConstants.PARM_SNMP_ENGINE_ID, getEngineId());
-        if (!StringUtils.isEmpty(getEnterpriseId()))
+        }
+        if (!StringUtils.isEmpty(getEnterpriseId())) {
             bldr.addParam(EventConstants.PARM_SNMP_ENTERPRISE_ID, getEnterpriseId());
-        if (getMaxRepetitions() != 0)
+        }
+        if (getMaxRepetitions() != 0) {
             bldr.addParam(EventConstants.PARM_SNMP_MAX_REPETITIONS, Integer.toString(getMaxRepetitions()));
-        if (getMaxRequestSize() != 0)
+        }
+        if (getMaxRequestSize() != 0) {
             bldr.addParam(EventConstants.PARM_SNMP_MAX_REQUEST_SIZE, Integer.toString(getMaxRequestSize()));
-        if (getMaxVarsPerPdu() != 0)
+        }
+        if (getMaxVarsPerPdu() != 0) {
             bldr.addParam(EventConstants.PARM_SNMP_MAX_VARS_PER_PDU, Integer.toString(getMaxVarsPerPdu()));
-        if (getPort() != 0)
+        }
+        if (getPort() != 0) {
             bldr.addParam(EventConstants.PARM_PORT, Integer.toString(getPort()));
-        if (!StringUtils.isEmpty(getPrivPassPhrase()))
+        }
+        if (!StringUtils.isEmpty(getPrivPassPhrase())) {
             bldr.addParam(EventConstants.PARM_SNMP_PRIVACY_PASSPHRASE, getPrivPassPhrase());
-        if (!StringUtils.isEmpty(getPrivProtocol()))
+        }
+        if (!StringUtils.isEmpty(getPrivProtocol())) {
             bldr.addParam(EventConstants.PARM_SNMP_PRIVACY_PROTOCOL, getPrivProtocol());
-        if (!StringUtils.isEmpty(getProxyHost()))
+        }
+        if (!StringUtils.isEmpty(getProxyHost())) {
             bldr.addParam(EventConstants.PARM_SNMP_PROXY_HOST, getProxyHost());
-        if (!StringUtils.isEmpty(getReadCommunityString()))
+        }
+        if (!StringUtils.isEmpty(getReadCommunityString())) {
             bldr.addParam(EventConstants.PARM_SNMP_READ_COMMUNITY_STRING, getReadCommunityString());
-        if (!StringUtils.isEmpty(getSecurityName()))
+        }
+        if (!StringUtils.isEmpty(getSecurityName())) {
             bldr.addParam(EventConstants.PARM_SNMP_SECURITY_NAME, getSecurityName());
-        if (getRetryCount() != 0)
+        }
+        if (getRetryCount() != 0) {
             bldr.addParam(EventConstants.PARM_RETRY_COUNT, Integer.toString(getRetryCount()));
-        if (getSecurityLevel() > 0)
+        }
+        if (getSecurityLevel() > 0) {
             bldr.addParam(EventConstants.PARM_SNMP_SECURITY_LEVEL, Integer.toString(getSecurityLevel()));
-        if (getTimeout() != 0)
+        }
+        if (getTimeout() != 0) {
             bldr.addParam(EventConstants.PARM_TIMEOUT, Integer.toString(getTimeout()));
-        if (!StringUtils.isEmpty(getVersion()))
+        }
+        if (!StringUtils.isEmpty(getVersion())) {
             bldr.addParam(EventConstants.PARM_VERSION, getVersion());
-        if (!StringUtils.isEmpty(getWriteCommunityString()))
+        }
+        if (!StringUtils.isEmpty(getWriteCommunityString())) {
             bldr.addParam(EventConstants.PARM_SNMP_WRITE_COMMUNITY_STRING, getWriteCommunityString());
+        }
 
         return bldr.getEvent();
     }
@@ -858,50 +879,70 @@ public class SnmpEventInfo {
      */
     public Definition createDef() {
         Definition definition = new Definition();
-        if (StringUtils.isNotEmpty(getVersion()))
+        if (StringUtils.isNotEmpty(getVersion())) {
             definition.setVersion(getVersion());
-        if (getRetryCount() != 0)
+        }
+        if (getRetryCount() != 0) {
             definition.setRetry(Integer.valueOf(getRetryCount()));
-        if (getTimeout() != 0)
+        }
+        if (getTimeout() != 0) {
             definition.setTimeout(Integer.valueOf(getTimeout()));
-        if (getPort() != 0)
+        }
+        if (getPort() != 0) {
             definition.setPort(Integer.valueOf(getPort()));
-        if (getMaxRepetitions() != 0)
+        }
+        if (getMaxRepetitions() != 0) {
             definition.setMaxRepetitions(Integer.valueOf(getMaxRepetitions()));
-        if (getMaxVarsPerPdu() != 0)
+        }
+        if (getMaxVarsPerPdu() != 0) {
             definition.setMaxVarsPerPdu(Integer.valueOf(getMaxVarsPerPdu()));
-        if (getMaxRequestSize() != 0)
+        }
+        if (getMaxRequestSize() != 0) {
             definition.setMaxRequestSize(Integer.valueOf(getMaxRequestSize()));
-        if (StringUtils.isNotEmpty(getProxyHost()))
+        }
+        if (StringUtils.isNotEmpty(getProxyHost())) {
             definition.setProxyHost(getProxyHost());
+        }
 
         // version dependend parameters
         if (getVersion() != null && getVersion().equals("v3")) {
-            if (StringUtils.isNotEmpty(getAuthPassphrase()))
+            if (StringUtils.isNotEmpty(getAuthPassphrase())) {
                 definition.setAuthPassphrase(getAuthPassphrase());
-            if (StringUtils.isNotEmpty(getAuthProtocol()))
+            }
+            if (StringUtils.isNotEmpty(getAuthProtocol())) {
                 definition.setAuthProtocol(getAuthProtocol());
-            if (StringUtils.isNotEmpty(getContextEngineId()))
+            }
+            if (StringUtils.isNotEmpty(getContextEngineId())) {
                 definition.setContextEngineId(getContextEngineId());
-            if (StringUtils.isNotEmpty(getContextName()))
+            }
+            if (StringUtils.isNotEmpty(getContextName())) {
                 definition.setContextName(getContextName());
-            if (StringUtils.isNotEmpty(getEngineId()))
+            }
+            if (StringUtils.isNotEmpty(getEngineId())) {
                 definition.setEngineId(getEngineId());
-            if (StringUtils.isNotEmpty(getEnterpriseId()))
+            }
+            if (StringUtils.isNotEmpty(getEnterpriseId())) {
                 definition.setEnterpriseId(getEnterpriseId());
-            if (StringUtils.isNotEmpty(getPrivPassPhrase()))
+            }
+            if (StringUtils.isNotEmpty(getPrivPassPhrase())) {
                 definition.setPrivacyPassphrase(getPrivPassPhrase());
-            if (StringUtils.isNotEmpty(getPrivProtocol()))
+            }
+            if (StringUtils.isNotEmpty(getPrivProtocol())) {
                 definition.setPrivacyProtocol(getPrivProtocol());
-            if (StringUtils.isNotEmpty(getSecurityName()))
+            }
+            if (StringUtils.isNotEmpty(getSecurityName())) {
                 definition.setSecurityName(getSecurityName());
-            if (getSecurityLevel() > 0)
+            }
+            if (getSecurityLevel() > 0) {
                 definition.setSecurityLevel(getSecurityLevel());
+            }
         } else { // v1, v2c or invalid version
-            if (getReadCommunityString() != null)
+            if (getReadCommunityString() != null) {
                 definition.setReadCommunity(getReadCommunityString());
-            if (getWriteCommunityString() != null)
+            }
+            if (getWriteCommunityString() != null) {
                 definition.setWriteCommunity(getWriteCommunityString());
+            }
         }
 
         if (isSpecific()) {

@@ -131,8 +131,9 @@ public final class PollOutagesConfigFactory extends PollOutagesConfigManager {
      * @return The current factory instance.
      */
     public static PollOutagesConfigFactory getInstance() {
-        if (!m_loaded)
+        if (!m_loaded) {
             throw new IllegalStateException("The factory has not been initialized");
+        }
 
         return m_singleton;
     }

@@ -400,8 +400,9 @@ public abstract class NotificationManager {
 
                     LOG.debug("Event {} matched notice {}", curNotif.getName(), event.getUei());
 
-                    if (!matchAll)
+                    if (!matchAll) {
                         break;
+                    }
                 } else {
 
                     LOG.debug("Node/interface/service combination in the event was invalid");
@@ -835,8 +836,9 @@ public abstract class NotificationManager {
 
             if (rs.next() && rs.getString("notify") != null) {
                 notify = rs.getString("notify");
-                if (notify == null)
+                if (notify == null) {
                     notify = "Y";
+                }
             }
             return notify;
         } finally {
@@ -872,8 +874,9 @@ public abstract class NotificationManager {
     public void updateNoticeWithUserInfo(final String userId, final int noticeId, final String media,
             final String contactInfo, final String autoNotify) throws SQLException, MarshalException,
             ValidationException, IOException {
-        if (noticeId < 0)
+        if (noticeId < 0) {
             return;
+        }
         int userNotifId = getUserNotifId();
         LOG.debug("updating usersnotified: ID = {} User = {}, notice ID = {}, conctactinfo = {}, media = {}, autoNotify = {}",
                   autoNotify, userNotifId, userId, noticeId, contactInfo, media);
@@ -1239,8 +1242,9 @@ public abstract class NotificationManager {
                 notice.addParameter(newParam);
             }
             saveCurrent();
-        } else
+        } else {
             addNotification(newNotice);
+        }
     }
 
     /**
@@ -1267,8 +1271,9 @@ public abstract class NotificationManager {
             notice.setStatus(status);
 
             saveCurrent();
-        } else
+        } else {
             throw new IllegalArgumentException("Status must be on|off, not " + status);
+        }
     }
 
     /**

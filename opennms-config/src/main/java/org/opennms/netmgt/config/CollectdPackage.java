@@ -132,8 +132,9 @@ public class CollectdPackage {
                 // Ok its in the package. Now check the
                 // status of the service
                 String status = tsvc.getStatus();
-                if (status.equals("on"))
+                if (status.equals("on")) {
                     result = true;
+                }
             }
         }
         return result;
@@ -242,8 +243,9 @@ public class CollectdPackage {
      * @return true, if successful
      */
     protected boolean interfaceInFilter(String iface) {
-        if (iface == null)
+        if (iface == null) {
             return false;
+        }
         final InetAddress ifaceAddress = addr(iface);
 
         boolean filterPassed = false;
@@ -256,8 +258,9 @@ public class CollectdPackage {
             LOG.debug("interfaceInFilter: ipList contains no data");
         }
 
-        if (!filterPassed)
+        if (!filterPassed) {
             LOG.debug("interfaceInFilter: Interface {} passed filter for package {}?: false", iface, getName());
+        }
         return filterPassed;
     }
 
@@ -306,8 +309,9 @@ public class CollectdPackage {
     public boolean interfaceInPackage(final String iface) {
         boolean filterPassed = interfaceInFilter(iface);
 
-        if (!filterPassed)
+        if (!filterPassed) {
             return false;
+        }
 
         //
         // Ensure that the interface is in the specific list or
@@ -396,8 +400,9 @@ public class CollectdPackage {
         final List<Service> pkgSvcs = m_pkg.getServiceCollection();
 
         for (Service svc : pkgSvcs) {
-            if (svc.getName().equalsIgnoreCase(svcName))
+            if (svc.getName().equalsIgnoreCase(svcName)) {
                 return svc;
+            }
         }
         throw new RuntimeException("Service name not part of package!");
     }

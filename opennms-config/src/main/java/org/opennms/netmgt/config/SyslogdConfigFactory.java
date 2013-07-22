@@ -156,8 +156,9 @@ public final class SyslogdConfigFactory implements SyslogdConfig {
      * @return The current factory instance.
      */
     public static synchronized SyslogdConfig getInstance() {
-        if (!m_loaded)
+        if (!m_loaded) {
             throw new IllegalStateException("The factory has not been initialized");
+        }
 
         return m_singleton;
     }
@@ -329,15 +330,17 @@ public final class SyslogdConfigFactory implements SyslogdConfig {
                                                                                new FileSystemResource(configFile));
             if (includeCfg.getUeiList() != null) {
                 for (final UeiMatch ueiMatch : includeCfg.getUeiList().getUeiMatchCollection()) {
-                    if (m_config.getUeiList() == null)
+                    if (m_config.getUeiList() == null) {
                         m_config.setUeiList(new UeiList());
+                    }
                     m_config.getUeiList().addUeiMatch(ueiMatch);
                 }
             }
             if (includeCfg.getHideMessage() != null) {
                 for (final HideMatch hideMatch : includeCfg.getHideMessage().getHideMatchCollection()) {
-                    if (m_config.getHideMessage() == null)
+                    if (m_config.getHideMessage() == null) {
                         m_config.setHideMessage(new HideMessage());
+                    }
                     m_config.getHideMessage().addHideMatch(hideMatch);
                 }
             }

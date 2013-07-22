@@ -186,8 +186,9 @@ public class AmiPeerFactory {
      * @return The current factory instance.
      */
     public static synchronized AmiPeerFactory getInstance() {
-        if (!m_loaded)
+        if (!m_loaded) {
             throw new IllegalStateException("The AmiPeerFactory has not been initialized");
+        }
 
         return m_singleton;
     }
@@ -428,8 +429,9 @@ public class AmiPeerFactory {
         getReadLock().lock();
 
         try {
-            if (m_config == null)
+            if (m_config == null) {
                 return new AmiAgentConfig(agentInetAddress);
+            }
 
             final AmiAgentConfig agentConfig = new AmiAgentConfig(agentInetAddress);
 
@@ -467,8 +469,9 @@ public class AmiPeerFactory {
 
             } // end DEFLOOP
 
-            if (agentConfig == null)
+            if (agentConfig == null) {
                 setAmiAgentConfig(agentConfig, new Definition());
+            }
 
             return agentConfig;
         } finally {

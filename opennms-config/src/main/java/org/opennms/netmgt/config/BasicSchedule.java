@@ -95,8 +95,9 @@ public class BasicSchedule {
      */
     public void setTimeCollection(final Collection<Time> times) {
         synchronized (m_times) {
-            if (m_times == times)
+            if (m_times == times) {
                 return;
+            }
             m_times.clear();
             m_times.addAll(times);
         }

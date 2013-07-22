@@ -345,8 +345,9 @@ public abstract class ThreshdConfigManager {
         LOG.debug("interfaceInPackage: Interface {} passed filter for package {}?: {}", filterPassed, iface,
                   pkg.getName());
 
-        if (!filterPassed)
+        if (!filterPassed) {
             return false;
+        }
 
         //
         // Ensure that the interface is in the specific list or

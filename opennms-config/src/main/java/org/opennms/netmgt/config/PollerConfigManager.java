@@ -567,8 +567,9 @@ public abstract class PollerConfigManager implements PollerConfig {
         LOG.debug("interfaceInPackage: Interface {} passed filter for package {}?: {}", iface, pkg.getName(),
                   Boolean.valueOf(filterPassed));
 
-        if (!filterPassed)
+        if (!filterPassed) {
             return false;
+        }
 
         //
         // Ensure that the interface is in the specific list or
@@ -674,8 +675,9 @@ public abstract class PollerConfigManager implements PollerConfig {
         getReadLock().lock();
         try {
             for (final Service svc : services(pkg)) {
-                if (svcName.equals(svc.getName()))
+                if (svcName.equals(svc.getName())) {
                     return svc;
+                }
             }
         } finally {
             getReadLock().unlock();
@@ -773,8 +775,9 @@ public abstract class PollerConfigManager implements PollerConfig {
         getReadLock().lock();
         try {
             for (final Package pkg : packages()) {
-                if (isInterfaceInPackage(ipaddr, pkg))
+                if (isInterfaceInPackage(ipaddr, pkg)) {
                     return true;
+                }
             }
         } finally {
             getReadLock().unlock();

@@ -86,8 +86,9 @@ public final class MergeableSpecific implements Comparable<String> {
      */
     @Override
     public boolean equals(final Object o) {
-        if (!(o instanceof MergeableSpecific))
+        if (!(o instanceof MergeableSpecific)) {
             return false;
+        }
         final MergeableSpecific that = (MergeableSpecific) o;
         return new EqualsBuilder().append(this.getValue(), that.getValue()).append(this.getSpecific(),
                                                                                    that.getSpecific()).isEquals();

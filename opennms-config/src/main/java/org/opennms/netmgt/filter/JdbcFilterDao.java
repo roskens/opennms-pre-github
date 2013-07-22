@@ -569,12 +569,15 @@ public class JdbcFilterDao implements FilterDao, InitializingBean {
         columns.append(addColumn(tables, "ipAddr"));
 
         final StringBuffer where = new StringBuffer(parseRule(tables, rule));
-        if (nodeId != 0)
+        if (nodeId != 0) {
             where.append(" AND " + addColumn(tables, "nodeID") + " = " + nodeId);
-        if (ipaddr != null && !ipaddr.equals(""))
+        }
+        if (ipaddr != null && !ipaddr.equals("")) {
             where.append(" AND " + addColumn(tables, "ipAddr") + " = '" + ipaddr + "'");
-        if (service != null && !service.equals(""))
+        }
+        if (service != null && !service.equals("")) {
             where.append(" AND " + addColumn(tables, "serviceName") + " = '" + service + "'");
+        }
 
         final String from = m_databaseSchemaConfigFactory.constructJoinExprForTables(tables);
 

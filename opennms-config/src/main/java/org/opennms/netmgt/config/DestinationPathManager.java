@@ -169,8 +169,9 @@ public abstract class DestinationPathManager {
         Target[] targets = getTargetList(index, path);
 
         for (int i = 0; i < targets.length; i++) {
-            if (targets[i].getName().equals(target))
+            if (targets[i].getName().equals(target)) {
                 return targets[i].getCommandCollection();
+            }
         }
 
         // default null value if target isn't found in Path
@@ -237,8 +238,9 @@ public abstract class DestinationPathManager {
         update();
 
         for (Target curTarget : path.getTargetCollection()) {
-            if (curTarget.getName().equals(target))
+            if (curTarget.getName().equals(target)) {
                 return true;
+            }
         }
 
         // default false value if target isn't found

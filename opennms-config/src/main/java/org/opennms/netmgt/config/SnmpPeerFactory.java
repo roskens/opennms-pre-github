@@ -752,10 +752,12 @@ public class SnmpPeerFactory implements SnmpAgentConfigFactory {
      * @return the string
      */
     private String determineEngineId(Definition def) {
-        if (def.getEngineId() != null)
+        if (def.getEngineId() != null) {
             return def.getEngineId();
-        if (m_config.getEngineId() != null)
+        }
+        if (m_config.getEngineId() != null) {
             return m_config.getEngineId();
+        }
         return null;
     }
 
@@ -767,10 +769,12 @@ public class SnmpPeerFactory implements SnmpAgentConfigFactory {
      * @return the string
      */
     private String determineContextEngineId(Definition def) {
-        if (def.getContextEngineId() != null)
+        if (def.getContextEngineId() != null) {
             return def.getContextEngineId();
-        if (m_config.getContextEngineId() != null)
+        }
+        if (m_config.getContextEngineId() != null) {
             return m_config.getContextEngineId();
+        }
         return null;
     }
 
@@ -782,10 +786,12 @@ public class SnmpPeerFactory implements SnmpAgentConfigFactory {
      * @return the string
      */
     private String determineContextName(Definition def) {
-        if (def.getContextName() != null)
+        if (def.getContextName() != null) {
             return def.getContextName();
-        if (m_config.getContextName() != null)
+        }
+        if (m_config.getContextName() != null) {
             return m_config.getContextName();
+        }
         return null;
     }
 
@@ -797,10 +803,12 @@ public class SnmpPeerFactory implements SnmpAgentConfigFactory {
      * @return the string
      */
     private String determineEnterpriseId(Definition def) {
-        if (def.getEnterpriseId() != null)
+        if (def.getEnterpriseId() != null) {
             return def.getEnterpriseId();
-        if (m_config.getEnterpriseId() != null)
+        }
+        if (m_config.getEnterpriseId() != null) {
             return m_config.getEnterpriseId();
+        }
         return null;
     }
 

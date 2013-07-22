@@ -146,8 +146,9 @@ public final class TrapdConfigFactory implements TrapdConfig {
      * @return The current factory instance.
      */
     public static synchronized TrapdConfig getInstance() {
-        if (!m_loaded)
+        if (!m_loaded) {
             throw new IllegalStateException("The factory has not been initialized");
+        }
 
         return m_singleton;
     }

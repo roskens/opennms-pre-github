@@ -271,8 +271,9 @@ public final class EventTranslatorConfigFactory implements EventTranslatorConfig
      * @return The current factory instance.
      */
     public static synchronized EventTranslatorConfig getInstance() {
-        if (!m_loaded)
+        if (!m_loaded) {
             throw new IllegalStateException("getInstance: The factory has not been initialized");
+        }
 
         return m_singleton;
     }
@@ -325,8 +326,9 @@ public final class EventTranslatorConfigFactory implements EventTranslatorConfig
      */
     private List<String> getTranslationUEIs() {
         Translation translation = getConfig().getTranslation();
-        if (translation == null)
+        if (translation == null) {
             return Collections.emptyList();
+        }
 
         List<String> ueis = new ArrayList<String>();
         for (EventTranslationSpec event : translation.getEventTranslationSpecCollection()) {
@@ -358,8 +360,9 @@ public final class EventTranslatorConfigFactory implements EventTranslatorConfig
     @Override
     public boolean isTranslationEvent(Event e) {
         for (TranslationSpec spec : getTranslationSpecs()) {
-            if (spec.matches(e))
+            if (spec.matches(e)) {
                 return true;
+            }
         }
         return false;
     }
@@ -380,8 +383,9 @@ public final class EventTranslatorConfigFactory implements EventTranslatorConfig
      * @return the translation specs
      */
     private List<TranslationSpec> getTranslationSpecs() {
-        if (m_translationSpecs == null)
+        if (m_translationSpecs == null) {
             m_translationSpecs = constructTranslationSpecs();
+        }
 
         return m_translationSpecs;
     }
@@ -430,15 +434,17 @@ public final class EventTranslatorConfigFactory implements EventTranslatorConfig
          */
         public List<Event> translate(Event e) {
             // short circuit here is the uei doesn't match
-            if (!ueiMatches(e))
+            if (!ueiMatches(e)) {
                 return Collections.emptyList();
+            }
 
             // uei matches now go thru the mappings
             ArrayList<Event> events = new ArrayList<Event>();
             for (TranslationMapping mapping : getTranslationMappings()) {
                 Event translatedEvent = mapping.translate(e);
-                if (translatedEvent != null)
+                if (translatedEvent != null) {
                     events.add(translatedEvent);
+                }
             }
 
             return events;
@@ -468,8 +474,9 @@ public final class EventTranslatorConfigFactory implements EventTranslatorConfig
          * @return the list
          */
         private List<TranslationMapping> constructTranslationMappings() {
-            if (m_spec.getMappings() == null)
+            if (m_spec.getMappings() == null) {
                 return Collections.emptyList();
+            }
 
             List<Mapping> mappings = m_spec.getMappings().getMappingCollection();
 
@@ -488,8 +495,9 @@ public final class EventTranslatorConfigFactory implements EventTranslatorConfig
          * @return the translation mappings
          */
         List<TranslationMapping> getTranslationMappings() {
-            if (m_translationMappings == null)
+            if (m_translationMappings == null) {
                 m_translationMappings = constructTranslationMappings();
+            }
             return Collections.unmodifiableList(m_translationMappings);
         }
 
@@ -511,8 +519,9 @@ public final class EventTranslatorConfigFactory implements EventTranslatorConfig
             // uei matches to go thru the mappings
             LOG.debug("TransSpec.matches: checking mappings for spec.");
             for (TranslationMapping transMap : getTranslationMappings()) {
-                if (transMap.matches(e))
+                if (transMap.matches(e)) {
                     return true;
+                }
             }
             return false;
         }
@@ -563,8 +572,9 @@ public final class EventTranslatorConfigFactory implements EventTranslatorConfig
         public Event translate(Event srcEvent) {
             // if the event doesn't match the mapping then don't apply the
             // translation
-            if (!matches(srcEvent))
+            if (!matches(srcEvent)) {
                 return null;
+            }
 
             Event targetEvent = cloneEvent(srcEvent);
             for (AssignmentSpec assignSpec : getAssignmentSpecs()) {
@@ -615,8 +625,9 @@ public final class EventTranslatorConfigFactory implements EventTranslatorConfig
          * @return the assignment specs
          */
         private List<AssignmentSpec> getAssignmentSpecs() {
-            if (m_assignments == null)
+            if (m_assignments == null) {
                 m_assignments = constructAssignmentSpecs();
+            }
             return m_assignments;
         }
 
@@ -749,8 +760,9 @@ public final class EventTranslatorConfigFactory implements EventTranslatorConfig
          * @return the value spec
          */
         private ValueSpec getValueSpec() {
-            if (m_valueSpec == null)
+            if (m_valueSpec == null) {
                 m_valueSpec = constructValueSpec();
+            }
             return m_valueSpec;
         }
 
@@ -855,16 +867,17 @@ public final class EventTranslatorConfigFactory implements EventTranslatorConfig
      * @return the value spec
      */
     ValueSpec getValueSpec(Value val) {
-        if ("field".equals(val.getType()))
+        if ("field".equals(val.getType())) {
             return new FieldValueSpec(val);
-        else if ("parameter".equals(val.getType()))
+        } else if ("parameter".equals(val.getType())) {
             return new ParameterValueSpec(val);
-        else if ("constant".equals(val.getType()))
+        } else if ("constant".equals(val.getType())) {
             return new ConstantValueSpec(val);
-        else if ("sql".equals(val.getType()))
+        } else if ("sql".equals(val.getType())) {
             return new SqlValueSpec(val);
-        else
+        } else {
             return new ValueSpecUnspecified();
+        }
     }
 
     /**
@@ -984,8 +997,9 @@ public final class EventTranslatorConfigFactory implements EventTranslatorConfig
          * @return the nested values
          */
         public List<ValueSpec> getNestedValues() {
-            if (m_nestedValues == null)
+            if (m_nestedValues == null) {
                 m_nestedValues = constructNestedValues();
+            }
             return m_nestedValues;
         }
 
@@ -1008,8 +1022,9 @@ public final class EventTranslatorConfigFactory implements EventTranslatorConfig
         @Override
         public boolean matches(Event e) {
             for (ValueSpec nestedVal : getNestedValues()) {
-                if (!nestedVal.matches(e))
+                if (!nestedVal.matches(e)) {
                     return false;
+                }
             }
 
             Query query = createQuery(e);
@@ -1179,8 +1194,9 @@ public final class EventTranslatorConfigFactory implements EventTranslatorConfig
          */
         @Override
         public String getResult(Event srcEvent) {
-            if (m_val.getMatches() == null)
+            if (m_val.getMatches() == null) {
                 return m_val.getResult();
+            }
 
             String attributeValue = getAttributeValue(srcEvent);
 
@@ -1191,9 +1207,10 @@ public final class EventTranslatorConfigFactory implements EventTranslatorConfig
 
             Pattern p = Pattern.compile(m_val.getMatches());
             final Matcher m = p.matcher(attributeValue);
-            if (!m.matches())
+            if (!m.matches()) {
                 throw new TranslationFailedException("failed to match " + attributeValue + " against '"
                         + m_val.getMatches() + "' for attribute " + getAttributeName());
+            }
 
             MatchTable matches = new MatchTable(m);
 
@@ -1233,10 +1250,11 @@ public final class EventTranslatorConfigFactory implements EventTranslatorConfig
          */
         @Override
         public void setValue(Object value) {
-            if (value == null || value instanceof String)
+            if (value == null || value instanceof String) {
                 super.setValue(value);
-            else
+            } else {
                 super.setValue(value.toString());
+            }
         }
 
         /* (non-Javadoc)

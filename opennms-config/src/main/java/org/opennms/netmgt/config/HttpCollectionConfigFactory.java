@@ -316,10 +316,11 @@ public class HttpCollectionConfigFactory {
      */
     public int getStep(String cName) {
         HttpCollection collection = getHttpCollection(cName);
-        if (collection != null)
+        if (collection != null) {
             return collection.getRrd().getStep();
-        else
+        } else {
             return -1;
+        }
     }
 
     /**
@@ -334,10 +335,11 @@ public class HttpCollectionConfigFactory {
      */
     public List<String> getRRAList(String cName) {
         HttpCollection collection = getHttpCollection(cName);
-        if (collection != null)
+        if (collection != null) {
             return collection.getRrd().getRraCollection();
-        else
+        } else {
             return null;
+        }
 
     }
 

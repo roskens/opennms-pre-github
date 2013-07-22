@@ -124,8 +124,9 @@ public final class ActiondConfigFactory {
      * @return The current factory instance.
      */
     public static synchronized ActiondConfigFactory getInstance() {
-        if (!m_loaded)
+        if (!m_loaded) {
             throw new IllegalStateException("The factory has not been initialized");
+        }
 
         return m_singleton;
     }

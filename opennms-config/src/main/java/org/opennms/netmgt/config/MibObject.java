@@ -287,8 +287,9 @@ public class MibObject implements Collectable {
      */
     @Override
     public boolean equals(Object object) {
-        if (object == null)
+        if (object == null) {
             return false;
+        }
 
         MibObject aMibObject;
 
@@ -441,11 +442,13 @@ public class MibObject implements Collectable {
      * @return a {@link org.opennms.netmgt.snmp.SnmpObjId} object.
      */
     public SnmpObjId getSnmpObjId() {
-        if (getOid() == null)
+        if (getOid() == null) {
             return null;
+        }
 
-        if (m_snmpObjId == null)
+        if (m_snmpObjId == null) {
             m_snmpObjId = SnmpObjId.get(getOid());
+        }
 
         return m_snmpObjId;
     }

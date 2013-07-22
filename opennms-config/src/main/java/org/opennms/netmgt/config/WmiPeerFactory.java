@@ -367,8 +367,9 @@ public class WmiPeerFactory {
      * @return The current factory instance.
      */
     public static synchronized WmiPeerFactory getInstance() {
-        if (!m_loaded)
+        if (!m_loaded) {
             throw new IllegalStateException("The WmiPeerFactory has not been initialized");
+        }
 
         return m_singleton;
     }

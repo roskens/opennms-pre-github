@@ -78,8 +78,9 @@ public class NotifdConfigFactory extends NotifdConfigManager {
      * @return a {@link org.opennms.netmgt.config.NotifdConfigFactory} object.
      */
     public static synchronized NotifdConfigFactory getInstance() {
-        if (!initialized)
+        if (!initialized) {
             throw new IllegalStateException("init() not called.");
+        }
 
         return instance;
     }
@@ -152,17 +153,19 @@ public class NotifdConfigFactory extends NotifdConfigManager {
      *             the validation exception
      */
     public static String getPrettyStatus() throws IOException, MarshalException, ValidationException {
-        if (!initialized)
+        if (!initialized) {
             return "Unknown";
+        }
 
         String status = "Unknown";
 
         status = NotifdConfigFactory.getInstance().getNotificationStatus();
 
-        if (status.equals("on"))
+        if (status.equals("on")) {
             status = "On";
-        else if (status.equals("off"))
+        } else if (status.equals("off")) {
             status = "Off";
+        }
 
         return status;
     }

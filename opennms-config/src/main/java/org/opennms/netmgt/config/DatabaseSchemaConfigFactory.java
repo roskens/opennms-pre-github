@@ -201,8 +201,9 @@ public final class DatabaseSchemaConfigFactory {
      * @return The current factory instance.
      */
     public static synchronized DatabaseSchemaConfigFactory getInstance() {
-        if (!m_loaded)
+        if (!m_loaded) {
             throw new IllegalStateException("The factory has not been initialized");
+        }
 
         return m_singleton;
     }
@@ -415,8 +416,9 @@ public final class DatabaseSchemaConfigFactory {
                 joinExpr.append(joinTables.get(i) + "." + currentJoin.getColumn() + ")");
             }
 
-            if (joinExpr.length() > 0)
+            if (joinExpr.length() > 0) {
                 return "FROM " + joinExpr.toString();
+            }
             return "";
         } finally {
             getReadLock().unlock();

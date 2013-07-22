@@ -235,8 +235,9 @@ public class DefaultEventConfDao implements EventConfDao, InitializingBean {
     @Override
     public boolean removeEventFromProgrammaticStore(Event event) {
         Events programmaticEvents = m_events.getLoadEventsByFile(m_programmaticStoreRelativePath);
-        if (programmaticEvents == null)
+        if (programmaticEvents == null) {
             return false;
+        }
 
         programmaticEvents.removeEvent(event);
         if (programmaticEvents.getEventCount() <= 0) {

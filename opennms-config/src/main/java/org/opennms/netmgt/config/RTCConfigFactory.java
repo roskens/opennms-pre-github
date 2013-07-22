@@ -88,35 +88,41 @@ public final class RTCConfigFactory {
         int sIndex = rolling.indexOf('s');
 
         // get the hour component
-        if (hIndex != -1)
+        if (hIndex != -1) {
             hrStr = rolling.substring(0, hIndex);
+        }
 
         if (mIndex != -1) // min component present
         {
             if (hIndex != -1) // hours also present
             {
                 // make sure format is right
-                if (hIndex >= mIndex)
+                if (hIndex >= mIndex) {
                     throw new IllegalArgumentException("RTC: Value " + rolling + " - format incorrect");
+                }
 
                 minStr = rolling.substring(hIndex + 1, mIndex);
-            } else
+            } else {
                 minStr = rolling.substring(0, mIndex);
+            }
         }
 
         if (sIndex != -1) // seconds component present
         {
             if (mIndex != -1) {
-                if (mIndex >= sIndex)
+                if (mIndex >= sIndex) {
                     throw new IllegalArgumentException("RTC: Value " + rolling + " - format incorrect");
+                }
                 secStr = rolling.substring(mIndex + 1, sIndex);
             } else if (hIndex != -1) {
-                if (hIndex >= sIndex)
+                if (hIndex >= sIndex) {
                     throw new IllegalArgumentException("RTC: Value " + rolling + " - format incorrect");
+                }
                 secStr = rolling.substring(hIndex + 1, sIndex);
 
-            } else
+            } else {
                 secStr = rolling.substring(0, sIndex);
+            }
         }
 
         int hours = 0;
@@ -124,14 +130,17 @@ public final class RTCConfigFactory {
         int sec = 0;
 
         try {
-            if (hrStr != null)
+            if (hrStr != null) {
                 hours = Integer.parseInt(hrStr);
+            }
 
-            if (minStr != null)
+            if (minStr != null) {
                 min = Integer.parseInt(minStr);
+            }
 
-            if (secStr != null)
+            if (secStr != null) {
                 sec = Integer.parseInt(secStr);
+            }
 
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException("RTC: Value " + rolling + " - format incorrect");
@@ -256,8 +265,9 @@ public final class RTCConfigFactory {
      * @return The current factory instance.
      */
     public static synchronized RTCConfigFactory getInstance() {
-        if (!m_loaded)
+        if (!m_loaded) {
             throw new IllegalStateException("The factory has not been initialized");
+        }
 
         return m_singleton;
     }

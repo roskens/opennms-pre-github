@@ -120,8 +120,9 @@ public class ViewFactory {
      * @return the single view factory instance
      */
     public static synchronized ViewFactory getInstance() {
-        if (!initialized)
+        if (!initialized) {
             return null;
+        }
 
         if (instance == null) {
             instance = new ViewFactory();
@@ -211,8 +212,9 @@ public class ViewFactory {
                             if (!member.getContent().equals(name)) {
                                 membership.addMember(member);
                             }
-                        } else
+                        } else {
                             membership.addMember(member);
+                        }
                     }
                 }
                 newView.setMembership(membership);

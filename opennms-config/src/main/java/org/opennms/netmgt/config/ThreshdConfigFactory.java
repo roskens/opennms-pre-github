@@ -188,8 +188,9 @@ public final class ThreshdConfigFactory extends ThreshdConfigManager {
      * @return The current factory instance.
      */
     public static synchronized ThreshdConfigFactory getInstance() {
-        if (!m_loaded)
+        if (!m_loaded) {
             throw new IllegalStateException("The factory has not been initialized");
+        }
 
         return m_singleton;
     }

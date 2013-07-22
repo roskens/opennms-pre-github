@@ -298,8 +298,9 @@ public abstract class UserManager {
         m_readLock.lock();
         try {
             // if the user has no duty schedules then he is on duty
-            if (!m_dutySchedules.containsKey(user))
+            if (!m_dutySchedules.containsKey(user)) {
                 return true;
+            }
 
             for (final DutySchedule curSchedule : m_dutySchedules.get(user)) {
                 if (curSchedule.isInSchedule(time)) {
@@ -402,8 +403,9 @@ public abstract class UserManager {
      */
     private OnmsUser _getOnmsUser(final String username) throws IOException, MarshalException, ValidationException {
         final User castorUser = _getUser(username);
-        if (castorUser == null)
+        if (castorUser == null) {
             return null;
+        }
 
         final OnmsUser user = new OnmsUser(username);
         user.setFullName(castorUser.getFullName());
@@ -674,8 +676,9 @@ public abstract class UserManager {
      * @return the string
      */
     private String _getContactInfo(final User user, final String command) {
-        if (user == null)
+        if (user == null) {
             return "";
+        }
 
         for (final Contact contact : user.getContactCollection()) {
             if (contact != null && contact.getType().equals(command)) {
@@ -753,8 +756,9 @@ public abstract class UserManager {
      * @return the string
      */
     private String _getContactServiceProvider(final User user, final String command) {
-        if (user == null)
+        if (user == null) {
             return "";
+        }
 
         for (final Contact contact : user.getContactCollection()) {
             if (contact != null && contact.getType().equals(command)) {
@@ -926,8 +930,9 @@ public abstract class UserManager {
      * @return the string
      */
     private String _getXMPPAddress(final User user) {
-        if (user == null)
+        if (user == null) {
             return "";
+        }
 
         for (final Contact contact : user.getContactCollection()) {
             if (contact != null && contact.getType().equals(ContactType.xmppAddress.toString())) {
@@ -1392,8 +1397,9 @@ public abstract class UserManager {
      */
     private String hexToString(final byte[] data) {
         // check to see if the byte array has an even number of elements
-        if ((data.length % 2) != 0)
+        if ((data.length % 2) != 0) {
             return null;
+        }
 
         // there will be two hexadecimal characters for each byte element
         final char[] buffer = new char[data.length * 2];
@@ -1423,8 +1429,9 @@ public abstract class UserManager {
 
         try {
             final User user = m_users.get(userID);
-            if (user == null)
+            if (user == null) {
                 return false;
+            }
 
             final String password = user.getPassword().getContent().trim();
             final boolean isSalted = user.getPassword().getSalt();
@@ -1590,8 +1597,9 @@ public abstract class UserManager {
      */
     private boolean _userHasRole(final User user, final String roleid) throws MarshalException, ValidationException,
             IOException {
-        if (roleid == null)
+        if (roleid == null) {
             throw new NullPointerException("roleid is null");
+        }
 
         return m_groupManager.userHasRole(user.getUserId(), roleid);
     }
@@ -1649,8 +1657,9 @@ public abstract class UserManager {
      */
     private boolean _isUserScheduledForRole(final User user, final String roleid, final Date time)
             throws MarshalException, ValidationException, IOException {
-        if (roleid == null)
+        if (roleid == null) {
             throw new NullPointerException("roleid is null");
+        }
 
         return m_groupManager.isUserScheduledForRole(user.getUserId(), roleid, time);
     }
@@ -1738,8 +1747,9 @@ public abstract class UserManager {
         m_readLock.lock();
         try {
             final String[] users = _getUsersWithRole(roleid);
-            if (users == null)
+            if (users == null) {
                 return 0;
+            }
             return users.length;
         } finally {
             m_readLock.unlock();

@@ -1472,8 +1472,9 @@ public class SnmpEventInfoTest {
         // ... check each event param, it must be equal to initial
         for (Parm eachParm : event.getParmCollection()) {
             Object expectedValue = expectedParmMap.get(eachParm.getParmName());
-            if (expectedValue == null)
+            if (expectedValue == null) {
                 fail("expectedValue must not be null. Mapping is not implemented correctly");
+            }
             assertEquals(expectedValue, eachParm.getValue().getContent());
         }
 

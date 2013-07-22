@@ -155,14 +155,16 @@ public class SyslogdConfigFactoryTest {
         Assert.assertEquals(4, factory.getHideMessages().getHideMatchCount());
         int countMatch = 0;
         for (HideMatch hide : factory.getHideMessages().getHideMatchCollection()) {
-            if (hide.getMatch().getExpression().startsWith("bad"))
+            if (hide.getMatch().getExpression().startsWith("bad")) {
                 countMatch++;
+            }
         }
         Assert.assertEquals(2, countMatch);
         countMatch = 0;
         for (UeiMatch ueiMatch : factory.getUeiList().getUeiMatchCollection()) {
-            if (ueiMatch.getProcessMatch() != null && ueiMatch.getProcessMatch().getExpression().startsWith("agalue"))
+            if (ueiMatch.getProcessMatch() != null && ueiMatch.getProcessMatch().getExpression().startsWith("agalue")) {
                 countMatch++;
+            }
         }
         Assert.assertEquals(8, countMatch);
     }

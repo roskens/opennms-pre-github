@@ -132,8 +132,9 @@ public final class ScriptdConfigFactory {
      * @return The current factory instance.
      */
     public static synchronized ScriptdConfigFactory getInstance() {
-        if (!m_loaded)
+        if (!m_loaded) {
             throw new IllegalStateException("The factory has not been initialized");
+        }
 
         return m_singleton;
     }

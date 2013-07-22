@@ -125,8 +125,9 @@ public final class OutageManagerConfigFactory implements OutageManagerConfig {
      * @return The current factory instance.
      */
     public static synchronized OutageManagerConfig getInstance() {
-        if (!m_loaded)
+        if (!m_loaded) {
             throw new IllegalStateException("The factory has not been initialized");
+        }
 
         return m_singleton;
     }
@@ -162,8 +163,9 @@ public final class OutageManagerConfigFactory implements OutageManagerConfig {
         boolean propagation = true;
 
         final String deletePropagation = m_config.getDeletePropagation();
-        if (deletePropagation != null && deletePropagation.equals("false"))
+        if (deletePropagation != null && deletePropagation.equals("false")) {
             propagation = false;
+        }
 
         return propagation;
     }

@@ -272,8 +272,9 @@ public class WmiDataCollectionConfigFactory {
         WmiCollection[] collections = m_config.getWmiCollection();
         WmiCollection collection = null;
         for (WmiCollection coll : collections) {
-            if (coll.getName().equalsIgnoreCase(collectionName))
+            if (coll.getName().equalsIgnoreCase(collectionName)) {
                 collection = coll;
+            }
             break;
         }
         if (collection == null) {
@@ -314,10 +315,11 @@ public class WmiDataCollectionConfigFactory {
      */
     public int getStep(String cName) {
         WmiCollection collection = getWmiCollection(cName);
-        if (collection != null)
+        if (collection != null) {
             return collection.getRrd().getStep();
-        else
+        } else {
             return -1;
+        }
     }
 
     /**
@@ -332,10 +334,11 @@ public class WmiDataCollectionConfigFactory {
      */
     public List<String> getRRAList(String cName) {
         WmiCollection collection = getWmiCollection(cName);
-        if (collection != null)
+        if (collection != null) {
             return collection.getRrd().getRraCollection();
-        else
+        } else {
             return null;
+        }
 
     }
 

@@ -226,8 +226,9 @@ public class DiscoveryConfigFactory {
      * @return The current factory instance.
      */
     public static synchronized DiscoveryConfigFactory getInstance() {
-        if (!m_loaded)
+        if (!m_loaded) {
             throw new IllegalStateException("The factory has not been initialized");
+        }
 
         return m_singleton;
     }
@@ -440,10 +441,12 @@ public class DiscoveryConfigFactory {
         try {
             Long defaultTimeout = null;
             Integer defaultRetries = null;
-            if (getConfiguration().hasTimeout())
+            if (getConfiguration().hasTimeout()) {
                 defaultTimeout = getConfiguration().getTimeout();
-            if (getConfiguration().hasRetries())
+            }
+            if (getConfiguration().hasRetries()) {
                 defaultRetries = getConfiguration().getRetries();
+            }
 
             for (final IncludeUrl url : getConfiguration().getIncludeUrlCollection()) {
 
@@ -486,10 +489,12 @@ public class DiscoveryConfigFactory {
         try {
             Long defaultTimeout = null;
             Integer defaultRetries = null;
-            if (getConfiguration().hasTimeout())
+            if (getConfiguration().hasTimeout()) {
                 defaultTimeout = getConfiguration().getTimeout();
-            if (getConfiguration().hasRetries())
+            }
+            if (getConfiguration().hasRetries()) {
                 defaultRetries = getConfiguration().getRetries();
+            }
 
             for (final IncludeRange ir : getConfiguration().getIncludeRangeCollection()) {
 
@@ -552,10 +557,12 @@ public class DiscoveryConfigFactory {
         try {
             Long defaultTimeout = null;
             Integer defaultRetries = null;
-            if (getConfiguration().hasTimeout())
+            if (getConfiguration().hasTimeout()) {
                 defaultTimeout = getConfiguration().getTimeout();
-            if (getConfiguration().hasRetries())
+            }
+            if (getConfiguration().hasRetries()) {
                 defaultRetries = getConfiguration().getRetries();
+            }
 
             for (final Specific s : getConfiguration().getSpecificCollection()) {
 

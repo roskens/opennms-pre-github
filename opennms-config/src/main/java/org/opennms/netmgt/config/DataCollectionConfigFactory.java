@@ -100,8 +100,9 @@ public final class DataCollectionConfigFactory {
      * @return The current factory instance.
      */
     public static synchronized DataCollectionConfigDao getInstance() {
-        if (m_singleton == null)
+        if (m_singleton == null) {
             throw new IllegalStateException("The factory has not been initialized");
+        }
         return m_singleton;
     }
 

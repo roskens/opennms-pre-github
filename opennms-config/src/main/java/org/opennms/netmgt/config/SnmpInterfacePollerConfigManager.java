@@ -427,8 +427,9 @@ public abstract class SnmpInterfacePollerConfigManager implements SnmpInterfaceP
         LOG.debug("interfaceInPackage: Interface {} passed filter for package {}?: {}", filterPassed, iface,
                   pkg.getName());
 
-        if (!filterPassed)
+        if (!filterPassed) {
             return false;
+        }
 
         //
         // Ensure that the interface is in the specific list or
@@ -533,8 +534,9 @@ public abstract class SnmpInterfacePollerConfigManager implements SnmpInterfaceP
     /** {@inheritDoc} */
     @Override
     public synchronized Set<String> getInterfaceOnPackage(String pkgName) {
-        if (m_pkgIntMap.containsKey(pkgName))
+        if (m_pkgIntMap.containsKey(pkgName)) {
             return Collections.unmodifiableSet(m_pkgIntMap.get(pkgName).keySet());
+        }
         Set<String> retval = Collections.emptySet();
         return Collections.unmodifiableSet(retval);
     }

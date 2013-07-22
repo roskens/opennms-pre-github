@@ -142,8 +142,9 @@ public class KSC_PerformanceReportFactory {
      *             the validation exception
      */
     public synchronized void reload() throws IOException, FileNotFoundException, MarshalException, ValidationException {
-        if (s_configFile == null)
+        if (s_configFile == null) {
             s_configFile = ConfigFileConstants.getFile(ConfigFileConstants.KSC_REPORT_FILE_NAME);
+        }
 
         m_config = CastorUtils.unmarshal(ReportsList.class, new FileSystemResource(s_configFile));
 

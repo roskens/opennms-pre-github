@@ -418,8 +418,9 @@ public class DefaultDataCollectionConfigDao extends AbstractJaxbConfigDao<Dataco
     private static SnmpCollection getSnmpCollection(final FileReloadContainer<DatacollectionConfig> container,
             final String collectionName) {
         for (final SnmpCollection collection : container.getObject().getSnmpCollection()) {
-            if (collection.getName().equals(collectionName))
+            if (collection.getName().equals(collectionName)) {
                 return collection;
+            }
         }
         return null;
     }
@@ -497,8 +498,9 @@ public class DefaultDataCollectionConfigDao extends AbstractJaxbConfigDao<Dataco
                 // a single type value or a list of values. In the case
                 // of a list the ifType values will be delimited by commas.
                 boolean isList = false;
-                if (groupIfType.indexOf(',') != -1)
+                if (groupIfType.indexOf(',') != -1) {
                     isList = true;
+                }
 
                 // Next compare the provided ifType parameter with the
                 // group's ifType value to determine if the group's OIDs
@@ -514,8 +516,9 @@ public class DefaultDataCollectionConfigDao extends AbstractJaxbConfigDao<Dataco
                 // ifType parm must be extracted and compared until an
                 // EXACT match is found..
                 if (!isList) {
-                    if (ifTypeStr.equals(groupIfType))
+                    if (ifTypeStr.equals(groupIfType)) {
                         addGroupObjects = true;
+                    }
                 } else {
                     int tmpIndex = groupIfType.indexOf(ifTypeStr);
                     while (tmpIndex != -1) {
@@ -542,8 +545,9 @@ public class DefaultDataCollectionConfigDao extends AbstractJaxbConfigDao<Dataco
 
                         // No more commas indicates no more ifType values to
                         // compare...we're done
-                        if (nextComma == -1)
+                        if (nextComma == -1) {
                             break;
+                        }
 
                         // Get next substring and reset tmpIndex to
                         // once again point to the first occurrence of
@@ -677,12 +681,15 @@ public class DefaultDataCollectionConfigDao extends AbstractJaxbConfigDao<Dataco
                 for (final Group group : groups.getGroupCollection()) {
                     for (final MibObj mibObj : group.getMibObjCollection()) {
                         final String instance = mibObj.getInstance();
-                        if (instance == null)
+                        if (instance == null) {
                             continue;
-                        if (MibObject.INSTANCE_IFINDEX.equals(instance))
+                        }
+                        if (MibObject.INSTANCE_IFINDEX.equals(instance)) {
                             continue;
-                        if (allowedResourceTypes.contains(instance))
+                        }
+                        if (allowedResourceTypes.contains(instance)) {
                             continue;
+                        }
                         try {
                             // Check to see if the value is a non-negative
                             // integer

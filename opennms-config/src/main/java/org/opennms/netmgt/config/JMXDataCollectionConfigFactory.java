@@ -230,8 +230,9 @@ public final class JMXDataCollectionConfigFactory {
      * @return The current factory instance.
      */
     public static synchronized JMXDataCollectionConfigFactory getInstance() {
-        if (!m_loaded)
+        if (!m_loaded) {
             throw new IllegalStateException("The factory has not been initialized");
+        }
 
         return m_singleton;
     }
@@ -446,10 +447,11 @@ public final class JMXDataCollectionConfigFactory {
      */
     public int getStep(String cName) {
         JmxCollection collection = m_collectionMap.get(cName);
-        if (collection != null)
+        if (collection != null) {
             return collection.getRrd().getStep();
-        else
+        } else {
             return -1;
+        }
     }
 
     /**
@@ -461,10 +463,11 @@ public final class JMXDataCollectionConfigFactory {
      */
     public List<String> getRRAList(String cName) {
         JmxCollection collection = m_collectionMap.get(cName);
-        if (collection != null)
+        if (collection != null) {
             return collection.getRrd().getRraCollection();
-        else
+        } else {
             return null;
+        }
 
     }
 

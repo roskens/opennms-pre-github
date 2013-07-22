@@ -137,8 +137,9 @@ public abstract class BasicScheduleUtils {
             }
 
             // if time of day was specified and did not match, continue
-            if (oTimeDay != null && !inOutage)
+            if (oTimeDay != null && !inOutage) {
                 continue;
+            }
 
             // set time in out calendars
             setOutCalTime(outCalBegin, begins);
@@ -183,8 +184,9 @@ public abstract class BasicScheduleUtils {
             } catch (ParseException pE) {
                 tempDate = null;
             }
-            if (tempDate == null)
+            if (tempDate == null) {
                 return;
+            }
 
             Calendar tempCal = new GregorianCalendar();
             tempCal.setTime(tempDate);
@@ -207,8 +209,9 @@ public abstract class BasicScheduleUtils {
             } catch (ParseException pE) {
                 tempDate = null;
             }
-            if (tempDate == null)
+            if (tempDate == null) {
                 return;
+            }
 
             Calendar tempCal = new GregorianCalendar();
             tempCal.setTime(tempDate);
@@ -269,8 +272,9 @@ public abstract class BasicScheduleUtils {
                 Integer dayInMap = getDayOfWeekIndex(oTimeDay);
                 if (dayInMap != null) {
                     // check if value specified matches current date
-                    if (cal.get(Calendar.DAY_OF_WEEK) == dayInMap.intValue())
+                    if (cal.get(Calendar.DAY_OF_WEEK) == dayInMap.intValue()) {
                         inOutage = true;
+                    }
 
                     outCalBegin.set(Calendar.DAY_OF_WEEK, dayInMap.intValue());
                     outCalEnd.set(Calendar.DAY_OF_WEEK, dayInMap.intValue());
@@ -278,8 +282,9 @@ public abstract class BasicScheduleUtils {
                 else {
                     int intOTimeDay = (new Integer(oTimeDay)).intValue();
 
-                    if (cal.get(Calendar.DAY_OF_MONTH) == intOTimeDay)
+                    if (cal.get(Calendar.DAY_OF_MONTH) == intOTimeDay) {
                         inOutage = true;
+                    }
 
                     outCalBegin.set(Calendar.DAY_OF_MONTH, intOTimeDay);
                     outCalEnd.set(Calendar.DAY_OF_MONTH, intOTimeDay);
@@ -297,8 +302,9 @@ public abstract class BasicScheduleUtils {
             long outCalBeginTime = outCalBegin.getTime().getTime() / 1000 * 1000;
             long outCalEndTime = (outCalEnd.getTime().getTime() / 1000 + 1) * 1000;
 
-            if (curCalTime >= outCalBeginTime && curCalTime < outCalEndTime)
+            if (curCalTime >= outCalBeginTime && curCalTime < outCalEndTime) {
                 return outCalEnd;
+            }
         }
         return null; // Couldn't find a time period that matches
     }
@@ -581,8 +587,9 @@ public abstract class BasicScheduleUtils {
 
         // return an empty list for entries that have a zero length interval
         // specified
-        if (time.getBegins().equals(time.getEnds()))
+        if (time.getBegins().equals(time.getEnds())) {
             return seq;
+        }
 
         if (isWeekly(time)) {
             final Date done = nextWeek(end);
@@ -680,8 +687,9 @@ public abstract class BasicScheduleUtils {
      * @return the basic outage schedule
      */
     static BasicSchedule getBasicOutageSchedule(final Outage out) {
-        if (out == null)
+        if (out == null) {
             return null;
+        }
         final BasicSchedule schedule = new BasicSchedule();
         schedule.setName(out.getName());
         schedule.setType(out.getType());
@@ -702,8 +710,9 @@ public abstract class BasicScheduleUtils {
      * @return the group schedule
      */
     public static BasicSchedule getGroupSchedule(final Schedule schedule) {
-        if (schedule == null)
+        if (schedule == null) {
             return null;
+        }
 
         final BasicSchedule basicSchedule = new BasicSchedule();
         basicSchedule.setName(schedule.getName());
@@ -725,8 +734,9 @@ public abstract class BasicScheduleUtils {
      * @return the rancid schedule
      */
     public static BasicSchedule getRancidSchedule(org.opennms.netmgt.config.rancid.adapter.Schedule schedule) {
-        if (schedule == null)
+        if (schedule == null) {
             return null;
+        }
 
         final BasicSchedule basicSchedule = new BasicSchedule();
         basicSchedule.setName(schedule.getName());

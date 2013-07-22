@@ -74,46 +74,66 @@ public class SnmpConfigManager {
      *            The Definition where the defaults get removed
      */
     private void removeDefaults(Definition def) {
-        if (areEquals(m_config.getPort(), def.getPort()))
+        if (areEquals(m_config.getPort(), def.getPort())) {
             def.setPort(null);
-        if (areEquals(m_config.getAuthPassphrase(), def.getAuthPassphrase()))
+        }
+        if (areEquals(m_config.getAuthPassphrase(), def.getAuthPassphrase())) {
             def.setAuthPassphrase(null);
-        if (areEquals(m_config.getAuthProtocol(), def.getAuthProtocol()))
+        }
+        if (areEquals(m_config.getAuthProtocol(), def.getAuthProtocol())) {
             def.setAuthProtocol(null);
-        if (areEquals(m_config.getContextEngineId(), def.getContextEngineId()))
+        }
+        if (areEquals(m_config.getContextEngineId(), def.getContextEngineId())) {
             def.setContextEngineId(null);
-        if (areEquals(m_config.getContextName(), def.getContextName()))
+        }
+        if (areEquals(m_config.getContextName(), def.getContextName())) {
             def.setContextName(null);
-        if (areEquals(m_config.getEngineId(), def.getEngineId()))
+        }
+        if (areEquals(m_config.getEngineId(), def.getEngineId())) {
             def.setEngineId(null);
-        if (areEquals(m_config.getEnterpriseId(), def.getEnterpriseId()))
+        }
+        if (areEquals(m_config.getEnterpriseId(), def.getEnterpriseId())) {
             def.setEnterpriseId(null);
-        if (areEquals(m_config.getMaxRepetitions(), def.getMaxRepetitions()))
+        }
+        if (areEquals(m_config.getMaxRepetitions(), def.getMaxRepetitions())) {
             def.setMaxRepetitions(null);
-        if (areEquals(m_config.getMaxVarsPerPdu(), def.getMaxVarsPerPdu()))
+        }
+        if (areEquals(m_config.getMaxVarsPerPdu(), def.getMaxVarsPerPdu())) {
             def.setMaxVarsPerPdu(null);
-        if (areEquals(m_config.getPrivacyPassphrase(), def.getPrivacyPassphrase()))
+        }
+        if (areEquals(m_config.getPrivacyPassphrase(), def.getPrivacyPassphrase())) {
             def.setPrivacyPassphrase(null);
-        if (areEquals(m_config.getPrivacyProtocol(), def.getPrivacyProtocol()))
+        }
+        if (areEquals(m_config.getPrivacyProtocol(), def.getPrivacyProtocol())) {
             def.setPrivacyProtocol(null);
-        if (areEquals(m_config.getProxyHost(), def.getProxyHost()))
+        }
+        if (areEquals(m_config.getProxyHost(), def.getProxyHost())) {
             def.setProxyHost(null);
-        if (areEquals(m_config.getMaxRequestSize(), def.getMaxRequestSize()))
+        }
+        if (areEquals(m_config.getMaxRequestSize(), def.getMaxRequestSize())) {
             def.setMaxRequestSize(null);
-        if (areEquals(m_config.getWriteCommunity(), def.getWriteCommunity()))
+        }
+        if (areEquals(m_config.getWriteCommunity(), def.getWriteCommunity())) {
             def.setWriteCommunity(null);
-        if (areEquals(m_config.getVersion(), def.getVersion()))
+        }
+        if (areEquals(m_config.getVersion(), def.getVersion())) {
             def.setVersion(null);
-        if (areEquals(m_config.getTimeout(), def.getTimeout()))
+        }
+        if (areEquals(m_config.getTimeout(), def.getTimeout())) {
             def.setTimeout(null);
-        if (areEquals(m_config.getSecurityName(), def.getSecurityName()))
+        }
+        if (areEquals(m_config.getSecurityName(), def.getSecurityName())) {
             def.setSecurityName(null);
-        if (areEquals(m_config.getSecurityLevel(), def.getSecurityLevel()))
+        }
+        if (areEquals(m_config.getSecurityLevel(), def.getSecurityLevel())) {
             def.setSecurityLevel(null);
-        if (areEquals(m_config.getRetry(), def.getRetry()))
+        }
+        if (areEquals(m_config.getRetry(), def.getRetry())) {
             def.setRetry(null);
-        if (areEquals(m_config.getReadCommunity(), def.getReadCommunity()))
+        }
+        if (areEquals(m_config.getReadCommunity(), def.getReadCommunity())) {
             def.setReadCommunity(null);
+        }
     }
 
     /**
@@ -175,8 +195,9 @@ public class SnmpConfigManager {
         // remove pass
         purgeRangesFromDefinitions(eventToMerge);
 
-        if (eventToMerge.isTrivial())
+        if (eventToMerge.isTrivial()) {
             return;
+        }
 
         // add pass
         MergeableDefinition matchingDef = findMatchingDefinition(eventToMerge);

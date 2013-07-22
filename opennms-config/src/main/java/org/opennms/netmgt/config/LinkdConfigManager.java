@@ -141,8 +141,9 @@ public abstract class LinkdConfigManager implements LinkdConfig {
     public boolean isAutoDiscoveryEnabled() {
         getReadLock().lock();
         try {
-            if (m_config.hasAutoDiscovery())
+            if (m_config.hasAutoDiscovery()) {
                 return m_config.getAutoDiscovery();
+            }
         } finally {
             getReadLock().unlock();
         }
@@ -158,8 +159,9 @@ public abstract class LinkdConfigManager implements LinkdConfig {
     public boolean isVlanDiscoveryEnabled() {
         getReadLock().lock();
         try {
-            if (m_config.hasEnableVlanDiscovery())
+            if (m_config.hasEnableVlanDiscovery()) {
                 return m_config.getEnableVlanDiscovery();
+            }
         } finally {
             getReadLock().unlock();
         }
@@ -197,8 +199,9 @@ public abstract class LinkdConfigManager implements LinkdConfig {
             LOG.debug("interfaceInPackage: Interface {} passed filter for package {}?: {}", str(iface), pkg.getName(),
                       (filterPassed ? "True" : "False"));
 
-            if (!filterPassed)
+            if (!filterPassed) {
                 return false;
+            }
 
             return isInterfaceInPackageRange(iface, pkg);
         } finally {
@@ -211,8 +214,9 @@ public abstract class LinkdConfigManager implements LinkdConfig {
      */
     @Override
     public boolean isInterfaceInPackageRange(final InetAddress iface, final org.opennms.netmgt.config.linkd.Package pkg) {
-        if (pkg == null)
+        if (pkg == null) {
             return false;
+        }
 
         //
         // Ensure that the interface is in the specific list or
@@ -239,16 +243,19 @@ public abstract class LinkdConfigManager implements LinkdConfig {
                     break;
                 }
             }
-            if (has_specific)
+            if (has_specific) {
                 return true;
+            }
 
             for (final String url : pkg.getIncludeUrlCollection()) {
                 has_specific = isInterfaceInUrl(iface, url);
-                if (has_specific)
+                if (has_specific) {
                     break;
+                }
             }
-            if (has_specific)
+            if (has_specific) {
                 return true;
+            }
 
             if (!has_range_include) {
                 for (final IncludeRange rng : pkg.getIncludeRangeCollection()) {
@@ -329,12 +336,14 @@ public abstract class LinkdConfigManager implements LinkdConfig {
         getReadLock().lock();
 
         try {
-            if (pkg == null)
+            if (pkg == null) {
                 return null;
+            }
 
             final Filter filter = pkg.getFilter();
-            if (filter == null)
+            if (filter == null) {
                 return null;
+            }
 
             final StringBuffer filterRules = new StringBuffer(filter.getContent());
 
@@ -454,8 +463,9 @@ public abstract class LinkdConfigManager implements LinkdConfig {
      */
     @Override
     public boolean useIpRouteDiscovery() {
-        if (m_config.hasUseIpRouteDiscovery())
+        if (m_config.hasUseIpRouteDiscovery()) {
             return m_config.getUseIpRouteDiscovery();
+        }
         return true;
     }
 
@@ -469,8 +479,9 @@ public abstract class LinkdConfigManager implements LinkdConfig {
      */
     @Override
     public boolean saveRouteTable() {
-        if (m_config.hasSaveRouteTable())
+        if (m_config.hasSaveRouteTable()) {
             return m_config.getSaveRouteTable();
+        }
         return true;
     }
 
@@ -484,8 +495,9 @@ public abstract class LinkdConfigManager implements LinkdConfig {
      */
     @Override
     public boolean useCdpDiscovery() {
-        if (m_config.hasUseCdpDiscovery())
+        if (m_config.hasUseCdpDiscovery()) {
             return m_config.getUseCdpDiscovery();
+        }
         return true;
     }
 
@@ -499,8 +511,9 @@ public abstract class LinkdConfigManager implements LinkdConfig {
      */
     @Override
     public boolean useBridgeDiscovery() {
-        if (m_config.hasUseBridgeDiscovery())
+        if (m_config.hasUseBridgeDiscovery()) {
             return m_config.getUseBridgeDiscovery();
+        }
         return true;
     }
 
@@ -514,8 +527,9 @@ public abstract class LinkdConfigManager implements LinkdConfig {
      */
     @Override
     public boolean useLldpDiscovery() {
-        if (m_config.hasUseLldpDiscovery())
+        if (m_config.hasUseLldpDiscovery()) {
             return m_config.getUseLldpDiscovery();
+        }
         return true;
     }
 
@@ -529,8 +543,9 @@ public abstract class LinkdConfigManager implements LinkdConfig {
      */
     @Override
     public boolean useOspfDiscovery() {
-        if (m_config.hasUseOspfDiscovery())
+        if (m_config.hasUseOspfDiscovery()) {
             return m_config.getUseOspfDiscovery();
+        }
         return true;
     }
 
@@ -544,8 +559,9 @@ public abstract class LinkdConfigManager implements LinkdConfig {
      */
     @Override
     public boolean saveStpNodeTable() {
-        if (m_config.hasSaveStpNodeTable())
+        if (m_config.hasSaveStpNodeTable()) {
             return m_config.getSaveStpNodeTable();
+        }
         return true;
     }
 
@@ -559,8 +575,9 @@ public abstract class LinkdConfigManager implements LinkdConfig {
      */
     @Override
     public boolean enableDiscoveryDownload() {
-        if (m_config.hasEnableDiscoveryDownload())
+        if (m_config.hasEnableDiscoveryDownload()) {
             return m_config.getEnableDiscoveryDownload();
+        }
         return false;
     }
 
@@ -574,8 +591,9 @@ public abstract class LinkdConfigManager implements LinkdConfig {
      */
     @Override
     public boolean saveStpInterfaceTable() {
-        if (m_config.hasSaveStpInterfaceTable())
+        if (m_config.hasSaveStpInterfaceTable()) {
             return m_config.getSaveStpInterfaceTable();
+        }
         return true;
     }
 
@@ -584,8 +602,9 @@ public abstract class LinkdConfigManager implements LinkdConfig {
      */
     @Override
     public long getInitialSleepTime() {
-        if (m_config.hasInitial_sleep_time())
+        if (m_config.hasInitial_sleep_time()) {
             return m_config.getInitial_sleep_time();
+        }
         return 1800000;
     }
 
@@ -594,8 +613,9 @@ public abstract class LinkdConfigManager implements LinkdConfig {
      */
     @Override
     public long getSnmpPollInterval() {
-        if (m_config.hasSnmp_poll_interval())
+        if (m_config.hasSnmp_poll_interval()) {
             return m_config.getSnmp_poll_interval();
+        }
         return 900000;
     }
 
@@ -604,8 +624,9 @@ public abstract class LinkdConfigManager implements LinkdConfig {
      */
     @Override
     public long getDiscoveryLinkInterval() {
-        if (m_config.hasSnmp_poll_interval())
+        if (m_config.hasSnmp_poll_interval()) {
             return m_config.getDiscovery_link_interval();
+        }
         return 3600000;
     }
 
@@ -619,8 +640,9 @@ public abstract class LinkdConfigManager implements LinkdConfig {
      */
     @Override
     public int getThreads() {
-        if (m_config.hasThreads())
+        if (m_config.hasThreads()) {
             return m_config.getThreads();
+        }
         return 5;
     }
 
@@ -682,8 +704,9 @@ public abstract class LinkdConfigManager implements LinkdConfig {
     protected void updateUrlIpMap() {
         m_urlIPMap.clear();
         for (final org.opennms.netmgt.config.linkd.Package pkg : m_config.getPackageCollection()) {
-            if (pkg == null)
+            if (pkg == null) {
                 continue;
+            }
             for (final String urlname : pkg.getIncludeUrlCollection()) {
                 final java.util.List<String> iplist = IpListFromUrl.parse(urlname);
                 if (iplist.size() > 0) {
@@ -874,8 +897,9 @@ public abstract class LinkdConfigManager implements LinkdConfig {
      */
     @Override
     public boolean forceIpRouteDiscoveryOnEthernet() {
-        if (m_config.hasForceIpRouteDiscoveryOnEthernet())
+        if (m_config.hasForceIpRouteDiscoveryOnEthernet()) {
             return m_config.getForceIpRouteDiscoveryOnEthernet();
+        }
         return false;
     }
 }
