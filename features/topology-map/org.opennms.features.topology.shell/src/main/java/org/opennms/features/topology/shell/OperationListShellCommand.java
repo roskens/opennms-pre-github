@@ -66,13 +66,15 @@ public class OperationListShellCommand extends OsgiCommandSupport {
 
         final Collection<ServiceReference<Operation>> services = this.bundleContext.getServiceReferences(Operation.class,
                                                                                                          null);
-        if (services == null)
+        if (services == null) {
             return null;
+        }
 
         for (final ServiceReference<Operation> sr : services) {
             final Operation operation = this.bundleContext.getService(sr);
-            if (operation == null)
+            if (operation == null) {
                 continue;
+            }
 
             operations.add(operation);
 
