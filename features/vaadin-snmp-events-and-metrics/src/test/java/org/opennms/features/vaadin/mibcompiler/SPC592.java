@@ -104,8 +104,9 @@ public class SPC592 {
             Assert.assertNotNull(mib);
             boolean found = false;
             for (SmiModule m : mib.getModules()) {
-                if (m.getId().equals("ISIS-MIB"))
+                if (m.getId().equals("ISIS-MIB")) {
                     found = true;
+                }
             }
             Assert.assertTrue(found);
         } else {

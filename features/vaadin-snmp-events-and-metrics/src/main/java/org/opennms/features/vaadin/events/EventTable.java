@@ -104,12 +104,14 @@ public abstract class EventTable extends Table {
             org.opennms.netmgt.xml.eventconf.Event e = getEvent(itemId);
             // It doesn't make any sense an alarmData without reductionKey
             AlarmData a = e.getAlarmData();
-            if (a != null && (a.getReductionKey() == null || a.getReductionKey().trim().equals("")))
+            if (a != null && (a.getReductionKey() == null || a.getReductionKey().trim().equals(""))) {
                 e.setAlarmData(null);
+            }
             // It doesn't make any sense an mask without mask elements.
             Mask m = e.getMask();
-            if (m != null && m.getMaskelementCollection().isEmpty())
+            if (m != null && m.getMaskelementCollection().isEmpty()) {
                 e.setMask(null);
+            }
             events.add(e);
         }
         return events;

@@ -167,17 +167,20 @@ public class JsmiMibParser implements MibParser, Serializable {
                 break;
             } else {
                 List<String> dependencies = errorHandler.getDependencies();
-                if (dependencies.isEmpty()) // No dependencies, everything is
-                                            // fine.
+                if (dependencies.isEmpty()) {
+                    // fine.
                     break;
+                }
                 missingDependencies.addAll(dependencies);
-                if (!addDependencyToQueue(queue, mibDirectoryFiles))
+                if (!addDependencyToQueue(queue, mibDirectoryFiles)) {
                     break;
+                }
             }
         }
-        if (errorHandler.isNotOk()) // There are still non-dependency related
-                                    // problems.
+        if (errorHandler.isNotOk()) {
+            // problems.
             return false;
+        }
 
         // Extracting the module from compiled MIB.
         LOG.info("The MIB {} has been parsed successfully.", mibFile.getAbsolutePath());
@@ -232,8 +235,9 @@ public class JsmiMibParser implements MibParser, Serializable {
             return convertMibToEvents(module, ueibase);
         } catch (Throwable e) {
             String errors = e.getMessage();
-            if (errors == null || errors.trim().equals(""))
+            if (errors == null || errors.trim().equals("")) {
                 errors = "An unknown error accured when generating events objects from the MIB " + module.getId();
+            }
             LOG.error("Event parsing error: {}", errors, e);
             errorHandler.addError(errors);
             return null;
@@ -282,9 +286,10 @@ public class JsmiMibParser implements MibParser, Serializable {
             }
         } catch (Throwable e) {
             String errors = e.getMessage();
-            if (errors == null || errors.trim().equals(""))
+            if (errors == null || errors.trim().equals("")) {
                 errors = "An unknown error accured when generating data collection objects from the MIB "
                         + module.getId();
+            }
             LOG.error("Data Collection parsing error: {}", errors, e);
             errorHandler.addError(errors);
             return null;
@@ -309,8 +314,9 @@ public class JsmiMibParser implements MibParser, Serializable {
             for (SmiVariable v : module.getVariables()) {
                 String groupName = getGroupName(v);
                 String resourceType = getResourceType(v);
-                if (resourceType == null)
+                if (resourceType == null) {
                     resourceType = "nodeSnmp";
+                }
                 String typeName = getMetricType(v.getType().getPrimitiveType());
                 if (v.getId().contains("Index")) { // Treat SNMP Indexes as
                                                    // strings.
@@ -340,8 +346,9 @@ public class JsmiMibParser implements MibParser, Serializable {
             }
         } catch (Throwable e) {
             String errors = e.getMessage();
-            if (errors == null || errors.trim().equals(""))
+            if (errors == null || errors.trim().equals("")) {
                 errors = "An unknown error accured when generating graph templates from the MIB " + module.getId();
+            }
             LOG.error("Graph templates parsing error: {}", errors, e);
             errorHandler.addError(errors);
             return null;
@@ -476,16 +483,19 @@ public class JsmiMibParser implements MibParser, Serializable {
      * @return the type
      */
     private String getMetricType(SmiPrimitiveType type) {
-        if (type.equals(SmiPrimitiveType.ENUM)) // ENUM are just informational
-                                                // elements.
+        if (type.equals(SmiPrimitiveType.ENUM)) {
+            // elements.
             return "string";
-        if (type.equals(SmiPrimitiveType.OBJECT_IDENTIFIER)) // ObjectIdentifier
-                                                             // will be treated
+        }
+        if (type.equals(SmiPrimitiveType.OBJECT_IDENTIFIER)) {
+            // will be treated
                                                              // as strings.
             return "string";
-        if (type.equals(SmiPrimitiveType.UNSIGNED_32)) // Unsigned32 will be
-                                                       // treated as integer.
+        }
+        if (type.equals(SmiPrimitiveType.UNSIGNED_32)) {
+            // treated as integer.
             return "integer";
+        }
         return type.toString().replaceAll("_", "").toLowerCase();
     }
 
@@ -502,8 +512,9 @@ public class JsmiMibParser implements MibParser, Serializable {
      */
     protected Group getGroup(DatacollectionGroup data, String groupName, String resourceType) {
         for (Group group : data.getGroupCollection()) {
-            if (group.getName().equals(groupName))
+            if (group.getName().equals(groupName)) {
                 return group;
+            }
         }
         Group group = new Group();
         group.setName(groupName);

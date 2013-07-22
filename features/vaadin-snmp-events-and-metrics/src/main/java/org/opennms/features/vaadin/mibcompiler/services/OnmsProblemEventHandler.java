@@ -203,8 +203,9 @@ public class OnmsProblemEventHandler implements ProblemEventHandler {
             FileInputStream fs = new FileInputStream(file);
             BufferedReader br = new BufferedReader(new InputStreamReader(fs));
             int line = Integer.parseInt(data[1]);
-            for (int i = 1; i < line; i++)
+            for (int i = 1; i < line; i++) {
                 br.readLine();
+            }
             stream.println(br.readLine());
             br.close();
             stream.println(String.format("%" + data[2] + "s", "^"));
@@ -233,8 +234,9 @@ public class OnmsProblemEventHandler implements ProblemEventHandler {
             Matcher m = DEPENDENCY_PATERN.matcher(m_outputStream.toString());
             while (m.find()) {
                 final String dep = m.group(1);
-                if (!dependencies.contains(dep))
+                if (!dependencies.contains(dep)) {
                     dependencies.add(dep);
+                }
             }
         }
         return dependencies;

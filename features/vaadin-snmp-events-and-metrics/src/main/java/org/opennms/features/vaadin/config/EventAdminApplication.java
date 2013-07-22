@@ -108,10 +108,12 @@ public class EventAdminApplication extends UI {
      */
     @Override
     public void init(VaadinRequest request) {
-        if (eventProxy == null)
+        if (eventProxy == null) {
             throw new RuntimeException("eventProxy cannot be null.");
-        if (eventConfDao == null)
+        }
+        if (eventConfDao == null) {
             throw new RuntimeException("eventConfDao cannot be null.");
+        }
 
         final VerticalLayout layout = new VerticalLayout();
 
@@ -137,8 +139,9 @@ public class EventAdminApplication extends UI {
             @Override
             public void valueChange(ValueChangeEvent event) {
                 final File file = (File) event.getProperty().getValue();
-                if (file == null)
+                if (file == null) {
                     return;
+                }
                 try {
                     LOG.info("Loading events from {}", file);
                     final Events events = JaxbUtils.unmarshal(Events.class, file);
@@ -215,8 +218,9 @@ public class EventAdminApplication extends UI {
                                     }
                                     // Updating UI Components
                                     eventSource.select(null);
-                                    if (layout.getComponentCount() > 1)
+                                    if (layout.getComponentCount() > 1) {
                                         layout.removeComponent(layout.getComponent(1));
+                                    }
                                 } catch (Exception e) {
                                     LOG.error("an error ocurred while saving the event configuration: {}",
                                               e.getMessage(), e);
@@ -280,8 +284,9 @@ public class EventAdminApplication extends UI {
      *            the layout
      */
     private void removeEventPanel(final VerticalLayout layout) {
-        if (layout.getComponentCount() > 1)
+        if (layout.getComponentCount() > 1) {
             layout.removeComponent(layout.getComponent(1));
+        }
     }
 
 }

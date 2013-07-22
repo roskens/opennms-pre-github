@@ -153,8 +153,9 @@ public class RRA {
      */
     public void setRra(String rra) {
         String[] parts = rra.split(":");
-        if (parts.length < 5)
+        if (parts.length < 5) {
             throw new IllegalArgumentException("Malformed RRA");
+        }
         try {
             setCf(parts[1]);
             setXff(new Double(parts[2]));

@@ -64,8 +64,9 @@ public class SnmpCollectionAdminApplication extends UI {
      */
     @Override
     public void init(VaadinRequest request) {
-        if (dataCollectionDao == null)
+        if (dataCollectionDao == null) {
             throw new RuntimeException("dataCollectionDao cannot be null.");
+        }
 
         Logger logger = new SimpleLogger();
         SnmpCollectionPanel scAdmin = new SnmpCollectionPanel(dataCollectionDao, logger);

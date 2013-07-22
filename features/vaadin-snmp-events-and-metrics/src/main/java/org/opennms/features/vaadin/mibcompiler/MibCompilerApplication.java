@@ -107,12 +107,15 @@ public class MibCompilerApplication extends UI {
      */
     @Override
     public void init(VaadinRequest request) {
-        if (eventProxy == null)
+        if (eventProxy == null) {
             throw new RuntimeException("eventProxy cannot be null.");
-        if (eventConfDao == null)
+        }
+        if (eventConfDao == null) {
             throw new RuntimeException("eventConfDao cannot be null.");
-        if (dataCollectionDao == null)
+        }
+        if (dataCollectionDao == null) {
             throw new RuntimeException("dataCollectionDao cannot be null.");
+        }
 
         final HorizontalSplitPanel mainPanel = new HorizontalSplitPanel();
         final MibConsolePanel mibConsole = new MibConsolePanel();

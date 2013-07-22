@@ -118,8 +118,9 @@ public class MibConsolePanel extends Panel implements Logger {
      */
     private void scrollIntoView() {
         final VerticalLayout layout = (VerticalLayout) getContent();
-        if (getUI() != null && layout.getComponentCount() > 0)
+        if (getUI() != null && layout.getComponentCount() > 0) {
             getUI().scrollIntoView(layout.getComponent(layout.getComponentCount() - 1));
+        }
     }
 
     /*

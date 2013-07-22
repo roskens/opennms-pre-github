@@ -90,8 +90,9 @@ public class SPC465 {
             Assert.assertNotNull(mib);
             boolean found = false;
             for (SmiModule m : mib.getModules()) {
-                if (m.getId().equals("JUNIPER-JS-SMI"))
+                if (m.getId().equals("JUNIPER-JS-SMI")) {
                     found = true;
+                }
             }
             Assert.assertTrue(found);
         } else {

@@ -99,8 +99,9 @@ public class DataCollectionGroupAdminPanel extends VerticalLayout {
             @Override
             public void valueChange(ValueChangeEvent event) {
                 final File file = (File) event.getProperty().getValue();
-                if (file == null)
+                if (file == null) {
                     return;
+                }
                 try {
                     LOG.info("Loading data collection data from {}", file);
                     DatacollectionGroup dcGroup = JaxbUtils.unmarshal(DatacollectionGroup.class, file);
@@ -241,8 +242,9 @@ public class DataCollectionGroupAdminPanel extends VerticalLayout {
      * Removes the data collection group panel.
      */
     private void removeDataCollectionGroupPanel() {
-        if (this.getComponentCount() > 1)
+        if (this.getComponentCount() > 1) {
             this.removeComponent(this.getComponent(1));
+        }
     }
 
 }

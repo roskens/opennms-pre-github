@@ -100,10 +100,12 @@ public abstract class EventPanel extends Panel {
     public EventPanel(final EventConfDao eventConfDao, final EventProxy eventProxy, final String fileName,
             final Events events, final Logger logger) {
 
-        if (eventProxy == null)
+        if (eventProxy == null) {
             throw new RuntimeException("eventProxy cannot be null.");
-        if (eventConfDao == null)
+        }
+        if (eventConfDao == null) {
             throw new RuntimeException("eventConfDao cannot be null.");
+        }
 
         this.eventConfDao = eventConfDao;
         this.eventProxy = eventProxy;
@@ -264,8 +266,9 @@ public abstract class EventPanel extends Panel {
     private void validateFile(final File file, final Events events, final Logger logger) {
         int eventCount = 0;
         for (org.opennms.netmgt.xml.eventconf.Event e : events.getEventCollection()) {
-            if (eventConfDao.findByUei(e.getUei()) != null)
+            if (eventConfDao.findByUei(e.getUei()) != null) {
                 eventCount++;
+            }
         }
         if (eventCount == 0) {
             saveFile(file, events, logger);

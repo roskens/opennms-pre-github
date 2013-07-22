@@ -140,12 +140,15 @@ public class MibCompilerPanel extends Panel {
             final EventProxy eventsProxy, final MibParser mibParser, final Logger logger) {
         super("MIB Compiler");
 
-        if (dataCollectionDao == null)
+        if (dataCollectionDao == null) {
             throw new RuntimeException("dataCollectionDao cannot be null.");
-        if (eventsProxy == null)
+        }
+        if (eventsProxy == null) {
             throw new RuntimeException("eventProxy cannot be null.");
-        if (eventsDao == null)
+        }
+        if (eventsDao == null) {
             throw new RuntimeException("eventsDao cannot be null.");
+        }
 
         this.eventsDao = eventsDao;
         this.eventsProxy = eventsProxy;
@@ -216,8 +219,9 @@ public class MibCompilerPanel extends Panel {
         }
         for (File folder : folders) {
             String[] files = folder.list();
-            if (files == null)
+            if (files == null) {
                 continue;
+            }
             for (String file : files) {
                 addTreeItem(file, folder.getName());
             }

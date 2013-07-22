@@ -59,14 +59,18 @@ public class MibCompilerApplicationFactory extends AbstractApplicationFactory {
      */
     @Override
     public UI getUI() {
-        if (eventProxy == null)
+        if (eventProxy == null) {
             throw new RuntimeException("eventProxy cannot be null.");
-        if (eventConfDao == null)
+        }
+        if (eventConfDao == null) {
             throw new RuntimeException("eventConfDao cannot be null.");
-        if (dataCollectionDao == null)
+        }
+        if (dataCollectionDao == null) {
             throw new RuntimeException("dataCollectionDao cannot be null.");
-        if (mibParser == null)
+        }
+        if (mibParser == null) {
             throw new RuntimeException("mibParser cannot be null.");
+        }
         MibCompilerApplication app = new MibCompilerApplication();
         app.setEventProxy(eventProxy);
         app.setEventConfDao(eventConfDao);

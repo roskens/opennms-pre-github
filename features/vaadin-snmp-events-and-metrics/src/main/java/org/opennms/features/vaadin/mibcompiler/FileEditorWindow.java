@@ -103,8 +103,9 @@ public class FileEditorWindow extends Window implements Button.ClickListener {
 
         HorizontalLayout toolbar = new HorizontalLayout();
         toolbar.addComponent(cancel);
-        if (!readOnly)
+        if (!readOnly) {
             toolbar.addComponent(save);
+        }
 
         VerticalLayout layout = new VerticalLayout();
         layout.addComponent(editor);
@@ -130,8 +131,9 @@ public class FileEditorWindow extends Window implements Button.ClickListener {
             }
         }
         if (event.getButton().equals(cancel)) {
-            if (!editor.isReadOnly())
+            if (!editor.isReadOnly()) {
                 logger.info("The file editing has been canceled.");
+            }
             editor.discard();
         }
         close();

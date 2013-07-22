@@ -140,8 +140,9 @@ public class JsmiMibParserTest {
             Assert.assertEquals(2, events.getEventCount());
             Event event = null;
             for (Event e : events.getEventCollection()) {
-                if (e.getUei().contains("linkDown"))
+                if (e.getUei().contains("linkDown")) {
                     event = e;
+                }
             }
             Assert.assertNotNull(event);
             Assert.assertNotNull(event.getDescr()); // TODO Must be more
@@ -154,19 +155,24 @@ public class JsmiMibParserTest {
             Assert.assertEquals("IF-MIB defined trap event: linkDown", event.getEventLabel());
             Assert.assertNotNull(event.getMask());
             for (Maskelement me : event.getMask().getMaskelementCollection()) {
-                if (me.getMename().equals("id"))
+                if (me.getMename().equals("id")) {
                     Assert.assertEquals(".1.3.6.1.6.3.1.1.5", me.getMevalueCollection().get(0));
-                if (me.getMename().equals("generic"))
+                }
+                if (me.getMename().equals("generic")) {
                     Assert.assertEquals("6", me.getMevalueCollection().get(0));
-                if (me.getMename().equals("specific"))
+                }
+                if (me.getMename().equals("specific")) {
                     Assert.assertEquals("3", me.getMevalueCollection().get(0));
+                }
             }
             Assert.assertEquals(2, event.getVarbindsdecodeCount());
             for (Varbindsdecode vb : event.getVarbindsdecodeCollection()) {
-                if (vb.getParmid().equals("parm[#2]"))
+                if (vb.getParmid().equals("parm[#2]")) {
                     Assert.assertEquals(3, vb.getDecodeCount());
-                if (vb.getParmid().equals("parm[#3]"))
+                }
+                if (vb.getParmid().equals("parm[#3]")) {
                     Assert.assertEquals(7, vb.getDecodeCount());
+                }
             }
         } else {
             Assert.fail("The IF-MIB.txt file couldn't be parsed successfully.");
@@ -187,8 +193,9 @@ public class JsmiMibParserTest {
             Assert.assertEquals(2, events.getEventCount());
             Event event = null;
             for (Event e : events.getEventCollection()) {
-                if (e.getUei().contains("bgpBackwardTransition"))
+                if (e.getUei().contains("bgpBackwardTransition")) {
                     event = e;
+                }
             }
             Assert.assertNotNull(event);
             Assert.assertNotNull(event.getDescr()); // TODO Must be more
@@ -201,17 +208,21 @@ public class JsmiMibParserTest {
             Assert.assertEquals("RFC1269-MIB defined trap event: bgpBackwardTransition", event.getEventLabel());
             Assert.assertNotNull(event.getMask());
             for (Maskelement me : event.getMask().getMaskelementCollection()) {
-                if (me.getMename().equals("id"))
+                if (me.getMename().equals("id")) {
                     Assert.assertEquals(".1.3.6.1.2.1.15", me.getMevalueCollection().get(0));
-                if (me.getMename().equals("generic"))
+                }
+                if (me.getMename().equals("generic")) {
                     Assert.assertEquals("6", me.getMevalueCollection().get(0));
-                if (me.getMename().equals("specific"))
+                }
+                if (me.getMename().equals("specific")) {
                     Assert.assertEquals("2", me.getMevalueCollection().get(0));
+                }
             }
             Assert.assertEquals(1, event.getVarbindsdecodeCount());
             for (Varbindsdecode vb : event.getVarbindsdecodeCollection()) {
-                if (vb.getParmid().equals("parm[#3]"))
+                if (vb.getParmid().equals("parm[#3]")) {
                     Assert.assertEquals(6, vb.getDecodeCount());
+                }
             }
         } else {
             Assert.fail("The RFC1269-MIB.txt file couldn't be parsed successfully.");
@@ -234,8 +245,9 @@ public class JsmiMibParserTest {
             Assert.assertEquals(7, dcGroup.getGroupCount());
             Group mibGroup = null;
             for (Group g : dcGroup.getGroupCollection()) {
-                if (g.getName().equals("ifTable"))
+                if (g.getName().equals("ifTable")) {
                     mibGroup = g;
+                }
             }
             Assert.assertNotNull(mibGroup);
             Assert.assertEquals(22, mibGroup.getMibObjCount());
