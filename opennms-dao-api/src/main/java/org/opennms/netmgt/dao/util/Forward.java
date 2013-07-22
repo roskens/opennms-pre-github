@@ -74,10 +74,11 @@ public class Forward {
         boolean first = true;
 
         for (int index = 0; index < forwards.length; index++) {
-            if (!first)
+            if (!first) {
                 buf.append(Constants.MULTIPLE_VAL_DELIM);
-            else
+            } else {
                 first = false;
+            }
 
             buf.append(Constants.escape(format(forwards[index]), Constants.MULTIPLE_VAL_DELIM));
         }

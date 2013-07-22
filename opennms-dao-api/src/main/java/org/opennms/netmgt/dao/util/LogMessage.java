@@ -54,8 +54,9 @@ public final class LogMessage {
         String log = msg.getDest();
 
         String fmsg = txt + Constants.DB_ATTRIB_DELIM + log;
-        if (fmsg.length() >= 256)
+        if (fmsg.length() >= 256) {
             fmsg = fmsg.substring(0, 252) + Constants.VALUE_TRUNCATE_INDICATOR;
+        }
 
         return fmsg;
     }
