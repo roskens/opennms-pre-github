@@ -41,7 +41,7 @@ public interface JdbcDataCollectionConfigDao {
      *
      * @return the config
      */
-    public JdbcDataCollectionConfig getConfig();
+    JdbcDataCollectionConfig getConfig();
 
     /**
      * Gets the data collection by name.
@@ -50,7 +50,7 @@ public interface JdbcDataCollectionConfigDao {
      *            the name
      * @return the data collection by name
      */
-    public JdbcDataCollection getDataCollectionByName(String name);
+    JdbcDataCollection getDataCollectionByName(String name);
 
     /**
      * Gets the data collection by index.
@@ -59,5 +59,5 @@ public interface JdbcDataCollectionConfigDao {
      *            the idx
      * @return the data collection by index
      */
-    public JdbcDataCollection getDataCollectionByIndex(int idx);
+    JdbcDataCollection getDataCollectionByIndex(int idx);
 }
