@@ -313,8 +313,9 @@ public abstract class RancidAdapterConfigManager implements RancidAdapterConfig 
         LOG.debug("interfaceInPackage: Interface {} passed filter for package {}?: {}", iface, pkg.getName(),
                   Boolean.valueOf(filterPassed));
 
-        if (!filterPassed)
+        if (!filterPassed) {
             return false;
+        }
 
         //
         // Ensure that the interface is in the specific list or
@@ -469,8 +470,9 @@ public abstract class RancidAdapterConfigManager implements RancidAdapterConfig 
         try {
             if (sysoid != null) {
                 for (final Mapping map : mappings()) {
-                    if (sysoid.startsWith(map.getSysoidMask()))
+                    if (sysoid.startsWith(map.getSysoidMask())) {
                         return map.getType();
+                    }
                 }
             }
             return getConfiguration().getDefaultType();
@@ -487,8 +489,9 @@ public abstract class RancidAdapterConfigManager implements RancidAdapterConfig 
             if (hasSchedule(ipaddr)) {
                 final Calendar cal = new GregorianCalendar();
                 for (final Schedule schedule : getSchedules(ipaddr)) {
-                    if (isTimeInSchedule(cal, schedule))
+                    if (isTimeInSchedule(cal, schedule)) {
                         return true;
+                    }
                 }
                 return false;
             }

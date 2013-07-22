@@ -247,8 +247,9 @@ public class RancidProvisioningAdapter extends SimpleQueuedProvisioningAdapter i
 
         for (OnmsNode onmsNode : nodes) {
             String ipaddr = getSuitableIpForRancid(onmsNode);
-            if (ipaddr != null)
+            if (ipaddr != null) {
                 m_onmsNodeIpMap.putIfAbsent(onmsNode.getId(), ipaddr);
+            }
 
             RancidNode rNode = getSuitableRancidNode(onmsNode);
             if (rNode != null) {
@@ -752,8 +753,9 @@ public class RancidProvisioningAdapter extends SimpleQueuedProvisioningAdapter i
 
         String group = node.getForeignSource();
 
-        if (group == null)
+        if (group == null) {
             return null;
+        }
         RancidNode r_node = new RancidNode(group, node.getLabel());
 
         String ipaddress = m_onmsNodeIpMap.get(node.getId());
@@ -1066,18 +1068,24 @@ public class RancidProvisioningAdapter extends SimpleQueuedProvisioningAdapter i
      * @return true, if successful
      */
     private boolean updateAuth(RancidNodeAuthentication localNode, RancidNodeAuthentication remoteNode) {
-        if (!localNode.getUser().equals(remoteNode.getUser()))
+        if (!localNode.getUser().equals(remoteNode.getUser())) {
             return true;
-        if (!localNode.getPassword().equals(remoteNode.getPassword()))
+        }
+        if (!localNode.getPassword().equals(remoteNode.getPassword())) {
             return true;
-        if (!localNode.getEnablePass().equals(remoteNode.getEnablePass()))
+        }
+        if (!localNode.getEnablePass().equals(remoteNode.getEnablePass())) {
             return true;
-        if (!localNode.getConnectionMethodString().equalsIgnoreCase(remoteNode.getConnectionMethodString()))
+        }
+        if (!localNode.getConnectionMethodString().equalsIgnoreCase(remoteNode.getConnectionMethodString())) {
             return true;
-        if (localNode.isAutoEnable())
+        }
+        if (localNode.isAutoEnable()) {
             return !remoteNode.isAutoEnable();
-        if (!localNode.isAutoEnable())
+        }
+        if (!localNode.isAutoEnable()) {
             return remoteNode.isAutoEnable();
+        }
         return false;
     }
 }
