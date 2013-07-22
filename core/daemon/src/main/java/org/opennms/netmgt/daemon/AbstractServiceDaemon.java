@@ -313,8 +313,9 @@ public abstract class AbstractServiceDaemon implements ServiceDaemon, SpringServ
 
             @Override
             public void run() {
-                if (!isRunning())
+                if (!isRunning()) {
                     return;
+                }
 
                 LOG.info("{} pausing.", getName());
 
@@ -341,8 +342,9 @@ public abstract class AbstractServiceDaemon implements ServiceDaemon, SpringServ
 
             @Override
             public void run() {
-                if (!isPaused())
+                if (!isPaused()) {
                     return;
+                }
 
                 LOG.info("{} resuming.", getName());
 

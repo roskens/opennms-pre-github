@@ -74,10 +74,11 @@ public class SpringLoader {
             e.printStackTrace();
             Throwable rc = e.getRootCause();
             System.err.println("ROOT CAUSE is " + rc);
-            if (rc == null)
+            if (rc == null) {
                 throw e;
-            else
+            } else {
                 throw rc;
+            }
         }
 
         Registry.setAppContext(m_appContext);
@@ -91,14 +92,16 @@ public class SpringLoader {
      */
     private String getStartupResource() {
         String startupUrl = System.getProperty("opennms.startup.context");
-        if (startupUrl != null)
+        if (startupUrl != null) {
             return startupUrl;
+        }
 
         String etcDir = getEtcDir();
         if (etcDir != null) {
             File startupFile = new File(etcDir, "startup.xml");
-            if (startupFile.exists())
+            if (startupFile.exists()) {
                 return startupFile.toURI().toString();
+            }
         }
 
         return "classpath:/META-INF/opennms/default-startup.xml";
@@ -111,12 +114,14 @@ public class SpringLoader {
      */
     private String getEtcDir() {
         String etcDir = System.getProperty("opennms.etc");
-        if (etcDir != null)
+        if (etcDir != null) {
             return etcDir;
+        }
 
         String homeDir = System.getProperty("opennms.home");
-        if (homeDir != null)
+        if (homeDir != null) {
             return homeDir + File.separator + "etc";
+        }
 
         return null;
     }
@@ -212,18 +217,19 @@ public class SpringLoader {
                 cmd = args[2];
             }
             SpringLoader loader = new SpringLoader(cmd);
-            if ("start".equals(cmd))
+            if ("start".equals(cmd)) {
                 loader.start();
-            else if ("stop".equals(cmd))
+            } else if ("stop".equals(cmd)) {
                 loader.stop();
-            else if ("pause".equals(cmd))
+            } else if ("pause".equals(cmd)) {
                 loader.pause();
-            else if ("resume".equals(cmd))
+            } else if ("resume".equals(cmd)) {
                 loader.resume();
-            else if ("status".equals(cmd))
+            } else if ("status".equals(cmd)) {
                 loader.status();
-            else
+            } else {
                 usage();
+            }
         } catch (ConnectException e) {
             System.err.println("opennms is not running.");
             System.exit(3);
