@@ -161,8 +161,9 @@ public final class ExtremeNetworkVlanTableEntry extends Vlan {
      */
     @Override
     public VlanType getVlanType() {
-        if (getInt32(VLAN_TYPE) == 1)
+        if (getInt32(VLAN_TYPE) == 1) {
             return VlanType.EXTREME_LAYER2;
+        }
         return VlanType.UNKNOWN;
     }
 

@@ -427,8 +427,9 @@ public class Scheduler implements Runnable, PausableFiber, ScheduleTimer {
      */
     @Override
     public synchronized void start() {
-        if (m_worker != null)
+        if (m_worker != null) {
             throw new IllegalStateException("The fiber has already run or is running");
+        }
 
         m_worker = new Thread(this, getName());
         m_worker.start();
@@ -443,8 +444,9 @@ public class Scheduler implements Runnable, PausableFiber, ScheduleTimer {
      */
     @Override
     public synchronized void stop() {
-        if (m_worker == null)
+        if (m_worker == null) {
             throw new IllegalStateException("The fiber has never been started");
+        }
 
         m_status = STOP_PENDING;
         m_worker.interrupt();
@@ -459,14 +461,17 @@ public class Scheduler implements Runnable, PausableFiber, ScheduleTimer {
      */
     @Override
     public synchronized void pause() {
-        if (m_worker == null)
+        if (m_worker == null) {
             throw new IllegalStateException("The fiber has never been started");
+        }
 
-        if (m_status == STOPPED || m_status == STOP_PENDING)
+        if (m_status == STOPPED || m_status == STOP_PENDING) {
             throw new IllegalStateException("The fiber is not running or a stop is pending");
+        }
 
-        if (m_status == PAUSED)
+        if (m_status == PAUSED) {
             return;
+        }
 
         m_status = PAUSE_PENDING;
         notifyAll();
@@ -478,14 +483,17 @@ public class Scheduler implements Runnable, PausableFiber, ScheduleTimer {
      */
     @Override
     public synchronized void resume() {
-        if (m_worker == null)
+        if (m_worker == null) {
             throw new IllegalStateException("The fiber has never been started");
+        }
 
-        if (m_status == STOPPED || m_status == STOP_PENDING)
+        if (m_status == STOPPED || m_status == STOP_PENDING) {
             throw new IllegalStateException("The fiber is not running or a stop is pending");
+        }
 
-        if (m_status == RUNNING)
+        if (m_status == RUNNING) {
             return;
+        }
 
         m_status = RESUME_PENDING;
         notifyAll();
@@ -498,8 +506,9 @@ public class Scheduler implements Runnable, PausableFiber, ScheduleTimer {
      */
     @Override
     public synchronized int getStatus() {
-        if (m_worker != null && m_worker.isAlive() == false)
+        if (m_worker != null && m_worker.isAlive() == false) {
             m_status = STOPPED;
+        }
         return m_status;
     }
 

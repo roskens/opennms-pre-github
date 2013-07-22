@@ -218,8 +218,9 @@ final class PollerEventProcessor implements EventListener {
         LOG.debug("interfaceReparentedHandler: processing interfaceReparented event for {}", event.getInterface());
 
         // Verify that the event has an interface associated with it
-        if (event.getInterfaceAddress() == null)
+        if (event.getInterfaceAddress() == null) {
             return;
+        }
 
         InetAddress ipAddr = event.getInterfaceAddress();
 
@@ -233,10 +234,11 @@ final class PollerEventProcessor implements EventListener {
         for (Parm parm : event.getParmCollection()) {
             parmName = parm.getParmName();
             parmValue = parm.getValue();
-            if (parmValue == null)
+            if (parmValue == null) {
                 continue;
-            else
+            } else {
                 parmContent = parmValue.getContent();
+            }
 
             // old nodeid
             if (parmName.equals(EventConstants.PARM_OLD_NODEID)) {
@@ -329,10 +331,11 @@ final class PollerEventProcessor implements EventListener {
         for (Parm parm : event.getParmCollection()) {
             parmName = parm.getParmName();
             parmValue = parm.getValue();
-            if (parmValue == null)
+            if (parmValue == null) {
                 continue;
-            else
+            } else {
                 parmContent = parmValue.getContent();
+            }
 
             // get the external transaction number
             if (parmName.equals(EventConstants.PARM_TRANSACTION_NO)) {
@@ -424,10 +427,11 @@ final class PollerEventProcessor implements EventListener {
         for (Parm parm : event.getParmCollection()) {
             parmName = parm.getParmName();
             parmValue = parm.getValue();
-            if (parmValue == null)
+            if (parmValue == null) {
                 continue;
-            else
+            } else {
                 parmContent = parmValue.getContent();
+            }
 
             // get the external transaction number
             if (parmName.equals(EventConstants.PARM_TRANSACTION_NO)) {
@@ -545,8 +549,9 @@ final class PollerEventProcessor implements EventListener {
      */
     @Override
     public void onEvent(Event event) {
-        if (event == null)
+        if (event == null) {
             return;
+        }
 
         // print out the uei
         LOG.debug("PollerEventProcessor: received event, uei = {}", event.getUei());

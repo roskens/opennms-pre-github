@@ -70,8 +70,9 @@ public abstract class AbstractEventPolicyRule implements EventPolicyRule {
             }
             count++;
         }
-        if (forward)
+        if (forward) {
             return expand(event);
+        }
         return null;
     }
 

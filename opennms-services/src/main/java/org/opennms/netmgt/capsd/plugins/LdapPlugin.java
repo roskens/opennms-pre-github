@@ -178,8 +178,9 @@ public class LdapPlugin extends AbstractPlugin {
                     isAServer = false;
                 } finally {
                     try {
-                        if (lc != null)
+                        if (lc != null) {
                             lc.disconnect();
+                        }
                     } catch (LDAPException e) {
                     }
                 }
@@ -202,8 +203,9 @@ public class LdapPlugin extends AbstractPlugin {
         } finally {
             try {
                 // close the socket channel
-                if (socket != null)
+                if (socket != null) {
                     socket.close();
+                }
             } catch (IOException e) {
             }
         }
@@ -230,8 +232,9 @@ public class LdapPlugin extends AbstractPlugin {
     @Override
     public boolean isProtocolSupported(InetAddress address) {
         for (int i = 0; i < DEFAULT_PORTS.length; i++) {
-            if (isServer(address, DEFAULT_PORTS[i], DEFAULT_RETRY, DEFAULT_TIMEOUT))
+            if (isServer(address, DEFAULT_PORTS[i], DEFAULT_RETRY, DEFAULT_TIMEOUT)) {
                 return true;
+            }
         }
         return false;
     }

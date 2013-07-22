@@ -171,8 +171,9 @@ public final class DNSAddressRR {
      */
     public byte[] getAddress() {
         byte[] ip = new byte[4];
-        for (int j = 0; j < 4; j++)
+        for (int j = 0; j < 4; j++) {
             ip[j] = (byte) (ipAddress[j]);
+        }
         return ip;
     }
 

@@ -730,8 +730,9 @@ public class DefaultPollerFrontEnd implements PollerFrontEnd, InitializingBean, 
      */
     public void doPollService(final Integer polledServiceId) {
         final PollStatus result = doPoll(polledServiceId);
-        if (result == null)
+        if (result == null) {
             return;
+        }
 
         updateServicePollState(polledServiceId, result);
 
@@ -938,8 +939,9 @@ public class DefaultPollerFrontEnd implements PollerFrontEnd, InitializingBean, 
     @Override
     public void setInitialPollTime(final Integer polledServiceId, final Date initialPollTime) {
         final ServicePollState pollState = getServicePollState(polledServiceId);
-        if (pollState == null)
+        if (pollState == null) {
             return;
+        }
 
         pollState.setInitialPollTime(initialPollTime);
         fireServicePollStateChanged(pollState.getPolledService(), pollState.getIndex());
@@ -1097,8 +1099,9 @@ public class DefaultPollerFrontEnd implements PollerFrontEnd, InitializingBean, 
     private PollStatus doPoll(final Integer polledServiceId) {
 
         final PolledService polledService = getPolledService(polledServiceId);
-        if (polledService == null)
+        if (polledService == null) {
             return null;
+        }
         final PollStatus result = m_pollService.poll(polledService);
         return result;
     }
@@ -1262,8 +1265,9 @@ public class DefaultPollerFrontEnd implements PollerFrontEnd, InitializingBean, 
      */
     private void updateServicePollState(final Integer polledServiceId, final PollStatus result) {
         final ServicePollState pollState = getServicePollState(polledServiceId);
-        if (pollState == null)
+        if (pollState == null) {
             return;
+        }
         pollState.setLastPoll(result);
         fireServicePollStateChanged(pollState.getPolledService(), pollState.getIndex());
     }

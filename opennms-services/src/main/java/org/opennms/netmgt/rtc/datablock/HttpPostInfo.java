@@ -112,8 +112,9 @@ public class HttpPostInfo extends Object {
      * Clear error count if there were errors earlier.
      */
     public void clearErrors() {
-        if (m_errors != 0)
+        if (m_errors != 0) {
             m_errors = 0;
+        }
     }
 
     /**
@@ -192,31 +193,41 @@ public class HttpPostInfo extends Object {
         if (obj == null) {
             return false;
         }
-        if (getClass() != obj.getClass())
+        if (getClass() != obj.getClass()) {
             return false;
+        }
         HttpPostInfo other = (HttpPostInfo) obj;
         if (m_catlabel == null) {
-            if (other.m_catlabel != null)
+            if (other.m_catlabel != null) {
                 return false;
-        } else if (!m_catlabel.equals(other.m_catlabel))
+            }
+        } else if (!m_catlabel.equals(other.m_catlabel)) {
             return false;
-        if (m_errors != other.m_errors)
+        }
+        if (m_errors != other.m_errors) {
             return false;
+        }
         if (m_passwd == null) {
-            if (other.m_passwd != null)
+            if (other.m_passwd != null) {
                 return false;
-        } else if (!m_passwd.equals(other.m_passwd))
+            }
+        } else if (!m_passwd.equals(other.m_passwd)) {
             return false;
+        }
         if (m_url == null) {
-            if (other.m_url != null)
+            if (other.m_url != null) {
                 return false;
-        } else if (!m_url.equals(other.m_url))
+            }
+        } else if (!m_url.equals(other.m_url)) {
             return false;
+        }
         if (m_user == null) {
-            if (other.m_user != null)
+            if (other.m_user != null) {
                 return false;
-        } else if (!m_user.equals(other.m_user))
+            }
+        } else if (!m_user.equals(other.m_user)) {
             return false;
+        }
         return true;
     }
 }

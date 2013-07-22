@@ -100,8 +100,9 @@ public class PollableNode extends PollableContainer {
                         throw new ThreadInterrupted("Lock for " + PollableNode.this + " is unavailable", e);
                     }
                     now = System.currentTimeMillis();
-                    if (now >= endTime)
+                    if (now >= endTime) {
                         throw new LockUnavailable("Unable to obtain lock for " + PollableNode.this + " before timeout");
+                    }
                 }
                 m_owner = Thread.currentThread();
                 LOG.debug("Obtained lock for {}", PollableNode.this);
@@ -292,8 +293,9 @@ public class PollableNode extends PollableContainer {
             @Override
             public void run() {
                 PollableInterface iface = getInterface(addr);
-                if (iface == null)
+                if (iface == null) {
                     iface = createInterface(addr);
+                }
                 retVal[0] = iface.createService(svcName);
             }
         };
@@ -383,10 +385,11 @@ public class PollableNode extends PollableContainer {
     /** {@inheritDoc} */
     @Override
     public void obtainTreeLock(long timeout) {
-        if (timeout == 0)
+        if (timeout == 0) {
             m_lock.obtain();
-        else
+        } else {
             m_lock.obtain(timeout);
+        }
     }
 
     /**

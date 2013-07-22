@@ -372,8 +372,9 @@ public class SyslogMessage {
      * @return the syslog formatted date
      */
     public String getSyslogFormattedDate() {
-        if (m_date == null)
+        if (m_date == null) {
             return null;
+        }
         return m_dateFormat.get().format(m_date);
     }
 
@@ -383,8 +384,9 @@ public class SyslogMessage {
      * @return the rfc3339 formatted date
      */
     public String getRfc3339FormattedDate() {
-        if (m_date == null)
+        if (m_date == null) {
             return null;
+        }
         return m_rfc3339Format.get().format(m_date);
     }
 

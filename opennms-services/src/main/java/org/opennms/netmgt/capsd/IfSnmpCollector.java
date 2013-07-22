@@ -459,13 +459,17 @@ public final class IfSnmpCollector implements Runnable {
 
         // Log any failures
         //
-        if (!this.hasSystemGroup())
+        if (!this.hasSystemGroup()) {
             LOG.info("IfSnmpCollector: failed to collect System group for {}", InetAddressUtils.str(m_address));
-        if (!this.hasIfTable())
+        }
+        if (!this.hasIfTable()) {
             LOG.info("IfSnmpCollector: failed to collect ifTable for {}", InetAddressUtils.str(m_address));
-        if (!this.hasIpAddrTable())
+        }
+        if (!this.hasIpAddrTable()) {
             LOG.info("IfSnmpCollector: failed to collect ipAddrTable for {}", InetAddressUtils.str(m_address));
-        if (!this.hasIfXTable())
+        }
+        if (!this.hasIfXTable()) {
             LOG.info("IfSnmpCollector: failed to collect ifXTable for {}", InetAddressUtils.str(m_address));
+        }
     }
 }

@@ -236,8 +236,9 @@ public final class SmtpPlugin extends AbstractPlugin {
                         t = new StringTokenizer(result);
                         rc = Integer.parseInt(t.nextToken());
 
-                        if (rc == 221)
+                        if (rc == 221) {
                             isAServer = true;
+                        }
                     }
                 }
             } catch (NumberFormatException e) {
@@ -266,8 +267,9 @@ public final class SmtpPlugin extends AbstractPlugin {
                 isAServer = false;
             } finally {
                 try {
-                    if (socket != null)
+                    if (socket != null) {
                         socket.close();
+                    }
                 } catch (IOException e) {
                 }
             }
@@ -322,8 +324,9 @@ public final class SmtpPlugin extends AbstractPlugin {
         }
 
         boolean result = isServer(address, port, retries, timeout);
-        if (result && qualifiers != null && !qualifiers.containsKey("port"))
+        if (result && qualifiers != null && !qualifiers.containsKey("port")) {
             qualifiers.put("port", port);
+        }
 
         return result;
     }

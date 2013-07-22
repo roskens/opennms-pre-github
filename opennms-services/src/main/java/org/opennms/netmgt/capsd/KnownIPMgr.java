@@ -274,8 +274,9 @@ final class KnownIPMgr {
             s.close();
         } finally {
             try {
-                if (c != null)
+                if (c != null) {
                     c.close();
+                }
             } catch (SQLException sqlE) {
             }
         }

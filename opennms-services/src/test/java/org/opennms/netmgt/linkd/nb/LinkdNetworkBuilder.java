@@ -108,8 +108,9 @@ public abstract class LinkdNetworkBuilder {
      * @return the network builder
      */
     NetworkBuilder getNetworkBuilder() {
-        if (m_networkBuilder == null)
+        if (m_networkBuilder == null) {
             m_networkBuilder = new NetworkBuilder();
+        }
         return m_networkBuilder;
     }
 
@@ -183,11 +184,12 @@ public abstract class LinkdNetworkBuilder {
         for (InetAddress ipaddr : ipinterfacemap.keySet()) {
             String isSnmpPrimary = "N";
             Integer ifIndex = ipinterfacemap.get(ipaddr);
-            if (ipaddr.getHostAddress().equals(primaryip))
+            if (ipaddr.getHostAddress().equals(primaryip)) {
                 isSnmpPrimary = "P";
-            if (ifIndex == null)
+            }
+            if (ifIndex == null) {
                 nb.addInterface(ipaddr.getHostAddress()).setIsSnmpPrimary(isSnmpPrimary).setIsManaged("M");
-            else {
+            } else {
                 nb.addInterface(ipaddr.getHostAddress(), ifindexsnmpbuildermap.get(ifIndex).getSnmpInterface()).setIsSnmpPrimary(isSnmpPrimary).setIsManaged("M");
             }
         }
@@ -205,8 +207,9 @@ public abstract class LinkdNetworkBuilder {
      * @return the mask
      */
     private InetAddress getMask(Map<Integer, InetAddress> ifindextonetmaskmap, Integer ifIndex) {
-        if (ifindextonetmaskmap.containsKey(ifIndex))
+        if (ifindextonetmaskmap.containsKey(ifIndex)) {
             return ifindextonetmaskmap.get(ifIndex);
+        }
         return null;
     }
 
@@ -221,8 +224,9 @@ public abstract class LinkdNetworkBuilder {
      */
     private String getSuitableString(Map<Integer, String> ifindextomacmap, Integer ifIndex) {
         String value = "";
-        if (ifindextomacmap.containsKey(ifIndex))
+        if (ifindextomacmap.containsKey(ifIndex)) {
             value = ifindextomacmap.get(ifIndex);
+        }
         return value;
     }
 
@@ -367,16 +371,18 @@ public abstract class LinkdNetworkBuilder {
         System.out.println("nodelabel: " + m_nodeDao.get(nodeid).getLabel());
         Integer ifIndex = datalinkinterface.getIfIndex();
         System.out.println("ifindex: " + ifIndex);
-        if (ifIndex > 0)
+        if (ifIndex > 0) {
             System.out.println("ifname: " + m_snmpInterfaceDao.findByNodeIdAndIfIndex(nodeid, ifIndex).getIfName());
+        }
         Integer nodeparent = datalinkinterface.getNodeParentId();
         System.out.println("nodeparent: " + nodeparent);
         System.out.println("parentnodelabel: " + m_nodeDao.get(nodeparent).getLabel());
         Integer parentifindex = datalinkinterface.getParentIfIndex();
         System.out.println("parentifindex: " + parentifindex);
-        if (parentifindex > 0)
+        if (parentifindex > 0) {
             System.out.println("parentifname: "
                     + m_snmpInterfaceDao.findByNodeIdAndIfIndex(nodeparent, parentifindex).getIfName());
+        }
         System.out.println("--------------------------------------");
         System.out.println("");
 
@@ -433,8 +439,9 @@ public abstract class LinkdNetworkBuilder {
     protected int getStartPoint(List<DataLinkInterface> links) {
         int start = 0;
         for (final DataLinkInterface link : links) {
-            if (start == 0 || link.getId().intValue() < start)
+            if (start == 0 || link.getId().intValue() < start) {
                 start = link.getId().intValue();
+            }
         }
         return start;
     }
@@ -461,21 +468,26 @@ public abstract class LinkdNetworkBuilder {
      *            the snmpinterface
      */
     protected void printSnmpInterface(String nodeStringId, OnmsSnmpInterface snmpinterface) {
-        if (snmpinterface.getIfName() != null)
+        if (snmpinterface.getIfName() != null) {
             System.out.println(nodeStringId + "_IF_IFNAME_MAP.put(" + snmpinterface.getIfIndex() + ", \""
                     + snmpinterface.getIfName() + "\");");
-        if (snmpinterface.getIfDescr() != null)
+        }
+        if (snmpinterface.getIfDescr() != null) {
             System.out.println(nodeStringId + "_IF_IFDESCR_MAP.put(" + snmpinterface.getIfIndex() + ", \""
                     + snmpinterface.getIfDescr() + "\");");
-        if (snmpinterface.getPhysAddr() != null)
+        }
+        if (snmpinterface.getPhysAddr() != null) {
             System.out.println(nodeStringId + "_IF_MAC_MAP.put(" + snmpinterface.getIfIndex() + ", \""
                     + snmpinterface.getPhysAddr() + "\");");
-        if (snmpinterface.getIfAlias() != null)
+        }
+        if (snmpinterface.getIfAlias() != null) {
             System.out.println(nodeStringId + "_IF_IFALIAS_MAP.put(" + snmpinterface.getIfIndex() + ", \""
                     + snmpinterface.getIfAlias() + "\");");
-        if (snmpinterface.getNetMask() != null && !snmpinterface.getNetMask().getHostAddress().equals("127.0.0.1"))
+        }
+        if (snmpinterface.getNetMask() != null && !snmpinterface.getNetMask().getHostAddress().equals("127.0.0.1")) {
             System.out.println(nodeStringId + "_IF_NETMASK_MAP.put(" + snmpinterface.getIfIndex()
                     + ", InetAddressUtils.addr(\"" + snmpinterface.getNetMask().getHostAddress() + "\"));");
+        }
     }
 
     /**
@@ -494,8 +506,9 @@ public abstract class LinkdNetworkBuilder {
         OnmsIpInterface ip = ips.get(0);
 
         for (OnmsIpInterface ipinterface : ip.getNode().getIpInterfaces()) {
-            if (ipinterface.getIfIndex() != null)
+            if (ipinterface.getIfIndex() != null) {
                 printipInterface(prefix, ipinterface);
+            }
         }
 
         for (OnmsSnmpInterface snmpinterface : ip.getNode().getSnmpInterfaces()) {

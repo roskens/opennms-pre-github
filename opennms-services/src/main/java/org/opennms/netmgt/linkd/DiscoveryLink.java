@@ -220,8 +220,9 @@ public final class DiscoveryLink implements ReadyRunnable {
         // This will found all mac address on
         // current package and their association
         // with ip addresses.
-        if (discoveryUsingBridge)
+        if (discoveryUsingBridge) {
             populateMacToAtInterface();
+        }
 
         // this part could have several special function to get inter-router
         // links, but at the moment we worked much on switches.
@@ -251,8 +252,9 @@ public final class DiscoveryLink implements ReadyRunnable {
         m_lldpNodes.clear();
         m_ospfNodes.clear();
 
-        if (getLinkd().getAtInterfaces(getPackageName()) != null)
+        if (getLinkd().getAtInterfaces(getPackageName()) != null) {
             getLinkd().getAtInterfaces(getPackageName()).clear();
+        }
 
         m_linkd.updateDiscoveryLinkCollection(this);
 
@@ -270,8 +272,9 @@ public final class DiscoveryLink implements ReadyRunnable {
     protected void populateMacToAtInterface() {
         LOG.debug("populateMacToAtInterface: using atNodes to populate macToAtinterface");
         final Map<String, List<AtInterface>> macs = getLinkd().getAtInterfaces(getPackageName());
-        if (macs == null || macs.keySet() == null)
+        if (macs == null || macs.keySet() == null) {
             return;
+        }
         for (final String macAddress : macs.keySet()) {
             LOG.debug("populateMacToAtInterface: MAC {} now has atinterface reference: {}", macAddress,
                       getLinkd().getAtInterfaces(getPackageName()).get(macAddress).size());
@@ -353,8 +356,9 @@ public final class DiscoveryLink implements ReadyRunnable {
 
                         // Try to found a new
                         final boolean isTargetNode = isNearestBridgeLink(curNode, curBridgePort, endNode, endBridgePort);
-                        if (!isTargetNode)
+                        if (!isTargetNode) {
                             continue;
+                        }
 
                         final int endIfindex = endNode.getIfindex(endBridgePort);
                         if (endIfindex == -1) {
@@ -684,8 +688,9 @@ public final class DiscoveryLink implements ReadyRunnable {
         LOG.info("getLinksFromCdp: founding Cisco Discovery Protocol links between Cdp nodes");
         for (LinkableNode linknode1 : m_cdpNodes) {
             for (LinkableNode linknode2 : m_cdpNodes) {
-                if (linknode1.getNodeId() >= linknode2.getNodeId())
+                if (linknode1.getNodeId() >= linknode2.getNodeId()) {
                     continue;
+                }
                 for (NodeToNodeLink cdpLink : getCdpLinks(linknode1, linknode2)) {
                     addNodetoNodeLink(cdpLink);
                 }
@@ -719,8 +724,9 @@ public final class DiscoveryLink implements ReadyRunnable {
         int i = 0;
         for (LinkableNode linknode1 : m_ospfNodes) {
             for (LinkableNode linknode2 : m_ospfNodes) {
-                if (linknode1.getNodeId() >= linknode2.getNodeId())
+                if (linknode1.getNodeId() >= linknode2.getNodeId()) {
                     continue;
+                }
                 for (NodeToNodeLink lldpLink : getOspfLink(linknode1, linknode2)) {
                     addNodetoNodeLink(lldpLink);
                     i++;
@@ -798,8 +804,9 @@ public final class DiscoveryLink implements ReadyRunnable {
         int i = 0;
         for (LinkableNode linknode1 : m_lldpNodes) {
             for (LinkableNode linknode2 : m_lldpNodes) {
-                if (linknode1.getNodeId() == linknode2.getNodeId())
+                if (linknode1.getNodeId() == linknode2.getNodeId()) {
                     continue;
+                }
                 for (NodeToNodeLink lldpLink : getLldpLink(linknode1, linknode2)) {
                     addNodetoNodeLink(lldpLink);
                     i++;
@@ -846,8 +853,9 @@ public final class DiscoveryLink implements ReadyRunnable {
      */
     boolean isCdpNode(int nodeid) {
         for (final LinkableNode curNode : m_cdpNodes) {
-            if (nodeid == curNode.getNodeId())
+            if (nodeid == curNode.getNodeId()) {
                 return true;
+            }
         }
         return false;
 
@@ -862,8 +870,9 @@ public final class DiscoveryLink implements ReadyRunnable {
      */
     boolean isBridgeNode(int nodeid) {
         for (final LinkableNode curNode : m_bridgeNodes.values()) {
-            if (nodeid == curNode.getNodeId())
+            if (nodeid == curNode.getNodeId()) {
                 return true;
+            }
         }
         return false;
     }
@@ -877,8 +886,9 @@ public final class DiscoveryLink implements ReadyRunnable {
      */
     boolean isRouterNode(int nodeid) {
         for (final LinkableNode curNode : m_routerNodes) {
-            if (nodeid == curNode.getNodeId())
+            if (nodeid == curNode.getNodeId()) {
                 return true;
+            }
         }
         return false;
     }
@@ -958,17 +968,21 @@ public final class DiscoveryLink implements ReadyRunnable {
 
         Set<String> macsOnBridge2 = bridge2.getMacAddressesOnBridgePort(bp2);
 
-        if (macsOnBridge2 == null || macsOnBridge1 == null)
+        if (macsOnBridge2 == null || macsOnBridge1 == null) {
             return null;
+        }
 
-        if (macsOnBridge2.isEmpty() || macsOnBridge1.isEmpty())
+        if (macsOnBridge2.isEmpty() || macsOnBridge1.isEmpty()) {
             return null;
+        }
 
         for (final String curMacOnBridge1 : macsOnBridge1) {
-            if (bridge2.isBridgeIdentifier(curMacOnBridge1))
+            if (bridge2.isBridgeIdentifier(curMacOnBridge1)) {
                 continue;
-            if (macsOnBridge2.contains(curMacOnBridge1))
+            }
+            if (macsOnBridge2.contains(curMacOnBridge1)) {
                 macsOnLink.add(curMacOnBridge1);
+            }
         }
         return macsOnLink;
     }
@@ -982,8 +996,9 @@ public final class DiscoveryLink implements ReadyRunnable {
      */
     private boolean isMacIdentifierOfBridgeNode(String macAddress) {
         for (final LinkableNode curNode : m_bridgeNodes.values()) {
-            if (curNode.isBridgeIdentifier(macAddress))
+            if (curNode.isBridgeIdentifier(macAddress)) {
                 return true;
+            }
         }
         return false;
     }
@@ -997,8 +1012,9 @@ public final class DiscoveryLink implements ReadyRunnable {
      */
     private LinkableNode getNodeFromMacIdentifierOfBridgeNode(final String macAddress) {
         for (final LinkableNode curNode : m_bridgeNodes.values()) {
-            if (curNode.isBridgeIdentifier(macAddress))
+            if (curNode.isBridgeIdentifier(macAddress)) {
                 return curNode;
+            }
         }
         return null;
     }
@@ -1014,8 +1030,9 @@ public final class DiscoveryLink implements ReadyRunnable {
         List<LinkableNode> bridges = new ArrayList<LinkableNode>();
         for (final LinkableNode curNode : m_bridgeNodes.values()) {
             for (final String curBridgeIdentifier : curNode.getBridgeIdentifiers()) {
-                if (macs.contains((curBridgeIdentifier)))
+                if (macs.contains((curBridgeIdentifier))) {
                     bridges.add(curNode);
+                }
             }
         }
         return bridges;
@@ -1084,8 +1101,9 @@ public final class DiscoveryLink implements ReadyRunnable {
      */
     @Override
     public void schedule() {
-        if (m_scheduler == null)
+        if (m_scheduler == null) {
             throw new IllegalStateException("schedule: Cannot schedule a service whose scheduler is set to null");
+        }
 
         m_scheduler.schedule(discovery_interval + initial_sleep_time, this);
     }
@@ -1094,8 +1112,9 @@ public final class DiscoveryLink implements ReadyRunnable {
      * Schedule again the job.
      */
     private void reschedule() {
-        if (m_scheduler == null)
+        if (m_scheduler == null) {
             throw new IllegalStateException("rescedule: Cannot schedule a service whose scheduler is set to null");
+        }
         m_scheduler.schedule(snmp_poll_interval, this);
     }
 
@@ -1255,8 +1274,9 @@ public final class DiscoveryLink implements ReadyRunnable {
      */
     @Override
     public void unschedule() {
-        if (m_scheduler == null)
+        if (m_scheduler == null) {
             throw new IllegalStateException("unschedule: Cannot schedule a service whose scheduler is set to null");
+        }
         if (isRunned) {
             m_scheduler.unschedule(this, snmp_poll_interval);
         } else {

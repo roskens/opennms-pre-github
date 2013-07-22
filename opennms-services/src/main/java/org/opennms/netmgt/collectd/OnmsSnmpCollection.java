@@ -574,8 +574,9 @@ public class OnmsSnmpCollection {
      * @return a {@link org.opennms.netmgt.collectd.NodeResourceType} object.
      */
     public NodeResourceType getNodeResourceType(CollectionAgent agent) {
-        if (m_nodeResourceType == null)
+        if (m_nodeResourceType == null) {
             m_nodeResourceType = new NodeResourceType(agent, this);
+        }
         return m_nodeResourceType;
     }
 

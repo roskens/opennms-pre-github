@@ -85,11 +85,13 @@ public abstract class EventUtils {
      *             the insufficient information exception
      */
     public static void checkEventId(Event e) throws InsufficientInformationException {
-        if (e == null)
+        if (e == null) {
             throw new NullPointerException("e is null");
+        }
 
-        if (!e.hasDbid())
+        if (!e.hasDbid()) {
             throw new InsufficientInformationException("eventID is unavailable");
+        }
     }
 
     /**
@@ -417,8 +419,9 @@ public abstract class EventUtils {
     public static long getEventID(Event e) {
         // get eventid
         long eventID = -1;
-        if (e.hasDbid())
+        if (e.hasDbid()) {
             eventID = e.getDbid();
+        }
         return eventID;
     }
 
@@ -483,8 +486,9 @@ public abstract class EventUtils {
     public static long getNodeId(Event e) {
         // convert the node id
         long nodeID = -1;
-        if (e.hasNodeid())
+        if (e.hasNodeid()) {
             nodeID = e.getNodeid();
+        }
         return nodeID;
     }
 

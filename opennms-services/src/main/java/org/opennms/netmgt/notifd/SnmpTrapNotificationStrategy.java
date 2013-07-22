@@ -306,8 +306,9 @@ public class SnmpTrapNotificationStrategy implements NotificationStrategy {
                 value = arg.getValue();
             }
         }
-        if (value != null && value.equals(""))
+        if (value != null && value.equals("")) {
             value = null;
+        }
 
         return value;
     }

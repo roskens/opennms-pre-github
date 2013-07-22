@@ -75,8 +75,9 @@ public final class JDBCStoredProcedureMonitor extends JDBCMonitor {
         try {
             boolean bPass = false;
             String storedProcedure = ParameterMap.getKeyedString(parameters, "stored-procedure", null);
-            if (storedProcedure == null)
+            if (storedProcedure == null) {
                 return status;
+            }
 
             String schemaName = ParameterMap.getKeyedString(parameters, "schema", "test");
 

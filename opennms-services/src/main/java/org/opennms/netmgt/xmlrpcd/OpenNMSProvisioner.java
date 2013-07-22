@@ -179,8 +179,9 @@ public class OpenNMSProvisioner implements Provisioner {
      *            the retries
      */
     private void checkRetries(final int retries) {
-        if (retries < 0)
+        if (retries < 0) {
             throw new IllegalArgumentException("Illegal retries " + retries + ". Must be >= 0");
+        }
     }
 
     /**
@@ -190,8 +191,9 @@ public class OpenNMSProvisioner implements Provisioner {
      *            the timeout
      */
     private void checkTimeout(final int timeout) {
-        if (timeout <= 0)
+        if (timeout <= 0) {
             throw new IllegalArgumentException("Illegal timeout " + timeout + ". Must be > 0");
+        }
     }
 
     /**
@@ -201,8 +203,9 @@ public class OpenNMSProvisioner implements Provisioner {
      *            the interval
      */
     private void checkInterval(final int interval) {
-        if (interval <= 0)
+        if (interval <= 0) {
             throw new IllegalArgumentException("Illegal interval " + interval + ". Must be > 0");
+        }
     }
 
     /**
@@ -232,8 +235,9 @@ public class OpenNMSProvisioner implements Provisioner {
      *            the port
      */
     private void checkPort(final int port) {
-        if (port < 1 || port > 65535)
+        if (port < 1 || port > 65535) {
             throw new IllegalArgumentException("Illegal port " + port + ". Must be between 1 and 65535 (inclusive)");
+        }
     }
 
     /**
@@ -243,11 +247,13 @@ public class OpenNMSProvisioner implements Provisioner {
      *            the hostname
      */
     private void checkHostname(final String hostname) {
-        if (hostname == null)
+        if (hostname == null) {
             throw new NullPointerException("hostname must not be null");
-        if (hostname.length() > 512)
+        }
+        if (hostname.length() > 512) {
             throw new IllegalArgumentException("Illegal hostname " + hostname
                     + ". Hostnames must not be longer than 512 characters");
+        }
     }
 
     /**
@@ -257,12 +263,15 @@ public class OpenNMSProvisioner implements Provisioner {
      *            the url
      */
     private void checkUrl(final String url) {
-        if (url == null)
+        if (url == null) {
             throw new NullPointerException("url must not be null");
-        if (url.length() == 0)
+        }
+        if (url.length() == 0) {
             throw new IllegalArgumentException("Illegal url \'\'.  Must not be zero length");
-        if (url.length() > 512)
+        }
+        if (url.length() > 512) {
             throw new IllegalArgumentException("Illegal url " + url + ". Must be no more than 512 chars");
+        }
     }
 
     /**
@@ -272,8 +281,9 @@ public class OpenNMSProvisioner implements Provisioner {
      *            the check
      */
     private void checkContentCheck(final String check) {
-        if (check != null && check.length() > 128)
+        if (check != null && check.length() > 128) {
             throw new IllegalArgumentException("Illegal contentCheck " + check + ". Must be no more than 128 chars.");
+        }
     }
 
     /**
@@ -283,21 +293,24 @@ public class OpenNMSProvisioner implements Provisioner {
      *            the response
      */
     private void checkResponseRange(final String response) {
-        if (response == null || response.equals(""))
+        if (response == null || response.equals("")) {
             return;
+        }
 
         if (response.indexOf('-') < 0) {
             checkResponseCode(response);
         } else {
             final int dash = response.indexOf('-');
             final String startCode = response.substring(0, dash).trim();
-            if ("".equals(startCode))
+            if ("".equals(startCode)) {
                 throw new IllegalArgumentException(
                                                    "Illegal Start code. Expected range format is <startCode>-<endCode>.");
+            }
             checkResponseCode(startCode);
 
-            if (dash + 1 > response.length() - 1)
+            if (dash + 1 > response.length() - 1) {
                 throw new IllegalArgumentException("Illegal End code. Expected range format is <startcode>-<endcode>");
+            }
             final String endCode = response.substring(dash + 1);
             checkResponseCode(endCode);
         }
@@ -310,12 +323,14 @@ public class OpenNMSProvisioner implements Provisioner {
      *            the response
      */
     private void checkResponseCode(final String response) {
-        if (response == null || response.equals(""))
+        if (response == null || response.equals("")) {
             return;
+        }
 
         final int code = Integer.parseInt(response);
-        if (code < 100 || code > 599)
+        if (code < 100 || code > 599) {
             throw new IllegalArgumentException("Illegal response code " + code + ". Must be between 100 and 599");
+        }
     }
 
     /**
@@ -325,11 +340,13 @@ public class OpenNMSProvisioner implements Provisioner {
      *            the username
      */
     private void checkUsername(final String username) {
-        if (username == null)
+        if (username == null) {
             throw new NullPointerException("username is null");
-        if (username.length() > 64)
+        }
+        if (username.length() > 64) {
             throw new IllegalArgumentException("Illegal username " + username
                     + ". username must be no more than than 64 characters");
+        }
     }
 
     /**
@@ -339,11 +356,13 @@ public class OpenNMSProvisioner implements Provisioner {
      *            the pw
      */
     private void checkPassword(final String pw) {
-        if (pw == null)
+        if (pw == null) {
             throw new NullPointerException("password is null");
-        if (pw.length() > 64)
+        }
+        if (pw.length() > 64) {
             throw new IllegalArgumentException("Illegal password " + pw
                     + ". password must be no more than than 64 charachters");
+        }
     }
 
     /**
@@ -353,13 +372,16 @@ public class OpenNMSProvisioner implements Provisioner {
      *            the driver
      */
     private void checkDriver(final String driver) {
-        if (driver == null)
+        if (driver == null) {
             throw new NullPointerException("driver is null");
-        if (driver.length() == 0)
+        }
+        if (driver.length() == 0) {
             throw new IllegalArgumentException("Illegal driver.  Must not be zero length");
-        if (driver.length() > 128)
+        }
+        if (driver.length() > 128) {
             throw new IllegalArgumentException("Illegal driver " + driver
                     + ". Driver length must be no more than than 128 characters");
+        }
 
     }
 

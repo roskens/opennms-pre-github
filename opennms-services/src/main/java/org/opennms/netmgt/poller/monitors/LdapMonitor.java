@@ -155,10 +155,11 @@ public class LdapMonitor extends AbstractServiceMonitor {
 
         final Object addressObject = iface.getAddress();
         String address = null;
-        if (addressObject instanceof InetAddress)
+        if (addressObject instanceof InetAddress) {
             address = InetAddressUtils.str(((InetAddress) addressObject));
-        else if (addressObject instanceof String)
+        } else if (addressObject instanceof String) {
             address = (String) addressObject;
+        }
 
         // first just try a connection to the box via socket. Just in case there
         // is
@@ -180,8 +181,9 @@ public class LdapMonitor extends AbstractServiceMonitor {
             // We're connected, so upgrade status to unresponsive
             serviceStatus = PollStatus.SERVICE_UNRESPONSIVE;
 
-            if (socket != null)
+            if (socket != null) {
                 socket.close();
+            }
 
             // lets detect the service
             LDAPConnection lc = new LDAPConnection(new TimeoutLDAPSocket(tracker.getSoTimeout()));

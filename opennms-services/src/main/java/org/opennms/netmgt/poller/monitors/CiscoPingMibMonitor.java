@@ -669,8 +669,9 @@ public class CiscoPingMibMonitor extends SnmpMonitorStrategy {
         // Cannot use the pollerdContext because it creates a circular reference
         // Cannot do this in the one-time initialize for the same reason, so do
         // it here instead.
-        if (s_nodeDao == null)
+        if (s_nodeDao == null) {
             s_nodeDao = (NodeDao) BeanUtils.getFactory("commonContext", ClassPathXmlApplicationContext.class).getBean("nodeDao");
+        }
 
         super.initialize(svc);
         return;
@@ -738,8 +739,9 @@ public class CiscoPingMibMonitor extends SnmpMonitorStrategy {
         // Retrieve the *proxy* interface's SNMP peer object
         //
         SnmpAgentConfig agentConfig = SnmpPeerFactory.getInstance().getAgentConfig(proxyIpAddr);
-        if (agentConfig == null)
+        if (agentConfig == null) {
             throw new RuntimeException("SnmpAgentConfig object not available for proxy-ping interface " + proxyIpAddr);
+        }
         LOG.debug("poll: setting SNMP peer attribute for interface {}", proxyIpAddr.getHostAddress());
 
         // set timeout and retries on SNMP peer object
@@ -871,12 +873,14 @@ public class CiscoPingMibMonitor extends SnmpMonitorStrategy {
         pingEntry.setCiscoPingEntryStatus(ROWSTATUS_DESTROY);
         SnmpValue[] destroyValues = SnmpUtils.set(agentConfig, pingEntry.generateRowStatusOids(),
                                                   pingEntry.generateRowStatusValues());
-        if (destroyValues == null)
+        if (destroyValues == null) {
             LOG.warn("SNMP SET failed to delete just-used ciscoPingEntry on proxy interface {} with instance ID {}",
                      proxyIpAddr, pingEntry.getCiscoPingSerialNumber());
-        if (destroyValues[0].toInt() != ROWSTATUS_DESTROY)
+        }
+        if (destroyValues[0].toInt() != ROWSTATUS_DESTROY) {
             LOG.warn("SNMP SET to delete just-used ciscoPingEntry indicated row not deleted on proxy interface {} with instance ID {}",
                      proxyIpAddr, pingEntry.getCiscoPingSerialNumber());
+        }
     }
 
     /**
@@ -897,8 +901,9 @@ public class CiscoPingMibMonitor extends SnmpMonitorStrategy {
                       PARM_TARGET_IP_ADDR, overrideTarget, svc.getSvcName(), svc.getAddress());
         }
 
-        if (overrideTarget == null)
+        if (overrideTarget == null) {
             return svc.getAddress();
+        }
         LOG.debug("Using user-specified override target IP address {} instead of service address {} for service {}",
                   overrideTarget, svc.getAddress(), svc.getSvcName());
         try {
@@ -946,8 +951,9 @@ public class CiscoPingMibMonitor extends SnmpMonitorStrategy {
             proxyNode = s_nodeDao.findByForeignId(proxyNodeFS, proxyNodeFI);
             LOG.debug("Found a node via foreign-source / foreign-id '{}'/'{}' to use as proxy", proxyNodeFS,
                       proxyNodeFI);
-            if (proxyNode != null && proxyNode.getPrimaryInterface() != null)
+            if (proxyNode != null && proxyNode.getPrimaryInterface() != null) {
                 proxyAddress = proxyNode.getPrimaryInterface().getIpAddress();
+            }
         }
         if (proxyAddress != null) {
             LOG.info("Using address {} from node '{}':'{}' as proxy for service '{}' on interface {}", proxyAddress,
@@ -960,8 +966,9 @@ public class CiscoPingMibMonitor extends SnmpMonitorStrategy {
             LOG.debug("Trying to look up proxy node with database ID {} for target interface {}", proxyNodeId,
                       svc.getAddress());
             proxyNode = s_nodeDao.get(Integer.valueOf(proxyNodeId));
-            if (proxyNode != null && proxyNode.getPrimaryInterface() != null)
+            if (proxyNode != null && proxyNode.getPrimaryInterface() != null) {
                 proxyAddress = proxyNode.getPrimaryInterface().getIpAddress();
+            }
         }
         if (proxyAddress != null) {
             LOG.info("Using address {} from node with DBID {} as proxy for service '{}' on interface {}", proxyAddress,

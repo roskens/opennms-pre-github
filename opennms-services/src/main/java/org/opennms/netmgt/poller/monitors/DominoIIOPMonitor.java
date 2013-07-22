@@ -105,9 +105,10 @@ public final class DominoIIOPMonitor extends AbstractServiceMonitor {
         //
         // Get interface address from NetworkInterface
         //
-        if (iface.getType() != NetworkInterface.TYPE_INET)
+        if (iface.getType() != NetworkInterface.TYPE_INET) {
             throw new NetworkInterfaceNotSupportedException(
                                                             "Unsupported interface type, only TYPE_INET currently supported");
+        }
 
         TimeoutTracker tracker = new TimeoutTracker(parameters, DEFAULT_RETRY, DEFAULT_TIMEOUT);
         int IORport = ParameterMap.getKeyedInteger(parameters, "ior-port", DEFAULT_IORPORT);
@@ -176,8 +177,9 @@ public final class DominoIIOPMonitor extends AbstractServiceMonitor {
             } finally {
                 try {
                     // Close the socket
-                    if (socket != null)
+                    if (socket != null) {
                         socket.close();
+                    }
                 } catch (IOException e) {
                     e.fillInStackTrace();
 
@@ -224,8 +226,9 @@ public final class DominoIIOPMonitor extends AbstractServiceMonitor {
         }
         dis.close();
 
-        if (!IOR.startsWith("IOR:"))
+        if (!IOR.startsWith("IOR:")) {
             throw new IOException("Invalid IOR: " + IOR);
+        }
 
         return IOR;
     }

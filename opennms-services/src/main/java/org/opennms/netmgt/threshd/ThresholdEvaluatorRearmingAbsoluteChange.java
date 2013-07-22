@@ -184,10 +184,12 @@ public class ThresholdEvaluatorRearmingAbsoluteChange implements ThresholdEvalua
             // " threshold evaluate trigger, sample value="+dsValue);
             // return true;
             // }
-            if (Double.valueOf(dsValue).isNaN())
+            if (Double.valueOf(dsValue).isNaN()) {
                 return false;
-            if (Double.valueOf(getLastSample()).isNaN())
+            }
+            if (Double.valueOf(getLastSample()).isNaN()) {
                 return false;
+            }
 
             double threshold = Math.abs(getLastSample() - dsValue);
             // Test Code

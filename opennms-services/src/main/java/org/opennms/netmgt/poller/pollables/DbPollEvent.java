@@ -116,16 +116,18 @@ public class DbPollEvent extends PollEvent {
      * @return a boolean.
      */
     public boolean equals(PollEvent e) {
-        if (e == null)
+        if (e == null) {
             return false;
+        }
         return m_eventId == e.getEventId();
     }
 
     /** {@inheritDoc} */
     @Override
     public boolean equals(Object o) {
-        if (o instanceof PollEvent)
+        if (o instanceof PollEvent) {
             return equals((PollEvent) o);
+        }
         return false;
     }
 

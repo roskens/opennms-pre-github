@@ -207,16 +207,18 @@ public class WebPlugin extends AbstractPlugin {
             if (expectedText != null) {
                 String responseText = EntityUtils.toString(response.getEntity());
                 if (expectedText.charAt(0) == '~') {
-                    if (!responseText.matches(expectedText.substring(1)))
+                    if (!responseText.matches(expectedText.substring(1))) {
                         retval = false;
-                    else
+                    } else {
                         retval = true;
+                    }
                 } else {
 
                     if (responseText.equals(expectedText)) {
                         retval = true;
-                    } else
+                    } else {
                         retval = false;
+                    }
                 }
 
             }
@@ -247,10 +249,11 @@ public class WebPlugin extends AbstractPlugin {
      */
     private boolean inRange(String range, Integer val) {
         String[] boundries = range.split("-");
-        if (val < new Integer(boundries[0]) || val > new Integer(boundries[1]))
+        if (val < new Integer(boundries[0]) || val > new Integer(boundries[1])) {
             return false;
-        else
+        } else {
             return true;
+        }
     }
 
 }

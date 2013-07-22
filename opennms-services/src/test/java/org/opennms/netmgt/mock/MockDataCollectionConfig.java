@@ -216,8 +216,9 @@ public class MockDataCollectionConfig implements DataCollectionConfigDao {
      */
     public MibObject getAttributeType(String alias, String oid, String inst, String type) {
         MibObject attrType = getAttributeType(alias);
-        if (attrType != null)
+        if (attrType != null) {
             return attrType;
+        }
         return defineAttributeType(alias, oid, inst, type);
 
     }

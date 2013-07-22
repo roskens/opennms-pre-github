@@ -272,9 +272,9 @@ public class Nms7467CapsdIntegrationTest extends Nms7467NetworkBuilder implement
         Set<OnmsSnmpInterface> snmpifs = ipmain.getNode().getSnmpInterfaces();
         assertTrue("Has 6 snmp interface. Found: " + snmpifs.size(), snmpifs.size() == 6);
         for (OnmsSnmpInterface snmpinterface : snmpifs) {
-            if (snmpinterface.getIfIndex() == 1)
+            if (snmpinterface.getIfIndex() == 1) {
                 assertTrue("The mac address is not null for ifindex 1", snmpinterface.getPhysAddr() == null);
-            else {
+            } else {
                 assertTrue("The mac must be valid", snmpinterface.getPhysAddr().length() == 12);
                 assertTrue("The mac for ifindex must correspond",
                            snmpinterface.getPhysAddr().equals(LINUX_UBUNTU_IF_MAC_MAP.get(snmpinterface.getIfIndex())));
@@ -316,10 +316,10 @@ public class Nms7467CapsdIntegrationTest extends Nms7467NetworkBuilder implement
                 + ",  is not corresponding to 0026b0ed8fb8", ip.getSnmpInterface().getPhysAddr().equals("0026b0ed8fb8"));
 
         for (OnmsSnmpInterface snmpinterface : ip.getNode().getSnmpInterfaces()) {
-            if (snmpinterface.getIfIndex() <= 3)
+            if (snmpinterface.getIfIndex() <= 3) {
                 assertTrue("The mac address is not null for ifindex " + snmpinterface.getIfIndex(),
                            snmpinterface.getPhysAddr() == null);
-            else {
+            } else {
                 assertTrue("The mac address is null", snmpinterface.getPhysAddr() != null);
                 assertTrue("The mac must be valid", snmpinterface.getPhysAddr().length() == 12);
                 assertTrue("The mac for ifindex must correspond: " + snmpinterface.getPhysAddr(),

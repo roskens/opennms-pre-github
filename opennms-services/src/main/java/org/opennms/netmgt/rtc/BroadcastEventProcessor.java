@@ -132,8 +132,9 @@ final class BroadcastEventProcessor implements EventListener {
      */
     @Override
     public void onEvent(Event event) {
-        if (event == null)
+        if (event == null) {
             return;
+        }
 
         LOG.debug("About to start processing recd. event");
 
@@ -142,8 +143,9 @@ final class BroadcastEventProcessor implements EventListener {
             RTCManager.getInstance().checkTimerTasksOnEventReceipt();
 
             String uei = event.getUei();
-            if (uei == null)
+            if (uei == null) {
                 return;
+            }
 
             m_updater.execute(new DataUpdater(event));
 

@@ -206,10 +206,11 @@ public class MockPollContext implements PollContext, EventListener {
                 writeOutage(pSvc, svcLostEvent);
             }
         };
-        if (svcLostEvent instanceof PendingPollEvent)
+        if (svcLostEvent instanceof PendingPollEvent) {
             ((PendingPollEvent) svcLostEvent).addPending(r);
-        else
+        } else {
             r.run();
+        }
     }
 
     /**
@@ -239,10 +240,11 @@ public class MockPollContext implements PollContext, EventListener {
                 closeOutage(pSvc, svcRegainEvent);
             }
         };
-        if (svcRegainEvent instanceof PendingPollEvent)
+        if (svcRegainEvent instanceof PendingPollEvent) {
             ((PendingPollEvent) svcRegainEvent).addPending(r);
-        else
+        } else {
             r.run();
+        }
     }
 
     /**

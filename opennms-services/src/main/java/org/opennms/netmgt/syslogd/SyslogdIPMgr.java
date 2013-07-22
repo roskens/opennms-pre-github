@@ -126,8 +126,9 @@ final class SyslogdIPMgr {
      * @return The nodeid if it existed in the map.
      */
     static long setNodeId(final String addr, final long nodeid) {
-        if (addr == null || nodeid == -1)
+        if (addr == null || nodeid == -1) {
             return -1;
+        }
 
         return longValue(m_knownips.put(addr, nodeid));
     }
@@ -140,8 +141,9 @@ final class SyslogdIPMgr {
      * @return The nodeid that was in the map.
      */
     static long removeNodeId(final String addr) {
-        if (addr == null)
+        if (addr == null) {
             return -1;
+        }
         return longValue(m_knownips.remove(addr));
     }
 

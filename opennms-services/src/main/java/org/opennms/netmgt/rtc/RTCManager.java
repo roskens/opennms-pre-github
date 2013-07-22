@@ -378,8 +378,9 @@ public final class RTCManager extends AbstractServiceDaemon {
      */
     public synchronized void resetUserTimer() {
         // Reset the user timer
-        if (m_userTask != null)
+        if (m_userTask != null) {
             return;
+        }
 
         try {
             m_timer.schedule((m_userTask = new RTCTimerTask(USERTIMER)), 0, m_userRefreshInterval);
@@ -475,12 +476,14 @@ public final class RTCManager extends AbstractServiceDaemon {
                                                      new LogPreservingThreadFactory(getClass().getSimpleName(),
                                                                                     rFactory.getUpdaters(), false));
 
-        if (log().isDebugEnabled())
+        if (log().isDebugEnabled()) {
             log().debug("Created updater pool");
+        }
 
         m_eventReceiver = new BroadcastEventProcessor(m_updaterPool);
-        if (log().isDebugEnabled())
+        if (log().isDebugEnabled()) {
             log().debug("Created event receiver");
+        }
 
         // create the data sender
         m_dataSender = new DataSender(getCategories(), rFactory.getSenders());
@@ -518,8 +521,9 @@ public final class RTCManager extends AbstractServiceDaemon {
 
         // set the user refresh timer
         m_timer.schedule((m_userTask = new RTCTimerTask(USERTIMER)), 0, m_userRefreshInterval);
-        if (log().isDebugEnabled())
+        if (log().isDebugEnabled()) {
             log().debug(USERTIMER + " scheduled");
+        }
 
         //
         // Subscribe to events
@@ -528,16 +532,19 @@ public final class RTCManager extends AbstractServiceDaemon {
             m_eventReceiver.start();
         } catch (Throwable t) {
             m_dataSender.stop();
-            if (log().isDebugEnabled())
+            if (log().isDebugEnabled()) {
                 log().debug("DataSender shutdown");
+            }
 
             m_updaterPool.shutdown();
-            if (log().isDebugEnabled())
+            if (log().isDebugEnabled()) {
                 log().debug("Updater pool shutdown");
+            }
 
             m_timer.cancel();
-            if (log().isDebugEnabled())
+            if (log().isDebugEnabled()) {
                 log().debug("Timer cancelled");
+            }
 
             throw new UndeclaredThrowableException(t);
         }
@@ -556,8 +563,9 @@ public final class RTCManager extends AbstractServiceDaemon {
     @Override
     protected synchronized void onStop() {
         try {
-            if (log().isDebugEnabled())
+            if (log().isDebugEnabled()) {
                 log().debug("Beginning shutdown process");
+            }
 
             //
             // Close connection to the event subsystem and free associated
@@ -565,40 +573,49 @@ public final class RTCManager extends AbstractServiceDaemon {
             //
             m_eventReceiver.close();
 
-            if (log().isDebugEnabled())
+            if (log().isDebugEnabled()) {
                 log().debug("Shutting down the data sender");
+            }
 
             // shutdown the data sender
             m_dataSender.stop();
 
-            if (log().isDebugEnabled())
+            if (log().isDebugEnabled()) {
                 log().debug("DataSender shutdown");
+            }
 
-            if (log().isDebugEnabled())
+            if (log().isDebugEnabled()) {
                 log().debug("sending shutdown to updaters");
+            }
 
             m_updaterPool.shutdown();
 
-            if (log().isDebugEnabled())
+            if (log().isDebugEnabled()) {
                 log().debug("RTC Updaters shutdown");
+            }
 
             // cancel the timer and the timer tasks
-            if (m_lowTtask != null)
+            if (m_lowTtask != null) {
                 m_lowTtask.cancel();
+            }
 
-            if (m_highTtask != null)
+            if (m_highTtask != null) {
                 m_highTtask.cancel();
+            }
 
-            if (m_userTask != null)
+            if (m_userTask != null) {
                 m_userTask.cancel();
+            }
 
-            if (log().isDebugEnabled())
+            if (log().isDebugEnabled()) {
                 log().debug("shutdown: Timer tasks Canceled");
+            }
 
             m_timer.cancel();
 
-            if (log().isDebugEnabled())
+            if (log().isDebugEnabled()) {
                 log().debug("shutdown: Timer Canceled");
+            }
 
         } catch (Throwable e) {
             log().error(e.getLocalizedMessage(), e);

@@ -249,8 +249,9 @@ public final class OmsaStorageMonitor extends SnmpMonitorStrategy {
         // Retrieve this interface's SNMP peer object
         //
         SnmpAgentConfig agentConfig = SnmpPeerFactory.getInstance().getAgentConfig(ipaddr);
-        if (agentConfig == null)
+        if (agentConfig == null) {
             throw new RuntimeException("SnmpAgentConfig object not available for interface " + ipaddr);
+        }
         LOG.debug("poll: setting SNMP peer attribute for interface {}", InetAddressUtils.str(ipaddr));
         agentConfig.setTimeout(ParameterMap.getKeyedInteger(parameters, "timeout", agentConfig.getTimeout()));
         agentConfig.setRetries(ParameterMap.getKeyedInteger(parameters, "retry",

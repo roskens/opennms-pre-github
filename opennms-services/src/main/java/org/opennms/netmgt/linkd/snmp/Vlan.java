@@ -94,8 +94,9 @@ public abstract class Vlan extends SnmpStore {
      * @return the vlan index
      */
     public Integer getVlanIndex() {
-        if (hasVlanIndex)
+        if (hasVlanIndex) {
             return vlanIndex;
+        }
         return getInt32(VLAN_INDEX);
     }
 

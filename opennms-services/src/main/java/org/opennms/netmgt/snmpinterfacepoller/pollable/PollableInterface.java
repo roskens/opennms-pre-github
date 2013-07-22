@@ -188,14 +188,18 @@ public class PollableInterface {
         InetAddress ipAddr = null;
         ipAddr = InetAddressUtils.addr(getIpaddress());
         SnmpAgentConfig agentConfig = SnmpPeerFactory.getInstance().getAgentConfig(ipAddr);
-        if (hasPort)
+        if (hasPort) {
             agentConfig.setPort(port);
-        if (hasTimeout)
+        }
+        if (hasTimeout) {
             agentConfig.setTimeout(timeout);
-        if (hasRetries)
+        }
+        if (hasRetries) {
             agentConfig.setRetries(retries);
-        if (hasMaxVarsPerPdu)
+        }
+        if (hasMaxVarsPerPdu) {
             agentConfig.setMaxVarsPerPdu(maxVarsPerPdu);
+        }
 
         iface.setAgentConfig(agentConfig);
 

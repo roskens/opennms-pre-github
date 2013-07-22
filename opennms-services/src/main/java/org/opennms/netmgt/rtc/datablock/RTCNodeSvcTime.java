@@ -76,10 +76,11 @@ public class RTCNodeSvcTime extends Object {
     public RTCNodeSvcTime(long lostt, long regainedt) {
         m_svcLostTime = lostt;
 
-        if (regainedt <= 0)
+        if (regainedt <= 0) {
             m_svcRegainedTime = -1;
-        else
+        } else {
             m_svcRegainedTime = regainedt;
+        }
     }
 
     /**
@@ -99,10 +100,11 @@ public class RTCNodeSvcTime extends Object {
      *            the time at which service was regained
      */
     public void setRegainedTime(long t) {
-        if (t <= 0)
+        if (t <= 0) {
             m_svcRegainedTime = -1;
-        else
+        } else {
             m_svcRegainedTime = t;
+        }
     }
 
     /**
@@ -158,8 +160,9 @@ public class RTCNodeSvcTime extends Object {
         long downTime = 0;
 
         // make sure the lost time is not later than current time!
-        if (curTime < m_svcLostTime)
+        if (curTime < m_svcLostTime) {
             return downTime;
+        }
 
         // the start of the rolling window
         long startTime = curTime - rollingWindow;

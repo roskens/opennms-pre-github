@@ -83,8 +83,9 @@ public class RTCCategory extends Category {
     public void addNode(RTCNode node) {
         Long longnodeid = node.getNodeID();
 
-        if (!m_nodes.contains(longnodeid))
+        if (!m_nodes.contains(longnodeid)) {
             m_nodes.add(longnodeid);
+        }
     }
 
     /**
@@ -96,8 +97,9 @@ public class RTCCategory extends Category {
     public void addNode(long nodeid) {
         Long longnodeid = Long.valueOf(nodeid);
 
-        if (!m_nodes.contains(longnodeid))
+        if (!m_nodes.contains(longnodeid)) {
             m_nodes.add(longnodeid);
+        }
     }
 
     /**

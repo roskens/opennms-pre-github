@@ -389,8 +389,9 @@ public class BroadcastEventProcessor implements InitializingBean {
      */
     private List<Event> createNodeWithInterface(Connection conn, String nodeLabel, String ipaddr) throws SQLException,
             FailedOperationException {
-        if (nodeLabel == null)
+        if (nodeLabel == null) {
             return Collections.emptyList();
+        }
 
         LOG.debug("addNode:  Add a node {} to the database", nodeLabel);
 
@@ -406,8 +407,9 @@ public class BroadcastEventProcessor implements InitializingBean {
         Event newEvent = EventUtils.createNodeAddedEvent(node);
         eventsToSend.add(newEvent);
 
-        if (ipaddr != null)
+        if (ipaddr != null) {
             LOG.debug("addNode:  Add an IP Address {} to the database", ipaddr);
+        }
 
         // add the ipaddess to the database
         InetAddress ifaddress;
@@ -1084,11 +1086,12 @@ public class BroadcastEventProcessor implements InitializingBean {
         if ("DELETE".equalsIgnoreCase(action)) {
             return doDeleteInterfaceMappings(dbConn, nodeLabel, ipaddr, hostName, txNo);
         } else if ("ADD".equalsIgnoreCase(action)) {
-            if (exists)
+            if (exists) {
                 throw new FailedOperationException("Could not add interface " + ipaddr + " to NMS server: " + hostName
                         + " because it already exists!");
-            else
+            } else {
                 return doCreateInterfaceMappings(dbConn, nodeLabel, ipaddr, hostName, txNo);
+            }
         } else {
             LOG.error("updateServerHandler: could not process interface: {} on NMS server: {}: action {} unknown",
                       ipaddr, hostName, action);
@@ -1306,8 +1309,9 @@ public class BroadcastEventProcessor implements InitializingBean {
     public void handleAddInterface(Event event) throws InsufficientInformationException, FailedOperationException {
         EventUtils.checkInterface(event);
         EventUtils.requireParm(event, EventConstants.PARM_NODE_LABEL);
-        if (isXmlRpcEnabled())
+        if (isXmlRpcEnabled()) {
             EventUtils.requireParm(event, EventConstants.PARM_TRANSACTION_NO);
+        }
         LOG.debug("addInterfaceHandler:  processing addInterface event for {}", event.getInterface());
 
         String nodeLabel = EventUtils.getParm(event, EventConstants.PARM_NODE_LABEL);
@@ -1327,7 +1331,7 @@ public class BroadcastEventProcessor implements InitializingBean {
             LOG.error("addInterfaceHandler: SQLException during add node and ipaddress to the database.", sqlE);
             throw new FailedOperationException("Database error: " + sqlE.getMessage(), sqlE);
         } finally {
-            if (dbConn != null)
+            if (dbConn != null) {
                 try {
                     if (eventsToSend != null) {
                         dbConn.commit();
@@ -1341,14 +1345,16 @@ public class BroadcastEventProcessor implements InitializingBean {
                     LOG.error("handleAddInterface: Threw Exception during commit: ", ex);
                     throw new FailedOperationException("Database error: " + ex.getMessage(), ex);
                 } finally {
-                    if (dbConn != null)
+                    if (dbConn != null) {
                         try {
                             dbConn.setAutoCommit(true); // TODO:verify this
                             dbConn.close();
                         } catch (SQLException ex) {
                             LOG.error("handleAddInterface: Threw Exception during close: ", ex);
                         }
+                    }
                 }
+            }
         }
     }
 
@@ -1396,7 +1402,7 @@ public class BroadcastEventProcessor implements InitializingBean {
             LOG.error("addNodeHandler: SQLException during add node and ipaddress to tables", sqlE);
             throw new FailedOperationException("database error: " + sqlE.getMessage(), sqlE);
         } finally {
-            if (dbConn != null)
+            if (dbConn != null) {
                 try {
                     if (eventsToSend != null) {
                         dbConn.commit();
@@ -1410,13 +1416,15 @@ public class BroadcastEventProcessor implements InitializingBean {
                     LOG.error("handleAddNode: Threw Exception during commit: ", ex);
                     throw new FailedOperationException("database error: " + ex.getMessage(), ex);
                 } finally {
-                    if (dbConn != null)
+                    if (dbConn != null) {
                         try {
                             dbConn.close();
                         } catch (SQLException ex) {
                             LOG.error("handleAddNode: Threw Exception during close: ", ex);
                         }
+                    }
                 }
+            }
         }
 
     }
@@ -1458,7 +1466,7 @@ public class BroadcastEventProcessor implements InitializingBean {
             LOG.error("SQLException during changeService on database.", sqlE);
             throw new FailedOperationException("exeption processing changeService: " + sqlE.getMessage(), sqlE);
         } finally {
-            if (dbConn != null)
+            if (dbConn != null) {
                 try {
                     if (eventsToSend != null) {
                         dbConn.commit();
@@ -1472,13 +1480,15 @@ public class BroadcastEventProcessor implements InitializingBean {
                     LOG.error("handleChangeService: Exception thrown during commit/rollback: ", ex);
                     throw new FailedOperationException("exeption processing changeService: " + ex.getMessage(), ex);
                 } finally {
-                    if (dbConn != null)
+                    if (dbConn != null) {
                         try {
                             dbConn.close();
                         } catch (SQLException ex) {
                             LOG.error("handleChangeService: Exception thrown closing connection: {}", ex);
                         }
+                    }
                 }
+            }
         }
 
     }
@@ -1504,8 +1514,9 @@ public class BroadcastEventProcessor implements InitializingBean {
         if (event.hasIfIndex()) {
             ifIndex = event.getIfIndex();
         }
-        if (isXmlRpcEnabled())
+        if (isXmlRpcEnabled()) {
             EventUtils.requireParm(event, EventConstants.PARM_TRANSACTION_NO);
+        }
 
         // log the event
         LOG.debug("handleDeleteInterface: Event\nuei\t\t{}\neventid\t\t{}\nnodeId\t\t{}\nipaddr\t\t{}\nifIndex\t\t{}\neventtime\t{}",
@@ -1532,7 +1543,7 @@ public class BroadcastEventProcessor implements InitializingBean {
                       (event.hasIfIndex() ? event.getIfIndex() : "null"), ex);
             throw new FailedOperationException("database error: " + ex.getMessage(), ex);
         } finally {
-            if (dbConn != null)
+            if (dbConn != null) {
                 try {
                     if (eventsToSend != null) {
                         dbConn.commit();
@@ -1546,13 +1557,15 @@ public class BroadcastEventProcessor implements InitializingBean {
                     LOG.error("handleDeleteInterface: Exception thrown during commit/rollback: ", ex);
                     throw new FailedOperationException("exeption processing delete interface: " + ex.getMessage(), ex);
                 } finally {
-                    if (dbConn != null)
+                    if (dbConn != null) {
                         try {
                             dbConn.close();
                         } catch (SQLException ex) {
                             LOG.error("handleDeleteInterface: Exception thrown closing connection: ", ex);
                         }
+                    }
                 }
+            }
         }
     }
 
@@ -1572,8 +1585,9 @@ public class BroadcastEventProcessor implements InitializingBean {
         // validate event
         EventUtils.checkEventId(event);
         EventUtils.checkNodeId(event);
-        if (isXmlRpcEnabled())
+        if (isXmlRpcEnabled()) {
             EventUtils.requireParm(event, EventConstants.PARM_TRANSACTION_NO);
+        }
 
         // log the event
         long nodeid = event.getNodeid();
@@ -1599,7 +1613,7 @@ public class BroadcastEventProcessor implements InitializingBean {
 
         } finally {
 
-            if (dbConn != null)
+            if (dbConn != null) {
                 try {
                     if (eventsToSend != null) {
                         dbConn.commit();
@@ -1613,13 +1627,15 @@ public class BroadcastEventProcessor implements InitializingBean {
                     LOG.error("handleDeleteNode: Exception thrown during commit/rollback: ", ex);
                     throw new FailedOperationException("exeption processing deleteNode: " + ex.getMessage(), ex);
                 } finally {
-                    if (dbConn != null)
+                    if (dbConn != null) {
                         try {
                             dbConn.close();
                         } catch (SQLException ex) {
                             LOG.error("handleDeleteNode: Exception thrown closing connection: ", ex);
                         }
+                    }
                 }
+            }
         }
     }
 
@@ -1665,7 +1681,7 @@ public class BroadcastEventProcessor implements InitializingBean {
             throw new FailedOperationException("database error: " + ex.getMessage(), ex);
         } finally {
 
-            if (dbConn != null)
+            if (dbConn != null) {
                 try {
                     if (eventsToSend != null) {
                         dbConn.commit();
@@ -1679,13 +1695,15 @@ public class BroadcastEventProcessor implements InitializingBean {
                     LOG.error("handleDeleteService: Exception thrown during commit/rollback: ", ex);
                     throw new FailedOperationException("exeption processing deleteService: " + ex.getMessage(), ex);
                 } finally {
-                    if (dbConn != null)
+                    if (dbConn != null) {
                         try {
                             dbConn.close();
                         } catch (SQLException ex) {
                             LOG.error("handleDeleteService: Exception thrown closing connection: ", ex);
                         }
+                    }
                 }
+            }
         }
     }
 
@@ -1726,9 +1744,9 @@ public class BroadcastEventProcessor implements InitializingBean {
         // from the database
         Long nodeid = -1L;
 
-        if (event.hasNodeid())
+        if (event.hasNodeid()) {
             nodeid = event.getNodeid();
-        else {
+        } else {
             // Extract interface from the event and use it to
             // lookup the node identifier associated with the
             // interface from the database.
@@ -1898,7 +1916,7 @@ public class BroadcastEventProcessor implements InitializingBean {
             LOG.error("SQLException during updateServer on database.", sqlE);
             throw new FailedOperationException("SQLException during updateServer on database.", sqlE);
         } finally {
-            if (dbConn != null)
+            if (dbConn != null) {
                 try {
                     if (eventsToSend != null) {
                         dbConn.commit();
@@ -1912,13 +1930,15 @@ public class BroadcastEventProcessor implements InitializingBean {
                     LOG.error("handleUpdateServer: Exception thrown during commit/rollback: ", ex);
                     throw new FailedOperationException("SQLException during updateServer on database.", ex);
                 } finally {
-                    if (dbConn != null)
+                    if (dbConn != null) {
                         try {
                             dbConn.close();
                         } catch (SQLException ex) {
                             LOG.error("handleUpdateServer: Exception thrown closing connection: ", ex);
                         }
+                    }
                 }
+            }
         }
 
     }
@@ -1969,7 +1989,7 @@ public class BroadcastEventProcessor implements InitializingBean {
             throw new FailedOperationException(sqlE.getMessage());
         } finally {
 
-            if (dbConn != null)
+            if (dbConn != null) {
                 try {
                     if (eventsToSend != null) {
                         dbConn.commit();
@@ -1983,13 +2003,15 @@ public class BroadcastEventProcessor implements InitializingBean {
                     LOG.error("handleUpdateService: Exception thrown during commit/rollback: ", ex);
                     throw new FailedOperationException(ex.getMessage());
                 } finally {
-                    if (dbConn != null)
+                    if (dbConn != null) {
                         try {
                             dbConn.close();
                         } catch (SQLException ex) {
                             LOG.error("handleUpdateService: Exception thrown during close: ", ex);
                         }
+                    }
                 }
+            }
         }
 
     }
@@ -2260,10 +2282,11 @@ public class BroadcastEventProcessor implements InitializingBean {
 
             LOG.debug("markServicesDeleted: marked service deleted: {}", nodeId);
 
-            if (count > 0)
+            if (count > 0) {
                 return Collections.singletonList(EventUtils.createNodeDeletedEvent(source, nodeId, txNo));
-            else
+            } else {
                 return Collections.emptyList();
+            }
         } finally {
             d.cleanUp();
         }
@@ -2308,11 +2331,12 @@ public class BroadcastEventProcessor implements InitializingBean {
 
             LOG.debug("markServiceDeleted: marked service deleted: {}/{}/{}", nodeId, ipAddr, service);
 
-            if (count > 0)
+            if (count > 0) {
                 return Collections.singletonList(EventUtils.createServiceDeletedEvent(source, nodeId, ipAddr, service,
                                                                                       txNo));
-            else
+            } else {
                 return Collections.emptyList();
+            }
         } finally {
             d.cleanUp();
         }
@@ -2454,9 +2478,10 @@ public class BroadcastEventProcessor implements InitializingBean {
      */
     private void verifyInterfaceExists(Connection dbConn, String nodeLabel, String ipaddr) throws SQLException,
             FailedOperationException {
-        if (!interfaceExists(dbConn, nodeLabel, ipaddr))
+        if (!interfaceExists(dbConn, nodeLabel, ipaddr)) {
             throw new FailedOperationException("Interface " + ipaddr + " does not exist on a node with nodeLabel "
                     + nodeLabel);
+        }
     }
 
     /**

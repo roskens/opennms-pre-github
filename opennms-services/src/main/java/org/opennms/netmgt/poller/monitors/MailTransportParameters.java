@@ -587,8 +587,9 @@ public class MailTransportParameters {
         final ReadmailTest readTest = getReadTest();
         if (readTest != null) {
             final ReadmailHost readmailHost = readTest.getReadmailHost();
-            if (readmailHost != null)
+            if (readmailHost != null) {
                 return readmailHost.getHost();
+            }
         }
         return null;
     }

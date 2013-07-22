@@ -294,8 +294,9 @@ public class NodeLabel {
         if (nodeLabelSource != null) {
             char[] temp = nodeLabelSource.toCharArray();
             return new NodeLabel(nodeLabel, temp[0]);
-        } else
+        } else {
             return new NodeLabel(nodeLabel, SOURCE_UNKNOWN);
+        }
     }
 
     /**
@@ -625,10 +626,11 @@ public class NodeLabel {
             // are equivalent. The hostname is only added if they are different.
             // If the are the same, an empty string is added to the host name
             // list.
-            if (hostName == null || hostName.equals(inetAddr.toString()))
+            if (hostName == null || hostName.equals(inetAddr.toString())) {
                 ipHostNameList.add("");
-            else
+            } else {
                 ipHostNameList.add(hostName);
+            }
 
             LOG.debug("NodeLabel.computeLabel: adding address {} with hostname: {}", inetAddr, hostName);
         }

@@ -136,8 +136,9 @@ public class MicroblogNotificationStrategy implements NotificationStrategy {
         // First try to get a microblog profile called "notifd", falling back to
         // the default if that fails
         profile = m_microblogConfigurationDao.getProfile("notifd");
-        if (profile == null)
+        if (profile == null) {
             profile = m_microblogConfigurationDao.getDefaultProfile();
+        }
 
         if (profile == null) {
             LOG.error("Unable to find a microblog profile called '{}', and default profile does not exist; we cannot send microblog notifications!",
@@ -151,13 +152,16 @@ public class MicroblogNotificationStrategy implements NotificationStrategy {
         authenUser = profile.getAuthenUsername();
         authenPass = profile.getAuthenPassword();
 
-        if (authenUser == null || "".equals(authenUser))
+        if (authenUser == null || "".equals(authenUser)) {
             LOG.warn("Working with a blank username, perhaps you forgot to set this in the microblog configuration?");
-        if (authenPass == null || "".equals(authenPass))
+        }
+        if (authenPass == null || "".equals(authenPass)) {
             LOG.warn("Working with a blank password, perhaps you forgot to set this in the microblog configuration?");
-        if (serviceUrl == null || "".equals(serviceUrl))
+        }
+        if (serviceUrl == null || "".equals(serviceUrl)) {
             throw new IllegalArgumentException(
                                                "Cannot use a blank microblog service URL, perhaps you forgot to set this in the microblog configuration?");
+        }
 
         Twitter svc = new Twitter();
         svc.setBaseURL(serviceUrl);
@@ -185,8 +189,9 @@ public class MicroblogNotificationStrategy implements NotificationStrategy {
             if (NotificationManager.PARAM_TEXT_MSG.equals(arg.getSwitch())) {
                 messageBody = arg.getValue();
             } else if (NotificationManager.PARAM_NUM_MSG.equals(arg.getSwitch())) {
-                if (messageBody == null)
+                if (messageBody == null) {
                     messageBody = arg.getValue();
+                }
             }
         }
 

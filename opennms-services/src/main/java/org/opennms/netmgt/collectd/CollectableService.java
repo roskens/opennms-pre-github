@@ -230,8 +230,9 @@ final class CollectableService implements ReadyRunnable {
      */
     public void refreshPackage(CollectorConfigDao collectorConfigDao) {
         m_spec.refresh(collectorConfigDao);
-        if (m_thresholdVisitor != null)
+        if (m_thresholdVisitor != null) {
             m_thresholdVisitor.reloadScheduledOutages();
+        }
     }
 
     /** {@inheritDoc} */
@@ -252,8 +253,9 @@ final class CollectableService implements ReadyRunnable {
     public boolean isReady() {
         boolean ready = false;
 
-        if (!isSchedulingComplete())
+        if (!isSchedulingComplete()) {
             return false;
+        }
 
         if (m_spec.getInterval() < 1) {
             ready = true;
@@ -498,8 +500,9 @@ final class CollectableService implements ReadyRunnable {
         // to ensure that no updates are missed.
         //
         synchronized (this) {
-            if (!m_updates.hasUpdates())
+            if (!m_updates.hasUpdates()) {
                 return !ABORT_COLLECTION;
+            }
 
             // Update: deletion flag
             //

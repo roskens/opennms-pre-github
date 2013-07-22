@@ -333,9 +333,10 @@ public class MailTransportMonitor extends AbstractServiceMonitor {
                         LOG.debug("searchMailSubject: message with subject '{}' found.", subject);
 
                         if (mailParms.isEnd2EndTestInProgress()) {
-                            if (!delete)
+                            if (!delete) {
                                 LOG.debug("searchMailSubject: flagging message with subject '{}' for deletion for end2end test.",
                                           subject);
+                            }
                             delete = true;
                         }
                     }
@@ -346,14 +347,16 @@ public class MailTransportMonitor extends AbstractServiceMonitor {
                               Boolean.toString(deleteAllMail), Boolean.toString(foundMTMHeader));
 
                     if (deleteAllMail) {
-                        if (!delete)
+                        if (!delete) {
                             LOG.debug("searchMailSubject: flagging message with subject '{}' for deletion because deleteAllMail is set.",
                                       subject);
+                        }
                         delete = true;
                     } else if (foundMTMHeader) {
-                        if (!delete)
+                        if (!delete) {
                             LOG.debug("searchMailSubject: flagging message with subject '{}' for deletion because we sent it (found header {}={})",
                                       subject, MTM_HEADER_KEY, m_headerValue);
+                        }
                         delete = true;
                     }
 

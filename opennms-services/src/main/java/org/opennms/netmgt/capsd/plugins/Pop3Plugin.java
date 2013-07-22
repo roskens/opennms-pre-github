@@ -141,8 +141,9 @@ public final class Pop3Plugin extends AbstractPlugin {
                     // Server response should start with: "+OK"
                     //
                     t = new StringTokenizer(lineRdr.readLine());
-                    if (t.nextToken().equals("+OK"))
+                    if (t.nextToken().equals("+OK")) {
                         isAServer = true;
+                    }
                 }
             } catch (ConnectException cE) {
                 // Connection refused!! Continue to retry.
@@ -170,8 +171,9 @@ public final class Pop3Plugin extends AbstractPlugin {
                           InetAddressUtils.str(host), t);
             } finally {
                 try {
-                    if (socket != null)
+                    if (socket != null) {
                         socket.close();
+                    }
                 } catch (IOException e) {
                 }
             }
@@ -222,8 +224,9 @@ public final class Pop3Plugin extends AbstractPlugin {
         }
 
         boolean result = isServer(address, port, retries, timeout);
-        if (result && qualifiers != null && !qualifiers.containsKey("port"))
+        if (result && qualifiers != null && !qualifiers.containsKey("port")) {
             qualifiers.put("port", port);
+        }
 
         return result;
     }

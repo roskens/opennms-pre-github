@@ -383,12 +383,14 @@ public class PollableService extends PollableElement implements ReadyRunnable, M
         if (getContext().isServiceUnresponsiveEnabled()) {
             if (isStatusChanged() && getStatus().equals(PollStatus.unresponsive())) {
                 getContext().sendEvent(createUnresponsiveEvent(date));
-                if (m_oldStatus.equals(PollStatus.up()))
+                if (m_oldStatus.equals(PollStatus.up())) {
                     resetStatusChanged();
+                }
             } else if (isStatusChanged() && m_oldStatus.equals(PollStatus.unresponsive())) {
                 getContext().sendEvent(createResponsiveEvent(date));
-                if (getStatus().equals(PollStatus.up()))
+                if (getStatus().equals(PollStatus.up())) {
                     resetStatusChanged();
+                }
             }
         }
         super.processStatusChange(date);
@@ -399,8 +401,9 @@ public class PollableService extends PollableElement implements ReadyRunnable, M
     public void updateStatus(PollStatus newStatus) {
 
         if (!getContext().isServiceUnresponsiveEnabled()) {
-            if (newStatus.equals(PollStatus.unresponsive()))
+            if (newStatus.equals(PollStatus.unresponsive())) {
                 newStatus = PollStatus.down();
+            }
         }
 
         PollStatus currentStatus = getStatus();
@@ -568,8 +571,9 @@ public class PollableService extends PollableElement implements ReadyRunnable, M
      * .
      */
     public void schedule() {
-        if (m_schedule == null)
+        if (m_schedule == null) {
             throw new IllegalStateException("Cannot schedule a service whose schedule is set to null");
+        }
 
         m_schedule.schedule();
     }

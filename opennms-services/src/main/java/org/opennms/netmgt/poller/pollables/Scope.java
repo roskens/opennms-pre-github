@@ -81,8 +81,9 @@ public enum Scope {
      * @return a boolean.
      */
     public boolean isLargerThan(Scope s) {
-        if (s == null)
+        if (s == null) {
             return true;
+        }
         return this.ordinal() > s.ordinal();
     }
 
@@ -97,8 +98,9 @@ public enum Scope {
      * @return a boolean.
      */
     public boolean isSmallerThan(Scope s) {
-        if (s == null)
+        if (s == null) {
             return false;
+        }
         return this.ordinal() < s.ordinal();
     }
 

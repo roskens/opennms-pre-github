@@ -94,12 +94,14 @@ public class MockProxy implements CommandResponder {
     @Override
     public void processPdu(CommandResponderEvent e) {
         PDU command = e.getPDU();
-        if (command == null)
+        if (command == null) {
             return;
+        }
 
         PDU response = processRequest(command);
-        if (response == null)
+        if (response == null) {
             return;
+        }
 
         StatusInformation statusInformation = new StatusInformation();
         StateReference ref = e.getStateReference();
@@ -123,8 +125,9 @@ public class MockProxy implements CommandResponder {
      * @return the pdu
      */
     private PDU processRequest(PDU request) {
-        if (!isRequestPDU(request))
+        if (!isRequestPDU(request)) {
             return null;
+        }
 
         switch (request.getType()) {
         case PDU.GET:

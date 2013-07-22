@@ -513,8 +513,9 @@ public class DefaultQueryManager implements QueryManager {
      * @return a int.
      */
     public int getServiceID(String serviceName) {
-        if (serviceName == null)
+        if (serviceName == null) {
             return -1;
+        }
 
         SingleResultQuerier querier = new SingleResultQuerier(getDataSource(),
                                                               "select serviceId from service where serviceName = ?");

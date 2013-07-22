@@ -99,9 +99,10 @@ public final class GpMonitor extends AbstractServiceMonitor {
         //
         // Get interface address from NetworkInterface
         //
-        if (iface.getType() != NetworkInterface.TYPE_INET)
+        if (iface.getType() != NetworkInterface.TYPE_INET) {
             throw new NetworkInterfaceNotSupportedException(
                                                             "Unsupported interface type, only TYPE_INET currently supported");
+        }
 
         TimeoutTracker tracker = new TimeoutTracker(parameters, DEFAULT_RETRY, DEFAULT_TIMEOUT);
 
@@ -159,12 +160,13 @@ public final class GpMonitor extends AbstractServiceMonitor {
 
                 ExecRunner er = new ExecRunner();
                 er.setMaxRunTimeSecs(timeoutInSeconds);
-                if (args == null)
+                if (args == null) {
                     exitStatus = er.exec(script + " " + hoption + " " + hostAddress + " " + toption + " "
                             + timeoutInSeconds);
-                else
+                } else {
                     exitStatus = er.exec(script + " " + hoption + " " + hostAddress + " " + toption + " "
                             + timeoutInSeconds + " " + args);
+                }
 
                 double responseTime = tracker.elapsedTimeInMillis();
 
@@ -184,12 +186,14 @@ public final class GpMonitor extends AbstractServiceMonitor {
                     if (exitStatus == 0) {
                         scriptoutput = er.getOutString();
                         scripterror = er.getErrString();
-                        if (!scriptoutput.equals(""))
+                        if (!scriptoutput.equals("")) {
                             LOG.debug("{} output  = {}", script, scriptoutput);
-                        else
+                        } else {
                             LOG.debug("{} returned no output", script);
-                        if (!scripterror.equals(""))
+                        }
+                        if (!scripterror.equals("")) {
                             LOG.debug("{} error = {}", script, scripterror);
+                        }
                         if (strBannerMatch == null || strBannerMatch.equals("*")) {
 
                             serviceStatus = PollStatus.available(responseTime);

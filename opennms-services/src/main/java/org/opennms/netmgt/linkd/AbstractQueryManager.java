@@ -291,8 +291,9 @@ public abstract class AbstractQueryManager implements QueryManager {
 
             final InetAddress ipaddress = ent.getIpNetToMediaNetAddress();
 
-            if (ipaddress.equals(node.getSnmpPrimaryIpAddr()))
+            if (ipaddress.equals(node.getSnmpPrimaryIpAddr())) {
                 hasPrimaryIpAsAtinterface = true;
+            }
             final String hostAddress = InetAddressUtils.str(ipaddress);
 
             if (ipaddress == null || ipaddress.isLoopbackAddress() || m_zeroAddress.equals(ipaddress)) {
@@ -346,8 +347,9 @@ public abstract class AbstractQueryManager implements QueryManager {
             }
         }
 
-        if (!hasPrimaryIpAsAtinterface)
+        if (!hasPrimaryIpAsAtinterface) {
             savePrimaryAddressAtInterface(node);
+        }
 
     }
 
@@ -444,8 +446,9 @@ public abstract class AbstractQueryManager implements QueryManager {
             List<OnmsIpInterface> ipinterfaces = getIpInterfaceDao().findByIpAddress(str(ospfNbrIpAddr));
             for (OnmsIpInterface ipinterface : ipinterfaces) {
 
-                if (ifIndex.intValue() == 0)
+                if (ifIndex.intValue() == 0) {
                     ifIndex = ipinterface.getIfIndex();
+                }
                 LOG.debug("processOspf: ospf node/ospfnbraddress/ospfnbrrouterid/ifIndex: {}/{}/{}/{}",
                           ipinterface.getNode().getId(), str(ospfNbrIpAddr), str(ospfNbrRouterId), ifIndex);
                 if (ifIndex != null && ifIndex.intValue() > 0) {
@@ -954,8 +957,9 @@ public abstract class AbstractQueryManager implements QueryManager {
                 }
             }
 
-            if (ifindex > 0)
+            if (ifindex > 0) {
                 snmpiftype = getSnmpIfType(node.getNodeId(), ifindex);
+            }
 
             if (snmpiftype <= 0) {
                 LOG.warn("processRouteTable: interface has an invalid ifType ({}).", snmpiftype);
@@ -1095,8 +1099,9 @@ public abstract class AbstractQueryManager implements QueryManager {
         for (final String physaddr : getPhysAddrs(node.getNodeId())) {
             LOG.debug("storeSnmpVlanCollection: Try to add Bridge Identifier \"{}\" for node {}", physaddr,
                       node.getNodeId());
-            if (physaddr == null || physaddr.equals("") || physaddr.equals("000000000000"))
+            if (physaddr == null || physaddr.equals("") || physaddr.equals("000000000000")) {
                 continue;
+            }
             LOG.info("storeSnmpVlanCollection: Adding Bridge Identifier {} for node {}", physaddr, node.getNodeId());
             node.addBridgeIdentifier(physaddr);
         }
@@ -1135,8 +1140,9 @@ public abstract class AbstractQueryManager implements QueryManager {
         }
 
         for (OnmsStpInterface stpInterface : stpinterfaces.values()) {
-            if (stpInterface.getStpPortDesignatedBridge() == null)
+            if (stpInterface.getStpPortDesignatedBridge() == null) {
                 continue;
+            }
             if (stpInterface.getStpPortDesignatedBridge().substring(5, 16).equals(snmpVlanColl.getDot1dBase().getBridgeAddress())) {
                 LOG.debug("processDot1dBasePortAndStpPortTables: portdesignatedBridge is bridge itself {}. Nothing to add to linkable node ",
                           snmpVlanColl.getDot1dBase().getBridgeAddress());

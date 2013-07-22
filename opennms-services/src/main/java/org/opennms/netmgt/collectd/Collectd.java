@@ -928,8 +928,9 @@ public class Collectd extends AbstractServiceDaemon implements EventListener {
                 // Only interested in entries with matching nodeId and IP
                 // address
                 InetAddress addr = (InetAddress) cSvc.getAddress();
-                if (!(cSvc.getNodeId() == nodeId && addr.getHostName().equals(ipAddr)))
+                if (!(cSvc.getNodeId() == nodeId && addr.getHostName().equals(ipAddr))) {
                     continue;
+                }
 
                 synchronized (cSvc) {
                     // Retrieve the CollectorUpdates object associated with
@@ -978,8 +979,9 @@ public class Collectd extends AbstractServiceDaemon implements EventListener {
         LOG.debug("interfaceReparentedHandler:  processing interfaceReparented event for {}", event.getInterface());
 
         // Verify that the event has an interface associated with it
-        if (event.getInterface() == null)
+        if (event.getInterface() == null) {
             return;
+        }
 
         // Extract the old and new nodeId's from the event parms
         String oldNodeIdStr = null;
@@ -991,10 +993,11 @@ public class Collectd extends AbstractServiceDaemon implements EventListener {
         for (Parm parm : event.getParmCollection()) {
             parmName = parm.getParmName();
             parmValue = parm.getValue();
-            if (parmValue == null)
+            if (parmValue == null) {
                 continue;
-            else
+            } else {
                 parmContent = parmValue.getContent();
+            }
 
             // old nodeid
             if (parmName.equals(EventConstants.PARM_OLD_NODEID)) {
@@ -1116,8 +1119,9 @@ public class Collectd extends AbstractServiceDaemon implements EventListener {
                 cSvc = liter.next();
 
                 // Only interested in entries with matching nodeId
-                if (!(cSvc.getNodeId() == nodeId))
+                if (!(cSvc.getNodeId() == nodeId)) {
                     continue;
+                }
 
                 synchronized (cSvc) {
                     // Retrieve the CollectorUpdates object associated
@@ -1268,8 +1272,9 @@ public class Collectd extends AbstractServiceDaemon implements EventListener {
 
         // Currently only support SNMP data collection.
         //
-        if (!event.getService().equals("SNMP"))
+        if (!event.getService().equals("SNMP")) {
             return;
+        }
 
         // Extract the old and new primary SNMP interface addresses from the
         // event parms.
@@ -1282,10 +1287,11 @@ public class Collectd extends AbstractServiceDaemon implements EventListener {
         for (Parm parm : event.getParmCollection()) {
             parmName = parm.getParmName();
             parmValue = parm.getValue();
-            if (parmValue == null)
+            if (parmValue == null) {
                 continue;
-            else
+            } else {
                 parmContent = parmValue.getContent();
+            }
 
             // old primary SNMP interface (optional parameter)
             if (parmName.equals(EventConstants.PARM_OLD_PRIMARY_SNMP_ADDRESS)) {
@@ -1448,8 +1454,9 @@ public class Collectd extends AbstractServiceDaemon implements EventListener {
                 // WATCH the brackets; there used to be an extra close bracket
                 // after the ipAddr comparison which borked this whole
                 // expression
-                if (!(cSvc.getNodeId() == nodeId && addr.getHostName().equals(ipAddr) && cSvc.getServiceName().equals(svcName)))
+                if (!(cSvc.getNodeId() == nodeId && addr.getHostName().equals(ipAddr) && cSvc.getServiceName().equals(svcName))) {
                     continue;
+                }
 
                 synchronized (cSvc) {
                     // Retrieve the CollectorUpdates object associated with

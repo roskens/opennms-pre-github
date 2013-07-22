@@ -94,8 +94,9 @@ public abstract class SnmpMonitorStrategy extends AbstractServiceMonitor {
      * @return the string value
      */
     public String getStringValue(SnmpValue result) {
-        if (hex)
+        if (hex) {
             return result.toHexString();
+        }
         return result.toString();
     }
 
@@ -171,12 +172,13 @@ public abstract class SnmpMonitorStrategy extends AbstractServiceMonitor {
             operand = operand.substring(1);
         }
 
-        if (EQUALS.equals(operator))
+        if (EQUALS.equals(operator)) {
             retVal = Boolean.valueOf(operand.equals(value));
-        else if (NOT_EQUAL.equals(operator))
+        } else if (NOT_EQUAL.equals(operator)) {
             retVal = Boolean.valueOf(!operand.equals(value));
-        else if (MATCHES.equals(operator))
+        } else if (MATCHES.equals(operator)) {
             retVal = Boolean.valueOf(Pattern.compile(operand).matcher(value).find());
+        }
         return retVal;
     }
 
@@ -193,8 +195,9 @@ public abstract class SnmpMonitorStrategy extends AbstractServiceMonitor {
      */
     private Boolean isCriteriaNull(Object result, String operator, String operand) {
 
-        if (result == null)
+        if (result == null) {
             return Boolean.FALSE;
+        }
         if (operator == null || operand == null) {
             return Boolean.TRUE;
         } else {

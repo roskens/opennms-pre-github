@@ -180,8 +180,9 @@ class SyslogReceiver implements Runnable {
         if (m_stop) {
             LOG.debug("Stop flag set before thread started, exiting");
             return;
-        } else
+        } else {
             LOG.debug("Thread context started");
+        }
 
         // allocate a buffer
         final int length = 0xffff;

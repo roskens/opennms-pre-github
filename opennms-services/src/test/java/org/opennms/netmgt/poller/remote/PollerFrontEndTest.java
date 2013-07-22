@@ -138,8 +138,9 @@ public class PollerFrontEndTest extends TestCase {
         @Override
         public boolean matches(Object argument) {
             PropertyChangeEvent actual = (PropertyChangeEvent) argument;
-            if (m_expected == actual)
+            if (m_expected == actual) {
                 return true;
+            }
 
             if (m_expected == null) {
                 return actual == null;
@@ -554,8 +555,9 @@ public class PollerFrontEndTest extends TestCase {
     private void anticipateAfterPropertiesSet() {
         anticipateGetMonitorId();
 
-        if (getRegisteredId() == null)
+        if (getRegisteredId() == null) {
             return;
+        }
 
         anticipateDoPollerStart();
 

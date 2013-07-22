@@ -86,8 +86,9 @@ final class BroadcastEventProcessor implements EventListener {
     public void onEvent(Event event) {
 
         String eventUei = event.getUei();
-        if (eventUei == null)
+        if (eventUei == null) {
             return;
+        }
 
         LOG.debug("Received event: {}", eventUei);
 

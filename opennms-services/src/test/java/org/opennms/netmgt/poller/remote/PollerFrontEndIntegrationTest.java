@@ -174,8 +174,9 @@ public class PollerFrontEndIntegrationTest implements InitializingBean, Temporar
             LOG.debug("wait = {}", wait);
 
             if (getMonitorCount(monitorId) == 1 && getDisconnectedCount(monitorId) == 0
-                    && getSpecificChangesCount(monitorId) > 0)
+                    && getSpecificChangesCount(monitorId) > 0) {
                 break;
+            }
         }
 
         assertEquals(1, getMonitorCount(monitorId));

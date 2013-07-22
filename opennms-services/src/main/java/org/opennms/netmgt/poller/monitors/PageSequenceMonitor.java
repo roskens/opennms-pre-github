@@ -689,8 +689,9 @@ public class PageSequenceMonitor extends AbstractServiceMonitor {
             for (SessionVariable varBinding : m_page.getSessionVariableCollection()) {
                 String vbName = varBinding.getName();
                 String vbValue = matcher.group(varBinding.getMatchGroup());
-                if (vbValue == null)
+                if (vbValue == null) {
                     vbValue = "";
+                }
                 props.put(vbName, vbValue);
                 LOG.debug("Just set session variable '{}' to '{}'", vbName, vbValue);
             }
@@ -735,8 +736,9 @@ public class PageSequenceMonitor extends AbstractServiceMonitor {
             if (m_page.getRequireIPv4()) {
                 try {
                     InetAddress address = InetAddressUtils.resolveHostname(host, false);
-                    if (!(address instanceof Inet4Address))
+                    if (!(address instanceof Inet4Address)) {
                         throw new UnknownHostException();
+                    }
                     host = InetAddressUtils.str(address);
                 } catch (UnknownHostException e) {
                     throw new PageSequenceMonitorException("failed to find IPv4 address for hostname: " + host);

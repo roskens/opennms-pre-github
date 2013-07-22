@@ -586,12 +586,13 @@ public class MockNetworkTest extends TestCase {
         assertNotNull(svcs);
         while (svcs.hasMoreElements()) {
             Service svc = (Service) svcs.nextElement();
-            if ("ICMP".equals(svc.getName()))
+            if ("ICMP".equals(svc.getName())) {
                 assertEquals(500L, svc.getInterval());
-            else if ("HTTP".equals(svc.getName()))
+            } else if ("HTTP".equals(svc.getName())) {
                 assertEquals(750L, svc.getInterval());
-            else
+            } else {
                 assertEquals(1000L, svc.getInterval());
+            }
         }
 
         // ensure that setting the thread worked
@@ -826,8 +827,9 @@ public class MockNetworkTest extends TestCase {
             Throwable m_t = null;
 
             public void assertSuccess() throws Throwable {
-                if (m_t != null)
+                if (m_t != null) {
                     throw m_t;
+                }
             }
 
             @Override
@@ -920,8 +922,9 @@ public class MockNetworkTest extends TestCase {
             Throwable m_t = null;
 
             public void assertSuccess() throws Throwable {
-                if (m_t != null)
+                if (m_t != null) {
                     throw m_t;
+                }
             }
 
             @Override

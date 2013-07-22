@@ -373,8 +373,9 @@ final class BroadcastEventProcessor implements EventListener {
 
         // Currently only support SNMP data thresholding.
         //
-        if (!event.getService().equals("SNMP"))
+        if (!event.getService().equals("SNMP")) {
             return;
+        }
 
         // Schedule the new service...
         //
@@ -494,8 +495,9 @@ final class BroadcastEventProcessor implements EventListener {
         LOG.debug("interfaceReparentedHandler:  processing interfaceReparented event for {}", event.getInterface());
 
         // Verify that the event has an interface associated with it
-        if (event.getInterface() == null)
+        if (event.getInterface() == null) {
             return;
+        }
 
         // Extract the old and new nodeId's from the event parms
         String oldNodeIdStr = null;
@@ -507,10 +509,11 @@ final class BroadcastEventProcessor implements EventListener {
         for (Parm parm : event.getParmCollection()) {
             parmName = parm.getParmName();
             parmValue = parm.getValue();
-            if (parmValue == null)
+            if (parmValue == null) {
                 continue;
-            else
+            } else {
                 parmContent = parmValue.getContent();
+            }
 
             // old nodeid
             if (parmName.equals(EventConstants.PARM_OLD_NODEID)) {
@@ -595,8 +598,9 @@ final class BroadcastEventProcessor implements EventListener {
                 tSvc = liter.next();
 
                 // Only interested in entries with matching nodeId
-                if (!(tSvc.getNodeId() == nodeId))
+                if (!(tSvc.getNodeId() == nodeId)) {
                     continue;
+                }
 
                 synchronized (tSvc) {
                     // Retrieve the ThresholderUpdates object associated
@@ -641,8 +645,9 @@ final class BroadcastEventProcessor implements EventListener {
                 // Only interested in entries with matching nodeId and IP
                 // address
                 InetAddress addr = (InetAddress) tSvc.getAddress();
-                if (!(tSvc.getNodeId() == nodeId && addr.equals(ipAddr)))
+                if (!(tSvc.getNodeId() == nodeId && addr.equals(ipAddr))) {
                     continue;
+                }
 
                 synchronized (tSvc) {
                     // Retrieve the ThresholderUpdates object associated with
@@ -675,8 +680,9 @@ final class BroadcastEventProcessor implements EventListener {
 
         // Currently only support SNMP data thresholding.
         //
-        if (!event.getService().equals("SNMP"))
+        if (!event.getService().equals("SNMP")) {
             return;
+        }
 
         long nodeId = event.getNodeid();
         InetAddress ipAddr = event.getInterfaceAddress();
@@ -694,8 +700,9 @@ final class BroadcastEventProcessor implements EventListener {
                 // Only interested in entries with matching nodeId, IP address
                 // and service
                 InetAddress addr = (InetAddress) tSvc.getAddress();
-                if (!(tSvc.getNodeId() == nodeId && addr.equals(ipAddr)) && tSvc.getServiceName().equals(svcName))
+                if (!(tSvc.getNodeId() == nodeId && addr.equals(ipAddr)) && tSvc.getServiceName().equals(svcName)) {
                     continue;
+                }
 
                 synchronized (tSvc) {
                     // Retrieve the ThresholderUpdates object associated with

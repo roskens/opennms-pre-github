@@ -188,8 +188,9 @@ public class JUnitCollectorExecutionListener extends AbstractTestExecutionListen
      *            the directory
      */
     private static void deleteResursively(File directory) {
-        if (!directory.exists())
+        if (!directory.exists()) {
             return;
+        }
 
         if (directory.isDirectory()) {
             for (File f : directory.listFiles()) {

@@ -88,8 +88,9 @@ public class SnmpPollInterfaceMonitor {
 
         // Retrieve this interface's SNMP peer object
         //
-        if (agentConfig == null)
+        if (agentConfig == null) {
             throw new RuntimeException("SnmpAgentConfig object not available");
+        }
 
         SnmpObjId[] adminoids = new SnmpObjId[mifaces.size()];
         SnmpObjId[] operooids = new SnmpObjId[mifaces.size()];

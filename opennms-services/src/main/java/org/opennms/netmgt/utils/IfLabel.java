@@ -115,8 +115,9 @@ public class IfLabel extends Object {
                  * ifTable entries where ifDescr contains "-cef". See bug #803.
                  */
                 if (rs.getString("snmpifdescr") != null) {
-                    if (Pattern.matches(".*-cef.*", rs.getString("snmpifdescr")))
+                    if (Pattern.matches(".*-cef.*", rs.getString("snmpifdescr"))) {
                         return;
+                    }
                 }
 
                 if ((AlphaNumeric.parseAndReplace(rs.getString("snmpifname"), '_').equals(desc2))

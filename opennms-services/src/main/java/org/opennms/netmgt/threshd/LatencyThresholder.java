@@ -154,8 +154,9 @@ final class LatencyThresholder implements ServiceThresholder {
     public void initialize(ThresholdNetworkInterface iface, Map<?, ?> parameters) {
         // Get interface address from NetworkInterface
         //
-        if (iface.getType() != NetworkInterface.TYPE_INET)
+        if (iface.getType() != NetworkInterface.TYPE_INET) {
             throw new RuntimeException("Unsupported interface type, only TYPE_INET currently supported");
+        }
         InetAddress ipAddr = (InetAddress) iface.getAddress();
         String groupName = ParameterMap.getKeyedString(parameters, "thresholding-group", "default");
 
@@ -208,8 +209,9 @@ final class LatencyThresholder implements ServiceThresholder {
                 d.watch(rs);
                 if (rs.next()) {
                     nodeId = rs.getInt(1);
-                    if (rs.wasNull())
+                    if (rs.wasNull()) {
                         nodeId = -1;
+                    }
                 }
             } catch (SQLException sqle) {
                 LOG.debug("initialize: SQL exception!!", sqle);
@@ -219,8 +221,9 @@ final class LatencyThresholder implements ServiceThresholder {
 
             LOG.debug("initialize: db retrieval info: nodeid = {}, address = {}", nodeId, hostAddress);
 
-            if (nodeId == -1)
+            if (nodeId == -1) {
                 throw new RuntimeException("Unable to retrieve node id for interface " + hostAddress);
+            }
         } finally {
             d.cleanUp();
         }
@@ -300,8 +303,9 @@ final class LatencyThresholder implements ServiceThresholder {
         if (LOG.isDebugEnabled()) {
             LOG.debug("initialize: dumping interface thresholds defined for {}/{}:", hostAddress, groupName);
             Iterator<ThresholdEntity> iter = thresholdMap.values().iterator();
-            while (iter.hasNext())
+            while (iter.hasNext()) {
                 LOG.debug(iter.next().toString());
+            }
         }
 
         LOG.debug("initialize: initialization completed for {}", hostAddress);

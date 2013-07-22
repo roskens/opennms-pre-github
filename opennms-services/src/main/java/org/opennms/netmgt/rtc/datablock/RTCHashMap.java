@@ -272,8 +272,9 @@ public class RTCHashMap {
         // get all nodes in the hashtable
         for (Long key : getNodeIDs()) {
             List<RTCNode> valList = getRTCNodes(key.longValue());
-            if (valList == null || valList.size() == 0)
+            if (valList == null || valList.size() == 0) {
                 continue;
+            }
 
             for (RTCNode node : valList) {
                 downTime = node.getDownTime(catLabel, curTime, rollingWindow);
@@ -380,8 +381,9 @@ public class RTCHashMap {
 
         // get nodeslist
         for (RTCNode node : getRTCNodes(nodeid)) {
-            if (node.belongsTo(catLabel))
+            if (node.belongsTo(catLabel)) {
                 count++;
+            }
         }
 
         return count;
@@ -424,8 +426,9 @@ public class RTCHashMap {
      */
     public RTCNode getRTCNode(RTCNodeKey key) {
         List<RTCNode> nodes = m_map.get(key);
-        if (nodes == null)
+        if (nodes == null) {
             return null;
+        }
         if (nodes.size() != 1) {
             throw new IllegalStateException("Could not find single RTCNode that matched key: " + key.toString());
         }
@@ -463,8 +466,9 @@ public class RTCHashMap {
     public List<RTCNode> getRTCNodes(long nodeid) {
         RTCNodeKey key = new RTCNodeKey(nodeid, null, null);
         List<RTCNode> nodes = m_map.get(key);
-        if (nodes == null)
+        if (nodes == null) {
             return Collections.emptyList();
+        }
         return Collections.unmodifiableList(nodes);
     }
 
@@ -483,8 +487,9 @@ public class RTCHashMap {
     public List<RTCNode> getRTCNodes(long nodeid, InetAddress ip) {
         RTCNodeKey key = new RTCNodeKey(nodeid, ip, null);
         List<RTCNode> nodes = m_map.get(key);
-        if (nodes == null)
+        if (nodes == null) {
             return Collections.emptyList();
+        }
         return Collections.unmodifiableList(nodes);
     }
 

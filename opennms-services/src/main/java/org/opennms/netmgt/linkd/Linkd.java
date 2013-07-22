@@ -227,8 +227,9 @@ public class Linkd extends AbstractServiceDaemon {
     public DiscoveryLink getDiscoveryLink(final String pkgName) {
         final Package pkg = m_linkdConfig.getPackage(pkgName);
 
-        if (pkg == null)
+        if (pkg == null) {
             return null;
+        }
 
         final DiscoveryLink discoveryLink = new DiscoveryLink();
         discoveryLink.setLinkd(this);
@@ -504,8 +505,9 @@ public class Linkd extends AbstractServiceDaemon {
         Collection<LinkableNode> nodesOnPkg = new ArrayList<LinkableNode>();
         synchronized (m_nodes) {
             for (final LinkableNode node : m_nodes) {
-                if (isInterfaceInPackage(node.getSnmpPrimaryIpAddr(), pkg))
+                if (isInterfaceInPackage(node.getSnmpPrimaryIpAddr(), pkg)) {
                     nodesOnPkg.add(node);
+                }
             }
             return nodesOnPkg;
         }
@@ -827,10 +829,11 @@ public class Linkd extends AbstractServiceDaemon {
         org.opennms.netmgt.config.linkd.Package pkg = m_linkdConfig.getPackage(pkgName);
 
         boolean autodiscovery = false;
-        if (pkg.hasAutoDiscovery())
+        if (pkg.hasAutoDiscovery()) {
             autodiscovery = pkg.getAutoDiscovery();
-        else
+        } else {
             autodiscovery = m_linkdConfig.isAutoDiscoveryEnabled();
+        }
 
         if (autodiscovery) {
 
@@ -856,8 +859,9 @@ public class Linkd extends AbstractServiceDaemon {
     LinkableNode getNode(int nodeid) {
         synchronized (m_nodes) {
             for (LinkableNode node : m_nodes) {
-                if (node.getNodeId() == nodeid)
+                if (node.getNodeId() == nodeid) {
                     return node;
+                }
             }
             return null;
         }

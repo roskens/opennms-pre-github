@@ -106,9 +106,10 @@ public final class Pop3Monitor extends AbstractServiceMonitor {
 
         // Get interface address from NetworkInterface
         //
-        if (iface.getType() != NetworkInterface.TYPE_INET)
+        if (iface.getType() != NetworkInterface.TYPE_INET) {
             throw new NetworkInterfaceNotSupportedException(
                                                             "Unsupported interface type, only TYPE_INET currently supported");
+        }
 
         // Process parameters
         //
@@ -149,8 +150,9 @@ public final class Pop3Monitor extends AbstractServiceMonitor {
                 String banner = rdr.readLine();
                 double responseTime = tracker.elapsedTimeInMillis();
 
-                if (banner == null)
+                if (banner == null) {
                     continue;
+                }
                 StringTokenizer t = new StringTokenizer(banner);
 
                 if (t.nextToken().equals("+OK")) {
@@ -202,8 +204,9 @@ public final class Pop3Monitor extends AbstractServiceMonitor {
             } finally {
                 try {
                     // Close the socket
-                    if (socket != null)
+                    if (socket != null) {
                         socket.close();
+                    }
 
                 } catch (IOException e) {
                     LOG.debug("poll: Error closing socket.", e);

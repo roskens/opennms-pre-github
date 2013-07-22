@@ -57,8 +57,9 @@ public class SnmpIfCollectorTest extends SnmpCollectorTestCase {
          */
         @Override
         public void visitResource(CollectionResource resource) {
-            if (!(resource instanceof IfInfo))
+            if (!(resource instanceof IfInfo)) {
                 return;
+            }
 
             ifInfoCount++;
             IfInfo ifInfo = (IfInfo) resource;
@@ -118,8 +119,9 @@ public class SnmpIfCollectorTest extends SnmpCollectorTestCase {
     private void assertInterfaceMibObjectsPresent(CollectionSet collectionSet, int expectedIfCount) {
         assertNotNull(collectionSet);
 
-        if (getAttributeList().isEmpty())
+        if (getAttributeList().isEmpty()) {
             return;
+        }
 
         IfInfoVisitor ifInfoVisitor = new IfInfoVisitor();
         collectionSet.visit(ifInfoVisitor);

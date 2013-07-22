@@ -93,12 +93,15 @@ public final class FdbTableGet {
     public int getBridgePort() {
 
         SnmpValue val = SnmpUtils.get(m_agentConfig, getOid(FDB_PORT_OID));
-        if (val == null)
+        if (val == null) {
             return -1;
-        if (val.isNull() || val.isError())
+        }
+        if (val.isNull() || val.isError()) {
             return -1;
-        if (val.isNumeric())
+        }
+        if (val.isNumeric()) {
             return val.toInt();
+        }
         LOG.debug("getBridgePort: mac/bridgeport: {}/{}", m_mac, val.toDisplayString());
 
         return -1;
@@ -115,12 +118,15 @@ public final class FdbTableGet {
     public int getQBridgePort() {
 
         SnmpValue val = SnmpUtils.get(m_agentConfig, getOid(QFDB_PORT_OID));
-        if (val == null)
+        if (val == null) {
             return -1;
-        if (val.isNull() || val.isError())
+        }
+        if (val.isNull() || val.isError()) {
             return -1;
-        if (val.isNumeric())
+        }
+        if (val.isNumeric()) {
             return val.toInt();
+        }
         LOG.debug("getQBridgePort: mac/bridgeport: {}/{}", m_mac, val.toDisplayString());
 
         return -1;
@@ -136,12 +142,15 @@ public final class FdbTableGet {
      */
     public int getBridgePortStatus() {
         SnmpValue val = SnmpUtils.get(m_agentConfig, getOid(FDB_STATUS_OID));
-        if (val == null)
+        if (val == null) {
             return -1;
-        if (val.isNull() || val.isError())
+        }
+        if (val.isNull() || val.isError()) {
             return -1;
-        if (val.isNumeric())
+        }
+        if (val.isNumeric()) {
             return val.toInt();
+        }
         LOG.debug("getBridgePortStatus: mac/bridgeport: {}/{}", m_mac, val.toDisplayString());
         return -1;
 
@@ -157,12 +166,15 @@ public final class FdbTableGet {
      */
     public int getQBridgePortStatus() {
         SnmpValue val = SnmpUtils.get(m_agentConfig, getOid(QFDB_STATUS_OID));
-        if (val == null)
+        if (val == null) {
             return -1;
-        if (val.isNull() || val.isError())
+        }
+        if (val.isNull() || val.isError()) {
             return -1;
-        if (val.isNumeric())
+        }
+        if (val.isNumeric()) {
             return val.toInt();
+        }
         LOG.debug("getQBridgePortStatus: mac/bridgeport: {}/{}", m_mac, val.toDisplayString());
         return -1;
 

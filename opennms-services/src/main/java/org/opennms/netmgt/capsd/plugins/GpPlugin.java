@@ -116,12 +116,13 @@ public final class GpPlugin extends AbstractPlugin {
                 int exitStatus = 100;
                 ExecRunner er = new ExecRunner();
                 er.setMaxRunTimeSecs(timeout);
-                if (args == null)
+                if (args == null) {
                     exitStatus = er.exec(script + " " + hoption + " " + InetAddressUtils.str(host) + " " + toption
                             + " " + timeout);
-                else
+                } else {
                     exitStatus = er.exec(script + " " + hoption + " " + InetAddressUtils.str(host) + " " + toption
                             + " " + timeout + " " + args);
+                }
                 if (exitStatus != 0) {
                     LOG.debug("{} failed with exit code {}", script, exitStatus);
                     isAServer = false;
@@ -135,16 +136,19 @@ public final class GpPlugin extends AbstractPlugin {
                         String error = "";
                         response = er.getOutString();
                         error = er.getErrString();
-                        if (response.equals(""))
+                        if (response.equals("")) {
                             LOG.debug("{} returned no output", script);
-                        if (!error.equals(""))
+                        }
+                        if (!error.equals("")) {
                             LOG.debug("{} error = {}", script, error);
+                        }
                         if (regex == null || regex.match(response)) {
 
                             LOG.debug("isServer: matching response = {}", response);
                             isAServer = true;
-                            if (bannerResult != null)
+                            if (bannerResult != null) {
                                 bannerResult.append(response);
+                            }
                         } else {
                             isAServer = false;
 
@@ -234,10 +238,11 @@ public final class GpPlugin extends AbstractPlugin {
         //
         // convert timeout to seconds for ExecRunner
         //
-        if (0 < timeout && timeout < 1000)
+        if (0 < timeout && timeout < 1000) {
             timeout = 1;
-        else
+        } else {
             timeout = timeout / 1000;
+        }
 
         try {
             StringBuffer bannerResult = null;
@@ -254,8 +259,9 @@ public final class GpPlugin extends AbstractPlugin {
 
             boolean result = isServer(address, retry, timeout, script, args, regex, bannerResult, hoption, toption);
             if (result && qualifiers != null) {
-                if (bannerResult != null && bannerResult.length() > 0)
+                if (bannerResult != null && bannerResult.length() > 0) {
                     qualifiers.put("banner", bannerResult.toString());
+                }
             }
 
             return result;

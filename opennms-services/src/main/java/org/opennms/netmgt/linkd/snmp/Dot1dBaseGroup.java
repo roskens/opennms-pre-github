@@ -201,13 +201,15 @@ public final class Dot1dBaseGroup extends AggregateTracker {
      * @return the onms stp node
      */
     public OnmsStpNode getOnmsStpNode(OnmsStpNode node) {
-        if (getBridgeAddress() == null)
+        if (getBridgeAddress() == null) {
             return node;
+        }
         node.setBaseBridgeAddress(getBridgeAddress());
-        if (getBridgeType() == null)
+        if (getBridgeType() == null) {
             node.setBaseType(BridgeBaseType.UNKNOWN);
-        else
+        } else {
             node.setBaseType(BridgeBaseType.get(getBridgeType()));
+        }
         node.setBaseNumPorts(getNumberOfPorts());
         return node;
     }

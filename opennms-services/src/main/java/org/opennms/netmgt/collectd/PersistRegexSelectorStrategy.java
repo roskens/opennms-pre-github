@@ -86,8 +86,9 @@ public class PersistRegexSelectorStrategy implements PersistenceSelectorStrategy
          */
         @Override
         public void visitAttribute(CollectionAttribute attribute) {
-            if (StringAttributeType.supportsType(attribute.getType()))
+            if (StringAttributeType.supportsType(attribute.getType())) {
                 context.setVariable(attribute.getName(), attribute.getStringValue());
+            }
         }
 
         /**
@@ -124,8 +125,9 @@ public class PersistRegexSelectorStrategy implements PersistenceSelectorStrategy
                              param.getValue(), resource, e.getMessage());
                 }
                 LOG.debug("shouldPersist: checking {} ? {}", param.getValue(), shouldPersist);
-                if (shouldPersist)
+                if (shouldPersist) {
                     return true;
+                }
             }
         }
         return false;

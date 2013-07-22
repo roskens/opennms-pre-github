@@ -577,8 +577,9 @@ public final class RescanProcessor implements Runnable {
         // Construct InetAddress object for "0.0.0.0" address
         InetAddress ifAddr = null;
         ifAddr = ZERO_ZERO_ZERO_ZERO;
-        if (ifAddr == null)
+        if (ifAddr == null) {
             return;
+        }
 
         updateSnmpInfoForNonIpInterface(dbc, node, ifIndex, snmpc, ifAddr);
     }
@@ -1561,8 +1562,9 @@ public final class RescanProcessor implements Runnable {
         boolean svcToBePolled = false;
         if (ipPkg != null) {
             svcToBePolled = PollerConfigFactory.getInstance().isPolled(svcName, ipPkg);
-            if (!svcToBePolled)
+            if (!svcToBePolled) {
                 svcToBePolled = PollerConfigFactory.getInstance().isPolled(ifAddr, svcName);
+            }
         }
         return svcToBePolled;
     }
@@ -1583,8 +1585,9 @@ public final class RescanProcessor implements Runnable {
         boolean svcToBePolled = false;
         if (ipPkg != null && !ipPkg.getRemote()) {
             svcToBePolled = PollerConfigFactory.getInstance().isPolled(svcName, ipPkg);
-            if (!svcToBePolled)
+            if (!svcToBePolled) {
                 svcToBePolled = PollerConfigFactory.getInstance().isPolledLocally(ifAddr, svcName);
+            }
         }
         return svcToBePolled;
     }
@@ -2931,8 +2934,9 @@ public final class RescanProcessor implements Runnable {
      */
     protected static boolean scannableInterface(final DbIpInterfaceEntry[] dbInterfaces, final InetAddress ifaddr) {
         final String ifaddrString = str(ifaddr);
-        if (ifaddrString == null)
+        if (ifaddrString == null) {
             return false;
+        }
 
         final boolean localHostAddress = (ifaddr.isLoopbackAddress() && dbInterfaces.length > 1);
         final boolean nonIpAddress = ifaddrString.equals("0.0.0.0");

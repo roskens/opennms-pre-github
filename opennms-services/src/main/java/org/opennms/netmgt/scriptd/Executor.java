@@ -325,8 +325,9 @@ final class Executor implements Runnable, PausableFiber {
                     }
                 }
 
-                if (node != null)
+                if (node != null) {
                     m_mgr.unregisterBean("node");
+                }
 
                 m_mgr.unregisterBean("event");
 

@@ -677,10 +677,11 @@ public abstract class SnmpTrapForwarderHelper extends AbstractEventForwarder imp
                 trap = buildEventTrap(event, trap, null);
                 snmpTrapHelper.addVarBinding(trap, ".1.3.6.1.4.1.5813.20.3.1.0", "OctetString", "text", "null");
             }
-            if (sync)
+            if (sync) {
                 snmpTrapHelper.addVarBinding(trap, ".1.3.6.1.4.1.5813.20.3.2.0", "OctetString", "text", "SYNC");
-            else
+            } else {
                 snmpTrapHelper.addVarBinding(trap, ".1.3.6.1.4.1.5813.20.3.2.0", "OctetString", "text", "null");
+            }
         } catch (SnmpTrapHelperException e) {
             e.printStackTrace();
         } catch (Exception e) {
@@ -703,94 +704,111 @@ public abstract class SnmpTrapForwarderHelper extends AbstractEventForwarder imp
     private SnmpTrapBuilder buildEventTrap(Event event, SnmpTrapBuilder trap, String severity) {
         try {
             Integer t_dbid = Integer.valueOf(event.getDbid());
-            if (t_dbid.intValue() > 0)
+            if (t_dbid.intValue() > 0) {
                 snmpTrapHelper.addVarBinding(trap, ".1.3.6.1.4.1.5813.20.1.1.0", "OctetString", "text",
                                              t_dbid.toString());
-            else
+            } else {
                 snmpTrapHelper.addVarBinding(trap, ".1.3.6.1.4.1.5813.20.1.1.0", "OctetString", "text", "null");
-            if (event.getDistPoller() != null)
+            }
+            if (event.getDistPoller() != null) {
                 snmpTrapHelper.addVarBinding(trap, ".1.3.6.1.4.1.5813.20.1.2.0", "OctetString", "text",
                                              event.getDistPoller());
-            else
+            } else {
                 snmpTrapHelper.addVarBinding(trap, ".1.3.6.1.4.1.5813.20.1.2.0", "OctetString", "text", "null");
-            if (event.getCreationTime() != null)
+            }
+            if (event.getCreationTime() != null) {
                 snmpTrapHelper.addVarBinding(trap, ".1.3.6.1.4.1.5813.20.1.3.0", "OctetString", "text",
                                              event.getCreationTime());
-            else
+            } else {
                 snmpTrapHelper.addVarBinding(trap, ".1.3.6.1.4.1.5813.20.1.3.0", "OctetString", "text", "null");
-            if (event.getMasterStation() != null)
+            }
+            if (event.getMasterStation() != null) {
                 snmpTrapHelper.addVarBinding(trap, ".1.3.6.1.4.1.5813.20.1.4.0", "OctetString", "text",
                                              event.getMasterStation());
-            else
+            } else {
                 snmpTrapHelper.addVarBinding(trap, ".1.3.6.1.4.1.5813.20.1.4.0", "OctetString", "text", "null");
-            if (event.getUei() != null)
+            }
+            if (event.getUei() != null) {
                 snmpTrapHelper.addVarBinding(trap, ".1.3.6.1.4.1.5813.20.1.6.0", "OctetString", "text", event.getUei());
-            else
+            } else {
                 snmpTrapHelper.addVarBinding(trap, ".1.3.6.1.4.1.5813.20.1.6.0", "OctetString", "text", "null");
-            if (event.getSource() != null)
+            }
+            if (event.getSource() != null) {
                 snmpTrapHelper.addVarBinding(trap, ".1.3.6.1.4.1.5813.20.1.7.0", "OctetString", "text",
                                              event.getSource());
-            else
+            } else {
                 snmpTrapHelper.addVarBinding(trap, ".1.3.6.1.4.1.5813.20.1.7.0", "OctetString", "text", "null");
+            }
             String label = null;
             if (event.hasNodeid()) {
                 label = DbHelper.getNodeLabel(Integer.valueOf(Long.valueOf(event.getNodeid()).toString()));
                 snmpTrapHelper.addVarBinding(trap, ".1.3.6.1.4.1.5813.20.1.8.0", "OctetString", "text",
                                              Long.valueOf(event.getNodeid()).toString());
-            } else
+            } else {
                 snmpTrapHelper.addVarBinding(trap, ".1.3.6.1.4.1.5813.20.1.8.0", "OctetString", "text", "null");
-            if (event.getTime() != null)
+            }
+            if (event.getTime() != null) {
                 snmpTrapHelper.addVarBinding(trap, ".1.3.6.1.4.1.5813.20.1.9.0", "OctetString", "text", event.getTime());
-            else
+            } else {
                 snmpTrapHelper.addVarBinding(trap, ".1.3.6.1.4.1.5813.20.1.9.0", "OctetString", "text", "null");
-            if (event.getHost() != null)
+            }
+            if (event.getHost() != null) {
                 snmpTrapHelper.addVarBinding(trap, ".1.3.6.1.4.1.5813.20.1.10.0", "OctetString", "text",
                                              event.getHost());
-            else
+            } else {
                 snmpTrapHelper.addVarBinding(trap, ".1.3.6.1.4.1.5813.20.1.10.0", "OctetString", "text", "null");
-            if (event.getInterface() != null)
+            }
+            if (event.getInterface() != null) {
                 snmpTrapHelper.addVarBinding(trap, ".1.3.6.1.4.1.5813.20.1.11.0", "OctetString", "text",
                                              event.getInterface());
-            else
+            } else {
                 snmpTrapHelper.addVarBinding(trap, ".1.3.6.1.4.1.5813.20.1.11.0", "OctetString", "text", "null");
-            if (event.getSnmphost() != null)
+            }
+            if (event.getSnmphost() != null) {
                 snmpTrapHelper.addVarBinding(trap, ".1.3.6.1.4.1.5813.20.1.12.0", "OctetString", "text",
                                              event.getSnmphost());
-            else
+            } else {
                 snmpTrapHelper.addVarBinding(trap, ".1.3.6.1.4.1.5813.20.1.12.0", "OctetString", "text", "null");
-            if (event.getService() != null)
+            }
+            if (event.getService() != null) {
                 snmpTrapHelper.addVarBinding(trap, ".1.3.6.1.4.1.5813.20.1.13.0", "OctetString", "text",
                                              event.getService());
-            else
+            } else {
                 snmpTrapHelper.addVarBinding(trap, ".1.3.6.1.4.1.5813.20.1.13.0", "OctetString", "text", "null");
+            }
             if (event.getDescr() != null) {
                 String descrString = event.getDescr().replaceAll("&lt;.*&gt;", " ").replaceAll("\\s+", " ");
                 snmpTrapHelper.addVarBinding(trap, ".1.3.6.1.4.1.5813.20.1.16.0", "OctetString", "text", descrString);
-            } else
+            } else {
                 snmpTrapHelper.addVarBinding(trap, ".1.3.6.1.4.1.5813.20.1.16.0", "OctetString", "text", "null");
+            }
             if (event.getLogmsg() != null && event.getLogmsg().getContent() != null) {
                 String logString = event.getLogmsg().getContent().replaceAll("&lt;.*&gt;", " ").replaceAll("\\s+", " ");
                 snmpTrapHelper.addVarBinding(trap, ".1.3.6.1.4.1.5813.20.1.17.0", "OctetString", "text", logString);
-            } else
+            } else {
                 snmpTrapHelper.addVarBinding(trap, ".1.3.6.1.4.1.5813.20.1.17.0", "OctetString", "text", "null");
-            if (severity == null && event.getSeverity() != null)
+            }
+            if (severity == null && event.getSeverity() != null) {
                 snmpTrapHelper.addVarBinding(trap, ".1.3.6.1.4.1.5813.20.1.18.0", "OctetString", "text",
                                              event.getSeverity());
-            else if (severity != null)
+            } else if (severity != null) {
                 snmpTrapHelper.addVarBinding(trap, ".1.3.6.1.4.1.5813.20.1.18.0", "OctetString", "text", severity);
-            else
+            } else {
                 snmpTrapHelper.addVarBinding(trap, ".1.3.6.1.4.1.5813.20.1.18.0", "OctetString", "text", "null");
+            }
 
-            if (event.getPathoutage() != null)
+            if (event.getPathoutage() != null) {
                 snmpTrapHelper.addVarBinding(trap, ".1.3.6.1.4.1.5813.20.1.19.0", "OctetString", "text",
                                              event.getPathoutage());
-            else
+            } else {
                 snmpTrapHelper.addVarBinding(trap, ".1.3.6.1.4.1.5813.20.1.19.0", "OctetString", "text", "null");
-            if (event.getOperinstruct() != null)
+            }
+            if (event.getOperinstruct() != null) {
                 snmpTrapHelper.addVarBinding(trap, ".1.3.6.1.4.1.5813.20.1.20.0", "OctetString", "text",
                                              event.getOperinstruct());
-            else
+            } else {
                 snmpTrapHelper.addVarBinding(trap, ".1.3.6.1.4.1.5813.20.1.20.0", "OctetString", "text", "null");
+            }
 
             String retParmVal = null;
             if (event.getInterface() != null) {
@@ -798,15 +816,17 @@ public abstract class SnmpTrapForwarderHelper extends AbstractEventForwarder imp
                 java.net.InetAddress inet = InetAddressUtils.addr(retParmVal);
                 retParmVal = inet.getHostName();
             }
-            if (retParmVal != null)
+            if (retParmVal != null) {
                 snmpTrapHelper.addVarBinding(trap, ".1.3.6.1.4.1.5813.20.1.21.0", "OctetString", "text", retParmVal);
-            else
+            } else {
                 snmpTrapHelper.addVarBinding(trap, ".1.3.6.1.4.1.5813.20.1.21.0", "OctetString", "text", "null");
+            }
 
-            if (label != null)
+            if (label != null) {
                 snmpTrapHelper.addVarBinding(trap, ".1.3.6.1.4.1.5813.20.1.22.0", "OctetString", "text", label);
-            else
+            } else {
                 snmpTrapHelper.addVarBinding(trap, ".1.3.6.1.4.1.5813.20.1.22.0", "OctetString", "text", "null");
+            }
 
         } catch (final IllegalArgumentException e) {
             LOG.warn("Failed to look up host.", e);

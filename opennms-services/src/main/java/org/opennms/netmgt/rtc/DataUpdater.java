@@ -280,10 +280,11 @@ final class DataUpdater implements Runnable {
         for (Parm parm : list) {
             parmName = parm.getParmName();
             parmValue = parm.getValue();
-            if (parmValue == null)
+            if (parmValue == null) {
                 continue;
-            else
+            } else {
                 parmContent = parmValue.getContent();
+            }
 
             // old node ID
             if (parmName.equals(EventConstants.PARM_OLD_NODEID)) {
@@ -348,10 +349,11 @@ final class DataUpdater implements Runnable {
         for (Parm parm : list) {
             parmName = parm.getParmName();
             parmValue = parm.getValue();
-            if (parmValue == null)
+            if (parmValue == null) {
                 continue;
-            else
+            } else {
                 parmContent = parmValue.getContent();
+            }
 
             if (parmName.equals(EventConstants.PARM_URL)) {
                 url = parmContent;
@@ -406,10 +408,11 @@ final class DataUpdater implements Runnable {
         for (Parm parm : list) {
             parmName = parm.getParmName();
             parmValue = parm.getValue();
-            if (parmValue == null)
+            if (parmValue == null) {
                 continue;
-            else
+            } else {
                 parmContent = parmValue.getContent();
+            }
 
             if (parmName.equals(EventConstants.PARM_URL)) {
                 url = parmContent;

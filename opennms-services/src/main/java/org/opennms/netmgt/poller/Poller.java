@@ -473,8 +473,9 @@ public class Poller extends AbstractServiceDaemon {
         // start the scheduler
         //
         try {
-            if (LOG.isDebugEnabled())
+            if (LOG.isDebugEnabled()) {
                 LOG.debug("start: Starting poller scheduler");
+            }
 
             getScheduler().start();
         } catch (RuntimeException e) {
@@ -757,13 +758,13 @@ public class Poller extends AbstractServiceDaemon {
             }
         }
 
-        if (svcLostEventId == null)
+        if (svcLostEventId == null) {
             if (svc.getParent().getStatus().isUnknown()) {
                 svc.updateStatus(PollStatus.up());
             } else {
                 svc.updateStatus(svc.getParent().getStatus());
             }
-        else {
+        } else {
             svc.updateStatus(PollStatus.down());
 
             PollEvent cause = new DbPollEvent(svcLostEventId.intValue(), svcLostUei, date);
@@ -793,8 +794,9 @@ public class Poller extends AbstractServiceDaemon {
 
         while (en.hasMoreElements()) {
             Package pkg = (Package) en.nextElement();
-            if (pollableServiceInPackage(ipAddr, serviceName, pkg))
+            if (pollableServiceInPackage(ipAddr, serviceName, pkg)) {
                 lastPkg = pkg;
+            }
         }
         return lastPkg;
     }
@@ -820,13 +822,15 @@ public class Poller extends AbstractServiceDaemon {
             return false;
         }
 
-        if (!m_pollerConfig.isServiceInPackageAndEnabled(serviceName, pkg))
+        if (!m_pollerConfig.isServiceInPackageAndEnabled(serviceName, pkg)) {
             return false;
+        }
 
         boolean inPkg = m_pollerConfig.isInterfaceInPackage(ipAddr, pkg);
 
-        if (inPkg)
+        if (inPkg) {
             return true;
+        }
 
         if (m_initialized) {
             m_pollerConfig.rebuildPackageIpListMap();

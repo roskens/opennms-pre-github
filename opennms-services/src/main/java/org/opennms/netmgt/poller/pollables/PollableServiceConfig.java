@@ -249,8 +249,9 @@ public class PollableServiceConfig implements PollConfig, ScheduleInterval {
     @Override
     public synchronized long getInterval() {
 
-        if (m_service.isDeleted())
+        if (m_service.isDeleted()) {
             return -1;
+        }
 
         long when = m_configService.getInterval();
 

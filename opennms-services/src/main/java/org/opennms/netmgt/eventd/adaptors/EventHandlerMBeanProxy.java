@@ -181,8 +181,9 @@ public class EventHandlerMBeanProxy implements EventHandler {
             rc = true;
         } else if (obj != null && obj instanceof EventHandlerMBeanProxy) {
             EventHandlerMBeanProxy p = (EventHandlerMBeanProxy) obj;
-            if (p.m_mbserver.equals(m_mbserver) && p.m_listener.equals(m_listener))
+            if (p.m_mbserver.equals(m_mbserver) && p.m_listener.equals(m_listener)) {
                 rc = true;
+            }
         }
 
         return rc;

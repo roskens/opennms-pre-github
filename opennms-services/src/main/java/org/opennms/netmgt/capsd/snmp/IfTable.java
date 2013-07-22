@@ -126,8 +126,9 @@ public final class IfTable extends SnmpTable<IfTableEntry> {
                 // extract the admin status
                 //
                 Integer ifStatus = entry.getIfOperStatus();
-                if (ifStatus != null)
+                if (ifStatus != null) {
                     return ifStatus.intValue();
+                }
             }
         }
         return -1;
@@ -151,8 +152,9 @@ public final class IfTable extends SnmpTable<IfTableEntry> {
                 // extract the admin status
                 //
                 Integer ifStatus = entry.getIfAdminStatus();
-                if (ifStatus != null)
+                if (ifStatus != null) {
                     return ifStatus.intValue();
+                }
             }
         }
         return -1;
@@ -176,8 +178,9 @@ public final class IfTable extends SnmpTable<IfTableEntry> {
                 // extract the ifType
                 //
                 Integer ifType = entry.getIfType();
-                if (ifType != null)
+                if (ifType != null) {
                     return ifType.intValue();
+                }
             }
         }
         return -1;

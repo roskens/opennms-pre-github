@@ -155,8 +155,9 @@ public final class DnsPlugin extends AbstractPlugin {
         } catch (IOException ex) {
             LOG.warn("isServer: An I/O exception during DNS resolution test.", ex);
         } finally {
-            if (socket != null)
+            if (socket != null) {
                 socket.close();
+            }
         }
 
         return isAServer;
@@ -214,8 +215,9 @@ public final class DnsPlugin extends AbstractPlugin {
         }
 
         boolean result = isServer(address, port, retries, timeout, lookup);
-        if (result && qualifiers != null && !qualifiers.containsKey("port"))
+        if (result && qualifiers != null && !qualifiers.containsKey("port")) {
             qualifiers.put("port", port);
+        }
 
         return result;
     }

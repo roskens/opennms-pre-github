@@ -252,8 +252,9 @@ public final class BgpSessionMonitor extends SnmpMonitorStrategy {
         // Retrieve this interface's SNMP peer object
         //
         SnmpAgentConfig agentConfig = SnmpPeerFactory.getInstance().getAgentConfig(ipaddr);
-        if (agentConfig == null)
+        if (agentConfig == null) {
             throw new RuntimeException("SnmpAgentConfig object not available for interface " + ipaddr);
+        }
         final String hostAddress = InetAddressUtils.str(ipaddr);
         LOG.debug("poll: setting SNMP peer attribute for interface {}", hostAddress);
 
@@ -435,10 +436,12 @@ public final class BgpSessionMonitor extends SnmpMonitorStrategy {
      */
     private String resolveAdminState(int sc) {
         String name = "UNKNOWN";
-        if (BGP_PEER_ADMIN_STATE.STOP.value() == sc)
+        if (BGP_PEER_ADMIN_STATE.STOP.value() == sc) {
             name = BGP_PEER_ADMIN_STATE.STOP.name();
-        if (BGP_PEER_ADMIN_STATE.START.value() == sc)
+        }
+        if (BGP_PEER_ADMIN_STATE.START.value() == sc) {
             name = BGP_PEER_ADMIN_STATE.START.name();
+        }
         return name;
     }
 
@@ -452,18 +455,24 @@ public final class BgpSessionMonitor extends SnmpMonitorStrategy {
      */
     private String resolvePeerState(int sc) {
         String name = "UNKNOWN";
-        if (BGP_PEER_STATE.IDLE.value() == sc)
+        if (BGP_PEER_STATE.IDLE.value() == sc) {
             name = BGP_PEER_STATE.IDLE.name();
-        if (BGP_PEER_STATE.CONNECT.value() == sc)
+        }
+        if (BGP_PEER_STATE.CONNECT.value() == sc) {
             name = BGP_PEER_STATE.CONNECT.name();
-        if (BGP_PEER_STATE.ACTIVE.value() == sc)
+        }
+        if (BGP_PEER_STATE.ACTIVE.value() == sc) {
             name = BGP_PEER_STATE.ACTIVE.name();
-        if (BGP_PEER_STATE.OPEN_SENT.value() == sc)
+        }
+        if (BGP_PEER_STATE.OPEN_SENT.value() == sc) {
             name = BGP_PEER_STATE.OPEN_SENT.name();
-        if (BGP_PEER_STATE.OPEN_CONFIRM.value() == sc)
+        }
+        if (BGP_PEER_STATE.OPEN_CONFIRM.value() == sc) {
             name = BGP_PEER_STATE.OPEN_CONFIRM.name();
-        if (BGP_PEER_STATE.ESTABLISHED.value() == sc)
+        }
+        if (BGP_PEER_STATE.ESTABLISHED.value() == sc) {
             name = BGP_PEER_STATE.ESTABLISHED.name();
+        }
         return name;
     }
 }

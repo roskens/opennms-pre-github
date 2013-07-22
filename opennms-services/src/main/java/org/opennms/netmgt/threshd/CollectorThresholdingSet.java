@@ -115,10 +115,12 @@ public class CollectorThresholdingSet extends ThresholdingSet {
      */
     public boolean hasThresholds(CollectionAttribute attribute) {
         CollectionResource resource = attribute.getResource();
-        if (!isCollectionEnabled(attribute.getResource()))
+        if (!isCollectionEnabled(attribute.getResource())) {
             return false;
-        if (resource instanceof AliasedResource && !storeByIfAlias)
+        }
+        if (resource instanceof AliasedResource && !storeByIfAlias) {
             return false;
+        }
         return hasThresholds(resource.getResourceTypeName(), attribute.getName());
     }
 

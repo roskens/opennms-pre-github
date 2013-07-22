@@ -130,8 +130,9 @@ public class JDBCPlugin extends AbstractPlugin {
 
                 status = checkStatus(con, qualifiers);
 
-                if (status)
+                if (status) {
                     LOG.info("JDBC server detected on: '{}', attempt #: {}", hostname, (Object) attempts);
+                }
 
             } catch (final Exception e) {
                 LOG.info("failed to make JDBC connection", e);
@@ -170,8 +171,9 @@ public class JDBCPlugin extends AbstractPlugin {
             }
 
             // The JDBC server was detected using JDBC, update the status
-            if (result != null)
+            if (result != null) {
                 status = true;
+            }
         } catch (SQLException sqlException) {
             LOG.warn("error while getting database metadata", sqlException);
         } finally {

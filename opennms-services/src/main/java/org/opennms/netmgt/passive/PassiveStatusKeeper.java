@@ -136,8 +136,9 @@ public class PassiveStatusKeeper extends AbstractServiceDaemon implements EventL
      */
     @Override
     protected void onInit() {
-        if (m_initialized)
+        if (m_initialized) {
             return;
+        }
 
         checkPreRequisites();
         createMessageSelectorAndSubscribe();
@@ -170,10 +171,12 @@ public class PassiveStatusKeeper extends AbstractServiceDaemon implements EventL
      * Check pre requisites.
      */
     private void checkPreRequisites() {
-        if (m_eventMgr == null)
+        if (m_eventMgr == null) {
             throw new IllegalStateException("eventManager has not been set");
-        if (m_dataSource == null)
+        }
+        if (m_dataSource == null) {
             throw new IllegalStateException("dataSource has not been set");
+        }
     }
 
     /**
@@ -229,8 +232,9 @@ public class PassiveStatusKeeper extends AbstractServiceDaemon implements EventL
      * Check init.
      */
     private void checkInit() {
-        if (!m_initialized)
+        if (!m_initialized) {
             throw new IllegalStateException("the service has not been intialized");
+        }
     }
 
     /**

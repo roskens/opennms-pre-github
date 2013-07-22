@@ -118,8 +118,9 @@ public final class IfXTable extends SnmpTable<IfXTableEntry> {
 
             int ifXIndex = -1;
             Integer snmpIfIndex = ifXEntry.getIfIndex();
-            if (snmpIfIndex != null)
+            if (snmpIfIndex != null) {
                 ifXIndex = snmpIfIndex.intValue();
+            }
 
             // compare with passed ifIndex
             if (ifXIndex == ifIndex) {
@@ -148,8 +149,9 @@ public final class IfXTable extends SnmpTable<IfXTableEntry> {
 
             int ifXIndex = -1;
             Integer snmpIfIndex = ifXEntry.getIfIndex();
-            if (snmpIfIndex != null)
+            if (snmpIfIndex != null) {
                 ifXIndex = snmpIfIndex.intValue();
+            }
 
             // compare with passed ifIndex
             if (ifXIndex == ifIndex) {
@@ -176,8 +178,9 @@ public final class IfXTable extends SnmpTable<IfXTableEntry> {
 
             int ifXIndex = -1;
             Integer snmpIfIndex = ifXEntry.getIfIndex();
-            if (snmpIfIndex != null)
+            if (snmpIfIndex != null) {
                 ifXIndex = snmpIfIndex.intValue();
+            }
 
             // compare with passed ifIndex
             if (ifXIndex == ifIndex) {

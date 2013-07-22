@@ -99,8 +99,9 @@ public class CollectionResourceWrapperTest {
      */
     @After
     public void tearDown() throws Exception {
-        if (!m_ignoreWarnings)
+        if (!m_ignoreWarnings) {
             MockLogAppender.assertNoWarningsOrGreater();
+        }
     }
 
     /**

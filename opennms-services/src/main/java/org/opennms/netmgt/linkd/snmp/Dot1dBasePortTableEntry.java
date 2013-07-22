@@ -166,8 +166,9 @@ public final class Dot1dBasePortTableEntry extends SnmpStore {
      */
     public int getBaseBridgePort() {
         Integer basePort = getInt32(Dot1dBasePortTableEntry.BASE_PORT);
-        if (basePort == null)
+        if (basePort == null) {
             return -1;
+        }
         return basePort;
     }
 
@@ -181,8 +182,9 @@ public final class Dot1dBasePortTableEntry extends SnmpStore {
      */
     public int getBaseBridgePortIfindex() {
         Integer basePort = getInt32(Dot1dBasePortTableEntry.BASE_IFINDEX);
-        if (basePort == null)
+        if (basePort == null) {
             return -1;
+        }
         return basePort;
     }
 
@@ -208,8 +210,9 @@ public final class Dot1dBasePortTableEntry extends SnmpStore {
      */
     public int getBasePortDelayExceededDiscards() {
         Integer delayExceededDiscards = getInt32(Dot1dBasePortTableEntry.BASE_DELAY_EX_DIS);
-        if (delayExceededDiscards == null)
+        if (delayExceededDiscards == null) {
             return -1;
+        }
         return delayExceededDiscards;
     }
 
@@ -223,8 +226,9 @@ public final class Dot1dBasePortTableEntry extends SnmpStore {
      */
     public int getBasePortMtuExceededDiscards() {
         Integer mtuExceededDiscards = getInt32(Dot1dBasePortTableEntry.BASE_MTU_EX_DIS);
-        if (mtuExceededDiscards == null)
+        if (mtuExceededDiscards == null) {
             return -1;
+        }
         return mtuExceededDiscards;
 
     }

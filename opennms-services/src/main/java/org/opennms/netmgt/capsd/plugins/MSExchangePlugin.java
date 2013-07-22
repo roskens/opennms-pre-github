@@ -148,8 +148,9 @@ public final class MSExchangePlugin extends AbstractPlugin {
                 String banner = lineRdr.readLine();
                 if (banner != null) {
                     int rc = banner.indexOf(BANNER_STRING);
-                    if (rc > -1)
+                    if (rc > -1) {
                         isAServer = true;
+                    }
                 }
             } catch (ConnectException e) {
                 // Connection refused!! Continue to retry.
@@ -213,11 +214,13 @@ public final class MSExchangePlugin extends AbstractPlugin {
                                   // disabled...see NOTE
         // below...
 
-        if (ports[POP3_INDEX] > 0)
+        if (ports[POP3_INDEX] > 0) {
             isExPop3 = isServer(host, ports[POP3_INDEX], retries, timeout);
+        }
 
-        if (ports[IMAP_INDEX] > 0)
+        if (ports[IMAP_INDEX] > 0) {
             isExImap = isServer(host, ports[IMAP_INDEX], retries, timeout);
+        }
 
         //
         // NOTE: We aren't able to confirm that MS Exchange uses port 593 for
@@ -284,14 +287,17 @@ public final class MSExchangePlugin extends AbstractPlugin {
 
         boolean[] result = isServer(address, new int[] { pop3port, imapport, mapiport }, retries, timeout);
         if (qualifiers != null) {
-            if (result[0] && !qualifiers.containsKey("pop3 port"))
+            if (result[0] && !qualifiers.containsKey("pop3 port")) {
                 qualifiers.put("pop3 port", pop3port);
+            }
 
-            if (result[1] && !qualifiers.containsKey("imap port"))
+            if (result[1] && !qualifiers.containsKey("imap port")) {
                 qualifiers.put("imap port", imapport);
+            }
 
-            if (result[2] && !qualifiers.containsKey("mapi port"))
+            if (result[2] && !qualifiers.containsKey("mapi port")) {
                 qualifiers.put("mapi port", mapiport);
+            }
         }
 
         return (result[0] || result[1] || result[2]);

@@ -133,8 +133,9 @@ public final class TcpPlugin extends AbstractPlugin {
 
                         LOG.debug("isServer: matching response= {}", response);
                         isAServer = true;
-                        if (bannerResult != null)
+                        if (bannerResult != null) {
                             bannerResult.append(response);
+                        }
                     } else {
                         // Got a response but it didn't match...no need to
                         // attempt retries
@@ -171,8 +172,9 @@ public final class TcpPlugin extends AbstractPlugin {
                          InetAddressUtils.str(host), port, t);
             } finally {
                 try {
-                    if (socket != null)
+                    if (socket != null) {
                         socket.close();
+                    }
                 } catch (IOException e) {
                 }
             }
@@ -233,8 +235,9 @@ public final class TcpPlugin extends AbstractPlugin {
 
         // verify the port
         //
-        if (port == -1)
+        if (port == -1) {
             throw new IllegalArgumentException("The port must be specified when doing TCP discovery");
+        }
 
         try {
             StringBuffer bannerResult = null;
@@ -251,8 +254,9 @@ public final class TcpPlugin extends AbstractPlugin {
 
             boolean result = isServer(address, port, retries, timeout, regex, bannerResult);
             if (result && qualifiers != null) {
-                if (bannerResult != null && bannerResult.length() > 0)
+                if (bannerResult != null && bannerResult.length() > 0) {
                     qualifiers.put("banner", bannerResult.toString());
+                }
             }
 
             return result;

@@ -175,8 +175,9 @@ public class JMXDataSource implements Cloneable {
 
         int index;
         for (index = 0; index < supportedObjectTypes.length; index++) {
-            if (objectType.startsWith(supportedObjectTypes[index]))
+            if (objectType.startsWith(supportedObjectTypes[index])) {
                 break;
+            }
         }
 
         switch (index) {

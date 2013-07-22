@@ -189,8 +189,9 @@ public class ThresholdingSet {
             // Check if group exist on current configured list
             ThresholdGroup foundGroup = null;
             for (ThresholdGroup group : m_thresholdGroups) {
-                if (group.getName().equals(groupName))
+                if (group.getName().equals(groupName)) {
                     foundGroup = group;
+                }
             }
             if (foundGroup == null) {
                 // Add new group
@@ -372,8 +373,9 @@ public class ThresholdingSet {
         // Find the filters for threshold definition for selected
         // group/dataSource
         ResourceFilter[] filters = thresholdEntity.getThresholdConfig().getBasethresholddef().getResourceFilter();
-        if (filters.length == 0)
+        if (filters.length == 0) {
             return true;
+        }
         // Threshold definition with filters must match ThresholdEntity
         // (checking DataSource and ResourceType)
         LOG.debug("passedThresholdFilters: applying {} filters to resource {}", filters.length, resource);
@@ -398,8 +400,9 @@ public class ThresholdingSet {
                     }
                     if (operator.equals("and")) {
                         andResult = andResult && pass;
-                        if (andResult == false)
+                        if (andResult == false) {
                             return false;
+                        }
                     }
                 } catch (PatternSyntaxException e) {
                     LOG.warn("passedThresholdFilters: the regular expression {} is invalid: {}", f.getContent(),
@@ -410,8 +413,9 @@ public class ThresholdingSet {
                 LOG.warn("passedThresholdFilters: can't find value of {} for resource {}", f.getField(), resource);
             }
         }
-        if (operator.equals("and") && andResult)
+        if (operator.equals("and") && andResult) {
             return true;
+        }
         return false;
     }
 

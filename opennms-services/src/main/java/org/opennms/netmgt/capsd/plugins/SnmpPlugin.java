@@ -153,14 +153,13 @@ public class SnmpPlugin extends AbstractPlugin {
                 //
                 if (qualifiers.get("force version") != null) {
                     String version = (String) qualifiers.get("force version");
-                    if (version.equalsIgnoreCase("snmpv1"))
+                    if (version.equalsIgnoreCase("snmpv1")) {
                         agentConfig.setVersion(SnmpAgentConfig.VERSION1);
-                    else if (version.equalsIgnoreCase("snmpv2") || version.equalsIgnoreCase("snmpv2c"))
+                    } else if (version.equalsIgnoreCase("snmpv2") || version.equalsIgnoreCase("snmpv2c")) {
                         agentConfig.setVersion(SnmpAgentConfig.VERSION2C);
-
-                    // TODO: make sure JoeSnmpStrategy correctly handles this.
-                    else if (version.equalsIgnoreCase("snmpv3"))
+                    } else if (version.equalsIgnoreCase("snmpv3")) {
                         agentConfig.setVersion(SnmpAgentConfig.VERSION3);
+                    }
                 }
 
                 // "vbvalue" parm

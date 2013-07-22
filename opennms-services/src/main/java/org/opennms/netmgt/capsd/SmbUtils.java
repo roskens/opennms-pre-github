@@ -263,17 +263,19 @@ public abstract class SmbUtils {
             //
             nativeOS = "Windows 2000";
 
-            if (hasExchange || isNTServer(addresses))
+            if (hasExchange || isNTServer(addresses)) {
                 osLabel = nativeOS.concat(" Server");
-            else
+            } else {
                 osLabel = nativeOS;
+            }
         } else if (nativeOS.startsWith("Windows NT")) {
             // Windows NT
             //
-            if (hasExchange || isNTServer(addresses))
+            if (hasExchange || isNTServer(addresses)) {
                 osLabel = nativeOS.concat(" Server");
-            else
+            } else {
                 osLabel = nativeOS;
+            }
         } else {
             osLabel = nativeOS;
         }
@@ -392,23 +394,28 @@ public abstract class SmbUtils {
         if (smbAuth != null) {
             useridParm = smbAuth.getUser();
             passwordParm = smbAuth.getPassword();
-            if (smbAuth.getType().equalsIgnoreCase("domain"))
+            if (smbAuth.getType().equalsIgnoreCase("domain")) {
                 domainParm = smbAuth.getContent();
+            }
         }
 
         // Build url from parms
         String url = "smb://";
-        if (domainParm != null)
+        if (domainParm != null) {
             url = url.concat(domainParm + ";");
+        }
 
-        if (useridParm != null)
+        if (useridParm != null) {
             url = url.concat(useridParm);
+        }
 
-        if (passwordParm != null)
+        if (passwordParm != null) {
             url = url.concat(":" + passwordParm);
+        }
 
-        if (useridParm != null)
+        if (useridParm != null) {
             url = url.concat("@");
+        }
 
         url = url.concat(cname);
 

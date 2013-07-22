@@ -206,11 +206,13 @@ public class XmlRpcWebServerFactoryBean implements FactoryBean<WebServer>, Initi
      */
     @Override
     public void afterPropertiesSet() throws Exception {
-        if (m_port == -1)
+        if (m_port == -1) {
             throw new IllegalArgumentException("port is required");
+        }
 
-        if (m_xmlRpcServer == null)
+        if (m_xmlRpcServer == null) {
             m_xmlRpcServer = new XmlRpcServer();
+        }
 
         if (m_secure) {
             m_webServer = new SecureWebServer(m_port, m_address, m_xmlRpcServer);

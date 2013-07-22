@@ -577,8 +577,9 @@ final class Executor implements Runnable, PausableFiber {
     @Override
     public synchronized int getStatus() {
         if (m_worker != null && !m_worker.isAlive()) {
-            if (m_reaper.isAlive())
+            if (m_reaper.isAlive()) {
                 m_reaper.interrupt();
+            }
 
             m_status = STOPPED;
         }

@@ -125,8 +125,9 @@ public class XmlRpcServiceExporter extends RemoteExporter implements Initializin
      */
     @Override
     public void afterPropertiesSet() throws Exception {
-        if (this.webServer == null)
+        if (this.webServer == null) {
             throw new IllegalArgumentException("webServer is required");
+        }
         checkService();
         checkServiceInterface();
         this.proxy = getProxyForService();
@@ -229,8 +230,9 @@ public class XmlRpcServiceExporter extends RemoteExporter implements Initializin
             }
 
             String msg = targetException.toString();
-            if (msg == null)
+            if (msg == null) {
                 msg = targetException.getClass().getName();
+            }
 
             Exception ex = new Exception(msg, targetException);
             ex.setStackTrace(targetException.getStackTrace());
@@ -250,8 +252,9 @@ public class XmlRpcServiceExporter extends RemoteExporter implements Initializin
     Vector params) {
         StringBuffer sb = new StringBuffer();
         for (int i = 0; i < params.size(); i++) {
-            if (i != 0)
+            if (i != 0) {
                 sb.append(", ");
+            }
             sb.append(params.get(i));
         }
         return sb.toString();
@@ -265,10 +268,11 @@ public class XmlRpcServiceExporter extends RemoteExporter implements Initializin
      * @return the method name
      */
     private String getMethodName(String method) {
-        if (this.serviceName == null || "".equals(serviceName))
+        if (this.serviceName == null || "".equals(serviceName)) {
             return method;
-        else
+        } else {
             return method.substring(serviceName.length());
+        }
     }
 
 }

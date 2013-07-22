@@ -135,8 +135,9 @@ public final class MemcachedMonitor extends AbstractServiceMonitor {
                 String line = null;
                 do {
                     line = reader.readLine();
-                    if (line == null)
+                    if (line == null) {
                         break;
+                    }
                     String[] statEntry = line.trim().split("\\s", 3);
                     if (statEntry[0].equals("STAT")) {
                         try {

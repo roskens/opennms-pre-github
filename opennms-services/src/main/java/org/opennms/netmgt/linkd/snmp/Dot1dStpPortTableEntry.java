@@ -340,18 +340,24 @@ public final class Dot1dStpPortTableEntry extends SnmpStore {
      */
     public OnmsStpInterface getOnmsStpInterface(OnmsStpInterface stpInterface) {
 
-        if (getDot1dStpPortDesignatedBridge() != null)
+        if (getDot1dStpPortDesignatedBridge() != null) {
             stpInterface.setStpPortDesignatedBridge(getDot1dStpPortDesignatedBridge());
-        if (getDot1dStpPortDesignatedRoot() != null)
+        }
+        if (getDot1dStpPortDesignatedRoot() != null) {
             stpInterface.setStpPortDesignatedRoot(getDot1dStpPortDesignatedRoot());
-        if (getDot1dStpPortDesignatedPort() != null)
+        }
+        if (getDot1dStpPortDesignatedPort() != null) {
             stpInterface.setStpPortDesignatedPort(getDot1dStpPortDesignatedPort());
-        if (getDot1dStpPortState() != null)
+        }
+        if (getDot1dStpPortState() != null) {
             stpInterface.setStpPortState(StpPortStatus.get(getDot1dStpPortState()));
-        if (getDot1dStpPortPathCost() != null)
+        }
+        if (getDot1dStpPortPathCost() != null) {
             stpInterface.setStpPortPathCost(getDot1dStpPortPathCost());
-        if (getDot1dStpPortDesignatedCost() != null)
+        }
+        if (getDot1dStpPortDesignatedCost() != null) {
             stpInterface.setStpPortDesignatedCost(getDot1dStpPortDesignatedCost());
+        }
         return stpInterface;
     }
 }

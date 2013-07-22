@@ -111,9 +111,10 @@ public final class SmbMonitor extends AbstractServiceMonitor {
 
         // Get interface address from NetworkInterface
         //
-        if (iface.getType() != NetworkInterface.TYPE_INET)
+        if (iface.getType() != NetworkInterface.TYPE_INET) {
             throw new NetworkInterfaceNotSupportedException(
                                                             "Unsupported interface type, only TYPE_INET currently supported");
+        }
 
         /*
          * TODO: Use it or loose it.
@@ -152,8 +153,9 @@ public final class SmbMonitor extends AbstractServiceMonitor {
                 nbtAddr.getNodeType();
             }
 
-            if (!nbtAddr.getHostName().equals(hostAddress))
+            if (!nbtAddr.getHostName().equals(hostAddress)) {
                 serviceStatus = PollStatus.available();
+            }
 
         } catch (UnknownHostException uhE) {
             String reason = "Unknown host exception generated for " + hostAddress + ", reason: "

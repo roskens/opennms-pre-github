@@ -48,8 +48,9 @@ public final class EventUtils {
      *             the insufficient information exception
      */
     public static void checkInterfaceOrIfIndex(Event e) throws InsufficientInformationException {
-        if (e == null)
+        if (e == null) {
             throw new NullPointerException("e is null");
+        }
 
         if (e.getInterface() == null) {
             if (!e.hasIfIndex()) {

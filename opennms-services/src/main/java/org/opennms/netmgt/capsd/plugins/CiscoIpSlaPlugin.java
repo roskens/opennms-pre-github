@@ -149,8 +149,9 @@ public class CiscoIpSlaPlugin extends SnmpPlugin {
             }
 
             SnmpAgentConfig agentConfig = SnmpPeerFactory.getInstance().getAgentConfig(ipaddr);
-            if (agentConfig == null)
+            if (agentConfig == null) {
                 throw new RuntimeException("SnmpAgentConfig object not available for interface " + ipaddr);
+            }
 
             if (parameters != null) {
                 // "port" parm
@@ -178,14 +179,13 @@ public class CiscoIpSlaPlugin extends SnmpPlugin {
                 //
                 if (parameters.get("force version") != null) {
                     String version = (String) parameters.get("force version");
-                    if (version.equalsIgnoreCase("snmpv1"))
+                    if (version.equalsIgnoreCase("snmpv1")) {
                         agentConfig.setVersion(SnmpAgentConfig.VERSION1);
-                    else if (version.equalsIgnoreCase("snmpv2") || version.equalsIgnoreCase("snmpv2c"))
+                    } else if (version.equalsIgnoreCase("snmpv2") || version.equalsIgnoreCase("snmpv2c")) {
                         agentConfig.setVersion(SnmpAgentConfig.VERSION2C);
-
-                    // TODO: make sure JoeSnmpStrategy correctly handles this.
-                    else if (version.equalsIgnoreCase("snmpv3"))
+                    } else if (version.equalsIgnoreCase("snmpv3")) {
                         agentConfig.setVersion(SnmpAgentConfig.VERSION3);
+                    }
                 }
 
                 // Establish SNMP session with interface

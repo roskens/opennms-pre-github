@@ -119,10 +119,12 @@ public class XmlrpcAnticipator implements XmlRpcHandler {
          */
         @Override
         public boolean equals(final Object o) {
-            if (o == null)
+            if (o == null) {
                 return false;
-            if (!(o instanceof XmlrpcCall))
+            }
+            if (!(o instanceof XmlrpcCall)) {
                 return false;
+            }
             final XmlrpcCall c = (XmlrpcCall) o;
             if (!m_method.equals(c.m_method)) {
                 return false;

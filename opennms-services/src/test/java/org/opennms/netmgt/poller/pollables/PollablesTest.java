@@ -355,8 +355,9 @@ public class PollablesTest {
          */
         @Override
         public void visitElement(PollableElement element) {
-            if (!element.hasOpenOutage())
+            if (!element.hasOpenOutage()) {
                 element.setCause(m_cause);
+            }
         }
     }
 
@@ -915,26 +916,29 @@ public class PollablesTest {
         PollableVisitor upChecker = new PollableVisitorAdaptor() {
             @Override
             public void visitNode(PollableNode node) {
-                if (node == pDot1Icmp.getNode())
+                if (node == pDot1Icmp.getNode()) {
                     assertUp(node);
-                else
+                } else {
                     assertDown(node);
+                }
             }
 
             @Override
             public void visitInterface(PollableInterface iface) {
-                if (iface == pDot1Icmp.getInterface())
+                if (iface == pDot1Icmp.getInterface()) {
                     assertUp(iface);
-                else
+                } else {
                     assertDown(iface);
+                }
             }
 
             @Override
             public void visitService(PollableService s) {
-                if (s == pDot1Icmp)
+                if (s == pDot1Icmp) {
                     assertUp(s);
-                else
+                } else {
                     assertDown(s);
+                }
             }
         };
         m_network.visit(upChecker);
@@ -3104,8 +3108,9 @@ public class PollablesTest {
         Package lastPkg = null;
         while (en.hasMoreElements()) {
             Package pkg = (Package) en.nextElement();
-            if (pollableServiceInPackage(pollerConfig, ipAddr, serviceName, pkg))
+            if (pollableServiceInPackage(pollerConfig, ipAddr, serviceName, pkg)) {
                 lastPkg = pkg;
+            }
         }
         return lastPkg;
     }

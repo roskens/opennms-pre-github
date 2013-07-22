@@ -200,8 +200,9 @@ public class DefaultTicketerServiceLayer implements TicketerServiceLayer, Initia
         OnmsAlarm alarm = m_alarmDao.get(alarmId);
 
         Ticket ticket = createTicketFromAlarm(alarm);
-        if (attributes.containsKey("user"))
+        if (attributes.containsKey("user")) {
             ticket.setUser(attributes.get("user"));
+        }
         ticket.setAttributes(attributes);
 
         try {

@@ -141,8 +141,9 @@ public class GenericIndexResourceType extends ResourceType {
         }
 
         m_storageStrategy.setResourceTypeName(m_name);
-        if (getAgent() != null)
+        if (getAgent() != null) {
             m_storageStrategy.setStorageStrategyService(getAgent());
+        }
     }
 
     /** {@inheritDoc} */

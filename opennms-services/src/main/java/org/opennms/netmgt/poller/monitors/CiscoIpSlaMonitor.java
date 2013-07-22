@@ -347,8 +347,9 @@ public final class CiscoIpSlaMonitor extends SnmpMonitorStrategy {
         // Retrieve this interface's SNMP peer object
         //
         SnmpAgentConfig agentConfig = SnmpPeerFactory.getInstance().getAgentConfig(ipaddr);
-        if (agentConfig == null)
+        if (agentConfig == null) {
             throw new RuntimeException("SnmpAgentConfig object not available for interface " + ipaddr);
+        }
         final String hostAddress = InetAddressUtils.str(ipaddr);
         LOG.debug("poll: setting SNMP peer attribute for interface {}", hostAddress);
 
@@ -533,20 +534,27 @@ public final class CiscoIpSlaMonitor extends SnmpMonitorStrategy {
      */
     private String resolveOperSate(int sc) {
         String name = "UNKNOWN";
-        if (RTT_MON_OPER_STATE.RESET.value() == sc)
+        if (RTT_MON_OPER_STATE.RESET.value() == sc) {
             name = RTT_MON_OPER_STATE.RESET.name();
-        if (RTT_MON_OPER_STATE.ORDERLY_STOP.value() == sc)
+        }
+        if (RTT_MON_OPER_STATE.ORDERLY_STOP.value() == sc) {
             name = RTT_MON_OPER_STATE.ORDERLY_STOP.name();
-        if (RTT_MON_OPER_STATE.IMMEDIATE_STOP.value() == sc)
+        }
+        if (RTT_MON_OPER_STATE.IMMEDIATE_STOP.value() == sc) {
             name = RTT_MON_OPER_STATE.IMMEDIATE_STOP.name();
-        if (RTT_MON_OPER_STATE.PENDING.value() == sc)
+        }
+        if (RTT_MON_OPER_STATE.PENDING.value() == sc) {
             name = RTT_MON_OPER_STATE.PENDING.name();
-        if (RTT_MON_OPER_STATE.INACTIVE.value() == sc)
+        }
+        if (RTT_MON_OPER_STATE.INACTIVE.value() == sc) {
             name = RTT_MON_OPER_STATE.INACTIVE.name();
-        if (RTT_MON_OPER_STATE.ACTIVE.value() == sc)
+        }
+        if (RTT_MON_OPER_STATE.ACTIVE.value() == sc) {
             name = RTT_MON_OPER_STATE.ACTIVE.name();
-        if (RTT_MON_OPER_STATE.RESTART.value() == sc)
+        }
+        if (RTT_MON_OPER_STATE.RESTART.value() == sc) {
             name = RTT_MON_OPER_STATE.RESTART.name();
+        }
         return name;
     }
 
@@ -561,40 +569,57 @@ public final class CiscoIpSlaMonitor extends SnmpMonitorStrategy {
      */
     private String resolveOperSense(int sc) {
         String name = "UNKNOWN";
-        if (RTT_MON_OPER_SENSE.OTHER.value() == sc)
+        if (RTT_MON_OPER_SENSE.OTHER.value() == sc) {
             name = RTT_MON_OPER_SENSE.OTHER.name();
-        if (RTT_MON_OPER_SENSE.OK.value() == sc)
+        }
+        if (RTT_MON_OPER_SENSE.OK.value() == sc) {
             name = RTT_MON_OPER_SENSE.OK.name();
-        if (RTT_MON_OPER_SENSE.DISCONNECTED.value() == sc)
+        }
+        if (RTT_MON_OPER_SENSE.DISCONNECTED.value() == sc) {
             name = RTT_MON_OPER_SENSE.DISCONNECTED.name();
-        if (RTT_MON_OPER_SENSE.OVER_THRESHOLD.value() == sc)
+        }
+        if (RTT_MON_OPER_SENSE.OVER_THRESHOLD.value() == sc) {
             name = RTT_MON_OPER_SENSE.OVER_THRESHOLD.name();
-        if (RTT_MON_OPER_SENSE.TIMEOUT.value() == sc)
+        }
+        if (RTT_MON_OPER_SENSE.TIMEOUT.value() == sc) {
             name = RTT_MON_OPER_SENSE.TIMEOUT.name();
-        if (RTT_MON_OPER_SENSE.BUSY.value() == sc)
+        }
+        if (RTT_MON_OPER_SENSE.BUSY.value() == sc) {
             name = RTT_MON_OPER_SENSE.BUSY.name();
-        if (RTT_MON_OPER_SENSE.NOT_CONNECTED.value() == sc)
+        }
+        if (RTT_MON_OPER_SENSE.NOT_CONNECTED.value() == sc) {
             name = RTT_MON_OPER_SENSE.NOT_CONNECTED.name();
-        if (RTT_MON_OPER_SENSE.DROPPED.value() == sc)
+        }
+        if (RTT_MON_OPER_SENSE.DROPPED.value() == sc) {
             name = RTT_MON_OPER_SENSE.DROPPED.name();
-        if (RTT_MON_OPER_SENSE.SEQUENCE_ERROR.value() == sc)
+        }
+        if (RTT_MON_OPER_SENSE.SEQUENCE_ERROR.value() == sc) {
             name = RTT_MON_OPER_SENSE.SEQUENCE_ERROR.name();
-        if (RTT_MON_OPER_SENSE.VERIFY_ERROR.value() == sc)
+        }
+        if (RTT_MON_OPER_SENSE.VERIFY_ERROR.value() == sc) {
             name = RTT_MON_OPER_SENSE.VERIFY_ERROR.name();
-        if (RTT_MON_OPER_SENSE.APPLICATION_SPECIFIC.value() == sc)
+        }
+        if (RTT_MON_OPER_SENSE.APPLICATION_SPECIFIC.value() == sc) {
             name = RTT_MON_OPER_SENSE.APPLICATION_SPECIFIC.name();
-        if (RTT_MON_OPER_SENSE.DNS_SERVER_TIMEOUT.value() == sc)
+        }
+        if (RTT_MON_OPER_SENSE.DNS_SERVER_TIMEOUT.value() == sc) {
             name = RTT_MON_OPER_SENSE.DNS_SERVER_TIMEOUT.name();
-        if (RTT_MON_OPER_SENSE.TCP_CONNECT_TIMEOUT.value() == sc)
+        }
+        if (RTT_MON_OPER_SENSE.TCP_CONNECT_TIMEOUT.value() == sc) {
             name = RTT_MON_OPER_SENSE.TCP_CONNECT_TIMEOUT.name();
-        if (RTT_MON_OPER_SENSE.HTTP_TRANSACTION_TIMEOUT.value() == sc)
+        }
+        if (RTT_MON_OPER_SENSE.HTTP_TRANSACTION_TIMEOUT.value() == sc) {
             name = RTT_MON_OPER_SENSE.HTTP_TRANSACTION_TIMEOUT.name();
-        if (RTT_MON_OPER_SENSE.DNS_QUERY_ERROR.value() == sc)
+        }
+        if (RTT_MON_OPER_SENSE.DNS_QUERY_ERROR.value() == sc) {
             name = RTT_MON_OPER_SENSE.DNS_QUERY_ERROR.name();
-        if (RTT_MON_OPER_SENSE.HTTP_ERROR.value() == sc)
+        }
+        if (RTT_MON_OPER_SENSE.HTTP_ERROR.value() == sc) {
             name = RTT_MON_OPER_SENSE.HTTP_ERROR.name();
-        if (RTT_MON_OPER_SENSE.ERROR.value() == sc)
+        }
+        if (RTT_MON_OPER_SENSE.ERROR.value() == sc) {
             name = RTT_MON_OPER_SENSE.ERROR.name();
+        }
         return name;
     }
 
@@ -608,30 +633,42 @@ public final class CiscoIpSlaMonitor extends SnmpMonitorStrategy {
      */
     private String resolveAdminType(int sc) {
         String name = "UNKNOWN";
-        if (RTT_MON_ADMIN_TYPE.ECHO.value() == sc)
+        if (RTT_MON_ADMIN_TYPE.ECHO.value() == sc) {
             name = RTT_MON_ADMIN_TYPE.ECHO.name();
-        if (RTT_MON_ADMIN_TYPE.PATH_ECHO.value() == sc)
+        }
+        if (RTT_MON_ADMIN_TYPE.PATH_ECHO.value() == sc) {
             name = RTT_MON_ADMIN_TYPE.PATH_ECHO.name();
-        if (RTT_MON_ADMIN_TYPE.FILE_IO.value() == sc)
+        }
+        if (RTT_MON_ADMIN_TYPE.FILE_IO.value() == sc) {
             name = RTT_MON_ADMIN_TYPE.FILE_IO.name();
-        if (RTT_MON_ADMIN_TYPE.SCRIPT.value() == sc)
+        }
+        if (RTT_MON_ADMIN_TYPE.SCRIPT.value() == sc) {
             name = RTT_MON_ADMIN_TYPE.SCRIPT.name();
-        if (RTT_MON_ADMIN_TYPE.UDP_ECHO.value() == sc)
+        }
+        if (RTT_MON_ADMIN_TYPE.UDP_ECHO.value() == sc) {
             name = RTT_MON_ADMIN_TYPE.UDP_ECHO.name();
-        if (RTT_MON_ADMIN_TYPE.TCP_CONNECT.value() == sc)
+        }
+        if (RTT_MON_ADMIN_TYPE.TCP_CONNECT.value() == sc) {
             name = RTT_MON_ADMIN_TYPE.TCP_CONNECT.name();
-        if (RTT_MON_ADMIN_TYPE.HTTP.value() == sc)
+        }
+        if (RTT_MON_ADMIN_TYPE.HTTP.value() == sc) {
             name = RTT_MON_ADMIN_TYPE.HTTP.name();
-        if (RTT_MON_ADMIN_TYPE.DNS.value() == sc)
+        }
+        if (RTT_MON_ADMIN_TYPE.DNS.value() == sc) {
             name = RTT_MON_ADMIN_TYPE.DNS.name();
-        if (RTT_MON_ADMIN_TYPE.JITTER.value() == sc)
+        }
+        if (RTT_MON_ADMIN_TYPE.JITTER.value() == sc) {
             name = RTT_MON_ADMIN_TYPE.JITTER.name();
-        if (RTT_MON_ADMIN_TYPE.DLSW.value() == sc)
+        }
+        if (RTT_MON_ADMIN_TYPE.DLSW.value() == sc) {
             name = RTT_MON_ADMIN_TYPE.DLSW.name();
-        if (RTT_MON_ADMIN_TYPE.DHCP.value() == sc)
+        }
+        if (RTT_MON_ADMIN_TYPE.DHCP.value() == sc) {
             name = RTT_MON_ADMIN_TYPE.DHCP.name();
-        if (RTT_MON_ADMIN_TYPE.FTP.value() == sc)
+        }
+        if (RTT_MON_ADMIN_TYPE.FTP.value() == sc) {
             name = RTT_MON_ADMIN_TYPE.FTP.name();
+        }
         return name;
     }
 }

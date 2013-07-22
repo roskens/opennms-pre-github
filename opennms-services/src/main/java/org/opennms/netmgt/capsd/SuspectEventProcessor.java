@@ -163,22 +163,26 @@ final class SuspectEventProcessor implements Runnable {
 
         // Do we have any additional interface information collected via SNMP?
         // If not simply return, there is nothing to check
-        if (!collector.hasSnmpCollection() || collector.getSnmpCollector().failed())
+        if (!collector.hasSnmpCollection() || collector.getSnmpCollector().failed()) {
             return null;
+        }
 
         // Next verify that ifTable and ipAddrTable entries were collected
         IfSnmpCollector snmpc = collector.getSnmpCollector();
         IfTable ifTable = null;
         IpAddrTable ipAddrTable = null;
 
-        if (snmpc.hasIfTable())
+        if (snmpc.hasIfTable()) {
             ifTable = snmpc.getIfTable();
+        }
 
-        if (snmpc.hasIpAddrTable())
+        if (snmpc.hasIpAddrTable()) {
             ipAddrTable = snmpc.getIpAddrTable();
+        }
 
-        if (ifTable == null || ipAddrTable == null)
+        if (ifTable == null || ipAddrTable == null) {
             return null;
+        }
 
         // SQL statement prefix
         StringBuffer sqlBuffer = new StringBuffer(SQL_RETRIEVE_INTERFACE_NODEID_PREFIX);
@@ -216,14 +220,16 @@ final class SuspectEventProcessor implements Runnable {
                 // Skip interface if no IP address or if IP address is
                 // "0.0.0.0"
                 // or if this interface is of type loopback
-                if (ipAddress == null || str(ipAddress).equals("0.0.0.0") || ipAddress.isLoopbackAddress())
+                if (ipAddress == null || str(ipAddress).equals("0.0.0.0") || ipAddress.isLoopbackAddress()) {
                     continue;
+                }
 
                 if (firstAddress) {
                     sqlBuffer.append("ipaddr='").append(str(ipAddress)).append("'");
                     firstAddress = false;
-                } else
+                } else {
                     sqlBuffer.append(" OR ipaddr='").append(str(ipAddress)).append("'");
+                }
 
                 ipaddrsOfNewNode.add(str(ipAddress));
             }
@@ -231,8 +237,9 @@ final class SuspectEventProcessor implements Runnable {
 
         // Make sure we added at least one address to the SQL query
         //
-        if (firstAddress)
+        if (firstAddress) {
             return null;
+        }
 
         // Prepare the db statement in advance
         //
@@ -259,8 +266,9 @@ final class SuspectEventProcessor implements Runnable {
             d.cleanUp();
         }
 
-        if (nodeID == -1)
+        if (nodeID == -1) {
             return null;
+        }
 
         try {
             stmt = dbc.prepareStatement(SQL_RETRIEVE_IPINTERFACES_ON_NODEID);
@@ -271,8 +279,9 @@ final class SuspectEventProcessor implements Runnable {
             d.watch(rs);
             while (rs.next()) {
                 String ipaddr = rs.getString(1);
-                if (!ipaddr.equals("0.0.0.0"))
+                if (!ipaddr.equals("0.0.0.0")) {
                     ipaddrsOfOldNode.add(ipaddr);
+                }
             }
         } finally {
             d.cleanUp();
@@ -300,8 +309,9 @@ final class SuspectEventProcessor implements Runnable {
      * @return the first ipaddress exists in both ipaddress lists.
      */
     private String getDuplicateIpaddress(List<String> ipListA, List<String> ipListB) {
-        if (ipListA == null || ipListB == null)
+        if (ipListA == null || ipListB == null) {
             return null;
+        }
 
         String ipaddr = null;
         Iterator<String> iter = ipListA.iterator();
@@ -310,8 +320,9 @@ final class SuspectEventProcessor implements Runnable {
             if (ipListB.contains(ipaddr)) {
                 LOG.debug("getDuplicateIpaddress: get duplicate ip address: {}", ipaddr);
                 break;
-            } else
+            } else {
                 ipaddr = null;
+            }
         }
         return ipaddr;
     }
@@ -353,10 +364,11 @@ final class SuspectEventProcessor implements Runnable {
         entryNode.setLastPoll(now);
         entryNode.setNodeType(DbNodeEntry.NODE_TYPE_ACTIVE);
         entryNode.setLabel(primaryIf.getHostName());
-        if (entryNode.getLabel().equals(str(primaryIf)))
+        if (entryNode.getLabel().equals(str(primaryIf))) {
             entryNode.setLabelSource(DbNodeEntry.LABEL_SOURCE_ADDRESS);
-        else
+        } else {
             entryNode.setLabelSource(DbNodeEntry.LABEL_SOURCE_HOSTNAME);
+        }
 
         if (snmpc != null) {
             if (snmpc.hasSystemGroup()) {
@@ -364,10 +376,11 @@ final class SuspectEventProcessor implements Runnable {
 
                 // sysObjectId
                 String sysObjectId = sysgrp.getSysObjectID();
-                if (sysObjectId != null)
+                if (sysObjectId != null) {
                     entryNode.setSystemOID(sysObjectId);
-                else
+                } else {
                     LOG.warn("SuspectEventProcessor: {} has NO sysObjectId!!!!", str(ifaddr));
+                }
 
                 // sysName
                 String str = sysgrp.getSysName();
@@ -388,20 +401,23 @@ final class SuspectEventProcessor implements Runnable {
                 // sysDescription
                 str = sysgrp.getSysDescr();
                 LOG.debug("SuspectEventProcessor: {} has sysDescription: {}", str(ifaddr), str);
-                if (str != null && str.length() > 0)
+                if (str != null && str.length() > 0) {
                     entryNode.setSystemDescription(str);
+                }
 
                 // sysLocation
                 str = sysgrp.getSysLocation();
                 LOG.debug("SuspectEventProcessor: {} has sysLocation: {}", str(ifaddr), str);
-                if (str != null && str.length() > 0)
+                if (str != null && str.length() > 0) {
                     entryNode.setSystemLocation(str);
+                }
 
                 // sysContact
                 str = sysgrp.getSysContact();
                 LOG.debug("SuspectEventProcessor: {} has sysContact: {}", str(ifaddr), str);
-                if (str != null && str.length() > 0)
+                if (str != null && str.length() > 0) {
                     entryNode.setSystemContact(str);
+                }
             }
         }
 
@@ -1006,9 +1022,9 @@ final class SuspectEventProcessor implements Runnable {
 
             // now fill in the entry
             //
-            if (addrUnmanaged)
+            if (addrUnmanaged) {
                 ifSvcEntry.setStatus(DbIfServiceEntry.STATUS_UNMANAGED);
-            else {
+            } else {
                 if (isServicePolledLocally(str(ifaddr), p.getProtocolName(), ipPkg)) {
                     ifSvcEntry.setStatus(DbIfServiceEntry.STATUS_ACTIVE);
                 } else if (isServicePolled(str(ifaddr), p.getProtocolName(), ipPkg)) {
@@ -1032,8 +1048,9 @@ final class SuspectEventProcessor implements Runnable {
 
             ifSvcEntry.setSource(DbIfServiceEntry.SOURCE_PLUGIN);
             ifSvcEntry.setNotify(DbIfServiceEntry.NOTIFY_ON);
-            if (ifIndex != -1)
+            if (ifIndex != -1) {
                 ifSvcEntry.setIfIndex(ifIndex);
+            }
             ifSvcEntry.store();
         }
     }
@@ -1053,8 +1070,9 @@ final class SuspectEventProcessor implements Runnable {
         boolean svcToBePolled = false;
         if (ipPkg != null) {
             svcToBePolled = PollerConfigFactory.getInstance().isPolled(svcName, ipPkg);
-            if (!svcToBePolled)
+            if (!svcToBePolled) {
                 svcToBePolled = PollerConfigFactory.getInstance().isPolled(ifAddr, svcName);
+            }
         }
         return svcToBePolled;
     }
@@ -1074,8 +1092,9 @@ final class SuspectEventProcessor implements Runnable {
         boolean svcToBePolled = false;
         if (ipPkg != null && !ipPkg.getRemote()) {
             svcToBePolled = PollerConfigFactory.getInstance().isPolled(svcName, ipPkg);
-            if (!svcToBePolled)
+            if (!svcToBePolled) {
                 svcToBePolled = PollerConfigFactory.getInstance().isPolledLocally(ifAddr, svcName);
+            }
         }
         return svcToBePolled;
     }
@@ -1090,8 +1109,9 @@ final class SuspectEventProcessor implements Runnable {
      */
     static boolean supportsSnmp(List<SupportedProtocol> supportedProtocols) {
         for (SupportedProtocol p : supportedProtocols) {
-            if (p.getProtocolName().equals("SNMP"))
+            if (p.getProtocolName().equals("SNMP")) {
                 return true;
+            }
         }
         return false;
     }
@@ -1109,14 +1129,16 @@ final class SuspectEventProcessor implements Runnable {
      */
     static boolean hasIfIndex(InetAddress ipaddr, IfSnmpCollector snmpc) {
         int ifIndex = -1;
-        if (snmpc.hasIpAddrTable())
+        if (snmpc.hasIpAddrTable()) {
             ifIndex = snmpc.getIfIndex(ipaddr);
+        }
 
         LOG.debug("hasIfIndex: ipAddress: {} has ifIndex: {}", str(ipaddr), ifIndex);
-        if (ifIndex == -1)
+        if (ifIndex == -1) {
             return false;
-        else
+        } else {
             return true;
+        }
     }
 
     /**
@@ -1332,10 +1354,11 @@ final class SuspectEventProcessor implements Runnable {
             } // end while()
         } // end if (Collector.hasAdditionalTargets())
 
-        if (primaryIf != null)
+        if (primaryIf != null) {
             LOG.debug("determinePrimaryInterface: selected primary interface: {}", str(primaryIf));
-        else
+        } else {
             LOG.debug("determinePrimaryInterface: no primary interface found");
+        }
         return primaryIf;
     }
 
@@ -1527,8 +1550,9 @@ final class SuspectEventProcessor implements Runnable {
         // Send events
         //
         if (updateCompleted) {
-            if (!useExistingNode)
+            if (!useExistingNode) {
                 createAndSendNodeAddedEvent(entryNode);
+            }
 
             sendInterfaceEvents(entryNode, useExistingNode, ifaddr, collector);
 
@@ -1821,8 +1845,9 @@ final class SuspectEventProcessor implements Runnable {
         // If the useExistingNode flag is set to TRUE we're done, none of the
         // sub-targets should have been added.
         //
-        if (useExistingNode)
+        if (useExistingNode) {
             return;
+        }
 
         // If SNMP info available send events for sub-targets
         //

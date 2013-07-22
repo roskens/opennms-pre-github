@@ -306,8 +306,9 @@ public final class NamedSnmpVar implements Collectable {
             return new CollectionTracker[0];
         }
         CollectionTracker[] trackers = new CollectionTracker[columns.length];
-        for (int i = 0; i < columns.length; i++)
+        for (int i = 0; i < columns.length; i++) {
             trackers[i] = columns[i].getCollectionTracker();
+        }
 
         return trackers;
     }

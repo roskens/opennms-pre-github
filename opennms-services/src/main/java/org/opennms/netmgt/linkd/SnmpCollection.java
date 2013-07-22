@@ -560,28 +560,39 @@ public final class SnmpCollection implements ReadyRunnable {
         }
         // Log any failures
         //
-        if (m_collectOspf && !this.hasOspfGeneralGroup())
+        if (m_collectOspf && !this.hasOspfGeneralGroup()) {
             LOG.info("run: failed to collect ospfGeneralGroup for {}", hostAddress);
-        if (m_collectOspf && !this.hasOspfNbrTable())
+        }
+        if (m_collectOspf && !this.hasOspfNbrTable()) {
             LOG.info("run: failed to collect ospfNbrTable for {}", hostAddress);
-        if (m_collectLldp && !this.hasLldpLocalGroup())
+        }
+        if (m_collectLldp && !this.hasLldpLocalGroup()) {
             LOG.info("run: failed to collect lldpLocalGroup for {}", hostAddress);
-        if (m_collectLldp && !this.hasLldpLocTable())
+        }
+        if (m_collectLldp && !this.hasLldpLocTable()) {
             LOG.info("run: failed to collect lldpLocTable for {}", hostAddress);
-        if (m_collectLldp && !this.hasLldpRemTable())
+        }
+        if (m_collectLldp && !this.hasLldpRemTable()) {
             LOG.info("run: failed to collect lldpRemTable for {}", hostAddress);
-        if (m_collectBridge && !this.hasIpNetToMediaTable())
+        }
+        if (m_collectBridge && !this.hasIpNetToMediaTable()) {
             LOG.info("run: failed to collect ipNetToMediaTable for {}", hostAddress);
-        if (m_collectIpRoute && m_ipRoute != null && !this.hasRouteTable())
+        }
+        if (m_collectIpRoute && m_ipRoute != null && !this.hasRouteTable()) {
             LOG.info("run: failed to collect ipRouteTable for {}", hostAddress);
-        if (m_collectCdp && !this.hasCdpGlobalGroup())
+        }
+        if (m_collectCdp && !this.hasCdpGlobalGroup()) {
             LOG.info("run: failed to collect cdpGlobalGroup for {}", hostAddress);
-        if (m_collectCdp && !this.hasCdpCacheTable())
+        }
+        if (m_collectCdp && !this.hasCdpCacheTable()) {
             LOG.info("run: failed to collect cdpCacheTable for []", hostAddress);
+        }
         if (m_collectVlan && m_vlanTable != null && !this.hasVlanTable())
+         {
             LOG.info("run: failed to collect VLAN for {}", hostAddress);
         // Schedule SNMP VLAN collection only on VLAN.
         // If it has not VLAN collection no data download is done.
+        }
 
         // OnmsVlan vlan = null;
 
@@ -592,8 +603,9 @@ public final class SnmpCollection implements ReadyRunnable {
                 String community = m_agentConfig.getReadCommunity();
                 Integer vlanindex = vlan.getVlanId();
                 LOG.debug("run: peer community: {} with VLAN {}", community, vlanindex);
-                if (vlanindex != 1)
+                if (vlanindex != 1) {
                     m_agentConfig.setReadCommunity(community + "@" + vlanindex);
+                }
                 runAndSaveSnmpVlanCollection(vlan);
                 m_agentConfig.setReadCommunity(community);
             }
@@ -767,8 +779,9 @@ public final class SnmpCollection implements ReadyRunnable {
      */
     @Override
     public void schedule() {
-        if (m_scheduler == null)
+        if (m_scheduler == null) {
             throw new IllegalStateException("Cannot schedule a service whose scheduler is set to null");
+        }
         m_scheduler.schedule(initial_sleep_time, this);
     }
 
@@ -776,8 +789,9 @@ public final class SnmpCollection implements ReadyRunnable {
      * Reschedule.
      */
     private void reschedule() {
-        if (m_scheduler == null)
+        if (m_scheduler == null) {
             throw new IllegalStateException("Cannot schedule a service whose scheduler is set to null");
+        }
         m_scheduler.schedule(poll_interval, this);
     }
 
@@ -838,8 +852,9 @@ public final class SnmpCollection implements ReadyRunnable {
      */
     @Override
     public void unschedule() {
-        if (m_scheduler == null)
+        if (m_scheduler == null) {
             throw new IllegalStateException("rescedule: Cannot schedule a service whose scheduler is set to null");
+        }
         if (runned) {
             m_scheduler.unschedule(this, poll_interval);
         } else {
@@ -863,8 +878,9 @@ public final class SnmpCollection implements ReadyRunnable {
      *            the new ip route class
      */
     public void setIpRouteClass(String className) {
-        if (className == null || className.equals(""))
+        if (className == null || className.equals("")) {
             return;
+        }
         m_ipRouteClass = className;
         m_collectIpRoute = true;
     }
@@ -891,8 +907,9 @@ public final class SnmpCollection implements ReadyRunnable {
      *            a {@link java.lang.String} object.
      */
     public void setVlanClass(String className) {
-        if (className == null || className.equals(""))
+        if (className == null || className.equals("")) {
             return;
+        }
         m_vlanClass = className;
         m_collectVlan = true;
     }

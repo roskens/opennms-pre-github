@@ -484,8 +484,9 @@ public class DefaultCollectionAgent extends InetNetworkInterface implements Coll
     @Override
     public String getSnmpInterfaceLabel(final int ifIndex) {
         for (final SnmpIfData ifData : getSnmpInterfaceData()) {
-            if (ifData.getIfIndex() == ifIndex)
+            if (ifData.getIfIndex() == ifIndex) {
                 return ifData.getLabelForRRD();
+            }
         }
         return null;
     }

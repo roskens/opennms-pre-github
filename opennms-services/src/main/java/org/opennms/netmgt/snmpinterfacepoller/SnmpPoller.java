@@ -351,23 +351,27 @@ public class SnmpPoller extends AbstractServiceDaemon {
 
                 boolean hasPort = getPollerConfig().hasPort(pkgName, pkgInterfaceName);
                 int port = -1;
-                if (hasPort)
+                if (hasPort) {
                     port = getPollerConfig().getPort(pkgName, pkgInterfaceName);
+                }
 
                 boolean hasTimeout = getPollerConfig().hasTimeout(pkgName, pkgInterfaceName);
                 int timeout = -1;
-                if (hasTimeout)
+                if (hasTimeout) {
                     timeout = getPollerConfig().getTimeout(pkgName, pkgInterfaceName);
+                }
 
                 boolean hasRetries = getPollerConfig().hasRetries(pkgName, pkgInterfaceName);
                 int retries = -1;
-                if (hasRetries)
+                if (hasRetries) {
                     retries = getPollerConfig().getRetries(pkgName, pkgInterfaceName);
+                }
 
                 boolean hasMaxVarsPerPdu = getPollerConfig().hasMaxVarsPerPdu(pkgName, pkgInterfaceName);
                 int maxVarsPerPdu = -1;
-                if (hasMaxVarsPerPdu)
+                if (hasMaxVarsPerPdu) {
                     maxVarsPerPdu = getPollerConfig().getMaxVarsPerPdu(pkgName, pkgInterfaceName);
+                }
 
                 PollableSnmpInterface node = nodeGroup.createPollableSnmpInterface(pkgInterfaceName, criteria, hasPort,
                                                                                    port, hasTimeout, timeout,

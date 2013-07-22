@@ -678,8 +678,9 @@ public final class SnmpThresholder implements ServiceThresholder {
         // Find the filters for threshold definition for selected
         // group/dataSource
         ResourceFilter[] filters = getThresholdFilters(thresholdGroup, dataSource);
-        if (filters.length == 0)
+        if (filters.length == 0) {
             return true;
+        }
 
         // Threshold definition with filters must match ThresholdEntity
         // (checking DataSource and ResourceType)
@@ -697,8 +698,9 @@ public final class SnmpThresholder implements ServiceThresholder {
                 Matcher m = p.matcher(attr);
                 boolean pass = m.find();
                 LOG.debug("checkFilters: the value of {} is {}. Pass filter? {}", dataSource, attr, pass);
-                if (pass)
+                if (pass) {
                     return true;
+                }
             }
         }
         return false;

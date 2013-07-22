@@ -88,9 +88,10 @@ public final class IcmpMonitor extends AbstractServiceMonitor {
 
         // Get interface address from NetworkInterface
         //
-        if (iface.getType() != NetworkInterface.TYPE_INET)
+        if (iface.getType() != NetworkInterface.TYPE_INET) {
             throw new NetworkInterfaceNotSupportedException(
                                                             "Unsupported interface type, only TYPE_INET currently supported");
+        }
 
         Number rtt = null;
         InetAddress host = (InetAddress) iface.getAddress();

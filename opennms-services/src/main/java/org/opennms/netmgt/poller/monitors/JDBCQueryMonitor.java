@@ -145,30 +145,33 @@ public final class JDBCQueryMonitor extends JDBCMonitor {
                 rs.last();
                 int rowCount = rs.getRow();
                 int expectedRowCount = ParameterMap.getKeyedInteger(parameters, "operand", 1);
-                if (integerCheck(rowCount, expectedRowCount, operator))
+                if (integerCheck(rowCount, expectedRowCount, operator)) {
                     ps = PollStatus.available();
-                else
+                } else {
                     ps = PollStatus.unavailable("Row Count Check Failed: " + rowCount + " " + operator + " "
                             + expectedRowCount);
+                }
                 break;
             case QUERY_ACTION_COMPARE_STRING:
                 String expectedString = ParameterMap.getKeyedString(parameters, "operand", null);
                 String retrivedString = rs.getString(column);
-                if (expectedString.equals(retrivedString))
+                if (expectedString.equals(retrivedString)) {
                     ps = PollStatus.available();
-                else
+                } else {
                     ps = PollStatus.unavailable("String Field Check Failed: Expected: " + expectedString
                             + " Returned: " + retrivedString);
+                }
 
                 break;
             case QUERY_ACTION_COMPARE_INT:
                 int expectedInt = ParameterMap.getKeyedInteger(parameters, "operand", 1);
                 int retrivedInt = rs.getInt(column);
-                if (integerCheck(retrivedInt, expectedInt, operator))
+                if (integerCheck(retrivedInt, expectedInt, operator)) {
                     ps = PollStatus.available();
-                else
+                } else {
                     ps = PollStatus.unavailable("Integer Field Check Failed: " + expectedInt + " " + operator + " "
                             + retrivedInt);
+                }
                 break;
 
             }
@@ -183,8 +186,9 @@ public final class JDBCQueryMonitor extends JDBCMonitor {
             closeStmt(st);
         }
 
-        if (message != null && ps.isUnavailable())
+        if (message != null && ps.isUnavailable()) {
             ps = PollStatus.unavailable(message + " " + ps.getReason());
+        }
 
         return ps;
     }

@@ -355,8 +355,9 @@ public class CollectionResourceWrapper {
      * @return a {@link java.lang.String} object.
      */
     protected String getIfInfoValue(String attribute) {
-        if (m_ifInfo != null)
+        if (m_ifInfo != null) {
             return m_ifInfo.get(attribute);
+        }
         return null;
     }
 
@@ -385,10 +386,12 @@ public class CollectionResourceWrapper {
             return false;
         }
         try {
-            if (null == m_ifindex)
+            if (null == m_ifindex) {
                 return false;
-            if (Integer.parseInt(m_ifindex) < 0)
+            }
+            if (Integer.parseInt(m_ifindex) < 0) {
                 return false;
+            }
         } catch (Throwable e) {
             return false;
         }
@@ -520,15 +523,19 @@ public class CollectionResourceWrapper {
      * @return a {@link java.lang.String} object.
      */
     public String getLabelValue(String ds) {
-        if (ds == null || ds.equals(""))
+        if (ds == null || ds.equals("")) {
             return null;
+        }
         LOG.debug("getLabelValue: Getting Value for {}::{}", m_resource.getResourceTypeName(), ds);
-        if ("nodeid".equals(ds))
+        if ("nodeid".equals(ds)) {
             return Integer.toString(m_nodeId);
-        if ("ipaddress".equals(ds))
+        }
+        if ("ipaddress".equals(ds)) {
             return m_hostAddress;
-        if ("iflabel".equals(ds))
+        }
+        if ("iflabel".equals(ds)) {
             return getIfLabel();
+        }
         String value = null;
         File resourceDirectory = m_resource.getResourceDir(m_repository);
         if ("ID".equals(ds)) {
@@ -548,8 +555,9 @@ public class CollectionResourceWrapper {
         if (value == null) {
             LOG.debug("getLabelValue: The field {} is not a string property. Trying to parse it as numeric metric.", ds);
             Double d = getAttributeValue(ds);
-            if (d != null)
+            if (d != null) {
                 value = d.toString();
+            }
         }
         return value;
     }

@@ -64,16 +64,20 @@ public class UeiEventMatch implements EventMatch {
      */
     @Override
     public boolean match(Event event) {
-        if (event == null)
+        if (event == null) {
             return false;
-        if (event.getUei() == null)
+        }
+        if (event.getUei() == null) {
             return false;
-        if (this.ueimatch == null)
+        }
+        if (this.ueimatch == null) {
             return false;
-        if (this.ueimatch.startsWith("~"))
+        }
+        if (this.ueimatch.startsWith("~")) {
             return rematch(event.getUei(), this.ueimatch.substring(1));
-        else
+        } else {
             return (event.getUei().equals(this.ueimatch));
+        }
 
     }
 

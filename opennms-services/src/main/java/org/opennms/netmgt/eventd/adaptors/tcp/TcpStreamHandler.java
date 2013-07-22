@@ -133,8 +133,9 @@ final class TcpStreamHandler implements Runnable {
      */
     boolean isAlive() {
         boolean rc = false;
-        if (m_context != null)
+        if (m_context != null) {
             rc = m_context.isAlive();
+        }
 
         return rc;
     }

@@ -342,14 +342,18 @@ public class PassiveStatusKeeperTest {
     private Event createPassiveStatusEvent(String nodeLabel, String ipAddr, String serviceName, String status) {
         final List<Parm> parms = new ArrayList<Parm>();
 
-        if (nodeLabel != null)
+        if (nodeLabel != null) {
             parms.add(buildParm(EventConstants.PARM_PASSIVE_NODE_LABEL, nodeLabel));
-        if (ipAddr != null)
+        }
+        if (ipAddr != null) {
             parms.add(buildParm(EventConstants.PARM_PASSIVE_IPADDR, ipAddr));
-        if (serviceName != null)
+        }
+        if (serviceName != null) {
             parms.add(buildParm(EventConstants.PARM_PASSIVE_SERVICE_NAME, serviceName));
-        if (status != null)
+        }
+        if (status != null) {
             parms.add(buildParm(EventConstants.PARM_PASSIVE_SERVICE_STATUS, status));
+        }
 
         return createEventWithParms("uei.opennms.org/services/passiveServiceStatus", parms);
     }

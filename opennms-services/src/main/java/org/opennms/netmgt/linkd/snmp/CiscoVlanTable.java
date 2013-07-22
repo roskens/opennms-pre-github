@@ -83,8 +83,9 @@ public class CiscoVlanTable extends VlanTableBasic {
         for (SnmpStore elm : getEntries()) {
             OnmsVlan vlan = ((CiscoVlanTableEntry) elm).getOnmsVlan();
             if (vlan.getVlanType().equals(VlanType.CISCO_VTP_ETHERNET)
-                    && vlan.getVlanStatus().equals(VlanStatus.CISCOVTP_OPERATIONAL))
+                    && vlan.getVlanStatus().equals(VlanStatus.CISCOVTP_OPERATIONAL)) {
                 vlans.add(vlan);
+            }
         }
         return vlans;
     }

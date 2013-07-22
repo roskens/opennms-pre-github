@@ -84,8 +84,9 @@ public class DNSInputStream extends ByteArrayInputStream {
      */
     public int readByte() throws IOException {
         int rc = read();
-        if (rc == -1)
+        if (rc == -1) {
             throw new EOFException("end of buffer on read");
+        }
         return rc;
     }
 
@@ -113,8 +114,9 @@ public class DNSInputStream extends ByteArrayInputStream {
      */
     public long readInt() throws IOException {
         long rc = 0;
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < 4; i++) {
             rc = (rc << 8) | readByte();
+        }
         return rc;
     }
 
@@ -135,8 +137,9 @@ public class DNSInputStream extends ByteArrayInputStream {
 
         byte[] buffer = new byte[len];
         int rc = read(buffer);
-        if (rc == -1 || rc != len)
+        if (rc == -1 || rc != len) {
             throw new EOFException("end of file while reading array");
+        }
 
         return new String(buffer);
     }
@@ -159,8 +162,9 @@ public class DNSInputStream extends ByteArrayInputStream {
         // to index the array and generate an bounds
         // exception.
         //
-        if (pos >= count)
+        if (pos >= count) {
             throw new EOFException("EOF reading domain name");
+        }
 
         //
         // check the length byte. If the upper two bits are
@@ -178,8 +182,9 @@ public class DNSInputStream extends ByteArrayInputStream {
                 // name.
                 //
                 String tail = readDomainName();
-                if (tail.length() > 0)
+                if (tail.length() > 0) {
                     label = label + '.' + tail;
+                }
             }
 
             return label;
@@ -199,8 +204,9 @@ public class DNSInputStream extends ByteArrayInputStream {
         // Throw an I/O exception if the compression offset is
         // malformed.
         //
-        if ((buf[pos] & 0xc0) != 0xc0)
+        if ((buf[pos] & 0xc0) != 0xc0) {
             throw new IOException("Invalid domain name compression offset");
+        }
 
         //
         // read the short that is the pointer to the other

@@ -108,8 +108,9 @@ final class IfSmbCollector implements Runnable {
         StringBuffer mbuf = new StringBuffer();
         for (int i = 0; i < mac.length; i++) {
             mbuf.append((int) (mac[i] >> 4) & 0x0f).append((int) mac[i] & 0x0f);
-            if (i != 5)
+            if (i != 5) {
                 mbuf.append(':');
+            }
         }
         return mbuf.toString();
     }
@@ -194,10 +195,11 @@ final class IfSmbCollector implements Runnable {
      * @return the nbt name
      */
     String getNbtName() {
-        if (m_addr != null)
+        if (m_addr != null) {
             return m_addr.getHostName().trim();
-        else
+        } else {
             return null;
+        }
     }
 
     /**
@@ -249,8 +251,9 @@ final class IfSmbCollector implements Runnable {
     boolean containsCtrlChars(String nbName) {
         byte[] bytes = nbName.getBytes();
         for (int i = 0; i < bytes.length; i++) {
-            if (bytes[i] < 20)
+            if (bytes[i] < 20) {
                 return true;
+            }
         }
 
         return false;
@@ -316,19 +319,22 @@ final class IfSmbCollector implements Runnable {
             // get the SMB authentication object
             //
             SmbAuth authentication = null;
-            if (m_domain != null)
+            if (m_domain != null) {
                 authentication = CapsdConfigFactory.getInstance().getSmbAuth(m_domain);
+            }
 
-            if (authentication == null)
+            if (authentication == null) {
                 authentication = CapsdConfigFactory.getInstance().getSmbAuth(m_addr.getHostName());
+            }
 
             LOG.debug("IfSmbCollector: SMB authenticator: {}", authentication);
 
             // If SMB is not set in capsd-configuration, authentication could be
             // null. Then stop
             // SMB collectio.
-            if (authentication == null)
+            if (authentication == null) {
                 return;
+            }
 
             /*
              * ------------------------------------------------------------------

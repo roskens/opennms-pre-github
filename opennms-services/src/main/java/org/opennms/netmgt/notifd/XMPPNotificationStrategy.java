@@ -110,8 +110,9 @@ public class XMPPNotificationStrategy implements NotificationStrategy {
                 StringBuffer argumentString = new StringBuffer();
                 boolean first = true;
                 for (Argument argument : arguments) {
-                    if (!first)
+                    if (!first) {
                         argumentString.append(", ");
+                    }
                     first = false;
                     argumentString.append(argument == null ? "[null]" : "\"" + argument.toString() + "\"");
                 }

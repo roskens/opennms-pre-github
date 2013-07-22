@@ -186,44 +186,63 @@ public class HttpNotificationStrategy implements NotificationStrategy {
      * @return the value
      */
     private String getValue(String argValue) {
-        if (argValue.equals(NotificationManager.PARAM_DESTINATION))
+        if (argValue.equals(NotificationManager.PARAM_DESTINATION)) {
             return getNotificationValue(NotificationManager.PARAM_DESTINATION);
-        if (argValue.equals(NotificationManager.PARAM_EMAIL))
+        }
+        if (argValue.equals(NotificationManager.PARAM_EMAIL)) {
             return getNotificationValue(NotificationManager.PARAM_EMAIL);
-        if (argValue.equals(NotificationManager.PARAM_HOME_PHONE))
+        }
+        if (argValue.equals(NotificationManager.PARAM_HOME_PHONE)) {
             return getNotificationValue(NotificationManager.PARAM_HOME_PHONE);
-        if (argValue.equals(NotificationManager.PARAM_INTERFACE))
+        }
+        if (argValue.equals(NotificationManager.PARAM_INTERFACE)) {
             return getNotificationValue(NotificationManager.PARAM_INTERFACE);
-        if (argValue.equals(NotificationManager.PARAM_MICROBLOG_USERNAME))
+        }
+        if (argValue.equals(NotificationManager.PARAM_MICROBLOG_USERNAME)) {
             return getNotificationValue(NotificationManager.PARAM_MICROBLOG_USERNAME);
-        if (argValue.equals(NotificationManager.PARAM_MOBILE_PHONE))
+        }
+        if (argValue.equals(NotificationManager.PARAM_MOBILE_PHONE)) {
             return getNotificationValue(NotificationManager.PARAM_MOBILE_PHONE);
-        if (argValue.equals(NotificationManager.PARAM_NODE))
+        }
+        if (argValue.equals(NotificationManager.PARAM_NODE)) {
             return getNotificationValue(NotificationManager.PARAM_NODE);
-        if (argValue.equals(NotificationManager.PARAM_NUM_MSG))
+        }
+        if (argValue.equals(NotificationManager.PARAM_NUM_MSG)) {
             return getNotificationValue(NotificationManager.PARAM_NUM_MSG);
-        if (argValue.equals(NotificationManager.PARAM_NUM_PAGER_PIN))
+        }
+        if (argValue.equals(NotificationManager.PARAM_NUM_PAGER_PIN)) {
             return getNotificationValue(NotificationManager.PARAM_NUM_PAGER_PIN);
-        if (argValue.equals(NotificationManager.PARAM_PAGER_EMAIL))
+        }
+        if (argValue.equals(NotificationManager.PARAM_PAGER_EMAIL)) {
             return getNotificationValue(NotificationManager.PARAM_PAGER_EMAIL);
-        if (argValue.equals(NotificationManager.PARAM_RESPONSE))
+        }
+        if (argValue.equals(NotificationManager.PARAM_RESPONSE)) {
             return getNotificationValue(NotificationManager.PARAM_RESPONSE);
-        if (argValue.equals(NotificationManager.PARAM_SERVICE))
+        }
+        if (argValue.equals(NotificationManager.PARAM_SERVICE)) {
             return getNotificationValue(NotificationManager.PARAM_SERVICE);
-        if (argValue.equals(NotificationManager.PARAM_SUBJECT))
+        }
+        if (argValue.equals(NotificationManager.PARAM_SUBJECT)) {
             return getNotificationValue(NotificationManager.PARAM_SUBJECT);
-        if (argValue.equals(NotificationManager.PARAM_TEXT_MSG))
+        }
+        if (argValue.equals(NotificationManager.PARAM_TEXT_MSG)) {
             return getNotificationValue(NotificationManager.PARAM_TEXT_MSG);
-        if (argValue.equals(NotificationManager.PARAM_TEXT_PAGER_PIN))
+        }
+        if (argValue.equals(NotificationManager.PARAM_TEXT_PAGER_PIN)) {
             return getNotificationValue(NotificationManager.PARAM_TEXT_PAGER_PIN);
-        if (argValue.equals(NotificationManager.PARAM_TUI_PIN))
+        }
+        if (argValue.equals(NotificationManager.PARAM_TUI_PIN)) {
             return getNotificationValue(NotificationManager.PARAM_TUI_PIN);
-        if (argValue.equals(NotificationManager.PARAM_TYPE))
+        }
+        if (argValue.equals(NotificationManager.PARAM_TYPE)) {
             return getNotificationValue(NotificationManager.PARAM_TYPE);
-        if (argValue.equals(NotificationManager.PARAM_WORK_PHONE))
+        }
+        if (argValue.equals(NotificationManager.PARAM_WORK_PHONE)) {
             return getNotificationValue(NotificationManager.PARAM_WORK_PHONE);
-        if (argValue.equals(NotificationManager.PARAM_XMPP_ADDRESS))
+        }
+        if (argValue.equals(NotificationManager.PARAM_XMPP_ADDRESS)) {
             return getNotificationValue(NotificationManager.PARAM_XMPP_ADDRESS);
+        }
 
         return argValue;
     }
@@ -240,8 +259,9 @@ public class HttpNotificationStrategy implements NotificationStrategy {
                 + "\" switch.";
         for (Iterator<Argument> it = m_arguments.iterator(); it.hasNext();) {
             Argument arg = it.next();
-            if (arg.getSwitch().equals(notificationManagerParamString))
+            if (arg.getSwitch().equals(notificationManagerParamString)) {
                 message = arg.getValue();
+            }
         }
         LOG.debug("getNotificationValue: {}", message);
         return message;
@@ -281,8 +301,9 @@ public class HttpNotificationStrategy implements NotificationStrategy {
      */
     private String getUrl() {
         String url = getSwitchValue("url");
-        if (url == null)
+        if (url == null) {
             url = getUrlAsPrefix();
+        }
         return url;
     }
 
@@ -317,8 +338,9 @@ public class HttpNotificationStrategy implements NotificationStrategy {
                 value = arg.getValue();
             }
         }
-        if (value != null && value.equals(""))
+        if (value != null && value.equals("")) {
             value = null;
+        }
 
         return value;
     }

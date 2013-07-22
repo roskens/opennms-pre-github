@@ -170,8 +170,9 @@ public final class Dot1dTpFdbTableEntry extends SnmpStore {
      */
     public int getDot1dTpFdbPort() {
         Integer val = getInt32(Dot1dTpFdbTableEntry.FDB_PORT);
-        if (val == null)
+        if (val == null) {
             return -1;
+        }
         return val;
     }
 
@@ -185,8 +186,9 @@ public final class Dot1dTpFdbTableEntry extends SnmpStore {
      */
     public int getDot1dTpFdbStatus() {
         Integer val = getInt32(Dot1dTpFdbTableEntry.FDB_STATUS);
-        if (val == null)
+        if (val == null) {
             return -1;
+        }
         return val;
     }
 

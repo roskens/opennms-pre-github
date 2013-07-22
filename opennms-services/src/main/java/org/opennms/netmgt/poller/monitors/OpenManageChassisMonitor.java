@@ -219,8 +219,9 @@ public final class OpenManageChassisMonitor extends SnmpMonitorStrategy {
         // Retrieve this interface's SNMP peer object
         //
         SnmpAgentConfig agentConfig = SnmpPeerFactory.getInstance().getAgentConfig(ipaddr);
-        if (agentConfig == null)
+        if (agentConfig == null) {
             throw new RuntimeException("SnmpAgentConfig object not available for interface " + ipaddr);
+        }
         final String hostAddress = InetAddressUtils.str(ipaddr);
         LOG.debug("poll: setting SNMP peer attribute for interface {}", hostAddress);
 
@@ -342,18 +343,24 @@ public final class OpenManageChassisMonitor extends SnmpMonitorStrategy {
      */
     private String resolveDellStatus(int sc) {
         String name = "N/A";
-        if (DELL_STATUS.OTHER.value() == sc)
+        if (DELL_STATUS.OTHER.value() == sc) {
             name = DELL_STATUS.OTHER.name();
-        if (DELL_STATUS.UNKNOWN.value() == sc)
+        }
+        if (DELL_STATUS.UNKNOWN.value() == sc) {
             name = DELL_STATUS.UNKNOWN.name();
-        if (DELL_STATUS.OK.value() == sc)
+        }
+        if (DELL_STATUS.OK.value() == sc) {
             name = DELL_STATUS.OK.name();
-        if (DELL_STATUS.NON_CRITICAL.value() == sc)
+        }
+        if (DELL_STATUS.NON_CRITICAL.value() == sc) {
             name = DELL_STATUS.NON_CRITICAL.name();
-        if (DELL_STATUS.CRITICAL.value() == sc)
+        }
+        if (DELL_STATUS.CRITICAL.value() == sc) {
             name = DELL_STATUS.CRITICAL.name();
-        if (DELL_STATUS.NON_RECOVERABLE.value() == sc)
+        }
+        if (DELL_STATUS.NON_RECOVERABLE.value() == sc) {
             name = DELL_STATUS.NON_RECOVERABLE.name();
+        }
         return name;
     }
 }

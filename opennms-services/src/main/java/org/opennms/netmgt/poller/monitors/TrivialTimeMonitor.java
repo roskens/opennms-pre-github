@@ -122,9 +122,10 @@ public final class TrivialTimeMonitor extends AbstractServiceMonitor {
         //
         // Get interface address from NetworkInterface
         //
-        if (iface.getType() != NetworkInterface.TYPE_INET)
+        if (iface.getType() != NetworkInterface.TYPE_INET) {
             throw new NetworkInterfaceNotSupportedException(
                                                             "Unsupported interface type, only TYPE_INET currently supported");
+        }
 
         TimeoutTracker tracker = new TimeoutTracker(parameters, DEFAULT_RETRY, DEFAULT_TIMEOUT);
 
@@ -245,8 +246,9 @@ public final class TrivialTimeMonitor extends AbstractServiceMonitor {
                 ByteBuffer timeByteBuffer = ByteBuffer.wrap(timeBytes);
                 int bytesRead = socket.getInputStream().read(timeBytes);
 
-                if (bytesRead != 4)
+                if (bytesRead != 4) {
                     continue;
+                }
                 LOG.debug("pollTimeTcp: bytes read = {}", bytesRead);
 
                 try {
@@ -281,8 +283,9 @@ public final class TrivialTimeMonitor extends AbstractServiceMonitor {
             } finally {
                 try {
                     // Close the socket
-                    if (socket != null)
+                    if (socket != null) {
                         socket.close();
+                    }
                 } catch (IOException e) {
                     e.fillInStackTrace();
                     LOG.debug("pollTimeTcp: Error closing socket.", e);
@@ -346,8 +349,9 @@ public final class TrivialTimeMonitor extends AbstractServiceMonitor {
                 socket.receive(timePacket);
                 int bytesRead = timePacket.getLength();
 
-                if (bytesRead != 4)
+                if (bytesRead != 4) {
                     continue;
+                }
                 LOG.debug("pollTimeUdp: bytes read = {}", bytesRead);
 
                 try {
@@ -380,8 +384,9 @@ public final class TrivialTimeMonitor extends AbstractServiceMonitor {
                 LOG.debug(reason, e);
                 serviceStatus = PollStatus.unavailable(reason);
             } finally {
-                if (socket != null)
+                if (socket != null) {
                     socket.close();
+                }
             }
         }
         return serviceStatus;

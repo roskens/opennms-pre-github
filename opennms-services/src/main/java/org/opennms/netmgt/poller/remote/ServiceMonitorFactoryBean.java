@@ -138,8 +138,9 @@ public class ServiceMonitorFactoryBean implements FactoryBean<ServiceMonitor>, I
         Assert.state(ServiceMonitor.class.isAssignableFrom(m_monitorClass),
                      "monitorClass must implement the ServiceMonitor interface");
 
-        if (m_monitorParameters == null)
+        if (m_monitorParameters == null) {
             m_monitorParameters = new HashMap<String, Object>();
+        }
 
         m_serviceMonitor = (ServiceMonitor) m_monitorClass.newInstance();
         m_serviceMonitor.initialize(m_monitorParameters);

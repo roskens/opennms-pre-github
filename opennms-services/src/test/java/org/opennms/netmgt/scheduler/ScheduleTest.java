@@ -88,8 +88,9 @@ public class ScheduleTest extends TestCase {
         @Override
         public void run() {
             runCount++;
-            if (isCallingAdjustSchedule())
+            if (isCallingAdjustSchedule()) {
                 m_sched.adjustSchedule();
+            }
         }
 
         /**
@@ -303,8 +304,9 @@ public class ScheduleTest extends TestCase {
         assertEquals(count, m_schedulable.getRunCount());
         assertEquals(currentTime, m_scheduler.getCurrentTime());
         assertEquals(entryCount, m_scheduler.getEntryCount());
-        if (entryCount > 0)
+        if (entryCount > 0) {
             assertNotNull(m_scheduler.getEntries().get(Long.valueOf(currentTime + interval)));
+        }
 
     }
 

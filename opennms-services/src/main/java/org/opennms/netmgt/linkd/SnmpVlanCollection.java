@@ -336,21 +336,26 @@ public final class SnmpVlanCollection implements ReadyRunnable {
         // Log any failures
         //
         final String hostAddress = InetAddressUtils.str(m_address);
-        if (!hasDot1dBase())
+        if (!hasDot1dBase()) {
             LOG.info("run: failed to collect Dot1dBase for {} Community: {}", hostAddress,
                      m_agentConfig.getReadCommunity());
-        if (!hasDot1dBasePortTable())
+        }
+        if (!hasDot1dBasePortTable()) {
             LOG.info("run: failed to collect Dot1dBasePortTable for {} Community: {}", hostAddress,
                      m_agentConfig.getReadCommunity());
-        if (!hasDot1dStp())
+        }
+        if (!hasDot1dStp()) {
             LOG.info("run: failed to collect Dot1dStp for {} Community: {}", hostAddress,
                      m_agentConfig.getReadCommunity());
-        if (!hasDot1dStpPortTable())
+        }
+        if (!hasDot1dStpPortTable()) {
             LOG.info("run: failed to collect Dot1dStpPortTable for {} Community: {}", hostAddress,
                      m_agentConfig.getReadCommunity());
-        if (!hasDot1dTpFdbTable())
+        }
+        if (!hasDot1dTpFdbTable()) {
             LOG.info("run: failed to collect Dot1dTpFdbTable for {} Community: {}", hostAddress,
                      m_agentConfig.getReadCommunity());
+        }
 
         // if not found macaddresses forwarding table find it in Qbridge
         // ExtremeNetwork works.....

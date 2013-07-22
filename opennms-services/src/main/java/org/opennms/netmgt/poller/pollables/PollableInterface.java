@@ -261,8 +261,9 @@ public class PollableInterface extends PollableContainer {
     @Override
     protected PollStatus poll(PollableElement elem) {
         PollableService critSvc = getCriticalService();
-        if (getStatus().isUp() || critSvc == null || elem == critSvc)
+        if (getStatus().isUp() || critSvc == null || elem == critSvc) {
             return super.poll(elem);
+        }
 
         return PollStatus.down();
     }
@@ -273,15 +274,16 @@ public class PollableInterface extends PollableContainer {
         PollableService critSvc = getCriticalService();
 
         if (critSvc != null && getStatus().isUp()) {
-            if (member != critSvc)
+            if (member != critSvc) {
                 critSvc.poll();
+            }
 
             return critSvc.getStatus().isUp() ? PollStatus.up() : PollStatus.down();
         }
 
-        if (getContext().isPollingAllIfCritServiceUndefined())
+        if (getContext().isPollingAllIfCritServiceUndefined()) {
             return super.pollRemainingMembers(member);
-        else {
+        } else {
             return getMemberStatus();
         }
 
@@ -327,8 +329,9 @@ public class PollableInterface extends PollableContainer {
     public void reparentTo(final PollableNode newNode) {
         final PollableNode oldNode = getNode();
 
-        if (oldNode.equals(newNode))
+        if (oldNode.equals(newNode)) {
             return;
+        }
 
         // always lock the nodes in nodeId order so deadlock is not possible
         final PollableNode firstNode = (oldNode.getNodeId() <= newNode.getNodeId() ? oldNode : newNode);

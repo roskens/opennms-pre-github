@@ -147,10 +147,11 @@ public class JMXSecureConnectionFactory {
                     // com.sun.security.sasl.Provider());
 
                     String[] creds;
-                    if (sunCacao.equals("true"))
+                    if (sunCacao.equals("true")) {
                         creds = new String[] { "com.sun.cacao.user\001" + username, password };
-                    else
+                    } else {
                         creds = new String[] { username, password };
+                    }
                     env.put("jmx.remote.profiles", "TLS SASL/PLAIN");
                     env.put("jmx.remote.credentials", creds);
 

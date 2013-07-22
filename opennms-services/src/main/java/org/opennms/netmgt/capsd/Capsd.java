@@ -147,8 +147,9 @@ public class Capsd extends AbstractServiceDaemon {
         // Stop the Rescan Processor thread pool
         m_rescanRunner.shutdown();
 
-        if (m_scheduler != null)
+        if (m_scheduler != null) {
             m_scheduler.stop();
+        }
     }
 
     /**

@@ -262,8 +262,9 @@ public abstract class PollableElement {
         if (getParent() == null) {
             resetStatusChanged();
             return poll(elem);
-        } else
+        } else {
             return getParent().doPoll(elem);
+        }
     }
 
     /**
@@ -408,8 +409,9 @@ public abstract class PollableElement {
      * @return a {@link org.opennms.netmgt.model.PollStatus} object.
      */
     protected PollStatus poll(PollableElement elem) {
-        if (elem != this)
+        if (elem != this) {
             throw new IllegalArgumentException("Invalid parameter to poll on " + this + ": " + elem);
+        }
 
         return poll();
     }
@@ -590,8 +592,9 @@ public abstract class PollableElement {
      *            object.
      */
     protected void processCause(PollEvent cause) {
-        if (!hasOpenOutage())
+        if (!hasOpenOutage()) {
             createOutage(cause);
+        }
     }
 
     /**
@@ -608,8 +611,9 @@ public abstract class PollableElement {
      *            object.
      */
     protected void resolveAllOutages(PollEvent resolvedCause, PollEvent resolution) {
-        if (resolvedCause.equals(getCause()))
+        if (resolvedCause.equals(getCause())) {
             resolveOutage(resolution);
+        }
     }
 
     /**
@@ -721,8 +725,9 @@ public abstract class PollableElement {
      * .
      */
     protected void doInheritParentalCause() {
-        if (getParent() == null)
+        if (getParent() == null) {
             return;
+        }
 
         PollEvent parentalCause = getParent().getCause();
         PollStatus parentalStatus = getParent().getStatus();

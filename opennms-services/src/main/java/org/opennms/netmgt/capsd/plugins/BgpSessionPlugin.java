@@ -178,8 +178,9 @@ public final class BgpSessionPlugin extends SnmpPlugin {
             }
 
             SnmpAgentConfig agentConfig = SnmpPeerFactory.getInstance().getAgentConfig(ipaddr);
-            if (agentConfig == null)
+            if (agentConfig == null) {
                 throw new RuntimeException("SnmpAgentConfig object not available for interface " + ipaddr);
+            }
 
             if (qualifiers != null) {
                 // "port" parm
@@ -207,14 +208,13 @@ public final class BgpSessionPlugin extends SnmpPlugin {
                 //
                 if (qualifiers.get("force version") != null) {
                     String version = (String) qualifiers.get("force version");
-                    if (version.equalsIgnoreCase("snmpv1"))
+                    if (version.equalsIgnoreCase("snmpv1")) {
                         agentConfig.setVersion(SnmpAgentConfig.VERSION1);
-                    else if (version.equalsIgnoreCase("snmpv2") || version.equalsIgnoreCase("snmpv2c"))
+                    } else if (version.equalsIgnoreCase("snmpv2") || version.equalsIgnoreCase("snmpv2c")) {
                         agentConfig.setVersion(SnmpAgentConfig.VERSION2C);
-
-                    // TODO: make sure JoeSnmpStrategy correctly handles this.
-                    else if (version.equalsIgnoreCase("snmpv3"))
+                    } else if (version.equalsIgnoreCase("snmpv3")) {
                         agentConfig.setVersion(SnmpAgentConfig.VERSION3);
+                    }
                 }
 
                 // Get the BGP admin state

@@ -159,8 +159,9 @@ public final class SyslogHandler implements Fiber {
      */
     @Override
     public synchronized void start() {
-        if (m_status != START_PENDING)
+        if (m_status != START_PENDING) {
             throw new RuntimeException("The Fiber is in an incorrect state");
+        }
 
         m_status = STARTING;
 
@@ -204,8 +205,9 @@ public final class SyslogHandler implements Fiber {
      */
     @Override
     public synchronized void stop() {
-        if (m_status == STOPPED)
+        if (m_status == STOPPED) {
             return;
+        }
         if (m_status == START_PENDING) {
             m_status = STOPPED;
             return;
@@ -278,8 +280,9 @@ public final class SyslogHandler implements Fiber {
      *            a {@link java.lang.Integer} object.
      */
     public void setPort(final Integer port) {
-        if (m_status == STARTING || m_status == RUNNING || m_status == STOP_PENDING)
+        if (m_status == STARTING || m_status == RUNNING || m_status == STOP_PENDING) {
             throw new IllegalStateException("The process is already running");
+        }
 
         m_dgPort = port;
     }

@@ -107,8 +107,9 @@ public abstract class AbstractTcpPlugin extends AbstractPlugin {
      */
     protected AbstractTcpPlugin(String protocol, int defaultPort, int defaultTimeout, int defaultRetry) {
         super();
-        if (protocol == null)
+        if (protocol == null) {
             throw new NullPointerException("protocol is null");
+        }
 
         m_protocolName = protocol;
         m_defaultPort = defaultPort;
@@ -182,8 +183,9 @@ public abstract class AbstractTcpPlugin extends AbstractPlugin {
                          config.getInetAddress(), t);
                 isAServer = false;
             } finally {
-                if (socket != null)
+                if (socket != null) {
                     closeSocket(socket, config);
+                }
             }
         }
 
@@ -207,8 +209,9 @@ public abstract class AbstractTcpPlugin extends AbstractPlugin {
      */
     protected void closeSocket(Socket socket, ConnectionConfig config) {
         try {
-            if (socket != null)
+            if (socket != null) {
                 socket.close();
+            }
         } catch (IOException e) {
 
         }
@@ -259,8 +262,9 @@ public abstract class AbstractTcpPlugin extends AbstractPlugin {
      * @return a {@link java.util.List} object.
      */
     protected List<ConnectionConfig> getConnectionConfigList(Map<String, Object> qualifiers, InetAddress address) {
-        if (m_defaultPort == -1)
+        if (m_defaultPort == -1) {
             throw new IllegalStateException("m_defaultPort == -1");
+        }
 
         int port = getKeyedInteger(qualifiers, "port", m_defaultPort);
         return Collections.singletonList(createConnectionConfig(address, port));
@@ -281,10 +285,11 @@ public abstract class AbstractTcpPlugin extends AbstractPlugin {
      * @return a int.
      */
     protected final int getKeyedInteger(Map<String, Object> qualifiers, String key, int defaultVal) {
-        if (qualifiers == null)
+        if (qualifiers == null) {
             return defaultVal;
-        else
+        } else {
             return ParameterMap.getKeyedInteger(qualifiers, key, defaultVal);
+        }
     }
 
     /**
@@ -302,10 +307,11 @@ public abstract class AbstractTcpPlugin extends AbstractPlugin {
      * @return an array of int.
      */
     protected final int[] getKeyedIntegerArray(Map<String, Object> qualifiers, String key, int[] defaultVal) {
-        if (qualifiers == null)
+        if (qualifiers == null) {
             return defaultVal;
-        else
+        } else {
             return ParameterMap.getKeyedIntegerArray(qualifiers, key, defaultVal);
+        }
     }
 
     /**
@@ -362,8 +368,9 @@ public abstract class AbstractTcpPlugin extends AbstractPlugin {
         for (ConnectionConfig config : connList) {
             populateConnectionConfig(config, qualifiers);
             if (checkConnection(config)) {
-                if (qualifiers != null)
+                if (qualifiers != null) {
                     saveConfig(qualifiers, config);
+                }
                 return true;
             }
         }
@@ -432,8 +439,9 @@ public abstract class AbstractTcpPlugin extends AbstractPlugin {
      *            a int.
      */
     protected final void saveKeyedInteger(Map<String, Object> qualifiers, String key, int value) {
-        if (qualifiers != null && !qualifiers.containsKey(key))
+        if (qualifiers != null && !qualifiers.containsKey(key)) {
             qualifiers.put(key, Integer.valueOf(value));
+        }
     }
 
     /**

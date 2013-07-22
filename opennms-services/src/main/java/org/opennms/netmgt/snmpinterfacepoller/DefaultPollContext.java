@@ -274,14 +274,18 @@ public class DefaultPollContext implements PollContext {
 
         bldr.addParam(EventConstants.PARM_SNMP_INTERFACE_IFINDEX, snmpinterface.getIfIndex().toString());
 
-        if (snmpinterface.getIfName() != null)
+        if (snmpinterface.getIfName() != null) {
             bldr.addParam(EventConstants.PARM_SNMP_INTERFACE_NAME, snmpinterface.getIfName());
-        if (snmpinterface.getIfDescr() != null)
+        }
+        if (snmpinterface.getIfDescr() != null) {
             bldr.addParam(EventConstants.PARM_SNMP_INTERFACE_DESC, snmpinterface.getIfDescr());
-        if (snmpinterface.getIfAlias() != null)
+        }
+        if (snmpinterface.getIfAlias() != null) {
             bldr.addParam(EventConstants.PARM_SNMP_INTERFACE_ALIAS, snmpinterface.getIfAlias());
-        if (snmpinterface.getNetMask() != null)
+        }
+        if (snmpinterface.getNetMask() != null) {
             bldr.addParam(EventConstants.PARM_SNMP_INTERFACE_MASK, str(snmpinterface.getNetMask()));
+        }
 
         return bldr.getEvent();
     }

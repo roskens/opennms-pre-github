@@ -309,8 +309,9 @@ public class OpenNMSTestCase extends TestCase {
     @Override
     protected void tearDown() throws Exception {
         if (m_runSupers) {
-            if (isStartEventd())
+            if (isStartEventd()) {
                 m_eventd.stop();
+            }
         }
 
         super.tearDown();

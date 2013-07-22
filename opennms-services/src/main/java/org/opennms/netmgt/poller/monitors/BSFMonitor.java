@@ -159,8 +159,9 @@ public class BSFMonitor extends AbstractServiceMonitor {
 
         try {
 
-            if (lang == null)
+            if (lang == null) {
                 lang = BSFManager.getLangFromFilename(fileName);
+            }
 
             if (langEngine != null && lang != null && langExtensions.length > 0) {
                 BSFManager.registerScriptingEngine(lang, langEngine, langExtensions);
@@ -265,17 +266,23 @@ public class BSFMonitor extends AbstractServiceMonitor {
      *            the args
      */
     public void log(String level, String format, Object... args) {
-        if ("TRACE".equals(level))
+        if ("TRACE".equals(level)) {
             LOG.trace(format, args);
-        if ("DEBUG".equals(level))
+        }
+        if ("DEBUG".equals(level)) {
             LOG.debug(format, args);
-        if ("INFO".equals(level))
+        }
+        if ("INFO".equals(level)) {
             LOG.info(format, args);
-        if ("WARN".equals(level))
+        }
+        if ("WARN".equals(level)) {
             LOG.warn(format, args);
-        if ("ERROR".equals(level))
+        }
+        if ("ERROR".equals(level)) {
             LOG.error(format, args);
-        if ("FATAL".equals(level))
+        }
+        if ("FATAL".equals(level)) {
             LOG.error(format, args);
+        }
     }
 }

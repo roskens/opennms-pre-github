@@ -107,12 +107,13 @@ public class TimeoutSecureXmlRpcClient extends XmlRpcClient {
             int timeout = Integer.parseInt(args[1]);
             String method = args[2];
             Vector<Object> v = new Vector<Object>();
-            for (int i = 3; i < args.length; i++)
+            for (int i = 3; i < args.length; i++) {
                 try {
                     v.addElement(Integer.valueOf(Integer.parseInt(args[i])));
                 } catch (NumberFormatException nfx) {
                     v.addElement(args[i]);
                 }
+            }
             TimeoutSecureXmlRpcClient client = new TimeoutSecureXmlRpcClient(url, timeout);
             try {
                 System.err.println(client.execute(method, v));

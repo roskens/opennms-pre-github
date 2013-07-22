@@ -158,8 +158,9 @@ public abstract class PollableContainer extends PollableElement {
      */
     public void deleteMember(PollableElement member) {
         removeMember(member);
-        if (m_members.size() == 0)
+        if (m_members.size() == 0) {
             this.delete();
+        }
     }
 
     /**
@@ -424,8 +425,9 @@ public abstract class PollableContainer extends PollableElement {
                     @Override
                     public void forEachElement(PollableElement elem) {
                         elem.recalculateStatus();
-                        if (elem.getStatus().isUp())
+                        if (elem.getStatus().isUp()) {
                             setResult(PollStatus.up());
+                        }
                     }
                 };
                 forEachMember(iter);
@@ -509,8 +511,9 @@ public abstract class PollableContainer extends PollableElement {
             @Override
             public void forEachElement(PollableElement elem) {
                 if (elem != member) {
-                    if (elem.poll().isUp())
+                    if (elem.poll().isUp()) {
                         setResult(PollStatus.up());
+                    }
                 }
             }
         };
@@ -530,8 +533,9 @@ public abstract class PollableContainer extends PollableElement {
         SimpleIter<PollStatus> iter = new SimpleIter<PollStatus>(PollStatus.down()) {
             @Override
             public void forEachElement(PollableElement elem) {
-                if (elem.getStatus().isUp())
+                if (elem.getStatus().isUp()) {
                     setResult(PollStatus.up());
+                }
             }
 
         };
@@ -550,8 +554,9 @@ public abstract class PollableContainer extends PollableElement {
     @Override
     public PollStatus poll() {
         PollableElement leaf = selectPollElement();
-        if (leaf == null)
+        if (leaf == null) {
             return PollStatus.up();
+        }
         return poll(leaf);
     }
 
@@ -566,8 +571,9 @@ public abstract class PollableContainer extends PollableElement {
      */
     @Override
     public PollableElement selectPollElement() {
-        if (getMemberCount() == 0)
+        if (getMemberCount() == 0) {
             return null;
+        }
 
         PollableElement member = (PollableElement) getMembers().iterator().next();
         return member.selectPollElement();
@@ -658,8 +664,9 @@ public abstract class PollableContainer extends PollableElement {
         Iter iter = new Iter() {
             @Override
             public void forEachElement(PollableElement elem) {
-                if (!hasOpenOutage())
+                if (!hasOpenOutage()) {
                     elem.resolveAllOutages(resolvedCause, resolution);
+                }
             }
 
         };

@@ -194,8 +194,9 @@ public class PollableNetwork {
      */
     public void suspend(String ipaddress) {
         PollableInterface pi = getInterface(ipaddress);
-        if (pi != null)
+        if (pi != null) {
             pi.suspend();
+        }
     }
 
     /**
@@ -209,8 +210,9 @@ public class PollableNetwork {
      */
     public void activate(String ipaddress) {
         PollableInterface pi = getInterface(ipaddress);
-        if (pi != null)
+        if (pi != null) {
             pi.activate();
+        }
     }
 
     /**
@@ -224,8 +226,9 @@ public class PollableNetwork {
      */
     public void suspend(int nodeid) {
         String ipprimary = getIp(nodeid);
-        if (ipprimary != null)
+        if (ipprimary != null) {
             suspend(ipprimary);
+        }
     }
 
     /**
@@ -239,8 +242,9 @@ public class PollableNetwork {
      */
     public void activate(int nodeid) {
         String ipprimary = getIp(nodeid);
-        if (ipprimary != null)
+        if (ipprimary != null) {
             activate(ipprimary);
+        }
     }
 
     /**
@@ -265,8 +269,9 @@ public class PollableNetwork {
      * @return the interface
      */
     private PollableInterface getInterface(String ipaddress) {
-        if (m_members.containsKey(ipaddress))
+        if (m_members.containsKey(ipaddress)) {
             return m_members.get(ipaddress);
+        }
         return null;
     }
 

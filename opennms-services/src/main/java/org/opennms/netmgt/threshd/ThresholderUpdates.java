@@ -108,8 +108,9 @@ final class ThresholderUpdates {
      *            the value
      */
     void setAttribute(String property, Object value) {
-        if (m_properties == null)
+        if (m_properties == null) {
             m_properties = new HashMap<String, Object>();
+        }
 
         m_properties.put(property, value);
 
@@ -125,8 +126,9 @@ final class ThresholderUpdates {
      */
     Object getAttribute(String property) {
         Object rc = null;
-        if (m_properties != null)
+        if (m_properties != null) {
             rc = m_properties.get(property);
+        }
         return rc;
     }
 

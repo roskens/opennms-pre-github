@@ -304,30 +304,31 @@ public class SyslogTimeStamp extends Format {
         // first character, since this resolves all
         // by the 'A', 'J' and 'M' months.
         //
-        if (name.equalsIgnoreCase("Jan"))
+        if (name.equalsIgnoreCase("Jan")) {
             return 0;
-        else if (name.equalsIgnoreCase("Feb"))
+        } else if (name.equalsIgnoreCase("Feb")) {
             return 1;
-        else if (name.equalsIgnoreCase("Mar"))
+        } else if (name.equalsIgnoreCase("Mar")) {
             return 2;
-        else if (name.equalsIgnoreCase("Apr"))
+        } else if (name.equalsIgnoreCase("Apr")) {
             return 3;
-        else if (name.equalsIgnoreCase("May"))
+        } else if (name.equalsIgnoreCase("May")) {
             return 4;
-        else if (name.equalsIgnoreCase("Jun"))
+        } else if (name.equalsIgnoreCase("Jun")) {
             return 5;
-        else if (name.equalsIgnoreCase("Jul"))
+        } else if (name.equalsIgnoreCase("Jul")) {
             return 6;
-        else if (name.equalsIgnoreCase("Aug"))
+        } else if (name.equalsIgnoreCase("Aug")) {
             return 7;
-        else if (name.equalsIgnoreCase("Sep"))
+        } else if (name.equalsIgnoreCase("Sep")) {
             return 8;
-        else if (name.equalsIgnoreCase("Oct"))
+        } else if (name.equalsIgnoreCase("Oct")) {
             return 9;
-        else if (name.equalsIgnoreCase("Nov"))
+        } else if (name.equalsIgnoreCase("Nov")) {
             return 10;
-        else if (name.equalsIgnoreCase("Dec"))
+        } else if (name.equalsIgnoreCase("Dec")) {
             return 11;
+        }
 
         throw new ParseException("unknown month name '" + name + "'", 0);
     }

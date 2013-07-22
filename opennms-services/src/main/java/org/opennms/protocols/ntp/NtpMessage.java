@@ -375,10 +375,11 @@ public class NtpMessage {
      * @return a short.
      */
     public static short unsignedByteToShort(byte b) {
-        if ((b & 0x80) == 0x80)
+        if ((b & 0x80) == 0x80) {
             return (short) (128 + (b & 0x7f));
-        else
+        } else {
             return (short) b;
+        }
     }
 
     /**
@@ -440,8 +441,9 @@ public class NtpMessage {
      * @return a {@link java.lang.String} object.
      */
     public static String timestampToString(double timestamp) {
-        if (timestamp == 0)
+        if (timestamp == 0) {
             return "0";
+        }
 
         // timestamp is relative to 1900, utc is used by Java and is relative
         // to 1970

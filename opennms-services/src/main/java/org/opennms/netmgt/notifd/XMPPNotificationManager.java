@@ -221,10 +221,12 @@ public class XMPPNotificationManager {
             if (xmpp.isConnected()) {
                 LOG.debug("XMPP Manager successfully connected");
                 // Following requires a later version of the library
-                if (xmpp.isSecureConnection())
+                if (xmpp.isSecureConnection()) {
                     LOG.debug("XMPP Manager successfully nogotiated a secure connection");
-                if (xmpp.isUsingTLS())
+                }
+                if (xmpp.isUsingTLS()) {
                     LOG.debug("XMPP Manager successfully nogotiated a TLS connection");
+                }
                 LOG.debug("XMPP Manager Connected");
                 login();
                 // Add connection listener

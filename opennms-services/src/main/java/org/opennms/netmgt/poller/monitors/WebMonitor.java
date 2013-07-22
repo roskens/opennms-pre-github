@@ -206,13 +206,15 @@ public class WebMonitor extends AbstractServiceMonitor {
                 if (expectedText.charAt(0) == '~') {
                     if (!responseText.matches(expectedText.substring(1))) {
                         pollStatus = PollStatus.unavailable("Regex Failed");
-                    } else
+                    } else {
                         pollStatus = PollStatus.available();
+                    }
                 } else {
-                    if (expectedText.equals(responseText))
+                    if (expectedText.equals(responseText)) {
                         pollStatus = PollStatus.available();
-                    else
+                    } else {
                         pollStatus = PollStatus.unavailable("Did not find expected Text");
+                    }
                 }
             }
 
@@ -239,9 +241,10 @@ public class WebMonitor extends AbstractServiceMonitor {
      */
     private boolean inRange(String range, Integer val) {
         String[] boundries = range.split("-");
-        if (val < new Integer(boundries[0]) || val > new Integer(boundries[1]))
+        if (val < new Integer(boundries[0]) || val > new Integer(boundries[1])) {
             return false;
-        else
+        } else {
             return true;
+        }
     }
 }

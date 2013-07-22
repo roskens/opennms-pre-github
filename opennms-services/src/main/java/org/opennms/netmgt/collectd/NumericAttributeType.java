@@ -65,8 +65,9 @@ public class NumericAttributeType extends SnmpAttributeType {
         String type = rawType.toLowerCase();
         for (int i = 0; i < s_supportedTypes.length; i++) {
             String supportedType = s_supportedTypes[i];
-            if (type.startsWith(supportedType))
+            if (type.startsWith(supportedType)) {
                 return true;
+            }
         }
         return false;
     }

@@ -180,8 +180,9 @@ public final class BroadcastEventProcessor implements EventListener {
      */
     @Override
     public void onEvent(Event event) {
-        if (event == null)
+        if (event == null) {
             return;
+        }
 
         if (isReloadConfigEvent(event)) {
             LOG.info("onEvent: handling reload configuration event...");

@@ -250,8 +250,9 @@ public class DataManager extends Object {
         public void processOutage(RTCNodeKey key, Timestamp ifLostService, Timestamp ifRegainedService) {
             RTCNode rtcN = m_map.getRTCNode(key);
             // if we can't find the node it doesn't belong to any category
-            if (rtcN == null)
+            if (rtcN == null) {
                 return;
+            }
 
             addOutageToRTCNode(rtcN, ifLostService, ifRegainedService);
 
@@ -282,8 +283,9 @@ public class DataManager extends Object {
                                                          new Object[] { Long.valueOf(nodeid), InetAddressUtils.str(ip),
                                                                  svc }, String.class);
 
-        if (status == null)
+        if (status == null) {
             return '\0';
+        }
         return status.charAt(0);
 
     }
@@ -299,12 +301,14 @@ public class DataManager extends Object {
      *            the regained time ts
      */
     private void addOutageToRTCNode(RTCNode rtcN, Timestamp lostTimeTS, Timestamp regainedTimeTS) {
-        if (lostTimeTS == null)
+        if (lostTimeTS == null) {
             return;
+        }
         long lostTime = lostTimeTS.getTime();
         long regainedTime = -1;
-        if (regainedTimeTS != null)
+        if (regainedTimeTS != null) {
             regainedTime = regainedTimeTS.getTime();
+        }
 
         LOG.debug("lost time for nodeid/ip/svc: {}/{}/{}: {}/{}", rtcN.getNodeID(), rtcN.getIP(), rtcN.getSvcName(),
                   lostTimeTS, lostTime);
@@ -442,8 +446,9 @@ public class DataManager extends Object {
         LinkedList<Object> args = new LinkedList<Object>();
         args.add(arg1);
         args.add(arg2);
-        if (remaining != null)
+        if (remaining != null) {
             args.addAll(Arrays.asList(remaining));
+        }
         return args.toArray();
     }
 

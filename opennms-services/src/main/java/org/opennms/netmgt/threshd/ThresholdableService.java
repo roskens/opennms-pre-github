@@ -158,8 +158,9 @@ final class ThresholdableService extends InetNetworkInterface implements Thresho
                 break;
             }
         }
-        if (svc == null)
+        if (svc == null) {
             throw new RuntimeException("Service name not part of package!");
+        }
 
         // save reference to the service
         m_service = svc;
@@ -257,8 +258,9 @@ final class ThresholdableService extends InetNetworkInterface implements Thresho
     public boolean isReady() {
         boolean ready = false;
 
-        if (!m_threshd.isSchedulingCompleted())
+        if (!m_threshd.isSchedulingCompleted()) {
             return false;
+        }
 
         if (m_service.getInterval() < 1) {
             ready = true;
@@ -323,8 +325,9 @@ final class ThresholdableService extends InetNetworkInterface implements Thresho
     @Override
     public void run() {
         // Process any oustanding updates.
-        if (processUpdates() == ABORT_THRESHOLD_CHECK)
+        if (processUpdates() == ABORT_THRESHOLD_CHECK) {
             return;
+        }
 
         // Update last scheduled poll time
         m_lastScheduledThresholdCheckTime = System.currentTimeMillis();
@@ -440,8 +443,9 @@ final class ThresholdableService extends InetNetworkInterface implements Thresho
         // to ensure that no updates are missed.
         //
         synchronized (this) {
-            if (!m_updates.hasUpdates())
+            if (!m_updates.hasUpdates()) {
                 return !ABORT_THRESHOLD_CHECK;
+            }
 
             // Update: deletion flag
             //

@@ -133,8 +133,9 @@ public class EventTranslator extends AbstractServiceDaemon implements EventListe
      */
     @Override
     protected void onInit() {
-        if (m_initialized)
+        if (m_initialized) {
             return;
+        }
 
         checkPreRequisites();
         createMessageSelectorAndSubscribe();
@@ -146,12 +147,15 @@ public class EventTranslator extends AbstractServiceDaemon implements EventListe
      * Check pre requisites.
      */
     private void checkPreRequisites() {
-        if (m_config == null)
+        if (m_config == null) {
             throw new IllegalStateException("config has not been set");
-        if (m_eventMgr == null)
+        }
+        if (m_eventMgr == null) {
             throw new IllegalStateException("eventManager has not been set");
-        if (m_dataSource == null)
+        }
+        if (m_dataSource == null) {
             throw new IllegalStateException("dataSource has not been set");
+        }
     }
 
     /**

@@ -391,8 +391,9 @@ final class ConvertToEvent {
             return false;
         }
         final Matcher mat = pat.matcher(input);
-        if (mat != null && mat.find())
+        if (mat != null && mat.find()) {
             return true;
+        }
         return false;
     }
 
@@ -406,10 +407,12 @@ final class ConvertToEvent {
      * @return true, if successful
      */
     private static boolean matchHostAddr(final HostaddrMatch hostaddrMatch, final String hostAddress) {
-        if (hostaddrMatch == null)
+        if (hostaddrMatch == null) {
             return true;
-        if (hostAddress == null)
+        }
+        if (hostAddress == null) {
             return false;
+        }
 
         final String expression = hostaddrMatch.getExpression();
 
@@ -430,10 +433,12 @@ final class ConvertToEvent {
      * @return true, if successful
      */
     private static boolean matchHostname(final HostnameMatch hostnameMatch, final String hostName) {
-        if (hostnameMatch == null)
+        if (hostnameMatch == null) {
             return true;
-        if (hostName == null)
+        }
+        if (hostName == null) {
             return false;
+        }
 
         final String expression = hostnameMatch.getExpression();
 
@@ -454,10 +459,12 @@ final class ConvertToEvent {
      * @return true, if successful
      */
     private static boolean matchProcess(final ProcessMatch processMatch, final String processName) {
-        if (processMatch == null)
+        if (processMatch == null) {
             return true;
-        if (processName == null)
+        }
+        if (processName == null) {
             return false;
+        }
 
         final String expression = processMatch.getExpression();
 
@@ -478,11 +485,13 @@ final class ConvertToEvent {
      * @return true, if successful
      */
     private static boolean matchSeverity(List<String> severities, String priorityTxt) {
-        if (severities.size() == 0)
+        if (severities.size() == 0) {
             return true;
+        }
         for (String severity : severities) {
-            if (severity.toLowerCase().equals(priorityTxt.toLowerCase()))
+            if (severity.toLowerCase().equals(priorityTxt.toLowerCase())) {
                 return true;
+            }
         }
         return false;
     }
@@ -497,11 +506,13 @@ final class ConvertToEvent {
      * @return true, if successful
      */
     private static boolean matchFacility(List<String> facilities, String facilityTxt) {
-        if (facilities.size() == 0)
+        if (facilities.size() == 0) {
             return true;
+        }
         for (String facility : facilities) {
-            if (facility.toLowerCase().equals(facilityTxt.toLowerCase()))
+            if (facility.toLowerCase().equals(facilityTxt.toLowerCase())) {
                 return true;
+            }
         }
         return false;
     }
@@ -548,21 +559,24 @@ final class ConvertToEvent {
         boolean traceEnabled = LOG.isTraceEnabled();
         if (message.contains(uei.getMatch().getExpression())) {
             if (discardUei.equals(uei.getUei())) {
-                if (traceEnabled)
+                if (traceEnabled) {
                     LOG.trace("Specified UEI '{}' is same as discard-uei, discarding this message.", uei.getUei());
+                }
                 throw new MessageDiscardedException();
             } else {
                 // We can pass a new UEI on this
-                if (traceEnabled)
+                if (traceEnabled) {
                     LOG.trace("Changed the UEI of a Syslogd event, based on substring match, to : {}", uei.getUei());
+                }
                 bldr.setUei(uei.getUei());
                 // I think we want to stop processing here so the first
                 // ueiMatch wins, right?
                 doIMatch = true;
             }
         } else {
-            if (traceEnabled)
+            if (traceEnabled) {
                 LOG.trace("No substring match for text of a Syslogd event to : {}", uei.getMatch().getExpression());
+            }
         }
         return doIMatch;
     }
@@ -609,34 +623,39 @@ final class ConvertToEvent {
             // We matched a UEI
             bldr.setUei(uei.getUei());
             if (msgMat.groupCount() > 0 && uei.getMatch().isDefaultParameterMapping()) {
-                if (traceEnabled)
+                if (traceEnabled) {
                     LOG.trace("Doing default parameter mappings for this regex match.");
+                }
                 for (int groupNum = 1; groupNum <= msgMat.groupCount(); groupNum++) {
-                    if (traceEnabled)
+                    if (traceEnabled) {
                         LOG.trace("Added parm 'group{}' with value '{}' to Syslogd event based on regex match group",
                                   groupNum, msgMat.group(groupNum));
+                    }
                     bldr.addParam("group" + groupNum, msgMat.group(groupNum));
                 }
             }
             if (msgMat.groupCount() > 0 && uei.getParameterAssignmentCount() > 0) {
-                if (traceEnabled)
+                if (traceEnabled) {
                     LOG.trace("Doing user-specified parameter assignments for this regex match.");
+                }
                 for (ParameterAssignment assignment : uei.getParameterAssignmentCollection()) {
                     String parmName = assignment.getParameterName();
                     String parmValue = msgMat.group(assignment.getMatchingGroup());
                     parmValue = parmValue == null ? "" : parmValue;
                     bldr.addParam(parmName, parmValue);
-                    if (traceEnabled)
+                    if (traceEnabled) {
                         LOG.trace("Added parm '{}' with value '{}' to Syslogd event based on user-specified parameter assignment",
                                   parmName, parmValue);
+                    }
                 }
             }
             // I think we want to stop processing here so the first
             // ueiMatch wins, right?
             return true;
         }
-        if (traceEnabled)
+        if (traceEnabled) {
             LOG.trace("Message '{}' did not regex-match pattern '{}'", message.getMessage(), expression);
+        }
         return false;
     }
 
@@ -648,8 +667,9 @@ final class ConvertToEvent {
      *            The event to acknowledge.
      */
     void ackEvent(final Event e) {
-        if (!m_ackEvents.contains(e))
+        if (!m_ackEvents.contains(e)) {
             m_ackEvents.add(e);
+        }
     }
 
     /**

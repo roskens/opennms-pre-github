@@ -103,8 +103,9 @@ public class SyslogNGParser extends SyslogParser {
         }
 
         Date date = parseDate(matcher.group(3));
-        if (date == null)
+        if (date == null) {
             date = new Date();
+        }
         message.setDate(date);
 
         message.setHostName(matcher.group(4));

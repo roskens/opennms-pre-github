@@ -150,8 +150,9 @@ public class TcpMonitorTest {
     @Test
     @JUnitHttpServer(port = 10342)
     public void testLocalhostIPv6Connection() throws UnknownHostException {
-        if (Boolean.getBoolean("skipIpv6Tests"))
+        if (Boolean.getBoolean("skipIpv6Tests")) {
             return;
+        }
 
         Map<String, Object> m = new ConcurrentSkipListMap<String, Object>();
         Parameter p = new Parameter();

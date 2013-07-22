@@ -506,8 +506,9 @@ public final class Dot1dStpGroup extends AggregateTracker {
     // }
 
     public OnmsStpNode getOnmsStpNode(OnmsStpNode node) {
-        if (getStpDesignatedRoot() == null || getStpProtocolSpecification() == -1)
+        if (getStpDesignatedRoot() == null || getStpProtocolSpecification() == -1) {
             return node;
+        }
         node.setStpDesignatedRoot(getStpDesignatedRoot());
         node.setStpProtocolSpecification(StpProtocolSpecification.get(getStpProtocolSpecification()));
         node.setStpPriority(getStpPriority());

@@ -1613,8 +1613,9 @@ public class PollerTest {
             m_lostSvcEvent = lostSvcEvent;
             m_lostSvcTime = m_db.convertEventTimeToTimeStamp(m_lostSvcEvent.getTime());
             m_regainedSvcEvent = regainedSvcEvent;
-            if (m_regainedSvcEvent != null)
+            if (m_regainedSvcEvent != null) {
                 m_regainedSvcTime = m_db.convertEventTimeToTimeStamp(m_regainedSvcEvent.getTime());
+            }
         }
 
         /* (non-Javadoc)
@@ -1637,8 +1638,9 @@ public class PollerTest {
          * @return the regained event id
          */
         private Integer getRegainedEventId() {
-            if (m_regainedSvcEvent == null)
+            if (m_regainedSvcEvent == null) {
                 return null;
+            }
             return Integer.valueOf(m_regainedSvcEvent.getDbid());
         }
     }

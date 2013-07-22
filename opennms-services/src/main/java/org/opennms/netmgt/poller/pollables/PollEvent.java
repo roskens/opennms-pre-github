@@ -211,10 +211,12 @@ public abstract class PollEvent {
      * @return a {@link org.opennms.netmgt.poller.pollables.PollEvent} object.
      */
     public static PollEvent withLargestScope(PollEvent a, PollEvent b) {
-        if (a == null)
+        if (a == null) {
             return b;
-        if (b == null)
+        }
+        if (b == null) {
             return a;
+        }
         if (b.hasLargerScopeThan(a)) {
             return b;
         } else {

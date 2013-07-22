@@ -877,8 +877,9 @@ public class JdbcCapsdDbSyncer implements InitializingBean, CapsdDbSyncer {
             pollerConfig.getReadLock().lock();
             try {
                 svcToBePolled = pollerConfig.isPolled(svcName, ipPkg);
-                if (!svcToBePolled)
+                if (!svcToBePolled) {
                     svcToBePolled = pollerConfig.isPolled(ifAddr, svcName);
+                }
             } finally {
                 pollerConfig.getReadLock().unlock();
             }
@@ -905,8 +906,9 @@ public class JdbcCapsdDbSyncer implements InitializingBean, CapsdDbSyncer {
             pollerConfig.getReadLock().lock();
             try {
                 svcToBePolled = pollerConfig.isPolled(svcName, ipPkg);
-                if (!svcToBePolled)
+                if (!svcToBePolled) {
                     svcToBePolled = pollerConfig.isPolledLocally(ifAddr, svcName);
+                }
             } finally {
                 pollerConfig.getReadLock().unlock();
             }

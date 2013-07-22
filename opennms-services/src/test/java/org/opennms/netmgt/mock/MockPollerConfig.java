@@ -152,8 +152,9 @@ public class MockPollerConfig extends PollOutagesConfigManager implements Poller
         downtime.setDelete(delete ? "true" : "false");
         downtime.setBegin(begin);
         downtime.setInterval(interval);
-        if (end >= 0)
+        if (end >= 0) {
             downtime.setEnd(end);
+        }
         m_currentPkg.addDowntime(downtime);
     }
 
@@ -362,8 +363,9 @@ public class MockPollerConfig extends PollOutagesConfigManager implements Poller
      *            the monitor
      */
     private void addServiceMonitor(String name, ServiceMonitor monitor) {
-        if (!hasServiceMonitor(name))
+        if (!hasServiceMonitor(name)) {
             m_svcMonitors.put(name, monitor);
+        }
     }
 
     /**
@@ -534,8 +536,9 @@ public class MockPollerConfig extends PollOutagesConfigManager implements Poller
     @Override
     public boolean isInterfaceInPackage(final String iface, final Package pkg) {
         for (final String ipAddr : pkg.getSpecificCollection()) {
-            if (ipAddr.equals(iface))
+            if (ipAddr.equals(iface)) {
                 return true;
+            }
         }
         return false;
     }
@@ -609,8 +612,9 @@ public class MockPollerConfig extends PollOutagesConfigManager implements Poller
     @Override
     public boolean isServiceInPackageAndEnabled(final String svcName, final Package pkg) {
         for (final Service svc : pkg.getServiceCollection()) {
-            if (svc.getName().equals(svcName))
+            if (svc.getName().equals(svcName)) {
                 return true;
+            }
         }
         return false;
     }
@@ -706,8 +710,9 @@ public class MockPollerConfig extends PollOutagesConfigManager implements Poller
      */
     public void setPollInterval(final Package pkg, final String svcName, final long interval) {
         final Service svc = findService(pkg, svcName);
-        if (svc == null)
+        if (svc == null) {
             throw new IllegalArgumentException("No service named: " + svcName + " in package " + pkg);
+        }
 
         svc.setInterval(interval);
     }

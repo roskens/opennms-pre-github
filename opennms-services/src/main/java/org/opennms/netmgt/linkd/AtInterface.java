@@ -131,14 +131,18 @@ public class AtInterface {
      * @return true, if successful
      */
     public boolean equals(AtInterface a) {
-        if (a.getNodeid() != m_nodeid)
+        if (a.getNodeid() != m_nodeid) {
             return false;
-        if (!a.getIpAddress().equals(m_ipAddress))
+        }
+        if (!a.getIpAddress().equals(m_ipAddress)) {
             return false;
-        if (!a.getMacAddress().equals(m_macAddress))
+        }
+        if (!a.getMacAddress().equals(m_macAddress)) {
             return false;
-        if (!a.getIfIndex().equals(m_ifIndex))
+        }
+        if (!a.getIfIndex().equals(m_ifIndex)) {
             return false;
+        }
         return true;
     }
 

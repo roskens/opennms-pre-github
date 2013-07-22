@@ -95,12 +95,13 @@ public class XmlRpcClientInterceptor extends UrlBasedRemoteAccessor implements M
         try {
             return getClient().execute(serviceMethod, parms);
         } catch (XmlRpcException e) {
-            if (e.code == XmlRpcConstants.FAULT_INVALID_DATA)
+            if (e.code == XmlRpcConstants.FAULT_INVALID_DATA) {
                 throw new IllegalArgumentException(e.getMessage());
-            else if (e.code == XmlRpcConstants.FAULT_INVALID_URL)
+            } else if (e.code == XmlRpcConstants.FAULT_INVALID_URL) {
                 throw new MalformedURLException(e.getMessage());
-            else
+            } else {
                 throw new RemoteAccessException(serviceMethod, e);
+            }
         } catch (IOException e) {
             throw new RemoteAccessException(serviceMethod, e);
         }

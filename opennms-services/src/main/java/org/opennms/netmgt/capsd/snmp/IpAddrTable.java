@@ -128,8 +128,9 @@ public class IpAddrTable extends SnmpTable<IpAddrTableEntry> {
                 //
                 Integer ndx = entry.getIpAdEntIfIndex();
                 LOG.debug("getIfIndex: got a match for address {} index: {}", InetAddressUtils.str(address), ndx);
-                if (ndx != null)
+                if (ndx != null) {
                     return ndx.intValue();
+                }
             }
         }
         LOG.debug("getIfIndex: no matching ipAddrTable entry for {}", InetAddressUtils.str(address));

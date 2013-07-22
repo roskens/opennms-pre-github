@@ -102,8 +102,9 @@ public class JuniperSyslogParser extends SyslogParser {
             LOG.debug("Unable to parse '{}' as a PRI code.", matcher.group(1), nfe);
         }
         Date date = parseDate(matcher.group(2));
-        if (date == null)
+        if (date == null) {
             date = new Date();
+        }
         message.setDate(date);
 
         message.setHostName(matcher.group(3));

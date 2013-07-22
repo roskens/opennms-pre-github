@@ -172,10 +172,11 @@ public class PollableSnmpInterface implements ReadyRunnable {
          *            the new adminstatus
          */
         public void setAdminstatus(int adminstatus) {
-            if (adminstatus > 2)
+            if (adminstatus > 2) {
                 this.adminstatus = IF_UNKNOWN;
-            else
+            } else {
                 this.adminstatus = adminstatus;
+            }
         }
 
         /**
@@ -194,8 +195,9 @@ public class PollableSnmpInterface implements ReadyRunnable {
          *            the new operstatus
          */
         public void setOperstatus(int operstatus) {
-            if (operstatus > 2)
+            if (operstatus > 2) {
                 this.operstatus = IF_UNKNOWN;
+            }
             this.operstatus = operstatus;
         }
 
@@ -430,8 +432,9 @@ public class PollableSnmpInterface implements ReadyRunnable {
                 LOG.debug("{} Interfaces found. Getting Statutes....", m_snmpinterfaces.size());
                 SnmpPollInterfaceMonitor pollMonitor = new SnmpPollInterfaceMonitor();
                 int maxiface = getMaxInterfacePerPdu();
-                if (maxiface == 0)
+                if (maxiface == 0) {
                     maxiface = m_snmpinterfaces.size();
+                }
                 LOG.debug("Max Interface Per Pdu is: {}", maxiface);
                 List<SnmpMinimalPollInterface> mifaces = getSnmpMinimalPollInterface();
                 int start = 0;
@@ -529,8 +532,9 @@ public class PollableSnmpInterface implements ReadyRunnable {
                 } // End if status OK
             } // end while on interface
 
-            if (refresh)
+            if (refresh) {
                 getParent().getParent().refresh(getParent().getNodeid());
+            }
         } else {
             LOG.error("the monitor return null object");
         } // end If not null
@@ -651,8 +655,9 @@ public class PollableSnmpInterface implements ReadyRunnable {
      * .
      */
     public void schedule() {
-        if (m_schedule == null)
+        if (m_schedule == null) {
             throw new IllegalStateException("Cannot schedule a service whose schedule is set to null");
+        }
         m_schedule.schedule();
     }
 

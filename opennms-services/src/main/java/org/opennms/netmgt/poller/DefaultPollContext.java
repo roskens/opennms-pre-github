@@ -460,8 +460,9 @@ public class DefaultPollContext implements PollContext, EventListener {
             for (Iterator<PendingPollEvent> it = m_pendingPollEvents.iterator(); it.hasNext();) {
                 PendingPollEvent pollEvent = it.next();
                 LOG.debug("onEvent: determining if pollEvent is pending: {}", pollEvent);
-                if (pollEvent.isPending())
+                if (pollEvent.isPending()) {
                     continue;
+                }
 
                 LOG.debug("onEvent: processing pending pollEvent...: {}", pollEvent);
                 pollEvent.processPending();

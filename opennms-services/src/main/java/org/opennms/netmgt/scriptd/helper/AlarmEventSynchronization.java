@@ -66,8 +66,9 @@ public class AlarmEventSynchronization implements EventSynchronization {
      */
     @Override
     public void addEventForwarder(EventForwarder forwarder) {
-        if (forwarder != null)
+        if (forwarder != null) {
             m_forwarders.add(forwarder);
+        }
     }
 
     /* (non-Javadoc)
@@ -168,8 +169,9 @@ public class AlarmEventSynchronization implements EventSynchronization {
         AlarmData ad = new AlarmData();
         ad.setReductionKey(alarm.getReductionKey());
         ad.setAlarmType(alarm.getAlarmType());
-        if (alarm.getClearKey() != null)
+        if (alarm.getClearKey() != null) {
             ad.setClearKey(alarm.getClearKey());
+        }
         event.setAlarmData(ad);
         return event;
     }
@@ -215,8 +217,9 @@ public class AlarmEventSynchronization implements EventSynchronization {
                     for (OnmsAlarm alarm : forwardAlarms.values()) {
                         if (alarm.getAlarmType() != 2) {
                             Event xmlEvent = getXMLEvent(alarm);
-                            if (xmlEvent != null)
+                            if (xmlEvent != null) {
                                 xmlevents.add(xmlEvent);
+                            }
                         }
                     }
                 }

@@ -273,8 +273,9 @@ final class DataSender implements Fiber {
             int bytesRead;
             while ((bytesRead = inp.read(tmp)) != -1) {
                 if (LOG.isDebugEnabled()) {
-                    if (bytesRead > 0)
+                    if (bytesRead > 0) {
                         LOG.debug("DataSender: post response: {}", new String(tmp, 0, bytesRead));
+                    }
                 }
             }
 
@@ -323,8 +324,9 @@ final class DataSender implements Fiber {
         for (String key : m_catUrlMap.keySet()) {
             value = m_catUrlMap.get(key);
 
-            if (value == null)
+            if (value == null) {
                 continue;
+            }
 
             Iterator<HttpPostInfo> postSet = value.iterator();
             while (postSet.hasNext()) {
@@ -401,8 +403,9 @@ final class DataSender implements Fiber {
                         int bytesRead;
                         while ((bytesRead = inp.read(tmp)) != -1) {
                             if (LOG.isDebugEnabled()) {
-                                if (bytesRead > 0)
+                                if (bytesRead > 0) {
                                     LOG.debug("DataSender: post response: {}", new String(tmp, 0, bytesRead));
+                                }
                             }
                         }
 

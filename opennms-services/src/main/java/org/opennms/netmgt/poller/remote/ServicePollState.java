@@ -176,10 +176,12 @@ public class ServicePollState implements Comparable<ServicePollState>, Serializa
     /** {@inheritDoc} */
     @Override
     public boolean equals(final Object o) {
-        if (o == null)
+        if (o == null) {
             return false;
-        if (!(o instanceof ServicePollState))
+        }
+        if (!(o instanceof ServicePollState)) {
             return false;
+        }
         final ServicePollState that = (ServicePollState) o;
         return new EqualsBuilder().append(this.getIndex(), that.getIndex()).append(this.getPolledService(),
                                                                                    that.getPolledService()).isEquals();
@@ -198,8 +200,9 @@ public class ServicePollState implements Comparable<ServicePollState>, Serializa
      */
     @Override
     public int compareTo(final ServicePollState that) {
-        if (that == null)
+        if (that == null) {
             return -1;
+        }
         final PolledService thisService = this.getPolledService();
         final PolledService thatService = that.getPolledService();
         return new CompareToBuilder().append(thisService.getNodeLabel(), thatService.getNodeLabel()).append(thisService.getIpAddr(),

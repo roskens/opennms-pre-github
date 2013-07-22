@@ -91,8 +91,9 @@ public class MicroblogReplyNotificationStrategy extends MicroblogNotificationStr
         }
 
         // In case the user tried to be helpful, avoid a double @@
-        if (destUser.startsWith("@"))
+        if (destUser.startsWith("@")) {
             destUser = destUser.substring(1);
+        }
 
         String fullMessage = String.format("@%s %s", destUser, buildMessageBody(arguments));
 

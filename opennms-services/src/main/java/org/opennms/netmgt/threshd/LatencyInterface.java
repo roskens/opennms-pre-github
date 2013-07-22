@@ -136,8 +136,9 @@ public class LatencyInterface {
 
         int nodeId = -1;
         Integer tmp = iface.getAttribute(LatencyThresholder.NODE_ID_KEY);
-        if (tmp != null)
+        if (tmp != null) {
             nodeId = tmp.intValue();
+        }
         if (nodeId == -1) {
             throw new ThresholdingException("Threshold checking failed for " + getServiceName() + "/"
                     + getHostAddress() + ", missing nodeId.", LatencyThresholder.THRESHOLDING_FAILED);
@@ -201,8 +202,9 @@ public class LatencyInterface {
         int nodeId = getNodeId();
         InetAddress ipAddr = getInetAddress();
 
-        if (threshold == null)
+        if (threshold == null) {
             throw new IllegalArgumentException("threshold cannot be null.");
+        }
 
         LOG.debug("createEvent: ds={} uei={}", threshold.getDsName(), uei);
 

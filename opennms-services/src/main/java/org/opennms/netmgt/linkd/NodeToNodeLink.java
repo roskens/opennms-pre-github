@@ -160,20 +160,24 @@ public class NodeToNodeLink {
     /** {@inheritDoc} */
     @Override
     public boolean equals(final Object o) {
-        if (o == null)
+        if (o == null) {
             return false;
-        if (!(o instanceof NodeToNodeLink))
+        }
+        if (!(o instanceof NodeToNodeLink)) {
             return false;
+        }
         final NodeToNodeLink nodelink = (NodeToNodeLink) o;
 
         if (this.m_nodeId == nodelink.getNodeId() && this.m_ifIndex == nodelink.getIfindex()
                 && this.m_nodeParentId == nodelink.getNodeparentid()
-                && this.m_parentIfIndex == nodelink.getParentifindex())
+                && this.m_parentIfIndex == nodelink.getParentifindex()) {
             return true;
+        }
 
         if (this.m_nodeId == nodelink.getNodeparentid() && this.m_ifIndex == nodelink.getParentifindex()
-                && this.m_nodeParentId == nodelink.getNodeId() && this.m_parentIfIndex == nodelink.getIfindex())
+                && this.m_nodeParentId == nodelink.getNodeId() && this.m_parentIfIndex == nodelink.getIfindex()) {
             return true;
+        }
 
         return false;
 

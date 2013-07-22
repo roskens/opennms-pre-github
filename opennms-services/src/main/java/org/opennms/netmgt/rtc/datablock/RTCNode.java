@@ -307,8 +307,9 @@ public class RTCNode {
         // get the down time for this node in the context of the
         // category
         // if the service is not in 'context', return a negative value
-        if (!m_categories.contains(cat))
+        if (!m_categories.contains(cat)) {
             return (long) RTCConstants.NODE_NOT_IN_CATEGORY;
+        }
 
         return m_svcTimesList.getDownTime(curTime, rollingWindow);
     }
@@ -332,8 +333,9 @@ public class RTCNode {
 
         // get the outages in the last 'rollingWindow'
         long outageTime = getDownTime(cat, curTime, rollingWindow);
-        if (outageTime < 0)
+        if (outageTime < 0) {
             return outageTime;
+        }
 
         double dOut = outageTime * 1.0;
         double dRoll = rollingWindow * 1.0;

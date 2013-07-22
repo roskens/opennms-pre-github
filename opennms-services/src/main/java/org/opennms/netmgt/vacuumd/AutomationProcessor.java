@@ -228,24 +228,29 @@ public class AutomationProcessor implements ReadyRunnable {
 
             boolean runAction = false;
             if ("<".equals(trigOp)) {
-                if (resultRows < trigRowCount)
+                if (resultRows < trigRowCount) {
                     runAction = true;
+                }
 
             } else if ("<=".equals(trigOp)) {
-                if (resultRows <= trigRowCount)
+                if (resultRows <= trigRowCount) {
                     runAction = true;
+                }
 
             } else if ("=".equals(trigOp)) {
-                if (resultRows == trigRowCount)
+                if (resultRows == trigRowCount) {
                     runAction = true;
+                }
 
             } else if (">=".equals(trigOp)) {
-                if (resultRows >= trigRowCount)
+                if (resultRows >= trigRowCount) {
                     runAction = true;
+                }
 
             } else if (">".equals(trigOp)) {
-                if (resultRows > trigRowCount)
+                if (resultRows > trigRowCount) {
                     runAction = true;
+                }
 
             }
 
@@ -1228,8 +1233,9 @@ public class AutomationProcessor implements ReadyRunnable {
         LOG.debug("verifyRowCount: Verifying trigger result: {} is {} than {}", resultRows,
                   (triggerOperator == null ? "<null>" : triggerOperator), triggerRowCount);
 
-        if (!m_trigger.triggerRowCheck(triggerRowCount, triggerOperator, resultRows))
+        if (!m_trigger.triggerRowCheck(triggerRowCount, triggerOperator, resultRows)) {
             validRows = false;
+        }
 
         return validRows;
     }
@@ -1250,8 +1256,9 @@ public class AutomationProcessor implements ReadyRunnable {
         }
 
         int rows = 0;
-        while (rs.next())
+        while (rs.next()) {
             rows++;
+        }
         rs.beforeFirst();
         return rows;
     }

@@ -190,8 +190,9 @@ public class DefaultQueueHandler implements NotifdQueueHandler {
      *            the task
      */
     private void startTask(final NotificationTask task) {
-        if (!task.isStarted())
+        if (!task.isStarted()) {
             task.start();
+        }
     }
 
     /**
@@ -217,8 +218,9 @@ public class DefaultQueueHandler implements NotifdQueueHandler {
      */
     @Override
     public synchronized void stop() {
-        if (m_status != STOPPED)
+        if (m_status != STOPPED) {
             m_status = STOP_PENDING;
+        }
 
         notifyAll();
     }

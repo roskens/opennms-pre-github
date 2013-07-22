@@ -219,8 +219,9 @@ public final class NrpePlugin extends AbstractPlugin {
                          InetAddressUtils.str(host), port, t);
             } finally {
                 try {
-                    if (socket != null)
+                    if (socket != null) {
                         socket.close();
+                    }
                 } catch (IOException e) {
                 }
             }
@@ -299,8 +300,9 @@ public final class NrpePlugin extends AbstractPlugin {
 
             boolean result = isServer(address, port, command, padding, retries, timeout, regex, bannerResult);
             if (result && qualifiers != null) {
-                if (bannerResult != null && bannerResult.length() > 0)
+                if (bannerResult != null && bannerResult.length() > 0) {
                     qualifiers.put("banner", bannerResult.toString());
+                }
             }
 
             return result;

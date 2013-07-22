@@ -83,8 +83,9 @@ public abstract class AbstractThresholdEvaluatorState implements ThresholdEvalua
             resource = new CollectionResourceWrapper(date, 0, null, null, null, null, null);
         }
         String dsLabelValue = resource.getLabelValue(resource.getLabel());
-        if (dsLabelValue == null)
+        if (dsLabelValue == null) {
             dsLabelValue = UNKNOWN;
+        }
 
         // create the event to be sent
         EventBuilder bldr = new EventBuilder(uei, "OpenNMS.Threshd." + getThresholdConfig().getDatasourceExpression(),
@@ -100,8 +101,9 @@ public abstract class AbstractThresholdEvaluatorState implements ThresholdEvalua
         if (resource.isAnInterfaceResource()) {
             // Update threshold label if it is unknown. This is useful because
             // usually reduction-key is associated to label parameter
-            if (UNKNOWN.equals(dsLabelValue))
+            if (UNKNOWN.equals(dsLabelValue)) {
                 dsLabelValue = resource.getIfLabel();
+            }
             // Set interface specific parameters
             bldr.addParam("ifLabel", resource.getIfLabel());
             bldr.addParam("ifIndex", resource.getIfIndex());
@@ -147,9 +149,10 @@ public abstract class AbstractThresholdEvaluatorState implements ThresholdEvalua
      * @return a {@link java.lang.String} object.
      */
     protected String formatValue(double value) {
-        if (Double.isNaN(value)) // When reconfiguring thresholds, the value is
-                                 // set to NaN.
+        if (Double.isNaN(value)) {
+            // set to NaN.
             return "NaN";
+        }
         String pattern = System.getProperty("org.opennms.threshd.value.decimalformat", "###.##");
         DecimalFormat valueFormatter = new DecimalFormat(pattern);
         return valueFormatter.format(value);

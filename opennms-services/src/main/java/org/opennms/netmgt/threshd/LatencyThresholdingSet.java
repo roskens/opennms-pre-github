@@ -85,9 +85,11 @@ public class LatencyThresholdingSet extends ThresholdingSet {
      */
     public boolean hasThresholds(Map<String, Double> attributes) {
         if (hasThresholds()) {
-            for (String ds : attributes.keySet())
-                if (hasThresholds("if", ds))
+            for (String ds : attributes.keySet()) {
+                if (hasThresholds("if", ds)) {
                     return true;
+                }
+            }
         }
         return false;
     }

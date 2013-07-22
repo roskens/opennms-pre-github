@@ -335,8 +335,9 @@ public class LinkableNode {
      *            The m_cdpinterfaces to set.
      */
     public void setCdpInterfaces(List<CdpInterface> cdpinterfaces) {
-        if (cdpinterfaces == null || cdpinterfaces.isEmpty())
+        if (cdpinterfaces == null || cdpinterfaces.isEmpty()) {
             return;
+        }
         m_hascdpinterfaces = true;
         m_cdpinterfaces = cdpinterfaces;
     }
@@ -375,8 +376,9 @@ public class LinkableNode {
      *            a {@link java.util.List} object.
      */
     public void setRouteInterfaces(List<RouterInterface> routeinterfaces) {
-        if (routeinterfaces == null || routeinterfaces.isEmpty())
+        if (routeinterfaces == null || routeinterfaces.isEmpty()) {
             return;
+        }
         m_hasrouteinterfaces = true;
         m_routeinterfaces = routeinterfaces;
     }
@@ -442,8 +444,9 @@ public class LinkableNode {
      *            the bridgeport
      */
     public void addBackBoneBridgePorts(final int bridgeport) {
-        if (m_backBoneBridgePorts.contains(bridgeport))
+        if (m_backBoneBridgePorts.contains(bridgeport)) {
             return;
+        }
         m_backBoneBridgePorts.add(bridgeport);
     }
 
@@ -463,8 +466,9 @@ public class LinkableNode {
      *            The bridgeIdentifiers to set.
      */
     public void setBridgeIdentifiers(final List<String> bridgeIdentifiers) {
-        if (bridgeIdentifiers == null || bridgeIdentifiers.isEmpty())
+        if (bridgeIdentifiers == null || bridgeIdentifiers.isEmpty()) {
             return;
+        }
         m_bridgeIdentifiers = bridgeIdentifiers;
         m_isBridgeNode = true;
     }
@@ -500,8 +504,9 @@ public class LinkableNode {
      *            the bridge
      */
     public void addBridgeIdentifier(final String bridge) {
-        if (m_bridgeIdentifiers.contains(bridge))
+        if (m_bridgeIdentifiers.contains(bridge)) {
             return;
+        }
         m_bridgeIdentifiers.add(bridge);
         m_isBridgeNode = true;
     }
@@ -637,8 +642,9 @@ public class LinkableNode {
     public int getBridgePort(final int ifindex) {
         for (final Integer curBridgePort : m_bridgePortIfindex.keySet()) {
             final Integer curIfIndex = m_bridgePortIfindex.get(curBridgePort);
-            if (curIfIndex.intValue() == ifindex)
+            if (curIfIndex.intValue() == ifindex) {
                 return curBridgePort.intValue();
+            }
         }
         return -1;
     }
@@ -685,8 +691,9 @@ public class LinkableNode {
      *            the stproot
      */
     public void setVlanStpRoot(final Integer vlan, final String stproot) {
-        if (stproot != null)
+        if (stproot != null) {
             m_vlanStpRoot.put(vlan, stproot);
+        }
     }
 
     /**

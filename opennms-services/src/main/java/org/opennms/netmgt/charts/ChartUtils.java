@@ -523,8 +523,9 @@ public abstract class ChartUtils {
         BarChart chart = null;
         while (it.hasNext()) {
             chart = (BarChart) it.next();
-            if (chart.getName().equals(chartName))
+            if (chart.getName().equals(chartName)) {
                 return chart;
+            }
         }
         return null;
     }

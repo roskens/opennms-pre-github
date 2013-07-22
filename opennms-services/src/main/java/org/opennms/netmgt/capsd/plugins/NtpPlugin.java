@@ -137,8 +137,9 @@ public final class NtpPlugin extends AbstractPlugin {
         } catch (IOException ex) {
             LOG.warn("isServer: An I/O exception during NTP resolution test.", ex);
         } finally {
-            if (socket != null)
+            if (socket != null) {
                 socket.close();
+            }
         }
 
         return isAServer;
@@ -194,8 +195,9 @@ public final class NtpPlugin extends AbstractPlugin {
         }
 
         boolean result = isServer(address, port, retries, timeout);
-        if (result && qualifiers != null && !qualifiers.containsKey("port"))
+        if (result && qualifiers != null && !qualifiers.containsKey("port")) {
             qualifiers.put("port", port);
+        }
 
         return result;
     }

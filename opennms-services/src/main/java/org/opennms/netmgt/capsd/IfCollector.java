@@ -431,8 +431,9 @@ public final class IfCollector implements Runnable {
                         // Get the ifIndex
                         //
                         Integer ifIndex = ifEntry.getIfIndex();
-                        if (ifIndex == null)
+                        if (ifIndex == null) {
                             continue;
+                        }
 
                         // Get list of all IP addresses for the current ifIndex
                         //
@@ -459,8 +460,9 @@ public final class IfCollector implements Runnable {
                             // is equal to the current target then skip it
                             //
                             if (subtarget == null || subtarget.equals(m_target)
-                                    || m_previouslyProbed.contains(subtarget))
+                                    || m_previouslyProbed.contains(subtarget)) {
                                 continue;
+                            }
 
                             // now find the ifType
                             //
@@ -468,8 +470,9 @@ public final class IfCollector implements Runnable {
 
                             // lookup of if type failed, next!
                             //
-                            if (ifType == null)
+                            if (ifType == null) {
                                 continue;
+                            }
 
                             // now check for loopback
                             if (subtarget.isLoopbackAddress()) {

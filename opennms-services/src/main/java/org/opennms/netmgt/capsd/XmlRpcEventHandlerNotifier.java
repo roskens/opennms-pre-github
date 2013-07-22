@@ -199,8 +199,9 @@ public class XmlRpcEventHandlerNotifier {
      *            the event
      */
     private void notifyEventSuccess(Event event) {
-        if (!isXmlRpcEnabled())
+        if (!isXmlRpcEnabled()) {
             return;
+        }
 
         long txNo = EventUtils.getLongParm(event, EventConstants.PARM_TRANSACTION_NO, -1L);
 
@@ -226,8 +227,9 @@ public class XmlRpcEventHandlerNotifier {
      *            the ex
      */
     private void notifyEventError(Event event, String msg, Exception ex) {
-        if (!isXmlRpcEnabled())
+        if (!isXmlRpcEnabled()) {
             return;
+        }
 
         long txNo = EventUtils.getLongParm(event, EventConstants.PARM_TRANSACTION_NO, -1L);
         if ((txNo != -1) && m_notifySet.contains(event.getUei())) {
@@ -244,8 +246,9 @@ public class XmlRpcEventHandlerNotifier {
      *            the event
      */
     private void notifyEventReceived(Event event) {
-        if (!isXmlRpcEnabled())
+        if (!isXmlRpcEnabled()) {
             return;
+        }
 
         long txNo = EventUtils.getLongParm(event, EventConstants.PARM_TRANSACTION_NO, -1L);
 

@@ -226,8 +226,9 @@ public final class DominoIIOPPlugin extends AbstractTcpPlugin {
         }
         dis.close();
 
-        if (!IOR.startsWith("IOR:"))
+        if (!IOR.startsWith("IOR:")) {
             throw new IOException("Invalid IOR: " + IOR);
+        }
 
         return IOR;
     }

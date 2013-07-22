@@ -372,8 +372,9 @@ public class LatencyStoringServiceMonitorAdaptor implements ServiceMonitor {
      * Should be called when thresholds configuration has been reloaded.
      */
     public void refreshThresholds() {
-        if (m_thresholdingSet != null)
+        if (m_thresholdingSet != null) {
             m_thresholdingSet.reinitialize();
+        }
     }
 
 }

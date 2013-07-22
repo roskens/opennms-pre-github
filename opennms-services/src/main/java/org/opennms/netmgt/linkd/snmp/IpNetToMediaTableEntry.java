@@ -155,8 +155,9 @@ public final class IpNetToMediaTableEntry extends SnmpStore {
      */
     public int getIpNetToMediaIfIndex() {
         Integer val = getInt32(IpNetToMediaTableEntry.INTM_INDEX);
-        if (val == null)
+        if (val == null) {
             return -1;
+        }
         return val;
     }
 
@@ -218,8 +219,9 @@ public final class IpNetToMediaTableEntry extends SnmpStore {
      */
     public int getIpNetToMediatype() {
         Integer val = getInt32(IpNetToMediaTableEntry.INTM_TYPE);
-        if (val == null)
+        if (val == null) {
             return -1;
+        }
         return val;
     }
 

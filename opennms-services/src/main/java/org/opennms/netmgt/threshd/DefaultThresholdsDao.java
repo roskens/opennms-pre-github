@@ -179,8 +179,9 @@ public class DefaultThresholdsDao implements ThresholdsDao, InitializingBean {
                                     updated = true;
                                 }
                             }
-                            if (!updated) // Does not exist!
+                            if (!updated) {
                                 thresholdEntitySet.add(thresholdEntity);
+                            }
                         } else {
                             thresholdEntitySet.add(thresholdEntity);
                         }

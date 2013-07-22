@@ -248,10 +248,11 @@ public final class ReparentViaSmb {
          */
         LightWeightNodeEntry(int nodeID, String netbiosName) {
             m_nodeId = nodeID;
-            if (netbiosName != null)
+            if (netbiosName != null) {
                 m_netbiosName = netbiosName.toUpperCase();
-            else
+            } else {
                 m_netbiosName = null;
+            }
             m_duplicate = false;
             m_hwNodeEntry = null;
         }
@@ -327,10 +328,11 @@ public final class ReparentViaSmb {
          * @return true, if successful
          */
         boolean hasHeavyWeightNodeEntry() {
-            if (m_hwNodeEntry == null)
+            if (m_hwNodeEntry == null) {
                 return false;
-            else
+            } else {
                 return true;
+            }
         }
 
         /**
@@ -345,18 +347,21 @@ public final class ReparentViaSmb {
          */
         @Override
         public boolean equals(final Object o) {
-            if (o == null)
+            if (o == null) {
                 return false;
-            if (!(o instanceof LightWeightNodeEntry))
+            }
+            if (!(o instanceof LightWeightNodeEntry)) {
                 return false;
+            }
             LightWeightNodeEntry node = (LightWeightNodeEntry) o;
 
-            if (m_netbiosName == null || node.getNetbiosName() == null)
+            if (m_netbiosName == null || node.getNetbiosName() == null) {
                 return false;
-            else if (node.getNetbiosName().equals(m_netbiosName))
+            } else if (node.getNetbiosName().equals(m_netbiosName)) {
                 return true;
-            else
+            } else {
                 return false;
+            }
         }
 
         /* (non-Javadoc)
@@ -433,12 +438,14 @@ public final class ReparentViaSmb {
             String outerNetbiosName = outerEntry.getNetbiosName();
 
             // Skip this node if NetBIOS name is null or is in list to skip
-            if (outerNetbiosName == null || m_netbiosNamesToSkip.contains(outerNetbiosName))
+            if (outerNetbiosName == null || m_netbiosNamesToSkip.contains(outerNetbiosName)) {
                 continue;
+            }
 
             // If node is already marked as a duplicate just move on
-            if (outerEntry.isDuplicate())
+            if (outerEntry.isDuplicate()) {
                 continue;
+            }
 
             List<LightWeightNodeEntry> duplicateNodeList = null;
 
@@ -450,22 +457,26 @@ public final class ReparentViaSmb {
                 // Skip if inner node id is less than or equal to
                 // the current outer node id (since these have already
                 // been processed as an outer node).
-                if (innerEntry.getNodeId() <= outerEntry.getNodeId())
+                if (innerEntry.getNodeId() <= outerEntry.getNodeId()) {
                     continue;
+                }
 
                 // Skip this node if NetBIOS name is null or is in list to skip
-                if (innerNetbiosName == null || m_netbiosNamesToSkip.contains(innerNetbiosName))
+                if (innerNetbiosName == null || m_netbiosNamesToSkip.contains(innerNetbiosName)) {
                     continue;
+                }
 
                 // Skip if current node is already marked as a duplicate
-                if (innerEntry.isDuplicate())
+                if (innerEntry.isDuplicate()) {
                     continue;
+                }
 
                 if (innerNetbiosName.equals(outerNetbiosName)) {
                     // We've found two nodes with same NetBIOS name
                     // Add innerEntry to duplicate node list
-                    if (duplicateNodeList == null)
+                    if (duplicateNodeList == null) {
                         duplicateNodeList = new ArrayList<LightWeightNodeEntry>();
+                    }
 
                     innerEntry.setDuplicate(true); // mark node as duplicate
                     duplicateNodeList.add(innerEntry); // add to current dup
@@ -479,8 +490,9 @@ public final class ReparentViaSmb {
             // Anything need reparenting?
             if (duplicateNodeList != null) {
                 // We found duplicates...add to reparent map
-                if (m_reparentNodeMap == null)
+                if (m_reparentNodeMap == null) {
                     m_reparentNodeMap = new HashMap<LightWeightNodeEntry, List<LightWeightNodeEntry>>();
+                }
 
                 LOG.debug("ReparentViaSmb.retrieveNodeData: adding dup list w/ {} to reparent Map for reparent nodeid {}",
                           outerEntry.getNodeId(), duplicateNodeList.size());
@@ -505,8 +517,9 @@ public final class ReparentViaSmb {
             reparentInterfaces();
 
             // Generate 'interfaceReparented' events if necessary
-            if (m_reparentedIfMap != null && !m_reparentedIfMap.isEmpty())
+            if (m_reparentedIfMap != null && !m_reparentedIfMap.isEmpty()) {
                 generateEvents();
+            }
         }
     }
 
@@ -738,8 +751,9 @@ public final class ReparentViaSmb {
                   ipAddr, ipHostName, newNodeId);
 
         // Make sure host name not null
-        if (ipHostName == null)
+        if (ipHostName == null) {
             ipHostName = "";
+        }
 
         // create the event to be sent
         EventBuilder bldr = new EventBuilder(EventConstants.INTERFACE_REPARENTED_EVENT_UEI, "OpenNMS.Capsd");

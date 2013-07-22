@@ -240,8 +240,9 @@ public class HttpPlugin extends AbstractTcpPlugin {
                     t.nextToken();
                     int rVal = Integer.parseInt(t.nextToken());
                     LOG.debug("{} : Request returned code: {}", getPluginName(), rVal);
-                    if (rVal >= 99 && rVal <= maxRetCode)
+                    if (rVal >= 99 && rVal <= maxRetCode) {
                         isAServer = true;
+                    }
                 } else {
                     isAServer = true;
                 }

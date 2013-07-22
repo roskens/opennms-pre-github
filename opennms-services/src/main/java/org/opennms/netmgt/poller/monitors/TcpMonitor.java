@@ -113,9 +113,10 @@ public final class TcpMonitor extends AbstractServiceMonitor {
         //
         // Get interface address from NetworkInterface
         //
-        if (iface.getType() != NetworkInterface.TYPE_INET)
+        if (iface.getType() != NetworkInterface.TYPE_INET) {
             throw new NetworkInterfaceNotSupportedException(
                                                             "Unsupported interface type, only TYPE_INET currently supported");
+        }
 
         TimeoutTracker tracker = new TimeoutTracker(parameters, DEFAULT_RETRY, DEFAULT_TIMEOUT);
 
@@ -169,16 +170,18 @@ public final class TcpMonitor extends AbstractServiceMonitor {
                 String response = rdr.readLine();
                 double responseTime = tracker.elapsedTimeInMillis();
 
-                if (response == null)
+                if (response == null) {
                     continue;
+                }
                 LOG.debug("poll: banner = {}", response);
                 LOG.debug("poll: responseTime= {}ms", responseTime);
 
                 if (response.indexOf(strBannerMatch) > -1) {
                     serviceStatus = PollStatus.available(responseTime);
-                } else
+                } else {
                     serviceStatus = PollStatus.unavailable("Banner: '" + response + "' does not contain match string '"
                             + strBannerMatch + "'");
+                }
             } catch (NoRouteToHostException e) {
                 String reason = "No route to host exception for address " + hostAddress;
                 LOG.debug(reason, e);
@@ -199,8 +202,9 @@ public final class TcpMonitor extends AbstractServiceMonitor {
             } finally {
                 try {
                     // Close the socket
-                    if (socket != null)
+                    if (socket != null) {
                         socket.close();
+                    }
                 } catch (IOException e) {
                     e.fillInStackTrace();
                     LOG.debug("poll: Error closing socket.", e);

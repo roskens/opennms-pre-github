@@ -537,23 +537,25 @@ public class Nms7467Test extends Nms7467NetworkBuilder implements InitializingBe
         List<AtInterface> ats = m_linkd.getAtInterfaces(packageName).get("001f6cd034e7");
         assertEquals(3, ats.size());
         for (AtInterface at : ats) {
-            if (at.getIpAddress().getHostAddress().equals("172.20.1.1"))
+            if (at.getIpAddress().getHostAddress().equals("172.20.1.1")) {
                 assertEquals(12, at.getIfIndex().intValue());
-            else if (at.getIpAddress().getHostAddress().equals("172.20.2.1"))
+            } else if (at.getIpAddress().getHostAddress().equals("172.20.2.1")) {
                 assertEquals(13, at.getIfIndex().intValue());
-            else if (at.getIpAddress().getHostAddress().equals("10.255.255.2"))
+            } else if (at.getIpAddress().getHostAddress().equals("10.255.255.2")) {
                 assertEquals(12, at.getIfIndex().intValue());
-            else
+            } else {
                 assertTrue("ip: " + at.getIpAddress().getHostAddress() + "does not match any known ip address", false);
+            }
         }
 
         ats = m_linkd.getAtInterfaces(packageName).get("00000c03b09e");
         assertEquals(1, ats.size());
         for (AtInterface at : ats) {
-            if (at.getIpAddress().getHostAddress().equals("65.41.39.146"))
+            if (at.getIpAddress().getHostAddress().equals("65.41.39.146")) {
                 assertEquals(14, at.getIfIndex().intValue());
-            else
+            } else {
                 assertTrue("ip: " + at.getIpAddress().getHostAddress() + "does not match any known ip address", false);
+            }
         }
 
         // Now Let's test the database
@@ -655,10 +657,11 @@ public class Nms7467Test extends Nms7467NetworkBuilder implements InitializingBe
         List<AtInterface> ats = m_linkd.getAtInterfaces(packageName).get("00223ff00b7b");
         assertEquals(1, ats.size());
         for (AtInterface at : ats) {
-            if (at.getIpAddress().getHostAddress().equals("172.20.1.8"))
+            if (at.getIpAddress().getHostAddress().equals("172.20.1.8")) {
                 assertTrue(at.getIfIndex().intValue() == -1);
-            else
+            } else {
                 assertTrue("ip: " + at.getIpAddress().getHostAddress() + "does not match any known ip address", false);
+            }
         }
 
         // Now Let's test the database
@@ -747,10 +750,11 @@ public class Nms7467Test extends Nms7467NetworkBuilder implements InitializingBe
         List<AtInterface> ats = m_linkd.getAtInterfaces(packageName).get("406186e28b53");
         assertEquals(1, ats.size());
         for (AtInterface at : ats) {
-            if (at.getIpAddress().getHostAddress().equals("172.20.1.14"))
+            if (at.getIpAddress().getHostAddress().equals("172.20.1.14")) {
                 assertTrue(at.getIfIndex().intValue() == 4);
-            else
+            } else {
                 assertTrue("ip: " + at.getIpAddress().getHostAddress() + "does not match any known ip address", false);
+            }
         }
 
         // Now Let's test the database
@@ -838,10 +842,11 @@ public class Nms7467Test extends Nms7467NetworkBuilder implements InitializingBe
         List<AtInterface> ats = m_linkd.getAtInterfaces(packageName).get("0026b0ed8fb8");
         assertEquals(1, ats.size());
         for (AtInterface at : ats) {
-            if (at.getIpAddress().getHostAddress().equals("172.20.1.28"))
+            if (at.getIpAddress().getHostAddress().equals("172.20.1.28")) {
                 assertTrue(at.getIfIndex().intValue() == 4);
-            else
+            } else {
                 assertTrue("ip: " + at.getIpAddress().getHostAddress() + "does not match any known ip address", false);
+            }
         }
 
         // Now Let's test the database

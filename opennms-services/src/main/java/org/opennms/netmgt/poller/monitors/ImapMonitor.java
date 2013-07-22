@@ -131,9 +131,10 @@ public final class ImapMonitor extends AbstractServiceMonitor {
 
         // Get interface address from NetworkInterface
         //
-        if (iface.getType() != NetworkInterface.TYPE_INET)
+        if (iface.getType() != NetworkInterface.TYPE_INET) {
             throw new NetworkInterfaceNotSupportedException(
                                                             "Unsupported interface type, only TYPE_INET currently supported");
+        }
 
         // Process parameters
         //
@@ -226,8 +227,9 @@ public final class ImapMonitor extends AbstractServiceMonitor {
             } finally {
                 try {
                     // Close the socket
-                    if (socket != null)
+                    if (socket != null) {
                         socket.close();
+                    }
                 } catch (IOException e) {
                     e.fillInStackTrace();
                     LOG.debug("ImapMonitor.poll: Error closing socket.", e);

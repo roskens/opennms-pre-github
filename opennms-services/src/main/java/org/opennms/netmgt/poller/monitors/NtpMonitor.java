@@ -102,9 +102,10 @@ public final class NtpMonitor extends AbstractServiceMonitor {
         //
         // Get interface address from NetworkInterface
         //
-        if (iface.getType() != NetworkInterface.TYPE_INET)
+        if (iface.getType() != NetworkInterface.TYPE_INET) {
             throw new NetworkInterfaceNotSupportedException(
                                                             "Unsupported interface type, only TYPE_INET currently supported");
+        }
 
         // get the log
         //
@@ -178,8 +179,9 @@ public final class NtpMonitor extends AbstractServiceMonitor {
             serviceStatus = PollStatus.unavailable(reason);
 
         } finally {
-            if (socket != null)
+            if (socket != null) {
                 socket.close();
+            }
         }
 
         //

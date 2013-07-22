@@ -202,8 +202,9 @@ public class JBossConnectionFactory {
                           invokerSuffix);
             } finally {
                 try {
-                    if (ctx != null)
+                    if (ctx != null) {
                         ctx.close();
+                    }
                 } catch (NamingException e1) {
                     LOG.debug("JBossConnectionFactory error closing initial context");
                 }

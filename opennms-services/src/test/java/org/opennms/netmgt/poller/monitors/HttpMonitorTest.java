@@ -92,8 +92,9 @@ public class HttpMonitorTest {
     @Test
     public void testPollStatusReason() throws UnknownHostException {
 
-        if (m_runTests == false)
+        if (m_runTests == false) {
             return;
+        }
 
         Map<String, Object> m = new ConcurrentSkipListMap<String, Object>();
         Parameter p = new Parameter();
@@ -164,8 +165,9 @@ public class HttpMonitorTest {
      *             the unknown host exception
      */
     public void callTestResponseRange(boolean preferIPv6) throws UnknownHostException {
-        if (m_runTests == false)
+        if (m_runTests == false) {
             return;
+        }
 
         Map<String, Object> m = new ConcurrentSkipListMap<String, Object>();
 
@@ -246,8 +248,9 @@ public class HttpMonitorTest {
      *             the unknown host exception
      */
     public void callTestTimeout(boolean preferIPv6) throws UnknownHostException {
-        if (m_runTests == false)
+        if (m_runTests == false) {
             return;
+        }
 
         final Map<String, Object> m = new ConcurrentSkipListMap<String, Object>();
 
@@ -307,8 +310,9 @@ public class HttpMonitorTest {
      */
     public void callTestMatchingTextInResponse(boolean preferIPv6) throws UnknownHostException {
 
-        if (m_runTests == false)
+        if (m_runTests == false) {
             return;
+        }
 
         PollStatus status = null;
         ServiceMonitor monitor = new HttpMonitor();
@@ -355,8 +359,9 @@ public class HttpMonitorTest {
      */
     @Test
     public void testBase64Encoding() {
-        if (m_runTests == false)
+        if (m_runTests == false) {
             return;
+        }
 
         final Map<String, Object> m = new ConcurrentSkipListMap<String, Object>();
         m.put("basic-authentication", "Aladdin:open sesame");
@@ -398,8 +403,9 @@ public class HttpMonitorTest {
      */
     public void callTestBasicAuthentication(boolean preferIPv6) throws UnknownHostException {
 
-        if (m_runTests == false)
+        if (m_runTests == false) {
             return;
+        }
 
         Map<String, Object> m = new ConcurrentSkipListMap<String, Object>();
         PollStatus status = null;
@@ -464,8 +470,9 @@ public class HttpMonitorTest {
      */
     public void callTestBasicAuthenticationWithHttps(boolean preferIPv6) throws UnknownHostException {
 
-        if (m_runTests == false)
+        if (m_runTests == false) {
             return;
+        }
 
         Map<String, Object> m = new ConcurrentSkipListMap<String, Object>();
         PollStatus status = null;
@@ -527,8 +534,9 @@ public class HttpMonitorTest {
      *             the unknown host exception
      */
     public void callTestWithUrl(boolean preferIPv6) throws UnknownHostException {
-        if (m_runTests == false)
+        if (m_runTests == false) {
             return;
+        }
 
         Map<String, Object> m = new ConcurrentSkipListMap<String, Object>();
         PollStatus status = null;
@@ -585,8 +593,9 @@ public class HttpMonitorTest {
      *             the unknown host exception
      */
     public void callTestWithInvalidNodelabelHostName(boolean preferIPv6) throws UnknownHostException {
-        if (m_runTests == false)
+        if (m_runTests == false) {
             return;
+        }
 
         Map<String, Object> m = new ConcurrentSkipListMap<String, Object>();
         PollStatus status = null;
@@ -645,8 +654,9 @@ public class HttpMonitorTest {
      */
     public void callTestPollInInvalidVirtualDomain(boolean preferIPv6) throws UnknownHostException {
 
-        if (m_runTests == false)
+        if (m_runTests == false) {
             return;
+        }
 
         Map<String, Object> m = new ConcurrentSkipListMap<String, Object>();
 
@@ -698,8 +708,9 @@ public class HttpMonitorTest {
      */
     public void callTestPollValidVirtualDomain(boolean preferIPv6) throws UnknownHostException {
 
-        if (m_runTests == false)
+        if (m_runTests == false) {
             return;
+        }
 
         Map<String, Object> m = new ConcurrentSkipListMap<String, Object>();
 

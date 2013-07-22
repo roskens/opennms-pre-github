@@ -244,8 +244,9 @@ public class ThresholdGroup {
     public void delete() {
         delete(getNodeResourceType());
         delete(getIfResourceType());
-        for (String type : getGenericResourceTypeMap().keySet())
+        for (String type : getGenericResourceTypeMap().keySet()) {
             delete(getGenericResourceTypeMap().get(type));
+        }
     }
 
     /**
@@ -256,9 +257,11 @@ public class ThresholdGroup {
      */
     private void delete(ThresholdResourceType type) {
         Map<String, Set<ThresholdEntity>> entityMap = type.getThresholdMap();
-        for (String key : entityMap.keySet())
-            for (ThresholdEntity e : entityMap.get(key))
+        for (String key : entityMap.keySet()) {
+            for (ThresholdEntity e : entityMap.get(key)) {
                 e.delete();
+            }
+        }
     }
 
 }

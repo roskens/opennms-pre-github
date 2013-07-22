@@ -76,10 +76,11 @@ public class DefaultPollerSettings implements InitializingBean, PollerSettings {
     /** {@inheritDoc} */
     @Override
     public void setMonitorId(Integer monitorId) {
-        if (monitorId == null)
+        if (monitorId == null) {
             m_settings.remove(MONITOR_ID_KEY);
-        else
+        } else {
             m_settings.setProperty(MONITOR_ID_KEY, monitorId.toString());
+        }
 
         save();
     }

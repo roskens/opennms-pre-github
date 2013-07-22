@@ -187,10 +187,11 @@ public class ConnectionConfig {
      * @return a int.
      */
     public int getKeyedInteger(String key, int defaultVal) {
-        if (m_qualifiers == null)
+        if (m_qualifiers == null) {
             return defaultVal;
-        else
+        } else {
             return ParameterMap.getKeyedInteger(m_qualifiers, key, defaultVal);
+        }
     }
 
     /**
@@ -206,10 +207,11 @@ public class ConnectionConfig {
      * @return a boolean.
      */
     public boolean getKeyedBoolean(String key, boolean defaultVal) {
-        if (m_qualifiers == null)
+        if (m_qualifiers == null) {
             return defaultVal;
-        else
+        } else {
             return ParameterMap.getKeyedBoolean(m_qualifiers, key, defaultVal);
+        }
     }
 
     /**
@@ -225,10 +227,11 @@ public class ConnectionConfig {
      * @return a {@link java.lang.String} object.
      */
     public String getKeyedString(String key, String defaultVal) {
-        if (m_qualifiers == null)
+        if (m_qualifiers == null) {
             return defaultVal;
-        else
+        } else {
             return ParameterMap.getKeyedString(m_qualifiers, key, defaultVal);
+        }
     }
 
     /**
@@ -243,8 +246,9 @@ public class ConnectionConfig {
      *            a int.
      */
     public void saveKeyedInteger(String key, int value) {
-        if (m_qualifiers != null && !m_qualifiers.containsKey(key))
+        if (m_qualifiers != null && !m_qualifiers.containsKey(key)) {
             m_qualifiers.put(key, Integer.valueOf(value));
+        }
     }
 
     /**

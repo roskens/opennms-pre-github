@@ -229,8 +229,9 @@ public class PolledService implements MonitoredService, Serializable, Comparable
     /** {@inheritDoc} */
     @Override
     public boolean equals(final Object o) {
-        if (o == null)
+        if (o == null) {
             return false;
+        }
         if (!(o instanceof PolledService)) {
             return false;
         }
@@ -252,8 +253,9 @@ public class PolledService implements MonitoredService, Serializable, Comparable
      */
     @Override
     public int compareTo(final PolledService that) {
-        if (that == null)
+        if (that == null) {
             return -1;
+        }
         return new CompareToBuilder().append(this.getNodeId(), that.getNodeId()).append(this.getNodeLabel(),
                                                                                         that.getNodeLabel()).append(this.getIpAddr(),
                                                                                                                     that.getIpAddr()).append(this.getSvcName(),

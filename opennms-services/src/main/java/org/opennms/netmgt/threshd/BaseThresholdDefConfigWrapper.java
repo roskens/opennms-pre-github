@@ -275,10 +275,12 @@ public abstract class BaseThresholdDefConfigWrapper {
     /** {@inheritDoc} */
     @Override
     public boolean equals(final Object obj) {
-        if (obj == null)
+        if (obj == null) {
             return false;
-        if (!(obj instanceof BaseThresholdDefConfigWrapper))
+        }
+        if (!(obj instanceof BaseThresholdDefConfigWrapper)) {
             return false;
+        }
         BaseThresholdDefConfigWrapper o = (BaseThresholdDefConfigWrapper) obj;
         return getType().equals(o.getType()) && getDsType().equals(o.getDsType())
                 && getDatasourceExpression().equals(o.getDatasourceExpression());

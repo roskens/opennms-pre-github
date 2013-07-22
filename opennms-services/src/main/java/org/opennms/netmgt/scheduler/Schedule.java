@@ -125,8 +125,9 @@ public class Schedule {
             }
 
             long interval = m_interval.getInterval();
-            if (interval >= 0 && m_scheduled)
+            if (interval >= 0 && m_scheduled) {
                 m_timer.schedule(interval, this);
+            }
 
         }
 
@@ -177,8 +178,9 @@ public class Schedule {
      *            the interval
      */
     private void schedule(long interval) {
-        if (interval >= 0 && m_scheduled)
+        if (interval >= 0 && m_scheduled) {
             m_timer.schedule(interval, new ScheduleEntry(++m_currentExpirationCode));
+        }
     }
 
     /**

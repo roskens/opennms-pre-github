@@ -135,23 +135,29 @@ public class ThresholdingVisitorTest {
     private static final Comparator<Parm> PARM_COMPARATOR = new Comparator<Parm>() {
         @Override
         public int compare(Parm o1, Parm o2) {
-            if (o1 == null && o2 == null)
+            if (o1 == null && o2 == null) {
                 return 0;
-            if (o1 == null && o2 != null)
+            }
+            if (o1 == null && o2 != null) {
                 return 1;
-            if (o1 != null && o2 == null)
+            }
+            if (o1 != null && o2 == null) {
                 return -1;
+            }
 
             int retVal = o1.getParmName().compareTo(o2.getParmName());
             if (retVal == 0) {
                 String c1 = o1.getValue().getContent();
                 String c2 = o2.getValue().getContent();
-                if (c1 == null && c2 == null)
+                if (c1 == null && c2 == null) {
                     return 0;
-                if (c1 == null && c2 != null)
+                }
+                if (c1 == null && c2 != null) {
                     return 1;
-                if (c1 != null && c2 == null)
+                }
+                if (c1 != null && c2 == null) {
                     return -1;
+                }
 
                 retVal = c1.compareTo(c2);
             }
@@ -163,23 +169,29 @@ public class ThresholdingVisitorTest {
     private static final Comparator<Event> EVENT_COMPARATOR = new Comparator<Event>() {
 
         private int compareStrings(String s1, String s2) {
-            if (s1 == null && s2 == null)
+            if (s1 == null && s2 == null) {
                 return 0;
-            if (s1 == null && s2 != null)
+            }
+            if (s1 == null && s2 != null) {
                 return 1;
-            if (s1 != null && s2 == null)
+            }
+            if (s1 != null && s2 == null) {
                 return -1;
+            }
             return (s1.compareTo(s2));
         }
 
         @Override
         public int compare(Event e1, Event e2) {
-            if (e1 == null && e2 == null)
+            if (e1 == null && e2 == null) {
                 return 0;
-            if (e1 == null && e2 != null)
+            }
+            if (e1 == null && e2 != null) {
                 return 1;
-            if (e1 != null && e2 == null)
+            }
+            if (e1 != null && e2 == null) {
                 return -1;
+            }
 
             int retVal = compareStrings(e1.getUei(), e2.getUei());
             if (retVal == 0) {
@@ -1123,8 +1135,9 @@ public class ThresholdingVisitorTest {
         assertEquals(5, svc.getParameterCount());
         int count = 0;
         for (org.opennms.netmgt.config.threshd.Parameter parameter : svc.getParameter()) {
-            if (parameter.getKey().equals("thresholding-group"))
+            if (parameter.getKey().equals("thresholding-group")) {
                 count++;
+            }
         }
         assertEquals(5, count);
 
@@ -1431,8 +1444,9 @@ public class ThresholdingVisitorTest {
                                                                // Test
 
         List<Event> triggerEvents = new ArrayList<Event>();
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < 5; i++) {
             triggerEvents.addAll(thresholdingSet.applyThresholds("http", attributes));
+        }
         assertTrue(triggerEvents.size() == 1);
 
         addEvent(EventConstants.HIGH_THRESHOLD_EVENT_UEI, "127.0.0.1", "HTTP", 5, 100.0, 50.0, 200.0, "no_ifLabel",
@@ -1463,8 +1477,9 @@ public class ThresholdingVisitorTest {
         LatencyThresholdingSet thresholdingSet = new LatencyThresholdingSet(1, ipAddress, "StrafePing", getRepository());
         assertTrue(thresholdingSet.hasThresholds());
         Map<String, Double> attributes = new HashMap<String, Double>();
-        for (double i = 1; i < 21; i++)
+        for (double i = 1; i < 21; i++) {
             attributes.put("ping" + i, 2 * i);
+        }
         attributes.put("loss", 60.0);
         attributes.put("response-time", 100.0);
         attributes.put("median", 100.0);
@@ -1889,8 +1904,9 @@ public class ThresholdingVisitorTest {
             LOG.debug("testLatencyThresholdingSet: ------------------------------------ trigger number {}", i);
             if (thresholdingSet.hasThresholds(attributes)) {
                 triggerEvents = thresholdingSet.applyThresholds("http", attributes);
-                if (i < 8)
+                if (i < 8) {
                     assertTrue(triggerEvents.size() == 0);
+                }
             }
         }
 
@@ -2482,12 +2498,14 @@ public class ThresholdingVisitorTest {
         for (Parm source : anticipatedParms) {
             Parm found = null;
             for (Parm p : receivedParms) {
-                if (p.getParmName().equals(source.getParmName()))
+                if (p.getParmName().equals(source.getParmName())) {
                     found = p;
+                }
             }
             assertNotNull("parameter " + source.getParmName() + " must be found on the received event", found);
-            if (source.getValue().getContent() == null)
+            if (source.getValue().getContent() == null) {
                 source.getValue().setContent("null");
+            }
             assertEquals("content must match for parameter " + source.getParmName(), source.getValue().getContent(),
                          found.getValue().getContent());
         }
@@ -2547,15 +2565,17 @@ public class ThresholdingVisitorTest {
         network.setCriticalService("ICMP");
         network.addNode(1, "testNode");
         network.addInterface(ipAddress);
-        if (ifName != null)
+        if (ifName != null) {
             network.setIfAlias(ifName);
+        }
         network.addService("ICMP");
         network.addService("SNMP");
         network.addService("HTTP");
         MockDatabase db = new MockDatabase();
         db.populate(network);
-        if (ifName != null)
+        if (ifName != null) {
             db.update("update snmpinterface set snmpifname=?, snmpifdescr=? where id=?", ifName, ifName, 1);
+        }
         DataSourceFactory.setInstance(db);
         Vault.setDataSource(db);
     }

@@ -290,14 +290,15 @@ public class Tl1AutonomousMessage extends Tl1Message {
             m_alarmCode = alarmCode;
 
             /* The highest alarm Severity is based on the AlarmCode. */
-            if (m_alarmCode.equals("*C"))
+            if (m_alarmCode.equals("*C")) {
                 m_highestSeverity = "Critical";
-            else if (m_alarmCode.equals("**"))
+            } else if (m_alarmCode.equals("**")) {
                 m_highestSeverity = "Major";
-            else if (m_alarmCode.equals("*"))
+            } else if (m_alarmCode.equals("*")) {
                 m_highestSeverity = "Minor";
-            else if (m_alarmCode.equals("A"))
+            } else if (m_alarmCode.equals("A")) {
                 m_highestSeverity = "Cleared";
+            }
 
         }
 

@@ -125,10 +125,11 @@ public class PendingPollEvent extends PollEvent {
      *            a {@link java.lang.Runnable} object.
      */
     public void addPending(Runnable r) {
-        if (m_pending)
+        if (m_pending) {
             m_pendingOutages.add(r);
-        else
+        } else {
             r.run();
+        }
     }
 
     /**
