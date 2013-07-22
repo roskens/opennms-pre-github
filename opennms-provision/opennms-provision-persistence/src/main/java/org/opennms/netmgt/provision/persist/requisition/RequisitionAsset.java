@@ -154,22 +154,27 @@ public class RequisitionAsset implements Comparable<RequisitionAsset> {
      */
     @Override
     public boolean equals(final Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (!(obj instanceof RequisitionAsset))
+        }
+        if (!(obj instanceof RequisitionAsset)) {
             return false;
+        }
         final RequisitionAsset other = (RequisitionAsset) obj;
         if (m_name == null) {
-            if (other.m_name != null)
+            if (other.m_name != null) {
                 return false;
+            }
         } else if (!m_name.equals(other.m_name)) {
             return false;
         }
         if (m_value == null) {
-            if (other.m_value != null)
+            if (other.m_value != null) {
                 return false;
+            }
         } else if (!m_value.equals(other.m_value)) {
             return false;
         }

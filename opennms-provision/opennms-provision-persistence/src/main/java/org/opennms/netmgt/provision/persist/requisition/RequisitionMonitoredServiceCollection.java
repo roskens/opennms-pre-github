@@ -94,8 +94,9 @@ public class RequisitionMonitoredServiceCollection extends LinkedList<Requisitio
      *            a {@link java.util.List} object.
      */
     public void setMonitoredServices(List<RequisitionMonitoredService> services) {
-        if (services == this)
+        if (services == this) {
             return;
+        }
         clear();
         addAll(services);
     }

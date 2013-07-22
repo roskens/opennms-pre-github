@@ -121,16 +121,20 @@ public class RequisitionCategory implements Comparable<RequisitionCategory> {
      */
     @Override
     public boolean equals(final Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (!(obj instanceof RequisitionCategory))
+        }
+        if (!(obj instanceof RequisitionCategory)) {
             return false;
+        }
         final RequisitionCategory other = (RequisitionCategory) obj;
         if (m_name == null) {
-            if (other.m_name != null)
+            if (other.m_name != null) {
                 return false;
+            }
         } else if (!m_name.equals(other.m_name)) {
             return false;
         }

@@ -436,42 +436,51 @@ public class ForeignSource implements Serializable, Comparable<ForeignSource> {
      */
     @Override
     public boolean equals(final Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (!(obj instanceof ForeignSource))
+        }
+        if (!(obj instanceof ForeignSource)) {
             return false;
+        }
         final ForeignSource other = (ForeignSource) obj;
         if (m_dateStamp == null) {
-            if (other.m_dateStamp != null)
+            if (other.m_dateStamp != null) {
                 return false;
+            }
         } else if (!m_dateStamp.equals(other.m_dateStamp)) {
             return false;
         }
-        if (m_default != other.m_default)
+        if (m_default != other.m_default) {
             return false;
+        }
         if (m_detectors == null) {
-            if (other.m_detectors != null)
+            if (other.m_detectors != null) {
                 return false;
+            }
         } else if (!m_detectors.equals(other.m_detectors)) {
             return false;
         }
         if (m_name == null) {
-            if (other.m_name != null)
+            if (other.m_name != null) {
                 return false;
+            }
         } else if (!m_name.equals(other.m_name)) {
             return false;
         }
         if (m_policies == null) {
-            if (other.m_policies != null)
+            if (other.m_policies != null) {
                 return false;
+            }
         } else if (!m_policies.equals(other.m_policies)) {
             return false;
         }
         if (m_scanInterval == null) {
-            if (other.m_scanInterval != null)
+            if (other.m_scanInterval != null) {
                 return false;
+            }
         } else if (!m_scanInterval.equals(other.m_scanInterval)) {
             return false;
         }

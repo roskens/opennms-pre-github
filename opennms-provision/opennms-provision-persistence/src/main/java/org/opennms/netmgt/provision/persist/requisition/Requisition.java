@@ -510,35 +510,42 @@ public class Requisition implements Serializable, Comparable<Requisition> {
      */
     @Override
     public boolean equals(final Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (!(obj instanceof Requisition))
+        }
+        if (!(obj instanceof Requisition)) {
             return false;
+        }
 
         final Requisition other = (Requisition) obj;
         if (m_dateStamp == null) {
-            if (other.m_dateStamp != null)
+            if (other.m_dateStamp != null) {
                 return false;
+            }
         } else if (!m_dateStamp.equals(other.m_dateStamp)) {
             return false;
         }
         if (m_foreignSource == null) {
-            if (other.m_foreignSource != null)
+            if (other.m_foreignSource != null) {
                 return false;
+            }
         } else if (!m_foreignSource.equals(other.m_foreignSource)) {
             return false;
         }
         if (m_lastImport == null) {
-            if (other.m_lastImport != null)
+            if (other.m_lastImport != null) {
                 return false;
+            }
         } else if (!m_lastImport.equals(other.m_lastImport)) {
             return false;
         }
         if (m_nodes == null) {
-            if (other.m_nodes != null)
+            if (other.m_nodes != null) {
                 return false;
+            }
         } else if (!m_nodes.equals(other.m_nodes)) {
             return false;
         }

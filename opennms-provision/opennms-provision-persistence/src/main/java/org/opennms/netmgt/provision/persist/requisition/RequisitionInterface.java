@@ -505,52 +505,62 @@ public class RequisitionInterface implements Comparable<RequisitionInterface> {
      */
     @Override
     public boolean equals(final Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (!(obj instanceof RequisitionInterface))
+        }
+        if (!(obj instanceof RequisitionInterface)) {
             return false;
+        }
         final RequisitionInterface other = (RequisitionInterface) obj;
         if (m_categories == null) {
-            if (other.m_categories != null)
+            if (other.m_categories != null) {
                 return false;
+            }
         } else if (!m_categories.equals(other.m_categories)) {
             return false;
         }
         if (m_description == null) {
-            if (other.m_description != null)
+            if (other.m_description != null) {
                 return false;
+            }
         } else if (!m_description.equals(other.m_description)) {
             return false;
         }
         if (m_ipAddress == null) {
-            if (other.m_ipAddress != null)
+            if (other.m_ipAddress != null) {
                 return false;
+            }
         } else if (!m_ipAddress.equals(other.m_ipAddress)) {
             return false;
         }
         if (m_isManaged == null) {
-            if (other.m_isManaged != null)
+            if (other.m_isManaged != null) {
                 return false;
+            }
         } else if (!m_isManaged.equals(other.m_isManaged)) {
             return false;
         }
         if (m_monitoredServices == null) {
-            if (other.m_monitoredServices != null)
+            if (other.m_monitoredServices != null) {
                 return false;
+            }
         } else if (!m_monitoredServices.equals(other.m_monitoredServices)) {
             return false;
         }
         if (m_snmpPrimary == null) {
-            if (other.m_snmpPrimary != null)
+            if (other.m_snmpPrimary != null) {
                 return false;
+            }
         } else if (!m_snmpPrimary.equals(other.m_snmpPrimary)) {
             return false;
         }
         if (m_status == null) {
-            if (other.m_status != null)
+            if (other.m_status != null) {
                 return false;
+            }
         } else if (!m_status.equals(other.m_status)) {
             return false;
         }

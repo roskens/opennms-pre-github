@@ -257,22 +257,27 @@ public class RequisitionMonitoredService implements Comparable<RequisitionMonito
      */
     @Override
     public boolean equals(final Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (!(obj instanceof RequisitionMonitoredService))
+        }
+        if (!(obj instanceof RequisitionMonitoredService)) {
             return false;
+        }
         final RequisitionMonitoredService other = (RequisitionMonitoredService) obj;
         if (m_categories == null) {
-            if (other.m_categories != null)
+            if (other.m_categories != null) {
                 return false;
+            }
         } else if (!m_categories.equals(other.m_categories)) {
             return false;
         }
         if (m_serviceName == null) {
-            if (other.m_serviceName != null)
+            if (other.m_serviceName != null) {
                 return false;
+            }
         } else if (!m_serviceName.equals(other.m_serviceName)) {
             return false;
         }

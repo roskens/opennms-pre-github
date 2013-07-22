@@ -79,8 +79,9 @@ public class DetectorCollection implements List<PluginConfig> {
     @XmlElement(name = "detector")
     public List<PluginConfig> getDetectors() {
         synchronized (m_list) {
-            if (m_list != null)
+            if (m_list != null) {
                 return m_list;
+            }
         }
         return null;
     }
@@ -96,8 +97,9 @@ public class DetectorCollection implements List<PluginConfig> {
      */
     public void setDetectors(final List<PluginConfig> detectors) {
         synchronized (m_list) {
-            if (m_list == detectors)
+            if (m_list == detectors) {
                 return;
+            }
             m_list.clear();
             m_list.addAll(detectors);
         }

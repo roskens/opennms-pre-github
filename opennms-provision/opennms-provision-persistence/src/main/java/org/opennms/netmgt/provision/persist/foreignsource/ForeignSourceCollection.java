@@ -99,8 +99,9 @@ public class ForeignSourceCollection implements List<ForeignSource> {
      *            a {@link java.util.List} object.
      */
     public void setForeignSources(List<ForeignSource> foreignSources) {
-        if (foreignSources == this)
+        if (foreignSources == this) {
             return;
+        }
         clear();
         addAll(foreignSources);
     }

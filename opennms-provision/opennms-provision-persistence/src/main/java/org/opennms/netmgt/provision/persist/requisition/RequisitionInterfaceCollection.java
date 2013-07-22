@@ -94,8 +94,9 @@ public class RequisitionInterfaceCollection extends LinkedList<RequisitionInterf
      *            a {@link java.util.List} object.
      */
     public void setInterfaces(List<RequisitionInterface> interfaces) {
-        if (interfaces == this)
+        if (interfaces == this) {
             return;
+        }
         clear();
         addAll(interfaces);
     }

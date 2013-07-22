@@ -95,8 +95,9 @@ public class PolicyCollection implements List<PluginConfig> {
      *            a {@link java.util.List} object.
      */
     public void setPolicies(List<PluginConfig> policies) {
-        if (policies == this)
+        if (policies == this) {
             return;
+        }
         clear();
         addAll(policies);
     }

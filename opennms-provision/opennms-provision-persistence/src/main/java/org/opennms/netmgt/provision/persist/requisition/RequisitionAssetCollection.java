@@ -94,8 +94,9 @@ public class RequisitionAssetCollection extends LinkedList<RequisitionAsset> {
      *            a {@link java.util.List} object.
      */
     public void setAssetFields(List<RequisitionAsset> assets) {
-        if (assets == this)
+        if (assets == this) {
             return;
+        }
         clear();
         addAll(assets);
     }

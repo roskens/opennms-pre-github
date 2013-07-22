@@ -97,8 +97,9 @@ public class RequisitionCollection extends LinkedList<Requisition> {
      *            a {@link java.util.List} object.
      */
     public void setRequisitions(List<Requisition> requisitions) {
-        if (requisitions == this)
+        if (requisitions == this) {
             return;
+        }
         clear();
         addAll(requisitions);
     }

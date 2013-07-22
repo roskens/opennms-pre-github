@@ -240,8 +240,9 @@ public class RequisitionFileUtils {
      */
     public static void deleteResourceIfSnapshot(final Requisition requisition) {
         final Resource resource = requisition.getResource();
-        if (resource == null)
+        if (resource == null) {
             return;
+        }
 
         try {
             final File resourceFile = resource.getFile();

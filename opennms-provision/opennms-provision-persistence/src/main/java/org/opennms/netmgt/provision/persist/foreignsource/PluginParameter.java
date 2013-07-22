@@ -249,22 +249,27 @@ public class PluginParameter implements Serializable, Comparable<PluginParameter
      */
     @Override
     public boolean equals(final Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (!(obj instanceof PluginParameter))
+        }
+        if (!(obj instanceof PluginParameter)) {
             return false;
+        }
         final PluginParameter other = (PluginParameter) obj;
         if (m_key == null) {
-            if (other.m_key != null)
+            if (other.m_key != null) {
                 return false;
+            }
         } else if (!m_key.equals(other.m_key)) {
             return false;
         }
         if (m_value == null) {
-            if (other.m_value != null)
+            if (other.m_value != null) {
                 return false;
+            }
         } else if (!m_value.equals(other.m_value)) {
             return false;
         }

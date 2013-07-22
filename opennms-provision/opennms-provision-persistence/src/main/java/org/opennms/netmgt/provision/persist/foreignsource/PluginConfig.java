@@ -313,28 +313,34 @@ public class PluginConfig implements Serializable, Comparable<PluginConfig> {
      */
     @Override
     public boolean equals(final Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (!(obj instanceof PluginConfig))
+        }
+        if (!(obj instanceof PluginConfig)) {
             return false;
+        }
         final PluginConfig other = (PluginConfig) obj;
         if (m_name == null) {
-            if (other.m_name != null)
+            if (other.m_name != null) {
                 return false;
+            }
         } else if (!m_name.equals(other.m_name)) {
             return false;
         }
         if (m_pluginClass == null) {
-            if (other.m_pluginClass != null)
+            if (other.m_pluginClass != null) {
                 return false;
+            }
         } else if (!m_pluginClass.equals(other.m_pluginClass)) {
             return false;
         }
         if (m_parameters == null) {
-            if (other.m_parameters != null)
+            if (other.m_parameters != null) {
                 return false;
+            }
         } else if (!m_parameters.equals(other.m_parameters)) {
             return false;
         }

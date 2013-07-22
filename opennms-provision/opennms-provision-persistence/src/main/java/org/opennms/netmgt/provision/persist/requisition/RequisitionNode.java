@@ -149,8 +149,9 @@ public class RequisitionNode {
         if (interfaces == null) {
             interfaces = new TreeSet<RequisitionInterface>();
         }
-        if (m_interfaces == interfaces)
+        if (m_interfaces == interfaces) {
             return;
+        }
         m_interfaces.clear();
         m_interfaces.addAll(interfaces);
     }
@@ -284,8 +285,9 @@ public class RequisitionNode {
         if (categories == null) {
             categories = new TreeSet<RequisitionCategory>();
         }
-        if (m_categories == categories)
+        if (m_categories == categories) {
             return;
+        }
         m_categories.clear();
         m_categories.addAll(categories);
     }
@@ -421,8 +423,9 @@ public class RequisitionNode {
         if (assets == null) {
             assets = new TreeSet<RequisitionAsset>();
         }
-        if (m_assets == assets)
+        if (m_assets == assets) {
             return;
+        }
         m_assets.clear();
         m_assets.addAll(assets);
     }
@@ -688,70 +691,83 @@ public class RequisitionNode {
      */
     @Override
     public boolean equals(final Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (!(obj instanceof RequisitionNode))
+        }
+        if (!(obj instanceof RequisitionNode)) {
             return false;
+        }
         final RequisitionNode other = (RequisitionNode) obj;
         if (m_building == null) {
-            if (other.m_building != null)
+            if (other.m_building != null) {
                 return false;
+            }
         } else if (!m_building.equals(other.m_building)) {
             return false;
         }
         if (m_city == null) {
-            if (other.m_city != null)
+            if (other.m_city != null) {
                 return false;
+            }
         } else if (!m_city.equals(other.m_city)) {
             return false;
         }
         if (m_foreignId == null) {
-            if (other.m_foreignId != null)
+            if (other.m_foreignId != null) {
                 return false;
+            }
         } else if (!m_foreignId.equals(other.m_foreignId)) {
             return false;
         }
         if (m_assets == null) {
-            if (other.m_assets != null)
+            if (other.m_assets != null) {
                 return false;
+            }
         } else if (!m_assets.equals(other.m_assets)) {
             return false;
         }
         if (m_categories == null) {
-            if (other.m_categories != null)
+            if (other.m_categories != null) {
                 return false;
+            }
         } else if (!m_categories.equals(other.m_categories)) {
             return false;
         }
         if (m_interfaces == null) {
-            if (other.m_interfaces != null)
+            if (other.m_interfaces != null) {
                 return false;
+            }
         } else if (!m_interfaces.equals(other.m_interfaces)) {
             return false;
         }
         if (m_nodeLabel == null) {
-            if (other.m_nodeLabel != null)
+            if (other.m_nodeLabel != null) {
                 return false;
+            }
         } else if (!m_nodeLabel.equals(other.m_nodeLabel)) {
             return false;
         }
         if (m_parentForeignId == null) {
-            if (other.m_parentForeignId != null)
+            if (other.m_parentForeignId != null) {
                 return false;
+            }
         } else if (!m_parentForeignId.equals(other.m_parentForeignId)) {
             return false;
         }
         if (m_parentForeignSource == null) {
-            if (other.m_parentForeignSource != null)
+            if (other.m_parentForeignSource != null) {
                 return false;
+            }
         } else if (!m_parentForeignSource.equals(other.m_parentForeignSource)) {
             return false;
         }
         if (m_parentNodeLabel == null) {
-            if (other.m_parentNodeLabel != null)
+            if (other.m_parentNodeLabel != null) {
                 return false;
+            }
         } else if (!m_parentNodeLabel.equals(other.m_parentNodeLabel)) {
             return false;
         }
