@@ -268,8 +268,9 @@ public class RequestTracker {
         Map<String, String> attributes = getTicketAttributes(ticketId.toString());
 
         RTTicket ticket = new RTTicket();
-        if (attributes == null)
+        if (attributes == null) {
             throw new RequestTrackerException("received no ticket attributes back from RT");
+        }
         final String id = attributes.remove("id").replace("ticket/", "");
         if (id != null && id.length() > 0) {
             ticket.setId(Long.valueOf(id));
@@ -353,8 +354,9 @@ public class RequestTracker {
                 InputStreamReader isr = null;
                 BufferedReader br = null;
                 try {
-                    if (response.getEntity() == null)
+                    if (response.getEntity() == null) {
                         return null;
+                    }
                     isr = new InputStreamReader(response.getEntity().getContent());
                     br = new BufferedReader(isr);
                     String line = null;
@@ -408,8 +410,9 @@ public class RequestTracker {
         }
 
         for (final RTQueue queue : getQueuesForUser(username)) {
-            if (queue.isAccessible() && !queue.getName().startsWith("___"))
+            if (queue.isAccessible() && !queue.getName().startsWith("___")) {
                 return queue;
+            }
         }
 
         return null;

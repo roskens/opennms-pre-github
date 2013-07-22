@@ -235,8 +235,9 @@ public class RTTicket implements Serializable {
      */
     public void setRequestors(final List<String> requestors) {
         synchronized (m_requestors) {
-            if (m_requestors == requestors)
+            if (m_requestors == requestors) {
                 return;
+            }
             m_requestors.clear();
             m_requestors.addAll(requestors);
         }
@@ -359,21 +360,27 @@ public class RTTicket implements Serializable {
         final StringBuilder contentBuilder = new StringBuilder();
         if (m_id == null) {
             contentBuilder.append("id: ticket/new\n");
-            if (m_queue != null)
+            if (m_queue != null) {
                 contentBuilder.append("Queue: ").append(m_queue).append("\n");
-            if (m_requestors != null)
+            }
+            if (m_requestors != null) {
                 contentBuilder.append("Requestor: ").append(getRequestor()).append("\n");
-            if (m_subject != null)
+            }
+            if (m_subject != null) {
                 contentBuilder.append("Subject: ").append(m_subject.replaceAll("[\\r\\n]+", " ")).append("\n");
-            if (m_text != null)
+            }
+            if (m_text != null) {
                 contentBuilder.append("text: ").append(m_text.replaceAll("\\r?\\n", "\n ")).append("\n");
+            }
             if (m_customFields.size() > 0) {
                 for (CustomField field : m_customFields) {
-                    if (field.getValues().size() == 0)
+                    if (field.getValues().size() == 0) {
                         continue;
-                    if (field.getValues().size() > 1)
+                    }
+                    if (field.getValues().size() > 1) {
                         LOG.warn("Field {} has {} values, using only the first one", field.getName(),
                                  field.getValues().size());
+                    }
                     String value = field.getValues().get(0).getValue();
                     contentBuilder.append("CF.{").append(field.getName()).append("}: ").append(value).append("\n");
                 }
@@ -381,8 +388,9 @@ public class RTTicket implements Serializable {
         } else {
             // contentBuilder.append("id: ticket/").append(m_id).append("\n");
         }
-        if (m_status != null)
+        if (m_status != null) {
             contentBuilder.append("Status: ").append(m_status).append("\n");
+        }
 
         return m_trim.matcher(contentBuilder.toString()).replaceAll("");
     }
