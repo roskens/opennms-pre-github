@@ -157,13 +157,15 @@ public class Jni6IcmpMessenger implements Messenger<Jni6PingRequest, Jni6PingRes
 
         ICMPv6Packet icmpPacket = new ICMPv6Packet(packet.getData(), packet.getOffset(), packet.getLength());
 
-        if (icmpPacket.getType() != Type.EchoReply)
+        if (icmpPacket.getType() != Type.EchoReply) {
             return null;
+        }
 
         ICMPv6EchoReply echoReply = new ICMPv6EchoReply(icmpPacket);
 
-        if (!echoReply.isEchoReply() || !echoReply.isValid())
+        if (!echoReply.isEchoReply() || !echoReply.isValid()) {
             return null;
+        }
 
         Inet6Address address = (Inet6Address) packet.getAddress();
 

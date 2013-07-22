@@ -273,10 +273,12 @@ public class Jni6PingRequest implements Request<Jni6PingRequestId, Jni6PingReque
     public int compareTo(final Delayed request) {
         final long myDelay = getDelay(TimeUnit.MILLISECONDS);
         final long otherDelay = request.getDelay(TimeUnit.MILLISECONDS);
-        if (myDelay < otherDelay)
+        if (myDelay < otherDelay) {
             return -1;
-        if (myDelay == otherDelay)
+        }
+        if (myDelay == otherDelay) {
             return 0;
+        }
         return 1;
     }
 

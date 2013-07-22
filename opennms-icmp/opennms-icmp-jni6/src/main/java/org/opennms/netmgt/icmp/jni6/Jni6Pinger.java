@@ -156,8 +156,9 @@ public class Jni6Pinger implements Pinger {
      */
     @Override
     public synchronized void initialize4() throws Exception {
-        if (m_jniPinger != null)
+        if (m_jniPinger != null) {
             return;
+        }
         try {
             m_jniPinger = new JniPinger();
             m_jniPinger.initialize4();
@@ -172,8 +173,9 @@ public class Jni6Pinger implements Pinger {
      */
     @Override
     public synchronized void initialize6() throws Exception {
-        if (s_pingTracker != null)
+        if (s_pingTracker != null) {
             return;
+        }
 
         final String name = "JNI-ICMPv6-" + m_pingerId;
         final IDBasedRequestLocator<Jni6PingRequestId, Jni6PingRequest, Jni6PingResponse> requestLocator = new IDBasedRequestLocator<Jni6PingRequestId, Jni6PingRequest, Jni6PingResponse>();
@@ -211,8 +213,9 @@ public class Jni6Pinger implements Pinger {
         } catch (final Throwable t) {
             LOG.trace("Failed to initialize IPv4", t);
         }
-        if (m_jniPinger != null && m_v4Error == null)
+        if (m_jniPinger != null && m_v4Error == null) {
             return m_jniPinger.isV4Available();
+        }
         return false;
     }
 
@@ -226,8 +229,9 @@ public class Jni6Pinger implements Pinger {
         } catch (final Throwable t) {
             LOG.trace("Failed to initialize IPv6", t);
         }
-        if (s_pingTracker != null && m_v6Error == null)
+        if (s_pingTracker != null && m_v6Error == null) {
             return true;
+        }
         return false;
     }
 
