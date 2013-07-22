@@ -30,6 +30,10 @@
 
 package org.opennms.netmgt.rrd.tcp;
 
+import java.io.IOException;
+
+import com.google.protobuf.InvalidProtocolBufferException;
+
 /**
  * <p>
  * PerformanceDataProtos class.
@@ -231,12 +235,15 @@ public final class PerformanceDataProtos {
          */
         @Override
         public final boolean isInitialized() {
-            if (!hasPath)
+            if (!hasPath) {
                 return false;
-            if (!hasOwner)
+            }
+            if (!hasOwner) {
                 return false;
-            if (!hasTimestamp)
+            }
+            if (!hasTimestamp) {
                 return false;
+            }
             return true;
         }
 
@@ -269,8 +276,9 @@ public final class PerformanceDataProtos {
         @Override
         public int getSerializedSize() {
             int size = memoizedSerializedSize;
-            if (size != -1)
+            if (size != -1) {
                 return size;
+            }
 
             size = 0;
             if (hasPath()) {
@@ -638,8 +646,9 @@ public final class PerformanceDataProtos {
              * @return the builder
              */
             public Builder mergeFrom(org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading other) {
-                if (other == org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading.getDefaultInstance())
+                if (other == org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading.getDefaultInstance()) {
                     return this;
+                }
                 if (other.hasPath()) {
                     setPath(other.getPath());
                 }
@@ -1018,8 +1027,9 @@ public final class PerformanceDataProtos {
         @Override
         public final boolean isInitialized() {
             for (org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading element : getMessageList()) {
-                if (!element.isInitialized())
+                if (!element.isInitialized()) {
                     return false;
+                }
             }
             return true;
         }
@@ -1044,8 +1054,9 @@ public final class PerformanceDataProtos {
         @Override
         public int getSerializedSize() {
             int size = memoizedSerializedSize;
-            if (size != -1)
+            if (size != -1) {
                 return size;
+            }
 
             size = 0;
             for (org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading element : getMessageList()) {
@@ -1401,8 +1412,9 @@ public final class PerformanceDataProtos {
              * @return the builder
              */
             public Builder mergeFrom(org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReadings other) {
-                if (other == org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReadings.getDefaultInstance())
+                if (other == org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReadings.getDefaultInstance()) {
                     return this;
+                }
                 if (!other.message_.isEmpty()) {
                     if (result.message_.isEmpty()) {
                         result.message_ = new java.util.ArrayList<org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading>();
