@@ -587,8 +587,9 @@ public class Migrator {
             dbConnection = new JdbcConnection(connection);
 
             ResourceAccessor accessor = migration.getAccessor();
-            if (accessor == null)
+            if (accessor == null) {
                 accessor = new SpringResourceAccessor();
+            }
 
             final Liquibase liquibase = new Liquibase(migration.getChangeLog(), accessor, dbConnection);
             liquibase.setChangeLogParameter("install.database.admin.user", migration.getAdminUser());

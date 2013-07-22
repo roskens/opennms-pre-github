@@ -74,8 +74,9 @@ public class CreateIndexWithWhereChange extends liquibase.change.core.CreateInde
     @Override
     public SqlStatement[] generateStatements(final Database database) {
         final SqlStatement[] superStatements = super.generateStatements(database);
-        if (m_where == null)
+        if (m_where == null) {
             return superStatements;
+        }
 
         if (superStatements.length != 1) {
             LogFactory.getLogger().warning("expected 1 create index statement, but got " + superStatements.length);

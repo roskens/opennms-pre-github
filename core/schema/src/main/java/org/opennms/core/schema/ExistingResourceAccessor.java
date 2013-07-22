@@ -67,8 +67,9 @@ public class ExistingResourceAccessor implements ResourceAccessor {
      */
     @Override
     public InputStream getResourceAsStream(final String file) throws IOException {
-        if (m_resource == null)
+        if (m_resource == null) {
             return null;
+        }
         return m_resource.createRelative(file).getInputStream();
     }
 
