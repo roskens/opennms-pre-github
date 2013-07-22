@@ -66,8 +66,9 @@ public class Correlator implements CorrelatorMBean {
      */
     @Override
     public void start() {
-        if (getBean() != null)
+        if (getBean() != null) {
             getBean().start();
+        }
     }
 
     /**
@@ -75,8 +76,9 @@ public class Correlator implements CorrelatorMBean {
      */
     @Override
     public void stop() {
-        if (getBean() != null)
+        if (getBean() != null) {
             getBean().stop();
+        }
     }
 
     /**
