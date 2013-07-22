@@ -359,8 +359,9 @@ public class NrtController {
     public Map<String, String> getRequiredExternalPropertyAttributes(final OnmsResource reportResource,
             final PrefabGraph prefabGraph) {
         final Map<String, String> attributes = reportResource.getExternalValueAttributes();
-        if (attributes == null)
+        if (attributes == null) {
             return Collections.emptyMap();
+        }
 
         final Map<String, String> reqAttributes = new HashMap<String, String>();
         for (final String attrName : prefabGraph.getExternalValues()) {
@@ -384,8 +385,9 @@ public class NrtController {
     public Map<String, String> getRequiredStringPropertyAttributes(final OnmsResource reportResource,
             final PrefabGraph prefabGraph) {
         final Map<String, String> attributes = reportResource.getStringPropertyAttributes();
-        if (attributes == null)
+        if (attributes == null) {
             return Collections.emptyMap();
+        }
 
         final Map<String, String> reqAttributes = new HashMap<String, String>();
         for (final String attrName : prefabGraph.getPropertiesValues()) {
