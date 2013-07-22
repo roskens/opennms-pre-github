@@ -28,8 +28,6 @@
 
 package org.opennms.netmgt.eventd.processor;
 
-import java.sql.SQLException;
-
 import org.opennms.core.test.db.PopulatedTemporaryDatabaseTestCase;
 import org.opennms.netmgt.EventConstants;
 import org.opennms.netmgt.eventd.JdbcEventdServiceManager;
