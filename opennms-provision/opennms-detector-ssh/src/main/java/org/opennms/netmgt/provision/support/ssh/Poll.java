@@ -47,5 +47,5 @@ public interface Poll {
      * @throws InsufficientParametersException
      *             the insufficient parameters exception
      */
-    public PollStatus poll() throws InsufficientParametersException;
+    PollStatus poll() throws InsufficientParametersException;
 }
