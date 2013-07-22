@@ -603,9 +603,10 @@ public class JasperReportService implements ReportService {
                     continue;
                 }
 
-                if (onmsReportParms.containsKey(parmName) == false)
+                if (onmsReportParms.containsKey(parmName) == false) {
                     throw new ReportException("Required parameter " + parmName
                             + " not supplied to JasperReports by OpenNMS");
+                }
 
                 if (reportParm.getValueClassName().equals("java.lang.String")) {
                     jrReportParms.put(parmName, new String((String) onmsReportParms.get(parmName)));
