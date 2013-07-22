@@ -84,8 +84,9 @@ public class LinkAdapterConfiguration {
      */
     public void setPatterns(final Set<LinkPattern> patterns) {
         synchronized (m_patterns) {
-            if (patterns == m_patterns)
+            if (patterns == m_patterns) {
                 return;
+            }
             m_patterns.clear();
             m_patterns.addAll(patterns);
         }

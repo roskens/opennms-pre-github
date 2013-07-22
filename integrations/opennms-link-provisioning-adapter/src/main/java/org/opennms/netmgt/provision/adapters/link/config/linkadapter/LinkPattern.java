@@ -149,8 +149,9 @@ public class LinkPattern {
      * @return a {@link java.lang.String} object.
      */
     public String resolveTemplate(final String endPoint) {
-        if (endPoint == null || m_compiledPattern == null)
+        if (endPoint == null || m_compiledPattern == null) {
             return null;
+        }
 
         final Matcher m = m_compiledPattern.matcher(endPoint);
         if (m.matches()) {
