@@ -98,11 +98,12 @@ public class GpClient implements Client<GpRequest, GpResponse> {
         final String hostAddress = InetAddressUtils.str(address);
         final String script = "" + getScript() + " " + getHoption() + " " + hostAddress + " " + getToption() + " "
                 + convertToSeconds(timeout);
-        if (getArgs() == null)
+        if (getArgs() == null) {
             setExitStatus(m_execRunner.exec(script));
-        else
+        } else {
             setExitStatus(m_execRunner.exec(getScript() + " " + getHoption() + " " + hostAddress + " " + getToption()
                     + " " + convertToSeconds(timeout) + " " + getArgs()));
+        }
 
         if (m_execRunner.isMaxRunTimeExceeded()) {
 
