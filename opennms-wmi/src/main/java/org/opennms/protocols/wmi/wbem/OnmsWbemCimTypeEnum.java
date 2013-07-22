@@ -93,8 +93,9 @@ public enum OnmsWbemCimTypeEnum {
     private String cimName;
 
     static {
-        for (final OnmsWbemCimTypeEnum s : EnumSet.allOf(OnmsWbemCimTypeEnum.class))
+        for (final OnmsWbemCimTypeEnum s : EnumSet.allOf(OnmsWbemCimTypeEnum.class)) {
             lookup.put(s.getCimValue(), s);
+        }
     }
 
     /**

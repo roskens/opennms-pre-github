@@ -71,8 +71,9 @@ public class OnmsWbemPropSetBiosStub implements OnmsWbemPropertySet {
      */
     @Override
     public OnmsWbemProperty getByName(String name) throws WmiException {
-        if (name.equals("ReleaseDate"))
+        if (name.equals("ReleaseDate")) {
             return releaseDate;
+        }
         throw new WmiException("Failed to perform WMI operation: Unknown name. [0x80020006]");
     }
 }

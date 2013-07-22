@@ -141,10 +141,11 @@ public class CheckWmi {
             ArrayList<Object> wmiObjects;
             // Create the check parameters holder.
             WmiParams clientParams;
-            if (wmiWql == null || wmiWql.length() == 0)
+            if (wmiWql == null || wmiWql.length() == 0) {
                 clientParams = new WmiParams(WmiParams.WMI_OPERATION_INSTANCEOF, compVal, compOp, wmiClass, wmiObject);
-            else
+            } else {
                 clientParams = new WmiParams(WmiParams.WMI_OPERATION_WQL, compVal, compOp, wmiWql, wmiObject);
+            }
             // Create the WMI Manager
             final WmiManager mgr = new WmiManager(host, user, pass, domain, matchType);
 

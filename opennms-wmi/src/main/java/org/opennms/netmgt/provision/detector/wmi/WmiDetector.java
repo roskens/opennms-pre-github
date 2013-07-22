@@ -141,16 +141,21 @@ public class WmiDetector extends SyncAbstractDetector {
         // Use WMI credentials from configuration files, and override values
         // with the detector parameters if they exists.
         final WmiAgentConfig agentConfig = WmiPeerFactory.getInstance().getAgentConfig(address);
-        if (getUsername() != null)
+        if (getUsername() != null) {
             agentConfig.setUsername(getUsername());
-        if (getPassword() != null)
+        }
+        if (getPassword() != null) {
             agentConfig.setPassword(getPassword());
-        if (getDomain() != null)
+        }
+        if (getDomain() != null) {
             agentConfig.setDomain(getDomain());
-        if (getRetries() > 0)
+        }
+        if (getRetries() > 0) {
             agentConfig.setRetries(getRetries());
-        if (getTimeout() > 0)
+        }
+        if (getTimeout() > 0) {
             agentConfig.setTimeout(getTimeout());
+        }
 
         // Perform the operation specified in the parameters.
         WmiResult result = isServer(address, agentConfig.getUsername(), agentConfig.getPassword(),

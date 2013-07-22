@@ -67,8 +67,9 @@ public enum OnmsWbemFlagReturnEnum {
     private String returnFlagName;
 
     static {
-        for (final OnmsWbemFlagReturnEnum s : EnumSet.allOf(OnmsWbemFlagReturnEnum.class))
+        for (final OnmsWbemFlagReturnEnum s : EnumSet.allOf(OnmsWbemFlagReturnEnum.class)) {
             lookup.put(s.getReturnFlagValue(), s);
+        }
     }
 
     /**

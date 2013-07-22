@@ -63,8 +63,9 @@ public class TestingNewStructure {
             System.out.println("The number of objects retrieved: " + wos.count());
             for (int i = 0; i < wos.count(); i++) {
                 final OnmsWbemObject obj = wos.get(i);
-                if (obj == null)
+                if (obj == null) {
                     System.out.println("Received null object.");
+                }
                 // System.out.println("+++++ Testing Object PropertySet +++++");
                 final OnmsWbemPropertySet propSet = obj.getWmiProperties();
                 // System.out.println("Object has " + propSet.count() +
