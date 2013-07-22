@@ -80,8 +80,9 @@ public class JnaIcmpMessenger implements Messenger<JnaPingRequest, JnaPingReply>
             m_v6.addPingReplyListener(this);
         } catch (final Throwable t) {
             LOG.debug("Unable to initialize IPv6 Pinger.", t);
-            if (error == null)
+            if (error == null) {
                 error = t;
+            }
             m_v6 = null;
         }
 

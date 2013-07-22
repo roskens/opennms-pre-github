@@ -417,12 +417,15 @@ public class JnaPingTest extends TestCase {
         Number average = CollectionMath.average(items);
         Number median = CollectionMath.median(items);
 
-        if (passedPercent == null)
+        if (passedPercent == null) {
             passedPercent = Long.valueOf(0);
-        if (failedPercent == null)
+        }
+        if (failedPercent == null) {
             failedPercent = Long.valueOf(100);
-        if (median == null)
+        }
+        if (median == null) {
             median = Double.valueOf(0);
+        }
 
         if (average == null) {
             average = new Double(0);

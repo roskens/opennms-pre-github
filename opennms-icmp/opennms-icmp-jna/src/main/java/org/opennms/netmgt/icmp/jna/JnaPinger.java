@@ -32,7 +32,6 @@ import static org.opennms.netmgt.icmp.PingConstants.DEFAULT_PACKET_SIZE;
 import static org.opennms.netmgt.icmp.PingConstants.DEFAULT_RETRIES;
 import static org.opennms.netmgt.icmp.PingConstants.DEFAULT_TIMEOUT;
 
-import java.io.IOException;
 import java.net.InetAddress;
 import java.util.List;
 import java.util.concurrent.Callable;
@@ -73,8 +72,9 @@ public class JnaPinger implements Pinger {
      *             the exception
      */
     private synchronized void initialize() throws Exception {
-        if (m_pingTracker != null)
+        if (m_pingTracker != null) {
             return;
+        }
         m_messenger = new JnaIcmpMessenger(m_pingerId);
         m_pingTracker = Logging.withPrefix("icmp", new Callable<RequestTracker<JnaPingRequest, JnaPingReply>>() {
             @Override
@@ -114,8 +114,9 @@ public class JnaPinger implements Pinger {
         } catch (final Throwable t) {
             LOG.trace("Failed to initialize IPv4", t);
         }
-        if (m_messenger == null)
+        if (m_messenger == null) {
             return false;
+        }
         return m_messenger.isV4Available();
     }
 
@@ -129,8 +130,9 @@ public class JnaPinger implements Pinger {
         } catch (final Throwable t) {
             LOG.trace("Failed to initialize IPv6", t);
         }
-        if (m_messenger == null)
+        if (m_messenger == null) {
             return false;
+        }
         return m_messenger.isV6Available();
     }
 
