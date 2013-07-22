@@ -160,28 +160,34 @@ public final class ComponentIdentifier implements Comparable<ComponentIdentifier
      */
     @Override
     public boolean equals(final Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (!(obj instanceof ComponentIdentifier))
+        }
+        if (!(obj instanceof ComponentIdentifier)) {
             return false;
+        }
         final ComponentIdentifier other = (ComponentIdentifier) obj;
         if (m_foreignId == null) {
-            if (other.m_foreignId != null)
+            if (other.m_foreignId != null) {
                 return false;
+            }
         } else if (!m_foreignId.equals(other.m_foreignId)) {
             return false;
         }
         if (m_foreignSource == null) {
-            if (other.m_foreignSource != null)
+            if (other.m_foreignSource != null) {
                 return false;
+            }
         } else if (!m_foreignSource.equals(other.m_foreignSource)) {
             return false;
         }
         if (m_type == null) {
-            if (other.m_type != null)
+            if (other.m_type != null) {
                 return false;
+            }
         } else if (!m_type.equals(other.m_type)) {
             return false;
         }

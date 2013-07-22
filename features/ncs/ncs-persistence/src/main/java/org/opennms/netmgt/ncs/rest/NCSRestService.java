@@ -141,8 +141,9 @@ public class NCSRestService {
             }
 
             final NCSComponent component = m_componentService.getComponent(type, foreignSource, foreignId);
-            if (component == null)
+            if (component == null) {
                 throw new WebApplicationException(Status.BAD_REQUEST);
+            }
             return component;
         } finally {
             readUnlock();
@@ -395,8 +396,9 @@ public class NCSRestService {
          *            a {@link java.util.List} object.
          */
         public void setComponents(List<NCSComponent> components) {
-            if (components == this)
+            if (components == this) {
                 return;
+            }
             clear();
             addAll(components);
         }

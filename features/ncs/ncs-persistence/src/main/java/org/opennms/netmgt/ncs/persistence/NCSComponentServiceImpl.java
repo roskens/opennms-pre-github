@@ -273,9 +273,10 @@ public class NCSComponentServiceImpl implements NCSComponentService {
                     subcomponents.add(updatedComponent);
                 }
 
-                if (deleteOrphans)
+                if (deleteOrphans) {
                     deleteOrphanedComponents(getIdentifiers(dbObj.getSubcomponents()), getIdentifiers(subcomponents),
                                              ceq);
+                }
 
                 dbObj.setName(component.getName());
                 dbObj.setVersion(component.getVersion());

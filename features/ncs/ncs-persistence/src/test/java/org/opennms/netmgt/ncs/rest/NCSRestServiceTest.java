@@ -536,8 +536,9 @@ public class NCSRestServiceTest extends AbstractSpringJerseyRestTestCase {
                 final Parm parm = parmIterator.next();
                 sb.append("'").append(parm.getParmName()).append("'='");
                 sb.append(parm.getValue().getContent()).append("'");
-                if (parmIterator.hasNext())
+                if (parmIterator.hasNext()) {
                     sb.append(",");
+                }
             }
         }
         sb.append("]");
