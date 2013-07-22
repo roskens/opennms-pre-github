@@ -115,23 +115,30 @@ public class DependenciesNeeded {
      */
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (getClass() != obj.getClass())
+        }
+        if (getClass() != obj.getClass()) {
             return false;
+        }
         DependenciesNeeded other = (DependenciesNeeded) obj;
         if (m_component == null) {
-            if (other.m_component != null)
+            if (other.m_component != null) {
                 return false;
-        } else if (!m_component.equals(other.m_component))
+            }
+        } else if (!m_component.equals(other.m_component)) {
             return false;
+        }
         if (m_requestor == null) {
-            if (other.m_requestor != null)
+            if (other.m_requestor != null) {
                 return false;
-        } else if (!m_requestor.equals(other.m_requestor))
+            }
+        } else if (!m_requestor.equals(other.m_requestor)) {
             return false;
+        }
         return true;
     }
 

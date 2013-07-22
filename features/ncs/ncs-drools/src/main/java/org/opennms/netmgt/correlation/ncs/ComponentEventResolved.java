@@ -115,23 +115,30 @@ public class ComponentEventResolved {
      */
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (getClass() != obj.getClass())
+        }
+        if (getClass() != obj.getClass()) {
             return false;
+        }
         ComponentEventResolved other = (ComponentEventResolved) obj;
         if (m_cause == null) {
-            if (other.m_cause != null)
+            if (other.m_cause != null) {
                 return false;
-        } else if (!m_cause.equals(other.m_cause))
+            }
+        } else if (!m_cause.equals(other.m_cause)) {
             return false;
+        }
         if (m_resolution == null) {
-            if (other.m_resolution != null)
+            if (other.m_resolution != null) {
                 return false;
-        } else if (!m_resolution.equals(other.m_resolution))
+            }
+        } else if (!m_resolution.equals(other.m_resolution)) {
             return false;
+        }
         return true;
     }
 

@@ -119,19 +119,24 @@ public class ComponentEvent {
      */
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (getClass() != obj.getClass())
+        }
+        if (getClass() != obj.getClass()) {
             return false;
+        }
 
         ComponentEvent other = (ComponentEvent) obj;
         if (m_component == null) {
-            if (other.m_component != null)
+            if (other.m_component != null) {
                 return false;
-        } else if (!m_component.equals(other.m_component))
+            }
+        } else if (!m_component.equals(other.m_component)) {
             return false;
+        }
 
         // if (m_event == null) {
         // if (other.m_event != null)

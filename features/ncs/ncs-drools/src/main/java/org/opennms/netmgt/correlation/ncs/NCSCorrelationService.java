@@ -74,16 +74,19 @@ public interface NCSCorrelationService {
          * @return true, if successful
          */
         public boolean matches(NCSComponent component, Event e) {
-            if (!component.getAttributes().containsKey(m_attributeName))
+            if (!component.getAttributes().containsKey(m_attributeName)) {
                 return false;
+            }
             List<Parm> parms = e.getParmCollection();
-            if (m_paramterIndex > parms.size())
+            if (m_paramterIndex > parms.size()) {
                 return false;
+            }
 
             Parm parm = parms.get(m_paramterIndex - 1);
             Value val = parm.getValue();
-            if (val == null)
+            if (val == null) {
                 return false;
+            }
 
             String attrVal = component.getAttributes().get(m_attributeName);
             String eventVal = val.getContent();

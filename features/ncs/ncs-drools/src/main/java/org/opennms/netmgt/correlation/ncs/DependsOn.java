@@ -123,8 +123,9 @@ public class DependsOn {
      */
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
+        }
 
         if (obj instanceof DependsOn) {
             DependsOn d = (DependsOn) obj;

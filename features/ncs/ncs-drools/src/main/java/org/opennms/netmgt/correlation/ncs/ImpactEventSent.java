@@ -107,23 +107,30 @@ public class ImpactEventSent {
      */
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (getClass() != obj.getClass())
+        }
+        if (getClass() != obj.getClass()) {
             return false;
+        }
         ImpactEventSent other = (ImpactEventSent) obj;
         if (m_cause == null) {
-            if (other.m_cause != null)
+            if (other.m_cause != null) {
                 return false;
-        } else if (!m_cause.equals(other.m_cause))
+            }
+        } else if (!m_cause.equals(other.m_cause)) {
             return false;
+        }
         if (m_component == null) {
-            if (other.m_component != null)
+            if (other.m_component != null) {
                 return false;
-        } else if (!m_component.equals(other.m_component))
+            }
+        } else if (!m_component.equals(other.m_component)) {
             return false;
+        }
         return true;
     }
 
