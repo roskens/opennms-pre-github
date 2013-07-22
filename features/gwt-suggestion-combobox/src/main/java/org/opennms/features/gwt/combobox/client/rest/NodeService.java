@@ -42,7 +42,7 @@ public interface NodeService {
      *            the callback
      * @return the all nodes
      */
-    public void getAllNodes(RequestCallback callback);
+    void getAllNodes(RequestCallback callback);
 
     /**
      * Gets the node by node label.
@@ -53,6 +53,6 @@ public interface NodeService {
      *            the callback
      * @return the node by node label
      */
-    public void getNodeByNodeLabel(String nodeLabel, RequestCallback callback);
+    void getNodeByNodeLabel(String nodeLabel, RequestCallback callback);
 
 }

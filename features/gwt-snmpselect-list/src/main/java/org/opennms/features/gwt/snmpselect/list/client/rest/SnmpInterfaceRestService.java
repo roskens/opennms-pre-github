@@ -39,14 +39,14 @@ public interface SnmpInterfaceRestService {
      * @param handler
      *            the new snmp interface request handler
      */
-    public void setSnmpInterfaceRequestHandler(SnmpInterfaceRequestHandler handler);
+    void setSnmpInterfaceRequestHandler(SnmpInterfaceRequestHandler handler);
 
     /**
      * Gets the interface list.
      *
      * @return the interface list
      */
-    public void getInterfaceList();
+    void getInterfaceList();
 
     /**
      * Update collection.
@@ -56,5 +56,5 @@ public interface SnmpInterfaceRestService {
      * @param collectFlag
      *            the collect flag
      */
-    public void updateCollection(int interfaceId, String collectFlag);
+    void updateCollection(int interfaceId, String collectFlag);
 }

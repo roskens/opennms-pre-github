@@ -41,5 +41,5 @@ public abstract interface Presenter {
      * @param widget
      *            the widget
      */
-    public abstract void go(final HasWidgets widget);
+    void go(final HasWidgets widget);
 }

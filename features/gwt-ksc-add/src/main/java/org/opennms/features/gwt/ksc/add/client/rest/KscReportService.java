@@ -42,7 +42,7 @@ public interface KscReportService {
      *            the callback
      * @return the all reports
      */
-    public void getAllReports(RequestCallback callback);
+    void getAllReports(RequestCallback callback);
 
     /**
      * Adds the graph to report.
@@ -60,6 +60,6 @@ public interface KscReportService {
      * @param timeSpan
      *            the time span
      */
-    public void addGraphToReport(RequestCallback callback, int kscReportId, String graphTitle, String graphName,
+    void addGraphToReport(RequestCallback callback, int kscReportId, String graphTitle, String graphName,
             String resourceId, String timeSpan);
 }
