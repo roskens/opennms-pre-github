@@ -316,8 +316,9 @@ public class JniRrdStrategy implements RrdStrategy<JniRrdStrategy.CreateCommand,
         String[] dsNames = fetchStrings[1].split("\\s");
         int dsIndex = 0;
         for (int i = 0; i < dsNames.length; i++) {
-            if (dsNames[i].equals(ds))
+            if (dsNames[i].equals(ds)) {
                 dsIndex = i;
+            }
         }
         String dsName = dsNames[dsIndex].trim();
 
@@ -409,8 +410,9 @@ public class JniRrdStrategy implements RrdStrategy<JniRrdStrategy.CreateCommand,
         String[] dsNames = fetchStrings[1].split("\\s");
         int dsIndex = 0;
         for (int i = 0; i < dsNames.length; i++) {
-            if (dsNames[i].equals(ds))
+            if (dsNames[i].equals(ds)) {
                 dsIndex = i;
+            }
         }
         String dsName = dsNames[dsIndex].trim();
 
