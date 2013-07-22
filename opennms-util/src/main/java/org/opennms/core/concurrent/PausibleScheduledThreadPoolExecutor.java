@@ -91,8 +91,9 @@ public class PausibleScheduledThreadPoolExecutor extends ScheduledThreadPoolExec
         super.beforeExecute(t, r);
         pauseLock.lock();
         try {
-            while (isPaused.get())
+            while (isPaused.get()) {
                 unpaused.await();
+            }
         } catch (InterruptedException ie) {
             t.interrupt();
         } finally {

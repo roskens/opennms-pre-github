@@ -139,8 +139,9 @@ public abstract class StringUtils {
      * @return a {@link java.lang.String} object.
      */
     public static String truncate(String name, int length) {
-        if (name.length() <= length)
+        if (name.length() <= length) {
             return name;
+        }
         return name.substring(0, length);
     }
 
@@ -152,18 +153,22 @@ public abstract class StringUtils {
      * @return true, if is local windows path
      */
     public static boolean isLocalWindowsPath(final String path) {
-        if (File.separatorChar != '\\')
+        if (File.separatorChar != '\\') {
             return false;
-        if (path.length() < 3)
+        }
+        if (path.length() < 3) {
             return false;
+        }
 
         final char colon = path.charAt(1);
         final char slash = path.charAt(2);
 
-        if (colon != ':')
+        if (colon != ':') {
             return false;
-        if (slash != '\\' && slash != '/')
+        }
+        if (slash != '\\' && slash != '/') {
             return false;
+        }
 
         final String drive = path.substring(0, 3);
         if (s_headless) {

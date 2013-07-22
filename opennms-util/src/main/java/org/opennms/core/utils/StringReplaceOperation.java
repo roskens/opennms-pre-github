@@ -53,8 +53,9 @@ public abstract class StringReplaceOperation {
      *            a {@link java.lang.String} object.
      */
     public StringReplaceOperation(String spec) {
-        if (spec == null)
+        if (spec == null) {
             spec = "";
+        }
         Matcher specMatcher = Pattern.compile("^s/([^/]+)/([^/]*)/$").matcher(spec);
         if (specMatcher.matches()) {
             // Intern these strings to save RAM

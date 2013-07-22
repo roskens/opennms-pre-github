@@ -239,15 +239,17 @@ public abstract class HttpUtils extends Object {
 
         // write the given data stream over the out-going HTTP connection
         int bytesRead = dataReader.read(b, 0, bufSize);
-        if (bytesRead > 0 && LOG.isDebugEnabled())
+        if (bytesRead > 0 && LOG.isDebugEnabled()) {
             LOG.debug(new String(b, 0, bytesRead));
+        }
 
         while (bytesRead > 0) {
             ostream.write(b, 0, bytesRead);
             bytesRead = dataReader.read(b, 0, bufSize);
 
-            if (bytesRead > 0 && LOG.isDebugEnabled())
+            if (bytesRead > 0 && LOG.isDebugEnabled()) {
                 LOG.debug(new String(b, 0, bytesRead));
+            }
         }
 
         // close the out-going HTTP connection

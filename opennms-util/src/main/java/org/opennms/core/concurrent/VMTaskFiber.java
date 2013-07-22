@@ -127,16 +127,18 @@ public class VMTaskFiber implements Fiber, Runnable {
                 //
                 boolean isOK = true;
                 for (int x = 0; isOK && x < args.length; x++) {
-                    if (args[x].getName().equals(MAIN_PARAMETER_TYPES[x]) == false)
+                    if (args[x].getName().equals(MAIN_PARAMETER_TYPES[x]) == false) {
                         isOK = false;
+                    }
                 }
 
                 // it has all the qualifications of being
                 //
                 // public static void main(String[] args)
                 //
-                if (isOK)
+                if (isOK) {
                     return methods[i];
+                }
             }
         }
         return null;
@@ -176,8 +178,9 @@ public class VMTaskFiber implements Fiber, Runnable {
 
         m_entryClass = m_classLoader.loadClass(entryClassName);
         m_entryMethod = findMain(m_entryClass);
-        if (m_entryMethod == null)
+        if (m_entryMethod == null) {
             throw new NoSuchMethodException("main() method not found for class " + entryClassName);
+        }
 
         m_fiberStatus = START_PENDING;
     }
@@ -231,8 +234,9 @@ public class VMTaskFiber implements Fiber, Runnable {
      */
     @Override
     public synchronized void stop() {
-        if (m_fiberStatus != STOPPED)
+        if (m_fiberStatus != STOPPED) {
             m_fiberStatus = STOP_PENDING;
+        }
         m_thrGroup.interrupt();
     }
 

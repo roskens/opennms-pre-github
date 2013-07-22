@@ -390,10 +390,12 @@ public abstract class InetAddressUtils {
 
             for (final InetAddress address : addresses) {
                 retval = address;
-                if (!preferInet6Address && retval instanceof Inet4Address)
+                if (!preferInet6Address && retval instanceof Inet4Address) {
                     break;
-                if (preferInet6Address && retval instanceof Inet6Address)
+                }
+                if (preferInet6Address && retval instanceof Inet6Address) {
                     break;
+                }
             }
             if (preferInet6Address && !(retval instanceof Inet6Address)) {
                 throw new UnknownHostException("No IPv6 address could be found for the hostname: " + hostname);
@@ -832,8 +834,9 @@ public abstract class InetAddressUtils {
      * @return the string
      */
     public static String toOid(final InetAddress addr) {
-        if (addr == null)
+        if (addr == null) {
             return null;
+        }
 
         if (addr instanceof Inet4Address) {
             return str(addr);

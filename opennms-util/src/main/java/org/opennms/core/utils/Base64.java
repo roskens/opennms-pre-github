@@ -133,8 +133,9 @@ public final class Base64 extends Object {
         //
         // check the length, it must be an integral number of 4 characters.
         //
-        if ((data.length % 4) != 0)
+        if ((data.length % 4) != 0) {
             throw new IllegalArgumentException("Invalid base64 encoding, improper length");
+        }
 
         //
         // get the raw length and check for
@@ -143,8 +144,9 @@ public final class Base64 extends Object {
         //
         int rawlen = (data.length / 4) * 3;
         for (int i = 1; i <= 2; i++) {
-            if (data[data.length - i] == BASE64_PAD)
+            if (data[data.length - i] == BASE64_PAD) {
                 --rawlen;
+            }
         }
 
         //
@@ -174,8 +176,9 @@ public final class Base64 extends Object {
             quantum <<= 6;
 
             char c = data[i];
-            if ((int) c >= BASE64_VALUES.length || BASE64_VALUES[(int) c] == -1)
+            if ((int) c >= BASE64_VALUES.length || BASE64_VALUES[(int) c] == -1) {
                 throw new IllegalArgumentException("Invalid character in decode stream");
+            }
 
             quantum |= BASE64_VALUES[(int) c];
         }

@@ -686,8 +686,9 @@ public final class ConfigFileConstants {
         }
         // Remove the trailing slash if necessary
         //
-        if (home.endsWith("/") || home.endsWith(File.separator))
+        if (home.endsWith("/") || home.endsWith(File.separator)) {
             home = home.substring(0, home.length() - 1);
+        }
 
         return home;
     }

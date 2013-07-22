@@ -55,8 +55,9 @@ public class MatchTable implements PropertiesUtils.SymbolTable {
     public String getSymbolValue(String symbol) {
         try {
             int groupNum = Integer.parseInt(symbol);
-            if (groupNum > m_matcher.groupCount())
+            if (groupNum > m_matcher.groupCount()) {
                 return null;
+            }
             return m_matcher.group(groupNum);
         } catch (NumberFormatException e) {
             return null;
