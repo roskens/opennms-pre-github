@@ -117,8 +117,9 @@ public final class IPAddrRange implements Iterable<InetAddress> {
          *            The ending address.
          */
         IPAddressRangeGenerator(byte[] start, byte[] end) {
-            if (new ByteArrayComparator().compare(start, end) > 0)
+            if (new ByteArrayComparator().compare(start, end) > 0) {
                 throw new IllegalArgumentException("start must be less than or equal to end");
+            }
 
             m_next = new BigInteger(1, start);
             m_end = new BigInteger(1, end);
@@ -146,8 +147,9 @@ public final class IPAddrRange implements Iterable<InetAddress> {
          */
         @Override
         public InetAddress nextElement() {
-            if (!hasMoreElements())
+            if (!hasMoreElements()) {
                 throw new NoSuchElementException("End of Range");
+            }
 
             InetAddress element = make(m_next);
             m_next = m_next.add(new BigInteger("1"));

@@ -235,8 +235,9 @@ public class OnmsVlan {
          * @return the vlan status
          */
         public static VlanStatus get(Integer code) {
-            if (code == null)
+            if (code == null) {
                 return VlanStatus.UNKNOWN;
+            }
             switch (code) {
             case VLAN_STATUS_UNKNOWN:
                 return UNKNOWN;
@@ -278,8 +279,9 @@ public class OnmsVlan {
         /**
          */
         public static String getVlanStatusString(Integer code) {
-            if (vlanStatusMap.containsKey(code))
+            if (vlanStatusMap.containsKey(code)) {
                 return vlanStatusMap.get(code);
+            }
             return null;
         }
 
@@ -565,8 +567,9 @@ public class OnmsVlan {
          * @return the vlan type
          */
         public static VlanType get(Integer code) {
-            if (code == null)
+            if (code == null) {
                 return VlanType.UNKNOWN;
+            }
             switch (code) {
             case VLAN_TYPE_UNKNOWN:
                 return UNKNOWN;
@@ -642,8 +645,9 @@ public class OnmsVlan {
         /**
          */
         public static String getVlanTypeString(Integer code) {
-            if (vlanTypeMap.containsKey(code))
+            if (vlanTypeMap.containsKey(code)) {
                 return vlanTypeMap.get(code);
+            }
             return null;
         }
 

@@ -82,8 +82,9 @@ public class OnmsGroupList extends LinkedList<OnmsGroup> {
      *            the new groups
      */
     public void setGroups(final List<OnmsGroup> groups) {
-        if (groups == this)
+        if (groups == this) {
             return;
+        }
         clear();
         addAll(groups);
     }

@@ -276,8 +276,9 @@ public class OnmsMapElement implements Serializable {
      */
     public void setType(String type) {
         if (type.equals(MAP_TYPE) || type.equals(NODE_TYPE) || type.equals(NODE_HIDE_TYPE)
-                || type.equals(MAP_HIDE_TYPE))
+                || type.equals(MAP_HIDE_TYPE)) {
             this.type = type;
+        }
     }
 
     /**

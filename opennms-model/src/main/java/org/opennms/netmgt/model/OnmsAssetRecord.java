@@ -1342,14 +1342,15 @@ public class OnmsAssetRecord implements Serializable {
         if (connection == null) {
             m_connection = connection;
         } else {
-            if (connection.equalsIgnoreCase(TELNET_CONNECTION))
+            if (connection.equalsIgnoreCase(TELNET_CONNECTION)) {
                 m_connection = TELNET_CONNECTION;
-            else if (connection.equalsIgnoreCase(SSH_CONNECTION))
+            } else if (connection.equalsIgnoreCase(SSH_CONNECTION)) {
                 m_connection = SSH_CONNECTION;
-            else if (connection.equalsIgnoreCase(RSH_CONNECTION))
+            } else if (connection.equalsIgnoreCase(RSH_CONNECTION)) {
                 m_connection = RSH_CONNECTION;
-            else
+            } else {
                 m_connection = connection;
+            }
         }
     }
 
@@ -1790,8 +1791,9 @@ public class OnmsAssetRecord implements Serializable {
      */
     @Deprecated
     public void setAddress1(final String address1) {
-        if (m_geolocation != null)
+        if (m_geolocation != null) {
             m_geolocation.setAddress1(address1);
+        }
     }
 
     /**
@@ -1815,8 +1817,9 @@ public class OnmsAssetRecord implements Serializable {
      */
     @Deprecated
     public void setAddress2(final String address2) {
-        if (m_geolocation != null)
+        if (m_geolocation != null) {
             m_geolocation.setAddress2(address2);
+        }
     }
 
     /**
@@ -1840,8 +1843,9 @@ public class OnmsAssetRecord implements Serializable {
      */
     @Deprecated
     public void setCity(final String city) {
-        if (m_geolocation != null)
+        if (m_geolocation != null) {
             m_geolocation.setCity(city);
+        }
     }
 
     /**
@@ -1865,8 +1869,9 @@ public class OnmsAssetRecord implements Serializable {
      */
     @Deprecated
     public void setState(final String state) {
-        if (m_geolocation != null)
+        if (m_geolocation != null) {
             m_geolocation.setState(state);
+        }
     }
 
     /**
@@ -1890,8 +1895,9 @@ public class OnmsAssetRecord implements Serializable {
      */
     @Deprecated
     public void setZip(final String zip) {
-        if (m_geolocation != null)
+        if (m_geolocation != null) {
             m_geolocation.setZip(zip);
+        }
     }
 
     /**
@@ -1915,8 +1921,9 @@ public class OnmsAssetRecord implements Serializable {
      */
     @Deprecated
     public void setCountry(final String country) {
-        if (m_geolocation != null)
+        if (m_geolocation != null) {
             m_geolocation.setCountry(country);
+        }
     }
 
     /**
@@ -1940,8 +1947,9 @@ public class OnmsAssetRecord implements Serializable {
      */
     @Deprecated
     public void setLongitude(final Float longitude) {
-        if (m_geolocation != null)
+        if (m_geolocation != null) {
             m_geolocation.setLongitude(longitude);
+        }
     }
 
     /**
@@ -1965,8 +1973,9 @@ public class OnmsAssetRecord implements Serializable {
      */
     @Deprecated
     public void setLatitude(final Float latitude) {
-        if (m_geolocation != null)
+        if (m_geolocation != null) {
             m_geolocation.setLatitude(latitude);
+        }
     }
 
     /**

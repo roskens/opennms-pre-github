@@ -489,8 +489,9 @@ public class NetworkBuilder {
      */
     public SnmpInterfaceBuilder addSnmpInterface(final int ifIndex) {
         final OnmsSnmpInterface snmp = new OnmsSnmpInterface(m_currentNode, ifIndex);
-        if (m_currentIf != null)
+        if (m_currentIf != null) {
             snmp.getIpInterfaces().add(m_currentIf);
+        }
         final SnmpInterfaceBuilder snmpInterfaceBuilder = new SnmpInterfaceBuilder(snmp);
         m_currentSnmpIf = snmp;
         return snmpInterfaceBuilder;

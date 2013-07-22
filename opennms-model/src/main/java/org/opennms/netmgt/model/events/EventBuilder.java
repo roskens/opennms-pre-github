@@ -252,8 +252,9 @@ public class EventBuilder {
      * @return a {@link org.opennms.netmgt.model.events.EventBuilder} object.
      */
     public EventBuilder setInterface(final InetAddress ipAddress) {
-        if (ipAddress != null)
+        if (ipAddress != null) {
             m_event.setInterfaceAddress(ipAddress);
+        }
         return this;
     }
 

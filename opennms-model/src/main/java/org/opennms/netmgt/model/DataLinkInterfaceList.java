@@ -91,8 +91,9 @@ public class DataLinkInterfaceList extends LinkedList<DataLinkInterface> {
      *            the new links
      */
     public void setLinks(List<DataLinkInterface> links) {
-        if (links == this)
+        if (links == this) {
             return;
+        }
         clear();
         addAll(links);
     }

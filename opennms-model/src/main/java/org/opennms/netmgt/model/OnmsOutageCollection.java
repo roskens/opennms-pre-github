@@ -97,8 +97,9 @@ public class OnmsOutageCollection extends LinkedList<OnmsOutage> {
      *            a {@link java.util.List} object.
      */
     public void setEvents(List<OnmsOutage> events) {
-        if (events == this)
+        if (events == this) {
             return;
+        }
         clear();
         addAll(events);
     }

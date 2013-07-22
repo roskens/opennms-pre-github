@@ -198,8 +198,9 @@ public class SnmpInterfaceBuilder {
      * @return a {@link org.opennms.netmgt.model.SnmpInterfaceBuilder} object.
      */
     public SnmpInterfaceBuilder setNetMask(InetAddress netmask) {
-        if (netmask != null)
+        if (netmask != null) {
             m_snmpIf.setNetMask(netmask);
+        }
         return this;
     }
 

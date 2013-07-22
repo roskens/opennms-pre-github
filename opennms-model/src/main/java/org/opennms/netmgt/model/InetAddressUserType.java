@@ -99,10 +99,12 @@ public class InetAddressUserType implements UserType {
      */
     @Override
     public boolean equals(final Object x, final Object y) throws HibernateException {
-        if (x == y)
+        if (x == y) {
             return true;
-        if (x == null || y == null)
+        }
+        if (x == null || y == null) {
             return false;
+        }
         // It's probably more consistent if we use our own comparator here
         // return ((InetAddress)x).equals((InetAddress)y);
         return new InetAddressComparator().compare((InetAddress) x, (InetAddress) y) == 0;

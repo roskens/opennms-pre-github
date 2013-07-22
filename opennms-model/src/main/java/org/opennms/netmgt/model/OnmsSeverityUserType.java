@@ -84,10 +84,12 @@ public class OnmsSeverityUserType implements UserType {
      */
     @Override
     public boolean equals(final Object x, final Object y) throws HibernateException {
-        if (x == y)
+        if (x == y) {
             return true;
-        if (x == null || y == null)
+        }
+        if (x == null || y == null) {
             return false;
+        }
         return x.equals(y);
     }
 

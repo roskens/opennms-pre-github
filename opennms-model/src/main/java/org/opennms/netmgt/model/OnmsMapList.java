@@ -91,8 +91,9 @@ public class OnmsMapList extends LinkedList<OnmsMap> {
      *            a {@link java.util.List} object.
      */
     public void setMaps(List<OnmsMap> maps) {
-        if (maps == this)
+        if (maps == this) {
             return;
+        }
         clear();
         addAll(maps);
     }

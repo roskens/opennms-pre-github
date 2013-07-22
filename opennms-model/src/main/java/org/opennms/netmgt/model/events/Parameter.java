@@ -121,8 +121,9 @@ public final class Parameter {
      * @return a list of parameters
      */
     public static List<Parm> decode(final String eventparms) {
-        if (eventparms == null)
+        if (eventparms == null) {
             return null;
+        }
         final List<Parm> parms = new ArrayList<Parm>();
 
         String[] paramslistString = eventparms.split(Character.toString(Constants.MULTIPLE_VAL_DELIM));

@@ -97,8 +97,9 @@ public class OnmsAlarmCollection extends LinkedList<OnmsAlarm> {
      *            a {@link java.util.List} object.
      */
     public void setEvents(List<OnmsAlarm> events) {
-        if (events == this)
+        if (events == this) {
             return;
+        }
         clear();
         addAll(events);
     }

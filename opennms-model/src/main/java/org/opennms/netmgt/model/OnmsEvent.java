@@ -1317,8 +1317,9 @@ public class OnmsEvent extends OnmsEntity implements Serializable {
     @Transient
     @XmlElement(name = "nodeLabel", required = false)
     public String getNodeLabel() {
-        if (m_node == null)
+        if (m_node == null) {
             return null;
+        }
         return m_node.getLabel();
     }
 

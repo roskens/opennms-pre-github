@@ -411,10 +411,11 @@ public class OnmsMap implements Serializable {
      *            a {@link java.lang.String} object.
      */
     public void setAccessMode(String accessMode) {
-        if (accessMode.trim().equalsIgnoreCase(ACCESS_MODE_GROUP))
+        if (accessMode.trim().equalsIgnoreCase(ACCESS_MODE_GROUP)) {
             this.accessMode = ACCESS_MODE_GROUP;
-        else
+        } else {
             this.accessMode = ACCESS_MODE_ADMIN;
+        }
     }
 
     /**
@@ -584,12 +585,13 @@ public class OnmsMap implements Serializable {
      *            a {@link java.lang.String} object.
      */
     public void setType(String type) {
-        if (type.equalsIgnoreCase(OnmsMap.AUTOMATICALLY_GENERATED_MAP))
+        if (type.equalsIgnoreCase(OnmsMap.AUTOMATICALLY_GENERATED_MAP)) {
             this.type = OnmsMap.AUTOMATICALLY_GENERATED_MAP;
-        else if (type.equalsIgnoreCase(OnmsMap.AUTOMATIC_SAVED_MAP))
+        } else if (type.equalsIgnoreCase(OnmsMap.AUTOMATIC_SAVED_MAP)) {
             this.type = OnmsMap.AUTOMATIC_SAVED_MAP;
-        else
+        } else {
             this.type = OnmsMap.USER_GENERATED_MAP;
+        }
     }
 
     /**

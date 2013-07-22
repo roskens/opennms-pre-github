@@ -574,8 +574,9 @@ public class OnmsNotification implements Acknowledgeable, Serializable {
     @Transient
     @XmlElement(name = "nodeId", required = false)
     public Integer getNodeId() {
-        if (m_node == null)
+        if (m_node == null) {
             return null;
+        }
         return m_node.getId();
     }
 
@@ -587,8 +588,9 @@ public class OnmsNotification implements Acknowledgeable, Serializable {
     @Transient
     @XmlElement(name = "nodeLabel", required = false)
     public String getNodeLabel() {
-        if (m_node == null)
+        if (m_node == null) {
             return null;
+        }
         return m_node.getLabel();
     }
 

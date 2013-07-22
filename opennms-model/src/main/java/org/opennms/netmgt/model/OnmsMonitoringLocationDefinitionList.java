@@ -78,8 +78,9 @@ public class OnmsMonitoringLocationDefinitionList extends LinkedList<OnmsMonitor
      *            the new definitions
      */
     public void setDefinitions(List<OnmsMonitoringLocationDefinition> defs) {
-        if (defs == this)
+        if (defs == this) {
             return;
+        }
         clear();
         addAll(defs);
     }

@@ -111,23 +111,30 @@ public class LocationMonitorIpInterface {
      */
     @Override
     public boolean equals(final Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (!(obj instanceof LocationMonitorIpInterface))
+        }
+        if (!(obj instanceof LocationMonitorIpInterface)) {
             return false;
+        }
         LocationMonitorIpInterface other = (LocationMonitorIpInterface) obj;
         if (m_ipInterface.getId() == null) {
-            if (other.m_ipInterface.getId() != null)
+            if (other.m_ipInterface.getId() != null) {
                 return false;
-        } else if (!m_ipInterface.getId().equals(other.m_ipInterface.getId()))
+            }
+        } else if (!m_ipInterface.getId().equals(other.m_ipInterface.getId())) {
             return false;
+        }
         if (m_locationMonitor.getId() == null) {
-            if (other.m_locationMonitor.getId() != null)
+            if (other.m_locationMonitor.getId() != null) {
                 return false;
-        } else if (!m_locationMonitor.getId().equals(other.m_locationMonitor.getId()))
+            }
+        } else if (!m_locationMonitor.getId().equals(other.m_locationMonitor.getId())) {
             return false;
+        }
         return true;
     }
 }

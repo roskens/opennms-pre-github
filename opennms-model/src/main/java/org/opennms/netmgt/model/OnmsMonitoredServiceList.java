@@ -94,8 +94,9 @@ public class OnmsMonitoredServiceList extends LinkedList<OnmsMonitoredService> {
      *            a {@link java.util.List} object.
      */
     public void setServices(List<OnmsMonitoredService> services) {
-        if (services == this)
+        if (services == this) {
             return;
+        }
         clear();
         addAll(services);
     }

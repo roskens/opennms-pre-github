@@ -97,8 +97,9 @@ public class OnmsNodeList extends LinkedList<OnmsNode> {
      *            a {@link java.util.List} object.
      */
     public void setNodes(List<OnmsNode> nodes) {
-        if (nodes == this)
+        if (nodes == this) {
             return;
+        }
         clear();
         addAll(nodes);
     }

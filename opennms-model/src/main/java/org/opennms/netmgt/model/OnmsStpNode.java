@@ -203,8 +203,9 @@ public class OnmsStpNode {
          * @return the bridge base type
          */
         public static BridgeBaseType get(Integer code) {
-            if (code == null)
+            if (code == null) {
                 return BridgeBaseType.UNKNOWN;
+            }
             switch (code) {
             case BASE_TYPE_UNKNOWN:
                 return UNKNOWN;
@@ -232,8 +233,9 @@ public class OnmsStpNode {
         /**
          */
         public static String getBridgeBaseTypeString(Integer code) {
-            if (baseBridgeTypeMap.containsKey(code))
+            if (baseBridgeTypeMap.containsKey(code)) {
                 return baseBridgeTypeMap.get(code);
+            }
             return null;
         }
 
@@ -380,8 +382,9 @@ public class OnmsStpNode {
          * @return the stp protocol specification
          */
         public static StpProtocolSpecification get(Integer code) {
-            if (code == null)
+            if (code == null) {
                 return StpProtocolSpecification.UNKNOWN;
+            }
             switch (code) {
             case STP_PROTOCOL_SPECIFICATION_UNKNOWN:
                 return UNKNOWN;
@@ -407,8 +410,9 @@ public class OnmsStpNode {
         /**
          */
         public static String getStpProtocolSpecificationString(Integer code) {
-            if (stpProtocolSpecificationMap.containsKey(code))
+            if (stpProtocolSpecificationMap.containsKey(code)) {
                 return stpProtocolSpecificationMap.get(code);
+            }
             return null;
         }
 

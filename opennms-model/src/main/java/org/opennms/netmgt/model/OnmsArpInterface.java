@@ -212,8 +212,9 @@ public class OnmsArpInterface extends OnmsEntity implements Serializable {
         /**
          */
         public static String getStatusString(char code) {
-            if (statusMap.containsKey(code))
+            if (statusMap.containsKey(code)) {
                 return statusMap.get(code);
+            }
             return null;
         }
 
@@ -225,15 +226,17 @@ public class OnmsArpInterface extends OnmsEntity implements Serializable {
          * @return the status type
          */
         public static StatusType get(String code) {
-            if (code == null)
+            if (code == null) {
                 return UNKNOWN;
+            }
             code = code.trim();
-            if (code.length() < 1)
+            if (code.length() < 1) {
                 return UNKNOWN;
-            else if (code.length() > 1)
+            } else if (code.length() > 1) {
                 throw new IllegalArgumentException("Cannot convert string " + code + " to a StatusType");
-            else
+            } else {
                 return get(code.charAt(0));
+            }
         }
 
         /** The active. */

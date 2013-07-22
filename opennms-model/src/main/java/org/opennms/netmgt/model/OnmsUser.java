@@ -340,8 +340,9 @@ public class OnmsUser implements UserDetails {
      */
     public void addAuthority(final GrantedAuthority authority) {
         final Set<GrantedAuthority> authorities = new HashSet<GrantedAuthority>();
-        if (m_authorities != null)
+        if (m_authorities != null) {
             authorities.addAll(m_authorities);
+        }
         authorities.add(authority);
         m_authorities = authorities;
     }

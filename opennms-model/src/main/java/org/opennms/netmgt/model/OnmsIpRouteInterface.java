@@ -244,8 +244,9 @@ public class OnmsIpRouteInterface {
          * @return the route type
          */
         public static RouteType get(Integer code) {
-            if (code == null)
+            if (code == null) {
                 return null;
+            }
             switch (code) {
             case ROUTE_TYPE_OTHER:
                 return OTHER;
@@ -273,8 +274,9 @@ public class OnmsIpRouteInterface {
         /**
          */
         public static String getRouteTypeString(Integer code) {
-            if (routeTypeMap.containsKey(code))
+            if (routeTypeMap.containsKey(code)) {
                 return routeTypeMap.get(code);
+            }
             return null;
         }
 

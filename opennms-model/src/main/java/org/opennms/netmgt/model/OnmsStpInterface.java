@@ -219,8 +219,9 @@ public class OnmsStpInterface {
          * @return the stp port status
          */
         public static StpPortStatus get(Integer code) {
-            if (code == null)
+            if (code == null) {
                 return StpPortStatus.UNKNOWN;
+            }
             switch (code) {
             case STP_PORT_STATUS_UNKNOWN:
                 return UNKNOWN;
@@ -255,8 +256,9 @@ public class OnmsStpInterface {
         /**
          */
         public static String getStpPortStatusString(Integer code) {
-            if (stpPortStatusMap.containsKey(code))
+            if (stpPortStatusMap.containsKey(code)) {
                 return stpPortStatusMap.get(code);
+            }
             return null;
         }
 

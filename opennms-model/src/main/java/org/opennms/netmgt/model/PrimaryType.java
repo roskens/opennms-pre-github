@@ -116,8 +116,9 @@ public class PrimaryType implements Comparable<PrimaryType>, Serializable {
     public boolean equals(final Object o) {
         if (o instanceof PrimaryType) {
             return this.compareTo((PrimaryType) o) == 0;
-        } else
+        } else {
             return false;
+        }
     }
 
     /* (non-Javadoc)

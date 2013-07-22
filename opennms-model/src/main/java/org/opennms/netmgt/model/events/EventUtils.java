@@ -269,8 +269,9 @@ public abstract class EventUtils {
     public static long getLongParm(Event e, String parmName, long defaultValue) {
         String longVal = EventUtils.getParm(e, parmName);
 
-        if (longVal == null)
+        if (longVal == null) {
             return defaultValue;
+        }
 
         try {
             return Long.parseLong(longVal);
@@ -295,8 +296,9 @@ public abstract class EventUtils {
     public static int getIntParm(Event e, String parmName, int defaultValue) {
         String intVal = EventUtils.getParm(e, parmName);
 
-        if (intVal == null)
+        if (intVal == null) {
             return defaultValue;
+        }
 
         try {
             return Integer.parseInt(intVal);
@@ -319,8 +321,9 @@ public abstract class EventUtils {
      *         not set
      */
     public static String getParm(Event e, String parmName, String defaultValue) {
-        if (e.getParmCollection().size() < 1)
+        if (e.getParmCollection().size() < 1) {
             return defaultValue;
+        }
 
         for (Parm parm : e.getParmCollection()) {
             if (parmName.equals(parm.getParmName())) {

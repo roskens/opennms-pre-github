@@ -273,13 +273,15 @@ public class OnmsGeolocation implements Serializable {
         }
 
         if (this.getCity() != null) {
-            if (sb.length() > 0)
+            if (sb.length() > 0) {
                 sb.append(", ");
+            }
             sb.append(this.getCity());
         }
         if (this.getState() != null) {
-            if (sb.length() > 0)
+            if (sb.length() > 0) {
                 sb.append(", ");
+            }
             sb.append(this.getState());
         }
         if (this.getZip() != null) {
@@ -291,8 +293,9 @@ public class OnmsGeolocation implements Serializable {
             sb.append(this.getZip());
         }
         if (this.getCountry() != null) {
-            if (sb.length() > 0)
+            if (sb.length() > 0) {
                 sb.append(", ");
+            }
             sb.append(this.getCountry());
         }
 

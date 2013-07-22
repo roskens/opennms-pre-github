@@ -345,8 +345,9 @@ public class AlarmData implements Serializable {
      *            the new update field
      */
     public void setUpdateField(final List<UpdateField> fields) {
-        if (m_updateFieldList == fields)
+        if (m_updateFieldList == fields) {
             return;
+        }
         m_updateFieldList.clear();
         m_updateFieldList.addAll(fields);
     }
@@ -358,8 +359,9 @@ public class AlarmData implements Serializable {
      *            the new update field collection
      */
     public void setUpdateFieldCollection(final Collection<UpdateField> fields) {
-        if (m_updateFieldList == fields)
+        if (m_updateFieldList == fields) {
             return;
+        }
         m_updateFieldList.clear();
         m_updateFieldList.addAll(fields);
     }

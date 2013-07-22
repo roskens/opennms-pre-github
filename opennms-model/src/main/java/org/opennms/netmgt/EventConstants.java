@@ -1266,22 +1266,24 @@ public class EventConstants {
         String result = null;
 
         if (XML_ENCODING_TEXT.equals(encoding)) {
-            if (value instanceof String)
+            if (value instanceof String) {
                 result = (String) value;
-            else if (value instanceof Number)
+            } else if (value instanceof Number) {
                 result = value.toString();
-            else if (value instanceof SnmpValue)
+            } else if (value instanceof SnmpValue) {
                 result = ((SnmpValue) value).toString();
+            }
         } else if (XML_ENCODING_BASE64.equals(encoding)) {
-            if (value instanceof String)
+            if (value instanceof String) {
                 result = new String(Base64.encodeBase64(((String) value).getBytes()));
-            else if (value instanceof Number) {
+            } else if (value instanceof Number) {
 
                 byte[] ibuf = null;
-                if (value instanceof BigInteger)
+                if (value instanceof BigInteger) {
                     ibuf = ((BigInteger) value).toByteArray();
-                else
+                } else {
                     ibuf = BigInteger.valueOf(((Number) value).longValue()).toByteArray();
+                }
 
                 result = new String(Base64.encodeBase64(ibuf));
             } else if (value instanceof SnmpValue) {
@@ -1294,16 +1296,18 @@ public class EventConstants {
                 StringBuffer macAddress = new StringBuffer();
                 byte[] bytes = snmpValue.getBytes();
                 for (int i = 0; i < bytes.length; i++) {
-                    if (i > 0)
+                    if (i > 0) {
                         macAddress.append(":");
+                    }
                     macAddress.append(String.format("%02X", bytes[i]));
                 }
                 result = macAddress.toString();
             }
         }
 
-        if (result == null)
+        if (result == null) {
             throw new IllegalArgumentException("unable to encode " + value + " of type " + value.getClass());
+        }
 
         return result;
     }

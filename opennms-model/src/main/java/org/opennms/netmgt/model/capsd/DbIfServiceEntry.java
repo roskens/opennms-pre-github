@@ -203,8 +203,9 @@ public final class DbIfServiceEntry {
      *             the sQL exception
      */
     private void insert(Connection c, boolean noRollback) throws SQLException {
-        if (m_fromDb)
+        if (m_fromDb) {
             throw new IllegalStateException("The record already exists in the database");
+        }
 
         // first extract the next node identifier
         //
@@ -280,11 +281,13 @@ public final class DbIfServiceEntry {
             stmt.setString(ndx++, InetAddressUtils.str(m_ipAddr));
             stmt.setInt(ndx++, m_serviceId);
 
-            if ((m_changed & CHANGED_IFINDEX) == CHANGED_IFINDEX)
+            if ((m_changed & CHANGED_IFINDEX) == CHANGED_IFINDEX) {
                 stmt.setInt(ndx++, m_ifIndex);
+            }
 
-            if ((m_changed & CHANGED_STATUS) == CHANGED_STATUS)
+            if ((m_changed & CHANGED_STATUS) == CHANGED_STATUS) {
                 stmt.setString(ndx++, new String(new char[] { m_status }));
+            }
 
             if ((m_changed & CHANGED_LASTGOOD) == CHANGED_LASTGOOD) {
                 stmt.setTimestamp(ndx++, m_lastGood);
@@ -294,14 +297,17 @@ public final class DbIfServiceEntry {
                 stmt.setTimestamp(ndx++, m_lastFail);
             }
 
-            if ((m_changed & CHANGED_SOURCE) == CHANGED_SOURCE)
+            if ((m_changed & CHANGED_SOURCE) == CHANGED_SOURCE) {
                 stmt.setString(ndx++, new String(new char[] { m_source }));
+            }
 
-            if ((m_changed & CHANGED_NOTIFY) == CHANGED_NOTIFY)
+            if ((m_changed & CHANGED_NOTIFY) == CHANGED_NOTIFY) {
                 stmt.setString(ndx++, new String(new char[] { m_notify }));
+            }
 
-            if ((m_changed & CHANGED_QUALIFIER) == CHANGED_QUALIFIER)
+            if ((m_changed & CHANGED_QUALIFIER) == CHANGED_QUALIFIER) {
                 stmt.setString(ndx++, m_qualifier);
+            }
 
             // Run the insert
             int rc;
@@ -353,8 +359,9 @@ public final class DbIfServiceEntry {
      *             the sQL exception
      */
     private void update(Connection c) throws SQLException {
-        if (!m_fromDb)
+        if (!m_fromDb) {
             throw new IllegalStateException("The record does not exists in the database");
+        }
 
         StringBuffer sqlText = new StringBuffer("UPDATE ifServices SET ");
 
@@ -410,45 +417,51 @@ public final class DbIfServiceEntry {
 
             int ndx = 1;
             if ((m_changed & CHANGED_IFINDEX) == CHANGED_IFINDEX) {
-                if (m_ifIndex == -1)
+                if (m_ifIndex == -1) {
                     stmt.setNull(ndx++, Types.INTEGER);
-                else
+                } else {
                     stmt.setInt(ndx++, m_ifIndex);
+                }
             }
 
             if ((m_changed & CHANGED_STATUS) == CHANGED_STATUS) {
-                if (m_status != STATUS_UNKNOWN)
+                if (m_status != STATUS_UNKNOWN) {
                     stmt.setString(ndx++, new String(new char[] { m_status }));
-                else
+                } else {
                     stmt.setNull(ndx++, Types.CHAR);
+                }
             }
 
             if ((m_changed & CHANGED_LASTGOOD) == CHANGED_LASTGOOD) {
                 if (m_lastGood != null) {
                     stmt.setTimestamp(ndx++, m_lastGood);
-                } else
+                } else {
                     stmt.setNull(ndx++, Types.TIMESTAMP);
+                }
             }
 
             if ((m_changed & CHANGED_LASTFAIL) == CHANGED_LASTFAIL) {
                 if (m_lastFail != null) {
                     stmt.setTimestamp(ndx++, m_lastFail);
-                } else
+                } else {
                     stmt.setNull(ndx++, Types.TIMESTAMP);
+                }
             }
 
             if ((m_changed & CHANGED_SOURCE) == CHANGED_SOURCE) {
-                if (m_source == SOURCE_UNKNOWN)
+                if (m_source == SOURCE_UNKNOWN) {
                     stmt.setNull(ndx++, Types.CHAR);
-                else
+                } else {
                     stmt.setString(ndx++, new String(new char[] { m_source }));
+                }
             }
 
             if ((m_changed & CHANGED_NOTIFY) == CHANGED_NOTIFY) {
-                if (m_notify == NOTIFY_UNKNOWN)
+                if (m_notify == NOTIFY_UNKNOWN) {
                     stmt.setNull(ndx++, Types.CHAR);
-                else
+                } else {
                     stmt.setString(ndx++, new String(new char[] { m_notify }));
+                }
             }
 
             stmt.setLong(ndx++, m_nodeId);
@@ -480,8 +493,9 @@ public final class DbIfServiceEntry {
      *             the sQL exception
      */
     private boolean load(Connection c) throws SQLException {
-        if (!m_fromDb)
+        if (!m_fromDb) {
             throw new IllegalStateException("The record does not exists in the database");
+        }
 
         PreparedStatement stmt = null;
         ResultSet rset = null;
@@ -511,8 +525,9 @@ public final class DbIfServiceEntry {
             // get the ifIndex
             //
             m_ifIndex = rset.getInt(ndx++);
-            if (rset.wasNull())
+            if (rset.wasNull()) {
                 m_ifIndex = -1;
+            }
 
             // get the last good time
             //
@@ -525,32 +540,36 @@ public final class DbIfServiceEntry {
             // get the qualifier
             //
             m_qualifier = rset.getString(ndx++);
-            if (rset.wasNull())
+            if (rset.wasNull()) {
                 m_qualifier = null;
+            }
 
             // get the status
             //
             String str = rset.getString(ndx++);
-            if (str != null && !rset.wasNull())
+            if (str != null && !rset.wasNull()) {
                 m_status = str.charAt(0);
-            else
+            } else {
                 m_status = STATUS_UNKNOWN;
+            }
 
             // get the source
             //
             str = rset.getString(ndx++);
-            if (str != null && !rset.wasNull())
+            if (str != null && !rset.wasNull()) {
                 m_source = str.charAt(0);
-            else
+            } else {
                 m_source = SOURCE_UNKNOWN;
+            }
 
             // get the notify
             //
             str = rset.getString(ndx++);
-            if (str != null && !rset.wasNull())
+            if (str != null && !rset.wasNull()) {
                 m_notify = str.charAt(0);
-            else
+            } else {
                 m_notify = NOTIFY_UNKNOWN;
+            }
         } finally {
             d.cleanUp();
         }
@@ -783,10 +802,11 @@ public final class DbIfServiceEntry {
      * @return true, if successful
      */
     public boolean hasIfIndexChanged() {
-        if ((m_changed & CHANGED_IFINDEX) == CHANGED_IFINDEX)
+        if ((m_changed & CHANGED_IFINDEX) == CHANGED_IFINDEX) {
             return true;
-        else
+        } else {
             return false;
+        }
     }
 
     /**
@@ -830,10 +850,11 @@ public final class DbIfServiceEntry {
      * @return true, if successful
      */
     public boolean hasStatusChanged() {
-        if ((m_changed & CHANGED_STATUS) == CHANGED_STATUS)
+        if ((m_changed & CHANGED_STATUS) == CHANGED_STATUS) {
             return true;
-        else
+        } else {
             return false;
+        }
     }
 
     /**
@@ -877,10 +898,11 @@ public final class DbIfServiceEntry {
      * @return true, if successful
      */
     public boolean hasSourceChanged() {
-        if ((m_changed & CHANGED_SOURCE) == CHANGED_SOURCE)
+        if ((m_changed & CHANGED_SOURCE) == CHANGED_SOURCE) {
             return true;
-        else
+        } else {
             return false;
+        }
     }
 
     /**
@@ -924,10 +946,11 @@ public final class DbIfServiceEntry {
      * @return true, if successful
      */
     public boolean hasNotifyChanged() {
-        if ((m_changed & CHANGED_NOTIFY) == CHANGED_NOTIFY)
+        if ((m_changed & CHANGED_NOTIFY) == CHANGED_NOTIFY) {
             return true;
-        else
+        } else {
             return false;
+        }
     }
 
     /**
@@ -971,10 +994,11 @@ public final class DbIfServiceEntry {
      * @return true, if successful
      */
     public boolean hasQualifierChanged() {
-        if ((m_changed & CHANGED_QUALIFIER) == CHANGED_QUALIFIER)
+        if ((m_changed & CHANGED_QUALIFIER) == CHANGED_QUALIFIER) {
             return true;
-        else
+        } else {
             return false;
+        }
     }
 
     /**
@@ -987,19 +1011,22 @@ public final class DbIfServiceEntry {
     public boolean updateQualifier(String newQualifier) {
         boolean doUpdate = false;
         if (newQualifier != null && m_qualifier != null) {
-            if (!newQualifier.equals(m_qualifier))
+            if (!newQualifier.equals(m_qualifier)) {
                 doUpdate = true;
+            }
         } else if (newQualifier == null && m_qualifier == null) {
             // do nothing
-        } else
+        } else {
             // one is null the other isn't, do the update
             doUpdate = true;
+        }
 
         if (doUpdate) {
             setQualifier(newQualifier);
             return true;
-        } else
+        } else {
             return false;
+        }
     }
 
     /**
@@ -1017,12 +1044,14 @@ public final class DbIfServiceEntry {
             try {
                 db = DataSourceFactory.getInstance().getConnection();
                 store(db);
-                if (db.getAutoCommit() == false)
+                if (db.getAutoCommit() == false) {
                     db.commit();
+                }
             } finally {
                 try {
-                    if (db != null)
+                    if (db != null) {
                         db.close();
+                    }
                 } catch (SQLException e) {
                     LOG.warn("Exception closing JDBC connection", e);
                 }

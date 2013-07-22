@@ -97,8 +97,9 @@ public class OnmsAcknowledgmentCollection extends LinkedList<OnmsAcknowledgment>
      *            a {@link java.util.List} object.
      */
     public void setEvents(List<OnmsAcknowledgment> events) {
-        if (events == this)
+        if (events == this) {
             return;
+        }
         clear();
         addAll(events);
     }

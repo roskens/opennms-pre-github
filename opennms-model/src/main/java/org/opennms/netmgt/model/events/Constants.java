@@ -122,11 +122,13 @@ public class Constants extends EventConstants {
         boolean first = true;
 
         for (String s : strings) {
-            if (maxlen != 0 && buf.length() >= maxlen)
+            if (maxlen != 0 && buf.length() >= maxlen) {
                 break;
+            }
             s = escape(s, MULTIPLE_VAL_DELIM);
-            if (!first)
+            if (!first) {
                 buf.append(MULTIPLE_VAL_DELIM);
+            }
             buf.append(s);
             first = false;
         }
@@ -149,18 +151,21 @@ public class Constants extends EventConstants {
      * @return The composite string.
      */
     public static String format(final String[] strings, final int maxlen) {
-        if (strings == null || strings.length <= 0)
+        if (strings == null || strings.length <= 0) {
             return null;
+        }
 
         StringBuffer buf = new StringBuffer();
         boolean first = true;
 
         for (String s : strings) {
-            if (maxlen != 0 && buf.length() >= maxlen)
+            if (maxlen != 0 && buf.length() >= maxlen) {
                 break;
+            }
             s = escape(s, MULTIPLE_VAL_DELIM);
-            if (!first)
+            if (!first) {
                 buf.append(MULTIPLE_VAL_DELIM);
+            }
             buf.append(s);
             first = false;
         }
@@ -183,8 +188,9 @@ public class Constants extends EventConstants {
      * @return The string(truncated if necessary).
      */
     public static String format(final String origString, final int maxlen) {
-        if (origString == null)
+        if (origString == null) {
             return null;
+        }
 
         final String escapedString = Constants.escape(origString, '\u0000');
 

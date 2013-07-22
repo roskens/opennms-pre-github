@@ -96,11 +96,13 @@ public class StatusTypeUserType implements UserType {
      */
     @Override
     public boolean equals(final Object x, final Object y) throws HibernateException {
-        if (x == null || y == null)
+        if (x == null || y == null) {
             return false;
+        }
 
-        if (!(x instanceof StatusType) || !(y instanceof StatusType))
+        if (!(x instanceof StatusType) || !(y instanceof StatusType)) {
             return false;
+        }
 
         return ((StatusType) x).getCharCode() == ((StatusType) y).getCharCode();
     }

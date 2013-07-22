@@ -154,8 +154,9 @@ public class OnmsGroup implements Serializable {
      *            the user name
      */
     public void removeUser(final String userName) {
-        if (m_users == null)
+        if (m_users == null) {
             return;
+        }
         m_users.remove(userName);
     }
 

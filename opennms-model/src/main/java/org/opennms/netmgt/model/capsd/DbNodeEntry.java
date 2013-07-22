@@ -274,8 +274,9 @@ public final class DbNodeEntry {
      *             the sQL exception
      */
     private void insert(Connection c) throws SQLException {
-        if (m_fromDb)
+        if (m_fromDb) {
             throw new IllegalStateException("The record already exists in the database");
+        }
 
         // Get the next node identifier
         PreparedStatement stmt = null;
@@ -396,61 +397,77 @@ public final class DbNodeEntry {
 
             int ndx = 1;
             stmt.setInt(ndx++, m_nodeId);
-            if ((m_changed & CHANGED_DPNAME) == CHANGED_DPNAME)
+            if ((m_changed & CHANGED_DPNAME) == CHANGED_DPNAME) {
                 stmt.setString(ndx++, m_dpName);
+            }
 
-            if ((m_changed & CHANGED_PARENT_ID) == CHANGED_PARENT_ID)
-                if (m_parentId == -1)
+            if ((m_changed & CHANGED_PARENT_ID) == CHANGED_PARENT_ID) {
+                if (m_parentId == -1) {
                     stmt.setNull(ndx++, Types.INTEGER);
-                else
+                } else {
                     stmt.setInt(ndx++, m_parentId);
+                }
+            }
 
-            if ((m_changed & CHANGED_TYPE) == CHANGED_TYPE)
+            if ((m_changed & CHANGED_TYPE) == CHANGED_TYPE) {
                 stmt.setString(ndx++, new String(new char[] { m_type }));
+            }
 
             if ((m_changed & CHANGED_CREATE_TIME) == CHANGED_CREATE_TIME) {
                 stmt.setTimestamp(ndx++, m_createTime);
             }
 
-            if ((m_changed & CHANGED_SYSOID) == CHANGED_SYSOID)
+            if ((m_changed & CHANGED_SYSOID) == CHANGED_SYSOID) {
                 stmt.setString(ndx++, m_sysoid);
+            }
 
-            if ((m_changed & CHANGED_SYSNAME) == CHANGED_SYSNAME)
+            if ((m_changed & CHANGED_SYSNAME) == CHANGED_SYSNAME) {
                 stmt.setString(ndx++, m_sysname);
+            }
 
-            if ((m_changed & CHANGED_SYSDESCR) == CHANGED_SYSDESCR)
+            if ((m_changed & CHANGED_SYSDESCR) == CHANGED_SYSDESCR) {
                 stmt.setString(ndx++, m_sysdescr);
+            }
 
-            if ((m_changed & CHANGED_SYSLOC) == CHANGED_SYSLOC)
+            if ((m_changed & CHANGED_SYSLOC) == CHANGED_SYSLOC) {
                 stmt.setString(ndx++, m_syslocation);
+            }
 
-            if ((m_changed & CHANGED_SYSCONTACT) == CHANGED_SYSCONTACT)
+            if ((m_changed & CHANGED_SYSCONTACT) == CHANGED_SYSCONTACT) {
                 stmt.setString(ndx++, m_syscontact);
+            }
 
-            if ((m_changed & CHANGED_LABEL) == CHANGED_LABEL)
+            if ((m_changed & CHANGED_LABEL) == CHANGED_LABEL) {
                 stmt.setString(ndx++, m_label);
+            }
 
-            if ((m_changed & CHANGED_LABEL_SOURCE) == CHANGED_LABEL_SOURCE)
+            if ((m_changed & CHANGED_LABEL_SOURCE) == CHANGED_LABEL_SOURCE) {
                 stmt.setString(ndx++, new String(new char[] { m_labelSource }));
+            }
 
-            if ((m_changed & CHANGED_NETBIOS_NAME) == CHANGED_NETBIOS_NAME)
+            if ((m_changed & CHANGED_NETBIOS_NAME) == CHANGED_NETBIOS_NAME) {
                 stmt.setString(ndx++, m_nbName);
+            }
 
-            if ((m_changed & CHANGED_DOMAIN_NAME) == CHANGED_DOMAIN_NAME)
+            if ((m_changed & CHANGED_DOMAIN_NAME) == CHANGED_DOMAIN_NAME) {
                 stmt.setString(ndx++, m_nbDomainName);
+            }
 
-            if ((m_changed & CHANGED_OS) == CHANGED_OS)
+            if ((m_changed & CHANGED_OS) == CHANGED_OS) {
                 stmt.setString(ndx++, m_os);
+            }
 
             if ((m_changed & CHANGED_POLLTIME) == CHANGED_POLLTIME) {
                 stmt.setTimestamp(ndx++, m_lastPoll);
             }
 
-            if ((m_changed & CHANGED_FOREIGN_SOURCE) == CHANGED_FOREIGN_SOURCE)
+            if ((m_changed & CHANGED_FOREIGN_SOURCE) == CHANGED_FOREIGN_SOURCE) {
                 stmt.setString(ndx++, m_foreignSource);
+            }
 
-            if ((m_changed & CHANGED_FOREIGN_ID) == CHANGED_FOREIGN_ID)
+            if ((m_changed & CHANGED_FOREIGN_ID) == CHANGED_FOREIGN_ID) {
                 stmt.setString(ndx++, m_foreignId);
+            }
 
             LOG.debug("nodeid='{}' nodetype='{}' createTime='{}' lastPoll='{}' dpName='{}' sysname='{}' sysoid='{}' sysdescr='{}' syslocation='{}' syscontact='{}' label='{}' labelsource='{}' netbios='{}' domain='{}' os='{}'",
                       m_nodeId, new String(new char[] { m_type }), m_createTime, m_lastPoll, m_dpName, m_sysname,
@@ -485,8 +502,9 @@ public final class DbNodeEntry {
      *             the sQL exception
      */
     private void update(Connection c) throws SQLException {
-        if (!m_fromDb)
+        if (!m_fromDb) {
             throw new IllegalStateException("The record does not exists in the database");
+        }
 
         // first extract the next node identifier
         //
@@ -586,14 +604,17 @@ public final class DbNodeEntry {
             sqlText = null;
 
             int ndx = 1;
-            if ((m_changed & CHANGED_PARENT_ID) == CHANGED_PARENT_ID)
-                if (m_parentId == -1)
+            if ((m_changed & CHANGED_PARENT_ID) == CHANGED_PARENT_ID) {
+                if (m_parentId == -1) {
                     stmt.setNull(ndx++, Types.INTEGER);
-                else
+                } else {
                     stmt.setInt(ndx++, m_parentId);
+                }
+            }
 
-            if ((m_changed & CHANGED_TYPE) == CHANGED_TYPE)
+            if ((m_changed & CHANGED_TYPE) == CHANGED_TYPE) {
                 stmt.setString(ndx++, new String(new char[] { m_type }));
+            }
 
             if ((m_changed & CHANGED_CREATE_TIME) == CHANGED_CREATE_TIME) {
                 if (m_createTime == null) {
@@ -604,45 +625,51 @@ public final class DbNodeEntry {
             }
 
             if ((m_changed & CHANGED_SYSOID) == CHANGED_SYSOID) {
-                if (m_sysoid == null)
+                if (m_sysoid == null) {
                     stmt.setNull(ndx++, Types.VARCHAR);
-                else
+                } else {
                     stmt.setString(ndx++, m_sysoid);
+                }
             }
 
             if ((m_changed & CHANGED_SYSNAME) == CHANGED_SYSNAME) {
-                if (m_sysname == null)
+                if (m_sysname == null) {
                     stmt.setNull(ndx++, Types.VARCHAR);
-                else
+                } else {
                     stmt.setString(ndx++, m_sysname);
+                }
             }
 
             if ((m_changed & CHANGED_SYSDESCR) == CHANGED_SYSDESCR) {
-                if (m_sysdescr == null)
+                if (m_sysdescr == null) {
                     stmt.setNull(ndx++, Types.VARCHAR);
-                else
+                } else {
                     stmt.setString(ndx++, m_sysdescr);
+                }
             }
 
             if ((m_changed & CHANGED_SYSLOC) == CHANGED_SYSLOC) {
-                if (m_syslocation == null)
+                if (m_syslocation == null) {
                     stmt.setNull(ndx++, Types.VARCHAR);
-                else
+                } else {
                     stmt.setString(ndx++, m_syslocation);
+                }
             }
 
             if ((m_changed & CHANGED_SYSCONTACT) == CHANGED_SYSCONTACT) {
-                if (m_syscontact == null)
+                if (m_syscontact == null) {
                     stmt.setNull(ndx++, Types.VARCHAR);
-                else
+                } else {
                     stmt.setString(ndx++, m_syscontact);
+                }
             }
 
             if ((m_changed & CHANGED_LABEL) == CHANGED_LABEL) {
-                if (m_label == null)
+                if (m_label == null) {
                     stmt.setNull(ndx++, Types.VARCHAR);
-                else
+                } else {
                     stmt.setString(ndx++, m_label);
+                }
             }
 
             if ((m_changed & CHANGED_LABEL_SOURCE) == CHANGED_LABEL_SOURCE) {
@@ -650,45 +677,51 @@ public final class DbNodeEntry {
             }
 
             if ((m_changed & CHANGED_NETBIOS_NAME) == CHANGED_NETBIOS_NAME) {
-                if (m_nbName == null)
+                if (m_nbName == null) {
                     stmt.setNull(ndx++, Types.VARCHAR);
-                else
+                } else {
                     stmt.setString(ndx++, m_nbName);
+                }
             }
 
             if ((m_changed & CHANGED_DOMAIN_NAME) == CHANGED_DOMAIN_NAME) {
-                if (m_nbDomainName == null)
+                if (m_nbDomainName == null) {
                     stmt.setNull(ndx++, Types.VARCHAR);
-                else
+                } else {
                     stmt.setString(ndx++, m_nbDomainName);
+                }
             }
 
             if ((m_changed & CHANGED_OS) == CHANGED_OS) {
-                if (m_os == null)
+                if (m_os == null) {
                     stmt.setNull(ndx++, Types.VARCHAR);
-                else
+                } else {
                     stmt.setString(ndx++, m_os);
+                }
             }
 
             if ((m_changed & CHANGED_POLLTIME) == CHANGED_POLLTIME) {
                 if (m_lastPoll != null) {
                     stmt.setTimestamp(ndx++, m_lastPoll);
-                } else
+                } else {
                     stmt.setNull(ndx++, Types.TIMESTAMP);
+                }
             }
 
             if ((m_changed & CHANGED_FOREIGN_SOURCE) == CHANGED_FOREIGN_SOURCE) {
-                if (m_foreignSource == null)
+                if (m_foreignSource == null) {
                     stmt.setNull(ndx++, Types.VARCHAR);
-                else
+                } else {
                     stmt.setString(ndx++, m_foreignSource);
+                }
             }
 
             if ((m_changed & CHANGED_FOREIGN_ID) == CHANGED_FOREIGN_ID) {
-                if (m_foreignId == null)
+                if (m_foreignId == null) {
                     stmt.setNull(ndx++, Types.VARCHAR);
-                else
+                } else {
                     stmt.setString(ndx++, m_foreignId);
+                }
             }
 
             stmt.setInt(ndx++, m_nodeId);
@@ -720,8 +753,9 @@ public final class DbNodeEntry {
      *             the sQL exception
      */
     private boolean load(Connection c) throws SQLException {
-        if (!m_fromDb)
+        if (!m_fromDb) {
             throw new IllegalStateException("The record does not exists in the database");
+        }
 
         // create the Prepared statement and then
         // start setting the result values
@@ -752,78 +786,90 @@ public final class DbNodeEntry {
             // the parent id
             //
             m_parentId = rset.getInt(ndx++);
-            if (rset.wasNull())
+            if (rset.wasNull()) {
                 m_parentId = -1;
+            }
 
             // the node type
             //
             String str = rset.getString(ndx++);
-            if (str != null && !rset.wasNull())
+            if (str != null && !rset.wasNull()) {
                 m_type = str.charAt(0);
-            else
+            } else {
                 m_type = NODE_TYPE_UNKNOWN;
+            }
 
             // the sysoid
             //
             m_sysoid = rset.getString(ndx++);
-            if (rset.wasNull())
+            if (rset.wasNull()) {
                 m_sysoid = null;
+            }
 
             // the sysname
             //
             m_sysname = rset.getString(ndx++);
-            if (rset.wasNull())
+            if (rset.wasNull()) {
                 m_sysname = null;
+            }
 
             // the sys description
             //
             m_sysdescr = rset.getString(ndx++);
-            if (rset.wasNull())
+            if (rset.wasNull()) {
                 m_sysdescr = null;
+            }
 
             // the system location
             //
             m_syslocation = rset.getString(ndx++);
-            if (rset.wasNull())
+            if (rset.wasNull()) {
                 m_syslocation = null;
+            }
 
             // the system contact
             //
             m_syscontact = rset.getString(ndx++);
-            if (rset.wasNull())
+            if (rset.wasNull()) {
                 m_syscontact = null;
+            }
 
             // the node label
             //
             m_label = rset.getString(ndx++);
-            if (rset.wasNull())
+            if (rset.wasNull()) {
                 m_label = null;
+            }
 
             // the label type
             //
             str = rset.getString(ndx++);
-            if (rset.wasNull() || str == null)
+            if (rset.wasNull() || str == null) {
                 m_labelSource = LABEL_SOURCE_UNKNOWN;
-            else
+            } else {
                 m_labelSource = str.charAt(0);
+            }
 
             // the netbios name
             //
             m_nbName = rset.getString(ndx++);
-            if (rset.wasNull())
+            if (rset.wasNull()) {
                 m_nbName = null;
+            }
 
             // the domain name
             //
             m_nbDomainName = rset.getString(ndx++);
-            if (rset.wasNull())
+            if (rset.wasNull()) {
                 m_nbDomainName = null;
+            }
 
             // the operating system
             //
             m_os = rset.getString(ndx++);
-            if (rset.wasNull())
+            if (rset.wasNull()) {
                 m_os = null;
+            }
 
             // get the last poll time
             //
@@ -1029,10 +1075,11 @@ public final class DbNodeEntry {
      * @return true, if successful
      */
     public boolean hasParentIdChanged() {
-        if ((m_changed & CHANGED_PARENT_ID) == CHANGED_PARENT_ID)
+        if ((m_changed & CHANGED_PARENT_ID) == CHANGED_PARENT_ID) {
             return true;
-        else
+        } else {
             return false;
+        }
     }
 
     /**
@@ -1046,8 +1093,9 @@ public final class DbNodeEntry {
         if (newparentId != m_parentId) {
             setParentId(newparentId);
             return true;
-        } else
+        } else {
             return false;
+        }
     }
 
     /**
@@ -1076,10 +1124,11 @@ public final class DbNodeEntry {
      * @return true, if successful
      */
     public boolean hasNodeTypeChanged() {
-        if ((m_changed & CHANGED_TYPE) == CHANGED_TYPE)
+        if ((m_changed & CHANGED_TYPE) == CHANGED_TYPE) {
             return true;
-        else
+        } else {
             return false;
+        }
     }
 
     /**
@@ -1093,8 +1142,9 @@ public final class DbNodeEntry {
         if (newtype != m_type) {
             setNodeType(newtype);
             return true;
-        } else
+        } else {
             return false;
+        }
     }
 
     /**
@@ -1123,10 +1173,11 @@ public final class DbNodeEntry {
      * @return true, if successful
      */
     public boolean hasSystemOIDChanged() {
-        if ((m_changed & CHANGED_SYSOID) == CHANGED_SYSOID)
+        if ((m_changed & CHANGED_SYSOID) == CHANGED_SYSOID) {
             return true;
-        else
+        } else {
             return false;
+        }
     }
 
     /**
@@ -1137,9 +1188,9 @@ public final class DbNodeEntry {
      * @return true, if successful
      */
     public boolean updateSystemOID(String newsysoid) {
-        if (newsysoid == null || newsysoid.equals(m_sysoid))
+        if (newsysoid == null || newsysoid.equals(m_sysoid)) {
             return false;
-        else {
+        } else {
             setSystemOID(newsysoid);
             return true;
         }
@@ -1171,10 +1222,11 @@ public final class DbNodeEntry {
      * @return true, if successful
      */
     public boolean hasSystemNameChanged() {
-        if ((m_changed & CHANGED_SYSNAME) == CHANGED_SYSNAME)
+        if ((m_changed & CHANGED_SYSNAME) == CHANGED_SYSNAME) {
             return true;
-        else
+        } else {
             return false;
+        }
     }
 
     /**
@@ -1185,9 +1237,9 @@ public final class DbNodeEntry {
      * @return true, if successful
      */
     public boolean updateSystemName(String newsysname) {
-        if (newsysname == null || newsysname.equals(m_sysname))
+        if (newsysname == null || newsysname.equals(m_sysname)) {
             return false;
-        else {
+        } else {
             setSystemName(newsysname);
             return true;
         }
@@ -1219,10 +1271,11 @@ public final class DbNodeEntry {
      * @return true, if successful
      */
     public boolean hasSystemDescriptionChanged() {
-        if ((m_changed & CHANGED_SYSDESCR) == CHANGED_SYSDESCR)
+        if ((m_changed & CHANGED_SYSDESCR) == CHANGED_SYSDESCR) {
             return true;
-        else
+        } else {
             return false;
+        }
     }
 
     /**
@@ -1233,9 +1286,9 @@ public final class DbNodeEntry {
      * @return true, if successful
      */
     public boolean updateSystemDescription(String newsysdescr) {
-        if (newsysdescr == null || newsysdescr.equals(m_sysdescr))
+        if (newsysdescr == null || newsysdescr.equals(m_sysdescr)) {
             return false;
-        else {
+        } else {
             setSystemDescription(newsysdescr);
             return true;
         }
@@ -1267,10 +1320,11 @@ public final class DbNodeEntry {
      * @return true, if successful
      */
     public boolean hasSystemLocationChanged() {
-        if ((m_changed & CHANGED_SYSLOC) == CHANGED_SYSLOC)
+        if ((m_changed & CHANGED_SYSLOC) == CHANGED_SYSLOC) {
             return true;
-        else
+        } else {
             return false;
+        }
     }
 
     /**
@@ -1281,9 +1335,9 @@ public final class DbNodeEntry {
      * @return true, if successful
      */
     public boolean updateSystemLocation(String newsyslocation) {
-        if (newsyslocation == null || newsyslocation.equals(m_syslocation))
+        if (newsyslocation == null || newsyslocation.equals(m_syslocation)) {
             return false;
-        else {
+        } else {
             setSystemLocation(newsyslocation);
             return true;
         }
@@ -1315,10 +1369,11 @@ public final class DbNodeEntry {
      * @return true, if successful
      */
     public boolean hasSystemContactChanged() {
-        if ((m_changed & CHANGED_SYSCONTACT) == CHANGED_SYSCONTACT)
+        if ((m_changed & CHANGED_SYSCONTACT) == CHANGED_SYSCONTACT) {
             return true;
-        else
+        } else {
             return false;
+        }
     }
 
     /**
@@ -1329,9 +1384,9 @@ public final class DbNodeEntry {
      * @return true, if successful
      */
     public boolean updateSystemContact(String newsyscontact) {
-        if (newsyscontact == null || newsyscontact.equals(m_syscontact))
+        if (newsyscontact == null || newsyscontact.equals(m_syscontact)) {
             return false;
-        else {
+        } else {
             setSystemContact(newsyscontact);
             return true;
         }
@@ -1363,10 +1418,11 @@ public final class DbNodeEntry {
      * @return true, if successful
      */
     public boolean hasLabelChanged() {
-        if ((m_changed & CHANGED_LABEL) == CHANGED_LABEL)
+        if ((m_changed & CHANGED_LABEL) == CHANGED_LABEL) {
             return true;
-        else
+        } else {
             return false;
+        }
     }
 
     /**
@@ -1379,19 +1435,22 @@ public final class DbNodeEntry {
     public boolean updateLabel(String newlabel) {
         boolean doUpdate = false;
         if (newlabel != null && m_label != null) {
-            if (!newlabel.equals(m_label))
+            if (!newlabel.equals(m_label)) {
                 doUpdate = true;
+            }
         } else if (newlabel == null && m_label == null) {
             // do nothing
-        } else
+        } else {
             // one is null the other isn't, do the update
             doUpdate = true;
+        }
 
         if (doUpdate) {
             setLabel(newlabel);
             return true;
-        } else
+        } else {
             return false;
+        }
     }
 
     /**
@@ -1420,10 +1479,11 @@ public final class DbNodeEntry {
      * @return true, if successful
      */
     public boolean hasLabelSourceChanged() {
-        if ((m_changed & CHANGED_LABEL_SOURCE) == CHANGED_LABEL_SOURCE)
+        if ((m_changed & CHANGED_LABEL_SOURCE) == CHANGED_LABEL_SOURCE) {
             return true;
-        else
+        } else {
             return false;
+        }
     }
 
     /**
@@ -1437,8 +1497,9 @@ public final class DbNodeEntry {
         if (newlabelSource != m_labelSource) {
             setLabelSource(newlabelSource);
             return true;
-        } else
+        } else {
             return false;
+        }
     }
 
     /**
@@ -1471,10 +1532,11 @@ public final class DbNodeEntry {
      * @return true, if successful
      */
     public boolean hasNetBIOSNameChanged() {
-        if ((m_changed & CHANGED_NETBIOS_NAME) == CHANGED_NETBIOS_NAME)
+        if ((m_changed & CHANGED_NETBIOS_NAME) == CHANGED_NETBIOS_NAME) {
             return true;
-        else
+        } else {
             return false;
+        }
     }
 
     /**
@@ -1487,19 +1549,22 @@ public final class DbNodeEntry {
     public boolean updateNetBIOSName(String newnbName) {
         boolean doUpdate = false;
         if (newnbName != null && m_nbName != null) {
-            if (!newnbName.toUpperCase().equals(m_nbName))
+            if (!newnbName.toUpperCase().equals(m_nbName)) {
                 doUpdate = true;
+            }
         } else if (newnbName == null && m_nbName == null) {
             // do nothing
-        } else
+        } else {
             // one is null the other isn't, do the update
             doUpdate = true;
+        }
 
         if (doUpdate) {
             setNetBIOSName(newnbName);
             return true;
-        } else
+        } else {
             return false;
+        }
     }
 
     /**
@@ -1528,10 +1593,11 @@ public final class DbNodeEntry {
      * @return true, if successful
      */
     public boolean hasDomainNameChanged() {
-        if ((m_changed & CHANGED_DOMAIN_NAME) == CHANGED_DOMAIN_NAME)
+        if ((m_changed & CHANGED_DOMAIN_NAME) == CHANGED_DOMAIN_NAME) {
             return true;
-        else
+        } else {
             return false;
+        }
     }
 
     /**
@@ -1544,19 +1610,22 @@ public final class DbNodeEntry {
     public boolean updateDomainName(String domain) {
         boolean doUpdate = false;
         if (domain != null && m_nbDomainName != null) {
-            if (!domain.equals(m_nbDomainName))
+            if (!domain.equals(m_nbDomainName)) {
                 doUpdate = true;
+            }
         } else if (domain == null && m_nbDomainName == null) {
             // do nothing
-        } else
+        } else {
             // one is null the other isn't, do the update
             doUpdate = true;
+        }
 
         if (doUpdate) {
             setDomainName(domain);
             return true;
-        } else
+        } else {
             return false;
+        }
     }
 
     /**
@@ -1585,10 +1654,11 @@ public final class DbNodeEntry {
      * @return true, if successful
      */
     public boolean hasOSChanged() {
-        if ((m_changed & CHANGED_NETBIOS_NAME) == CHANGED_NETBIOS_NAME)
+        if ((m_changed & CHANGED_NETBIOS_NAME) == CHANGED_NETBIOS_NAME) {
             return true;
-        else
+        } else {
             return false;
+        }
     }
 
     /**
@@ -1601,19 +1671,22 @@ public final class DbNodeEntry {
     public boolean updateOS(String newos) {
         boolean doUpdate = false;
         if (newos != null && m_os != null) {
-            if (!newos.equals(m_os))
+            if (!newos.equals(m_os)) {
                 doUpdate = true;
+            }
         } else if (newos == null && m_os == null) {
             // do nothing
-        } else
+        } else {
             // one is null the other isn't, do the update
             doUpdate = true;
+        }
 
         if (doUpdate) {
             setOS(newos);
             return true;
-        } else
+        } else {
             return false;
+        }
     }
 
     /**
@@ -1704,10 +1777,11 @@ public final class DbNodeEntry {
      * @return true, if successful
      */
     public boolean hasForeignSource() {
-        if ((m_changed & CHANGED_FOREIGN_SOURCE) == CHANGED_FOREIGN_SOURCE)
+        if ((m_changed & CHANGED_FOREIGN_SOURCE) == CHANGED_FOREIGN_SOURCE) {
             return true;
-        else
+        } else {
             return false;
+        }
     }
 
     /**
@@ -1720,19 +1794,22 @@ public final class DbNodeEntry {
     public boolean updateForeignSource(String newForeignSource) {
         boolean doUpdate = false;
         if (newForeignSource != null && m_foreignSource != null) {
-            if (!newForeignSource.toUpperCase().equals(m_foreignSource))
+            if (!newForeignSource.toUpperCase().equals(m_foreignSource)) {
                 doUpdate = true;
+            }
         } else if (newForeignSource == null && m_foreignSource == null) {
             // do nothing
-        } else
+        } else {
             // one is null the other isn't, do the update
             doUpdate = true;
+        }
 
         if (doUpdate) {
             setForeignSource(newForeignSource);
             return true;
-        } else
+        } else {
             return false;
+        }
     }
 
     /**
@@ -1761,10 +1838,11 @@ public final class DbNodeEntry {
      * @return true, if successful
      */
     public boolean hasForeignId() {
-        if ((m_changed & CHANGED_FOREIGN_ID) == CHANGED_FOREIGN_ID)
+        if ((m_changed & CHANGED_FOREIGN_ID) == CHANGED_FOREIGN_ID) {
             return true;
-        else
+        } else {
             return false;
+        }
     }
 
     /**
@@ -1777,19 +1855,22 @@ public final class DbNodeEntry {
     public boolean updateForeignId(String newForeignId) {
         boolean doUpdate = false;
         if (newForeignId != null && m_foreignId != null) {
-            if (!newForeignId.toUpperCase().equals(m_foreignId))
+            if (!newForeignId.toUpperCase().equals(m_foreignId)) {
                 doUpdate = true;
+            }
         } else if (newForeignId == null && m_foreignId == null) {
             // do nothing
-        } else
+        } else {
             // one is null the other isn't, do the update
             doUpdate = true;
+        }
 
         if (doUpdate) {
             setForeignId(newForeignId);
             return true;
-        } else
+        } else {
             return false;
+        }
     }
 
     /**
@@ -1807,12 +1888,14 @@ public final class DbNodeEntry {
             try {
                 db = DataSourceFactory.getInstance().getConnection();
                 store(db);
-                if (db.getAutoCommit() == false)
+                if (db.getAutoCommit() == false) {
                     db.commit();
+                }
             } finally {
                 try {
-                    if (db != null)
+                    if (db != null) {
                         db.close();
+                    }
                 } catch (SQLException e) {
                     LOG.warn("Exception closing JDBC connection", e);
                 }
@@ -1835,10 +1918,11 @@ public final class DbNodeEntry {
     public void store(Connection db) throws SQLException {
         LOG.debug("DbNodeEntry: changed map = 0x{}", Integer.toHexString(m_changed));
         if (m_changed != 0 || m_fromDb == false) {
-            if (m_fromDb)
+            if (m_fromDb) {
                 update(db);
-            else
+            } else {
                 insert(db);
+            }
         }
     }
 
@@ -1858,8 +1942,9 @@ public final class DbNodeEntry {
             entries = getInterfaces(db);
         } finally {
             try {
-                if (db != null)
+                if (db != null) {
                     db.close();
+                }
             } catch (SQLException e) {
                 LOG.warn("Exception closing JDBC connection", e);
             }
@@ -1895,22 +1980,26 @@ public final class DbNodeEntry {
             while (rset.next()) {
                 String saddr = rset.getString(1);
                 int ifIndex = rset.getInt(2);
-                if (rset.wasNull())
+                if (rset.wasNull()) {
                     ifIndex = -1;
+                }
 
                 InetAddress addr = null;
                 addr = InetAddressUtils.addr(saddr);
-                if (addr == null)
+                if (addr == null) {
                     continue;
+                }
 
                 DbIpInterfaceEntry entry = null;
-                if (ifIndex == -1)
+                if (ifIndex == -1) {
                     entry = DbIpInterfaceEntry.get(db, m_nodeId, addr);
-                else
+                } else {
                     entry = DbIpInterfaceEntry.get(db, m_nodeId, addr, ifIndex);
+                }
 
-                if (entry != null)
+                if (entry != null) {
                     l.add(entry);
+                }
             }
         } finally {
             d.cleanUp();
@@ -1970,22 +2059,26 @@ public final class DbNodeEntry {
             while (rset.next()) {
                 String saddr = rset.getString(1);
                 int ifIndex = rset.getInt(2);
-                if (rset.wasNull())
+                if (rset.wasNull()) {
                     ifIndex = -1;
+                }
 
                 InetAddress addr = null;
                 addr = InetAddressUtils.addr(saddr);
-                if (addr == null)
+                if (addr == null) {
                     continue;
+                }
 
                 DbIpInterfaceEntry entry = null;
-                if (ifIndex == -1)
+                if (ifIndex == -1) {
                     entry = DbIpInterfaceEntry.get(db, m_nodeId, addr);
-                else
+                } else {
                     entry = DbIpInterfaceEntry.get(db, m_nodeId, addr, ifIndex);
+                }
 
-                if (entry != null)
+                if (entry != null) {
                     l.add(entry);
+                }
             }
         } finally {
             d.cleanUp();
@@ -2003,12 +2096,15 @@ public final class DbNodeEntry {
      * @return the primary snmp interface
      */
     public static DbIpInterfaceEntry getPrimarySnmpInterface(DbIpInterfaceEntry[] ipInterfaces) {
-        if (ipInterfaces == null)
+        if (ipInterfaces == null) {
             return null;
+        }
 
-        for (int i = 0; i < ipInterfaces.length; i++)
-            if (ipInterfaces[i].getPrimaryState() == DbIpInterfaceEntry.SNMP_PRIMARY)
+        for (int i = 0; i < ipInterfaces.length; i++) {
+            if (ipInterfaces[i].getPrimaryState() == DbIpInterfaceEntry.SNMP_PRIMARY) {
                 return ipInterfaces[i];
+            }
+        }
 
         return null;
     }
@@ -2029,8 +2125,9 @@ public final class DbNodeEntry {
             entries = getSnmpInterfaces(db);
         } finally {
             try {
-                if (db != null)
+                if (db != null) {
                     db.close();
+                }
             } catch (SQLException e) {
                 LOG.warn("Exception closing JDBC connection", e);
             }
@@ -2066,18 +2163,21 @@ public final class DbNodeEntry {
             while (rset.next()) {
                 String saddr = rset.getString(1);
                 int ifIndex = rset.getInt(2);
-                if (rset.wasNull())
+                if (rset.wasNull()) {
                     ifIndex = -1;
+                }
 
-                if (InetAddressUtils.addr(saddr) == null)
+                if (InetAddressUtils.addr(saddr) == null) {
                     continue;
+                }
 
                 DbSnmpInterfaceEntry entry = null;
                 if (ifIndex != -1) {
                     entry = DbSnmpInterfaceEntry.get(db, m_nodeId, ifIndex);
 
-                    if (entry != null)
+                    if (entry != null) {
                         l.add(entry);
+                    }
                 }
             }
         } finally {
@@ -2107,8 +2207,9 @@ public final class DbNodeEntry {
      * @return A new node record.
      */
     public static DbNodeEntry create(String poller) {
-        if (poller == null)
+        if (poller == null) {
             poller = DEFAULT_DP_NAME;
+        }
 
         return new DbNodeEntry(poller);
     }
@@ -2177,8 +2278,9 @@ public final class DbNodeEntry {
             return get(db, nid, dpName);
         } finally {
             try {
-                if (db != null)
+                if (db != null) {
                     db.close();
+                }
             } catch (SQLException e) {
                 LOG.warn("Exception closing JDBC connection", e);
             }
@@ -2219,8 +2321,9 @@ public final class DbNodeEntry {
      */
     public static DbNodeEntry get(Connection db, int nid, String dpName) throws SQLException {
         DbNodeEntry entry = new DbNodeEntry(nid, dpName);
-        if (!entry.load(db))
+        if (!entry.load(db)) {
             entry = null;
+        }
         return entry;
     }
 
