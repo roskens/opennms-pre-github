@@ -483,8 +483,9 @@ public class Snmp4JStrategy implements SnmpStrategy {
          *             the socket exception
          */
         RegistrationInfo(TrapNotificationListener listener, int trapPort) throws SocketException {
-            if (listener == null)
+            if (listener == null) {
                 throw new NullPointerException("You must specify a trap notification listener.");
+            }
             LOG.debug("trapPort = {}", trapPort);
 
             m_listener = listener;
@@ -503,8 +504,9 @@ public class Snmp4JStrategy implements SnmpStrategy {
          */
         public RegistrationInfo(final TrapNotificationListener listener, final InetAddress address,
                 final int snmpTrapPort) {
-            if (listener == null)
+            if (listener == null) {
                 throw new NullPointerException("You must specify a trap notification listener.");
+            }
 
             m_listener = listener;
             m_address = address;
@@ -826,8 +828,9 @@ public class Snmp4JStrategy implements SnmpStrategy {
             String authPassPhrase, String authProtocol, String privPassPhrase, String privProtocol, PDU pdu)
             throws UnknownHostException, Exception {
 
-        if (!(pdu instanceof ScopedPDU))
+        if (!(pdu instanceof ScopedPDU)) {
             throw new Exception();
+        }
 
         SnmpAgentConfig config = new SnmpAgentConfig();
         config.setAddress(InetAddress.getByName(address));

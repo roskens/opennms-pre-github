@@ -418,8 +418,9 @@ class Snmp4JValue extends AbstractSnmpValue {
      */
     @Override
     public int hashCode() {
-        if (m_value == null)
+        if (m_value == null) {
             return 5231;
+        }
         return m_value.hashCode();
     }
 
@@ -428,12 +429,15 @@ class Snmp4JValue extends AbstractSnmpValue {
      */
     @Override
     public boolean equals(final Object obj) {
-        if (obj == null)
+        if (obj == null) {
             return false;
-        if (obj == this)
+        }
+        if (obj == this) {
             return true;
-        if (obj.getClass() != getClass())
+        }
+        if (obj.getClass() != getClass()) {
             return false;
+        }
 
         final Snmp4JValue that = (Snmp4JValue) obj;
         return this.m_value == null ? that.m_value == null : this.m_value.equals(that.m_value);
