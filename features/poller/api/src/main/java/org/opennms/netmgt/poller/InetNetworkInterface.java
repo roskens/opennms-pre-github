@@ -136,8 +136,9 @@ public class InetNetworkInterface implements NetworkInterface<InetAddress>, Seri
     @Override
     public synchronized <V> V getAttribute(String property) {
         Object rc = null;
-        if (m_properties != null)
+        if (m_properties != null) {
             rc = m_properties.get(property);
+        }
 
         // Can't avoid this unchecked cast
         @SuppressWarnings("unchecked")
@@ -161,8 +162,9 @@ public class InetNetworkInterface implements NetworkInterface<InetAddress>, Seri
      */
     @Override
     public synchronized Object setAttribute(String property, Object value) {
-        if (m_properties == null)
+        if (m_properties == null) {
             m_properties = new HashMap<String, Object>();
+        }
 
         return m_properties.put(property, value);
     }
