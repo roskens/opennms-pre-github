@@ -298,8 +298,9 @@ public class PageableApplicationList extends PageableList implements Application
     /** {@inheritDoc} */
     @Override
     protected int getListSize() {
-        if (m_applications == null)
+        if (m_applications == null) {
             return 0;
+        }
         return m_applications.size();
     }
 

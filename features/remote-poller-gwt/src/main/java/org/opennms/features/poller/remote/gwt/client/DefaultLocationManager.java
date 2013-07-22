@@ -561,8 +561,9 @@ public class DefaultLocationManager implements LocationManager, RemotePollerPres
      *            the application info
      */
     private void doApplicationUpdate(final ApplicationInfo applicationInfo) {
-        if (applicationInfo == null)
+        if (applicationInfo == null) {
             return;
+        }
 
         // Update the application information in the model
         m_dataManager.updateApplication(applicationInfo);

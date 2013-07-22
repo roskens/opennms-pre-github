@@ -138,8 +138,9 @@ public class DefaultLocationDataService implements LocationDataService, Initiali
          */
         public Collection<GWTLocationMonitor> drain(String defName) {
             final Collection<GWTLocationMonitor> gwtMonitors = new ArrayList<GWTLocationMonitor>();
-            if (!m_monitors.containsKey(defName))
+            if (!m_monitors.containsKey(defName)) {
                 return gwtMonitors;
+            }
 
             List<OnmsLocationMonitor> monitors = m_monitors.get(defName);
 

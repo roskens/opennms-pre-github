@@ -179,8 +179,9 @@ public class LocationDataManager { // implements LocationStatusService {
      */
     public void setActiveApplications(final Set<String> activeApplications) {
         synchronized (m_activeApplications) {
-            if (m_activeApplications == activeApplications)
+            if (m_activeApplications == activeApplications) {
                 return;
+            }
             m_activeApplications.clear();
             m_activeApplications.addAll(activeApplications);
         }

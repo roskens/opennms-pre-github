@@ -137,8 +137,9 @@ public class StatusDetails implements Serializable, IsSerializable, Comparable<S
     /** {@inheritDoc} */
     @Override
     public boolean equals(final Object o) {
-        if (!(o instanceof StatusDetails))
+        if (!(o instanceof StatusDetails)) {
             return false;
+        }
         StatusDetails that = (StatusDetails) o;
         return EqualsUtil.areEqual(this.getStatus(), that.getStatus());
     }

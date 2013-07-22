@@ -528,10 +528,12 @@ public class TagPanel extends Composite implements Collection<String> {
         }
 
         for (int entry : tagCounts.values()) {
-            if (entry < minCount)
+            if (entry < minCount) {
                 minCount = entry;
-            if (entry > maxCount)
+            }
+            if (entry > maxCount) {
                 maxCount = entry;
+            }
         }
 
         tagPanel.clear();

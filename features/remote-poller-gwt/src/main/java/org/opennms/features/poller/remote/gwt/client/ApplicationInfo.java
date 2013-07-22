@@ -289,10 +289,12 @@ public class ApplicationInfo implements Serializable, IsSerializable, Comparable
     /** {@inheritDoc} */
     @Override
     public boolean equals(Object aThat) {
-        if (this == aThat)
+        if (this == aThat) {
             return true;
-        if (!(aThat instanceof ApplicationInfo))
+        }
+        if (!(aThat instanceof ApplicationInfo)) {
             return false;
+        }
         ApplicationInfo that = (ApplicationInfo) aThat;
         return EqualsUtil.areEqual(this.getId(), that.getId()) && EqualsUtil.areEqual(this.getName(), that.getName());
     }

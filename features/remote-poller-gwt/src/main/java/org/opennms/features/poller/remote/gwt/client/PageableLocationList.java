@@ -173,8 +173,9 @@ public class PageableLocationList extends PageableList {
     /** {@inheritDoc} */
     @Override
     protected int getListSize() {
-        if (getLocations() == null)
+        if (getLocations() == null) {
             return 0;
+        }
         return getLocations().size();
     }
 

@@ -158,10 +158,12 @@ public class GWTLatLng implements IsSerializable, Serializable {
     /** {@inheritDoc} */
     @Override
     public boolean equals(final Object o) {
-        if (o == null)
+        if (o == null) {
             return false;
-        if (!(o instanceof GWTLatLng))
+        }
+        if (!(o instanceof GWTLatLng)) {
             return false;
+        }
         final GWTLatLng that = (GWTLatLng) o;
         return ((this.getLongitude().equals(that.getLongitude())) && (this.getLatitude().equals(that.getLatitude())));
     }

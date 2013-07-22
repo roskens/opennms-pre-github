@@ -52,8 +52,9 @@ public class DefaultLocationListener implements LocationListener {
     /** {@inheritDoc} */
     @Override
     public void apply(final Event event) {
-        if (event == null)
+        if (event == null) {
             return;
+        }
         if (event instanceof MapRemoteEvent) {
             ((MapRemoteEvent) event).dispatch(m_locationManager);
         } else {

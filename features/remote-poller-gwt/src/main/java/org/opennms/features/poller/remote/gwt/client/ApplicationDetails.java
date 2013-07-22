@@ -389,12 +389,14 @@ public class ApplicationDetails implements Serializable, IsSerializable {
             @Override
             public int compare(final GWTMonitoredService a, final GWTMonitoredService b) {
                 if (a == null) {
-                    if (b == null)
+                    if (b == null) {
                         return 0;
+                    }
                     return 1;
                 }
-                if (b == null)
+                if (b == null) {
                     return -1;
+                }
                 return new CompareToBuilder().append(a.getServiceName(), b.getServiceName()).append(a.getId(),
                                                                                                     b.getId()).toComparison();
             }
@@ -449,8 +451,9 @@ public class ApplicationDetails implements Serializable, IsSerializable {
                     locationString.add(monitor.getName());
                 }
                 sb.append("<br>\n").append("Location");
-                if (locationsNotReporting.size() > 1)
+                if (locationsNotReporting.size() > 1) {
                     sb.append("s");
+                }
                 sb.append(" with outages: ").append(StringUtils.join(locationString));
             }
             sb.append("</dd>\n");

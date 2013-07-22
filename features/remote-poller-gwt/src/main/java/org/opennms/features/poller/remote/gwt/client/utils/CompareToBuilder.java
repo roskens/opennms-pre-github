@@ -61,10 +61,12 @@ public class CompareToBuilder {
      */
     @SuppressWarnings("unchecked")
     public CompareToBuilder append(Object a, Object b) {
-        if (comparison != 0)
+        if (comparison != 0) {
             return this;
-        if (a == b)
+        }
+        if (a == b) {
             return this;
+        }
 
         if (a == null) {
             comparison = -1;
@@ -100,10 +102,12 @@ public class CompareToBuilder {
      *         object.
      */
     public CompareToBuilder append(Object[] a, Object[] b) {
-        if (comparison != 0)
+        if (comparison != 0) {
             return this;
-        if (a == b)
+        }
+        if (a == b) {
             return this;
+        }
         if (a == null) {
             comparison = -1;
         } else if (b == null) {

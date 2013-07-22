@@ -202,8 +202,9 @@ public class GWTServiceOutage implements Serializable, IsSerializable, Comparabl
     /** {@inheritDoc} */
     @Override
     public boolean equals(Object o) {
-        if (!(o instanceof GWTServiceOutage))
+        if (!(o instanceof GWTServiceOutage)) {
             return false;
+        }
         GWTServiceOutage that = (GWTServiceOutage) o;
         final GWTLocationMonitor thisMonitor = this.getMonitor();
         final GWTLocationMonitor thatMonitor = that.getMonitor();
@@ -258,8 +259,9 @@ public class GWTServiceOutage implements Serializable, IsSerializable, Comparabl
      */
     @Override
     public int compareTo(final GWTServiceOutage that) {
-        if (that == null)
+        if (that == null) {
             return -1;
+        }
         return new CompareToBuilder().append(this.getService(), that.getService()).append(this.getFrom(),
                                                                                           that.getFrom()).append(this.getMonitor(),
                                                                                                                  that.getMonitor()).append(this.getTo(),

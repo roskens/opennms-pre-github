@@ -206,13 +206,16 @@ public class GWTLocationMonitor implements Serializable, IsSerializable, Compara
     /** {@inheritDoc} */
     @Override
     public boolean equals(Object o) {
-        if (o == null)
+        if (o == null) {
             return false;
-        if (!(o instanceof GWTLocationMonitor))
+        }
+        if (!(o instanceof GWTLocationMonitor)) {
             return false;
+        }
         GWTLocationMonitor that = (GWTLocationMonitor) o;
-        if (this.getId().equals(that.getId()))
+        if (this.getId().equals(that.getId())) {
             return true;
+        }
         return false;
     }
 

@@ -388,10 +388,12 @@ public class LocationInfo implements IsSerializable, Serializable, Comparable<Lo
     /** {@inheritDoc} */
     @Override
     public boolean equals(Object aThat) {
-        if (this == aThat)
+        if (this == aThat) {
             return true;
-        if (!(aThat instanceof LocationInfo))
+        }
+        if (!(aThat instanceof LocationInfo)) {
             return false;
+        }
         LocationInfo that = (LocationInfo) aThat;
         return EqualsUtil.areEqual(this.getName(), that.getName());
     }

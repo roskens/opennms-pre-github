@@ -153,8 +153,9 @@ public class Interval implements Comparable<Interval> {
      */
     @Override
     public int compareTo(final Interval that) {
-        if (that == null)
+        if (that == null) {
             return -1;
+        }
         return new CompareToBuilder().append(this.getStartMillis(), that.getStartMillis()).append(this.getEndMillis(),
                                                                                                   that.getEndMillis()).toComparison();
     }

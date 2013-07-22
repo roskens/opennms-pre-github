@@ -88,8 +88,9 @@ public class StatusFilter implements LocationFilter {
      *            the new statuses
      */
     public void setStatuses(Set<Status> statuses) {
-        if (m_selectedStatuses == statuses)
+        if (m_selectedStatuses == statuses) {
             return;
+        }
         m_selectedStatuses.clear();
         m_selectedStatuses.addAll(statuses);
 
