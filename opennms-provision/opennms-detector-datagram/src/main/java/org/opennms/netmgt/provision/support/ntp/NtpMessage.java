@@ -456,8 +456,9 @@ public class NtpMessage {
      * @return a {@link java.lang.String} object.
      */
     public static String timestampToString(final double timestamp) {
-        if (timestamp == 0)
+        if (timestamp == 0) {
             return "0";
+        }
 
         // timestamp is relative to 1900, utc is used by Java and is relative
         // to 1970

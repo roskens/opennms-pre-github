@@ -206,8 +206,9 @@ public class DNSAddressRequest {
         // check the response flag
         //
         final boolean isResponse = ((flags >> SHIFT_QUERY) & 1) != 0;
-        if (!isResponse)
+        if (!isResponse) {
             throw new IOException("Response flag not set");
+        }
 
         //
         // check if error free
@@ -251,8 +252,9 @@ public class DNSAddressRequest {
             // if any section is longer than
             // 63 characters then it's illegal
 
-            if (labels.nextToken().length() > 63)
+            if (labels.nextToken().length() > 63) {
                 throw new IllegalArgumentException("Invalid hostname: " + host);
+            }
         }
 
         //
@@ -326,8 +328,9 @@ public class DNSAddressRequest {
          */
         final DNSInputStream dnsIn = new DNSInputStream(data, 0, length);
         final int id = dnsIn.readShort();
-        if (id != m_reqID)
+        if (id != m_reqID) {
             throw new IOException("ID does not match request");
+        }
 
         // read in the flags
 
@@ -354,8 +357,9 @@ public class DNSAddressRequest {
         }
 
         try {
-            while (numAnswers-- > 0)
+            while (numAnswers-- > 0) {
                 m_answers.add(dnsIn.readRR());
+            }
 
             // ignore the authorities and additional information
             /**
@@ -364,8 +368,9 @@ public class DNSAddressRequest {
              */
 
         } catch (final IOException ex) {
-            if (!m_truncated)
+            if (!m_truncated) {
                 throw ex;
+            }
         }
     }
 
@@ -393,8 +398,9 @@ public class DNSAddressRequest {
          */
         final DNSInputStream dnsIn = new DNSInputStream(data, 0, length);
         final int id = dnsIn.readShort();
-        if (id != m_reqID)
+        if (id != m_reqID) {
             throw new IOException("ID in received packet (" + id + ") does not match ID from request (" + m_reqID + ")");
+        }
 
         //
         // read in the flags
