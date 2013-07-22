@@ -47,7 +47,7 @@ public interface RrdGraphDetails {
      * @throws RrdException
      *             the rrd exception
      */
-    public InputStream getInputStream() throws RrdException;
+    InputStream getInputStream() throws RrdException;
 
     /**
      * Gets the PRINT lines associated with the graph command.
@@ -57,7 +57,7 @@ public interface RrdGraphDetails {
      * @throws RrdException
      *             the rrd exception
      */
-    public String[] getPrintLines() throws RrdException;
+    String[] getPrintLines() throws RrdException;
 
     /**
      * Gets the height of the PNG image.
@@ -68,7 +68,7 @@ public interface RrdGraphDetails {
      * @throws RrdException
      *             the rrd exception
      */
-    public int getHeight() throws RrdException;
+    int getHeight() throws RrdException;
 
     /**
      * Gets the width of the PNG image.
@@ -79,5 +79,5 @@ public interface RrdGraphDetails {
      * @throws RrdException
      *             the rrd exception
      */
-    public int getWidth() throws RrdException;
+    int getWidth() throws RrdException;
 }

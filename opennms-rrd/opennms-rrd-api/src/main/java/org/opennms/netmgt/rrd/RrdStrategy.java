@@ -58,14 +58,14 @@ public interface RrdStrategy<D extends Object, F extends Object> {
      * @param props
      *            a {@link java.util.Properties} object.
      */
-    public void setConfigurationProperties(Properties props);
+    void setConfigurationProperties(Properties props);
 
     /**
      * Get the file extension appropriate for files of this type.
      *
      * @return a {@link java.lang.String} object.
      */
-    public String getDefaultFileExtension();
+    String getDefaultFileExtension();
 
     /**
      * Create a round robin database definition from the supplied parameters.
@@ -91,7 +91,7 @@ public interface RrdStrategy<D extends Object, F extends Object> {
      * @throws Exception
      *             the exception
      */
-    public D createDefinition(String creator, String directory, String rrdName, int step,
+    D createDefinition(String creator, String directory, String rrdName, int step,
             List<RrdDataSource> dataSources, List<String> rraList) throws Exception;
 
     /**
@@ -109,7 +109,7 @@ public interface RrdStrategy<D extends Object, F extends Object> {
      * @throws Exception
      *             the exception
      */
-    public void createFile(D rrdDef, Map<String, String> attributeMappings) throws Exception;
+    void createFile(D rrdDef, Map<String, String> attributeMappings) throws Exception;
 
     /**
      * Opens the round robin database with the supplied name. It is assumed the
@@ -123,7 +123,7 @@ public interface RrdStrategy<D extends Object, F extends Object> {
      * @throws Exception
      *             the exception
      */
-    public F openFile(String fileName) throws Exception;
+    F openFile(String fileName) throws Exception;
 
     /**
      * Updates the supplied round robin database with the given timestamp:value
@@ -138,7 +138,7 @@ public interface RrdStrategy<D extends Object, F extends Object> {
      * @throws Exception
      *             the exception
      */
-    public void updateFile(F rrd, String owner, String data) throws Exception;
+    void updateFile(F rrd, String owner, String data) throws Exception;
 
     /**
      * This closes the supplied round robin database.
@@ -148,7 +148,7 @@ public interface RrdStrategy<D extends Object, F extends Object> {
      * @throws Exception
      *             the exception
      */
-    public void closeFile(F rrd) throws Exception;
+    void closeFile(F rrd) throws Exception;
 
     /**
      * Fetches the last value from the round robin database with the given name.
@@ -168,7 +168,7 @@ public interface RrdStrategy<D extends Object, F extends Object> {
      * @throws RrdException
      *             the rrd exception
      */
-    public Double fetchLastValue(String rrdFile, String ds, int interval) throws NumberFormatException, RrdException;
+    Double fetchLastValue(String rrdFile, String ds, int interval) throws NumberFormatException, RrdException;
 
     /**
      * Fetches the last value from the round robin database with the given name.
@@ -190,7 +190,7 @@ public interface RrdStrategy<D extends Object, F extends Object> {
      * @throws RrdException
      *             the rrd exception
      */
-    public Double fetchLastValue(String rrdFile, String ds, String consolidationFunction, int interval)
+    Double fetchLastValue(String rrdFile, String ds, String consolidationFunction, int interval)
             throws NumberFormatException, RrdException;
 
     /**
@@ -216,7 +216,7 @@ public interface RrdStrategy<D extends Object, F extends Object> {
      * @throws RrdException
      *             the rrd exception
      */
-    public Double fetchLastValueInRange(String rrdFile, String ds, int interval, int range)
+    Double fetchLastValueInRange(String rrdFile, String ds, int interval, int range)
             throws NumberFormatException, RrdException;
 
     /**
@@ -235,7 +235,7 @@ public interface RrdStrategy<D extends Object, F extends Object> {
      * @throws RrdException
      *             the rrd exception
      */
-    public InputStream createGraph(String command, File workDir) throws IOException, RrdException;
+    InputStream createGraph(String command, File workDir) throws IOException, RrdException;
 
     /**
      * Creates an RrdGraphDetails object representing the graph created from
@@ -253,7 +253,7 @@ public interface RrdStrategy<D extends Object, F extends Object> {
      * @throws RrdException
      *             the rrd exception
      */
-    public RrdGraphDetails createGraphReturnDetails(String command, File workDir) throws IOException, RrdException;
+    RrdGraphDetails createGraphReturnDetails(String command, File workDir) throws IOException, RrdException;
 
     /**
      * Returns the number of pixels that the leftt-hand side of the graph is
@@ -262,7 +262,7 @@ public interface RrdStrategy<D extends Object, F extends Object> {
      *
      * @return offset in pixels. Should always be positive.
      */
-    public int getGraphLeftOffset();
+    int getGraphLeftOffset();
 
     /**
      * Returns the number of pixels that the right-hand side of the graph is
@@ -271,7 +271,7 @@ public interface RrdStrategy<D extends Object, F extends Object> {
      *
      * @return offset in pixels. Should always be negative.
      */
-    public int getGraphRightOffset();
+    int getGraphRightOffset();
 
     /**
      * Returns the number of pixels that the top of the graph is offset from
@@ -280,7 +280,7 @@ public interface RrdStrategy<D extends Object, F extends Object> {
      *
      * @return offset in pixels. Should always be negative.
      */
-    public int getGraphTopOffsetWithText();
+    int getGraphTopOffsetWithText();
 
     /**
      * Provides the round robin database an opportunity to contribute statistics
@@ -289,7 +289,7 @@ public interface RrdStrategy<D extends Object, F extends Object> {
      * @return a non-null string representing any statistics to be included in
      *         the logs
      */
-    public String getStats();
+    String getStats();
 
     /**
      * In the event that this is a queuing implementation of the RrdStrategy.
@@ -300,5 +300,5 @@ public interface RrdStrategy<D extends Object, F extends Object> {
      * @param rrdFiles
      *            a {@link java.util.Collection} object.
      */
-    public void promoteEnqueuedFiles(Collection<String> rrdFiles);
+    void promoteEnqueuedFiles(Collection<String> rrdFiles);
 }

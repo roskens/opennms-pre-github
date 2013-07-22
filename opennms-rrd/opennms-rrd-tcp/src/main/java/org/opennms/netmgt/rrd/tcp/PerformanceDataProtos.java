@@ -98,7 +98,7 @@ public final class PerformanceDataProtos {
          *
          * @return the descriptor
          */
-        public static final com.google.protobuf.Descriptors.Descriptor getDescriptor() {
+        public static com.google.protobuf.Descriptors.Descriptor getDescriptor() {
             return org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.internal_static_PerformanceDataReading_descriptor;
         }
 
@@ -234,7 +234,7 @@ public final class PerformanceDataProtos {
          * @see com.google.protobuf.GeneratedMessage#isInitialized()
          */
         @Override
-        public final boolean isInitialized() {
+        public boolean isInitialized() {
             if (!hasPath) {
                 return false;
             }
@@ -973,7 +973,7 @@ public final class PerformanceDataProtos {
          *
          * @return the descriptor
          */
-        public static final com.google.protobuf.Descriptors.Descriptor getDescriptor() {
+        public static com.google.protobuf.Descriptors.Descriptor getDescriptor() {
             return org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.internal_static_PerformanceDataReadings_descriptor;
         }
 
@@ -1025,7 +1025,7 @@ public final class PerformanceDataProtos {
          * @see com.google.protobuf.GeneratedMessage#isInitialized()
          */
         @Override
-        public final boolean isInitialized() {
+        public boolean isInitialized() {
             for (org.opennms.netmgt.rrd.tcp.PerformanceDataProtos.PerformanceDataReading element : getMessageList()) {
                 if (!element.isInitialized()) {
                     return false;
