@@ -229,11 +229,13 @@ public class RtTicketerPlugin implements Plugin {
         }
         rtt.setQueue(m_queue);
         rtt.setRequestor(m_requestor);
-        if (ticket.getSummary() != null)
+        if (ticket.getSummary() != null) {
             rtt.setSubject(ticket.getSummary());
+        }
         // Remove any HTML tags in the ticket details.
-        if (ticket.getDetails() != null)
+        if (ticket.getDetails() != null) {
             rtt.setText(m_tagPattern.matcher(ticket.getDetails()).replaceAll(""));
+        }
         rtt.setStatus(openNMSToRTState(ticket.getState()));
 
         return rtt;
