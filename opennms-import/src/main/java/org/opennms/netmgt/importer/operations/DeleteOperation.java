@@ -85,8 +85,9 @@ public class DeleteOperation extends AbstractImportOperation {
 
         // TODO: whatif node comes back as null? can this happend?
         OnmsNode node = m_nodeDao.get(m_nodeId);
-        if (node == null)
+        if (node == null) {
             return new ArrayList<Event>(0);
+        }
 
         m_nodeDao.delete(node);
 

@@ -245,8 +245,9 @@ public abstract class AbstractSaveOrUpdateOperation extends AbstractImportOperat
 
                 Integer ifIndex = entry.getIfIndex();
 
-                if (ifIndex == null)
+                if (ifIndex == null) {
                     continue;
+                }
 
                 LOG.debug("Updating SNMP Interface with ifIndex {}", ifIndex);
 

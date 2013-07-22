@@ -293,8 +293,9 @@ public class UpdateOperation extends AbstractSaveOrUpdateOperation {
          *            the events
          */
         private void update(OnmsIpInterface imported, OnmsIpInterface iface, List<Event> events) {
-            if (!nullSafeEquals(iface.getIsManaged(), imported.getIsManaged()))
+            if (!nullSafeEquals(iface.getIsManaged(), imported.getIsManaged())) {
                 iface.setIsManaged(imported.getIsManaged());
+            }
 
             if (!nullSafeEquals(iface.getIsSnmpPrimary(), imported.getIsSnmpPrimary())) {
                 iface.setIsSnmpPrimary(imported.getIsSnmpPrimary());
@@ -305,8 +306,9 @@ public class UpdateOperation extends AbstractSaveOrUpdateOperation {
                 updateSnmpInterface(imported, iface);
             }
 
-            if (!nullSafeEquals(iface.getIpHostName(), imported.getIpHostName()))
+            if (!nullSafeEquals(iface.getIpHostName(), imported.getIpHostName())) {
                 iface.setIpHostName(imported.getIpHostName());
+            }
 
             updateServices(iface, imported, events);
         }
@@ -600,8 +602,9 @@ public class UpdateOperation extends AbstractSaveOrUpdateOperation {
 
         }
 
-        if (isSnmpDataForInterfacesUpToDate())
+        if (isSnmpDataForInterfacesUpToDate()) {
             updateSnmpInterfaces(db, imported);
+        }
 
         updateInterfaces(db, imported, events);
         updateCategories(db, imported);
@@ -633,8 +636,9 @@ public class UpdateOperation extends AbstractSaveOrUpdateOperation {
      *            the imported
      */
     private void updateCategories(OnmsNode db, OnmsNode imported) {
-        if (!db.getCategories().equals(imported.getCategories()))
+        if (!db.getCategories().equals(imported.getCategories())) {
             db.setCategories(imported.getCategories());
+        }
     }
 
     /**
