@@ -375,8 +375,9 @@ public class EasyMockDataPopulator {
     private Set<OnmsMapElement> getMapElements(Set<OnmsMapElement> elements) {
         Set<OnmsMapElement> mapElements = new HashSet<OnmsMapElement>();
         for (OnmsMapElement element : elements) {
-            if (element.getType().equals(OnmsMapElement.MAP_TYPE))
+            if (element.getType().equals(OnmsMapElement.MAP_TYPE)) {
                 mapElements.add(element);
+            }
         }
         return mapElements;
     }
@@ -391,8 +392,9 @@ public class EasyMockDataPopulator {
     private Set<OnmsMapElement> getNodeElements(Set<OnmsMapElement> elements) {
         Set<OnmsMapElement> nodeElements = new HashSet<OnmsMapElement>();
         for (OnmsMapElement element : elements) {
-            if (element.getType().equals(OnmsMapElement.NODE_TYPE))
+            if (element.getType().equals(OnmsMapElement.NODE_TYPE)) {
                 nodeElements.add(element);
+            }
         }
         return nodeElements;
     }

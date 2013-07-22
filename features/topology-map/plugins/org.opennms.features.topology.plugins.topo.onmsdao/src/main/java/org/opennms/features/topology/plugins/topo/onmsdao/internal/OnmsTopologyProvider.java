@@ -259,8 +259,9 @@ public class OnmsTopologyProvider extends AbstractTopologyProvider implements Gr
         List<Edge> edges = new ArrayList<Edge>();
         List<Vertex> leafs = new ArrayList<Vertex>();
         for (Vertex vertex : leafs) {
-            if (!vertex.isGroup())
+            if (!vertex.isGroup()) {
                 leafs.add((SimpleLeafVertex) vertex);
+            }
         }
 
         for (Vertex target : leafs) {
