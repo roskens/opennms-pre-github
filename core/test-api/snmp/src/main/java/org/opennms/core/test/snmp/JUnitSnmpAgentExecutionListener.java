@@ -172,8 +172,9 @@ public class JUnitSnmpAgentExecutionListener extends AbstractTestExecutionListen
      */
     private void handleSnmpAgent(final TestContext testContext, final JUnitSnmpAgent config,
             MockSnmpDataProvider provider) throws IOException, UnknownHostException, InterruptedException {
-        if (config == null)
+        if (config == null) {
             return;
+        }
 
         String factoryClassName = "unknown";
         try {
@@ -256,8 +257,9 @@ public class JUnitSnmpAgentExecutionListener extends AbstractTestExecutionListen
                             cause = cause.getCause();
                         }
                     }
-                    if (rethrow)
+                    if (rethrow) {
                         throw e;
+                    }
                 }
             }
 
