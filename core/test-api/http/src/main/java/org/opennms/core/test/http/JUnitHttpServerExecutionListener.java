@@ -52,8 +52,9 @@ public class JUnitHttpServerExecutionListener extends OpenNMSAbstractTestExecuti
         super.beforeTestMethod(testContext);
 
         final JUnitHttpServer config = findTestAnnotation(JUnitHttpServer.class, testContext);
-        if (config == null)
+        if (config == null) {
             return;
+        }
 
         m_junitServer = new JUnitServer(config);
         m_junitServer.start();
@@ -64,8 +65,9 @@ public class JUnitHttpServerExecutionListener extends OpenNMSAbstractTestExecuti
     public void afterTestMethod(final TestContext testContext) throws Exception {
         super.afterTestMethod(testContext);
 
-        if (m_junitServer != null)
+        if (m_junitServer != null) {
             m_junitServer.stop();
+        }
     }
 
 }
