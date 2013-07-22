@@ -116,8 +116,9 @@ public class MockDataLinkInterfaceDao extends AbstractMockDao<DataLinkInterface,
         // nodeparentid = ?) and source = ?
 
         final CriteriaBuilder builder = new CriteriaBuilder(DataLinkInterface.class);
-        if (source != null)
+        if (source != null) {
             builder.eq("source", source);
+        }
         builder.or(new EqRestriction("node.id", nodeid), new EqRestriction("nodeParentId", nodeid));
 
         for (final DataLinkInterface iface : findMatching(builder.toCriteria())) {
@@ -142,8 +143,9 @@ public class MockDataLinkInterfaceDao extends AbstractMockDao<DataLinkInterface,
 
         final CriteriaBuilder builder = new CriteriaBuilder(DataLinkInterface.class);
         builder.alias("node", "node", JoinType.LEFT_JOIN);
-        if (source != null)
+        if (source != null) {
             builder.eq("source", source);
+        }
         builder.or(new AllRestriction(new EqRestriction("node.id", nodeid), new EqRestriction("ifIndex", ifIndex)),
                    new AllRestriction(new EqRestriction("nodeParentId", nodeid), new EqRestriction("parentIfIndex",
                                                                                                    ifIndex)));

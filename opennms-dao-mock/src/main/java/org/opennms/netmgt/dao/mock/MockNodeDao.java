@@ -49,16 +49,18 @@ public class MockNodeDao extends AbstractMockDao<OnmsNode, Integer> implements N
 
     @Override
     public void update(final OnmsNode node) {
-        if (node == null)
+        if (node == null) {
             return;
+        }
         super.update(node);
         updateSubObjects(node);
     }
 
     @Override
     public void save(final OnmsNode node) {
-        if (node == null)
+        if (node == null) {
             return;
+        }
         super.save(node);
         updateSubObjects(node);
     }
@@ -227,8 +229,9 @@ public class MockNodeDao extends AbstractMockDao<OnmsNode, Integer> implements N
     public List<OnmsNode> findAllProvisionedNodes() {
         final List<OnmsNode> nodes = new ArrayList<OnmsNode>();
         for (final OnmsNode node : findAll()) {
-            if (node.getForeignSource() != null)
+            if (node.getForeignSource() != null) {
                 nodes.add(node);
+            }
         }
         return nodes;
     }
@@ -237,14 +240,17 @@ public class MockNodeDao extends AbstractMockDao<OnmsNode, Integer> implements N
     public List<OnmsIpInterface> findObsoleteIpInterfaces(final Integer nodeId, final Date scanStamp) {
         final List<OnmsIpInterface> ifaces = new ArrayList<OnmsIpInterface>();
         final OnmsNode node = get(nodeId);
-        if (node == null)
+        if (node == null) {
             return ifaces;
+        }
 
         for (final OnmsIpInterface iface : node.getIpInterfaces()) {
-            if (iface.isPrimary())
+            if (iface.isPrimary()) {
                 continue;
-            if (iface.getIpLastCapsdPoll() == null || iface.getIpLastCapsdPoll().before(scanStamp))
+            }
+            if (iface.getIpLastCapsdPoll() == null || iface.getIpLastCapsdPoll().before(scanStamp)) {
                 ifaces.add(iface);
+            }
         }
 
         return ifaces;
@@ -253,8 +259,9 @@ public class MockNodeDao extends AbstractMockDao<OnmsNode, Integer> implements N
     @Override
     public void deleteObsoleteInterfaces(final Integer nodeId, final Date scanStamp) {
         final OnmsNode node = get(nodeId);
-        if (node == null)
+        if (node == null) {
             return;
+        }
 
         for (final OnmsIpInterface iface : findObsoleteIpInterfaces(nodeId, scanStamp)) {
             LOG.debug("Deleting obsolete IP interface: {}", iface);
@@ -291,8 +298,9 @@ public class MockNodeDao extends AbstractMockDao<OnmsNode, Integer> implements N
         for (final OnmsNode node : findAll()) {
             if (foreignSource.equals(node.getForeignSource())) {
                 final OnmsIpInterface iface = node.getIpInterfaceByIpAddress(ipAddress);
-                if (iface != null)
+                if (iface != null) {
                     nodes.add(node);
+                }
                 continue;
             }
         }

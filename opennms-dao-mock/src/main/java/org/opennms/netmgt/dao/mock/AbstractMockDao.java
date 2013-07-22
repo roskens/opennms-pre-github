@@ -155,8 +155,9 @@ public abstract class AbstractMockDao<T, K extends Serializable> implements Onms
 
     @Override
     public void save(final T entity) {
-        if (entity == null)
+        if (entity == null) {
             return;
+        }
         K id = getId(entity);
         if (id == null) {
             generateId(entity);

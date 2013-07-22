@@ -154,23 +154,30 @@ public class MockLocationMonitorDao extends AbstractMockDao<OnmsLocationMonitor,
 
         @Override
         public boolean equals(final Object obj) {
-            if (this == obj)
+            if (this == obj) {
                 return true;
-            if (obj == null)
+            }
+            if (obj == null) {
                 return false;
-            if (!(obj instanceof StatusState))
+            }
+            if (!(obj instanceof StatusState)) {
                 return false;
+            }
             StatusState other = (StatusState) obj;
             if (getLocationMonitorId() == null) {
-                if (other.getLocationMonitorId() != null)
+                if (other.getLocationMonitorId() != null) {
                     return false;
-            } else if (!getLocationMonitorId().equals(other.getLocationMonitorId()))
+                }
+            } else if (!getLocationMonitorId().equals(other.getLocationMonitorId())) {
                 return false;
+            }
             if (getMonitoredServiceId() == null) {
-                if (other.getMonitoredServiceId() != null)
+                if (other.getMonitoredServiceId() != null) {
                     return false;
-            } else if (!getMonitoredServiceId().equals(other.getMonitoredServiceId()))
+                }
+            } else if (!getMonitoredServiceId().equals(other.getMonitoredServiceId())) {
                 return false;
+            }
             return true;
         }
     }
@@ -205,8 +212,9 @@ public class MockLocationMonitorDao extends AbstractMockDao<OnmsLocationMonitor,
         for (final OnmsLocationSpecificStatus status : m_statuses) {
             final Date timestamp = status.getPollResult().getTimestamp();
             if (timestamp.getTime() == startDate.getTime() || timestamp.after(startDate)) {
-                if (timestamp.before(endDate))
+                if (timestamp.before(endDate)) {
                     statuses.add(status);
+                }
             }
         }
         return statuses;
@@ -253,8 +261,9 @@ public class MockLocationMonitorDao extends AbstractMockDao<OnmsLocationMonitor,
                         break;
                     }
                 }
-                if (added)
+                if (added) {
                     break;
+                }
             }
         }
         return statuses;
@@ -284,16 +293,18 @@ public class MockLocationMonitorDao extends AbstractMockDao<OnmsLocationMonitor,
     @Override
     public void pauseAll() {
         for (final OnmsLocationMonitor monitor : findAll()) {
-            if (monitor.getStatus() != MonitorStatus.STOPPED)
+            if (monitor.getStatus() != MonitorStatus.STOPPED) {
                 monitor.setStatus(MonitorStatus.PAUSED);
+            }
         }
     }
 
     @Override
     public void resumeAll() {
         for (final OnmsLocationMonitor monitor : findAll()) {
-            if (monitor.getStatus() == MonitorStatus.PAUSED)
+            if (monitor.getStatus() == MonitorStatus.PAUSED) {
                 monitor.setStatus(MonitorStatus.STARTED);
+            }
         }
     }
 

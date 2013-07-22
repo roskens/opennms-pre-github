@@ -121,8 +121,9 @@ final class BeanWrapperRestrictionVisitor extends BaseRestrictionVisitor {
 
     @Override
     public void visitNull(final NullRestriction restriction) {
-        if (getProperty(restriction) != null)
+        if (getProperty(restriction) != null) {
             fail(restriction);
+        }
     }
 
     @Override
@@ -131,8 +132,9 @@ final class BeanWrapperRestrictionVisitor extends BaseRestrictionVisitor {
 
     @Override
     public void visitNotNull(final NotNullRestriction restriction) {
-        if (getProperty(restriction) == null)
+        if (getProperty(restriction) == null) {
             fail(restriction);
+        }
     }
 
     @Override
@@ -155,8 +157,9 @@ final class BeanWrapperRestrictionVisitor extends BaseRestrictionVisitor {
             } catch (final ClassCastException e) {
             }
         } else {
-            if (restriction.getValue().equals(o))
+            if (restriction.getValue().equals(o)) {
                 return;
+            }
         }
         fail(restriction);
     }
@@ -180,8 +183,9 @@ final class BeanWrapperRestrictionVisitor extends BaseRestrictionVisitor {
             } catch (final ClassCastException e) {
             }
         } else {
-            if (!restriction.getValue().equals(o))
+            if (!restriction.getValue().equals(o)) {
                 return;
+            }
         }
         fail(restriction);
     }
@@ -197,8 +201,9 @@ final class BeanWrapperRestrictionVisitor extends BaseRestrictionVisitor {
         if (o instanceof java.lang.Number && restriction.getValue() instanceof java.lang.Number) {
             final BigDecimal left = new BigDecimal(((Number) o).doubleValue());
             final BigDecimal right = new BigDecimal(((Number) restriction.getValue()).doubleValue());
-            if (left.compareTo(right) == 1)
+            if (left.compareTo(right) == 1) {
                 return;
+            }
         } else if (o instanceof Comparable) {
             try {
                 final Comparable oC = (Comparable) o;
@@ -223,8 +228,9 @@ final class BeanWrapperRestrictionVisitor extends BaseRestrictionVisitor {
         if (o instanceof java.lang.Number && restriction.getValue() instanceof java.lang.Number) {
             final BigDecimal left = new BigDecimal(((Number) o).doubleValue());
             final BigDecimal right = new BigDecimal(((Number) restriction.getValue()).doubleValue());
-            if (left.compareTo(right) >= 0)
+            if (left.compareTo(right) >= 0) {
                 return;
+            }
         } else if (o instanceof Comparable) {
             try {
                 final Comparable oC = (Comparable) o;
@@ -249,8 +255,9 @@ final class BeanWrapperRestrictionVisitor extends BaseRestrictionVisitor {
         if (o instanceof java.lang.Number && restriction.getValue() instanceof java.lang.Number) {
             final BigDecimal left = new BigDecimal(((Number) o).doubleValue());
             final BigDecimal right = new BigDecimal(((Number) restriction.getValue()).doubleValue());
-            if (left.compareTo(right) == -1)
+            if (left.compareTo(right) == -1) {
                 return;
+            }
         } else if (o instanceof Comparable) {
             try {
                 final Comparable oC = (Comparable) o;
@@ -275,8 +282,9 @@ final class BeanWrapperRestrictionVisitor extends BaseRestrictionVisitor {
         if (o instanceof java.lang.Number && restriction.getValue() instanceof java.lang.Number) {
             final BigDecimal left = new BigDecimal(((Number) o).doubleValue());
             final BigDecimal right = new BigDecimal(((Number) restriction.getValue()).doubleValue());
-            if (left.compareTo(right) <= 0)
+            if (left.compareTo(right) <= 0) {
                 return;
+            }
         } else if (o instanceof Comparable) {
             try {
                 final Comparable oC = (Comparable) o;

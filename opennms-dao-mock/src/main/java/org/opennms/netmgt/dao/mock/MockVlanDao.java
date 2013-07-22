@@ -62,8 +62,9 @@ public class MockVlanDao extends AbstractMockDao<OnmsVlan, Integer> implements V
     private List<OnmsVlan> getVlansForNodeIdIfOlderThan(final int nodeId, final Date scanTime) {
         final List<OnmsVlan> vlans = new ArrayList<OnmsVlan>();
         for (final OnmsVlan vlan : findAll()) {
-            if (vlan.getNode() != null && vlan.getNode().getId() != nodeId)
+            if (vlan.getNode() != null && vlan.getNode().getId() != nodeId) {
                 continue;
+            }
             if (vlan.getLastPollTime() != null || vlan.getLastPollTime().before(scanTime)) {
                 vlans.add(vlan);
             }
@@ -74,8 +75,9 @@ public class MockVlanDao extends AbstractMockDao<OnmsVlan, Integer> implements V
     @Override
     public OnmsVlan findByNodeAndVlan(final Integer nodeId, final Integer vlanId) {
         for (final OnmsVlan vlan : findAll()) {
-            if (vlan.getNode() != null && !vlan.getNode().getId().equals(nodeId))
+            if (vlan.getNode() != null && !vlan.getNode().getId().equals(nodeId)) {
                 continue;
+            }
             if (vlan.getVlanId().equals(vlanId)) {
                 return vlan;
             }

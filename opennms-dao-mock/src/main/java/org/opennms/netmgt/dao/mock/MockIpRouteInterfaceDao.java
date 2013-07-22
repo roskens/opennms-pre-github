@@ -37,8 +37,9 @@ public class MockIpRouteInterfaceDao extends AbstractMockDao<OnmsIpRouteInterfac
     @Override
     public void deactivateForNodeIdIfOlderThan(final int nodeId, final Date scanTime) {
         for (final OnmsIpRouteInterface iface : getInterfacesForNodeIdIfOlderThan(nodeId, scanTime)) {
-            if (!iface.getStatus().equals(StatusType.ACTIVE))
+            if (!iface.getStatus().equals(StatusType.ACTIVE)) {
                 continue;
+            }
             iface.setStatus(StatusType.INACTIVE);
         }
     }
@@ -87,8 +88,9 @@ public class MockIpRouteInterfaceDao extends AbstractMockDao<OnmsIpRouteInterfac
         final List<OnmsIpRouteInterface> ifaces = new ArrayList<OnmsIpRouteInterface>();
         for (final OnmsIpRouteInterface iface : findAll()) {
             final OnmsNode node = iface.getNode();
-            if (node == null || nodeId != node.getId())
+            if (node == null || nodeId != node.getId()) {
                 continue;
+            }
             if (iface.getLastPollTime() == null || iface.getLastPollTime().before(scanTime)) {
                 ifaces.add(iface);
             }

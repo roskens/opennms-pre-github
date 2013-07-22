@@ -181,8 +181,9 @@ public class EventAnticipator implements EventListener {
         long last = System.currentTimeMillis();
         long now = last;
         while (waitTime > 0) {
-            if (m_anticipatedEvents.isEmpty())
+            if (m_anticipatedEvents.isEmpty()) {
                 return new ArrayList<Event>(0);
+            }
             try {
                 wait(waitTime);
             } catch (InterruptedException e) {

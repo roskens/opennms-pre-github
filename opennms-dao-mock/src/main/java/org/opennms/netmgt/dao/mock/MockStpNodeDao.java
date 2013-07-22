@@ -63,8 +63,9 @@ public class MockStpNodeDao extends AbstractMockDao<OnmsStpNode, Integer> implem
     public OnmsStpNode findByNodeAndVlan(final Integer nodeId, final Integer baseVlan) {
         for (final OnmsStpNode node : findAll()) {
             if (node.getNode() != null && node.getNode().getId().equals(nodeId)) {
-                if (node.getBaseVlan().equals(baseVlan))
+                if (node.getBaseVlan().equals(baseVlan)) {
                     return node;
+                }
             }
         }
         return null;
@@ -73,8 +74,9 @@ public class MockStpNodeDao extends AbstractMockDao<OnmsStpNode, Integer> implem
     private List<OnmsStpNode> getStpNodesForNodeIdIfOlderThan(final int nodeId, final Date scanTime) {
         final List<OnmsStpNode> nodes = new ArrayList<OnmsStpNode>();
         for (final OnmsStpNode node : findAll()) {
-            if (node.getNode() != null && node.getNode().getId() != nodeId)
+            if (node.getNode() != null && node.getNode().getId() != nodeId) {
                 continue;
+            }
             if (node.getLastPollTime() != null || node.getLastPollTime().before(scanTime)) {
                 nodes.add(node);
             }

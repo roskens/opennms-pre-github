@@ -84,8 +84,9 @@ public class MockEventIpcManager implements EventForwarder, EventProxy, EventIpc
 
         @Override
         public boolean equals(final Object o) {
-            if (o == null)
+            if (o == null) {
                 return false;
+            }
             if (o instanceof ListenerKeeper) {
                 final ListenerKeeper keeper = (ListenerKeeper) o;
                 return m_listener.equals(keeper.m_listener)
@@ -95,8 +96,9 @@ public class MockEventIpcManager implements EventForwarder, EventProxy, EventIpc
         }
 
         private boolean eventMatches(final Event e) {
-            if (m_ueiList == null)
+            if (m_ueiList == null) {
                 return true;
+            }
             return m_ueiList.contains(e.getUei());
         }
 
