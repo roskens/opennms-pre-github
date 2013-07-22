@@ -506,8 +506,9 @@ public class InventoryReportCalculator implements InitializingBean {
 
                         ie2rp.addInventorySoftwareRP(isrp);
                     }
-                    if (addInventoryElement)
+                    if (addInventoryElement) {
                         ie2rpList.add(ie2rp);
+                    }
 
                 }
                 nbisn.setInventoryElement2RP(ie2rpList);
@@ -523,14 +524,17 @@ public class InventoryReportCalculator implements InitializingBean {
             gs.setNodesWithoutinventoryAtReportDate(nodesWithoutinventoryAtReportDate);
             gs.setNodesWithoutinventoryAtAll(nodesWithoutinventoryAtAll);
             rnbi.addGroupSet(gs);
-            if (groupHasDevices)
+            if (groupHasDevices) {
                 groupsMatching++;
-            else
+            } else {
                 groupWithoutNodes++;
-            if (groupHasDevices && groupHasNodesWithoutinventoryAtAll)
+            }
+            if (groupHasDevices && groupHasNodesWithoutinventoryAtAll) {
                 groupsWithNodesWithoutinventoryAtAll++;
-            if (groupHasDevices && groupHasNodesWithoutinventoryAtrequestDate)
+            }
+            if (groupHasDevices && groupHasNodesWithoutinventoryAtrequestDate) {
                 groupsWithNodesWithoutinventoryAtReportDate++;
+            }
         } // end for groups
         rnbi.setTotalGroups(totalGroups);
         rnbi.setGroupsMatching(groupsMatching);

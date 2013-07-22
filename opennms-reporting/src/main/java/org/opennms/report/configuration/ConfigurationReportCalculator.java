@@ -417,14 +417,17 @@ public class ConfigurationReportCalculator implements InitializingBean {
             gs.setNodesWithoutconfigurationAtReportDate(nodesWithoutConfigurationAtReportDate);
             gs.setNodesWithoutconfigurationAtAll(nodesWithoutConfigurationAtAll);
             rlist.addGroupXSet(gs);
-            if (groupHasDevices)
+            if (groupHasDevices) {
                 groupsMatching++;
-            else
+            } else {
                 groupWithoutNodes++;
-            if (groupHasDevices && groupHasNodesWithoutconfigurationAtAll)
+            }
+            if (groupHasDevices && groupHasNodesWithoutconfigurationAtAll) {
                 groupsWithNodesWithoutconfigurationAtAll++;
-            if (groupHasDevices && groupHasNodesWithoutconfigurationAtrequestDate)
+            }
+            if (groupHasDevices && groupHasNodesWithoutconfigurationAtrequestDate) {
                 groupsWithNodesWithoutconfigurationAtReportDate++;
+            }
         } // end for of groups
         rlist.setTotalGroups(totalGroups);
         rlist.setGroupWithoutNodes(groupWithoutNodes);
