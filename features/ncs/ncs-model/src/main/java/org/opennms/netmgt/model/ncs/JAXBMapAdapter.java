@@ -127,8 +127,9 @@ public class JAXBMapAdapter extends XmlAdapter<JAXBMapAdapter.JAXBMap, Map<Strin
      */
     @Override
     public JAXBMap marshal(Map<String, String> v) throws Exception {
-        if (v.isEmpty())
+        if (v.isEmpty()) {
             return null;
+        }
         JAXBMap myMap = new JAXBMap();
         List<JAXBMapEntry> aList = myMap.getA();
         for (Map.Entry<String, String> e : v.entrySet()) {

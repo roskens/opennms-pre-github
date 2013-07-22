@@ -173,23 +173,30 @@ public class NCSComponent {
          */
         @Override
         public boolean equals(Object obj) {
-            if (this == obj)
+            if (this == obj) {
                 return true;
-            if (obj == null)
+            }
+            if (obj == null) {
                 return false;
-            if (getClass() != obj.getClass())
+            }
+            if (getClass() != obj.getClass()) {
                 return false;
+            }
             NodeIdentification other = (NodeIdentification) obj;
             if (m_foreignId == null) {
-                if (other.m_foreignId != null)
+                if (other.m_foreignId != null) {
                     return false;
-            } else if (!m_foreignId.equals(other.m_foreignId))
+                }
+            } else if (!m_foreignId.equals(other.m_foreignId)) {
                 return false;
+            }
             if (m_foreignSource == null) {
-                if (other.m_foreignSource != null)
+                if (other.m_foreignSource != null) {
                     return false;
-            } else if (!m_foreignSource.equals(other.m_foreignSource))
+                }
+            } else if (!m_foreignSource.equals(other.m_foreignSource)) {
                 return false;
+            }
             return true;
         }
 
