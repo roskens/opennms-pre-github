@@ -70,23 +70,28 @@ public class NodeMarkerClusterCallback implements MarkerClusterEventCallback {
          */
         @Override
         public int compare(final NodeMarker left, final NodeMarker right) {
-            if (left == right)
+            if (left == right) {
                 return EQUAL;
+            }
             if (left.getSeverity() != right.getSeverity()) {
                 return left.getSeverity() > right.getSeverity() ? BEFORE : AFTER;
             }
             if (left.getNodeLabel() != right.getNodeLabel()) {
-                if (left.getNodeLabel() == null)
+                if (left.getNodeLabel() == null) {
                     return AFTER;
-                if (right.getNodeLabel() == null)
+                }
+                if (right.getNodeLabel() == null) {
                     return BEFORE;
+                }
                 return left.getNodeLabel().toLowerCase().compareTo(right.getNodeLabel().toLowerCase());
             }
             if (left.getNodeId() != right.getNodeId()) {
-                if (left.getNodeId() == null)
+                if (left.getNodeId() == null) {
                     return AFTER;
-                if (right.getNodeId() == null)
+                }
+                if (right.getNodeId() == null) {
                     return BEFORE;
+                }
                 return left.getNodeId().compareTo(right.getNodeId());
             }
             return EQUAL;

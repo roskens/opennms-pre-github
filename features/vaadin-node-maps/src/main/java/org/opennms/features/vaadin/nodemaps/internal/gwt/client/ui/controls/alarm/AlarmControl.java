@@ -159,8 +159,9 @@ public class AlarmControl extends Control {
     public void doOnRemove(final JavaScriptObject map) {
         logger.log(Level.INFO, "doOnRemove() called");
         DomEvent.removeListener(m_onChange);
-        if (m_searchConsumer != null)
+        if (m_searchConsumer != null) {
             m_searchConsumer.clearSearch();
+        }
     }
 
     /* (non-Javadoc)

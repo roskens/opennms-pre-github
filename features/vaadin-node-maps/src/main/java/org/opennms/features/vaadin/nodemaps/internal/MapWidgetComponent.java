@@ -145,8 +145,9 @@ public class MapWidgetComponent extends NodeMap {
      * @return the node data
      */
     private Map<Integer, NodeEntry> getNodeData() {
-        if (m_nodeDao == null)
+        if (m_nodeDao == null) {
             return new HashMap<Integer, NodeEntry>();
+        }
 
         m_log.debug("getting nodes");
         final CriteriaBuilder cb = new CriteriaBuilder(OnmsNode.class);

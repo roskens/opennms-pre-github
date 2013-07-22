@@ -189,8 +189,9 @@ public class SearchControl extends Control {
      */
     public SearchControl doOnRemove(final JavaScriptObject map) {
         logger.log(Level.INFO, "onRemove() called");
-        if (m_changeCallback != null)
+        if (m_changeCallback != null) {
             DomEvent.removeListener(m_changeCallback);
+        }
         return this;
     }
 
@@ -240,8 +241,9 @@ public class SearchControl extends Control {
                 final NodeMarker selected = m_selectionModel.getSelectedObject();
                 final NodeMarker firstMarker = markers.size() > 0 ? markers.get(0) : null;
                 if (selected == null) {
-                    if (firstMarker != null)
+                    if (firstMarker != null) {
                         m_selectionModel.setSelected(firstMarker, true);
+                    }
                 } else {
                     if (!markers.contains(selected)) {
                         if (firstMarker != null) {

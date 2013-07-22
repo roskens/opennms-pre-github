@@ -108,10 +108,12 @@ public class NodeMapWidget extends Widget implements MarkerProvider, SearchConsu
         m_filter = new MarkerFilter() {
             @Override
             public boolean matches(final NodeMarker marker) {
-                if (marker.getSeverity() < m_minimumSeverity)
+                if (marker.getSeverity() < m_minimumSeverity) {
                     return false;
-                if (m_searchString == null || "".equals(m_searchString))
+                }
+                if (m_searchString == null || "".equals(m_searchString)) {
                     return true;
+                }
 
                 final String searchString = m_searchString.toLowerCase();
                 // logger.log(Level.INFO, "searching: search string = " +

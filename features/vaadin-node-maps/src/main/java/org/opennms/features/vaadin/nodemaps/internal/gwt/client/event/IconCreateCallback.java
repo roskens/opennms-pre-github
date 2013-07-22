@@ -80,8 +80,9 @@ public class IconCreateCallback extends JSObjectWrapper {
                 severity = nodeSeverity;
                 severityLabel = marker.getSeverityLabel();
             }
-            if (severity == 7)
+            if (severity == 7) {
                 break;
+            }
         }
 
         options.setClassName("marker-cluster marker-cluster-" + severityLabel);
