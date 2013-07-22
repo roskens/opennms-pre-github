@@ -76,16 +76,20 @@ public abstract class AttributeValueRestriction extends AttributeRestriction {
      */
     @Override
     public boolean equals(final Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (!super.equals(obj))
+        }
+        if (!super.equals(obj)) {
             return false;
-        if (!(obj instanceof AttributeValueRestriction))
+        }
+        if (!(obj instanceof AttributeValueRestriction)) {
             return false;
+        }
         final AttributeValueRestriction other = (AttributeValueRestriction) obj;
         if (m_value == null) {
-            if (other.m_value != null)
+            if (other.m_value != null) {
                 return false;
+            }
         } else if (!m_value.equals(other.m_value)) {
             return false;
         }

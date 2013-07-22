@@ -159,17 +159,21 @@ public class Order {
      */
     @Override
     public boolean equals(final Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (!(obj instanceof Order))
+        }
+        if (!(obj instanceof Order)) {
             return false;
+        }
         final Order other = (Order) obj;
         // if (m_ascending != other.m_ascending) return false;
         if (m_attribute == null) {
-            if (other.m_attribute != null)
+            if (other.m_attribute != null) {
                 return false;
+            }
         } else if (!m_attribute.equals(other.m_attribute)) {
             return false;
         }

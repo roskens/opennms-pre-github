@@ -92,16 +92,20 @@ public class NotRestriction extends BaseRestriction {
      */
     @Override
     public boolean equals(final Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (!super.equals(obj))
+        }
+        if (!super.equals(obj)) {
             return false;
-        if (!(obj instanceof NotRestriction))
+        }
+        if (!(obj instanceof NotRestriction)) {
             return false;
+        }
         final NotRestriction other = (NotRestriction) obj;
         if (m_restriction == null) {
-            if (other.m_restriction != null)
+            if (other.m_restriction != null) {
                 return false;
+            }
         } else if (!m_restriction.equals(other.m_restriction)) {
             return false;
         }

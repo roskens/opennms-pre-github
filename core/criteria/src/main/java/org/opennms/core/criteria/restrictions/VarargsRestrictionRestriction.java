@@ -80,15 +80,19 @@ public abstract class VarargsRestrictionRestriction extends BaseRestriction {
      */
     @Override
     public boolean equals(final Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (!super.equals(obj))
+        }
+        if (!super.equals(obj)) {
             return false;
-        if (!(obj instanceof VarargsRestrictionRestriction))
+        }
+        if (!(obj instanceof VarargsRestrictionRestriction)) {
             return false;
+        }
         final VarargsRestrictionRestriction other = (VarargsRestrictionRestriction) obj;
-        if (!m_restrictions.equals(other.m_restrictions))
+        if (!m_restrictions.equals(other.m_restrictions)) {
             return false;
+        }
         return true;
     }
 

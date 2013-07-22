@@ -239,8 +239,9 @@ public class Criteria implements Cloneable {
      *            the new orders
      */
     public void setOrders(final Collection<? extends Order> orderCollection) {
-        if (m_orders == orderCollection)
+        if (m_orders == orderCollection) {
             return;
+        }
         m_orders.clear();
         if (orderCollection != null) {
             m_orders.addAll(orderCollection);
@@ -263,8 +264,9 @@ public class Criteria implements Cloneable {
      *            the new fetch types
      */
     public void setFetchTypes(final Collection<? extends Fetch> fetchTypes) {
-        if (m_fetchTypes == fetchTypes)
+        if (m_fetchTypes == fetchTypes) {
             return;
+        }
         m_fetchTypes.clear();
         m_fetchTypes.addAll(fetchTypes);
     }
@@ -285,8 +287,9 @@ public class Criteria implements Cloneable {
      *            the new aliases
      */
     public void setAliases(final Collection<? extends Alias> aliases) {
-        if (m_aliases == aliases)
+        if (m_aliases == aliases) {
             return;
+        }
         m_aliases.clear();
         m_aliases.addAll(aliases);
     }
@@ -307,8 +310,9 @@ public class Criteria implements Cloneable {
      *            the new restrictions
      */
     public void setRestrictions(Collection<? extends Restriction> restrictions) {
-        if (m_restrictions == restrictions)
+        if (m_restrictions == restrictions) {
             return;
+        }
         m_restrictions.clear();
         m_restrictions.addAll(restrictions);
     }
@@ -506,25 +510,33 @@ public class Criteria implements Cloneable {
         final StringBuilder sb = new StringBuilder();
         final List<String> entries = new ArrayList<String>();
         sb.append("Criteria [");
-        if (m_class != null)
+        if (m_class != null) {
             entries.add("class=" + m_class.toString());
-        if (m_orders != null && m_orders.size() > 0)
+        }
+        if (m_orders != null && m_orders.size() > 0) {
             entries.add("orders=" + m_orders.toString());
-        if (m_aliases != null && m_aliases.size() > 0)
+        }
+        if (m_aliases != null && m_aliases.size() > 0) {
             entries.add("aliases=" + m_aliases.toString());
-        if (m_fetchTypes != null && m_fetchTypes.size() > 0)
+        }
+        if (m_fetchTypes != null && m_fetchTypes.size() > 0) {
             entries.add("fetchTypes=" + m_fetchTypes.toString());
-        if (m_restrictions != null && m_restrictions.size() > 0)
+        }
+        if (m_restrictions != null && m_restrictions.size() > 0) {
             entries.add("restrictions=" + m_restrictions.toString());
+        }
         entries.add("distinct=" + String.valueOf(m_distinct));
-        if (m_limit != null)
+        if (m_limit != null) {
             entries.add("limit=" + String.valueOf(m_limit));
-        if (m_offset != null)
+        }
+        if (m_offset != null) {
             entries.add("offset=" + String.valueOf(m_offset));
+        }
         for (final ListIterator<String> it = entries.listIterator(); it.hasNext();) {
             sb.append(it.next());
-            if (it.hasNext())
+            if (it.hasNext()) {
                 sb.append(",");
+            }
         }
         sb.append("]");
         return sb.toString();

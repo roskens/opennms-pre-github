@@ -187,33 +187,42 @@ public class Alias {
      */
     @Override
     public boolean equals(final Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (!(obj instanceof Alias))
+        }
+        if (!(obj instanceof Alias)) {
             return false;
+        }
         final Alias other = (Alias) obj;
         if (m_alias == null) {
-            if (other.m_alias != null)
+            if (other.m_alias != null) {
                 return false;
+            }
         } else if (!m_alias.equals(other.m_alias)) {
             return false;
         }
         if (m_associationPath == null) {
-            if (other.m_associationPath != null)
+            if (other.m_associationPath != null) {
                 return false;
+            }
         } else if (!m_associationPath.equals(other.m_associationPath)) {
             return false;
         }
-        if (m_type != other.m_type)
+        if (m_type != other.m_type) {
             return false;
-        if (m_joinCondition == null && other.m_joinCondition != null)
+        }
+        if (m_joinCondition == null && other.m_joinCondition != null) {
             return false;
-        if (m_joinCondition != null && other.m_joinCondition == null)
+        }
+        if (m_joinCondition != null && other.m_joinCondition == null) {
             return false;
-        if (!m_joinCondition.equals(other.m_joinCondition))
+        }
+        if (!m_joinCondition.equals(other.m_joinCondition)) {
             return false;
+        }
         return true;
     }
 
