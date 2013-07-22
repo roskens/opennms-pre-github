@@ -41,25 +41,6 @@ import org.opennms.api.integration.ticketing.Plugin;
 import org.opennms.api.integration.ticketing.PluginException;
 import org.opennms.api.integration.ticketing.Ticket;
 import org.opennms.api.integration.ticketing.Ticket.State;
-import org.opennms.integration.remedy.ticketservice.AuthenticationInfo;
-import org.opennms.integration.remedy.ticketservice.CreateInputMap;
-import org.opennms.integration.remedy.ticketservice.GetInputMap;
-import org.opennms.integration.remedy.ticketservice.GetOutputMap;
-import org.opennms.integration.remedy.ticketservice.HPD_IncidentInterface_Create_WSPortTypePortType;
-import org.opennms.integration.remedy.ticketservice.HPD_IncidentInterface_Create_WSServiceLocator;
-import org.opennms.integration.remedy.ticketservice.HPD_IncidentInterface_WSPortTypePortType;
-import org.opennms.integration.remedy.ticketservice.HPD_IncidentInterface_WSServiceLocator;
-import org.opennms.integration.remedy.ticketservice.ImpactType;
-import org.opennms.integration.remedy.ticketservice.Reported_SourceType;
-import org.opennms.integration.remedy.ticketservice.Service_TypeType;
-import org.opennms.integration.remedy.ticketservice.SetInputMap;
-import org.opennms.integration.remedy.ticketservice.StatusType;
-import org.opennms.integration.remedy.ticketservice.Status_ReasonType;
-import org.opennms.integration.remedy.ticketservice.UrgencyType;
-import org.opennms.integration.remedy.ticketservice.VIPType;
-import org.opennms.integration.remedy.ticketservice.Work_Info_SourceType;
-import org.opennms.integration.remedy.ticketservice.Work_Info_TypeType;
-import org.opennms.integration.remedy.ticketservice.Work_Info_View_AccessType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -183,8 +164,9 @@ public class RemedyTicketerPlugin implements Plugin {
         State state = State.OPEN;
         if (status.toString().equals(StatusType._value6) || status.toString().equals(StatusType._value5)) {
             state = State.CLOSED;
-        } else if (status.toString().equals(StatusType._value7))
+        } else if (status.toString().equals(StatusType._value7)) {
             state = State.CANCELLED;
+        }
         return state;
     }
 
@@ -243,8 +225,9 @@ public class RemedyTicketerPlugin implements Plugin {
                 State outputState = remedyToOpenNMSState(output.getStatus());
                 LOG.debug("update: Remedy: found opennms status: {} - for ticket with incindent_number: {}",
                           outputState, ticket.getId());
-                if (!(ticket.getState() == outputState))
+                if (!(ticket.getState() == outputState)) {
                     output = opennmsToRemedyState(output, ticket.getState());
+                }
 
                 port.helpDesk_Modify_Service(output, getRemedyAuthenticationHeader());
             } catch (RemoteException e) {
@@ -297,10 +280,11 @@ public class RemedyTicketerPlugin implements Plugin {
 
         UrgencyType urgency;
         try {
-            if (ticket.getAttribute(ATTRIBUTE_URGENCY_ID) != null)
+            if (ticket.getAttribute(ATTRIBUTE_URGENCY_ID) != null) {
                 urgency = UrgencyType.fromValue(ticket.getAttribute(ATTRIBUTE_URGENCY_ID));
-            else
+            } else {
                 urgency = UrgencyType.fromValue(m_configDao.getUrgency());
+            }
         } catch (IllegalArgumentException e) {
             return UrgencyType.value4;
         }
@@ -317,8 +301,9 @@ public class RemedyTicketerPlugin implements Plugin {
     private String getAssignedGroup(Ticket ticket) {
         if (ticket.getAttribute(ATTRIBUTE_ASSIGNED_GROUP_ID) != null) {
             for (String group : m_configDao.getTargetGroups()) {
-                if (group.equals(ticket.getAttribute(ATTRIBUTE_ASSIGNED_GROUP_ID)))
+                if (group.equals(ticket.getAttribute(ATTRIBUTE_ASSIGNED_GROUP_ID))) {
                     return m_configDao.getAssignedGroup(group);
+                }
             }
         }
         return m_configDao.getAssignedGroup();
@@ -334,8 +319,9 @@ public class RemedyTicketerPlugin implements Plugin {
     private String getAssignedSupportCompany(Ticket ticket) {
         if (ticket.getAttribute(ATTRIBUTE_ASSIGNED_GROUP_ID) != null) {
             for (String group : m_configDao.getTargetGroups()) {
-                if (group.equals(ticket.getAttribute(ATTRIBUTE_ASSIGNED_GROUP_ID)))
+                if (group.equals(ticket.getAttribute(ATTRIBUTE_ASSIGNED_GROUP_ID))) {
                     return m_configDao.getAssignedSupportCompany(group);
+                }
             }
         }
         return m_configDao.getAssignedSupportCompany();
@@ -351,8 +337,9 @@ public class RemedyTicketerPlugin implements Plugin {
     private String getAssignedSupportOrganization(Ticket ticket) {
         if (ticket.getAttribute(ATTRIBUTE_ASSIGNED_GROUP_ID) != null) {
             for (String group : m_configDao.getTargetGroups()) {
-                if (group.equals(ticket.getAttribute(ATTRIBUTE_ASSIGNED_GROUP_ID)))
+                if (group.equals(ticket.getAttribute(ATTRIBUTE_ASSIGNED_GROUP_ID))) {
                     return m_configDao.getAssignedSupportOrganization(group);
+                }
             }
         }
         return m_configDao.getAssignedSupportOrganization();
@@ -372,8 +359,9 @@ public class RemedyTicketerPlugin implements Plugin {
             summary.append(": OpenNMS: ");
         }
         summary.append(ticket.getSummary());
-        if (summary.length() > MAX_SUMMARY_CHARS)
+        if (summary.length() > MAX_SUMMARY_CHARS) {
             return summary.substring(0, MAX_SUMMARY_CHARS - 1);
+        }
         return summary.toString();
     }
 
@@ -465,14 +453,17 @@ public class RemedyTicketerPlugin implements Plugin {
         request_header.setPassword(m_configDao.getPassword());
 
         String authentication = m_configDao.getAuthentication();
-        if (authentication != null)
+        if (authentication != null) {
             request_header.setAuthentication(authentication);
+        }
         String locale = m_configDao.getLocale();
-        if (locale != null)
+        if (locale != null) {
             request_header.setLocale(locale);
+        }
         String timezone = m_configDao.getTimeZone();
-        if (timezone != null)
+        if (timezone != null) {
             request_header.setTimeZone(timezone);
+        }
         return request_header;
     }
 

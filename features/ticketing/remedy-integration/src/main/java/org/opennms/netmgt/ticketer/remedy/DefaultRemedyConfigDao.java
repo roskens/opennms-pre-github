@@ -60,8 +60,9 @@ public class DefaultRemedyConfigDao {
      */
 
     private Configuration getProperties() {
-        if (m_config != null)
+        if (m_config != null) {
             return m_config;
+        }
         String propsFile = new String(System.getProperty("opennms.home") + "/etc/remedy.properties");
 
         LOG.debug("loading properties from: {}", propsFile);
@@ -194,8 +195,9 @@ public class DefaultRemedyConfigDao {
      * @return the assigned group
      */
     String getAssignedGroup(String targetGroup) {
-        if (getProperties().containsKey("remedy.assignedgroup." + targetGroup))
+        if (getProperties().containsKey("remedy.assignedgroup." + targetGroup)) {
             return getProperties().getString("remedy.assignedgroup." + targetGroup);
+        }
         return getAssignedGroup();
     }
 
@@ -252,8 +254,9 @@ public class DefaultRemedyConfigDao {
      * @return the assigned support company
      */
     String getAssignedSupportCompany(String targetGroup) {
-        if (getProperties().containsKey("remedy.assignedsupportcompany." + targetGroup))
+        if (getProperties().containsKey("remedy.assignedsupportcompany." + targetGroup)) {
             return getProperties().getString("remedy.assignedsupportcompany." + targetGroup);
+        }
         return getAssignedSupportCompany();
     }
 
@@ -274,8 +277,9 @@ public class DefaultRemedyConfigDao {
      * @return the assigned support organization
      */
     String getAssignedSupportOrganization(String targetGroup) {
-        if (getProperties().containsKey("remedy.assignedsupportorganization." + targetGroup))
+        if (getProperties().containsKey("remedy.assignedsupportorganization." + targetGroup)) {
             return getProperties().getString("remedy.assignedsupportorganization." + targetGroup);
+        }
         return getAssignedSupportOrganization();
     }
 
