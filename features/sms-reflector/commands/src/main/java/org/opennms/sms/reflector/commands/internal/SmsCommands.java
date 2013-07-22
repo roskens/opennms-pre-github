@@ -288,8 +288,9 @@ public class SmsCommands implements CommandProvider, BundleContextAware {
             msgList = new ArrayList<InboundMessage>();
             m_service.readMessages(msgList, MessageClasses.UNREAD);
 
-            for (InboundMessage msg : msgList)
+            for (InboundMessage msg : msgList) {
                 intp.println(msg);
+            }
 
         } catch (Throwable e) {
             intp.printStackTrace(e);
