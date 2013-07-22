@@ -115,10 +115,12 @@ public class MobileTransactionExecution {
          */
         @Override
         public boolean handleResponse(MobileMsgRequest request, MobileMsgResponse response) {
-            if (request != null)
+            if (request != null) {
                 setSendTime(request.getSentTime());
-            if (response != null)
+            }
+            if (response != null) {
                 setReceiveTime(response.getReceiveTime());
+            }
 
             synchronized (m_pendingResponses) {
                 // remove processing response

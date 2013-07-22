@@ -182,8 +182,9 @@ public class MobileSequenceConfig implements Serializable, Comparable<MobileSequ
      */
     public void setTransactions(List<MobileSequenceTransaction> transactions) {
         final List<MobileSequenceTransaction> oldTransactions = getTransactions();
-        if (oldTransactions == transactions)
+        if (oldTransactions == transactions) {
             return;
+        }
         oldTransactions.clear();
         oldTransactions.addAll(transactions);
     }
