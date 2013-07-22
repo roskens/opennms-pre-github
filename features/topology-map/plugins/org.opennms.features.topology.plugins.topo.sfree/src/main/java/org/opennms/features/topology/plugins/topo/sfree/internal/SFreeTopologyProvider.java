@@ -88,10 +88,11 @@ public class SFreeTopologyProvider extends AbstractTopologyProvider implements G
         clearVertices();
         clearEdges();
 
-        if (filename.equals(ERDOS_RENIS))
+        if (filename.equals(ERDOS_RENIS)) {
             createERRandomTopology(200, 4);
-        else if (filename.equals(BARABASI_ALBERT))
+        } else if (filename.equals(BARABASI_ALBERT)) {
             createBARandomTopology(200, 4);
+        }
     }
 
     /**
@@ -157,8 +158,9 @@ public class SFreeTopologyProvider extends AbstractTopologyProvider implements G
                 SimpleConnector target = new SimpleConnector(TOPOLOGY_NAMESPACE_SFREE, nodes.get(j.intValue()).getId()
                         + "-" + edgeId + "-connector", nodes.get(j.intValue()));
                 edge = new AbstractEdge(TOPOLOGY_NAMESPACE_SFREE, edgeId, source, target);
-                if (i == j.intValue())
+                if (i == j.intValue()) {
                     continue;
+                }
                 edges.add(edge);
             }// m links added
         }
