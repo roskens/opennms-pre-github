@@ -40,76 +40,76 @@ public interface LogMessage {
      *
      * @return true, if is end message
      */
-    public abstract boolean isEndMessage();
+    boolean isEndMessage();
 
     /**
      * Checks if is persist message.
      *
      * @return true, if is persist message
      */
-    public abstract boolean isPersistMessage();
+    boolean isPersistMessage();
 
     /**
      * Checks if is persist begin message.
      *
      * @return true, if is persist begin message
      */
-    public abstract boolean isPersistBeginMessage();
+    boolean isPersistBeginMessage();
 
     /**
      * Checks if is persist end message.
      *
      * @return true, if is persist end message
      */
-    public abstract boolean isPersistEndMessage();
+    boolean isPersistEndMessage();
 
     /**
      * Checks if is begin message.
      *
      * @return true, if is begin message
      */
-    public abstract boolean isBeginMessage();
+    boolean isBeginMessage();
 
     /**
      * Checks if is error message.
      *
      * @return true, if is error message
      */
-    public abstract boolean isErrorMessage();
+    boolean isErrorMessage();
 
     /**
      * Checks if is collector begin message.
      *
      * @return true, if is collector begin message
      */
-    public abstract boolean isCollectorBeginMessage();
+    boolean isCollectorBeginMessage();
 
     /**
      * Checks if is collector end message.
      *
      * @return true, if is collector end message
      */
-    public abstract boolean isCollectorEndMessage();
+    boolean isCollectorEndMessage();
 
     /**
      * Gets the date.
      *
      * @return the date
      */
-    public abstract Date getDate();
+    Date getDate();
 
     /**
      * Gets the service id.
      *
      * @return the service id
      */
-    public abstract String getServiceID();
+    String getServiceID();
 
     /**
      * Gets the thread.
      *
      * @return the thread
      */
-    public abstract String getThread();
+    String getThread();
 
 }

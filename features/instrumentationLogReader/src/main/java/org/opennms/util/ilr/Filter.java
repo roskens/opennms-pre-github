@@ -504,7 +504,7 @@ public class Filter {
          *            the type
          * @return true, if successful
          */
-        public boolean apply(T type);
+        boolean apply(T type);
     }
 
     /**
