@@ -86,11 +86,13 @@ public class MBeansNameValidatorTest {
         for (String validateMe : names) {
             try {
                 validator.validate(validateMe);
-                if (!shouldSucceed)
+                if (!shouldSucceed) {
                     fail("Validation succeeded unexpectedly: " + validateMe);
+                }
             } catch (Throwable e) {
-                if (shouldSucceed)
+                if (shouldSucceed) {
                     fail("Validation failed: " + validateMe);
+                }
             }
         }
     }

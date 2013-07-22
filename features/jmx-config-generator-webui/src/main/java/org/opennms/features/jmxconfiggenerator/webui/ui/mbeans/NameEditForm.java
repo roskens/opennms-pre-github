@@ -116,8 +116,9 @@ public class NameEditForm extends Form implements ModelChangeListener<Item>, Vie
         setReadOnly(true);
         setImmediate(true);
         setBuffered(true);
-        if (parameter.hasFooter())
+        if (parameter.hasFooter()) {
             setFooter(footer);
+        }
         addFooterHooks();
         setCaption(parameter.getCaption());
         setVisibleItemProperties(parameter.getVisiblePropertieNames());
@@ -198,8 +199,9 @@ public class NameEditForm extends Form implements ModelChangeListener<Item>, Vie
      *            the outer
      */
     private void callAdditionalCallbacksIfThereAreAny(ButtonType type, Component outer) {
-        if (parameter.getAdditionalCallback() == null)
+        if (parameter.getAdditionalCallback() == null) {
             return;
+        }
         parameter.getAdditionalCallback().callback(type, outer);
     }
 

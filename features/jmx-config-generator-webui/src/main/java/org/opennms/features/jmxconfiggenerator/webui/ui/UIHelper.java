@@ -179,8 +179,9 @@ public class UIHelper {
         private static AbstractOrderedLayout createLayout(Class<?> clazz, List<Component> components) {
             try {
                 AbstractOrderedLayout layout = (AbstractOrderedLayout) clazz.newInstance();
-                for (Component c : components)
+                for (Component c : components) {
                     layout.addComponent(c);
+                }
                 return layout;
             } catch (InstantiationException ex) {
                 ;
@@ -207,8 +208,9 @@ public class UIHelper {
         Button button = new Button();
         button.setCaption(buttonCaption);
         button.setIcon(IconProvider.getIcon(iconName));
-        if (clickListener != null)
+        if (clickListener != null) {
             button.addListener(clickListener);
+        }
         return button;
     }
 
@@ -246,14 +248,17 @@ public class UIHelper {
         boolean enabled = !editMode;
         int newSelectedTabPosition = 0;
         // remember which tab was selected (before editing)
-        if (editMode)
+        if (editMode) {
             newSelectedTabPosition = getSelectedTabPosition(tabSheet);
+        }
         // disable or enable
-        for (int i = 0; i < tabSheet.getComponentCount(); i++)
+        for (int i = 0; i < tabSheet.getComponentCount(); i++) {
             tabSheet.getTab(i).setEnabled(enabled);
+        }
         // select tab depending on selection (after editing)
-        if (!editMode)
+        if (!editMode) {
             tabSheet.setSelectedTab(tabSheet.getTab(oldSelectedTabPosition));
+        }
         // return currently selected tab
         return editMode ? newSelectedTabPosition : getSelectedTabPosition(tabSheet);
     }
@@ -266,12 +271,15 @@ public class UIHelper {
      * @return the selected tab position
      */
     private static int getSelectedTabPosition(final TabSheet tabSheet) {
-        if (tabSheet == null)
+        if (tabSheet == null) {
             return 0;
-        if (tabSheet.getSelectedTab() == null)
+        }
+        if (tabSheet.getSelectedTab() == null) {
             return 0;
-        if (tabSheet.getTab(tabSheet.getSelectedTab()) == null)
+        }
+        if (tabSheet.getTab(tabSheet.getSelectedTab()) == null) {
             return 0;
+        }
         return tabSheet.getTabPosition(tabSheet.getTab(tabSheet.getSelectedTab()));
     }
 
@@ -285,7 +293,9 @@ public class UIHelper {
      */
     public static void closeSilently(Closeable closeable) {
         if (closeable == null)
+         {
             return; // prevent NPE
+        }
         try {
             closeable.close();
         } catch (IOException e) {

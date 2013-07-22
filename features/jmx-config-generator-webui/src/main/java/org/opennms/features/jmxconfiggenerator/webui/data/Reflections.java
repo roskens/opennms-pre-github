@@ -87,8 +87,9 @@ public class Reflections {
      * @see #buildClassHierarchy(java.lang.Class)
      */
     private static void buildClassHierarchy(Class clazz, Set<Class> classes) {
-        if (clazz == null)
+        if (clazz == null) {
             return;
+        }
         classes.add(clazz);
         classes.addAll(Arrays.asList(clazz.getInterfaces()));
         buildClassHierarchy(clazz.getSuperclass(), classes);

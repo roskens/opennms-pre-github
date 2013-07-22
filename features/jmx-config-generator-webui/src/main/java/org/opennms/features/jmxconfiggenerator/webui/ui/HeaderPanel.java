@@ -77,11 +77,13 @@ public class HeaderPanel extends Panel implements ModelChangeListener<UiState> {
         String labelString = "";
         int i = 1;
         for (UiState eachState : UiState.values()) {
-            if (!eachState.hasUi())
+            if (!eachState.hasUi()) {
                 continue;
+            }
             String renderString = eachState.equals(state) ? selected : notSelected;
-            if (!labelString.isEmpty())
+            if (!labelString.isEmpty()) {
                 labelString += " / ";
+            }
             labelString += String.format(renderString, i, eachState.getDescription());
             i++;
         }

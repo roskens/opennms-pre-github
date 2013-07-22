@@ -60,10 +60,12 @@ public class ModelChangeRegistry implements ModelChangeNotifier {
      */
     @Override
     public void registerListener(Class clazz, ModelChangeListener listener) {
-        if (clazz == null)
+        if (clazz == null) {
             return;
-        if (this.listeners.get(clazz) == null)
+        }
+        if (this.listeners.get(clazz) == null) {
             this.listeners.put(clazz, new HashSet<ModelChangeListener>());
+        }
         this.listeners.get(clazz).add(listener);
     }
 
@@ -79,10 +81,12 @@ public class ModelChangeRegistry implements ModelChangeNotifier {
      */
     @Override
     public void notifyObservers(Class clazz, Object model) {
-        if (!listeners.containsKey(clazz))
+        if (!listeners.containsKey(clazz)) {
             return;
-        if (listeners.get(clazz) == null)
+        }
+        if (listeners.get(clazz) == null) {
             return;
+        }
         for (ModelChangeListener listener : listeners.get(clazz)) {
             listener.modelChanged(model);
         }

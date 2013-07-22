@@ -110,8 +110,9 @@ public class ConfigResultView extends CustomComponent implements ModelChangeList
         tabContentMap.put(OutputDataKey.CollectdConfigSnippet, new TabContent(OutputDataKey.CollectdConfigSnippet));
 
         // add all tabs
-        for (TabContent eachContent : tabContentMap.values())
+        for (TabContent eachContent : tabContentMap.values()) {
             tabSheet.addTab(eachContent, eachContent.getCaption());
+        }
         tabSheet.setSelectedTab(0); // select first component!
 
         buttonPanel.getNext().setVisible(false); // TODO MVR enable button again
@@ -129,9 +130,11 @@ public class ConfigResultView extends CustomComponent implements ModelChangeList
     @Override
     public void buttonClick(ClickEvent event) {
         if (event.getSource().equals(buttonPanel.getPrevious()))
+         {
             app.updateView(UiState.MbeansView);
         // if (event.getSource().equals(buttonPanel.getNext()))
         // downloadConfigFile(event);
+        }
     }
 
     /**
@@ -177,8 +180,9 @@ public class ConfigResultView extends CustomComponent implements ModelChangeList
      */
     @Override
     public void modelChanged(UiModel newValue) {
-        if (newValue == null)
+        if (newValue == null) {
             return;
+        }
         for (Entry<UiModel.OutputDataKey, String> eachEntry : newValue.getOutputMap().entrySet()) {
             if (tabContentMap.get(eachEntry.getKey()) != null) {
                 tabContentMap.get(eachEntry.getKey()).setConfigContent(eachEntry.getValue());

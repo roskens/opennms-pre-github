@@ -85,8 +85,9 @@ class MBeansItemStrategyHandler {
     }
 
     protected void setItemProperties(Item item, Object itemId) {
-        if (itemId == null || item == null)
+        if (itemId == null || item == null) {
             return;
+        }
         getStrategy(itemId.getClass()).setItemProperties(item, itemId);
     }
 
@@ -167,8 +168,9 @@ class MBeansItemStrategyHandler {
 
         @Override
         public void setItemProperties(Item item, Object itemId) {
-            if (!(itemId instanceof Mbean))
+            if (!(itemId instanceof Mbean)) {
                 return;
+            }
             Mbean bean = (Mbean) itemId;
             item.getItemProperty(MetaMBeanItem.ICON).setValue(IconProvider.getIcon(IconProvider.MBEANS_ICON));
             item.getItemProperty(MetaMBeanItem.OBJECTNAME).setValue(bean.getObjectname());
@@ -199,8 +201,9 @@ class MBeansItemStrategyHandler {
 
         @Override
         public void updateModel(Item item, Object itemId) {
-            if (itemId == null || !(itemId instanceof Mbean))
+            if (itemId == null || !(itemId instanceof Mbean)) {
                 return;
+            }
             Mbean bean = (Mbean) itemId;
             bean.setName((String) item.getItemProperty(MetaMBeanItem.NAME).getValue());
         }

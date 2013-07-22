@@ -68,11 +68,13 @@ public class MBeansHelper {
      */
     public static String getLeafLabel(Mbean input) {
         List<String> labels = getMBeansTreeElements(input, false);
-        if (labels.isEmpty())
+        if (labels.isEmpty()) {
             return input.getName();
+        }
         Object label = labels.get(labels.size() - 1);
-        if (label instanceof Entry)
+        if (label instanceof Entry) {
             return ((Entry) label).getValue().toString();
+        }
         return label.toString();
     }
 
@@ -106,10 +108,12 @@ public class MBeansHelper {
             addIfNotNull(names, keyProperty, "j2eeType");
             names.addAll(keyProperty.entrySet());
             if (removeLastElement)
+             {
                 names.remove(names.size() - 1); // remove
                                                 // last
                                                 // element
                                                 // if needed
+            }
         } catch (MalformedObjectNameException ex) {
         }
         return names;
@@ -126,8 +130,9 @@ public class MBeansHelper {
      *            the key
      */
     private static void addIfNotNull(List<Map.Entry<String, String>> names, Map<String, String> keyProperty, String key) {
-        if (keyProperty.get(key) == null)
+        if (keyProperty.get(key) == null) {
             return;
+        }
         names.add(new SimpleEntry(key, keyProperty.get(key)));
         keyProperty.remove(key);
     }
@@ -148,8 +153,9 @@ public class MBeansHelper {
     public static <T> T getValueForClass(Map<Class<?>, T> map, Class<?> clazz) {
         List<Class> classes = Reflections.buildClassHierarchy(clazz);
         for (int i = classes.size() - 1; i >= 0; i--) {
-            if (map.get(classes.get(i)) != null)
+            if (map.get(classes.get(i)) != null) {
                 return map.get(classes.get(i));
+            }
         }
         return null;
     }

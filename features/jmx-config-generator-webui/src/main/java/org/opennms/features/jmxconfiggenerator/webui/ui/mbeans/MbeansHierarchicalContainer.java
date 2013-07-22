@@ -77,8 +77,9 @@ public class MbeansHierarchicalContainer extends HierarchicalContainer {
          * @return the string comparable
          */
         private String getStringComparable(Object data) {
-            if (data == null)
+            if (data == null) {
                 return "";
+            }
             StringRenderer renderer = controller.getStringRenderer(data.getClass());
             return renderer == null ? data.toString() : renderer.render(data);
         }
@@ -129,8 +130,9 @@ public class MbeansHierarchicalContainer extends HierarchicalContainer {
      */
     private void buildInternalTree(UiModel model) {
         root = new TreeNodeImpl();
-        for (Mbean bean : getMBeans(model))
+        for (Mbean bean : getMBeans(model)) {
             add(bean);
+        }
     }
 
     /**
@@ -161,10 +163,12 @@ public class MbeansHierarchicalContainer extends HierarchicalContainer {
      */
     private void add(Mbean bean) {
         String objectName = bean.getObjectname();
-        if (Strings.isNullOrEmpty(objectName))
+        if (Strings.isNullOrEmpty(objectName)) {
             return;
-        if (!objectName.contains(":"))
+        }
+        if (!objectName.contains(":")) {
             return;
+        }
         addNodes(bean);
         mbeans.add(bean);
     }
@@ -193,8 +197,9 @@ public class MbeansHierarchicalContainer extends HierarchicalContainer {
      */
     private void addNodes(Mbean bean) {
         TreeNode root = this.root;
-        for (Object node : MBeansHelper.getMBeansTreeElements(bean))
+        for (Object node : MBeansHelper.getMBeansTreeElements(bean)) {
             root = addChild(root, node);
+        }
         addChild(root, bean);
     }
 
@@ -210,11 +215,13 @@ public class MbeansHierarchicalContainer extends HierarchicalContainer {
     private String printInternalTree(TreeNode node, int depth) {
         String tabs = "";
         String ret = "";
-        for (int i = 0; i < depth; i++)
+        for (int i = 0; i < depth; i++) {
             tabs += "    ";
+        }
         ret += tabs + node.getData() + "\n";
-        for (TreeNode n : node.getChildren())
+        for (TreeNode n : node.getChildren()) {
             ret += printInternalTree(n, depth + 1);
+        }
         return ret;
     }
 
@@ -230,7 +237,9 @@ public class MbeansHierarchicalContainer extends HierarchicalContainer {
     private TreeNode addChild(TreeNode root, Object childData) {
         TreeNode node = findNodeForData(root, childData);
         if (node != null)
+         {
             return node; // childData already there
+        }
         // childData does not exist, so create it
         node = new TreeNodeImpl(root, childData);
         root.addChild(node);
@@ -247,13 +256,16 @@ public class MbeansHierarchicalContainer extends HierarchicalContainer {
      * @return the tree node
      */
     private TreeNode findNodeForData(TreeNode root, Object data) {
-        if (root == null)
+        if (root == null) {
             return null;
-        if (root.getData() != null && root.getData().equals(data))
+        }
+        if (root.getData() != null && root.getData().equals(data)) {
             return root;
+        }
         for (TreeNode node : root.getChildren()) {
-            if (node.getData() != null && node.getData().equals(data))
+            if (node.getData() != null && node.getData().equals(data)) {
                 return node;
+            }
         }
         return null;
     }

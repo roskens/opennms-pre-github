@@ -102,14 +102,16 @@ public class AttributesTable extends Table {
      *            the bean
      */
     public void modelChanged(Mbean bean) {
-        if (getData() == bean)
+        if (getData() == bean) {
             return;
+        }
         setData(bean);
         fieldsToValidate.clear();
         fields.clear();
         setContainerDataSource(callback.getContainer());
-        if (getContainerDataSource() == MBeansController.AttributesContainerCache.NULL)
+        if (getContainerDataSource() == MBeansController.AttributesContainerCache.NULL) {
             return;
+        }
         setVisibleColumns(new Object[] { MetaAttribItem.SELECTED, MetaAttribItem.NAME, MetaAttribItem.ALIAS,
                 MetaAttribItem.TYPE });
     }
@@ -172,10 +174,12 @@ public class AttributesTable extends Table {
                 c.setBuffered(true);
                 field = c;
             }
-            if (propertyId.toString().equals(MetaAttribItem.TYPE))
+            if (propertyId.toString().equals(MetaAttribItem.TYPE)) {
                 field = createType(itemId);
-            if (field == null)
+            }
+            if (field == null) {
                 return null;
+            }
             fields.add(field);
             return field;
         }
@@ -189,8 +193,9 @@ public class AttributesTable extends Table {
          */
         private ComboBox createType(Object itemId) {
             ComboBox select = new ComboBox();
-            for (AttribType type : AttribType.values())
+            for (AttribType type : AttribType.values()) {
                 select.addItem(type.name());
+            }
             select.setValue(AttribType.valueOf(itemId).name());
             select.setNullSelectionAllowed(false);
             select.setData(itemId);
@@ -229,9 +234,12 @@ public class AttributesTable extends Table {
     public void commit() throws SourceException, InvalidValueException {
         super.commit();
         if (isReadOnly())
+         {
             return; // we do not commit on read only
-        for (Field f : fields)
+        }
+        for (Field f : fields) {
             f.commit();
+        }
     }
 
     /* (non-Javadoc)
@@ -240,8 +248,9 @@ public class AttributesTable extends Table {
     @Override
     public void discard() throws SourceException {
         super.discard();
-        for (Field f : fields)
+        for (Field f : fields) {
             f.discard();
+        }
     }
 
     /* (non-Javadoc)
@@ -259,8 +268,9 @@ public class AttributesTable extends Table {
                 validationException = ex;
             }
         }
-        if (validationException != null)
+        if (validationException != null) {
             throw validationException;
+        }
     }
 
     /* (non-Javadoc)

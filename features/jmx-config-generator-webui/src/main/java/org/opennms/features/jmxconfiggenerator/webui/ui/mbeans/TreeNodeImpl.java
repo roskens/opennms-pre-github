@@ -104,8 +104,9 @@ public class TreeNodeImpl implements TreeNode {
      */
     @Override
     public void addChild(TreeNode child) {
-        if (children.contains(child))
+        if (children.contains(child)) {
             return;
+        }
         children.add(child);
     }
 

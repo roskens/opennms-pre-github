@@ -113,8 +113,9 @@ class MBeansTree extends Tree implements ModelChangeListener<UiModel>, ViewState
     private Object expandTree() {
         Object firstItemId = null;
         for (Object itemId : getItemIds()) {
-            if (firstItemId == null)
+            if (firstItemId == null) {
                 firstItemId = itemId;
+            }
             expandItem(itemId);
         }
         return firstItemId;
@@ -165,10 +166,12 @@ class MBeansTree extends Tree implements ModelChangeListener<UiModel>, ViewState
      */
     @Override
     public void handleAction(Action action, Object sender, Object target) {
-        if (action == SELECT)
+        if (action == SELECT) {
             controller.handleSelect(container, target);
-        if (action == DESELECT)
+        }
+        if (action == DESELECT) {
             controller.handleDeselect(container, target);
+        }
         fireValueChange(false);
     }
 }

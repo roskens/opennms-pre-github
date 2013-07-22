@@ -89,8 +89,9 @@ public class IconProvider {
      * @return the m beans icon
      */
     public static ThemeResource getMBeansIcon(boolean selected) {
-        if (selected)
+        if (selected) {
             return getIcon(MBEANS_ICON);
+        }
         return getIcon(MBEANS_DESELECTED_ICON);
     }
 }

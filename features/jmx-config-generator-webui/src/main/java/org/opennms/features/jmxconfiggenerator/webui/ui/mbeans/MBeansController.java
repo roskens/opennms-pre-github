@@ -151,10 +151,12 @@ public class MBeansController implements ModelChangeNotifier, ViewStateChangedLi
          * @return the container
          */
         public SelectableBeanItemContainer<ATTRIBUTETYPE> getContainer(PARENTTYPE bean) {
-            if (bean == null)
+            if (bean == null) {
                 return NULL;
-            if (containerMap.get(bean) != null)
+            }
+            if (containerMap.get(bean) != null) {
                 return containerMap.get(bean);
+            }
             containerMap.put(bean, new SelectableBeanItemContainer<ATTRIBUTETYPE>(type));
             initContainer(containerMap.get(bean), bean);
             return containerMap.get(bean);
@@ -297,7 +299,9 @@ public class MBeansController implements ModelChangeNotifier, ViewStateChangedLi
      */
     protected void updateView(ItemClickEvent event) {
         if (currentlySelected == event.getItemId())
+         {
             return; // no change made
+        }
         currentlySelected = event.getItemId() instanceof Mbean ? (Mbean) event.getItemId() : null;
         registry.notifyObservers(Item.class, event.getItem());
         registry.notifyObservers(event.getItemId().getClass(), event.getItemId());
@@ -314,12 +318,15 @@ public class MBeansController implements ModelChangeNotifier, ViewStateChangedLi
      *         non-Mbean selection
      */
     private ViewState getNextState(Object itemId) {
-        if (itemId == null)
+        if (itemId == null) {
             return ViewState.Init;
-        if (itemId instanceof Mbean)
+        }
+        if (itemId instanceof Mbean) {
             return ViewState.LeafSelected;
-        if (!(itemId instanceof Mbean))
+        }
+        if (!(itemId instanceof Mbean)) {
             return ViewState.NonLeafSelected;
+        }
         return ViewState.Init;
     }
 
@@ -332,7 +339,9 @@ public class MBeansController implements ModelChangeNotifier, ViewStateChangedLi
     private void setState(Object itemId) {
         ViewState nextState = getNextState(itemId);
         if (nextState == currentState)
+         {
             return; // nothing to do
+        }
         fireViewStateChanged(new ViewStateChangedEvent(currentState, nextState, this)); // tell
                                                                                         // the
                                                                                         // underlying
@@ -419,8 +428,9 @@ public class MBeansController implements ModelChangeNotifier, ViewStateChangedLi
      *            the event
      */
     private void fireViewStateChanged(ViewStateChangedEvent event) {
-        for (ViewStateChangedListener listener : viewStateListener)
+        for (ViewStateChangedListener listener : viewStateListener) {
             listener.viewStateChanged(event);
+        }
     }
 
     /**
@@ -461,8 +471,9 @@ public class MBeansController implements ModelChangeNotifier, ViewStateChangedLi
      */
     public void handleSelectDeselect(HierarchicalContainer container, Item item, Object itemId, boolean select) {
         itemStrategyHandler.getStrategy(itemId.getClass()).handleSelectDeselect(item, itemId, select);
-        if (!container.hasChildren(itemId))
+        if (!container.hasChildren(itemId)) {
             return;
+        }
         for (Object childItemId : container.getChildren(itemId)) {
             handleSelectDeselect(container, container.getItem(childItemId), childItemId, select);
         }
@@ -534,8 +545,9 @@ public class MBeansController implements ModelChangeNotifier, ViewStateChangedLi
                 names.put(att, att.getAlias());
             }
             for (CompAttrib compAttrib : bean.getCompAttrib()) {
-                for (CompMember compMember : compAttrib.getCompMember())
+                for (CompMember compMember : compAttrib.getCompMember()) {
                     names.put(compMember, compMember.getAlias());
+                }
             }
         }
         return names;

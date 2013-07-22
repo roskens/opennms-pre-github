@@ -194,8 +194,9 @@ class EditControls<T extends Component> extends HorizontalLayout implements Read
          */
         @Override
         public void handleSave() {
-            if (!getOuter().isValid())
+            if (!getOuter().isValid()) {
                 return;
+            }
             getOuter().commit();
             setEditAllowed(false);
         }
@@ -384,12 +385,15 @@ class EditControls<T extends Component> extends HorizontalLayout implements Read
     @Override
     public void buttonClick(Button.ClickEvent event) {
         Button source = event.getButton();
-        if (source == save)
+        if (source == save) {
             buttonHandler.handleSave();
-        if (source == cancel)
+        }
+        if (source == cancel) {
             buttonHandler.handleCancel();
-        if (source == edit)
+        }
+        if (source == edit) {
             buttonHandler.handleEdit();
+        }
         executeHooks(event);
     }
 
@@ -407,8 +411,9 @@ class EditControls<T extends Component> extends HorizontalLayout implements Read
      */
     private void addHook(ButtonType button, Callback callback) {
         Button b = getButton(button);
-        if (hooks.get(b) == null)
+        if (hooks.get(b) == null) {
             return;
+        }
         hooks.get(b).add(callback);
     }
 
@@ -458,7 +463,9 @@ class EditControls<T extends Component> extends HorizontalLayout implements Read
      */
     private void executeHooks(final Button.ClickEvent event) {
         if (hooks.get(event.getButton()) == null)
+         {
             return; // nothing to do
+        }
                     // //nothing to do
         for (Callback callback : hooks.get(event.getButton())) {
             callback.callback(getButtonType(event.getButton()), buttonHandler.getOuter());
@@ -492,12 +499,15 @@ class EditControls<T extends Component> extends HorizontalLayout implements Read
      * @return the button type
      */
     private ButtonType getButtonType(Button button) {
-        if (button == cancel)
+        if (button == cancel) {
             return ButtonType.cancel;
-        if (button == save)
+        }
+        if (button == save) {
             return ButtonType.save;
-        if (button == edit)
+        }
+        if (button == edit) {
             return ButtonType.edit;
+        }
         return ButtonType.cancel;
     }
 

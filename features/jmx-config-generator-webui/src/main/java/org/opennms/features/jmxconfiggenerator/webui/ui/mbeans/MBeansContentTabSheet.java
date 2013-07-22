@@ -164,8 +164,9 @@ public class MBeansContentTabSheet extends TabSheet implements ModelChangeListen
         @Override
         public void viewStateChanged(ViewStateChangedEvent event) {
             selectedCompositesTabPosition = UIHelper.enableTabs(tabSheet, event, selectedCompositesTabPosition);
-            if (tabSheet.getSelectedTab() == null)
+            if (tabSheet.getSelectedTab() == null) {
                 return;
+            }
             ((CompositeTabLayout) tabSheet.getSelectedTab()).viewStateChanged((event)); // forwared
         }
 

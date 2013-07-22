@@ -80,8 +80,9 @@ public class SelectableItem<T> extends PropertysetItem implements Selectable {
      */
     SelectableItem(T bean, Map<String, VaadinPropertyDescriptor> pdMap) {
         this.bean = bean;
-        for (VaadinPropertyDescriptor pd : pdMap.values())
+        for (VaadinPropertyDescriptor pd : pdMap.values()) {
             addItemProperty(pd.getName(), pd.createProperty(bean));
+        }
     }
 
     /**

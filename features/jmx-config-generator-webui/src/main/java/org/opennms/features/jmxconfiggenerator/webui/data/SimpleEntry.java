@@ -67,8 +67,9 @@ public class SimpleEntry<T> implements Entry<T, T> {
      *            the value
      */
     public SimpleEntry(T key, T value) {
-        if (key == null)
+        if (key == null) {
             throw new IllegalArgumentException(getClass().getSimpleName() + " cannot handle null keys");
+        }
         this.key = key;
         this.value = value;
     }
@@ -117,10 +118,12 @@ public class SimpleEntry<T> implements Entry<T, T> {
      */
     @Override
     public boolean equals(Object obj) {
-        if (obj == null)
+        if (obj == null) {
             return false;
-        if (!(obj instanceof Entry))
+        }
+        if (!(obj instanceof Entry)) {
             return false;
+        }
         return Objects.equal(this.key, ((Entry) obj).getKey()) && Objects.equal(this.value, ((Entry) obj).getValue());
     }
 

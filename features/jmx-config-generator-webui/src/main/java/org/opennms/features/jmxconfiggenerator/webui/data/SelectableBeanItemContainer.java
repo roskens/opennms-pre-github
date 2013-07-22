@@ -104,8 +104,9 @@ public class SelectableBeanItemContainer<T> extends AbstractInMemoryContainer<T,
     @Override
     public Property getContainerProperty(Object itemId, Object propertyId) {
         Item item = getItem(itemId);
-        if (item == null)
+        if (item == null) {
             return null;
+        }
         return item.getItemProperty(propertyId);
     }
 
@@ -133,8 +134,9 @@ public class SelectableBeanItemContainer<T> extends AbstractInMemoryContainer<T,
      */
     @Override
     public Item addItemAt(int index, Object newItemId) {
-        if (!isValid(newItemId))
+        if (!isValid(newItemId)) {
             return null;
+        }
         return internalAddItemAt(index, (T) newItemId, createItem((T) newItemId), true);
     }
 
@@ -146,8 +148,9 @@ public class SelectableBeanItemContainer<T> extends AbstractInMemoryContainer<T,
      * @return the selectable item
      */
     private SelectableItem<T> createItem(T itemId) {
-        if (itemId == null)
+        if (itemId == null) {
             return null;
+        }
         return new SelectableItem<T>(itemId, model);
     }
 
@@ -156,8 +159,9 @@ public class SelectableBeanItemContainer<T> extends AbstractInMemoryContainer<T,
      */
     @Override
     public Item addItemAfter(Object previousItemId, Object newItemId) {
-        if (!isValid(previousItemId) || !isValid(newItemId))
+        if (!isValid(previousItemId) || !isValid(newItemId)) {
             return null;
+        }
         return internalAddItemAfter((T) previousItemId, (T) newItemId, createItem((T) newItemId), true);
     }
 
@@ -166,8 +170,9 @@ public class SelectableBeanItemContainer<T> extends AbstractInMemoryContainer<T,
      */
     @Override
     public Item addItem(Object itemId) {
-        if (!isValid(itemId))
+        if (!isValid(itemId)) {
             return null;
+        }
         return internalAddItemAtEnd((T) itemId, createItem((T) itemId), true);
     }
 
