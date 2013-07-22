@@ -150,8 +150,9 @@ public class PingWindow extends Window {
         if (label == null || label.equals("") || label.equalsIgnoreCase(noLabel)) {
             label = "";
         }
-        if (!label.equals(""))
+        if (!label.equals("")) {
             caption = " - " + label;
+        }
         setCaption("Ping" + caption);
         setImmediate(true);
         setResizable(false);
@@ -379,19 +380,23 @@ public class PingWindow extends Window {
     protected boolean validateInput() throws NumberFormatException {
         int timeout = 0, requests = 0;
 
-        if ("".equals(timeoutField.getValue().toString()))
+        if ("".equals(timeoutField.getValue().toString())) {
             timeout = 1;
-        else
+        } else {
             timeout = Integer.parseInt(timeoutField.getValue().toString());
-        if ("".equals(requestsField.getValue().toString()))
+        }
+        if ("".equals(requestsField.getValue().toString())) {
             requests = 1;
-        else
+        } else {
             requests = Integer.parseInt(requestsField.getValue().toString());
+        }
 
-        if (timeout < 1 || timeout > 9999)
+        if (timeout < 1 || timeout > 9999) {
             return false;
-        if (requests < 1 || requests > 9999)
+        }
+        if (requests < 1 || requests > 9999) {
             return false;
+        }
         return true;
     }
 

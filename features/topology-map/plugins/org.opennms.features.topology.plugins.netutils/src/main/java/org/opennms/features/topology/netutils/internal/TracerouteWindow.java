@@ -148,8 +148,9 @@ public class TracerouteWindow extends Window {
         if (label == null || label.equals("") || label.equalsIgnoreCase(noLabel)) {
             label = "";
         }
-        if (!label.equals(""))
+        if (!label.equals("")) {
             caption = " - " + label;
+        }
         setCaption("Traceroute" + caption);
         setImmediate(true);
         setResizable(false);
@@ -350,17 +351,19 @@ public class TracerouteWindow extends Window {
      */
     protected boolean validateInput() throws Exception {
         String forcedHop = forcedHopField.getValue().toString();
-        if ("".equals(forcedHop))
+        if ("".equals(forcedHop)) {
             return true;
+        }
         Scanner line = new Scanner(forcedHop);
         line.useDelimiter("[.]");
         int count = 0;
         while (line.hasNextInt()) {
             int n = line.nextInt();
-            if (n < 0 || n > 255)
+            if (n < 0 || n > 255) {
                 return false; // Integers in an IP address must be within 0-255
-            else
+            } else {
                 count++;
+            }
         }
         line.close();
         return (count == 4); // IP address must has 4 integer values separated
