@@ -55,6 +55,6 @@ public interface Updatable {
      * @param value
      *            a {@link org.snmp4j.smi.Variable} object.
      */
-    public void updateValue(OID oid, Variable value);
+    void updateValue(OID oid, Variable value);
 
 }

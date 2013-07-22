@@ -56,5 +56,5 @@ public interface MockSnmpMOLoader {
      *            a {@link org.springframework.core.io.Resource} object.
      * @return a {@link java.util.List} object.
      */
-    public List<ManagedObject> loadMOs(URL moFile);
+    List<ManagedObject> loadMOs(URL moFile);
 }

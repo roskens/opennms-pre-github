@@ -41,6 +41,6 @@ public interface DynamicVariable {
      *            the oid str
      * @return the variable for oid
      */
-    public Variable getVariableForOID(String oidStr);
+    Variable getVariableForOID(String oidStr);
 
 }
