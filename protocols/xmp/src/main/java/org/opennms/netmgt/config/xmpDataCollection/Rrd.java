@@ -39,6 +39,8 @@ package org.opennms.netmgt.config.xmpDataCollection;
 //- Imported classes and packages -/
 //---------------------------------/
 
+import java.io.IOException;
+
 import org.exolab.castor.xml.Marshaller;
 import org.exolab.castor.xml.Unmarshaller;
 
@@ -132,23 +134,28 @@ public class Rrd implements java.io.Serializable {
      */
     @Override()
     public boolean equals(final java.lang.Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
+        }
 
         if (obj instanceof Rrd) {
 
             Rrd temp = (Rrd) obj;
-            if (this._step != temp._step)
+            if (this._step != temp._step) {
                 return false;
-            if (this._has_step != temp._has_step)
+            }
+            if (this._has_step != temp._has_step) {
                 return false;
+            }
             if (this._rraList != null) {
-                if (temp._rraList == null)
+                if (temp._rraList == null) {
                     return false;
-                else if (!(this._rraList.equals(temp._rraList)))
+                } else if (!(this._rraList.equals(temp._rraList))) {
                     return false;
-            } else if (temp._rraList != null)
+                }
+            } else if (temp._rraList != null) {
                 return false;
+            }
             return true;
         }
         return false;

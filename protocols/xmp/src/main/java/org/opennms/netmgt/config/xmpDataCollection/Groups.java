@@ -39,6 +39,8 @@ package org.opennms.netmgt.config.xmpDataCollection;
 //- Imported classes and packages -/
 //---------------------------------/
 
+import java.io.IOException;
+
 import org.exolab.castor.xml.Marshaller;
 import org.exolab.castor.xml.Unmarshaller;
 
@@ -121,19 +123,22 @@ public class Groups implements java.io.Serializable {
      */
     @Override()
     public boolean equals(final java.lang.Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
+        }
 
         if (obj instanceof Groups) {
 
             Groups temp = (Groups) obj;
             if (this._groupList != null) {
-                if (temp._groupList == null)
+                if (temp._groupList == null) {
                     return false;
-                else if (!(this._groupList.equals(temp._groupList)))
+                } else if (!(this._groupList.equals(temp._groupList))) {
                     return false;
-            } else if (temp._groupList != null)
+                }
+            } else if (temp._groupList != null) {
                 return false;
+            }
             return true;
         }
         return false;

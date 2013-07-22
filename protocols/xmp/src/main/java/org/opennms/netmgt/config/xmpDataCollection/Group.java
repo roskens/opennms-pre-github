@@ -39,6 +39,8 @@ package org.opennms.netmgt.config.xmpDataCollection;
 //- Imported classes and packages -/
 //---------------------------------/
 
+import java.io.IOException;
+
 import org.exolab.castor.xml.Marshaller;
 import org.exolab.castor.xml.Unmarshaller;
 
@@ -176,40 +178,49 @@ public class Group implements java.io.Serializable {
      */
     @Override()
     public boolean equals(final java.lang.Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
+        }
 
         if (obj instanceof Group) {
 
             Group temp = (Group) obj;
             if (this._name != null) {
-                if (temp._name == null)
+                if (temp._name == null) {
                     return false;
-                else if (!(this._name.equals(temp._name)))
+                } else if (!(this._name.equals(temp._name))) {
                     return false;
-            } else if (temp._name != null)
+                }
+            } else if (temp._name != null) {
                 return false;
+            }
             if (this._resourceType != null) {
-                if (temp._resourceType == null)
+                if (temp._resourceType == null) {
                     return false;
-                else if (!(this._resourceType.equals(temp._resourceType)))
+                } else if (!(this._resourceType.equals(temp._resourceType))) {
                     return false;
-            } else if (temp._resourceType != null)
+                }
+            } else if (temp._resourceType != null) {
                 return false;
+            }
             if (this._mibObjList != null) {
-                if (temp._mibObjList == null)
+                if (temp._mibObjList == null) {
                     return false;
-                else if (!(this._mibObjList.equals(temp._mibObjList)))
+                } else if (!(this._mibObjList.equals(temp._mibObjList))) {
                     return false;
-            } else if (temp._mibObjList != null)
+                }
+            } else if (temp._mibObjList != null) {
                 return false;
+            }
             if (this._includeGroupList != null) {
-                if (temp._includeGroupList == null)
+                if (temp._includeGroupList == null) {
                     return false;
-                else if (!(this._includeGroupList.equals(temp._includeGroupList)))
+                } else if (!(this._includeGroupList.equals(temp._includeGroupList))) {
                     return false;
-            } else if (temp._includeGroupList != null)
+                }
+            } else if (temp._includeGroupList != null) {
                 return false;
+            }
             return true;
         }
         return false;

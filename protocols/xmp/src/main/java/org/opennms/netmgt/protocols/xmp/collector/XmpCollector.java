@@ -316,12 +316,13 @@ public class XmpCollector implements ServiceCollector {
             // instead of using '*' for the nodeTypeName, use the
             // table name so that the proper rrd file is spec'd
 
-            if (targetInstance != null)
+            if (targetInstance != null) {
                 rowResource = new XmpCollectionResource(collectionSet.getCollectionAgent(), resourceType, tableInfo[1],
                                                         targetInstance);
-            else
+            } else {
                 rowResource = new XmpCollectionResource(collectionSet.getCollectionAgent(), resourceType, tableInfo[1],
                                                         rowInstance);
+            }
 
             agt = new AttributeGroupType(groupName, "all");
             ag = new AttributeGroup(rowResource, agt);
@@ -405,15 +406,18 @@ public class XmpCollector implements ServiceCollector {
         // xmp-config.xml, already parsed and ready to examine
         XmpConfig protoConfig = XmpConfigFactory.getInstance().getXmpConfig();
 
-        if (protoConfig.hasPort())
+        if (protoConfig.hasPort()) {
             xmpPort = protoConfig.getPort();
-        if (protoConfig.hasTimeout())
+        }
+        if (protoConfig.hasTimeout()) {
             timeout = protoConfig.getTimeout();
+        }
 
         // authenUser is optional; if it is present, it will
         // be non-null
-        if (protoConfig.getAuthenUser() != null)
+        if (protoConfig.getAuthenUser() != null) {
             authenUser = protoConfig.getAuthenUser();
+        }
 
         LOG.debug("initialize: authenUser '{}' port {}", authenUser, xmpPort);
         LOG.debug("initialize: keystore found? {}", sockopts.getKeystoreFound());
@@ -511,8 +515,9 @@ public class XmpCollector implements ServiceCollector {
         retries = peerConfig.getRetry();
         xmpPort = peerConfig.getPort();
 
-        if (parameters.get("authenUser") != null)
+        if (parameters.get("authenUser") != null) {
             authenUser = ParameterMap.getKeyedString(parameters, "authenUser", null);
+        }
 
         if (parameters.get("timeout") != null) {
             timeout = ParameterMap.getKeyedInteger(parameters, "timeout", 3000);

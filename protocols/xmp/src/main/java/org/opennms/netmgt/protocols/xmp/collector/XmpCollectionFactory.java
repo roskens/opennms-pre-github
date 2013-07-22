@@ -229,8 +229,9 @@ public class XmpCollectionFactory {
 
         // rrdPath not specific to a collection but specified for all of
         // data collection
-        if (rrdPath == null)
+        if (rrdPath == null) {
             getRrdPath();
+        }
 
         repo.setRrdBaseDir(new File(rrdPath));
 

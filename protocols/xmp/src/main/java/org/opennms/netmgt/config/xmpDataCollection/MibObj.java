@@ -39,6 +39,8 @@ package org.opennms.netmgt.config.xmpDataCollection;
 //- Imported classes and packages -/
 //---------------------------------/
 
+import java.io.IOException;
+
 import org.exolab.castor.xml.Marshaller;
 import org.exolab.castor.xml.Unmarshaller;
 
@@ -106,47 +108,58 @@ public class MibObj implements java.io.Serializable {
      */
     @Override()
     public boolean equals(final java.lang.Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
+        }
 
         if (obj instanceof MibObj) {
 
             MibObj temp = (MibObj) obj;
             if (this._mib != null) {
-                if (temp._mib == null)
+                if (temp._mib == null) {
                     return false;
-                else if (!(this._mib.equals(temp._mib)))
+                } else if (!(this._mib.equals(temp._mib))) {
                     return false;
-            } else if (temp._mib != null)
+                }
+            } else if (temp._mib != null) {
                 return false;
+            }
             if (this._table != null) {
-                if (temp._table == null)
+                if (temp._table == null) {
                     return false;
-                else if (!(this._table.equals(temp._table)))
+                } else if (!(this._table.equals(temp._table))) {
                     return false;
-            } else if (temp._table != null)
+                }
+            } else if (temp._table != null) {
                 return false;
+            }
             if (this._var != null) {
-                if (temp._var == null)
+                if (temp._var == null) {
                     return false;
-                else if (!(this._var.equals(temp._var)))
+                } else if (!(this._var.equals(temp._var))) {
                     return false;
-            } else if (temp._var != null)
+                }
+            } else if (temp._var != null) {
                 return false;
+            }
             if (this._instance != null) {
-                if (temp._instance == null)
+                if (temp._instance == null) {
                     return false;
-                else if (!(this._instance.equals(temp._instance)))
+                } else if (!(this._instance.equals(temp._instance))) {
                     return false;
-            } else if (temp._instance != null)
+                }
+            } else if (temp._instance != null) {
                 return false;
+            }
             if (this._alias != null) {
-                if (temp._alias == null)
+                if (temp._alias == null) {
                     return false;
-                else if (!(this._alias.equals(temp._alias)))
+                } else if (!(this._alias.equals(temp._alias))) {
                     return false;
-            } else if (temp._alias != null)
+                }
+            } else if (temp._alias != null) {
                 return false;
+            }
             return true;
         }
         return false;

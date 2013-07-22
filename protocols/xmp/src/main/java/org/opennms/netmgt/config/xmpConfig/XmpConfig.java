@@ -39,6 +39,8 @@ package org.opennms.netmgt.config.xmpConfig;
 //- Imported classes and packages -/
 //---------------------------------/
 
+import java.io.IOException;
+
 import org.exolab.castor.xml.Marshaller;
 import org.exolab.castor.xml.Unmarshaller;
 
@@ -125,31 +127,40 @@ public class XmpConfig implements java.io.Serializable {
      */
     @Override()
     public boolean equals(final java.lang.Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
+        }
 
         if (obj instanceof XmpConfig) {
 
             XmpConfig temp = (XmpConfig) obj;
-            if (this._port != temp._port)
+            if (this._port != temp._port) {
                 return false;
-            if (this._has_port != temp._has_port)
+            }
+            if (this._has_port != temp._has_port) {
                 return false;
-            if (this._retry != temp._retry)
+            }
+            if (this._retry != temp._retry) {
                 return false;
-            if (this._has_retry != temp._has_retry)
+            }
+            if (this._has_retry != temp._has_retry) {
                 return false;
-            if (this._timeout != temp._timeout)
+            }
+            if (this._timeout != temp._timeout) {
                 return false;
-            if (this._has_timeout != temp._has_timeout)
+            }
+            if (this._has_timeout != temp._has_timeout) {
                 return false;
+            }
             if (this._authenUser != null) {
-                if (temp._authenUser == null)
+                if (temp._authenUser == null) {
                     return false;
-                else if (!(this._authenUser.equals(temp._authenUser)))
+                } else if (!(this._authenUser.equals(temp._authenUser))) {
                     return false;
-            } else if (temp._authenUser != null)
+                }
+            } else if (temp._authenUser != null) {
                 return false;
+            }
             return true;
         }
         return false;

@@ -117,10 +117,11 @@ class XmpCollectionResource extends AbstractCollectionResource {
 
         this.agent = agent;
         this.nodeTypeName = nodeTypeName;
-        if ((resourceType == null) || (resourceType.length() == 0))
+        if ((resourceType == null) || (resourceType.length() == 0)) {
             this.resourceType = null;
-        else
+        } else {
             this.resourceType = resourceType;
+        }
         nodeType = -1;
 
         // filter the instance so it does not have slashes (/) nor colons
