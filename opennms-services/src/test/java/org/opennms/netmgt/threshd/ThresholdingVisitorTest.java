@@ -460,7 +460,7 @@ public class ThresholdingVisitorTest {
     @Test
     public void testInterfaceResourceWithDBAttributeFilter() throws Exception {
         Integer ifIndex = 1;
-        Long ifSpeed = 10000000l;
+        Long ifSpeed = 10000000L;
         String ifName = "wlan0";
         addHighThresholdEvent(1, 90, 50, 120, ifName, ifIndex.toString(), "ifOutOctets", ifName, ifIndex.toString());
         addHighThresholdEvent(1, 90, 50, 120, ifName, ifIndex.toString(), "ifInOctets", ifName, ifIndex.toString());
@@ -493,7 +493,7 @@ public class ThresholdingVisitorTest {
     @Test
     public void testInterfaceResourceWithStringAttributeFilter() throws Exception {
         Integer ifIndex = 1;
-        Long ifSpeed = 10000000l;
+        Long ifSpeed = 10000000L;
         String ifName = "sis0";
         addHighThresholdEvent(1, 90, 50, 120, ifName, ifIndex.toString(), "ifOutOctets", ifName, ifIndex.toString());
         addHighThresholdEvent(1, 90, 50, 120, ifName, ifIndex.toString(), "ifInOctets", ifName, ifIndex.toString());
@@ -1165,7 +1165,7 @@ public class ThresholdingVisitorTest {
         ThresholdingVisitor visitor = createVisitor();
         visitor.visitCollectionSet(createAnonymousCollectionSet(new Date().getTime()));
         // Do nothing, just to check visitor
-        runInterfaceResource(visitor, "127.0.0.1", "eth0", 10000000l, 1, 10000, 46000); // real
+        runInterfaceResource(visitor, "127.0.0.1", "eth0", 10000000L, 1, 10000, 46000); // real
                                                                                         // value
                                                                                         // =
                                                                                         // (46000
@@ -1313,7 +1313,7 @@ public class ThresholdingVisitorTest {
      *             the exception
      */
     private void runTestForBug2711(Integer ifIndex, Integer remainingEvents) throws Exception {
-        Long ifSpeed = 10000000l;
+        Long ifSpeed = 10000000L;
         String ifName = "wlan0";
         initFactories("/threshd-configuration.xml", "/test-thresholds-2.xml");
         addEvent(EventConstants.HIGH_THRESHOLD_EVENT_UEI, "127.0.0.1", "SNMP", 1, 90.0, 50.0, 120.0, ifName,
@@ -1510,7 +1510,7 @@ public class ThresholdingVisitorTest {
     public void testBug3428_noMatch() throws Exception {
         initFactories("/threshd-configuration.xml", "/test-thresholds-bug3428.xml");
         Integer ifIndex = 1;
-        Long ifSpeed = 10000000l; // 10Mbps - Bad Speed
+        Long ifSpeed = 10000000L; // 10Mbps - Bad Speed
         String ifName = "wlan0";
         addHighThresholdEvent(1, 90, 50, 120, "Unknown", ifIndex.toString(), "ifInOctets", ifName, ifIndex.toString());
         ThresholdingVisitor visitor = createVisitor();
@@ -1542,7 +1542,7 @@ public class ThresholdingVisitorTest {
     public void testBug3428_match() throws Exception {
         initFactories("/threshd-configuration.xml", "/test-thresholds-bug3428.xml");
         Integer ifIndex = 1;
-        Long ifSpeed = 100000000l; // 100Mbps - Correct Speed!
+        Long ifSpeed = 100000000L; // 100Mbps - Correct Speed!
         String ifName = "wlan0";
         addHighThresholdEvent(1, 90, 50, 120, ifName, ifIndex.toString(), "ifInOctets", ifName, ifIndex.toString());
         ThresholdingVisitor visitor = createVisitor();
@@ -1574,7 +1574,7 @@ public class ThresholdingVisitorTest {
     public void testBug3664() throws Exception {
         initFactories("/threshd-configuration.xml", "/test-thresholds-bug3664.xml");
         Integer ifIndex = 1;
-        Long ifSpeed = 10000000l;
+        Long ifSpeed = 10000000L;
         String ifName = "wlan0";
         String domain = "myDomain";
         String ifAlias = ifName;
@@ -1706,7 +1706,7 @@ public class ThresholdingVisitorTest {
     public void testIgnoreAliasedResources() throws Exception {
         initFactories("/threshd-configuration.xml", "/test-thresholds-bug3664.xml");
         Integer ifIndex = 1;
-        Long ifSpeed = 10000000l;
+        Long ifSpeed = 10000000L;
         String ifName = "wlan0";
         String domain = "myDomain";
         String ifAlias = ifName;
@@ -1754,7 +1754,7 @@ public class ThresholdingVisitorTest {
     public void testDisabledCollection() throws Exception {
         initFactories("/threshd-configuration.xml", "/test-thresholds-bug3428.xml");
         Integer ifIndex = 1;
-        Long ifSpeed = 100000000l;
+        Long ifSpeed = 100000000L;
         String ifName = "wlan0";
         addHighThresholdEvent(1, 90, 50, 120, ifName, ifIndex.toString(), "ifInOctets", ifName, ifIndex.toString());
 
@@ -2137,7 +2137,7 @@ public class ThresholdingVisitorTest {
      */
     private void runCounterWrapTest(double bits, double expectedValue) throws Exception {
         Integer ifIndex = 1;
-        Long ifSpeed = 10000000l;
+        Long ifSpeed = 10000000L;
         String ifName = "wlan0";
 
         initFactories("/threshd-configuration.xml", "/test-thresholds-bug3194.xml");

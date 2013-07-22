@@ -443,7 +443,7 @@ public class CollectionResourceWrapperTest {
         snmpIface.setIfDescr(ifName);
         snmpIface.setIfName(ifName);
         snmpIface.setIfAlias(ifName);
-        snmpIface.setIfSpeed(10000000l);
+        snmpIface.setIfSpeed(10000000L);
         SnmpIfData ifData = new SnmpIfData(snmpIface);
 
         // Creating IfResourceType

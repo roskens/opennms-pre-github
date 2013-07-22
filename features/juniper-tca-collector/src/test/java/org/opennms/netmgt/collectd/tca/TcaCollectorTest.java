@@ -234,7 +234,7 @@ public class TcaCollectorTest implements InitializingBean {
 
         // Generate new SNMP Data
         StringBuffer sb = new StringBuffer("|25|");
-        long ts = 1327451787l;
+        long ts = 1327451787L;
         for (int i = 0; i < 25; i++) {
             sb.append(ts++);
             sb.append(",12,-1,12,-2,1|");

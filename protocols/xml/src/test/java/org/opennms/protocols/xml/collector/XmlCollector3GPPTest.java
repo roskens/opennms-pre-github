@@ -79,7 +79,7 @@ public class XmlCollector3GPPTest extends AbstractXmlCollectorTest {
     public void testTimeParser() throws Exception {
         String pattern = "yyyy-MM-dd'T'HH:mm:ssZ";
         String value = "2011-10-25T00:45:00-05:00";
-        long expectedTimestamp = 1319521500000l;
+        long expectedTimestamp = 1319521500000L;
         DateTimeFormatter dtf = DateTimeFormat.forPattern(pattern);
         DateTime dateTime = dtf.parseDateTime(value);
         Date date = dateTime.toDate();

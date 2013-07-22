@@ -211,7 +211,7 @@ public class ResourceTypeUtilsTest {
         // Creating a new strings.properties file and adding one value to it
         ResourceTypeUtils.updateStringProperty(resourceDir, "2012", "year");
         assertEquals("2012", ResourceTypeUtils.getStringProperty(resourceDir, "year"));
-        Thread.sleep(1000l); // Simulate a delay, to be sure that we are going
+        Thread.sleep(1000L); // Simulate a delay, to be sure that we are going
                              // to have a different lastModifyTime
 
         // Externally updating the strings.proeprties file

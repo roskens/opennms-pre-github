@@ -65,7 +65,7 @@ public class NrtCollectorStarter {
 
         while (!nrtCollector.terminated()) {
             try {
-                Thread.sleep(1000l);
+                Thread.sleep(1000L);
             } catch (InterruptedException e) {
                 logger.error("'{}'", e.getMessage());
             }

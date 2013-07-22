@@ -89,7 +89,7 @@ public class Sftp3gppUrlConnectionTest {
      */
     @Test
     public void testCustomPathFor3GPPA() throws Exception {
-        long ts = 1320257100000l;
+        long ts = 1320257100000L;
         Date date = new Date(ts);
         LOG.debug("Timestamp = {}", date);
         URL url = UrlFactory.getUrl("sftp.3gpp://admin:admin@192.168.1.1/opt/3gpp?step=300&timezone=GMT-5&neId=MME00001&referenceTimestamp="

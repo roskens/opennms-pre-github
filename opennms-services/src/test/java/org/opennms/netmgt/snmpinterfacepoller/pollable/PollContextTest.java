@@ -87,7 +87,7 @@ public class PollContextTest {
 
         nb.addNode("cisco2691").setForeignSource("linkd").setForeignId("cisco2691").setSysObjectId(".1.3.6.1.4.1.9.1.122").setType("A");
         OnmsSnmpInterface null0 = new OnmsSnmpInterface(nb.getCurrentNode(), 4);
-        null0.setIfSpeed(10000000l);
+        null0.setIfSpeed(10000000L);
         null0.setPoll("P");
         null0.setIfType(6);
         null0.setCollectionEnabled(false);
@@ -95,7 +95,7 @@ public class PollContextTest {
         null0.setIfDescr("Null0");
         nb.addInterface("10.1.4.2", null0).setIsSnmpPrimary("P").setIsManaged("M");
         OnmsSnmpInterface fa0 = new OnmsSnmpInterface(nb.getCurrentNode(), 2);
-        fa0.setIfSpeed(100000000l);
+        fa0.setIfSpeed(100000000L);
         fa0.setPoll("P");
         fa0.setIfType(6);
         fa0.setCollectionEnabled(false);
@@ -103,7 +103,7 @@ public class PollContextTest {
         fa0.setIfDescr("FastEthernet0");
         nb.addInterface("10.1.5.1", fa0).setIsSnmpPrimary("S").setIsManaged("M");
         OnmsSnmpInterface eth0 = new OnmsSnmpInterface(nb.getCurrentNode(), 1);
-        eth0.setIfSpeed(100000000l);
+        eth0.setIfSpeed(100000000L);
         eth0.setPoll("P");
         eth0.setIfType(6);
         eth0.setCollectionEnabled(false);
@@ -114,7 +114,7 @@ public class PollContextTest {
 
         nb.addNode("cisco1700").setForeignSource("linkd").setForeignId("cisco1700").setSysObjectId(".1.3.6.1.4.1.9.1.200").setType("A");
         OnmsSnmpInterface eth1 = new OnmsSnmpInterface(nb.getCurrentNode(), 2);
-        eth1.setIfSpeed(100000000l);
+        eth1.setIfSpeed(100000000L);
         eth1.setPoll("P");
         eth1.setIfType(6);
         eth1.setCollectionEnabled(false);
