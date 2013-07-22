@@ -219,8 +219,9 @@ public class JdbcAgentState {
      *            the con
      */
     public void closeConnection(Connection con) {
-        if (con == null)
+        if (con == null) {
             return;
+        }
         try {
             con.close();
         } catch (SQLException ignore) {
