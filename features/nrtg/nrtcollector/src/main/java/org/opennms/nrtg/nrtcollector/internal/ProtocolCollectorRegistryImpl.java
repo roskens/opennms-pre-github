@@ -49,8 +49,9 @@ public class ProtocolCollectorRegistryImpl implements ProtocolCollectorRegistry 
     @Override
     public ProtocolCollector getProtocolCollector(String protocol) {
         for (ProtocolCollector pc : protocolCollectors) {
-            if (pc.getProtcol().equals(protocol))
+            if (pc.getProtcol().equals(protocol)) {
                 return pc;
+            }
         }
         throw new RuntimeException("Unknown protocol! " + protocol);
     }
