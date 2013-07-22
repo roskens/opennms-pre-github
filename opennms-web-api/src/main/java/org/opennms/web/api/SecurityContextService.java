@@ -38,14 +38,14 @@ public interface SecurityContextService {
      *
      * @return user name from security context otherwise null
      */
-    public String getUsername();
+    String getUsername();
 
     /**
      * Get the user password about the currently logged in user.
      *
      * @return user password from security context otherwise null
      */
-    public String getPassword();
+    String getPassword();
 
     /**
      * Check if the currently logged in user has the required role.
@@ -54,12 +54,12 @@ public interface SecurityContextService {
      *            - required role
      * @return true if role is assigned, otherwise false
      */
-    public boolean hasRole(String role);
+    boolean hasRole(String role);
 
     /**
      * Check if the currently logged in user is authenticated.
      *
      * @return true is authenticated, otherwise false
      */
-    public boolean isAuthenticated();
+    boolean isAuthenticated();
 }

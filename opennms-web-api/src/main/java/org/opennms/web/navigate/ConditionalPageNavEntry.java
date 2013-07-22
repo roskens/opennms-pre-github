@@ -48,5 +48,5 @@ public interface ConditionalPageNavEntry extends PageNavEntry {
      *            create a link. (may be null)
      * @return a {@link org.opennms.web.navigate.DisplayStatus} object.
      */
-    public abstract DisplayStatus evaluate(HttpServletRequest request, Object target);
+    DisplayStatus evaluate(HttpServletRequest request, Object target);
 }
