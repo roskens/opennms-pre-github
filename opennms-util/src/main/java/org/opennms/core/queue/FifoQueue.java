@@ -53,7 +53,7 @@ public interface FifoQueue<T> {
      * @throws InterruptedException
      *             the interrupted exception
      */
-    public void add(T element) throws FifoQueueException, InterruptedException;
+    void add(T element) throws FifoQueueException, InterruptedException;
 
     /**
      * Inserts a new element into the queue. If the queue has reached an
@@ -72,7 +72,7 @@ public interface FifoQueue<T> {
      * @throws InterruptedException
      *             the interrupted exception
      */
-    public boolean add(T element, long timeout) throws FifoQueueException, InterruptedException;
+    boolean add(T element, long timeout) throws FifoQueueException, InterruptedException;
 
     /**
      * Removes the oldest element from the queue.
@@ -83,7 +83,7 @@ public interface FifoQueue<T> {
      * @throws InterruptedException
      *             the interrupted exception
      */
-    public T remove() throws FifoQueueException, InterruptedException;
+    T remove() throws FifoQueueException, InterruptedException;
 
     /**
      * Removes the next element from the queue if one becomes available before
@@ -99,19 +99,19 @@ public interface FifoQueue<T> {
      * @throws InterruptedException
      *             the interrupted exception
      */
-    public T remove(long timeout) throws FifoQueueException, InterruptedException;
+    T remove(long timeout) throws FifoQueueException, InterruptedException;
 
     /**
      * Returns the current number of elements that are in the queue.
      *
      * @return The number of elements in the queue.
      */
-    public int size();
+    int size();
 
     /**
      * Used to test if the current queue has no stored elements.
      *
      * @return True if the queue is empty.
      */
-    public boolean isEmpty();
+    boolean isEmpty();
 }

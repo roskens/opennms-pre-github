@@ -48,14 +48,14 @@ public interface ClosableFifoQueue<T> extends FifoQueue<T> {
      *
      * @return True if the queue is open.
      */
-    public boolean isOpen();
+    boolean isOpen();
 
     /**
      * Returns true if the queue is currently closed.
      *
      * @return True if the queue is closed.
      */
-    public boolean isClosed();
+    boolean isClosed();
 
     /**
      * Closes a currently open queue. When a queue is closed is should still
@@ -65,7 +65,7 @@ public interface ClosableFifoQueue<T> extends FifoQueue<T> {
      * @throws FifoQueueException
      *             the fifo queue exception
      */
-    public void close() throws FifoQueueException;
+    void close() throws FifoQueueException;
 
     /**
      * Ensures that the queue is open and new elements can be added to the
@@ -74,5 +74,5 @@ public interface ClosableFifoQueue<T> extends FifoQueue<T> {
      * @throws FifoQueueException
      *             the fifo queue exception
      */
-    public void open() throws FifoQueueException;
+    void open() throws FifoQueueException;
 }

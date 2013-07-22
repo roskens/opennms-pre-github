@@ -573,7 +573,7 @@ public final class ConfigFileConstants {
      *            The identifier of the desired file.
      * @return The base name of the file that matches the identifier.
      */
-    public static final String getFileName(int id) {
+    public static String getFileName(int id) {
         return FILE_ID_TO_NAME[id];
     }
 
@@ -598,7 +598,7 @@ public final class ConfigFileConstants {
      * @throws IOException
      *             Signals that an I/O exception has occurred.
      */
-    public static final File getFile(int id) throws IOException {
+    public static File getFile(int id) throws IOException {
         // Recover the home directory from the system properties.
         String home = getHome();
 
@@ -643,7 +643,7 @@ public final class ConfigFileConstants {
      * @throws IOException
      *             Signals that an I/O exception has occurred.
      */
-    public static final File getConfigFileByName(String fname) throws IOException {
+    public static File getConfigFileByName(String fname) throws IOException {
         // Recover the home directory from the system properties.
         //
         String home = getHome();
@@ -678,7 +678,7 @@ public final class ConfigFileConstants {
      *
      * @return a {@link java.lang.String} object.
      */
-    public static final String getHome() {
+    public static String getHome() {
         String home = System.getProperty("opennms.home");
         if (home == null) {
             LOG.debug("The 'opennms.home' property was not set, falling back to /opt/opennms.  This should really only happen in unit tests.");
@@ -699,7 +699,7 @@ public final class ConfigFileConstants {
      *
      * @return String, the file url for the include file
      */
-    public static final String getIncludeFileString() {
+    public static String getIncludeFileString() {
         return "file:" + getHome() + File.separator + "etc" + File.separator + "include";
     }
 
@@ -708,7 +708,7 @@ public final class ConfigFileConstants {
      *
      * @return String, the file url for the include file
      */
-    public static final String getFilePathString() {
+    public static String getFilePathString() {
         return getHome() + File.separator + "etc" + File.separator;
     }
 
@@ -720,7 +720,7 @@ public final class ConfigFileConstants {
      *
      * @return a {@link java.lang.String} object.
      */
-    public static final String getTimezoneFileDir() {
+    public static String getTimezoneFileDir() {
         return File.separator + "usr" + File.separator + "share" + File.separator + "zoneinfo" + File.separator + "US";
     }
 

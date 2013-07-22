@@ -59,7 +59,7 @@ public interface Fiber {
     /**
      * The string names that correspond to the states of the fiber.
      */
-    public static final String[] STATUS_NAMES = { "START_PENDING", // 0
+    String[] STATUS_NAMES = { "START_PENDING", // 0
             "STARTING", // 1
             "RUNNING", // 2
             "STOP_PENDING", // 3
@@ -75,35 +75,35 @@ public interface Fiber {
      * state. A <code>Fiber</code> in a start pending
      * state has not begun any of the initialization process.
      */
-    public static final int START_PENDING = 0;
+    int START_PENDING = 0;
 
     /**
      * This state is used to define when a <code>Fiber</code> has begun the
      * Initialization process. Once the initialization process is completed the
      * <code>Fiber</code> will transition to a <code>RUNNING</code> status.
      */
-    public static final int STARTING = 1;
+    int STARTING = 1;
 
     /**
      * This state is used to define the normal runtime condition of a
      * <code>Fiber</code>. When a <code>Fiber</code> is in this state then
      * it is processing normally.
      */
-    public static final int RUNNING = 2;
+    int RUNNING = 2;
 
     /**
      * This state is used to denote when the <code>Fiber</code> is terminating
      * processing. This state is always followed by the state
      * <code>ST0PPED</code>.
      */
-    public static final int STOP_PENDING = 3;
+    int STOP_PENDING = 3;
 
     /**
      * This state represents the final resting state of a <code>Fiber</code>.
      * Depending on the implementation it may be possible to resurrect the
      * <code>Fiber</code> from this state.
      */
-    public static final int STOPPED = 4;
+    int STOPPED = 4;
 
     /**
      * This method is used to start the initialization process of the

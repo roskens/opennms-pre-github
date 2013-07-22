@@ -44,7 +44,7 @@ public interface InitializableFiber extends Fiber {
      * <code>Fiber</code>, which should eventually transition to a
      * <code>RUNNING</code> status.
      */
-    public void init();
+    void init();
 
     /**
      * This method is used to stop a currently running <code>Fiber</code>.
@@ -52,5 +52,5 @@ public interface InitializableFiber extends Fiber {
      * Depending on the implementation, this method may block until the
      * <code>Fiber</code> terminates.
      */
-    public void destroy();
+    void destroy();
 }

@@ -46,5 +46,5 @@ public interface ExtendedStatusFiber extends Fiber {
      *
      * @return The extended status information.
      */
-    public int getExtendedStatus();
+    int getExtendedStatus();
 }

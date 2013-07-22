@@ -46,14 +46,14 @@ public interface PausableFiber extends Fiber {
      * the thread is no longer in the <code>RUNNING</code> status, but not yet
      * to a <code>PAUSED</code> status.
      */
-    public static final int PAUSE_PENDING = 5;
+    int PAUSE_PENDING = 5;
 
     /**
      * This state is used to denote a paused, or otherwise suspended
      * <code>Fiber</code>. When a <code>Fiber</code> is in this state it
      * should not be preforming any work.
      */
-    public static final int PAUSED = 6;
+    int PAUSED = 6;
 
     /**
      * This state is used to denote a <code>Fiber</code> recovering from a
@@ -61,7 +61,7 @@ public interface PausableFiber extends Fiber {
      * <code>Fiber</code> is reinitializing any necessary internal elements to
      * re-enter the <code>RUNNING</code> state.
      */
-    public static final int RESUME_PENDING = 7;
+    int RESUME_PENDING = 7;
 
     /**
      * This method is used to suspend a currently running <code>Fiber</code>.

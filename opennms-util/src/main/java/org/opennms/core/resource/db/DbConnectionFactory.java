@@ -66,7 +66,7 @@ public interface DbConnectionFactory {
      * @throws SQLException
      *             the sQL exception
      */
-    public void init(String dbUrl, String dbDriver, String username, String password) throws ClassNotFoundException,
+    void init(String dbUrl, String dbDriver, String username, String password) throws ClassNotFoundException,
             SQLException;
 
     /**
@@ -77,7 +77,7 @@ public interface DbConnectionFactory {
      * @throws SQLException
      *             the sQL exception
      */
-    public void destroy() throws SQLException;
+    void destroy() throws SQLException;
 
     /**
      * Retrieve a connection from the given database connection pool.
@@ -86,7 +86,7 @@ public interface DbConnectionFactory {
      * @throws SQLException
      *             the sQL exception
      */
-    public Connection getConnection() throws SQLException;
+    Connection getConnection() throws SQLException;
 
     /**
      * Replace a database connection back in the pool of available connections
@@ -97,6 +97,6 @@ public interface DbConnectionFactory {
      * @throws SQLException
      *             the sQL exception
      */
-    public void releaseConnection(Connection connection) throws SQLException;
+    void releaseConnection(Connection connection) throws SQLException;
 
 }

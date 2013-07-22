@@ -53,7 +53,7 @@ public interface Signaler {
      *
      * @see java.lang.Object#notify
      */
-    public void signal();
+    void signal();
 
     /**
      * <P>
@@ -63,5 +63,5 @@ public interface Signaler {
      *
      * @see java.lang.Object#notifyAll
      */
-    public void signalAll();
+    void signalAll();
 }
