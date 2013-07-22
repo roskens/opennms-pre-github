@@ -57,12 +57,15 @@ public class TimeInterval implements Comparable<TimeInterval> {
      *            a {@link java.util.Date} object.
      */
     public TimeInterval(Date start, Date end) {
-        if (start == null)
+        if (start == null) {
             throw new NullPointerException("start is null");
-        if (end == null)
+        }
+        if (end == null) {
             throw new NullPointerException("end is null");
-        if (start.compareTo(end) >= 0)
+        }
+        if (start.compareTo(end) >= 0) {
             throw new IllegalArgumentException("start (" + start + ") must come strictly before end (" + end + ")");
+        }
 
         m_start = start;
         m_end = end;
@@ -104,12 +107,14 @@ public class TimeInterval implements Comparable<TimeInterval> {
      *         for these the starting date is included the ending date excluded
      */
     public int comparesTo(Date date) {
-        if (date.before(m_start))
+        if (date.before(m_start)) {
             return 1;
-        if (date.after(m_end) || date.equals(m_end))
+        }
+        if (date.after(m_end) || date.equals(m_end)) {
             return -1;
-        else
+        } else {
             return 0;
+        }
     }
 
     /**
@@ -162,12 +167,14 @@ public class TimeInterval implements Comparable<TimeInterval> {
      */
     @Override
     public int compareTo(TimeInterval t) {
-        if (t.m_end.before(m_start) || t.m_end.equals(m_start))
+        if (t.m_end.before(m_start) || t.m_end.equals(m_start)) {
             return 1;
-        if (t.m_start.after(m_end) || t.m_start.equals(m_end))
+        }
+        if (t.m_start.after(m_end) || t.m_start.equals(m_end)) {
             return -1;
-        else
+        } else {
             return 0;
+        }
     }
 
     /**

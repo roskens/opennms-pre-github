@@ -67,8 +67,9 @@ public abstract class ParameterMap {
     @SuppressWarnings("unchecked")
     public static long getKeyedLong(final Map map, final String key, final long defValue) {
 
-        if (map == null)
+        if (map == null) {
             return defValue;
+        }
 
         long value = defValue;
         Object oValue = map.get(key);
@@ -125,8 +126,9 @@ public abstract class ParameterMap {
     @SuppressWarnings("unchecked")
     public static final int[] getKeyedIntegerArray(final Map map, final String key, final int[] defValues) {
 
-        if (map == null)
+        if (map == null) {
             return defValues;
+        }
 
         int[] result = defValues;
         Object oValue = map.get(key);
@@ -151,8 +153,9 @@ public abstract class ParameterMap {
             }
             result = new int[tmpList.size()];
 
-            for (int x = 0; x < result.length; x++)
+            for (int x = 0; x < result.length; x++) {
                 result[x] = ((Integer) tmpList.get(x)).intValue();
+            }
 
             map.put(key, result);
         }
@@ -177,8 +180,9 @@ public abstract class ParameterMap {
     @SuppressWarnings("unchecked")
     public static String getKeyedString(final Map map, final String key, final String defValue) {
 
-        if (map == null)
+        if (map == null) {
             return defValue;
+        }
 
         String value = defValue;
         Object oValue = map.get(key);
@@ -211,8 +215,9 @@ public abstract class ParameterMap {
     @SuppressWarnings("unchecked")
     public static boolean getKeyedBoolean(final Map map, final String key, final boolean defValue) {
 
-        if (map == null)
+        if (map == null) {
             return defValue;
+        }
 
         boolean value = defValue;
         Object oValue = map.get(key);
@@ -253,8 +258,9 @@ public abstract class ParameterMap {
      */
     public static <T> T getKeyedValue(final Map<String, T> map, final String key, final T defValue) {
 
-        if (map == null)
+        if (map == null) {
             return defValue;
+        }
 
         T oValue = map.get(key);
 

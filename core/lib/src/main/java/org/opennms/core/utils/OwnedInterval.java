@@ -271,8 +271,9 @@ public class OwnedInterval extends TimeInterval {
     /** {@inheritDoc} */
     @Override
     public boolean equals(final Object o) {
-        if (o == null)
+        if (o == null) {
             return false;
+        }
         if (o instanceof OwnedInterval) {
             final OwnedInterval owned = (OwnedInterval) o;
             return super.equals(owned) && m_owners.equals(owned.m_owners);

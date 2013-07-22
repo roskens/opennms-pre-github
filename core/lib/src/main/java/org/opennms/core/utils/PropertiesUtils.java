@@ -134,9 +134,10 @@ public abstract class PropertiesUtils {
     public static String substitute(String initialString, Properties... propertiesArray) {
         String workingString = initialString;
         for (Properties properties : propertiesArray) {
-            if (properties != null)
+            if (properties != null) {
                 workingString = substitute(workingString, new PropertyBasedSymbolTable(properties), PLACEHOLDER_PREFIX,
                                            PLACEHOLDER_SUFFIX, new ArrayList<String>());
+            }
         }
         return workingString;
     }
@@ -157,9 +158,10 @@ public abstract class PropertiesUtils {
     public static String substitute(String initialString, Map<String, String>... mapArray) {
         String workingString = initialString;
         for (Map<String, String> properties : mapArray) {
-            if (properties != null)
+            if (properties != null) {
                 workingString = substitute(workingString, new MapBasedSymbolTable(properties), PLACEHOLDER_PREFIX,
                                            PLACEHOLDER_SUFFIX, new ArrayList<String>());
+            }
         }
         return workingString;
     }
@@ -224,8 +226,9 @@ public abstract class PropertiesUtils {
      */
     private static String substitute(String initialString, SymbolTable symTable, String placeholderPrefix,
             String placeholderSuffix, List<String> list) {
-        if (initialString == null)
+        if (initialString == null) {
             return null;
+        }
 
         StringBuffer result = new StringBuffer(initialString);
 
@@ -237,9 +240,10 @@ public abstract class PropertiesUtils {
                                                                  beginIndex + placeholderPrefix.length()));
             if (endIndex >= 0) {
                 String symbol = result.substring(beginIndex + placeholderPrefix.length(), endIndex);
-                if (list.contains(symbol))
+                if (list.contains(symbol)) {
                     throw new IllegalStateException("recursive loop involving symbol " + placeholderPrefix + symbol
                             + placeholderSuffix);
+                }
                 String symbolVal = symTable.getSymbolValue(symbol);
                 if (symbolVal != null) {
                     list.add(symbol);

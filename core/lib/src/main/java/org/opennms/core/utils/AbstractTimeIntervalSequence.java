@@ -458,8 +458,9 @@ public abstract class AbstractTimeIntervalSequence<T extends TimeInterval> {
      * @return a {@link java.util.Date} object.
      */
     public Date getStart() {
-        if (m_interval == null)
+        if (m_interval == null) {
             return null;
+        }
         return m_interval.getStart();
     }
 
@@ -472,10 +473,12 @@ public abstract class AbstractTimeIntervalSequence<T extends TimeInterval> {
      * @return a {@link java.util.Date} object.
      */
     public Date getEnd() {
-        if (m_interval == null)
+        if (m_interval == null) {
             return null;
-        if (m_tail == null)
+        }
+        if (m_tail == null) {
             return m_interval.getEnd();
+        }
         return m_tail.getEnd();
     }
 

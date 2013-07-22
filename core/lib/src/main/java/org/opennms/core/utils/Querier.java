@@ -64,10 +64,11 @@ public class Querier extends JDBCTemplate implements RowProcessor {
      */
     public Querier(DataSource db, String sql, RowProcessor rowProcessor) {
         super(db, sql);
-        if (rowProcessor == null)
+        if (rowProcessor == null) {
             m_rowProcessor = this;
-        else
+        } else {
             m_rowProcessor = rowProcessor;
+        }
         m_count = 0;
     }
 
