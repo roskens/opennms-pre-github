@@ -124,8 +124,9 @@ public class NativeSocketTest {
             }
 
         } finally {
-            if (socket != null)
+            if (socket != null) {
                 socket.close();
+            }
         }
     }
 
@@ -190,8 +191,9 @@ public class NativeSocketTest {
             }
 
         } finally {
-            if (socket != null)
+            if (socket != null) {
                 socket.close();
+            }
         }
     }
 
