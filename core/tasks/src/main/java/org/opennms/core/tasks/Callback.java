@@ -47,7 +47,7 @@ public interface Callback<T> {
      * @param t
      *            a T object.
      */
-    public void complete(T t);
+    void complete(T t);
 
     /**
      * <p>
@@ -58,6 +58,6 @@ public interface Callback<T> {
      * @param t
      *            a {@link java.lang.Throwable} object.
      */
-    public void handleException(Throwable t);
+    void handleException(Throwable t);
 
 }

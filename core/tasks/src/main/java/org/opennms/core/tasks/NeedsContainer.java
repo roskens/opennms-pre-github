@@ -45,5 +45,5 @@ public interface NeedsContainer {
      * @param container
      *            a {@link org.opennms.core.tasks.ContainerTask} object.
      */
-    public void run(ContainerTask<?> container);
+    void run(ContainerTask<?> container);
 }

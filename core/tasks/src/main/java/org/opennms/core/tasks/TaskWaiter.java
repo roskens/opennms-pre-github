@@ -51,7 +51,7 @@ public interface TaskWaiter {
      * @throws ExecutionException
      *             the execution exception
      */
-    public void waitFor() throws InterruptedException, ExecutionException;
+    void waitFor() throws InterruptedException, ExecutionException;
 
     /**
      * <p>
@@ -70,5 +70,5 @@ public interface TaskWaiter {
      * @throws TimeoutException
      *             the timeout exception
      */
-    public void waitFor(long timeout, TimeUnit unit) throws InterruptedException, ExecutionException, TimeoutException;
+    void waitFor(long timeout, TimeUnit unit) throws InterruptedException, ExecutionException, TimeoutException;
 }

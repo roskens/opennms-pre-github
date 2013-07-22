@@ -36,5 +36,5 @@ public interface Stoppable extends Runnable {
     /**
      * Stop.
      */
-    public void stop();
+    void stop();
 }

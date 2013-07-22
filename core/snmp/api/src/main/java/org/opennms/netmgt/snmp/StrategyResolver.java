@@ -37,6 +37,6 @@ public interface StrategyResolver {
      *
      * @return the strategy
      */
-    public SnmpStrategy getStrategy();
+    SnmpStrategy getStrategy();
 
 }

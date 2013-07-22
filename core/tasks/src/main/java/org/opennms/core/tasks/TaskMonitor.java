@@ -47,7 +47,7 @@ public interface TaskMonitor {
      * @param prerequsite
      *            a {@link org.opennms.core.tasks.Task} object.
      */
-    public void prerequisiteAdded(Task monitored, Task prerequsite);
+    void prerequisiteAdded(Task monitored, Task prerequsite);
 
     /**
      * <p>
@@ -60,7 +60,7 @@ public interface TaskMonitor {
      * @param prerequisite
      *            a {@link org.opennms.core.tasks.Task} object.
      */
-    public void prerequisiteCompleted(Task monitored, Task prerequisite);
+    void prerequisiteCompleted(Task monitored, Task prerequisite);
 
     /**
      * <p>
@@ -71,7 +71,7 @@ public interface TaskMonitor {
      * @param task
      *            a {@link org.opennms.core.tasks.Task} object.
      */
-    public void scheduled(Task task);
+    void scheduled(Task task);
 
     /**
      * <p>
@@ -82,7 +82,7 @@ public interface TaskMonitor {
      * @param task
      *            a {@link org.opennms.core.tasks.Task} object.
      */
-    public void submitted(Task task);
+    void submitted(Task task);
 
     /**
      * <p>
@@ -93,7 +93,7 @@ public interface TaskMonitor {
      * @param task
      *            a {@link org.opennms.core.tasks.Task} object.
      */
-    public void started(Task task);
+    void started(Task task);
 
     /**
      * <p>
@@ -104,7 +104,7 @@ public interface TaskMonitor {
      * @param task
      *            a {@link org.opennms.core.tasks.Task} object.
      */
-    public void completed(Task task);
+    void completed(Task task);
 
     /**
      * <p>
@@ -118,7 +118,7 @@ public interface TaskMonitor {
      *            a {@link org.opennms.core.tasks.Task} object.
      * @return a {@link org.opennms.core.tasks.TaskMonitor} object.
      */
-    public TaskMonitor getChildTaskMonitor(Task task, Task child);
+    TaskMonitor getChildTaskMonitor(Task task, Task child);
 
     /**
      * This is called if an exception occurs while calling a monitor method.
@@ -126,6 +126,6 @@ public interface TaskMonitor {
      * @param t
      *            a {@link java.lang.Throwable} object.
      */
-    public void monitorException(Throwable t);
+    void monitorException(Throwable t);
 
 }

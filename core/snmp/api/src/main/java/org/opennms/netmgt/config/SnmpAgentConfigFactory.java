@@ -47,5 +47,5 @@ public interface SnmpAgentConfigFactory {
      *            a {@link java.net.InetAddress} object.
      * @return a {@link org.opennms.netmgt.snmp.SnmpAgentConfig} object.
      */
-    public SnmpAgentConfig getAgentConfig(InetAddress address);
+    SnmpAgentConfig getAgentConfig(InetAddress address);
 }

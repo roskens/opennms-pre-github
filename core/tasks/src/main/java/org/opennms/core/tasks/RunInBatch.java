@@ -47,5 +47,5 @@ public interface RunInBatch {
      * @param batch
      *            a {@link org.opennms.core.tasks.BatchTask} object.
      */
-    public void run(BatchTask batch);
+    void run(BatchTask batch);
 }

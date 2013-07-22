@@ -39,5 +39,5 @@ public interface RowCallback {
      * @param result
      *            the result
      */
-    public void rowCompleted(SnmpRowResult result);
+    void rowCompleted(SnmpRowResult result);
 }
