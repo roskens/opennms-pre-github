@@ -54,7 +54,7 @@ public interface StorageStrategy {
      *            a {@link java.lang.String} object.
      * @return a {@link java.lang.String} object.
      */
-    public String getRelativePathForAttribute(String resourceParent, String resource, String attribute);
+    String getRelativePathForAttribute(String resourceParent, String resource, String attribute);
 
     /**
      * <p>
@@ -65,7 +65,7 @@ public interface StorageStrategy {
      * @param name
      *            a {@link java.lang.String} object.
      */
-    public void setResourceTypeName(String name);
+    void setResourceTypeName(String name);
 
     /**
      * This functions translate resourceIndex into a "unique" and "non-variable"
@@ -81,7 +81,7 @@ public interface StorageStrategy {
      *         {@link org.opennms.netmgt.config.collector.CollectionResource}
      *         object
      */
-    public String getResourceNameFromIndex(CollectionResource resource);
+    String getResourceNameFromIndex(CollectionResource resource);
 
     /**
      * Add to a strategy the possibility to get additional information using
@@ -95,7 +95,7 @@ public interface StorageStrategy {
      *            a {@link org.opennms.netmgt.config.StorageStrategyService}
      *            object.
      */
-    public void setStorageStrategyService(StorageStrategyService agent);
+    void setStorageStrategyService(StorageStrategyService agent);
 
     /**
      * <p>
@@ -108,6 +108,6 @@ public interface StorageStrategy {
      * @throws IllegalArgumentException
      *             the illegal argument exception
      */
-    public void setParameters(List<Parameter> parameterCollection) throws IllegalArgumentException;
+    void setParameters(List<Parameter> parameterCollection) throws IllegalArgumentException;
 
 }

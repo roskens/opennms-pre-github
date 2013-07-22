@@ -49,7 +49,7 @@ public interface WebRoleManager {
      *
      * @return a {@link java.util.Collection} object.
      */
-    public Collection<WebRole> getRoles();
+    Collection<WebRole> getRoles();
 
     /**
      * <p>
@@ -60,7 +60,7 @@ public interface WebRoleManager {
      * @param roleName
      *            a {@link java.lang.String} object.
      */
-    public void deleteRole(String roleName);
+    void deleteRole(String roleName);
 
     /**
      * <p>
@@ -72,7 +72,7 @@ public interface WebRoleManager {
      *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.web.admin.roles.WebRole} object.
      */
-    public WebRole getRole(String roleName);
+    WebRole getRole(String roleName);
 
     /**
      * <p>
@@ -83,7 +83,7 @@ public interface WebRoleManager {
      * @param role
      *            a {@link org.opennms.web.admin.roles.WebRole} object.
      */
-    public void saveRole(WebRole role);
+    void saveRole(WebRole role);
 
     /**
      * <p>
@@ -93,6 +93,6 @@ public interface WebRoleManager {
      *
      * @return a {@link org.opennms.web.admin.roles.WebRole} object.
      */
-    public WebRole createRole();
+    WebRole createRole();
 
 }

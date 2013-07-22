@@ -47,7 +47,7 @@ public interface TrapdConfig {
      *
      * @return the snmp trap address
      */
-    public abstract String getSnmpTrapAddress();
+    String getSnmpTrapAddress();
 
     /**
      * <p>
@@ -57,7 +57,7 @@ public interface TrapdConfig {
      *
      * @return a int.
      */
-    public abstract int getSnmpTrapPort();
+    int getSnmpTrapPort();
 
     /**
      * <p>
@@ -67,7 +67,7 @@ public interface TrapdConfig {
      *
      * @return a boolean.
      */
-    public abstract boolean getNewSuspectOnTrap();
+    boolean getNewSuspectOnTrap();
 
     /**
      * <p>
@@ -77,5 +77,5 @@ public interface TrapdConfig {
      *
      * @return a java.util.List.
      */
-    public abstract List<SnmpV3User> getSnmpV3Users();
+    List<SnmpV3User> getSnmpV3Users();
 }

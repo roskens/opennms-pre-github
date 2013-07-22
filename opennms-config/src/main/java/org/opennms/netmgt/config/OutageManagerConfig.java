@@ -44,14 +44,14 @@ public interface OutageManagerConfig {
      *
      * @return the number of writer threads to be started
      */
-    public int getWriters();
+    int getWriters();
 
     /**
      * Return the SQL statemet to get the next outage ID.
      *
      * @return the SQL statemet to get the next outage ID
      */
-    public String getGetNextOutageID();
+    String getGetNextOutageID();
 
     /**
      * Return a boolean flag to indicate if a deleteService should be propagated
@@ -59,5 +59,5 @@ public interface OutageManagerConfig {
      *
      * @return true for delete propagation otherwise false.
      */
-    public boolean deletePropagation();
+    boolean deletePropagation();
 }

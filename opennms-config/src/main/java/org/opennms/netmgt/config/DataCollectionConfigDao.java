@@ -43,10 +43,10 @@ import org.opennms.netmgt.model.RrdRepository;
 public interface DataCollectionConfigDao {
 
     /** Constant <code>NODE_ATTRIBUTES=-1</code>. */
-    static final int NODE_ATTRIBUTES = -1;
+    int NODE_ATTRIBUTES = -1;
 
     /** Constant <code>ALL_IF_ATTRIBUTES=-2</code>. */
-    static final int ALL_IF_ATTRIBUTES = -2;
+    int ALL_IF_ATTRIBUTES = -2;
 
     /**
      * <p>

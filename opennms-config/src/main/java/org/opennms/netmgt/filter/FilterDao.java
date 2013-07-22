@@ -56,7 +56,7 @@ public interface FilterDao {
      *             if a rule is syntactically incorrect or failed in
      *             executing the SQL statement
      */
-    public SortedMap<Integer, String> getNodeMap(String rule) throws FilterParseException;
+    SortedMap<Integer, String> getNodeMap(String rule) throws FilterParseException;
 
     /**
      * <p>
@@ -70,7 +70,7 @@ public interface FilterDao {
      * @throws FilterParseException
      *             the filter parse exception
      */
-    public Map<InetAddress, Set<String>> getIPAddressServiceMap(String rule) throws FilterParseException;
+    Map<InetAddress, Set<String>> getIPAddressServiceMap(String rule) throws FilterParseException;
 
     /**
      * Get the (non-deleted) IP addresses that match the specified rule.
@@ -81,7 +81,7 @@ public interface FilterDao {
      * @throws FilterParseException
      *             the filter parse exception
      */
-    public List<InetAddress> getActiveIPAddressList(String rule) throws FilterParseException;
+    List<InetAddress> getActiveIPAddressList(String rule) throws FilterParseException;
 
     /**
      * Get the IP addresses (including deleted) that match the specified rule.
@@ -92,7 +92,7 @@ public interface FilterDao {
      * @throws FilterParseException
      *             the filter parse exception
      */
-    public List<InetAddress> getIPAddressList(String rule) throws FilterParseException;
+    List<InetAddress> getIPAddressList(String rule) throws FilterParseException;
 
     /**
      * <p>
@@ -108,7 +108,7 @@ public interface FilterDao {
      * @throws FilterParseException
      *             the filter parse exception
      */
-    public boolean isValid(String addr, String rule) throws FilterParseException;
+    boolean isValid(String addr, String rule) throws FilterParseException;
 
     /**
      * Does this rule match anything in the database? In particular, does it
@@ -120,7 +120,7 @@ public interface FilterDao {
      * @throws FilterParseException
      *             the filter parse exception
      */
-    public boolean isRuleMatching(String rule) throws FilterParseException;
+    boolean isRuleMatching(String rule) throws FilterParseException;
 
     /**
      * <p>
@@ -133,6 +133,6 @@ public interface FilterDao {
      * @throws FilterParseException
      *             the filter parse exception
      */
-    public void validateRule(String rule) throws FilterParseException;
+    void validateRule(String rule) throws FilterParseException;
 
 }

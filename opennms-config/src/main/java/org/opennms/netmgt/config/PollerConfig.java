@@ -342,7 +342,7 @@ public interface PollerConfig {
      *
      * @return a {@link java.util.Enumeration} object.
      */
-    public Enumeration<Package> enumeratePackage();
+    Enumeration<Package> enumeratePackage();
 
     /**
      * <p>
@@ -354,7 +354,7 @@ public interface PollerConfig {
      *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.config.poller.Package} object.
      */
-    public Package getPackage(String pkgName);
+    Package getPackage(String pkgName);
 
     /**
      * <p>
@@ -366,7 +366,7 @@ public interface PollerConfig {
      *            a {@link org.opennms.netmgt.config.poller.Package} object.
      * @return a {@link org.opennms.netmgt.model.ServiceSelector} object.
      */
-    public ServiceSelector getServiceSelectorForPackage(Package pkg);
+    ServiceSelector getServiceSelectorForPackage(Package pkg);
 
     /**
      * <p>
@@ -376,7 +376,7 @@ public interface PollerConfig {
      *
      * @return a int.
      */
-    public int getThreads();
+    int getThreads();
 
     /**
      * <p>
@@ -386,7 +386,7 @@ public interface PollerConfig {
      *
      * @return a {@link java.util.Map} object.
      */
-    public Map<String, ServiceMonitor> getServiceMonitors();
+    Map<String, ServiceMonitor> getServiceMonitors();
 
     /**
      * <p>
@@ -394,7 +394,7 @@ public interface PollerConfig {
      * </p>
      * .
      */
-    public void releaseAllServiceMonitors();
+    void releaseAllServiceMonitors();
 
     /**
      * <p>
@@ -406,7 +406,7 @@ public interface PollerConfig {
      *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.poller.ServiceMonitor} object.
      */
-    public ServiceMonitor getServiceMonitor(String svcName);
+    ServiceMonitor getServiceMonitor(String svcName);
 
     /**
      * <p>
@@ -421,7 +421,7 @@ public interface PollerConfig {
      * @throws ValidationException
      *             the validation exception
      */
-    public void update() throws IOException, MarshalException, ValidationException;
+    void update() throws IOException, MarshalException, ValidationException;
 
     /**
      * <p>
@@ -436,7 +436,7 @@ public interface PollerConfig {
      * @throws ValidationException
      *             the validation exception
      */
-    public void save() throws MarshalException, IOException, ValidationException;
+    void save() throws MarshalException, IOException, ValidationException;
 
     /**
      * <p>

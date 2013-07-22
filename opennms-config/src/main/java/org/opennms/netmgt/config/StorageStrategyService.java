@@ -45,7 +45,7 @@ public interface StorageStrategyService {
      *
      * @return a {@link org.opennms.netmgt.snmp.SnmpAgentConfig} object.
      */
-    public SnmpAgentConfig getAgentConfig();
+    SnmpAgentConfig getAgentConfig();
 
     /*
      * This method is used on StorageStrategy implementation when the resource
@@ -66,5 +66,5 @@ public interface StorageStrategyService {
      *            a int.
      * @return a {@link java.lang.String} object.
      */
-    public String getSnmpInterfaceLabel(int ifIndex);
+    String getSnmpInterfaceLabel(int ifIndex);
 }

@@ -56,7 +56,7 @@ public interface CapsdConfig {
      * ifindex in the ipinterface table for SNMP hosts that don't support the
      * MIB2 ipAddrTable.
      */
-    static final int LAME_SNMP_HOST_IFINDEX = -100;
+    int LAME_SNMP_HOST_IFINDEX = -100;
 
     /**
      * Saves the current in-memory configuration to disk and reloads.

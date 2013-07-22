@@ -49,7 +49,7 @@ public interface WebUserManager {
      *
      * @return a {@link java.util.Collection} object.
      */
-    public Collection<WebUser> getUsers();
+    Collection<WebUser> getUsers();
 
     /**
      * <p>
@@ -61,6 +61,6 @@ public interface WebUserManager {
      *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.config.WebUser} object.
      */
-    public WebUser getUser(String name);
+    WebUser getUser(String name);
 
 }

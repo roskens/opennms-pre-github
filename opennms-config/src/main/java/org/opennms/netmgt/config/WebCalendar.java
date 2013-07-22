@@ -49,7 +49,7 @@ public interface WebCalendar {
      *
      * @return a {@link java.lang.String} object.
      */
-    public String getMonthAndYear();
+    String getMonthAndYear();
 
     /**
      * <p>
@@ -59,7 +59,7 @@ public interface WebCalendar {
      *
      * @return a java$util$Date object.
      */
-    public Date getPreviousMonth();
+    Date getPreviousMonth();
 
     /**
      * <p>
@@ -69,7 +69,7 @@ public interface WebCalendar {
      *
      * @return a java$util$Date object.
      */
-    public Date getNextMonth();
+    Date getNextMonth();
 
     /**
      * <p>
@@ -79,6 +79,6 @@ public interface WebCalendar {
      *
      * @return an array of {@link org.opennms.web.admin.roles.Week} objects.
      */
-    public Week[] getWeeks();
+    Week[] getWeeks();
 
 }

@@ -49,7 +49,7 @@ public interface WebGroupManager {
      *
      * @return a {@link java.util.Collection} object.
      */
-    public Collection<WebGroup> getGroups();
+    Collection<WebGroup> getGroups();
 
     /**
      * <p>
@@ -61,6 +61,6 @@ public interface WebGroupManager {
      *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.config.WebGroup} object.
      */
-    public WebGroup getGroup(String groupName);
+    WebGroup getGroup(String groupName);
 
 }
