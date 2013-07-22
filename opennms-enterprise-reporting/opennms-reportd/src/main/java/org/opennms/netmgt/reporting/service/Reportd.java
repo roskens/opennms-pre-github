@@ -211,11 +211,11 @@ public class Reportd implements SpringServiceDaemon {
 
         for (Parm parm : e.getParmCollection()) {
 
-            if (EventConstants.PARM_REPORT_NAME.equals(parm.getParmName()))
+            if (EventConstants.PARM_REPORT_NAME.equals(parm.getParmName())) {
                 reportName = parm.getValue().getContent();
-
-            else
+            } else {
                 LOG.info("Unknown Event Constant: {}", parm.getParmName());
+            }
 
         }
 
