@@ -106,9 +106,10 @@ public class TcaCollector implements ServiceCollector {
         }
 
         // Retrieve the DAO for our configuration file.
-        if (m_configDao == null)
+        if (m_configDao == null) {
             m_configDao = BeanUtils.getBean("daoContext", "tcaDataCollectionConfigDao",
                                             TcaDataCollectionConfigDao.class);
+        }
 
         // If the RRD file repository directory does NOT already exist, create
         // it.

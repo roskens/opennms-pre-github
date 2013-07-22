@@ -176,8 +176,9 @@ public class TcaDataCollectionConfig implements Serializable, Comparable<TcaData
      */
     public RrdRepository buildRrdRepository(String collectionName) {
         TcaDataCollection collection = getDataCollectionByName(collectionName);
-        if (collection == null)
+        if (collection == null) {
             return null;
+        }
         TcaRrd rrd = collection.getRrd();
         RrdRepository repo = new RrdRepository();
         repo.setRrdBaseDir(new File(getRrdRepository()));

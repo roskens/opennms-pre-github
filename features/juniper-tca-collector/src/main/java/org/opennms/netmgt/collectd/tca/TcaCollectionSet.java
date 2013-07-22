@@ -316,8 +316,9 @@ public class TcaCollectionSet implements CollectionSet {
         try {
             file = resource.getResourceDir(m_rrdRepository);
             String ts = ResourceTypeUtils.getStringProperty(resource.getResourceDir(m_rrdRepository), LAST_TIMESTAMP);
-            if (ts != null)
+            if (ts != null) {
                 timestamp = Long.parseLong(ts);
+            }
         } catch (Exception e) {
             LOG.info("getLastFilename: creating a new filename tracker on {}", file);
         }
