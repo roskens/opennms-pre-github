@@ -862,8 +862,9 @@ public class InventoryService implements InitializingBean {
         try {
             RancidNode rn = RWSClientApi.getRWSRancidNodeTLO(m_cp, groupName, deviceName);
             rn.setDeviceType(deviceType);
-            if (comment != null)
+            if (comment != null) {
                 rn.setComment(comment);
+            }
             if ("up".equalsIgnoreCase(status)) {
                 rn.setStateUp(true);
             } else if ("down".equalsIgnoreCase(status)) {
@@ -905,8 +906,9 @@ public class InventoryService implements InitializingBean {
         try {
             RancidNode rn = new RancidNode(groupName, deviceName);
             rn.setDeviceType(deviceType);
-            if (comment != null)
+            if (comment != null) {
                 rn.setComment(comment);
+            }
             if ("up".equalsIgnoreCase(status)) {
                 rn.setStateUp(true);
             } else if ("down".equalsIgnoreCase(status)) {

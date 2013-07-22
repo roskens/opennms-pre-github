@@ -237,8 +237,9 @@ public class VElement extends DbElement {
     public boolean equalsIgnorePosition(VElement elem) {
         if (this.getMapId() == elem.getMapId() && this.getId() == elem.getId() && this.type.equals(elem.getType())
                 && this.avail == elem.getAvail() && this.status == elem.getStatus()
-                && this.severity == elem.getSeverity() && this.getLabel().equals(elem.getLabel()))
+                && this.severity == elem.getSeverity() && this.getLabel().equals(elem.getLabel())) {
             return true;
+        }
         return false;
     }
 
@@ -255,8 +256,9 @@ public class VElement extends DbElement {
     public boolean equalsIgnorePositionParentMap(VElement elem) {
         if (this.getId() == elem.getId() && this.type.equals(elem.getType()) && this.avail == elem.getAvail()
                 && this.status == elem.getStatus() && this.severity == elem.getSeverity()
-                && this.getLabel().equals(elem.getLabel()))
+                && this.getLabel().equals(elem.getLabel())) {
             return true;
+        }
         return false;
     }
 
@@ -271,8 +273,9 @@ public class VElement extends DbElement {
      * @return a boolean.
      */
     public boolean hasSameIdentifier(VElement elem) {
-        if (this.getId() == elem.getId() && this.type.equals(elem.getType()))
+        if (this.getId() == elem.getId() && this.type.equals(elem.getType())) {
             return true;
+        }
         return false;
     }
 
@@ -294,8 +297,9 @@ public class VElement extends DbElement {
      *             the v element not child exception
      */
     public final int getContainerMap() throws VElementNotChildException {
-        if (isChild == true)
+        if (isChild == true) {
             return getMapId();
+        }
         throw new VElementNotChildException();
     }
 

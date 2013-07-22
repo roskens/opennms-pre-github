@@ -92,8 +92,9 @@ public class GetInterfacesServlet extends HttpServlet {
         int nodeId = -1;
         String nodeIdString = request.getParameter("node");
 
-        if (nodeIdString == null)
+        if (nodeIdString == null) {
             throw new ServletException("Missing node Id.");
+        }
 
         HttpSession user = request.getSession(true);
 
@@ -103,8 +104,9 @@ public class GetInterfacesServlet extends HttpServlet {
             throw new ServletException(numE.getMessage());
         }
 
-        if (nodeId < 0)
+        if (nodeId < 0) {
             throw new ServletException("Invalid node ID.");
+        }
 
         try {
             user.setAttribute("interfaces.nodemanagement", getInterfaces(user, nodeId));

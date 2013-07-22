@@ -430,7 +430,7 @@ public class DefaultSurveillanceService implements SurveillanceService {
 
             for (final Category viewCat : viewCats) {
                 final OnmsCategory category = m_categoryDao.findByName(viewCat.getName());
-                if (category == null)
+                if (category == null) {
                     throw new ObjectRetrievalFailureException(
                                                               OnmsCategory.class,
                                                               viewCat.getName(),
@@ -438,6 +438,7 @@ public class DefaultSurveillanceService implements SurveillanceService {
                                                                       + viewCat.getName()
                                                                       + " as specified in the surveillance view configuration file",
                                                               null);
+                }
                 categories.add(category);
             }
 

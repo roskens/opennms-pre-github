@@ -228,11 +228,11 @@ public class AdminRoleServlet extends HttpServlet implements Servlet {
                                                                                                 time.getDay(),
                                                                                                 time.getBegins(),
                                                                                                 time.getEnds());
-            if (BasicScheduleUtils.isWeekly(basicTime))
+            if (BasicScheduleUtils.isWeekly(basicTime)) {
                 return EDIT_WEEKLY;
-            else if (BasicScheduleUtils.isMonthly(basicTime))
+            } else if (BasicScheduleUtils.isMonthly(basicTime)) {
                 return EDIT_MONTHLY;
-            else {
+            } else {
                 request.setAttribute("start", BasicScheduleUtils.getSpecificTime(time.getBegins()));
                 request.setAttribute("end", BasicScheduleUtils.getSpecificTime(time.getEnds()));
                 return EDIT_SPECIFIC;
@@ -439,24 +439,25 @@ public class AdminRoleServlet extends HttpServlet implements Servlet {
      */
     private Action getAction(HttpServletRequest request, HttpServletResponse response) {
         String op = request.getParameter("operation");
-        if ("delete".equals(op))
+        if ("delete".equals(op)) {
             return new DeleteAction();
-        else if ("view".equals(op))
+        } else if ("view".equals(op)) {
             return new ViewAction();
-        else if ("new".equals(op))
+        } else if ("new".equals(op)) {
             return new NewAction();
-        else if ("editDetails".equals(op))
+        } else if ("editDetails".equals(op)) {
             return new EditDetailsAction();
-        else if ("saveDetails".equals(op))
+        } else if ("saveDetails".equals(op)) {
             return new SaveDetailsAction();
-        else if ("addEntry".equals(op))
+        } else if ("addEntry".equals(op)) {
             return new AddEntryAction();
-        else if ("editEntry".equals(op))
+        } else if ("editEntry".equals(op)) {
             return new EditEntryAction();
-        else if ("saveEntry".equals(op))
+        } else if ("saveEntry".equals(op)) {
             return new SaveEntryAction();
-        else
+        } else {
             return new ListAction();
+        }
     }
 
     /*

@@ -166,7 +166,9 @@ public class SnmpConfigServlet extends HttpServlet {
                 success |= sendEvent(eventInfo.createEvent("web ui"));
             }
             if (success)
+             {
                 request.setAttribute("success", "success"); // the value doesn't
+            }
                                                             // matter, but it
                                                             // must be not null
             break;
@@ -188,8 +190,9 @@ public class SnmpConfigServlet extends HttpServlet {
      * @return true, if successful
      */
     private boolean parseCheckboxValue(String parameter) {
-        if (Strings.isNullOrEmpty(parameter))
+        if (Strings.isNullOrEmpty(parameter)) {
             return false;
+        }
         return "on".equalsIgnoreCase(parameter) || "true".equalsIgnoreCase(parameter)
                 || "checked".equalsIgnoreCase(parameter);
     }
@@ -206,12 +209,14 @@ public class SnmpConfigServlet extends HttpServlet {
      *             On error.
      */
     private boolean sendEvent(Event eventToSend) throws ServletException {
-        if (eventToSend == null)
+        if (eventToSend == null) {
             return false;
+        }
         try {
             EventProxy eventProxy = Util.createEventProxy();
-            if (eventProxy == null)
+            if (eventProxy == null) {
                 throw new ServletException("Event proxy object is null, unable to send event " + eventToSend.getUei());
+            }
             eventProxy.send(eventToSend);
             return true;
         } catch (Throwable e) {
@@ -256,46 +261,66 @@ public class SnmpConfigServlet extends HttpServlet {
         String enterpriseId = request.getParameter("enterpriseId");
 
         // save in snmpInfo
-        if (!Strings.isNullOrEmpty(authPassPhrase))
+        if (!Strings.isNullOrEmpty(authPassPhrase)) {
             snmpInfo.setAuthPassPhrase(authPassPhrase);
-        if (!Strings.isNullOrEmpty(authProtocol))
+        }
+        if (!Strings.isNullOrEmpty(authProtocol)) {
             snmpInfo.setAuthProtocol(authProtocol);
-        if (!Strings.isNullOrEmpty(contextEngineId))
+        }
+        if (!Strings.isNullOrEmpty(contextEngineId)) {
             snmpInfo.setContextEngineId(contextEngineId);
-        if (!Strings.isNullOrEmpty(contextName))
+        }
+        if (!Strings.isNullOrEmpty(contextName)) {
             snmpInfo.setContextName(contextName);
-        if (!Strings.isNullOrEmpty(engineId))
+        }
+        if (!Strings.isNullOrEmpty(engineId)) {
             snmpInfo.setEngineId(engineId);
-        if (!Strings.isNullOrEmpty(enterpriseId))
+        }
+        if (!Strings.isNullOrEmpty(enterpriseId)) {
             snmpInfo.setEnterpriseId(enterpriseId);
-        if (!Strings.isNullOrEmpty(maxRepetitions))
+        }
+        if (!Strings.isNullOrEmpty(maxRepetitions)) {
             snmpInfo.setMaxRepetitions(Integer.parseInt(maxRepetitions));
-        if (!Strings.isNullOrEmpty(maxRequestSize))
+        }
+        if (!Strings.isNullOrEmpty(maxRequestSize)) {
             snmpInfo.setMaxRequestSize(Integer.parseInt(maxRequestSize));
-        if (!Strings.isNullOrEmpty(maxVarsPerPdu))
+        }
+        if (!Strings.isNullOrEmpty(maxVarsPerPdu)) {
             snmpInfo.setMaxVarsPerPdu(Integer.parseInt(maxVarsPerPdu));
-        if (!Strings.isNullOrEmpty(port))
+        }
+        if (!Strings.isNullOrEmpty(port)) {
             snmpInfo.setPort(Integer.parseInt(port));
-        if (!Strings.isNullOrEmpty(privPassPhrase))
+        }
+        if (!Strings.isNullOrEmpty(privPassPhrase)) {
             snmpInfo.setPrivPassPhrase(privPassPhrase);
-        if (!Strings.isNullOrEmpty(privProtocol))
+        }
+        if (!Strings.isNullOrEmpty(privProtocol)) {
             snmpInfo.setPrivProtocol(privProtocol);
-        if (!Strings.isNullOrEmpty(proxyHost))
+        }
+        if (!Strings.isNullOrEmpty(proxyHost)) {
             snmpInfo.setProxyHost(proxyHost);
-        if (!Strings.isNullOrEmpty(readCommunityString))
+        }
+        if (!Strings.isNullOrEmpty(readCommunityString)) {
             snmpInfo.setReadCommunity(readCommunityString);
-        if (!Strings.isNullOrEmpty(retryCount))
+        }
+        if (!Strings.isNullOrEmpty(retryCount)) {
             snmpInfo.setRetries(Integer.parseInt(retryCount));
-        if (!Strings.isNullOrEmpty(securityLevel))
+        }
+        if (!Strings.isNullOrEmpty(securityLevel)) {
             snmpInfo.setSecurityLevel(Integer.parseInt(securityLevel));
-        if (!Strings.isNullOrEmpty(securityName))
+        }
+        if (!Strings.isNullOrEmpty(securityName)) {
             snmpInfo.setSecurityName(securityName);
-        if (!Strings.isNullOrEmpty(timeout))
+        }
+        if (!Strings.isNullOrEmpty(timeout)) {
             snmpInfo.setTimeout(Integer.parseInt(timeout));
-        if (!Strings.isNullOrEmpty(version))
+        }
+        if (!Strings.isNullOrEmpty(version)) {
             snmpInfo.setVersion(version);
-        if (!Strings.isNullOrEmpty(writeCommunityString))
+        }
+        if (!Strings.isNullOrEmpty(writeCommunityString)) {
             snmpInfo.setWriteCommunity(writeCommunityString);
+        }
 
         return snmpInfo;
     }
@@ -308,11 +333,13 @@ public class SnmpConfigServlet extends HttpServlet {
      * @return the snmp config servlet action
      */
     private SnmpConfigServletAction determineAction(HttpServletRequest request) {
-        if (request.getParameter(ACTION_PARAMETER_NAME) == null)
+        if (request.getParameter(ACTION_PARAMETER_NAME) == null) {
             return SnmpConfigServletAction.Default;
+        }
         for (SnmpConfigServletAction eachAction : SnmpConfigServletAction.values()) {
-            if (eachAction.getActionName().equals(request.getParameter(ACTION_PARAMETER_NAME)))
+            if (eachAction.getActionName().equals(request.getParameter(ACTION_PARAMETER_NAME))) {
                 return eachAction;
+            }
         }
         return SnmpConfigServletAction.Default;
     }

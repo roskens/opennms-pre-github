@@ -86,8 +86,9 @@ public class UpdateViewServlet extends HttpServlet {
                     membership.addMember(member);
                 }
             }
-            if (membership.getMemberCount() > 0)
+            if (membership.getMemberCount() > 0) {
                 newView.setMembership(membership);
+            }
         }
 
         // forward the request for proper display

@@ -245,10 +245,11 @@ public class DestinationWizardServlet extends HttpServlet {
                         }
                     }
 
-                    if (index == -1)
+                    if (index == -1) {
                         newPath.addTarget(target);
-                    else
+                    } else {
                         newPath.getEscalate(index).addTarget(target);
+                    }
                 }
             }
 
@@ -265,10 +266,11 @@ public class DestinationWizardServlet extends HttpServlet {
                         }
                     }
 
-                    if (index == -1)
+                    if (index == -1) {
                         newPath.addTarget(target);
-                    else
+                    } else {
                         newPath.getEscalate(index).addTarget(target);
+                    }
                 }
             }
 
@@ -285,10 +287,11 @@ public class DestinationWizardServlet extends HttpServlet {
                         }
                     }
 
-                    if (index == -1)
+                    if (index == -1) {
                         newPath.addTarget(target);
-                    else
+                    } else {
                         newPath.getEscalate(index).addTarget(target);
+                    }
                 }
             }
 
@@ -306,10 +309,11 @@ public class DestinationWizardServlet extends HttpServlet {
                         }
                     }
 
-                    if (index == -1)
+                    if (index == -1) {
                         newPath.addTarget(target);
-                    else
+                    } else {
                         newPath.getEscalate(index).addTarget(target);
+                    }
                 }
             }
 

@@ -204,8 +204,9 @@ public class LinkInterface {
      * @return the link type id string
      */
     public String getLinkTypeIdString() {
-        if (linktypeMap.containsKey(m_linktypeid))
+        if (linktypeMap.containsKey(m_linktypeid)) {
             return linktypeMap.get(m_linktypeid);
+        }
         return null;
     }
 
@@ -233,8 +234,9 @@ public class LinkInterface {
      * @return true, if successful
      */
     public boolean hasInterface() {
-        if (m_iface == null)
+        if (m_iface == null) {
             return false;
+        }
         return true;
     }
 
@@ -244,8 +246,9 @@ public class LinkInterface {
      * @return true, if successful
      */
     public boolean hasLinkedInterface() {
-        if (m_linkedInterface == null)
+        if (m_linkedInterface == null) {
             return false;
+        }
         return true;
     }
 

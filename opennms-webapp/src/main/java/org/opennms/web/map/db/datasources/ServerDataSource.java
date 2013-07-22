@@ -168,8 +168,9 @@ public class ServerDataSource implements DataSourceInterface {
      */
     private boolean isInitialized() throws SQLException {
 
-        if (opennmsConn != null && !opennmsConn.isClosed() && externalConn != null && !externalConn.isClosed())
+        if (opennmsConn != null && !opennmsConn.isClosed() && externalConn != null && !externalConn.isClosed()) {
             return true;
+        }
         return false;
     }
 
@@ -201,8 +202,9 @@ public class ServerDataSource implements DataSourceInterface {
         String result = "-1";
 
         try {
-            if (!isInitialized())
+            if (!isInitialized()) {
                 init();
+            }
         } catch (Throwable e) {
             LOG.error("exiting: error found {}", e);
             return "-1";
@@ -305,8 +307,9 @@ public class ServerDataSource implements DataSourceInterface {
         String result = "-1";
 
         try {
-            if (!isInitialized())
+            if (!isInitialized()) {
                 init();
+            }
         } catch (Throwable e) {
             LOG.error("exiting: error found {}", e);
             return result;

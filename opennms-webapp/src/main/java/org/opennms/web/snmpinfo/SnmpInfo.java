@@ -130,22 +130,29 @@ public class SnmpInfo {
      *            a {@link org.opennms.netmgt.snmp.SnmpAgentConfig} object.
      */
     public SnmpInfo(SnmpAgentConfig config) {
-        if (config == null)
+        if (config == null) {
             return;
+        }
 
         m_version = config.getVersionAsString();
-        if (config.getPort() >= 1)
+        if (config.getPort() >= 1) {
             m_port = config.getPort();
-        if (config.getTimeout() >= 1)
+        }
+        if (config.getTimeout() >= 1) {
             m_timeout = config.getTimeout();
-        if (config.getRetries() >= 1)
+        }
+        if (config.getRetries() >= 1) {
             m_retries = config.getRetries();
-        if (config.getMaxRepetitions() >= 1)
+        }
+        if (config.getMaxRepetitions() >= 1) {
             m_maxRepetitions = config.getMaxRepetitions();
-        if (config.getMaxVarsPerPdu() >= 1)
+        }
+        if (config.getMaxVarsPerPdu() >= 1) {
             m_maxVarsPerPdu = config.getMaxVarsPerPdu();
-        if (config.getMaxRequestSize() >= 1)
+        }
+        if (config.getMaxRequestSize() >= 1) {
             m_maxRequestSize = Integer.valueOf(config.getMaxRequestSize());
+        }
 
         // handle a possible proxy host setting
         if (config.getProxyFor() != null) { // switch proxy and address
@@ -699,22 +706,30 @@ public class SnmpInfo {
         eventInfo.setPrivProtocol(m_privProtocol);
         eventInfo.setSecurityName(m_securityName);
         eventInfo.setProxyHost(m_proxyHost);
-        if (m_port != null)
+        if (m_port != null) {
             eventInfo.setPort(m_port.intValue());
-        if (m_retries != null)
+        }
+        if (m_retries != null) {
             eventInfo.setRetryCount(m_retries.intValue());
-        if (m_timeout != null)
+        }
+        if (m_timeout != null) {
             eventInfo.setTimeout(m_timeout.intValue());
-        if (m_maxRepetitions != null)
+        }
+        if (m_maxRepetitions != null) {
             eventInfo.setMaxRepetitions(m_maxRepetitions.intValue());
-        if (m_maxVarsPerPdu != null)
+        }
+        if (m_maxVarsPerPdu != null) {
             eventInfo.setMaxVarsPerPdu(m_maxVarsPerPdu.intValue());
-        if (m_maxRequestSize != null)
+        }
+        if (m_maxRequestSize != null) {
             eventInfo.setMaxRequestSize(m_maxRequestSize.intValue());
-        if (m_securityLevel != null)
+        }
+        if (m_securityLevel != null) {
             eventInfo.setSecurityLevel(m_securityLevel.intValue());
-        if (m_maxRequestSize != null)
+        }
+        if (m_maxRequestSize != null) {
             eventInfo.setMaxRequestSize(m_maxRequestSize.intValue());
+        }
         return eventInfo;
     }
 

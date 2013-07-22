@@ -172,15 +172,17 @@ public class ResponseAssembler {
 
         SimpleDateFormat formatter = new SimpleDateFormat("HH.mm.ss dd/MM/yy");
         Date now = new Date();
-        if (map.getLastModifiedTime() != null)
+        if (map.getLastModifiedTime() != null) {
             saveMapResponse.put("lastModifiedTimeString", formatter.format(map.getLastModifiedTime()));
-        else
+        } else {
             saveMapResponse.put("lastModifiedTimeString", formatter.format(now));
+        }
 
-        if (map.getCreateTime() != null)
+        if (map.getCreateTime() != null) {
             saveMapResponse.put("createTimeString", formatter.format(map.getCreateTime()));
-        else
+        } else {
             saveMapResponse.put("createTimeString", formatter.format(now));
+        }
 
         return JSONSerializer.toJSON(saveMapResponse).toString();
     }
@@ -198,15 +200,17 @@ public class ResponseAssembler {
     protected static String getMapResponse(VMap map) {
         SimpleDateFormat formatter = new SimpleDateFormat("HH.mm.ss dd/MM/yy");
         Date now = new Date();
-        if (map.getLastModifiedTime() != null)
+        if (map.getLastModifiedTime() != null) {
             map.setLastModifiedTimeString(formatter.format(map.getLastModifiedTime()));
-        else
+        } else {
             map.setLastModifiedTimeString(formatter.format(now));
+        }
 
-        if (map.getCreateTime() != null)
+        if (map.getCreateTime() != null) {
             map.setCreateTimeString(formatter.format(map.getCreateTime()));
-        else
+        } else {
             map.setCreateTimeString(formatter.format(now));
+        }
 
         return JSONSerializer.toJSON(map).toString();
     }

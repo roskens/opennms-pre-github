@@ -116,8 +116,9 @@ public final class ManageSnmpIntfServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException {
 
         HttpSession userSession = request.getSession(false);
-        if (userSession == null)
+        if (userSession == null) {
             throw new ServletException("Session exceeded");
+        }
 
         String nodeIdString = request.getParameter("node");
         if (nodeIdString == null) {

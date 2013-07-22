@@ -209,8 +209,9 @@ public class OnmsRestService {
         }
 
         final String query = removeParameter(params, "query");
-        if (query != null)
+        if (query != null) {
             builder.sql(query);
+        }
 
         final String matchType;
         final String match = removeParameter(params, "match");

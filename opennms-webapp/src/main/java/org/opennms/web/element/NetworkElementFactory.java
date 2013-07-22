@@ -455,8 +455,9 @@ public class NetworkElementFactory implements InitializingBean, NetworkElementFa
      * @return the if index
      */
     private Integer getIfIndex(OnmsIpInterface ipinterface) {
-        if (ipinterface != null && ipinterface.getIfIndex() != null)
+        if (ipinterface != null && ipinterface.getIfIndex() != null) {
             return ipinterface.getIfIndex();
+        }
         return -1;
     }
 
@@ -1165,15 +1166,17 @@ public class NetworkElementFactory implements InitializingBean, NetworkElementFa
 
         for (DataLinkInterface link : m_dataLinkInterfaceDao.findByNodeId(nodeID)) {
             Integer linkedNodeId = link.getNodeParentId();
-            if (nodes.contains(linkedNodeId) || link.getStatus().equals(StatusType.DELETED))
+            if (nodes.contains(linkedNodeId) || link.getStatus().equals(StatusType.DELETED)) {
                 continue;
+            }
             nodes.add(linkedNodeId);
         }
 
         for (DataLinkInterface link : m_dataLinkInterfaceDao.findByNodeParentId(nodeID)) {
             Integer linkedNodeId = link.getNodeId();
-            if (nodes.contains(linkedNodeId) || link.getStatus().equals(StatusType.DELETED))
+            if (nodes.contains(linkedNodeId) || link.getStatus().equals(StatusType.DELETED)) {
                 continue;
+            }
             nodes.add(linkedNodeId);
         }
 
@@ -1347,8 +1350,9 @@ public class NetworkElementFactory implements InitializingBean, NetworkElementFa
                 }
                 iface.setIpaddresses(addresses);
             } else {
-                if (iface != null)
+                if (iface != null) {
                     iface.setIpaddresses(addresses);
+                }
             }
         }
         return iface;
@@ -1524,8 +1528,9 @@ public class NetworkElementFactory implements InitializingBean, NetworkElementFa
         criteria.add(Restrictions.eq("baseBridgeAddress", baseaddress.substring(5, 16)));
 
         List<OnmsStpNode> stpnodes = m_stpNodeDao.findMatching(criteria);
-        if (stpnodes.size() == 1)
+        if (stpnodes.size() == 1) {
             return stpnodes.get(0).getId();
+        }
         return null;
     }
 

@@ -132,12 +132,14 @@ public class GroupRestService extends OnmsRestService {
 
         try {
             final OnmsGroup group = m_groupManager.getOnmsGroup(groupName);
-            if (group != null)
+            if (group != null) {
                 return group;
+            }
             throw getException(Status.NOT_FOUND, groupName + " does not exist");
         } catch (final Throwable t) {
-            if (t instanceof WebApplicationException)
+            if (t instanceof WebApplicationException) {
                 throw (WebApplicationException) t;
+            }
             throw getException(Status.BAD_REQUEST, t);
         } finally {
             readUnlock();
@@ -190,8 +192,9 @@ public class GroupRestService extends OnmsRestService {
             } catch (final Throwable t) {
                 throw getException(Status.BAD_REQUEST, t);
             }
-            if (group == null)
+            if (group == null) {
                 throw getException(Status.BAD_REQUEST, "updateGroup: Group does not exist: " + groupName);
+            }
             LOG.debug("updateGroup: updating group {}", group);
             final BeanWrapper wrapper = PropertyAccessorFactory.forBeanPropertyAccess(group);
             for (final String key : params.keySet()) {
@@ -290,8 +293,9 @@ public class GroupRestService extends OnmsRestService {
                 throw getException(Status.BAD_REQUEST, "User is not in the group '" + groupName + "': " + userName);
             }
         } catch (final Throwable t) {
-            if (t instanceof WebApplicationException)
+            if (t instanceof WebApplicationException) {
                 throw (WebApplicationException) t;
+            }
             throw getException(Status.INTERNAL_SERVER_ERROR, t);
         } finally {
             writeUnlock();
@@ -312,8 +316,9 @@ public class GroupRestService extends OnmsRestService {
         } catch (final Throwable t) {
             throw getException(Status.BAD_REQUEST, t);
         }
-        if (group == null)
+        if (group == null) {
             throw getException(Status.BAD_REQUEST, "Group does not exist: " + groupName);
+        }
         return group;
     }
 

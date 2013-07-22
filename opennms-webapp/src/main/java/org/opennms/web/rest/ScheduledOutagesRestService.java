@@ -180,8 +180,9 @@ public class ScheduledOutagesRestService extends OnmsRestService {
         readLock();
         try {
             Outage outage = m_configFactory.getOutage(outageName);
-            if (outage == null)
+            if (outage == null) {
                 throw new IllegalArgumentException("Scheduled outage " + outageName + " does not exist.");
+            }
             return outage;
         } finally {
             readUnlock();
@@ -200,8 +201,9 @@ public class ScheduledOutagesRestService extends OnmsRestService {
     public Response saveOrUpdateOutage(final Outage newOutage) {
         writeLock();
         try {
-            if (newOutage == null)
+            if (newOutage == null) {
                 throw getException(Status.BAD_REQUEST, "Outage object can't be null");
+            }
             Outage oldOutage = m_configFactory.getOutage(newOutage.getName());
             if (oldOutage == null) {
                 LOG.debug("saveOrUpdateOutage: adding outage {}", newOutage.getName());
@@ -599,8 +601,9 @@ public class ScheduledOutagesRestService extends OnmsRestService {
         getOutage(outageName); // Validate if outageName exists.
         if (action.equals(ConfigAction.ADD)) {
             CollectdPackage pkg = getCollectdPackage(packageName);
-            if (!pkg.getPackage().getOutageCalendarCollection().contains(outageName))
+            if (!pkg.getPackage().getOutageCalendarCollection().contains(outageName)) {
                 pkg.getPackage().addOutageCalendar(outageName);
+            }
         }
         if (action.equals(ConfigAction.REMOVE)) {
             CollectdPackage pkg = getCollectdPackage(packageName);
@@ -625,8 +628,9 @@ public class ScheduledOutagesRestService extends OnmsRestService {
      */
     private CollectdPackage getCollectdPackage(String packageName) throws IllegalArgumentException {
         CollectdPackage pkg = CollectdConfigFactory.getInstance().getPackage(packageName);
-        if (pkg == null)
+        if (pkg == null) {
             throw new IllegalArgumentException("Collectd package " + packageName + " does not exist.");
+        }
         return pkg;
     }
 
@@ -646,8 +650,9 @@ public class ScheduledOutagesRestService extends OnmsRestService {
         getOutage(outageName); // Validate if outageName exists.
         if (action.equals(ConfigAction.ADD)) {
             org.opennms.netmgt.config.poller.Package pkg = getPollerdPackage(packageName);
-            if (!pkg.getOutageCalendarCollection().contains(outageName))
+            if (!pkg.getOutageCalendarCollection().contains(outageName)) {
                 pkg.addOutageCalendar(outageName);
+            }
         }
         if (action.equals(ConfigAction.REMOVE)) {
             org.opennms.netmgt.config.poller.Package pkg = getPollerdPackage(packageName);
@@ -673,8 +678,9 @@ public class ScheduledOutagesRestService extends OnmsRestService {
     private org.opennms.netmgt.config.poller.Package getPollerdPackage(String packageName)
             throws IllegalArgumentException {
         org.opennms.netmgt.config.poller.Package pkg = PollerConfigFactory.getInstance().getPackage(packageName);
-        if (pkg == null)
+        if (pkg == null) {
             throw new IllegalArgumentException("Poller package " + packageName + " does not exist.");
+        }
         return pkg;
     }
 
@@ -694,8 +700,9 @@ public class ScheduledOutagesRestService extends OnmsRestService {
         getOutage(outageName); // Validate if outageName exists.
         if (action.equals(ConfigAction.ADD)) {
             org.opennms.netmgt.config.threshd.Package pkg = getThreshdPackage(packageName);
-            if (!pkg.getOutageCalendarCollection().contains(outageName))
+            if (!pkg.getOutageCalendarCollection().contains(outageName)) {
                 pkg.addOutageCalendar(outageName);
+            }
         }
         if (action.equals(ConfigAction.REMOVE)) {
             org.opennms.netmgt.config.threshd.Package pkg = getThreshdPackage(packageName);
@@ -721,8 +728,9 @@ public class ScheduledOutagesRestService extends OnmsRestService {
     private org.opennms.netmgt.config.threshd.Package getThreshdPackage(String packageName)
             throws IllegalArgumentException {
         org.opennms.netmgt.config.threshd.Package pkg = ThreshdConfigFactory.getInstance().getPackage(packageName);
-        if (pkg == null)
+        if (pkg == null) {
             throw new IllegalArgumentException("Threshold package " + packageName + " does not exist.");
+        }
         return pkg;
     }
 

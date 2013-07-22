@@ -154,8 +154,9 @@ public class SupportController extends AbstractController implements Initializin
 
             formatter.begin();
             for (final SystemReportPlugin plugin : m_systemReport.getPlugins()) {
-                if (plugin.getName().equals("Logs"))
+                if (plugin.getName().equals("Logs")) {
                     continue;
+                }
 
                 formatter.write(plugin);
             }

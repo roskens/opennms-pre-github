@@ -143,8 +143,9 @@ public class AggregateStatus implements SurveillanceStatus {
      *            the new down nodes
      */
     private void setDownNodes(final Collection<OnmsNode> downNodes) {
-        if (m_downNodes == downNodes)
+        if (m_downNodes == downNodes) {
             return;
+        }
         m_downNodes.clear();
         m_downNodes.addAll(downNodes);
     }

@@ -167,10 +167,11 @@ public class UserRoleServlet extends javax.servlet.http.HttpServlet implements j
      */
     private Action getAction(HttpServletRequest request, HttpServletResponse response) {
         String op = request.getParameter("operation");
-        if ("view".equals(op))
+        if ("view".equals(op)) {
             return new ViewAction();
-        else
+        } else {
             return new ListAction();
+        }
     }
 
     /*

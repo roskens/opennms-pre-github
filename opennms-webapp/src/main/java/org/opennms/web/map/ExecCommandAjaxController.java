@@ -103,10 +103,12 @@ public class ExecCommandAjaxController extends MapsLoggingController {
         try {
             final Command p;
             if (id == null) {
-                if (command == null)
+                if (command == null) {
                     throw new IllegalArgumentException("Command or id is required");
-                if (address == null)
+                }
+                if (address == null) {
                     throw new IllegalArgumentException("Address is required");
+                }
 
                 if (NetworkElementFactory.getInstance(getServletContext()).getInterfacesWithIpAddress(address).length == 0) {
                     os.write("NOADDRESSINDATABASE");
@@ -173,14 +175,17 @@ public class ExecCommandAjaxController extends MapsLoggingController {
 
         if (command.equals("ping")) {
             String timeout = request.getParameter("timeOut");
-            if (timeout != null)
+            if (timeout != null) {
                 timeOut = WebSecurityUtils.safeParseInt(timeout);
+            }
             String numberofrequest = request.getParameter("numberOfRequest");
-            if (numberofrequest != null)
+            if (numberofrequest != null) {
                 numberOfRequest = WebSecurityUtils.safeParseInt(numberofrequest);
+            }
             String packetsize = request.getParameter("packetSize");
-            if (packetsize != null)
+            if (packetsize != null) {
                 packetSize = WebSecurityUtils.safeParseInt(packetsize);
+            }
             // these are optionals
             String solaris = request.getParameter("solaris");
             if (solaris != null && solaris.equals("true")) {
@@ -207,8 +212,9 @@ public class ExecCommandAjaxController extends MapsLoggingController {
             if (ipmiCommand != null && ipmiUserName != null && ipmiPassword != null) {
                 commandToExec = commandToExec + " -I " + ipmiProtocol + " -U " + ipmiUserName + " -P " + ipmiPassword
                         + " -H " + address + " " + ipmiCommand;
-            } else
+            } else {
                 throw new IllegalStateException("IPMITool requires Protocol, Command, Usernane and Password");
+            }
 
         } else {
             throw new IllegalStateException("Command " + command + " not supported.");

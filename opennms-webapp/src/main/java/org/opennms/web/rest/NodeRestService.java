@@ -224,8 +224,9 @@ public class NodeRestService extends OnmsRestService {
 
         try {
             final OnmsNode node = m_nodeDao.get(nodeCriteria);
-            if (node == null)
+            if (node == null) {
                 throw getException(Status.BAD_REQUEST, "updateNode: Can't find node " + nodeCriteria);
+            }
 
             LOG.debug("updateNode: updating node {}", node);
 
@@ -266,8 +267,9 @@ public class NodeRestService extends OnmsRestService {
 
         try {
             final OnmsNode node = m_nodeDao.get(nodeCriteria);
-            if (node == null)
+            if (node == null) {
                 throw getException(Status.BAD_REQUEST, "deleteNode: Can't find node " + nodeCriteria);
+            }
 
             LOG.debug("deleteNode: deleting node {}", nodeCriteria);
             m_nodeDao.delete(node);

@@ -81,10 +81,12 @@ public final class FormatterView implements View {
      */
     @Override
     public String getContentType() {
-        if (m_view != null)
+        if (m_view != null) {
             return m_view.getContentType();
-        if (m_formatter == null)
+        }
+        if (m_formatter == null) {
             return "application/octet-stream";
+        }
         return m_formatter.getContentType();
     }
 

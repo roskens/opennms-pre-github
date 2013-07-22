@@ -274,8 +274,9 @@ public class DbElement implements Cloneable {
      */
     public void setType(String type) throws MapsException {
         if (type.equals(MapsConstants.MAP_TYPE) || type.equals(MapsConstants.NODE_TYPE)
-                || type.equals(MapsConstants.NODE_HIDE_TYPE) || type.equals(MapsConstants.MAP_HIDE_TYPE))
+                || type.equals(MapsConstants.NODE_HIDE_TYPE) || type.equals(MapsConstants.MAP_HIDE_TYPE)) {
             this.type = type;
+        }
         new MapsException("Cannot create an Element with type " + type);
     }
 
@@ -353,8 +354,9 @@ public class DbElement implements Cloneable {
      * @return a boolean.
      */
     public boolean isMap() {
-        if (type.equals(MapsConstants.MAP_TYPE))
+        if (type.equals(MapsConstants.MAP_TYPE)) {
             return true;
+        }
         return false;
     }
 
@@ -367,8 +369,9 @@ public class DbElement implements Cloneable {
      * @return a boolean.
      */
     public boolean isNode() {
-        if (type.equals(MapsConstants.NODE_TYPE))
+        if (type.equals(MapsConstants.NODE_TYPE)) {
             return true;
+        }
         return false;
     }
 
@@ -381,8 +384,9 @@ public class DbElement implements Cloneable {
      * @return a boolean.
      */
     public boolean isHideMap() {
-        if (type.equals(MapsConstants.MAP_HIDE_TYPE))
+        if (type.equals(MapsConstants.MAP_HIDE_TYPE)) {
             return true;
+        }
         return false;
     }
 
@@ -395,8 +399,9 @@ public class DbElement implements Cloneable {
      * @return a boolean.
      */
     public boolean isHideNode() {
-        if (type.equals(MapsConstants.NODE_HIDE_TYPE))
+        if (type.equals(MapsConstants.NODE_HIDE_TYPE)) {
             return true;
+        }
         return false;
     }
 

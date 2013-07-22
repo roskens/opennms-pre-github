@@ -107,8 +107,9 @@ public class Command {
     public synchronized String getNextLine() {
         scheduledtoremove = false;
         scheduletoremoverequest = 0;
-        if (lines.size() > 0)
+        if (lines.size() > 0) {
             return lines.remove(0);
+        }
         return null;
     }
 
@@ -140,7 +141,8 @@ public class Command {
      */
     public void scheduleToRemove() {
         scheduletoremoverequest++;
-        if (scheduletoremoverequest > 2)
+        if (scheduletoremoverequest > 2) {
             scheduledtoremove = true;
+        }
     }
 }

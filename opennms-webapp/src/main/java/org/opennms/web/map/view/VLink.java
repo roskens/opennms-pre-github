@@ -135,8 +135,9 @@ public final class VLink {
      *            a java$util$Map object.
      */
     public void setVlinkStatusMap(final Map<String, Integer> vlinkStatusMap) {
-        if (this.vlinkStatusMap == vlinkStatusMap)
+        if (this.vlinkStatusMap == vlinkStatusMap) {
             return;
+        }
         this.vlinkStatusMap.clear();
         this.vlinkStatusMap.putAll(vlinkStatusMap);
     }
@@ -193,18 +194,22 @@ public final class VLink {
      */
     @Override
     public boolean equals(Object otherLink) {
-        if (!(otherLink instanceof VLink))
+        if (!(otherLink instanceof VLink)) {
             return false;
+        }
         VLink link = (VLink) otherLink;
-        if (!getId().equals(link.getId()))
+        if (!getId().equals(link.getId())) {
             return false;
+        }
         for (int nodeid : getNodeids()) {
-            if (!link.getNodeids().contains(nodeid))
+            if (!link.getNodeids().contains(nodeid)) {
                 return false;
+            }
         }
         for (int nodeid : link.getNodeids()) {
-            if (!getNodeids().contains(nodeid))
+            if (!getNodeids().contains(nodeid)) {
                 return false;
+            }
         }
 
         return true;
@@ -345,8 +350,9 @@ public final class VLink {
      *            a {@link java.util.Set} object.
      */
     public void setNodeids(final Set<Integer> nodeids) {
-        if (this.nodeids == nodeids)
+        if (this.nodeids == nodeids) {
             return;
+        }
         this.nodeids.clear();
         nodeids.addAll(nodeids);
     }

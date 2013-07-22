@@ -81,8 +81,9 @@ public class WebGroup {
     public WebGroup(Group group, List<String> authorizedCategories) {
         m_name = group.getName();
         m_comments = group.getComments();
-        if (group.getDefaultMap() != null)
+        if (group.getDefaultMap() != null) {
             m_defaultMap = group.getDefaultMap();
+        }
         m_dutySchedules.addAll(group.getDutyScheduleCollection());
         m_users.addAll(group.getUserCollection());
         m_authorizedCategories.addAll(authorizedCategories);

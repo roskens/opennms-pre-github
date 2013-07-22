@@ -72,8 +72,9 @@ public class NodeOutagesController extends AbstractController implements Initial
 
         int nodeId = -1;
 
-        if (nodeIdString != null)
+        if (nodeIdString != null) {
             nodeId = WebSecurityUtils.safeParseInt(nodeIdString);
+        }
         Outage[] outages = new Outage[0];
 
         if (nodeId > 0) {

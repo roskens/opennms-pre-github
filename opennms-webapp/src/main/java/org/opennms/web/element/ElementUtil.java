@@ -409,8 +409,9 @@ public abstract class ElementUtil {
      * @return the ip route protocol string
      */
     public static String getIpRouteProtocolString(int iprouteprotocol) {
-        if (IP_ROUTE_PROTO.length > iprouteprotocol)
+        if (IP_ROUTE_PROTO.length > iprouteprotocol) {
             return IP_ROUTE_PROTO[iprouteprotocol];
+        }
         return IP_ROUTE_PROTO[0];
     }
 
@@ -422,8 +423,9 @@ public abstract class ElementUtil {
      * @return the ip route type string
      */
     public static String getIpRouteTypeString(int iproutetype) {
-        if (IP_ROUTE_TYPE.length > iproutetype)
+        if (IP_ROUTE_TYPE.length > iproutetype) {
             return IP_ROUTE_TYPE[iproutetype];
+        }
         return IP_ROUTE_TYPE[0];
     }
 
@@ -733,8 +735,9 @@ public abstract class ElementUtil {
         }
 
         IpRouteInterface[] ipri = NetworkElementFactory.getInstance(servletContext).getIpRoute(nodeId);
-        if (ipri == null)
+        if (ipri == null) {
             return new IpRouteInterface[0];
+        }
         return ipri;
     }
 
@@ -799,8 +802,9 @@ public abstract class ElementUtil {
             }
 
             intf = NetworkElementFactory.getInstance(servletContext).getInterface(ipInterfaceId);
-            if (intf != null && intf.getIfIndex() <= 0)
+            if (intf != null && intf.getIfIndex() <= 0) {
                 intf.m_ifIndex = NetworkElementFactory.getInstance(servletContext).getIfIndex(ipInterfaceId);
+            }
 
         } else {
             String nodeIdString = request.getParameter(nodeIdParam);

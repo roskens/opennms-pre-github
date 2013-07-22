@@ -80,8 +80,9 @@ public class MenuDropdownNavBarEntry implements NavBarEntry {
      * @return The text containing the menu entry/entries.
      */
     public String getName() {
-        if (m_name == null || m_contents == null)
+        if (m_name == null || m_contents == null) {
             return "";
+        }
         final StringBuilder sb = new StringBuilder();
         sb.append("<div class=\"nav-dropdown\">");
         sb.append("<a href=\"");

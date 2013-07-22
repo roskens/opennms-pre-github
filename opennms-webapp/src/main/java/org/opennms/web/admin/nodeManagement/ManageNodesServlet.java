@@ -220,10 +220,12 @@ public class ManageNodesServlet extends HttpServlet {
                     } // end k loop
                 } // end j loop
 
-                if (manageInterfacesList.size() > 0)
+                if (manageInterfacesList.size() > 0) {
                     manageInterfaces(manageInterfacesList, connection);
-                if (unmanageInterfacesList.size() > 0)
+                }
+                if (unmanageInterfacesList.size() > 0) {
                     unmanageInterfaces(unmanageInterfacesList, connection);
+                }
 
                 // update the packages url file
                 writeURLFile(addToURL);
@@ -279,8 +281,9 @@ public class ManageNodesServlet extends HttpServlet {
         for (int i = 0; i < interfaces.size(); i++) {
             query.append("'").append(interfaces.get(i)).append("'");
 
-            if (i < interfaces.size() - 1)
+            if (i < interfaces.size() - 1) {
                 query.append(",");
+            }
         }
         query.append(")");
 
@@ -307,8 +310,9 @@ public class ManageNodesServlet extends HttpServlet {
         for (int i = 0; i < interfaces.size(); i++) {
             query.append("'").append(interfaces.get(i)).append("'");
 
-            if (i < interfaces.size() - 1)
+            if (i < interfaces.size() - 1) {
                 query.append(",");
+            }
         }
         query.append(")");
 

@@ -53,8 +53,9 @@ public class AlarmIdListFilter extends InFilter<Integer> {
      * @return the integer[]
      */
     private static Integer[] box(int[] values) {
-        if (values == null)
+        if (values == null) {
             return null;
+        }
 
         Integer[] boxed = new Integer[values.length];
         for (int i = 0; i < values.length; i++) {

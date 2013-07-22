@@ -108,18 +108,24 @@ public class StpInterface {
         m_stpvlan = stpinterf.getVlan();
         m_lastPollTime = Util.formatDateToUIString(stpinterf.getLastPollTime());
         m_status = StatusType.getStatusString(stpinterf.getStatus().getCharCode());
-        if (stpinterf.getStpPortState() != null)
+        if (stpinterf.getStpPortState() != null) {
             m_stpportstate = StpPortStatus.getStpPortStatusString(stpinterf.getStpPortState().getIntCode());
-        if (stpinterf.getStpPortPathCost() != null)
+        }
+        if (stpinterf.getStpPortPathCost() != null) {
             m_stpportpathcost = stpinterf.getStpPortPathCost().toString();
-        if (stpinterf.getStpPortDesignatedCost() != null)
+        }
+        if (stpinterf.getStpPortDesignatedCost() != null) {
             m_stpportdesignatedcost = stpinterf.getStpPortDesignatedCost().toString();
-        if (stpinterf.getStpPortDesignatedBridge() != null)
+        }
+        if (stpinterf.getStpPortDesignatedBridge() != null) {
             m_stpdesignatedbridge = stpinterf.getStpPortDesignatedBridge();
-        if (stpinterf.getStpPortDesignatedRoot() != null)
+        }
+        if (stpinterf.getStpPortDesignatedRoot() != null) {
             m_stpdesignatedroot = stpinterf.getStpPortDesignatedRoot();
-        if (stpinterf.getStpPortDesignatedPort() != null)
+        }
+        if (stpinterf.getStpPortDesignatedPort() != null) {
             m_stpdesignatedport = stpinterf.getStpPortDesignatedPort();
+        }
     }
 
     /**
@@ -388,19 +394,24 @@ public class StpInterface {
         int redoffset = 47;
         int greenoffset = 29;
         int blueoffset = 23;
-        if (m_stpvlan == 0)
+        if (m_stpvlan == 0) {
             return "";
-        if (m_stpvlan == 1)
+        }
+        if (m_stpvlan == 1) {
             return "#FFFFFF";
+        }
         red = (red + m_stpvlan * redoffset) % 255;
         green = (green + m_stpvlan * greenoffset) % 255;
         blue = (blue + m_stpvlan * blueoffset) % 255;
-        if (red < 64)
+        if (red < 64) {
             red = red + 64;
-        if (green < 64)
+        }
+        if (green < 64) {
             green = green + 64;
-        if (blue < 64)
+        }
+        if (blue < 64) {
             blue = blue + 64;
+        }
         return "#" + Integer.toHexString(red) + Integer.toHexString(green) + Integer.toHexString(blue);
     }
 

@@ -130,12 +130,14 @@ public class UserRestService extends OnmsRestService {
         readLock();
         try {
             final OnmsUser user = m_userManager.getOnmsUser(username);
-            if (user != null)
+            if (user != null) {
                 return user;
+            }
             throw getException(Status.NOT_FOUND, username + " does not exist");
         } catch (final Throwable t) {
-            if (t instanceof WebApplicationException)
+            if (t instanceof WebApplicationException) {
                 throw (WebApplicationException) t;
+            }
             throw getException(Status.BAD_REQUEST, t);
         } finally {
             readUnlock();
@@ -186,8 +188,9 @@ public class UserRestService extends OnmsRestService {
             } catch (final Throwable t) {
                 throw getException(Status.BAD_REQUEST, t);
             }
-            if (user == null)
+            if (user == null) {
                 throw getException(Status.BAD_REQUEST, "updateUser: User does not exist: " + userCriteria);
+            }
             LOG.debug("updateUser: updating user {}", user);
             final BeanWrapper wrapper = PropertyAccessorFactory.forBeanPropertyAccess(user);
             for (final String key : params.keySet()) {
@@ -229,8 +232,9 @@ public class UserRestService extends OnmsRestService {
             } catch (final Throwable t) {
                 throw getException(Status.BAD_REQUEST, t);
             }
-            if (user == null)
+            if (user == null) {
                 throw getException(Status.BAD_REQUEST, "deleteUser: User does not exist: " + userCriteria);
+            }
             LOG.debug("deleteUser: deleting user {}", user);
             try {
                 m_userManager.deleteUser(user.getUsername());

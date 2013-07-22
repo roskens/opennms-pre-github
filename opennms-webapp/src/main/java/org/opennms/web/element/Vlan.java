@@ -163,19 +163,24 @@ public class Vlan {
         int redoffset = 47;
         int greenoffset = 29;
         int blueoffset = 23;
-        if (m_vlanId == 0)
+        if (m_vlanId == 0) {
             return "";
-        if (m_vlanId == 1)
+        }
+        if (m_vlanId == 1) {
             return "#FFFFFF";
+        }
         red = (red + m_vlanId * redoffset) % 255;
         green = (green + m_vlanId * greenoffset) % 255;
         blue = (blue + m_vlanId * blueoffset) % 255;
-        if (red < 64)
+        if (red < 64) {
             red = red + 64;
-        if (green < 64)
+        }
+        if (green < 64) {
             green = green + 64;
-        if (blue < 64)
+        }
+        if (blue < 64) {
             blue = blue + 64;
+        }
         return "#" + Integer.toHexString(red) + Integer.toHexString(green) + Integer.toHexString(blue);
     }
 

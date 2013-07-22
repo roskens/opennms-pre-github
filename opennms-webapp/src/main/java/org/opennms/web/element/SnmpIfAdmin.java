@@ -42,7 +42,6 @@ import org.opennms.netmgt.snmp.SnmpAgentConfig;
 import org.opennms.netmgt.snmp.SnmpObjId;
 import org.opennms.netmgt.snmp.SnmpUtils;
 import org.opennms.netmgt.snmp.SnmpValue;
-import org.opennms.protocols.snmp.SnmpBadConversionException;
 
 //import java.io.IOException;
 /**
@@ -229,8 +228,9 @@ public class SnmpIfAdmin {
             throw e;
         } finally {
             try {
-                if (conn != null)
+                if (conn != null) {
                     conn.close();
+                }
             } catch (SQLException e) {
             }
         }
@@ -251,8 +251,9 @@ public class SnmpIfAdmin {
      */
     public boolean setIfAdmin(int ifindex, int value) throws SQLException {
 
-        if (value != UP && value != DOWN)
+        if (value != UP && value != DOWN) {
             throw new IllegalArgumentException("Value not valid");
+        }
 
         SnmpObjId oid = SnmpObjId.get(snmpObjectId + "." + ifindex);
         SnmpValue val = SnmpUtils.getValueFactory().getInt32(value);
@@ -261,8 +262,9 @@ public class SnmpIfAdmin {
         if (result != null && result.isNumeric()) {
             int retvalue = result.toInt();
             setIfAdminStatusInDB(ifindex, retvalue);
-            if (retvalue == value)
+            if (retvalue == value) {
                 return true;
+            }
         }
         return false;
     }

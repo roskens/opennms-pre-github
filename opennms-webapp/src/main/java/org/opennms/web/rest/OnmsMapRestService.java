@@ -176,8 +176,9 @@ public class OnmsMapRestService extends OnmsRestService {
         writeLock();
         try {
             final OnmsMap map = m_mapDao.get(mapId);
-            if (map == null)
+            if (map == null) {
                 throw getException(Response.Status.BAD_REQUEST, "deleteMap: Can't find map with id " + mapId);
+            }
             LOG.debug("deleteMap: deleting map {}", mapId);
             m_mapDao.delete(map);
             return Response.ok().build();
@@ -207,8 +208,9 @@ public class OnmsMapRestService extends OnmsRestService {
 
         try {
             final OnmsMap map = m_mapDao.get(mapId);
-            if (map == null)
+            if (map == null) {
                 throw getException(Response.Status.BAD_REQUEST, "updateMap: Can't find map with id " + mapId);
+            }
 
             LOG.debug("updateMap: updating map {}", map);
 

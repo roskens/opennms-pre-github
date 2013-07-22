@@ -106,22 +106,30 @@ public class StpNode {
         m_lastPollTime = Util.formatDateToUIString(node.getLastPollTime());
         m_status = StatusType.getStatusString(node.getStatus().getCharCode());
 
-        if (node.getBaseNumPorts() != null)
+        if (node.getBaseNumPorts() != null) {
             m_basenumports = node.getBaseNumPorts().toString();
-        if (node.getBaseType() != null)
+        }
+        if (node.getBaseType() != null) {
             m_basetype = BridgeBaseType.getBridgeBaseTypeString(node.getBaseType().getIntCode());
-        if (node.getStpProtocolSpecification() != null)
+        }
+        if (node.getStpProtocolSpecification() != null) {
             m_stpprotocolspecification = StpProtocolSpecification.getStpProtocolSpecificationString(node.getStpProtocolSpecification().getIntCode());
-        if (node.getStpPriority() != null)
+        }
+        if (node.getStpPriority() != null) {
             m_stppriority = node.getStpPriority().toString();
-        if (node.getStpRootCost() != null)
+        }
+        if (node.getStpRootCost() != null) {
             m_stprootcost = node.getStpRootCost().toString();
-        if (node.getStpRootPort() != null)
+        }
+        if (node.getStpRootPort() != null) {
             m_stprootport = node.getStpRootPort().toString();
-        if (node.getBaseVlanName() != null)
+        }
+        if (node.getBaseVlanName() != null) {
             m_basevlanname = node.getBaseVlanName();
-        if (node.getStpDesignatedRoot() != null)
+        }
+        if (node.getStpDesignatedRoot() != null) {
             m_stpdesignatedroot = node.getStpDesignatedRoot();
+        }
     }
 
     /**
@@ -360,19 +368,24 @@ public class StpNode {
         int redoffset = 47;
         int greenoffset = 29;
         int blueoffset = 23;
-        if (m_basevlan == 0)
+        if (m_basevlan == 0) {
             return "";
-        if (m_basevlan == 1)
+        }
+        if (m_basevlan == 1) {
             return "#FFFFFF";
+        }
         red = (red + m_basevlan * redoffset) % 255;
         green = (green + m_basevlan * greenoffset) % 255;
         blue = (blue + m_basevlan * blueoffset) % 255;
-        if (red < 64)
+        if (red < 64) {
             red = red + 64;
-        if (green < 64)
+        }
+        if (green < 64) {
             green = green + 64;
-        if (blue < 64)
+        }
+        if (blue < 64) {
             blue = blue + 64;
+        }
         return "#" + Integer.toHexString(red) + Integer.toHexString(green) + Integer.toHexString(blue);
     }
 

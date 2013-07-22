@@ -111,8 +111,9 @@ public class SaveMapController extends MapsLoggingController {
 
         try {
             VMap map = manager.openMap();
-            if (mapId != MapsConstants.NEW_MAP && map.isNew())
+            if (mapId != MapsConstants.NEW_MAP && map.isNew()) {
                 map = manager.openMap(mapId, request.getRemoteUser(), false);
+            }
 
             LOG.debug("Instantiating new elems ArrayList");
             elems = new ArrayList<VElement>();
@@ -157,8 +158,9 @@ public class SaveMapController extends MapsLoggingController {
                 }
 
                 VElement ve = manager.newElement(map.getId(), id, type, icon, x, y);
-                if (label != null)
+                if (label != null) {
                     ve.setLabel(label);
+                }
 
                 LOG.debug("adding map element to map with id: {}{} and label: {}", id, type, ve.getLabel());
                 elems.add(ve);
@@ -187,8 +189,9 @@ public class SaveMapController extends MapsLoggingController {
 
             LOG.info("{} Map saved. With map id: {}", map.getName(), mapId);
 
-            if (map.isNew())
+            if (map.isNew()) {
                 map.setId(mapId);
+            }
 
             bw.write(ResponseAssembler.getSaveMapResponse(map));
         } catch (Throwable e) {

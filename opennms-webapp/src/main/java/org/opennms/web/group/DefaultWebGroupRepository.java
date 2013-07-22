@@ -100,8 +100,9 @@ public class DefaultWebGroupRepository implements WebGroupRepository, Initializi
         group.setComments(webGroup.getComments());
         group.setDutySchedule(webGroup.getDutySchedules());
         group.setUser(webGroup.getUsers());
-        if (!webGroup.getDefaultMap().equals(""))
+        if (!webGroup.getDefaultMap().equals("")) {
             group.setDefaultMap(webGroup.getDefaultMap());
+        }
 
         setAuthorizedCategories(webGroup.getName(), webGroup.getAuthorizedCategories());
 
