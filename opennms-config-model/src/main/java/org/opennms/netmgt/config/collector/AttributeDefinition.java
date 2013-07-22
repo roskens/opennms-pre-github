@@ -46,7 +46,7 @@ public interface AttributeDefinition {
      *
      * @return a {@link java.lang.String} object.
      */
-    public abstract String getType();
+    String getType();
 
     /**
      * <p>
@@ -56,7 +56,7 @@ public interface AttributeDefinition {
      *
      * @return a {@link java.lang.String} object.
      */
-    public abstract String getName();
+    String getName();
 
     /**
      * <p>
@@ -68,8 +68,7 @@ public interface AttributeDefinition {
      *            a {@link java.lang.Object} object.
      * @return a boolean.
      */
-    @Override
-    public abstract boolean equals(Object o);
+    @Override boolean equals(Object o);
 
     /**
      * <p>
@@ -79,7 +78,6 @@ public interface AttributeDefinition {
      *
      * @return a int.
      */
-    @Override
-    public abstract int hashCode();
+    @Override int hashCode();
 
 }

@@ -39,5 +39,5 @@ public interface EventMatcher {
      *            the matching event
      * @return true, if successful
      */
-    public boolean matches(org.opennms.netmgt.xml.event.Event matchingEvent);
+    boolean matches(org.opennms.netmgt.xml.event.Event matchingEvent);
 }

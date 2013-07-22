@@ -47,14 +47,14 @@ public interface CollectionAttribute {
      * @return a {@link org.opennms.netmgt.config.collector.CollectionResource}
      *         object.
      */
-    public CollectionResource getResource();
+    CollectionResource getResource();
 
     /**
      * Get the value of the attribute as a String.
      *
      * @return a String representing the attribute value
      */
-    public String getStringValue();
+    String getStringValue();
 
     /**
      * Get the numeric value of the attribute, as a String. Assumes the
@@ -63,14 +63,14 @@ public interface CollectionAttribute {
      *
      * @return a string representation of the numeric value of this attribute
      */
-    public String getNumericValue();
+    String getNumericValue();
 
     /**
      * Gets the name of the attribute.
      *
      * @return a name
      */
-    public String getName();
+    String getName();
 
     /**
      * Get the metric identifier for the attribute to be used for NRTG
@@ -78,7 +78,7 @@ public interface CollectionAttribute {
      *
      * @return the metric identifier
      */
-    public String getMetricIdentifier();
+    String getMetricIdentifier();
 
     /**
      * Stores the attribute using the persister. Not sure this should be here...
@@ -97,7 +97,7 @@ public interface CollectionAttribute {
      *         {@link org.opennms.netmgt.config.collector.ServiceParameters}
      *         object.
      */
-    public boolean shouldPersist(ServiceParameters params);
+    boolean shouldPersist(ServiceParameters params);
 
     /**
      * Return the attribute type for this attribute. Not sure what an
@@ -106,7 +106,7 @@ public interface CollectionAttribute {
      * @return a {@link org.opennms.netmgt.collectd.CollectionAttributeType}
      *         object.
      */
-    public CollectionAttributeType getAttributeType();
+    CollectionAttributeType getAttributeType();
 
     /**
      * Visit this attribute.
@@ -116,7 +116,7 @@ public interface CollectionAttribute {
      *            {@link org.opennms.netmgt.config.collector.CollectionSetVisitor}
      *            object.
      */
-    public void visit(CollectionSetVisitor visitor);
+    void visit(CollectionSetVisitor visitor);
 
     /**
      * Returns type of value (typically one of "counter", "gauge", "timeticks",
@@ -124,5 +124,5 @@ public interface CollectionAttribute {
      *
      * @return type of value stored in this attribute (SNMP semantics)
      */
-    public String getType();
+    String getType();
 }

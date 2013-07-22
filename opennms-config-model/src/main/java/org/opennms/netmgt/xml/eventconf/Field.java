@@ -39,5 +39,5 @@ public interface Field {
      *            the matching event
      * @return the string
      */
-    public String get(org.opennms.netmgt.xml.event.Event matchingEvent);
+    String get(org.opennms.netmgt.xml.event.Event matchingEvent);
 }

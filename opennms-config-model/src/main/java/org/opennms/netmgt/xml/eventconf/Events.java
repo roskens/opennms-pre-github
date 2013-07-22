@@ -86,7 +86,7 @@ public class Events implements Serializable {
          *            the event
          * @return the t
          */
-        public T process(T accum, Event event);
+        T process(T accum, Event event);
 
     }
 
@@ -102,7 +102,7 @@ public class Events implements Serializable {
          *            the e
          * @return true, if successful
          */
-        public boolean matches(Event e);
+        boolean matches(Event e);
 
     }
 

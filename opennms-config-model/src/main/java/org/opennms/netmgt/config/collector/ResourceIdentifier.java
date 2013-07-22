@@ -50,7 +50,7 @@ public interface ResourceIdentifier {
      *
      * @return a {@link java.lang.String} object.
      */
-    public String getOwnerName();
+    String getOwnerName();
 
     /**
      * <p>
@@ -62,6 +62,6 @@ public interface ResourceIdentifier {
      *            a {@link org.opennms.netmgt.model.RrdRepository} object.
      * @return a {@link java.io.File} object.
      */
-    public File getResourceDir(RrdRepository repository);
+    File getResourceDir(RrdRepository repository);
 
 }

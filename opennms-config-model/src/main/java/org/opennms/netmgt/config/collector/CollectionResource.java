@@ -51,7 +51,7 @@ public interface CollectionResource extends ResourceIdentifier {
      *            object.
      * @return a boolean.
      */
-    public boolean shouldPersist(ServiceParameters params);
+    boolean shouldPersist(ServiceParameters params);
 
     /**
      * <p>
@@ -61,7 +61,7 @@ public interface CollectionResource extends ResourceIdentifier {
      *
      * @return a boolean.
      */
-    public boolean rescanNeeded();
+    boolean rescanNeeded();
 
     /**
      * <p>
@@ -73,7 +73,7 @@ public interface CollectionResource extends ResourceIdentifier {
      *            a {@link org.opennms.netmgt.collectd.CollectionSetVisitor}
      *            object.
      */
-    public void visit(CollectionSetVisitor visitor);
+    void visit(CollectionSetVisitor visitor);
 
     /**
      * Returns something like an ifType; is (but not sure if it should be) -1
@@ -83,7 +83,7 @@ public interface CollectionResource extends ResourceIdentifier {
      *
      * @return a int.
      */
-    public int getType();
+    int getType();
 
     /**
      * Returns a string which indicates what type of resource.
@@ -95,14 +95,14 @@ public interface CollectionResource extends ResourceIdentifier {
      *
      * @return a {@link java.lang.String} object.
      */
-    public String getResourceTypeName();
+    String getResourceTypeName();
 
     /**
      * Returns the name of the parent resource.
      *
      * @return a {@link java.lang.String} object.
      */
-    public String getParent();
+    String getParent();
 
     /**
      * Returns the name of the instance this CollectionResource represents. For
@@ -114,7 +114,7 @@ public interface CollectionResource extends ResourceIdentifier {
      *
      * @return a {@link java.lang.String} object.
      */
-    public String getInstance();
+    String getInstance();
 
     /**
      * Returns a unique label for each resource depending on resource type.
@@ -122,7 +122,7 @@ public interface CollectionResource extends ResourceIdentifier {
      *
      * @return a {@link java.lang.String} object.
      */
-    public String getLabel();
+    String getLabel();
 
     /**
      * Returns a not-null time tracker instance when this resource requires to
@@ -132,6 +132,6 @@ public interface CollectionResource extends ResourceIdentifier {
      *
      * @return a {@link org.opennms.core.utils.TimeKeeper} object.
      */
-    public TimeKeeper getTimeKeeper();
+    TimeKeeper getTimeKeeper();
 
 }

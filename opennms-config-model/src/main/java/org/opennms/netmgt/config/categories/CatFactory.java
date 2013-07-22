@@ -50,7 +50,7 @@ public interface CatFactory {
      *
      * @return a {@link org.opennms.netmgt.config.categories.Catinfo} object.
      */
-    public Catinfo getConfig();
+    Catinfo getConfig();
 
     /**
      * <p>
@@ -62,7 +62,7 @@ public interface CatFactory {
      *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.config.categories.Category} object.
      */
-    public Category getCategory(String name);
+    Category getCategory(String name);
 
     /**
      * <p>
@@ -74,7 +74,7 @@ public interface CatFactory {
      *            a {@link java.lang.String} object.
      * @return a {@link java.lang.String} object.
      */
-    public String getEffectiveRule(String catLabel);
+    String getEffectiveRule(String catLabel);
 
     /**
      * <p>
@@ -86,7 +86,7 @@ public interface CatFactory {
      *            a {@link java.lang.String} object.
      * @return a double.
      */
-    public double getNormal(String catlabel);
+    double getNormal(String catlabel);
 
     /**
      * <p>
@@ -98,20 +98,20 @@ public interface CatFactory {
      *            a {@link java.lang.String} object.
      * @return a double.
      */
-    public double getWarning(String catlabel);
+    double getWarning(String catlabel);
 
     /**
      * Gets the read lock.
      *
      * @return the read lock
      */
-    public Lock getReadLock();
+    Lock getReadLock();
 
     /**
      * Gets the write lock.
      *
      * @return the write lock
      */
-    public Lock getWriteLock();
+    Lock getWriteLock();
 
 }

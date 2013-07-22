@@ -49,7 +49,7 @@ public interface Persister {
      *            {@link org.opennms.netmgt.config.collector.CollectionAttribute}
      *            object.
      */
-    public abstract void persistNumericAttribute(CollectionAttribute attribute);
+    void persistNumericAttribute(CollectionAttribute attribute);
 
     /**
      * <p>
@@ -62,6 +62,6 @@ public interface Persister {
      *            {@link org.opennms.netmgt.config.collector.CollectionAttribute}
      *            object.
      */
-    public abstract void persistStringAttribute(CollectionAttribute attribute);
+    void persistStringAttribute(CollectionAttribute attribute);
 
 }
