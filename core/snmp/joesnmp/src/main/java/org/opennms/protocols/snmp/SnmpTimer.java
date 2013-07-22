@@ -98,8 +98,9 @@ class SnmpTimer extends Object {
                 // synchronize on the object
                 //
                 synchronized (m_sync) {
-                    if (m_exit)
+                    if (m_exit) {
                         return;
+                    }
 
                     //
                     // if there are no elements on the list
@@ -144,8 +145,9 @@ class SnmpTimer extends Object {
                                 // find out if this time is less
                                 // than the one currently stored
                                 //
-                                if (elem.m_when < minTime)
+                                if (elem.m_when < minTime) {
                                     minTime = elem.m_when;
+                                }
                             }
                         } catch (NoSuchElementException err) {
                             done = true;
@@ -162,8 +164,9 @@ class SnmpTimer extends Object {
                     if (toRun.size() == 0) {
                         minTime -= now;
                         try {
-                            if (minTime > 0)
+                            if (minTime > 0) {
                                 m_sync.wait(minTime);
+                            }
                         } catch (InterruptedException e) {
                             return;
                         }
@@ -244,8 +247,9 @@ class SnmpTimer extends Object {
             // itself. This will cause a deadlock
             // condition to occur!
             //
-            if (m_thread.equals(Thread.currentThread()) == false)
+            if (m_thread.equals(Thread.currentThread()) == false) {
                 m_thread.join();
+            }
         } catch (InterruptedException err) {
             Thread.currentThread().interrupt();
         }

@@ -101,8 +101,9 @@ public class SnmpInt32 extends Object implements SnmpSyntax, Cloneable, Serializ
      *            The integer value represented as a String
      */
     public SnmpInt32(String value) {
-        if (value == null)
+        if (value == null) {
             throw new NullPointerException("The constructor argument may not be null");
+        }
 
         // May throw a NumberFormatException
         //
@@ -186,8 +187,9 @@ public class SnmpInt32 extends Object implements SnmpSyntax, Cloneable, Serializ
     public int decodeASN(byte[] buf, int offset, AsnEncoder encoder) throws AsnDecodingException {
         Object[] rVals = encoder.parseInteger32(buf, offset);
 
-        if (((Byte) rVals[1]).byteValue() != typeId())
+        if (((Byte) rVals[1]).byteValue() != typeId()) {
             throw new AsnDecodingException("Invalid ASN.1 type");
+        }
 
         m_value = ((Integer) rVals[2]).intValue();
 

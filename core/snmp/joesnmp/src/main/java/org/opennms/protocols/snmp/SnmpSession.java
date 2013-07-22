@@ -28,6 +28,7 @@
 
 package org.opennms.protocols.snmp;
 
+import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.InetAddress;
 import java.net.SocketException;
@@ -151,15 +152,16 @@ public class SnmpSession extends Object {
                 // state information
                 //
                 req = findRequest(pdu);
-                if (req != null)
+                if (req != null) {
                     isExpired = req.m_expired;
+                }
             }
 
             if (isExpired == false) {
                 int cmd = -1;
-                if (req != null && req.m_pdu instanceof SnmpPduPacket)
+                if (req != null && req.m_pdu instanceof SnmpPduPacket) {
                     cmd = ((SnmpPduPacket) req.m_pdu).getCommand();
-                else {
+                } else {
                     cmd = pdu.getCommand();
                     pdu.setPeer(new SnmpPeer(agent, port));
                 }
@@ -196,8 +198,9 @@ public class SnmpSession extends Object {
                     req.m_handler.snmpReceivedPdu(req.m_session, ((SnmpPduRequest) pdu).getCommand(),
                                                   (SnmpPduRequest) pdu);
                 } else {
-                    if (m_defHandler != null)
+                    if (m_defHandler != null) {
                         m_defHandler.snmpReceivedPdu(null, cmd, pdu);
+                    }
                 }
             }
         }
@@ -247,8 +250,9 @@ public class SnmpSession extends Object {
                     ListIterator<SnmpRequest> iter = m_requests.listIterator(0);
                     while (iter.hasNext()) {
                         SnmpRequest req = iter.next();
-                        if (req.m_expired)
+                        if (req.m_expired) {
                             iter.remove();
+                        }
                     }
                 }
             }
@@ -256,8 +260,9 @@ public class SnmpSession extends Object {
             //
             // reschedule
             //
-            if (!m_stopRun)
+            if (!m_stopRun) {
                 m_timer.schedule(this, 1000);
+            }
         }
     }
 
@@ -352,8 +357,9 @@ public class SnmpSession extends Object {
         SnmpOctetString community;
         if (pdu.getCommand() == SnmpPduPacket.SET) {
             String wrComm = parms.getWriteCommunity();
-            if (wrComm == null)
+            if (wrComm == null) {
                 throw new SnmpPduEncodingException("Requested SET but there is no write community");
+            }
             community = new SnmpOctetString(wrComm.getBytes());
         } else {
             community = new SnmpOctetString(parms.getReadCommunity().getBytes());
@@ -541,11 +547,13 @@ public class SnmpSession extends Object {
         SnmpPeer peer = m_peer;
         SnmpParameters parms = peer.getParameters();
 
-        if (req.m_pdu instanceof SnmpPduPacket)
+        if (req.m_pdu instanceof SnmpPduPacket) {
             pdu = (SnmpPduPacket) req.m_pdu;
+        }
 
-        if (req.m_pdu instanceof SnmpPduTrap)
+        if (req.m_pdu instanceof SnmpPduTrap) {
             trap = (SnmpPduTrap) req.m_pdu;
+        }
 
         //
         // verify that for a SNMPV1 session that no
@@ -566,10 +574,11 @@ public class SnmpSession extends Object {
             // transmit the datagram
             //
             ByteArrayInfo msg = encode(pdu);
-            if (pdu.getPeer() == null)
+            if (pdu.getPeer() == null) {
                 m_portal.send(m_peer, msg.array(), msg.size());
-            else
+            } else {
                 m_portal.send(pdu.getPeer(), msg.array(), msg.size());
+            }
         } else if (trap != null) {
             ByteArrayInfo msg = encode(trap);
             m_portal.send(m_peer, msg.array(), msg.size());
@@ -698,8 +707,9 @@ public class SnmpSession extends Object {
         // check to ensure that the session is still open
         //
         synchronized (m_sync) {
-            if (m_stopRun) // session has been closed!
+            if (m_stopRun) {
                 throw new IllegalStateException("illegal operation, the session has been closed");
+            }
         }
 
         synchronized (m_requests) {
@@ -711,8 +721,9 @@ public class SnmpSession extends Object {
                 ListIterator<SnmpRequest> iter = m_requests.listIterator();
                 while (iter.hasNext()) {
                     SnmpRequest req = iter.next();
-                    if (req.m_expired)
+                    if (req.m_expired) {
                         iter.remove();
+                    }
                 }
             }
             return m_requests.size();
@@ -732,8 +743,9 @@ public class SnmpSession extends Object {
         // check to ensure that the session is still open
         //
         synchronized (m_sync) {
-            if (m_stopRun) // session has been closed!
+            if (m_stopRun) {
                 throw new IllegalStateException("illegal operation, the session has been closed");
+            }
         }
 
         synchronized (m_requests) {
@@ -766,25 +778,25 @@ public class SnmpSession extends Object {
      * @return The request identifier for the newly sent PDU.
      */
     public int send(SnmpPduPacket pdu, SnmpHandler handler) {
-        if (handler == null)
+        if (handler == null) {
             throw new SnmpHandlerNotDefinedException("No Handler Defined");
+        }
 
         //
         // check to ensure that the session is still open
         //
         synchronized (m_sync) {
-            if (m_stopRun) // session has been closed!
+            if (m_stopRun) {
+                // session has been closed!
                 throw new IllegalStateException("illegal operation, the session has been closed");
+            }
         }
 
         SnmpRequest req = new SnmpRequest(this, pdu, handler);
-        if (pdu.getCommand() != SnmpPduPacket.V2TRAP || pdu.getPeer() == null) // traps
-                                                                               // and
-                                                                               // responses
-                                                                               // don't
-                                                                               // get
-                                                                               // answers!
+        if (pdu.getCommand() != SnmpPduPacket.V2TRAP || pdu.getPeer() == null) {
+            // and responses don't get answers!
             addRequest(req);
+        }
 
         req.run();
         if (req.m_expired == true) {
@@ -803,8 +815,9 @@ public class SnmpSession extends Object {
      * @return The request identifier for the newly sent PDU.
      */
     public int send(SnmpPduPacket pdu) {
-        if (m_defHandler == null)
+        if (m_defHandler == null) {
             throw new SnmpHandlerNotDefinedException("No Handler Defined");
+        }
 
         return send(pdu, m_defHandler);
     }
@@ -819,15 +832,18 @@ public class SnmpSession extends Object {
      * @return The request identifier for the newly sent PDU.
      */
     public int send(SnmpPduTrap pdu, SnmpHandler handler) {
-        if (handler == null)
+        if (handler == null) {
             throw new SnmpHandlerNotDefinedException("No Handler Defined");
+        }
 
         //
         // check to ensure that the session is still open
         //
         synchronized (m_sync) {
-            if (m_stopRun) // session has been closed!
+            if (m_stopRun) {
+                // session has been closed!
                 throw new IllegalStateException("illegal operation, the session has been closed");
+            }
         }
 
         SnmpRequest req = new SnmpRequest(this, pdu, handler);
@@ -843,8 +859,9 @@ public class SnmpSession extends Object {
      * @return The request identifier for the newly sent PDU.
      */
     public int send(SnmpPduTrap pdu) {
-        if (m_defHandler == null)
+        if (m_defHandler == null) {
             throw new SnmpHandlerNotDefinedException("No Handler Defined");
+        }
 
         return send(pdu, m_defHandler);
     }
@@ -871,8 +888,9 @@ public class SnmpSession extends Object {
             //
             // only allow close to be called once
             //
-            if (m_stopRun)
+            if (m_stopRun) {
                 throw new IllegalStateException("The session is already closed");
+            }
 
             m_stopRun = true;
             m_timer.cancel();
@@ -1125,8 +1143,9 @@ public class SnmpSession extends Object {
      */
     private SnmpSyntax[] getResults(SnmpPduPacket request) {
         SnmpPduPacket response = getResponse(request);
-        if (response == null)
+        if (response == null) {
             return null;
+        }
         SnmpSyntax[] vals = new SnmpSyntax[response.getLength()];
         for (int i = 0; i < response.getLength(); i++) {
             vals[i] = response.getVarBindAt(i).getValue();

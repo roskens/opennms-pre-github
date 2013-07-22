@@ -271,14 +271,16 @@ public class SnmpVarBind extends Object implements SnmpSyntax, Cloneable, Serial
         //
         // verify the length
         //
-        if ((buf.length - offset) < asnLength)
+        if ((buf.length - offset) < asnLength) {
             throw new AsnDecodingException("Buffer underflow error");
+        }
 
         //
         // verify the ASN.1 type
         //
-        if (asnType != typeId())
+        if (asnType != typeId()) {
             throw new AsnDecodingException("Invalid ASN.1 type");
+        }
 
         //
         // first get the name
@@ -289,8 +291,9 @@ public class SnmpVarBind extends Object implements SnmpSyntax, Cloneable, Serial
         // get the type
         //
         m_value = SnmpUtil.getSyntaxObject(buf[offset]);
-        if (m_value == null)
+        if (m_value == null) {
             throw new AsnDecodingException("Unknown ASN.1 type");
+        }
 
         offset = m_value.decodeASN(buf, offset, encoder);
 

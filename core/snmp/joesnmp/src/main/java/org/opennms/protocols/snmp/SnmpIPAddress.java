@@ -74,10 +74,11 @@ public class SnmpIPAddress extends SnmpOctetString {
      */
     public SnmpIPAddress(byte[] data) {
         super(data);
-        if (data.length < 4)
+        if (data.length < 4) {
             throw new java.security.InvalidParameterException("Buffer underflow error converting IP address");
-        else if (data.length > 4)
+        } else if (data.length > 4) {
             throw new java.security.InvalidParameterException("Buffer overflow error converting IP address");
+        }
     }
 
     /**
@@ -99,10 +100,11 @@ public class SnmpIPAddress extends SnmpOctetString {
      */
     public SnmpIPAddress(SnmpOctetString second) {
         super(second);
-        if (getLength() < 4)
+        if (getLength() < 4) {
             throw new java.security.InvalidParameterException("Buffer underflow error converting IP address");
-        else if (getLength() > 4)
+        } else if (getLength() > 4) {
             throw new java.security.InvalidParameterException("Buffer overflow error converting IP address");
+        }
     }
 
     /**
@@ -184,10 +186,11 @@ public class SnmpIPAddress extends SnmpOctetString {
      */
     @Override
     public void setString(byte[] data) {
-        if (data == null || data.length < 4)
+        if (data == null || data.length < 4) {
             throw new java.security.InvalidParameterException("Buffer underflow error converting IP address");
-        else if (data.length > 4)
+        } else if (data.length > 4) {
             throw new java.security.InvalidParameterException("Buffer overflow error converting IP address");
+        }
 
         // use setString instead of assumeString to ensure
         // that a duplicate copy of the buffer is made.
@@ -213,10 +216,11 @@ public class SnmpIPAddress extends SnmpOctetString {
     @Override
     public void setString(String data) {
         byte[] bdata = (data == null ? null : data.getBytes());
-        if (bdata == null || bdata.length < 4)
+        if (bdata == null || bdata.length < 4) {
             throw new java.security.InvalidParameterException("Buffer underflow error converting IP address");
-        else if (bdata.length > 4)
+        } else if (bdata.length > 4) {
             throw new java.security.InvalidParameterException("Buffer overflow error converting IP address");
+        }
 
         super.assumeString(bdata);
     }
@@ -243,14 +247,16 @@ public class SnmpIPAddress extends SnmpOctetString {
     public int decodeASN(byte[] buf, int offset, AsnEncoder encoder) throws AsnDecodingException {
         Object[] rVals = encoder.parseString(buf, offset);
 
-        if (((Byte) rVals[1]).byteValue() != typeId())
+        if (((Byte) rVals[1]).byteValue() != typeId()) {
             throw new AsnDecodingException("Invalid ASN.1 type");
+        }
 
         byte[] data = (byte[]) rVals[2];
-        if (data.length < 4)
+        if (data.length < 4) {
             throw new AsnDecodingException("Buffer Underflow Exception, length = " + data.length);
-        else if (data.length > 4)
+        } else if (data.length > 4) {
             throw new AsnDecodingException("Buffer Overflow Exception, length = " + data.length);
+        }
 
         super.assumeString(data);
 

@@ -127,8 +127,9 @@ class SnmpRequest implements Runnable {
      */
     @Override
     public void run() {
-        if (m_expired)
+        if (m_expired) {
             return;
+        }
 
         if (m_timesSent <= m_session.getPeer().getRetries()) {
             m_timesSent++;
@@ -138,10 +139,11 @@ class SnmpRequest implements Runnable {
                 //
                 m_session.transmit(this);
                 if (m_pdu instanceof SnmpPduPacket) {
-                    if (((SnmpPduPacket) m_pdu).getCommand() != SnmpPduPacket.V2TRAP)
+                    if (((SnmpPduPacket) m_pdu).getCommand() != SnmpPduPacket.V2TRAP) {
                         m_session.getTimer().schedule(this, m_session.getPeer().getTimeout());
-                    else
+                    } else {
                         m_expired = true;
+                    }
                 } else if (m_pdu instanceof SnmpPduTrap) {
                     m_expired = true;
                 }

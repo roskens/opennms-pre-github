@@ -163,8 +163,9 @@ public class SnmpOctetString extends Object implements SnmpSyntax, Cloneable, Se
      */
     public int getLength() {
         int len = 0;
-        if (m_data != null)
+        if (m_data != null) {
             len = m_data.length;
+        }
         return len;
     }
 
@@ -195,8 +196,9 @@ public class SnmpOctetString extends Object implements SnmpSyntax, Cloneable, Se
      */
     @Override
     public int encodeASN(byte[] buf, int offset, AsnEncoder encoder) throws AsnEncodingException {
-        if (m_data == null)
+        if (m_data == null) {
             throw new AsnEncodingException("No data in octet string");
+        }
 
         return encoder.buildString(buf, offset, typeId(), m_data);
     }
@@ -223,8 +225,9 @@ public class SnmpOctetString extends Object implements SnmpSyntax, Cloneable, Se
     public int decodeASN(byte[] buf, int offset, AsnEncoder encoder) throws AsnDecodingException {
         Object[] rVals = encoder.parseString(buf, offset);
 
-        if (((Byte) rVals[1]).byteValue() != typeId())
+        if (((Byte) rVals[1]).byteValue() != typeId()) {
             throw new AsnDecodingException("Invalid ASN.1 type");
+        }
 
         m_data = (byte[]) rVals[2];
 
@@ -282,12 +285,14 @@ public class SnmpOctetString extends Object implements SnmpSyntax, Cloneable, Se
             // = HEX] = [");
             for (int i = 0; i < m_data.length; ++i) {
                 int x = (int) m_data[i] & 0xff;
-                if (x < 16)
+                if (x < 16) {
                     b.append('0');
+                }
                 b.append(Integer.toString(x, 16).toUpperCase());
 
-                if (i < m_data.length - 1)
+                if (i < m_data.length - 1) {
                     b.append(' ');
+                }
             }
             // b.append(']');
             rs = b.toString();
@@ -359,8 +364,9 @@ public class SnmpOctetString extends Object implements SnmpSyntax, Cloneable, Se
      * @return the string
      */
     public static String toHexString(SnmpOctetString ostr) {
-        if (ostr == null)
+        if (ostr == null) {
             return null;
+        }
         StringBuffer sbuf = new StringBuffer();
         if (ostr != null && ostr.getLength() > 0) {
             byte[] bytes = ostr.getString();
@@ -380,15 +386,19 @@ public class SnmpOctetString extends Object implements SnmpSyntax, Cloneable, Se
     public boolean equals(Object obj) {
         if (obj instanceof SnmpOctetString) {
             SnmpOctetString str = (SnmpOctetString) obj;
-            if (m_data == null)
+            if (m_data == null) {
                 return (str.m_data == null);
+            }
 
-            if (m_data.length != str.m_data.length)
+            if (m_data.length != str.m_data.length) {
                 return false;
+            }
 
-            for (int i = 0; i < m_data.length; i++)
-                if (m_data[i] != str.m_data[i])
+            for (int i = 0; i < m_data.length; i++) {
+                if (m_data[i] != str.m_data[i]) {
                     return false;
+                }
+            }
 
             return true;
         }

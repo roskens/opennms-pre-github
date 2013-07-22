@@ -87,16 +87,18 @@ public class SnmpObjectId extends Object implements SnmpSyntax, Cloneable, Seria
         // with a dot then we need to increment
         // the id count
         //
-        if (idArray[0] != '.')
+        if (idArray[0] != '.') {
             numIds++;
+        }
 
         //
         // count the number of objects
         //
         int x = 0;
         while (x < idArray.length) {
-            if (idArray[x++] == '.')
+            if (idArray[x++] == '.') {
                 ++numIds;
+            }
         }
 
         //
@@ -119,8 +121,9 @@ public class SnmpObjectId extends Object implements SnmpSyntax, Cloneable, Seria
         // if the string begins with a dot(.) then
         // increment the ndx
         //
-        if (idArray[0] == '.')
+        if (idArray[0] == '.') {
             ++idArrayNdx;
+        }
 
         //
         // create an object id variable and
@@ -416,22 +419,25 @@ public class SnmpObjectId extends Object implements SnmpSyntax, Cloneable, Seria
             // id will be offset by 1
             //
             a = 0;
-            if (aNdx < m_data.length)
+            if (aNdx < m_data.length) {
                 a = m_data[aNdx++] + 1;
+            }
 
             //
             // Just like 'a', only for the array ids.
             //
             b = 0;
-            if (bNdx < ids.length)
+            if (bNdx < ids.length) {
                 b = ids[bNdx++] + 1;
+            }
 
             //
             // compare
             //
             rc = a - b;
-            if (rc != 0)
+            if (rc != 0) {
                 break;
+            }
         }
         return rc;
     }
@@ -475,22 +481,25 @@ public class SnmpObjectId extends Object implements SnmpSyntax, Cloneable, Seria
             // id will be offset by 1
             //
             a = 0;
-            if (aNdx < m_data.length)
+            if (aNdx < m_data.length) {
                 a = m_data[aNdx++] + 1;
+            }
 
             //
             // Just like 'a', only for the array ids.
             //
             b = 0;
-            if (bNdx < ids.length)
+            if (bNdx < ids.length) {
                 b = ids[bNdx++] + 1;
+            }
 
             //
             // compare
             //
             rc = a - b;
-            if (rc != 0)
+            if (rc != 0) {
                 break;
+            }
         }
         return rc;
     }
@@ -646,8 +655,9 @@ public class SnmpObjectId extends Object implements SnmpSyntax, Cloneable, Seria
     public int decodeASN(byte[] buf, int offset, AsnEncoder encoder) throws AsnDecodingException {
         Object[] rVals = encoder.parseObjectId(buf, offset);
 
-        if (((Byte) rVals[1]).byteValue() != typeId())
+        if (((Byte) rVals[1]).byteValue() != typeId()) {
             throw new AsnDecodingException("Invalid ASN.1 type");
+        }
 
         m_data = (int[]) rVals[2];
 

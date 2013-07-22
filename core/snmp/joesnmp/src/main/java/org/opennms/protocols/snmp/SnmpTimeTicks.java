@@ -159,26 +159,30 @@ public class SnmpTimeTicks extends SnmpUInt32 {
         if ((tmp = (time / (24 * 3600 * 100))) > 0) {
             buf.append(tmp).append("d ");
             time = time % (24 * 3600 * 100);
-        } else
+        } else {
             buf.append("0d ");
+        }
 
         if ((tmp = time / (3600 * 100)) > 0) {
             buf.append(tmp).append("h ");
             time = time % (3600 * 100);
-        } else
+        } else {
             buf.append("0h ");
+        }
 
         if ((tmp = time / 6000) > 0) {
             buf.append(tmp).append("m ");
             time = time % 6000;
-        } else
+        } else {
             buf.append("0m ");
+        }
 
         if ((tmp = time / 100) > 0) {
             buf.append(tmp).append("s ");
             time = time % 100;
-        } else
+        } else {
             buf.append("0s ");
+        }
 
         buf.append(time * 10).append("ms");
 

@@ -121,12 +121,14 @@ public class SnmpCounter64 extends Object implements SnmpSyntax, Cloneable, Seri
      *            The string encoded value.
      */
     public SnmpCounter64(String value) {
-        if (value == null)
+        if (value == null) {
             throw new NullPointerException("The constructor argument must not be null");
+        }
 
         m_value = new BigInteger(value);
-        if (m_value.signum() < 0)
+        if (m_value.signum() < 0) {
             throw new IllegalArgumentException("The decoded value may not be negative");
+        }
     }
 
     /**
@@ -198,8 +200,9 @@ public class SnmpCounter64 extends Object implements SnmpSyntax, Cloneable, Seri
     public int decodeASN(byte[] buf, int offset, AsnEncoder encoder) throws AsnDecodingException {
         Object[] rVals = encoder.parseUInteger64(buf, offset);
 
-        if (((Byte) rVals[1]).byteValue() != typeId())
+        if (((Byte) rVals[1]).byteValue() != typeId()) {
             throw new AsnDecodingException("Invalid ASN.1 type");
+        }
 
         setValue((BigInteger) rVals[2]);
 

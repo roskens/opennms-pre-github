@@ -451,10 +451,12 @@ public class SnmpPduTrap extends Object implements SnmpSyntax, Cloneable {
         //
         // set the command
         //
-        if (cmd < 0)
+        if (cmd < 0) {
             cmd += 256; // wrap the value to a positive quantity!
-        if (TRAP != cmd)
+        }
+        if (TRAP != cmd) {
             throw new AsnDecodingException("Invalid SNMP command, Not a Trap");
+        }
 
         offset = m_enterprise.decodeASN(buf, offset, encoder);
         offset = m_agentAddr.decodeASN(buf, offset, encoder);
@@ -493,8 +495,9 @@ public class SnmpPduTrap extends Object implements SnmpSyntax, Cloneable {
         //
         // check the ASN.1 type
         //
-        if (asnType != SnmpVarBind.ASNTYPE)
+        if (asnType != SnmpVarBind.ASNTYPE) {
             throw new AsnDecodingException("Invalid SNMP variable list");
+        }
 
         //
         // set the beginning

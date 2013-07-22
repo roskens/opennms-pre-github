@@ -129,12 +129,14 @@ public class SnmpOpaque extends SnmpOctetString {
         // [");
         for (int i = 0; i < data.length; ++i) {
             int x = (int) data[i] & 0xff;
-            if (x < 16)
+            if (x < 16) {
                 b.append('0');
+            }
             b.append(Integer.toString(x, 16).toUpperCase());
 
-            if (i + 1 < data.length)
+            if (i + 1 < data.length) {
                 b.append(' ');
+            }
         }
         // b.append(']');
         return b.toString();

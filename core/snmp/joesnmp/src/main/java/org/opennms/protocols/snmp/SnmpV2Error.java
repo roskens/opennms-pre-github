@@ -121,11 +121,13 @@ public abstract class SnmpV2Error extends Object implements SnmpSyntax, Cloneabl
     public int decodeASN(byte[] buf, int offset, AsnEncoder encoder) throws AsnDecodingException {
         Object[] rVals = encoder.parseHeader(buf, offset);
 
-        if (((Byte) rVals[1]).byteValue() != typeId())
+        if (((Byte) rVals[1]).byteValue() != typeId()) {
             throw new AsnDecodingException("Invalid ASN.1 type");
+        }
 
-        if (((Integer) rVals[2]).intValue() != 0)
+        if (((Integer) rVals[2]).intValue() != 0) {
             throw new AsnDecodingException("Invalid ASN.1 length");
+        }
 
         return ((Integer) rVals[0]).intValue();
     }

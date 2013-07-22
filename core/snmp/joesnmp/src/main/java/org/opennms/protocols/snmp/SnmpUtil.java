@@ -84,8 +84,9 @@ class SnmpUtil extends Object {
                     break;
                 }
             }
-            if (addIt == true)
+            if (addIt == true) {
                 rc = m_syntaxArray.add(obj);
+            }
         }
         return rc;
     }
@@ -244,8 +245,9 @@ class SnmpUtil extends Object {
      *            The length of data to dump
      */
     static void dumpHex(PrintStream out, byte[] data, int offset, int length) {
-        if ((offset + length) > data.length)
+        if ((offset + length) > data.length) {
             return;
+        }
 
         int cnt = 0;
         while (length > 0) {
@@ -257,8 +259,9 @@ class SnmpUtil extends Object {
             --length;
             offset++;
 
-            if ((cnt++ % 16) == 0 && cnt != 1)
+            if ((cnt++ % 16) == 0 && cnt != 1) {
                 out.println("");
+            }
         }
     }
 }

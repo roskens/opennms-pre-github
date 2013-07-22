@@ -121,12 +121,14 @@ public class SnmpUInt32 extends Object implements SnmpSyntax, Cloneable, Seriali
      *            The unsigned value encoded as a string.
      */
     public SnmpUInt32(String value) {
-        if (value == null)
+        if (value == null) {
             throw new NullPointerException("The construction argument cannot be null");
+        }
 
         m_value = Long.parseLong(value);
-        if (m_value < 0)
+        if (m_value < 0) {
             throw new IllegalArgumentException("Illegal Negative Integer Value");
+        }
 
         m_value = m_value & MASK;
     }
@@ -219,8 +221,9 @@ public class SnmpUInt32 extends Object implements SnmpSyntax, Cloneable, Seriali
     public int decodeASN(byte[] buf, int offset, AsnEncoder encoder) throws AsnDecodingException {
         Object[] rVals = encoder.parseUInteger32(buf, offset);
 
-        if (((Byte) rVals[1]).byteValue() != typeId())
+        if (((Byte) rVals[1]).byteValue() != typeId()) {
             throw new AsnDecodingException("Invalid ASN.1 type");
+        }
 
         setValue((Long) rVals[2]);
 

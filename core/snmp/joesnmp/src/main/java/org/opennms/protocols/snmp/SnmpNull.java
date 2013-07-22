@@ -121,8 +121,9 @@ public class SnmpNull extends Object implements SnmpSyntax, Cloneable, Serializa
     public int decodeASN(byte[] buf, int offset, AsnEncoder encoder) throws AsnDecodingException {
         Object[] rVals = encoder.parseNull(buf, offset);
 
-        if (((Byte) rVals[1]).byteValue() != typeId())
+        if (((Byte) rVals[1]).byteValue() != typeId()) {
             throw new AsnDecodingException("Invalid ASN.1 type");
+        }
 
         return ((Integer) rVals[0]).intValue();
     }

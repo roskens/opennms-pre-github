@@ -28,6 +28,7 @@
 
 package org.opennms.protocols.snmp;
 
+import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.InetAddress;
 import java.net.SocketException;
@@ -150,8 +151,9 @@ public final class SnmpTrapSession extends Object {
         @Override
         public void processSnmpMessage(InetAddress agent, int port, SnmpInt32 version, SnmpOctetString community,
                 int pduType, SnmpPduPacket pdu) throws SnmpPduEncodingException {
-            if (version.getValue() != SnmpSMI.SNMPV2 && pduType != SnmpPduPacket.V2TRAP)
+            if (version.getValue() != SnmpSMI.SNMPV2 && pduType != SnmpPduPacket.V2TRAP) {
                 return;
+            }
 
             try {
                 m_handler.snmpReceivedTrap(m_forWhom, agent, port, community, pdu);
@@ -333,8 +335,9 @@ public final class SnmpTrapSession extends Object {
      * invalid and unusable.
      */
     public void close() {
-        if (m_portal.isClosed())
+        if (m_portal.isClosed()) {
             throw new IllegalStateException("Illegal operation, the session is already closed");
+        }
 
         m_portal.close();
     }
@@ -363,8 +366,9 @@ public final class SnmpTrapSession extends Object {
      */
     public void send(SnmpPeer peer, SnmpPduTrap trap) throws SnmpPduEncodingException, AsnEncodingException,
             java.io.IOException {
-        if (m_portal.isClosed())
+        if (m_portal.isClosed()) {
             throw new IllegalStateException("Illegal operation, the session has been closed");
+        }
 
         SnmpParameters parms = peer.getParameters();
 
@@ -449,8 +453,9 @@ public final class SnmpTrapSession extends Object {
      */
     public void send(SnmpPeer peer, SnmpPduPacket pdu) throws SnmpPduEncodingException, AsnEncodingException,
             java.io.IOException {
-        if (m_portal.isClosed())
+        if (m_portal.isClosed()) {
             throw new IllegalStateException("Illegal operation, the session has been closed");
+        }
 
         //
         // break down the pieces into usable variables

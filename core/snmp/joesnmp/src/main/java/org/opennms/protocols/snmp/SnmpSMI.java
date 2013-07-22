@@ -179,8 +179,9 @@ public class SnmpSMI {
      * @return the int
      */
     public static int toInt(SnmpSyntax result, int deflt) {
-        if (result == null)
+        if (result == null) {
             return deflt;
+        }
 
         try {
             return Integer.parseInt(result.toString());

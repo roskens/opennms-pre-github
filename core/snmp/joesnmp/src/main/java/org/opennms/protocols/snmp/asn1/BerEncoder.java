@@ -125,8 +125,9 @@ public class BerEncoder implements AsnEncoder {
      */
     protected static void copy(byte[] src, int srcOff, byte[] dest, int destOff, int bytesToCopy)
             throws ArrayIndexOutOfBoundsException {
-        if ((dest.length - destOff) < bytesToCopy || (src.length - srcOff) < bytesToCopy)
+        if ((dest.length - destOff) < bytesToCopy || (src.length - srcOff) < bytesToCopy) {
             throw new ArrayIndexOutOfBoundsException("Destination or source buffer is insufficent");
+        }
 
         for (int x = bytesToCopy - 1; x >= 0; x--) {
             dest[destOff + x] = src[srcOff + x];
@@ -154,8 +155,9 @@ public class BerEncoder implements AsnEncoder {
      */
     protected static void copy(int[] src, int srcOff, int[] dest, int destOff, int intsToCopy)
             throws ArrayIndexOutOfBoundsException {
-        if ((dest.length - destOff) < intsToCopy || (src.length - srcOff) < intsToCopy)
+        if ((dest.length - destOff) < intsToCopy || (src.length - srcOff) < intsToCopy) {
             throw new ArrayIndexOutOfBoundsException("Destination or source buffer is insufficent");
+        }
 
         for (int x = intsToCopy - 1; x >= 0; x--) {
             dest[destOff + x] = src[srcOff + x];
@@ -236,16 +238,18 @@ public class BerEncoder implements AsnEncoder {
             //
             // check the buffer length
             //
-            if ((buf.length - startOffset) < 1)
+            if ((buf.length - startOffset) < 1) {
                 throw new AsnEncodingException("Buffer overflow error");
+            }
 
             buf[startOffset++] = (byte) (asnLength & 0x7f);
         } else if (asnLength <= 0xff) {
             //
             // check the buffer length
             //
-            if ((buf.length - startOffset) < 2)
+            if ((buf.length - startOffset) < 2) {
                 throw new AsnEncodingException("Buffer overflow error");
+            }
 
             buf[startOffset++] = (byte) (0x01 | LONG_LENGTH);
             buf[startOffset++] = (byte) (asnLength & 0xff);
@@ -254,8 +258,9 @@ public class BerEncoder implements AsnEncoder {
             //
             // check the buffer length
             //
-            if ((buf.length - startOffset) < 3)
+            if ((buf.length - startOffset) < 3) {
                 throw new AsnEncodingException("Buffer overflow error");
+            }
 
             buf[startOffset++] = (byte) (0x02 | LONG_LENGTH);
             buf[startOffset++] = (byte) ((asnLength >>> 8) & 0xff);
@@ -285,8 +290,9 @@ public class BerEncoder implements AsnEncoder {
         //
         // check the buffer length
         //
-        if ((buf.length - startOffset) < 1)
+        if ((buf.length - startOffset) < 1) {
             throw new AsnDecodingException("Buffer underflow error");
+        }
 
         //
         // 1) Integer w/new offset value
@@ -311,13 +317,15 @@ public class BerEncoder implements AsnEncoder {
             //
             numBytes = (byte) (numBytes & ~LONG_LENGTH);
             if (numBytes == 1) {
-                if ((buf.length - startOffset) < 1)
+                if ((buf.length - startOffset) < 1) {
                     throw new AsnDecodingException("Buffer underflow error");
+                }
 
                 retVals[1] = Integer.valueOf(byteToInt(buf[startOffset++]));
             } else if (numBytes == 2) {
-                if ((buf.length - startOffset) < 2)
+                if ((buf.length - startOffset) < 2) {
                     throw new AsnDecodingException("Buffer underflow error");
+                }
 
                 int val = byteToInt(buf[startOffset++]) << 8 | byteToInt(buf[startOffset++]);
                 retVals[1] = Integer.valueOf(val);
@@ -356,8 +364,9 @@ public class BerEncoder implements AsnEncoder {
      */
     @Override
     public int buildHeader(byte[] buf, int startOffset, byte asnType, int asnLength) throws AsnEncodingException {
-        if ((buf.length - startOffset) < 1)
+        if ((buf.length - startOffset) < 1) {
             throw new AsnEncodingException("Buffer overflow error");
+        }
 
         buf[startOffset++] = asnType;
         return buildLength(buf, startOffset, asnLength);
@@ -383,15 +392,17 @@ public class BerEncoder implements AsnEncoder {
      */
     @Override
     public Object[] parseHeader(byte[] buf, int startOffset) throws AsnDecodingException {
-        if ((buf.length - startOffset) < 1)
+        if ((buf.length - startOffset) < 1) {
             throw new AsnDecodingException("Insufficent buffer length");
+        }
 
         //
         // get the ASN.1 Type
         //
         byte asnType = buf[startOffset++];
-        if (isExtensionId(asnType))
+        if (isExtensionId(asnType)) {
             throw new AsnDecodingException("Buffer underflow error");
+        }
 
         //
         // get the length
@@ -457,8 +468,9 @@ public class BerEncoder implements AsnEncoder {
         //
         // verify the buffer length
         //
-        if ((buf.length - startOffset) < intSz)
+        if ((buf.length - startOffset) < intSz) {
             throw new AsnEncodingException("Insufficent buffer size");
+        }
 
         //
         // mask off and store the values
@@ -506,22 +518,25 @@ public class BerEncoder implements AsnEncoder {
         //
         // check for sufficent data
         //
-        if ((buf.length - startOffset) < asnLength)
+        if ((buf.length - startOffset) < asnLength) {
             throw new AsnDecodingException("Buffer underflow error");
+        }
 
         //
         // check to see that we can actually decode
         // the value (must fit in integer == 32-bits)
         //
-        if (asnLength > 4)
+        if (asnLength > 4) {
             throw new AsnDecodingException("Integer too large: cannot decode");
+        }
 
         //
         // check for negativity!
         //
         int asnValue = 0;
-        if ((buf[startOffset] & HIGH_BIT) == HIGH_BIT)
+        if ((buf[startOffset] & HIGH_BIT) == HIGH_BIT) {
             asnValue = -1;
+        }
 
         //
         // extract the information from the buffer
@@ -613,8 +628,9 @@ public class BerEncoder implements AsnEncoder {
         //
         // verify the buffer length
         //
-        if ((buf.length - startOffset) < intSz)
+        if ((buf.length - startOffset) < intSz) {
             throw new AsnEncodingException("Buffer overflow error");
+        }
 
         //
         // Add the null byte if necessary
@@ -670,22 +686,25 @@ public class BerEncoder implements AsnEncoder {
         //
         // check for sufficent data
         //
-        if ((buf.length - startOffset) < asnLength)
+        if ((buf.length - startOffset) < asnLength) {
             throw new AsnDecodingException("Buffer underflow error");
+        }
 
         //
         // check to see that we can actually decode
         // the value (must fit in integer == 32-bits)
         //
-        if (asnLength > 5)
+        if (asnLength > 5) {
             throw new AsnDecodingException("Integer too large: cannot decode");
+        }
 
         //
         // check for negativity!
         //
         long asnValue = 0;
-        if ((buf[startOffset] & HIGH_BIT) == HIGH_BIT)
+        if ((buf[startOffset] & HIGH_BIT) == HIGH_BIT) {
             asnValue = -1;
+        }
 
         //
         // extract the information from the buffer
@@ -748,11 +767,13 @@ public class BerEncoder implements AsnEncoder {
         //
         // verify the buffer length
         //
-        if ((buf.length - startOffset) < bytes.length)
+        if ((buf.length - startOffset) < bytes.length) {
             throw new AsnEncodingException("Buffer overflow error");
+        }
 
-        for (int i = 0; i < bytes.length; ++i)
+        for (int i = 0; i < bytes.length; ++i) {
             buf[startOffset++] = bytes[i];
+        }
 
         //
         // return the result
@@ -790,19 +811,22 @@ public class BerEncoder implements AsnEncoder {
         //
         // check for sufficent data
         //
-        if ((buf.length - startOffset) < asnLength)
+        if ((buf.length - startOffset) < asnLength) {
             throw new AsnDecodingException("Buffer underflow error");
+        }
 
         //
         // check to see that we can actually decode
         // the value (must fit in integer == 64-bits)
         //
-        if (asnLength > 9)
+        if (asnLength > 9) {
             throw new AsnDecodingException("Integer too large: cannot decode");
+        }
 
         byte[] asnBuf = new byte[asnLength];
-        for (int i = 0; i < asnLength; ++i)
+        for (int i = 0; i < asnLength; ++i) {
             asnBuf[i] = buf[startOffset++];
+        }
 
         BigInteger asnValue = new BigInteger(asnBuf);
 
@@ -862,8 +886,9 @@ public class BerEncoder implements AsnEncoder {
         //
         // Verify the ASN.1 length == 0
         //
-        if (((Integer) hdrVals[2]).intValue() != 0)
+        if (((Integer) hdrVals[2]).intValue() != 0) {
             throw new AsnDecodingException("Malformed ASN.1 Type");
+        }
 
         Object[] rVals = new Object[2];
         rVals[0] = hdrVals[0];
@@ -907,8 +932,9 @@ public class BerEncoder implements AsnEncoder {
         // check the data length verses the remaining buffer
         // and then copy the data
         //
-        if ((buf.length - startOffset) < opaque.length)
+        if ((buf.length - startOffset) < opaque.length) {
             throw new AsnEncodingException("Insufficent buffer length");
+        }
 
         try {
             copy(opaque, // source
@@ -956,8 +982,9 @@ public class BerEncoder implements AsnEncoder {
         //
         // verify that there is enough data to decode
         //
-        if ((buf.length - startOffset) < asnLength)
+        if ((buf.length - startOffset) < asnLength) {
             throw new AsnDecodingException("Insufficent buffer length");
+        }
 
         //
         // copy the data
@@ -1005,8 +1032,9 @@ public class BerEncoder implements AsnEncoder {
      */
     @Override
     public int buildObjectId(byte[] buf, int startOffset, byte asnType, int[] oids) throws AsnEncodingException {
-        if ((buf.length - startOffset) < 1)
+        if ((buf.length - startOffset) < 1) {
             throw new AsnEncodingException("Buffer overflow error");
+        }
 
         int[] toEncode = oids;
         int begin = startOffset; // used for rotate!
@@ -1024,11 +1052,13 @@ public class BerEncoder implements AsnEncoder {
         //
         // verify that it is a valid object id!
         //
-        if (toEncode[0] < 0 || toEncode[0] > 2)
+        if (toEncode[0] < 0 || toEncode[0] > 2) {
             throw new AsnEncodingException("Invalid Object Identifier");
+        }
 
-        if (toEncode[1] < 0 || toEncode[1] > 40)
+        if (toEncode[1] < 0 || toEncode[1] > 40) {
             throw new AsnEncodingException("Invalid Object Identifier");
+        }
 
         //
         // add the first oid!
@@ -1049,8 +1079,9 @@ public class BerEncoder implements AsnEncoder {
             // encode it
             //
             if (oid >= 0 && oid < 127) {
-                if ((buf.length - startOffset) < 1)
+                if ((buf.length - startOffset) < 1) {
                     throw new AsnEncodingException("Buffer overflow error");
+                }
 
                 buf[startOffset++] = (byte) oid;
             } else // oid >= 127
@@ -1073,8 +1104,9 @@ public class BerEncoder implements AsnEncoder {
                 }
 
                 while (mask != 0x7f) {
-                    if ((buf.length - startOffset) < 1)
+                    if ((buf.length - startOffset) < 1) {
                         throw new AsnEncodingException("Buffer overflow error");
+                    }
 
                     buf[startOffset++] = (byte) (((oid & mask) >>> bits) | HIGH_BIT);
 
@@ -1084,15 +1116,17 @@ public class BerEncoder implements AsnEncoder {
                     //
                     // fix an off-shift mask (4 bits --> 7 bits)
                     //
-                    if (mask == 0x01e00000)
+                    if (mask == 0x01e00000) {
                         mask = 0x0fe00000;
+                    }
                 }
 
                 //
                 // add the last byte
                 //
-                if ((buf.length - startOffset) < 1)
+                if ((buf.length - startOffset) < 1) {
                     throw new AsnEncodingException("Insufficent buffer space");
+                }
 
                 buf[startOffset++] = (byte) (oid & mask);
 
@@ -1149,8 +1183,9 @@ public class BerEncoder implements AsnEncoder {
         //
         // check for sufficent data
         //
-        if ((buf.length - startOffset) < asnLength)
+        if ((buf.length - startOffset) < asnLength) {
             throw new AsnDecodingException("Buffer underflow error");
+        }
 
         //
         // if the length is zero then
@@ -1199,8 +1234,9 @@ public class BerEncoder implements AsnEncoder {
                 byte b = buf[startOffset++];
                 oid = (oid << 7) | (int) (b & 0x7f);
 
-                if ((b & HIGH_BIT) == 0)
+                if ((b & HIGH_BIT) == 0) {
                     done = true;
+                }
             } while (!done);
             ids[idsOff++] = oid;
         }

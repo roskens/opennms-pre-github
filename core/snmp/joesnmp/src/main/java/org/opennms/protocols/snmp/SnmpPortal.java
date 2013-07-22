@@ -29,6 +29,7 @@
 package org.opennms.protocols.snmp;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.InterruptedIOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
@@ -146,8 +147,9 @@ public class SnmpPortal {
      *             the socket exception
      */
     SnmpPortal(final SnmpPacketHandler handler, final AsnEncoder encoder, final int port) throws SocketException {
-        if (handler == null || encoder == null)
+        if (handler == null || encoder == null) {
             throw new IllegalArgumentException("Invalid argument");
+        }
 
         m_handler = handler;
 
@@ -176,8 +178,9 @@ public class SnmpPortal {
      */
     SnmpPortal(final SnmpPacketHandler handler, final AsnEncoder encoder, final InetAddress address, final int port)
             throws SocketException {
-        if (handler == null || encoder == null)
+        if (handler == null || encoder == null) {
             throw new IllegalArgumentException("Invalid argument");
+        }
 
         m_handler = handler;
 
@@ -313,12 +316,14 @@ public class SnmpPortal {
                     while (!m_isClosing && Thread.interrupted() == false) {
                         byte[] buf = null;
                         synchronized (usedBuffers) {
-                            if (!usedBuffers.isEmpty())
+                            if (!usedBuffers.isEmpty()) {
                                 buf = (byte[]) usedBuffers.removeFirst();
+                            }
                         }
 
-                        if (buf == null || buf.length != bufSz)
+                        if (buf == null || buf.length != bufSz) {
                             buf = new byte[bufSz];
+                        }
 
                         try {
                             DatagramPacket pkt = new DatagramPacket(buf, buf.length);
@@ -353,11 +358,13 @@ public class SnmpPortal {
                     // reset the packet's length
                     //
                     synchronized (fastReceiverQ) {
-                        while (fastReceiverQ.isEmpty() && !m_isClosing)
+                        while (fastReceiverQ.isEmpty() && !m_isClosing) {
                             fastReceiverQ.wait(300);
+                        }
 
-                        if (m_isClosing)
+                        if (m_isClosing) {
                             continue;
+                        }
 
                         pkt = (DatagramPacket) fastReceiverQ.removeFirst();
                     }
@@ -393,8 +400,9 @@ public class SnmpPortal {
                         // only keep 20 * 16k, or 520k worth
                         // of buffers around
                         //
-                        if (usedBuffers.size() < 20)
+                        if (usedBuffers.size() < 20) {
                             usedBuffers.addLast(pkt.getData());
+                        }
                     }
                 }
             }
@@ -445,8 +453,9 @@ public class SnmpPortal {
         //
         // check the ASN.1 Type
         //
-        if (asnType != (ASN1.SEQUENCE | ASN1.CONSTRUCTOR))
+        if (asnType != (ASN1.SEQUENCE | ASN1.CONSTRUCTOR)) {
             throw new AsnDecodingException("Invalid SNMP ASN.1 type");
+        }
 
         //
         // Check the length of the datagram packet
@@ -583,8 +592,9 @@ public class SnmpPortal {
      *            The new handler
      */
     void setPacketHandler(SnmpPacketHandler hdl) {
-        if (hdl == null)
+        if (hdl == null) {
             throw new IllegalArgumentException("The packet handler must not be null");
+        }
 
         m_handler = hdl;
     }
@@ -605,8 +615,9 @@ public class SnmpPortal {
      *            The new encoder
      */
     void setAsnEncoder(AsnEncoder encoder) {
-        if (encoder == null)
+        if (encoder == null) {
             throw new IllegalArgumentException("The ASN.1 codec must not be null");
+        }
 
         m_encoder = encoder;
     }
