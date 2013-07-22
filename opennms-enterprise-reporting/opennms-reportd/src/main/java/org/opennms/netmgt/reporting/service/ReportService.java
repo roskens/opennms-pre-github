@@ -54,6 +54,6 @@ public interface ReportService {
      * @throws ReportRunException
      *             the report run exception
      */
-    public String runReport(Report report, String reportDirectory) throws ReportRunException;
+    String runReport(Report report, String reportDirectory) throws ReportRunException;
 
 }

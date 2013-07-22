@@ -53,6 +53,6 @@ public interface ReportDeliveryService {
      * @throws ReportDeliveryException
      *             the report delivery exception
      */
-    public void deliverReport(Report report, String fileName) throws ReportDeliveryException;
+    void deliverReport(Report report, String fileName) throws ReportDeliveryException;
 
 }
