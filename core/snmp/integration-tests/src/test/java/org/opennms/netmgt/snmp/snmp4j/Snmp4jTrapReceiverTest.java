@@ -133,8 +133,9 @@ public class Snmp4jTrapReceiverTest extends MockSnmpAgentTestCase implements Tra
             do {
                 Thread.sleep(200);
                 System.err.print(".");
-                if (m_trapCount == 2)
+                if (m_trapCount == 2) {
                     break;
+                }
             } while (System.currentTimeMillis() < waitUntil);
             System.err.println("");
             LOG.debug("waited for {} milliseconds", System.currentTimeMillis() - start);
@@ -179,8 +180,9 @@ public class Snmp4jTrapReceiverTest extends MockSnmpAgentTestCase implements Tra
             do {
                 Thread.sleep(200);
                 System.err.print(".");
-                if (m_trapCount == 2)
+                if (m_trapCount == 2) {
                     break;
+                }
             } while (System.currentTimeMillis() < waitUntil);
             System.err.println("");
             LOG.debug("waited for {} milliseconds", System.currentTimeMillis() - start);

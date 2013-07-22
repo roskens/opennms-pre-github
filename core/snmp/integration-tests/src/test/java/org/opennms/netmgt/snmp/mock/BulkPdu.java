@@ -87,8 +87,9 @@ public class BulkPdu extends RequestPdu {
      */
     @Override
     public ResponsePdu send(TestAgent agent) {
-        if (agent.isVersion1())
+        if (agent.isVersion1()) {
             throw new IllegalStateException("can't send a getBulk pack to a V1 Agent");
+        }
 
         return super.send(agent);
     }

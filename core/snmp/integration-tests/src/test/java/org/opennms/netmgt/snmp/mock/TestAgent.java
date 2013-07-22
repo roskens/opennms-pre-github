@@ -114,8 +114,9 @@ public class TestAgent {
 
         SnmpObjId firstOid = m_agentData.firstKey();
         SnmpObjId lastOid = m_agentData.lastKey();
-        if (id.compareTo(firstOid) < 0 || id.compareTo(lastOid) > 0)
+        if (id.compareTo(firstOid) < 0 || id.compareTo(lastOid) > 0) {
             throw new AgentNoSuchObjectException();
+        }
         throw new AgentNoSuchInstanceException();
     }
 

@@ -152,8 +152,9 @@ public abstract class RequestPdu extends TestPdu {
      *            the agent
      */
     private void validateResponseSize(ResponsePdu resp, TestAgent agent) {
-        if (resp.size() > agent.getMaxResponseSize())
+        if (resp.size() > agent.getMaxResponseSize()) {
             throw new AgentTooBigException();
+        }
     }
 
     /**
