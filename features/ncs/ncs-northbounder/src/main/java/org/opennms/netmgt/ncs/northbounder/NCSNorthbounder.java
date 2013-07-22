@@ -127,34 +127,43 @@ public class NCSNorthbounder extends AbstractNorthbounder {
      */
     @Override
     public boolean accepts(NorthboundAlarm alarm) {
-        if (!m_config.isEnabled())
+        if (!m_config.isEnabled()) {
             return false;
+        }
 
-        if (alarm.getAlarmType() == null)
+        if (alarm.getAlarmType() == null) {
             return false;
-        if (alarm.getAlarmType() == AlarmType.NOTIFICATION)
+        }
+        if (alarm.getAlarmType() == AlarmType.NOTIFICATION) {
             return false;
+        }
 
         if (m_config.getAcceptableUeis() != null && m_config.getAcceptableUeis().size() != 0
-                && !m_config.getAcceptableUeis().contains(alarm.getUei()))
+                && !m_config.getAcceptableUeis().contains(alarm.getUei())) {
             return false;
+        }
 
         Map<String, String> alarmParms = getParameterMap(alarm.getEventParms());
 
         // in order to determine the service we need to have the following
         // parameters set in the events
-        if (!alarmParms.containsKey(COMPONENT_TYPE))
+        if (!alarmParms.containsKey(COMPONENT_TYPE)) {
             return false;
-        if (!alarmParms.containsKey(COMPONENT_FOREIGN_SOURCE))
+        }
+        if (!alarmParms.containsKey(COMPONENT_FOREIGN_SOURCE)) {
             return false;
-        if (!alarmParms.containsKey(COMPONENT_FOREIGN_ID))
+        }
+        if (!alarmParms.containsKey(COMPONENT_FOREIGN_ID)) {
             return false;
-        if (!alarmParms.containsKey(COMPONENT_NAME))
+        }
+        if (!alarmParms.containsKey(COMPONENT_NAME)) {
             return false;
+        }
 
         // we only send events for "Service" components
-        if (!"Service".equals(alarmParms.get(COMPONENT_TYPE)))
+        if (!"Service".equals(alarmParms.get(COMPONENT_TYPE))) {
             return false;
+        }
 
         return true;
 
@@ -233,8 +242,9 @@ public class NCSNorthbounder extends AbstractNorthbounder {
     @Override
     public void forwardAlarms(List<NorthboundAlarm> alarms) throws NorthbounderException {
 
-        if (!m_config.isEnabled())
+        if (!m_config.isEnabled()) {
             return;
+        }
 
         LOG.info("Forwarding {} alarms", alarms.size());
 
