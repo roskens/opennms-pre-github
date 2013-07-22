@@ -96,8 +96,9 @@ public class OutageSvcTimesList extends ArrayList<Outage> {
      *            time at which service was regained
      */
     public void addSvcTime(long losttime, long regainedtime) {
-        if (regainedtime < losttime)
+        if (regainedtime < losttime) {
             return;
+        }
 
         add(new Outage(losttime, regainedtime));
     }
@@ -131,8 +132,9 @@ public class OutageSvcTimesList extends ArrayList<Outage> {
 
         for (Outage svcTime : this) {
             long outtime = svcTime.getDownTime(curTime, rollingWindow);
-            if (outtime > 0)
+            if (outtime > 0) {
                 m_outTime += outtime;
+            }
         }
 
         return m_outTime;
@@ -151,8 +153,9 @@ public class OutageSvcTimesList extends ArrayList<Outage> {
      * @return a {@link java.util.List} object.
      */
     public List<OutageSince> getServiceOutages(String nodeName, long curTime, long rollingWindow) {
-        if (nodeName == null)
+        if (nodeName == null) {
             return null;
+        }
 
         // for each individual outage, get the down time
         //
@@ -165,11 +168,13 @@ public class OutageSvcTimesList extends ArrayList<Outage> {
             // ignore if the outage doesn't fall within the window.
             //
             if (svcTime.getRegainedTime() > 0) {
-                if (svcTime.getRegainedTime() <= startTime)
+                if (svcTime.getRegainedTime() <= startTime) {
                     continue;
+                }
             } else {
-                if (svcTime.getLostTime() > curTime)
+                if (svcTime.getLostTime() > curTime) {
                     continue;
+                }
             }
 
             long outFrom = startTime;
@@ -178,10 +183,12 @@ public class OutageSvcTimesList extends ArrayList<Outage> {
             }
             long outtime = svcTime.getDownTime(curTime, rollingWindow);
             OutageSince outageSince = null;
-            if (outtime > 0)
+            if (outtime > 0) {
                 outageSince = new OutageSince(nodeName, outFrom, outtime);
-            if (outageSince != null)
+            }
+            if (outageSince != null) {
                 retList.add(outageSince);
+            }
         }
 
         return retList;

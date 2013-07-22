@@ -202,12 +202,15 @@ public class AvailabilityReportService implements ReportService {
 
         List<ReportFormat> formats = new ArrayList<ReportFormat>();
 
-        if (m_configDao.getHtmlStylesheetLocation(id) != null)
+        if (m_configDao.getHtmlStylesheetLocation(id) != null) {
             formats.add(ReportFormat.HTML);
-        if (m_configDao.getPdfStylesheetLocation(id) != null)
+        }
+        if (m_configDao.getPdfStylesheetLocation(id) != null) {
             formats.add(ReportFormat.PDF);
-        if (m_configDao.getSvgStylesheetLocation(id) != null)
+        }
+        if (m_configDao.getSvgStylesheetLocation(id) != null) {
             formats.add(ReportFormat.SVG);
+        }
 
         return formats;
     }

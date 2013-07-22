@@ -87,12 +87,13 @@ public class Node extends StandardNamedObject {
         public boolean equals(Object o) {
             boolean rc = false;
             if (o != null) {
-                if (o == this)
+                if (o == this) {
                     rc = true;
-                else if (o instanceof Interface)
+                } else if (o instanceof Interface) {
                     rc = m_intfname.equals(((Interface) o).getName());
-                else if (o instanceof String)
+                } else if (o instanceof String) {
                     rc = m_intfname.equals(o);
+                }
             }
             return rc;
         }
@@ -258,8 +259,9 @@ public class Node extends StandardNamedObject {
      * @return The interface count
      */
     public int getInterfaceCount() {
-        if (m_interfaces != null)
+        if (m_interfaces != null) {
             return m_interfaces.size();
+        }
         return 0;
     }
 
@@ -322,8 +324,9 @@ public class Node extends StandardNamedObject {
      *            exists. If not, adds a new interface with name intfname.
      */
     public void addInterface(String intfname) {
-        if (intfname == null)
+        if (intfname == null) {
             return;
+        }
 
         int ndx = m_interfaces.indexOf(InterfaceComparator.make(intfname));
         if (ndx == -1) {
@@ -343,18 +346,21 @@ public class Node extends StandardNamedObject {
      *            a new interface with name intfname and service.
      */
     public void addInterface(String intfname, String service) {
-        if (intfname == null)
+        if (intfname == null) {
             return;
+        }
         int ndx = m_interfaces.indexOf(InterfaceComparator.make(intfname));
         if (ndx != -1) {
             Interface intf = (Interface) m_interfaces.get(ndx);
-            if (service != null)
+            if (service != null) {
                 intf.addService(service);
+            }
             return;
         }
         Interface intf = new Interface(intfname);
-        if (service != null)
+        if (service != null) {
             intf.addService(service);
+        }
         m_interfaces.add(intf);
     }
 
@@ -398,8 +404,9 @@ public class Node extends StandardNamedObject {
      * @return Interface with name intfname
      */
     public Interface getInterface(String intfname) {
-        if (intfname == null)
+        if (intfname == null) {
             return null;
+        }
 
         int ndx = m_interfaces.indexOf(InterfaceComparator.make(intfname));
         if (ndx != -1) {
@@ -425,8 +432,9 @@ public class Node extends StandardNamedObject {
      *            outage with losttime as lost and regained time as regained.
      */
     public void addInterface(String intfname, String service, long lost, long regained) {
-        if (intfname == null)
+        if (intfname == null) {
             return;
+        }
 
         int ndx = m_interfaces.indexOf(InterfaceComparator.make(intfname));
         if (ndx != -1) {
@@ -463,8 +471,9 @@ public class Node extends StandardNamedObject {
             for (Interface intf : m_interfaces) {
                 if (intf != null) {
                     long down = intf.getDownTime(endTime, rollingWindow);
-                    if (down > 0)
+                    if (down > 0) {
                         outage += down;
+                    }
                     serviceCount += intf.getServiceCount();
                 }
             }
@@ -477,8 +486,9 @@ public class Node extends StandardNamedObject {
             double denom = rollingWindow * serviceCount * 1.0d;
             double num = 1.0d * outage;
             percent = 100.0 * (1.0 - (num / denom));
-        } else
+        } else {
             percent = 100.0;
+        }
         m_percentAvail = percent;
         return percent;
     }
@@ -499,8 +509,9 @@ public class Node extends StandardNamedObject {
         for (Interface intf : m_interfaces) {
             if (intf != null) {
                 long down = intf.getDownTime(endTime, rollingWindow);
-                if (down > 0)
+                if (down > 0) {
                     outage += down;
+                }
                 serviceCount += intf.getServiceCount();
             }
         }

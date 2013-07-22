@@ -97,10 +97,11 @@ public class Service extends StandardNamedObject {
      */
     public Service(String name, OutageSvcTimesList outages) {
         setName(name);
-        if (outages != null)
+        if (outages != null) {
             m_outageList = outages;
-        else
+        } else {
             m_outageList = new OutageSvcTimesList();
+        }
     }
 
     /**
@@ -110,8 +111,9 @@ public class Service extends StandardNamedObject {
      *            Outages for this service to be set.
      */
     public Service(OutageSvcTimesList outages) {
-        if (outages != null)
+        if (outages != null) {
             m_outageList = outages;
+        }
     }
 
     /**
@@ -188,8 +190,9 @@ public class Service extends StandardNamedObject {
      *            a long.
      */
     public void addOutage(long lost, long regained) {
-        if (m_outageList == null)
+        if (m_outageList == null) {
             m_outageList = new OutageSvcTimesList();
+        }
         m_outageList.addSvcTime(lost, regained);
     }
 
@@ -200,8 +203,9 @@ public class Service extends StandardNamedObject {
      *            a long.
      */
     public void addOutage(long lost) {
-        if (m_outageList == null)
+        if (m_outageList == null) {
             m_outageList = new OutageSvcTimesList();
+        }
         m_outageList.addSvcTime(lost);
     }
 
@@ -212,8 +216,9 @@ public class Service extends StandardNamedObject {
      *            a {@link org.opennms.reporting.datablock.Outage} object.
      */
     public void addOutage(Outage outage) {
-        if (m_outageList == null)
+        if (m_outageList == null) {
             m_outageList = new OutageSvcTimesList();
+        }
         m_outageList.addSvcTime(outage.getLostTime(), outage.getRegainedTime());
     }
 
@@ -227,8 +232,9 @@ public class Service extends StandardNamedObject {
      * @return a long.
      */
     public long getDownTime(long currentTime, long rollingWindow) {
-        if (m_outageList != null)
+        if (m_outageList != null) {
             return m_outageList.getDownTime(currentTime, rollingWindow);
+        }
         return 0;
     }
 
@@ -257,10 +263,11 @@ public class Service extends StandardNamedObject {
     @Override
     public boolean equals(Object obj) {
         if (obj != null) {
-            if (obj instanceof String)
+            if (obj instanceof String) {
                 return ((String) obj).equals(getName());
-            else if (obj instanceof Service)
+            } else if (obj instanceof Service) {
                 return obj == this;
+            }
         }
         return false;
     }

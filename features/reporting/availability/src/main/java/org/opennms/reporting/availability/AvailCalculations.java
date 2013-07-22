@@ -201,10 +201,12 @@ public class AvailCalculations extends Object {
         //
         label = AvailabilityConstants.NMONTH_TOTAL_LABEL;
         descr = AvailabilityConstants.NMONTH_TOTAL_DESCR;
-        if (label == null || label.length() == 0)
+        if (label == null || label.length() == 0) {
             label = "The last 12 Months Availability";
-        if (descr == null || descr.length() == 0)
+        }
+        if (descr == null || descr.length() == 0) {
             descr = "The last 12 Months Availability";
+        }
         CatSections catSections = new CatSections();
         lastNMonthsAvailability(NMONTHS, m_endLastMonthTime, catSections, label, descr);
 
@@ -217,10 +219,12 @@ public class AvailCalculations extends Object {
         LOG.debug("Now computing last months daily availability ");
         label = AvailabilityConstants.LAST_MONTH_DAILY_LABEL;
         descr = AvailabilityConstants.LAST_MONTH_DAILY_DESCR;
-        if (label == null || label.length() == 0)
+        if (label == null || label.length() == 0) {
             label = "The last Months Daily Availability";
-        if (descr == null || descr.length() == 0)
+        }
+        if (descr == null || descr.length() == 0) {
             descr = "Daily Average of svcs monitored and availability of svcs divided by the total svc minutes (last month)";
+        }
         if (monthFormat.equalsIgnoreCase("calendar")) {
             lastCalMoDailyAvailability(m_daysInLastMonth, m_endLastMonthTime, catSections, label, descr,
                                        "LastMonthsDailyAvailability");
@@ -238,10 +242,12 @@ public class AvailCalculations extends Object {
         LOG.debug("Now computing  month to date daily availability ");
         label = AvailabilityConstants.LAST_MTD_DAILY_LABEL;
         descr = AvailabilityConstants.LAST_MTD_DAILY_DESCR;
-        if (label == null || label.length() == 0)
+        if (label == null || label.length() == 0) {
             label = "Month To Date Daily Availability";
-        if (descr == null || descr.length() == 0)
+        }
+        if (descr == null || descr.length() == 0) {
             descr = "Daily Average of svc monitored and availability of svcs div by total svc minutes of month frm 1st till date";
+        }
         Calendar calendar = new GregorianCalendar();
         calendar.setTime(new Date(m_endTime));
         int numDaysInMonth = calendar.get(Calendar.DAY_OF_MONTH);
@@ -262,10 +268,12 @@ public class AvailCalculations extends Object {
         LOG.debug("Now computing Last Months Top Offenders ");
         label = AvailabilityConstants.NOFFENDERS_LABEL;
         descr = AvailabilityConstants.NOFFENDERS_DESCR;
-        if (label == null || label.length() == 0)
+        if (label == null || label.length() == 0) {
             label = "Last Months Top Offenders";
-        if (descr == null || descr.length() == 0)
+        }
+        if (descr == null || descr.length() == 0) {
             descr = "This is the list of the worst available devices in the category for the last month";
+        }
         lastMoTopNOffenders(offenders, catSections, label, descr);
 
         LOG.debug("Computed lastMoTopNOffenders ");
@@ -278,10 +286,12 @@ public class AvailCalculations extends Object {
             LOG.debug("Now computing LAST_30_DAYS_DAILY_LABEL ");
             label = AvailabilityConstants.LAST_30_DAYS_DAILY_LABEL;
             descr = AvailabilityConstants.LAST_30_DAYS_DAILY_DESCR;
-            if (label == null || label.length() == 0)
+            if (label == null || label.length() == 0) {
                 label = "The last 30 Days Daily Availability";
-            if (descr == null || descr.length() == 0)
+            }
+            if (descr == null || descr.length() == 0) {
                 descr = "Daily average of svcs and dvcs monitored and their availability divided by total mins for 30days";
+            }
             lastNDaysDailyAvailability(THIRTY, m_endTime, catSections, label, descr, "Last30DaysDailyAvailability");
 
             LOG.debug("Computed lastNDaysDailyAvailability");
@@ -295,10 +305,12 @@ public class AvailCalculations extends Object {
             LOG.debug("Now computing LAST_30_DAYS_TOTAL_LABEL ");
             label = AvailabilityConstants.LAST_30_DAYS_TOTAL_LABEL;
             descr = AvailabilityConstants.LAST_30_DAYS_TOTAL_DESCR;
-            if (label == null || label.length() == 0)
+            if (label == null || label.length() == 0) {
                 label = "The last 30 Days Total Availability";
-            if (descr == null || descr.length() == 0)
+            }
+            if (descr == null || descr.length() == 0) {
                 descr = "Average of svcs monitored and availability of svcs divided by total svc minutes of the last 30 days";
+            }
             lastNDaysTotalAvailability(THIRTY, m_endTime, catSections, label, descr);
 
             LOG.debug("Computed lastNDaysTotalAvailability");
@@ -312,10 +324,12 @@ public class AvailCalculations extends Object {
             LOG.debug("Now computing LAST_MONTH_TOTAL_LABEL ");
             label = AvailabilityConstants.LAST_MONTH_TOTAL_LABEL;
             descr = AvailabilityConstants.LAST_MONTH_TOTAL_DESCR;
-            if (label == null || label.length() == 0)
+            if (label == null || label.length() == 0) {
                 label = "The last Months Total Availability";
-            if (descr == null || descr.length() == 0)
+            }
+            if (descr == null || descr.length() == 0) {
                 descr = "Average of svcs monitored and availability of svcs divided by the total svc minutes of the month";
+            }
             lastMoTotalAvailability(m_daysInLastMonth, m_endLastMonthTime, catSections, label, descr);
 
             LOG.debug("Computed lastNDaysDailyAvailability");
@@ -329,10 +343,12 @@ public class AvailCalculations extends Object {
             LOG.debug("Now computing LAST_MTD_TOTAL_LABEL ");
             label = AvailabilityConstants.LAST_MTD_TOTAL_LABEL;
             descr = AvailabilityConstants.LAST_MTD_TOTAL_DESCR;
-            if (label == null || label.length() == 0)
+            if (label == null || label.length() == 0) {
                 label = "Month To Date Total Availability";
-            if (descr == null || descr.length() == 0)
+            }
+            if (descr == null || descr.length() == 0) {
                 descr = "Average of svc monitored and availability of svcs dividedby total svc minutes of month frm 1st till date";
+            }
             lastMoTotalAvailability(numDaysInMonth, m_endTime, catSections, label, descr);
 
             LOG.debug("Computed MTDTotalAvailability");
@@ -351,8 +367,9 @@ public class AvailCalculations extends Object {
                                     IfService ifservice = new IfService(node.getNodeID(), intf.getName(), -1,
                                                                         node.getName(), svc.getName());
                                     Map<IfService, OutageSvcTimesList> svcOutages = m_services.get(svc.getName());
-                                    if (svcOutages == null)
+                                    if (svcOutages == null) {
                                         svcOutages = new HashMap<IfService, OutageSvcTimesList>();
+                                    }
                                     svcOutages.put(ifservice, outages);
                                     m_services.put(svc.getName(), svcOutages);
                                 }
@@ -373,10 +390,12 @@ public class AvailCalculations extends Object {
             LOG.debug("Now computing LAST_30_DAYS_SVC_AVAIL_LABEL ");
             label = AvailabilityConstants.LAST_30_DAYS_SVC_AVAIL_LABEL;
             descr = AvailabilityConstants.LAST_30_DAYS_SVC_AVAIL_DESCR;
-            if (label == null || label.length() == 0)
+            if (label == null || label.length() == 0) {
                 label = "The last 30 days Daily Service Availability";
-            if (descr == null || descr.length() == 0)
+            }
+            if (descr == null || descr.length() == 0) {
                 descr = "The last 30 days Daily Service Availability is the daily average of services";
+            }
             lastNDaysDailyServiceAvailability(THIRTY, m_endTime, catSections, label, descr);
 
             LOG.debug("Computed lastNDaysDailyServiceAvailability");
@@ -390,10 +409,12 @@ public class AvailCalculations extends Object {
             LOG.debug("Now computing LAST_MONTH_SVC_AVAIL_LABE");
             label = AvailabilityConstants.LAST_MONTH_SVC_AVAIL_LABEL;
             descr = AvailabilityConstants.LAST_MONTH_SVC_AVAIL_DESCR;
-            if (label == null || label.length() == 0)
+            if (label == null || label.length() == 0) {
                 label = "The last Months Daily Service Availability";
-            if (descr == null || descr.length() == 0)
+            }
+            if (descr == null || descr.length() == 0) {
                 descr = "The last Months Daily Service Availability is the daily average of services and devices";
+            }
             lastNDaysDailyServiceAvailability(m_daysInLastMonth, m_endLastMonthTime, catSections, label, descr);
 
             LOG.debug("Computed lastNDaysDailyServiceAvailability");
@@ -407,10 +428,12 @@ public class AvailCalculations extends Object {
             LOG.debug("Now computing TOP20_SVC_OUTAGES_LABEL");
             label = AvailabilityConstants.TOP20_SVC_OUTAGES_LABEL;
             descr = AvailabilityConstants.TOP20_SVC_OUTAGES_DESCR;
-            if (label == null || label.length() == 0)
+            if (label == null || label.length() == 0) {
                 label = "Last Month Top Service Outages for ";
-            if (descr == null || descr.length() == 0)
+            }
+            if (descr == null || descr.length() == 0) {
                 descr = "Last Month Top Service Outages for ";
+            }
             lastMonTopNServiceOutages(catSections, label, descr);
 
             LOG.debug("Computed lastMonTopNServiceOutages");
@@ -472,8 +495,9 @@ public class AvailCalculations extends Object {
                             if (outageSince != null) {
                                 long outage = outageSince.getOutage() / 1000;
                                 List<OutageSince> tmpList = treeMap.get(new Long(outage));
-                                if (tmpList == null)
+                                if (tmpList == null) {
                                     tmpList = new ArrayList<OutageSince>();
+                                }
                                 tmpList.add(outageSince);
                                 treeMap.put(new Long(-1 * outage), tmpList);
                             }
@@ -764,8 +788,9 @@ public class AvailCalculations extends Object {
                 LOG.debug("LOOK: calculating percentAvail using outage {} service count {} ROLLING_WINODW {} endTime {}",
                           endTime, outage, serviceCount, ROLLING_WINDOW);
                 percentAvail = 100.0 * (1 - (outage * 1.0) / (1.0 * serviceCount * ROLLING_WINDOW));
-            } else
+            } else {
                 percentAvail = 100.0;
+            }
 
             // need a double object in here
 
@@ -842,10 +867,11 @@ public class AvailCalculations extends Object {
                 serviceCount += node.getServiceCount();
             }
             double percentAvail;
-            if (serviceCount > 0)
+            if (serviceCount > 0) {
                 percentAvail = 100.0 * (1 - (outage * 1.0) / (1.0 * serviceCount * ROLLING_WINDOW));
-            else
+            } else {
                 percentAvail = 100.0;
+            }
 
             treeMap.put(new Date(endTime), formatNumber(percentAvail + ""));
 
@@ -928,10 +954,11 @@ public class AvailCalculations extends Object {
             endTime -= ROLLING_WINDOW;
         }
         double percentAvail;
-        if (serviceCount > 0)
+        if (serviceCount > 0) {
             percentAvail = 100.0 * (1 - (outage * 1.0) / (1.0 * serviceCount * ROLLING_WINDOW));
-        else
+        } else {
             percentAvail = 100.0;
+        }
         Value dateValue = new Value();
         dateValue.setContent(periodFrom);
         dateValue.setType("title");
@@ -1012,10 +1039,11 @@ public class AvailCalculations extends Object {
                 outage += node.getOutage(endTime, rollingWindow);
             }
             double percentAvail;
-            if (serviceCount > 0)
+            if (serviceCount > 0) {
                 percentAvail = 100.0 * (1 - (outage * 1.0) / (1.0 * serviceCount * rollingWindow));
-            else
+            } else {
                 percentAvail = 100.0;
+            }
 
             treeMap.put(new java.util.Date(endTime), formatNumber(percentAvail + ""));
 
@@ -1101,10 +1129,11 @@ public class AvailCalculations extends Object {
             return 30;
 
         case 1:
-            if (isLeap)
+            if (isLeap) {
                 return 29;
-            else
+            } else {
                 return 28;
+            }
         }
         return -1;
     }
@@ -1155,8 +1184,9 @@ public class AvailCalculations extends Object {
 
             long curTime = endTime;
             Map<IfService, OutageSvcTimesList> svcOutages = null;
-            if (m_services != null)
+            if (m_services != null) {
                 svcOutages = m_services.get(service);
+            }
             if (svcOutages == null || svcOutages.size() <= 0) {
                 int daysCnt = 0;
                 while (daysCnt++ < days) {
@@ -1231,8 +1261,9 @@ public class AvailCalculations extends Object {
                     double outag = 1.0 * outageTime;
                     double denom = 1.0 * den;
                     double cal = 0;
-                    if (den > 0)
+                    if (den > 0) {
                         cal = 100.0 * (1 - (outag / denom));
+                    }
 
                     treeMap.put(new java.util.Date(curTime), new Double(cal));
 

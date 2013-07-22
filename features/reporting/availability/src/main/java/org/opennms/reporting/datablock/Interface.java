@@ -91,12 +91,13 @@ public class Interface extends StandardNamedObject {
         public boolean equals(Object o) {
             boolean rc = false;
             if (o != null) {
-                if (o == this)
+                if (o == this) {
                     rc = true;
-                else if (o instanceof Service)
+                } else if (o instanceof Service) {
                     rc = m_svcname.equals(((Service) o).getName());
-                else if (o instanceof String)
+                } else if (o instanceof String) {
                     rc = m_svcname.equals(o);
+                }
             }
             return rc;
         }
@@ -119,10 +120,11 @@ public class Interface extends StandardNamedObject {
      */
     public Interface(String name, ArrayList<Service> services) {
         setName(name);
-        if (services == null)
+        if (services == null) {
             m_services = new ArrayList<Service>();
-        else
+        } else {
             m_services = services;
+        }
     }
 
     /**
@@ -164,8 +166,9 @@ public class Interface extends StandardNamedObject {
         m_services = new ArrayList<Service>();
         if (service != null) {
             svc = new Service(service);
-            if (losttime > 0)
+            if (losttime > 0) {
                 svc.addOutage(losttime);
+            }
             m_services.add(svc);
         }
     }
@@ -192,10 +195,11 @@ public class Interface extends StandardNamedObject {
         if (service != null) {
             svc = new Service(service);
             if (losttime > 0) {
-                if (regainedtime > 0)
+                if (regainedtime > 0) {
                     svc.addOutage(losttime, regainedtime);
-                else
+                } else {
                     svc.addOutage(losttime);
+                }
             }
             m_services.add(svc);
         }
@@ -219,10 +223,11 @@ public class Interface extends StandardNamedObject {
      *            Services for this interface to be set.
      */
     public Interface(ArrayList<Service> services) {
-        if (services == null)
+        if (services == null) {
             m_services = new ArrayList<Service>();
-        else
+        } else {
             m_services = services;
+        }
     }
 
     /**
@@ -257,8 +262,9 @@ public class Interface extends StandardNamedObject {
      *            The service to be add.
      */
     public void addService(Service service) {
-        if (service != null)
+        if (service != null) {
             m_services.add(service);
+        }
     }
 
     /**
@@ -292,16 +298,18 @@ public class Interface extends StandardNamedObject {
         if (ndx != -1) {
             Service svc = (Service) m_services.get(ndx);
             if (svc != null) {
-                if (losttime > 0)
+                if (losttime > 0) {
                     svc.addOutage(losttime);
+                }
             }
             return;
         }
 
         if (service != null) {
             Service svc = new Service(service);
-            if (losttime > 0)
+            if (losttime > 0) {
                 svc.addOutage(losttime);
+            }
             m_services.add(svc);
         }
     }
@@ -318,18 +326,20 @@ public class Interface extends StandardNamedObject {
      *            Regained Time
      */
     public void addService(String service, long losttime, long regainedtime) {
-        if (service == null)
+        if (service == null) {
             return;
+        }
 
         int ndx = m_services.indexOf(ServiceComparator.make(service));
         if (ndx != -1) {
             Service svc = (Service) m_services.get(ndx);
             if (svc != null) {
                 if (losttime > 0) {
-                    if (regainedtime > 0)
+                    if (regainedtime > 0) {
                         svc.addOutage(losttime, regainedtime);
-                    else
+                    } else {
                         svc.addOutage(losttime);
+                    }
                 }
             }
             return;
@@ -337,10 +347,11 @@ public class Interface extends StandardNamedObject {
 
         Service svc = new Service(service);
         if (losttime > 0) {
-            if (regainedtime > 0)
+            if (regainedtime > 0) {
                 svc.addOutage(losttime, regainedtime);
-            else
+            } else {
                 svc.addOutage(losttime);
+            }
         }
         m_services.add(svc);
     }
@@ -373,8 +384,9 @@ public class Interface extends StandardNamedObject {
      * @return a int.
      */
     public int getServiceCount() {
-        if (m_services != null && m_services.size() > 0)
+        if (m_services != null && m_services.size() > 0) {
             return m_services.size();
+        }
         return -1;
     }
 
@@ -399,10 +411,11 @@ public class Interface extends StandardNamedObject {
     @Override
     public boolean equals(Object obj) {
         if (obj != null) {
-            if (obj instanceof String)
+            if (obj instanceof String) {
                 return ((String) obj).equals(getName());
-            else if (obj instanceof Interface)
+            } else if (obj instanceof Interface) {
                 return obj == this;
+            }
         }
         return false;
     }
