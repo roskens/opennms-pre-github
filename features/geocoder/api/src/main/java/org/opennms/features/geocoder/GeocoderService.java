@@ -41,5 +41,5 @@ public interface GeocoderService {
      * @throws GeocoderException
      *             the geocoder exception
      */
-    public Coordinates getCoordinates(final String address) throws GeocoderException;
+    Coordinates getCoordinates(final String address) throws GeocoderException;
 }
