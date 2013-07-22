@@ -113,8 +113,9 @@ public class XmlCollectionSet implements CollectionSet {
     public void visit(CollectionSetVisitor visitor) {
         visitor.visitCollectionSet(this);
 
-        for (CollectionResource resource : getCollectionResources())
+        for (CollectionResource resource : getCollectionResources()) {
             resource.visit(visitor);
+        }
 
         visitor.completeCollectionSet(this);
     }

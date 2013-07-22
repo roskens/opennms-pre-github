@@ -116,8 +116,9 @@ public class XmlResourceType {
             throw new ObjectRetrievalFailureException(StorageStrategy.class, className, "Could not instantiate", e);
         }
         m_storageStrategy.setResourceTypeName(m_resourceType);
-        if (m_agent != null)
+        if (m_agent != null) {
             m_storageStrategy.setStorageStrategyService(m_agent);
+        }
     }
 
     /**

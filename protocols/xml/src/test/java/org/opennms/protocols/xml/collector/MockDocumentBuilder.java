@@ -56,8 +56,9 @@ public class MockDocumentBuilder {
      * @return the XML document
      */
     public static Document getXmlDocument() {
-        if (m_xmlFileName == null)
+        if (m_xmlFileName == null) {
             return null;
+        }
         Document doc = null;
         try {
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();

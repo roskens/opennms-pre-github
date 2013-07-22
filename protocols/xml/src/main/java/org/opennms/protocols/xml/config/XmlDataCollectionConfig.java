@@ -178,8 +178,9 @@ public class XmlDataCollectionConfig implements Serializable, Comparable<XmlData
      */
     public RrdRepository buildRrdRepository(String collectionName) {
         XmlDataCollection collection = getDataCollectionByName(collectionName);
-        if (collection == null)
+        if (collection == null) {
             return null;
+        }
         XmlRrd rrd = collection.getXmlRrd();
         RrdRepository repo = new RrdRepository();
         repo.setRrdBaseDir(new File(getRrdRepository()));

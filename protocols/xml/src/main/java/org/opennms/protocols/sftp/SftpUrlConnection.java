@@ -126,10 +126,12 @@ public class SftpUrlConnection extends URLConnection {
      *             Signals that an I/O exception has occurred.
      */
     public void disconnect() throws IOException {
-        if (m_channel != null)
+        if (m_channel != null) {
             m_channel.disconnect();
-        if (m_session != null)
+        }
+        if (m_session != null) {
             m_session.disconnect();
+        }
     }
 
     /**

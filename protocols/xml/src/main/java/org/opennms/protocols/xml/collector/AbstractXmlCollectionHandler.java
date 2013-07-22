@@ -366,8 +366,9 @@ public abstract class AbstractXmlCollectionHandler implements XmlCollectionHandl
      */
     protected Request parseRequest(final Request unformattedRequest, final CollectionAgent agent)
             throws IllegalArgumentException {
-        if (unformattedRequest == null)
+        if (unformattedRequest == null) {
             return null;
+        }
         final OnmsNode node = getNodeDao().get(agent.getNodeId());
         final Request request = new Request();
         for (Header header : unformattedRequest.getHeaders()) {
@@ -379,9 +380,10 @@ public abstract class AbstractXmlCollectionHandler implements XmlCollectionHandl
                                  parseString(param.getName(), param.getValue(), node, agent.getHostAddress()));
         }
         final Content cnt = unformattedRequest.getContent();
-        if (cnt != null)
+        if (cnt != null) {
             request.setContent(new Content(cnt.getType(), parseString("Content", cnt.getData(), node,
                                                                       agent.getHostAddress())));
+        }
         return request;
     }
 
@@ -414,27 +416,33 @@ public abstract class AbstractXmlCollectionHandler implements XmlCollectionHandl
      */
     protected String parseString(final String reference, final String unformattedString, final OnmsNode node,
             final String ipAddress) throws IllegalArgumentException {
-        if (unformattedString == null)
+        if (unformattedString == null) {
             return null;
+        }
         String formattedString = unformattedString.replaceAll("[{](?i)(ipAddr|ipAddress)[}]", ipAddress);
         formattedString = formattedString.replaceAll("[{](?i)nodeId[}]", node.getNodeId());
-        if (node.getLabel() != null)
+        if (node.getLabel() != null) {
             formattedString = formattedString.replaceAll("[{](?i)nodeLabel[}]", node.getLabel());
-        if (node.getForeignId() != null)
+        }
+        if (node.getForeignId() != null) {
             formattedString = formattedString.replaceAll("[{](?i)foreignId[}]", node.getForeignId());
-        if (node.getForeignSource() != null)
+        }
+        if (node.getForeignSource() != null) {
             formattedString = formattedString.replaceAll("[{](?i)foreignSource[}]", node.getForeignSource());
+        }
         if (node.getAssetRecord() != null) {
             BeanWrapper wrapper = new BeanWrapperImpl(node.getAssetRecord());
             for (PropertyDescriptor p : wrapper.getPropertyDescriptors()) {
                 Object obj = wrapper.getPropertyValue(p.getName());
-                if (obj != null)
+                if (obj != null) {
                     formattedString = formattedString.replaceAll("[{](?i)" + p.getName() + "[}]", obj.toString());
+                }
             }
         }
-        if (formattedString.matches(".*[{].+[}].*"))
+        if (formattedString.matches(".*[{].+[}].*")) {
             throw new IllegalArgumentException("The " + reference + " " + formattedString
                     + " contains unknown placeholders.");
+        }
         return formattedString;
     }
 
@@ -480,14 +488,17 @@ public abstract class AbstractXmlCollectionHandler implements XmlCollectionHandl
      *             the exception
      */
     private InputStream applyXsltTransformation(Request request, InputStream is) throws Exception {
-        if (request == null)
+        if (request == null) {
             return is;
+        }
         String xsltFilename = request.getParameter("xslt-source-file");
-        if (xsltFilename == null)
+        if (xsltFilename == null) {
             return is;
+        }
         File xsltFile = new File(xsltFilename);
-        if (!xsltFile.exists())
+        if (!xsltFile.exists()) {
             return is;
+        }
         TransformerFactory factory = TransformerFactory.newInstance();
         Source xslt = new StreamSource(xsltFile);
         Transformer transformer = factory.newTransformer(xslt);
@@ -509,8 +520,9 @@ public abstract class AbstractXmlCollectionHandler implements XmlCollectionHandl
      *             Signals that an I/O exception has occurred.
      */
     private InputStream preProcessHtml(Request request, InputStream is) throws IOException {
-        if (request == null)
+        if (request == null) {
             return is;
+        }
         if (Boolean.parseBoolean(request.getParameter("pre-parse-html"))) {
             org.jsoup.nodes.Document doc = Jsoup.parse(is, "UTF-8", "/");
             IOUtils.closeQuietly(is);

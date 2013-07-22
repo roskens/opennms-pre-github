@@ -100,9 +100,10 @@ public class XmlCollector implements ServiceCollector {
         LOG.debug("initialize: initializing XML collector");
 
         // Retrieve the DAO for our configuration file.
-        if (m_xmlCollectionDao == null)
+        if (m_xmlCollectionDao == null) {
             m_xmlCollectionDao = BeanUtils.getBean("daoContext", "xmlDataCollectionConfigDao",
                                                    XmlDataCollectionConfigDao.class);
+        }
 
         // If the RRD file repository directory does NOT already exist, create
         // it.

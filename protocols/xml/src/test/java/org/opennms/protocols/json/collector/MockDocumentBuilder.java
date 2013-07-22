@@ -57,8 +57,9 @@ public class MockDocumentBuilder {
      * @return the JSON document
      */
     public static JSONObject getJSONDocument() {
-        if (m_jsonFileName == null)
+        if (m_jsonFileName == null) {
             return null;
+        }
         JSONObject json = null;
 
         FileInputStream inputStream = null;
@@ -68,8 +69,9 @@ public class MockDocumentBuilder {
             json = JSONObject.fromObject(everything);
         } catch (Exception e) {
         } finally {
-            if (inputStream != null)
+            if (inputStream != null) {
                 IOUtils.closeQuietly(inputStream);
+            }
         }
 
         return json;

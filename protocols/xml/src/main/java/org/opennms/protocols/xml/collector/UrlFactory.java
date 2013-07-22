@@ -100,19 +100,12 @@ public class UrlFactory {
      *             Signals that an I/O exception has occurred.
      */
     public static void disconnect(URLConnection connection) throws IOException {
-        if (connection != null && connection instanceof SftpUrlConnection) // We
-                                                                           // need
-                                                                           // to
-                                                                           // be
-                                                                           // sure
-                                                                           // to
-                                                                           // close
-                                                                           // the
-                                                                           // connections
-                                                                           // for
-                                                                           // SFTP
+        if (connection != null && connection instanceof SftpUrlConnection) {
+            // need to be sure to close the connections for SFTP
             ((SftpUrlConnection) connection).disconnect();
-        if (connection != null && connection instanceof HttpUrlConnection)
+        }
+        if (connection != null && connection instanceof HttpUrlConnection) {
             ((HttpUrlConnection) connection).disconnect();
+        }
     }
 }
