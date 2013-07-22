@@ -121,15 +121,17 @@ public class ReverseDnsRecord {
      * @return the string
      */
     public static String thirdLevelZonefromInet4Address(byte[] addr) {
-        if (addr.length != 4 && addr.length != 16)
+        if (addr.length != 4 && addr.length != 16) {
             throw new IllegalArgumentException("array must contain " + "4 or 16 elements");
+        }
 
         StringBuffer sb = new StringBuffer();
         if (addr.length == 4) {
             for (int i = addr.length - 2; i >= 0; i--) {
                 sb.append(addr[i] & 0xFF);
-                if (i > 0)
+                if (i > 0) {
                     sb.append(".");
+                }
             }
         }
         sb.append(".in-addr.arpa.");
