@@ -58,8 +58,9 @@ public class Column {
     /** {@inheritDoc} */
     @Override
     public boolean equals(final Object obj) {
-        if (obj == null || !(obj instanceof Column))
+        if (obj == null || !(obj instanceof Column)) {
             return false;
+        }
         final Column other = (Column) obj;
 
         return new EqualsBuilder().append(getName(), other.getName()).append(getType(), other.getType()).append(getSize(),

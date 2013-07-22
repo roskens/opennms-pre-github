@@ -3236,12 +3236,14 @@ public class InstallerDb {
      * @return a boolean.
      */
     public boolean isPgPlPgsqlLibPresent() {
-        if (m_pg_plpgsql == null)
+        if (m_pg_plpgsql == null) {
             return false;
+        }
 
         final File plpgsqlLib = new File(m_pg_plpgsql);
-        if (plpgsqlLib.exists() && plpgsqlLib.canRead())
+        if (plpgsqlLib.exists() && plpgsqlLib.canRead()) {
             return true;
+        }
 
         return false;
     }
