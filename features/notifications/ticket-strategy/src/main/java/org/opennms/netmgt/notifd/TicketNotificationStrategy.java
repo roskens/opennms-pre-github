@@ -286,8 +286,9 @@ public class TicketNotificationStrategy implements NotificationStrategy {
      */
     protected AlarmType getAlarmTypeFromUEI(String eventUEI) {
         Event event = m_eventConfDao.findByUei(eventUEI);
-        if (event == null)
+        if (event == null) {
             return AlarmType.NOT_AN_ALARM;
+        }
 
         AlarmData alarmData = event.getAlarmData();
         if (alarmData != null && alarmData.hasAlarmType()) {
