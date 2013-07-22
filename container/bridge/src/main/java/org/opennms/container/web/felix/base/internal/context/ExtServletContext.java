@@ -38,5 +38,5 @@ public interface ExtServletContext extends ServletContext {
      * @throws IOException
      *             Signals that an I/O exception has occurred.
      */
-    public boolean handleSecurity(HttpServletRequest req, HttpServletResponse res) throws IOException;
+    boolean handleSecurity(HttpServletRequest req, HttpServletResponse res) throws IOException;
 }
