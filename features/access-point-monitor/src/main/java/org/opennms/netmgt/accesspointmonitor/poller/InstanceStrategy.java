@@ -361,8 +361,9 @@ public class InstanceStrategy implements AccessPointPoller {
      */
     protected Boolean isCriteriaNull(Object result, String operator, String operand) {
 
-        if (result == null)
+        if (result == null) {
             return Boolean.FALSE;
+        }
         if (operator == null || operand == null) {
             return Boolean.TRUE;
         } else {

@@ -483,8 +483,9 @@ public class AccessPointMonitord extends AbstractServiceDaemon implements ReadyR
      */
     private void scheduleStaticPackages() {
         for (Package pkg : m_pollerConfig.getPackages()) {
-            if (pkg.nameHasWildcard())
+            if (pkg.nameHasWildcard()) {
                 continue;
+            }
             schedulePackage(pkg);
         }
     }

@@ -352,8 +352,9 @@ public class Package implements Serializable, Comparable<Package> {
             }
         }
 
-        if (template == null)
+        if (template == null) {
             return service;
+        }
 
         // Add parameters from the template to the service if they don't
         // already exist
@@ -417,8 +418,9 @@ public class Package implements Serializable, Comparable<Package> {
      */
     public AccessPointPoller getPoller(List<Monitor> monitors) {
         for (Monitor monitor : monitors) {
-            if (monitor.getService().compareToIgnoreCase(m_service.getName()) != 0)
+            if (monitor.getService().compareToIgnoreCase(m_service.getName()) != 0) {
                 continue;
+            }
 
             try {
                 final Class<? extends AccessPointPoller> psClass = findPollingStrategyClass(monitor);
