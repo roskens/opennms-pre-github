@@ -64,7 +64,7 @@ public interface MobileMsgTracker {
      *             {@link org.opennms.sms.reflector.smsservice.MobileMsgResponseMatcher}
      *             object.
      */
-    public abstract MobileMsgRequest sendSmsRequest(OutboundMessage msg, long timeout, int retries,
+    MobileMsgRequest sendSmsRequest(OutboundMessage msg, long timeout, int retries,
             MobileMsgResponseCallback cb, MobileMsgResponseMatcher matcher) throws Exception;
 
     /**
@@ -92,7 +92,7 @@ public interface MobileMsgTracker {
      *             {@link org.opennms.sms.reflector.smsservice.MobileMsgResponseMatcher}
      *             object.
      */
-    public abstract MobileMsgRequest sendUssdRequest(USSDRequest msg, long timeout, int retries,
+    MobileMsgRequest sendUssdRequest(USSDRequest msg, long timeout, int retries,
             MobileMsgResponseCallback cb, MobileMsgResponseMatcher matcher) throws Exception;
 
 }

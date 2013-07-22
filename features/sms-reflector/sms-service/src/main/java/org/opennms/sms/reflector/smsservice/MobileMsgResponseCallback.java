@@ -52,7 +52,7 @@ public interface MobileMsgResponseCallback {
      *         {@link org.opennms.sms.reflector.smsservice.MobileMsgResponse}
      *         object.
      */
-    public boolean handleResponse(MobileMsgRequest request, MobileMsgResponse packet);
+    boolean handleResponse(MobileMsgRequest request, MobileMsgResponse packet);
 
     /**
      * <p>
@@ -65,7 +65,7 @@ public interface MobileMsgResponseCallback {
      *            {@link org.opennms.sms.reflector.smsservice.MobileMsgRequest}
      *            object.
      */
-    public void handleTimeout(MobileMsgRequest request);
+    void handleTimeout(MobileMsgRequest request);
 
     /**
      * <p>
@@ -80,6 +80,6 @@ public interface MobileMsgResponseCallback {
      *            {@link org.opennms.sms.reflector.smsservice.MobileMsgRequest}
      *            object.
      */
-    public void handleError(MobileMsgRequest request, Throwable t);
+    void handleError(MobileMsgRequest request, Throwable t);
 
 }

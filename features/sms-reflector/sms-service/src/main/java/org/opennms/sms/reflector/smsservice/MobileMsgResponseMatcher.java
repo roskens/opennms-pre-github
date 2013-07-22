@@ -52,6 +52,6 @@ public interface MobileMsgResponseMatcher {
      *         {@link org.opennms.sms.reflector.smsservice.MobileMsgResponse}
      *         object.
      */
-    public boolean matches(MobileMsgRequest request, MobileMsgResponse response);
+    boolean matches(MobileMsgRequest request, MobileMsgResponse response);
 
 }

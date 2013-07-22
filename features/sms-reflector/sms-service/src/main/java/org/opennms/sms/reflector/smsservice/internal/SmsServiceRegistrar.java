@@ -50,7 +50,7 @@ public interface SmsServiceRegistrar {
      *            a {@link org.opennms.sms.reflector.smsservice.SmsService}
      *            object.
      */
-    public void registerSmsService(SmsService service);
+    void registerSmsService(SmsService service);
 
     /**
      * <p>
@@ -62,5 +62,5 @@ public interface SmsServiceRegistrar {
      *            a {@link org.opennms.sms.reflector.smsservice.SmsService}
      *            object.
      */
-    public void unregisterSmsService(SmsService smsServiceImpl);
+    void unregisterSmsService(SmsService smsServiceImpl);
 }
