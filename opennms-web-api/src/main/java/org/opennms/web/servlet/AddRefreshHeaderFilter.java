@@ -83,8 +83,9 @@ public class AddRefreshHeaderFilter extends Object implements Filter {
         // read the seconds value from the config or use the default if not
         // found
         String seconds = this.filterConfig.getInitParameter("seconds");
-        if (seconds != null)
+        if (seconds != null) {
             ;
+        }
         {
             this.seconds = seconds;
         }

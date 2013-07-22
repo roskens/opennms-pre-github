@@ -82,17 +82,19 @@ public class XssRequestWrapper extends HttpServletRequestWrapper {
     @Override
     public String getParameter(String name) {
         String[] vals = getParameterMap().get(name);
-        if (vals != null && vals.length > 0)
+        if (vals != null && vals.length > 0) {
             return vals[0];
-        else
+        } else {
             return null;
+        }
     }
 
     /** {@inheritDoc} */
     @Override
     public Map<String, String[]> getParameterMap() {
-        if (sanitized_parameters == null)
+        if (sanitized_parameters == null) {
             sanitized_parameters = sanitizeParamMap(original_parameters);
+        }
         return sanitized_parameters;
 
     }
@@ -142,8 +144,9 @@ public class XssRequestWrapper extends HttpServletRequestWrapper {
      */
     private Map<String, String[]> sanitizeParamMap(Map<String, String[]> raw) {
         Map<String, String[]> res = new HashMap<String, String[]>();
-        if (raw == null)
+        if (raw == null) {
             return res;
+        }
 
         for (String key : (Set<String>) raw.keySet()) {
             String[] rawVals = raw.get(key);
@@ -165,10 +168,11 @@ public class XssRequestWrapper extends HttpServletRequestWrapper {
             String[] snzVals = sanitized_parameters.get(key);
             if (rawVals != null && rawVals.length > 0) {
                 for (int i = 0; i < rawVals.length; i++) {
-                    if (rawVals[i].equals(snzVals[i]))
+                    if (rawVals[i].equals(snzVals[i])) {
                         LOG.debug("Sanitization. Param seems safe: {}[{}]={}", key, i, snzVals[i]);
-                    else
+                    } else {
                         LOG.debug("Sanitization. Param modified: {}[{}]={}", key, i, snzVals[i]);
+                    }
                 }
             }
         }
