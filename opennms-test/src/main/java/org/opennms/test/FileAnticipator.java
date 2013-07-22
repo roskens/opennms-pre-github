@@ -43,7 +43,6 @@ import java.util.ListIterator;
 import java.util.Random;
 
 import junit.framework.Assert;
-import junit.framework.AssertionFailedError;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
@@ -134,8 +133,9 @@ public class FileAnticipator extends Assert {
 
             for (ListIterator<File> i = m_deleteMe.listIterator(m_deleteMe.size()); i.hasPrevious();) {
                 File f = i.previous();
-                if (!f.exists())
+                if (!f.exists()) {
                     continue;
+                }
                 if (!FileUtils.deleteQuietly(f)) {
                     final StringBuffer b = new StringBuffer();
                     b.append("Could not delete " + f.getAbsolutePath() + ": is it a non-empty directory?");
@@ -592,12 +592,14 @@ public class FileAnticipator extends Assert {
                         fileList.append(" }");
                         errors.add("Directory was not empty: " + f.getAbsolutePath() + ": " + fileList.toString());
                     } else {
-                        if (!f.delete())
+                        if (!f.delete()) {
                             errors.add("Could not delete directory: " + f.getAbsolutePath());
+                        }
                     }
                 } else {
-                    if (!f.delete())
+                    if (!f.delete()) {
                         errors.add("Could not delete expected file: " + f.getAbsolutePath());
+                    }
                 }
             }
             i.remove();

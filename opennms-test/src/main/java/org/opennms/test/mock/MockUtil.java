@@ -60,8 +60,9 @@ public class MockUtil {
      *            a {@link java.lang.String} object.
      */
     public static void println(String string) {
-        if (MockUtil.printEnabled())
+        if (MockUtil.printEnabled()) {
             System.err.println(string);
+        }
     }
 
 }
