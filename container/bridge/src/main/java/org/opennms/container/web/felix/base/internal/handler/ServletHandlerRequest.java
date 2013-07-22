@@ -91,8 +91,9 @@ final class ServletHandlerRequest extends HttpServletRequestWrapper {
     @Override
     public String getPathTranslated() {
         final String info = getPathInfo();
-        if (info == null)
+        if (info == null) {
             return null;
+        }
 
         return getRealPath(info);
     }
@@ -138,8 +139,9 @@ final class ServletHandlerRequest extends HttpServletRequestWrapper {
      * Update path info.
      */
     private void updatePathInfo() {
-        if (m_pathInfoCalculated)
+        if (m_pathInfoCalculated) {
             return;
+        }
 
         final HttpServletRequest req = (HttpServletRequest) this.getRequest();
 
