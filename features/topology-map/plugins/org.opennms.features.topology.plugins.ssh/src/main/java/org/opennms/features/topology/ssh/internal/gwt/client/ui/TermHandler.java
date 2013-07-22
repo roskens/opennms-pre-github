@@ -186,17 +186,20 @@ public class TermHandler implements KeyUpHandler, KeyDownHandler, KeyPressHandle
         boolean isCharCode = false;
         if (c.getCharCode() != 0) {
             k = c.getCharCode();
-        } else if (c.getKeyCode() != 0)
+        } else if (c.getKeyCode() != 0) {
             k = c.getKeyCode();
+        }
 
         if (c.isCtrlDown()) {
             k = ctrlPressed(k);
-            if (k == -1)
+            if (k == -1) {
                 return;
+            }
         } else if (c.isFunctionKey() || c.isAltDown()) {
             k = fromKeyDownSwitch(k);
-            if (k == -1)
+            if (k == -1) {
                 return;
+            }
         }
         if (buildCharacter(k, isCharCode) != null) {
             queue(buildCharacter(k, isCharCode));
@@ -212,13 +215,13 @@ public class TermHandler implements KeyUpHandler, KeyDownHandler, KeyPressHandle
      * @return VT100 formatted code
      */
     private int ctrlPressed(int k) {
-        if (k >= 0 && k <= 32)
+        if (k >= 0 && k <= 32) {
             ;
-        else if (k >= 65 && k <= 90)
+        } else if (k >= 65 && k <= 90) {
             k -= 64;
-        else if (k >= 97 && k <= 122)
+        } else if (k >= 97 && k <= 122) {
             k -= 96;
-        else {
+        } else {
             switch (k) {
             case 54:
                 k = 30;

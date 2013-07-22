@@ -89,8 +89,9 @@ public class SSHOperation implements Operation {
      */
     @Override
     public boolean enabled(final List<VertexRef> targets, final OperationContext operationContext) {
-        if (targets == null || targets.size() < 2)
+        if (targets == null || targets.size() < 2) {
             return true;
+        }
         return false;
     }
 

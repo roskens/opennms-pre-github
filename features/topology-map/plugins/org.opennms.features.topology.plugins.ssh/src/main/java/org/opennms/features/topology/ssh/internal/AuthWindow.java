@@ -121,8 +121,9 @@ public class AuthWindow extends Window implements Button.ClickListener {
         setModal(true);
         setWidth("260px");
         setHeight("190px");
-        if (showOptions)
+        if (showOptions) {
             setHeight("260px");
+        }
         setResizable(false);
 
         Label hostLabel = new Label("Host: ");
@@ -181,8 +182,9 @@ public class AuthWindow extends Window implements Button.ClickListener {
     protected boolean validateInput() throws NumberFormatException {
         m_host = hostField.getValue();
         m_port = Integer.parseInt(portField.getValue());
-        if (m_port < 0 || m_port > 65535)
+        if (m_port < 0 || m_port > 65535) {
             return false;
+        }
         return true;
     }
 
@@ -197,10 +199,11 @@ public class AuthWindow extends Window implements Button.ClickListener {
         int posY = (int) (getUI().getPage().getBrowserWindowHeight() - this.getHeight()) / 2;
         setPositionX(posX);
         setPositionY(posY);
-        if (showOptions)
+        if (showOptions) {
             hostField.focus();
-        else
+        } else {
             usernameField.focus();
+        }
     }
 
     /**
@@ -227,8 +230,9 @@ public class AuthWindow extends Window implements Button.ClickListener {
                     testString = "Port must be between 1 and 65535";
                     Notification.show("Port must be between 1 and 65535", Notification.Type.WARNING_MESSAGE);
                 }
-            } else
+            } else {
                 validInput = true;
+            }
         } catch (NumberFormatException e) {
             testString = "Port must be an integer";
             Notification.show("Port must be an integer", Notification.Type.WARNING_MESSAGE);

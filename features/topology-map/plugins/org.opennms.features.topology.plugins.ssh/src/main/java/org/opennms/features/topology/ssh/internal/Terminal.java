@@ -409,8 +409,9 @@ public class Terminal {
         int from = width * y0 + x0;
         int to = width * (y1 - 1) + x1;
         int newLength = to - from;
-        if (newLength < 0)
+        if (newLength < 0) {
             throw new IllegalArgumentException(from + " > " + to);
+        }
         int[] copy = new int[newLength];
         System.arraycopy(screen, from, copy, 0, Math.min(screen.length - from, newLength));
         return copy;

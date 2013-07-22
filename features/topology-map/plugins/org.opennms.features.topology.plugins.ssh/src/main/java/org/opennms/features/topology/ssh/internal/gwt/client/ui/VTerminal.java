@@ -123,8 +123,9 @@ public class VTerminal extends GwtTerminal implements Paintable {
         }
 
         // Check if the server wants the TermHandler to update manually
-        if (uidl.getBooleanVariable("update"))
+        if (uidl.getBooleanVariable("update")) {
             update();
+        }
         if (uidl.getBooleanVariable("focus")) {
             super.focus();
             isFocused = true;
