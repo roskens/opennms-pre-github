@@ -269,8 +269,9 @@ public class KscAddGraphPresenter implements Presenter, KscAddGraphView.Presente
         } else {
             positions[0] = imageRightEdge - 3;
         }
-        if (positions[0] < 0)
+        if (positions[0] < 0) {
             positions[0] = 0;
+        }
 
         positions[1] = m_addImage.getAbsoluteTop() + m_addImage.getHeight() - 1;
 
