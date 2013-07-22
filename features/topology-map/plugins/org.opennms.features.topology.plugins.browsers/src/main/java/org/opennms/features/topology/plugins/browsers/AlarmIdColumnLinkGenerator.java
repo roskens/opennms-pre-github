@@ -78,11 +78,15 @@ public class AlarmIdColumnLinkGenerator implements ColumnGenerator {
     @Override
     public Object generateCell(final Table source, Object itemId, Object columnId) {
         if (source == null)
+         {
             return null; // no source
+        }
         Property<Integer> alarmIdProperty = source.getContainerProperty(itemId, alarmIdPropertyName);
         final Integer alarmId = alarmIdProperty.getValue();
         if (alarmId == null)
+         {
             return null; // no value
+        }
 
         // create Link
         Button button = new Button("" + alarmId);

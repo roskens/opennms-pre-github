@@ -63,8 +63,9 @@ public class NodeTableCellStyleGenerator implements CellStyleGenerator {
      */
     @Override
     public String getStyle(Table source, Object itemId, Object propertyId) {
-        if (itemId == null || !(itemId instanceof Integer))
+        if (itemId == null || !(itemId instanceof Integer)) {
             return "";
+        }
         OnmsAlarm alarm = getAlarm(((Integer) itemId).intValue());
         return cellStyleRenderer.getStyle(alarm);
     }

@@ -56,8 +56,9 @@ public class Profiler {
          * Start.
          */
         public synchronized void start() {
-            if (!isStarted())
+            if (!isStarted()) {
                 startTime = System.currentTimeMillis();
+            }
             count++;
         }
 
@@ -118,8 +119,9 @@ public class Profiler {
      *            the key
      */
     public void start(final String key) {
-        if (timerMap.get(key) == null)
+        if (timerMap.get(key) == null) {
             timerMap.put(key, new Timer());
+        }
         timerMap.get(key).start();
     }
 

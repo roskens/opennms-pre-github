@@ -189,8 +189,9 @@ public class SelectionAwareTable extends Table implements SelectionListener, Sel
         }
 
         // set new value
-        if (nonCollapsibleColumns == null)
+        if (nonCollapsibleColumns == null) {
             nonCollapsibleColumns = new ArrayList<String>();
+        }
         this.nonCollapsibleColumns = nonCollapsibleColumns;
 
         // set non collapsible

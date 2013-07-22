@@ -138,8 +138,9 @@ public class CheckboxGenerator implements ColumnGenerator, ItemSetChangeListener
             Set<Integer> selected = new TreeSet<Integer>();
             for (Object eachItemId : source.getItemIds()) {
                 Property<Integer> property = source.getContainerProperty(eachItemId, m_valueProperty);
-                if (property == null)
+                if (property == null) {
                     continue;
+                }
                 selected.add(property.getValue());
             }
 

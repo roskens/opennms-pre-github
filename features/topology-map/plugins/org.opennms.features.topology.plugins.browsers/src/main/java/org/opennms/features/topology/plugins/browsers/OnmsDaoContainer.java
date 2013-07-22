@@ -111,8 +111,9 @@ public abstract class OnmsDaoContainer<T, K extends Serializable> implements Con
          */
         public boolean updateOffset(int index) {
             int oldOffset = offset;
-            if (index < 0)
+            if (index < 0) {
                 index = 0;
+            }
             offset = index / length * length;
             return oldOffset != offset; // an update has been made
         }
@@ -163,8 +164,9 @@ public abstract class OnmsDaoContainer<T, K extends Serializable> implements Con
          * @return the value
          */
         public final synchronized int getValue() {
-            if (isOutdated())
+            if (isOutdated()) {
                 reloadSize();
+            }
             return value;
         }
 
@@ -265,8 +267,9 @@ public abstract class OnmsDaoContainer<T, K extends Serializable> implements Con
          * @return true, if successful
          */
         public boolean containsItemId(K itemId) {
-            if (itemId == null)
+            if (itemId == null) {
                 return false;
+            }
             return cacheContent.containsKey(itemId);
         }
 
@@ -289,8 +292,9 @@ public abstract class OnmsDaoContainer<T, K extends Serializable> implements Con
          * @return the item
          */
         public BeanItem<T> getItem(K itemId) {
-            if (containsItemId(itemId))
+            if (containsItemId(itemId)) {
                 return cacheContent.get(itemId);
+            }
             return null;
         }
 
@@ -306,7 +310,9 @@ public abstract class OnmsDaoContainer<T, K extends Serializable> implements Con
          */
         public void addItem(int rowNumber, K itemId, T bean) {
             if (containsItemId(itemId))
+             {
                 return; // already added
+            }
             cacheContent.put(itemId, new BeanItem<T>(bean));
             rowMap.put(rowNumber, itemId);
         }
@@ -320,8 +326,9 @@ public abstract class OnmsDaoContainer<T, K extends Serializable> implements Con
          */
         public int getIndex(K itemId) {
             for (Map.Entry<Integer, K> eachRow : rowMap.entrySet()) {
-                if (eachRow.getValue().equals(itemId))
+                if (eachRow.getValue().equals(itemId)) {
                     return eachRow.getKey();
+                }
             }
             return -1; // not found
         }
@@ -355,8 +362,9 @@ public abstract class OnmsDaoContainer<T, K extends Serializable> implements Con
             size.setOutdated(); // force to be outdated
             reset();
             List<T> beans = getItemsForCache(m_dao, page);
-            if (beans == null)
+            if (beans == null) {
                 return;
+            }
             int rowNumber = page.getStart();
             for (T eachBean : beans) {
                 addItem(rowNumber, getId(eachBean), eachBean);
@@ -431,10 +439,12 @@ public abstract class OnmsDaoContainer<T, K extends Serializable> implements Con
      */
     @Override
     public boolean containsId(Object itemId) {
-        if (itemId == null)
+        if (itemId == null) {
             return false;
-        if (cache.containsItemId((K) itemId))
+        }
+        if (cache.containsItemId((K) itemId)) {
             return true;
+        }
         int index = indexOfId(itemId);
         return index >= 0;
     }
@@ -467,15 +477,19 @@ public abstract class OnmsDaoContainer<T, K extends Serializable> implements Con
      */
     @Override
     public Item getItem(Object itemId) {
-        if (itemId == null)
+        if (itemId == null) {
             return null;
-        if (cache.containsItemId((K) itemId))
+        }
+        if (cache.containsItemId((K) itemId)) {
             return cache.getItem((K) itemId);
+        }
 
         // not in cache, get the right page
         final int index = indexOfId(itemId);
         if (index == -1)
+         {
             return null; // not in container
+        }
 
         // page has the item now in container
         return cache.getItem((K) itemId);
@@ -590,8 +604,9 @@ public abstract class OnmsDaoContainer<T, K extends Serializable> implements Con
      */
     @Override
     public Object nextItemId(Object itemId) {
-        if (itemId == null)
+        if (itemId == null) {
             return null;
+        }
         int nextIdIndex = indexOfId(itemId) + 1;
         if (cache.getItemId(nextIdIndex) == null) {
             updatePage(page.offset + page.length);
@@ -604,8 +619,9 @@ public abstract class OnmsDaoContainer<T, K extends Serializable> implements Con
      */
     @Override
     public Object prevItemId(Object itemId) {
-        if (itemId == null)
+        if (itemId == null) {
             return null;
+        }
         int prevIdIndex = indexOfId(itemId) - 1;
         if (cache.getItemId(prevIdIndex) == null) {
             updatePage(prevIdIndex);
@@ -636,8 +652,9 @@ public abstract class OnmsDaoContainer<T, K extends Serializable> implements Con
             for (int i = 0; i < propertyId.length; i++) {
                 final String beanProperty = (String) propertyId[i];
                 String hibernateProperty = m_beanToHibernatePropertyMapping.get(beanProperty);
-                if (hibernateProperty == null)
+                if (hibernateProperty == null) {
                     hibernateProperty = beanProperty;
+                }
                 if (ascending[i]) {
                     m_orders.add(Order.asc(hibernateProperty));
                 } else {
@@ -728,8 +745,9 @@ public abstract class OnmsDaoContainer<T, K extends Serializable> implements Con
      */
     public void setRestrictions(List<Restriction> newRestrictions) {
         m_restrictions.clear();
-        if (newRestrictions == null)
+        if (newRestrictions == null) {
             return;
+        }
         m_restrictions.addAll(newRestrictions);
     }
 
@@ -794,8 +812,9 @@ public abstract class OnmsDaoContainer<T, K extends Serializable> implements Con
     @Override
     public List<?> getItemIds(int startIndex, int numberOfItems) {
         int endIndex = startIndex + numberOfItems;
-        if (endIndex > size())
+        if (endIndex > size()) {
             endIndex = size() - 1;
+        }
         List<K> itemIds = new ArrayList<K>();
         for (int i = startIndex; i < endIndex; i++) {
             itemIds.add((K) getIdByIndex(i));
@@ -809,7 +828,9 @@ public abstract class OnmsDaoContainer<T, K extends Serializable> implements Con
     @Override
     public int indexOfId(Object itemId) {
         if (cache.containsItemId(((K) itemId)))
+         {
             return cache.getIndex((K) itemId); // cache hit *yay*
+        }
 
         // itemId is not in the cache so we try to find the right page
         boolean circled = false; // we have run through the whole cache
@@ -841,8 +862,9 @@ public abstract class OnmsDaoContainer<T, K extends Serializable> implements Con
      */
     @Override
     public Object getIdByIndex(int index) {
-        if (cache.containsIndex(index))
+        if (cache.containsIndex(index)) {
             return cache.getItemId(index);
+        }
         updatePage(index);
         return cache.getItemId(index); // it is now in the cache or it does not
                                        // exist
