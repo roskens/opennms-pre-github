@@ -257,8 +257,9 @@ public class Collector {
      * @return the duration
      */
     public long getDuration() {
-        if (this.getEndTime() == null || this.getStartTime() == null)
+        if (this.getEndTime() == null || this.getStartTime() == null) {
             return 0L;
+        }
         return this.getEndTime().getTime() - this.getStartTime().getTime();
     }
 

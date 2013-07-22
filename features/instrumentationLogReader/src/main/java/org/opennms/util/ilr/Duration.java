@@ -50,10 +50,12 @@ public class Duration implements Comparable<Duration> {
      *            the end
      */
     public Duration(Date start, Date end) {
-        if (start == null)
+        if (start == null) {
             throw new IllegalArgumentException("startDate may not be null");
-        if (end == null)
+        }
+        if (end == null) {
             throw new IllegalArgumentException("endDate may not be null");
+        }
         if (start.after(end)) {
             throw new IllegalArgumentException("start must preceed end");
         }
@@ -69,8 +71,9 @@ public class Duration implements Comparable<Duration> {
      *            the units
      */
     public Duration(long duration, TimeUnit units) {
-        if (units == null)
+        if (units == null) {
             throw new IllegalArgumentException("timeUnit may not be null");
+        }
         m_durationInMillis = TimeUnit.MILLISECONDS.convert(duration, units);
     }
 
@@ -121,8 +124,9 @@ public class Duration implements Comparable<Duration> {
      */
     @Override
     public String toString() {
-        if (0 == millis())
+        if (0 == millis()) {
             return "0ms";
+        }
 
         StringBuilder buf = new StringBuilder();
 

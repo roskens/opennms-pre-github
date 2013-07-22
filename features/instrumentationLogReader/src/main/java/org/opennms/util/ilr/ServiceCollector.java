@@ -307,8 +307,9 @@ public class ServiceCollector {
      */
     public long getAverageCollectionTime() {
         int count = getCollectionCount();
-        if (count == 0)
+        if (count == 0) {
             return 0;
+        }
         return getTotalCollectionTime() / count;
     }
 
@@ -328,8 +329,9 @@ public class ServiceCollector {
      */
     public long getAveragePersistTime() {
         int count = getPersistCount();
-        if (count == 0)
+        if (count == 0) {
             return 0;
+        }
         return getTotalPersistTime() / count;
     }
 
@@ -349,8 +351,9 @@ public class ServiceCollector {
      */
     public long getAverageErrorCollectionTime() {
         int count = getErrorCollectionCount();
-        if (count == 0)
+        if (count == 0) {
             return 0;
+        }
         return getErrorCollectionTime() / count;
     }
 
@@ -370,8 +373,9 @@ public class ServiceCollector {
      */
     public long getAverageSuccessfulCollectionTime() {
         int count = getSuccessfulCollectionCount();
-        if (count == 0)
+        if (count == 0) {
             return 0;
+        }
         return getSuccessfulCollectionTime() / count;
     }
 
@@ -390,8 +394,9 @@ public class ServiceCollector {
      * @return the average time between collections
      */
     public long getAverageTimeBetweenCollections() {
-        if (m_betweenCount == 0)
+        if (m_betweenCount == 0) {
             return 0;
+        }
         return m_totalBetweenTime / m_betweenCount;
     }
 
