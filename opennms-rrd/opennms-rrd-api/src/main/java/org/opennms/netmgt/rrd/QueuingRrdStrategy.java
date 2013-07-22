@@ -715,8 +715,9 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
         @Override
         Object process(Object rrd) throws Exception {
             // open the file if we need to
-            if (rrd == null)
+            if (rrd == null) {
                 rrd = m_delegate.openFile(getFileName());
+            }
 
             final String update = (String) getData();
 
@@ -778,8 +779,9 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
             long ts = getFirstTimeStamp();
             for (int i = 0; i < count; i++) {
                 // open the file if we need to
-                if (rrd == null)
+                if (rrd == null) {
                     rrd = m_delegate.openFile(getFileName());
+                }
 
                 String update = ts + ":0";
                 try {
@@ -945,8 +947,9 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
             int colon = update.indexOf(':');
             if ((colon >= 0) && (Double.parseDouble(update.substring(colon + 1)) == 0.0)) {
                 long initialTimeStamp = Long.parseLong(update.substring(0, colon));
-                if (initialTimeStamp == 0)
+                if (initialTimeStamp == 0) {
                     m_log.debug("ZERO ERROR: created a zero update with ts=0 for file: {}, data: {}", fileName, update);
+                }
 
                 return new ZeroUpdateOperation(fileName, initialTimeStamp);
             }
@@ -990,8 +993,9 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
 
             setTotalOperationsPending(getTotalOperationsPending() + 1);
             setEnqueuedOperations(getEnqueuedOperations() + 1);
-            if (op.isSignificant())
+            if (op.isSignificant()) {
                 setSignificantOpsEnqueued(getSignificantOpsEnqueued() + 1);
+            }
             notifyAll();
             ensureThreadsStarted();
         }
@@ -1003,10 +1007,11 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
      * @return true, if successful
      */
     private boolean queueIsFull() {
-        if (m_queueHighWaterMark <= 0)
+        if (m_queueHighWaterMark <= 0) {
             return false;
-        else
+        } else {
             return getTotalOperationsPending() >= m_queueHighWaterMark;
+        }
     }
 
     /**
@@ -1015,10 +1020,11 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
      * @return true, if successful
      */
     private boolean sigQueueIsFull() {
-        if (m_sigHighWaterMark <= 0)
+        if (m_sigHighWaterMark <= 0) {
             return false;
-        else
+        } else {
             return getTotalOperationsPending() >= m_sigHighWaterMark;
+        }
     }
 
     /**
@@ -1027,10 +1033,11 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
      * @return true, if successful
      */
     private boolean inSigQueueIsFull() {
-        if (m_inSigHighWaterMark <= 0)
+        if (m_inSigHighWaterMark <= 0) {
             return false;
-        else
+        } else {
             return getTotalOperationsPending() >= m_inSigHighWaterMark;
+        }
     }
 
     /**
@@ -1065,8 +1072,9 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
             }
 
             // initialize start time for stats
-            if (getStartTime() == 0)
+            if (getStartTime() == 0) {
                 setStartTime(System.currentTimeMillis());
+            }
 
             // reserve the assignment and take work items
             ops = takeAssignment(newAssignment);
@@ -1110,10 +1118,11 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
             // are adding. (if we aren't prioritizing then every file is counted
             // as
             // signficant
-            if (!m_prioritizeSignificantUpdates || op.isSignificant())
+            if (!m_prioritizeSignificantUpdates || op.isSignificant()) {
                 filesWithSignificantWork.addLast(op.getFileName());
-            else
+            } else {
                 filesWithInsignificantWork.addLast(op.getFileName());
+            }
         } else if (m_prioritizeSignificantUpdates && op.isSignificant() && hasOnlyInsignificant(pendingOperations)) {
             // only do this when we are prioritizing as this bumps files from
             // inSig
@@ -1135,12 +1144,14 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
     private synchronized void promoteAgedFiles() {
 
         // no need to do this is we aren't prioritizing
-        if (!m_prioritizeSignificantUpdates)
+        if (!m_prioritizeSignificantUpdates) {
             return;
+        }
 
         // the num seconds to update files is 0 then use unfair prioritization
-        if (m_maxInsigUpdateSeconds == 0 || filesWithInsignificantWork.isEmpty())
+        if (m_maxInsigUpdateSeconds == 0 || filesWithInsignificantWork.isEmpty()) {
             return;
+        }
 
         // calculate the elapsed time we first queued updates
         long now = System.currentTimeMillis();
@@ -1240,8 +1251,9 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
     private synchronized void completeAssignment() {
         // remove any existing reservation of the current thread
         String previousAssignment = fileAssignments.remove(Thread.currentThread());
-        if (previousAssignment != null)
+        if (previousAssignment != null) {
             reservedFiles.remove(previousAssignment);
+        }
     }
 
     /**
@@ -1481,8 +1493,9 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
 
         try {
             LinkedList<Operation> ops = getNext();
-            if (ops == null)
+            if (ops == null) {
                 return;
+            }
             // update stats correctly we update them even if an exception occurs
             // while we are processing
             for (Operation op : ops) {
