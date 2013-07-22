@@ -44,12 +44,12 @@ public interface MeasurementSet extends Serializable {
      *
      * @return the json
      */
-    public String getJson();
+    String getJson();
 
     /**
      * Gets the measurements.
      *
      * @return the measurements
      */
-    public List<Measurement> getMeasurements();
+    List<Measurement> getMeasurements();
 }

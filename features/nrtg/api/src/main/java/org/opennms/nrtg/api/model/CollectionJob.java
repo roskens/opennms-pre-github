@@ -58,7 +58,7 @@ public interface CollectionJob extends Serializable {
      *
      * @return the all metrics
      */
-    public Set<String> getAllMetrics();
+    Set<String> getAllMetrics();
 
     /**
      * Sets the metric value.
@@ -72,7 +72,7 @@ public interface CollectionJob extends Serializable {
      * @throws IllegalArgumentException
      *             the illegal argument exception
      */
-    public void setMetricValue(String metricId, String metricType, String value) throws IllegalArgumentException;
+    void setMetricValue(String metricId, String metricType, String value) throws IllegalArgumentException;
 
     /**
      * Sets the metric value.
@@ -84,7 +84,7 @@ public interface CollectionJob extends Serializable {
      * @throws IllegalArgumentException
      *             the illegal argument exception
      */
-    public void setMetricValue(String metricId, String value) throws IllegalArgumentException;
+    void setMetricValue(String metricId, String value) throws IllegalArgumentException;
 
     /**
      * Gets the metric value.
@@ -95,7 +95,7 @@ public interface CollectionJob extends Serializable {
      * @throws IllegalArgumentException
      *             the illegal argument exception
      */
-    public String getMetricValue(String metricId) throws IllegalArgumentException;
+    String getMetricValue(String metricId) throws IllegalArgumentException;
 
     /**
      * Adds the metric.
@@ -109,7 +109,7 @@ public interface CollectionJob extends Serializable {
      * @throws IllegalArgumentException
      *             the illegal argument exception
      */
-    public void addMetric(String metricId, Set<String> destinationSet, String onmsLogicMetricId)
+    void addMetric(String metricId, Set<String> destinationSet, String onmsLogicMetricId)
             throws IllegalArgumentException;
 
     /**
@@ -118,21 +118,21 @@ public interface CollectionJob extends Serializable {
      * @param parameters
      *            the parameters
      */
-    public void setParameters(Map<String, Object> parameters);
+    void setParameters(Map<String, Object> parameters);
 
     /**
      * Gets the parameters.
      *
      * @return the parameters
      */
-    public Map<String, Object> getParameters();
+    Map<String, Object> getParameters();
 
     /**
      * Gets the measurement set.
      *
      * @return the measurement set
      */
-    public MeasurementSet getMeasurementSet();
+    MeasurementSet getMeasurementSet();
 
     /**
      * Sets the id.
@@ -140,14 +140,14 @@ public interface CollectionJob extends Serializable {
      * @param id
      *            the new id
      */
-    public void setId(String id);
+    void setId(String id);
 
     /**
      * Gets the id.
      *
      * @return the id
      */
-    public String getId();
+    String getId();
 
     /**
      * Sets the node id.
@@ -155,14 +155,14 @@ public interface CollectionJob extends Serializable {
      * @param nodeId
      *            the new node id
      */
-    public void setNodeId(int nodeId);
+    void setNodeId(int nodeId);
 
     /**
      * Gets the node id.
      *
      * @return the node id
      */
-    public int getNodeId();
+    int getNodeId();
 
     /**
      * Sets the site.
@@ -170,14 +170,14 @@ public interface CollectionJob extends Serializable {
      * @param site
      *            the new site
      */
-    public void setSite(String site);
+    void setSite(String site);
 
     /**
      * Gets the site.
      *
      * @return the site
      */
-    public String getSite();
+    String getSite();
 
     /**
      * Sets the creation timestamp.
@@ -185,14 +185,14 @@ public interface CollectionJob extends Serializable {
      * @param creationTimestamp
      *            the new creation timestamp
      */
-    public void setCreationTimestamp(Date creationTimestamp);
+    void setCreationTimestamp(Date creationTimestamp);
 
     /**
      * Gets the creation timestamp.
      *
      * @return the creation timestamp
      */
-    public Date getCreationTimestamp();
+    Date getCreationTimestamp();
 
     /**
      * Sets the finished timestamp.
@@ -200,14 +200,14 @@ public interface CollectionJob extends Serializable {
      * @param finishedTimestamp
      *            the new finished timestamp
      */
-    public void setFinishedTimestamp(Date finishedTimestamp);
+    void setFinishedTimestamp(Date finishedTimestamp);
 
     /**
      * Gets the finished timestamp.
      *
      * @return the finished timestamp
      */
-    public Date getFinishedTimestamp();
+    Date getFinishedTimestamp();
 
     /**
      * Sets the net interface.
@@ -215,7 +215,7 @@ public interface CollectionJob extends Serializable {
      * @param theInterface
      *            the new net interface
      */
-    public void setNetInterface(String theInterface);
+    void setNetInterface(String theInterface);
 
     // ToDo tak change to InetAddress
     /**
@@ -223,14 +223,14 @@ public interface CollectionJob extends Serializable {
      *
      * @return the net interface
      */
-    public String getNetInterface();
+    String getNetInterface();
 
     /**
      * Gets the service.
      *
      * @return the service
      */
-    public String getService();
+    String getService();
 
     /**
      * Sets the service.
@@ -245,7 +245,7 @@ public interface CollectionJob extends Serializable {
      *
      * @return the measurement sets by destination
      */
-    public Map<String, MeasurementSet> getMeasurementSetsByDestination();
+    Map<String, MeasurementSet> getMeasurementSetsByDestination();
 
     /**
      * Sets the protocol configuration.
@@ -253,14 +253,14 @@ public interface CollectionJob extends Serializable {
      * @param configurationString
      *            the new protocol configuration
      */
-    public void setProtocolConfiguration(String configurationString);
+    void setProtocolConfiguration(String configurationString);
 
     /**
      * Gets the protocol configuration.
      *
      * @return the protocol configuration
      */
-    public String getProtocolConfiguration();
+    String getProtocolConfiguration();
 
     /**
      * Gets the metric type.
@@ -271,7 +271,7 @@ public interface CollectionJob extends Serializable {
      * @throws IllegalArgumentException
      *             the illegal argument exception
      */
-    public String getMetricType(String metricId) throws IllegalArgumentException;
+    String getMetricType(String metricId) throws IllegalArgumentException;
 
     /**
      * Gets the onms logic metric id.
@@ -280,6 +280,6 @@ public interface CollectionJob extends Serializable {
      *            the metric id
      * @return the onms logic metric id
      */
-    public String getOnmsLogicMetricId(String metricId);
+    String getOnmsLogicMetricId(String metricId);
 
 }

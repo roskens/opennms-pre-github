@@ -48,7 +48,7 @@ public interface NrtBroker {
      * @param collectionJob
      *            the collection job
      */
-    public void publishCollectionJob(CollectionJob collectionJob);
+    void publishCollectionJob(CollectionJob collectionJob);
 
     /**
      * Receive measurement sets.
@@ -57,6 +57,6 @@ public interface NrtBroker {
      *            the destination
      * @return the list
      */
-    public List<MeasurementSet> receiveMeasurementSets(String destination);
+    List<MeasurementSet> receiveMeasurementSets(String destination);
 
 }

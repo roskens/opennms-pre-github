@@ -46,7 +46,7 @@ public interface Measurement extends Serializable {
      * @param nodeId
      *            the new node id
      */
-    public void setNodeId(int nodeId);
+    void setNodeId(int nodeId);
 
     /**
      * Sets the net interface.
@@ -54,7 +54,7 @@ public interface Measurement extends Serializable {
      * @param theInterface
      *            the new net interface
      */
-    public void setNetInterface(String theInterface);
+    void setNetInterface(String theInterface);
 
     /**
      * Sets the service.
@@ -62,7 +62,7 @@ public interface Measurement extends Serializable {
      * @param service
      *            the new service
      */
-    public void setService(String service);
+    void setService(String service);
 
     /**
      * Sets the metric id.
@@ -70,7 +70,7 @@ public interface Measurement extends Serializable {
      * @param metricId
      *            the new metric id
      */
-    public void setMetricId(String metricId);
+    void setMetricId(String metricId);
 
     /**
      * Sets the metric type.
@@ -78,7 +78,7 @@ public interface Measurement extends Serializable {
      * @param metricType
      *            the new metric type
      */
-    public void setMetricType(String metricType);
+    void setMetricType(String metricType);
 
     /**
      * Sets the value.
@@ -86,7 +86,7 @@ public interface Measurement extends Serializable {
      * @param value
      *            the new value
      */
-    public void setValue(String value);
+    void setValue(String value);
 
     /**
      * Sets the timestamp.
@@ -94,7 +94,7 @@ public interface Measurement extends Serializable {
      * @param timestamp
      *            the new timestamp
      */
-    public void setTimestamp(Date timestamp);
+    void setTimestamp(Date timestamp);
 
     /**
      * Sets the onms logic metric id.
@@ -102,61 +102,61 @@ public interface Measurement extends Serializable {
      * @param onmsLogicMetricId
      *            the new onms logic metric id
      */
-    public void setOnmsLogicMetricId(String onmsLogicMetricId);
+    void setOnmsLogicMetricId(String onmsLogicMetricId);
 
     /**
      * Gets the onms logic metric id.
      *
      * @return the onms logic metric id
      */
-    public String getOnmsLogicMetricId();
+    String getOnmsLogicMetricId();
 
     /**
      * Gets the node id.
      *
      * @return the node id
      */
-    public int getNodeId();
+    int getNodeId();
 
     /**
      * Gets the net interface.
      *
      * @return the net interface
      */
-    public String getNetInterface();
+    String getNetInterface();
 
     /**
      * Gets the service.
      *
      * @return the service
      */
-    public String getService();
+    String getService();
 
     /**
      * Gets the metric id.
      *
      * @return the metric id
      */
-    public String getMetricId();
+    String getMetricId();
 
     /**
      * Gets the metric type.
      *
      * @return the metric type
      */
-    public String getMetricType();
+    String getMetricType();
 
     /**
      * Gets the value.
      *
      * @return the value
      */
-    public String getValue();
+    String getValue();
 
     /**
      * Gets the timestamp.
      *
      * @return the timestamp
      */
-    public Date getTimestamp();
+    Date getTimestamp();
 }
