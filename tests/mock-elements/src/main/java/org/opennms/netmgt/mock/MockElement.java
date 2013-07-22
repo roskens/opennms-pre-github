@@ -138,8 +138,9 @@ public abstract class MockElement {
     public MockNetwork getNetwork() {
         MockElement network = this;
 
-        while (network.getParent() != null)
+        while (network.getParent() != null) {
             network = network.getParent();
+        }
 
         return (MockNetwork) network;
     }

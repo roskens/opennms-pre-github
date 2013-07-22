@@ -192,8 +192,9 @@ public class MockInterface extends MockContainer<MockNode, MockService> {
             @Override
             public void visitService(MockService svc) {
                 if (critSvc == null || critSvc.equals(svc)) {
-                    if (svc.getPollStatus().isUp())
+                    if (svc.getPollStatus().isUp()) {
                         status = PollStatus.up();
+                    }
                 }
             }
 

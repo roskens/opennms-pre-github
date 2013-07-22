@@ -144,8 +144,9 @@ public class Outage {
      */
     @Override
     public boolean equals(Object o) {
-        if (!(o instanceof Outage))
+        if (!(o instanceof Outage)) {
             return false;
+        }
         Outage outage = (Outage) o;
         return ((m_nodeId == outage.m_nodeId)
                 && (m_ipAddr.equals(outage.m_ipAddr))

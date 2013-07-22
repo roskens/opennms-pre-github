@@ -168,8 +168,9 @@ public class NotificationAnticipator {
         long start = System.currentTimeMillis();
         long now = start;
         while (waitTime > 0) {
-            if (m_anticipated.isEmpty())
+            if (m_anticipated.isEmpty()) {
                 return new ArrayList<MockNotification>(0);
+            }
             try {
                 wait(waitTime);
             } catch (InterruptedException e) {

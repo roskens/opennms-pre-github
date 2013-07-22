@@ -517,8 +517,9 @@ public class MockService extends MockElement implements MonitoredService {
      */
     @Override
     public NetworkInterface<InetAddress> getNetInterface() {
-        if (m_netAddr == null)
+        if (m_netAddr == null) {
             m_netAddr = new InetNetworkInterface(getAddress());
+        }
 
         return m_netAddr;
     }
