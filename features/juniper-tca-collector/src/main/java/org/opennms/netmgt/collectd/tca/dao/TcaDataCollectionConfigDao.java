@@ -42,6 +42,6 @@ public interface TcaDataCollectionConfigDao {
      *
      * @return the configuration
      */
-    public TcaDataCollectionConfig getConfig();
+    TcaDataCollectionConfig getConfig();
 
 }
