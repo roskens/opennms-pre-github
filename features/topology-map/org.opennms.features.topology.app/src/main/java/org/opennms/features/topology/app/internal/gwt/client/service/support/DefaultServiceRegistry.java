@@ -122,8 +122,9 @@ public class DefaultServiceRegistry implements ServiceRegistry {
         @Override
         public <T> T getProvider(Class<T> serviceInterface) {
 
-            if (serviceInterface == null)
+            if (serviceInterface == null) {
                 throw new NullPointerException("serviceInterface may not be null");
+            }
 
             for (Class<?> cl : m_serviceInterfaces) {
                 if (serviceInterface.equals(cl)) {

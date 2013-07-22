@@ -49,6 +49,7 @@ import org.vaadin.peter.contextmenu.ContextMenu;
 import org.vaadin.peter.contextmenu.ContextMenu.ContextMenuItem;
 import org.vaadin.peter.contextmenu.ContextMenu.ContextMenuItemClickEvent;
 
+import com.google.gwt.event.dom.client.ContextMenuEvent;
 import com.vaadin.ui.MenuBar;
 import com.vaadin.ui.MenuBar.MenuItem;
 import com.vaadin.ui.UI;
@@ -503,8 +504,9 @@ public class CommandManager {
      *            the new top level menu order
      */
     public void setTopLevelMenuOrder(List<String> menuOrderList) {
-        if (m_topLevelMenuOrder == menuOrderList)
+        if (m_topLevelMenuOrder == menuOrderList) {
             return;
+        }
         m_topLevelMenuOrder.clear();
         m_topLevelMenuOrder.addAll(menuOrderList);
 

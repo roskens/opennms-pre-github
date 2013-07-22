@@ -271,8 +271,9 @@ public class MultivaluedMapImpl<K, V> extends LinkedHashMap<K, Set<V>> implement
      */
     @Override
     public boolean remove(K key, V value) {
-        if (!containsKey(key))
+        if (!containsKey(key)) {
             return false;
+        }
 
         Set<V> valueList = get(key);
 

@@ -284,8 +284,9 @@ public class MergingGraphProvider implements GraphProvider, VertexListener, Edge
      *            the msg
      */
     private void assertNotNull(Object o, String msg) {
-        if (o == null)
+        if (o == null) {
             throw new NullPointerException(msg);
+        }
     }
 
     /**

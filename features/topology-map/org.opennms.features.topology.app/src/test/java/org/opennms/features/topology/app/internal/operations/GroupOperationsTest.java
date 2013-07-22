@@ -153,8 +153,9 @@ public class GroupOperationsTest {
     private static Form getForm(final Window prompt) {
         for (Iterator<Component> itr = prompt.iterator(); itr.hasNext();) {
             Component component = itr.next();
-            if (component instanceof Form)
+            if (component instanceof Form) {
                 return (Form) component;
+            }
             LoggerFactory.getLogger(GroupOperationsTest.class).info("Not a Form: " + component.getClass());
         }
         throw new IllegalArgumentException("prompt does not have a form");

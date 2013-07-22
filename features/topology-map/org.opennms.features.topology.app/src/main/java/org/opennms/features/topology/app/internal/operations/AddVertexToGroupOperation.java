@@ -107,8 +107,9 @@ public class AddVertexToGroupOperation implements Constants, Operation {
      */
     private static Collection<VertexRef> determineTargets(final VertexRef target,
             final SelectionManager selectionManager) {
-        if (!selectionManager.isVertexRefSelected(target))
+        if (!selectionManager.isVertexRefSelected(target)) {
             return Arrays.asList(target);
+        }
         return new ArrayList<VertexRef>(selectionManager.getSelectedVertexRefs());
     }
 
@@ -142,8 +143,9 @@ public class AddVertexToGroupOperation implements Constants, Operation {
      */
     @Override
     public Undoer execute(List<VertexRef> targets, final OperationContext operationContext) {
-        if (targets == null || targets.isEmpty())
+        if (targets == null || targets.isEmpty()) {
             return null;
+        }
 
         final Logger log = LoggerFactory.getLogger(this.getClass());
         final GraphContainer graphContainer = operationContext.getGraphContainer();
@@ -185,8 +187,9 @@ public class AddVertexToGroupOperation implements Constants, Operation {
 
                         @Override
                         public void validate(Object value) throws InvalidValueException {
-                            if (isValid(value))
+                            if (isValid(value)) {
                                 return;
+                            }
                             throw new InvalidValueException(String.format("You cannot add group '%s' to itself.",
                                                                           select.getItemCaption(value)));
                         };
@@ -199,7 +202,9 @@ public class AddVertexToGroupOperation implements Constants, Operation {
                          */
                         private boolean isValid(Object value) {
                             if (vertices.size() > 1)
+                             {
                                 return true; // more than 1 -> assume valid
+                            }
                             final String groupId = (String) select.getValue();
                             // only one, check if we want to assign to ourself
                             for (VertexRef eachVertex : vertices) {

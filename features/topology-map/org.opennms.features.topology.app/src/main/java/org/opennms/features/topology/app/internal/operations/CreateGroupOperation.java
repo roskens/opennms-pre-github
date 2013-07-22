@@ -69,8 +69,9 @@ public class CreateGroupOperation implements Constants, Operation {
      */
     @Override
     public Undoer execute(final List<VertexRef> targets, final OperationContext operationContext) {
-        if (targets == null || targets.isEmpty())
+        if (targets == null || targets.isEmpty()) {
             return null;
+        }
 
         final GraphContainer graphContainer = operationContext.getGraphContainer();
 
@@ -85,17 +86,20 @@ public class CreateGroupOperation implements Constants, Operation {
 
             @Override
             public void setValue(String newValue) throws ReadOnlyException, ConversionException {
-                if (newValue == null)
+                if (newValue == null) {
                     super.setValue(newValue);
-                if (newValue instanceof String)
+                }
+                if (newValue instanceof String) {
                     super.setValue(((String) newValue).trim());
+                }
             }
 
             @Override
             public String getValue() {
                 String value = super.getValue();
-                if (value != null)
+                if (value != null) {
                     return value.trim();
+                }
                 return value;
             }
         });
@@ -229,10 +233,12 @@ public class CreateGroupOperation implements Constants, Operation {
 
             @Override
             protected boolean isValidValue(String value) {
-                if (value == null)
+                if (value == null) {
                     return false;
-                if (!(value instanceof String))
+                }
+                if (!(value instanceof String)) {
                     return false;
+                }
                 return !((String) value).trim().isEmpty();
             }
 

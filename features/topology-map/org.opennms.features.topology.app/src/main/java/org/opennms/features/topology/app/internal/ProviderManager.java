@@ -152,8 +152,9 @@ public class ProviderManager {
      */
     public synchronized void onEdgeProviderUnbind(EdgeProvider edgeProvider) {
         s_log.info("ProviderManager onEdgeProviderUnbind({}}", edgeProvider);
-        if (edgeProvider == null)
+        if (edgeProvider == null) {
             return;
+        }
         try {
             EdgeProvider removedProvider = m_edgeProviders.remove(edgeProvider.getEdgeNamespace());
 
@@ -188,8 +189,9 @@ public class ProviderManager {
      */
     public synchronized void onVertexProviderUnbind(VertexProvider vertexProvider) {
         s_log.info("ProviderManager onVertexProviderUnbind({}}", vertexProvider);
-        if (vertexProvider == null)
+        if (vertexProvider == null) {
             return;
+        }
         try {
             VertexProvider removedProvider = m_vertexProviders.remove(vertexProvider.getVertexNamespace());
 

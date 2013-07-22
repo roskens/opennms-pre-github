@@ -120,7 +120,9 @@ public class StatusSelector {
         protected boolean isChecked(GraphContainer container) {
             StatusProvider activeStatusProvider = container.getStatusProvider();
             if (activeStatusProvider == null)
+             {
                 container.setStatusProvider(m_statusProvider); // enable this
+            }
                                                                // status-provider
             return !StatusProvider.NULL.equals(activeStatusProvider) // not
                                                                      // NULL-Provider

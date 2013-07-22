@@ -752,9 +752,10 @@ public class TopologyWidgetTestApplication extends UI implements CommandUpdateLi
      */
     private static void updateSubMenuDisplay(List<TopoContextMenuItem> items) {
         for (TopoContextMenuItem item : items) {
-            if (!item.hasChildren())
+            if (!item.hasChildren()) {
                 continue;
-            else
+            }
+            else {
                 updateSubMenuDisplay(item.getChildren());
             // TODO: Figure out how to do this in the new contextmenu
             /*
@@ -767,6 +768,7 @@ public class TopologyWidgetTestApplication extends UI implements CommandUpdateLi
              * }
              * item.getItem().setVisible(shouldDisplay);
              */
+            }
         }
     }
 
