@@ -73,8 +73,9 @@ public class PropertyOidContainer {
 
         for (final Object obj : moProps.keySet()) {
             final String key = obj.toString();
-            if (!key.startsWith("."))
+            if (!key.startsWith(".")) {
                 continue;
+            }
             final String value = moProps.getProperty(key);
             if (value.contains("No Such Object available on this agent at this OID")) {
                 continue;

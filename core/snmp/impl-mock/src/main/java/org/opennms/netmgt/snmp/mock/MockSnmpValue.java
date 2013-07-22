@@ -143,8 +143,9 @@ public class MockSnmpValue extends AbstractSnmpValue {
             final StringBuffer b = new StringBuffer();
             for (int i = 0; i < data.length; ++i) {
                 final int x = (int) data[i] & 0xff;
-                if (x < 16)
+                if (x < 16) {
                     b.append("0");
+                }
                 b.append(Integer.toString(x, 16).toLowerCase());
             }
             return b.toString();
@@ -767,8 +768,9 @@ public class MockSnmpValue extends AbstractSnmpValue {
      */
     @Override
     public int hashCode() {
-        if (m_value == null)
+        if (m_value == null) {
             return 0;
+        }
         return m_value.hashCode();
     }
 

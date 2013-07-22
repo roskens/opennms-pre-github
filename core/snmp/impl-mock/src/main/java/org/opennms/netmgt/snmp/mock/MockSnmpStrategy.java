@@ -127,8 +127,9 @@ public class MockSnmpStrategy implements SnmpStrategy {
     @Override
     public SnmpValue set(final SnmpAgentConfig agentConfig, final SnmpObjId oid, final SnmpValue value) {
         final PropertyOidContainer oidContainer = getOidContainer(agentConfig);
-        if (oidContainer == null)
+        if (oidContainer == null) {
             return null;
+        }
         return oidContainer.set(oid, value);
     }
 
@@ -138,8 +139,9 @@ public class MockSnmpStrategy implements SnmpStrategy {
     @Override
     public SnmpValue[] set(final SnmpAgentConfig agentConfig, final SnmpObjId[] oids, final SnmpValue[] values) {
         final PropertyOidContainer oidContainer = getOidContainer(agentConfig);
-        if (oidContainer == null)
+        if (oidContainer == null) {
             return new SnmpValue[values.length];
+        }
         return oidContainer.set(oids, values);
     }
 
@@ -149,8 +151,9 @@ public class MockSnmpStrategy implements SnmpStrategy {
     @Override
     public SnmpValue get(final SnmpAgentConfig agentConfig, final SnmpObjId oid) {
         final PropertyOidContainer oidContainer = getOidContainer(agentConfig);
-        if (oidContainer == null)
+        if (oidContainer == null) {
             return null;
+        }
 
         SnmpValue val = oidContainer.findValueForOid(oid);
         if (val.isNull()) {
@@ -165,8 +168,9 @@ public class MockSnmpStrategy implements SnmpStrategy {
     @Override
     public SnmpValue[] get(final SnmpAgentConfig agentConfig, final SnmpObjId[] oids) {
         final PropertyOidContainer container = getOidContainer(agentConfig);
-        if (container == null)
+        if (container == null) {
             return new SnmpValue[oids.length];
+        }
         final List<SnmpValue> values = new ArrayList<SnmpValue>();
 
         for (final SnmpObjId oid : oids) {
@@ -181,8 +185,9 @@ public class MockSnmpStrategy implements SnmpStrategy {
     @Override
     public SnmpValue getNext(final SnmpAgentConfig agentConfig, final SnmpObjId oid) {
         final PropertyOidContainer oidContainer = getOidContainer(agentConfig);
-        if (oidContainer == null)
+        if (oidContainer == null) {
             return null;
+        }
         return oidContainer.findNextValueForOid(oid);
     }
 
@@ -192,8 +197,9 @@ public class MockSnmpStrategy implements SnmpStrategy {
     @Override
     public SnmpValue[] getNext(final SnmpAgentConfig agentConfig, final SnmpObjId[] oids) {
         final PropertyOidContainer oidContainer = getOidContainer(agentConfig);
-        if (oidContainer == null)
+        if (oidContainer == null) {
             return null;
+        }
         final List<SnmpValue> values = new ArrayList<SnmpValue>();
 
         for (final SnmpObjId oid : oids) {

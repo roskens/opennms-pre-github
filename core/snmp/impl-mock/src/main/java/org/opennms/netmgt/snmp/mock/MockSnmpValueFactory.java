@@ -81,8 +81,9 @@ public class MockSnmpValueFactory implements SnmpValueFactory {
      */
     @Override
     public SnmpValue getCounter64(final BigInteger val) {
-        if (val == null)
+        if (val == null) {
             return null;
+        }
         return new MockSnmpValue.Counter64SnmpValue(val);
     }
 
@@ -107,8 +108,9 @@ public class MockSnmpValueFactory implements SnmpValueFactory {
      */
     @Override
     public SnmpValue getIpAddress(final InetAddress val) {
-        if (val == null)
+        if (val == null) {
             return null;
+        }
         return new MockSnmpValue.IpAddressSnmpValue(val);
     }
 
