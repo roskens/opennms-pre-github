@@ -224,8 +224,9 @@ public abstract class SimplerQueuedProvisioningAdapter extends SimpleQueuedProvi
      *            the m
      */
     private void assertTrue(boolean b, String m) {
-        if (!b)
+        if (!b) {
             throw new IllegalStateException(m);
+        }
     }
 
     /**
