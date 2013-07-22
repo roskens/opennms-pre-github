@@ -82,9 +82,10 @@ public final class DhcpMonitor extends AbstractServiceMonitor {
 
         // Get interface address from NetworkInterface
         //
-        if (iface.getType() != NetworkInterface.TYPE_INET)
+        if (iface.getType() != NetworkInterface.TYPE_INET) {
             throw new NetworkInterfaceNotSupportedException(
                                                             "Unsupported interface type, only TYPE_INET currently supported");
+        }
 
         // Process parameters
         //

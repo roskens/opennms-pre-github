@@ -106,8 +106,9 @@ public final class DhcpdConfigFactory {
      * @return The current factory instance.
      */
     public static synchronized DhcpdConfigFactory getInstance() {
-        if (!m_loaded)
+        if (!m_loaded) {
             throw new IllegalStateException("The factory has not been initialized");
+        }
 
         return m_singleton;
     }

@@ -428,42 +428,52 @@ public class DhcpdConfiguration implements java.io.Serializable {
      */
     @Override
     public boolean equals(final Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
+        }
 
         if (obj instanceof DhcpdConfiguration) {
 
             DhcpdConfiguration temp = (DhcpdConfiguration) obj;
-            if (m_port != temp.m_port)
+            if (m_port != temp.m_port) {
                 return false;
+            }
             if (m_macAddress != null) {
-                if (temp.m_macAddress == null)
+                if (temp.m_macAddress == null) {
                     return false;
-                else if (!(m_macAddress.equals(temp.m_macAddress)))
+                } else if (!(m_macAddress.equals(temp.m_macAddress))) {
                     return false;
-            } else if (temp.m_macAddress != null)
+                }
+            } else if (temp.m_macAddress != null) {
                 return false;
+            }
             if (m_myIpAddress != null) {
-                if (temp.m_myIpAddress == null)
+                if (temp.m_myIpAddress == null) {
                     return false;
-                else if (!(m_myIpAddress.equals(temp.m_myIpAddress)))
+                } else if (!(m_myIpAddress.equals(temp.m_myIpAddress))) {
                     return false;
-            } else if (temp.m_myIpAddress != null)
+                }
+            } else if (temp.m_myIpAddress != null) {
                 return false;
+            }
             if (m_extendedMode != null) {
-                if (temp.m_extendedMode == null)
+                if (temp.m_extendedMode == null) {
                     return false;
-                else if (!(m_extendedMode.equals(temp.m_extendedMode)))
+                } else if (!(m_extendedMode.equals(temp.m_extendedMode))) {
                     return false;
-            } else if (temp.m_extendedMode != null)
+                }
+            } else if (temp.m_extendedMode != null) {
                 return false;
+            }
             if (m_requestIpAddress != null) {
-                if (temp.m_requestIpAddress == null)
+                if (temp.m_requestIpAddress == null) {
                     return false;
-                else if (!(m_requestIpAddress.equals(temp.m_requestIpAddress)))
+                } else if (!(m_requestIpAddress.equals(temp.m_requestIpAddress))) {
                     return false;
-            } else if (temp.m_requestIpAddress != null)
+                }
+            } else if (temp.m_requestIpAddress != null) {
                 return false;
+            }
             return true;
         }
         return false;

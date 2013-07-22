@@ -235,8 +235,9 @@ final class Client extends Observable implements Runnable, Fiber {
      */
     @Override
     public synchronized void start() {
-        if (m_worker != null)
+        if (m_worker != null) {
             throw new IllegalStateException("The fiber has already been started");
+        }
 
         // Start UnicastListener thread.
         //

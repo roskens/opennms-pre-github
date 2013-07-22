@@ -92,8 +92,9 @@ final class Receiver implements Runnable, Fiber {
      */
     @Override
     public synchronized void start() {
-        if (m_worker != null)
+        if (m_worker != null) {
             throw new IllegalStateException("The fiber has already been started");
+        }
 
         m_worker = new Thread(this, getName());
         m_worker.setDaemon(true);
@@ -193,21 +194,24 @@ final class Receiver implements Runnable, Fiber {
                 LOG.warn("An error occurred when reading DHCP response. Ignoring exception: ", ex);
             } catch (IOException ex) {
                 synchronized (this) {
-                    if (m_status == RUNNING)
+                    if (m_status == RUNNING) {
                         LOG.warn("Failed to read message, I/O error", ex);
+                    }
                 }
                 break;
             } catch (Throwable t) {
                 synchronized (this) {
-                    if (m_status == RUNNING)
+                    if (m_status == RUNNING) {
                         LOG.warn("Undeclared throwable caught", t);
+                    }
                 }
                 break;
             }
 
             synchronized (this) {
-                if (m_status != RUNNING)
+                if (m_status != RUNNING) {
                     break;
+                }
             }
         }
 

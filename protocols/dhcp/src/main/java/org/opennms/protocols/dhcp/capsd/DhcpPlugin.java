@@ -111,8 +111,9 @@ public final class DhcpPlugin extends AbstractPlugin {
 
         // If response time is equal to or greater than zero
         // the remote host IS a DHCP server.
-        if (responseTime >= 0)
+        if (responseTime >= 0) {
             isAServer = true;
+        }
 
         // return the success/failure of this
         // attempt to contact a DHCP server.
@@ -162,8 +163,9 @@ public final class DhcpPlugin extends AbstractPlugin {
         }
 
         boolean isAServer = isServer(host, retries, timeout);
-        if (isAServer && qualifiers != null)
+        if (isAServer && qualifiers != null) {
             qualifiers.put("port", PORT_NUMBER);
+        }
 
         return isAServer;
     }
