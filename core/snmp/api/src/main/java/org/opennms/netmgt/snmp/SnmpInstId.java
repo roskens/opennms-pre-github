@@ -112,8 +112,9 @@ public class SnmpInstId extends SnmpObjId {
      * @return the int
      */
     public int toInt() {
-        if (this.length() != 1)
+        if (this.length() != 1) {
             throw new IllegalArgumentException("Cannot convert " + this + " to an int");
+        }
 
         return getLastSubId();
     }

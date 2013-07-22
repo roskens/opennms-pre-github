@@ -50,10 +50,12 @@ public final class SnmpAgentAddress {
      *            the agent port
      */
     public SnmpAgentAddress(final InetAddress agentAddress, final Integer agentPort) {
-        if (agentAddress == null)
+        if (agentAddress == null) {
             throw new NullPointerException("agentAddress cannot be null");
-        if (agentPort == null)
+        }
+        if (agentPort == null) {
             throw new NullPointerException("agentPort cannot be null");
+        }
 
         m_address = agentAddress;
         m_port = agentPort;
@@ -83,8 +85,9 @@ public final class SnmpAgentAddress {
      */
     @Override
     public boolean equals(final Object obj) {
-        if (!(obj instanceof SnmpAgentAddress))
+        if (!(obj instanceof SnmpAgentAddress)) {
             return false;
+        }
         final SnmpAgentAddress that = (SnmpAgentAddress) obj;
         return m_address.equals(that.m_address) && m_port.equals(that.m_port);
     }

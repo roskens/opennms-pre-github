@@ -282,8 +282,9 @@ public class SnmpAgentConfig extends SnmpConfiguration implements Serializable {
      */
     @XmlTransient
     public InetAddress getEffectiveAddress() {
-        if (m_proxyFor == null)
+        if (m_proxyFor == null) {
             return m_address;
+        }
         return m_proxyFor;
     }
 

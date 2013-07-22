@@ -185,12 +185,15 @@ public class TableTracker extends CollectionTracker implements RowCallback, RowR
             public int compare(ColumnTracker o1, ColumnTracker o2) {
                 SnmpInstId lhs = o1.getLastInstance();
                 SnmpInstId rhs = o2.getLastInstance();
-                if (lhs == rhs)
+                if (lhs == rhs) {
                     return 0;
-                if (lhs == null)
+                }
+                if (lhs == null) {
                     return -1;
-                if (rhs == null)
+                }
+                if (rhs == null) {
                     return 1;
+                }
                 return lhs.compareTo(rhs);
             }
         });

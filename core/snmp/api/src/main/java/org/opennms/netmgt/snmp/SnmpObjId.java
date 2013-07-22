@@ -187,9 +187,10 @@ public class SnmpObjId implements Comparable<SnmpObjId> {
             try {
                 String tok = tokenizer.nextToken();
                 ids[index] = Integer.parseInt(tok);
-                if (ids[index] < 0)
+                if (ids[index] < 0) {
                     throw new IllegalArgumentException("String " + oid
                             + " could not be converted to a SnmpObjId. It has a negative for subId " + index);
+                }
                 index++;
             } catch (NumberFormatException e) {
                 throw new IllegalArgumentException("String " + oid + " could not be converted to a SnmpObjId at subId "
@@ -204,10 +205,11 @@ public class SnmpObjId implements Comparable<SnmpObjId> {
      */
     @Override
     public boolean equals(Object obj) {
-        if (obj instanceof SnmpObjId)
+        if (obj instanceof SnmpObjId) {
             return compareTo((SnmpObjId) obj) == 0;
-        else
+        } else {
             return false;
+        }
     }
 
     /* (non-Javadoc)
@@ -248,8 +250,9 @@ public class SnmpObjId implements Comparable<SnmpObjId> {
      */
     @Override
     public int compareTo(SnmpObjId o) {
-        if (o == null)
+        if (o == null) {
             throw new NullPointerException("o is null");
+        }
         SnmpObjId other = (SnmpObjId) o;
 
         // compare each element in order for as much length as they have in
@@ -259,8 +262,9 @@ public class SnmpObjId implements Comparable<SnmpObjId> {
         for (int i = 0; i < minLen; i++) {
             int diff = m_ids[i] - other.m_ids[i];
             // the first one that is not equal indicates which is bigger
-            if (diff != 0)
+            if (diff != 0) {
                 return diff;
+            }
         }
 
         // if they get to hear then both are identifical for their common length
@@ -398,12 +402,14 @@ public class SnmpObjId implements Comparable<SnmpObjId> {
      * @return true, if is prefix of
      */
     public boolean isPrefixOf(final SnmpObjId other) {
-        if (other == null || length() > other.length())
+        if (other == null || length() > other.length()) {
             return false;
+        }
 
         for (int i = 0; i < m_ids.length; i++) {
-            if (m_ids[i] != other.m_ids[i])
+            if (m_ids[i] != other.m_ids[i]) {
                 return false;
+            }
         }
 
         return true;
@@ -417,8 +423,9 @@ public class SnmpObjId implements Comparable<SnmpObjId> {
      * @return single instance of SnmpObjId
      */
     public SnmpInstId getInstance(SnmpObjId base) {
-        if (!base.isPrefixOf(this))
+        if (!base.isPrefixOf(this)) {
             return null;
+        }
 
         int[] instanceIds = new int[length() - base.length()];
         System.arraycopy(m_ids, base.length(), instanceIds, 0, instanceIds.length);
