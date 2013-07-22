@@ -133,11 +133,13 @@ public class AuthRoleToOnmsGroupMapFilterEnabler implements Filter {
         if (shouldFilter) {
 
             for (String role : roleToOnmsGroupMap.keySet()) {
-                if (userHasAuthority(role))
+                if (userHasAuthority(role)) {
                     groups.addAll(roleToOnmsGroupMap.get(role));
+                }
             }
-            if (groups.isEmpty())
+            if (groups.isEmpty()) {
                 shouldFilter = false;
+            }
         }
 
         try {

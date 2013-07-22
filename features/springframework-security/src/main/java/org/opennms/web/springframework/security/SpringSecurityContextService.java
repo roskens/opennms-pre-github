@@ -120,8 +120,9 @@ public class SpringSecurityContextService implements SecurityContextService {
         boolean isRolePresent = false;
         for (GrantedAuthority grantedAuthority : authorities) {
             isRolePresent = grantedAuthority.getAuthority().equals(role);
-            if (isRolePresent)
+            if (isRolePresent) {
                 break;
+            }
         }
         return isRolePresent;
     }

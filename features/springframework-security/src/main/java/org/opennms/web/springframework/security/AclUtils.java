@@ -95,8 +95,9 @@ public abstract class AclUtils {
      */
     public static NodeAccessChecker getNodeAccessChecker(ServletContext sc) {
 
-        if (!shouldFilter(SecurityContextHolder.getContext().getAuthentication().getAuthorities()))
+        if (!shouldFilter(SecurityContextHolder.getContext().getAuthentication().getAuthorities())) {
             return new NonFilteringNodeAccessChecker();
+        }
 
         ApplicationContext ctx = WebApplicationContextUtils.getRequiredWebApplicationContext(sc);
 
