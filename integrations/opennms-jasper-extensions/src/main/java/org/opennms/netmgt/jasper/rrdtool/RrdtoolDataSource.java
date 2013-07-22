@@ -102,8 +102,9 @@ public class RrdtoolDataSource implements JRDataSource {
         String column = getColumnName(field);
         int i = 0;
         for (Entry legend : m_data.getMeta().getLegend().getEntryCollection()) {
-            if (legend.getContent().equals(column))
+            if (legend.getContent().equals(column)) {
                 return i;
+            }
             i++;
         }
         return -1;

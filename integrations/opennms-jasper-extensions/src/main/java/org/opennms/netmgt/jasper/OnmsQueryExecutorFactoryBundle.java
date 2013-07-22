@@ -77,19 +77,23 @@ public class OnmsQueryExecutorFactoryBundle implements QueryExecuterFactoryBundl
     private String checkReportLanguage(String language) {
         boolean found = false;
         for (String lng : getLanguages()) {
-            if (lng.equals(language))
+            if (lng.equals(language)) {
                 found = true;
+            }
         }
-        if (!found)
+        if (!found) {
             return language;
+        }
 
-        if (language.equals("resourceQuery"))
+        if (language.equals("resourceQuery")) {
             return language;
+        }
 
         String strategy = System.getProperty("org.opennms.rrd.strategyClass");
 
-        if (strategy == null)
+        if (strategy == null) {
             return language;
+        }
 
         String[] strategySplit = strategy.split("\\.");
         String rrdStrategy = strategySplit[strategySplit.length - 1];

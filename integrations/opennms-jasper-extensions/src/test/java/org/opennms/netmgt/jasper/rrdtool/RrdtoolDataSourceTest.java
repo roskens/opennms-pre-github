@@ -212,8 +212,9 @@ public class RrdtoolDataSourceTest {
         Double v4 = (Double) ds.getFieldValue(new RrdField("SampleData", Double.class));
         Assert.assertEquals(new Double(26.00), v4);
 
-        for (int i = 4; i < 13; i++)
+        for (int i = 4; i < 13; i++) {
             ds.next();
+        }
 
         Date d13 = (Date) ds.getFieldValue(new RrdField("Timestamp", Date.class));
         Assert.assertEquals(new Date(1206316500000L).toString(), d13.toString());
