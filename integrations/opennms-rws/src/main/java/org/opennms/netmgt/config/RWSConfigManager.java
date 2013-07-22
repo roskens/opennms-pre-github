@@ -134,8 +134,9 @@ public abstract class RWSConfigManager implements RWSConfig {
                                                 getBaseUrl().getTimeout());
             }
             String password = "";
-            if (getBaseUrl().getPassword() != null)
+            if (getBaseUrl().getPassword() != null) {
                 password = getBaseUrl().getPassword();
+            }
             return new ConnectionProperties(getBaseUrl().getUsername(), password, getBaseUrl().getServer_url(),
                                             getBaseUrl().getDirectory(), getBaseUrl().getTimeout());
         } finally {
@@ -153,8 +154,9 @@ public abstract class RWSConfigManager implements RWSConfig {
      */
     @Override
     public ConnectionProperties getNextStandBy() {
-        if (!hasStandbyUrl())
+        if (!hasStandbyUrl()) {
             return null;
+        }
 
         getReadLock().lock();
         try {
