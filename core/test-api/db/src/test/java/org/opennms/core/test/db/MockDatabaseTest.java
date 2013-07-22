@@ -94,8 +94,9 @@ public class MockDatabaseTest extends TestCase {
         super.tearDown();
 
         m_db.drop();
-        if (m_secondDb != null)
+        if (m_secondDb != null) {
             m_secondDb.drop();
+        }
     }
 
     /**

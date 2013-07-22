@@ -280,8 +280,9 @@ public class MockDatabase extends TemporaryDatabasePostgreSQL implements EventWr
      * @return the service id
      */
     public Integer getServiceID(String serviceName) {
-        if (serviceName == null)
+        if (serviceName == null) {
             return null;
+        }
         SingleResultQuerier querier = new SingleResultQuerier(this,
                                                               "select serviceId from service where serviceName = ?");
         querier.execute(serviceName);
@@ -437,8 +438,9 @@ public class MockDatabase extends TemporaryDatabasePostgreSQL implements EventWr
     public void writeEvent(Event e) {
         Integer eventId = getNextEventId();
 
-        if (e.getCreationTime() == null)
+        if (e.getCreationTime() == null) {
             e.setCreationTime(e.getTime());
+        }
 
         Object[] values = { eventId, e.getSource(), e.getUei(), convertEventTimeToTimeStamp(e.getCreationTime()),
                 convertEventTimeToTimeStamp(e.getTime()), Integer.valueOf(OnmsSeverity.get(e.getSeverity()).getId()),

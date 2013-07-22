@@ -483,8 +483,9 @@ public class TemporaryDatabasePostgreSQL implements TemporaryDatabase {
             try {
                 adminConnection.close();
             } catch (final SQLException e) {
-                if (failed == null)
+                if (failed == null) {
                     failed = e;
+                }
             }
             if (failed != null) {
                 throw new TemporaryDatabaseException("Failed while cleaning up database resources.", failed);

@@ -87,12 +87,14 @@ public class TemporaryDatabaseExecutionListener extends AbstractTestExecutionLis
         System.err.println(String.format("TemporaryDatabaseExecutionListener.afterTestMethod(%s)", testContext));
 
         final JUnitTemporaryDatabase jtd = findAnnotation(testContext);
-        if (jtd == null)
+        if (jtd == null) {
             return;
+        }
 
         final PooledDataSource pds = (PooledDataSource) testContext.getAttribute("org.opennms.netmgt.dao.db.TemporaryDatabaseExecutionListener.pooledDataSource");
-        if (pds != null)
+        if (pds != null) {
             pds.hardReset();
+        }
 
         try {
             // DON'T REMOVE THE DATABASE, just rely on the ShutdownHook to
