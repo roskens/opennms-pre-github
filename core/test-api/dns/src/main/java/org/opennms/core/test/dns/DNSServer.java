@@ -291,14 +291,15 @@ public class DNSServer {
                     try {
                         query = new Message(in);
                         response = generateReply(query, in, indp.getLength(), null);
-                        if (response == null)
+                        if (response == null) {
                             continue;
+                        }
                     } catch (final IOException e) {
                         response = formerrMessage(in);
                     }
-                    if (outdp == null)
+                    if (outdp == null) {
                         outdp = new DatagramPacket(response, response.length, indp.getAddress(), indp.getPort());
-                    else {
+                    } else {
                         outdp.setData(response);
                         outdp.setLength(response.length);
                         outdp.setAddress(indp.getAddress());
@@ -541,8 +542,9 @@ public class DNSServer {
      *            the new ports
      */
     public void setPorts(final List<Integer> ports) {
-        if (m_ports == ports)
+        if (m_ports == ports) {
             return;
+        }
         m_ports.clear();
         m_ports.addAll(ports);
     }
@@ -564,8 +566,9 @@ public class DNSServer {
      *            the new addresses
      */
     public void setAddresses(final List<InetAddress> addresses) {
-        if (m_addresses == addresses)
+        if (m_addresses == addresses) {
             return;
+        }
         m_addresses.clear();
         m_addresses.addAll(addresses);
     }
@@ -592,8 +595,9 @@ public class DNSServer {
      */
     public void addPrimaryZone(final String zname, final String zonefile) throws IOException {
         Name origin = null;
-        if (zname != null)
+        if (zname != null) {
             origin = Name.fromString(zname, Name.root);
+        }
         final Zone newzone = new Zone(origin, zonefile);
         m_znames.put(newzone.getOrigin(), newzone);
     }
@@ -721,8 +725,9 @@ public class DNSServer {
      */
     void addRRset(final Name name, final Message response, final RRset rrset, final int section, final int flags) {
         for (int s = 1; s <= section; s++) {
-            if (response.findRRset(name, rrset.getType(), s))
+            if (response.findRRset(name, rrset.getType(), s)) {
                 return;
+            }
         }
         if ((flags & FLAG_SIGONLY) == 0) {
             @SuppressWarnings("unchecked")
@@ -789,8 +794,9 @@ public class DNSServer {
      */
     private final void addCacheNS(final Message response, final Cache cache, final Name name) {
         final SetResponse sr = cache.lookupRecords(name, Type.NS, Credibility.HINT);
-        if (!sr.isDelegation())
+        if (!sr.isDelegation()) {
             return;
+        }
         final RRset nsRecords = sr.getNS();
         @SuppressWarnings("unchecked")
         final Iterator<Record> it = nsRecords.rrs();
@@ -812,8 +818,9 @@ public class DNSServer {
      */
     private void addGlue(final Message response, final Name name, final int flags) {
         final RRset a = findExactMatch(name, Type.A, DClass.IN, true);
-        if (a == null)
+        if (a == null) {
             return;
+        }
         addRRset(name, response, a, Section.ADDITIONAL, flags);
     }
 
@@ -832,8 +839,9 @@ public class DNSServer {
         for (int i = 0; i < records.length; i++) {
             final Record r = records[i];
             final Name glueName = r.getAdditionalName();
-            if (glueName != null)
+            if (glueName != null) {
                 addGlue(response, glueName, flags);
+            }
         }
     }
 
@@ -871,8 +879,9 @@ public class DNSServer {
         SetResponse sr;
         byte rcode = Rcode.NOERROR;
 
-        if (iterations > 6)
+        if (iterations > 6) {
             return Rcode.NOERROR;
+        }
 
         if (type == Type.SIG || type == Type.RRSIG) {
             type = Type.ANY;
@@ -880,9 +889,9 @@ public class DNSServer {
         }
 
         final Zone zone = findBestZone(name);
-        if (zone != null)
+        if (zone != null) {
             sr = zone.findRecords(name, type);
-        else {
+        } else {
             sr = getCache(dclass).lookupRecords(name, type, Credibility.NORMAL);
         }
 
@@ -893,15 +902,17 @@ public class DNSServer {
             response.getHeader().setRcode(Rcode.NXDOMAIN);
             if (zone != null) {
                 addSOA(response, zone);
-                if (iterations == 0)
+                if (iterations == 0) {
                     response.getHeader().setFlag(Flags.AA);
+                }
             }
             rcode = Rcode.NXDOMAIN;
         } else if (sr.isNXRRSET()) {
             if (zone != null) {
                 addSOA(response, zone);
-                if (iterations == 0)
+                if (iterations == 0) {
                     response.getHeader().setFlag(Flags.AA);
+                }
             }
         } else if (sr.isDelegation()) {
             final RRset nsRecords = sr.getNS();
@@ -909,8 +920,9 @@ public class DNSServer {
         } else if (sr.isCNAME()) {
             final CNAMERecord cname = sr.getCNAME();
             addRRset(name, response, new RRset(cname), Section.ANSWER, flags);
-            if (zone != null && iterations == 0)
+            if (zone != null && iterations == 0) {
                 response.getHeader().setFlag(Flags.AA);
+            }
             rcode = addAnswer(response, cname.getTarget(), type, dclass, iterations + 1, flags);
         } else if (sr.isDNAME()) {
             final DNAMERecord dname = sr.getDNAME();
@@ -924,19 +936,23 @@ public class DNSServer {
             }
             rrset = new RRset(new CNAMERecord(name, dclass, 0, newname));
             addRRset(name, response, rrset, Section.ANSWER, flags);
-            if (zone != null && iterations == 0)
+            if (zone != null && iterations == 0) {
                 response.getHeader().setFlag(Flags.AA);
+            }
             rcode = addAnswer(response, newname, type, dclass, iterations + 1, flags);
         } else if (sr.isSuccessful()) {
             final RRset[] rrsets = sr.answers();
-            for (int i = 0; i < rrsets.length; i++)
+            for (int i = 0; i < rrsets.length; i++) {
                 addRRset(name, response, rrsets[i], Section.ANSWER, flags);
+            }
             if (zone != null) {
                 addNS(response, zone, flags);
-                if (iterations == 0)
+                if (iterations == 0) {
                     response.getHeader().setFlag(Flags.AA);
-            } else
+                }
+            } else {
                 addCacheNS(response, getCache(dclass), name);
+            }
         }
         return rcode;
     }
@@ -959,8 +975,9 @@ public class DNSServer {
     byte[] doAXFR(final Name name, final Message query, final TSIG tsig, TSIGRecord qtsig, final Socket s) {
         final Zone zone = m_znames.get(name);
         boolean first = true;
-        if (zone == null)
+        if (zone == null) {
             return errorMessage(query, Rcode.REFUSED);
+        }
         @SuppressWarnings("unchecked")
         final Iterator<RRset> it = zone.AXFR();
         try {
@@ -1018,12 +1035,15 @@ public class DNSServer {
         int maxLength;
         int flags = 0;
 
-        if (header.getFlag(Flags.QR))
+        if (header.getFlag(Flags.QR)) {
             return null;
-        if (header.getRcode() != Rcode.NOERROR)
+        }
+        if (header.getRcode() != Rcode.NOERROR) {
             return errorMessage(query, Rcode.FORMERR);
-        if (header.getOpcode() != Opcode.QUERY)
+        }
+        if (header.getOpcode() != Opcode.QUERY) {
             return errorMessage(query, Rcode.NOTIMP);
+        }
 
         final Record queryRecord = query.getQuestion();
 
@@ -1031,21 +1051,24 @@ public class DNSServer {
         TSIG tsig = null;
         if (queryTSIG != null) {
             tsig = m_TSIGs.get(queryTSIG.getName());
-            if (tsig == null || tsig.verify(query, in, length, null) != Rcode.NOERROR)
+            if (tsig == null || tsig.verify(query, in, length, null) != Rcode.NOERROR) {
                 return formerrMessage(in);
+            }
         }
 
         final OPTRecord queryOPT = query.getOPT();
 
-        if (s != null)
+        if (s != null) {
             maxLength = 65535;
-        else if (queryOPT != null)
+        } else if (queryOPT != null) {
             maxLength = Math.max(queryOPT.getPayloadSize(), 512);
-        else
+        } else {
             maxLength = 512;
+        }
 
-        if (queryOPT != null && (queryOPT.getFlags() & ExtendedFlags.DO) != 0)
+        if (queryOPT != null && (queryOPT.getFlags() & ExtendedFlags.DO) != 0) {
             flags = FLAG_DNSSECOK;
+        }
 
         final Message response = new Message(query.getHeader().getID());
         response.getHeader().setFlag(Flags.QR);
@@ -1057,14 +1080,17 @@ public class DNSServer {
         final Name name = queryRecord.getName();
         final int type = queryRecord.getType();
         final int dclass = queryRecord.getDClass();
-        if ((type == Type.AXFR || type == Type.IXFR) && s != null)
+        if ((type == Type.AXFR || type == Type.IXFR) && s != null) {
             return doAXFR(name, query, tsig, queryTSIG, s);
-        if (!Type.isRR(type) && type != Type.ANY)
+        }
+        if (!Type.isRR(type) && type != Type.ANY) {
             return errorMessage(query, Rcode.NOTIMP);
+        }
 
         final byte rcode = addAnswer(response, name, type, dclass, 0, flags);
-        if (rcode != Rcode.NOERROR && rcode != Rcode.NXDOMAIN)
+        if (rcode != Rcode.NOERROR && rcode != Rcode.NXDOMAIN) {
             return errorMessage(query, rcode);
+        }
 
         addAdditional(response, flags);
 
@@ -1092,10 +1118,12 @@ public class DNSServer {
     byte[] buildErrorMessage(final Header header, final int rcode, final Record question) {
         final Message response = new Message();
         response.setHeader(header);
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < 4; i++) {
             response.removeAllRecords(i);
-        if (rcode == Rcode.SERVFAIL)
+        }
+        if (rcode == Rcode.SERVFAIL) {
             response.addRecord(question, Section.QUESTION);
+        }
         header.setRcode(rcode);
         return response.toWire();
     }
