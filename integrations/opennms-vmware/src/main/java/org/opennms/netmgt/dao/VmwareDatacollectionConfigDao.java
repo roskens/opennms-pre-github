@@ -66,12 +66,12 @@ public interface VmwareDatacollectionConfigDao {
      *            the collection's name
      * @return the repository
      */
-    public RrdRepository getRrdRepository(String collectionName);
+    RrdRepository getRrdRepository(String collectionName);
 
     /**
      * Returns the base Rrd's path.
      *
      * @return the Rrd's path
      */
-    public String getRrdPath();
+    String getRrdPath();
 }

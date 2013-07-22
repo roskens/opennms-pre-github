@@ -46,6 +46,6 @@ public interface LinkMatchResolver {
      *            a {@link java.lang.String} object.
      * @return a {@link java.lang.String} object.
      */
-    public String getAssociatedEndPoint(String endPoint);
+    String getAssociatedEndPoint(String endPoint);
 
 }

@@ -53,7 +53,7 @@ public interface NodeLinkService {
      *            a int.
      * @return a {@link java.lang.String} object.
      */
-    public String getNodeLabel(int nodeId);
+    String getNodeLabel(int nodeId);
 
     /**
      * <p>
@@ -66,7 +66,7 @@ public interface NodeLinkService {
      * @param nodeId
      *            a int.
      */
-    public void createLink(int nodeParentId, int nodeId);
+    void createLink(int nodeParentId, int nodeId);
 
     /**
      * <p>
@@ -77,7 +77,7 @@ public interface NodeLinkService {
      * @param state
      *            a {@link org.opennms.netmgt.model.OnmsLinkState} object.
      */
-    public void saveLinkState(OnmsLinkState state);
+    void saveLinkState(OnmsLinkState state);
 
     /**
      * <p>
@@ -89,7 +89,7 @@ public interface NodeLinkService {
      *            a {@link java.lang.String} object.
      * @return a {@link java.lang.Integer} object.
      */
-    public Integer getNodeId(String endPoint);
+    Integer getNodeId(String endPoint);
 
     /**
      * <p>
@@ -101,7 +101,7 @@ public interface NodeLinkService {
      *            a int.
      * @return a {@link java.util.Collection} object.
      */
-    public Collection<DataLinkInterface> getLinkContainingNodeId(int nodeId);
+    Collection<DataLinkInterface> getLinkContainingNodeId(int nodeId);
 
     /**
      * <p>
@@ -116,7 +116,7 @@ public interface NodeLinkService {
      * @param status
      *            a {@link java.lang.String} object.
      */
-    public void updateLinkStatus(int nodeParentId, int nodeId, String status);
+    void updateLinkStatus(int nodeParentId, int nodeId, String status);
 
     /**
      * <p>
@@ -128,7 +128,7 @@ public interface NodeLinkService {
      *            a {@link org.opennms.netmgt.model.DataLinkInterface} object.
      * @return a {@link org.opennms.netmgt.model.OnmsLinkState} object.
      */
-    public OnmsLinkState getLinkStateForInterface(DataLinkInterface dataLinkInterface);
+    OnmsLinkState getLinkStateForInterface(DataLinkInterface dataLinkInterface);
 
     /**
      * <p>
@@ -140,7 +140,7 @@ public interface NodeLinkService {
      *            a int.
      * @return a {@link java.lang.String} object.
      */
-    public String getPrimaryAddress(int nodeId);
+    String getPrimaryAddress(int nodeId);
 
     /**
      * <p>
@@ -152,7 +152,7 @@ public interface NodeLinkService {
      *            a int.
      * @return a boolean.
      */
-    public boolean nodeHasEndPointService(int nodeId);
+    boolean nodeHasEndPointService(int nodeId);
 
     /**
      * <p>
@@ -164,5 +164,5 @@ public interface NodeLinkService {
      *            a int.
      * @return a {@link java.lang.Boolean} object.
      */
-    public Boolean getEndPointStatus(int nodeId);
+    Boolean getEndPointStatus(int nodeId);
 }

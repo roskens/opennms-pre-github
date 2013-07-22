@@ -53,7 +53,7 @@ public interface EndPoint {
      *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.snmp.SnmpValue} object.
      */
-    public SnmpValue get(String oid);
+    SnmpValue get(String oid);
 
     /**
      * <p>
@@ -63,7 +63,7 @@ public interface EndPoint {
      *
      * @return a {@link java.lang.String} object.
      */
-    public String getSysOid();
+    String getSysOid();
 
     /**
      * <p>
@@ -73,7 +73,7 @@ public interface EndPoint {
      *
      * @return a {@link java.net.InetAddress} object.
      */
-    public InetAddress getAddress();
+    InetAddress getAddress();
 
     /**
      * <p>
@@ -85,5 +85,5 @@ public interface EndPoint {
      * @throws EndPointStatusException
      *             the end point status exception
      */
-    public boolean ping() throws EndPointStatusException;
+    boolean ping() throws EndPointStatusException;
 }

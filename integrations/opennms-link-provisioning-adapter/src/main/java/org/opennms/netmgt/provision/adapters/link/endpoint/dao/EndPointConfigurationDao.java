@@ -50,7 +50,7 @@ public interface EndPointConfigurationDao {
      *         {@link org.opennms.netmgt.provision.adapters.link.endpoint.EndPointTypeValidator}
      *         object.
      */
-    public EndPointTypeValidator getValidator();
+    EndPointTypeValidator getValidator();
 
     /**
      * <p>
@@ -63,7 +63,7 @@ public interface EndPointConfigurationDao {
      *            {@link org.opennms.netmgt.provision.adapters.link.endpoint.EndPointTypeValidator}
      *            object.
      */
-    public void save(EndPointTypeValidator validator);
+    void save(EndPointTypeValidator validator);
 
     /**
      * <p>
@@ -73,6 +73,6 @@ public interface EndPointConfigurationDao {
      *
      * @return a {@link java.lang.String} object.
      */
-    public String getXsd();
+    String getXsd();
 
 }

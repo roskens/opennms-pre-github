@@ -50,5 +50,5 @@ public interface EndPointValidationExpression {
      * @throws EndPointStatusException
      *             the end point status exception
      */
-    public void validate(EndPoint endPoint) throws EndPointStatusException;
+    void validate(EndPoint endPoint) throws EndPointStatusException;
 }
