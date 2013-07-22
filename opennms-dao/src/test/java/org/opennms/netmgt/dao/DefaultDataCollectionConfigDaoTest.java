@@ -277,8 +277,9 @@ public class DefaultDataCollectionConfigDaoTest {
                 if (groups.contains(g.getName())) {
                     for (MibObj mo : g.getMibObjCollection()) {
                         String i = mo.getInstance();
-                        if (!i.matches("\\d+") && !i.equals("ifIndex"))
+                        if (!i.matches("\\d+") && !i.equals("ifIndex")) {
                             resourceTypes.add(mo.getInstance());
+                        }
                     }
                 }
             }
@@ -288,8 +289,9 @@ public class DefaultDataCollectionConfigDaoTest {
             for (Group g : collection.getGroups().getGroupCollection()) {
                 for (MibObj mo : g.getMibObjCollection()) {
                     String i = mo.getInstance();
-                    if (!i.matches("\\d+") && !i.equals("ifIndex"))
+                    if (!i.matches("\\d+") && !i.equals("ifIndex")) {
                         resourceTypes.remove(mo.getInstance());
+                    }
                 }
             }
             for (SystemDef sd : collection.getSystems().getSystemDefCollection()) {

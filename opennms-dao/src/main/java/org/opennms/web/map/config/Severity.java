@@ -75,12 +75,13 @@ public class Severity implements Comparable<Severity> {
     @Override
     public int compareTo(Severity otherSev) {
         Severity othSev = otherSev;
-        if (this.id == othSev.getId())
+        if (this.id == othSev.getId()) {
             return 0;
-        else if (this.id < othSev.getId())
+        } else if (this.id < othSev.getId()) {
             return -1;
-        else
+        } else {
             return 1;
+        }
     }
 
     /**

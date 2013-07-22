@@ -73,8 +73,9 @@ public class DefaultAlarmStatisticsService extends AbstractBaseStatisticsService
         criteria.addRestriction(org.opennms.core.criteria.restrictions.Restrictions.isNotNull("alarmAckUser"));
         criteria.setLimit(1);
         final List<OnmsAlarm> alarms = m_alarmDao.findMatching(criteria);
-        if (alarms.size() == 0)
+        if (alarms.size() == 0) {
             return null;
+        }
         return alarms.get(0);
     }
 
@@ -87,8 +88,9 @@ public class DefaultAlarmStatisticsService extends AbstractBaseStatisticsService
         criteria.addRestriction(org.opennms.core.criteria.restrictions.Restrictions.isNull("alarmAckUser"));
         criteria.setLimit(1);
         final List<OnmsAlarm> alarms = m_alarmDao.findMatching(criteria);
-        if (alarms.size() == 0)
+        if (alarms.size() == 0) {
             return null;
+        }
         return alarms.get(0);
     }
 

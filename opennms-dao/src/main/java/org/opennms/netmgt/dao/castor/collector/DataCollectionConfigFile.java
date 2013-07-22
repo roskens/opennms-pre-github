@@ -260,8 +260,9 @@ public class DataCollectionConfigFile {
      *            the visitor
      */
     private void doVisit(IpList ipList, DataCollectionVisitor visitor) {
-        if (ipList == null)
+        if (ipList == null) {
             return;
+        }
 
         visitor.visitIpList(ipList);
         visitor.completeIpList(ipList);
@@ -276,11 +277,13 @@ public class DataCollectionConfigFile {
      *            the visitor
      */
     private void doVisit(SystemDefChoice systemDefChoice, DataCollectionVisitor visitor) {
-        if (systemDefChoice.getSysoid() != null)
+        if (systemDefChoice.getSysoid() != null) {
             doVisitSysOid(systemDefChoice.getSysoid(), visitor);
+        }
 
-        if (systemDefChoice.getSysoidMask() != null)
+        if (systemDefChoice.getSysoidMask() != null) {
             doVisitSysOidMask(systemDefChoice.getSysoidMask(), visitor);
+        }
 
     }
 

@@ -159,8 +159,9 @@ public class IpInterfaceDaoTest implements InitializingBean {
         crit.add(Restrictions.like("ipAddress", "192.168.1.%"));
         assertEquals(3, m_ipInterfaceDao.countMatching(crit));
 
-        if (Boolean.getBoolean("skipIpv6Tests"))
+        if (Boolean.getBoolean("skipIpv6Tests")) {
             return;
+        }
 
         crit = new OnmsCriteria(OnmsIpInterface.class);
         crit.add(Restrictions.like("ipAddress", "fe80:%dddd\\%5"));
@@ -173,8 +174,9 @@ public class IpInterfaceDaoTest implements InitializingBean {
     @Test
     @Transactional
     public void testGetIPv6Interfaces() {
-        if (Boolean.getBoolean("skipIpv6Tests"))
+        if (Boolean.getBoolean("skipIpv6Tests")) {
             return;
+        }
 
         OnmsCriteria crit = new OnmsCriteria(OnmsIpInterface.class);
         crit.add(Restrictions.like("ipAddress", "fe80:%dddd\\%5"));

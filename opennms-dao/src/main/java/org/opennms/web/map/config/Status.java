@@ -77,12 +77,13 @@ public class Status implements Comparable<Status> {
      */
     @Override
     public int compareTo(Status otherStatus) {
-        if (this.id == otherStatus.getId())
+        if (this.id == otherStatus.getId()) {
             return 0;
-        else if (this.id < otherStatus.getId())
+        } else if (this.id < otherStatus.getId()) {
             return -1;
-        else
+        } else {
             return 1;
+        }
     }
 
     /**

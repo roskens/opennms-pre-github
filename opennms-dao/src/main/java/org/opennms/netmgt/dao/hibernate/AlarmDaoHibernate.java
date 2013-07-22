@@ -79,8 +79,9 @@ public class AlarmDaoHibernate extends AbstractDaoHibernate<OnmsAlarm, Integer> 
                 sql.append("AND node.id in (");
                 for (int i = 0; i < nodeIds.length; i++) {
                     sql.append(nodeIds[i]);
-                    if (i < nodeIds.length - 1)
+                    if (i < nodeIds.length - 1) {
                         sql.append(",");
+                    }
                 }
                 sql.append(") ");
             }

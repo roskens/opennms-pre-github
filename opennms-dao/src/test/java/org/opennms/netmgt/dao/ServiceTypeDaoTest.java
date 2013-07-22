@@ -100,9 +100,9 @@ public class ServiceTypeDaoTest implements InitializingBean {
      */
     private void tweakSvcType(String name) {
         OnmsServiceType svcType = m_serviceTypeDao.findByName(name);
-        if (svcType == null)
+        if (svcType == null) {
             m_serviceTypeDao.save(new OnmsServiceType(name));
-        else {
+        } else {
             svcType.setName(svcType.getName() + '-' + svcType.getId());
             m_serviceTypeDao.update(svcType);
         }

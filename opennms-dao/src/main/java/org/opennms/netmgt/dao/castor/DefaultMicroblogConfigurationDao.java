@@ -111,11 +111,13 @@ public class DefaultMicroblogConfigurationDao extends
     /** {@inheritDoc} */
     @Override
     public MicroblogProfile getProfile(String name) {
-        if (name == null)
+        if (name == null) {
             return null;
+        }
         for (MicroblogProfile profile : getContainer().getObject().getMicroblogProfileCollection()) {
-            if (name.equals(profile.getName()))
+            if (name.equals(profile.getName())) {
                 return profile;
+            }
         }
         return null;
     }

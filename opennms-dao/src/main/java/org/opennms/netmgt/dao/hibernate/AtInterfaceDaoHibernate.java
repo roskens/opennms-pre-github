@@ -223,8 +223,9 @@ public class AtInterfaceDaoHibernate extends AbstractDaoHibernate<OnmsAtInterfac
     public Collection<OnmsAtInterface> getAtInterfaceForAddress(final InetAddress address) {
         final String addressString = str(address);
 
-        if (address.isLoopbackAddress() || addressString.equals("0.0.0.0"))
+        if (address.isLoopbackAddress() || addressString.equals("0.0.0.0")) {
             return null;
+        }
 
         // See if we have an existing version of this OnmsAtInterface first
         final OnmsCriteria criteria = new OnmsCriteria(OnmsAtInterface.class);

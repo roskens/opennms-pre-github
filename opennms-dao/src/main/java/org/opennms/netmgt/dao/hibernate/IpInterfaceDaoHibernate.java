@@ -148,8 +148,9 @@ public class IpInterfaceDaoHibernate extends AbstractDaoHibernate<OnmsIpInterfac
         for (Object[] tuple : s) {
             InetAddress ip = (InetAddress) tuple[0];
             Integer nodeId = (Integer) tuple[1];
-            if (!map.containsKey(ip))
+            if (!map.containsKey(ip)) {
                 map.put(ip, nodeId);
+            }
         }
 
         return map;

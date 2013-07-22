@@ -434,10 +434,12 @@ public abstract class AbstractDaoHibernate<T, K extends Serializable> extends Hi
             @Override
             public S doInHibernate(final Session session) throws HibernateException, SQLException {
                 final Criteria attachedCrit = onmsCrit.getDetachedCriteria().getExecutableCriteria(session);
-                if (onmsCrit.getFirstResult() != null)
+                if (onmsCrit.getFirstResult() != null) {
                     attachedCrit.setFirstResult(onmsCrit.getFirstResult());
-                if (onmsCrit.getMaxResults() != null)
+                }
+                if (onmsCrit.getMaxResults() != null) {
                     attachedCrit.setMaxResults(onmsCrit.getMaxResults());
+                }
                 return (S) attachedCrit.list();
             }
 
@@ -491,10 +493,12 @@ public abstract class AbstractDaoHibernate<T, K extends Serializable> extends Hi
             @Override
             public List<T> doInHibernate(final Session session) throws HibernateException, SQLException {
                 final Criteria attachedCrit = onmsCrit.getDetachedCriteria().getExecutableCriteria(session);
-                if (onmsCrit.getFirstResult() != null)
+                if (onmsCrit.getFirstResult() != null) {
                     attachedCrit.setFirstResult(onmsCrit.getFirstResult());
-                if (onmsCrit.getMaxResults() != null)
+                }
+                if (onmsCrit.getMaxResults() != null) {
                     attachedCrit.setMaxResults(onmsCrit.getMaxResults());
+                }
                 return (List<T>) attachedCrit.list();
             }
         };

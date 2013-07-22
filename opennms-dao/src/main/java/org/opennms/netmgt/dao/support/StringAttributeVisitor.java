@@ -71,8 +71,9 @@ public class StringAttributeVisitor implements CollectionSetVisitor {
      */
     @Override
     public void visitAttribute(CollectionAttribute attribute) {
-        if (attribute.getType().toLowerCase().startsWith("string") && attributeName.equals(attribute.getName()))
+        if (attribute.getType().toLowerCase().startsWith("string") && attributeName.equals(attribute.getName())) {
             attributeValue = attribute.getStringValue();
+        }
     }
 
     /* (non-Javadoc)

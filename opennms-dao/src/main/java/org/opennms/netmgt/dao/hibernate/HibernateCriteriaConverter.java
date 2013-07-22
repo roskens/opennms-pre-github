@@ -182,10 +182,12 @@ public class HibernateCriteriaConverter implements CriteriaConverter<DetachedCri
          */
         public org.hibernate.Criteria getCriteria(final Session session) {
             final org.hibernate.Criteria hibernateCriteria = getCriteria().getExecutableCriteria(session);
-            if (m_limit != null)
+            if (m_limit != null) {
                 hibernateCriteria.setMaxResults(m_limit);
-            if (m_offset != null)
+            }
+            if (m_offset != null) {
                 hibernateCriteria.setFirstResult(m_offset);
+            }
             return hibernateCriteria;
         }
 

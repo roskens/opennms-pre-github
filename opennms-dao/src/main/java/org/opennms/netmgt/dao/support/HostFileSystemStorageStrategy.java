@@ -52,8 +52,9 @@ public class HostFileSystemStorageStrategy extends IndexStorageStrategy {
         /*
          * Use special translation for root (base) filesystem
          */
-        if (value.equals("/"))
+        if (value.equals("/")) {
             return "_root_fs";
+        }
         /*
          * 1. Eliminate first slash character
          * 2. Eliminate tabs and spaces on filesystem names

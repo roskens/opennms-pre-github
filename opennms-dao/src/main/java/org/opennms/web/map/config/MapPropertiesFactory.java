@@ -419,8 +419,9 @@ public class MapPropertiesFactory {
      * @return a {@link org.opennms.web.map.config.Avail} object.
      */
     public Avail getAvail(double avail) {
-        if (avail < 0)
+        if (avail < 0) {
             avail = -1;
+        }
         Avail rightAv = null;
         int bestfound = -1;
         Iterator<Avail> ite = availsMap.values().iterator();
@@ -585,8 +586,9 @@ public class MapPropertiesFactory {
 
         // load context menu flag
         String cntxtmenu = props.getProperty("enable.contextmenu");
-        if (cntxtmenu != null && cntxtmenu.equalsIgnoreCase("false"))
+        if (cntxtmenu != null && cntxtmenu.equalsIgnoreCase("false")) {
             contextMenuEnabled = false;
+        }
         LOG.debug("enable.contextmenu={}", cntxtmenu);
         // load context menu object only if context menu is enabled
 
@@ -609,8 +611,9 @@ public class MapPropertiesFactory {
                             }
                             params = props.getProperty("cmenu." + commands[j] + ".params");
                             LOG.debug("cmenu.{}.params={}", commands[j], params);
-                            if (params == null)
+                            if (params == null) {
                                 params = "";
+                            }
                         }
                         cmenu.addEntry(commands[j], link, params);
                     }
@@ -623,14 +626,16 @@ public class MapPropertiesFactory {
 
         // load double click flag
         String doubleclick = props.getProperty("enable.doubleclick");
-        if (doubleclick != null && doubleclick.equalsIgnoreCase("false"))
+        if (doubleclick != null && doubleclick.equalsIgnoreCase("false")) {
             doubleClickEnabled = false;
+        }
         LOG.debug("enable.doubleclick={}", doubleclick);
 
         // load reload flag
         String reloadStr = props.getProperty("enable.reload");
-        if (reloadStr != null && reloadStr.equalsIgnoreCase("true"))
+        if (reloadStr != null && reloadStr.equalsIgnoreCase("true")) {
             reload = true;
+        }
 
         LOG.debug("enable.reload={}", reloadStr);
 
@@ -647,8 +652,9 @@ public class MapPropertiesFactory {
             String color = props.getProperty("severity." + severities[i] + ".color");
             String flash = props.getProperty("severity." + severities[i] + ".flash");
             Severity sev = new Severity(Integer.parseInt(id), label, color);
-            if (flash != null && flash.equalsIgnoreCase("true"))
+            if (flash != null && flash.equalsIgnoreCase("true")) {
                 sev.setFlash(true);
+            }
             LOG.debug("found severity {} with id={}, label={}, color={}. Adding it.", severities[i], id, label, color);
             severitiesMap.put(label, sev);
         }
@@ -717,12 +723,14 @@ public class MapPropertiesFactory {
             }
 
             int dash_arr = -1;
-            if (dasharray != null)
+            if (dasharray != null) {
                 dash_arr = Integer.parseInt(dasharray);
+            }
 
             int snmp_type = -1;
-            if (snmptype != null)
+            if (snmptype != null) {
                 snmp_type = Integer.parseInt(snmptype);
+            }
 
             if (multilinkwidth == null) {
                 multilinkwidth = width;
@@ -740,8 +748,9 @@ public class MapPropertiesFactory {
                       links[i], id, text, speed, width, dasharray, snmp_type);
             linksMap.put(new Integer(id), lnk);
             Set<Link> linkbysnmptypeSet = linksBySnmpTypeMap.get(new Integer(snmp_type));
-            if (linkbysnmptypeSet == null)
+            if (linkbysnmptypeSet == null) {
                 linkbysnmptypeSet = new HashSet<Link>();
+            }
             linkbysnmptypeSet.add(lnk);
             linksBySnmpTypeMap.put(new Integer(snmp_type), linkbysnmptypeSet);
         }
@@ -756,8 +765,9 @@ public class MapPropertiesFactory {
                 continue;
             }
             boolean flashBool = false;
-            if (flash != null && flash.equalsIgnoreCase("false"))
+            if (flash != null && flash.equalsIgnoreCase("false")) {
                 flashBool = false;
+            }
             LOG.debug("found linkstatus {} with color={}, flash={}. Adding it.", linkStatuses[i], color, flashBool);
             LinkStatus ls = new LinkStatus(linkStatuses[i], color, flashBool);
             linkStatusesMap.put(linkStatuses[i], ls);
@@ -845,8 +855,9 @@ public class MapPropertiesFactory {
             String flash = props.getProperty("avail." + availes[i] + ".flash");
             LOG.debug("found avail {} with id={}, min={}, color={}. Adding it.", availes[i], id, min, color);
             Avail avail = new Avail(Integer.parseInt(id), Integer.parseInt(min), color);
-            if (flash != null && flash.equalsIgnoreCase("true"))
+            if (flash != null && flash.equalsIgnoreCase("true")) {
                 avail.setFlash(true);
+            }
             availsMap.put(min, avail);
         }
 
@@ -867,10 +878,11 @@ public class MapPropertiesFactory {
         undefinedAvail = new Avail(Integer.parseInt(avid), Integer.parseInt(avmin), avcolor);
 
         String enableAvail = props.getProperty("avail.enable");
-        if (enableAvail != null && enableAvail.equalsIgnoreCase("false"))
+        if (enableAvail != null && enableAvail.equalsIgnoreCase("false")) {
             availEnabled = false;
-        else
+        } else {
             availEnabled = true;
+        }
 
         String disableAvailId = props.getProperty("avail.enable.false.id");
         if (disableAvailId == null) {
@@ -927,10 +939,11 @@ public class MapPropertiesFactory {
         LOG.debug("default map element dimension: {}", defaultMapElementDimension);
 
         String useSemaphoreString = props.getProperty("use.semaphore");
-        if (useSemaphoreString != null && useSemaphoreString.equalsIgnoreCase("false"))
+        if (useSemaphoreString != null && useSemaphoreString.equalsIgnoreCase("false")) {
             useSemaphore = false;
-        else
+        } else {
             useSemaphore = true;
+        }
         LOG.debug("use semaphore: {}", useSemaphoreString);
 
         // look up background filenames

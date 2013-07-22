@@ -73,12 +73,13 @@ public class Avail implements Comparable<Avail> {
      */
     @Override
     public int compareTo(final Avail otherAvail) {
-        if (this.min == otherAvail.getMin())
+        if (this.min == otherAvail.getMin()) {
             return 0;
-        else if (this.min < otherAvail.getMin())
+        } else if (this.min < otherAvail.getMin()) {
             return -1;
-        else
+        } else {
             return 1;
+        }
     }
 
     /**
