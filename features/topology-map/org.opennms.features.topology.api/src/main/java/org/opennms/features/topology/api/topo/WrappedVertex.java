@@ -140,8 +140,9 @@ public class WrappedVertex implements VertexRef {
         iconKey = vertex.getIconKey();
         ipAddr = vertex.getIpAddress();
         nodeID = vertex.getNodeID();
-        if (vertex.getParent() != null)
+        if (vertex.getParent() != null) {
             parent = new WrappedVertex(vertex.getParent());
+        }
         styleName = vertex.getStyleName();
         tooltipText = vertex.getTooltipText();
         x = vertex.getX();
@@ -228,13 +229,16 @@ public class WrappedVertex implements VertexRef {
      */
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
+        }
 
-        if (!(obj instanceof VertexRef))
+        if (!(obj instanceof VertexRef)) {
             return false;
+        }
 
         VertexRef ref = (VertexRef) obj;
 

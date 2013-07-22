@@ -131,8 +131,9 @@ public class DialogWindow extends Window implements ClickListener {
      */
     @Override
     public void buttonClick(Button.ClickEvent event) {
-        if (event.getButton() == okayButton)
+        if (event.getButton() == okayButton) {
             parentWindow.removeWindow(DialogWindow.this);
+        }
     }
 
 }

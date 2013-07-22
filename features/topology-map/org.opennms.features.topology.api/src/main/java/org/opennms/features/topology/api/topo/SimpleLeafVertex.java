@@ -47,9 +47,11 @@ public class SimpleLeafVertex extends AbstractVertex {
      */
     public SimpleLeafVertex(String namespace, String id, Integer x, Integer y) {
         super(namespace, id);
-        if (x != null)
+        if (x != null) {
             setX(x);
-        if (y != null)
+        }
+        if (y != null) {
             setY(y);
+        }
     }
 }

@@ -87,17 +87,22 @@ public class Point {
      */
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (getClass() != obj.getClass())
+        }
+        if (getClass() != obj.getClass()) {
             return false;
+        }
         Point other = (Point) obj;
-        if (m_x != other.m_x)
+        if (m_x != other.m_x) {
             return false;
-        if (m_y != other.m_y)
+        }
+        if (m_y != other.m_y) {
             return false;
+        }
         return true;
     }
 

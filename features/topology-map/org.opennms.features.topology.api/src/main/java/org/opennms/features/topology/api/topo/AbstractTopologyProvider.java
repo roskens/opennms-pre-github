@@ -104,8 +104,9 @@ public abstract class AbstractTopologyProvider extends DelegatingVertexEdgeProvi
         public String getNextId() {
             try {
                 initializeIfNeeded();
-                while (!isValid(createId()))
+                while (!isValid(createId())) {
                     counter++;
+                }
                 return createId();
             } finally {
                 counter++;
@@ -135,8 +136,9 @@ public abstract class AbstractTopologyProvider extends DelegatingVertexEdgeProvi
         private int getInitValue() {
             int max = 0;
             for (Ref ref : getContent()) {
-                if (!ref.getId().startsWith(idPrefix))
+                if (!ref.getId().startsWith(idPrefix)) {
                     continue;
+                }
                 max = Math.max(max, extractIntegerFromId(ref.getId()));
             }
             return max;
@@ -296,8 +298,9 @@ public abstract class AbstractTopologyProvider extends DelegatingVertexEdgeProvi
     @Override
     public final void removeVertex(VertexRef... vertexId) {
         for (VertexRef vertex : vertexId) {
-            if (vertex == null)
+            if (vertex == null) {
                 continue;
+            }
 
             getSimpleVertexProvider().remove(vertexId);
 
@@ -393,8 +396,9 @@ public abstract class AbstractTopologyProvider extends DelegatingVertexEdgeProvi
      */
     @Override
     public final EdgeRef[] getEdgeIdsForVertex(VertexRef vertex) {
-        if (vertex == null)
+        if (vertex == null) {
             return new EdgeRef[0];
+        }
         List<EdgeRef> retval = new ArrayList<EdgeRef>();
         for (Edge edge : getEdges()) {
             // If the vertex is connected to the edge then add it

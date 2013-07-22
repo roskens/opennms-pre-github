@@ -234,21 +234,28 @@ public class BoundingBox {
      */
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (getClass() != obj.getClass())
+        }
+        if (getClass() != obj.getClass()) {
             return false;
+        }
         BoundingBox other = (BoundingBox) obj;
-        if (m_bottom != other.m_bottom)
+        if (m_bottom != other.m_bottom) {
             return false;
-        if (m_left != other.m_left)
+        }
+        if (m_left != other.m_left) {
             return false;
-        if (m_right != other.m_right)
+        }
+        if (m_right != other.m_right) {
             return false;
-        if (m_top != other.m_top)
+        }
+        if (m_top != other.m_top) {
             return false;
+        }
         return true;
     }
 
