@@ -704,8 +704,9 @@ public class HypericAckProcessor implements AckProcessor {
             StringBuffer alertIdString = new StringBuffer();
             alertIdString.append("?");
             for (int j = 0; (j < ALERTS_PER_HTTP_TRANSACTION) && (i < alertIds.size()); j++, i++) {
-                if (j > 0)
+                if (j > 0) {
                     alertIdString.append("&");
+                }
                 // Numeric values, no need to worry about URL encoding
                 alertIdString.append("id=").append(alertIds.get(i));
             }
