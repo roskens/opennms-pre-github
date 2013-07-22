@@ -149,8 +149,9 @@ public class JniPinger implements Pinger {
      *             the exception
      */
     private synchronized void initialize() throws Exception {
-        if (s_pingTracker != null)
+        if (s_pingTracker != null) {
             return;
+        }
         try {
             s_pingTracker = Logging.withPrefix("icmp", new Callable<RequestTracker<JniPingRequest, JniPingResponse>>() {
                 @Override
@@ -199,8 +200,9 @@ public class JniPinger implements Pinger {
         } catch (final Throwable t) {
             LOG.trace("Failed to initialize IPv4", t);
         }
-        if (s_pingTracker != null && m_error == null)
+        if (s_pingTracker != null && m_error == null) {
             return true;
+        }
         return false;
     }
 

@@ -165,8 +165,9 @@ public class JniIcmpMessenger implements Messenger<JniPingRequest, JniPingRespon
         // Construct a new packet
         //
         ICMPEchoPacket pkt = new ICMPEchoPacket(packet.getData());
-        if (pkt.getReceivedTime() == 0)
+        if (pkt.getReceivedTime() == 0) {
             pkt.setReceivedTime();
+        }
 
         // Construct and return the new reply
         //

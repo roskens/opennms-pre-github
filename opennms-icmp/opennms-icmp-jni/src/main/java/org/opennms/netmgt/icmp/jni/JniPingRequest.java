@@ -270,10 +270,12 @@ public class JniPingRequest implements Request<JniPingRequestId, JniPingRequest,
     public int compareTo(Delayed request) {
         long myDelay = getDelay(TimeUnit.MILLISECONDS);
         long otherDelay = request.getDelay(TimeUnit.MILLISECONDS);
-        if (myDelay < otherDelay)
+        if (myDelay < otherDelay) {
             return -1;
-        if (myDelay == otherDelay)
+        }
+        if (myDelay == otherDelay) {
             return 0;
+        }
         return 1;
     }
 
