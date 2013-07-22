@@ -79,5 +79,5 @@ public interface FormParameter {
      *
      * @return true if there is any footer, false otherwise.
      */
-    public boolean hasFooter();
+    boolean hasFooter();
 }

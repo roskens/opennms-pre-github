@@ -38,7 +38,7 @@ package org.opennms.features.jmxconfiggenerator.webui.data;
 public interface MetaMBeanItem {
 
     /** The tooltip. */
-    final String TOOLTIP = "caption";
+    String TOOLTIP = "caption";
 
     /** The icon. */
     String ICON = "icon";
