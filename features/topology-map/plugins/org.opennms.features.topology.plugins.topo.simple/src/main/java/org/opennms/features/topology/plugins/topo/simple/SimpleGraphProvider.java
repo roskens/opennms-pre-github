@@ -208,10 +208,12 @@ public class SimpleGraphProvider extends AbstractTopologyProvider implements Gra
             AbstractVertex newVertex;
             if (vertex.group) {
                 newVertex = new SimpleGroup(vertex.namespace, vertex.id);
-                if (vertex.x != null)
+                if (vertex.x != null) {
                     newVertex.setX(vertex.x);
-                if (vertex.y != null)
+                }
+                if (vertex.y != null) {
                     newVertex.setY(vertex.y);
+                }
             } else {
                 newVertex = new SimpleLeafVertex(vertex.namespace, vertex.id, vertex.x, vertex.y);
             }
@@ -219,8 +221,9 @@ public class SimpleGraphProvider extends AbstractTopologyProvider implements Gra
             newVertex.setIpAddress(vertex.ipAddr);
             newVertex.setLabel(vertex.label);
             newVertex.setLocked(vertex.locked);
-            if (vertex.nodeID != null)
+            if (vertex.nodeID != null) {
                 newVertex.setNodeID(vertex.nodeID);
+            }
             newVertex.setParent(vertex.parent);
             newVertex.setSelected(vertex.selected);
             newVertex.setStyleName(vertex.styleName);

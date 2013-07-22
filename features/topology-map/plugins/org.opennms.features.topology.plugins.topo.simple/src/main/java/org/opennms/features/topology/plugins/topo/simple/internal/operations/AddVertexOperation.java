@@ -69,8 +69,9 @@ public class AddVertexOperation implements Operation {
      */
     @Override
     public boolean enabled(List<VertexRef> targets, OperationContext operationContext) {
-        if (targets.size() > 1)
+        if (targets.size() > 1) {
             return false;
+        }
         return true;
     }
 
