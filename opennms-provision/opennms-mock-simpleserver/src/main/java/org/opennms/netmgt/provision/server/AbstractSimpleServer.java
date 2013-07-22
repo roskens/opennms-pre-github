@@ -167,8 +167,9 @@ public abstract class AbstractSimpleServer {
             String line = in.readLine();
             LOG.info("processing request: {}", line);
 
-            if (line == null)
+            if (line == null) {
                 return false;
+            }
 
             return m_requestMatcher.matches(line);
         }
