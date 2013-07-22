@@ -43,7 +43,7 @@ public interface XmlDataCollectionConfigDao {
      *
      * @return the configuration
      */
-    public XmlDataCollectionConfig getConfig();
+    XmlDataCollectionConfig getConfig();
 
     /**
      * Gets the data collection by name.
@@ -52,7 +52,7 @@ public interface XmlDataCollectionConfigDao {
      *            the collection name
      * @return the data collection by name
      */
-    public XmlDataCollection getDataCollectionByName(String name);
+    XmlDataCollection getDataCollectionByName(String name);
 
     /**
      * Gets the data collection by index.
@@ -61,5 +61,5 @@ public interface XmlDataCollectionConfigDao {
      *            the collection index
      * @return the data collection by index
      */
-    public XmlDataCollection getDataCollectionByIndex(int idx);
+    XmlDataCollection getDataCollectionByIndex(int idx);
 }

@@ -55,7 +55,7 @@ public interface XmlCollectionHandler {
      * @throws CollectionException
      *             the collection exception
      */
-    public XmlCollectionSet collect(CollectionAgent agent, XmlDataCollection collection, Map<String, Object> parameters)
+    XmlCollectionSet collect(CollectionAgent agent, XmlDataCollection collection, Map<String, Object> parameters)
             throws CollectionException;
 
     /**
@@ -64,7 +64,7 @@ public interface XmlCollectionHandler {
      * @param repository
      *            the new RRD repository
      */
-    public void setRrdRepository(RrdRepository repository);
+    void setRrdRepository(RrdRepository repository);
 
     /**
      * Sets the service name associated with this Collection Handler.
@@ -72,6 +72,6 @@ public interface XmlCollectionHandler {
      * @param serviceName
      *            the new service name
      */
-    public void setServiceName(String serviceName);
+    void setServiceName(String serviceName);
 
 }
