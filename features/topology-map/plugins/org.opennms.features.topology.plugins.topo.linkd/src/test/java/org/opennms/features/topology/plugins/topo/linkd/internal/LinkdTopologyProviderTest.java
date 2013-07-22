@@ -559,11 +559,13 @@ public class LinkdTopologyProviderTest {
         topologyProvider.load(null); // simulate refresh
 
         // test if topology is loaded correctly results
-        for (int i = 0; i < topologyProvider.getGroups().size(); i++)
+        for (int i = 0; i < topologyProvider.getGroups().size(); i++) {
             Assert.assertTrue(topologyProvider.containsVertexId("g" + i));
+        }
         Assert.assertFalse(topologyProvider.containsVertexId("g" + topologyProvider.getGroups().size()));
-        for (int i = 0; i < topologyProvider.getVerticesWithoutGroups().size(); i++)
+        for (int i = 0; i < topologyProvider.getVerticesWithoutGroups().size(); i++) {
             Assert.assertTrue(topologyProvider.containsVertexId("" + (i + 1)));
+        }
         Assert.assertFalse(topologyProvider.containsVertexId(""
                 + (topologyProvider.getVerticesWithoutGroups().size() + 1)));
 

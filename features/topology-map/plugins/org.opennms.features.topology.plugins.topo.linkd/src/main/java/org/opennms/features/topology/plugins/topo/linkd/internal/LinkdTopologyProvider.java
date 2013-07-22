@@ -627,16 +627,19 @@ public class LinkdTopologyProvider extends AbstractTopologyProvider implements G
                                                              eachVertexInFile.label);
                     newGroupVertex.setIpAddress(eachVertexInFile.ipAddr);
                     newGroupVertex.setLocked(eachVertexInFile.locked);
-                    if (eachVertexInFile.nodeID != null)
+                    if (eachVertexInFile.nodeID != null) {
                         newGroupVertex.setNodeID(eachVertexInFile.nodeID);
+                    }
                     newGroupVertex.setParent(eachVertexInFile.parent);
                     newGroupVertex.setSelected(eachVertexInFile.selected);
                     newGroupVertex.setStyleName(eachVertexInFile.styleName);
                     newGroupVertex.setTooltipText(eachVertexInFile.tooltipText);
-                    if (eachVertexInFile.x != null)
+                    if (eachVertexInFile.x != null) {
                         newGroupVertex.setX(eachVertexInFile.x);
-                    if (eachVertexInFile.y != null)
+                    }
+                    if (eachVertexInFile.y != null) {
                         newGroupVertex.setY(eachVertexInFile.y);
+                    }
                 }
             }
             for (Vertex vertex : getVertices()) {
@@ -652,8 +655,9 @@ public class LinkdTopologyProvider extends AbstractTopologyProvider implements G
                 if (!eachVertexInFile.group && eachVertexInFile.parent != null) {
                     final Vertex child = getVertex(eachVertexInFile);
                     final Vertex parent = getVertex(eachVertexInFile.parent);
-                    if (child == null || parent == null)
+                    if (child == null || parent == null) {
                         continue;
+                    }
                     log("loadtopology: setting parent of " + child + " to " + parent);
                     setParent(child, parent);
                 }
@@ -735,11 +739,13 @@ public class LinkdTopologyProvider extends AbstractTopologyProvider implements G
 
         tooltipText.append(HTML_TOOLTIP_TAG_OPEN);
         tooltipText.append("Name: &lt;endpoint1 " + source.getLabel());
-        if (sourceInterface != null)
+        if (sourceInterface != null) {
             tooltipText.append(":" + sourceInterface.getIfName());
+        }
         tooltipText.append(" ---- endpoint2 " + target.getLabel());
-        if (targetInterface != null)
+        if (targetInterface != null) {
             tooltipText.append(":" + targetInterface.getIfName());
+        }
         tooltipText.append("&gt;");
         tooltipText.append(HTML_TOOLTIP_TAG_END);
 
