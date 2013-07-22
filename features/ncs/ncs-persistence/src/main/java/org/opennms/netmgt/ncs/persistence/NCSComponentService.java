@@ -45,7 +45,7 @@ public interface NCSComponentService {
      * @throws Exception
      *             the exception
      */
-    public void setEventProxy(EventProxy eventProxy) throws Exception;
+    void setEventProxy(EventProxy eventProxy) throws Exception;
 
     /**
      * Gets the component.
@@ -58,7 +58,7 @@ public interface NCSComponentService {
      *            the foreign id
      * @return the component
      */
-    public NCSComponent getComponent(String type, String foreignSource, String foreignId);
+    NCSComponent getComponent(String type, String foreignSource, String foreignId);
 
     /**
      * Find components with attribute.
@@ -69,7 +69,7 @@ public interface NCSComponentService {
      *            the string2
      * @return the component list
      */
-    public ComponentList findComponentsWithAttribute(String string, String string2);
+    ComponentList findComponentsWithAttribute(String string, String string2);
 
     /**
      * Adds the or update components.
@@ -80,7 +80,7 @@ public interface NCSComponentService {
      *            the delete orphans
      * @return the nCS component
      */
-    public NCSComponent addOrUpdateComponents(NCSComponent component, boolean deleteOrphans);
+    NCSComponent addOrUpdateComponents(NCSComponent component, boolean deleteOrphans);
 
     /**
      * Adds the subcomponent.
@@ -97,7 +97,7 @@ public interface NCSComponentService {
      *            the delete orphans
      * @return the nCS component
      */
-    public NCSComponent addSubcomponent(String type, String foreignSource, String foreignId, NCSComponent subComponent,
+    NCSComponent addSubcomponent(String type, String foreignSource, String foreignId, NCSComponent subComponent,
             boolean deleteOrphans);
 
     /**
@@ -112,5 +112,5 @@ public interface NCSComponentService {
      * @param deleteOrphans
      *            the delete orphans
      */
-    public void deleteComponent(String type, String foreignSource, String foreignId, boolean deleteOrphans);
+    void deleteComponent(String type, String foreignSource, String foreignId, boolean deleteOrphans);
 }

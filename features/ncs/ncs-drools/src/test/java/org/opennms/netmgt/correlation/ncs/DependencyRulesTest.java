@@ -77,7 +77,7 @@ public class DependencyRulesTest extends CorrelationRulesTestCase {
          *            the t
          * @return true, if successful
          */
-        public boolean accept(T t);
+        boolean accept(T t);
     }
 
     /**
@@ -97,7 +97,7 @@ public class DependencyRulesTest extends CorrelationRulesTestCase {
          *            the a
          * @return the b
          */
-        public B transform(A a);
+        B transform(A a);
     }
 
     /** The m_repository. */

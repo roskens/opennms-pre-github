@@ -39,7 +39,7 @@ public interface NCSComponentVisitor {
      * @param component
      *            the component
      */
-    public void visitComponent(NCSComponent component);
+    void visitComponent(NCSComponent component);
 
     /**
      * Complete component.
@@ -47,6 +47,6 @@ public interface NCSComponentVisitor {
      * @param component
      *            the component
      */
-    public void completeComponent(NCSComponent component);
+    void completeComponent(NCSComponent component);
 
 }
