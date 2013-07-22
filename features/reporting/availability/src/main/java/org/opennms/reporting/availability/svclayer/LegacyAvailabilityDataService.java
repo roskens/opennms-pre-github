@@ -373,8 +373,8 @@ public class LegacyAvailabilityDataService implements AvailabilityDataService {
                 }
                 m_nodes.add(newNode);
                 return;
-            } else // look for the node with the nodeName
-            {
+            } else {
+                // look for the node with the nodeName
                 Node newNode = null;
                 boolean foundFlag = false;
                 ListIterator<Node> lstIter = m_nodes.listIterator();

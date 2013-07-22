@@ -309,8 +309,7 @@ public abstract class OnmsDaoContainer<T, K extends Serializable> implements Con
          *            the bean
          */
         public void addItem(int rowNumber, K itemId, T bean) {
-            if (containsItemId(itemId))
-             {
+            if (containsItemId(itemId)) {
                 return; // already added
             }
             cacheContent.put(itemId, new BeanItem<T>(bean));
@@ -486,8 +485,7 @@ public abstract class OnmsDaoContainer<T, K extends Serializable> implements Con
 
         // not in cache, get the right page
         final int index = indexOfId(itemId);
-        if (index == -1)
-         {
+        if (index == -1) {
             return null; // not in container
         }
 
@@ -827,8 +825,7 @@ public abstract class OnmsDaoContainer<T, K extends Serializable> implements Con
      */
     @Override
     public int indexOfId(Object itemId) {
-        if (cache.containsItemId(((K) itemId)))
-         {
+        if (cache.containsItemId(((K) itemId))) {
             return cache.getIndex((K) itemId); // cache hit *yay*
         }
 

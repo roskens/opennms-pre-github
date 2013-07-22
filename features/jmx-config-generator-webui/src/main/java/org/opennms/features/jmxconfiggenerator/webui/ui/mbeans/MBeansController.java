@@ -298,8 +298,7 @@ public class MBeansController implements ModelChangeNotifier, ViewStateChangedLi
      *            the event
      */
     protected void updateView(ItemClickEvent event) {
-        if (currentlySelected == event.getItemId())
-         {
+        if (currentlySelected == event.getItemId()) {
             return; // no change made
         }
         currentlySelected = event.getItemId() instanceof Mbean ? (Mbean) event.getItemId() : null;
@@ -338,8 +337,7 @@ public class MBeansController implements ModelChangeNotifier, ViewStateChangedLi
      */
     private void setState(Object itemId) {
         ViewState nextState = getNextState(itemId);
-        if (nextState == currentState)
-         {
+        if (nextState == currentState) {
             return; // nothing to do
         }
         fireViewStateChanged(new ViewStateChangedEvent(currentState, nextState, this)); // tell

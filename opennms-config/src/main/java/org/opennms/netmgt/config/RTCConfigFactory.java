@@ -92,10 +92,8 @@ public final class RTCConfigFactory {
             hrStr = rolling.substring(0, hIndex);
         }
 
-        if (mIndex != -1) // min component present
-        {
-            if (hIndex != -1) // hours also present
-            {
+        if (mIndex != -1) {// min component present
+            if (hIndex != -1) {// hours also present
                 // make sure format is right
                 if (hIndex >= mIndex) {
                     throw new IllegalArgumentException("RTC: Value " + rolling + " - format incorrect");
@@ -107,8 +105,7 @@ public final class RTCConfigFactory {
             }
         }
 
-        if (sIndex != -1) // seconds component present
-        {
+        if (sIndex != -1) { // seconds component present
             if (mIndex != -1) {
                 if (mIndex >= sIndex) {
                     throw new IllegalArgumentException("RTC: Value " + rolling + " - format incorrect");

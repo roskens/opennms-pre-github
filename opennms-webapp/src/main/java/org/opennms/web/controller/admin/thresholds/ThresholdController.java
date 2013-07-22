@@ -188,10 +188,9 @@ public class ThresholdController extends AbstractController implements Initializ
         Collection<OnmsResourceType> resourceTypes = m_resourceDao.getResourceTypes();
         Multimap<String, String> genericDsTypes = TreeMultimap.create();
         for (OnmsResourceType resourceType : resourceTypes) {
-            if (resourceType instanceof GenericIndexResourceType)
+            if (resourceType instanceof GenericIndexResourceType) {
             // Put these in by label to sort them, we'll get them out in a
             // moment
-            {
                 genericDsTypes.put(resourceType.getLabel(), resourceType.getName());
             }
         }

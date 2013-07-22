@@ -159,9 +159,8 @@ public class Outage extends Object {
                     downTime = curTime - m_svcLostTime;
                 }
             } else {
-                if (m_svcRegainedTime < startTime) // Doesnt lie within rolling
-                                                   // window.
-                {
+                if (m_svcRegainedTime < startTime) {
+                    // Doesnt lie within rolling window.
                     return 0;
                     // downTime = m_svcRegainedTime - startTime;
                 } else {

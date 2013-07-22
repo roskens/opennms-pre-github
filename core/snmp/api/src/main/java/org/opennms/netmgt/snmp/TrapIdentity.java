@@ -130,8 +130,8 @@ public class TrapIdentity {
                 setEnterpriseId(TrapIdentity.SNMP_TRAPS + "." + snmpTrapOidValue.charAt(snmpTrapOidValue.length() - 1));
             }
 
-        } else // not standard trap
-        {
+        } else {
+            // not standard trap
             // set generic to 6
             setGeneric(6);
 

@@ -175,8 +175,8 @@ public class V2TrapInformation extends TrapInformation {
                     + m_pdu.getCommand());
         }
         LOG.debug("V2 trap numVars or pdu length: {}", getPduLength());
-        if (getPduLength() < 2) // check number of varbinds
-        {
+        if (getPduLength() < 2) {
+            // check number of varbinds
             throw new IllegalArgumentException("V2 trap from " + getTrapAddress()
                     + " IGNORED due to not having the required varbinds.  Have " + getPduLength() + ", needed 2");
         }

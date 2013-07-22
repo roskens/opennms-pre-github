@@ -236,8 +236,7 @@ public class MbeansHierarchicalContainer extends HierarchicalContainer {
      */
     private TreeNode addChild(TreeNode root, Object childData) {
         TreeNode node = findNodeForData(root, childData);
-        if (node != null)
-         {
+        if (node != null) {
             return node; // childData already there
         }
         // childData does not exist, so create it

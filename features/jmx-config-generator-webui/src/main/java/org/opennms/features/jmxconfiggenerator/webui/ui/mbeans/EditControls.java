@@ -462,8 +462,7 @@ class EditControls<T extends Component> extends HorizontalLayout implements Read
      *            the event
      */
     private void executeHooks(final Button.ClickEvent event) {
-        if (hooks.get(event.getButton()) == null)
-         {
+        if (hooks.get(event.getButton()) == null) {
             return; // nothing to do
         }
                     // //nothing to do

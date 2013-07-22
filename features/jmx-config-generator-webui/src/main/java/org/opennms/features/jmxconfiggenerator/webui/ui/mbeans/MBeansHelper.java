@@ -107,8 +107,7 @@ public class MBeansHelper {
             addIfNotNull(names, keyProperty, "type");
             addIfNotNull(names, keyProperty, "j2eeType");
             names.addAll(keyProperty.entrySet());
-            if (removeLastElement)
-             {
+            if (removeLastElement) {
                 names.remove(names.size() - 1); // remove
                                                 // last
                                                 // element

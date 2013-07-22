@@ -73,8 +73,7 @@ public class UniqueAttributeNameValidator extends AbstractValidator<String> {
      */
     @Override
     protected boolean isValidValue(String value) {
-        if (value == null || !(value instanceof String))
-         {
+        if (value == null || !(value instanceof String)) {
             return false; // validation not possible
         }
         String alias = (String) value;

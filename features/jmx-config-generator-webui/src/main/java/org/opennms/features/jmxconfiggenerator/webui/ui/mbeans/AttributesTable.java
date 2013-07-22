@@ -233,8 +233,7 @@ public class AttributesTable extends Table {
     @Override
     public void commit() throws SourceException, InvalidValueException {
         super.commit();
-        if (isReadOnly())
-         {
+        if (isReadOnly()) {
             return; // we do not commit on read only
         }
         for (Field f : fields) {

@@ -165,9 +165,7 @@ public class VMTaskFiber implements Fiber, Runnable {
      * @see java.net.URLClassLoader
      */
     public VMTaskFiber(String taskName, String entryClassName, String[] entryArguments, URL[] searchPaths)
-            throws ClassNotFoundException, NoSuchMethodException
-
-    {
+            throws ClassNotFoundException, NoSuchMethodException {
         m_taskName = taskName;
         m_mainArgs = entryArguments;
 

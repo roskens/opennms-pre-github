@@ -165,8 +165,7 @@ public class SnmpConfigServlet extends HttpServlet {
             if (sendEvent) {
                 success |= sendEvent(eventInfo.createEvent("web ui"));
             }
-            if (success)
-             {
+            if (success) {
                 request.setAttribute("success", "success"); // the value doesn't
             }
                                                             // matter, but it

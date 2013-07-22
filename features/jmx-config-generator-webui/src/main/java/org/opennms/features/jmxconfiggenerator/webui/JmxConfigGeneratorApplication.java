@@ -226,8 +226,7 @@ public class JmxConfigGeneratorApplication extends UI implements ModelChangeList
     private Component getView(UiState uiState) {
         if (viewCache.get(uiState) == null) {
             Component component = createView(uiState, JmxConfigGeneratorApplication.this);
-            if (component == null)
-             {
+            if (component == null) {
                 return null; // no "real" view
             }
             viewCache.put(uiState, component);

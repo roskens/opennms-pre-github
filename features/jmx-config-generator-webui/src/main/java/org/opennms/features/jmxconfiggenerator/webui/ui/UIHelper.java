@@ -292,8 +292,7 @@ public class UIHelper {
      *            No further information is forwarded.
      */
     public static void closeSilently(Closeable closeable) {
-        if (closeable == null)
-         {
+        if (closeable == null) {
             return; // prevent NPE
         }
         try {

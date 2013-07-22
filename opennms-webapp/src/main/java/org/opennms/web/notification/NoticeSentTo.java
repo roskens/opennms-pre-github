@@ -98,8 +98,8 @@ public class NoticeSentTo {
      * @param time
      *            a long.
      */
-    public void setTime(long time) // no see!
-    {
+    public void setTime(long time) {
+        // no see!
         m_time = time;
     }
 

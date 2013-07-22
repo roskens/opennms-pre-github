@@ -129,8 +129,7 @@ public class ConfigResultView extends CustomComponent implements ModelChangeList
      */
     @Override
     public void buttonClick(ClickEvent event) {
-        if (event.getSource().equals(buttonPanel.getPrevious()))
-         {
+        if (event.getSource().equals(buttonPanel.getPrevious())) {
             app.updateView(UiState.MbeansView);
         // if (event.getSource().equals(buttonPanel.getNext()))
         // downloadConfigFile(event);

@@ -530,12 +530,11 @@ public class DefaultDataCollectionConfigDao extends AbstractJaxbConfigDao<Dataco
                         final int nextComma = groupIfType.indexOf(',');
 
                         String parsedType = null;
-                        if (nextComma == -1) // No comma, this is last type
-                        // value
-                        {
+                        if (nextComma == -1) {
+                            // No comma, this is last type
                             parsedType = groupIfType;
-                        } else // Found comma
-                        {
+                        } else {
+                            // Found comma
                             parsedType = groupIfType.substring(0, nextComma);
                         }
                         if (ifTypeStr.equals(parsedType)) {

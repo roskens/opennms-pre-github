@@ -58,8 +58,8 @@ public final class Message implements Serializable {
     /**
      * Instantiates a new message.
      */
-    Message() // server and serialization only
-    {
+    Message() {
+        // server and serialization only
         m_dhcpmsg = null;
         m_target = null;
     }

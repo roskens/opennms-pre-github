@@ -242,13 +242,12 @@ public class PollerConfigServlet extends HttpServlet {
                     if (keyTokens.hasMoreTokens()) {
                         String checked = (String) keyTokens.nextToken();
                         if (name != null) {
-                            if (name.indexOf("delete") == -1) // Not to be
-                                                              // deleted
-                            {
+                            if (name.indexOf("delete") == -1) {
+                                // Not to be deleted
                                 modifyPollerInfo(checked, name);
                                 checkedList.add(name);
-                            } else // Deleted
-                            {
+                            } else {
+                                // Deleted
                                 String deleteService = name.substring(0, name.indexOf("delete"));
                                 deleteList.add(deleteService);
                             }
