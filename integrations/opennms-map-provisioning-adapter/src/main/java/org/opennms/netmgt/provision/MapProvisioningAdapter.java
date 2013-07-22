@@ -546,8 +546,9 @@ public class MapProvisioningAdapter extends SimpleQueuedProvisioningAdapter impl
                     }
 
                     // skip operation if there are only deletes
-                    if (adds.isEmpty() && updates.isEmpty())
+                    if (adds.isEmpty() && updates.isEmpty()) {
                         return;
+                    }
 
                     Map<String, OnmsMap> mapNames = new ConcurrentHashMap<String, OnmsMap>(
                                                                                            m_mapNameMapSizeListMap.size());
@@ -643,8 +644,9 @@ public class MapProvisioningAdapter extends SimpleQueuedProvisioningAdapter impl
                                 tempElem.add(elem);
                             }
                             elements = tempElem;
-                            if (elementExist)
+                            if (elementExist) {
                                 continue;
+                            }
                             if (onmsMap.getType().equals(OnmsMap.AUTOMATICALLY_GENERATED_MAP)) {
                                 LOG.debug("reSyncMap: adding node: {} to map: {}", mapName, node.getLabel());
                                 int elementsize = m_mapNameMapSizeListMap.get(mapName);
@@ -670,8 +672,9 @@ public class MapProvisioningAdapter extends SimpleQueuedProvisioningAdapter impl
                         }
                         // delete elements from automated map
                         for (OnmsMapElement element : elements) {
-                            if (element.getMap().getType().equals(OnmsMap.AUTOMATICALLY_GENERATED_MAP))
+                            if (element.getMap().getType().equals(OnmsMap.AUTOMATICALLY_GENERATED_MAP)) {
                                 m_onmsMapElementDao.delete(element);
+                            }
                         }
                     } // end updates loop
 
@@ -731,13 +734,15 @@ public class MapProvisioningAdapter extends SimpleQueuedProvisioningAdapter impl
 
                             if ((!csubmap.getAddwithoutelements()) && mapNameSizeMap.get(csubmap.getName()) == 0) {
                                 if (foundelement != null
-                                        && (auto || foundelement.getType().equals(OnmsMapElement.MAP_HIDE_TYPE)))
+                                        && (auto || foundelement.getType().equals(OnmsMapElement.MAP_HIDE_TYPE))) {
                                     m_onmsMapElementDao.delete(foundelement);
+                                }
                                 continue;
                             }
 
-                            if (foundelement != null)
+                            if (foundelement != null) {
                                 continue;
+                            }
 
                             LOG.debug("ReSyncMaps: add submap: {} to map: {}", mapName, csubmap.getName());
                             if (auto) {
@@ -968,8 +973,9 @@ public class MapProvisioningAdapter extends SimpleQueuedProvisioningAdapter impl
                                                                                     xy.getY()));
                                     } else {
                                         for (final OnmsMapElement element : elements) {
-                                            if (element.getElementId() == onmsSubMap.getId())
+                                            if (element.getElementId() == onmsSubMap.getId()) {
                                                 continue SUBMAP;
+                                            }
                                         }
                                         m_onmsMapElementDao.save(new OnmsMapElement(onmsMap, onmsSubMap.getId(),
                                                                                     OnmsMapElement.MAP_HIDE_TYPE,
@@ -1053,8 +1059,9 @@ public class MapProvisioningAdapter extends SimpleQueuedProvisioningAdapter impl
      * @return the label
      */
     private String getLabel(final String FQDN) {
-        if (FQDN.indexOf(".") > 0 && !validate(FQDN))
+        if (FQDN.indexOf(".") > 0 && !validate(FQDN)) {
             return FQDN.substring(0, FQDN.indexOf("."));
+        }
         return FQDN;
     }
 

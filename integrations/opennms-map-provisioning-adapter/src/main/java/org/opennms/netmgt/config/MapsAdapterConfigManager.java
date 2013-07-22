@@ -253,8 +253,9 @@ public abstract class MapsAdapterConfigManager implements MapsAdapterConfig {
     private void verifyMapConsistency() throws ValidationException {
         for (final String mapName : m_submapNameMapNameMap.keySet()) {
             // verify cmap exists!
-            if (!cmapExist(mapName))
+            if (!cmapExist(mapName)) {
                 throw new ValidationException("Defined a submap without defining the map: mapName " + mapName);
+            }
 
         }
     }
@@ -304,8 +305,9 @@ public abstract class MapsAdapterConfigManager implements MapsAdapterConfig {
     private boolean cmapExist(final String mapName) {
         if (hasCmaps()) {
             for (Cmap cmap : m_config.getCmaps().getCmapCollection()) {
-                if (cmap.getMapName().equals(mapName))
+                if (cmap.getMapName().equals(mapName)) {
                     return true;
+                }
             }
         }
         return false;
@@ -412,8 +414,9 @@ public abstract class MapsAdapterConfigManager implements MapsAdapterConfig {
         LOG.debug("interfaceInPackage: Interface {} passed filter for package {}?: {}", iface, pkg.getName(),
                   String.valueOf(filterPassed));
 
-        if (!filterPassed)
+        if (!filterPassed) {
             return false;
+        }
 
         //
         // Ensure that the interface is in the specific list or
@@ -622,8 +625,9 @@ public abstract class MapsAdapterConfigManager implements MapsAdapterConfig {
                                 break;
                             }
                         }
-                        if (found)
+                        if (found) {
                             break;
+                        }
                     }
                 }
             }
@@ -640,8 +644,9 @@ public abstract class MapsAdapterConfigManager implements MapsAdapterConfig {
         try {
             if (hasCmaps()) {
                 for (final Cmap cmap : getConfiguration().getCmaps().getCmapCollection()) {
-                    if (cmap.getMapName().equals(mapName))
+                    if (cmap.getMapName().equals(mapName)) {
                         return cmap.getCsubmapCollection();
+                    }
                 }
             }
             return Collections.emptyList();
