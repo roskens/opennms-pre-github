@@ -56,7 +56,7 @@ public interface AvailabilityDataService {
      * @throws AvailabilityDataServiceException
      *             the availability data service exception
      */
-    public List<Node> getNodes(org.opennms.netmgt.config.categories.Category category, long startTime, long endTime)
+    List<Node> getNodes(org.opennms.netmgt.config.categories.Category category, long startTime, long endTime)
             throws AvailabilityDataServiceException;
 
 }

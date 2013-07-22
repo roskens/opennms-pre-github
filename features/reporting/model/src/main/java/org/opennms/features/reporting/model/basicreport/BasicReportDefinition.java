@@ -38,42 +38,42 @@ public interface BasicReportDefinition {
      *
      * @return the description
      */
-    public abstract String getDescription();
+    String getDescription();
 
     /**
      * Gets the display name.
      *
      * @return the display name
      */
-    public abstract String getDisplayName();
+    String getDisplayName();
 
     /**
      * Gets the id.
      *
      * @return the id
      */
-    public abstract String getId();
+    String getId();
 
     /**
      * Gets the repository id.
      *
      * @return the repository id
      */
-    public abstract String getRepositoryId();
+    String getRepositoryId();
 
     /**
      * Gets the online.
      *
      * @return the online
      */
-    public abstract boolean getOnline();
+    boolean getOnline();
 
     /**
      * Gets the report service.
      *
      * @return the report service
      */
-    public abstract String getReportService();
+    String getReportService();
 
     /**
      * Sets the id.
@@ -81,7 +81,7 @@ public interface BasicReportDefinition {
      * @param id
      *            the new id
      */
-    public abstract void setId(String id);
+    void setId(String id);
 
     /**
      * Sets the display name.
@@ -89,7 +89,7 @@ public interface BasicReportDefinition {
      * @param displayName
      *            the new display name
      */
-    public abstract void setDisplayName(String displayName);
+    void setDisplayName(String displayName);
 
     /**
      * Sets the report service.
@@ -97,7 +97,7 @@ public interface BasicReportDefinition {
      * @param reportService
      *            the new report service
      */
-    public abstract void setReportService(String reportService);
+    void setReportService(String reportService);
 
     /**
      * Sets the description.
@@ -105,7 +105,7 @@ public interface BasicReportDefinition {
      * @param description
      *            the new description
      */
-    public abstract void setDescription(String description);
+    void setDescription(String description);
 
     /**
      * Sets the online.
@@ -113,14 +113,14 @@ public interface BasicReportDefinition {
      * @param online
      *            the new online
      */
-    public abstract void setOnline(boolean online);
+    void setOnline(boolean online);
 
     /**
      * Gets the allow access.
      *
      * @return the allow access
      */
-    public abstract boolean getAllowAccess();
+    boolean getAllowAccess();
 
     /**
      * Sets the allow access.
@@ -128,5 +128,5 @@ public interface BasicReportDefinition {
      * @param allowAccess
      *            the new allow access
      */
-    public abstract void setAllowAccess(boolean allowAccess);
+    void setAllowAccess(boolean allowAccess);
 }

@@ -54,7 +54,7 @@ public interface ReportService {
      * @return true if the reportParms supplied match those in the report
      *         definition.
      */
-    public abstract boolean validate(HashMap<String, Object> reportParms, String reportId);
+    boolean validate(HashMap<String, Object> reportParms, String reportId);
 
     /**
      * This method runs the report.
@@ -67,7 +67,7 @@ public interface ReportService {
      * @throws ReportException
      *             the report exception
      */
-    public abstract String run(HashMap<String, Object> reportParms, String reportId) throws ReportException;
+    String run(HashMap<String, Object> reportParms, String reportId) throws ReportException;
 
     /**
      * This method provides a list of formats supported by the report.
@@ -76,7 +76,7 @@ public interface ReportService {
      *            reportId as defined in database-reports.xml
      * @return a list of supported formats
      */
-    public abstract List<ReportFormat> getFormats(String reportId);
+    List<ReportFormat> getFormats(String reportId);
 
     /**
      * This method renders the report into a given output stream.
@@ -92,7 +92,7 @@ public interface ReportService {
      * @throws ReportException
      *             the report exception
      */
-    public abstract void render(String ReportId, String location, ReportFormat format, OutputStream outputStream)
+    void render(String ReportId, String location, ReportFormat format, OutputStream outputStream)
             throws ReportException;
 
     /**
@@ -110,7 +110,7 @@ public interface ReportService {
      * @throws ReportException
      *             the report exception
      */
-    public abstract void runAndRender(HashMap<String, Object> reportParms, String ReportId, ReportFormat format,
+    void runAndRender(HashMap<String, Object> reportParms, String ReportId, ReportFormat format,
             OutputStream outputStream) throws ReportException;
 
     /**
@@ -123,6 +123,6 @@ public interface ReportService {
      * @throws ReportException
      *             the report exception
      */
-    public abstract ReportParameters getParameters(String ReportId) throws ReportException;
+    ReportParameters getParameters(String ReportId) throws ReportException;
 
 }

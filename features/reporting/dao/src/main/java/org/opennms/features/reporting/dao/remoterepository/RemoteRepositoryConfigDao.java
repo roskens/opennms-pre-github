@@ -59,7 +59,7 @@ public interface RemoteRepositoryConfigDao {
      *            a {@link java.lang.String} object
      * @return a {@link java.lang.Boolean} object
      */
-    public Boolean isRepositoryActive(String repositoryID);
+    Boolean isRepositoryActive(String repositoryID);
 
     /**
      * <p>
@@ -72,7 +72,7 @@ public interface RemoteRepositoryConfigDao {
      *            a {@link java.lang.String} object
      * @return a {@link java.net.URI} object
      */
-    public URI getURI(String repositoryID);
+    URI getURI(String repositoryID);
 
     /**
      * <p>
@@ -85,7 +85,7 @@ public interface RemoteRepositoryConfigDao {
      *            a {@link java.lang.String} object
      * @return a {@link java.lang.String} object
      */
-    public String getLoginUser(String repositoryID);
+    String getLoginUser(String repositoryID);
 
     /**
      * <p>
@@ -98,7 +98,7 @@ public interface RemoteRepositoryConfigDao {
      *            a {@link java.lang.String} object
      * @return a {@link java.lang.String} object
      */
-    public String getLoginRepoPassword(String repositoryID);
+    String getLoginRepoPassword(String repositoryID);
 
     /**
      * <p>
@@ -111,7 +111,7 @@ public interface RemoteRepositoryConfigDao {
      *            a {@link java.lang.String} object
      * @return a {@link java.lang.String} object
      */
-    public String getRepositoryName(String repositoryID);
+    String getRepositoryName(String repositoryID);
 
     /**
      * <p>
@@ -124,7 +124,7 @@ public interface RemoteRepositoryConfigDao {
      *            a {@link java.lang.String} object
      * @return a {@link java.lang.String} object
      */
-    public String getRepositoryDescription(String repositoryID);
+    String getRepositoryDescription(String repositoryID);
 
     /**
      * <p>
@@ -137,7 +137,7 @@ public interface RemoteRepositoryConfigDao {
      *            a {@link java.lang.String} object
      * @return a {@link java.lang.String} object
      */
-    public String getRepositoryManagementURL(String repositoryID);
+    String getRepositoryManagementURL(String repositoryID);
 
     /**
      * <p>
@@ -148,7 +148,7 @@ public interface RemoteRepositoryConfigDao {
      *
      * @return a {@link java.util.List<RemoteRepositoryDefinition>} object
      */
-    public List<RemoteRepositoryDefinition> getAllRepositories();
+    List<RemoteRepositoryDefinition> getAllRepositories();
 
     /**
      * <p>
@@ -159,15 +159,14 @@ public interface RemoteRepositoryConfigDao {
      *
      * @return a {@link java.util.List<RemoteRepositoryDefinition>} object
      */
-    public List<RemoteRepositoryDefinition> getActiveRepositories();
+    List<RemoteRepositoryDefinition> getActiveRepositories();
 
     /**
      * Gets the jasper reports version.
      *
      * @return a {@link java.lang.String} object
      */
-    @Deprecated
-    public String getJasperReportsVersion();
+    @Deprecated String getJasperReportsVersion();
 
     /**
      * <p>
@@ -182,7 +181,7 @@ public interface RemoteRepositoryConfigDao {
      *         {@link org.opennms.features.reporting.model.remoterepository.RemoteRepositoryDefinition}
      *         object
      */
-    public RemoteRepositoryDefinition getRepositoryById(String repositoryId);
+    RemoteRepositoryDefinition getRepositoryById(String repositoryId);
 
     /**
      * <p>

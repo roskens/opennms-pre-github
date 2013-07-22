@@ -44,14 +44,14 @@ public interface GlobalReportRepository {
      *
      * @return the all reports
      */
-    public List<BasicReportDefinition> getAllReports();
+    List<BasicReportDefinition> getAllReports();
 
     /**
      * Gets the all online reports.
      *
      * @return the all online reports
      */
-    public List<BasicReportDefinition> getAllOnlineReports();
+    List<BasicReportDefinition> getAllOnlineReports();
 
     /**
      * Gets the reports.
@@ -60,7 +60,7 @@ public interface GlobalReportRepository {
      *            the repo id
      * @return the reports
      */
-    public List<BasicReportDefinition> getReports(String repoId);
+    List<BasicReportDefinition> getReports(String repoId);
 
     /**
      * Gets the online reports.
@@ -69,7 +69,7 @@ public interface GlobalReportRepository {
      *            the repo id
      * @return the online reports
      */
-    public List<BasicReportDefinition> getOnlineReports(String repoId);
+    List<BasicReportDefinition> getOnlineReports(String repoId);
 
     /**
      * Gets the report service.
@@ -78,7 +78,7 @@ public interface GlobalReportRepository {
      *            the report id
      * @return the report service
      */
-    public String getReportService(String reportId);
+    String getReportService(String reportId);
 
     /**
      * Gets the display name.
@@ -87,7 +87,7 @@ public interface GlobalReportRepository {
      *            the report id
      * @return the display name
      */
-    public String getDisplayName(String reportId);
+    String getDisplayName(String reportId);
 
     /**
      * Gets the engine.
@@ -96,7 +96,7 @@ public interface GlobalReportRepository {
      *            the report id
      * @return the engine
      */
-    public String getEngine(String reportId);
+    String getEngine(String reportId);
 
     /**
      * Gets the template stream.
@@ -105,14 +105,14 @@ public interface GlobalReportRepository {
      *            the report id
      * @return the template stream
      */
-    public InputStream getTemplateStream(String reportId);
+    InputStream getTemplateStream(String reportId);
 
     /**
      * Gets the repository list.
      *
      * @return the repository list
      */
-    public List<ReportRepository> getRepositoryList();
+    List<ReportRepository> getRepositoryList();
 
     /**
      * Adds the report repository.
@@ -120,7 +120,7 @@ public interface GlobalReportRepository {
      * @param repository
      *            the repository
      */
-    public void addReportRepository(ReportRepository repository);
+    void addReportRepository(ReportRepository repository);
 
     /**
      * Gets the repository by id.
@@ -129,10 +129,10 @@ public interface GlobalReportRepository {
      *            the repo id
      * @return the repository by id
      */
-    public ReportRepository getRepositoryById(String repoId);
+    ReportRepository getRepositoryById(String repoId);
 
     /**
      * Reload configuration files.
      */
-    public void reloadConfigurationFiles();
+    void reloadConfigurationFiles();
 }

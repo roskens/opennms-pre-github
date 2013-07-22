@@ -40,24 +40,21 @@ public interface JasperReportDefinition {
      *
      * @return the id
      */
-    @XmlAttribute(name = "id")
-    public abstract String getId();
+    @XmlAttribute(name = "id") String getId();
 
     /**
      * Gets the template.
      *
      * @return the template
      */
-    @XmlAttribute(name = "template")
-    public abstract String getTemplate();
+    @XmlAttribute(name = "template") String getTemplate();
 
     /**
      * Gets the engine.
      *
      * @return the engine
      */
-    @XmlAttribute(name = "engine")
-    public abstract String getEngine();
+    @XmlAttribute(name = "engine") String getEngine();
 
     /**
      * Sets the id.
@@ -65,7 +62,7 @@ public interface JasperReportDefinition {
      * @param id
      *            the new id
      */
-    public abstract void setId(String id);
+    void setId(String id);
 
     /**
      * Sets the template.
@@ -73,7 +70,7 @@ public interface JasperReportDefinition {
      * @param template
      *            the new template
      */
-    public abstract void setTemplate(String template);
+    void setTemplate(String template);
 
     /**
      * Sets the engine.
@@ -81,6 +78,6 @@ public interface JasperReportDefinition {
      * @param engine
      *            the new engine
      */
-    public abstract void setEngine(String engine);
+    void setEngine(String engine);
 
 }
