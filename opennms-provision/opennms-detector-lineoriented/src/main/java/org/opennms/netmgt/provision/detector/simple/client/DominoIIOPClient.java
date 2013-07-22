@@ -128,8 +128,9 @@ public class DominoIIOPClient extends LineOrientedClient {
         } catch (final SocketException e) {
             LOG.warn("Unable to connect to {}", u, e);
         }
-        if (!IOR.startsWith("IOR:"))
+        if (!IOR.startsWith("IOR:")) {
             return false;
+        }
 
         return true;
     }
