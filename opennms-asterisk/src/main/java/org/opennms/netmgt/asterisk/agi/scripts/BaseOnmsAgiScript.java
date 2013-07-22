@@ -220,11 +220,13 @@ public abstract class BaseOnmsAgiScript extends BaseAgiScript {
         // FIXME: this needs to be IPv6-compatible
         for (String octet : addr.getHostAddress().split("\\.")) {
             pressed = sayDigitsInterruptible(octet);
-            if (pressed != 0x0)
+            if (pressed != 0x0) {
                 return pressed;
+            }
             pressed = sayAlphaInterruptible(".");
-            if (pressed != 0x0)
+            if (pressed != 0x0) {
                 return pressed;
+            }
         }
         return 0x0;
     }
