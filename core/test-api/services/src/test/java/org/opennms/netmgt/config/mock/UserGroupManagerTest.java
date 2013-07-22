@@ -430,8 +430,9 @@ public class UserGroupManagerTest {
      *            the expected
      */
     private void assertRoles(String[] roleNames, Role[] expected) {
-        if (expected == null)
+        if (expected == null) {
             assertNull("Expected null list", roleNames);
+        }
 
         assertNotNull("Unexpected null user list", roleNames);
         assertEquals("Unexpected number of users", expected.length, roleNames.length);
@@ -452,8 +453,9 @@ public class UserGroupManagerTest {
      *            the expected
      */
     private void assertUsers(String[] userNames, User[] expected) {
-        if (expected == null)
+        if (expected == null) {
             assertNull("Expected null list", userNames);
+        }
 
         assertNotNull("Unexpected null user list", userNames);
         assertEquals("Unexpected number of users", expected.length, userNames.length);
