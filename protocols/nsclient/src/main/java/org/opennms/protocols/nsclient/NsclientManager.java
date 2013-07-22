@@ -464,8 +464,9 @@ public class NsclientManager {
             m_Socket.getOutputStream().flush();
             int read = m_BufInStream.read(buffer);
 
-            if (read > 0)
+            if (read > 0) {
                 m_ByteArrayOutStream.write(buffer, 0, read);
+            }
 
             return new NsclientPacket(m_ByteArrayOutStream.toString());
         } catch (Throwable e) {
@@ -762,8 +763,9 @@ public class NsclientManager {
             // check up response from "1& Prc1: State - Proc2: State"
             String[] services = pack.getResponse().replaceFirst("^\\d&\\s+", "").split("\\s+-\\s+");
             for (int i = 0; i < services.length; i++) {
-                if (services[i].split(":\\s+")[1].matches("not running\\s*"))
+                if (services[i].split(":\\s+")[1].matches("not running\\s*")) {
                     pack.setResultCode(NsclientPacket.RES_STATE_CRIT);
+                }
             }
 
             return pack;
@@ -977,12 +979,14 @@ public class NsclientManager {
             // check the age of the file, if it's newer than the
             // warning/critical, change the state.
             if (param.getWarningPercent() != 0) {
-                if (minutes < param.getWarningPercent())
+                if (minutes < param.getWarningPercent()) {
                     pack.setResultCode(NsclientPacket.RES_STATE_WARNING);
+                }
             }
             if (param.getCriticalPercent() != 0) {
-                if (minutes < param.getCriticalPercent())
+                if (minutes < param.getCriticalPercent()) {
                     pack.setResultCode(NsclientPacket.RES_STATE_CRIT);
+                }
             }
 
             return pack;

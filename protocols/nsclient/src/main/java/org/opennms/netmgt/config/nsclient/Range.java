@@ -39,6 +39,8 @@ package org.opennms.netmgt.config.nsclient;
 //- Imported classes and packages -/
 //---------------------------------/
 
+import java.io.IOException;
+
 import org.exolab.castor.xml.Marshaller;
 import org.exolab.castor.xml.Unmarshaller;
 
@@ -89,26 +91,31 @@ public class Range implements java.io.Serializable {
      */
     @Override()
     public boolean equals(final java.lang.Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
+        }
 
         if (obj instanceof Range) {
 
             Range temp = (Range) obj;
             if (this._begin != null) {
-                if (temp._begin == null)
+                if (temp._begin == null) {
                     return false;
-                else if (!(this._begin.equals(temp._begin)))
+                } else if (!(this._begin.equals(temp._begin))) {
                     return false;
-            } else if (temp._begin != null)
+                }
+            } else if (temp._begin != null) {
                 return false;
+            }
             if (this._end != null) {
-                if (temp._end == null)
+                if (temp._end == null) {
                     return false;
-                else if (!(this._end.equals(temp._end)))
+                } else if (!(this._end.equals(temp._end))) {
                     return false;
-            } else if (temp._end != null)
+                }
+            } else if (temp._end != null) {
                 return false;
+            }
             return true;
         }
         return false;

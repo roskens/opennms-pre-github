@@ -99,8 +99,9 @@ public class NsclientPacket {
     public static String convertStateToString(short type) {
         for (Map.Entry<String, Short> e : STATE_STRINGS.entrySet()) {
             short val = e.getValue();
-            if (val == type)
+            if (val == type) {
                 return e.getKey();
+            }
         }
         return "UNKNOWN";
     }

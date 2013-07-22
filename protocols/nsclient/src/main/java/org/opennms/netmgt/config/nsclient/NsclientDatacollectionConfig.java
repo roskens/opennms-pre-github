@@ -39,6 +39,8 @@ package org.opennms.netmgt.config.nsclient;
 //- Imported classes and packages -/
 //---------------------------------/
 
+import java.io.IOException;
+
 import org.exolab.castor.xml.Marshaller;
 import org.exolab.castor.xml.Unmarshaller;
 
@@ -127,26 +129,31 @@ public class NsclientDatacollectionConfig implements java.io.Serializable {
      */
     @Override()
     public boolean equals(final java.lang.Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
+        }
 
         if (obj instanceof NsclientDatacollectionConfig) {
 
             NsclientDatacollectionConfig temp = (NsclientDatacollectionConfig) obj;
             if (this._rrdRepository != null) {
-                if (temp._rrdRepository == null)
+                if (temp._rrdRepository == null) {
                     return false;
-                else if (!(this._rrdRepository.equals(temp._rrdRepository)))
+                } else if (!(this._rrdRepository.equals(temp._rrdRepository))) {
                     return false;
-            } else if (temp._rrdRepository != null)
+                }
+            } else if (temp._rrdRepository != null) {
                 return false;
+            }
             if (this._nsclientCollectionList != null) {
-                if (temp._nsclientCollectionList == null)
+                if (temp._nsclientCollectionList == null) {
                     return false;
-                else if (!(this._nsclientCollectionList.equals(temp._nsclientCollectionList)))
+                } else if (!(this._nsclientCollectionList.equals(temp._nsclientCollectionList))) {
                     return false;
-            } else if (temp._nsclientCollectionList != null)
+                }
+            } else if (temp._nsclientCollectionList != null) {
                 return false;
+            }
             return true;
         }
         return false;

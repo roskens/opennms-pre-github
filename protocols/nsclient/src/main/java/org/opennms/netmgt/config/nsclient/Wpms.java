@@ -39,6 +39,8 @@ package org.opennms.netmgt.config.nsclient;
 //- Imported classes and packages -/
 //---------------------------------/
 
+import java.io.IOException;
+
 import org.exolab.castor.xml.Marshaller;
 import org.exolab.castor.xml.Unmarshaller;
 
@@ -120,19 +122,22 @@ public class Wpms implements java.io.Serializable {
      */
     @Override()
     public boolean equals(final java.lang.Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
+        }
 
         if (obj instanceof Wpms) {
 
             Wpms temp = (Wpms) obj;
             if (this._wpmList != null) {
-                if (temp._wpmList == null)
+                if (temp._wpmList == null) {
                     return false;
-                else if (!(this._wpmList.equals(temp._wpmList)))
+                } else if (!(this._wpmList.equals(temp._wpmList))) {
                     return false;
-            } else if (temp._wpmList != null)
+                }
+            } else if (temp._wpmList != null) {
                 return false;
+            }
             return true;
         }
         return false;

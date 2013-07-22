@@ -39,6 +39,8 @@ package org.opennms.netmgt.config.nsclient;
 //- Imported classes and packages -/
 //---------------------------------/
 
+import java.io.IOException;
+
 import org.exolab.castor.xml.Marshaller;
 import org.exolab.castor.xml.Unmarshaller;
 
@@ -91,33 +93,40 @@ public class NsclientCollection implements java.io.Serializable {
      */
     @Override()
     public boolean equals(final java.lang.Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
+        }
 
         if (obj instanceof NsclientCollection) {
 
             NsclientCollection temp = (NsclientCollection) obj;
             if (this._name != null) {
-                if (temp._name == null)
+                if (temp._name == null) {
                     return false;
-                else if (!(this._name.equals(temp._name)))
+                } else if (!(this._name.equals(temp._name))) {
                     return false;
-            } else if (temp._name != null)
+                }
+            } else if (temp._name != null) {
                 return false;
+            }
             if (this._rrd != null) {
-                if (temp._rrd == null)
+                if (temp._rrd == null) {
                     return false;
-                else if (!(this._rrd.equals(temp._rrd)))
+                } else if (!(this._rrd.equals(temp._rrd))) {
                     return false;
-            } else if (temp._rrd != null)
+                }
+            } else if (temp._rrd != null) {
                 return false;
+            }
             if (this._wpms != null) {
-                if (temp._wpms == null)
+                if (temp._wpms == null) {
                     return false;
-                else if (!(this._wpms.equals(temp._wpms)))
+                } else if (!(this._wpms.equals(temp._wpms))) {
                     return false;
-            } else if (temp._wpms != null)
+                }
+            } else if (temp._wpms != null) {
                 return false;
+            }
             return true;
         }
         return false;

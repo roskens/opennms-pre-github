@@ -39,6 +39,8 @@ package org.opennms.netmgt.config.nsclient;
 //- Imported classes and packages -/
 //---------------------------------/
 
+import java.io.IOException;
+
 import org.exolab.castor.xml.Marshaller;
 import org.exolab.castor.xml.Unmarshaller;
 
@@ -104,47 +106,58 @@ public class Attrib implements java.io.Serializable {
      */
     @Override()
     public boolean equals(final java.lang.Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
+        }
 
         if (obj instanceof Attrib) {
 
             Attrib temp = (Attrib) obj;
             if (this._name != null) {
-                if (temp._name == null)
+                if (temp._name == null) {
                     return false;
-                else if (!(this._name.equals(temp._name)))
+                } else if (!(this._name.equals(temp._name))) {
                     return false;
-            } else if (temp._name != null)
+                }
+            } else if (temp._name != null) {
                 return false;
+            }
             if (this._alias != null) {
-                if (temp._alias == null)
+                if (temp._alias == null) {
                     return false;
-                else if (!(this._alias.equals(temp._alias)))
+                } else if (!(this._alias.equals(temp._alias))) {
                     return false;
-            } else if (temp._alias != null)
+                }
+            } else if (temp._alias != null) {
                 return false;
+            }
             if (this._type != null) {
-                if (temp._type == null)
+                if (temp._type == null) {
                     return false;
-                else if (!(this._type.equals(temp._type)))
+                } else if (!(this._type.equals(temp._type))) {
                     return false;
-            } else if (temp._type != null)
+                }
+            } else if (temp._type != null) {
                 return false;
+            }
             if (this._maxval != null) {
-                if (temp._maxval == null)
+                if (temp._maxval == null) {
                     return false;
-                else if (!(this._maxval.equals(temp._maxval)))
+                } else if (!(this._maxval.equals(temp._maxval))) {
                     return false;
-            } else if (temp._maxval != null)
+                }
+            } else if (temp._maxval != null) {
                 return false;
+            }
             if (this._minval != null) {
-                if (temp._minval == null)
+                if (temp._minval == null) {
                     return false;
-                else if (!(this._minval.equals(temp._minval)))
+                } else if (!(this._minval.equals(temp._minval))) {
                     return false;
-            } else if (temp._minval != null)
+                }
+            } else if (temp._minval != null) {
                 return false;
+            }
             return true;
         }
         return false;

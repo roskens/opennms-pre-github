@@ -39,6 +39,8 @@ package org.opennms.netmgt.config.nsclient;
 //- Imported classes and packages -/
 //---------------------------------/
 
+import java.io.IOException;
+
 import org.exolab.castor.xml.Marshaller;
 import org.exolab.castor.xml.Unmarshaller;
 
@@ -170,38 +172,49 @@ public class NsclientConfig implements java.io.Serializable {
      */
     @Override()
     public boolean equals(final java.lang.Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
+        }
 
         if (obj instanceof NsclientConfig) {
 
             NsclientConfig temp = (NsclientConfig) obj;
-            if (this._port != temp._port)
+            if (this._port != temp._port) {
                 return false;
-            if (this._has_port != temp._has_port)
+            }
+            if (this._has_port != temp._has_port) {
                 return false;
-            if (this._retry != temp._retry)
+            }
+            if (this._retry != temp._retry) {
                 return false;
-            if (this._has_retry != temp._has_retry)
+            }
+            if (this._has_retry != temp._has_retry) {
                 return false;
-            if (this._timeout != temp._timeout)
+            }
+            if (this._timeout != temp._timeout) {
                 return false;
-            if (this._has_timeout != temp._has_timeout)
+            }
+            if (this._has_timeout != temp._has_timeout) {
                 return false;
+            }
             if (this._password != null) {
-                if (temp._password == null)
+                if (temp._password == null) {
                     return false;
-                else if (!(this._password.equals(temp._password)))
+                } else if (!(this._password.equals(temp._password))) {
                     return false;
-            } else if (temp._password != null)
+                }
+            } else if (temp._password != null) {
                 return false;
+            }
             if (this._definitionList != null) {
-                if (temp._definitionList == null)
+                if (temp._definitionList == null) {
                     return false;
-                else if (!(this._definitionList.equals(temp._definitionList)))
+                } else if (!(this._definitionList.equals(temp._definitionList))) {
                     return false;
-            } else if (temp._definitionList != null)
+                }
+            } else if (temp._definitionList != null) {
                 return false;
+            }
             return true;
         }
         return false;

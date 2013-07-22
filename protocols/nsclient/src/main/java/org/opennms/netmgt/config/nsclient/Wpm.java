@@ -39,6 +39,8 @@ package org.opennms.netmgt.config.nsclient;
 //- Imported classes and packages -/
 //---------------------------------/
 
+import java.io.IOException;
+
 import org.exolab.castor.xml.Marshaller;
 import org.exolab.castor.xml.Unmarshaller;
 
@@ -146,37 +148,46 @@ public class Wpm implements java.io.Serializable {
      */
     @Override()
     public boolean equals(final java.lang.Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
+        }
 
         if (obj instanceof Wpm) {
 
             Wpm temp = (Wpm) obj;
             if (this._name != null) {
-                if (temp._name == null)
+                if (temp._name == null) {
                     return false;
-                else if (!(this._name.equals(temp._name)))
+                } else if (!(this._name.equals(temp._name))) {
                     return false;
-            } else if (temp._name != null)
+                }
+            } else if (temp._name != null) {
                 return false;
+            }
             if (this._keyvalue != null) {
-                if (temp._keyvalue == null)
+                if (temp._keyvalue == null) {
                     return false;
-                else if (!(this._keyvalue.equals(temp._keyvalue)))
+                } else if (!(this._keyvalue.equals(temp._keyvalue))) {
                     return false;
-            } else if (temp._keyvalue != null)
+                }
+            } else if (temp._keyvalue != null) {
                 return false;
-            if (this._recheckInterval != temp._recheckInterval)
+            }
+            if (this._recheckInterval != temp._recheckInterval) {
                 return false;
-            if (this._has_recheckInterval != temp._has_recheckInterval)
+            }
+            if (this._has_recheckInterval != temp._has_recheckInterval) {
                 return false;
+            }
             if (this._attribList != null) {
-                if (temp._attribList == null)
+                if (temp._attribList == null) {
                     return false;
-                else if (!(this._attribList.equals(temp._attribList)))
+                } else if (!(this._attribList.equals(temp._attribList))) {
                     return false;
-            } else if (temp._attribList != null)
+                }
+            } else if (temp._attribList != null) {
                 return false;
+            }
             return true;
         }
         return false;
