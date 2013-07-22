@@ -114,8 +114,9 @@ public class WebRequest {
      *            the headers url
      */
     public void parseHeaders(String headersUrl) {
-        if (headersUrl == null || !headersUrl.contains("="))
+        if (headersUrl == null || !headersUrl.contains("=")) {
             return;
+        }
         String[] pairs = headersUrl.split("&");
         for (String pair : pairs) {
             String[] parts = pair.split("=");

@@ -190,8 +190,9 @@ public class WebClient implements Client<WebRequest, WebResponse> {
      *            the virtual port
      */
     public void setVirtualHost(String virtualHost, int virtualPort) {
-        if (virtualHost == null || virtualPort == 0)
+        if (virtualHost == null || virtualPort == 0) {
             return;
+        }
         m_httpClient.getParams().setParameter(ClientPNames.VIRTUAL_HOST, new HttpHost(virtualHost, virtualPort));
     }
 
