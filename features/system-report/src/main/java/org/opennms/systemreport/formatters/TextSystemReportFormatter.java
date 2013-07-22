@@ -89,8 +89,9 @@ public class TextSystemReportFormatter extends AbstractSystemReportFormatter imp
      */
     @Override
     public void write(final SystemReportPlugin plugin) {
-        if (!hasDisplayable(plugin))
+        if (!hasDisplayable(plugin)) {
             return;
+        }
         LOG.debug("write({})", plugin.getName());
         try {
             final String title = plugin.getName() + " (" + plugin.getDescription() + "):" + "\n";

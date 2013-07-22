@@ -237,15 +237,17 @@ public class SystemReport extends Bootstrap {
         final Map<String, SystemReportPlugin> pluginMap = new HashMap<String, SystemReportPlugin>();
         for (final SystemReportPlugin plugin : getPlugins()) {
             final String name = plugin.getName();
-            if (pluginSize == 0)
+            if (pluginSize == 0) {
                 plugins.add(name);
+            }
             pluginMap.put(name, plugin);
         }
 
         try {
             formatter.begin();
-            if (stream != null)
+            if (stream != null) {
                 stream.flush();
+            }
             for (final String pluginName : plugins) {
                 final SystemReportPlugin plugin = pluginMap.get(pluginName);
                 if (plugin == null) {
@@ -256,13 +258,15 @@ public class SystemReport extends Bootstrap {
                     } catch (final Exception e) {
                         LOG.error("An error occurred calling plugin '{}'", plugin.getName(), e);
                     }
-                    if (stream != null)
+                    if (stream != null) {
                         stream.flush();
+                    }
                 }
             }
             formatter.end();
-            if (stream != null)
+            if (stream != null) {
                 stream.flush();
+            }
         } catch (final Exception e) {
             LOG.error("An error occurred writing plugin data to output.", e);
             System.exit(1);

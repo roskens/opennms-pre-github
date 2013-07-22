@@ -144,8 +144,9 @@ public class FtpSystemReportFormatter extends AbstractSystemReportFormatter impl
      */
     @Override
     public void write(final SystemReportPlugin plugin) {
-        if (m_url == null)
+        if (m_url == null) {
             return;
+        }
 
         m_zipFormatter.write(plugin);
     }

@@ -99,8 +99,9 @@ public class XmlSystemReportFormatter extends AbstractSystemReportFormatter impl
      */
     @Override
     public void write(final SystemReportPlugin plugin) {
-        if (!hasDisplayable(plugin))
+        if (!hasDisplayable(plugin)) {
             return;
+        }
 
         if (m_handler == null) {
             try {

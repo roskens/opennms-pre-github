@@ -245,8 +245,9 @@ public class ZipSystemReportFormatter extends AbstractSystemReportFormatter impl
      *             Signals that an I/O exception has occurred.
      */
     private void createDirectory(final String name) throws IOException {
-        if (m_directories.contains(name))
+        if (m_directories.contains(name)) {
             return;
+        }
         createEntry(name + "/");
         m_directories.add(name);
     }

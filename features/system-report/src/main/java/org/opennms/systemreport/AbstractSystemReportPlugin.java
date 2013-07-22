@@ -165,11 +165,13 @@ public abstract class AbstractSystemReportPlugin implements SystemReportPlugin {
             br = new BufferedReader(isr);
             while (br.ready()) {
                 final String line = br.readLine();
-                if (line == null)
+                if (line == null) {
                     break;
+                }
                 sb.append(line);
-                if (br.ready())
+                if (br.ready()) {
                     sb.append("\n");
+                }
             }
         } catch (final Throwable e) {
             LOG.debug("Failure attempting to run command '{}'", Arrays.asList(command), e);
@@ -200,8 +202,9 @@ public abstract class AbstractSystemReportPlugin implements SystemReportPlugin {
             try {
                 while (br.ready()) {
                     final String line = br.readLine();
-                    if (line == null)
+                    if (line == null) {
                         break;
+                    }
                     final String[] entry = line.split(regex, 2);
                     if (entry.length == 2) {
                         map.put(entry[0], entry[1]);
@@ -237,8 +240,9 @@ public abstract class AbstractSystemReportPlugin implements SystemReportPlugin {
      * @return the resource
      */
     protected Resource getResource(final String text) {
-        if (text == null)
+        if (text == null) {
             return new ByteArrayResource(new byte[0]);
+        }
         return new ByteArrayResource(text.getBytes());
     }
 
@@ -480,8 +484,9 @@ public abstract class AbstractSystemReportPlugin implements SystemReportPlugin {
     private MBeanServerConnection getConnection() {
         final List<Integer> ports = new ArrayList<Integer>();
         Integer p = Integer.getInteger("com.sun.management.jmxremote.port");
-        if (p != null)
+        if (p != null) {
             ports.add(p);
+        }
         ports.add(18980);
         ports.add(1099);
         for (final Integer port : ports) {
@@ -541,8 +546,9 @@ public abstract class AbstractSystemReportPlugin implements SystemReportPlugin {
     protected <T> List<T> getBeans(final String mxBeanName, final Class<T> clazz) {
         initializeConnection();
         List<T> beans = new ArrayList<T>();
-        if (m_connection == null)
+        if (m_connection == null) {
             return beans;
+        }
         try {
             ObjectName o = new ObjectName(mxBeanName + ",*");
             for (final ObjectName name : (Set<ObjectName>) m_connection.queryNames(o, null)) {
