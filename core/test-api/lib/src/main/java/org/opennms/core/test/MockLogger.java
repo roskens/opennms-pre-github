@@ -204,8 +204,9 @@ public class MockLogger extends MarkerIgnoringBase {
         loadProperties();
 
         String defaultLogLevelString = getStringProperty(DEFAULT_LOG_LEVEL_KEY, null);
-        if (defaultLogLevelString != null)
+        if (defaultLogLevelString != null) {
             DEFAULT_LOG_LEVEL = stringToLevel(defaultLogLevelString);
+        }
 
         SHOW_LOG_NAME = getBooleanProperty(SHOW_LOG_NAME_KEY, SHOW_LOG_NAME);
         SHOW_SHORT_LOG_NAME = getBooleanProperty(SHOW_SHORT_LOG_NAME_KEY, SHOW_SHORT_LOG_NAME);
@@ -235,9 +236,9 @@ public class MockLogger extends MarkerIgnoringBase {
      * @return the prints the stream
      */
     private static PrintStream computeTargetStream(String logFile) {
-        if ("System.err".equalsIgnoreCase(logFile))
+        if ("System.err".equalsIgnoreCase(logFile)) {
             return System.err;
-        else if ("System.out".equalsIgnoreCase(logFile)) {
+        } else if ("System.out".equalsIgnoreCase(logFile)) {
             return System.out;
         } else {
             try {
@@ -370,11 +371,13 @@ public class MockLogger extends MarkerIgnoringBase {
             }
         }
 
-        if (LEVEL_IN_BRACKETS)
+        if (LEVEL_IN_BRACKETS) {
             buf.append('[');
+        }
         buf.append(level.toString());
-        if (LEVEL_IN_BRACKETS)
+        if (LEVEL_IN_BRACKETS) {
             buf.append(']');
+        }
         buf.append(' ');
 
         // Append current thread name if so configured
@@ -386,8 +389,9 @@ public class MockLogger extends MarkerIgnoringBase {
 
         // Append the name of the log instance if so configured
         if (SHOW_SHORT_LOG_NAME) {
-            if (shortLogName == null)
+            if (shortLogName == null) {
                 shortLogName = computeShortName();
+            }
             buf.append(String.valueOf(shortLogName)).append(" - ");
         } else if (SHOW_LOG_NAME) {
             buf.append(String.valueOf(name)).append(" - ");
