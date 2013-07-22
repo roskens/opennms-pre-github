@@ -128,8 +128,9 @@ public class Sleeper implements DynamicVariable {
      *            the millis
      */
     private void sleep(long millis) {
-        if (millis == 0)
+        if (millis == 0) {
             return;
+        }
         try {
             Thread.sleep(millis);
         } catch (InterruptedException e) {

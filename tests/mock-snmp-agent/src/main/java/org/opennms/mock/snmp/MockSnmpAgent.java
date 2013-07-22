@@ -451,8 +451,9 @@ public class MockSnmpAgent extends BaseAgent implements Runnable {
 
         for (final TransportMapping transportMapping : transportMappings) {
             try {
-                if (transportMapping != null)
+                if (transportMapping != null) {
                     transportMapping.close();
+                }
             } catch (final IOException t) {
                 s_log.error("an error occurred while closing the transport mapping", t);
             }
@@ -461,8 +462,9 @@ public class MockSnmpAgent extends BaseAgent implements Runnable {
         m_stopped = true;
 
         s_log.debug("Agent is no longer running.");
-        if (interrupted)
+        if (interrupted) {
             Thread.currentThread().interrupt();
+        }
     }
 
     /*
