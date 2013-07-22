@@ -348,11 +348,13 @@ class JoeSnmpValue extends AbstractSnmpValue {
      */
     @Override
     public boolean isDisplayable() {
-        if (isNumeric())
+        if (isNumeric()) {
             return true;
+        }
 
-        if (getType() == SnmpValue.SNMP_OBJECT_IDENTIFIER || getType() == SnmpValue.SNMP_IPADDRESS)
+        if (getType() == SnmpValue.SNMP_OBJECT_IDENTIFIER || getType() == SnmpValue.SNMP_IPADDRESS) {
             return true;
+        }
 
         if (getType() == SnmpValue.SNMP_OCTET_STRING) {
             return allBytesDisplayable(getBytes());
@@ -383,8 +385,9 @@ class JoeSnmpValue extends AbstractSnmpValue {
      */
     @Override
     public int hashCode() {
-        if (m_value == null)
+        if (m_value == null) {
             return 2677;
+        }
         return m_value.hashCode();
     }
 
@@ -393,12 +396,15 @@ class JoeSnmpValue extends AbstractSnmpValue {
      */
     @Override
     public boolean equals(final Object obj) {
-        if (obj == null)
+        if (obj == null) {
             return false;
-        if (obj == this)
+        }
+        if (obj == this) {
             return true;
-        if (obj.getClass() != getClass())
+        }
+        if (obj.getClass() != getClass()) {
             return false;
+        }
 
         final JoeSnmpValue that = (JoeSnmpValue) obj;
         return m_value == null ? that.m_value == null : m_value.equals(that.m_value);
