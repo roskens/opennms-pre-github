@@ -448,8 +448,9 @@ public abstract class JaxbUtils {
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
             final Schema schema = getValidatorFor(clazz);
             marshaller.setSchema(schema);
-            if (jaxbContext == null)
+            if (jaxbContext == null) {
                 marshallers.put(clazz, marshaller);
+            }
 
             return marshaller;
         } catch (JAXBException e) {
@@ -510,8 +511,9 @@ public abstract class JaxbUtils {
             }
             unmarshaller.setSchema(schema);
         }
-        if (jaxbContext == null)
+        if (jaxbContext == null) {
             unmarshallers.put(clazz, unmarshaller);
+        }
 
         return unmarshaller;
     }

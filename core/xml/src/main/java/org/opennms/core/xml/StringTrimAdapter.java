@@ -48,8 +48,9 @@ public class StringTrimAdapter extends XmlAdapter<String, String> {
      */
     @Override
     public String unmarshal(final String value) throws Exception {
-        if (value == null)
+        if (value == null) {
             return null;
+        }
         return value.trim();
     }
 
