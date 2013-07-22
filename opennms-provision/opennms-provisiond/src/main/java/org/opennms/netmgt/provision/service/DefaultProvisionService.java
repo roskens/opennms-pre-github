@@ -277,13 +277,15 @@ public class DefaultProvisionService implements ProvisionService, InitializingBe
         // only delete services that are on discovered nodes if discovery is
         // enabled
         // meaning provisiond is managing discovered nodes rather than capsd
-        if (foreignSource == null)
+        if (foreignSource == null) {
             return isDiscoveryEnabled();
+        }
 
         // if we enable deletion of requisitioned entities then we can delete
         // this
-        if (isRequisitionedEntityDeletionEnabled())
+        if (isRequisitionedEntityDeletionEnabled()) {
             return true;
+        }
 
         // otherwise only delete if it is not requistioned
         return !isRequisitioned(node);
@@ -316,13 +318,15 @@ public class DefaultProvisionService implements ProvisionService, InitializingBe
         // only delete services that are on discovered nodes if discovery is
         // enabled
         // meaning provisiond is managing discovered nodes rather than capsd
-        if (foreignSource == null)
+        if (foreignSource == null) {
             return isDiscoveryEnabled();
+        }
 
         // if we enable deletion of requisitioned entities then we can delete
         // this
-        if (isRequisitionedEntityDeletionEnabled())
+        if (isRequisitionedEntityDeletionEnabled()) {
             return true;
+        }
 
         // otherwise only delete if it is not requistioned
         return !isRequisitioned(iface);
@@ -354,13 +358,15 @@ public class DefaultProvisionService implements ProvisionService, InitializingBe
         // only delete services that are on discovered nodes if discovery is
         // enabled
         // meaning provisiond is managing discovered nodes rather than capsd
-        if (foreignSource == null)
+        if (foreignSource == null) {
             return isDiscoveryEnabled();
+        }
 
         // if we enable deletion of requisitioned entities then we can delete
         // this
-        if (isRequisitionedEntityDeletionEnabled())
+        if (isRequisitionedEntityDeletionEnabled()) {
             return true;
+        }
 
         // otherwise only delete if it is not requistioned
         return !isRequisitioned(monSvc);
@@ -379,8 +385,9 @@ public class DefaultProvisionService implements ProvisionService, InitializingBe
         String foreignId = node.getForeignId();
 
         // is this a discovered node
-        if (foreignSource == null)
+        if (foreignSource == null) {
             return false;
+        }
 
         OnmsNode reqNode = getRequisitionedNode(foreignSource, foreignId);
         if (reqNode == null) {
@@ -406,8 +413,9 @@ public class DefaultProvisionService implements ProvisionService, InitializingBe
         String foreignId = ip.getNode().getForeignId();
 
         // is this a discovered node
-        if (foreignSource == null)
+        if (foreignSource == null) {
             return false;
+        }
 
         OnmsNode reqNode = getRequisitionedNode(foreignSource, foreignId);
         if (reqNode == null) {
@@ -435,8 +443,9 @@ public class DefaultProvisionService implements ProvisionService, InitializingBe
         String foreignId = monSvc.getIpInterface().getNode().getForeignId();
 
         // is this a discovered node
-        if (foreignSource == null)
+        if (foreignSource == null) {
             return false;
+        }
 
         OnmsNode reqNode = getRequisitionedNode(foreignSource, foreignId);
         if (reqNode == null) {
@@ -975,8 +984,9 @@ public class DefaultProvisionService implements ProvisionService, InitializingBe
      *            the parent
      */
     private void setPathDependency(final OnmsNode node, final OnmsNode parent) {
-        if (node == null)
+        if (node == null) {
             return;
+        }
 
         OnmsIpInterface critIface = null;
         if (parent != null) {
@@ -998,8 +1008,9 @@ public class DefaultProvisionService implements ProvisionService, InitializingBe
      */
     @Transactional
     private void setParent(final OnmsNode node, final OnmsNode parent) {
-        if (node == null)
+        if (node == null) {
             return;
+        }
 
         LOG.info("Setting parent of node: {} to: {}", node, parent);
         node.setParent(parent);

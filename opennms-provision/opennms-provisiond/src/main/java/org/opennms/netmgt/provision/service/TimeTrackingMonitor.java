@@ -159,8 +159,9 @@ public class TimeTrackingMonitor implements ProvisionMonitor {
     /** {@inheritDoc} */
     @Override
     public void beginSendingEvents(ImportOperation oper, List<Event> events) {
-        if (events != null)
+        if (events != null) {
             m_eventCount += events.size();
+        }
         m_eventEffort.begin();
     }
 

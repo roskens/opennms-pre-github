@@ -110,8 +110,9 @@ public class WorkDuration {
      * @return a long.
      */
     public long getLength() {
-        if (m_start == -1L)
+        if (m_start == -1L) {
             return 0L;
+        }
         long end = (m_end == -1L ? System.currentTimeMillis() : m_end);
         return end - m_start;
     }
@@ -146,14 +147,18 @@ public class WorkDuration {
         long millis = duration % 1000L;
 
         StringBuffer elapsed = new StringBuffer();
-        if (hours > 0)
+        if (hours > 0) {
             elapsed.append(hours).append("h ");
-        if (mins > 0)
+        }
+        if (mins > 0) {
             elapsed.append(mins).append("m ");
-        if (secs > 0)
+        }
+        if (secs > 0) {
             elapsed.append(secs).append("s ");
-        if (millis > 0)
+        }
+        if (millis > 0) {
             elapsed.append(millis).append("ms");
+        }
 
         return elapsed.toString();
 

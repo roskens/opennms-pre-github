@@ -107,8 +107,9 @@ public class RequisitionImport {
      * @return true, if is aborted
      */
     public boolean isAborted() {
-        if (m_throwable != null)
+        if (m_throwable != null) {
             return true;
+        }
         return false;
     }
 

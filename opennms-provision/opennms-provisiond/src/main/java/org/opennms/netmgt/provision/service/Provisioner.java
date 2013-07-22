@@ -1158,8 +1158,9 @@ public class Provisioner implements SpringServiceDaemon {
      */
     private boolean getEventRescanExistingOnImport(final Event event) {
         final String rescanExisting = EventUtils.getParm(event, EventConstants.PARM_IMPORT_RESCAN_EXISTING);
-        if (rescanExisting == null)
+        if (rescanExisting == null) {
             return true;
+        }
         return Boolean.parseBoolean(rescanExisting);
     }
 

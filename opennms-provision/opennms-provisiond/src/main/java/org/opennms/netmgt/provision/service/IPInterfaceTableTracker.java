@@ -148,10 +148,12 @@ public class IPInterfaceTableTracker extends TableTracker {
 
             iface.setIfIndex(ifIndex);
             String hostName = null;
-            if (inetAddress != null)
+            if (inetAddress != null) {
                 hostName = inetAddress.getHostName();
-            if (hostName == null)
+            }
+            if (hostName == null) {
                 hostName = InetAddressUtils.normalize(ipAddr);
+            }
             iface.setIpHostName(hostName == null ? ipAddr : hostName);
 
             return iface;

@@ -222,8 +222,9 @@ public class DefaultPluginRegistry implements PluginRegistry, InitializingBean {
     private <T> T beanWithNameOfType(String beanName, Class<T> pluginClass) {
         Map<String, T> beans = beansOfType(pluginClass);
         T bean = beans.get(beanName);
-        if (bean != null)
+        if (bean != null) {
             debug("Found bean %s with name %s of type %s", bean, beanName, pluginClass);
+        }
         return bean;
     }
 

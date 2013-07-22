@@ -573,8 +573,9 @@ public class NodeScan implements RunInBatch {
                     final InetAddress address = addr(ipAddress);
 
                     // skip if it's any number of unusual/local address types
-                    if (address == null)
+                    if (address == null) {
                         return;
+                    }
                     if (address.isAnyLocalAddress()) {
                         LOG.debug("{}.isAnyLocalAddress() == true, Skipping.", ipAddress);
                         return;
@@ -650,8 +651,9 @@ public class NodeScan implements RunInBatch {
                     final InetAddress address = addr(ipAddress);
 
                     // skip if it's any number of unusual/local address types
-                    if (address == null)
+                    if (address == null) {
                         return;
+                    }
                     if (address.isAnyLocalAddress()) {
                         LOG.debug("{}.isAnyLocalAddress() == true, Skipping.", ipAddress);
                         return;
