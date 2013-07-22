@@ -50,7 +50,7 @@ public interface CorrelationEngineRegistrar {
      *            a {@link org.opennms.netmgt.correlation.CorrelationEngine}
      *            object.
      */
-    public abstract void addCorrelationEngine(CorrelationEngine engine);
+    void addCorrelationEngine(CorrelationEngine engine);
 
     /**
      * <p>
@@ -61,7 +61,7 @@ public interface CorrelationEngineRegistrar {
      * @param engines
      *            the engines
      */
-    public abstract void addCorrelationEngines(CorrelationEngine... engines);
+    void addCorrelationEngines(CorrelationEngine... engines);
 
     /**
      * <p>
@@ -71,7 +71,7 @@ public interface CorrelationEngineRegistrar {
      *
      * @return a {@link java.util.List} object.
      */
-    public abstract List<CorrelationEngine> getEngines();
+    List<CorrelationEngine> getEngines();
 
     /**
      * <p>
@@ -84,6 +84,6 @@ public interface CorrelationEngineRegistrar {
      * @return a {@link org.opennms.netmgt.correlation.CorrelationEngine}
      *         object.
      */
-    public abstract CorrelationEngine findEngineByName(String name);
+    CorrelationEngine findEngineByName(String name);
 
 }
