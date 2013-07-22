@@ -65,8 +65,9 @@ public class PropertiesLoader {
         // parameter (-DpropertiesFile)
         Properties props = new Properties();
         String propertiesFilename = System.getProperty("propertiesFile");
-        if (propertiesFilename == null)
+        if (propertiesFilename == null) {
             throw new FileNotFoundException();
+        }
 
         FileInputStream inStream = new FileInputStream(propertiesFilename);
 
@@ -107,8 +108,10 @@ public class PropertiesLoader {
                 // check once again to ensure first check didn't let two threads
                 // through at the same time
                 if (instance == null)
+                 {
                     instance = new PropertiesLoader(); // create the new
                                                        // instance
+                }
             }
         }
         return instance; // return the single StartProperties object
@@ -128,8 +131,9 @@ public class PropertiesLoader {
      */
     public String getProperty(String propertyName) throws IllegalArgumentException {
         String _out = (String) properties.get(propertyName);
-        if (_out == null)
+        if (_out == null) {
             throw new IllegalArgumentException();
+        }
         return _out;
     }
 

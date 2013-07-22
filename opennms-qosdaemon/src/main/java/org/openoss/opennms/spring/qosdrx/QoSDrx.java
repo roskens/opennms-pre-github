@@ -198,7 +198,9 @@ public class QoSDrx extends AbstractServiceDaemon {
         if (initialOssBeanRunner.getStatus() == OssBean.START_PENDING) {
             initialOssBeanRunner.run(); // begins startup of OssBean
             while (initialOssBeanRunner.getStatus() != OssBean.RUNNING)
+             {
                 ; // wait for bean to start up
+            }
             LOG.info("QoSDrx.start(): OssBean Receiver Configurations: {}",
                      initialOssBeanRunner.getOssBeanInstancesStatus());
         } else {
@@ -219,7 +221,9 @@ public class QoSDrx extends AbstractServiceDaemon {
         LOG.info("QoSDrx.stop(): Stopping QoSDrx");
         initialOssBeanRunner.stop();
         while (initialOssBeanRunner.getStatus() != OssBean.STOPPED)
+         {
             ; // wait for bean to stop
+        }
     }
 
     /**

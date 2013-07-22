@@ -540,7 +540,9 @@ public class OnmsAlarmOssjMapper {
                         // if (asset.getSerialNumber()!= null) assetserno =
                         // asset.getSerialNumber(); // Not read
                         if (asset.getDescription() != null)
+                         {
                             assetDescription = asset.getDescription(); // TODO
+                        }
                                                                        // was
                                                                        // used
                                                                        // for
@@ -552,7 +554,9 @@ public class OnmsAlarmOssjMapper {
                                                                        // char
                                                                        // long
                         if (asset.getAddress2() != null)
+                         {
                             assetAddress2 = asset.getAddress2(); // TODO was
+                        }
                                                                  // used for
                                                                  // managed
                                                                  // object
@@ -560,10 +564,12 @@ public class OnmsAlarmOssjMapper {
                                                                  // as is 256
                                                                  // char long
                                                                  // string
-                        if (asset.getManagedObjectInstance() != null)
+                        if (asset.getManagedObjectInstance() != null) {
                             assetManagedObjectInstance = asset.getManagedObjectInstance();
-                        if (asset.getManagedObjectType() != null)
+                        }
+                        if (asset.getManagedObjectType() != null) {
                             assetManagedObjectType = asset.getManagedObjectType();
+                        }
                     }
 
                     managedObjectInstance = assetManagedObjectInstance;
@@ -615,8 +621,9 @@ public class OnmsAlarmOssjMapper {
                     _opinstr = matcher.replaceAll(" "); // remove all HTML tags
                                                         // from operator
                                                         // instructions
-                } else
+                } else {
                     _opinstr = "NOT_SET";
+                }
                 alarmValueSpecification.setProposedRepairActions(_opinstr);
 
                 String _logmsg = _openNMSalarm.getLogMsg();
@@ -625,8 +632,9 @@ public class OnmsAlarmOssjMapper {
                     _logmsg = matcher.replaceAll(" "); // remove all HTML tags
                                                        // from operator
                                                        // instructions
-                } else
+                } else {
                     _logmsg = "NOT_SET";
+                }
 
                 String _description = _openNMSalarm.getDescription();
                 if (null != _description) {
@@ -634,8 +642,9 @@ public class OnmsAlarmOssjMapper {
                     _description = matcher.replaceAll(" "); // remove all HTML
                                                             // tags from
                                                             // description
-                } else
+                } else {
                     _description = "NOT_SET";
+                }
 
                 // using manufacturers own definition of specific problem here (
                 // OSS/J )
@@ -693,20 +702,23 @@ public class OnmsAlarmOssjMapper {
         } else { // is a received alarm
             try {
                 String _opinstr = _openNMSalarm.getOperInstruct();
-                if (null == _opinstr)
+                if (null == _opinstr) {
                     _opinstr = "NOT_SET";
+                }
                 alarmValueSpecification.setProposedRepairActions(_opinstr);
 
                 String _logmsg = _openNMSalarm.getLogMsg();
-                if (null == _logmsg)
+                if (null == _logmsg) {
                     _logmsg = "NOT_SET";
+                }
                 // using manufacturers own definition of specific problem here (
                 // OSS/J )
                 alarmValueSpecification.setSpecificProblem(_logmsg);
 
                 String _description = _openNMSalarm.getDescription();
-                if (null == _description)
+                if (null == _description) {
                     _description = "NOT_SET";
+                }
                 alarmValueSpecification.setAdditionalText(_description);
 
             } catch (Throwable e) {
@@ -804,8 +816,9 @@ public class OnmsAlarmOssjMapper {
 
         short ossjseverity = 0;
 
-        if (onmsSeverity == null)
+        if (onmsSeverity == null) {
             throw new IllegalArgumentException("onmsSeverityToOssjSeverity: onmsSeverity is Null");
+        }
 
         switch (onmsSeverity) {
         case INDETERMINATE:
@@ -866,8 +879,9 @@ public class OnmsAlarmOssjMapper {
             return "uei.openoss.org.alarm/SecurityViolation";
         } else if (alarmType.equals(AlarmType.TIME_DOMAIN_VIOLATION)) {
             return "uei.openoss.org.alarm/TimeDomainViolation";
-        } else
+        } else {
             return "uei.openoss.org.alarm/unknown";
+        }
     }
 
 }

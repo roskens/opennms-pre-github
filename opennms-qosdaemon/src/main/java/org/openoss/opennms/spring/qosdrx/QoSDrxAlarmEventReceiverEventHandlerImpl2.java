@@ -119,9 +119,10 @@ public class QoSDrxAlarmEventReceiverEventHandlerImpl2 implements AlarmEventRece
      *            <code>"SPECIFY_OUTSTATION"</code>
      */
     public void setalarmUpdateBehaviour(String _alarmUpdateBehaviour) {
-        if (_alarmUpdateBehaviour == null)
+        if (_alarmUpdateBehaviour == null) {
             throw new IllegalArgumentException(
                                                "QoSDrxAlarmEventReceiverEventHandlerImpl().setalarmUpdateBehaviour(): Null value for alarmUpdateBehaviour");
+        }
         alarmUpdateBehaviour = _alarmUpdateBehaviour;
         if (_alarmUpdateBehaviour.equals("USE_TYPE_INSTANCE")) {
             almUpdateBehaviour = USE_TYPE_INSTANCE;
@@ -129,10 +130,11 @@ public class QoSDrxAlarmEventReceiverEventHandlerImpl2 implements AlarmEventRece
         } else if (_alarmUpdateBehaviour.equals("SPECIFY_OUTSTATION")) {
             almUpdateBehaviour = SPECIFY_OUTSTATION;
             return;
-        } else
+        } else {
             throw new IllegalArgumentException(
                                                "QoSDrxAlarmEventReceiverEventHandlerImpl().setalarmUpdateBehaviour(): Unknown value for alarmUpdateBehaviour:"
                                                        + _alarmUpdateBehaviour);
+        }
     }
 
     /**
@@ -239,8 +241,9 @@ public class QoSDrxAlarmEventReceiverEventHandlerImpl2 implements AlarmEventRece
      */
     @Override
     public synchronized void init() {
-        if (initialised)
+        if (initialised) {
             return;
+        }
         try {
             ossDao.init(); // initialises the node and alarm caches
             initialised = true;

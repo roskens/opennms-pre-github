@@ -97,7 +97,9 @@ public class OssDaoOpenNMSImplSingleton {
                 // check once again to ensure first check didn't let two threads
                 // through at the same time
                 if (instance == null)
+                 {
                     instance = new OssDaoOpenNMSImpl(); // create the new
+                }
                                                         // instance
                 instance.setAlarmDao(alarmDao);
                 instance.setAssetRecordDao(assetRecordDao);

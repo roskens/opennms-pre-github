@@ -117,9 +117,10 @@ public class OpenNMSEventHandlerThread extends Thread {
 
         // if the init variable is false then the thread has not been
         // initialised
-        if (!init)
+        if (!init) {
             throw new IllegalStateException(
                                             "OpenNMSEventHandlerThread.run() - You must call init() before calling run()");
+        }
 
         while (runThread) {
             synchronized (this) {
@@ -138,14 +139,15 @@ public class OpenNMSEventHandlerThread extends Thread {
                 updateNCache = false;
                 sendList = false;
             }
-            if (localupdateNCache)
+            if (localupdateNCache) {
                 try {
                     LOG.debug("OpenNMSEventHandlerThread.run() updating node list");
                     ossDao.updateNodeCaches();
                 } catch (Throwable ex) {
                     LOG.error("OpenNMSEventHandlerThread.run() Exception caught in ossDao.updateNodeCaches()", ex);
                 }
-            if (localsendList)
+            }
+            if (localsendList) {
                 try {
                     LOG.debug("OpenNMSEventHandlerThread.run() updating and sending alarm list");
                     ossDao.updateAlarmCacheAndSendAlarms();
@@ -153,6 +155,7 @@ public class OpenNMSEventHandlerThread extends Thread {
                     LOG.error("OpenNMSEventHandlerThread.run() Exception caught in ossDao.updateAlarmCacheAndSendAlarms()",
                               ex);
                 }
+            }
 
         }
         LOG.debug("OpenNMSEventHandlerThread.run() STOPPED");

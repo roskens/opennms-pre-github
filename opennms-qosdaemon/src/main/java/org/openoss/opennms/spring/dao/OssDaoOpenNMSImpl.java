@@ -218,8 +218,9 @@ public class OssDaoOpenNMSImpl implements OssDao {
      */
     @Override
     public synchronized void init() {
-        if (initialised)
+        if (initialised) {
             return;
+        }
 
         try {
             localUpdateNodeCaches();
@@ -246,18 +247,22 @@ public class OssDaoOpenNMSImpl implements OssDao {
     @Override
     public synchronized OnmsAlarm addCurrentAlarmForUniqueKey(final OnmsAlarm alarm) {
 
-        if ((alarm == null) || (alarm.getId() != null))
+        if ((alarm == null) || (alarm.getId() != null)) {
             throw new IllegalArgumentException(
                                                "OssDaoOpenNMSImpl().addCurrentAlarmForUniqueKey(): Illegal value: alarm==null or alarmID!=null");
-        if ((alarm.getAlarmType() != 1))
+        }
+        if ((alarm.getAlarmType() != 1)) {
             throw new IllegalArgumentException(
                                                "OssDaoOpenNMSImpl().addCurrentAlarmForUniqueKey(): Illegal value: alarm.getAlarmType() not 'raise' alarm type '1'");
-        if ((alarm.getApplicationDN() == null) || (alarm.getApplicationDN().equals("")))
+        }
+        if ((alarm.getApplicationDN() == null) || (alarm.getApplicationDN().equals(""))) {
             throw new IllegalArgumentException(
                                                "OssDaoOpenNMSImpl().addCurrentAlarmForUniqueKey(): Illegal value: alarm ApplicationDN null or empty ");
-        if ((alarm.getOssPrimaryKey() == null) || (alarm.getOssPrimaryKey().equals("")))
+        }
+        if ((alarm.getOssPrimaryKey() == null) || (alarm.getOssPrimaryKey().equals(""))) {
             throw new IllegalArgumentException(
                                                "OssDaoOpenNMSImpl().addCurrentAlarmForUniqueKey(): Illegal value: alarm OssPrimaryKey null or empty");
+        }
 
         OnmsAlarm checkAlarm = getCurrentAlarmForUniqueKey(alarm.getApplicationDN(), alarm.getOssPrimaryKey());
         if (checkAlarm != null) { // if not a unique alarm throw error
@@ -320,18 +325,22 @@ public class OssDaoOpenNMSImpl implements OssDao {
     @Override
     public synchronized OnmsAlarm updateCurrentAlarmForUniqueKey(final OnmsAlarm alarm) {
 
-        if ((alarm == null) || (alarm.getId() == null))
+        if ((alarm == null) || (alarm.getId() == null)) {
             throw new IllegalArgumentException(
                                                "OssDaoOpenNMSImpl().updateCurrentAlarmForUniqueKey(): Illegal value: alarm==null or alarmID==null");
-        if ((alarm.getAlarmType() != 1))
+        }
+        if ((alarm.getAlarmType() != 1)) {
             throw new IllegalArgumentException(
                                                "OssDaoOpenNMSImpl().updateCurrentAlarmForUniqueKey(): Illegal value: alarm.getAlarmType() not 'raise' alarm type '1'");
-        if ((alarm.getApplicationDN() == null) || (alarm.getApplicationDN().equals("")))
+        }
+        if ((alarm.getApplicationDN() == null) || (alarm.getApplicationDN().equals(""))) {
             throw new IllegalArgumentException(
                                                "OssDaoOpenNMSImpl().updateCurrentAlarmForUniqueKey(): Illegal value: alarm ApplicationDN null or empty ");
-        if ((alarm.getOssPrimaryKey() == null) || (alarm.getOssPrimaryKey().equals("")))
+        }
+        if ((alarm.getOssPrimaryKey() == null) || (alarm.getOssPrimaryKey().equals(""))) {
             throw new IllegalArgumentException(
                                                "OssDaoOpenNMSImpl().updateCurrentAlarmForUniqueKey(): Illegal value: alarm OssPrimaryKey null or empty");
+        }
 
         String uniqueKey = alarm.getApplicationDN() + alarm.getOssPrimaryKey();
 
@@ -393,12 +402,14 @@ public class OssDaoOpenNMSImpl implements OssDao {
     @Override
     public synchronized OnmsAlarm getCurrentAlarmForUniqueKey(String applicationDN, String ossPrimaryKey) {
 
-        if ((applicationDN == null) || (applicationDN.equals("")))
+        if ((applicationDN == null) || (applicationDN.equals(""))) {
             throw new IllegalArgumentException(
                                                "OssDaoOpenNMSImpl().getCurrentAlarmForUniqueKey(): Illegal value: alarm ApplicationDN null or empty ");
-        if ((ossPrimaryKey == null) || (ossPrimaryKey.equals("")))
+        }
+        if ((ossPrimaryKey == null) || (ossPrimaryKey.equals(""))) {
             throw new IllegalArgumentException(
                                                "OssDaoOpenNMSImpl().getCurrentAlarmForUniqueKey(): Illegal value: alarm OssPrimaryKey null or empty");
+        }
 
         OnmsAlarm alarm = null;
 
@@ -653,9 +664,10 @@ public class OssDaoOpenNMSImpl implements OssDao {
     /** {@inheritDoc} */
     @Override
     public OnmsNode findNodeByLabel(String label) {
-        if (label == null)
+        if (label == null) {
             throw new IllegalArgumentException(
                                                "OssDaoOpenNMSImpl().findNodeByLabel: Illegal value: label null or empty ");
+        }
         OnmsNode node = null;
         try {
             node = (OnmsNode) nodeCacheByLabel.get(label);
@@ -675,12 +687,14 @@ public class OssDaoOpenNMSImpl implements OssDao {
     @Override
     public OnmsNode findNodeByInstanceAndType(String managedObjectInstance, String managedObjectType)
             throws IllegalArgumentException {
-        if (managedObjectInstance == null)
+        if (managedObjectInstance == null) {
             throw new IllegalArgumentException(
                                                "OssDaoOpenNMSImpl().findNodeByInstanceType: Illegal value: managedObjectInstance null");
-        if (managedObjectType == null)
+        }
+        if (managedObjectType == null) {
             throw new IllegalArgumentException(
                                                "OssDaoOpenNMSImpl().findNodeByInstanceType: Illegal value: label managedObjectType null");
+        }
 
         String uniqueid = managedObjectInstance + managedObjectType;
         OnmsNode node = null;
@@ -700,9 +714,10 @@ public class OssDaoOpenNMSImpl implements OssDao {
     /** {@inheritDoc} */
     @Override
     public OnmsNode findNodeByID(Integer nodeid) {
-        if (nodeid == null)
+        if (nodeid == null) {
             throw new IllegalArgumentException(
                                                "OssDaoOpenNMSImpl().findNodeByLabel: Illegal value: nodeid null or empty ");
+        }
         OnmsNode node = null;
         try {
             node = (OnmsNode) this.nodeCacheByID.get(nodeid);

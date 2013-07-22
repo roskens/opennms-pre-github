@@ -138,9 +138,10 @@ public class AlarmListJ2eeConnectionManagerThread extends Thread implements Alar
          * initialised
          * yet so throw an IllegalStateException to indicate this.
          */
-        if (!init)
+        if (!init) {
             throw new IllegalStateException(
                                             "AlarmListJ2eeConnectionManagerThread - You must call init() before calling run()");
+        }
 
         while (true) {
             // LOG.debug("Status = {}", status);
@@ -154,8 +155,9 @@ public class AlarmListJ2eeConnectionManagerThread extends Thread implements Alar
             if ((status == CONNECTED) && ((send_status == SEND) || (send_status == REBUILD))) {
                 LOG.debug("AlarmListJ2eeConnectionManagerThread.run() Sending alarms");
                 try {
-                    if (alarmInternals == null)
+                    if (alarmInternals == null) {
                         LOG.error("AlarmListJ2eeConnectionManagerThread.run() alarmInternals is null");
+                    }
 
                     if (send_status == REBUILD) {
                         if (alarmInternals == null) {
@@ -163,8 +165,9 @@ public class AlarmListJ2eeConnectionManagerThread extends Thread implements Alar
                         }
                         alarmInternals.rebuildAlarmList(rebuilt_message);
                     } else {
-                        if (alarmList == null)
+                        if (alarmList == null) {
                             LOG.error("AlarmListJ2eeConnectionManagerThread.run() alarmList is null");
+                        }
                         alarmInternals.updateAlarmList(alarmList);
                     }
                     send_status = SENT;
@@ -334,8 +337,9 @@ public class AlarmListJ2eeConnectionManagerThread extends Thread implements Alar
 
             alarmInternals = (AlarmMonitor) PortableRemoteObject.narrow(session.getHandle().getEJBObject(),
                                                                         AlarmMonitor.class);
-            if (alarmInternals == null)
+            if (alarmInternals == null) {
                 LOG.error("AlarmListJ2eeConnectionManagerThread.lookupBean() AlarmMonitor alarmInternals is null line 244");
+            }
         } catch (IllegalArgumentException iae_ex) {
             LOG.error("AlarmListJ2eeConnectionManagerThread.lookupBean() jvthome property does not exist", iae_ex);
         }

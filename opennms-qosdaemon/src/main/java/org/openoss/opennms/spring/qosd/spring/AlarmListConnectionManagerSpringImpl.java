@@ -203,9 +203,10 @@ public class AlarmListConnectionManagerSpringImpl implements AlarmListConnection
      */
     @Override
     public void run() throws IllegalStateException {
-        if (!init)
+        if (!init) {
             throw new IllegalStateException(
                                             "AlarmListSpringConnectionManagerThread - You must call init() before calling run()");
+        }
 
     }
 

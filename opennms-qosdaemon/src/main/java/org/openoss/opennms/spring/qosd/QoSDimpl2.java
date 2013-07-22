@@ -340,8 +340,9 @@ public class QoSDimpl2 extends AbstractServiceDaemon implements EventListener, Q
             // loading list of UEI's which trigger this daemon
             triggerUeiList = new Hashtable<String, String>();
             String[] temp = config.getEventlist().getUei();
-            for (int i = 0; i < temp.length; i++)
+            for (int i = 0; i < temp.length; i++) {
                 triggerUeiList.put(temp[i], "1");
+            }
 
         } catch (MarshalException mrshl_ex) {
             // write an error message to the log file
@@ -366,8 +367,9 @@ public class QoSDimpl2 extends AbstractServiceDaemon implements EventListener, Q
             throw new UndeclaredThrowableException(io_ex);
         }
 
-        if (useUeiList)
+        if (useUeiList) {
             LOG.info("Qosd.start(): useUeiList = true = using QoSD QoSD-configuration.xml UEI list selects which alarms are sent");
+        }
 
         try {
             // Load the properties file containing the JNDI connection address
@@ -388,8 +390,9 @@ public class QoSDimpl2 extends AbstractServiceDaemon implements EventListener, Q
 
         LOG.info("Qosd.start(): QosD Properties File Loaded");
 
-        if (System.getSecurityManager() == null)
+        if (System.getSecurityManager() == null) {
             System.setSecurityManager(new RMISecurityManager());
+        }
 
         /*
          * The following if-statement checks if the naming provider property
@@ -424,8 +427,9 @@ public class QoSDimpl2 extends AbstractServiceDaemon implements EventListener, Q
             alarmListConnectionManager.start();
             // wait until the AlarmListConnectionManager has connected to bean
             LOG.info("Qosd.start(): Waiting Connection Manager Thread to get JMS connection");
-            while (alarmListConnectionManager.getStatus() != AlarmListConnectionManager.CONNECTED)
+            while (alarmListConnectionManager.getStatus() != AlarmListConnectionManager.CONNECTED) {
                 ;
+            }
             LOG.info("Qosd.start(): Connection Manager Thread JMS connection successfully registered");
 
             LOG.info("Qosd.start(): openNMS just restarted - sending alarm list rebuilt event");
@@ -558,8 +562,9 @@ public class QoSDimpl2 extends AbstractServiceDaemon implements EventListener, Q
     public void registerListener() {
         List<String> ueiList = new ArrayList<String>();
         String[] temp = config.getEventlist().getUei();
-        for (int i = 0; i < temp.length; i++)
+        for (int i = 0; i < temp.length; i++) {
             ueiList.add(temp[i]);
+        }
 
         LOG.info("QosD Registering for {} types of event", temp.length);
         eventIpcManager.addEventListener(this, ueiList);
@@ -588,8 +593,9 @@ public class QoSDimpl2 extends AbstractServiceDaemon implements EventListener, Q
                   event.getUei(), event.getDbid(), event.getTime());
 
         String s = event.getUei();
-        if (s == null)
+        if (s == null) {
             return;
+        }
 
         if (EventConstants.NODE_ADDED_EVENT_UEI.equals(s) || EventConstants.NODE_LABEL_CHANGED_EVENT_UEI.equals(s)
                 || EventConstants.NODE_DELETED_EVENT_UEI.equals(s)
@@ -724,7 +730,7 @@ public class QoSDimpl2 extends AbstractServiceDaemon implements EventListener, Q
 
                         // TODO selector on ACKNOWLEDGED and CLEARED - currently
                         // always sends all alarms in list
-                        if (true)
+                        if (true) {
                             try {
                                 // alarms which are ACKNOWLEDGED and CLEARED are
                                 // included in this current alarm list
@@ -733,6 +739,7 @@ public class QoSDimpl2 extends AbstractServiceDaemon implements EventListener, Q
                             } catch (Throwable e) {
                                 LOG.error("sendAlarms() error putting alarm in alarmList", e);
                             }
+                        }
 
                         // TODO - THIS CODE NEVER RUN
                         /*
