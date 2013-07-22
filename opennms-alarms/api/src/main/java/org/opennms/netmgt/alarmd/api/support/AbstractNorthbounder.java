@@ -137,8 +137,9 @@ public abstract class AbstractNorthbounder implements Northbounder, Runnable, St
      */
     @Override
     public final void start() throws NorthbounderException {
-        if (!m_stopped)
+        if (!m_stopped) {
             return;
+        }
         this.onPreStart();
         m_stopped = false;
         m_queue.init();
