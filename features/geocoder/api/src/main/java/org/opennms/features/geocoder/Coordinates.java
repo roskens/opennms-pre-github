@@ -170,18 +170,22 @@ public class Coordinates implements Serializable {
      */
     @Override
     public boolean equals(final Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
+        }
         if (!(obj instanceof Coordinates)) {
             return false;
         }
         final Coordinates other = (Coordinates) obj;
-        if (Float.floatToIntBits(m_longitude) != Float.floatToIntBits(other.m_longitude))
+        if (Float.floatToIntBits(m_longitude) != Float.floatToIntBits(other.m_longitude)) {
             return false;
-        if (Float.floatToIntBits(m_latitude) != Float.floatToIntBits(other.m_latitude))
+        }
+        if (Float.floatToIntBits(m_latitude) != Float.floatToIntBits(other.m_latitude)) {
             return false;
+        }
         return true;
     }
 
