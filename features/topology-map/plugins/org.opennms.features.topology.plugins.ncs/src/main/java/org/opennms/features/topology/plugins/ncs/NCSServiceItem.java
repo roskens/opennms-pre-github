@@ -143,28 +143,37 @@ public class NCSServiceItem {
      */
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (getClass() != obj.getClass())
+        }
+        if (getClass() != obj.getClass()) {
             return false;
+        }
         NCSServiceItem other = (NCSServiceItem) obj;
         if (m_foreignSource == null) {
-            if (other.m_foreignSource != null)
+            if (other.m_foreignSource != null) {
                 return false;
-        } else if (!m_foreignSource.equals(other.m_foreignSource))
+            }
+        } else if (!m_foreignSource.equals(other.m_foreignSource)) {
             return false;
+        }
         if (m_id == null) {
-            if (other.m_id != null)
+            if (other.m_id != null) {
                 return false;
-        } else if (!m_id.equals(other.m_id))
+            }
+        } else if (!m_id.equals(other.m_id)) {
             return false;
+        }
         if (m_name == null) {
-            if (other.m_name != null)
+            if (other.m_name != null) {
                 return false;
-        } else if (!m_name.equals(other.m_name))
+            }
+        } else if (!m_name.equals(other.m_name)) {
             return false;
+        }
         return true;
     }
 

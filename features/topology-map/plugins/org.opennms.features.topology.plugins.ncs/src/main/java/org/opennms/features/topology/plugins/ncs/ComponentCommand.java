@@ -45,8 +45,9 @@ public class ComponentCommand extends OsgiCommandSupport {
     @Override
     protected Object doExecute() throws Exception {
         final ServiceReference<NCSComponentRepository> sr = this.bundleContext.getServiceReference(NCSComponentRepository.class);
-        if (sr == null)
+        if (sr == null) {
             return null;
+        }
 
         final NCSComponentRepository repository = this.bundleContext.getService(sr);
         for (final NCSComponent component : repository.findAll()) {

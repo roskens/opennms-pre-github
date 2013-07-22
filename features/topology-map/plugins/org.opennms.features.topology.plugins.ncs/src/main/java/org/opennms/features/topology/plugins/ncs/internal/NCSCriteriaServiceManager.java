@@ -109,8 +109,9 @@ public class NCSCriteriaServiceManager {
                     removedService = serviceReg;
                 }
             }
-            if (removedService != null)
+            if (removedService != null) {
                 serviceList.remove(removedService);
+            }
         }
     }
 
