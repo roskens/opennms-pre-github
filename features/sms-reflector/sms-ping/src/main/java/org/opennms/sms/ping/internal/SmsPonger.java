@@ -106,12 +106,14 @@ public class SmsPonger implements OnmsInboundMessageNotification {
             return false;
         }
 
-        if (msg instanceof InboundBinaryMessage || msg.getText() == null)
+        if (msg instanceof InboundBinaryMessage || msg.getText() == null) {
             return false;
+        }
 
         for (String token : s_tokenResponses.keySet()) {
-            if (msg.getText().matches(token))
+            if (msg.getText().matches(token)) {
                 return true;
+            }
         }
         return false;
     }

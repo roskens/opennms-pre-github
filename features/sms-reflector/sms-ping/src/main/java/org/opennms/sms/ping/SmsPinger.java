@@ -129,8 +129,9 @@ public class SmsPinger {
      *             Signals that an I/O exception has occurred.
      */
     public static synchronized void initialize() throws IOException {
-        if (s_pingTracker == null)
+        if (s_pingTracker == null) {
             throw new IllegalStateException("SmsPinger not yet initialized!!");
+        }
     }
 
     /**
