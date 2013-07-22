@@ -475,18 +475,20 @@ public class SnmpAssetProvisioningAdapter extends SimplerQueuedProvisioningAdapt
             final Set<OnmsIpInterface> ipInterfaces = node.getIpInterfaces();
             for (final OnmsIpInterface onmsIpInterface : ipInterfaces) {
                 LOG.debug("getIpForNode: trying Interface with id: {}", onmsIpInterface.getId());
-                if (InetAddressUtils.str(onmsIpInterface.getIpAddress()) != null)
+                if (InetAddressUtils.str(onmsIpInterface.getIpAddress()) != null) {
                     ipaddr = onmsIpInterface.getIpAddress();
-                else
+                } else {
                     LOG.debug("getIpForNode: found null ip address on Interface with id: {}", onmsIpInterface.getId());
+                }
 
             }
         } else {
             LOG.debug("getIpForNode: found SNMP Primary Interface");
-            if (InetAddressUtils.str(primaryInterface.getIpAddress()) != null)
+            if (InetAddressUtils.str(primaryInterface.getIpAddress()) != null) {
                 ipaddr = primaryInterface.getIpAddress();
-            else
+            } else {
                 LOG.debug("getIpForNode: found null ip address on Primary Interface");
+            }
         }
         return ipaddr;
     }
