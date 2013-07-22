@@ -342,33 +342,44 @@ public class Global implements Serializable {
      */
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (getClass() != obj.getClass())
+        }
+        if (getClass() != obj.getClass()) {
             return false;
+        }
         Global other = (Global) obj;
         if (_name == null) {
-            if (other._name != null)
+            if (other._name != null) {
                 return false;
-        } else if (!_name.equals(other._name))
+            }
+        } else if (!_name.equals(other._name)) {
             return false;
+        }
         if (_ref == null) {
-            if (other._ref != null)
+            if (other._ref != null) {
                 return false;
-        } else if (!_ref.equals(other._ref))
+            }
+        } else if (!_ref.equals(other._ref)) {
             return false;
+        }
         if (_type == null) {
-            if (other._type != null)
+            if (other._type != null) {
                 return false;
-        } else if (!_type.equals(other._type))
+            }
+        } else if (!_type.equals(other._type)) {
             return false;
+        }
         if (_value == null) {
-            if (other._value != null)
+            if (other._value != null) {
                 return false;
-        } else if (!_value.equals(other._value))
+            }
+        } else if (!_value.equals(other._value)) {
             return false;
+        }
         return true;
     }
 

@@ -891,38 +891,51 @@ public class RuleSet implements Serializable {
      */
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (getClass() != obj.getClass())
+        }
+        if (getClass() != obj.getClass()) {
             return false;
+        }
         RuleSet other = (RuleSet) obj;
         if (_appContext == null) {
-            if (other._appContext != null)
+            if (other._appContext != null) {
                 return false;
-        } else if (!_appContext.equals(other._appContext))
+            }
+        } else if (!_appContext.equals(other._appContext)) {
             return false;
+        }
         if (_eventList == null) {
-            if (other._eventList != null)
+            if (other._eventList != null) {
                 return false;
-        } else if (!_eventList.equals(other._eventList))
+            }
+        } else if (!_eventList.equals(other._eventList)) {
             return false;
+        }
         if (_globalList == null) {
-            if (other._globalList != null)
+            if (other._globalList != null) {
                 return false;
-        } else if (!_globalList.equals(other._globalList))
+            }
+        } else if (!_globalList.equals(other._globalList)) {
             return false;
+        }
         if (_name == null) {
-            if (other._name != null)
+            if (other._name != null) {
                 return false;
-        } else if (!_name.equals(other._name))
+            }
+        } else if (!_name.equals(other._name)) {
             return false;
+        }
         if (_ruleFileList == null) {
-            if (other._ruleFileList != null)
+            if (other._ruleFileList != null) {
                 return false;
-        } else if (!_ruleFileList.equals(other._ruleFileList))
+            }
+        } else if (!_ruleFileList.equals(other._ruleFileList)) {
             return false;
+        }
         return true;
     }
 

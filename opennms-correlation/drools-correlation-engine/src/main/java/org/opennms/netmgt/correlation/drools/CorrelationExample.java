@@ -89,8 +89,9 @@ public class CorrelationExample {
             simulation.simulate(workingMemory);
 
         } finally {
-            if (in != null)
+            if (in != null) {
                 in.close();
+            }
         }
 
         logger.writeToDisk();

@@ -395,18 +395,23 @@ public class EngineConfiguration implements Serializable {
      */
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (getClass() != obj.getClass())
+        }
+        if (getClass() != obj.getClass()) {
             return false;
+        }
         EngineConfiguration other = (EngineConfiguration) obj;
         if (_ruleSetList == null) {
-            if (other._ruleSetList != null)
+            if (other._ruleSetList != null) {
                 return false;
-        } else if (!_ruleSetList.equals(other._ruleSetList))
+            }
+        } else if (!_ruleSetList.equals(other._ruleSetList)) {
             return false;
+        }
         return true;
     }
 
