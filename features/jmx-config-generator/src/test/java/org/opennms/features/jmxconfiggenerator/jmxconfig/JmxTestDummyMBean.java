@@ -40,28 +40,28 @@ public interface JmxTestDummyMBean {
      *
      * @return the name
      */
-    public String getName();
+    String getName();
 
     /**
      * Gets the x.
      *
      * @return the x
      */
-    public int getX();
+    int getX();
 
     /**
      * Gets the integer.
      *
      * @return the integer
      */
-    public Integer getInteger();
+    Integer getInteger();
 
     /**
      * Gets the long.
      *
      * @return the long
      */
-    public Long getLong();
+    Long getLong();
 
     /**
      * Sets the writable y.
@@ -69,12 +69,12 @@ public interface JmxTestDummyMBean {
      * @param writable
      *            the new writable y
      */
-    public void setWritableY(int writable);
+    void setWritableY(int writable);
 
     /**
      * Gets the writable y.
      *
      * @return the writable y
      */
-    public int getWritableY();
+    int getWritableY();
 }
