@@ -710,7 +710,7 @@ public class PropertiesGraphDao implements GraphDao, InitializingBean {
         }
 
         String property = props.getProperty(propertyName);
-        if (property == null && required == true) {
+        if (property == null && required) {
             throw new DataAccessResourceFailureException("Properties for " + "report '" + graphName
                     + "' must contain \'" + propertyName + "\' property");
         }
