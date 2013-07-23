@@ -127,7 +127,7 @@ public class VMTaskFiber implements Fiber, Runnable {
                 //
                 boolean isOK = true;
                 for (int x = 0; isOK && x < args.length; x++) {
-                    if (args[x].getName().equals(MAIN_PARAMETER_TYPES[x]) == false) {
+                    if (!args[x].getName().equals(MAIN_PARAMETER_TYPES[x])) {
                         isOK = false;
                     }
                 }
