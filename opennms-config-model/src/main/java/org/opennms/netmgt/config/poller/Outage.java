@@ -171,7 +171,7 @@ public class Outage extends BasicSchedule implements Serializable {
             return true;
         }
 
-        if (super.equals(obj) == false) {
+        if (!super.equals(obj)) {
             return false;
         }
 
