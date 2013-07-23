@@ -161,7 +161,7 @@ public class ThrowableAnticipator extends Assert {
      *             the assertion failed error
      */
     public void setFailFast(boolean failFast) throws AssertionFailedError {
-        if (m_failFast == false && failFast == true && m_unanticipated.size() > 0) {
+        if (!m_failFast && failFast && m_unanticipated.size() > 0) {
             fail("failFast is being changed from false to true and unanticipated " + "exceptions have been received:\n"
                     + listUnanticipated());
         }
