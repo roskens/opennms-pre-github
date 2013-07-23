@@ -46,22 +46,18 @@ import org.junit.Test;
  */
 public class ResourcePathFileTraversalTest {
 
-<<<<<<< HEAD
     private static final String STORE_BY_GROUP = "org.opennms.rrd.storeByGroup";
     private String m_sourceDir = "target/test-classes/share/rrd/snmp";
-    private String m_baseDir = "target/file-traversal-test";
-=======
+
     /** The m_base dir. */
-    private String m_baseDir = "src/test/resources/share/rrd/snmp";
+    private String m_baseDir = "target/file-traversal-test";
 
     /** The m_resource name. */
->>>>>>> fix checkstyle: Add missing javadoc comment
     private String m_resourceName = "nsVpnMonitor";
 
     /** The m_node id. */
     private int m_nodeId = 10;
 
-<<<<<<< HEAD
     @Before
     public void setUp() throws IOException {
         final File baseDir = new File(m_baseDir);
@@ -74,11 +70,9 @@ public class ResourcePathFileTraversalTest {
         FileUtils.deleteDirectory(new File(m_baseDir));
     }
 
-=======
     /**
      * Test find all paths recursive.
      */
->>>>>>> fix checkstyle: Add missing javadoc comment
     @Test
     public void testFindAllPathsRecursive() {
         final ResourcePathFileTraversal traverser = new ResourcePathFileTraversal(new File(m_baseDir + "/" + m_nodeId + "/" + m_resourceName));
