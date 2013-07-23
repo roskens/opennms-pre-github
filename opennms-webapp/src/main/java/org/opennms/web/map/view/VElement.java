@@ -297,7 +297,7 @@ public class VElement extends DbElement {
      *             the v element not child exception
      */
     public final int getContainerMap() throws VElementNotChildException {
-        if (isChild == true) {
+        if (isChild) {
             return getMapId();
         }
         throw new VElementNotChildException();

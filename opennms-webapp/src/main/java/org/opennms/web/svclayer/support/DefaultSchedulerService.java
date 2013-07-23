@@ -210,7 +210,7 @@ public class DefaultSchedulerService implements InitializingBean, SchedulerServi
         CronTrigger cronTrigger = null;
 
         try {
-            if (m_reportWrapperService.validate(criteria, id) == false) {
+            if (!m_reportWrapperService.validate(criteria, id)) {
                 LOG.error(PARAMETER_ERROR);
                 context.getMessageContext().addMessage(new MessageBuilder().error().defaultText(PARAMETER_ERROR).build());
                 return ERROR;
@@ -266,7 +266,7 @@ public class DefaultSchedulerService implements InitializingBean, SchedulerServi
             final DeliveryOptions deliveryOptions, final RequestContext context) {
 
         try {
-            if (m_reportWrapperService.validate(criteria, id) == false) {
+            if (!m_reportWrapperService.validate(criteria, id)) {
                 context.getMessageContext().addMessage(new MessageBuilder().error().defaultText(PARAMETER_ERROR).build());
                 return ERROR;
             } else {

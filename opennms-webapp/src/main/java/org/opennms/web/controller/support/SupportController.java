@@ -95,7 +95,7 @@ public class SupportController extends AbstractController implements Initializin
 
         RequestTracker rt = (RequestTracker) session.getAttribute("requestTracker");
 
-        if (results.getNeedsLogin() == false) {
+        if (!results.getNeedsLogin()) {
             if (results.getQueue() == null) {
                 final Long queueId = m_configDao.getQueueId();
                 if (queueId != null) {
