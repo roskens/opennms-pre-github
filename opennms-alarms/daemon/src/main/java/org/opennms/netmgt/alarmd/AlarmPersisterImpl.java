@@ -143,13 +143,13 @@ public class AlarmPersisterImpl implements AlarmPersister {
 
                 // Always set these, unless specified not to, in order to
                 // maintain current behavior
-                if (field.getFieldName().equalsIgnoreCase("LogMsg") && field.isUpdateOnReduction() == false) {
+                if (field.getFieldName().equalsIgnoreCase("LogMsg") && !field.isUpdateOnReduction()) {
                     continue;
                 } else {
                     alarm.setLogMsg(e.getEventLogMsg());
                 }
 
-                if (field.getFieldName().equalsIgnoreCase("Parms") && field.isUpdateOnReduction() == false) {
+                if (field.getFieldName().equalsIgnoreCase("Parms") && !field.isUpdateOnReduction()) {
                     continue;
                 } else {
                     alarm.setEventParms(e.getEventParms());
