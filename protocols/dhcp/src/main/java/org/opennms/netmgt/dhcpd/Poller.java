@@ -352,7 +352,7 @@ final class Poller {
                 relayMode = true;
             }
 
-            if (extendedMode == true) {
+            if (extendedMode) {
                 String requestStr = dcf.getRequestIpAddress();
                 LOG.debug("isServer: REQUEST query target is {}", requestStr);
                 if (requestStr == null || requestStr.equals("") || requestStr.equalsIgnoreCase("targetSubnet")) {
@@ -370,7 +370,7 @@ final class Poller {
         }
 
         int j = 1;
-        if (extendedMode == true) {
+        if (extendedMode) {
             j = typeList.length;
         }
 
@@ -424,7 +424,7 @@ final class Poller {
 
                                 // accept offer or ACK or NAK
                                 if (type[0] == DHCPMessage.OFFER
-                                        || (extendedMode == true && (type[0] == DHCPMessage.ACK || type[0] == DHCPMessage.NAK))) {
+                                        || (extendedMode && (type[0] == DHCPMessage.ACK || type[0] == DHCPMessage.NAK))) {
                                     LOG.debug("isServer: got a valid DHCP response. responseTime= {}ms", responseTime);
 
                                     isDhcpServer = true;
