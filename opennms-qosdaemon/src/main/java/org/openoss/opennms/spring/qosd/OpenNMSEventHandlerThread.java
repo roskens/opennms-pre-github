@@ -127,7 +127,7 @@ public class OpenNMSEventHandlerThread extends Thread {
                 try {
                     // test to see if there have been more requests to update
                     // the list while updating the list
-                    if ((sendList == false) && (updateNCache == false)) {
+                    if (!sendList && !updateNCache) {
                         LOG.debug("OpenNMSEventHandlerThread.run() thread waiting for interrupt");
                         wait();
                     }
