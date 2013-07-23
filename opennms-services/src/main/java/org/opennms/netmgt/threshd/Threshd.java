@@ -405,7 +405,7 @@ public final class Threshd extends AbstractServiceDaemon {
             //
             LOG.debug("scheduleService: checking ipaddress {} for inclusion in pkg {}", ipAddress, pkg.getName());
             boolean foundInPkg = m_threshdConfig.interfaceInPackage(ipAddress, pkg);
-            if (!foundInPkg && existing == false) {
+            if (!foundInPkg && !existing) {
                 // The interface might be a newly added one, rebuild the package
                 // to ipList mapping and again to verify if the interface is in
                 // the package.
@@ -420,7 +420,7 @@ public final class Threshd extends AbstractServiceDaemon {
 
             LOG.debug("scheduleService: ipaddress {} IS in pkg {}", ipAddress, pkg.getName());
 
-            if (existing == false) {
+            if (!existing) {
                 // It is possible that both a nodeGainedService and a
                 // primarySnmpInterfaceChanged
                 // event are generated for an interface during a rescan. To

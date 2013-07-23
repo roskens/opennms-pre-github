@@ -283,7 +283,7 @@ class EventQueueProcessor implements Runnable, PausableFiber {
         // Loop until there is a new client or we are shutdown
         while (!exitCheck) {
             // check the child thread!
-            if (m_worker.isAlive() == false && m_status != STOP_PENDING) {
+            if (!m_worker.isAlive() && m_status != STOP_PENDING) {
                 LOG.warn("{} terminated abnormally", getName());
                 m_status = STOP_PENDING;
             }
@@ -337,7 +337,7 @@ class EventQueueProcessor implements Runnable, PausableFiber {
      */
     @Override
     public synchronized void pause() {
-        if (m_worker == null || m_worker.isAlive() == false) {
+        if (m_worker == null || !m_worker.isAlive()) {
             throw new IllegalStateException("The fiber is not running");
         }
 
@@ -350,7 +350,7 @@ class EventQueueProcessor implements Runnable, PausableFiber {
      */
     @Override
     public synchronized void resume() {
-        if (m_worker == null || m_worker.isAlive() == false) {
+        if (m_worker == null || !m_worker.isAlive()) {
             throw new IllegalStateException("The fiber is not running");
         }
 

@@ -2061,7 +2061,7 @@ public final class RescanProcessor implements Runnable {
                     snmpIfDeleteStmt.executeUpdate();
                 }
 
-                if (alreadyExists == false) {
+                if (!alreadyExists) {
                     /*
                      * Update the 'snmpinterface' table entry so that this
                      * interface's nodeID is set to the value of reparentNodeID
@@ -2099,7 +2099,7 @@ public final class RescanProcessor implements Runnable {
                 ifDeleteStmt.executeUpdate();
             }
 
-            if (ifAlreadyExists == false) {
+            if (!ifAlreadyExists) {
                 /*
                  * Update the 'ipinterface' table entry so that this
                  * interface's nodeID is set to the value of reparentNodeID
@@ -2137,7 +2137,7 @@ public final class RescanProcessor implements Runnable {
                 ifServicesDeleteStmt.executeUpdate();
             }
 
-            if (ifsAlreadyExists == false) {
+            if (!ifsAlreadyExists) {
                 /*
                  * Update the 'snmpinterface' table entry so that this
                  * interface's nodeID is set to the value of reparentNodeID
@@ -2207,7 +2207,7 @@ public final class RescanProcessor implements Runnable {
             // Add eligible target.
             InetAddress ifaddr = ifc.getTarget();
 
-            if (addresses.contains(ifaddr) == false) {
+            if (!addresses.contains(ifaddr)) {
                 if (SuspectEventProcessor.supportsSnmp(ifc.getSupportedProtocols())
                         && SuspectEventProcessor.hasIfIndex(ifaddr, snmpc)
                         && SuspectEventProcessor.getIfType(ifaddr, snmpc) == 24) {
@@ -2222,7 +2222,7 @@ public final class RescanProcessor implements Runnable {
                 Map<InetAddress, List<SupportedProtocol>> subTargets = ifc.getAdditionalTargets();
                 for (InetAddress xifaddr : subTargets.keySet()) {
 
-                    if (addresses.contains(xifaddr) == false) {
+                    if (!addresses.contains(xifaddr)) {
                         if (SuspectEventProcessor.supportsSnmp(subTargets.get(xifaddr))
                                 && SuspectEventProcessor.hasIfIndex(xifaddr, snmpc)
                                 && SuspectEventProcessor.getIfType(xifaddr, snmpc) == 24) {
@@ -2272,7 +2272,7 @@ public final class RescanProcessor implements Runnable {
             // Add eligible target.
             InetAddress ifaddr = ifc.getTarget();
 
-            if (addresses.contains(ifaddr) == false) {
+            if (!addresses.contains(ifaddr)) {
                 if (SuspectEventProcessor.supportsSnmp(ifc.getSupportedProtocols())
                         && SuspectEventProcessor.hasIfIndex(ifaddr, snmpc)) {
                     LOG.debug("buildSnmpAddressList: adding target interface {} temporarily marked as primary!",
@@ -2287,7 +2287,7 @@ public final class RescanProcessor implements Runnable {
 
                 for (InetAddress xifaddr : subTargets.keySet()) {
                     // Add eligible subtargets.
-                    if (addresses.contains(xifaddr) == false) {
+                    if (!addresses.contains(xifaddr)) {
                         if (SuspectEventProcessor.supportsSnmp(subTargets.get(xifaddr))
                                 && SuspectEventProcessor.hasIfIndex(xifaddr, snmpc)) {
                             LOG.debug("buildSnmpAddressList: adding subtarget interface {} temporarily marked as primary!",
@@ -2758,7 +2758,7 @@ public final class RescanProcessor implements Runnable {
                                 LOG.debug("IP address in list = {}", a);
                             }
                         }
-                    } else if (ipAddTable != null && snmpcAgree == true) {
+                    } else if (ipAddTable != null && snmpcAgree) {
                         ipAddTable = snmpc.getIpAddrTable();
                         List<InetAddress> addrList = ipAddTable.getIpAddresses();
 
@@ -2792,7 +2792,7 @@ public final class RescanProcessor implements Runnable {
                         }
                         collector.deleteSnmpCollector();
                     }
-                    if (snmpcAgree == false) {
+                    if (!snmpcAgree) {
                         LOG.debug("SNMP data collected via {} does not agree with database or with other interface(s) on this node.",
                                   ifaddrString);
                     }
@@ -2807,7 +2807,7 @@ public final class RescanProcessor implements Runnable {
             }
         }
 
-        if (!gotSnmpCollection && snmpcAgree == false) {
+        if (!gotSnmpCollection && !snmpcAgree) {
             /*
              * We didn't get a collection from a primary snmp interface,
              * and we didn't get a collection that agrees with the db, and
@@ -2822,7 +2822,7 @@ public final class RescanProcessor implements Runnable {
             } else {
                 doesSnmp = false;
                 if (LOG.isDebugEnabled()) {
-                    if (gotSnmpc == false) {
+                    if (!gotSnmpc) {
                         LOG.debug("Could not collect SNMP data for node: {}", getNodeId());
                     } else {
                         LOG.debug("Not using SNMP data for node: {}.  Collection does not agree with database.",
@@ -2830,7 +2830,7 @@ public final class RescanProcessor implements Runnable {
                     }
                 }
             }
-        } else if (snmpcAgree == true) {
+        } else if (snmpcAgree) {
             /*
              * We didn't get a collection from a primary snmp interface,
              * and we didn't get a collection that agrees with the db, but

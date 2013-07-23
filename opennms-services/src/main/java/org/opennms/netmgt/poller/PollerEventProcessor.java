@@ -685,7 +685,7 @@ final class PollerEventProcessor implements EventListener {
 
                 svc.delete();
 
-                while (svc.isDeleted() == false) {
+                while (!svc.isDeleted()) {
                     LOG.debug("Waiting for the service to delete...");
                 }
 

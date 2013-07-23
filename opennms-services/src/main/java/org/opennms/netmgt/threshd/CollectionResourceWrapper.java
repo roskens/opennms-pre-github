@@ -432,7 +432,7 @@ public class CollectionResourceWrapper {
             LOG.error("{} does not have a numeric value: {}", id, numValue);
             return null;
         }
-        if (m_attributes.get(ds).getType().toLowerCase().startsWith("counter") == false) {
+        if (!m_attributes.get(ds).getType().toLowerCase().startsWith("counter")) {
             LOG.debug("getAttributeValue: id={}, value= {}", id, current);
             return current;
         } else {
@@ -455,7 +455,7 @@ public class CollectionResourceWrapper {
     private Double getCounterValue(String id, Double current) {
         synchronized (m_localCache) {
 
-            if (m_localCache.containsKey(id) == false) {
+            if (!m_localCache.containsKey(id)) {
                 // Atomically replace the CacheEntry with the new value
                 CacheEntry last = s_cache.put(id, new CacheEntry(m_collectionTimestamp, current));
                 LOG.debug("getCounterValue: id={}, last={}, current={}", id, (last == null ? last : last.value + "@"

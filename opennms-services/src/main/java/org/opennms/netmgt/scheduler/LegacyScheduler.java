@@ -331,7 +331,7 @@ public class LegacyScheduler implements Runnable, PausableFiber, Scheduler {
      */
     @Override
     public synchronized int getStatus() {
-        if (m_worker != null && m_worker.isAlive() == false) {
+        if (m_worker != null && !m_worker.isAlive()) {
             m_status = STOPPED;
         }
         return m_status;

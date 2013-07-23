@@ -400,7 +400,7 @@ public class ThresholdingSet {
                     }
                     if (operator.equals("and")) {
                         andResult = andResult && pass;
-                        if (andResult == false) {
+                        if (!andResult) {
                             return false;
                         }
                     }

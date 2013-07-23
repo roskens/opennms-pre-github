@@ -352,7 +352,7 @@ final class Scheduler implements Runnable, PausableFiber {
                 d.watch(rs);
                 if (rset.next()) {
                     Timestamp lastPolled = rset.getTimestamp(1);
-                    if (lastPolled != null && rset.wasNull() == false) {
+                    if (lastPolled != null && !rset.wasNull()) {
                         LOG.debug("loadKnownNodes: adding node {} with last poll time {}", nodeId, lastPolled);
                         NodeInfo nodeInfo = new NodeInfo(nodeId, lastPolled, m_interval);
                         m_knownNodes.add(nodeInfo);
@@ -392,7 +392,7 @@ final class Scheduler implements Runnable, PausableFiber {
             d.watch(rset);
             if (rset.next()) {
                 Timestamp lastPolled = rset.getTimestamp(1);
-                if (lastPolled != null && rset.wasNull() == false) {
+                if (lastPolled != null && !rset.wasNull()) {
                     LOG.debug("scheduleNode: adding node {} with last poll time {}", nodeId, lastPolled);
                     m_knownNodes.add(new NodeInfo(nodeId, lastPolled, m_interval));
                 }
@@ -523,7 +523,7 @@ final class Scheduler implements Runnable, PausableFiber {
      */
     @Override
     public synchronized int getStatus() {
-        if (m_worker != null && m_worker.isAlive() == false) {
+        if (m_worker != null && !m_worker.isAlive()) {
             m_status = STOPPED;
         }
         return m_status;

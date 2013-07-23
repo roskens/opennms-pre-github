@@ -506,7 +506,7 @@ public class Scheduler implements Runnable, PausableFiber, ScheduleTimer {
      */
     @Override
     public synchronized int getStatus() {
-        if (m_worker != null && m_worker.isAlive() == false) {
+        if (m_worker != null && !m_worker.isAlive()) {
             m_status = STOPPED;
         }
         return m_status;

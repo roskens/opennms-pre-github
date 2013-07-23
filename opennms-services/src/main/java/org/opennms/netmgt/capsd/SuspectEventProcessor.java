@@ -511,7 +511,7 @@ final class SuspectEventProcessor implements Runnable {
          * is most likely an alias and the subinterfaces collected via SNMP
          * should already be in the database.
          */
-        if (useExistingNode == true) {
+        if (useExistingNode) {
             return;
         }
 

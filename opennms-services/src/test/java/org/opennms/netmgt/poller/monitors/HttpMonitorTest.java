@@ -92,7 +92,7 @@ public class HttpMonitorTest {
     @Test
     public void testPollStatusReason() throws UnknownHostException {
 
-        if (m_runTests == false) {
+        if (!m_runTests) {
             return;
         }
 
@@ -165,7 +165,7 @@ public class HttpMonitorTest {
      *             the unknown host exception
      */
     public void callTestResponseRange(boolean preferIPv6) throws UnknownHostException {
-        if (m_runTests == false) {
+        if (!m_runTests) {
             return;
         }
 
@@ -248,7 +248,7 @@ public class HttpMonitorTest {
      *             the unknown host exception
      */
     public void callTestTimeout(boolean preferIPv6) throws UnknownHostException {
-        if (m_runTests == false) {
+        if (!m_runTests) {
             return;
         }
 
@@ -310,7 +310,7 @@ public class HttpMonitorTest {
      */
     public void callTestMatchingTextInResponse(boolean preferIPv6) throws UnknownHostException {
 
-        if (m_runTests == false) {
+        if (!m_runTests) {
             return;
         }
 
@@ -359,7 +359,7 @@ public class HttpMonitorTest {
      */
     @Test
     public void testBase64Encoding() {
-        if (m_runTests == false) {
+        if (!m_runTests) {
             return;
         }
 
@@ -403,7 +403,7 @@ public class HttpMonitorTest {
      */
     public void callTestBasicAuthentication(boolean preferIPv6) throws UnknownHostException {
 
-        if (m_runTests == false) {
+        if (!m_runTests) {
             return;
         }
 
@@ -470,7 +470,7 @@ public class HttpMonitorTest {
      */
     public void callTestBasicAuthenticationWithHttps(boolean preferIPv6) throws UnknownHostException {
 
-        if (m_runTests == false) {
+        if (!m_runTests) {
             return;
         }
 
@@ -534,7 +534,7 @@ public class HttpMonitorTest {
      *             the unknown host exception
      */
     public void callTestWithUrl(boolean preferIPv6) throws UnknownHostException {
-        if (m_runTests == false) {
+        if (!m_runTests) {
             return;
         }
 
@@ -593,7 +593,7 @@ public class HttpMonitorTest {
      *             the unknown host exception
      */
     public void callTestWithInvalidNodelabelHostName(boolean preferIPv6) throws UnknownHostException {
-        if (m_runTests == false) {
+        if (!m_runTests) {
             return;
         }
 
@@ -654,7 +654,7 @@ public class HttpMonitorTest {
      */
     public void callTestPollInInvalidVirtualDomain(boolean preferIPv6) throws UnknownHostException {
 
-        if (m_runTests == false) {
+        if (!m_runTests) {
             return;
         }
 
@@ -708,7 +708,7 @@ public class HttpMonitorTest {
      */
     public void callTestPollValidVirtualDomain(boolean preferIPv6) throws UnknownHostException {
 
-        if (m_runTests == false) {
+        if (!m_runTests) {
             return;
         }
 

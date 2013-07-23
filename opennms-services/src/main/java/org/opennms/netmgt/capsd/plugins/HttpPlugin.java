@@ -233,7 +233,7 @@ public class HttpPlugin extends AbstractTcpPlugin {
                 if (m_checkReturnCode) {
                     int maxRetCode = config.getKeyedInteger(PROPERTY_NAME_MAX_RET_CODE, 399);
                     if ((DEFAULT_URL.equals(config.getKeyedString(PROPERTY_NAME_URL, DEFAULT_URL)))
-                            || (config.getKeyedBoolean(PROPERTY_NAME_RETURN_CODE, true) == false)) {
+                            || !config.getKeyedBoolean(PROPERTY_NAME_RETURN_CODE, true)) {
                         maxRetCode = 600;
                     }
                     StringTokenizer t = new StringTokenizer(response.toString());

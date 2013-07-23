@@ -548,7 +548,7 @@ public class Collectd extends AbstractServiceDaemon implements EventListener {
 
             for (CollectionSpecification spec : matchingSpecs) {
 
-                if (existing == false) {
+                if (!existing) {
                     /*
                      * It is possible that both a nodeGainedService and a
                      * primarySnmpInterfaceChanged event are generated for an
