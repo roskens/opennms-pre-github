@@ -30,6 +30,8 @@ package org.opennms.features.vaadin.dashboard.config.ui;
 import java.util.Map;
 
 import org.opennms.features.vaadin.dashboard.config.DashletSelector;
+import org.opennms.features.vaadin.dashboard.model.DashletConfigurationWindow;
+import org.opennms.features.vaadin.dashboard.model.DashletFactory;
 import org.opennms.features.vaadin.dashboard.model.DashletSpec;
 
 import com.vaadin.data.Container;
