@@ -247,7 +247,7 @@ class SnmpTimer extends Object {
             // itself. This will cause a deadlock
             // condition to occur!
             //
-            if (m_thread.equals(Thread.currentThread()) == false) {
+            if (!m_thread.equals(Thread.currentThread())) {
                 m_thread.join();
             }
         } catch (InterruptedException err) {

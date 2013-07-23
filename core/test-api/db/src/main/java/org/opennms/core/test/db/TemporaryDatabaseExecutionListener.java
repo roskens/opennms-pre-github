@@ -217,7 +217,7 @@ public class TemporaryDatabaseExecutionListener extends AbstractTestExecutionLis
         final Future<TemporaryDatabase> classDs;
         if (classJtd != null) {
             classDs = pool.submit(new CreateNewDatabaseCallable(classJtd));
-            if (classJtd.reuseDatabase() == false) {
+            if (!classJtd.reuseDatabase()) {
                 m_createNewDatabases = true;
             }
         } else {

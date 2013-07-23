@@ -225,7 +225,7 @@ public class SnmpPortal {
             bSocketSoTimeoutRequired = false;
         }
 
-        if (bSocketSoTimeoutRequired == true) {
+        if (bSocketSoTimeoutRequired) {
             String strSocketSoTimeoutPeriod = System.getProperty(PROP_SOCKET_TIMEOUT_PERIOD);
             int timeout = 3000; // Default socket timeout is 3 seconds
             if (strSocketSoTimeoutPeriod != null) {
@@ -313,7 +313,7 @@ public class SnmpPortal {
             Thread fastReceiver = new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    while (!m_isClosing && Thread.interrupted() == false) {
+                    while (!m_isClosing && !Thread.interrupted()) {
                         byte[] buf = null;
                         synchronized (usedBuffers) {
                             if (!usedBuffers.isEmpty()) {
@@ -655,7 +655,7 @@ public class SnmpPortal {
             // is not the one we are trying to
             // join!
             //
-            if (m_recvThread.equals(Thread.currentThread()) == false) {
+            if (!m_recvThread.equals(Thread.currentThread())) {
                 m_recvThread.join();
             }
         } catch (InterruptedException err) {

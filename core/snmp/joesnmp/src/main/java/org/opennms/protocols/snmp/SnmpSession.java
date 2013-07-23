@@ -157,7 +157,7 @@ public class SnmpSession extends Object {
                 }
             }
 
-            if (isExpired == false) {
+            if (!isExpired) {
                 int cmd = -1;
                 if (req != null && req.m_pdu instanceof SnmpPduPacket) {
                     cmd = ((SnmpPduPacket) req.m_pdu).getCommand();
@@ -799,7 +799,7 @@ public class SnmpSession extends Object {
         }
 
         req.run();
-        if (req.m_expired == true) {
+        if (req.m_expired) {
             return 0;
         }
 

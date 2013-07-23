@@ -84,7 +84,7 @@ class SnmpUtil extends Object {
                     break;
                 }
             }
-            if (addIt == true) {
+            if (addIt) {
                 rc = m_syntaxArray.add(obj);
             }
         }
