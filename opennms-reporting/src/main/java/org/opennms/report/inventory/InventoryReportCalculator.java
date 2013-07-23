@@ -425,7 +425,7 @@ public class InventoryReportCalculator implements InitializingBean {
                         break;
                     }
                 } // end for on version
-                if (found == false) {
+                if (!found) {
                     LOG.debug("calculate: device has no configuration at this date[{}]", deviceName);
                     groupHasNodesWithoutinventoryAtrequestDate = true;
                     nodesWithoutinventoryAtReportDate++;

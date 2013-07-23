@@ -393,7 +393,7 @@ public class ConfigurationReportCalculator implements InitializingBean {
                         break;
                     }
                 } // end for on version
-                if (found == false) {
+                if (!found) {
                     // skip device
                     LOG.debug("calculate:report device has no inventory at this date[{}]", deviceName);
                     groupHasNodesWithoutconfigurationAtrequestDate = true;
