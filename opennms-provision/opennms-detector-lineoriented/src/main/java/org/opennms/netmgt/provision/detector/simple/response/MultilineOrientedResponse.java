@@ -174,7 +174,7 @@ public class MultilineOrientedResponse {
                 LOG.debug("Return from server was: {}", response);
                 if (isCheckCode) {
 
-                    if (("/".equals(url)) || (isCheckCode == false)) {
+                    if (("/".equals(url)) || !isCheckCode) {
                         checkMaxRetCode = 600;
                     }
 
