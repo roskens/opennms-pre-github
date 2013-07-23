@@ -228,7 +228,7 @@ public class XmpMonitor extends AbstractServiceMonitor {
                 status = PollStatus.unavailable(e.getMessage());
             }
         }
-        if (result == true) {
+        if (result) {
             Double responseTime = new Double(System.currentTimeMillis() - startTime);
             status = PollStatus.available(responseTime);
         }

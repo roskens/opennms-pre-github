@@ -616,13 +616,13 @@ public class XmpCollector implements ServiceCollector {
                 tableInfo[2] = mibObjects[0].getInstance();
 
                 // tabular query
-                if (handleTableQuery(group.getName(), group.getResourceType(), collectionSet, tableInfo, session, vars) == false) {
+                if (!handleTableQuery(group.getName(), group.getResourceType(), collectionSet, tableInfo, session, vars)) {
                     session.closeSession();
                     return collectionSet;
                 }
             } else {
                 // scalar query
-                if (handleScalarQuery(group.getName(), collectionSet, oldUptime, session, scalarResource, vars) == false) {
+                if (!handleScalarQuery(group.getName(), collectionSet, oldUptime, session, scalarResource, vars)) {
                     session.closeSession();
                     return collectionSet;
                 }
