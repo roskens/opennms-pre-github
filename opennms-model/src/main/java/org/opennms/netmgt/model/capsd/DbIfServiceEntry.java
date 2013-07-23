@@ -1039,12 +1039,12 @@ public final class DbIfServiceEntry {
      *             the sQL exception
      */
     public void store() throws SQLException {
-        if (m_changed != 0 || m_fromDb == false) {
+        if (m_changed != 0 || !m_fromDb) {
             Connection db = null;
             try {
                 db = DataSourceFactory.getInstance().getConnection();
                 store(db);
-                if (db.getAutoCommit() == false) {
+                if (!db.getAutoCommit()) {
                     db.commit();
                 }
             } finally {
@@ -1086,7 +1086,7 @@ public final class DbIfServiceEntry {
      *             the sQL exception
      */
     public void store(Connection db, boolean noRollback) throws SQLException {
-        if (m_changed != 0 || m_fromDb == false) {
+        if (m_changed != 0 || !m_fromDb) {
             if (m_fromDb) {
                 update(db);
             } else {

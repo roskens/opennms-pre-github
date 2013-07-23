@@ -481,7 +481,7 @@ public final class DbIpInterfaceEntry {
 
             // get the managed status
             String str = rset.getString(ndx++);
-            if (str != null && rset.wasNull() == false) {
+            if (str != null && !rset.wasNull()) {
                 m_managedState = str.charAt(0);
             } else {
                 m_managedState = STATE_UNKNOWN;
@@ -498,7 +498,7 @@ public final class DbIpInterfaceEntry {
 
             // get the SNMP primary state
             str = rset.getString(ndx++);
-            if (str != null && rset.wasNull() == false) {
+            if (str != null && !rset.wasNull()) {
                 m_primaryState = str.charAt(0);
             } else {
                 m_primaryState = STATE_UNKNOWN;
@@ -928,12 +928,12 @@ public final class DbIpInterfaceEntry {
      *             the sQL exception
      */
     public void store() throws SQLException {
-        if (m_changed != 0 || m_fromDb == false) {
+        if (m_changed != 0 || !m_fromDb) {
             Connection db = null;
             try {
                 db = DataSourceFactory.getInstance().getConnection();
                 store(db);
-                if (db.getAutoCommit() == false) {
+                if (!db.getAutoCommit()) {
                     db.commit();
                 }
             } finally {
@@ -961,7 +961,7 @@ public final class DbIpInterfaceEntry {
      *             the sQL exception
      */
     public void store(Connection db) throws SQLException {
-        if (m_changed != 0 || m_fromDb == false) {
+        if (m_changed != 0 || !m_fromDb) {
             if (m_fromDb) {
                 update(db);
             } else {

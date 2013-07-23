@@ -1883,12 +1883,12 @@ public final class DbNodeEntry {
      *             the sQL exception
      */
     public void store() throws SQLException {
-        if (m_changed != 0 || m_fromDb == false) {
+        if (m_changed != 0 || !m_fromDb) {
             Connection db = null;
             try {
                 db = DataSourceFactory.getInstance().getConnection();
                 store(db);
-                if (db.getAutoCommit() == false) {
+                if (!db.getAutoCommit()) {
                     db.commit();
                 }
             } finally {
@@ -1917,7 +1917,7 @@ public final class DbNodeEntry {
      */
     public void store(Connection db) throws SQLException {
         LOG.debug("DbNodeEntry: changed map = 0x{}", Integer.toHexString(m_changed));
-        if (m_changed != 0 || m_fromDb == false) {
+        if (m_changed != 0 || !m_fromDb) {
             if (m_fromDb) {
                 update(db);
             } else {
