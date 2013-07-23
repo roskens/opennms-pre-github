@@ -466,7 +466,7 @@ public class WillItUnmarshalTest {
     @Test
     public void testUnmarshalling() {
         // Be conservative about what we ship, so don't be lenient
-        if (this.lenient == false) {
+        if (!this.lenient) {
             LocalConfiguration.getInstance().getProperties().remove(CASTOR_LENIENT_SEQUENCE_ORDERING_PROPERTY);
         }
 
