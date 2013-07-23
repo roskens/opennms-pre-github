@@ -141,7 +141,7 @@ public class UserRepositoryIbatisTest {
     public void getUser() {
         UserView user = repo.getUser("1");
         assertTrue(user.getUsername().equals("max"));
-        assertTrue(user.isEnabled() == true);
+        assertTrue(user.isEnabled());
         assertTrue(user.getId() == 1);
     }
 
@@ -164,7 +164,7 @@ public class UserRepositoryIbatisTest {
     public void getUserWithAuthorities() {
         UserAuthoritiesDTO user = repo.getUserWithAuthorities("max");
         assertTrue(user.getUsername().equals("max"));
-        assertTrue(user.isEnabled() == true);
+        assertTrue(user.isEnabled());
         assertTrue(user.getId() == 1);
         assertTrue(user.getAuthorities().size() == 5);
         assertFalse(user.isNew());
@@ -190,7 +190,7 @@ public class UserRepositoryIbatisTest {
     public void getUserWithOutAuthorities() {
         UserAuthoritiesDTO user = repo.getUserWithAuthorities("pippo");
         assertTrue(user.getUsername().equals("pippo"));
-        assertTrue(user.isEnabled() == true);
+        assertTrue(user.isEnabled());
         assertTrue(user.getId() == 2);
         assertTrue(user.getAuthorities().size() == 0);
         assertFalse(user.isNew());

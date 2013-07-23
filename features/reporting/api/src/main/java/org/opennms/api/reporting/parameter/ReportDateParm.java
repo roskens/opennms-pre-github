@@ -183,7 +183,7 @@ public class ReportDateParm extends ReportParm implements Serializable {
      */
     public Date getValue(ReportMode mode) {
         Calendar cal = Calendar.getInstance();
-        if ((mode == ReportMode.SCHEDULED) && (m_useAbsoluteDate == false)) {
+        if ((mode == ReportMode.SCHEDULED) && !m_useAbsoluteDate) {
             // use the offset date set when the report was scheduled
             int amount = 0 - m_count;
             if (m_interval.equals("year")) {

@@ -154,9 +154,9 @@ public class JasperReportService implements ReportService {
 
         for (JRParameter reportParm : reportParms) {
 
-            if (reportParm.isSystemDefined() == false) {
+            if (!reportParm.isSystemDefined()) {
 
-                if (reportParm.isForPrompting() == false) {
+                if (!reportParm.isForPrompting()) {
                     LOG.debug("report parm {} is not for prompting - continuing", reportParm.getName());
                     continue;
                 } else {
@@ -594,16 +594,16 @@ public class JasperReportService implements ReportService {
 
         for (JRParameter reportParm : reportParms) {
             LOG.debug("found report parm {} of class {}", reportParm.getValueClassName(), reportParm.getName());
-            if (reportParm.isSystemDefined() == false) {
+            if (!reportParm.isSystemDefined()) {
 
                 String parmName = reportParm.getName();
 
-                if (reportParm.isForPrompting() == false) {
+                if (!reportParm.isForPrompting()) {
                     LOG.debug("Required parameter {} is not for prompting - continuing", parmName);
                     continue;
                 }
 
-                if (onmsReportParms.containsKey(parmName) == false) {
+                if (!onmsReportParms.containsKey(parmName)) {
                     throw new ReportException("Required parameter " + parmName
                             + " not supplied to JasperReports by OpenNMS");
                 }
