@@ -259,7 +259,7 @@ public class DefaultDataCollectionConfigDao extends AbstractJaxbConfigDao<Dataco
 
             // Match on ipAddress?
             boolean bMatchIPAddress = true; // default is INCLUDE
-            if (bMatchSysoid == true) {
+            if (bMatchSysoid) {
                 if (anAddress != null) {
                     List<String> addrList = null;
                     List<String> maskList = null;
@@ -286,7 +286,7 @@ public class DefaultDataCollectionConfigDao extends AbstractJaxbConfigDao<Dataco
 
                     // If still no match, see if address matches any of the
                     // masks
-                    if (bMatchIPAddress == false) {
+                    if (!bMatchIPAddress) {
 
                         if (maskList != null && maskList.size() > 0) {
                             for (final String currMask : maskList) {

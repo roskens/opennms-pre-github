@@ -126,7 +126,7 @@ public class CollectdPackage {
         boolean result = false;
 
         Enumeration<Service> esvcs = pkg.enumerateService();
-        while (result == false && esvcs.hasMoreElements()) {
+        while (!result && esvcs.hasMoreElements()) {
             Service tsvc = esvcs.nextElement();
             if (tsvc.getName().equalsIgnoreCase(svcName)) {
                 // Ok its in the package. Now check the
