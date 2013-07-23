@@ -65,6 +65,7 @@ import org.slf4j.LoggerFactory;
 public final class IfTable extends SnmpTable<IfTableEntry> {
 
     /** The Constant LOG. */
+    @SuppressWarnings("unused")
     private static final Logger LOG = LoggerFactory.getLogger(IfTable.class);
 
     /**

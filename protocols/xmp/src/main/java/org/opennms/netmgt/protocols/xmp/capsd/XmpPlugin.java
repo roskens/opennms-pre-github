@@ -70,6 +70,7 @@ import org.slf4j.LoggerFactory;
 public final class XmpPlugin extends AbstractPlugin {
 
     /** The Constant LOG. */
+    @SuppressWarnings("unused")
     private static final Logger LOG = LoggerFactory.getLogger(XmpPlugin.class);
 
     /** The protocol supported by the plugin. */

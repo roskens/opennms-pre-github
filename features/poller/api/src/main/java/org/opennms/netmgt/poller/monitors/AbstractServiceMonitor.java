@@ -51,6 +51,7 @@ import org.slf4j.LoggerFactory;
 public abstract class AbstractServiceMonitor implements ServiceMonitor {
 
     /** The Constant LOG. */
+    @SuppressWarnings("unused")
     private static final Logger LOG = LoggerFactory.getLogger(AbstractServiceMonitor.class);
 
     /**

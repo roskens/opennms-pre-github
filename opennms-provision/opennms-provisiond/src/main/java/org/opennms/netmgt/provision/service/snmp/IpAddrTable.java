@@ -59,6 +59,7 @@ import org.slf4j.LoggerFactory;
 public class IpAddrTable extends SnmpTable<IpAddrTableEntry> {
 
     /** The Constant LOG. */
+    @SuppressWarnings("unused")
     private static final Logger LOG = LoggerFactory.getLogger(IpAddrTable.class);
 
     /**

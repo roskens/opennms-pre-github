@@ -44,6 +44,7 @@ import org.slf4j.LoggerFactory;
 public class IndexStorageStrategy implements StorageStrategy {
 
     /** The Constant LOG. */
+    @SuppressWarnings("unused")
     private static final Logger LOG = LoggerFactory.getLogger(IndexStorageStrategy.class);
 
     /** The m_resource type name. */

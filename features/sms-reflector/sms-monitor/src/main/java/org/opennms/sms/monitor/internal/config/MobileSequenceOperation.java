@@ -45,6 +45,7 @@ import org.slf4j.LoggerFactory;
 public abstract class MobileSequenceOperation {
 
     /** The Constant LOG. */
+    @SuppressWarnings("unused")
     private static final Logger LOG = LoggerFactory.getLogger(MobileSequenceOperation.class);
 
     /**

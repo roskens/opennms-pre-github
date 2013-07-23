@@ -41,6 +41,7 @@ import org.slf4j.MDC;
 public class LogPrefixPreservingPingResponseCallback implements PingResponseCallback {
 
     /** The Constant LOG. */
+    @SuppressWarnings("unused")
     private static final Logger LOG = LoggerFactory.getLogger(LogPrefixPreservingPingResponseCallback.class);
 
     /** The m_cb. */

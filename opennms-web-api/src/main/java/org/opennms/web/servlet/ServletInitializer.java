@@ -55,6 +55,7 @@ import org.slf4j.LoggerFactory;
 public class ServletInitializer extends Object {
 
     /** The Constant LOG. */
+    @SuppressWarnings("unused")
     private static final Logger LOG = LoggerFactory.getLogger(ServletInitializer.class);
 
     /**
