@@ -46,7 +46,7 @@ import org.opennms.core.test.snmp.annotations.JUnitSnmpAgents;
 import org.opennms.core.utils.BeanUtils;
 import org.opennms.netmgt.config.EnhancedLinkdConfig;
 import org.opennms.netmgt.dao.api.NodeDao;
-import org.opennms.netmgt.dao.TopologyDao;
+import org.opennms.netmgt.dao.api.TopologyDao;
 import org.opennms.netmgt.Nms17216NetworkBuilder;
 import org.opennms.netmgt.model.OnmsNode;
 import org.opennms.netmgt.model.topology.TopologyElement;

@@ -40,7 +40,7 @@ import org.junit.runner.RunWith;
 import org.opennms.core.test.MockLogAppender;
 import org.opennms.core.test.OpenNMSJUnit4ClassRunner;
 import org.opennms.core.test.db.annotations.JUnitTemporaryDatabase;
-import org.opennms.netmgt.dao.EnTopologyDao;
+import org.opennms.netmgt.dao.api.EnTopologyDao;
 import org.opennms.netmgt.model.entopology.LldpElementIdentifier;
 import org.opennms.netmgt.model.entopology.LldpElementIdentifier.LldpChassisIdSubType;
 import org.opennms.netmgt.model.entopology.LldpEndPoint;

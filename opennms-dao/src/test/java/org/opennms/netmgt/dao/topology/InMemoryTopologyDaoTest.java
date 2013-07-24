@@ -37,7 +37,7 @@ import java.util.Properties;
 import org.junit.Before;
 import org.junit.Test;
 import org.opennms.core.test.MockLogAppender;
-import org.opennms.netmgt.dao.TopologyDao;
+import org.opennms.netmgt.dao.api.TopologyDao;
 import org.opennms.netmgt.dao.topology.TopologyDaoInMemoryImpl;
 import org.opennms.netmgt.model.topology.BridgeDot1dTpFdbLink;
 import org.opennms.netmgt.model.topology.BridgeElementIdentifier;

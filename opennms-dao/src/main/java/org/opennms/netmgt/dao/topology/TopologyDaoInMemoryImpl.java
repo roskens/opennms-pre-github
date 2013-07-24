@@ -5,7 +5,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.opennms.netmgt.dao.TopologyDao;
+import org.opennms.netmgt.dao.api.TopologyDao;
 import org.opennms.netmgt.model.topology.TopologyElement;
 import org.opennms.netmgt.model.topology.ElementIdentifier;
 import org.opennms.netmgt.model.topology.EndPoint;
