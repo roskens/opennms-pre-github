@@ -96,7 +96,7 @@
   <module name="Translation"/>
   <module name="FileLength"/>
   <module name="FileTabCharacter"/>
-  <module name="Header">
+  <module name="RegexpHeader">
     <property name="headerFile" value="${root.dir}/src/site/checkstyle-header-java.txt"/>
     <property name="fileExtensions" value="java"/>
   </module>
