@@ -446,12 +446,8 @@
           <version>2.10</version>
           <configuration>
             <enableRulesSummary>false</enableRulesSummary>
-            <module name="LineLength">
-              <property name="max" value="120"/>
-            </module>
-            <module name="TreeWalker">
-              <property name="tabWidth" value="4"/>
-            </module>
+            <configLocation>${root.dir}/src/site/checkstyle.xml</configLocation>
+            <propertyExpansion>root.dir=${root.dir}</propertyExpansion>
           </configuration>
         </plugin>
       </plugins>
@@ -620,12 +616,8 @@
         <version>2.10</version>
         <configuration>
           <enableRulesSummary>false</enableRulesSummary>
-          <module name="LineLength">
-            <property name="max" value="120"/>
-          </module>
-          <module name="TreeWalker">
-            <property name="tabWidth" value="4"/>
-          </module>
+          <configLocation>${root.dir}/src/site/checkstyle.xml</configLocation>
+          <propertyExpansion>root.dir=${root.dir}</propertyExpansion>
         </configuration>
       </plugin>
     </plugins>
@@ -685,12 +677,8 @@
         <version>2.10</version>
         <configuration>
           <enableRulesSummary>false</enableRulesSummary>
-          <module name="LineLength">
-            <property name="max" value="120"/>
-          </module>
-          <module name="TreeWalker">
-            <property name="tabWidth" value="4"/>
-          </module>
+          <configLocation>${root.dir}/src/site/checkstyle.xml</configLocation>
+          <propertyExpansion>root.dir=${root.dir}</propertyExpansion>
         </configuration>
       </plugin>
       <!--

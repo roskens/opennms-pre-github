@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suppressions PUBLIC "-//Puppy Crawl//DTD Suppressions 1.0//EN" "http://www.puppycrawl.com/dtds/suppressions_1_0.dtd">
+<suppressions>
+  <suppress checks="[a-zA-Z0-9]*" files="/generated-sources/" />
+  <suppress checks="[a-zA-Z0-9]*" files="\.jar$" />
+  <suppress checks="[a-zA-Z0-9]*" files="\.png$" />
+  <suppress checks="[a-zA-Z0-9]*" files="\.gif$" />
+  <suppress checks="[a-zA-Z0-9]*" files="\.jpg$" />
+</suppressions>
