@@ -286,7 +286,7 @@ public class Filter {
         };
         return predicate;
     }
-    static public <T> Collection<T> filter(Collection<T> target, Predicate<T> predicate) {
+    public static <T> Collection<T> filter(Collection<T> target, Predicate<T> predicate) {
         Collection<T> filteredCollection = new ArrayList<T>();
         for (T t : target) {
             if (predicate.apply(t)) {
