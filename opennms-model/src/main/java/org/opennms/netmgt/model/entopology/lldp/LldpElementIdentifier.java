@@ -13,11 +13,11 @@ public final class LldpElementIdentifier extends ElementIdentifier {
     
     private LldpChassisIdSubType m_lldpChassisIdSubType;
 
-    public LldpElementIdentifier(String lldpChassisId, String sysname, Integer subtype, Integer sourceNode) {
+    public LldpElementIdentifier(String lldpChassisId, String sysname, LldpChassisIdSubType subtype, Integer sourceNode) {
 		super(sourceNode);
 		m_lldpChassisId=lldpChassisId;
 		m_lldpSysname=sysname;
-		m_lldpChassisIdSubType=LldpChassisIdSubType.getByOrdinal(subtype);
+		m_lldpChassisIdSubType=subtype;
 		setId(m_lldpChassisId+"-"+m_lldpChassisIdSubType);
 	}
 

@@ -41,10 +41,10 @@ import org.opennms.core.test.MockLogAppender;
 import org.opennms.core.test.OpenNMSJUnit4ClassRunner;
 import org.opennms.core.test.db.annotations.JUnitTemporaryDatabase;
 import org.opennms.netmgt.dao.api.EnTopologyDao;
-import org.opennms.netmgt.model.entopology.LldpElementIdentifier;
-import org.opennms.netmgt.model.entopology.LldpElementIdentifier.LldpChassisIdSubType;
-import org.opennms.netmgt.model.entopology.LldpEndPoint;
-import org.opennms.netmgt.model.entopology.LldpEndPoint.LldpPortIdSubType;
+import org.opennms.netmgt.model.entopology.lldp.LldpElementIdentifier;
+import org.opennms.netmgt.model.entopology.lldp.LldpChassisIdSubType;
+import org.opennms.netmgt.model.entopology.lldp.LldpEndPoint;
+import org.opennms.netmgt.model.entopology.lldp.LldpEndPoint.LldpPortIdSubType;
 import org.opennms.test.JUnitConfigurationEnvironment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -83,14 +83,14 @@ public class HibernateEnTopologyDaoTest {
 	@Transactional
 	public void testSaveOrUpDateLldp() {
 		//now()
-		LldpElementIdentifier lldpid1 = new LldpElementIdentifier("0016c8bd4d80", "switch3", LldpChassisIdSubType.LLDP_CHASSISID_SUBTYPE_MACADDRESS,10);
+		LldpElementIdentifier lldpid1 = new LldpElementIdentifier("0016c8bd4d80", "switch3", LldpChassisIdSubType.MAC_ADDRESS,10);
 		LldpEndPoint endPointA1A = new LldpEndPoint("Ge0/1", LldpPortIdSubType.LLDP_PORTID_SUBTYPE_INTERFACENAME,10);
 		endPointA1A.setElementIdentifier(lldpid1);
 		m_topologyDao.saveOrUpdate(endPointA1A); //this is the first it's a save
 		//1,0016c8bd4d80, switch3 , 4, Ge0/1, 5, now(), 10
 
 		//now()+1
-		LldpElementIdentifier lldpid2 = new LldpElementIdentifier("0016c8bd4d80", "switch3", LldpChassisIdSubType.LLDP_CHASSISID_SUBTYPE_MACADDRESS,15);
+		LldpElementIdentifier lldpid2 = new LldpElementIdentifier("0016c8bd4d80", "switch3", LldpChassisIdSubType.MAC_ADDRESS,15);
 		LldpEndPoint endPointA2A = new LldpEndPoint("Ge0/1", LldpPortIdSubType.LLDP_PORTID_SUBTYPE_INTERFACENAME,15);
 		endPointA2A.setElementIdentifier(lldpid2);
 		//1,0016c8bd4d80, switch3 , 4, Ge0/1, 5, now()+1, {15,10}
