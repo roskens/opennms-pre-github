@@ -1,5 +1,6 @@
 package org.opennms.netmgt.model.entopology;
 
+// FIXME we don't need this, see LldpChassisSubType
 public abstract class AbstractType {
 	protected Integer m_type;
 	

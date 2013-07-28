@@ -1,5 +1,6 @@
 package org.opennms.netmgt.model.entopology;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -12,9 +13,10 @@ import java.util.Set;
  * @author antonio
  *
  */
-public abstract class Link extends Pollable {
+// FIXME this should go into its own table
+public abstract class Link implements Pollable {
 	
-
+    // FIXME this should be an enum?
     public static final String INPUT_LINK_DISPLAY        = "user";
     public static final String LLDP_LINK_DISPLAY         = "lldp" ;
     public static final String CDP_LINK_DISPLAY          = "cdp" ;
@@ -26,12 +28,15 @@ public abstract class Link extends Pollable {
     public static final String PSEUDOMAC_LINK_DISPLAY    = "pseudo-mac" ;
 
 
+    private Integer m_id;
+    
 	private Set<EndPoint> m_endpoints = new HashSet<EndPoint>(2);
 	
-	private Integer m_id;
+    private Set<Integer> m_sourceNodes;
+    private Date m_lastPoll;
 	
 	public Link(EndPoint a, EndPoint b, Integer sourceNode) {
-		super(sourceNode);
+		
 		a.setLink(this);
 		b.setLink(this);
 		m_endpoints.add(a);
@@ -55,5 +60,25 @@ public abstract class Link extends Pollable {
 	}
 
 	public abstract String displayLinkType();
+
+    @Override
+    public Set<Integer> getSourceNodes() {
+        return m_sourceNodes;
+    }
+
+    @Override
+    public void setSourceNodes(Set<Integer> sourceNodes) {
+        this.m_sourceNodes = sourceNodes;
+    }
+
+    @Override
+    public Date getLastPoll() {
+        return m_lastPoll;
+    }
+
+    @Override
+    public void setLastPoll(Date lastPoll) {
+        this.m_lastPoll = lastPoll;
+    }
 	
 }

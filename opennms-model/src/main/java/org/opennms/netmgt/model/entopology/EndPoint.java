@@ -1,57 +1,68 @@
 package org.opennms.netmgt.model.entopology;
 
+import java.util.Date;
+import java.util.Set;
+
 /**
- * This class represents a destination in the network such as
- * an IP address or a physical port.
- * Also can represent a TCP Port
+ * An endpoint is a destination in the network such as an IP address, 
+ * physical port, or a tcp port. The type of the endpoint depends on 
+ * the protocol the information for the topology comes from. 
  * 
  * @author Antonio
- *
  */
-public abstract class EndPoint extends Pollable {
-	
+// FIXME this should go into its own table
+public class EndPoint implements Pollable {
+
+    // FIXME id should always be a Integer/Long
+    protected String m_id;
+
+    protected Date m_lastPoll;
+    
+    protected Set<Integer> m_sourceNodes;
+
+    /**
+     * The Element to which the End Point 
+     * belongs
+     *  
+     */
+    private ElementIdentifier m_elementidentifier;
+
+    /**
+     * Only one Link for End Point is allowed
+     * 
+     */ 
+    private Link m_link;
+
+    /**
+     * The ifindex of the endpoint
+     * could be null
+     */
+    private Integer m_ifIndex;
+
+    /**
+     * The  ifName of the endPoint
+     * could be null
+     */
+
+    private String m_ifName;
+    /**
+     * The ifDescr of the endPoint
+     * could be null
+     */
+    private String m_ifDescr;
+    
+    /**
+     * The ifAlias of the endPoint
+     * could be null
+     */
+    private String m_ifAlias;
+    
+    
 	public EndPoint(Integer sourceNode) {
-		super(sourceNode);
+		m_sourceNodes.add(sourceNode);
 	}
 
-	/** 
-	 * The Element to which the End Point 
-	 * belongs
-	 *  
-	 */
-	private ElementIdentifier m_elementidentifier;
 
-	/**
-	 * Only one Link for End Point is allowed
-	 * 
-	 */	
-	private Link m_link;
-
-	/**
-	 * The ifindex of the endpoint
-	 * could be null
-	 */
-	private Integer m_ifIndex;
-
-	/**
-	 * The  ifName of the endPoint
-	 * could be null
-	 */
-
-	private String m_ifName;
-	/**
-	 * The ifDescr of the endPoint
-	 * could be null
-	 */
-	private String m_ifDescr;
-	
-	/**
-	 * The ifAlias of the endPoint
-	 * could be null
-	 */
-	private String m_ifAlias;
-	
-	String m_id;
 
 	public String getId() {
 		return m_id;
@@ -118,5 +129,25 @@ public abstract class EndPoint extends Pollable {
 	public void setIfName(String ifName) {
 		m_ifName = ifName;
 	}
+
+    @Override
+    public Set<Integer> getSourceNodes() {
+        return m_sourceNodes;
+    }
+
+    @Override
+    public void setSourceNodes(Set<Integer> sourceNodes) {
+        this.m_sourceNodes = sourceNodes;
+    }
+
+    @Override
+    public Date getLastPoll() {
+        return m_lastPoll;
+    }
+
+    @Override
+    public void setLastPoll(Date lastPoll) {
+        this.m_lastPoll = lastPoll;
+    }
 	
 }

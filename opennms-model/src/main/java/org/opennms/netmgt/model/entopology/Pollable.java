@@ -3,30 +3,35 @@ package org.opennms.netmgt.model.entopology;
 import java.util.Date;
 import java.util.Set;
 
-public abstract class Pollable {
+/**
+ * Interface for elements of a toplogy.
+ * <p>An element of a topology can be an endpoint, a link or //FIXME Elmentidentifier.</p>
+ * <p>ONMS querys for informations about the topology via different protocols.
+ * For each of this protocols exists a concrete implementation of the endpoint, link and elemntIdentifier</p>
+ * <p>To build a topology ONMS queries its nodes about their view of the network.
+ * Since a node can only see directly connected parts of the network
+ * the combination of all the views of all the nodes is the resulting topology.</p>
+ * <p>To build the topology ONMS has to merge all the views to one consistent data-set.
+ * If node A sees an elemtent X and node 2 sees it too, the element has to be updated and not added again.</p>
+ * <p>To detect elements that are no longer part of the topology ONMS keeps track of the nodes it ws seen from and the last time it was seen</p>
+ */
+// FIXME there are already PollableX in onms, we should find another name: TopologyElement?
+public interface Pollable {
 
-	protected Date m_lastPoll;
-	protected Set<Integer> m_sourceNodes;
-	
-	public Pollable (Integer sourceNode) {
-		m_lastPoll = new Date();
-		m_sourceNodes.add(sourceNode);
-	}
-	
-	public Set<Integer> getSourceNode() {
-		return m_sourceNodes;
-	}
+    /**
+     * Returns the list of node-ids of OnmsNodes this elements was detected from.
+     * @return
+     */
+	Set<Integer> getSourceNodes();
 
-	public void setSourceNodes(Set<Integer> sourceNodes) {
-		m_sourceNodes = sourceNodes;
-	}
+	void setSourceNodes(Set<Integer> sourceNodes);
 
-	public Date getLastPoll() {
-		return m_lastPoll;
-	}
+    /**
+     * The last time this element was detected by onms
+     * @return
+     */
+	Date getLastPoll();
 
-	public void setLastPoll(Date lastPoll) {
-		m_lastPoll = lastPoll;
-	}
+	void setLastPoll(Date lastPoll);
 	
 }

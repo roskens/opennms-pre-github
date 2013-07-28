@@ -1,4 +1,6 @@
-package org.opennms.netmgt.model.entopology;
+package org.opennms.netmgt.model.entopology.lldp;
+
+import org.opennms.netmgt.model.entopology.Link;
 
 public class LldpLink extends Link {
 
