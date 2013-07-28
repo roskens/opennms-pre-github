@@ -764,12 +764,13 @@ public abstract class AbstractQueryManager implements QueryManager {
             processQBridgeDot1dTpFdbTable(node, vlan, snmpVlanColl);
         }
 
-        for (final String physaddr : getPhysAddrs(node.getNodeId())) {
-            LOG.debug("storeSnmpVlanCollection: Try to add Bridge Identifier \"{}\" for node {}", physaddr, node.getNodeId());
-            if (physaddr == null || physaddr.equals("") || physaddr.equals("000000000000")) continue;
-            LOG.info("storeSnmpVlanCollection: Adding Bridge Identifier {} for node {}", physaddr, node.getNodeId());
-            node.addBridgeIdentifier(physaddr);
-        }
+        // tt2295 removed adding physical mac address as bridge identifier 
+        //for (final String physaddr : getPhysAddrs(node.getNodeId())) {
+        //    LOG.debug("storeSnmpVlanCollection: Try to add Bridge Identifier \"{}\" for node {}", physaddr, node.getNodeId());
+        //    if (physaddr == null || physaddr.equals("") || physaddr.equals("000000000000")) continue;
+        //    LOG.info("storeSnmpVlanCollection: Adding Bridge Identifier {} for node {}", physaddr, node.getNodeId());
+        //    node.addBridgeIdentifier(physaddr);
+        //}
 
     }
 
