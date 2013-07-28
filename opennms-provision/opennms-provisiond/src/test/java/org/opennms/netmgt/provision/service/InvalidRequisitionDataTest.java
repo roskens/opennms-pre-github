@@ -125,9 +125,9 @@ public class InvalidRequisitionDataTest extends ProvisioningTestCase implements 
 
     @After
     public void tearDown() throws Exception {
+        waitForEverything();
         m_anticipator.verifyAnticipated();
         m_populator.resetDatabase();
-        waitForEverything();
     }
 
     @Test
