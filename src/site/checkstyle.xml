@@ -13,12 +13,18 @@
   <module name="TreeWalker">
     <property name="tabWidth" value="4"/>
     <module name="JUnitTestCase"/>
-    <module name="JavadocMethod">
-      <property name="suppressLoadErrors" value="true"/>
-    </module>
+
     <module name="JavadocType"/>
+    <module name="JavadocMethod">
+      <property name="allowUndeclaredRTE" value="true"/>
+      <property name="allowThrowsTagsForSubclasses" value="true"/>
+      <property name="allowMissingPropertyJavadoc" value="true"/>
+    </module>
     <module name="JavadocVariable"/>
-    <module name="JavadocStyle"/>
+    <module name="JavadocStyle">
+      <property name="scope" value="public"/>
+    </module>
+
     <module name="ConstantName"/>
     <module name="LocalFinalVariableName"/>
     <module name="LocalVariableName"/>
@@ -89,6 +95,8 @@
     <module name="SuppressWarnings"/>
     <module name="RegexpSinglelineJava">
       <property name="format" value="\s+$"/>
+      <property name="minimum" value="0"/>
+      <property name="maximum" value="0"/>
       <property name="message" value="Line has trailing spaces."/>
     </module>
   </module>
