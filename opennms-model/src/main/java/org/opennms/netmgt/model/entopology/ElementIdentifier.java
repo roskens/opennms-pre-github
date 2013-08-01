@@ -24,7 +24,7 @@ import javax.persistence.Transient;
 @MappedSuperclass
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name="Discriminator")
-public abstract class ElementIdentifier implements Pollable {
+public abstract class ElementIdentifier {
     
     @Id
 	protected Long m_id;
@@ -69,25 +69,5 @@ public abstract class ElementIdentifier implements Pollable {
 	}
 
 	public abstract String displayElementidentifierType();
-
-    @Override
-    public Set<Integer> getSourceNodes() {
-        return m_sourceNodes;
-    }
-
-    @Override
-    public void setSourceNodes(Set<Integer> sourceNodes) {
-        m_sourceNodes = sourceNodes;
-    }
-
-    @Override
-    public Date getLastPoll() {
-        return m_lastPoll;
-    }
-
-    @Override
-    public void setLastPoll(Date lastPoll) {
-        m_lastPoll = lastPoll;
-    }
 	
 }

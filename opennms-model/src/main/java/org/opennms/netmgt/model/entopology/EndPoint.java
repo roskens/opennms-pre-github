@@ -26,7 +26,18 @@ import javax.persistence.Transient;
 @MappedSuperclass
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name="Discriminator")
-public class EndPoint implements Pollable {
+public abstract class EndPoint implements Pollable {
+
+	//FIXME change to enum
+    public static final String INPUT_LINK_DISPLAY        = "user";
+    public static final String LLDP_LINK_DISPLAY         = "lldp" ;
+    public static final String CDP_LINK_DISPLAY          = "cdp" ;
+    public static final String OSPF_LINK_DISPLAY         = "ospf" ;
+    public static final String STP_LINK_DISPLAY          = "spanning-tree" ;
+    public static final String DOT1DTPFDB_LINK_DISPLAY   = "dot1d-bridge-forwarding-table" ;
+    public static final String DOT1QTPFDB_LINK_DISPLAY   = "dot1q-bridge-forwarding-table" ;
+    public static final String PSEUDOBRIDGE_LINK_DISPLAY = "pseudo-bridge" ;
+    public static final String PSEUDOMAC_LINK_DISPLAY    = "pseudo-mac" ;
 
     @Id
     protected Long m_id;
@@ -53,8 +64,18 @@ public class EndPoint implements Pollable {
     @OneToOne
     private EndPoint m_linkedEndpoint;
 
+    private Integer m_nodeId;
 
-    // FIXME are all the if* properties duplicated information form onms-interface?
+    public Integer getNodeId() {
+		return m_nodeId;
+	}
+
+
+	public void setNodeId(Integer nodeId) {
+		m_nodeId = nodeId;
+	}
+
+	// FIXME are all the if* properties duplicated information form onms-interface?
     /**
      * The ifindex of the endpoint
      * could be null
@@ -167,4 +188,6 @@ public class EndPoint implements Pollable {
         this.m_lastPoll = lastPoll;
     }
 	
+	public abstract String displayLinkType();
+
 }
