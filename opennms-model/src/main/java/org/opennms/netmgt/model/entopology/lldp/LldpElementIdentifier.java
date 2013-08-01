@@ -2,8 +2,6 @@ package org.opennms.netmgt.model.entopology.lldp;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.opennms.netmgt.model.entopology.ElementIdentifier;
