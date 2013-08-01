@@ -1,8 +1,15 @@
 package org.opennms.netmgt.model.entopology.lldp;
 
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.opennms.netmgt.model.entopology.ElementIdentifier;
 
+@Entity
+@DiscriminatorValue("LLDP")
 public final class LldpElementIdentifier extends ElementIdentifier {
 
 	public static final String LLDP_IDENTIFIER_DISPLAY = "link layer discovery protocol";
@@ -18,7 +25,6 @@ public final class LldpElementIdentifier extends ElementIdentifier {
 		m_lldpChassisId=lldpChassisId;
 		m_lldpSysname=sysname;
 		m_lldpChassisIdSubType=subtype;
-		setId(m_lldpChassisId+"-"+m_lldpChassisIdSubType);
 	}
 
 	public LldpChassisIdSubType getLldpChassisIdSubType() {

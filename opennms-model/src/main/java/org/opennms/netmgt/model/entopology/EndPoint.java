@@ -3,21 +3,39 @@ package org.opennms.netmgt.model.entopology;
 import java.util.Date;
 import java.util.Set;
 
+import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.ManyToOne;
+import javax.persistence.MappedSuperclass;
+import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.persistence.Transient;
+
 /**
- * An endpoint is a destination in the network such as an IP address, 
- * physical port, or a tcp port. The type of the endpoint depends on 
- * the protocol the information for the topology comes from. 
+ * An endpoint is a destination in the network such as a physical port on a
+ * device, an IP address or a tcp port. The type of the endpoint depends on
+ * the protocol the information for the topology comes from.
  * 
  * @author Antonio
  */
 // FIXME this should go into its own table
+@MappedSuperclass
+@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name="Discriminator")
 public class EndPoint implements Pollable {
 
-    // FIXME id should always be a Integer/Long
-    protected String m_id;
+    @Id
+    protected Long m_id;
 
+    @Temporal(TemporalType.TIMESTAMP)
     protected Date m_lastPoll;
     
+    // FIXME
+    @Transient
     protected Set<Integer> m_sourceNodes;
 
     /**
@@ -25,36 +43,43 @@ public class EndPoint implements Pollable {
      * belongs
      *  
      */
+    @ManyToOne
     private ElementIdentifier m_elementidentifier;
 
     /**
-     * Only one Link for End Point is allowed
+     * An endpoint can have a link to another endpoint.
      * 
-     */ 
-    private Link m_link;
+     */
+    @OneToOne
+    private EndPoint m_linkedEndpoint;
 
+
+    // FIXME are all the if* properties duplicated information form onms-interface?
     /**
      * The ifindex of the endpoint
      * could be null
      */
+    @Column(name="InterfaceIndex")
     private Integer m_ifIndex;
 
     /**
      * The  ifName of the endPoint
      * could be null
      */
-
+    @Column(name="InterfaceName")
     private String m_ifName;
     /**
      * The ifDescr of the endPoint
      * could be null
      */
+    @Column(name="InterfaceDescription")
     private String m_ifDescr;
     
     /**
      * The ifAlias of the endPoint
      * could be null
      */
+    @Column(name="InterfaceAlias")
     private String m_ifAlias;
     
     
@@ -63,12 +88,11 @@ public class EndPoint implements Pollable {
 	}
 
 
-
-	public String getId() {
+	public Long getId() {
 		return m_id;
 	}
 
-	protected void setId(String id) {
+	protected void setId(Long id) {
 		m_id = id;
 	}
 
@@ -78,25 +102,18 @@ public class EndPoint implements Pollable {
 	}
 
 	public void setElementIdentifier(ElementIdentifier device) {
-		device.addEndPoint(this);
 		m_elementidentifier = device;
 	}
 	
-	public Link getLink() {
-		return m_link;
-	}
 
-	public void setLink(Link link) {
-		m_link = link	;
-	}
-	
-	public boolean hasLink() {
-		return m_link != null;
-	}
+    public EndPoint getLinkedEndpoint() {
+        return m_linkedEndpoint;
+    }
 
-	public boolean hasElement() {
-		return m_elementidentifier != null;
-	}
+
+    public void setLinkedEndpoint(EndPoint linkedEndpoint) {
+        m_linkedEndpoint = linkedEndpoint;
+    }
 
 	public String getIfDescr() {
 		return m_ifDescr;

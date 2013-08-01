@@ -4,10 +4,15 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.opennms.netmgt.model.entopology.AbstractType;
 import org.opennms.netmgt.model.entopology.EndPoint;
 
+@Entity
+@DiscriminatorValue("LLDP")
 public class LldpEndPoint extends EndPoint {
 
 	public static class LldpPortIdSubType extends AbstractType 

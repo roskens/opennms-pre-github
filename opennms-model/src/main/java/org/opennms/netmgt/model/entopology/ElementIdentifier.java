@@ -4,22 +4,39 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.MappedSuperclass;
+import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.persistence.Transient;
+
 /**
- * 
+ * An ElementIdentifier identifies a physical device with endpoints, like a
+ * switch, a router, a host.
  * 
  * @author thargor
  */
-// FIXME isn't this just an element?
-// FIXME this should go into its own table
+// FIXME should we call this device?
+@MappedSuperclass
+@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name="Discriminator")
 public abstract class ElementIdentifier implements Pollable {
     
-    // FIXME id should always be a int/long
-	protected String m_id;
+    @Id
+	protected Long m_id;
 
+    @Temporal(TemporalType.TIMESTAMP)
 	protected Date m_lastPoll = new Date();
 
+    // FIXME
+    @Transient
 	protected Set<Integer> m_sourceNodes = new HashSet<Integer>();
 
+	@OneToMany
 	protected Set<EndPoint> m_endpoints;
     
 	public ElementIdentifier(Integer sourceNode) {
@@ -27,11 +44,11 @@ public abstract class ElementIdentifier implements Pollable {
     }
 
     
-    public String getId() {
+    public Long getId() {
 		return m_id;
 	}
 
-	protected void setId(String id) {
+	protected void setId(Long id) {
 		m_id = id;
 	}
 		
