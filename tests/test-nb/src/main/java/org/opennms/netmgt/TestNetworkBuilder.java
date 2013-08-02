@@ -886,7 +886,7 @@ public abstract class TestNetworkBuilder {
             Map<Integer,InetAddress>ifindextonetmaskmap)
     {
         NetworkBuilder nb = getNetworkBuilder();
-        nb.addNode(name).setForeignSource("linkd").setForeignId(name).setSysObjectId(sysoid).setSysName(name).setType("A");
+        nb.addNode(name).setForeignSource("linkd").setForeignId(name).setSysObjectId(sysoid).setSysName(name).setType(OnmsNode.NodeType.ACTIVE);
         final Map<Integer, SnmpInterfaceBuilder> ifindexsnmpbuildermap = new HashMap<Integer, SnmpInterfaceBuilder>();
         for (Integer ifIndex: ifindextoifnamemap.keySet()) {
             ifindexsnmpbuildermap.put(ifIndex, nb.addSnmpInterface(ifIndex).
@@ -930,7 +930,7 @@ public abstract class TestNetworkBuilder {
     
     public OnmsNode getNodeWithoutSnmp(String name, String ipaddr) {
         NetworkBuilder nb = getNetworkBuilder();
-        nb.addNode(name).setForeignSource("linkd").setForeignId(name).setType("A");
+        nb.addNode(name).setForeignSource("linkd").setForeignId(name).setType(OnmsNode.NodeType.ACTIVE);
         nb.addInterface(ipaddr).setIsSnmpPrimary("N").setIsManaged("M");
         return nb.getCurrentNode();
     }
