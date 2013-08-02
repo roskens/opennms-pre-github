@@ -1,16 +1,45 @@
+/*******************************************************************************
+ * This file is part of OpenNMS(R).
+ *
+ * Copyright (C) 2007-2012 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published
+ * by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * OpenNMS(R) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with OpenNMS(R).  If not, see:
+ *      http://www.gnu.org/licenses/
+ *
+ * For more information contact:
+ *     OpenNMS(R) Licensing <license@opennms.org>
+ *     http://www.opennms.org/
+ *     http://www.opennms.com/
+ *******************************************************************************/
 package org.opennms.netmgt.model.entopology;
 
 import java.util.Date;
-import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
+import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
@@ -22,118 +51,128 @@ import javax.persistence.Transient;
  * 
  * @author Antonio
  */
-// FIXME this should go into its own table
-@MappedSuperclass
+@Entity
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name="Discriminator")
-public abstract class EndPoint implements Pollable {
+@DiscriminatorColumn(name="discriminator")
+@Table(name="topoendpoint")
+public abstract class EndPoint<EI extends ElementIdentifier, LE extends EndPoint<EI, LE>> implements Pollable {
 
-	//FIXME change to enum
-    public static final String INPUT_LINK_DISPLAY        = "user";
-    public static final String LLDP_LINK_DISPLAY         = "lldp" ;
-    public static final String CDP_LINK_DISPLAY          = "cdp" ;
-    public static final String OSPF_LINK_DISPLAY         = "ospf" ;
-    public static final String STP_LINK_DISPLAY          = "spanning-tree" ;
-    public static final String DOT1DTPFDB_LINK_DISPLAY   = "dot1d-bridge-forwarding-table" ;
-    public static final String DOT1QTPFDB_LINK_DISPLAY   = "dot1q-bridge-forwarding-table" ;
-    public static final String PSEUDOBRIDGE_LINK_DISPLAY = "pseudo-bridge" ;
-    public static final String PSEUDOMAC_LINK_DISPLAY    = "pseudo-mac" ;
-
+    /**
+     * Primary Key for these type of entities. Each implementation builds it's on String from it's attriubtes.
+     */
+    // We can't use a technical (long) id here. We never do lookups on it, we
+    // always need to find the entity with a specific set of attributes.
+    // @EmbeddedId doesn't work with Inheritance because the supertype is an
+    // entity it needs an @Id, and @EmbeddedId together with @Id is not
+    // possible. @EmbeddedId also has to be concrete Class not a gernic Type
+    // or abstract class and it need columns.
     @Id
-    protected Long m_id;
+    @Column(name="id")
+    protected String m_id;
 
     @Temporal(TemporalType.TIMESTAMP)
-    protected Date m_lastPoll;
+    @Column(name="lastpoll")
+    protected Date m_lastPoll = new Date();
     
-    // FIXME
-    @Transient
-    protected Set<Integer> m_sourceNodes;
+    @Column(name="sourcenode")
+    protected Integer m_sourceNode;
 
     /**
      * The Element to which the End Point 
      * belongs
      *  
      */
-    @ManyToOne
-    private ElementIdentifier m_elementidentifier;
+    @ManyToOne(cascade={CascadeType.REFRESH, CascadeType.MERGE, CascadeType.PERSIST})
+    @JoinColumn(name="elementidentifier")
+    private ElementIdentifier m_elementIdentifier;
 
     /**
      * An endpoint can have a link to another endpoint.
      * 
      */
-    @OneToOne
+    @OneToOne(cascade={CascadeType.REFRESH, CascadeType.MERGE, CascadeType.PERSIST})
+    @JoinColumn(name="linkedendpoint")
     private EndPoint m_linkedEndpoint;
 
-    private Integer m_nodeId;
 
-    public Integer getNodeId() {
-		return m_nodeId;
-	}
-
-
-	public void setNodeId(Integer nodeId) {
-		m_nodeId = nodeId;
-	}
-
-	// FIXME are all the if* properties duplicated information form onms-interface?
+	// FIXME are all the if properties duplicated information from onms-interface? do we really really need them here?
     /**
      * The ifindex of the endpoint
      * could be null
      */
-    @Column(name="InterfaceIndex")
+ // FIXME
+    @Transient
     private Integer m_ifIndex;
 
     /**
      * The  ifName of the endPoint
      * could be null
      */
-    @Column(name="InterfaceName")
+ // FIXME
+    @Transient
     private String m_ifName;
     /**
      * The ifDescr of the endPoint
      * could be null
      */
-    @Column(name="InterfaceDescription")
+ // FIXME
+    @Transient
     private String m_ifDescr;
     
     /**
      * The ifAlias of the endPoint
      * could be null
      */
-    @Column(name="InterfaceAlias")
+ // FIXME
+    @Transient
     private String m_ifAlias;
     
+    public EndPoint() {
+    }
     
-	public EndPoint(Integer sourceNode) {
-		m_sourceNodes.add(sourceNode);
+	public EndPoint(String id) {
+	    this.m_id = id;
 	}
 
 
-	public Long getId() {
+	public String getId() {
 		return m_id;
 	}
 
-	protected void setId(Long id) {
+	protected void setId(String id) {
 		m_id = id;
 	}
 
 
-	public ElementIdentifier getElementIdentifier() {
-		return m_elementidentifier;
+	public EI getElementIdentifier() {
+	    return (EI) m_elementIdentifier;
 	}
 
-	public void setElementIdentifier(ElementIdentifier device) {
-		m_elementidentifier = device;
+	public void setElementIdentifier(EI device) {
+        if (m_elementIdentifier != null) {
+            m_elementIdentifier.getEndPoints().remove(this);
+        }
+        m_elementIdentifier = device;
+        if (m_elementIdentifier != null) {
+            m_elementIdentifier.getEndPoints().add(this);
+        }
 	}
-	
 
-    public EndPoint getLinkedEndpoint() {
-        return m_linkedEndpoint;
+    public LE getLinkedEndpoint() {
+        return (LE) m_linkedEndpoint;
     }
 
 
-    public void setLinkedEndpoint(EndPoint linkedEndpoint) {
+    public void setLinkedEndpoint(LE linkedEndpoint) {
+        if(m_linkedEndpoint != null) {
+            EndPoint tmp = m_linkedEndpoint;
+            m_linkedEndpoint = null; // set it null to avoid recursion
+            tmp.setLinkedEndpoint(null);
+        }
         m_linkedEndpoint = linkedEndpoint;
+        if(m_linkedEndpoint != null && m_linkedEndpoint.getLinkedEndpoint() == null) {
+            m_linkedEndpoint.setLinkedEndpoint(this);
+        }
     }
 
 	public String getIfDescr() {
@@ -169,25 +208,49 @@ public abstract class EndPoint implements Pollable {
 	}
 
     @Override
-    public Set<Integer> getSourceNodes() {
-        return m_sourceNodes;
-    }
-
-    @Override
-    public void setSourceNodes(Set<Integer> sourceNodes) {
-        this.m_sourceNodes = sourceNodes;
+    public Integer getSourceNode() {
+        return m_sourceNode;
     }
 
     @Override
     public Date getLastPoll() {
         return m_lastPoll;
     }
-
+    
     @Override
-    public void setLastPoll(Date lastPoll) {
+    public void updatePollable(Date lastPoll, Integer node) {
         this.m_lastPoll = lastPoll;
+        this.m_sourceNode = node;
     }
-	
-	public abstract String displayLinkType();
 
+    /**
+     * The simplings define there primary key, we want it to match with hashcode and equals
+     */
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((m_id == null) ? 0 : m_id.hashCode());
+        return result;
+    }
+
+    /**
+     * The simplings define there primary key, we want it to match with hashcode and equals
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        EndPoint other = (EndPoint) obj;
+        if (m_id == null) {
+            if (other.m_id != null)
+                return false;
+        } else if (!m_id.equals(other.m_id))
+            return false;
+        return true;
+    }
 }

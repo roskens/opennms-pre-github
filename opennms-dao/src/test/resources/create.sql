@@ -2486,3 +2486,56 @@ create table Link (
 
 
 --# End Topology
+
+--# Begin EnTopology
+
+-- Table: topoelementidentifier
+
+-- DROP TABLE topoelementidentifier;
+
+CREATE TABLE topoelementidentifier
+(
+  lastpoll timestamp with time zone NOT NULL,
+  discriminator character varying(20) NOT NULL,
+  lldp_sysname character varying,
+  lldp_chassisid character varying,
+  lldp_chassisidsubtype character varying,
+  id character varying NOT NULL,
+  sourcenode integer,
+  CONSTRAINT "topoElementIdentifier.pk" PRIMARY KEY (id)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE topoelementidentifier
+  OWNER TO opennms;
+
+-- Table: topoendpoint
+
+-- DROP TABLE topoendpoint;
+
+CREATE TABLE topoendpoint
+(
+  lastpoll timestamp with time zone NOT NULL,
+  lldp_portid character varying,
+  lldp_portidsubtype character varying,
+  discriminator character varying(20) NOT NULL,
+  id character varying NOT NULL,
+  elementidentifier character varying NOT NULL,
+  linkedendpoint character varying,
+  sourcenode integer,
+  CONSTRAINT "topoEndpoint.pk" PRIMARY KEY (id),
+  CONSTRAINT "topoEndpoint.elementIdentifier_fk" FOREIGN KEY (elementidentifier)
+      REFERENCES topoelementidentifier (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT "topoEndpoint.linkedEndpoint_fk" FOREIGN KEY (linkedendpoint)
+      REFERENCES topoendpoint (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE topoendpoint
+  OWNER TO opennms;
+
+--# End EnTopology

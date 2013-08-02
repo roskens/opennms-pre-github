@@ -1,13 +1,53 @@
+/*******************************************************************************
+ * This file is part of OpenNMS(R). Copyright (C) 2007-2012 The OpenNMS Group,
+ * Inc. OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc. OpenNMS(R)
+ * is free software: you can redistribute it and/or modify it under the terms
+ * of the GNU General Public License as published by the Free Software
+ * Foundation, either version 3 of the License, or (at your option) any later
+ * version. OpenNMS(R) is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for
+ * more details. You should have received a copy of the GNU General Public
+ * License along with OpenNMS(R). If not, see: http://www.gnu.org/licenses/
+ * For more information contact: OpenNMS(R) Licensing <license@opennms.org>
+ * http://www.opennms.org/ http://www.opennms.com/
+ *******************************************************************************/
 package org.opennms.netmgt.dao.api;
 
-import org.opennms.netmgt.model.entopology.EndPoint;
+import java.util.Date;
+import java.util.List;
 
-public interface EnTopologyDao {
-	
-	public EndPoint get(Integer id);
-	
-	public void saveOrUpdate(EndPoint endpoint);
-		
-	public void delete(EndPoint endpoint);
-		
+import org.opennms.netmgt.model.entopology.ElementIdentifier;
+import org.opennms.netmgt.model.entopology.EndPoint;
+import org.opennms.netmgt.model.entopology.Pollable;
+
+/**
+ * Interface for the DAO of all the topology entities.
+ * 
+ * @author thargor
+ * @param <EI>
+ * @param <EP>
+ */
+public interface EnTopologyDao<EI extends ElementIdentifier, EP extends EndPoint<EI, EP>> {
+
+    EP getEndPoint(EP id);
+
+    EI getElementIdentifier(EI id);
+
+    EP loadOrPersist(EP endpoint);
+
+    EI loadOrPersist(EI elementIdentifier);
+
+    void update(EP endpoint);
+
+    void update(EI elementIdentifier);
+
+    void delete(EP endpoint);
+
+    void delete(EI elementIdentifier);
+
+    void flush();
+    
+    List<Pollable> deleteOutdated(Date date, Integer node);
 }
