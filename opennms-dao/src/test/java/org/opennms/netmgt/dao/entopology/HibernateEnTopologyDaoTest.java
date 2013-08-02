@@ -106,6 +106,9 @@ public class HibernateEnTopologyDaoTest {
 		// Element(ElementIdentifier)-->many EndPoints ---> Link ----> EndPoint -----> Element(ElementIdentifier)
 		// NodeElementIdentifier
 		m_topologyDao.saveOrUpdate(endPointA2A); // this is the second but it must be an update becouse the EndPoint is the same
+		
+		//FIXME
+		assertEquals(10, m_topologyDao.get(endPointA2A.getId().intValue()).getNodeId().intValue());
 	}
 
 	// 
