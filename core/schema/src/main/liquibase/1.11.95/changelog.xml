@@ -6,13 +6,12 @@
 	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
 	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd
 		http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
-
-    <changeSet author="ronny" id="1.11.95-clearkey-reductionkey-to-text">
+    <changeSet author="rangerrick" id="1.11.95-increase-reduction-key-columns">
       <modifyDataType tableName="alarms" columnName="reductionkey" newDataType="text" />
-      <modifyDataType tableName="alarms" columnName="clearkey" newDataType="text" />
+      <modifyDataType tableName="alarms" columnName="clearkey"     newDataType="text" />
       <rollback>
-      	<modifyDataType tableName="alarms" columnName="reductionkey" newDataType="varchar(256)" />
-      	<modifyDataType tableName="alarms" columnName="clearkey" newDataType="varchar(256)" />
+        <modifyDataType tableName="alarms" columnName="reductionkey" newDataType="varchar(256)" />
+        <modifyDataType tableName="alarms" columnName="clearkey"     newDataType="varchar(256)" />
       </rollback>
     </changeSet>
 </databaseChangeLog>

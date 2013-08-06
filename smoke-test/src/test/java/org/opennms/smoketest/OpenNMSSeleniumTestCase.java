@@ -40,6 +40,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 import com.thoughtworks.selenium.SeleneseTestBase;
+import com.thoughtworks.selenium.SeleniumException;
 
 public class OpenNMSSeleniumTestCase extends SeleneseTestBase {
     protected static final long LOAD_TIMEOUT = 60000;
@@ -81,8 +82,14 @@ public class OpenNMSSeleniumTestCase extends SeleneseTestBase {
 
     @After
     public void tearDown() throws Exception {
-        if (selenium.isTextPresent("Log out")) clickAndWait("link=Log out");
-        if (selenium != null) selenium.stop();
+        if (selenium != null) {
+            try {
+                if (selenium.isElementPresent("link=Log out")) selenium.click("link=Log out");
+            } catch (final SeleniumException e) {
+                // don't worry about it, this is just for logging out
+            }
+            selenium.stop();
+        }
     }
 
     protected void clickAndWait(final String pattern) {
@@ -126,7 +133,8 @@ public class OpenNMSSeleniumTestCase extends SeleneseTestBase {
         clickAndVerifyText("link=Assets", "Search Asset Information");
         clickAndVerifyText("link=Reports", "Resource Graphs");
         clickAndVerifyText("link=Charts", "/ Charts");
-        clickAndVerifyText("link=Surveillance", "/ Surveillance");
+        clickAndWait("link=Surveillance");
+        waitForText("Surveillance View:", LOAD_TIMEOUT);
         clickAndWait("link=Distributed Status");
         assertTrue(selenium.isTextPresent("Distributed Poller Status Summary") || selenium.isTextPresent("No applications have been defined for this system"));
         clickAndVerifyText("//a[@href='maps.htm']", "OpenNMS Maps");
