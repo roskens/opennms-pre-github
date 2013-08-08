@@ -197,8 +197,8 @@
                     <c:param name="report" value="${resultSet.graphs[0].name}"/>
                     <c:param name="start" value="${results.start.time}"/>
                     <c:param name="end" value="${results.end.time}"/>
-                    <c:param name="width" value="${resultSet.graphs[0].graphWidth}"/>
-                    <c:param name="height" value="${resultSet.graphs[0].graphHeight}"/>
+                    <c:param name="width" value="900"/>
+                    <c:param name="height" value="125"/>
                 </c:url>
 
                 <script type="text/javascript">
@@ -237,6 +237,8 @@
                         <c:param name="reports" value="${graph.name}"/>
                         <c:param name="start" value="${results.start.time}"/>
                         <c:param name="end" value="${results.end.time}"/>
+                        <c:param name="width" value="900"/>
+                        <c:param name="height" value="125"/>
                     </c:url>
 
                     <c:url var="graphUrl" value="graph/graph.png">
@@ -244,6 +246,8 @@
                         <c:param name="report" value="${graph.name}"/>
                         <c:param name="start" value="${results.start.time}"/>
                         <c:param name="end" value="${results.end.time}"/>
+                        <c:param name="width" value="900"/>
+                        <c:param name="height" value="125"/>
                     </c:url>
 
                     <c:if test="${fn:contains(resultSet.resource.resourceType.label, 'SNMP') || fn:contains(resultSet.resource.resourceType.label, 'TCA') }">
