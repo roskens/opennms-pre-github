@@ -217,6 +217,7 @@ public class GraphResultsController extends AbstractController implements Initia
         }
         
         GraphResults model = m_graphResultsService.findResults(resourceIds, reports, startLong, endLong, relativeTime);
+        logger.debug("GraphResults model: {}", model);
         
         ModelAndView modelAndView = new ModelAndView("/graph/results", "results", model);
 
