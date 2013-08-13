@@ -409,6 +409,7 @@
             <showWarnings>true</showWarnings>
             <compilerArgs>
               <arg>-Xlint:unchecked</arg>
+              <arg>-verbose</arg>
             </compilerArgs>
           </configuration>
         </plugin>
@@ -523,6 +524,7 @@
           <showWarnings>true</showWarnings>
           <compilerArgs>
             <arg>-Xlint:unchecked</arg>
+              <arg>-verbose</arg>
           </compilerArgs>
         </configuration>
       </plugin>
