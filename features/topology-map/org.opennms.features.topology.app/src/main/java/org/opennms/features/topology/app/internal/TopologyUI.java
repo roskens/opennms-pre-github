@@ -32,12 +32,9 @@ import com.vaadin.annotations.JavaScript;
 import com.vaadin.annotations.PreserveOnRefresh;
 import com.vaadin.annotations.Theme;
 import com.vaadin.data.Property;
-import com.vaadin.server.DefaultErrorHandler;
-import com.vaadin.server.Page;
+import com.vaadin.server.*;
 import com.vaadin.server.Page.UriFragmentChangedEvent;
 import com.vaadin.server.Page.UriFragmentChangedListener;
-import com.vaadin.server.ThemeResource;
-import com.vaadin.server.VaadinRequest;
 import com.vaadin.shared.ui.slider.SliderOrientation;
 import com.vaadin.ui.*;
 import com.vaadin.ui.Button.ClickEvent;
@@ -172,11 +169,12 @@ public class TopologyUI extends UI implements CommandUpdateListener, MenuItemUpd
     }
 
     private void setupErrorHandler() {
+        
         UI.getCurrent().setErrorHandler(new DefaultErrorHandler(){
 
             @Override
             public void error(com.vaadin.server.ErrorEvent event) {
-                Notification.show("An Exception Occurred: see karaf.log", Notification.Type.ERROR_MESSAGE);
+                Notification.show("An Exception Occurred: see karaf.log", Notification.Type.TRAY_NOTIFICATION);
                 LoggerFactory.getLogger(this.getClass()).warn("An Exception Occured: in the TopologyUI", event.getThrowable());
                 super.error(event);
             }
@@ -588,7 +586,12 @@ public class TopologyUI extends UI implements CommandUpdateListener, MenuItemUpd
 		m_menuBar = commandManager.getMenuBar(m_graphContainer, this);
 		m_menuBar.setWidth(100, Unit.PERCENTAGE);
 		// Set expand ratio so that extra space is not allocated to this vertical component
-		m_rootLayout.addComponent(m_menuBar, 1);
+        if (m_showHeader) {
+            m_rootLayout.addComponent(m_menuBar, 1);
+        } else {
+            m_rootLayout.addComponent(m_menuBar, 0);
+        }
+
 
 		m_contextMenu = commandManager.getContextMenu(m_graphContainer, this);
 		m_contextMenu.setAsContextMenuOf(this);
@@ -598,30 +601,9 @@ public class TopologyUI extends UI implements CommandUpdateListener, MenuItemUpd
         @Override
 	public void show(Object target, int left, int top) {
 		updateContextMenuItems(target, m_contextMenu.getItems());
-		updateSubMenuDisplay(m_contextMenu.getItems());
 		m_contextMenu.setTarget(target);
 		m_contextMenu.open(left, top);
 	}
-
-
-	private static void updateSubMenuDisplay(List<TopoContextMenuItem> items) {
-		for (TopoContextMenuItem item : items) {
-			if (!item.hasChildren()) continue;
-			else updateSubMenuDisplay(item.getChildren());
-			// TODO: Figure out how to do this in the new contextmenu
-			/*
-			boolean shouldDisplay = false;
-			for (TopoContextMenuItem child : item.getChildren()) {
-				if (child.getItem().isVisible()) {
-					shouldDisplay = true;
-					break;
-				}
-			}
-			item.getItem().setVisible(shouldDisplay);
-			*/
-		}
-	}
-
 
     public WidgetManager getWidgetManager() {
         return m_widgetManager;
