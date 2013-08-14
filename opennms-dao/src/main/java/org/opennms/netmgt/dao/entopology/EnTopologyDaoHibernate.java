@@ -39,7 +39,6 @@ import org.opennms.netmgt.dao.api.EnTopologyDao;
 import org.opennms.netmgt.model.entopology.ElementIdentifier;
 import org.opennms.netmgt.model.entopology.EndPoint;
 import org.opennms.netmgt.model.entopology.Pollable;
-import org.springframework.dao.DataAccessException;
 import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
