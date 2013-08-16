@@ -772,11 +772,11 @@ public class ManagerDefaultImpl implements Manager {
             java.util.Map<String, String> iconsBySysoid = mapsPropertiesFactory.getIconsBySysoid();
             if (iconsBySysoid != null) {
                 LOG.debug("getIconBySysoid: sysoid = {}", sysoid);
-                for (String key : iconsBySysoid.keySet()) {
-                    LOG.debug("getIconBySysoid: key = {}", key);
-                    if (key.equals(sysoid)) {
-                        LOG.debug("getIconBySysoid: iconBySysoid = {}", iconsBySysoid.get(key));
-                        return iconsBySysoid.get(key);
+                for (Map.Entry<String, String> e : iconsBySysoid.entrySet()) {
+                    LOG.debug("getIconBySysoid: key = {}", e.getKey());
+                    if (e.getKey().equals(sysoid)) {
+                        LOG.debug("getIconBySysoid: iconBySysoid = {}", e.getValue());
+                        return e.getValue();
                     }
                 }
             }
@@ -1403,9 +1403,10 @@ public class ManagerDefaultImpl implements Manager {
         } // end linkinfo for
         // Now add the VLink to links......
         int maxlinks=mapsPropertiesFactory.getMaxLinks();
-        for (String elid : numberofsinglelinksmap.keySet()) {
-            LOG.debug("parsing link between element: {} with #links {}", elid, numberofsinglelinksmap.get(elid));
-            if (numberofsinglelinksmap.get(elid) <= maxlinks) {
+        for (Map.Entry<String, Integer> e : numberofsinglelinksmap.entrySet()) {
+            String elid = e.getKey();
+            LOG.debug("parsing link between element: {} with #links {}", e.getKey(), e.getValue());
+            if (e.getValue() <= maxlinks) {
                 for (String linkid : singlevlinkmap.keySet()) {
                     if (linkid.indexOf(elid) != -1) {
                         LOG.debug("adding single links for {} Adding links # {}", linkid, singlevlinkmap.get(linkid).size());

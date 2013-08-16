@@ -41,14 +41,14 @@ import java.util.Map;
 import java.util.Properties;
 
 import org.opennms.core.utils.BundleLists;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.opennms.netmgt.config.GroupFactory;
 import org.opennms.netmgt.config.GroupManager;
 import org.opennms.netmgt.config.UserFactory;
 import org.opennms.netmgt.config.UserManager;
 import org.opennms.netmgt.config.groups.Role;
 import org.opennms.netmgt.model.OnmsUser;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.dao.DataRetrievalFailureException;
 import org.springframework.security.core.GrantedAuthority;
@@ -248,10 +248,10 @@ public class SpringSecurityUserDaoImpl implements SpringSecurityUserDao, Initial
             roleAddDefaultMap.put(securityRole, !notInDefaultGroup);
         }
 
-        for (String user : roleMap.keySet()) {
-            roles.put(user, getAuthorityListFromRoleList(roleMap.get(user), roleAddDefaultMap));
+        for (Map.Entry<String, LinkedList<String>> roleEntry : roleMap.entrySet()) {
+            roles.put(roleEntry.getKey(), getAuthorityListFromRoleList(roleEntry.getValue(), roleAddDefaultMap));
         }
-        
+
         LOG.debug("Loaded the magic-users.properties file with {} magic users, {} roles, and {} user roles", magicUsers.size(), configuredRoles.length, roles.size());
 
 

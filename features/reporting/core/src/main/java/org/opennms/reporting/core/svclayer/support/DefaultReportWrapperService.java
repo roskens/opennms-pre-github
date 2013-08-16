@@ -281,9 +281,8 @@ public class DefaultReportWrapperService implements ReportWrapperService {
                 if (LOG.isDebugEnabled()) {
                     // TODO remove this debug code
                     final Map<String, Object> reportParms = parameters.getReportParms(mode);
-                    for (final String key : reportParms.keySet()) {
-                        final Object value = reportParms.get(key);
-                        LOG.debug("param {} set {}", key, value == null? "NULL" : value);
+                    for (final Map.Entry<String, Object> e : reportParms.entrySet()) {
+                        LOG.debug("param {} set {}", e.getKey(), e.getValue() == null? "NULL" : e.getValue());
                     }
                 }
 

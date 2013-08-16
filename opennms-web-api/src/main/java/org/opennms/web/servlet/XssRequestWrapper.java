@@ -129,22 +129,22 @@ public class XssRequestWrapper extends HttpServletRequestWrapper
         return super.getRequest().getCharacterEncoding();
     }
 
-    private  Map<String, String[]> sanitizeParamMap(Map<String, String[]> raw) 
-    {       
+    private  Map<String, String[]> sanitizeParamMap(final Map<String, String[]> raw)
+    {
         Map<String, String[]> res = new HashMap<String, String[]>();
         if (raw==null)
             return res;
-    
-        for (String key : (Set<String>) raw.keySet())
-        {           
-            String[] rawVals = raw.get(key);
+
+        for (Map.Entry<String, String[]> rawEntry : raw.entrySet())
+        {
+            String[] rawVals = rawEntry.getValue();
             String[] snzVals = new String[rawVals.length];
-            for (int i=0; i < rawVals.length; i++) 
+            for (int i=0; i < rawVals.length; i++)
             {
                 snzVals[i] = WebSecurityUtils.sanitizeString(rawVals[i]);
             }
-            res.put(key, snzVals);
-        }           
+            res.put(rawEntry.getKey(), snzVals);
+        }
         return res;
     }
 

@@ -199,13 +199,8 @@ public class CategoryList {
     public long getEarliestUpdate(Map<String,List<Category>> categoryData) {
         long earliestUpdate = 0;
 
-        for (Iterator<String> i = categoryData.keySet().iterator(); i.hasNext();) {
-            String sectionName = i.next();
-            List<Category> categories = categoryData.get(sectionName);
-
-            for (Iterator<Category> j = categories.iterator(); j.hasNext();) {
-                Category category = j.next();
-
+        for (Map.Entry<String, List<Category>> section : categoryData.entrySet()) {
+            for (Category category : section.getValue()) {
                 if (category.getLastUpdated() == null) {
                     return -1;
                 } else if (earliestUpdate == 0 || earliestUpdate > category.getLastUpdated().getTime()) {
@@ -258,16 +253,14 @@ public class CategoryList {
         long earliestUpdate = getEarliestUpdate(categoryData);
         boolean opennmsDisconnect = isDisconnected(earliestUpdate);
 
-        for (Iterator<String> i = categoryData.keySet().iterator(); i.hasNext();) {
-            String sectionName = i.next();
+        for (Map.Entry<String, List<Category>> section : categoryData.entrySet()) {
+            String sectionName = section.getKey();
 
             out.write("<tr bgcolor=\"#999999\">\n");
             out.write("<td width=\"50%\"><b>" + sectionName + "</b></td>\n");
             out.write("<td width=\"20%\" align=\"right\">" + "<b>Outages</b></td>\n");
             out.write("<td width=\"30%\" align=\"right\">" + "<b>24hr Avail</b></td>\n");
             out.write("</tr>\n");
-
-            List<Category> categories = categoryData.get(sectionName);
 
             String title;
             String lastUpdated;
@@ -277,8 +270,7 @@ public class CategoryList {
             String availText;
             String availColor;
 
-            for (Iterator<Category> j = categories.iterator(); j.hasNext();) {
-                Category category = j.next();
+            for (Category category : section.getValue()) {
                 String categoryName = category.getName();
 
                 title = category.getTitle();

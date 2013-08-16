@@ -36,7 +36,6 @@ import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
@@ -453,13 +452,14 @@ public class AvailCalculations extends Object {
         //
         TreeMap<Long, List<OutageSince>> treeMap = null;
 
-        for(String service : m_services.keySet()) {
+        for(Map.Entry<String, Map<IfService, OutageSvcTimesList>> e : m_services.entrySet()) {
             treeMap = new TreeMap<Long, List<OutageSince>>();
-            Map<IfService, OutageSvcTimesList> ifSvcOutageList = m_services.get(service);
+            Map<IfService, OutageSvcTimesList> ifSvcOutageList = e.getValue();
 
-            for(IfService ifservice : ifSvcOutageList.keySet()) {
+            for(Map.Entry<IfService, OutageSvcTimesList> ifsvcEntry : ifSvcOutageList.entrySet()) {
+                IfService ifservice = ifsvcEntry.getKey();
                 if (ifservice != null) {
-                    OutageSvcTimesList outageSvcList = (OutageSvcTimesList) ifSvcOutageList.get(ifservice);
+                    OutageSvcTimesList outageSvcList = ifsvcEntry.getValue();
                     if (outageSvcList != null) {
                         long rollingWindow = m_daysInLastMonth * ROLLING_WINDOW;
                         List<OutageSince> svcOutages = outageSvcList.getServiceOutages(ifservice.getNodeName(), m_endLastMonthTime, rollingWindow);
@@ -622,15 +622,13 @@ public class AvailCalculations extends Object {
 
         Rows rows = new Rows();
         int top20Count = 0;
-        loop: while (iter.hasNext()) {
-            Double percent = (Double) iter.next();
+        loop: for (final Map.Entry<Double, List<String>> e : offenders.entrySet()) {
+            Double percent = e.getKey();
             if (percent.doubleValue() < 100.0) {
-                List<String> nodeNames = offenders.get(percent);
+                List<String> nodeNames = e.getValue();
                 if (nodeNames != null) {
-                    ListIterator<String> lstIter = nodeNames.listIterator();
-                    while (lstIter.hasNext()) {
+                    for (String nodeName : nodeNames) {
                         top20Count++;
-                        String nodeName = lstIter.next();
 
                         Value dateValue = new Value();
                         dateValue.setContent(nodeName);
@@ -768,12 +766,9 @@ public class AvailCalculations extends Object {
             endTime -= ROLLING_WINDOW;
         }
 
-        Set<Date> keyDates = treeMap.keySet();
-        Iterator<Date> iter = keyDates.iterator();
         int dateSlot = 0;
-        while (iter.hasNext()) {
-            Date key = iter.next();
-            Double percent = treeMap.get(key);
+        for (Map.Entry<Date, Double> e : treeMap.entrySet()) {
+            Double percent = e.getValue();
             LOG.debug("Inserting value {} into date slot {}", dateSlot, percent.doubleValue());
             dateSlot++;
             LOG.debug("Inserting value {} into date slot {}", dateSlot, percent.doubleValue());
