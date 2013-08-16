@@ -450,13 +450,11 @@ public class AvailCalculations extends Object {
 
         // For each monitored service, get all individual outages.
         //
-        TreeMap<Long, List<OutageSince>> treeMap = null;
-
         for(Map.Entry<String, Map<IfService, OutageSvcTimesList>> e : m_services.entrySet()) {
-            treeMap = new TreeMap<Long, List<OutageSince>>();
-            Map<IfService, OutageSvcTimesList> ifSvcOutageList = e.getValue();
+            TreeMap<Long, List<OutageSince>> treeMap = new TreeMap<Long, List<OutageSince>>();
+            String service = e.getKey();
 
-            for(Map.Entry<IfService, OutageSvcTimesList> ifsvcEntry : ifSvcOutageList.entrySet()) {
+            for(Map.Entry<IfService, OutageSvcTimesList> ifsvcEntry : e.getValue().entrySet()) {
                 IfService ifservice = ifsvcEntry.getKey();
                 if (ifservice != null) {
                     OutageSvcTimesList outageSvcList = ifsvcEntry.getValue();
@@ -482,9 +480,8 @@ public class AvailCalculations extends Object {
             int top20Count = 0;
             Rows rows = new Rows();
 
-            loop : for(Long outage : treeMap.keySet()) {
-                List<OutageSince> list = treeMap.get(outage);
-                for(OutageSince outageSince : list) {
+            loop : for(final Map.Entry<Long, List<OutageSince>> treeEntry : treeMap.entrySet()) {
+                for(OutageSince outageSince : treeEntry.getValue()) {
                     top20Count++;
                     String nodeName = outageSince.getNodeName();
 
