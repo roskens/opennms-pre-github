@@ -37,6 +37,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
+
 import javax.management.MBeanServerConnection;
 import javax.management.remote.JMXConnector;
 import javax.management.remote.JMXServiceURL;
@@ -210,8 +211,8 @@ public class Starter {
             logger.error("Load dictionary entries from internal properties files error: '{}'", ex.getMessage());
         }
         logger.info("Loaded '{}' internal dictionary entries", properties.size());
-        for (Object key : properties.keySet()) {
-            internalDictionary.put(key.toString(), properties.get(key).toString());
+        for (Map.Entry<Object, Object> propEnt : properties.entrySet()) {
+            internalDictionary.put(propEnt.getKey().toString(), propEnt.getValue().toString());
         }
         logger.info("Dictionary entries loaded: '{}'", internalDictionary.size());
         return internalDictionary;
@@ -230,8 +231,8 @@ public class Starter {
             logger.error("'{}'", ex.getMessage());
         }
         logger.info("Loaded '{}' external dictionary entries from '{}'", properties.size(), dictionaryFile);
-        for (Object key : properties.keySet()) {
-            externalDictionary.put(key.toString(), properties.get(key).toString());
+        for (Map.Entry<Object, Object> propEnt : properties.entrySet()) {
+            externalDictionary.put(propEnt.getKey().toString(), propEnt.getValue().toString());
         }
         logger.info("Dictionary entries loaded: '{}'", externalDictionary.size());
         return externalDictionary;

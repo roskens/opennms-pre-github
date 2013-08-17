@@ -101,17 +101,15 @@ public class AppStatusDetailsComputer {
         if (! foundActiveMonitor) {
             return StatusDetails.unknown("No location monitors are currently reporting.");
         }
-    
+
         Map<Integer, Map<Integer, List<GWTServiceOutage>>> outages = getOutages();
-        for (final Integer serviceId : outages.keySet()) {
+        for (final Map.Entry<Integer, Map<Integer, List<GWTServiceOutage>>> outageEntry : outages.entrySet()) {
+            Integer serviceId = outageEntry.getKey();
             final List<GWTServiceOutage> locationOutages = new ArrayList<GWTServiceOutage>();
-            for (final Integer monitorId : outages.get(serviceId).keySet()) {
-                for (final GWTServiceOutage outage : outages.get(serviceId).get(monitorId)) {
-                    locationOutages.add(outage);
-                }
-                locationOutages.addAll(outages.get(serviceId).get(monitorId));
+            for (final Map.Entry<Integer, List<GWTServiceOutage>> monitorEntry : outageEntry.getValue().entrySet()) {
+                locationOutages.addAll(monitorEntry.getValue());
             }
-    
+
             GWTMonitoredService service = null;
             if (locationOutages.size() > 0) {
                  service = locationOutages.iterator().next().getService();
@@ -261,10 +259,10 @@ public class AppStatusDetailsComputer {
                 }
             }
         }
-        
-        for (final Integer serviceId : outages.keySet()) {
-            for (final Integer monitorId : outages.get(serviceId).keySet()) {
-                for (GWTServiceOutage outage : outages.get(serviceId).get(monitorId)) {
+
+        for (final Map.Entry<Integer, Map<Integer, List<GWTServiceOutage>>> outageEntry : outages.entrySet()) {
+            for (final Map.Entry<Integer, List<GWTServiceOutage>> monitorEntry : outageEntry.getValue().entrySet()) {
+                for (GWTServiceOutage outage : monitorEntry.getValue()) {
                     if (outage.getFrom() == null) {
                         outage.setFrom(getStartTime());
                     }
