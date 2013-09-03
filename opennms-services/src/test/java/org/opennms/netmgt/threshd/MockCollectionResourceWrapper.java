@@ -84,6 +84,18 @@ public class MockCollectionResourceWrapper extends CollectionResourceWrapper {
             public TimeKeeper getTimeKeeper() {
                 return null;
             }
+            @Override
+            public String getForeignSource() {
+                return null;
+            }
+            @Override
+            public String getForeignId() {
+                return null;
+            }
+            @Override
+            public String getIpAddress() {
+                return null;
+            }
         }, null);
     }
 

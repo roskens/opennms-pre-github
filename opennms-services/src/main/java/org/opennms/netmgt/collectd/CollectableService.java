@@ -363,14 +363,13 @@ final class CollectableService implements ReadyRunnable {
     }
 
         private BasePersister createPersister(ServiceParameters params, RrdRepository repository) {
-            if (Boolean.getBoolean("org.opennms.tsdb")) {
-                return TSDBPersister.getInstance(System.getProperty("org.opennms.tsdb.ip"), Integer.getInteger("org.opennms.tsdb.port"));
+            boolean tsdbEnabled = Boolean.getBoolean("org.opennms.tsdb");
+            boolean rrdEnabled = !(tsdbEnabled && Boolean.getBoolean("org.opennms.tsdb.disableRrd"));
+
+            if (Boolean.getBoolean("org.opennms.rrd.storeByGroup")) {
+                return new GroupPersister(params, repository, rrdEnabled, tsdbEnabled);
             } else {
-                if (Boolean.getBoolean("org.opennms.rrd.storeByGroup")) {
-                    return new GroupPersister(params, repository);
-                } else {
-                    return new OneToOnePersister(params, repository);
-                }
+                return new OneToOnePersister(params, repository, rrdEnabled, tsdbEnabled);
             }
         }
 

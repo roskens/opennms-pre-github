@@ -37,6 +37,7 @@ import org.opennms.core.utils.StringUtils;
 import org.opennms.core.utils.TimeKeeper;
 import org.opennms.netmgt.config.collector.AttributeDefinition;
 import org.opennms.netmgt.config.collector.ByNameComparator;
+import org.opennms.netmgt.config.collector.CollectionResource;
 import org.opennms.netmgt.config.collector.ResourceIdentifier;
 import org.opennms.netmgt.model.RrdRepository;
 import org.opennms.netmgt.rrd.RrdDataSource;
@@ -53,7 +54,7 @@ public class PersistOperationBuilder {
     
     private RrdRepository m_repository;
     private String m_rrdName;
-    private ResourceIdentifier m_resource;
+    private CollectionResource m_resource;
     private Map<AttributeDefinition, String> m_declarations = new TreeMap<AttributeDefinition, String>(new ByNameComparator());
     private Map<String, String> m_metaData = new LinkedHashMap<String, String>();
     private TimeKeeper m_timeKeeper = new DefaultTimeKeeper();
@@ -67,6 +68,8 @@ public class PersistOperationBuilder {
     /** Constant <code>MAX_DS_NAME_LENGTH=19</code> */
     public static final int MAX_DS_NAME_LENGTH = 19;
 
+    private boolean m_persistRrd, m_persistTsdb;
+
     /**
      * <p>Constructor for PersistOperationBuilder.</p>
      *
@@ -74,10 +77,16 @@ public class PersistOperationBuilder {
      * @param resource a {@link org.opennms.netmgt.config.collector.ResourceIdentifier} object.
      * @param rrdName a {@link java.lang.String} object.
      */
-    public PersistOperationBuilder(RrdRepository repository, ResourceIdentifier resource, String rrdName) {
+    public PersistOperationBuilder(RrdRepository repository, CollectionResource resource, String rrdName, boolean persistRrd, boolean persistTsdb) {
         m_repository = repository;
         m_resource = resource;
         m_rrdName = rrdName;
+        m_persistRrd=persistRrd;
+        m_persistTsdb=persistTsdb;
+    }
+
+    public PersistOperationBuilder(RrdRepository repository, CollectionResource resource, String rrdName) {
+        this(repository, resource, rrdName, true, false);
     }
 
     /**
@@ -148,9 +157,19 @@ public class PersistOperationBuilder {
 
         final String ownerName = m_resource.getOwnerName();
         final String absolutePath = getResourceDir(m_resource).getAbsolutePath();
-        RrdUtils.createRRD(ownerName, absolutePath, m_rrdName, getRepository().getStep(), getDataSources(), getRepository().getRraList(), getAttributeMappings());
-        RrdUtils.updateRRD(ownerName, absolutePath, m_rrdName, m_timeKeeper.getCurrentTime(), getValues());
-        RrdUtils.createMetaDataFile(absolutePath, m_rrdName, m_metaData);
+
+        if (m_persistRrd) {
+            RrdUtils.createRRD(ownerName, absolutePath, m_rrdName, getRepository().getStep(), getDataSources(), getRepository().getRraList(), getAttributeMappings());
+            RrdUtils.updateRRD(ownerName, absolutePath, m_rrdName, m_timeKeeper.getCurrentTime(), getValues());
+            RrdUtils.createMetaDataFile(absolutePath, m_rrdName, m_metaData);
+        }
+
+        if (m_persistTsdb) {
+            for(Map.Entry<AttributeDefinition, String> entry : m_declarations.entrySet()) {
+                TSDBPersister.getInstance().addEntry( m_timeKeeper.getCurrentTime(), m_resource.getForeignSource(), m_resource.getForeignId(), m_resource.getIpAddress(), m_resource.getInstance(), m_resource.getResourceTypeName()+"."+entry.getKey().getName(), entry.getValue());
+            }
+        }
+
     }
 
     private String getValues() {

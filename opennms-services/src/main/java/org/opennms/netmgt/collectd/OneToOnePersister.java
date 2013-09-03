@@ -47,8 +47,12 @@ public class OneToOnePersister extends BasePersister {
      * @param params a {@link org.opennms.netmgt.config.collector.ServiceParameters} object.
      * @param repository a {@link org.opennms.netmgt.model.RrdRepository} object.
      */
+    public OneToOnePersister(ServiceParameters params,  RrdRepository repository, boolean persistRrd, boolean persistTsdb) {
+        super(params, repository, persistRrd, persistTsdb);
+    }
+
     public OneToOnePersister(ServiceParameters params,  RrdRepository repository) {
-        super(params, repository);
+        this(params, repository, true, false);
     }
 
     /** {@inheritDoc} */

@@ -62,6 +62,7 @@ public class BasePersister extends AbstractCollectionSetVisitor implements Persi
     private RrdRepository m_repository;
     private LinkedList<Boolean> m_stack = new LinkedList<Boolean>();
     private PersistOperationBuilder m_builder;
+    private boolean m_persistRrd, m_persistTsdb;
 
     /**
      * <p>Constructor for BasePersister.</p>
@@ -76,10 +77,16 @@ public class BasePersister extends AbstractCollectionSetVisitor implements Persi
      * @param params a {@link org.opennms.netmgt.config.collector.ServiceParameters} object.
      * @param repository a {@link org.opennms.netmgt.model.RrdRepository} object.
      */
-    public BasePersister(ServiceParameters params, RrdRepository repository) {
+    public BasePersister(ServiceParameters params, RrdRepository repository, boolean persistRrd, boolean persistTsdb) {
         super();
         m_params = params;
         m_repository = repository;
+        m_persistRrd = persistRrd;
+        m_persistTsdb = persistTsdb;
+    }
+
+    public BasePersister(ServiceParameters params,  RrdRepository repository) {
+        this(params, repository, true, false);
     }
     
     /**
@@ -141,7 +148,7 @@ public class BasePersister extends AbstractCollectionSetVisitor implements Persi
      * @param attributeTypes a {@link java.util.Set} object.
      */
     protected void createBuilder(CollectionResource resource, String name, Set<AttributeDefinition> attributeTypes) {
-        m_builder = new PersistOperationBuilder(getRepository(), resource, name);
+        m_builder = new PersistOperationBuilder(getRepository(), resource, name, m_persistRrd, m_persistTsdb);
         if (resource.getTimeKeeper() != null)
             m_builder.setTimeKeeper(resource.getTimeKeeper());
         for (Iterator<AttributeDefinition> iter = attributeTypes.iterator(); iter.hasNext();) {
@@ -173,7 +180,7 @@ public class BasePersister extends AbstractCollectionSetVisitor implements Persi
     /** {@inheritDoc} */
     @Override
     public void persistNumericAttribute(CollectionAttribute attribute) {
-	LOG.debug("Persisting {} {}", attribute, (isIgnorePersist() ? ". Ignoring value because of sysUpTime changed" : ""));
+	    LOG.debug("Persisting {} {}", attribute, (isIgnorePersist() ? ". Ignoring value because of sysUpTime changed" : ""));
     	String value = isIgnorePersist() ? "U" : attribute.getNumericValue();
         m_builder.setAttributeValue(attribute.getAttributeType(), value);
         m_builder.setAttributeMetadata(attribute.getMetricIdentifier(), attribute.getName());
