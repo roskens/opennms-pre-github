@@ -155,4 +155,16 @@ public abstract class AbstractCollectionResource implements CollectionResource {
         return null;
     }
 
+    public String getForeignSource() {
+        return m_agent.getForeignSource();
+    }
+
+    public String getForeignId() {
+        return m_agent.getForeignId();
+    }
+
+    public String getIpAddress() {
+        return m_agent.getHostAddress();
+    }
+
 }

@@ -174,4 +174,17 @@ public abstract class SnmpCollectionResource implements CollectionResource {
         return null;
     }
 
+    public String getForeignSource() {
+        return getResourceType().getAgent().getForeignSource();
+    }
+
+    public String getForeignId() {
+        return getResourceType().getAgent().getForeignId();
+    }
+
+    public String getIpAddress() {
+        return getResourceType().getAgent().getHostAddress();
+    }
+
+
 }

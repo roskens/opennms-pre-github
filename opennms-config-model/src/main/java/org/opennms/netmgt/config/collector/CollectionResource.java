@@ -44,21 +44,21 @@ public interface CollectionResource extends ResourceIdentifier {
      * @return a boolean.
      */
     public boolean shouldPersist(ServiceParameters params);
-    
+
     /**
      * <p>rescanNeeded</p>
      *
      * @return a boolean.
      */
     public boolean rescanNeeded();
-    
+
     /**
      * <p>visit</p>
      *
      * @param visitor a {@link org.opennms.netmgt.collectd.CollectionSetVisitor} object.
      */
     public void visit(CollectionSetVisitor visitor);
-    
+
     /**
      * Returns something like an ifType; is (but not sure if it should be) -1 for non interface type collections, otherwise
      * the SNMP type of the interface. Relates to ifType in datacollection-config.xml
@@ -66,25 +66,25 @@ public interface CollectionResource extends ResourceIdentifier {
      * @return a int.
      */
     public int getType();
-    
+
     /**
      * Returns a string which indicates what type of resource.
      * Will be one of
-     *          "node" for the node level resource
-     *          "if" for network interface resources
-     *          "*" for all other resource types defined in the relevant config files, e.g. hrStorage
+     * "node" for the node level resource
+     * "if" for network interface resources
+     * "*" for all other resource types defined in the relevant config files, e.g. hrStorage
      *
      * @return a {@link java.lang.String} object.
      */
     public String getResourceTypeName();
-    
+
     /**
      * Returns the name of the parent resource.
-     * 
+     *
      * @return a {@link java.lang.String} object.
      */
     public String getParent();
-    
+
     /**
      * Returns the name of the instance this CollectionResource represents.  For node level resources, this will be null
      * to indicate the default instance.   For interface level resources, some label unique to the node (ifIndex probably)
@@ -105,9 +105,14 @@ public interface CollectionResource extends ResourceIdentifier {
     /**
      * Returns a not-null time tracker instance when this resource requires to use a special timestamp when updating RRDs/JRBs.
      * If the resource doesn't need a special time tracker it should return null.
-     * 
+     *
      * @return a {@link org.opennms.core.utils.TimeKeeper} object.
      */
     public TimeKeeper getTimeKeeper();
 
+    public String getForeignSource();
+
+    public String getForeignId();
+
+    public String getIpAddress();
 }

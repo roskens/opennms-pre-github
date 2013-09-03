@@ -170,4 +170,12 @@ public class LatencyCollectionResource implements CollectionResource {
         return null;
     }
 
+    public String getForeignSource() {
+        return null;
+    }
+
+    public String getForeignId() {
+        return null;
+    }
+
 }
