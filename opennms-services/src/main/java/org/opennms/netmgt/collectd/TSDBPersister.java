@@ -31,11 +31,11 @@ public class TSDBPersister {
         }
 
         private String cleanTag(String value) {
-            return value.replaceAll(" ", "_");
+            return value.replaceAll("\\. ", "_");
         }
 
         public String getEntry() {
-            return "put " + m_key + " " + m_timestamp + " " + m_value + (m_instance != null ? " instance=" + cleanTag(m_instance) : "") + (m_foreignSource != null ? " foreignSource=" + cleanTag(m_foreignSource) : "") + (m_foreignId != null ? " foreignId=" + cleanTag(m_foreignId) : "") + (m_ipAddress != null ? " ipAddress=" + cleanTag(m_ipAddress) : "");
+            return "put " + m_key + (m_instance != null ? "." + cleanTag(m_instance) : "") + " " + m_timestamp + " " + m_value + " type=metric" + (m_foreignSource != null ? " foreignSource=" + cleanTag(m_foreignSource) : "") + (m_foreignId != null ? " foreignId=" + cleanTag(m_foreignId) : "") + (m_ipAddress != null ? " ipAddress=" + cleanTag(m_ipAddress) : "");
         }
     }
 
