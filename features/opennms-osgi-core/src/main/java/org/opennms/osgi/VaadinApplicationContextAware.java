@@ -26,29 +26,8 @@
  *     http://www.opennms.com/
  *******************************************************************************/
 
-package org.opennms.features.topology.api;
+package org.opennms.osgi;
 
-import java.util.Collection;
-import java.util.Map;
-
-import org.opennms.features.topology.api.topo.VertexRef;
-
-public interface Layout {
-
-	Point getLocation(VertexRef v);
-
-	/**
-	 * @return Returns an immutable copy of the current list of locations
-	 */
-	Map<VertexRef, Point> getLocations();
-
-	void setLocation(VertexRef vertex, int x, int y);
-
-	void setLocation(VertexRef v, Point location);
-
-	Point getInitialLocation(VertexRef v);
-
-	BoundingBox getBounds();
-
-	BoundingBox computeBoundingBox(Collection<VertexRef> vertRefs);
+public interface VaadinApplicationContextAware {
+    void setVaadinApplicationContext(VaadinApplicationContext vaadinApplicationContext);
 }
