@@ -11,7 +11,7 @@ public class RestClient {
 
     private static Client getClient(String username, String password) {
         Client client = Client.create();
-        client.addFilter(new HTTPBasicAuthFilter("chris", "bla"));
+        client.addFilter(new HTTPBasicAuthFilter(username, password));
         return client;
     }
 

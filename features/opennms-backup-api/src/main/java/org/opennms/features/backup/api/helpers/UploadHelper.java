@@ -28,7 +28,7 @@ public class UploadHelper {
         HttpClient client = null;
         try {
             //create new post method, and set parameters
-            filePost = new PostMethod("http://localhost:8080/upload");
+            filePost = new PostMethod(location + "/upload");
             filePost.getParams().setBooleanParameter(HttpMethodParams.USE_EXPECT_CONTINUE, true);
 
             FilePartSource targetFile = new FilePartSource(new File(filename));

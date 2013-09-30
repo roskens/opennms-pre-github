@@ -317,7 +317,7 @@ public class BackupUI extends UI {
         });
 
 
-        final Button button = new Button("Test");
+        final Button button = new Button("Backup now");
         button.addClickListener(new Button.ClickListener() {
             @Override
             public void buttonClick(Button.ClickEvent clickEvent) {
