@@ -33,8 +33,8 @@
 
     <!-- Jmx config generator -->
     <module>jmx-config-generator</module>
-    <module>jmx-config-generator-webui</module>   
- 
+    <module>jmx-config-generator-webui</module>
+
     <!-- SNMP MIB Parser and Event/Collection Configuration -->
     <module>vaadin-snmp-events-and-metrics</module>
 
@@ -71,7 +71,12 @@
     <!-- OpenNMS Vaadin Themes -->
     <module>themes</module>
 
-      <module>vaadin-dashboard</module>
-      <module>vaadin-dashlets</module>
+      <!-- OpenNMS Dashboard -->
+    <module>vaadin-dashboard</module>
+    <module>vaadin-dashlets</module>
+
+      <!-- OpenNMS Backup -->
+    <module>opennms-backup-api</module>
+    <module>opennms-backup-ui</module>
   </modules>
 </project>

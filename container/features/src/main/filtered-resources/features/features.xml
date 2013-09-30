@@ -39,6 +39,10 @@
     <repository>mvn:org.opennms.features/vaadin-dashboard/${project.version}/xml/features</repository>
     <repository>mvn:org.opennms.features.vaadin-dashlets/dashlet-features/${project.version}/xml</repository>
 
+    <!-- Backup Feature-->
+    <repository>mvn:org.opennms.features/opennms-backup-api/${project.version}/xml/features</repository>
+    <repository>mvn:org.opennms.features/opennms-backup-ui/${project.version}/xml/features</repository>
+
     <feature name="opennms-all" description="OpenNMS :: All" version="${project.version}">
        <feature>opennms-osgi-core</feature>
        <feature>opennms-topology-runtime-simple</feature>
@@ -59,6 +63,8 @@
        <feature>dashlet-charts</feature>
        <feature>dashlet-rtc</feature>
        <feature>dashlet-rrd</feature>
+       <feature>opennms-backup-api</feature>
+       <feature>opennms-backup-ui</feature>
    </feature>
 
 </features>

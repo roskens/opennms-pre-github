@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<backupConfig>
+    <backupUrl>http://backup-demo.opennms-edu.net:8080</backupUrl>
+    <username>username</username>
+    <password>password</password>
+
+    <customerId>1</customerId>
+    <systemId>system</systemId>
+
+    <baseDirectory>${install.dir}</baseDirectory>
+    <localDirectory>${install.dir}/backup</localDirectory>
+
+    <pgDumpLocation>/usr/bin/pg_dump</pgDumpLocation>
+
+    <backupDirectories>
+        <backupDirectory>share</backupDirectory>
+        <backupDirectory>etc</backupDirectory>
+        <backupDirectory>dbdump</backupDirectory>
+    </backupDirectories>
+</backupConfig>
