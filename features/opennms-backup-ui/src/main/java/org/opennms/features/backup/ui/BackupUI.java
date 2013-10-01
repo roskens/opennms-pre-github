@@ -60,7 +60,8 @@ public class BackupUI extends UI {
     private Table table;
     private TreeTable treeTable;
     private TextArea logTextArea;
-    private VerticalLayout rightLayout, leftLayout, taskLayout;
+    private VerticalLayout leftLayout, rightLayout, taskLayout;
+    private HorizontalLayout rightButtonLayout;
     private BeanItemContainer<RestZipBackup> beanItemContainer;
     private HierarchicalContainer hierarchicalContainer;
     private BackupService backupService;
@@ -139,10 +140,11 @@ public class BackupUI extends UI {
                 addRecursive(filename);
                 hierarchicalContainer.setChildrenAllowed(filename, false);
             }
-
+/*
             for (Object itemId : treeTable.getItemIds()) {
                 treeTable.setCollapsed(itemId, false);
             }
+*/
         }
     }
 
@@ -329,6 +331,14 @@ public class BackupUI extends UI {
             }
         });
 
+        final Button refreshButton = new Button("Refresh");
+        refreshButton.addClickListener(new Button.ClickListener() {
+            @Override
+            public void buttonClick(Button.ClickEvent clickEvent) {
+                updateTable();
+            }
+        });
+
         if (backupService.isBackupJobRunning()) {
             button.setEnabled(false);
 
@@ -403,8 +413,13 @@ public class BackupUI extends UI {
             }
         });
 
-        rightLayout.addComponent(button);
+        rightButtonLayout=new HorizontalLayout();
+        rightButtonLayout.setSpacing(true);
 
+        rightButtonLayout.addComponent(refreshButton);
+        rightButtonLayout.addComponent(button);
+
+        rightLayout.addComponent(rightButtonLayout);
 
         setContent(rootLayout);
     }

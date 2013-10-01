@@ -29,6 +29,11 @@ public class BackupSet {
         zipBackupFiles = new TreeSet<ZipBackup>();
 
         File directory = new File(baseDirectory);
+
+        if (!directory.exists()) {
+            return;
+        }
+
         for (File file : directory.listFiles()) {
             if (!file.isDirectory()) {
                 if (file.getName().matches("backup\\.[0-9]+\\.zip")) {
