@@ -81,8 +81,6 @@ public class BackupUI extends UI {
     }
 
     public void addRecursive(String filename) {
-        System.out.println("'" + filename + "'");
-
         if ("".equals(filename)) {
             if (!hierarchicalContainer.containsId("/")) {
                 Item item = hierarchicalContainer.addItem("/");
