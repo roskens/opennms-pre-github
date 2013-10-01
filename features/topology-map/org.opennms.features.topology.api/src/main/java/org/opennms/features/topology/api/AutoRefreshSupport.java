@@ -26,29 +26,25 @@
  *     http://www.opennms.com/
  *******************************************************************************/
 
-package org.opennms.features.topology.app.internal;
+package org.opennms.features.topology.api;
 
-import org.opennms.osgi.OnmsVaadinUIFactory;
-import org.osgi.service.blueprint.container.BlueprintContainer;
+public interface AutoRefreshSupport {
+    boolean isEnabled();
 
-import java.util.HashMap;
-import java.util.Map;
+    void setEnabled(boolean value);
 
-public class TopologyUIFactory extends OnmsVaadinUIFactory {
-    
+    /**
+     * Toggles isEnabled and returns the new value.
+     * @return the value you would get from {@link #isEnabled()}.
+     */
+    boolean toggle();
 
-	
-	public TopologyUIFactory(BlueprintContainer container, String uiBeanName) {
-        super(TopologyUI.class, container, uiBeanName);
-	}
+    /**
+     * Sets the interval in seconds you have to wait until the next refresh is invoked.
+     * @param secondsToWait the delay until the next refresh is performed (in seconds).
+     */
+    void setInterval(long secondsToWait);
 
-    @Override
-    public Map<String, String> getAdditionalHeaders() {
-        final Map<String,String> headers = new HashMap<String,String>();
-        headers.put("X-UA-Compatible", "chrome=1");
-        //headers.put("X-Frame-Options", "ALLOW-FROM http://cdn.leafletjs.com/");
-        //headers.put("X-Frame-Options", "ALLOW-FROM http://maps.google.com/");
-        return headers;
-    }
+    long getInterval();
 
 }

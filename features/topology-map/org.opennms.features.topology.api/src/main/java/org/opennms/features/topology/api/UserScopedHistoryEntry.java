@@ -26,29 +26,35 @@
  *     http://www.opennms.com/
  *******************************************************************************/
 
-package org.opennms.features.topology.app.internal;
+package org.opennms.features.topology.api;
 
-import org.opennms.osgi.OnmsVaadinUIFactory;
-import org.osgi.service.blueprint.container.BlueprintContainer;
+import org.opennms.osgi.VaadinApplicationContext;
 
-import java.util.HashMap;
+import java.util.Collections;
 import java.util.Map;
 
-public class TopologyUIFactory extends OnmsVaadinUIFactory {
-    
+class UserScopedHistoryEntry<T> {
+    private final Class<? extends Operation> clazz;
 
-	
-	public TopologyUIFactory(BlueprintContainer container, String uiBeanName) {
-        super(TopologyUI.class, container, uiBeanName);
-	}
-
-    @Override
-    public Map<String, String> getAdditionalHeaders() {
-        final Map<String,String> headers = new HashMap<String,String>();
-        headers.put("X-UA-Compatible", "chrome=1");
-        //headers.put("X-Frame-Options", "ALLOW-FROM http://cdn.leafletjs.com/");
-        //headers.put("X-Frame-Options", "ALLOW-FROM http://maps.google.com/");
-        return headers;
+    public UserScopedHistoryEntry(Class<? extends Operation> clazz) {
+        this.clazz = clazz;
     }
 
+    public Map<String, String> createEntry(VaadinApplicationContext applicationContext, T value) {
+        return Collections.singletonMap(createKey(applicationContext), createValue(value));
+    }
+
+    public T loadEntry(VaadinApplicationContext applicationContext, Map<String, String> settings) {
+        return (T)settings.get(createKey(applicationContext));
+    }
+
+    private String createValue(T input) {
+        if (input == null) return "";
+        if (input instanceof String) return (String)input;
+        return input.toString();
+    }
+
+    private String createKey(VaadinApplicationContext context) {
+        return clazz.getName() + ";" + context.getUiId() + ";" + context.getUsername();
+    }
 }
