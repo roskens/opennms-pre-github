@@ -208,6 +208,8 @@ public class BackupUI extends UI {
 
     @Override
     protected void init(VaadinRequest request) {
+        backupService.reloadConfig();
+
         VerticalLayout rootLayout = new VerticalLayout();
         rootLayout.setMargin(true);
         Panel leftPanel = new Panel();

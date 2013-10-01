@@ -31,6 +31,10 @@ public class BackupService {
     private String databaseUsername, databasePassword, databaseName, databaseHost, databasePort;
 
     public BackupService() {
+        reloadConfig();
+    }
+
+    public void reloadConfig() {
         BackupConfig backupConfig = JAXB.unmarshal(new File("etc/backup.xml"), BackupConfig.class);
 
         createDirectory(new File(backupConfig.getLocalDirectory()));
