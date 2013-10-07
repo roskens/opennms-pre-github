@@ -1,8 +1,8 @@
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
- * Copyright (C) 2006-2012 The OpenNMS Group, Inc.
- * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ * Copyright (C) 2013 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2013 The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
  *
@@ -26,46 +26,49 @@
  *     http://www.opennms.com/
  *******************************************************************************/
 
-package org.opennms.web.alarm.filter;
+package org.opennms.web.outage.filter;
 
 import javax.servlet.ServletContext;
 
+import org.hibernate.Hibernate;
+import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Restrictions;
 import org.opennms.web.element.NetworkElementFactory;
 import org.opennms.web.filter.EqualsFilter;
 import org.opennms.web.filter.SQLType;
 
 /**
- * Encapsulates all service filtering functionality.
+ * Encapsulates all node filtering functionality.
  *
- * @author ranger
- * @version $Id: $
- * @since 1.8.1
+ * @author <a href="mailto:ronald.roskens@gmail.com">Ronald Roskens</a>
+ * @author <a href="http://www.opennms.org/">OpenNMS</a>
+ * @since 1.12.2
  */
-public class ServiceFilter extends EqualsFilter<Integer> {
-    /** Constant <code>TYPE="service"</code> */
-    public static final String TYPE = "service";
+public class ForeignSourceFilter extends EqualsFilter<String> {
+    /** Constant <code>TYPE="foreignsource"</code> */
+    public static final String TYPE = "foreignsource";
     private ServletContext m_servletContext;
 
     /**
-     * <p>Constructor for ServiceFilter.</p>
+     * Constructor for ForeignSourceFilter.
      *
-     * @param serviceId a int.
+     * @param foreignSource a {@link java.lang.String} object.
      */
-    public ServiceFilter(int serviceId, ServletContext servletContext) {
-        super(TYPE, SQLType.INT, "SERVICEID", "serviceType.id", serviceId);
+    public ForeignSourceFilter(String foreignSource, ServletContext servletContext) {
+        super(TYPE, SQLType.STRING, "OUTAGES.NODEID", "NODE.foreignSource", foreignSource);
         m_servletContext = servletContext;
     }
 
-    /**
-     * <p>getTextDescription</p>
-     *
-     * @return a {@link java.lang.String} object.
-     */
-    public String getTextDescription() {
-        String serviceName = Integer.toString(getServiceId());
-            serviceName = NetworkElementFactory.getInstance(m_servletContext).getServiceNameFromId(getServiceId());
+    /** {@inheritDoc} */
+    @Override
+    public String getSQLTemplate() {
+        return " " + getSQLFieldName() + " in (SELECT DISTINCT NODE.nodeID FROM NODE WHERE NODE.foreignSource=%s)";
+    }
 
-        return (TYPE + "=" + serviceName);
+    /** {@inheritDoc} */
+    @Override
+    public Criterion getCriterion() {
+        return Restrictions.sqlRestriction(" {alias}.nodeid in (SELECT DISTINCT NODE.nodeID FROM NODE WHERE NODE.foreignSource=?)", getValue(), Hibernate.STRING);
     }
 
     /**
@@ -73,22 +76,11 @@ public class ServiceFilter extends EqualsFilter<Integer> {
      *
      * @return a {@link java.lang.String} object.
      */
-    @Override
     public String toString() {
-        return ("<AlarmFactory.ServiceFilter: " + this.getDescription() + ">");
-    }
-
-    /**
-     * <p>getServiceId</p>
-     *
-     * @return a int.
-     */
-    public int getServiceId() {
-        return getValue();
+        return ("<ForeignSourceFilter: " + this.getDescription() + ">");
     }
 
     /** {@inheritDoc} */
-    @Override
     public boolean equals(Object obj) {
         return (this.toString().equals(obj.toString()));
     }
