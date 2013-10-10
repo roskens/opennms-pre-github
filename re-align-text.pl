@@ -34,7 +34,7 @@ while(<IN>) {
     printf "[%s]%s%s %s %s\n", $level, $spacing, $gidaid, $end, $line;
     next;
   }
-  if (/^\[(\S+)\](\s+)(.*?)\s\.+\s(.*)$/) {
+  if (/^\[(\S+)\](\s+)(.*?)\s\.*\s(.*\-\>.*)$/) {
     my $level = $1;
     my $spacing = $2;
     my $gidaid = $3;
