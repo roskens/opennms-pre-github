@@ -130,7 +130,7 @@
 			<build>
 				<plugins>
 					<plugin>
-						<groupId>org.mortbay.jetty</groupId>
+						<groupId>org.eclipse.jetty</groupId>
 						<artifactId>jetty-maven-plugin</artifactId>
 						<version>${jettyVersion}</version>
 						<configuration>
@@ -142,7 +142,7 @@
 							<!-- make sure Jetty also finds the widgetset -->
 							<webAppConfig>
 								<contextPath>/webapp</contextPath>
-								<baseResource implementation="org.mortbay.resource.ResourceCollection">
+								<baseResource implementation="org.eclipse.resource.ResourceCollection">
 									<resourcesAsCSV>src/main/webapp,${project.build.directory}/${project.build.finalName}</resourcesAsCSV>
 								</baseResource>
 							</webAppConfig>

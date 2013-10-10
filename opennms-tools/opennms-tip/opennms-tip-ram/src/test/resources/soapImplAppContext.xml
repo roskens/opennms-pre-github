@@ -10,10 +10,10 @@
            http://cxf.apache.org/schemas/jaxws.xsd">
 
   <!-- http://stackoverflow.com/questions/3736380/spring-embeded-jettycxf -->
-  <bean name="web-server" class="org.mortbay.jetty.Server" init-method="start" destroy-method="stop">
+  <bean name="web-server" class="org.eclipse.jetty.Server" init-method="start" destroy-method="stop">
     <property name="connectors">
       <list>
-        <bean class="org.mortbay.jetty.nio.SelectChannelConnector">
+        <bean class="org.eclipse.jetty.nio.SelectChannelConnector">
           <property name="host" value="localhost" />
           <property name="port" value="8080" />
         </bean>
@@ -30,10 +30,10 @@
   </bean>
 
 
-  <!--<bean id="server" class="org.mortbay.jetty.Server" destroy-method="stop">-->
+  <!--<bean id="server" class="org.eclipse.jetty.Server" destroy-method="stop">-->
   <!--    <property name="connectors">-->
   <!--    <list>-->
-  <!--            <bean id="connector" class="org.mortbay.jetty.nio.SelectChannelConnector">-->
+  <!--            <bean id="connector" class="org.eclipse.jetty.nio.SelectChannelConnector">-->
   <!--                <property name="port" value="${server.port}" />-->
   <!--            </bean>-->
   <!--        </list>-->
@@ -46,14 +46,14 @@
   <!--    </property>-->
   <!-- </bean>-->
 
-  <!--  <bean name="workflowContext" class="org.mortbay.jetty.servlet.Context">-->
+  <!--  <bean name="workflowContext" class="org.eclipse.jetty.servlet.Context">-->
   <!--    <property name="contextPath" value="/" />-->
 <!---->
   <!--    <property name="servletHandler">-->
-  <!--      <bean class="org.mortbay.jetty.servlet.ServletHandler">-->
+  <!--      <bean class="org.eclipse.jetty.servlet.ServletHandler">-->
   <!--        <property name="servlets">-->
   <!--          <list>-->
-  <!--            <bean class="org.mortbay.jetty.servlet.ServletHolder">-->
+  <!--            <bean class="org.eclipse.jetty.servlet.ServletHolder">-->
   <!--              <property name="name" value="services" />-->
   <!--              <property name="servlet">-->
   <!--                <bean class="org.apache.cxf.transport.servlet.CXFServlet" />-->
@@ -65,7 +65,7 @@
 <!---->
   <!--        <property name="servletMappings">-->
   <!--          <list>-->
-  <!--            <bean class="org.mortbay.jetty.servlet.ServletMapping">-->
+  <!--            <bean class="org.eclipse.jetty.servlet.ServletMapping">-->
   <!--              <property name="servletName" value="services" />-->
   <!--              <property name="pathSpec" value="/services/*" />-->
   <!--            </bean>-->
@@ -84,11 +84,11 @@
 
   <!--  <context:annotation-config/>-->
   <!--http://stackoverflow.com/questions/3736380/spring-embeded-jettycxf-->
-  <!--    <bean name="web-server" class="org.mortbay.jetty.Server"-->
+  <!--    <bean name="web-server" class="org.eclipse.jetty.Server"-->
   <!--        init-method="start">-->
   <!--        <property name="connectors">-->
   <!--            <list>-->
-  <!--                <bean class="org.mortbay.jetty.nio.SelectChannelConnector">-->
+  <!--                <bean class="org.eclipse.jetty.nio.SelectChannelConnector">-->
   <!--                    <property name="host" value="localhost" />-->
   <!--                    <property name="port" value="8080" />-->
   <!--                </bean>-->
@@ -103,22 +103,22 @@
   <!--        </property>-->
   <!--    </bean>-->
 <!---->
-  <!--    <bean name="web-server-context-static" class="org.mortbay.jetty.servlet.Context">-->
+  <!--    <bean name="web-server-context-static" class="org.eclipse.jetty.servlet.Context">-->
   <!--        <property name="contextPath" value="/static" />-->
   <!--        <property name="handler">-->
-  <!--            <bean class="org.mortbay.jetty.handler.ResourceHandler">-->
+  <!--            <bean class="org.eclipse.jetty.handler.ResourceHandler">-->
   <!--                <property name="resourceBase" value="static" />-->
   <!--            </bean>-->
   <!--        </property>-->
   <!--    </bean>-->
 <!---->
-  <!--    <bean name="web-server-context-servlet" class="org.mortbay.jetty.servlet.Context">-->
+  <!--    <bean name="web-server-context-servlet" class="org.eclipse.jetty.servlet.Context">-->
   <!--        <property name="contextPath" value="/servlet" />-->
   <!--        <property name="handler">-->
-  <!--            <bean class="org.mortbay.jetty.servlet.ServletHandler">-->
+  <!--            <bean class="org.eclipse.jetty.servlet.ServletHandler">-->
   <!--                <property name="servlets">-->
   <!--                    <list>-->
-  <!--                        <bean class="org.mortbay.jetty.servlet.ServletHolder">-->
+  <!--                        <bean class="org.eclipse.jetty.servlet.ServletHolder">-->
   <!--                            <property name="name" value="servlet-holder" />-->
   <!--                            <property name="servlet">-->
   <!--                                <bean class="test.TestServlet" />-->
@@ -128,7 +128,7 @@
   <!--                </property>-->
   <!--                <property name="servletMappings">-->
   <!--                    <list>-->
-  <!--                        <bean class="org.mortbay.jetty.servlet.ServletMapping">-->
+  <!--                        <bean class="org.eclipse.jetty.servlet.ServletMapping">-->
   <!--                            <property name="servletName" value="servlet-holder" />-->
   <!--                            <property name="pathSpec" value="/*" />-->
   <!--                        </bean>-->
@@ -138,13 +138,13 @@
   <!--        </property>-->
   <!--    </bean>-->
 <!---->
-  <!--    <bean name="web-server-context-cxf" class="org.mortbay.jetty.servlet.Context">-->
+  <!--    <bean name="web-server-context-cxf" class="org.eclipse.jetty.servlet.Context">-->
   <!--        <property name="contextPath" value="/cxf" />-->
   <!--        <property name="handler">-->
-  <!--            <bean class="org.mortbay.jetty.servlet.ServletHandler">-->
+  <!--            <bean class="org.eclipse.jetty.servlet.ServletHandler">-->
   <!--                <property name="servlets">-->
   <!--                    <list>-->
-  <!--                        <bean class="org.mortbay.jetty.servlet.ServletHolder">-->
+  <!--                        <bean class="org.eclipse.jetty.servlet.ServletHolder">-->
   <!--                            <property name="name" value="cxf-servlet-holder" />-->
   <!--                            <property name="servlet">-->
   <!--                                <bean class="org.apache.cxf.transport.servlet.CXFServlet">-->
@@ -155,7 +155,7 @@
   <!--                </property>-->
   <!--                <property name="servletMappings">-->
   <!--                    <list>-->
-  <!--                        <bean class="org.mortbay.jetty.servlet.ServletMapping">-->
+  <!--                        <bean class="org.eclipse.jetty.servlet.ServletMapping">-->
   <!--                            <property name="servletName" value="cxf-servlet-holder" />-->
   <!--                            <property name="pathSpec" value="/*" />-->
   <!--                        </bean>-->

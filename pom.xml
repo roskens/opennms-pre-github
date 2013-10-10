@@ -410,12 +410,12 @@
         <version>1.0-alpha-7</version>
       </plugin>
       <plugin>
-        <groupId>org.mortbay.jetty</groupId>
+        <groupId>org.eclipse.jetty</groupId>
         <artifactId>jetty-maven-plugin</artifactId>
         <version>${jettyVersion}</version>
       </plugin>
       <plugin>
-        <groupId>org.mortbay.jetty</groupId>
+        <groupId>org.eclipse.jetty</groupId>
         <artifactId>jetty-jspc-maven-plugin</artifactId>
         <version>${jettyVersion}</version>
       </plugin>
@@ -494,7 +494,7 @@
               </pluginExecution>
               <pluginExecution>
                 <pluginExecutionFilter>
-                  <groupId>org.mortbay.jetty</groupId>
+                  <groupId>org.eclipse.jetty</groupId>
                   <artifactId>jetty-jspc-maven-plugin</artifactId>
                   <versionRange>[1.0,)</versionRange>
                   <goals>

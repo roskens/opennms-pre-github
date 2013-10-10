@@ -68,12 +68,12 @@
     <build>
         <plugins>
             <plugin>
-                <groupId>org.mortbay.jetty</groupId>
+                <groupId>org.eclipse.jetty</groupId>
                 <artifactId>jetty-maven-plugin</artifactId>
                 <version>${jettyVersion}</version>
                 <configuration>
                     <connectors>
-                        <connector implementation="org.mortbay.jetty.nio.SelectChannelConnector">
+                        <connector implementation="org.eclipse.jetty.nio.SelectChannelConnector">
                             <port>${jetty.port}</port>
                             <maxIdleTime>60000</maxIdleTime>
                         </connector>
