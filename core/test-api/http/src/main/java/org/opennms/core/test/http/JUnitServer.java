@@ -10,12 +10,16 @@ import org.eclipse.jetty.security.HashLoginService;
 import org.eclipse.jetty.security.authentication.BasicAuthenticator;
 import org.eclipse.jetty.server.Connector;
 import org.eclipse.jetty.server.Handler;
+import org.eclipse.jetty.server.HttpConfiguration;
+import org.eclipse.jetty.server.HttpConnectionFactory;
+import org.eclipse.jetty.server.SecureRequestCustomizer;
 import org.eclipse.jetty.server.Server;
+import org.eclipse.jetty.server.ServerConnector;
 import org.eclipse.jetty.server.handler.ContextHandler;
 import org.eclipse.jetty.server.handler.DefaultHandler;
 import org.eclipse.jetty.server.handler.HandlerList;
 import org.eclipse.jetty.server.handler.ResourceHandler;
-import org.eclipse.jetty.server.ssl.SslSocketConnector;
+import org.eclipse.jetty.server.SslConnectionFactory;
 import org.eclipse.jetty.util.security.Constraint;
 import org.eclipse.jetty.util.ssl.SslContextFactory;
 import org.eclipse.jetty.webapp.WebAppContext;
@@ -25,9 +29,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class JUnitServer {
-	
-	private static final Logger LOG = LoggerFactory.getLogger(JUnitServer.class);
-	
+
+    private static final Logger LOG = LoggerFactory.getLogger(JUnitServer.class);
+
     private Server m_server;
     private JUnitHttpServer m_config;
 
@@ -44,11 +48,20 @@ public class JUnitServer {
             factory.setKeyStorePath(config.keystore());
             factory.setKeyStorePassword(config.keystorePassword());
             factory.setKeyManagerPassword(config.keyPassword());
-            factory.setTrustStore(config.keystore());
+            factory.setTrustStorePath(config.keystore());
             factory.setTrustStorePassword(config.keystorePassword());
-            
-            final SslSocketConnector connector = new SslSocketConnector(factory);
+
+            final HttpConfiguration https_config = new HttpConfiguration();
+            https_config.setSecureScheme("https");
+            https_config.setSecurePort(config.port());
+            https_config.setOutputBufferSize(32768);
+            https_config.addCustomizer(new SecureRequestCustomizer());
+
+            final ServerConnector connector = new ServerConnector(server,
+                new SslConnectionFactory(new SslContextFactory(), "http/1.1"),
+                new HttpConnectionFactory(https_config));
             connector.setPort(config.port());
+            connector.setIdleTimeout(500000);
             server.setConnectors(new Connector[] { connector });
         } else {
             server = new Server(config.port());
