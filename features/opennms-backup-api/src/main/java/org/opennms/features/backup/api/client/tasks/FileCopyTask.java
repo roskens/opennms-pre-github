@@ -25,57 +25,49 @@
  *     http://www.opennms.org/
  *     http://www.opennms.com/
  *******************************************************************************/
-package org.opennms.features.backup.ui;
+package org.opennms.features.backup.api.client.tasks;
 
-import com.vaadin.ui.UI;
-import org.ops4j.pax.vaadin.AbstractApplicationFactory;
-import org.osgi.service.blueprint.container.BlueprintContainer;
+import org.apache.commons.io.FileUtils;
+import org.opennms.features.backup.api.client.BackupService;
+
+import java.io.File;
 
 /**
- * A factory class responsible for constructing the backup application.
+ * This task is used to copy the full/diff backup file to a local directory.
  *
  * @author Christian Pape
- * @author Marcus Hellberg (marcus@vaadin.com)
  */
-public class BackupUIFactory extends AbstractApplicationFactory {
+public class FileCopyTask extends AbstractBackupTask {
     /**
-     * The {@link BlueprintContainer} associated with this object
-     */
-    private final BlueprintContainer m_blueprintContainer;
-    /**
-     * The bean name
-     */
-    private final String m_beanName;
-
-    /**
-     * Constructor for instantiating a new factory.
+     * Constructor for instantiating new objects of this class.
      *
-     * @param container the bean container to use
-     * @param beanName  the beam name to use
+     * @param backupService the {@link BackupService} to be used
      */
-    public BackupUIFactory(BlueprintContainer container, String beanName) {
-        m_blueprintContainer = container;
-        m_beanName = beanName;
+
+    public FileCopyTask(BackupService backupService) {
+        super(backupService);
     }
 
-
-    /**
-     * Returns the application's instance.
-     *
-     * @return the application instance
-     */
     @Override
-    public UI getUI() {
-        return (UI) m_blueprintContainer.getComponentInstance(m_beanName);
+    public String getName() {
+        return "File copy";
     }
 
-    /**
-     * Returns the {@link Class} of the application's instance
-     *
-     * @return class of the application
-     */
     @Override
-    public Class<? extends UI> getUIClass() {
-        return BackupUI.class;
+    public void execute(long timestamp) throws Exception {
+        /**
+         * Construct the filename of the full/diff backup file created
+         */
+        String originalSnapshotFilename = getBackupService().getBackupConfig().getLocalDirectory() + "/backup." + timestamp + ".zip";
+        String destinationFilename = getBackupService().getBackupConfig().getBackupPath() + "/backup." + timestamp + ".zip";
+
+        FileUtils.copyFile(new File(originalSnapshotFilename), new File(destinationFilename));
+    }
+
+    @Override
+    public void rollback(long timestamp) {
+        /**
+         * This task has not created any files, so do nothing
+         */
     }
 }

@@ -1,3 +1,30 @@
+/*******************************************************************************
+ * This file is part of OpenNMS(R).
+ *
+ * Copyright (C) 2006-2012 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published
+ * by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * OpenNMS(R) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with OpenNMS(R).  If not, see:
+ *      http://www.gnu.org/licenses/
+ *
+ * For more information contact:
+ *     OpenNMS(R) Licensing <license@opennms.org>
+ *     http://www.opennms.org/
+ *     http://www.opennms.com/
+ *******************************************************************************/
 package org.opennms.features.backup.api.server;
 
 
@@ -15,20 +42,39 @@ import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+/**
+ * This class represents a set of backup files.
+ *
+ * @author Christian Pape
+ */
 public class BackupSet {
-    private String baseDirectory;
-    private TreeSet<ZipBackup> zipBackupFiles = null;
+    /**
+     * the base directory
+     */
+    private String m_baseDirectory;
+    /**
+     * the {@link Set} of zip-files
+     */
+    private TreeSet<ZipBackup> m_zipBackupFiles = null;
 
+    /**
+     * Constructor for instatiating new objects of this class.
+     *
+     * @param baseDirectory the base directory
+     */
     public BackupSet(String baseDirectory) {
-        this.baseDirectory = baseDirectory;
+        this.m_baseDirectory = baseDirectory;
 
         searchBackupFiles();
     }
 
+    /**
+     * This method searches for backup files.
+     */
     private void searchBackupFiles() {
-        zipBackupFiles = new TreeSet<ZipBackup>();
+        m_zipBackupFiles = new TreeSet<ZipBackup>();
 
-        File directory = new File(baseDirectory);
+        File directory = new File(m_baseDirectory);
 
         if (!directory.exists()) {
             return;
@@ -38,14 +84,20 @@ public class BackupSet {
             if (!file.isDirectory()) {
                 if (file.getName().matches("backup\\.[0-9]+\\.zip")) {
                     ZipBackup zipBackup = new ZipBackup(file.getAbsolutePath());
-                    zipBackupFiles.add(zipBackup);
+                    m_zipBackupFiles.add(zipBackup);
                 }
             }
         }
     }
 
+    /**
+     * Returns a {@link ZipBackup} instance for a given timestamp.
+     *
+     * @param timestamp the timestamp
+     * @return the {@link ZipBackup} instance
+     */
     public ZipBackup getZipBackup(long timestamp) {
-        for (ZipBackup zipBackup : zipBackupFiles) {
+        for (ZipBackup zipBackup : m_zipBackupFiles) {
             if (zipBackup.getTimestamp() == timestamp) {
                 return zipBackup;
             }
@@ -53,11 +105,16 @@ public class BackupSet {
         return null;
     }
 
+    /**
+     * Returns a {@link ZipBackup} instance for a given timestamp.
+     *
+     * @param timestampString the timestamp
+     * @return the {@link ZipBackup} instance
+     */
     public ZipBackup getZipBackup(String timestampString) {
-
         long timestamp = Long.valueOf(timestampString);
 
-        for (ZipBackup zipBackup : zipBackupFiles) {
+        for (ZipBackup zipBackup : m_zipBackupFiles) {
             if (zipBackup.getTimestamp() == timestamp) {
                 return zipBackup;
             }
@@ -65,10 +122,22 @@ public class BackupSet {
         return null;
     }
 
+    /**
+     * Returns the {@link Set} of {@link ZipBackup} instances this backup set consists of.
+     *
+     * @return the {@link Set} of {@link ZipBackup} instances
+     */
     public Set<ZipBackup> getZipBackupFiles() {
-        return zipBackupFiles;
+        return m_zipBackupFiles;
     }
 
+    /**
+     * Writes a file.
+     *
+     * @param inputStream the source {@link InputStream}
+     * @param file        the destination file
+     * @return true on success, false otherwise
+     */
     private boolean writeFile(InputStream inputStream, File file) {
         File parent = file.getParentFile();
 
@@ -97,12 +166,20 @@ public class BackupSet {
         return true;
     }
 
+    /**
+     * Restores a single file from a {@link ZipBackup} instance.
+     *
+     * @param zipBackup        the {@link ZipBackup} instance
+     * @param restoreDirectory the destination directory
+     * @param filename         the filename of the file to be restored
+     * @return true on success, false otherwise
+     */
     public boolean restoreFile(ZipBackup zipBackup, String restoreDirectory, String filename) {
         if (zipBackup.containsFullFile(filename)) {
             return writeFile(zipBackup.getInputStreamForFullFile(filename), new File(restoreDirectory + "/" + filename));
         } else {
             try {
-                TreeSet<ZipBackup> olderBackups = new TreeSet<ZipBackup>(zipBackupFiles.headSet(zipBackup, true));
+                TreeSet<ZipBackup> olderBackups = new TreeSet<ZipBackup>(m_zipBackupFiles.headSet(zipBackup, true));
 
                 ZipBackup lastFullBackup = null;
 
@@ -146,19 +223,36 @@ public class BackupSet {
         return true;
     }
 
+    /**
+     * Returns the most recent {@link ZipBackup} instance.
+     *
+     * @return the last {@link ZipBackup} instance
+     */
     public ZipBackup last() {
-        return zipBackupFiles.last();
+        return m_zipBackupFiles.last();
     }
 
+    /**
+     * Returns the oldest {@link ZipBackup} instance.
+     *
+     * @return the first {@link ZipBackup} instance
+     */
     public ZipBackup first() {
-        return zipBackupFiles.first();
+        return m_zipBackupFiles.first();
     }
 
+    /**
+     * Checks whether a file given by filename can be restored with the {@link ZipBackup} instances of this backup set.
+     *
+     * @param zipBackup the {@link ZipBackup} instance
+     * @param filename  the filename of the file to be validated
+     * @return true if valid, false otherwise
+     */
     public boolean validateFile(ZipBackup zipBackup, String filename) {
         if (zipBackup.containsFullFile(filename)) {
             return true;
         } else {
-            TreeSet<ZipBackup> olderBackups = new TreeSet<ZipBackup>(zipBackupFiles.headSet(zipBackup, true));
+            TreeSet<ZipBackup> olderBackups = new TreeSet<ZipBackup>(m_zipBackupFiles.headSet(zipBackup, true));
 
             ZipBackup lastFullBackup = null;
 
@@ -188,10 +282,15 @@ public class BackupSet {
         return true;
     }
 
+    /**
+     * Creates a Xml representation of this backup set.
+     *
+     * @return the Xml {@link String}
+     */
     public String xml() {
         RestBackupSet restBackupSet = new RestBackupSet();
 
-        for (ZipBackup zipBackup : zipBackupFiles) {
+        for (ZipBackup zipBackup : m_zipBackupFiles) {
             restBackupSet.getZipBackups().add(new RestZipBackup(zipBackup.getTimestamp()));
         }
 
@@ -202,6 +301,12 @@ public class BackupSet {
         return stringWriter.getBuffer().toString();
     }
 
+    /**
+     * Returns a Xml representation of the files of a {@link ZipBackup} instance.
+     *
+     * @param zipBackup the {@link ZipBackup} instance
+     * @return the Xml {@link String}
+     */
     public String getFilesXml(ZipBackup zipBackup) {
         Set<String> files = getFiles(zipBackup);
 
@@ -214,6 +319,12 @@ public class BackupSet {
         return stringWriter.getBuffer().toString();
     }
 
+    /**
+     * Validates all files of a {@link ZipBackup} instance.
+     *
+     * @param zipBackup the {@link ZipBackup} instance
+     * @return true if all files are valid, false otherwise
+     */
     public boolean validate(ZipBackup zipBackup) {
         boolean result = true;
         for (String filename : getFiles(zipBackup)) {
@@ -222,6 +333,12 @@ public class BackupSet {
         return result;
     }
 
+    /**
+     * Returns a {@link Set} of filenames of an {@link ZipBackup } instance
+     *
+     * @param zipBackup the {@link ZipBackup} instance
+     * @return the set of filenames
+     */
     public Set<String> getFiles(ZipBackup zipBackup) {
         Set<String> files = new TreeSet<String>();
 

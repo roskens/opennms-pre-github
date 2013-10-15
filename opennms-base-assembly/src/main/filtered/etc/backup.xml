@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <backupConfig>
+    <!-- set this to either local or remote -->
+    <backupType>remote</backupType>
+
+    <!-- this is used if backupType is set to remote -->
     <backupUrl>http://backup-demo.opennms-edu.net:8080</backupUrl>
     <username>username</username>
     <password>password</password>
-
     <customerId>1</customerId>
     <systemId>system</systemId>
+
+    <!-- this is used if backupType is set to local -->
+    <backupPath>/path/to/backup/directory</backupPath>
 
     <baseDirectory>${install.dir}</baseDirectory>
     <localDirectory>${install.dir}/backup</localDirectory>

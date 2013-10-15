@@ -56,165 +56,64 @@ import java.util.Map;
 @SuppressWarnings("serial")
 @Title("OpenNMS Backup")
 public class BackupUI extends UI {
-
-    private Table table;
-    private TreeTable treeTable;
-    private TextArea logTextArea;
-    private VerticalLayout leftLayout, rightLayout, taskLayout;
-    private HorizontalLayout rightButtonLayout;
-    private BeanItemContainer<RestZipBackup> beanItemContainer;
-    private HierarchicalContainer hierarchicalContainer;
-    private BackupService backupService;
-    private ProgressBar progressIndicator;
-
-
-    private Map<String, TaskEntry> taskEntries = new LinkedHashMap<String, TaskEntry>();
-
-    public void updateTable() {
-        beanItemContainer.removeAllItems();
-
-        RestBackupSet backupSet = RestClient.getBackupSet(backupService.getBackupUrl() + "/rest", backupService.getUsername(), backupService.getPassword(), backupService.getCustomerId(), backupService.getSystemId());
-
-        for (RestZipBackup restZipBackup : backupSet.getZipBackups()) {
-            beanItemContainer.addItem(restZipBackup);
-        }
-    }
-
-    public void addRecursive(String filename) {
-        if ("".equals(filename)) {
-            if (!hierarchicalContainer.containsId("/")) {
-                Item item = hierarchicalContainer.addItem("/");
-                item.getItemProperty("filename").setValue("/");
-            }
-        } else {
-
-            String rest, name;
-
-            if (filename.lastIndexOf("/") != -1) {
-                rest = filename.substring(0, filename.lastIndexOf("/"));
-                name = filename.substring(filename.lastIndexOf("/") + 1);
-            } else {
-                rest = "";
-                name = filename;
-            }
-
-            if (!hierarchicalContainer.containsId(filename)) {
-                hierarchicalContainer.addItem(filename).getItemProperty("filename").setValue(name);
-            }
-
-            addRecursive(rest);
-
-            if ("".equals(rest)) {
-                hierarchicalContainer.setParent(filename, "/");
-            } else {
-                hierarchicalContainer.setParent(filename, rest);
-            }
-
-        }
-    }
-
-    public void addLogEntry(String message) {
-        logTextArea.getUI().getSession().lock();
-        try {
-            String newContent = logTextArea.getValue() + message + "\n";
-            logTextArea.setValue(newContent);
-            logTextArea.setCursorPosition(newContent.length());
-        } finally {
-            logTextArea.getUI().getSession().unlock();
-        }
-    }
-
-    public void updateTree(String timestamp) {
-        hierarchicalContainer.removeAllItems();
-
-        if (timestamp == null) {
-            Item item = hierarchicalContainer.addItem("?");
-            item.getItemProperty("filename").setValue("No Backup selected");
-            hierarchicalContainer.setChildrenAllowed("?", false);
-        } else {
-            RestZipBackupContents restZipBackupContents = RestClient.getZipBackupContents(backupService.getBackupUrl() + "/rest", backupService.getUsername(), backupService.getPassword(), backupService.getCustomerId(), backupService.getSystemId(), timestamp);
-
-            for (String filename : restZipBackupContents.getFiles()) {
-                addRecursive(filename);
-                hierarchicalContainer.setChildrenAllowed(filename, false);
-            }
-/*
-            for (Object itemId : treeTable.getItemIds()) {
-                treeTable.setCollapsed(itemId, false);
-            }
-*/
-        }
-    }
-
-    public void clearTaskEntries() {
-        taskLayout.removeAllComponents();
-        taskEntries.clear();
-    }
-
-    public void addTaskEntry(String title) {
-        taskEntries.put(title, new TaskEntry(title));
-    }
-
-    public void setTaskEntryState(String title, TaskEntry.TaskState state) {
-        TaskEntry taskEntry = taskEntries.get(title);
-        if (taskEntry == null) {
-            System.out.println(title);
-        } else {
-            taskEntry.setState(state);
-        }
-    }
-
-    public void setProgress(float f) {
-        if (progressIndicator != null) {
-            progressIndicator.getUI().getSession().lock();
-            try {
-                progressIndicator.setValue(f);
-            } finally {
-                progressIndicator.getUI().getSession().unlock();
-            }
-        }
-    }
-
-    public void createTaskList(List<String> stringList) {
-        clearTaskEntries();
-
-        for (String string : stringList) {
-            addTaskEntry(string);
-        }
-
-        VerticalLayout verticalLayout = new VerticalLayout();
-        verticalLayout.setWidth(60, Unit.PERCENTAGE);
-
-        for (Map.Entry<String, TaskEntry> entry : taskEntries.entrySet()) {
-            verticalLayout.addComponent(entry.getValue().getHorizontalLayout());
-        }
-
-        ProgressIndicator progressIndicator = new ProgressIndicator();
-        progressIndicator.setPollingInterval(200);
-        progressIndicator.setImmediate(true);
-        progressIndicator.setIndeterminate(false);
-        progressIndicator.setEnabled(true);
-        progressIndicator.setVisible(true);
-        progressIndicator.setWidth(100, Unit.PERCENTAGE);
-        verticalLayout.addComponent(progressIndicator);
-
-        this.progressIndicator = progressIndicator;
-
-        taskLayout.addComponent(verticalLayout);
-        taskLayout.setComponentAlignment(verticalLayout, Alignment.MIDDLE_CENTER);
-    }
+    /**
+     * the table of backups
+     */
+    private Table m_table;
+    /**
+     * the file listing
+     */
+    private TreeTable m_treeTable;
+    /**
+     * the log text area
+     */
+    private TextArea m_logTextArea;
+    /**
+     * the layout instances
+     */
+    private VerticalLayout m_leftLayout, rightLayout, m_taskLayout;
+    /**
+     * the button layout
+     */
+    private HorizontalLayout m_rightButtonLayout;
+    /**
+     * the item container for backups
+     */
+    private BeanItemContainer<RestZipBackup> m_beanItemContainer;
+    /**
+     * the hierarchical container for files
+     */
+    private HierarchicalContainer m_hierarchicalContainer;
+    /**
+     * the backup service instance
+     */
+    private BackupService m_backupService;
+    /**
+     * the progress bar
+     */
+    private ProgressBar m_progressIndicator;
+    /**
+     * the task entries for progress visualization
+     */
+    private Map<String, TaskEntry> m_taskEntries = new LinkedHashMap<String, TaskEntry>();
 
     @Override
     protected void init(VaadinRequest request) {
-        backupService.reloadConfig();
+        /**
+         * Reload the config on init() call
+         */
+        m_backupService.reloadConfig();
 
+        /**
+         * Initalizing the layout components
+         */
         VerticalLayout rootLayout = new VerticalLayout();
         rootLayout.setMargin(true);
         Panel leftPanel = new Panel();
-        leftLayout = new VerticalLayout();
-        leftLayout.setMargin(true);
-        leftLayout.setSizeFull();
-        leftPanel.setContent(leftLayout);
+        m_leftLayout = new VerticalLayout();
+        m_leftLayout.setMargin(true);
+        m_leftLayout.setSizeFull();
+        leftPanel.setContent(m_leftLayout);
         leftPanel.setSizeFull();
 
         Panel rightPanel = new Panel();
@@ -225,17 +124,20 @@ public class BackupUI extends UI {
         rightPanel.setSizeFull();
 
         Panel taskPanel = new Panel();
-        taskLayout = new VerticalLayout();
-        taskLayout.setSizeFull();
-        taskPanel.setContent(taskLayout);
+        m_taskLayout = new VerticalLayout();
+        m_taskLayout.setSizeFull();
+        taskPanel.setContent(m_taskLayout);
         taskPanel.setSizeFull();
 
-        logTextArea = new TextArea();
-        logTextArea.setSizeFull();
+        /**
+         * Create the log area
+         */
+        m_logTextArea = new TextArea();
+        m_logTextArea.setSizeFull();
 
         Panel logPanel = new Panel();
         logPanel.setSizeFull();
-        logPanel.setContent(logTextArea);
+        logPanel.setContent(m_logTextArea);
 
         HorizontalLayout upperLayout = new HorizontalLayout();
         upperLayout.addComponent(leftPanel);
@@ -257,19 +159,19 @@ public class BackupUI extends UI {
 
         rootLayout.setSizeFull();
         rootLayout.setSpacing(true);
+/**
+ * Create the table
+ */
+        m_table = new Table();
+        m_table.setSelectable(true);
+        m_table.setMultiSelect(false);
+        m_table.setNewItemsAllowed(false);
 
-        // backupService = BackupService.getInstance();
+        m_beanItemContainer = new BeanItemContainer<RestZipBackup>(RestZipBackup.class);
 
-        table = new Table();
-        table.setSelectable(true);
-        table.setMultiSelect(false);
-        table.setNewItemsAllowed(false);
-
-        beanItemContainer = new BeanItemContainer<RestZipBackup>(RestZipBackup.class);
-
-        table.setContainerDataSource(beanItemContainer);
-        table.setSizeFull();
-        table.addGeneratedColumn("date", new Table.ColumnGenerator() {
+        m_table.setContainerDataSource(m_beanItemContainer);
+        m_table.setSizeFull();
+        m_table.addGeneratedColumn("date", new Table.ColumnGenerator() {
             @Override
             public Object generateCell(Table table, final Object itemId, Object columnId) {
                 Item item = table.getItem(itemId);
@@ -279,31 +181,31 @@ public class BackupUI extends UI {
             }
         });
 
-        leftLayout.addComponent(table);
+        m_leftLayout.addComponent(m_table);
 
-        treeTable = new TreeTable();
-        treeTable.setSizeFull();
-        treeTable.setMultiSelect(true);
-        treeTable.setNewItemsAllowed(false);
-        treeTable.setSelectable(true);
+        m_treeTable = new TreeTable();
+        m_treeTable.setSizeFull();
+        m_treeTable.setMultiSelect(true);
+        m_treeTable.setNewItemsAllowed(false);
+        m_treeTable.setSelectable(true);
 
-        hierarchicalContainer = new HierarchicalContainer();
-        hierarchicalContainer.addContainerProperty("filename", String.class, "");
+        m_hierarchicalContainer = new HierarchicalContainer();
+        m_hierarchicalContainer.addContainerProperty("filename", String.class, "");
 
-        treeTable.setItemCaptionPropertyId("filename");
-        treeTable.setContainerDataSource(hierarchicalContainer);
+        m_treeTable.setItemCaptionPropertyId("filename");
+        m_treeTable.setContainerDataSource(m_hierarchicalContainer);
 
         updateTree(null);
 
-        rightLayout.addComponent(treeTable);
+        rightLayout.addComponent(m_treeTable);
 
         updateTable();
 
-        table.setVisibleColumns(new Object[]{"date", "timestamp"});
+        m_table.setVisibleColumns(new Object[]{"date", "timestamp"});
 
-        table.setImmediate(true);
+        m_table.setImmediate(true);
 
-        table.addValueChangeListener(new Property.ValueChangeListener() {
+        m_table.addValueChangeListener(new Property.ValueChangeListener() {
             @Override
             public void valueChange(Property.ValueChangeEvent valueChangeEvent) {
 
@@ -312,7 +214,7 @@ public class BackupUI extends UI {
                 if (id == null) {
                     updateTree(null);
                 } else {
-                    updateTree(table.getItem(id).getItemProperty("timestamp").getValue().toString());
+                    updateTree(m_table.getItem(id).getItemProperty("timestamp").getValue().toString());
                 }
 
             }
@@ -323,7 +225,7 @@ public class BackupUI extends UI {
         button.addClickListener(new Button.ClickListener() {
             @Override
             public void buttonClick(Button.ClickEvent clickEvent) {
-                BackupJob backupJob = backupService.createBackupJob();
+                BackupJob backupJob = m_backupService.createBackupJob();
 
                 createTaskList(backupJob.getTaskNames());
 
@@ -339,10 +241,10 @@ public class BackupUI extends UI {
             }
         });
 
-        if (backupService.isBackupJobRunning()) {
+        if (m_backupService.isBackupJobRunning()) {
             button.setEnabled(false);
 
-            BackupJob backupJob = backupService.getBackupJob();
+            BackupJob backupJob = m_backupService.getBackupJob();
 
             createTaskList(backupJob.getTaskNames());
 
@@ -363,7 +265,10 @@ public class BackupUI extends UI {
             }
         }
 
-        backupService.setBackupProgress(new BackupProgress() {
+        /**
+         * Creating a {@link BackupProgress} instance
+         */
+        m_backupService.setBackupProgress(new BackupProgress() {
             public void backupBegin(long timestamp, BackupJob backupJob) {
                 button.setEnabled(false);
                 Date date = new Date();
@@ -413,14 +318,20 @@ public class BackupUI extends UI {
             }
         });
 
-        rightButtonLayout=new HorizontalLayout();
-        rightButtonLayout.setSpacing(true);
+        /**
+         * Creating the button layout
+         */
+        m_rightButtonLayout = new HorizontalLayout();
+        m_rightButtonLayout.setSpacing(true);
 
-        rightButtonLayout.addComponent(refreshButton);
-        rightButtonLayout.addComponent(button);
+        m_rightButtonLayout.addComponent(refreshButton);
+        m_rightButtonLayout.addComponent(button);
 
-        rightLayout.addComponent(rightButtonLayout);
+        rightLayout.addComponent(m_rightButtonLayout);
 
+        /**
+         * setting the content
+         */
         setContent(rootLayout);
     }
 
@@ -430,7 +341,7 @@ public class BackupUI extends UI {
      * @return the BackupService instance
      */
     public BackupService getBackupService() {
-        return backupService;
+        return m_backupService;
     }
 
     /**
@@ -439,7 +350,135 @@ public class BackupUI extends UI {
      * @param backupService the BackupService instance
      */
     public void setBackupService(BackupService backupService) {
-        this.backupService = backupService;
+        this.m_backupService = backupService;
     }
 
+    public void updateTable() {
+        m_beanItemContainer.removeAllItems();
+
+        RestBackupSet backupSet = RestClient.getBackupSet(m_backupService.getBackupConfig().getBackupUrl() + "/rest", m_backupService.getBackupConfig().getUsername(), m_backupService.getBackupConfig().getPassword(), m_backupService.getBackupConfig().getCustomerId(), m_backupService.getBackupConfig().getSystemId());
+
+        for (RestZipBackup restZipBackup : backupSet.getZipBackups()) {
+            m_beanItemContainer.addItem(restZipBackup);
+        }
+    }
+
+    public void addRecursive(String filename) {
+        if ("".equals(filename)) {
+            if (!m_hierarchicalContainer.containsId("/")) {
+                Item item = m_hierarchicalContainer.addItem("/");
+                item.getItemProperty("filename").setValue("/");
+            }
+        } else {
+
+            String rest, name;
+
+            if (filename.lastIndexOf("/") != -1) {
+                rest = filename.substring(0, filename.lastIndexOf("/"));
+                name = filename.substring(filename.lastIndexOf("/") + 1);
+            } else {
+                rest = "";
+                name = filename;
+            }
+
+            if (!m_hierarchicalContainer.containsId(filename)) {
+                m_hierarchicalContainer.addItem(filename).getItemProperty("filename").setValue(name);
+            }
+
+            addRecursive(rest);
+
+            if ("".equals(rest)) {
+                m_hierarchicalContainer.setParent(filename, "/");
+            } else {
+                m_hierarchicalContainer.setParent(filename, rest);
+            }
+
+        }
+    }
+
+    public void addLogEntry(String message) {
+        m_logTextArea.getUI().getSession().lock();
+        try {
+            String newContent = m_logTextArea.getValue() + message + "\n";
+            m_logTextArea.setValue(newContent);
+            m_logTextArea.setCursorPosition(newContent.length());
+        } finally {
+            m_logTextArea.getUI().getSession().unlock();
+        }
+    }
+
+    public void updateTree(String timestamp) {
+        m_hierarchicalContainer.removeAllItems();
+
+        if (timestamp == null) {
+            Item item = m_hierarchicalContainer.addItem("?");
+            item.getItemProperty("filename").setValue("No Backup selected");
+            m_hierarchicalContainer.setChildrenAllowed("?", false);
+        } else {
+            RestZipBackupContents restZipBackupContents = RestClient.getZipBackupContents(m_backupService.getBackupConfig().getBackupUrl() + "/rest", m_backupService.getBackupConfig().getUsername(), m_backupService.getBackupConfig().getPassword(), m_backupService.getBackupConfig().getCustomerId(), m_backupService.getBackupConfig().getSystemId(), timestamp);
+
+            for (String filename : restZipBackupContents.getFiles()) {
+                addRecursive(filename);
+                m_hierarchicalContainer.setChildrenAllowed(filename, false);
+            }
+        }
+    }
+
+    public void clearTaskEntries() {
+        m_taskLayout.removeAllComponents();
+        m_taskEntries.clear();
+    }
+
+    public void addTaskEntry(String title) {
+        m_taskEntries.put(title, new TaskEntry(title));
+    }
+
+    public void setTaskEntryState(String title, TaskEntry.TaskState state) {
+        TaskEntry taskEntry = m_taskEntries.get(title);
+        if (taskEntry == null) {
+            System.out.println(title);
+        } else {
+            taskEntry.setState(state);
+        }
+    }
+
+    public void setProgress(float f) {
+        if (m_progressIndicator != null) {
+            m_progressIndicator.getUI().getSession().lock();
+            try {
+                m_progressIndicator.setValue(f);
+            } finally {
+                m_progressIndicator.getUI().getSession().unlock();
+            }
+        }
+    }
+
+    public void createTaskList(List<String> stringList) {
+        clearTaskEntries();
+
+        for (String string : stringList) {
+            addTaskEntry(string);
+        }
+
+        VerticalLayout verticalLayout = new VerticalLayout();
+        verticalLayout.setWidth(60, Unit.PERCENTAGE);
+
+        for (Map.Entry<String, TaskEntry> entry : m_taskEntries.entrySet()) {
+            verticalLayout.addComponent(entry.getValue().getHorizontalLayout());
+        }
+
+        ProgressIndicator progressIndicator = new ProgressIndicator();
+        progressIndicator.setPollingInterval(200);
+        progressIndicator.setImmediate(true);
+        progressIndicator.setIndeterminate(false);
+        progressIndicator.setEnabled(true);
+        progressIndicator.setVisible(true);
+        progressIndicator.setWidth(100, Unit.PERCENTAGE);
+        verticalLayout.addComponent(progressIndicator);
+
+        this.m_progressIndicator = progressIndicator;
+
+        m_taskLayout.addComponent(verticalLayout);
+        m_taskLayout.setComponentAlignment(verticalLayout, Alignment.MIDDLE_CENTER);
+    }
 }
