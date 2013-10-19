@@ -30,9 +30,14 @@ package org.opennms.netmgt.model;
 
 import org.springframework.util.Assert;
 
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
 /**
  * <p>PrefabGraph class.</p>
  */
+@XmlRootElement(name = "prefabgraph")
 public class PrefabGraph extends Object implements Comparable<PrefabGraph> {
     private String m_name;
 
@@ -57,6 +62,12 @@ public class PrefabGraph extends Object implements Comparable<PrefabGraph> {
     private Integer m_graphHeight;
     
     private String[] m_suppress;
+
+    /**
+     * Default constructor
+     */
+    public PrefabGraph() {
+    }
 
     /**
      * <p>Constructor for PrefabGraph.</p>
@@ -107,6 +118,7 @@ public class PrefabGraph extends Object implements Comparable<PrefabGraph> {
      *
      * @return a {@link java.lang.String} object.
      */
+    @XmlAttribute(name = "name")
     public String getName() {
         return m_name;
     }
@@ -116,6 +128,7 @@ public class PrefabGraph extends Object implements Comparable<PrefabGraph> {
      *
      * @return a {@link java.lang.String} object.
      */
+    @XmlAttribute(name = "title")
     public String getTitle() {
         return m_title;
     }
@@ -125,6 +138,7 @@ public class PrefabGraph extends Object implements Comparable<PrefabGraph> {
      *
      * @return a int.
      */
+    @XmlAttribute(name = "order")
     public int getOrder() {
         return m_order;
     }
@@ -143,6 +157,7 @@ public class PrefabGraph extends Object implements Comparable<PrefabGraph> {
      *
      * @return a {@link java.lang.String} object.
      */
+    @XmlElement(name = "command")
     public String getCommand() {
         return m_command;
     }
@@ -197,6 +212,7 @@ public class PrefabGraph extends Object implements Comparable<PrefabGraph> {
      *
      * @return a {@link java.lang.String} object.
      */
+    @XmlAttribute(name = "description")
     public String getDescription() {
         return m_description;
     }
@@ -206,6 +222,7 @@ public class PrefabGraph extends Object implements Comparable<PrefabGraph> {
      *
      * @return a {@link java.lang.Integer} object.
      */
+    @XmlAttribute(name = "graphwidth")
     public Integer getGraphWidth() {
         return m_graphWidth;
     }
@@ -215,6 +232,7 @@ public class PrefabGraph extends Object implements Comparable<PrefabGraph> {
      *
      * @return a {@link java.lang.Integer} object.
      */
+    @XmlAttribute(name = "graphheight")
     public Integer getGraphHeight() {
         return m_graphHeight;
     }

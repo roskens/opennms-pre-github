@@ -29,6 +29,7 @@
 package org.opennms.web.rest;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
@@ -55,10 +56,8 @@ import org.opennms.core.criteria.restrictions.Restrictions;
 import org.opennms.netmgt.EventConstants;
 import org.opennms.netmgt.dao.api.CategoryDao;
 import org.opennms.netmgt.dao.api.NodeDao;
-import org.opennms.netmgt.model.OnmsCategory;
-import org.opennms.netmgt.model.OnmsCategoryCollection;
-import org.opennms.netmgt.model.OnmsNode;
-import org.opennms.netmgt.model.OnmsNodeList;
+import org.opennms.netmgt.dao.api.ResourceDao;
+import org.opennms.netmgt.model.*;
 import org.opennms.netmgt.model.events.EventBuilder;
 import org.opennms.netmgt.model.events.EventProxy;
 import org.opennms.netmgt.model.events.EventProxyException;
@@ -93,6 +92,9 @@ public class NodeRestService extends OnmsRestService {
     
     @Autowired
     private NodeDao m_nodeDao;
+
+    @Autowired
+    private ResourceDao m_resourceDao;
 
     @Autowired
     private CategoryDao m_categoryDao;
@@ -288,6 +290,35 @@ public class NodeRestService extends OnmsRestService {
         return m_context.getResource(AssetRecordResource.class);
     }
 
+    @GET
+    @Path("/{nodeCriteria}/resources")
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public OnmsResourceCollection getResourceTypesForNode(@PathParam("nodeCriteria") String nodeCriteria) {
+        readLock();
+        try {
+            OnmsNode node = m_nodeDao.get(nodeCriteria);
+
+            if (node == null) {
+                throw getException(Status.BAD_REQUEST, "getResourceTypesForNode: Can't find node " + nodeCriteria);
+            }
+
+            OnmsResource resource = m_resourceDao.getResourceById("node[" + node.getId() + "]");
+
+            if (node == null) {
+                throw getException(Status.BAD_REQUEST, "getResourceTypesForNode: Can't find resource node[" + node.getId() + "]");
+            }
+
+            List<OnmsResource> onmsResources = new LinkedList<OnmsResource>();
+
+            for (OnmsResource childResource : resource.getChildResources()) {
+                onmsResources.add(childResource);
+            }
+
+            return new OnmsResourceCollection(onmsResources);
+        } finally {
+            readUnlock();
+        }
+    }
 
     @GET
     @Path("/{nodeCriteria}/categories")

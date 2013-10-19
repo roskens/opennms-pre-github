@@ -40,9 +40,14 @@ import java.util.Set;
 
 import org.springframework.util.Assert;
 
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
 /**
  * <p>OnmsResource class.</p>
  */
+@XmlRootElement(name = "resource")
 public class OnmsResource implements Comparable<OnmsResource> {
 
     private String m_name;
@@ -53,7 +58,13 @@ public class OnmsResource implements Comparable<OnmsResource> {
     private OnmsEntity m_entity;
     private List<OnmsResource> m_resources;
     private OnmsResource m_parent = null;
-    
+
+    /**
+     * Default constructor.
+     */
+    public OnmsResource() {
+    }
+
     /**
      * <p>Constructor for OnmsResource.</p>
      *
@@ -101,6 +112,7 @@ public class OnmsResource implements Comparable<OnmsResource> {
      *
      * @return a {@link java.lang.String} object.
      */
+    @XmlAttribute(name = "name")
     public String getName() {
         return m_name;
     }
@@ -110,6 +122,7 @@ public class OnmsResource implements Comparable<OnmsResource> {
      *
      * @return a {@link java.lang.String} object.
      */
+    @XmlAttribute(name = "label")
     public String getLabel() {
         return m_label;
     }
@@ -121,6 +134,17 @@ public class OnmsResource implements Comparable<OnmsResource> {
      */
     public OnmsResourceType getResourceType() {
         return m_resourceType;
+    }
+
+
+    @XmlAttribute(name = "resourceTypeName")
+    public String getResourceTypeName() {
+        return m_resourceType.getName();
+    }
+
+    @XmlAttribute(name = "resourceTypeLabel")
+    public String getResourceTypeLabel() {
+        return m_resourceType.getName();
     }
 
     /**
@@ -196,6 +220,7 @@ public class OnmsResource implements Comparable<OnmsResource> {
      *
      * @return a {@link java.lang.String} object.
      */
+    @XmlAttribute(name = "id")
     public String getId() {
         String thisId = encode(m_resourceType.getName()) + "[" + encode(m_name) + "]";
         if (getParent() != null) {
@@ -210,6 +235,7 @@ public class OnmsResource implements Comparable<OnmsResource> {
      *
      * @return a {@link java.lang.String} object.
      */
+    @XmlAttribute(name = "link")
     public String getLink() {
         if (m_link != null) {
             return m_link;
