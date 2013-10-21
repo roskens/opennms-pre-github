@@ -49,13 +49,14 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
+import java.util.List;
 
 @Component
 @PerRequest
 @Scope("prototype")
-@Path("resources")
+@Path("prefabgraphs")
 @Transactional
-public class ResourcesRestService extends OnmsRestService {
+public class PrefabGraphsRestService extends OnmsRestService {
 
     private static final Logger LOG = LoggerFactory.getLogger(NodeRestService.class);
 
@@ -72,16 +73,35 @@ public class ResourcesRestService extends OnmsRestService {
     ResourceContext m_context;
 
     @GET
+    @Path("/")
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public PrefabGraphCollection getPrefabGraphs() {
+        readLock();
+
+        try {
+            List<PrefabGraph> prefabGraphs = m_graphDao.getAllPrefabGraphs();
+
+            if (prefabGraphs == null) {
+                throw getException(Response.Status.BAD_REQUEST, "getPrefabGraphs: Can't find prefabgraphs entries");
+            }
+
+            return new PrefabGraphCollection(prefabGraphs);
+        } finally {
+            readUnlock();
+        }
+    }
+
+    @GET
     @Path("/{resourceId}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public PrefabGraphCollection getGraphsForResource(@PathParam("resourceId") String resourceId) {
+    public PrefabGraphCollection getPrefabGraphsForResourceId(@PathParam("resourceId") String resourceId) {
         readLock();
 
         try {
             OnmsResource resource = m_resourceDao.getResourceById(resourceId);
 
             if (resource == null) {
-                throw getException(Response.Status.BAD_REQUEST, "getGraphsForResource: Can't find resourceId " + resourceId);
+                throw getException(Response.Status.BAD_REQUEST, "getPrefabGraphsForResourceId: Can't find resourceId " + resourceId);
             }
 
             PrefabGraph[] queries = m_graphDao.getPrefabGraphsForResource(resource);
