@@ -34,8 +34,6 @@ import org.opennms.netmgt.dao.api.ResourceDao;
 import org.opennms.netmgt.model.OnmsResource;
 import org.opennms.netmgt.model.PrefabGraph;
 import org.opennms.netmgt.model.PrefabGraphCollection;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -57,8 +55,6 @@ import java.util.List;
 @Path("prefabgraphs")
 @Transactional
 public class PrefabGraphsRestService extends OnmsRestService {
-
-    private static final Logger LOG = LoggerFactory.getLogger(NodeRestService.class);
 
     @Autowired
     private ResourceDao m_resourceDao;

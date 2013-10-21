@@ -144,7 +144,7 @@ public class OnmsResource implements Comparable<OnmsResource> {
 
     @XmlAttribute(name = "resourceTypeLabel")
     public String getResourceTypeLabel() {
-        return m_resourceType.getName();
+        return m_resourceType.getLabel();
     }
 
     /**
