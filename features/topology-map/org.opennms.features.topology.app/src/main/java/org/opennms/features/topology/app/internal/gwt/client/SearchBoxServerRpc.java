@@ -35,7 +35,9 @@ import java.util.List;
 public interface SearchBoxServerRpc extends ServerRpc {
 
     public void querySuggestions(String query, int indexFrom, int indexTo);
-    public void selectSuggestion(List<SearchSuggestion> suggestion);
+    public void selectSuggestion(SearchSuggestion suggestion);
     public void removeSelected(SearchSuggestion searchSuggestion);
+    public void addToFocus(SearchSuggestion searchSuggestion);
     public void removeFocused(SearchSuggestion searchSuggestion);
+    public void centerSearchSuggestion(SearchSuggestion searchSuggestion);
 }

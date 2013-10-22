@@ -28,15 +28,10 @@
 
 package org.opennms.features.topology.app.internal;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Dictionary;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+import com.google.common.collect.Lists;
 import org.opennms.features.topology.api.CheckedOperation;
 import org.opennms.features.topology.api.GraphContainer;
 import org.opennms.features.topology.api.Operation;
@@ -50,8 +45,8 @@ import org.vaadin.peter.contextmenu.ContextMenu.ContextMenuItem;
 import org.vaadin.peter.contextmenu.ContextMenu.ContextMenuItemClickEvent;
 
 import com.vaadin.ui.MenuBar;
-import com.vaadin.ui.UI;
 import com.vaadin.ui.MenuBar.MenuItem;
+import com.vaadin.ui.UI;
 
 public class CommandManager {
 
@@ -107,10 +102,19 @@ public class CommandManager {
 		@Override
 		public void contextMenuItemClicked(ContextMenuItemClickEvent event) {
 			Operation operation = m_contextMenuItemsToOperationMap.get(event.getSource());
-			//TODO: Do some implementation here for execute
-			if (operation != null) {
-			    try {
-				operation.execute(asVertexList(m_topoContextMenu.getTarget()), m_opContext);
+
+            //TODO: Do some implementation here for execute
+            if (operation != null) {
+                try {
+                    Collection<VertexRef> selectedVertexRefs = m_opContext.getGraphContainer().getSelectionManager().getSelectedVertexRefs();
+                    List<VertexRef> targets;
+                    if(selectedVertexRefs.contains(m_topoContextMenu.getTarget())) {
+                        targets = Lists.newArrayList(selectedVertexRefs);
+                    } else{
+                        targets = asVertexList(m_topoContextMenu.getTarget());
+                    }
+
+				    operation.execute(targets, m_opContext);
 			    } catch (final RuntimeException e) {
 			        LoggerFactory.getLogger(this.getClass()).warn("contextMenuItemClicked: operation failed", e);
 			    }
@@ -134,7 +138,7 @@ public class CommandManager {
 		updateCommandListeners();
 	}
 
-	private void updateCommandListeners() {
+	protected void updateCommandListeners() {
 		for (CommandUpdateListener listener : m_updateListeners) {
 			listener.menuBarUpdated(this);
 		}
@@ -161,7 +165,7 @@ public class CommandManager {
 		OperationContext opContext = new DefaultOperationContext(mainWindow, graphContainer, DisplayLocation.MENUBAR);
 		MenuBarBuilder menuBarBuilder = new MenuBarBuilder();
 		menuBarBuilder.setTopLevelMenuOrder(m_topLevelMenuOrder);
-		menuBarBuilder.setSubMenuGroupOder(m_subMenuGroupOrder);
+		menuBarBuilder.setSubMenuGroupOrder(m_subMenuGroupOrder);
 
 		for (Command command : m_commandList) {
 			String menuPosition = command.getMenuPosition();
@@ -197,7 +201,7 @@ public class CommandManager {
 		return contextMenu;
 	}
 
-	private void updateContextCommandToOperationMap(List<TopoContextMenuItem> items) {
+	protected void updateContextCommandToOperationMap(List<TopoContextMenuItem> items) {
 	    for(TopoContextMenuItem item : items) {
 	        if(item.hasChildren() && !item.hasOperation()) {
 	            updateContextCommandToOperationMap(item.getChildren());
@@ -207,7 +211,7 @@ public class CommandManager {
 	    }
 	}
 
-	private void updateCommandToOperationMap(Command command, MenuBar.Command menuCommand) {
+	protected void updateCommandToOperationMap(Command command, MenuBar.Command menuCommand) {
 		m_commandToOperationMap.put(menuCommand, command.getOperation());
 	}
 
@@ -217,7 +221,9 @@ public class CommandManager {
 
 		return new MenuBar.Command() {
 
-                        @Override
+			private static final long serialVersionUID = 1542437659855341046L;
+
+			@Override
 			public void menuSelected(MenuItem selectedItem) {
 				List<VertexRef> targets = new ArrayList<VertexRef>(graphContainer.getSelectionManager().getSelectedVertexRefs());
 
@@ -241,7 +247,7 @@ public class CommandManager {
 		return m_commandHistoryList;
 	}
 
-	public Operation getOperationByMenuItemCommand(MenuBar.Command command) {
+	protected Operation getOperationByMenuItemCommand(MenuBar.Command command) {
 		return m_commandToOperationMap.get(command);
 	}
 
@@ -270,7 +276,7 @@ public class CommandManager {
 		removeCommand(operation);
 	}
 
-	private void removeCommand(Operation operation) {
+	protected void removeCommand(Operation operation) {
 		for (Command command : m_commandList) {
 			if (command.getOperation() == operation) {
 				removeCommand(command); 
@@ -278,7 +284,7 @@ public class CommandManager {
 		}
 	}
 
-	private void removeCommand(Command command) {
+	protected void removeCommand(Command command) {
 		m_commandList.remove(command);
 		updateCommandListeners();
 	}
@@ -369,7 +375,7 @@ public class CommandManager {
         }
     }
 
-	private List<VertexRef> asVertexList(Object target) {
+	private static List<VertexRef> asVertexList(Object target) {
 		return (target != null && target instanceof VertexRef) ? Arrays.asList((VertexRef)target) : Collections.<VertexRef>emptyList();
 	}
 

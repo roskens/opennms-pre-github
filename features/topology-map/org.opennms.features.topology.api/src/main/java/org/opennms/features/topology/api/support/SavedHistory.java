@@ -22,8 +22,7 @@ import org.opennms.features.topology.api.GraphContainer;
 import org.opennms.features.topology.api.HistoryOperation;
 import org.opennms.features.topology.api.Layout;
 import org.opennms.features.topology.api.Point;
-import org.opennms.features.topology.api.support.VertexHopGraphProvider.VertexHopCriteria;
-import org.opennms.features.topology.api.topo.Criteria;
+import org.opennms.features.topology.api.support.VertexHopGraphProvider.FocusNodeHopCriteria;
 import org.opennms.features.topology.api.topo.Vertex;
 import org.opennms.features.topology.api.topo.VertexRef;
 import org.slf4j.LoggerFactory;
@@ -93,7 +92,7 @@ public class SavedHistory {
     }
 
     protected static Set<VertexRef> getFocusVertices(GraphContainer graphContainer) {
-        VertexHopCriteria criteria = VertexHopGraphProvider.getVertexHopCriteriaForContainer(graphContainer, false);
+        FocusNodeHopCriteria criteria = VertexHopGraphProvider.getFocusNodeHopCriteriaForContainer(graphContainer, false);
         if (criteria == null) {
             return Collections.emptySet();
         } else {
@@ -184,14 +183,14 @@ public class SavedHistory {
         // LoggerFactory.getLogger(this.getClass()).debug("Applying " + toString());
 
         if (m_focusVertices.size() > 0) {
-            VertexHopCriteria criteria = VertexHopGraphProvider.getVertexHopCriteriaForContainer(graphContainer);
+            FocusNodeHopCriteria criteria = VertexHopGraphProvider.getFocusNodeHopCriteriaForContainer(graphContainer);
             // Clear existing focus nodes
             criteria.clear();
             // Add focus nodes from history
             criteria.addAll(m_focusVertices);
         } else {
             // Remove any existing VertexHopCriteria
-            VertexHopCriteria criteria = VertexHopGraphProvider.getVertexHopCriteriaForContainer(graphContainer, false);
+            FocusNodeHopCriteria criteria = VertexHopGraphProvider.getFocusNodeHopCriteriaForContainer(graphContainer, false);
             if (criteria != null) {
                 graphContainer.removeCriteria(criteria);
             }
@@ -199,7 +198,11 @@ public class SavedHistory {
 
         // Apply the history for each registered HistoryOperation
         for (HistoryOperation operation : operations) {
-            operation.applyHistory(graphContainer, m_settings);
+            try {
+                operation.applyHistory(graphContainer, m_settings);
+            } catch (Throwable e) {
+                LoggerFactory.getLogger(this.getClass()).warn("Failed to perform applyHistory() operation", e);
+            }
         }
         applySavedLocations(m_locations, graphContainer.getGraph().getLayout());
         graphContainer.setSemanticZoomLevel(getSemanticZoomLevel());
@@ -218,12 +221,29 @@ public class SavedHistory {
     
     @Override
     public String toString() {
-        StringBuffer retval = new StringBuffer().append(this.getClass().getSimpleName()).append(": ").append(getFragment());
+        StringBuffer retval = new StringBuffer().append(this.getClass().getSimpleName()).append(": ").append(getFragment()).append(": ");
+        boolean first = true;
         for (Map.Entry<String,String> entry : m_settings.entrySet()) {
-            retval.append(",[").append(entry.getKey()).append("->").append(entry.getValue()).append("]");
+            if (first) { first = false; } else { retval.append(","); }
+            retval.append(entry.getKey()).append("->").append(entry.getValue());
         }
-        for (VertexRef entry : m_selectedVertices) {
-            retval.append(",[").append(entry.getNamespace()).append(":").append(entry.getId()).append("]");
+        if (m_selectedVertices.size() > 0) {
+            first = true;
+            retval.append(",selectedVertices->{");
+            for (VertexRef entry : m_selectedVertices) {
+                if (first) { first = false; } else { retval.append(","); }
+                retval.append("[").append(entry.getNamespace()).append(":").append(entry.getId()).append("]");
+            }
+            retval.append("}");
+        }
+        if (m_focusVertices.size() > 0) {
+            first = true;
+            retval.append(",focusVertices->{");
+            for (VertexRef entry : m_focusVertices) {
+                if (first) { first = false; } else { retval.append(","); }
+                retval.append("[").append(entry.getNamespace()).append(":").append(entry.getId()).append("]");
+            }
+            retval.append("}");
         }
         return retval.toString();
     }
