@@ -59,6 +59,9 @@
        <feature>dashlet-charts</feature>
        <feature>dashlet-rtc</feature>
        <feature>dashlet-rrd</feature>
+       <feature>dashlet-ksc</feature>
+       <feature>dashlet-topology</feature>
+       <feature>dashlet-surveillance</feature>
    </feature>
 
 </features>
