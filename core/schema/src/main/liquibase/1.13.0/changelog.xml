@@ -1,131 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
- 
+
 <databaseChangeLog
-	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
-	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd
-		http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
-    
-    <changeSet author="rssntn67" id="1.13.0-topology">
-		<preConditions onFail="MARK_RAN">
-			<not><tableExists tableName="topologyelement" /></not>
-		</preConditions> 
-		<createTable tableName="elementidentifier">
-			<column name="identifiertype" type="varchar(31)">
-					<constraints nullable="false" />
-			</column>
-			<column name="id" type="integer" defaultValueComputed="NEXTVAL('opennmsnxtid')">
-					<constraints nullable="false"  primaryKey="true" />
-			</column>
-			<column name="lastpoll" type="DATETIME"/>
-			<column name="sourcenode" type="integer"/>
-			<column name="bridgeaddress" type="varchar(64)"/>
-			<column name="cdpaddress" type="varchar(255)"/>
-			<column name="cdpdeviceid" type="varchar(255)"/>
-			<column name="inet" type="varchar(64)"/>
-			<column name="lldpchassisid" type="varchar(255)"/>
-			<column name="lldpsysname" type="varchar(255)"/>
-			<column name="macaddr" type="varchar(64)"/>
-			<column name="nodeid" type="integer"/>
-			<column name="ospfrouterid" type="varchar(64)"/>
-			<column name="linkedbridgeidentifier" type="varchar(64)"/>
-			<column name="linkedbridgeport" type="integer"/>
-		</createTable>		
-		
-		<createTable tableName="endpoint">
-			<column name="dtype" type="varchar(31)">
-					<constraints nullable="false" />
-			</column>
-			<column name="id" type="integer" defaultValueComputed="NEXTVAL('opennmsnxtid')">
-					<constraints nullable="false"  primaryKey="true" />
-			</column>
-			<column name="lastpoll" type="DATETIME"/>
-			<column name="sourcenode" type="integer"/>
-			<column name="ifalias" type="varchar(255)"/>
-			<column name="ifdescr" type="varchar(255)"/>
-			<column name="ifindex" type="integer"/>
-			<column name="ifname" type="varchar(255)"/>
-			<column name="bridgeport" type="integer"/>
-			<column name="cdpcachedeviceport" type="varchar(255)"/>
-			<column name="cdpcacheifindex" type="integer"/>
-            <column name="ipaddr" type="varchar(64)"/>
-            <column name="macaddress" type="varchar(64)"/>
-			<column name="lldpportid" type="varchar(255)"/>
-			<column name="ospfaddresslessindex" type="integer"/>
-			<column name="ospfifindex" type="integer"/>
-			<column name="ospfipaddr" type="varchar(64)"/>
-			<column name="ospfipmask" type="varchar(64)"/>
-			<column name="linkedbridgeidentifier" type="varchar(64)"/>
-			<column name="linkedbridgeport" type="integer"/>
-			<column name="linkedmacaddress" type="varchar(64)"/>
-			<column name="element_id" type="integer"/>
-			<column name="link_id" type="integer"/>
-		</createTable>		
-		<createTable tableName="link">
-			<column name="dtype" type="varchar(31)">
-					<constraints nullable="false" />
-			</column>
-			<column name="id" type="integer" defaultValueComputed="NEXTVAL('opennmsnxtid')">
-					<constraints nullable="false"  primaryKey="true" />
-			</column>
-			<column name="lastpoll" type="DATETIME"/>
-			<column name="sourcenode" type="integer"/>
-			<column name="a_id" type="integer"/>
-			<column name="b_id" type="integer"/>
-		</createTable>		
-		<createTable tableName="topologyelement">
-			<column name="id" type="integer" defaultValueComputed="NEXTVAL('opennmsnxtid')">
-					<constraints nullable="false"  primaryKey="true" />
-			</column>
-		</createTable>		
-		<createTable tableName="topologyelement_elementidentifier">
-			<column name="topologyelement_id" type="integer">
-					<constraints nullable="false" />
-			</column>
-			<column name="elementidentifiers_id" type="integer">
-					<constraints nullable="false"  unique="true" />
-			</column>
-		</createTable>		
-		<createTable tableName="topologyelement_endpoint">
-			<column name="topologyelement_id" type="integer">
-					<constraints nullable="false" />
-			</column>
-			<column name="endpoints_id" type="integer">
-					<constraints nullable="false"  unique="true" />
-			</column>
-		</createTable>		
-		
-		<addForeignKeyConstraint constraintName="fk69de9195504d3b03" onDelete="CASCADE"
-			baseTableName="endpoint" baseColumnNames="element_id"
-			referencedTableName="topologyelement" referencedColumnNames="id" />
-		
-		<addForeignKeyConstraint constraintName="fk69de919558cd951" onDelete="CASCADE"
-			baseTableName="endpoint" baseColumnNames="link_id"
-			referencedTableName="link" referencedColumnNames="id" />
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:opennms="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
 
-		<addForeignKeyConstraint constraintName="fk24241af7db89e4" onDelete="CASCADE"
-			baseTableName="link" baseColumnNames="b_id"
-			referencedTableName="endpoint" referencedColumnNames="id" />
+    <changeSet author="MVR" id="1.13.0-introduce-filters-for-alarms-and-events">
+        <createTable tableName="filterfavorites">
+            <column name="filterid" type="int">
+                <constraints primaryKey="true" nullable="false" primaryKeyName="pk_filterid"/>
+            </column>
+            <column name="username" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="filtername" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="page" type="varchar(25)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="filter" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <createSequence sequenceName="filternextid"/>
 
-		<addForeignKeyConstraint constraintName="fk24241af7db1585" onDelete="CASCADE"
-			baseTableName="link" baseColumnNames="a_id"
-			referencedTableName="endpoint" referencedColumnNames="id" />
+        <rollback>
+            <dropTable tableName="filterfavorites"/>
+            <dropSequence sequenceName="filternextid"/>
+        </rollback>
+    </changeSet>
 
-		<addForeignKeyConstraint constraintName="fke8cd06732ef5feb2" onDelete="CASCADE"
-			baseTableName="topologyelement_elementidentifier" baseColumnNames="topologyelement_id"
-			referencedTableName="topologyelement" referencedColumnNames="id" />
+    <changeSet author="MVR" id="1.13.0-createSequences-for-filters-table">
+        <validCheckSum>ANY</validCheckSum>
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="filterfavorites"/>
+            <columnExists tableName="filterfavorites" columnName="filterid"/>
+        </preConditions>
+        <opennms:setSequence sequenceName="filternextid">
+            <opennms:table column="filterid" name="filterfavorites"/>
+        </opennms:setSequence>
+    </changeSet>
 
-		<addForeignKeyConstraint constraintName="fke8cd0673e56f0eda" onDelete="CASCADE"
-			baseTableName="topologyelement_elementidentifier" baseColumnNames="elementidentifiers_id"
-			referencedTableName="elementidentifier" referencedColumnNames="id" />
-		
-		<addForeignKeyConstraint constraintName="fk4c3f0807c5078f48" onDelete="CASCADE"
-			baseTableName="topologyelement_endpoint" baseColumnNames="endpoints_id"
-			referencedTableName="endpoint" referencedColumnNames="id" />
-		
-		<addForeignKeyConstraint constraintName="fke8cd06732ef5feb2" onDelete="CASCADE"
-			baseTableName="topologyelement_endpoint" baseColumnNames="topologyelement_id"
-			referencedTableName="topologyelement" referencedColumnNames="id" />
+    <changeSet author="MVR" id="1.13.0-addIndex-for-filters">
+        <createIndex indexName="filternamesidx"
+                     tableName="filterfavorites"
+                     unique="true">
+            <column name="username" type="varchar(255)"/>
+            <column name="filtername" type="varchar(255)"/>
+            <column name="page" type="varchar(255)"/>
+        </createIndex>
+
+        <rollback>
+            <dropIndex tableName="filterfavorites" indexName="filternamesidx" />
+        </rollback>
     </changeSet>
 </databaseChangeLog>

@@ -10,7 +10,6 @@
   <packaging>pom</packaging>
   <name>OpenNMS Features</name>
   <modules>
-    <module>acl</module>
     <module>instrumentationLogReader</module>
     <module>jdbc-collector</module>
     <module>juniper-tca-collector</module>
@@ -28,6 +27,9 @@
     <module>ticketing</module>
     <module>geocoder</module>
     <module>name-cutter</module>
+
+   <!-- OpenNMS OSGI Core -->
+   <module>opennms-osgi-core</module>
 
     <!-- Jmx config generator -->
     <module>jmx-config-generator</module>

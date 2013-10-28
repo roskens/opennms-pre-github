@@ -58,18 +58,8 @@ get_hash_from_rpm() {
 clean_maven() {
 	banner "Cleaning out old Maven files"
 
-	# delete things older than a week
 	if [ -d "$HOME/.m2/repository" ]; then
-		do_log "$HOME/.m2/repository exists; cleaning"
-		find "${HOME}/.m2/repository" -depth -ctime +7 -type f -print -exec rm {} \; >/dev/null
-		find "${HOME}/.m2/repository" -depth -type d -print | while read LINE; do
-			rmdir "$LINE" 2>/dev/null || :
-		done
-		BAD_JARS=`find "${HOME}/.m2/repository" -depth -type f -name \*.jar | xargs file | grep text | cut -d: -f1`
-		if [ -n "$BAD_JARS" ]; then
-			rm -f $BAD_JARS
-		fi
-		rm -f "${HOME}/.m2/repository/repository.xml"
+		rm -rf "${HOME}"/.m2/repository
 	fi
 }
 
@@ -107,21 +97,17 @@ reset_opennms() {
 	clean_yum || die "Unable to clean up old RPM files."
 
 	do_log "removing existing opennms RPMs"
-	REPO=`cat $ME/../.nightly | grep -E '^repo:' | sed -e 's,^repo: *,,'`
-	rpm -qa --queryformat='%{name}\n' | grep -E '^opennms' | xargs yum -y remove
+	rpm -qa --queryformat='%{name}\n' | grep -E '^opennms' | grep -v -E '^opennms-repo-' | xargs yum -y remove
 
 	do_log "wiping out \$OPENNMS_HOME"
-	rm -rf "$OPENNMS_HOME"/* /var/log/opennms /var/opennms /etc/yum.repos.d/opennms*
+	rm -rf "$OPENNMS_HOME"/* /var/log/opennms /var/opennms
 
-	if [ `ls "$ME"/../target/rpms/*.rpm | wc -l` -gt 0 ]; then
-		do_log "rpm -Uvh $ME/../target/rpms/*.rpm"
-		rpm -Uvh "$ME"/../target/rpms/*.rpm
+	if [ `ls "$ME"/../../rpms/*.rpm | wc -l` -gt 0 ]; then
+		do_log "rpm -Uvh $ME/../../rpms/*.rpm"
+		rpm -Uvh "$ME"/../../rpms/*.rpm
 	else
-		do_log "installing opennms-repo-$REPO-rhel5.noarch.rpm"
-		rpm -Uvh --force http://yum.opennms.org/repofiles/opennms-repo-$REPO-rhel5.noarch.rpm
-
-		do_log "yum -y install $PACKAGES"
-		yum -y install $PACKAGES || die "Unable to install the following packages from the $REPO YUM repo: $PACKAGES"
+		echo "Unable to locate RPMs for installing!"
+		exit 1
 	fi
 }
 
@@ -181,23 +167,20 @@ run_tests() {
 	local RETVAL=0
 	rm -rf ~/.m2/repository/org/opennms
 
-# These aren't needed any longer
-#	pushd "$SOURCEDIR"
-#		./compile.pl -N -Denable.snapshots=true -DupdatePolicy=always install
-#	popd
-#	pushd "$SOURCEDIR/dependencies"
-#		../compile.pl -Denable.snapshots=true -DupdatePolicy=always install
-#	popd
-#	pushd "$SOURCEDIR/core"
-#		../compile.pl -Denable.snapshots=true -DupdatePolicy=always install
-#	popd
-
 	do_log "bamboo.pl test"
 	pushd "$SOURCEDIR/smoke-test"
-		../bin/bamboo.pl -t -Denable.snapshots=true -DupdatePolicy=always test
+		../bin/bamboo.pl -t -Denable.snapshots=true -DupdatePolicy=always -Dorg.opennms.smoketest.logLevel=INFO test
 		RETVAL=$?
 	popd
+
 	return $RETVAL
+}
+
+post_clean() {
+	rsync -ar "${SOURCEDIR}/smoke-test/target/" target/ || :
+	rm -rf "${SOURCEDIR}" || :
+	rm -rf "${HOME}"/.m2/repository || :
+	rm -rf "${ME}"/../target || :
 }
 
 stop_opennms() {
@@ -222,6 +205,7 @@ start_opennms
 run_tests
 RETVAL=$?
 
+post_clean
 stop_opennms
 
 exit $RETVAL

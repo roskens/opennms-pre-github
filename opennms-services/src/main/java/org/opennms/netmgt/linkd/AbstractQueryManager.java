@@ -39,30 +39,32 @@ import java.util.List;
 import java.util.Map;
 
 import org.hibernate.criterion.Restrictions;
-
 import org.opennms.core.utils.InetAddressUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import org.opennms.netmgt.dao.api.AtInterfaceDao;
 import org.opennms.netmgt.dao.api.IpInterfaceDao;
 import org.opennms.netmgt.dao.api.NodeDao;
 import org.opennms.netmgt.dao.api.SnmpInterfaceDao;
+<<<<<<< HEAD
 
 import org.opennms.netmgt.linkd.snmp.SnmpStore;
+=======
+>>>>>>> master
 import org.opennms.netmgt.linkd.snmp.CdpCacheTableEntry;
 import org.opennms.netmgt.linkd.snmp.Dot1dBasePortTableEntry;
 import org.opennms.netmgt.linkd.snmp.Dot1dStpPortTableEntry;
 import org.opennms.netmgt.linkd.snmp.Dot1dTpFdbTableEntry;
 import org.opennms.netmgt.linkd.snmp.IpNetToMediaTableEntry;
 import org.opennms.netmgt.linkd.snmp.IpRouteCollectorEntry;
+import org.opennms.netmgt.linkd.snmp.IsIsSystemObjectGroup.IsisAdminState;
+import org.opennms.netmgt.linkd.snmp.IsisCircTableEntry;
+import org.opennms.netmgt.linkd.snmp.IsisISAdjTableEntry;
+import org.opennms.netmgt.linkd.snmp.IsisISAdjTableEntry.IsisISAdjState;
 import org.opennms.netmgt.linkd.snmp.LldpLocTableEntry;
 import org.opennms.netmgt.linkd.snmp.LldpMibConstants;
 import org.opennms.netmgt.linkd.snmp.LldpRemTableEntry;
 import org.opennms.netmgt.linkd.snmp.OspfNbrTableEntry;
 import org.opennms.netmgt.linkd.snmp.QBridgeDot1dTpFdbTableEntry;
 import org.opennms.netmgt.linkd.snmp.Vlan;
-
 import org.opennms.netmgt.model.OnmsArpInterface.StatusType;
 import org.opennms.netmgt.model.OnmsAtInterface;
 import org.opennms.netmgt.model.OnmsCriteria;
@@ -73,6 +75,9 @@ import org.opennms.netmgt.model.OnmsSnmpInterface;
 import org.opennms.netmgt.model.OnmsStpInterface;
 import org.opennms.netmgt.model.OnmsStpNode;
 import org.opennms.netmgt.model.OnmsVlan;
+import org.opennms.netmgt.snmp.SnmpStore;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public abstract class AbstractQueryManager implements QueryManager {
     private static final Logger LOG = LoggerFactory.getLogger(AbstractQueryManager.class);
@@ -177,28 +182,42 @@ public abstract class AbstractQueryManager implements QueryManager {
                 continue;
             }
 
+            // FIXME manage duplicated ip address
             for (final OnmsAtInterface at : ats) {
-            	at.setSourceNodeId(node.getNodeId());
+                int interfaceindex = getIfIndex(at.getNode().getId(),
+                                                hostAddress);
+                LOG.debug("processIpNetToMediaTable: found ifindex {} for node {} IP address {}.",
+                          interfaceindex, node.getNodeId(), hostAddress);
+                at.setSourceNodeId(node.getNodeId());
 
-	            if (at.getMacAddress() != null && !at.getMacAddress().equals(physAddr)) {
-	                LOG.info("processIpNetToMediaTable: Setting OnmsAtInterface MAC address to {} but it used to be '{}' (IP Address = {}, ifIndex = {})", physAddr, at.getMacAddress(), hostAddress, ifindex);
-	            }
-	            at.setMacAddress(physAddr);
+                if (at.getMacAddress() != null
+                        && !at.getMacAddress().equals(physAddr)) {
+                    LOG.info("processIpNetToMediaTable: Setting OnmsAtInterface MAC address to {} but it used to be '{}' (IP Address = {}, ifIndex = {})",
+                             physAddr, at.getMacAddress(), hostAddress,
+                             ifindex);
+                }
+                at.setMacAddress(physAddr);
 
-	            if (at.getIfIndex() != null && !at.getIfIndex().equals(ifindex)) {
-	                LOG.info("processIpNetToMediaTable: Setting OnmsAtInterface ifIndex to {} but it used to be '{}' (IP Address = {}, MAC = {})", ifindex, at.getIfIndex(), hostAddress, physAddr);
-	            }
-	            at.setIfIndex(ifindex);
+                if (at.getIfIndex() != null
+                        && at.getIfIndex().intValue() != ifindex) {
+                    LOG.info("processIpNetToMediaTable: Setting OnmsAtInterface ifIndex to {} but it used to be '{}' (IP Address = {}, MAC = {})",
+                             ifindex, at.getIfIndex(), hostAddress, physAddr);
+                }
+                at.setIfIndex(interfaceindex);
 
-	            at.setLastPollTime(scanTime);
-	            at.setStatus(StatusType.ACTIVE);
+                at.setLastPollTime(scanTime);
+                at.setStatus(StatusType.ACTIVE);
 
-	            getAtInterfaceDao().saveOrUpdate(at);
-            
-	            // Now store the information that is needed to create link in linkd
-	            AtInterface atinterface = new AtInterface(at.getNode().getId(), physAddr, at.getIpAddress());
-	            atinterface.setIfIndex(getIfIndex(at.getNode().getId(), at.getIpAddress().getHostAddress()));
-	            getLinkd().addAtInterface(atinterface);            
+                getAtInterfaceDao().saveOrUpdate(at);
+
+                // Now store the information that is needed to create link in
+                // linkd
+                AtInterface atinterface = new AtInterface(
+                                                          at.getNode().getId(),
+                                                          physAddr,
+                                                          at.getIpAddress());
+                atinterface.setIfIndex(interfaceindex);
+                getLinkd().addAtInterface(atinterface);
             }
         }
         
@@ -239,6 +258,51 @@ public abstract class AbstractQueryManager implements QueryManager {
         return -1;
     }
 
+    protected void processIsis(final LinkableNode node,
+            final SnmpCollection snmpcoll, final Date scanTime) {
+        String isisSysId = snmpcoll.getIsIsSystemObjectGroup().getIsisSysId();
+        LOG.debug("processIsis: isis node/isissysId: {}/{}",
+                  node.getNodeId(), isisSysId);
+        if (snmpcoll.getIsIsSystemObjectGroup().getIsisSysAdminState() == IsisAdminState.OFF) {
+            LOG.info("processIsis: isis admin down on node/isisSysId: {}/{}. Skipping!",
+                     node.getNodeId(), isisSysId);
+            return;
+        }
+
+        node.setIsisSysId(isisSysId);
+        Map<Integer, Integer> isisCircIndexIfIndexMap = new HashMap<Integer, Integer>();
+        for (final IsisCircTableEntry circ : snmpcoll.getIsisCircTable()) {
+            isisCircIndexIfIndexMap.put(circ.getIsisCircIndex(),
+                                        circ.getIsisCircIfIndex());
+        }
+
+        List<IsisISAdjInterface> isisinterfaces = new ArrayList<IsisISAdjInterface>();
+        for (final IsisISAdjTableEntry isisAdj : snmpcoll.getIsisISAdjTable()) {
+            if (isisAdj.getIsIsAdjStatus() != IsisISAdjState.UP) {
+                LOG.info("processIsis: isis adj status not UP but {}, on node/isisISAdjNeighSysId/isisLocalCircIndex: {}/{}/{}. Skipping!",
+                         isisAdj.getIsIsAdjStatus(), node.getNodeId(),
+                         isisAdj.getIsIsAdjNeighSysId(),
+                         isisAdj.getIsisCircIndex());
+                return;
+            }
+            if (!isisCircIndexIfIndexMap.containsKey(isisAdj.getIsisCircIndex())) {
+                LOG.info("processIsis: isis Circ Index not found on CircTable, on node/isisISAdjNeighSysId/isisLocalCircIndex: {}/{}/{}. Skipping!",
+                         node.getNodeId(), isisAdj.getIsIsAdjNeighSysId(),
+                         isisAdj.getIsisCircIndex());
+                return;
+            }
+            IsisISAdjInterface isisinterface = new IsisISAdjInterface(
+                                                                      isisAdj.getIsIsAdjNeighSysId(),
+                                                                      isisCircIndexIfIndexMap.get(isisAdj.getIsisCircIndex()),
+                                                                      isisAdj.getIsIsAdjNeighSnpaAddress(),
+                                                                      isisAdj.getIsisISAdjIndex());
+            LOG.debug("processIsis: isis adding adj interface node/interface: {}/{}",
+                      node.getNodeId(), isisinterface);
+            isisinterfaces.add(isisinterface);
+        }
+        node.setIsisInterfaces(isisinterfaces);
+    }
+    
     protected void processOspf(final LinkableNode node, final SnmpCollection snmpcoll, final Date scanTime) {
         
         InetAddress ospfRouterId = snmpcoll.getOspfGeneralGroup().getOspfRouterId();
@@ -488,7 +552,7 @@ public abstract class AbstractQueryManager implements QueryManager {
             LOG.debug("processCdp: targetSysName found: {}", targetSysName);
 
             InetAddress cdpTargetIpAddr = cdpEntry.getCdpCacheIpv4Address();
-            LOG.debug("processCdp: cdp cache ipa address found: {}", str(cdpTargetIpAddr));
+            LOG.debug("processCdp: cdp cache ip address found: {}", str(cdpTargetIpAddr));
 
             final int cdpAddrType = cdpEntry.getCdpCacheAddressType();
 
@@ -625,14 +689,18 @@ public abstract class AbstractQueryManager implements QueryManager {
             }
         	
             final Integer routemetric1 = route.getIpRouteMetric1();
-        	if (routemetric1 == null || routemetric1 < 0) {
-                LOG.info("processRouteTable: Route metric is invalid. Skipping.");
-                continue;
-            } 
+            if (routemetric1 == null || routemetric1 == -1) {
+                LOG.info("processRouteTable: Route metric1 is invalid or \" not used\". checking the route status.");
+                final Integer routestatus = route.getIpRouteStatus();
+                if ( routestatus == null || routestatus.intValue() != IpRouteCollectorEntry.IP_ROUTE_ACTIVE_STATUS) {
+                    LOG.info("processRouteTable: Route status {} is not active or null. ", routestatus);
+                    continue;
+                } 
+            }
 
             LOG.debug("processRouteTable: parsing routeDest/routeMask/nextHop: {}/{}/{} - ifIndex = {}", str(routedest), str(routemask), str(nexthop), ifindex);
 
-        	int snmpiftype = -2;
+            int snmpiftype = -2;
             if (ifindex == 0) {
 			LOG.debug("processRouteTable: ifindex is 0. Looking local table to get a valid index.");
             	for (OnmsIpInterface ip : getIpInterfaceDao().findByNodeId(node.getNodeId())) {

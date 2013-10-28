@@ -10,7 +10,7 @@
     <groupId>org.opennms.features</groupId>
     <artifactId>vaadin-dashlets</artifactId>
 
-    <name>org.opennms.features.vaadin-dashlets</name>
+    <name>OpenNMS Features Vaadin Dashlets</name>
 
     <packaging>pom</packaging>
 
@@ -21,6 +21,10 @@
         <module>dashlet-image</module>
         <module>dashlet-charts</module>
         <module>dashlet-rtc</module>
+        <module>dashlet-rrd</module>
+        <module>dashlet-ksc</module>
+        <module>dashlet-topology</module>
+        <module>dashlet-surveillance</module>
         <module>dashlet-features</module>
     </modules>
 </project>

@@ -31,9 +31,10 @@ package org.opennms.netmgt.linkd.snmp;
 import java.net.InetAddress;
 
 import org.opennms.core.utils.InetAddressUtils;
-
+import org.opennms.netmgt.snmp.NamedSnmpVar;
 import org.opennms.netmgt.snmp.SnmpObjId;
 import org.opennms.netmgt.snmp.SnmpResult;
+import org.opennms.netmgt.snmp.SnmpStore;
 import org.opennms.netmgt.snmp.SnmpUtils;
 
 /**
@@ -431,4 +432,37 @@ public final class CdpCacheTableEntry extends SnmpStore {
 		return 	getDisplayString(CdpCacheTableEntry.CDP_DEVICEPORT);
 	}
 
+<<<<<<< HEAD
+=======
+	/**
+	 * <p>getCdpPlatform</p>
+	 *
+	 * @return a {@link java.lang.String} object.
+	 */
+	//public String getCdpPlatform() {
+	//	return 	getDisplayString(CdpCacheTableEntry.CDP_PLATFORM);
+	//}
+
+	/**
+	 * TODO: Move to {@link InetAddressUtils}?
+	 */
+	private static InetAddress getIpAddressByHexString(String ipaddrhexstrng) {
+
+	    try {
+		long ipAddr = Long.parseLong(ipaddrhexstrng, 16);
+		byte[] bytes = new byte[4];
+		bytes[3] = (byte) (ipAddr & 0xff);
+		bytes[2] = (byte) ((ipAddr >> 8) & 0xff);
+		bytes[1] = (byte) ((ipAddr >> 16) & 0xff);
+		bytes[0] = (byte) ((ipAddr >> 24) & 0xff);
+
+		return InetAddressUtils.getInetAddress(bytes);
+	    } catch (NumberFormatException nfe) {
+	       
+	    }
+		return null;
+	}
+
+
+>>>>>>> master
 }

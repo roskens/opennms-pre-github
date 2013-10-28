@@ -71,6 +71,8 @@ public final class DiscoveryLink implements ReadyRunnable {
 
     private List<LinkableNode> m_ospfNodes = new ArrayList<LinkableNode>();
 
+    private List<LinkableNode> m_isisNodes = new ArrayList<LinkableNode>();
+
     private List<LinkableNode> m_cdpNodes = new ArrayList<LinkableNode>();
 
     // this is the list of MAC address just parsed by discovery process
@@ -93,6 +95,8 @@ public final class DiscoveryLink implements ReadyRunnable {
     private boolean discoveryUsingLldp = true;
 
     private boolean discoveryUsingOspf = true;
+
+    private boolean discoveryUsingIsis = true;
 
     private boolean suspendCollection = false;
 
@@ -170,6 +174,10 @@ public final class DiscoveryLink implements ReadyRunnable {
                 LOG.debug("run: adding to ospf node list: node with nodeid/ospfrouterid/#ospfinterface {}/{}/#{}", linkableNode.getNodeId(),str(linkableNode.getOspfRouterId()),linkableNode.getOspfinterfaces().size());
                 m_ospfNodes.add(linkableNode);
             }   
+            if (discoveryUsingIsis && linkableNode.getIsisSysId() != null) {
+                LOG.debug("run: adding to isis node list: node with nodeid/isisSysId/#isisinterface {}/{}/#{}", linkableNode.getNodeId(),linkableNode.getIsisSysId(),linkableNode.getIsisInterfaces().size());
+                m_isisNodes.add(linkableNode);
+            }
             if (discoveryUsingLldp && linkableNode.getLldpChassisId() != null
                     && linkableNode.getLldpChassisIdSubtype() != null) {
                 LOG.debug("run: adding to lldp node list: node with nodeid/sysname/chassisid {}/{}/{}", linkableNode.getNodeId(),linkableNode.getLldpSysname(),linkableNode.getLldpChassisId());
@@ -202,6 +210,7 @@ public final class DiscoveryLink implements ReadyRunnable {
         getLinksFromRouteTable();
 
         getLinksFromOspf();
+        getLinksFromIsis();
 
         // Try Link Layer Discovery Protocol to found link among all nodes
         getLinkdFromLldp();
@@ -223,6 +232,7 @@ public final class DiscoveryLink implements ReadyRunnable {
         macsExcluded.clear();
         m_lldpNodes.clear();
         m_ospfNodes.clear();
+        m_isisNodes.clear();
 
         getLinkd().clearAtInterfaces(getPackageName());
 
@@ -338,6 +348,7 @@ public final class DiscoveryLink implements ReadyRunnable {
                         m_bridgeNodes.put(endNodeid, endNode);
 
                         // finding links between two backbone ports
+                        // FIXME no criteria....check the rules
                         addLinks(getMacsOnBridgeLink(curNode, curBridgePort,
                                                      endNode, endBridgePort),
                                                      curNodeId, curIfIndex);
@@ -478,9 +489,9 @@ public final class DiscoveryLink implements ReadyRunnable {
 
                     LOG.debug("getBackBoneLinksFromBridges: found designated nodeid {}", designatednodeid);
 
+                    //FIXME at least log......
                     // test if there are other bridges between this link
                     // USING MAC ADDRESS FORWARDING TABLE
-
                     if (!isNearestBridgeLink(curNode, stpbridgeport,
                                              designatedNode,
                                              designatedbridgeport)) {
@@ -517,6 +528,7 @@ public final class DiscoveryLink implements ReadyRunnable {
 
                     LOG.debug("getBackBoneLinksFromBridges: adding links on backbone found link");
 
+                    //FIXME must be added on the designated bridge too or just choose a better design think on
                     addLinks(getMacsOnBridgeLink(curNode, stpbridgeport,
                                                  designatedNode,
                                                  designatedbridgeport),
@@ -555,11 +567,9 @@ public final class DiscoveryLink implements ReadyRunnable {
             for (final RouterInterface routeIface : curNode.getRouteInterfaces()) {
                 LOG.debug("getLinksFromRouteTable: parsing RouterInterface: {}", routeIface.toString());
 
-                final NodeToNodeLink lk = new NodeToNodeLink(
-                                                             routeIface.getNextHopNodeid(),
-                                                             routeIface.getNextHopIfindex());
-                lk.setNodeparentid(curNodeId);
-                lk.setParentifindex(routeIface.getIfindex());
+                final NodeToNodeLink lk = new NodeToNodeLink(curNodeId,routeIface.getIfindex());
+                lk.setNodeparentid(routeIface.getNextHopNodeid());
+                lk.setParentifindex(routeIface.getNextHopIfindex());
                 LOG.info("getLinksFromRouteTable: saving route link: {}", lk.toString());
                 addNodetoNodeLink(lk);
             }
@@ -625,6 +635,7 @@ public final class DiscoveryLink implements ReadyRunnable {
                 }
             }
         }
+        
         LOG.info("getLinksFromCdp: founding Cisco Discovery Protocol links between Cdp nodes and Others");
         for (LinkableNode node: m_cdpNodes) {
             for (CdpInterface cdp: node.getCdpInterfaces()) {
@@ -636,6 +647,50 @@ public final class DiscoveryLink implements ReadyRunnable {
                 }
             }
         }
+        
+    }
+
+    // We use a simple algoritm
+    // to find links.
+    // If node1 has a isis IS adj entry for node2
+    // then node2 mast have an ospf nbr entry for node1
+    // the parent node is that with nodeid1 < nodeid2
+    private void getLinksFromIsis() {
+        LOG.info("getLinksFromIsis: adding links using ISO IS-IS Routing Protocol");
+        int i = 0;
+        for (LinkableNode linknode1 : m_isisNodes) {
+            for (LinkableNode linknode2 : m_isisNodes) {
+                if (linknode1.getNodeId() >= linknode2.getNodeId())
+                    continue;
+                for (NodeToNodeLink isisLink : getIsisLink(linknode1,
+                                                           linknode2)) {
+                    addNodetoNodeLink(isisLink);
+                    i++;
+                }
+            }
+        }
+        LOG.info("getLinksFromIsis: done IS-IS. Found links # {}.", i);
+    }
+
+    private List<NodeToNodeLink> getIsisLink(LinkableNode linknode1,
+                                             LinkableNode linknode2) {
+        
+        LOG.info("getIsisLink: finding IS-IS links between node with id {} and node with id {}.", linknode1.getNodeId(), linknode2.getNodeId());
+        List<NodeToNodeLink> links = new ArrayList<NodeToNodeLink>();
+        for (IsisISAdjInterface isis1: linknode1.getIsisInterfaces()) {
+            for (IsisISAdjInterface isis2: linknode2.getIsisInterfaces()) {
+                LOG.debug("getIsisLink: first IS-IS element: isisSysId {} isisISAdj {}.", linknode1.getIsisSysId(), isis1);
+                LOG.debug("getIsisLink: second IS-IS element: isisSysId {} isisISAdj {}.", linknode2.getIsisSysId(), isis2);
+                if (isis1.getIsisISAdjNeighSysId().equals(linknode2.getIsisSysId()) && isis2.getIsisISAdjNeighSysId().equals(linknode1.getIsisSysId())
+                        && isis1.getIsisISAdjIndex().intValue() == isis2.getIsisISAdjIndex().intValue()) {
+                    NodeToNodeLink link = new NodeToNodeLink(linknode1.getNodeId(), isis1.getIsisLocalIfIndex());
+                    link.setNodeparentid(linknode2.getNodeId());
+                    link.setParentifindex(isis2.getIsisLocalIfIndex());
+                    links.add(link);
+                }
+            }
+        }
+        return links;
     }
 
     // We use a simple algoritm
@@ -650,9 +705,9 @@ public final class DiscoveryLink implements ReadyRunnable {
             for (LinkableNode linknode2 : m_ospfNodes) {
                 if (linknode1.getNodeId() >= linknode2.getNodeId())
                     continue;
-                for (NodeToNodeLink lldpLink : getOspfLink(linknode1,
+                for (NodeToNodeLink ospfLink : getOspfLink(linknode1,
                                                            linknode2)) {
-                    addNodetoNodeLink(lldpLink);
+                    addNodetoNodeLink(ospfLink);
                     i++;
                 }
             }
@@ -1103,6 +1158,10 @@ public final class DiscoveryLink implements ReadyRunnable {
                 return;
             }
         }
+        if (nnlink.getNodeId() == nnlink.getNodeparentid()) {
+            LOG.info("addNodetoNodeLink: link {} is on the same node, not adding", nnlink.toString());
+            return;
+        }
         LOG.debug("addNodetoNodeLink: adding link {}", nnlink.toString());
         m_links.add(nnlink);
     }
@@ -1122,6 +1181,8 @@ public final class DiscoveryLink implements ReadyRunnable {
                     continue;
                 }
                 final List<AtInterface> ats = m_linkd.getAtInterfaces(getPackageName(), curMacAddress);
+                // FIXME you do not need two...or add mac links or add nodetonode link
+                // adding mac link save memory
                 if (!ats.isEmpty()) {
                     for (final AtInterface at : ats) {
                         final NodeToNodeLink lNode = new NodeToNodeLink(at.getNodeid(), at.getIfIndex());
@@ -1156,12 +1217,14 @@ public final class DiscoveryLink implements ReadyRunnable {
      */
     @Override
     public String getInfo() {
-        return " Ready Runnable Discovery Link discoveryUsingBridge/discoveryUsingCdp/discoveryUsingRoutes/package: "
-                + discoveryUsingBridge()
-                + "/"
-                + discoveryUsingCdp()
-                + "/"
-                + discoveryUsingRoutes() + "/" + getPackageName();
+        return " Ready Runnable Discovery Link discoveryUsingBridge/discoveryUsingCdp/discoveryUsingRoutes/DiscoveryUsingLldp/DiscoveryUsingOspf/discoveryUsingIsis/package: "
+                + discoveryUsingBridge() + "/"
+                + discoveryUsingCdp()    +"/"
+                + discoveryUsingRoutes() + "/"
+                + discoveryUsingLldp()   + "/"
+                + discoveryUsingOspf()   + "/"
+                + discoveryUsingIsis()   + "/"
+                + getPackageName();
     }
 
     /**
@@ -1208,6 +1271,29 @@ public final class DiscoveryLink implements ReadyRunnable {
      */
     public void setDiscoveryUsingOspf(boolean discoveryUsingOspf) {
         this.discoveryUsingOspf = discoveryUsingOspf;
+    }
+
+    /**
+     * <p>
+     * discoveryUsingIsIs
+     * </p>
+     * 
+     * @return a boolean.
+     */
+    public boolean discoveryUsingIsis() {
+        return discoveryUsingIsis;
+    }
+
+    /**
+     * <p>
+     * Setter for the field <code>discoveryUsingIsIs</code>.
+     * </p>
+     * 
+     * @param discoveryUsingIsIs
+     *            a boolean.
+     */
+    public void setDiscoveryUsingIsIs(boolean discoveryUsingIsIs) {
+        this.discoveryUsingIsis = discoveryUsingIsIs;
     }
 
     /**

@@ -34,7 +34,7 @@
 	session="true"
 	import="org.opennms.web.notification.*,
 			org.opennms.web.notification.filter.*,
-                org.opennms.web.springframework.security.Authentication,
+                org.opennms.web.api.Authentication,
 		java.util.*,
 		java.sql.SQLException,
 		java.io.UnsupportedEncodingException,
@@ -285,8 +285,8 @@
             <% } %>
           </td>
           <td class="divider">
-            <% if(notification.getServiceName() != null) { %>
-              <% Filter serviceFilter = new ServiceFilter(notification.getServiceId()); %>
+            <% if(notification.getServiceName() != null && !notification.getServiceName().trim().isEmpty()) { %>
+              <% Filter serviceFilter = new ServiceFilter(notification.getServiceId(), getServletContext()); %>
               <% if( notification.getNodeId() != 0 && notification.getIpAddress() != null ) { %>
                 <c:url var="serviceLink" value="element/service.jsp">
                   <c:param name="node" value="<%=String.valueOf(notification.getNodeId())%>"/>

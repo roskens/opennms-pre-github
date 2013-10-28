@@ -121,7 +121,7 @@ public class MenuHeaderTest extends OpenNMSSeleniumTestCase {
     @Test
     public void testDistributedStatusLink() {
         clickAndWait("link=Distributed Status");
-        assertTrue(selenium.isTextPresent("Distributed Poller Status Summary") || selenium.isTextPresent("No applications have been defined for this system"));
+        assertTrue(selenium.isTextPresent("Distributed Status Summary") || selenium.isTextPresent("No applications have been defined for this system"));
     }
 
     @Test
@@ -132,18 +132,18 @@ public class MenuHeaderTest extends OpenNMSSeleniumTestCase {
 
         // the vaadin apps are finicky
         clickAndWait("//div[@id='content']//a[contains(text(), 'Topology')]");
-        Thread.sleep(1000);
-        assertTrue(selenium.getHtmlSource().contains("vaadin"));
-        assertTrue(selenium.getHtmlSource().contains("opennmstopology"));
+        waitForHtmlSource("vaadin", 20000, true);
+        waitForHtmlSource("opennmstopology", 20000, true);
+        // Make sure that the alarm browser has loaded
+        waitForText("Select All", 20000, true);
         handleVaadinErrorButtons();
         goBack();
         goBack();
 
         clickAndVerifyText("//a[@href='maps.htm']", "OpenNMS Maps");
         clickAndWait("//div[@id='content']//a[contains(text(), 'Geographical')]");
-        Thread.sleep(1000);
-        assertTrue(selenium.getHtmlSource().contains("vaadin"));
-        assertTrue(selenium.getHtmlSource().contains("opennmsnodemaps"));
+        waitForHtmlSource("vaadin", 20000, true);
+        waitForHtmlSource("opennmsnodemaps", 20000, true);
         handleVaadinErrorButtons();
 
         clickAndVerifyText("//a[@href='maps.htm']", "OpenNMS Maps");

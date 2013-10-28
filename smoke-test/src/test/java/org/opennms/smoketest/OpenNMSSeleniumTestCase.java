@@ -50,7 +50,8 @@ public class OpenNMSSeleniumTestCase extends SeleneseTestBase {
 
     @Before
     public void setUp() throws Exception {
-        MockLogAppender.setupLogging(true, "DEBUG");
+        final String logLevel = System.getProperty("org.opennms.smoketest.logLevel", "DEBUG");
+        MockLogAppender.setupLogging(true, logLevel);
 
         WebDriver driver = null;
 
@@ -71,7 +72,14 @@ public class OpenNMSSeleniumTestCase extends SeleneseTestBase {
 
         // otherwise, Firefox
         if (driver == null) {
-            driver = new FirefoxDriver();
+            //final File phantomJS = new File("/usr/local/bin/phantomjs");
+            //if (phantomJS.exists()) {
+            //    final DesiredCapabilities caps = new DesiredCapabilities();
+            //    caps.setCapability(PhantomJSDriverService.PHANTOMJS_EXECUTABLE_PATH_PROPERTY, "/usr/local/bin/phantomjs");
+            //    driver = new PhantomJSDriver(caps);
+            //} else {
+                driver = new FirefoxDriver();
+            //}
         }
 
         String baseUrl = "http://localhost:8980/";
@@ -119,6 +127,10 @@ public class OpenNMSSeleniumTestCase extends SeleneseTestBase {
     }
 
     protected void waitForText(final String expectedText, final long timeout) throws InterruptedException {
+        waitForText(expectedText, timeout, false);
+    }
+
+    protected void waitForText(final String expectedText, final long timeout, boolean failOnError) throws InterruptedException {
         if (!selenium.isTextPresent(expectedText)) {
             final long timeoutTime = System.currentTimeMillis() + timeout;
             while (!selenium.isTextPresent(expectedText) && System.currentTimeMillis() <= timeoutTime) {
@@ -128,8 +140,39 @@ public class OpenNMSSeleniumTestCase extends SeleneseTestBase {
         try {
             assertTrue(selenium.isTextPresent(expectedText));
         } catch (final AssertionError e) {
-            LOG.error("Failed to find text {} after {} milliseconds.", expectedText, timeout);
-            LOG.error("Page body was:\n{}", selenium.getBodyText());
+            if (failOnError) {
+                throw e;
+            } else {
+                LOG.error("Failed to find text {} after {} milliseconds.", expectedText, timeout);
+                LOG.error("Page body was:\n{}", selenium.getBodyText());
+            }
+        }
+    }
+
+    protected void waitForHtmlSource(final String expectedText) throws InterruptedException {
+        waitForHtmlSource(expectedText, LOAD_TIMEOUT);
+    }
+
+    protected void waitForHtmlSource(final String expectedText, final long timeout) throws InterruptedException {
+        waitForHtmlSource(expectedText, timeout, false);
+    }
+
+    protected void waitForHtmlSource(final String expectedText, final long timeout, boolean failOnError) throws InterruptedException {
+        if (!selenium.getHtmlSource().contains(expectedText)) {
+            final long timeoutTime = System.currentTimeMillis() + timeout;
+            while (!selenium.getHtmlSource().contains(expectedText) && System.currentTimeMillis() <= timeoutTime) {
+                Thread.sleep(timeout / 10);
+            }
+        }
+        try {
+            assertTrue(selenium.getHtmlSource().contains(expectedText));
+        } catch (final AssertionError e) {
+            if (failOnError) {
+                throw e;
+            } else {
+                LOG.error("Failed to find text {} after {} milliseconds.", expectedText, timeout);
+                LOG.error("Page body was:\n{}", selenium.getBodyText());
+            }
         }
     }
 

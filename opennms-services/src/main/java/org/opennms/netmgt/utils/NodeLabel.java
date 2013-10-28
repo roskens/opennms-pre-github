@@ -214,17 +214,15 @@ public class NodeLabel {
      * 
      * @deprecated Use a {@link NodeDao#load(Integer)} method call instead
      */
-    public static NodeLabel retrieveLabel(int nodeID) throws SQLException {
-        NodeLabel label = null;
-        Connection dbConnection = Vault.getDbConnection();
+    public static NodeLabel retrieveLabel(final int nodeID) throws SQLException {
+        final Connection dbConnection = Vault.getDbConnection();
+        final DBUtils d = new DBUtils(NodeLabel.class, dbConnection);
 
         try {
-            label = retrieveLabel(nodeID, dbConnection);
+            return retrieveLabel(nodeID, dbConnection);
         } finally {
-            Vault.releaseDbConnection(dbConnection);
+            d.cleanUp();
         }
-
-        return label;
     }
 
     /**
@@ -302,13 +300,14 @@ public class NodeLabel {
      * 
      * @deprecated Use a {@link NodeDao#update(org.opennms.netmgt.model.OnmsNode)} method call instead
      */
-    public static void assignLabel(int nodeID, NodeLabel nodeLabel) throws SQLException {
-        Connection dbConnection = Vault.getDbConnection();
+    public static void assignLabel(final int nodeID, final NodeLabel nodeLabel) throws SQLException {
+        final Connection dbConnection = Vault.getDbConnection();
+        final DBUtils d = new DBUtils(NodeLabel.class, dbConnection);
 
         try {
             assignLabel(nodeID, nodeLabel, dbConnection);
         } finally {
-            Vault.releaseDbConnection(dbConnection);
+            d.cleanUp();
         }
     }
 
@@ -329,17 +328,16 @@ public class NodeLabel {
      * 
      * @deprecated Use a {@link NodeDao#update(org.opennms.netmgt.model.OnmsNode)} method call instead
      */
-    public static void assignLabel(int nodeID, NodeLabel nodeLabel, Connection dbConnection) throws SQLException {
+    public static void assignLabel(final int nodeID, NodeLabel nodeLabel, final Connection dbConnection) throws SQLException {
         if (nodeLabel == null) {
             nodeLabel = computeLabel(nodeID, dbConnection);
         }
 
-        PreparedStatement stmt = null;
         final DBUtils d = new DBUtils(NodeLabel.class);
 
         try {
             // Issue SQL update to assign the 'nodelabel' && 'nodelabelsource' fields of the 'node' table
-            stmt = dbConnection.prepareStatement(SQL_DB_UPDATE_NODE_LABEL);
+            PreparedStatement stmt = dbConnection.prepareStatement(SQL_DB_UPDATE_NODE_LABEL);
             d.watch(stmt);
             int column = 1;
 
@@ -384,13 +382,14 @@ public class NodeLabel {
      * 
      * @deprecated Update this to use modern DAO methods instead of raw SQL
      */
-    public static NodeLabel computeLabel(int nodeID) throws SQLException {
-        Connection dbConnection = Vault.getDbConnection();
+    public static NodeLabel computeLabel(final int nodeID) throws SQLException {
+        final Connection dbConnection = Vault.getDbConnection();
+        final DBUtils d = new DBUtils(NodeLabel.class, dbConnection);
 
         try {
             return computeLabel(nodeID, dbConnection);
         } finally {
-            Vault.releaseDbConnection(dbConnection);
+            d.cleanUp();
         }
 
     }
@@ -424,7 +423,7 @@ public class NodeLabel {
      * 
      * @deprecated Update this to use modern DAO methods instead of raw SQL
      */
-    public static NodeLabel computeLabel(int nodeID, Connection dbConnection) throws SQLException {
+    public static NodeLabel computeLabel(final int nodeID, final Connection dbConnection) throws SQLException {
         // Issue SQL query to retrieve NetBIOS name associated with the node
         String netbiosName = null;
         PreparedStatement stmt = null;
@@ -452,8 +451,7 @@ public class NodeLabel {
 
                 LOG.debug("NodeLabel.computeLabel: returning NetBIOS name as nodeLabel: {}", netbiosName);
                     
-                NodeLabel nodeLabel = new NodeLabel(netbiosName, NodeLabelSource.NETBIOS);
-                return nodeLabel;
+                return new NodeLabel(netbiosName, NodeLabelSource.NETBIOS);
             }
         } finally {
             d.cleanUp();
@@ -567,14 +565,12 @@ public class NodeLabel {
                 primarySysName = primarySysName.substring(0, MAX_NODE_LABEL_LENGTH);
             }
 
-            NodeLabel nodeLabel = new NodeLabel(primarySysName, NodeLabelSource.SYSNAME);
-            return nodeLabel;
+            return new NodeLabel(primarySysName, NodeLabelSource.SYSNAME);
         }
 
         // If we get this far the node has no sysName either so we need to
         // use the ipAddress as the nodeLabel
-        NodeLabel nodeLabel = new NodeLabel(InetAddressUtils.str(primaryAddr), NodeLabelSource.ADDRESS);
-        return nodeLabel;
+        return new NodeLabel(InetAddressUtils.str(primaryAddr), NodeLabelSource.ADDRESS);
     }
 
     /**

@@ -91,7 +91,7 @@
   <jsp:param name="title" value="Event Detail" />
   <jsp:param name="headTitle" value="Detail" />
   <jsp:param name="headTtitle" value="Events" />
-  <jsp:param name="breadcrumb" value="<a href='event/index.jsp'>Events</a>" />
+  <jsp:param name="breadcrumb" value="<a href='event/index'>Events</a>" />
   <jsp:param name="breadcrumb" value="Detail" />
 </jsp:include>
 	 <% if (event == null ) { %>
@@ -222,7 +222,7 @@
       </table>
 
       <% 
-      if( ( request.isUserInRole( org.opennms.web.springframework.security.Authentication.ROLE_ADMIN ) || !request.isUserInRole( org.opennms.web.springframework.security.Authentication.ROLE_READONLY ) ) && "true".equals(acknowledgeEvent)) { %>
+      if( ( request.isUserInRole( org.opennms.web.api.Authentication.ROLE_ADMIN ) || !request.isUserInRole( org.opennms.web.api.Authentication.ROLE_READONLY ) ) && "true".equals(acknowledgeEvent)) { %>
         <form method="post" action="event/acknowledge">
           <input type="hidden" name="actionCode" value="<%=action%>" />
           <input type="hidden" name="event" value="<%=event.getId()%>"/>

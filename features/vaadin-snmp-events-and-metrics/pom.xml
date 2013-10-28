@@ -11,7 +11,7 @@
   <groupId>org.opennms.features</groupId>
   <artifactId>vaadin-snmp-events-and-metrics</artifactId>
   <packaging>bundle</packaging>
-  <name>OpenNMS Admin UI for SNMP Events and Metrics</name>
+  <name>OpenNMS Features Admin UI for SNMP Events and Metrics</name>
   <description>
     OpenNMS Vaadin Administration UI for handling SNMP related configuration files for events and data collection.
   </description>
@@ -60,6 +60,13 @@
     <repository>
       <id>vaadin-addons</id>
       <url>http://maven.opennms.org/content/groups/vaadin.com-addons/</url>
+    </repository>
+    <repository>
+      <snapshots><enabled>true</enabled></snapshots>
+      <releases><enabled>false</enabled></releases>
+      <id>opennms-snapshots</id>
+      <name>OpenNMS Snapshot Maven Repository</name>
+      <url>http://maven.opennms.org/content/groups/opennms.org-snapshot</url>
     </repository>
   </repositories>
 

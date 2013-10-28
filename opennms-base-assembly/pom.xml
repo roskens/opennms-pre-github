@@ -245,6 +245,10 @@
     </dependency>
     <dependency>
       <groupId>org.opennms</groupId>
+      <artifactId>opennms-detector-generic</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.opennms</groupId>
       <artifactId>opennms-detector-jdbc</artifactId>
     </dependency>
     <dependency>
@@ -667,4 +671,15 @@
       <type>pom</type>
     </dependency>
   </dependencies>
+
+  <repositories>
+    <repository>
+      <snapshots><enabled>true</enabled></snapshots>
+      <releases><enabled>false</enabled></releases>
+      <id>opennms-snapshots</id>
+      <name>OpenNMS Snapshot Maven Repository</name>
+      <url>http://maven.opennms.org/content/groups/opennms.org-snapshot</url>
+    </repository>
+  </repositories>
+
 </project>

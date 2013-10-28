@@ -217,7 +217,8 @@ public class Nms10205aTest extends Nms10205aNetworkBuilder implements Initializi
 
         final List<DataLinkInterface> links = m_dataLinkInterfaceDao.findAll();
         
-        assertEquals(9, links.size());
+        assertEquals(10, links.size());
+        
         
         // Linkd is able to find partially the topology using the next hop router
         // among the core nodes:
@@ -239,8 +240,11 @@ public class Nms10205aTest extends Nms10205aNetworkBuilder implements Initializi
         
         int start = LinkdHelper.getStartPoint(links);
         for (final DataLinkInterface datalinkinterface: links) {
+            //printLink(datalinkinterface);
+            
             int id = datalinkinterface.getId().intValue();
             if (start == id ) {
+<<<<<<< HEAD
             	LinkdHelper.checkLink(delhi, mumbai, 28503, 519, datalinkinterface,m_nodeDao,m_snmpInterfaceDao);
             } else if (start+1 == id ) {
             	LinkdHelper.checkLink(bangalore, mumbai, 2401, 507, datalinkinterface,m_nodeDao,m_snmpInterfaceDao);
@@ -258,6 +262,27 @@ public class Nms10205aTest extends Nms10205aNetworkBuilder implements Initializi
             	LinkdHelper.checkLink(bagmane, bangalore, 1732, 2396, datalinkinterface,m_nodeDao,m_snmpInterfaceDao);
             } else if (start+8 == id ) {
             	LinkdHelper.checkLink(mysore, bagmane, 520, 654, datalinkinterface,m_nodeDao,m_snmpInterfaceDao);
+=======
+                checkLink(mumbai, delhi, 519, 28503, datalinkinterface);
+            } else if (start+1 == id ) {
+                checkLink(mumbai, bangalore, 507, 2401, datalinkinterface);
+            } else if (start+2 == id ) {
+                checkLink(mumbai, bagmane, 977, 534, datalinkinterface);
+            } else if (start+3 == id ) {
+                checkLink(mumbai, mysore, 978, 508, datalinkinterface);
+            } else if (start+4 == id ) {
+                checkLink(mumbai, chennai, 520, 528, datalinkinterface);
+            } else if (start+5 == id ) {
+                checkLink(chennai, mysore, 517, 505, datalinkinterface);
+            } else if (start+6 == id ) {
+               checkLink(delhi, bangalore, 3674, 2397, datalinkinterface);
+            } else if (start+7 == id ) {
+                checkLink(bangalore, bagmane, 2396, 1732, datalinkinterface);
+            } else if (start+8 == id ) {
+                checkLink(bagmane, mysore, 654, 520, datalinkinterface);
+            } else if (start+9 == id ) {
+                checkLink(spaceexsw2, mumbai, 34, 508, datalinkinterface);
+>>>>>>> master
             } else {
             	LinkdHelper.checkLink(mumbai,mumbai,-1,-1,datalinkinterface,m_nodeDao,m_snmpInterfaceDao);
             }
@@ -304,6 +329,7 @@ public class Nms10205aTest extends Nms10205aNetworkBuilder implements Initializi
         example1.setUseCdpDiscovery(false);
         example1.setUseBridgeDiscovery(false);
         example1.setUseIpRouteDiscovery(false);
+        example1.setUseIsisDiscovery(false);
         
         example1.setSaveRouteTable(false);
         example1.setSaveStpInterfaceTable(false);

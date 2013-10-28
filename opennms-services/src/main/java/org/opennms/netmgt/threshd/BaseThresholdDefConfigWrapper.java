@@ -202,12 +202,6 @@ public abstract class BaseThresholdDefConfigWrapper {
         return m_baseDef;
     }
 
-    /*
-     * Threshold merging config will use this to check if a new configuration is the same as other.
-     * The rule will be, if the threshold type (i.e., hiqh, low, relative), the datasource type, and
-     * the threshold expression matches, they are the same, even if they have different triger/rearm
-     * values.
-     */
     /** {@inheritDoc} */
     @Override
     public boolean equals(final Object obj) {
@@ -216,7 +210,16 @@ public abstract class BaseThresholdDefConfigWrapper {
         BaseThresholdDefConfigWrapper o = (BaseThresholdDefConfigWrapper)obj;
         return getType().equals(o.getType())
         && getDsType().equals(o.getDsType())
-        && getDatasourceExpression().equals(o.getDatasourceExpression());
+        && getDatasourceExpression().equals(o.getDatasourceExpression())
+        && (getDsLabel() == o.getDsLabel() || (getDsLabel() != null && getDsLabel().equals(o.getDsLabel())))
+        && (getTriggeredUEI() == o.getTriggeredUEI() || (getTriggeredUEI() != null && getTriggeredUEI().equals(o.getTriggeredUEI())))
+        && (getRearmedUEI() ==  o.getRearmedUEI() || (getRearmedUEI() != null && getRearmedUEI().equals(o.getRearmedUEI())))
+        && getValue() == o.getValue()
+        && getRearm() == o.getRearm()
+        && getTrigger() == o.getTrigger()
+        && getBasethresholddef().getFilterOperator().equals(o.getBasethresholddef().getFilterOperator())
+        && getBasethresholddef().isRelaxed() == o.getBasethresholddef().isRelaxed()
+        && Arrays.equals(getBasethresholddef().getResourceFilter(), o.getBasethresholddef().getResourceFilter());
     }
     
     /** {@inheritDoc} */
@@ -227,28 +230,6 @@ public abstract class BaseThresholdDefConfigWrapper {
             .toHashCode();
     }
 
-    /*
-     * Returns true only if parameter object has exactly the same values for all attributes of
-     * the current object.
-     */
-    /**
-     * <p>identical</p>
-     *
-     * @param o a {@link org.opennms.netmgt.threshd.BaseThresholdDefConfigWrapper} object.
-     * @return a boolean.
-     */
-    public boolean identical(BaseThresholdDefConfigWrapper o) {
-        return equals(o)
-        && (getDsLabel() == o.getDsLabel() || (getDsLabel() != null && getDsLabel().equals(o.getDsLabel())))
-        && (getTriggeredUEI() == o.getTriggeredUEI() || (getTriggeredUEI() != null && getTriggeredUEI().equals(o.getTriggeredUEI())))
-        && (getRearmedUEI() ==  o.getRearmedUEI() || (getRearmedUEI() != null && getRearmedUEI().equals(o.getRearmedUEI())))
-        && getValue() == o.getValue()
-        && getRearm() == o.getRearm()
-        && getTrigger() == o.getTrigger()
-        && getBasethresholddef().getFilterOperator().equals(o.getBasethresholddef().getFilterOperator())
-        && Arrays.equals(getBasethresholddef().getResourceFilter(), o.getBasethresholddef().getResourceFilter());
-    }
-    
     /**
      * <p>merge</p>
      *

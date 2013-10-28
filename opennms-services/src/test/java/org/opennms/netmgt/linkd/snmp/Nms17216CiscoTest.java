@@ -42,6 +42,7 @@ import org.opennms.core.utils.InetAddressUtils;
 import org.opennms.netmgt.config.SnmpPeerFactory;
 import org.opennms.netmgt.snmp.CollectionTracker;
 import org.opennms.netmgt.snmp.SnmpAgentConfig;
+import org.opennms.netmgt.snmp.SnmpStore;
 import org.opennms.netmgt.snmp.SnmpUtils;
 import org.opennms.netmgt.snmp.SnmpWalker;
 import org.opennms.test.JUnitConfigurationEnvironment;

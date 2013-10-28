@@ -289,6 +289,7 @@ public class Nms1055Test extends Nms1055NetworkBuilder implements InitializingBe
             Integer linkid = datalinkinterface.getId();
             if ( linkid == start) {
                 // penrose   -> phoenix     --ip route next hop
+<<<<<<< HEAD
             	LinkdHelper.checkLink(phoenix, penrose, 564, 644, datalinkinterface,m_nodeDao,m_snmpInterfaceDao);
             } else if (linkid == start+1 ) {
                 // penrose  -> delaware --ip route next hop
@@ -302,6 +303,26 @@ public class Nms1055Test extends Nms1055NetworkBuilder implements InitializingBe
             } else if (linkid == start+4) {
                 // austin  -> sanjose --ip route next hop
             	LinkdHelper.checkLink(austin, sanjose, 586, 8562, datalinkinterface,m_nodeDao,m_snmpInterfaceDao);
+=======
+                //checkLink(phoenix, penrose, 564, 644, datalinkinterface);
+                checkLink(penrose, phoenix, 644, 564, datalinkinterface);
+            } else if (linkid == start+1 ) {
+                // penrose  -> delaware --ip route next hop
+                //checkLink(delaware, penrose, 598, 535, datalinkinterface);
+                checkLink(penrose, delaware, 535, 598, datalinkinterface);
+            } else if (linkid == start+2) {
+                // phoenix  -> austin --ip route next hop
+                //checkLink(austin,phoenix,554,565,datalinkinterface);
+                checkLink(phoenix,austin,565,554,datalinkinterface);
+            } else if (linkid == start+3) {
+                // phoenix  -> sanjose --ip route next hop
+                //checkLink(phoenix,sanjose,566,564,datalinkinterface);
+                checkLink(sanjose,phoenix,564,566,datalinkinterface);
+            } else if (linkid == start+4) {
+                // austin  -> sanjose --ip route next hop
+                //checkLink(austin, sanjose, 586, 8562, datalinkinterface);
+                checkLink(sanjose,austin, 8562, 586, datalinkinterface);
+>>>>>>> master
             } else if (linkid == start+5) {
                 // penrose xe-1/0/0 -> delaware xe-1/0/0 --lldp
             	LinkdHelper.checkLink(delaware, penrose, 574, 510, datalinkinterface,m_nodeDao,m_snmpInterfaceDao);
@@ -361,7 +382,8 @@ public class Nms1055Test extends Nms1055NetworkBuilder implements InitializingBe
        example1.setUseCdpDiscovery(false);
        example1.setUseIpRouteDiscovery(false);
        example1.setUseOspfDiscovery(false);
-       
+       example1.setUseIsisDiscovery(false);
+
        example1.setSaveRouteTable(false);
        example1.setSaveStpInterfaceTable(false);
        example1.setSaveStpNodeTable(false);
@@ -413,7 +435,8 @@ public class Nms1055Test extends Nms1055NetworkBuilder implements InitializingBe
         example1.setUseCdpDiscovery(false);
         example1.setUseIpRouteDiscovery(false);
         example1.setUseOspfDiscovery(true);
-        
+        example1.setUseIsisDiscovery(false);
+
         example1.setSaveRouteTable(false);
         example1.setSaveStpInterfaceTable(false);
         example1.setSaveStpNodeTable(false);

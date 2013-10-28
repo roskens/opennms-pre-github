@@ -8,14 +8,14 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.opennms.features.sms-reflector.build</groupId>
   <artifactId>shared-plugin-settings</artifactId>
-  <name>sms-reflector - plugin configuration</name>
+  <name>OpenNMS Features SMS-Reflector - plugin configuration</name>
   <packaging>pom</packaging>
   <modules>
     <module>wrappers</module>
     <module>compiled</module>
   </modules>
   <properties>
-    <spring.version>3.0.7.RELEASE</spring.version>
+    <spring.version>3.2.3.RELEASE</spring.version>
     <spring.osgi.version>1.2.1</spring.osgi.version>
   </properties>
   <build>
