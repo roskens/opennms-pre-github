@@ -76,7 +76,7 @@ public class CriteriaBuilderComponent extends Panel {
          * parsing the criteria string...
          */
         if (!"".equals(criteriaString) && criteriaString != null) {
-            String arr[] = criteriaString.split("\\)\\.");
+            String[] arr = criteriaString.split("\\)\\.");
             for (String criteria : arr) {
                 /**
                  * ...and adding components
@@ -120,18 +120,22 @@ public class CriteriaBuilderComponent extends Panel {
             Button plusButton = new Button();
             plusButton.setStyleName("small");
             plusButton.setIcon(new ThemeResource("../runo/icons/16/document-add.png"));
+            plusButton.setDescription("Add a new criteria entry");
 
             Button minusButton = new Button();
             minusButton.setStyleName("small");
             minusButton.setIcon(new ThemeResource("../runo/icons/16/document-delete.png"));
+            minusButton.setDescription("Remove this criteria entry");
 
             Button upButton = new Button();
             upButton.setStyleName("small");
             upButton.setIcon(new ThemeResource("../runo/icons/16/arrow-up.png"));
+            upButton.setDescription("Move this a criteria entry one position up");
 
             Button downButton = new Button();
             downButton.setStyleName("small");
             downButton.setIcon(new ThemeResource("../runo/icons/16/arrow-down.png"));
+            downButton.setDescription("Move this a criteria entry one position down");
 
             criteriaRestrictionComponent.getRightLayout().addComponent(upButton);
             criteriaRestrictionComponent.getRightLayout().addComponent(downButton);

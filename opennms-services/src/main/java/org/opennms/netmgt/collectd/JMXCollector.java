@@ -50,6 +50,7 @@ import javax.management.ObjectName;
 import javax.management.openmbean.CompositeData;
 
 import org.opennms.core.db.DataSourceFactory;
+import org.opennms.core.utils.AlphaNumeric;
 import org.opennms.core.utils.InetAddressUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -298,8 +299,8 @@ public abstract class JMXCollector implements ServiceCollector {
         JMXNodeInfo nodeInfo = agent.getAttribute(NODE_INFO_KEY);
         Map<String, BeanInfo> mbeans = nodeInfo.getMBeans();
         String collDir = serviceName;
-        
 
+        boolean useMbeanForRrds = ParameterMap.getKeyedBoolean(map, "use-mbean-name-for-rrds", false);
         String port = ParameterMap.getKeyedString(map, "port", null);
         String friendlyName = ParameterMap.getKeyedString(map,"friendly-name", port);
         if (useFriendlyName) {
@@ -333,10 +334,12 @@ public abstract class JMXCollector implements ServiceCollector {
 
                     for (Iterator<BeanInfo> iter = mbeans.values().iterator(); iter.hasNext();) {
                         BeanInfo beanInfo = iter.next();
+                        String mbeanName = beanInfo.getMbeanName();
                         String objectName = beanInfo.getObjectName();
                         String excludeList = beanInfo.getExcludes();
                         //All JMX collected values are per node
-                        AttributeGroupType attribGroupType=new AttributeGroupType(fixGroupName(objectName),"all");
+                        String obj = useMbeanForRrds ? mbeanName : objectName;
+                        AttributeGroupType attribGroupType=new AttributeGroupType(fixGroupName(obj),"all");
                         
                         List<String> attribNames = beanInfo.getAttributeNames();
                         List<String> compAttribNames = beanInfo.getCompositeAttributeNames();
@@ -356,7 +359,7 @@ public abstract class JMXCollector implements ServiceCollector {
                         
                         String[] attrNames = attribNames.toArray(new String[attribNames.size()]);
 
-                        if (objectName.indexOf("*") == -1) {      
+                        if (objectName.indexOf('*') == -1) {      
                             LOG.debug("{} Collector - getAttributes: {}, # attributes: {}, # composite attribute members: {}", serviceName, objectName, attrNames.length, compAttribNames.size());
                             try {
                                 ObjectName oName = new ObjectName(objectName);
@@ -511,7 +514,7 @@ public abstract class JMXCollector implements ServiceCollector {
         if (objectName == null) {
             return "NULL";
         }
-        return objectName.replaceAll("[.:=,]", "_");
+        return AlphaNumeric.parseAndReplace(objectName, '_');
     }
     
     /*
@@ -529,7 +532,7 @@ public abstract class JMXCollector implements ServiceCollector {
             StringTokenizer st = new StringTokenizer(substitutions, ",");
             while (st.hasMoreTokens()) {
                 String token = st.nextToken();
-                int index = token.indexOf("|");
+                int index = token.indexOf('|');
                 if (newKey.equals(token.substring(0, index))) {
                     newKey = token.substring(index + 1);
                 }

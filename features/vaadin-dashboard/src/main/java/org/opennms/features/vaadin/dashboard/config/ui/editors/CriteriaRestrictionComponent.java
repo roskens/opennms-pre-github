@@ -97,6 +97,7 @@ public class CriteriaRestrictionComponent extends HorizontalLayout {
         m_restrictionSelect.setMultiSelect(false);
         m_restrictionSelect.setNewItemsAllowed(false);
         m_restrictionSelect.setImmediate(true);
+        m_restrictionSelect.setDescription("Restriction selection");
 
         for (CriteriaRestriction criteriaRestriction : CriteriaRestriction.values()) {
             m_restrictionSelect.addItem(criteriaRestriction.name());
@@ -105,7 +106,7 @@ public class CriteriaRestrictionComponent extends HorizontalLayout {
         /**
          * Parsing the criteria
          */
-        final String arr[] = restriction.split("[(),]+");
+        final String[] arr = restriction.split("[(),]+");
 
         CriteriaRestriction criteriaRestriction = CriteriaRestriction.valueOf(arr[0]);
 
@@ -162,7 +163,7 @@ public class CriteriaRestrictionComponent extends HorizontalLayout {
      * @param criteriaRestriction the new {@link CriteriaRestriction}
      * @param arr                 the values to be set
      */
-    private void refreshComponents(CriteriaRestriction criteriaRestriction, String arr[]) {
+    private void refreshComponents(CriteriaRestriction criteriaRestriction, String[] arr) {
         for (AbstractComponent abstractComponent : m_componentList) {
             m_leftLayout.removeComponent(abstractComponent);
         }
