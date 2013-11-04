@@ -76,7 +76,6 @@
     <module>vaadin-dashlets</module>
 
       <!-- OpenNMS Backup -->
-    <module>opennms-backup-api</module>
-    <module>opennms-backup-ui</module>
+    <module>opennms-backup</module>
   </modules>
 </project>
