@@ -1,4 +1,4 @@
-package org.opennms.features.backup.light;
+package org.opennms.features.backup.client.api;
 
 import java.util.LinkedHashSet;
 import java.util.Set;

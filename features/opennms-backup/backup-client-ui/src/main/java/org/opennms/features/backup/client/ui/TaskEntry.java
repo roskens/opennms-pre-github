@@ -25,7 +25,7 @@
  *     http://www.opennms.org/
  *     http://www.opennms.com/
  *******************************************************************************/
-package org.opennms.features.backup.ui;
+package org.opennms.features.backup.client.ui;
 
 import com.vaadin.server.ThemeResource;
 import com.vaadin.ui.Alignment;

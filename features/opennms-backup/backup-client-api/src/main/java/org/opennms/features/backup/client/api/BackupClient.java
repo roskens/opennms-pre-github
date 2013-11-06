@@ -1,9 +1,10 @@
-package org.opennms.features.backup.light;
+package org.opennms.features.backup.client.api;
 
 import com.opennms.saas.endpoint.backup.api.model.*;
 import org.glassfish.jersey.media.multipart.FormDataBodyPart;
 import org.glassfish.jersey.media.multipart.FormDataMultiPart;
 import org.glassfish.jersey.media.multipart.MultiPartFeature;
+import org.springframework.scheduling.quartz.SchedulerFactoryBean;
 
 import javax.ws.rs.client.*;
 import javax.ws.rs.core.MediaType;
@@ -15,10 +16,29 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-
 public class BackupClient {
-
+    //private static final Logger LOG = LoggerFactory.getLogger(BackupClient.class);
     private LocalBackupConfig m_localBackupConfig;
+    private SchedulerFactoryBean schedulerFactory;
+
+
+    public BackupClient() {
+        LocalBackupConfig localBackupConfig = new LocalBackupConfig();
+        localBackupConfig.setKeyId("8062629b-d401-426c-b7b3-77d51eb52e65");
+        localBackupConfig.setBackupServiceLocation("http://localhost:8080/backup-war/endpoint/backups");
+        localBackupConfig.setLocalBackupDirectory("/Users/chris/Desktop/backup");
+        localBackupConfig.setBaseDirectory("/opt/opennms");
+        localBackupConfig.setPgDumpLocation("/Library/PostgreSQL/9.2/bin/pg_dump");
+        localBackupConfig.setMaxConcurrentUploads(4);
+
+        localBackupConfig.addDirectory("etc");
+        localBackupConfig.addDirectory("share");
+        localBackupConfig.addDirectory("dbdump");
+
+        localBackupConfig.setSecret("password");
+
+        m_localBackupConfig = localBackupConfig;
+    }
 
     public BackupClient(LocalBackupConfig localBackupConfig) {
         m_localBackupConfig = localBackupConfig;
@@ -26,6 +46,10 @@ public class BackupClient {
 
     public void setLocalBackupConfig(LocalBackupConfig localBackupConfig) {
         m_localBackupConfig = localBackupConfig;
+    }
+
+    public List<BackupInfo> list(BackupConfig backupConfig) {
+        return remoteList();
     }
 
     public BackupConfig lookupBackupConfig() {
@@ -73,11 +97,12 @@ public class BackupClient {
         List<ChunkInfo> chunkInfoList = fileInfo.getChunkInfos();
         int c = 0;
 
-        Response response = remoteInformAboutFiles(backupInfo, fileInfo);
+        /*Response response = */
+        remoteInformAboutFiles(backupInfo, fileInfo);
 
-        if (response.getStatus() != 200) {
-            throw new BackupClientException("Remote server returned status code " + response.getStatus());
-        }
+//        if (response.getStatus() != 200) {
+//            throw new BackupClientException("Remote server returned status code " + response.getStatus());
+//        }
 
         int numberOfConcurrentUploads = Math.min(m_localBackupConfig.getMaxConcurrentUploads(), backupConfig.getMaxConcurrentUploads());
 
@@ -108,11 +133,12 @@ public class BackupClient {
                         inputStream.close();
                         bufferedOutputStream.close();
 
-                        Response uploadResponse = remoteUpload(backupInfo, chunkInfo, zipArchive.getInputStreamForChunk(chunkToUpload));
+                       /* Response uploadResponse = */
+                        remoteUpload(backupInfo, chunkInfo, zipArchive.getInputStreamForChunk(chunkToUpload));
 
-                        if (uploadResponse.getStatus() != 200) {
-                            // TODO error handling
-                        }
+//                        if (uploadResponse.getStatus() != 200) {
+//                            // TODO error handling
+//                        }
 
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -158,6 +184,7 @@ public class BackupClient {
         return response.readEntity(BackupInfo.class);
     }
 
+
     private BackupConfig remoteGetConfig() {
         Client client = ClientBuilder.newClient();
 
@@ -171,6 +198,7 @@ public class BackupClient {
 
         return response.readEntity(BackupConfig.class);
     }
+
 
     private BackupInfo remoteFinishBackup(BackupInfo backupInfo) {
         Client client = ClientBuilder.newClient();
@@ -213,6 +241,7 @@ public class BackupClient {
         return response;
     }
 
+
     private Response remoteUpload(BackupInfo backupInfo, ChunkInfo chunkInfo, InputStream inputStream) {
         FormDataMultiPart formDataMultiPart = new FormDataMultiPart();
         formDataMultiPart.bodyPart(new FormDataBodyPart("file", inputStream, MediaType.APPLICATION_OCTET_STREAM_TYPE));
@@ -229,7 +258,104 @@ public class BackupClient {
         return invocationBuilder.post(Entity.entity(formDataMultiPart, MediaType.MULTIPART_FORM_DATA_TYPE));
     }
 
-    public static void main(String args[]) {
+    private List<BackupInfo> remoteList() {
+        Client client = ClientBuilder.newClient();
+
+        WebTarget webTarget = client.target(m_localBackupConfig.getBackupServiceLocation())
+                .path(m_localBackupConfig.getKeyId());
+
+        Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON_TYPE);
+
+        Response response = invocationBuilder.get();
+
+        return response.readEntity(List.class);
+    }
+
+//    private List<BackupInfo> remoteList() {
+//        Client client = Client.create();
+//
+//        WebResource webResource = client.resource(m_localBackupConfig.getBackupServiceLocation())
+//                .path(m_localBackupConfig.getKeyId());
+//
+//        return webResource.getRequestBuilder().accept(MediaType.APPLICATION_JSON_TYPE).get(List.class);
+//    }
+//
+//    private BackupInfo remoteInfo(BackupInfo backupInfo) {
+//        Client client = Client.create();
+//
+//        WebResource webResource = client.resource(m_localBackupConfig.getBackupServiceLocation())
+//                .path(m_localBackupConfig.getKeyId())
+//                .path(backupInfo.getId());
+//
+//        return webResource.getRequestBuilder().accept(MediaType.APPLICATION_JSON_TYPE).get(BackupInfo.class);
+//    }
+//
+//    private BackupConfig remoteGetConfig() {
+//        Client client = Client.create();
+//
+//        WebResource webResource = client.resource(m_localBackupConfig.getBackupServiceLocation())
+//                .path(m_localBackupConfig.getKeyId())
+//                .path("config");
+//
+//        return webResource.getRequestBuilder().accept(MediaType.APPLICATION_JSON_TYPE).get(BackupConfig.class);
+//    }
+//
+//
+//    private BackupInfo remoteFinishBackup(BackupInfo backupInfo) {
+//        Client client = Client.create();
+//
+//        WebResource webResource = client.resource(m_localBackupConfig.getBackupServiceLocation())
+//                .path(m_localBackupConfig.getKeyId())
+//                .path(backupInfo.getId())
+//                .path("finish");
+//
+//        return webResource.getRequestBuilder().accept(MediaType.APPLICATION_JSON_TYPE).post(BackupInfo.class);
+//    }
+//
+//
+//    private BackupInfo remoteInitalizeBackup() {
+//        Client client = Client.create();
+//
+//        WebResource webResource = client.resource(m_localBackupConfig.getBackupServiceLocation())
+//                .path(m_localBackupConfig.getKeyId());
+//
+//        return webResource.getRequestBuilder().accept(MediaType.APPLICATION_JSON_TYPE).post(BackupInfo.class);
+//    }
+//
+//
+//    private void remoteInformAboutFiles(BackupInfo backupInfo, FileInfo fileInfo) {
+//        Client client = Client.create();
+//
+//        WebResource webResource = client.resource(m_localBackupConfig.getBackupServiceLocation())
+//                .path(m_localBackupConfig.getKeyId())
+//                .path(backupInfo.getId())
+//                .path("fileInfo");
+//
+//        webResource.getRequestBuilder().accept(MediaType.APPLICATION_JSON_TYPE).post(fileInfo);
+//    }
+//
+//
+//    private void remoteUpload(BackupInfo backupInfo, ChunkInfo chunkInfo, InputStream inputStream) {
+//        ClientConfig config = new DefaultClientConfig();
+//
+//        config.getClasses().add(MultiPart.class);
+//
+//        Client client = Client.create(config);
+//
+//        WebResource webResource = client.resource(m_localBackupConfig.getBackupServiceLocation())
+//                .path(m_localBackupConfig.getKeyId())
+//                .path(backupInfo.getId())
+//                .path(chunkInfo.getHash());
+//
+//        FormDataMultiPart formDataMultiPart = new FormDataMultiPart();
+//        formDataMultiPart.bodyPart(new FormDataBodyPart("file", inputStream, MediaType.APPLICATION_OCTET_STREAM_TYPE));
+//        FormDataBodyPart f = new FormDataBodyPart();
+//
+//        webResource.getRequestBuilder().accept(MediaType.APPLICATION_JSON_TYPE).post(formDataMultiPart);
+//    }
+
+
+    public static void test() {
 
         LocalBackupConfig localBackupConfig = new LocalBackupConfig();
         localBackupConfig.setKeyId("8062629b-d401-426c-b7b3-77d51eb52e65");

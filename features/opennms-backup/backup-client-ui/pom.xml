@@ -3,7 +3,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <relativePath>../topology-map/poms/compiled/</relativePath>
+        <relativePath>../../topology-map/poms/compiled/</relativePath>
         <groupId>org.opennms.features.topology.build</groupId>
         <artifactId>compiled-bundle-settings</artifactId>
         <version>1.13.0-SNAPSHOT</version>
@@ -12,12 +12,10 @@
     <artifactId>backup-client-ui</artifactId>
     <packaging>bundle</packaging>
     <name>OpenNMS Features :: Backup :: UI</name>
-    <description>
-        OpenNMS Vaadin Backup
-    </description>
+    <description>OpenNMS Vaadin Backup</description>
     <properties>
         <bundle.symbolicName>org.opennms.features.opennms-backup-ui</bundle.symbolicName>
-        <bundle.namespace>org.opennms.features.backup.ui</bundle.namespace>
+        <bundle.namespace>org.opennms.features.backup.client.ui</bundle.namespace>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <guava.version>10.0.1</guava.version>
     </properties>
@@ -70,9 +68,6 @@
                 <executions>
                     <execution>
                         <configuration>
-                            <!-- if you don't specify any modules, the plugin will find them -->
-                            <!-- <modules> <module>com.vaadin.demo.mobilemail.gwt.ColorPickerWidgetSet</module>
-                                </modules> -->
                         </configuration>
                         <goals>
                             <goal>resources</goal>
@@ -101,7 +96,6 @@
                 <configuration>
                     <bundles>
                         <bundle>mvn:org.opennms.features/backup-client-ui/${project.version}</bundle>
-                        <bundle>wrap:mvn:commons-logging/commons-logging/1.1.1</bundle>
                     </bundles>
                     <features>
                         <feature>vaadin</feature>
@@ -167,18 +161,6 @@
             <version>${project.version}</version>
         </dependency>
 
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <!--
-                <dependency>
-                    <groupId>org.slf4j</groupId>
-                    <artifactId>slf4j-api</artifactId>
-                    <scope>provided</scope>
-                </dependency>
-        -->
         <!-- OSGi Dependencies -->
 
         <dependency>
@@ -201,6 +183,13 @@
         <!-- Vaadin Dependencies -->
 
         <dependency>
+            <groupId>org.opennms.osgi</groupId>
+            <artifactId>opennms-osgi-core</artifactId>
+            <version>${project.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
             <groupId>org.opennms.osgi.features.topology</groupId>
             <artifactId>vaadin</artifactId>
             <type>pom</type>
@@ -218,13 +207,6 @@
             <groupId>org.opennms</groupId>
             <artifactId>opennms-web-api</artifactId>
             <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>commons-logging</groupId>
-            <artifactId>commons-logging</artifactId>
-            <version>1.1.1</version>
-            <scope>compile</scope>
         </dependency>
 
     </dependencies>

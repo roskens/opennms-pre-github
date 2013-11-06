@@ -25,10 +25,9 @@
  *     http://www.opennms.org/
  *     http://www.opennms.com/
  *******************************************************************************/
-package org.opennms.features.backup.ui;
+package org.opennms.features.backup.client.ui;
 
-import com.vaadin.ui.UI;
-import org.ops4j.pax.vaadin.AbstractApplicationFactory;
+import org.opennms.osgi.OnmsVaadinUIFactory;
 import org.osgi.service.blueprint.container.BlueprintContainer;
 
 /**
@@ -37,15 +36,7 @@ import org.osgi.service.blueprint.container.BlueprintContainer;
  * @author Christian Pape
  * @author Marcus Hellberg (marcus@vaadin.com)
  */
-public class BackupUIFactory extends AbstractApplicationFactory {
-    /**
-     * The {@link BlueprintContainer} associated with this object
-     */
-    private final BlueprintContainer m_blueprintContainer;
-    /**
-     * The bean name
-     */
-    private final String m_beanName;
+public class BackupUIFactory extends OnmsVaadinUIFactory {
 
     /**
      * Constructor for instantiating a new factory.
@@ -54,28 +45,7 @@ public class BackupUIFactory extends AbstractApplicationFactory {
      * @param beanName  the beam name to use
      */
     public BackupUIFactory(BlueprintContainer container, String beanName) {
-        m_blueprintContainer = container;
-        m_beanName = beanName;
+        super(BackupUI.class, container, beanName);
     }
 
-
-    /**
-     * Returns the application's instance.
-     *
-     * @return the application instance
-     */
-    @Override
-    public UI getUI() {
-        return (UI) m_blueprintContainer.getComponentInstance(m_beanName);
-    }
-
-    /**
-     * Returns the {@link Class} of the application's instance
-     *
-     * @return class of the application
-     */
-    @Override
-    public Class<? extends UI> getUIClass() {
-        return BackupUI.class;
-    }
 }

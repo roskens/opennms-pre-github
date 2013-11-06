@@ -1,4 +1,4 @@
-package org.opennms.features.backup.light;
+package org.opennms.features.backup.client.api;
 
 import org.exolab.castor.xml.MarshalException;
 import org.exolab.castor.xml.ValidationException;

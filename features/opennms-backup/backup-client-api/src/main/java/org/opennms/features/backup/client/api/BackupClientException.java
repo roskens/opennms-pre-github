@@ -1,4 +1,4 @@
-package org.opennms.features.backup.light;
+package org.opennms.features.backup.client.api;
 
 public class BackupClientException extends RuntimeException {
     public BackupClientException(String message) {

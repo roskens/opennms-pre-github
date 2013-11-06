@@ -1,9 +1,9 @@
 <blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd">
 
-    <bean id="backupService" class="org.opennms.features.backup.api.client.BackupService" scope="singleton"/>
+    <bean id="backupClient" class="org.opennms.features.backup.client.api.BackupClient" scope="singleton"/>
 
-    <bean id="backupUI" class="org.opennms.features.backup.ui.BackupUI" scope="prototype">
-        <property name="backupService" ref="backupService"/>
+    <bean id="backupUI" class="org.opennms.features.backup.client.ui.BackupUI" scope="prototype">
+        <property name="backupClient" ref="backupClient"/>
     </bean>
 
     <bean id="backupUILink" class="org.opennms.features.vaadin.dashboard.config.ui.AdminPageNavEntry">
@@ -11,7 +11,7 @@
         <property name="name" value="Backup Config UI"/>
     </bean>
 
-    <bean id="backupUIFactory" class="org.opennms.features.backup.ui.BackupUIFactory">
+    <bean id="backupUIFactory" class="org.opennms.features.backup.client.ui.BackupUIFactory">
         <!-- Blueprint container bean -->
         <argument ref="blueprintContainer"/>
         <!-- Bean id of the Vaadin application prototype -->
