@@ -124,11 +124,9 @@
     <module>opennms-provision</module>
     <module>opennms-enterprise-reporting</module>
     <module>opennms-services</module>
-    <module>opennms-import</module>
     <module>opennms-jetty</module>
     <module>opennms-correlation</module>
     <module>opennms-reporting</module>
-    <module>opennms-qosdaemon</module>
     <module>opennms-web-api</module>
     <module>opennms-web-dependencies</module>
     <module>opennms-webapp</module>
@@ -1197,6 +1195,11 @@
       </dependency>
       <dependency>
         <groupId>org.opennms.core</groupId>
+        <artifactId>org.opennms.core.upgrade</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.opennms.core</groupId>
         <artifactId>org.opennms.core.xml</artifactId>
         <version>${project.version}</version>
       </dependency>
@@ -1837,11 +1840,6 @@
         <version>${project.version}</version>
       </dependency>
       <dependency>
-        <groupId>org.opennms</groupId>
-        <artifactId>opennms-import</artifactId>
-        <version>${project.version}</version>
-      </dependency>
-      <dependency>
         <groupId>org.opennms.features</groupId>
         <artifactId>opennms-integration-otrs</artifactId>
         <version>${project.version}</version>
@@ -1918,11 +1916,6 @@
         <version>${project.version}</version>
       </dependency>
       <dependency>
-        <groupId>org.opennms</groupId>
-        <artifactId>opennms-qosdaemon</artifactId>
-        <version>${project.version}</version>
-      </dependency>
-      <dependency>
         <groupId>org.opennms.assemblies</groupId>
         <artifactId>org.opennms.assemblies.jmx-config-generator-onejar</artifactId>
         <version>${project.version}</version>
@@ -1961,6 +1954,11 @@
       <dependency>
         <groupId>org.opennms</groupId>
         <artifactId>opennms-rrd-api</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.opennms</groupId>
+        <artifactId>opennms-rrd-model</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
