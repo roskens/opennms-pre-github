@@ -216,11 +216,11 @@
     </dependency>
     <dependency>
       <groupId>org.opennms</groupId>
-      <artifactId>opennms-import</artifactId>
+      <artifactId>opennms-reportd</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.opennms</groupId>
-      <artifactId>opennms-reportd</artifactId>
+      <groupId>org.opennms.core</groupId>
+      <artifactId>org.opennms.core.upgrade</artifactId>
     </dependency>
     <!-- begin provisiond dependencies -->
     <dependency>
@@ -292,6 +292,11 @@
       <groupId>org.opennms</groupId>
       <artifactId>opennms-reporting</artifactId>
       <scope>runtime</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.opennms</groupId>
+      <artifactId>opennms-rrd-model</artifactId>
+      <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>org.opennms</groupId>
@@ -635,10 +640,6 @@
     <dependency>
       <groupId>postgresql</groupId>
       <artifactId>postgresql</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.opennms</groupId>
-      <artifactId>opennms-qosdaemon</artifactId>
     </dependency>
     <dependency>
       <groupId>axis</groupId>
