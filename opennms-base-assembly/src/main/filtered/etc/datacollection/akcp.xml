@@ -2,17 +2,17 @@
 
 <datacollection-group name="AKCP sensorProbe">
 
-  <!-- AKCP sensorProbe -->
-  <resourceType name="hhmsSensorArrayTemp" label="AKCP" resourceLabel="${spTempDescr}">
+<!-- AKCP sensorProbe -->
+  <resourceType name="spTempIndex" label="Temperature sensor" resourceLabel="Temperature: ${spTempDescr}">
     <persistenceSelectorStrategy class="org.opennms.netmgt.collectd.PersistAllSelectorStrategy"/>
     <storageStrategy class="org.opennms.netmgt.dao.support.IndexStorageStrategy"/>
   </resourceType>
-  <resourceType name="hhmsSensorArrayHumid" label="AKCP" resourceLabel="${spHumidityDescr}">
+  <resourceType name="spHumidityIndex" label="Humidity sensor" resourceLabel="Humidity: ${spHumidityDescr}">
     <persistenceSelectorStrategy class="org.opennms.netmgt.collectd.PersistAllSelectorStrategy"/>
     <storageStrategy class="org.opennms.netmgt.dao.support.IndexStorageStrategy"/>
   </resourceType>
 
-  <!-- AKCP securityProbe -->
+<!-- AKCP securityProbe -->
   <resourceType name="secTempIndex" label="Temperature sensor" resourceLabel="(Index: ${secTempIdx}) Temperature: ${secTempDescr}">
     <persistenceSelectorStrategy class="org.opennms.netmgt.collectd.PersistAllSelectorStrategy"/>
     <storageStrategy class="org.opennms.netmgt.dao.support.IndexStorageStrategy"/>
@@ -39,13 +39,22 @@
   </resourceType>
 
   <!-- AKCP sensorProbe -->
-  <group name = "akcp-sensor-temperature" ifType = "all">
-    <mibObj oid=".1.3.6.1.4.1.3854.1.2.2.1.16.1.1" instance="hhmsSensorArrayTemp" alias="spTempDescr"  type="string" />
-    <mibObj oid=".1.3.6.1.4.1.3854.1.2.2.1.16.1.3" instance="hhmsSensorArrayTemp" alias="spTempDegree" type="gauge" />
+  <group name = "sensorProbe-temperature" ifType = "all">
+    <mibObj oid=".1.3.6.1.4.1.3854.1.2.2.1.16.1.1" instance="spTempIndex" alias="spTempDescr"  type="string" />
+    <mibObj oid=".1.3.6.1.4.1.3854.1.2.2.1.16.1.3" instance="spTempIndex" alias="spTempDegree" type="gauge" />
+    <mibObj oid=".1.3.6.1.4.1.3854.1.2.2.1.16.1.7" instance="spTempIndex" alias="spTempHWarn" type="gauge" />
+    <mibObj oid=".1.3.6.1.4.1.3854.1.2.2.1.16.1.8" instance="spTempIndex" alias="spTempHCrit" type="gauge" />
+    <mibObj oid=".1.3.6.1.4.1.3854.1.2.2.1.16.1.9" instance="spTempIndex" alias="spTempLWarn" type="gauge" />
+    <mibObj oid=".1.3.6.1.4.1.3854.1.2.2.1.16.1.10" instance="spTempIndex" alias="spTempLCrit" type="gauge" />
   </group>
-  <group name = "akcp-sensor-humidity" ifType = "all">
-    <mibObj oid=".1.3.6.1.4.1.3854.1.2.2.1.17.1.1" instance="hhmsSensorArrayHumid" alias="spHumidityDescr"   type="string"/>
-    <mibObj oid=".1.3.6.1.4.1.3854.1.2.2.1.17.1.3" instance="hhmsSensorArrayHumid" alias="spHumidityPercent" type="gauge"/>
+
+  <group name = "sensorProbe-humidity" ifType = "ignore">
+    <mibObj oid=".1.3.6.1.4.1.3854.1.2.2.1.17.1.1" instance="spHumidityIndex" alias="spHumidityDescr"   type="string"/>
+    <mibObj oid=".1.3.6.1.4.1.3854.1.2.2.1.17.1.3" instance="spHumidityIndex" alias="spHumidityPercent" type="gauge"/>
+    <mibObj oid=".1.3.6.1.4.1.3854.1.2.2.1.17.1.7" instance="spHumidityIndex" alias="spHumidityHWarn" type="gauge" />
+    <mibObj oid=".1.3.6.1.4.1.3854.1.2.2.1.17.1.8" instance="spHumidityIndex" alias="spHumidityHCrit" type="gauge" />
+    <mibObj oid=".1.3.6.1.4.1.3854.1.2.2.1.17.1.9" instance="spHumidityIndex" alias="spHumidityLWarn" type="gauge" />
+    <mibObj oid=".1.3.6.1.4.1.3854.1.2.2.1.17.1.10" instance="spHumidityIndex" alias="spHumidityLCrit" type="gauge" />
   </group>
 
   <!-- AKCP securityProbe -->
@@ -113,8 +122,8 @@
   <systemDef name = "AKCP sensorProbe">
     <sysoid>.1.3.6.1.4.1.3854.1</sysoid>
     <collect>
-      <includeGroup>akcp-sensor-temperature</includeGroup>
-      <includeGroup>akcp-sensor-humidity</includeGroup>
+      <includeGroup>sensorProbe-humidity</includeGroup>
+      <includeGroup>sensorProbe-temperature</includeGroup>
       <includeGroup>securityProbe-temperature</includeGroup>
       <includeGroup>securityProbe-humidity</includeGroup>
 
