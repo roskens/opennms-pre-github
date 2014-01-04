@@ -12,14 +12,13 @@
     <name>OpenNMS Protocols Jolokia Support</name>
 
     <dependencies>
-       <dependency>
+        <dependency>
             <groupId>org.opennms.features.poller</groupId>
             <artifactId>org.opennms.features.poller.api</artifactId>
-            <type>jar</type>    
-      </dependency>
-      <dependency>
-        <groupId>org.jolokia</groupId>
-        <artifactId>jolokia-client-java</artifactId>
-      </dependency>
+        </dependency>
+        <dependency>
+            <groupId>org.jolokia</groupId>
+            <artifactId>jolokia-client-java</artifactId>
+        </dependency>
     </dependencies>
 </project>
