@@ -28,9 +28,11 @@ package org.opennms.netmgt.poller.monitors;
 import java.net.InetAddress;
 import java.util.Map;
 import org.jolokia.client.J4pClient;
+import org.jolokia.client.J4pClientBuilder;
 import org.jolokia.client.request.*;
 import org.jolokia.client.exception.*;
 
+import org.opennms.netmgt.poller.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -38,11 +40,8 @@ import org.opennms.core.utils.InetAddressUtils;
 import org.opennms.core.utils.ParameterMap;
 import org.opennms.core.utils.TimeoutTracker;
 import org.opennms.netmgt.model.PollStatus;
-import org.opennms.netmgt.poller.Distributable;
-import org.opennms.netmgt.poller.DistributionContext;
-import org.opennms.netmgt.poller.MonitoredService;
-import org.opennms.netmgt.poller.NetworkInterface;
-import org.opennms.netmgt.poller.NetworkInterfaceNotSupportedException;
+
+import javax.management.MalformedObjectNameException;
 
 /**
  * This class is designed to be used by the service poller framework to test the
@@ -156,19 +155,19 @@ final public class JolokiaBeanMonitor extends AbstractServiceMonitor {
         LOGGER.debug("poll: final URL address = " + strURL);
 
         // Give it a whirl
-        PollStatus serviceStatus = PollStatus.unavailable();
+        PollStatus serviceStatus = PollStatus.unknown("Initialized");
 
         for (tracker.reset(); tracker.shouldRetry() && !serviceStatus.isAvailable(); tracker.nextAttempt()) {
             try {
                 tracker.startAttempt();
-
-                J4pClient j4pClient = new J4pClient(strURL);
-                j4pClient.connectionTimeout(tracker.getSoTimeout());
+                J4pClientBuilder j4pClientBuilder = new J4pClientBuilder();
+                j4pClientBuilder.url(strURL).connectionTimeout(tracker.getConnectionTimeout()).socketTimeout(tracker.getSoTimeout());
 
                 if (strUser != null && strPasswd != null) {
-                    j4pClient.user(strUser);
-                    j4pClient.password(strPasswd);
+                    j4pClientBuilder.user(strUser).password(strPasswd);
                 }
+
+                J4pClient j4pClient = j4pClientBuilder.build();
 
                 LOGGER.debug("JolokiaBeanMonitor: connected to URLhost: " + strURL);
 
@@ -221,7 +220,7 @@ final public class JolokiaBeanMonitor extends AbstractServiceMonitor {
                 }
 
                 LOGGER.debug("poll: banner = " + response);
-                LOGGER.debug("poll: responseTime= " + responseTime + "ms");
+                LOGGER.debug("poll: responseTime = " + responseTime + "ms");
 
                 //Could it be a regex?
                 if (strBannerMatch.charAt(0) == '~') {
@@ -231,7 +230,7 @@ final public class JolokiaBeanMonitor extends AbstractServiceMonitor {
                         serviceStatus = PollStatus.available(responseTime);
                     }
                 } else {
-                    if (response.indexOf(strBannerMatch) > -1) {
+                    if (response.contains(strBannerMatch)) {
                         serviceStatus = PollStatus.available(responseTime);
                     } else {
                         serviceStatus = PollStatus.unavailable("Did not find expected Text '" + strBannerMatch + "'");
@@ -239,19 +238,25 @@ final public class JolokiaBeanMonitor extends AbstractServiceMonitor {
                 }
 
             } catch (J4pConnectException e) {
-                serviceStatus = logDown(Level.WARN, "Connection exception for address: " + ipv4Addr + ":" + port, e);
+                String reason = "Connection exception for address: " + ipv4Addr + ":" + port + " " + e.getMessage();
+                LOGGER.debug(reason, e);
+                serviceStatus = PollStatus.unavailable(reason);
                 break;
             } catch (J4pRemoteException e) {
-                serviceStatus = logDown(Level.DEBUG, "Remote exception: " + e);
-            } catch (Exception e) {
-                serviceStatus = logDown(Level.DEBUG, "Exception: " + e);
+                String reason = "Remote exception from J4pRemote: "+ e.getMessage();
+                LOGGER.debug(reason, e);
+                serviceStatus = PollStatus.unavailable(reason);
+            } catch (MalformedObjectNameException e) {
+                String reason = "Parameters for Jolokia are malformed: "+ e.getMessage();
+                LOGGER.debug(reason, e);
+                serviceStatus = PollStatus.unavailable(reason);
+            } catch (J4pException e) {
+                String reason = "J4pExecptin during Jolokia monitor call: "+ e.getMessage();
+                LOGGER.debug(reason, e);
+                serviceStatus = PollStatus.unavailable(reason);
             }
         }
 
-        //
-        // return the status of the service
-        //
         return serviceStatus;
     }
-
 }
