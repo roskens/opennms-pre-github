@@ -31,6 +31,9 @@ import org.jolokia.client.J4pClient;
 import org.jolokia.client.request.*;
 import org.jolokia.client.exception.*;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import org.opennms.core.utils.InetAddressUtils;
 import org.opennms.core.utils.ParameterMap;
 import org.opennms.core.utils.TimeoutTracker;
@@ -82,7 +85,7 @@ final public class JolokiaBeanMonitor extends AbstractServiceMonitor {
     public static final String PARAMETER_METHODINPUT2 = "input2";
 
     public static final String DEFAULT_URL = "http://${ipaddr}:${port}/jolokia";
-
+    private static final Logger LOGGER = LoggerFactory.getLogger(JolokiaBeanMonitor.class);
     /**
      * {@inheritDoc}
      *
@@ -103,7 +106,6 @@ final public class JolokiaBeanMonitor extends AbstractServiceMonitor {
         //
         //
         // Get interface address from NetworkInterface
-        //
         if (iface.getType() != NetworkInterface.TYPE_INET) {
             throw new NetworkInterfaceNotSupportedException("Unsupported interface type, only TYPE_INET currently supported");
         }
@@ -111,7 +113,6 @@ final public class JolokiaBeanMonitor extends AbstractServiceMonitor {
         TimeoutTracker tracker = new TimeoutTracker(parameters, DEFAULT_RETRY, DEFAULT_TIMEOUT);
 
         // Port
-        //
         int port = ParameterMap.getKeyedInteger(parameters, PARAMETER_PORT, DEFAULT_PORT);
 
         //URL
@@ -130,11 +131,9 @@ final public class JolokiaBeanMonitor extends AbstractServiceMonitor {
         String strAttrPath = ParameterMap.getKeyedString(parameters, PARAMETER_ATTRPATH, null);
 
         //BeanName
-        //
         String strBeanName = ParameterMap.getKeyedString(parameters, PARAMETER_BEANNAME, null);
 
         //MethodName
-        //
         String strMethodName = ParameterMap.getKeyedString(parameters, PARAMETER_METHODNAME, null);
 
         //Optional Inputs
@@ -148,19 +147,15 @@ final public class JolokiaBeanMonitor extends AbstractServiceMonitor {
         InetAddress ipv4Addr = (InetAddress) iface.getAddress();
 
         final String hostAddress = InetAddressUtils.str(ipv4Addr);
-//        if (log().isDebugEnabled()) {
-//            log().debug("poll: address = " + hostAddress + ", port = " + port + ", " + tracker);
-//        }
+
+        LOGGER.debug("poll: address = " + hostAddress + ", port = " + port + ", " + tracker);
 
         strURL = strURL.replace("${ipaddr}", hostAddress);
         strURL = strURL.replace("${port}", ((Integer) port).toString());
 
-//        if (log().isDebugEnabled()) {
-//            log().debug("poll: final URL address = " + strURL);
-//        }
+        LOGGER.debug("poll: final URL address = " + strURL);
 
         // Give it a whirl
-        //
         PollStatus serviceStatus = PollStatus.unavailable();
 
         for (tracker.reset(); tracker.shouldRetry() && !serviceStatus.isAvailable(); tracker.nextAttempt()) {
@@ -175,7 +170,7 @@ final public class JolokiaBeanMonitor extends AbstractServiceMonitor {
                     j4pClient.password(strPasswd);
                 }
 
-//                log().debug("JolokiaBeanMonitor: connected to URLhost: " + strURL);
+                LOGGER.debug("JolokiaBeanMonitor: connected to URLhost: " + strURL);
 
                 // We're connected, so upgrade status to unresponsive
                 serviceStatus = PollStatus.unresponsive();
@@ -202,15 +197,15 @@ final public class JolokiaBeanMonitor extends AbstractServiceMonitor {
 
                     //Default Inputs
                     if (strInput1 == null && strInput2 == null) {
-//                        log().debug("JolokiaBeanMonitor - execute bean: " + strBeanName + " method: " + strMethodName);
+                        LOGGER.debug("JolokiaBeanMonitor - execute bean: " + strBeanName + " method: " + strMethodName);
                         execReq = new J4pExecRequest(strBeanName, strMethodName);
                     } else if (strInput1 != null && strInput2 == null) {
                         //Single Input
-//                        log().debug("JolokiaBeanMonitor - execute bean: " + strBeanName + " method: " + strMethodName + " args: " + strInput1);
+                        LOGGER.debug("JolokiaBeanMonitor - execute bean: " + strBeanName + " method: " + strMethodName + " args: " + strInput1);
                         execReq = new J4pExecRequest(strBeanName, strMethodName, strInput1);
                     } else {
                         //Double Input
-//                        log().debug("JolokiaBeanMonitor - execute bean: " + strBeanName + " method: " + strMethodName + " args: " + strInput1 + " " + strInput2);
+                        LOGGER.debug("JolokiaBeanMonitor - execute bean: " + strBeanName + " method: " + strMethodName + " args: " + strInput1 + " " + strInput2);
                         execReq = new J4pExecRequest(strBeanName, strMethodName, strInput1, strInput2);
                     }
 
@@ -224,10 +219,9 @@ final public class JolokiaBeanMonitor extends AbstractServiceMonitor {
                 if (response == null) {
                     continue;
                 }
-//                if (log().isDebugEnabled()) {
-//                    log().debug("poll: banner = " + response);
-//                    log().debug("poll: responseTime= " + responseTime + "ms");
-//                }
+
+                LOGGER.debug("poll: banner = " + response);
+                LOGGER.debug("poll: responseTime= " + responseTime + "ms");
 
                 //Could it be a regex?
                 if (strBannerMatch.charAt(0) == '~') {
@@ -245,12 +239,12 @@ final public class JolokiaBeanMonitor extends AbstractServiceMonitor {
                 }
 
             } catch (J4pConnectException e) {
-//                serviceStatus = logDown(Level.WARN, "Connection exception for address: " + ipv4Addr + ":" + port, e);
+                serviceStatus = logDown(Level.WARN, "Connection exception for address: " + ipv4Addr + ":" + port, e);
                 break;
             } catch (J4pRemoteException e) {
-//                serviceStatus = logDown(Level.DEBUG, "Remote exception: " + e);
+                serviceStatus = logDown(Level.DEBUG, "Remote exception: " + e);
             } catch (Exception e) {
-//                serviceStatus = logDown(Level.DEBUG, "Exception: " + e);
+                serviceStatus = logDown(Level.DEBUG, "Exception: " + e);
             }
         }
 
