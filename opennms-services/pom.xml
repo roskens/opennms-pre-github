@@ -382,9 +382,5 @@
       <artifactId>org.opennms.core.icmp-jna</artifactId>
       <scope>test</scope>
     </dependency>
-    <dependency>
-      <groupId>org.jolokia</groupId>
-      <artifactId>jolokia-client-java</artifactId>
-    </dependency>
   </dependencies>
 </project>
