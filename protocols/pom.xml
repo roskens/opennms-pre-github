@@ -17,6 +17,5 @@
     <module>xml</module>
     <module>xmp</module>
     <module>selenium-monitor</module>
-    <module>jolokia</module>
   </modules>
 </project>
