@@ -60,6 +60,16 @@
   <!-- WARMERGE: insert context-param -->  
 
   <filter>
+    <!-- This filter has to come before other filters. -->
+    <filter-name>characterEncodingFilter</filter-name>
+    <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+    <init-param>
+        <param-name>encoding</param-name>
+        <param-value>UTF-8</param-value>
+    </init-param>
+  </filter>
+
+  <filter>
     <!--  note the name of this filter is important and is used in the app contexts -->
     <filter-name>springSecurityFilterChain</filter-name>
     <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
@@ -143,6 +153,11 @@
   </filter>
 
   <!-- WARMERGE: insert filter -->
+
+  <filter-mapping>
+    <filter-name>characterEncodingFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
 
   <filter-mapping>
     <filter-name>openSessionInViewFilter</filter-name>
@@ -492,7 +507,7 @@
     <servlet-class>org.opennms.web.admin.notification.noticeWizard.NotificationWizardServlet</servlet-class>
   </servlet>
   
-  <!-- Servlets for configuration of users groups and views -->
+  <!-- Servlets for configuration of users groups -->
   <servlet>
     <!-- servlet for passing parameters to the user modify jsp -->
     <servlet-name>modifyUser</servlet-name>
@@ -545,38 +560,6 @@
   	<servlet-class>org.opennms.web.admin.roles.UserRoleServlet</servlet-class>
   </servlet>
   
-  <servlet>
-    <!-- servlet for passing parameters to the view modify jsp -->
-    <servlet-name>modifyView</servlet-name>
-    <servlet-class>org.opennms.web.admin.views.ModifyViewServlet</servlet-class>
-  </servlet>
-  <servlet>
-    <!-- servlet for updating the local view info during modification-->
-    <servlet-name>updateView</servlet-name>
-    <servlet-class>org.opennms.web.admin.views.UpdateViewServlet</servlet-class>
-  </servlet>
-  <servlet>
-    <!-- servlet for saving the local view info during modification-->
-    <servlet-name>saveView</servlet-name>
-    <servlet-class>org.opennms.web.admin.views.SaveViewServlet</servlet-class>
-  </servlet>
-  <servlet>
-    <!-- servlet for renaming the local view info during modification-->
-    <servlet-name>renameView</servlet-name>
-    <servlet-class>org.opennms.web.admin.views.RenameViewServlet</servlet-class>
-  </servlet>
-  <servlet>
-    <!-- servlet for adding a new view-->
-    <servlet-name>addNewView</servlet-name>
-    <servlet-class>org.opennms.web.admin.views.AddNewViewServlet</servlet-class>
-  </servlet>
-  <servlet>
-    <!-- servlet for deleting a view-->
-    <servlet-name>deleteView</servlet-name>
-    <servlet-class>org.opennms.web.admin.views.DeleteViewServlet</servlet-class>
-  </servlet>
-
-
 <!-- Servlets for user account self-service -->
   <!-- servlet for self-service password change entry point-->
   <servlet>
@@ -820,7 +803,7 @@
     <url-pattern>/admin/notification/noticeWizard/notificationWizard</url-pattern>
   </servlet-mapping>
     
-  <!-- servlet mapping for configuring users groups and views -->
+  <!-- servlet mapping for configuring users groups -->
   <!-- user configuration servlets -->
   <!-- converted to Controller -->
   <servlet-mapping>
@@ -857,13 +840,19 @@
     <url-pattern>/admin/userGroupView/users/removeDutySchedules</url-pattern>
   </servlet-mapping>
   <!-- end of user configuration servlets -->
-  
+
   <!-- group configuration servlets -->
   <servlet-mapping>
     <servlet-name>dispatcher</servlet-name>
     <url-pattern>/admin/userGroupView/groups/modifyGroup</url-pattern>
   </servlet-mapping>
   <!-- end of group configuration servlets -->
+  <!-- set UserGroup for user dynamically -->
+  <servlet-mapping>
+      <servlet-name>dispatcher</servlet-name>
+      <url-pattern>/support/groups/setACLUserGroups</url-pattern>
+  </servlet-mapping>
+  <!-- end -->
   
   <servlet-mapping>
     <servlet-name>admin-roles</servlet-name>
@@ -875,34 +864,7 @@
     <url-pattern>/roles</url-pattern>
   </servlet-mapping>
 
-  <!-- view configuration servlets -->
-  <servlet-mapping>
-    <servlet-name>modifyView</servlet-name>
-    <url-pattern>/admin/userGroupView/views/modifyView</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-    <servlet-name>updateView</servlet-name>
-    <url-pattern>/admin/userGroupView/views/updateView</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-    <servlet-name>saveView</servlet-name>
-    <url-pattern>/admin/userGroupView/views/saveView</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-    <servlet-name>renameView</servlet-name>
-    <url-pattern>/admin/userGroupView/views/renameView</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-    <servlet-name>addNewView</servlet-name>
-    <url-pattern>/admin/userGroupView/views/addNewView</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-    <servlet-name>deleteView</servlet-name>
-    <url-pattern>/admin/userGroupView/views/deleteView</url-pattern>
-  </servlet-mapping>
-  <!-- end of group configuration servlets -->
-  
-  <!-- end of user groups and views configuration servlets -->
+  <!-- end of user groups configuration servlets -->
 
   <servlet-mapping>
     <servlet-name>nodeLabelChange</servlet-name>

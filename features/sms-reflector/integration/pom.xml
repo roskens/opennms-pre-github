@@ -3,7 +3,7 @@
   <parent>
     <groupId>org.opennms.features.sms-reflector.build</groupId>
     <artifactId>provision</artifactId>
-    <version>1.13.0-SNAPSHOT</version>
+    <version>1.13.1-SNAPSHOT</version>
     <relativePath>../provision</relativePath>
   </parent>
   <modelVersion>4.0.0</modelVersion>
@@ -15,17 +15,14 @@
     <dependency>
       <groupId>org.opennms.features.sms-reflector</groupId>
       <artifactId>sms-ping</artifactId>
-      <version>${project.version}</version>
     </dependency>
     <dependency>
       <groupId>org.opennms.features.sms-reflector</groupId>
       <artifactId>sms-service</artifactId>
-      <version>${project.version}</version>
     </dependency>
     <dependency>
       <groupId>org.opennms.features.sms-reflector</groupId>
       <artifactId>sms-gateway</artifactId>
-      <version>${project.version}</version>
     </dependency>
     <dependency>
       <groupId>org.opennms.dependencies</groupId>

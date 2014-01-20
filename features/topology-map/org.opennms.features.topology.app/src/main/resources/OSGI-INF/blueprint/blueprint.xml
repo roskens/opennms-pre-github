@@ -13,6 +13,7 @@ http://www.osgi.org/xmlns/blueprint-ext/v1.1.0 https://svn.apache.org/repos/asf/
             <cm:property name="showHeader" value="true" />
             <cm:property name="autoRefresh.enabled" value="false" />
             <cm:property name="autoRefresh.interval" value="60" />
+            <cm:property name="hiddenCategoryPrefix" value="" />
         </cm:default-properties>
     </cm:property-placeholder>
 
@@ -60,8 +61,15 @@ http://www.osgi.org/xmlns/blueprint-ext/v1.1.0 https://svn.apache.org/repos/asf/
         <bean class="org.opennms.features.topology.app.internal.CategorySearchProvider">
             <argument ref="categoryDao"/>
             <argument ref="nodeDao"/>
+            <property name="hiddenCategoryPrefix" value="${hiddenCategoryPrefix}" />
         </bean>
     </service>
+
+	<bean id="categoryHistoryOperation" class=" org.opennms.features.topology.app.internal.support.CategoryHopCriteriaHistoryOperation">
+		<property name="categoryHopCriteriaFactory" ref="categoryHopCriteriaFactory"/>
+	</bean>
+	
+	<service interface="org.opennms.features.topology.api.HistoryOperation" ref="categoryHistoryOperation"/>
 
     <!-- status provider -->
     <reference id="alarmDao" interface="org.opennms.netmgt.dao.api.AlarmDao" availability="mandatory" />
@@ -356,5 +364,17 @@ http://www.osgi.org/xmlns/blueprint-ext/v1.1.0 https://svn.apache.org/repos/asf/
     
     <reference id="historyManager" interface="org.opennms.features.topology.api.HistoryManager" availability="mandatory">
     </reference>
+
+	<bean id="topoMapsLink" class="org.opennms.features.topology.app.internal.TopoMapNavEntry">
+		<property name="url" value="topology?focusNodes=%nodeid%&amp;szl=1" />
+		<property name="name" value="View in Topology" />
+	</bean>
+
+	<service id="nodeMapsLinkService" interface="org.opennms.web.navigate.ConditionalPageNavEntry" ref="topoMapsLink">
+		<service-properties>
+			<entry key="Page" value="node" />
+			<entry key="registration.export" value="true" />
+		</service-properties>
+	</service>
 
 </blueprint>

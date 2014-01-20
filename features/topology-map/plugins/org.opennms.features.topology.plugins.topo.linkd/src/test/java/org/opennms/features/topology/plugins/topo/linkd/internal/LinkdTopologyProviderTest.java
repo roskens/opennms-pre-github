@@ -65,6 +65,7 @@ import org.opennms.features.topology.api.topo.WrappedLeafVertex;
 import org.opennms.features.topology.api.topo.WrappedVertex;
 import org.opennms.netmgt.dao.api.DataLinkInterfaceDao;
 import org.opennms.netmgt.model.DataLinkInterface;
+import org.opennms.netmgt.model.FilterManager;
 import org.opennms.netmgt.model.OnmsNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -155,8 +156,8 @@ public class LinkdTopologyProviderTest {
 		assertEquals("v0", vertexA.getId());
 		//LoggerFactory.getLogger(this.getClass()).debug(m_topologyProvider.getVertices().get(0).toString());
 		assertTrue(m_topologyProvider.containsVertexId(vertexA));
-		assertTrue(m_topologyProvider.containsVertexId("v0"));
-		assertFalse(m_topologyProvider.containsVertexId("v1"));
+		assertTrue(m_topologyProvider.containsVertexId(new AbstractVertexRef("nodes", "v0")));
+		assertFalse(m_topologyProvider.containsVertexId(new AbstractVertexRef("nodes", "v1")));
 		
 		((AbstractVertex)vertexA).setIpAddress("10.0.0.4");
 
@@ -466,6 +467,7 @@ public class LinkdTopologyProviderTest {
         topologyProvider.setNodeDao(m_databasePopulator.getNodeDao());
         topologyProvider.setIpInterfaceDao(m_databasePopulator.getIpInterfaceDao());
         topologyProvider.setSnmpInterfaceDao(m_databasePopulator.getSnmpInterfaceDao());
+        topologyProvider.setFilterManager(new TestFilterManager());
         topologyProvider.setConfigurationFile(getClass().getResource("/saved-linkd-graph2.xml").getFile());
         topologyProvider.setAddNodeWithoutLink(true);
         topologyProvider.load(null); // simulate refresh
@@ -502,6 +504,25 @@ public class LinkdTopologyProviderTest {
         Assert.assertEquals(child.isLocked(), false);
         Assert.assertEquals(child.isSelected(), false);
         Assert.assertEquals(child.getParent(), parent);
+    }
+
+    public class TestFilterManager implements FilterManager {
+
+        @Override
+        public void enableAuthorizationFilter(String[] authorizationGroups) {}
+
+        @Override
+        public void disableAuthorizationFilter() {}
+
+        @Override
+        public String[] getAuthorizationGroups() {
+            return new String[0];
+        }
+
+        @Override
+        public boolean isEnabled() {
+            return false;
+        }
     }
 }
 

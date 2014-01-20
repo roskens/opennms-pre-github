@@ -28,17 +28,22 @@
 
 package org.opennms.features.topology.plugins.topo.linkd.internal;
 
+
+import com.google.common.base.Function;
+import com.google.common.base.Predicate;
+import com.google.common.collect.Collections2;
 import com.google.common.collect.Lists;
+
 import java.io.File;
 import java.net.MalformedURLException;
 import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.EnumMap;
-import java.util.List;
+import java.util.*;
+
 import javax.xml.bind.JAXB;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
+
 import org.opennms.features.topology.api.GraphContainer;
 import org.opennms.features.topology.api.OperationContext;
 import org.opennms.features.topology.api.support.VertexHopGraphProvider;
@@ -65,11 +70,8 @@ import org.opennms.netmgt.dao.api.IpInterfaceDao;
 import org.opennms.netmgt.dao.api.NodeDao;
 import org.opennms.netmgt.dao.api.SnmpInterfaceDao;
 import org.opennms.netmgt.dao.api.TopologyDao;
-import org.opennms.netmgt.model.DataLinkInterface;
-import org.opennms.netmgt.model.OnmsIpInterface;
-import org.opennms.netmgt.model.OnmsNode;
+import org.opennms.netmgt.model.*;
 import org.opennms.netmgt.model.OnmsNode.NodeType;
-import org.opennms.netmgt.model.OnmsSnmpInterface;
 import org.slf4j.LoggerFactory;
 
 public class LinkdTopologyProvider extends AbstractTopologyProvider implements GraphProvider, SearchProvider {
@@ -272,6 +274,10 @@ public class LinkdTopologyProvider extends AbstractTopologyProvider implements G
 
     private String m_configurationFile;
 
+    private final boolean m_aclEnabled;
+
+    private FilterManager m_filterManager;
+
     public String getConfigurationFile() {
         return m_configurationFile;
     }
@@ -316,6 +322,14 @@ public class LinkdTopologyProvider extends AbstractTopologyProvider implements G
         m_topologyDao = topologyDao;
     }
 
+    public void setFilterManager(FilterManager filterManager){
+        m_filterManager = filterManager;
+    }
+
+    public FilterManager getFilterManager() {
+        return m_filterManager;
+    }
+
     /**
      * Used as an init-method in the OSGi blueprint
      * @throws JAXBException 
@@ -328,6 +342,8 @@ public class LinkdTopologyProvider extends AbstractTopologyProvider implements G
     
     public LinkdTopologyProvider() {
     	super(TOPOLOGY_NAMESPACE_LINKD);
+        String aclsProp = System.getProperty("org.opennms.web.aclsEnabled");
+        m_aclEnabled = aclsProp != null ? aclsProp.equals("true") : false;
     }
 
     private static WrappedGraph getGraphFromFile(File file) throws JAXBException, MalformedURLException {
@@ -386,13 +402,21 @@ public class LinkdTopologyProvider extends AbstractTopologyProvider implements G
         
         log("loadtopology: adding nodes without links: " + isAddNodeWithoutLink());
         if (isAddNodeWithoutLink()) {
-            for (OnmsNode onmsnode: m_nodeDao.findAll()) {
+
+            List<OnmsNode> allNodes;
+            allNodes = getAllNodesNoACL();
+
+            for (OnmsNode onmsnode: allNodes) {
                 String nodeId = onmsnode.getNodeId();
                 if (getVertex(getVertexNamespace(), nodeId) == null) {
                     log("loadtopology: adding link-less node: " + onmsnode.getLabel());
                     addVertices(getVertex(onmsnode));
                 }
             }
+
+
+
+
         }
         
         File configFile = new File(m_configurationFile);
@@ -446,6 +470,27 @@ public class LinkdTopologyProvider extends AbstractTopologyProvider implements G
         log("Found " + getGroups().size() + " groups");        
         log("Found " + getVerticesWithoutGroups().size() + " vertices");
         log("Found " + getEdges().size() + " edges");
+    }
+
+    private List<OnmsNode> getAllNodesNoACL() {
+        if(getFilterManager().isEnabled()){
+            String[] userGroups = getFilterManager().getAuthorizationGroups();
+            List<OnmsNode> nodeList = null;
+            try{
+                getFilterManager().disableAuthorizationFilter();
+                nodeList = m_nodeDao.findAll();
+
+            } finally {
+                if(userGroups != null){
+                    getFilterManager().enableAuthorizationFilter(userGroups);
+                }
+                return nodeList != null ? nodeList : Collections.EMPTY_LIST;
+            }
+        } else {
+            return m_nodeDao.findAll();
+        }
+
+
     }
 
     private AbstractVertex getVertex(OnmsNode onmsnode) {
@@ -600,8 +645,8 @@ public class LinkdTopologyProvider extends AbstractTopologyProvider implements G
     }
 
     @Override
-    public List<SearchResult> query(SearchQuery searchQuery) {
-        List<Vertex> vertices = m_vertexProvider.getVertices();
+    public List<SearchResult> query(SearchQuery searchQuery, GraphContainer graphContainer) {
+        List<Vertex> vertices = getFilteredVertices();
         List<SearchResult> searchResults = Lists.newArrayList();
 
         for(Vertex vertex : vertices){
@@ -611,6 +656,33 @@ public class LinkdTopologyProvider extends AbstractTopologyProvider implements G
         }
 
         return searchResults;
+    }
+
+    private List<Vertex> getFilteredVertices() {
+        if(m_aclEnabled){
+            //Get All nodes when called should filter with ACL
+            List<OnmsNode> onmsNodes = m_nodeDao.findAll();
+
+            //Transform the onmsNodes list to a list of Ids
+            final List<Integer> nodes = Lists.transform(onmsNodes, new Function<OnmsNode, Integer>() {
+                @Override
+                public Integer apply(OnmsNode node) {
+                    return node.getId();
+                }
+            });
+
+
+            //Filter out the nodes that are not viewable by the user.
+            return Lists.newArrayList(Collections2.filter(m_vertexProvider.getVertices(), new Predicate<Vertex>() {
+                @Override
+                public boolean apply(Vertex vertex) {
+                    return nodes.contains(vertex.getNodeID());
+                }
+            }));
+        } else{
+            return m_vertexProvider.getVertices();
+        }
+
     }
 
     @Override
@@ -627,8 +699,8 @@ public class LinkdTopologyProvider extends AbstractTopologyProvider implements G
     }
 
     @Override
-    public List<VertexRef> getVertexRefsBy(SearchResult searchResult) {
-        return Lists.newArrayList((VertexRef)getVertex(searchResult.getNamespace(), searchResult.getId()));  //To change body of implemented methods use File | Settings | File Templates.
+    public Set<VertexRef> getVertexRefsBy(SearchResult searchResult) {
+        return Collections.singleton((VertexRef)getVertex(searchResult.getNamespace(), searchResult.getId()));  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
@@ -745,4 +817,6 @@ public class LinkdTopologyProvider extends AbstractTopologyProvider implements G
         }
         return null; // no default available
     }
+
+
 }

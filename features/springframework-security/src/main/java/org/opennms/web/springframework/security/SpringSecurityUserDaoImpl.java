@@ -41,8 +41,6 @@ import java.util.Map;
 import java.util.Properties;
 
 import org.opennms.core.utils.BundleLists;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.opennms.netmgt.config.GroupFactory;
 import org.opennms.netmgt.config.GroupManager;
 import org.opennms.netmgt.config.UserFactory;
@@ -50,6 +48,8 @@ import org.opennms.netmgt.config.UserManager;
 import org.opennms.netmgt.config.groups.Role;
 import org.opennms.netmgt.model.OnmsUser;
 import org.opennms.web.api.Authentication;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.dao.DataRetrievalFailureException;
 import org.springframework.security.core.GrantedAuthority;
@@ -311,7 +311,7 @@ public class SpringSecurityUserDaoImpl implements SpringSecurityUserDao, Initial
         if (m_users == null) {
             return true;
         } else {
-            return m_userManager.isUpdateNeeded();
+            return m_usersLastModified != m_userManager.getLastModified();
         }
     }
     

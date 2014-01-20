@@ -137,22 +137,22 @@ public class Nms1055Test extends Nms1055NetworkBuilder implements InitializingBe
          *         DELAWARE_IF_IFNAME_MAP.put(517, "ge-0/0/1");
          *         DELAWARE_IF_IFALIAS_MAP.put(517, "test");
          */
-        assertEquals(517, queryManager.getFromSysnameIfAlias(DELAWARE_NAME, "test").intValue());
-        assertEquals(517, queryManager.getFromSysnameIfName(DELAWARE_NAME, "ge-0/0/1").intValue());
+        assertEquals(517, queryManager.getFromSysnameIfAlias(DELAWARE_NAME, "test").getIfIndex().intValue());
+        assertEquals(517, queryManager.getFromSysnameIfName(DELAWARE_NAME, "ge-0/0/1").getIfIndex().intValue());
 
         /*
          * DELAWARE_IF_MAC_MAP.put(585, "0022830951f5");
          */
-        assertEquals(585, queryManager.getFromSysnameMacAddress(DELAWARE_NAME, "0022830951f5").intValue());
+        assertEquals(585, queryManager.getFromSysnameMacAddress(DELAWARE_NAME, "0022830951f5").getIfIndex().intValue());
         /*
          * DELAWARE_IP_IF_MAP.put(InetAddressUtils.addr("10.155.69.17"), 13);
          */
-        assertEquals(13, queryManager.getFromSysnameIpAddress(DELAWARE_NAME, InetAddressUtils.addr("10.155.69.17")).intValue());
+        assertEquals(13, queryManager.getFromSysnameIpAddress(DELAWARE_NAME, InetAddressUtils.addr("10.155.69.17")).getIfIndex().intValue());
    
         /*
          * DELAWARE_IF_IFALIAS_MAP.put(574, "<To_Penrose>");
          */
-        assertEquals(574, queryManager.getFromSysnameIfAlias(DELAWARE_NAME, "<To_Penrose>").intValue());
+        assertEquals(574, queryManager.getFromSysnameIfAlias(DELAWARE_NAME, "<To_Penrose>").getIfIndex().intValue());
     }
 
     /*
@@ -288,41 +288,24 @@ public class Nms1055Test extends Nms1055NetworkBuilder implements InitializingBe
         for (final DataLinkInterface datalinkinterface: links) {
             Integer linkid = datalinkinterface.getId();
             if ( linkid == start) {
-                // penrose   -> phoenix     --ip route next hop
-<<<<<<< HEAD
-            	LinkdHelper.checkLink(phoenix, penrose, 564, 644, datalinkinterface,m_nodeDao,m_snmpInterfaceDao);
-            } else if (linkid == start+1 ) {
-                // penrose  -> delaware --ip route next hop
-            	LinkdHelper.checkLink(delaware, penrose, 598, 535, datalinkinterface,m_nodeDao,m_snmpInterfaceDao);
-            } else if (linkid == start+2) {
-                // phoenix  -> austin --ip route next hop
-            	LinkdHelper.checkLink(austin,phoenix,554,565,datalinkinterface,m_nodeDao,m_snmpInterfaceDao);
-            } else if (linkid == start+3) {
-                // phoenix  -> sanjose --ip route next hop
-            	LinkdHelper.checkLink(phoenix,sanjose,566,564,datalinkinterface,m_nodeDao,m_snmpInterfaceDao);
-            } else if (linkid == start+4) {
-                // austin  -> sanjose --ip route next hop
-            	LinkdHelper.checkLink(austin, sanjose, 586, 8562, datalinkinterface,m_nodeDao,m_snmpInterfaceDao);
-=======
                 //checkLink(phoenix, penrose, 564, 644, datalinkinterface);
-                checkLink(penrose, phoenix, 644, 564, datalinkinterface);
+                LinkdHelper.checkLink(penrose, phoenix, 644, 564, datalinkinterface);
             } else if (linkid == start+1 ) {
                 // penrose  -> delaware --ip route next hop
                 //checkLink(delaware, penrose, 598, 535, datalinkinterface);
-                checkLink(penrose, delaware, 535, 598, datalinkinterface);
+                LinkdHelper.checkLink(penrose, delaware, 535, 598, datalinkinterface);
             } else if (linkid == start+2) {
                 // phoenix  -> austin --ip route next hop
                 //checkLink(austin,phoenix,554,565,datalinkinterface);
-                checkLink(phoenix,austin,565,554,datalinkinterface);
+                LinkdHelper.checkLink(phoenix,austin,565,554,datalinkinterface);
             } else if (linkid == start+3) {
                 // phoenix  -> sanjose --ip route next hop
                 //checkLink(phoenix,sanjose,566,564,datalinkinterface);
-                checkLink(sanjose,phoenix,564,566,datalinkinterface);
+                LinkdHelper.checkLink(sanjose,phoenix,564,566,datalinkinterface);
             } else if (linkid == start+4) {
                 // austin  -> sanjose --ip route next hop
                 //checkLink(austin, sanjose, 586, 8562, datalinkinterface);
-                checkLink(sanjose,austin, 8562, 586, datalinkinterface);
->>>>>>> master
+                LinkdHelper.checkLink(sanjose,austin, 8562, 586, datalinkinterface);
             } else if (linkid == start+5) {
                 // penrose xe-1/0/0 -> delaware xe-1/0/0 --lldp
             	LinkdHelper.checkLink(delaware, penrose, 574, 510, datalinkinterface,m_nodeDao,m_snmpInterfaceDao);
@@ -331,7 +314,10 @@ public class Nms1055Test extends Nms1055NetworkBuilder implements InitializingBe
             	LinkdHelper.checkLink(delaware, penrose, 522, 525, datalinkinterface,m_nodeDao,m_snmpInterfaceDao);
             } else if (linkid == start+7) {
                 // penrose xe-1/0/1 -> phoenix xe-0/0/1  --lldp
-            	LinkdHelper.checkLink(phoenix, penrose, 509, 511, datalinkinterface,m_nodeDao,m_snmpInterfaceDao);   
+                LinkdHelper.checkLink(phoenix, penrose, 509, 511, datalinkinterface);   
+            } else if (linkid == start+7) {
+                // penrose ge-1/3/1 -> delaware ge-0/0/6 --lldp
+                LinkdHelper.checkLink(delaware, penrose, 522, 525, datalinkinterface);
             } else if (linkid == start+8) {
                 // penrose ge-1/2/1 -> riovista ge-0/0/0.0  --lldp
                 // this link is also discovered using the bridge strategy
@@ -347,14 +333,8 @@ public class Nms1055Test extends Nms1055NetworkBuilder implements InitializingBe
                 // phoenix ge-0/2/0 -> austin ge-0/0/46.0  --lldp
             	LinkdHelper.checkLink(austin, phoenix, 508, 508, datalinkinterface,m_nodeDao,m_snmpInterfaceDao);                   
             } else if (linkid == start+12) {
-                // phoenix ge-1/0/3 -> sanjose ge-1/0/0  --lldp
-            	LinkdHelper.checkLink(sanjose, phoenix, 516, 515, datalinkinterface,m_nodeDao,m_snmpInterfaceDao);                   
-            } else if (linkid == start+13) {
-                // austin ge-1/0/3 -> sanjose ge-1/0/1  --lldp
-            	LinkdHelper.checkLink(sanjose, austin, 517, 515, datalinkinterface,m_nodeDao,m_snmpInterfaceDao);                
-            } else if (linkid == start+14) {
-                // penrose ae0 -> delaware ae0 --rstp
-            	LinkdHelper.checkLink(penrose,delaware,2693,658,datalinkinterface,m_nodeDao,m_snmpInterfaceDao);
+                // phoenix ge-0/2/0 -> austin ge-0/0/46.0  --lldp
+                LinkdHelper.checkLink(austin, phoenix, 508, 508, datalinkinterface);                   
             } else {
                 // error
             	LinkdHelper.checkLink(penrose,penrose,-1,-1,datalinkinterface,m_nodeDao,m_snmpInterfaceDao);

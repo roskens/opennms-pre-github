@@ -39,7 +39,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
 
-import org.opennms.features.topology.api.topo.Criteria.ElementType;
 import org.slf4j.LoggerFactory;
 
 public class SimpleEdgeProvider implements EdgeProvider {
@@ -226,7 +225,9 @@ public class SimpleEdgeProvider implements EdgeProvider {
 	@Override
 	public List<Edge> getEdges(Criteria... criteria) {
 		List<Edge> edges = new ArrayList<Edge>();
-		edges.addAll(m_edgeMap.values());
+		for (Edge edge : m_edgeMap.values()) {
+			edges.add(edge.clone());
+		}
 
 		for (Criteria criterium : criteria) {
 			try {
