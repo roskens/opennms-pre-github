@@ -52,11 +52,10 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.IOUtils;
 import org.opennms.core.db.DataSourceFactory;
-import org.opennms.core.resource.Vault;
 import org.opennms.core.utils.DBUtils;
 import org.opennms.netmgt.EventConstants;
+import org.opennms.netmgt.capsd.DbIfServiceEntry;
 import org.opennms.netmgt.config.NotificationFactory;
-import org.opennms.netmgt.model.capsd.DbIfServiceEntry;
 import org.opennms.netmgt.model.events.EventBuilder;
 import org.opennms.netmgt.xml.event.Event;
 import org.opennms.web.api.Util;
@@ -97,12 +96,6 @@ public class ManageNodeServlet extends HttpServlet {
     @Override
     public void init() throws ServletException {
         try {
-            DataSourceFactory.init();
-        } catch (Throwable e) {
-            throw new ServletException("Could not initialize database factory: " + e.getMessage(), e);
-        }
-
-        try {
             NotificationFactory.init();
         } catch (Throwable e) {
             throw new ServletException("Could not initialize notification factory: " + e.getMessage(), e);
@@ -131,7 +124,7 @@ public class ManageNodeServlet extends HttpServlet {
 
         final DBUtils d = new DBUtils(getClass());
         try {
-            Connection connection = Vault.getDbConnection();
+            Connection connection = DataSourceFactory.getInstance().getConnection();
             d.watch(connection);
             try {
                 connection.setAutoCommit(false);

@@ -1,8 +1,8 @@
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
- * Copyright (C) 2006-2012 The OpenNMS Group, Inc.
- * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ * Copyright (C) 2006-2013 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2013 The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
  *
@@ -31,6 +31,7 @@ import java.io.File;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import org.apache.commons.lang.StringUtils;
 import org.opennms.core.utils.RrdLabelUtils;
 import org.opennms.netmgt.config.DataCollectionConfigFactory;
 import org.opennms.netmgt.model.OnmsResource;
@@ -80,14 +81,7 @@ public class SnmpInterfaceUpgrade {
      * @throws SQLException the sQL exception
      */
     public SnmpInterfaceUpgrade(ResultSet rs, boolean storeByForeignSource) throws SQLException {
-        nodeId = rs.getInt("nodeid");
-        foreignSource = rs.getString("foreignsource");
-        foreignId = rs.getString("foreignid");
-        ifDescr = rs.getString("snmpifdescr");
-        ifName = rs.getString("snmpifname");
-        physAddr = rs.getString("snmpphysaddr");
-        this.storeByForeignSource = storeByForeignSource;
-        initialize();
+        this(rs.getInt("nodeid"), rs.getString("foreignsource"), rs.getString("foreignid"), rs.getString("snmpifdescr"), rs.getString("snmpifname") ,rs.getString("snmpphysaddr"), storeByForeignSource);
     }
 
     /**
@@ -105,19 +99,34 @@ public class SnmpInterfaceUpgrade {
             String foreignId, String ifDescr, String ifName,
             String physAddr, boolean storeByForeignSource) {
         this.nodeId = nodeId;
-        this.foreignSource = foreignSource;
-        this.foreignId = foreignId;
-        this.ifDescr = ifDescr;
-        this.ifName = ifName;
-        this.physAddr = physAddr;
+        this.foreignSource = normalize(foreignSource);
+        this.foreignId = normalize(foreignId);
+        this.ifDescr = normalize(ifDescr);
+        this.ifName = normalize(ifName);
+        this.physAddr = normalize(physAddr);
         this.storeByForeignSource = storeByForeignSource;
         initialize();
+    }
+
+    /**
+     * Normalizes a String.
+     *
+     * @param source the source
+     * @return the normalized string
+     */
+    private String normalize(String source) {
+        return StringUtils.isBlank(source) ? null : StringUtils.trim(source);
     }
 
     /**
      * Initialize.
      */
     private void initialize() {
+        // If the ifName and the ifDescr are null at the same time, OpenNMS is going to create a directory like this:
+        // /var/opennms/rrd/snmp/10/null or /var/opennms/rrd/snmp/10/null-00029906ced7
+        if (ifDescr == null && ifName == null) {
+            ifName = "null";
+        }
         oldRrdLabel = RrdLabelUtils.computeLabelForRRD(ifName, ifDescr, null);
         newRrdLabel = RrdLabelUtils.computeLabelForRRD(ifName, ifDescr, physAddr);
         nodeDir = getNodeDirectory(nodeId, foreignSource, foreignId);
@@ -223,7 +232,7 @@ public class SnmpInterfaceUpgrade {
     }
 
     /**
-     * Checks if the interface directories should be merged
+     * Checks if the interface directories should be merged.
      *
      * @return true, if the interface directory should be merged
      */

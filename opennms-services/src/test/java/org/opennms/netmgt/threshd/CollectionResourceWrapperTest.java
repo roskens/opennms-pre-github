@@ -36,14 +36,12 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 
-import org.junit.Assert;
-
 import org.easymock.EasyMock;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.opennms.core.db.DataSourceFactory;
-import org.opennms.core.resource.Vault;
 import org.opennms.core.test.MockLogAppender;
 import org.opennms.core.test.db.MockDatabase;
 import org.opennms.netmgt.collectd.CollectionAgent;
@@ -361,7 +359,6 @@ public class CollectionResourceWrapperTest {
         db.populate(network);
         db.update("update snmpinterface set snmpifindex=?, snmpifname=?, snmpifdescr=? where id=?", ifIndex, ifName, ifName, 1);
         DataSourceFactory.setInstance(db);
-        Vault.setDataSource(db);
 
         // Create Mock Collection Agent
         CollectionAgent agent = createCollectionAgent();

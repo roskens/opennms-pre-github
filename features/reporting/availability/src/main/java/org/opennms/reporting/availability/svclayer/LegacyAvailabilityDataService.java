@@ -30,9 +30,6 @@ package org.opennms.reporting.availability.svclayer;
 
 import static org.opennms.core.utils.InetAddressUtils.str;
 
-import java.beans.PropertyVetoException;
-import java.io.IOException;
-import java.lang.reflect.UndeclaredThrowableException;
 import java.net.InetAddress;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -45,8 +42,6 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.concurrent.Callable;
 
-import org.exolab.castor.xml.MarshalException;
-import org.exolab.castor.xml.ValidationException;
 import org.opennms.core.db.DataSourceFactory;
 import org.opennms.core.logging.Logging;
 import org.opennms.core.utils.DBUtils;
@@ -107,6 +102,7 @@ public class LegacyAvailabilityDataService implements AvailabilityDataService {
                     try {
                         String commonRule = m_catFactory.getEffectiveRule(categoryName);
 
+                        FilterDaoFactory.getInstance().flushActiveIpAddressListCache();
                         final List<InetAddress> nodeIPs = FilterDaoFactory.getInstance().getActiveIPAddressList(commonRule);
                         LOG.debug("Number of IPs satisfying rule: {}", nodeIPs.size());
 
@@ -352,26 +348,10 @@ public class LegacyAvailabilityDataService implements AvailabilityDataService {
         // Initialize the DataCollectionConfigFactory
         //
         try {
-            DataSourceFactory.init();
             m_availConn = DataSourceFactory.getInstance().getConnection();
-        } catch (MarshalException e) {
-            LOG.error("initialize: Failed to load data collection configuration", e);
-            throw new AvailabilityDataServiceException("failed to load data collection configuration");
-        } catch (ValidationException e) {
-            LOG.error("initialize: Failed to load data collection configuration", e);
-            throw new AvailabilityDataServiceException("failed to load data collection configuration");
-        } catch (IOException e) {
-            LOG.error("initialize: Failed to load data collection configuration", e);
-            throw new UndeclaredThrowableException(e);
-        } catch (ClassNotFoundException e) {
-            LOG.error("initialize: Failed loading database driver.", e);
-            throw new AvailabilityDataServiceException("failed to load data collection configuration");
         } catch (SQLException e) {
             LOG.error("initialize: Failed getting connection to the database.", e);
             throw new AvailabilityDataServiceException("failed to load data collection configuration");
-        } catch (PropertyVetoException e) {
-            LOG.error("initialize: Failed getting connection to the database.", e);
-            throw new AvailabilityDataServiceException("initialize: Failed getting connection to the database");
         }
     }
 

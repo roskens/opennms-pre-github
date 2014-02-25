@@ -60,12 +60,17 @@ import org.opennms.features.topology.api.WidgetUpdateListener;
 import org.opennms.features.topology.api.support.VertexHopGraphProvider;
 import org.opennms.features.topology.api.support.VertexHopGraphProvider.FocusNodeHopCriteria;
 import org.opennms.features.topology.api.topo.AbstractVertexRef;
+import org.opennms.features.topology.api.topo.Criteria;
 import org.opennms.features.topology.api.topo.VertexRef;
 import org.opennms.features.topology.app.internal.CommandManager.DefaultOperationContext;
 import org.opennms.features.topology.app.internal.TopologyComponent.VertexUpdateListener;
+import org.opennms.features.topology.app.internal.gwt.client.HudDisplayState;
 import org.opennms.features.topology.app.internal.jung.FRLayoutAlgorithm;
+import org.opennms.features.topology.app.internal.support.CategoryHopCriteria;
 import org.opennms.features.topology.app.internal.support.FontAwesomeIcons;
 import org.opennms.features.topology.app.internal.support.IconRepositoryManager;
+import org.opennms.features.topology.app.internal.ui.HudDisplay;
+import org.opennms.features.topology.app.internal.ui.LastUpdatedLabel;
 import org.opennms.features.topology.app.internal.ui.NoContentAvailableWindow;
 import org.opennms.features.topology.app.internal.ui.SearchBox;
 import org.opennms.osgi.EventConsumer;
@@ -120,7 +125,7 @@ import com.vaadin.ui.Window;
 @SuppressWarnings("serial")
 @Theme("topo_default")
 @JavaScript({
-	"http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js",
+	"CFInstall.min.js",
 	"chromeFrameCheck.js"
 })
 @PreserveOnRefresh
@@ -132,31 +137,35 @@ public class TopologyUI extends UI implements CommandUpdateListener, MenuItemUpd
 
     private class DynamicUpdateRefresher implements Refresher.RefreshListener {
         private final Object lockObject = "lockObject";
-        private boolean refreshInProgress = false;
-        private long lastUpdateTime;
+        private boolean m_refreshInProgress = false;
+        private long m_lastUpdateTime = 0;
+
 
         @Override
         public void refresh(Refresher refresher) {
-            if (needsRefresh()) {
+             if (needsRefresh()) {
                 refreshUI();
             }
         }
 
         private void refreshUI() {
             synchronized (lockObject) {
-                refreshInProgress = true;
+                m_refreshInProgress = true;
 
                 getGraphContainer().getBaseTopology().refresh();
+                getGraphContainer().setDirty(true);
                 getGraphContainer().redoLayout();
                 TopologyUI.this.markAsDirtyRecursive();
 
-                lastUpdateTime = System.currentTimeMillis();
-                refreshInProgress = false;
+                m_lastUpdateTime = System.currentTimeMillis();
+                updateTimestamp(m_lastUpdateTime);
+
+                m_refreshInProgress = false;
             }
         }
 
         private boolean needsRefresh() {
-            if (refreshInProgress) {
+            if (m_refreshInProgress) {
                 return false;
             }
 
@@ -164,7 +173,7 @@ public class TopologyUI extends UI implements CommandUpdateListener, MenuItemUpd
                 return false;
             }
 
-            long updateDiff = System.currentTimeMillis() - lastUpdateTime;
+            long updateDiff = System.currentTimeMillis() - m_lastUpdateTime;
             return updateDiff >= m_graphContainer.getAutoRefreshSupport().getInterval() * 1000; // update or not
         }
 
@@ -197,7 +206,10 @@ public class TopologyUI extends UI implements CommandUpdateListener, MenuItemUpd
     private Button m_panBtn;
     private Button m_selectBtn;
     private Button m_szlOutBtn;
+    private LastUpdatedLabel m_lastUpdatedTimeLabel;
+    private HudDisplay m_hudDisplay;
     int m_settingFragment = 0;
+    private SearchBox m_searchBox;
 
     private String getHeader(HttpServletRequest request) {
         if(m_headerProvider == null) {
@@ -250,10 +262,12 @@ public class TopologyUI extends UI implements CommandUpdateListener, MenuItemUpd
             }
         });
 
-        loadUserSettings(m_applicationContext);
         // Set the algorithm last so that the criteria and SZLs are
         // in place before we run the layout algorithm.
         m_graphContainer.setLayoutAlgorithm(new FRLayoutAlgorithm());
+
+        loadUserSettings(m_applicationContext);
+
         setupListeners();
         createLayouts();
         // Set up an error handler for UI-level exceptions
@@ -329,10 +343,22 @@ public class TopologyUI extends UI implements CommandUpdateListener, MenuItemUpd
         }
 
         // check if we have a criteria set
-        if (criteria.isEmpty()) { // no criteria or nodes in focus, load defaults
+        if (criteria.isEmpty() && noAdditionalFocusCriteria(graphContainer)) { // no criteria or nodes in focus, load defaults
             graphContainer.removeCriteria(criteria); // it is empty, so we don't need it
             graphContainer.addCriteria(graphContainer.getBaseTopology().getDefaultCriteria()); // set default
         }
+    }
+
+    private static boolean noAdditionalFocusCriteria(GraphContainer graphContainer) {
+        Criteria[] crits = graphContainer.getCriteria();
+        for(Criteria criteria : crits){
+            try{
+                CategoryHopCriteria catCrit = (CategoryHopCriteria) criteria;
+                return false;
+            } catch(ClassCastException e){}
+
+        }
+        return true;
     }
 
     private static void loadSemanticZoomLevel(VaadinRequest request, GraphContainer graphContainer) {
@@ -391,7 +417,7 @@ public class TopologyUI extends UI implements CommandUpdateListener, MenuItemUpd
     private void setupAutoRefresher() {
         if (m_graphContainer.hasAutoRefreshSupport()) {
             Refresher refresher = new Refresher();
-            refresher.setRefreshInterval(1000); // ask every 1 seconds for changes
+            refresher.setRefreshInterval(((int)m_graphContainer.getAutoRefreshSupport().getInterval() * 1000)/2); // ask every 1 seconds for changes
             refresher.addListener(new DynamicUpdateRefresher());
             addExtension(refresher);
         }
@@ -440,6 +466,12 @@ public class TopologyUI extends UI implements CommandUpdateListener, MenuItemUpd
 
     private AbsoluteLayout createMapLayout() {
         final Property<Double> scale = m_graphContainer.getScaleProperty();
+
+        m_lastUpdatedTimeLabel = new LastUpdatedLabel();
+        m_lastUpdatedTimeLabel.setImmediate(true);
+
+        m_hudDisplay = new HudDisplay();
+        m_hudDisplay.setImmediate(true);
 
         m_zoomLevelLabel.setHeight(20, Unit.PIXELS);
         m_zoomLevelLabel.setWidth(22, Unit.PIXELS);
@@ -600,9 +632,9 @@ public class TopologyUI extends UI implements CommandUpdateListener, MenuItemUpd
             }
         });
 
-        SearchBox searchBox = new SearchBox(m_serviceManager, new CommandManager.DefaultOperationContext(this, m_graphContainer, OperationContext.DisplayLocation.SEARCH));
-        m_selectionManager.addSelectionListener(searchBox);
-        m_graphContainer.addChangeListener(searchBox);
+        m_searchBox = new SearchBox(m_serviceManager, new CommandManager.DefaultOperationContext(this, m_graphContainer, OperationContext.DisplayLocation.SEARCH));
+        m_selectionManager.addSelectionListener(m_searchBox);
+        m_graphContainer.addChangeListener(m_searchBox);
 
         //History Button Layout
         HorizontalLayout historyButtonLayout = new HorizontalLayout();
@@ -648,9 +680,12 @@ public class TopologyUI extends UI implements CommandUpdateListener, MenuItemUpd
 
         AbsoluteLayout mapLayout = new AbsoluteLayout();
 
+
         mapLayout.addComponent(m_topologyComponent, "top:0px; left: 0px; right: 0px; bottom: 0px;");
-        mapLayout.addComponent(toolbar, "top: 10px; right: 10px;");
-        mapLayout.addComponent(searchBox, "top:5px; left:5px;");
+        mapLayout.addComponent(m_lastUpdatedTimeLabel, "top: 5px; right: 10px;");
+        mapLayout.addComponent(m_hudDisplay, "top: 445px; right: 10px");
+        mapLayout.addComponent(toolbar, "top: 25px; right: 10px;");
+        mapLayout.addComponent(m_searchBox, "top:5px; left:5px;");
         //mapLayout.addComponent(locationToolLayout, "top: 5px; left: 50%");
         mapLayout.setSizeFull();
 
@@ -817,6 +852,10 @@ public class TopologyUI extends UI implements CommandUpdateListener, MenuItemUpd
         return bottomLayout;
     }
 
+    public void updateTimestamp(long updateTime) {
+        m_lastUpdatedTimeLabel.setUpdateTime(updateTime);
+    }
+
 	@Override
 	public void updateMenuItems() {
 		updateMenuItems(m_menuBar.getItems());
@@ -902,6 +941,9 @@ public class TopologyUI extends UI implements CommandUpdateListener, MenuItemUpd
         // after a history operation
         graphChanged(m_graphContainer);
 
+        //Manually trigger the searchbox to refresh
+        m_searchBox.graphChanged(m_graphContainer);
+
         m_settingFragment--;
     }
 
@@ -928,11 +970,39 @@ public class TopologyUI extends UI implements CommandUpdateListener, MenuItemUpd
         } else {
             m_topologyComponent.setEnabled(false);
             m_noContentWindow.setVisible(true);
-            addWindow(m_noContentWindow);
+            if(!m_noContentWindow.isAttached()){
+                addWindow(m_noContentWindow);
+            }
+
         }
+        m_hudDisplay.setProvider(graphContainer.getBaseTopology().getVertexNamespace().equals("nodes") ? "Linkd" : graphContainer.getBaseTopology().getVertexNamespace());
+        m_hudDisplay.setVertexFocusCount(getFocusVertices(graphContainer));
+        m_hudDisplay.setEdgeFocusCount(0);
+        m_hudDisplay.setVertexSelectionCount(graphContainer.getSelectionManager().getSelectedVertexRefs().size());
+        m_hudDisplay.setEdgeSelectionCount(graphContainer.getSelectionManager().getSelectedEdgeRefs().size());
+        m_hudDisplay.setVertexContextCount(graphContainer.getGraph().getDisplayVertices().size());
+        m_hudDisplay.setEdgeContextCount(graphContainer.getGraph().getDisplayEdges().size());
+        m_hudDisplay.setVertexTotalCount(graphContainer.getBaseTopology().getVertexTotalCount());
+        m_hudDisplay.setEdgeTotalCount(graphContainer.getBaseTopology().getEdges().size());
 
         m_zoomLevelLabel.setValue(String.valueOf(graphContainer.getSemanticZoomLevel()));
         m_szlOutBtn.setEnabled(graphContainer.getSemanticZoomLevel() > 0);
+        updateTimestamp(System.currentTimeMillis());
+    }
+
+    private int getFocusVertices(GraphContainer graphContainer) {
+        int count = 0;
+        FocusNodeHopCriteria nodeCrit = VertexHopGraphProvider.getFocusNodeHopCriteriaForContainer(graphContainer);
+        count += nodeCrit.size();
+        Criteria[] crits = graphContainer.getCriteria();
+        for(Criteria criteria : crits){
+            try{
+                CategoryHopCriteria catCrit = (CategoryHopCriteria) criteria;
+                count += catCrit.getVertices().size();
+            } catch(ClassCastException e){}
+
+        }
+        return count;
     }
 
     private void setSemanticZoomLevel(int semanticZoomLevel) {
@@ -967,6 +1037,9 @@ public class TopologyUI extends UI implements CommandUpdateListener, MenuItemUpd
 
     @Override
     public void selectionChanged(SelectionContext selectionContext) {
+        m_hudDisplay.setVertexSelectionCount(selectionContext.getSelectedVertexRefs().size());
+        m_hudDisplay.setEdgeSelectionCount(selectionContext.getSelectedEdgeRefs().size());
+
         //After selection always set the pantool back to active tool
         if(m_panBtn != null && !m_panBtn.getStyleName().equals("toolbar-button down")){
             m_panBtn.setStyleName("toolbar-button down");

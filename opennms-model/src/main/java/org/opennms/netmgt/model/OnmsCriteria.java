@@ -46,6 +46,9 @@ import org.hibernate.transform.ResultTransformer;
 
 /**
  * <p>OnmsCriteria class.</p>
+ * 
+ * @deprecated Use the new {@link org.opennms.core.criteria.Criteria} instead since it is
+ * not tightly coupled to Hibernate ORM.
  *
  * @author ranger
  * @version $Id: $
@@ -361,12 +364,12 @@ public class OnmsCriteria implements Serializable {
             return new OnmsCriteria.OnmsDetachedCriteria(entityName, alias);
         }
         
-        @SuppressWarnings("unchecked") // Needs to have the same erasure as the Hibernate API
+        @SuppressWarnings("rawtypes") // Needs to have the same erasure as the Hibernate API
         public static OnmsCriteria.OnmsDetachedCriteria forClass(Class clazz) {
             return new OnmsCriteria.OnmsDetachedCriteria(clazz.getName());
         }
         
-        @SuppressWarnings("unchecked") // Needs to have the same erasure as the Hibernate API
+        @SuppressWarnings("rawtypes") // Needs to have the same erasure as the Hibernate API
         public static OnmsCriteria.OnmsDetachedCriteria forClass(Class clazz, String alias) {
             return new OnmsCriteria.OnmsDetachedCriteria(clazz.getName() , alias);
         }

@@ -1,8 +1,8 @@
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
- * Copyright (C) 2006-2012 The OpenNMS Group, Inc.
- * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ * Copyright (C) 2006-2013 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2013 The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
  *
@@ -123,11 +123,6 @@ public class JmxRrdMigratorOffline extends AbstractOnmsUpgrade {
         printMainSettings();
         if (isInstalledVersionGreaterOrEqual(1, 12, 2)) {
             try {
-                CollectdConfigFactory.init();
-            } catch (Exception e) {
-                throw new OnmsUpgradeException("Can't initialize collectd-configuration.xml because " + e.getMessage());
-            }
-            try {
                 JMXDataCollectionConfigFactory.init();
             } catch (Exception e) {
                 throw new OnmsUpgradeException("Can't initialize jmx-datacollection-config.xml because " + e.getMessage());
@@ -232,7 +227,8 @@ public class JmxRrdMigratorOffline extends AbstractOnmsUpgrade {
             Pattern extRegex = Pattern.compile("import-mbeans[>](.+)[<]");
             Pattern aliasRegex = Pattern.compile("alias=\"([^\"]+\\.[^\"]+)\"");
             List<File> externalFiles = new ArrayList<File>();
-            for (LineIterator it = FileUtils.lineIterator(jmxConfigFile); it.hasNext();) {
+            LineIterator it = FileUtils.lineIterator(jmxConfigFile);
+            while (it.hasNext()) {
                 String line = it.next();
                 Matcher m = extRegex.matcher(line);
                 if (m.find()) {
@@ -250,6 +246,7 @@ public class JmxRrdMigratorOffline extends AbstractOnmsUpgrade {
                 }
                 w.write(line + "\n");
             }
+            LineIterator.closeQuietly(it);
             w.close();
             FileUtils.deleteQuietly(jmxConfigFile);
             FileUtils.moveFile(outputFile, jmxConfigFile);
@@ -281,7 +278,8 @@ public class JmxRrdMigratorOffline extends AbstractOnmsUpgrade {
             Pattern incRegex = Pattern.compile("^include.directory=(.+)$");
             List<File> externalFiles = new ArrayList<File>();
             boolean override = false;
-            for (LineIterator it = FileUtils.lineIterator(jmxTemplateFile); it.hasNext();) {
+            LineIterator it = FileUtils.lineIterator(jmxTemplateFile);
+            while (it.hasNext()) {
                 String line = it.next();
                 Matcher m = incRegex.matcher(line);
                 if (m.find()) {
@@ -329,6 +327,7 @@ public class JmxRrdMigratorOffline extends AbstractOnmsUpgrade {
                 }
                 w.write(line + "\n");
             }
+            LineIterator.closeQuietly(it);
             w.close();
             if (override) {
                 FileUtils.deleteQuietly(jmxTemplateFile);
@@ -357,7 +356,7 @@ public class JmxRrdMigratorOffline extends AbstractOnmsUpgrade {
             jmxResourceDirectories = new ArrayList<File>();
             CollectdConfiguration config;
             try {
-                config = CollectdConfigFactory.getInstance().getCollectdConfig().getConfig();
+                config = new CollectdConfigFactory().getCollectdConfig();
             } catch (Exception e) {
                 throw new OnmsUpgradeException("Can't upgrade the JRBs because " + e.getMessage(), e);
             }
@@ -569,7 +568,7 @@ public class JmxRrdMigratorOffline extends AbstractOnmsUpgrade {
      */
     private List<String> getJmxServices(CollectdConfiguration config) {
         List<String> services = new ArrayList<String>();
-        for (Collector c : config.getCollectorCollection()) {
+        for (Collector c : config.getCollectors()) {
             // The following code has been made that way to avoid a dependency with opennms-services
             // TODO Depends on opennms-services is not that bad, considering that some customers could have different implementations.
             if (c.getClassName().matches(".*(JBoss|JMXSecure|Jsr160|MX4J)Collector$")) {
@@ -587,8 +586,8 @@ public class JmxRrdMigratorOffline extends AbstractOnmsUpgrade {
      * @return the service object
      */
     private Service getServiceObject(CollectdConfiguration config, String service) {
-        for (Package pkg : config.getPackageCollection()) {
-            for (Service svc : pkg.getServiceCollection()) {
+        for (Package pkg : config.getPackages()) {
+            for (Service svc : pkg.getServices()) {
                 if (svc.getName().equals(service)) {
                     return svc;
                 }
@@ -605,7 +604,7 @@ public class JmxRrdMigratorOffline extends AbstractOnmsUpgrade {
      * @return the service property value
      */
     private String getSvcPropertyValue(Service svc, String propertyName) {
-        for (org.opennms.netmgt.config.collectd.Parameter p : svc.getParameterCollection()) {
+        for (org.opennms.netmgt.config.collectd.Parameter p : svc.getParameters()) {
             if (p.getKey().equals(propertyName)) {
                 return p.getValue();
             }

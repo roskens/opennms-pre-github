@@ -200,6 +200,11 @@ public class VertexHopGraphProvider implements GraphProvider {
 			m_vertices.addAll(refs);
             setDirty(true);
 		}
+
+        public void removeAll(Collection<VertexRef> refs) {
+            m_vertices.removeAll(refs);
+            setDirty(true);
+        }
     }
 
     private final GraphProvider m_delegate;
@@ -547,7 +552,12 @@ public class VertexHopGraphProvider implements GraphProvider {
 		m_delegate.clearVertices();
 	}
 
-	@Override
+    @Override
+    public int getVertexTotalCount() {
+        return m_delegate.getVertexTotalCount();
+    }
+
+    @Override
 	public String getEdgeNamespace() {
 		return m_delegate.getEdgeNamespace();
 	}
