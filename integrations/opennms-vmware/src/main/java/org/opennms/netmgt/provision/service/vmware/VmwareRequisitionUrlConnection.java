@@ -28,9 +28,19 @@
 
 package org.opennms.netmgt.provision.service.vmware;
 
-import com.vmware.vim25.*;
-import com.vmware.vim25.mo.*;
-
+import com.vmware.vim25.CustomFieldDef;
+import com.vmware.vim25.CustomFieldStringValue;
+import com.vmware.vim25.CustomFieldValue;
+import com.vmware.vim25.HostRuntimeInfo;
+import com.vmware.vim25.HostSystemPowerState;
+import com.vmware.vim25.VirtualMachinePowerState;
+import com.vmware.vim25.VirtualMachineRuntimeInfo;
+import com.vmware.vim25.mo.Datastore;
+import com.vmware.vim25.mo.DistributedVirtualPortgroup;
+import com.vmware.vim25.mo.HostSystem;
+import com.vmware.vim25.mo.ManagedEntity;
+import com.vmware.vim25.mo.Network;
+import com.vmware.vim25.mo.VirtualMachine;
 import org.apache.commons.io.IOExceptionWithCause;
 import org.apache.commons.lang.StringUtils;
 import org.apache.http.conn.util.InetAddressUtils;
@@ -41,7 +51,12 @@ import org.opennms.core.utils.url.GenericURLConnection;
 import org.opennms.core.xml.JaxbUtils;
 import org.opennms.netmgt.model.PrimaryType;
 import org.opennms.netmgt.provision.persist.ForeignSourceRepository;
-import org.opennms.netmgt.provision.persist.requisition.*;
+import org.opennms.netmgt.provision.persist.requisition.Requisition;
+import org.opennms.netmgt.provision.persist.requisition.RequisitionAsset;
+import org.opennms.netmgt.provision.persist.requisition.RequisitionCategory;
+import org.opennms.netmgt.provision.persist.requisition.RequisitionInterface;
+import org.opennms.netmgt.provision.persist.requisition.RequisitionMonitoredService;
+import org.opennms.netmgt.provision.persist.requisition.RequisitionNode;
 import org.opennms.protocols.vmware.VmwareViJavaAccess;
 import org.sblim.wbem.cim.CIMException;
 import org.sblim.wbem.cim.CIMObject;
@@ -49,18 +64,28 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.xml.bind.JAXBException;
-
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
-import java.net.*;
+import java.net.ConnectException;
+import java.net.InetAddress;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLEncoder;
+import java.net.UnknownHostException;
 import java.rmi.RemoteException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeMap;
+import java.util.TreeSet;
 
 /**
  * The Class VmwareRequisitionUrlConnection
- * 
+ * <p/>
  * <p>This class is used for the automtic requisition of Vmware related entities.</p>
  *
  * @author Christian Pape <Christian.Pape@informatik.hs-fulda.de>
@@ -307,7 +332,7 @@ public class VmwareRequisitionUrlConnection extends GenericURLConnection {
             }
         } else {
             if (managedEntity instanceof HostSystem) {
-                boolean reachableInterfaceFound = false, firstInterface = true;
+                boolean firstInterface = true;
                 List<RequisitionInterface> requisitionInterfaceList = new ArrayList<RequisitionInterface>();
                 RequisitionInterface primaryInterfaceCandidate = null;
 
@@ -327,11 +352,6 @@ public class VmwareRequisitionUrlConnection extends GenericURLConnection {
                                     firstInterface = false;
                                 }
 
-                                if (!reachableInterfaceFound && reachableCimService(vmwareViJavaAccess, (HostSystem) managedEntity, ipAddress)) {
-                                    primaryInterfaceCandidate = requisitionInterface;
-                                    reachableInterfaceFound = true;
-                                }
-
                                 requisitionInterface.setManaged(Boolean.TRUE);
                                 requisitionInterface.setStatus(Integer.valueOf(1));
                                 requisitionInterface.setSnmpPrimary(PrimaryType.SECONDARY);
@@ -345,17 +365,10 @@ public class VmwareRequisitionUrlConnection extends GenericURLConnection {
                 }
 
                 if (primaryInterfaceCandidate != null) {
-                    if (reachableInterfaceFound) {
-                        logger.warn("Found reachable primary interface '{}'", primaryInterfaceCandidate.getIpAddr());
-                    } else {
-                        logger.warn("Only non-reachable interfaces found, using first one for primary interface '{}'", primaryInterfaceCandidate.getIpAddr());
-                    }
                     primaryInterfaceCandidate.setSnmpPrimary(PrimaryType.PRIMARY);
 
                     for (String service : m_hostSystemServices) {
-                        if (reachableInterfaceFound || !"VMwareCim-HostSystem".equals(service)) {
-                            primaryInterfaceCandidate.insertMonitoredService(new RequisitionMonitoredService(service.trim()));
-                        }
+                        primaryInterfaceCandidate.insertMonitoredService(new RequisitionMonitoredService(service.trim()));
                     }
                 } else {
                     logger.warn("No primary interface found");
@@ -586,7 +599,7 @@ public class VmwareRequisitionUrlConnection extends GenericURLConnection {
             if (m_args != null && m_args.get(VMWARE_HOSTSYSTEM_SERVICES) != null) {
                 m_hostSystemServices = m_args.get(VMWARE_HOSTSYSTEM_SERVICES).split(",");
             } else {
-                m_hostSystemServices = new String[]{"VMware-ManagedEntity", "VMware-HostSystem", "VMwareCim-HostSystem"};
+                m_hostSystemServices = new String[]{"VMware-ManagedEntity", "VMware-HostSystem"};
             }
 
             // get services to be added to virtual machines
@@ -695,7 +708,7 @@ public class VmwareRequisitionUrlConnection extends GenericURLConnection {
 
                     // add memory
                     try {
-                        node.putAsset(new RequisitionAsset("ram", Math.round(hostSystem.getHardware().getMemorySize()/1000000f) + " MB"));
+                        node.putAsset(new RequisitionAsset("ram", Math.round(hostSystem.getHardware().getMemorySize() / 1000000f) + " MB"));
                     } catch (Exception e) {
                         logger.debug("Can't find Memory information for {}", hostSystem.getName());
                     }
@@ -776,7 +789,7 @@ public class VmwareRequisitionUrlConnection extends GenericURLConnection {
 
     /**
      * Checks whether an attribute/value is defined by a managed entity.
-     * 
+     * <p/>
      * <p>The old implementation allows the user to specify only one parameter.</p>
      * <p>The new implementation allows the user to use a regular expression for the value:</p>
      * <ul><li>key=location&value=~North.*</li></ul>
@@ -794,7 +807,7 @@ public class VmwareRequisitionUrlConnection extends GenericURLConnection {
      * @throws RemoteException
      */
     private boolean checkForAttribute(ManagedEntity managedEntity) throws RemoteException {
-        Map<String,String> attribMap = getCustomAttributes(managedEntity);
+        Map<String, String> attribMap = getCustomAttributes(managedEntity);
 
         Set<String> keySet = new TreeSet<String>();
         for (String k : m_args.keySet()) {
@@ -854,8 +867,8 @@ public class VmwareRequisitionUrlConnection extends GenericURLConnection {
      * @return the custom attributes
      * @throws RemoteException the remote exception
      */
-    private Map<String,String> getCustomAttributes(ManagedEntity entity) throws RemoteException {
-        final Map<String,String> attributes = new TreeMap<String,String>();
+    private Map<String, String> getCustomAttributes(ManagedEntity entity) throws RemoteException {
+        final Map<String, String> attributes = new TreeMap<String, String>();
         CustomFieldDef[] defs = entity.getAvailableField();
         CustomFieldValue[] values = entity.getCustomValue();
         for (int i = 0; defs != null && i < defs.length; i++) {
