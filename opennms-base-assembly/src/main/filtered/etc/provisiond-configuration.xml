@@ -117,11 +117,13 @@
          Bound this services to imported host systems, values should be seperated by ','.
          Default: VMware-ManagedEntity,VMware-HostSystem
 
+       Please use the VMwareCim-HostSystem detector to discover the CIM service on ESX host systems.
+
        _[customAttributeName] = [customAttributeValue]
 
        Filtering the requisition with the key/value pair parameters allows to filter only by one user defined attribute.
        This use case is for those situations on which it is required to match more than one parameter.
-       If the content of customAttributeValue starts with '~', the rest of it will be treated as a regular expresion. In
+       If the content of customAttributeValue starts with '~', the rest of it will be treated as a regular expression. In
        this case, the real value must match the provided expression.
 
        IMPORTANT:
