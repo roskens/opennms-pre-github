@@ -57,9 +57,9 @@ public class Package implements Serializable {
 
     /**
      * A file URL holding specific addresses to be polled. Each line in the
-     * URL file can be one of: "<IP><space>#<comments>"; "<IP>";
-     * "#<comments>"; Lines starting with a '#' are ignored and so are
-     * characters after a '<space>#' in a line.
+     * URL file can be one of: "&lt;IP&gt;&lt;space&gt;#&lt;comments&gt;"; "&lt;IP&gt;";
+     * "#&lt;comments&gt;"; Lines starting with a '#' are ignored and so are
+     * characters after a '&lt;space&gt;#' in a line.
      */
     @XmlElement(name="include-url")
     private List<String> m_includeUrls = new ArrayList<String>();
@@ -118,6 +118,28 @@ public class Package implements Serializable {
 
     public Package() {
         super();
+    }
+
+    /**
+     * Copy constructor.
+     * 
+     * @param pkg
+     */
+    public Package(Package pkg) {
+        super();
+        setExcludeRanges(pkg.getExcludeRanges());
+        setFilter(pkg.getFilter());
+        setIfAliasComment(pkg.getIfAliasComment());
+        setIfAliasDomain(pkg.getIfAliasDomain());
+        setIncludeRanges(pkg.getIncludeRanges());
+        setIncludeUrlCollection(pkg.getIncludeUrls());
+        setName(pkg.getName());
+        setOutageCalendars(pkg.getOutageCalendars());
+        setServices(pkg.getServices());
+        setSpecifics(pkg.getSpecifics());
+        setStoreByIfAlias(pkg.getStoreByIfAlias());
+        setStoreByNodeID(pkg.getStoreByNodeID());
+        setStorFlagOverride(pkg.getStorFlagOverride());
     }
 
     /**

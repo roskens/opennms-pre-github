@@ -32,6 +32,7 @@ xsi:schemaLocation="http://www.osgi.org/xmlns/blueprint/v1.0.0
         <property name="configurationFile" value="${configurationFile}"/>
         <property name="addNodeWithoutLink" value="true"/>
         <property name="filterManager" ref="filterManager" />
+        <property name="linkdHopCriteriaFactory" ref="linkdHopCriteriaFactory" />
     </bean>
     
     <!-- 
@@ -47,6 +48,11 @@ xsi:schemaLocation="http://www.osgi.org/xmlns/blueprint/v1.0.0
         <argument ref="nodeDao" />
 
     </bean>
+    
+    <bean id="linkdHopCriteriaFactory" class="org.opennms.features.topology.plugins.topo.linkd.internal.LinkdHopCriteriaFactory">
+        <argument ref="nodeDao"/>
+    </bean>
+    
 
     <!--
     <service interface="org.opennms.features.topology.api.topo.VertexProvider" ref="linkdTopologyProvider">
@@ -131,7 +137,7 @@ xsi:schemaLocation="http://www.osgi.org/xmlns/blueprint/v1.0.0
                     defaults 'link:system'
                     <entry key="linkd:system:snmp" value="theme://images/generic-device.png"/>
                      -->
-                    <entry key="linkd:system:snmp:.1.3.6.1.4.1.5813.1.13" value="ulf_file_server"/>
+                    <entry key="linkd:system:snmp:.1.3.6.1.4.1.5813.1.13" value="opennms_server"/>
                     <entry key="linkd:system:snmp:.1.3.6.1.4.1.9.1.283" value="workgroup_switch"/>
                     <entry key="linkd:system:snmp:.1.3.6.1.4.1.9.1.485" value="workgroup_switch"/>
                     <entry key="linkd:system:snmp:.1.3.6.1.4.1.9.1.516" value="workgroup_switch"/>
