@@ -32,7 +32,7 @@ import com.sun.jersey.spi.resource.PerRequest;
 import org.opennms.core.criteria.CriteriaBuilder;
 import org.opennms.core.criteria.restrictions.Restrictions;
 import org.opennms.core.utils.InetAddressUtils;
-import org.opennms.netmgt.dao.OutageDao;
+import org.opennms.netmgt.dao.api.OutageDao;
 import org.opennms.netmgt.model.OnmsOutage;
 import org.opennms.netmgt.model.OnmsOutageCollection;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -45,7 +45,8 @@
 		org.exolab.castor.xml.MarshalException,
 		org.exolab.castor.xml.ValidationException,
 		org.opennms.web.category.*,
-		org.opennms.web.element.*
+		org.opennms.web.element.*,
+		java.util.Date
 	"
 %>
 <%@ page import="org.opennms.netmgt.model.OnmsMonitoredService" %>

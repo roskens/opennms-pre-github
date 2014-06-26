@@ -42,7 +42,8 @@
 	session="true"
 	import="org.opennms.web.category.*,
 		org.opennms.core.utils.WebSecurityUtils,
-		org.opennms.web.element.*
+		org.opennms.web.element.*,
+		java.util.Date
 	"
 %>
 <%@ page import="org.opennms.web.outage.Outage" %>
