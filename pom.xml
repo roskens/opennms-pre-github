@@ -2344,7 +2344,7 @@
       <dependency>
         <groupId>com.google.guava</groupId>
         <artifactId>guava</artifactId>
-        <version>17.0.1</version>
+        <version>17.0</version>
       </dependency>
       <dependency>
         <groupId>com.google.gwt</groupId>
