@@ -46,9 +46,9 @@ import org.slf4j.LoggerFactory;
  */
 public class NumericAttributeType extends SnmpAttributeType implements NumericCollectionAttributeType {
     private static final Logger LOG = LoggerFactory.getLogger(NumericAttributeType.class);
-    
+
     static final String DST_COUNTER = "COUNTER";
-    
+
     /**
      * <p>Constructor for NumericAttributeType.</p>
      *
@@ -59,35 +59,24 @@ public class NumericAttributeType extends SnmpAttributeType implements NumericCo
      */
     public NumericAttributeType(ResourceType resourceType, String collectionName, MibObject mibObj, AttributeGroupType groupType) {
         super(resourceType, collectionName, mibObj, groupType);
-        
-            // Assign the data source object identifier and instance
-            LOG.debug("buildDataSourceList: ds_name: {} ds_oid: {}.{}", getName(), getOid(), getInstance());
-            
-            String alias = getAlias();
-            if (alias.length() > PersistOperationBuilder.MAX_DS_NAME_LENGTH) {
-                logNameTooLong();
-            }
 
-
+        // Assign the data source object identifier and instance
+        LOG.debug("buildDataSourceList: ds_name: {} ds_oid: {}.{}", getName(), getOid(), getInstance());
     }
-    
+
     @Override
     public String getMaxval() {
         return m_mibObj.getMaxval();
     }
-    
+
     @Override
     public String getMinval() {
         return m_mibObj.getMinval();
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public void storeAttribute(CollectionAttribute attribute, Persister persister) {
         persister.persistNumericAttribute(attribute);
     }
-
-    void logNameTooLong() {
-        LOG.warn("buildDataSourceList: Mib object name/alias '{}' exceeds 19 char maximum for RRD data source names, truncating.", getAlias());
-   }
 }

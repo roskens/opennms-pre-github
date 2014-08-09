@@ -73,7 +73,7 @@ public class AttributesTable extends Table {
 		setValidationVisible(true);
 		setReadOnly(true);
 		setImmediate(true);
-		setTableFieldFactory(new AttributesTableFieldFactory());		
+		setTableFieldFactory(new AttributesTableFieldFactory());
 	}
 
 	public void modelChanged(Mbean bean) {
@@ -106,7 +106,6 @@ public class AttributesTable extends Table {
 	private class AttributesTableFieldFactory implements TableFieldFactory {
 
 		private final Validator nameValidator = new AttributeNameValidator();
-		private final Validator lengthValidator = new StringLengthValidator(String.format("Maximal length is %d", Config.ATTRIBUTES_ALIAS_MAX_LENGTH), 0, Config.ATTRIBUTES_ALIAS_MAX_LENGTH, false); 
 
 		@Override
 		public Field<?> createField(Container container, Object itemId, Object propertyId, Component uiContext) {
@@ -146,10 +145,8 @@ public class AttributesTable extends Table {
 			tf.setImmediate(true);
 			tf.setRequired(true);
 			tf.setWidth(100, Unit.PERCENTAGE);
-			tf.setMaxLength(Config.ATTRIBUTES_ALIAS_MAX_LENGTH);
 			tf.setRequiredError("You must provide an attribute name.");
 			tf.addValidator(nameValidator);
-			tf.addValidator(lengthValidator);
 			tf.addValidator(uniqueAttributeNameValidator);
 			tf.setData(itemId);
 			return tf;
@@ -168,7 +165,7 @@ public class AttributesTable extends Table {
 		super.discard();
 		for (Field f : fields) f.discard();
 	}
-	
+
 	@Override
 	public void validate() throws InvalidValueException {
 		super.validate();

@@ -71,7 +71,7 @@ public final class PollerConfigFactory extends PollerConfigManager {
      * This member is set to true if the configuration file has been loaded.
      */
     private static boolean m_loaded = false;
-    
+
     /**
      * Loaded version
      */
@@ -125,20 +125,6 @@ public final class PollerConfigFactory extends PollerConfigManager {
             IOUtils.closeQuietly(stream);
         }
 
-        for (final org.opennms.netmgt.config.poller.Package pollerPackage : config.getConfiguration().getPackages()) {
-            for (final org.opennms.netmgt.config.poller.Service service : pollerPackage.getServices()) {
-                for (final org.opennms.netmgt.config.poller.Parameter parm : service.getParameters()) {
-                    if (parm.getKey().equals("ds-name")) {
-                        if (parm.getValue().length() > ConfigFileConstants.RRD_DS_MAX_SIZE) {
-                            throw new IllegalStateException(String.format("ds-name '%s' in service '%s' (poller package '%s') is greater than %d characters",
-                                parm.getValue(), service.getName(), pollerPackage.getName(), ConfigFileConstants.RRD_DS_MAX_SIZE)
-                            );
-                        }
-                    }
-                }
-            }
-        }
-
         setInstance(config);
     }
 
@@ -168,7 +154,7 @@ public final class PollerConfigFactory extends PollerConfigManager {
 
         return m_singleton;
     }
-    
+
     /**
      * <p>setInstance</p>
      *

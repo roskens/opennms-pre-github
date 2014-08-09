@@ -94,7 +94,7 @@ public final class ThresholdingConfigFactory {
 
     /**
      * Private constructor
-     * 
+     *
      * @exception java.io.IOException
      *                Thrown if the specified config file cannot be read
      * @exception org.exolab.castor.xml.MarshalException
@@ -115,7 +115,7 @@ public final class ThresholdingConfigFactory {
         }
 
     }
-    
+
     /**
      * <p>Constructor for ThresholdingConfigFactory.</p>
      *
@@ -131,21 +131,21 @@ public final class ThresholdingConfigFactory {
         m_config = CastorUtils.unmarshal(ThresholdingConfig.class, stream);
         initGroupMap();
     }
-    
+
     /**
      * Build map of org.opennms.netmgt.config.threshd.Group objects
      * indexed by group name.
      *
      * This is parsed and built at initialization for
      * faster processing at run-timne.
-     */ 
+     */
     private void initGroupMap() {
         Map<String, Group> groupMap = new HashMap<String, Group>();
 
         for (Group g : m_config.getGroupCollection()) {
             groupMap.put(g.getName(), g);
         }
-        
+
         m_groupMap = groupMap;
     }
 
@@ -176,17 +176,6 @@ public final class ThresholdingConfigFactory {
 
         ThresholdingConfigFactory tcf = new ThresholdingConfigFactory(cfgFile.getPath());
 
-        for (String groupName : tcf.getGroupNames()) {
-            Group g = tcf.getGroup(groupName);
-            for (org.opennms.netmgt.config.threshd.Threshold threshold :  g.getThresholdCollection()) {
-                if (threshold.getDsName().length() > ConfigFileConstants.RRD_DS_MAX_SIZE) {
-                    throw new ValidationException(
-                        String.format("ds-name '%s' in group '%s' is greater than %d characters",
-                            threshold.getDsName(), groupName, ConfigFileConstants.RRD_DS_MAX_SIZE)
-                    );
-                }
-            }
-        }
         m_singleton = tcf;
         m_loaded = true;
     }
@@ -283,7 +272,7 @@ public final class ThresholdingConfigFactory {
         result.addAll(group.getExpressionCollection());
         return result;
     }
-    
+
     /**
      * <p>getGroupNames</p>
      *
@@ -292,7 +281,7 @@ public final class ThresholdingConfigFactory {
     public Collection<String> getGroupNames() {
         return Collections.unmodifiableCollection(m_groupMap.keySet());
     }
-    
+
     /**
      * Saves the current in-memory configuration to disk and reloads
      *
@@ -316,7 +305,7 @@ public final class ThresholdingConfigFactory {
             fileWriter.flush();
             fileWriter.close();
         }
-        
+
         update();
 
     }

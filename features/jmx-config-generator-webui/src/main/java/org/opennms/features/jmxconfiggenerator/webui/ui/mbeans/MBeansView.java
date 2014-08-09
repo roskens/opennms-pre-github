@@ -175,7 +175,7 @@ public class MBeansView extends VerticalLayout implements ClickListener, ModelCh
 		if (newModel instanceof UiModel) {
 			model = (UiModel) newModel;
 			// forward to all sub elements of this view
-			controller.notifyObservers(UiModel.class, newModel); 
+			controller.notifyObservers(UiModel.class, newModel);
 		}
 	}
 
@@ -210,33 +210,30 @@ public class MBeansView extends VerticalLayout implements ClickListener, ModelCh
 	private boolean isValid() {
 		List<InvalidValueException> exceptionList = new ArrayList<InvalidValueException>();
 		NameValidator nameValidator = new NameValidator();
-		
+
 		Validator attributeNameValidator = new AttributeNameValidator();
-		Validator attributeLengthValidator = new StringLengthValidator(String.format("Maximal length is %d", Config.ATTRIBUTES_ALIAS_MAX_LENGTH), 0, Config.ATTRIBUTES_ALIAS_MAX_LENGTH, false);  // TODO do it more dynamically
 		UniqueAttributeNameValidator attributeUniqueNameValidator = new UniqueAttributeNameValidator(controller, new HashMap<Object, Field<String>>());
-		
-		
+
+
 		// 1. validate each MBean (Mbean name without required check!)
 		for (Mbean eachMBean : controller.getSelectedMbeans()) {
 			validate(nameValidator, eachMBean.getName(), exceptionList); // TODO do it more dynamically
-			
+
 			// 2. validate each CompositeAttribute
 			for (CompAttrib eachCompositeAttribute : controller.getSelectedCompositeAttributes(eachMBean)) {
 				validate(nameValidator, eachCompositeAttribute.getName(), exceptionList); // TODO do it more dynamically
-				
+
 				for (org.opennms.xmlns.xsd.config.jmx_datacollection.CompMember eachCompMember : controller.getSelectedCompositeMembers(eachCompositeAttribute)) {
 					validate(attributeNameValidator, eachCompMember.getAlias(), exceptionList); // TODO do it more dynamically
-					validate(attributeLengthValidator, eachCompMember.getAlias(), exceptionList); // TODO do it more dynamically
 					validate(attributeUniqueNameValidator, eachCompMember.getAlias(), exceptionList); // TODO do it more dynamically
 				}
 			}
-			
+
 			// 3. validate each Attribute
 			for (Attrib eachAttribute : controller.getSelectedAttributes(eachMBean)) {
 				validate(attributeNameValidator, eachAttribute.getAlias(), exceptionList); // TODO do it more dynamically
-				validate(attributeLengthValidator, eachAttribute.getAlias(), exceptionList); // TODO do it more dynamically
-				validate(attributeUniqueNameValidator, eachAttribute.getAlias(), exceptionList); // TODO do it more dynamically				
-			} 
+				validate(attributeUniqueNameValidator, eachAttribute.getAlias(), exceptionList); // TODO do it more dynamically
+			}
 		}
 		return exceptionList.isEmpty();
 	}
@@ -247,7 +244,7 @@ public class MBeansView extends VerticalLayout implements ClickListener, ModelCh
 		buttonPanel.getPrevious().setEnabled(event.getNewState() != ViewState.Edit);
 		buttonPanel.getNext().setEnabled(event.getNewState() != ViewState.Edit);
 	}
-	
+
 	private static void validate(Validator validator, Object value, List<InvalidValueException> exceptionList) {
 		try {
 			validator.validate(value); // TODO do it more dynamically

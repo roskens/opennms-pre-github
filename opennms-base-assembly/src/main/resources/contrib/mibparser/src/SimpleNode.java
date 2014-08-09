@@ -183,13 +183,6 @@ public class SimpleNode
   static final String baseNumericOID = ".1.3.6.1.4";
 
   /**
-   * This string is catenated on an alias that is greater then 19 chars
-   * This is an rrd limitation.
-   */
-  static final String TOO_LONG = "TOOLONG";
-  static final int tooLongSize = 19;
-
-  /**
    * Every node has 1 and only 1 parent.
    */
   protected Node parent;
@@ -1066,10 +1059,6 @@ public class SimpleNode
         }
         if (tableName != null) {
           instanceVar = (String) tableAndIndex.get(tableName);
-        }
-        // There is a 19 char rrd limitation. Catenate a string onto the alias.
-        if (lastOidStr.length() > tooLongSize) {
-          lastOidStr = lastOidStr + TOO_LONG;
         }
         sb.append("<mibObj oid=\"").append(numericOid).append("\" ");
         sb.append("instance=\"").append(instanceVar).append("\" ");

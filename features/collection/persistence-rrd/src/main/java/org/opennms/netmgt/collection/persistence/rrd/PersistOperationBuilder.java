@@ -60,22 +60,20 @@ import org.slf4j.LoggerFactory;
  */
 public class PersistOperationBuilder {
     private static final Logger LOG = LoggerFactory.getLogger(PersistOperationBuilder.class);
-    
+
     private final RrdRepository m_repository;
     private final String m_rrdName;
     private final ResourceIdentifier m_resource;
     private final Map<CollectionAttributeType, String> m_declarations = new TreeMap<CollectionAttributeType, String>(new ByNameComparator());
     private final Map<String, String> m_metaData = new LinkedHashMap<String, String>();
     private TimeKeeper m_timeKeeper = new DefaultTimeKeeper();
-    
+
     /**
      * RRDTool defined Data Source Types NOTE: "DERIVE" and "ABSOLUTE" not
      * currently supported.
      */
     private static final String DST_GAUGE = "GAUGE";
     private static final String DST_COUNTER = "COUNTER";
-    /** Constant <code>MAX_DS_NAME_LENGTH=19</code> */
-    public static final int MAX_DS_NAME_LENGTH = 19;
 
     /**
      * <p>Constructor for PersistOperationBuilder.</p>
@@ -121,7 +119,7 @@ public class PersistOperationBuilder {
     public void setAttributeValue(CollectionAttributeType attrType, String value) {
         m_declarations.put(attrType, value);
     }
-    
+
     public void setAttributeMetadata(String metricIdentifier, String name) {
         if (metricIdentifier == null) {
             if (name == null) {
@@ -164,7 +162,7 @@ public class PersistOperationBuilder {
      */
     public void commit() throws RrdException {
         if (m_declarations.size() == 0) {
-            // Nothing to do.  In fact, we'll get an error if we try to create an RRD file with no data sources            
+            // Nothing to do.  In fact, we'll get an error if we try to create an RRD file with no data sources
             return;
         }
 
@@ -202,7 +200,7 @@ public class PersistOperationBuilder {
     private Map<String, String> getAttributeMappings() {
         return null;
     }
-    
+
     private List<RrdDataSource> getDataSources() {
         List<RrdDataSource> dataSources = new ArrayList<RrdDataSource>(m_declarations.size());
         for (CollectionAttributeType attrDef : m_declarations.keySet()) {
@@ -216,7 +214,7 @@ public class PersistOperationBuilder {
             String type = PersistOperationBuilder.mapType(attrDef.getType());
             // If the type is supported by RRD...
             if (type != null) {
-                RrdDataSource rrdDataSource = new RrdDataSource(StringUtils.truncate(attrDef.getName(), PersistOperationBuilder.MAX_DS_NAME_LENGTH), type, getRepository().getHeartBeat(), minval, maxval);
+                RrdDataSource rrdDataSource = new RrdDataSource(attrDef.getName(), type, getRepository().getHeartBeat(), minval, maxval);
                 dataSources.add(rrdDataSource);
             }
         }
