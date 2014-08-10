@@ -1,4 +1,5 @@
-/*******************************************************************************
+/**
+ * *****************************************************************************
  * This file is part of OpenNMS(R).
  *
  * Copyright (C) 2002-2014 The OpenNMS Group, Inc.
@@ -21,38 +22,48 @@
  *      http://www.gnu.org/licenses/
  *
  * For more information contact:
- *     OpenNMS(R) Licensing <license@opennms.org>
- *     http://www.opennms.org/
- *     http://www.opennms.com/
- *******************************************************************************/
-
-package org.opennms.netmgt.collectd.tca;
+ * OpenNMS(R) Licensing <license@opennms.org>
+ * http://www.opennms.org/
+ * http://www.opennms.com/
+ ******************************************************************************
+ */
+package org.opennms.netmgt.collection.support;
 
 import java.util.Date;
 import java.util.TimeZone;
-
 import org.opennms.netmgt.collection.api.TimeKeeper;
 
 /**
- * The Class ConstantTimeKeeper.
- * 
- * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
+ *
+ * @author roskens
  */
 public class ConstantTimeKeeper implements TimeKeeper {
 
-    /** The Fixed Date. */
-    private Date m_date;
-    
+    /**
+     * The Fixed Date.
+     */
+    private final Date m_date;
+
+    /**
+     * Instantiates a new constant time keeper.
+     *
+     * @param date the date
+     */
+    public ConstantTimeKeeper(final Date date) {
+        m_date = date;
+    }
+
     /**
      * Instantiates a new constant time keeper.
      *
      * @param timestamp the timestamp in seconds
      */
-    public ConstantTimeKeeper(long timestampInSeconds) {
+    public ConstantTimeKeeper(final long timestampInSeconds) {
         m_date = new Date(timestampInSeconds * 1000);
     }
-    
-    /* (non-Javadoc)
+
+    /*
+     * (non-Javadoc)
      * @see org.opennms.core.utils.TimeKeeper#getCurrentTime()
      */
     @Override
@@ -60,7 +71,8 @@ public class ConstantTimeKeeper implements TimeKeeper {
         return m_date.getTime();
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.opennms.core.utils.TimeKeeper#getCurrentDate()
      */
     @Override
@@ -68,12 +80,13 @@ public class ConstantTimeKeeper implements TimeKeeper {
         return m_date;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
      * @see org.opennms.core.utils.TimeKeeper#getTimeZone()
      */
     @Override
     public TimeZone getTimeZone() {
         return TimeZone.getDefault();
     }
-  
+
 }

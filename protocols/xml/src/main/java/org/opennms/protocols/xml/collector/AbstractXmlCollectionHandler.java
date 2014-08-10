@@ -42,7 +42,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.Source;
@@ -54,7 +53,6 @@ import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
-
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.joda.time.DateTime;
@@ -67,6 +65,7 @@ import org.opennms.netmgt.collection.api.AttributeGroupType;
 import org.opennms.netmgt.collection.api.CollectionAgent;
 import org.opennms.netmgt.collection.api.CollectionException;
 import org.opennms.netmgt.collection.api.ServiceCollector;
+import org.opennms.netmgt.collection.support.ConstantTimeKeeper;
 import org.opennms.netmgt.config.DataCollectionConfigFactory;
 import org.opennms.netmgt.config.datacollection.PersistenceSelectorStrategy;
 import org.opennms.netmgt.config.datacollection.ResourceType;
@@ -93,7 +92,7 @@ import org.w3c.dom.NodeList;
 /**
  * The Abstract Class XML Collection Handler.
  * <p>All XmlCollectionHandler should extend this class.</p>
- * 
+ *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 public abstract class AbstractXmlCollectionHandler implements XmlCollectionHandler {
@@ -315,7 +314,7 @@ public abstract class AbstractXmlCollectionHandler implements XmlCollectionHandl
 
     /**
      * Gets the time stamp.
-     * 
+     *
      * @param doc the doc
      * @param xpath the xpath
      * @param group the group
@@ -348,17 +347,17 @@ public abstract class AbstractXmlCollectionHandler implements XmlCollectionHandl
 
     /**
      * Parses the URL.
-     * 
+     *
      * <p>Additional placeholders:</p>
      * <ul>
      * <li><b>step</b>, The Collection Step in seconds</li>
      * </ul>
-     * 
+     *
      * @param unformattedUrl the unformatted URL
      * @param agent the collection agent
      * @param collectionStep the collection step (in seconds)
      * @return the string
-     * 
+     *
      * @throws IllegalArgumentException the illegal argument exception
      */
     protected String parseUrl(final String unformattedUrl, final CollectionAgent agent, final Integer collectionStep) throws IllegalArgumentException {
@@ -394,7 +393,7 @@ public abstract class AbstractXmlCollectionHandler implements XmlCollectionHandl
 
     /**
      * Parses the string.
-     * 
+     *
      * <p>Valid placeholders are:</p>
      * <ul>
      * <li><b>ipAddr|ipAddress</b>, The Node IP Address</li>
