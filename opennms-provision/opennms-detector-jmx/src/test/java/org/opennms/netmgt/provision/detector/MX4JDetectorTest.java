@@ -35,6 +35,7 @@ import static org.junit.Assert.assertTrue;
 import java.io.IOException;
 import java.lang.management.ManagementFactory;
 import java.net.InetAddress;
+import java.net.ServerSocket;
 import java.net.UnknownHostException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -59,64 +60,75 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations={"classpath:/META-INF/opennms/detectors.xml"})
 public class MX4JDetectorTest implements InitializingBean {
-       
+    private static int m_registryPort;
+
     @Autowired
     public MX4JDetector m_detector;
-    
+
     public static MBeanServer m_beanServer;
     private JMXConnectorServer m_connectorServer;
-    
+
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
     @BeforeClass
-    public static void beforeTest() throws RemoteException{
-        LocateRegistry.createRegistry(9999);
+    public static void beforeTest() throws RemoteException, IOException {
+        m_registryPort = findFreePort();
+        LocateRegistry.createRegistry(m_registryPort);
         m_beanServer = ManagementFactory.getPlatformMBeanServer();
     }
-    
+
     @Before
     public void setUp() throws IOException {
         assertNotNull(m_detector);
-        
-        JMXServiceURL url = new JMXServiceURL("service:jmx:rmi:///jndi/rmi://localhost:9999/server");
-        
+
+        JMXServiceURL url = new JMXServiceURL("service:jmx:rmi:///jndi/rmi://localhost:" + m_registryPort + "/server");
+
         m_connectorServer = JMXConnectorServerFactory.newJMXConnectorServer(url, null, m_beanServer);
         m_connectorServer.start();
-        
-        m_detector.setPort(9999);
+
+        m_detector.setPort(m_registryPort);
         m_detector.setUrlPath("/server");
     }
-    
+
     @After
     public void tearDown() throws IOException{
         m_connectorServer.stop();
     }
-    
+
     @Test(timeout=90000)
     public void testDetectoredWired(){
         assertNotNull(m_detector);
     }
-   
+
     @Test(timeout=90000)
     public void testDetectorSuccess() throws IOException{
         m_detector.init();
         assertTrue(m_detector.isServiceDetected(InetAddress.getLocalHost()));
     }
-    
+
     @Test(timeout=90000)
-    public void testDetectorWrongPort() throws UnknownHostException{
-        m_detector.setPort(9000);
+    public void testDetectorWrongPort() throws UnknownHostException, IOException {
+        int unusedPort = findFreePort();
+        m_detector.setPort(unusedPort);
         m_detector.init();
         assertFalse(m_detector.isServiceDetected(InetAddress.getLocalHost()));
     }
-    
+
     @Test(timeout=90000)
     public void testDetectorWrongUrlPath() throws UnknownHostException{
         m_detector.setUrlPath("wrongpath");
         m_detector.init();
         assertFalse(m_detector.isServiceDetected(InetAddress.getLocalHost()));
+    }
+
+    public static int findFreePort() throws IOException {
+        int port;
+        try (ServerSocket server = new ServerSocket(0)) {
+            port = server.getLocalPort();
+        }
+        return port;
     }
 }
