@@ -42,6 +42,7 @@ import org.opennms.netmgt.collection.api.CollectionException;
 import org.opennms.netmgt.collection.api.CollectionResource;
 import org.opennms.netmgt.collection.api.CollectionSet;
 import org.opennms.netmgt.collection.api.CollectionSetVisitor;
+import org.opennms.netmgt.collection.api.CollectionStatus;
 import org.opennms.netmgt.collection.api.ServiceCollector;
 import org.opennms.netmgt.snmp.AggregateTracker;
 import org.opennms.netmgt.snmp.Collectable;
@@ -55,7 +56,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * <p>SnmpCollectionSet class.</p>
- * 
+ *
  * After creation, be sure to call setCollectionTimestamp with the time the collection is taken
  * It is inappropriate to require it in the constructor, as instances may be created independently
  * and at a different time from when the data is collected.  (They're not currently, but it's better not to
@@ -65,7 +66,7 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class SnmpCollectionSet implements Collectable, CollectionSet {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(SnmpCollectionSet.class);
 
     public static class RescanNeeded {
@@ -86,7 +87,7 @@ public class SnmpCollectionSet implements Collectable, CollectionSet {
     private IfNumberTracker m_ifNumber;
     private SysUpTimeTracker m_sysUpTime;
     private SnmpNodeCollector m_nodeCollector;
-    private int m_status=ServiceCollector.COLLECTION_FAILED;
+    private CollectionStatus m_status = CollectionStatus.FAILED;
     private boolean m_ignorePersist;
     private Date m_timestamp;
 
@@ -97,7 +98,7 @@ public class SnmpCollectionSet implements Collectable, CollectionSet {
      */
     @Override
     public String toString() {
-    	StringBuffer buffer = new StringBuffer();
+        StringBuilder buffer = new StringBuilder();
 
     	buffer.append("CollectionAgent: ");
     	buffer.append(m_agent);
@@ -234,7 +235,7 @@ public class SnmpCollectionSet implements Collectable, CollectionSet {
     boolean hasInterfaceDataToCollect() {
         return getIfResourceType().hasDataToCollect();
     }
-    
+
     boolean hasGenericIndexResourceDataToCollect() {
         return ! getGenericIndexResourceTypes().isEmpty();
     }
@@ -253,7 +254,7 @@ public class SnmpCollectionSet implements Collectable, CollectionSet {
     }
 
     List<SnmpAttributeType> getCombinedIndexedAttributes() {
-    	List<SnmpAttributeType> attributes = new LinkedList<SnmpAttributeType>();
+	List<SnmpAttributeType> attributes = new LinkedList<>();
 
     	attributes.addAll(getIfResourceType().getAttributeTypes());
     	attributes.addAll(getIfAliasResourceType().getAttributeTypes());
@@ -268,7 +269,7 @@ public class SnmpCollectionSet implements Collectable, CollectionSet {
      * @return a {@link java.util.Collection} object.
      */
     protected Collection<SnmpAttributeType> getGenericIndexAttributeTypes() {
-    	Collection<SnmpAttributeType> attributeTypes = new LinkedList<SnmpAttributeType>();
+	Collection<SnmpAttributeType> attributeTypes = new LinkedList<>();
     	Collection<ResourceType> resourceTypes = getGenericIndexResourceTypes();
     	for (ResourceType resourceType : resourceTypes) {
     		attributeTypes.addAll(resourceType.getAttributeTypes());
@@ -316,7 +317,7 @@ public class SnmpCollectionSet implements Collectable, CollectionSet {
     }
 
     CollectionTracker getTracker() {
-        List<Collectable> trackers = new ArrayList<Collectable>(4);
+        List<Collectable> trackers = new ArrayList<>(4);
 
         if (getIfNumber() != null) {
         	trackers.add(getIfNumber());
@@ -354,7 +355,7 @@ public class SnmpCollectionSet implements Collectable, CollectionSet {
 
     /**
      * Log error and return COLLECTION_FAILED is there is a failure.
-     * 
+     *
      * @param walker
      * @throws CollectionWarning
      */
@@ -368,7 +369,7 @@ public class SnmpCollectionSet implements Collectable, CollectionSet {
         }
 
         String message = "collection failed for "
-            + getCollectionAgent().getHostAddress() 
+            + getCollectionAgent().getHostAddress()
             + " due to: " + walker.getErrorMessage();
         // Note: getErrorThrowable() return value can be null
         throw new CollectionWarning(message, walker.getErrorThrowable());
@@ -391,7 +392,7 @@ public class SnmpCollectionSet implements Collectable, CollectionSet {
             // Was the collection successful?
             verifySuccessfulWalk(walker);
 
-            m_status = ServiceCollector.COLLECTION_SUCCEEDED;
+            m_status = CollectionStatus.SUCCESS;
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             throw new CollectionWarning("collect: Collection of node SNMP "
@@ -563,7 +564,7 @@ public class SnmpCollectionSet implements Collectable, CollectionSet {
      * @return a int.
      */
     @Override
-    public int getStatus() {
+    public CollectionStatus getStatus() {
         return m_status;
     }
 

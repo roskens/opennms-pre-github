@@ -38,6 +38,7 @@ import org.opennms.netmgt.collection.api.CollectionException;
 import org.opennms.netmgt.collection.api.CollectionInitializationException;
 import org.opennms.netmgt.collection.api.CollectionInstrumentation;
 import org.opennms.netmgt.collection.api.CollectionSet;
+import org.opennms.netmgt.collection.api.CollectionStatus;
 import org.opennms.netmgt.collection.api.ServiceCollector;
 import org.opennms.netmgt.collection.api.ServiceParameters;
 import org.opennms.netmgt.config.CollectdConfigFactory;
@@ -57,8 +58,8 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class CollectionSpecification {
-    
-    
+
+
     private static final Logger LOG = LoggerFactory.getLogger(CollectionSpecification.class);
 
     private Package m_package;
@@ -79,7 +80,7 @@ public class CollectionSpecification {
         m_svcName = svcName;
         m_collector = collector;
         m_instrumentation = instrumentation;
-        
+
         initializeParameters();
     }
 
@@ -176,7 +177,7 @@ public class CollectionSpecification {
     }
 
     private void initializeParameters() {
-    	final Map<String, Object> m = new TreeMap<String, Object>();
+	final Map<String, Object> m = new TreeMap<>();
         m.put("SERVICE", m_svcName);
         StringBuffer sb;
         Collection<Parameter> params = getService().getParameters();
@@ -237,6 +238,7 @@ public class CollectionSpecification {
      * <p>initialize</p>
      *
      * @param agent a {@link org.opennms.netmgt.collection.api.CollectionAgent} object.
+     * @throws org.opennms.netmgt.collection.api.CollectionInitializationException
      */
     public void initialize(CollectionAgent agent) throws CollectionInitializationException {
         m_instrumentation.beginCollectorInitialize(m_package.getName(), agent.getNodeId(), agent.getHostAddress(), m_svcName);
@@ -273,8 +275,8 @@ public class CollectionSpecification {
         try {
             CollectionSet set = getCollector().collect(agent, EventIpcManagerFactory.getIpcManager(), getPropertyMap());
             // There are collector implementations that never throw an exception just return a collection failed
-            if (set.getStatus() == ServiceCollector.COLLECTION_FAILED) {
-                m_instrumentation.reportCollectionException(m_package.getName(), agent.getNodeId(), agent.getHostAddress(), m_svcName, new CollectionFailed(ServiceCollector.COLLECTION_FAILED));
+            if (set.getStatus() == CollectionStatus.FAILED) {
+                m_instrumentation.reportCollectionException(m_package.getName(), agent.getNodeId(), agent.getHostAddress(), m_svcName, new CollectionFailed(CollectionStatus.FAILED));
             }
             return set;
         } catch (CollectionException e) {
@@ -302,7 +304,7 @@ public class CollectionSpecification {
          * applies to the current time and the outage applies to this
          * interface then break and return true. Otherwise process the
          * next outage.
-         */ 
+         */
         for (String outageName : m_package.getOutageCalendars()) {
             // Does the outage apply to the current time?
             if (outageFactory.isCurTimeInOutage(outageName)) {

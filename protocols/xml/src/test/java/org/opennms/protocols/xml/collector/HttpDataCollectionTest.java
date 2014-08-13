@@ -50,6 +50,7 @@ import org.opennms.core.test.http.annotations.JUnitHttpServer;
 import org.opennms.core.test.http.annotations.Webapp;
 import org.opennms.core.xml.JaxbUtils;
 import org.opennms.netmgt.collection.api.CollectionAgent;
+import org.opennms.netmgt.collection.api.CollectionStatus;
 import org.opennms.netmgt.collection.api.ServiceCollector;
 import org.opennms.netmgt.collection.api.ServiceParameters;
 import org.opennms.netmgt.collection.persistence.rrd.BasePersister;
@@ -74,7 +75,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
  * The Test Class for HTTP Data Collection.
- * 
+ *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -151,7 +152,7 @@ public class HttpDataCollectionTest {
         XmlDataCollection collection = config.getDataCollectionByName("Http-Count");
         RrdRepository repository = createRrdRepository(collection.getXmlRrd());
 
-        Map<String, Object> parameters = new HashMap<String, Object>();
+        Map<String, Object> parameters = new HashMap<>();
         parameters.put("collection", "Http-Count");
 
         DefaultXmlCollectionHandler collector = new DefaultXmlCollectionHandler();
@@ -160,7 +161,7 @@ public class HttpDataCollectionTest {
         collector.setServiceName("HTTP");
 
         XmlCollectionSet collectionSet = collector.collect(m_collectionAgent, collection, parameters);
-        Assert.assertEquals(ServiceCollector.COLLECTION_SUCCEEDED, collectionSet.getStatus());
+        Assert.assertEquals(CollectionStatus.SUCCESS, collectionSet.getStatus());
 
         ServiceParameters serviceParams = new ServiceParameters(new HashMap<String,Object>());
         BasePersister persister =  new GroupPersister(serviceParams, repository); // storeByGroup=true;
@@ -171,7 +172,7 @@ public class HttpDataCollectionTest {
         Assert.assertEquals(1, jrb.getDsCount());
         Datasource ds = jrb.getDatasource("count");
         Assert.assertNotNull(ds);
-        Assert.assertEquals(new Double(5), Double.valueOf(ds.getLastValue()));
+        Assert.assertEquals((double) 5,ds.getLastValue());
     }
 
     /**
@@ -189,7 +190,7 @@ public class HttpDataCollectionTest {
         XmlDataCollection collection = config.getDataCollectionByName("Http-Market");
         RrdRepository repository = createRrdRepository(collection.getXmlRrd());
 
-        Map<String, Object> parameters = new HashMap<String, Object>();
+        Map<String, Object> parameters = new HashMap<>();
         parameters.put("collection", "Http-Market");
 
         HttpCollectionHandler collector = new HttpCollectionHandler();
@@ -198,7 +199,7 @@ public class HttpDataCollectionTest {
         collector.setServiceName("HTTP");
 
         XmlCollectionSet collectionSet = collector.collect(m_collectionAgent, collection, parameters);
-        Assert.assertEquals(ServiceCollector.COLLECTION_SUCCEEDED, collectionSet.getStatus());
+        Assert.assertEquals(CollectionStatus.SUCCESS, collectionSet.getStatus());
 
         ServiceParameters serviceParams = new ServiceParameters(new HashMap<String,Object>());
         BasePersister persister =  new GroupPersister(serviceParams, repository); // storeByGroup=true;
@@ -209,7 +210,7 @@ public class HttpDataCollectionTest {
         Assert.assertEquals(2, jrb.getDsCount());
         Datasource ds = jrb.getDatasource("nasdaq");
         Assert.assertNotNull(ds);
-        Assert.assertEquals(new Double(3578.30), Double.valueOf(ds.getLastValue()));
+        Assert.assertEquals(3578.30,ds.getLastValue());
     }
 
     /**
@@ -227,7 +228,7 @@ public class HttpDataCollectionTest {
         XmlDataCollection collection = config.getDataCollectionByName("Solaris");
         RrdRepository repository = createRrdRepository(collection.getXmlRrd());
 
-        Map<String, Object> parameters = new HashMap<String, Object>();
+        Map<String, Object> parameters = new HashMap<>();
         parameters.put("collection", "Solaris");
 
         DefaultJsonCollectionHandler collector = new DefaultJsonCollectionHandler();
@@ -236,7 +237,7 @@ public class HttpDataCollectionTest {
         collector.setServiceName("HTTP");
 
         XmlCollectionSet collectionSet = collector.collect(m_collectionAgent, collection, parameters);
-        Assert.assertEquals(ServiceCollector.COLLECTION_SUCCEEDED, collectionSet.getStatus());
+        Assert.assertEquals(CollectionStatus.SUCCESS, collectionSet.getStatus());
 
         ServiceParameters serviceParams = new ServiceParameters(new HashMap<String,Object>());
         BasePersister persister =  new GroupPersister(serviceParams, repository); // storeByGroup=true;
@@ -247,7 +248,7 @@ public class HttpDataCollectionTest {
         Assert.assertEquals(6, jrb.getDsCount());
         Datasource ds = jrb.getDatasource("nproc");
         Assert.assertNotNull(ds);
-        Assert.assertEquals(new Double(245.0), Double.valueOf(ds.getLastValue()));
+        Assert.assertEquals(245.0,ds.getLastValue());
     }
 
     /**

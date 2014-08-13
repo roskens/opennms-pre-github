@@ -43,6 +43,7 @@ import org.junit.Before;
 import org.opennms.core.test.MockLogAppender;
 import org.opennms.netmgt.collection.api.CollectionAgent;
 import org.opennms.netmgt.collection.api.CollectionSet;
+import org.opennms.netmgt.collection.api.CollectionStatus;
 import org.opennms.netmgt.collection.api.ServiceCollector;
 import org.opennms.netmgt.collection.api.ServiceParameters;
 import org.opennms.netmgt.collection.persistence.rrd.BasePersister;
@@ -58,7 +59,7 @@ import org.springframework.core.io.Resource;
 
 /**
  * The Abstract Class for Testing the XML Collector.
- * 
+ *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 public abstract class AbstractXmlCollectorTest {
@@ -169,7 +170,7 @@ public abstract class AbstractXmlCollectorTest {
         collector.initialize(m_collectionAgent, parameters);
         CollectionSet collectionSet = collector.collect(m_collectionAgent, m_eventProxy, parameters);
         collector.release(m_collectionAgent);
-        Assert.assertEquals(ServiceCollector.COLLECTION_SUCCEEDED, collectionSet.getStatus());
+        Assert.assertEquals(CollectionStatus.SUCCESS, collectionSet.getStatus());
 
         ServiceParameters serviceParams = new ServiceParameters(new HashMap<String,Object>());
         BasePersister persister =  new GroupPersister(serviceParams, createRrdRepository((String)parameters.get("collection"))); // storeByGroup=true;
@@ -181,7 +182,7 @@ public abstract class AbstractXmlCollectorTest {
     /**
      * Validates a JRB.
      * <p>It assumes storeByGroup=true</p>
-     * 
+     *
      * @param file the JRB file instance
      * @param dsnames the array of data source names
      * @param dsvalues the array of data source values

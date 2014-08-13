@@ -38,21 +38,21 @@ import java.util.List;
  * collection.
  */
 public interface CollectionSet extends CollectionVisitable {
-    
+
     /**
      * <p>getStatus</p>
      *
-     * @return an int (one of the ServiceCollector.COLLECTION_<FOO> values)
+     * @return a CollectionStatus
      */
-    int getStatus();
-    
+    CollectionStatus getStatus();
+
     /**
      * <p>ignorePersist</p>
      *
      * @return a boolean.
      */
     boolean ignorePersist();
-    
+
     /**
      * Returns the timestamp of when this data collection was taken.
      * Used by thresholding.

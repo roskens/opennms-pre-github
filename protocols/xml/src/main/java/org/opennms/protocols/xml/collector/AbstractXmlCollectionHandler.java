@@ -64,6 +64,7 @@ import org.opennms.netmgt.collectd.PersistAllSelectorStrategy;
 import org.opennms.netmgt.collection.api.AttributeGroupType;
 import org.opennms.netmgt.collection.api.CollectionAgent;
 import org.opennms.netmgt.collection.api.CollectionException;
+import org.opennms.netmgt.collection.api.CollectionStatus;
 import org.opennms.netmgt.collection.api.ServiceCollector;
 import org.opennms.netmgt.collection.support.ConstantTimeKeeper;
 import org.opennms.netmgt.config.DataCollectionConfigFactory;
@@ -177,7 +178,7 @@ public abstract class AbstractXmlCollectionHandler implements XmlCollectionHandl
     public XmlCollectionSet collect(CollectionAgent agent, XmlDataCollection collection, Map<String, Object> parameters) throws CollectionException {
         XmlCollectionSet collectionSet = new XmlCollectionSet();
         collectionSet.setCollectionTimestamp(new Date());
-        collectionSet.setStatus(ServiceCollector.COLLECTION_UNKNOWN);
+        collectionSet.setStatus(CollectionStatus.UNKNOWN);
         DateTime startTime = new DateTime();
         try {
             LOG.debug("collect: looping sources for collection {}", collection.getName());
@@ -190,13 +191,13 @@ public abstract class AbstractXmlCollectionHandler implements XmlCollectionHandl
                 fillCollectionSet(urlStr, request, agent, collectionSet, source);
                 LOG.debug("collect: finished source url '{}' collection", source.getUrl());
             }
-            collectionSet.setStatus(ServiceCollector.COLLECTION_SUCCEEDED);
+            collectionSet.setStatus(CollectionStatus.SUCCESS);
             return collectionSet;
         } catch (Exception e) {
-            collectionSet.setStatus(ServiceCollector.COLLECTION_FAILED);
+            collectionSet.setStatus(CollectionStatus.FAILED);
             throw new CollectionException(e.getMessage(), e);
         } finally {
-            String status = collectionSet.getStatus() == ServiceCollector.COLLECTION_SUCCEEDED ? "finished" : "failed";
+            String status = collectionSet.getStatus() == CollectionStatus.SUCCESS ? "finished" : "failed";
             DateTime endTime = new DateTime();
             LOG.debug("collect: {} collection {}: duration: {} ms", status, collection.getName(), endTime.getMillis()-startTime.getMillis());
         }
@@ -247,7 +248,7 @@ public abstract class AbstractXmlCollectionHandler implements XmlCollectionHandl
     private String getResourceName(XPath xpath, XmlGroup group, Node resource) throws XPathExpressionException {
         // Processing multiple-key resource name.
         if (group.hasMultipleResourceKey()) {
-            List<String> keys = new ArrayList<String>();
+            List<String> keys = new ArrayList<>();
             for (String key : group.getXmlResourceKey().getKeyXpathList()) {
                 LOG.debug("getResourceName: getting key for resource's name using {}", key);
                 Node keyNode = (Node) xpath.evaluate(key, resource, XPathConstants.NODE);

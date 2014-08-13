@@ -52,6 +52,7 @@ import org.opennms.core.test.snmp.annotations.JUnitSnmpAgent;
 import org.opennms.core.utils.InetAddressUtils;
 import org.opennms.netmgt.collection.api.CollectionAgent;
 import org.opennms.netmgt.collection.api.CollectionSet;
+import org.opennms.netmgt.collection.api.CollectionStatus;
 import org.opennms.netmgt.collection.api.ServiceCollector;
 import org.opennms.netmgt.config.SnmpPeerFactory;
 import org.opennms.netmgt.dao.api.IpInterfaceDao;
@@ -106,7 +107,7 @@ public class SnmpCollectorTest implements InitializingBean, TestContextAware {
 
     private String m_testHostName;
 
-    private final static String TEST_NODE_LABEL = "TestNode"; 
+    private final static String TEST_NODE_LABEL = "TestNode";
 
     private CollectionSpecification m_collectionSpecification;
 
@@ -171,7 +172,7 @@ public class SnmpCollectorTest implements InitializingBean, TestContextAware {
 
     @Test
     @JUnitCollector(
-                    datacollectionConfig = "/org/opennms/netmgt/config/datacollection-config.xml", 
+                    datacollectionConfig = "/org/opennms/netmgt/config/datacollection-config.xml",
                     datacollectionType = "snmp",
                     anticipateFiles = {
                             "1",
@@ -209,8 +210,8 @@ public class SnmpCollectorTest implements InitializingBean, TestContextAware {
         // now do the actual collection
         CollectionSet collectionSet = m_collectionSpecification.collect(m_collectionAgent);
         assertEquals("collection status",
-                     ServiceCollector.COLLECTION_SUCCEEDED,
-                     collectionSet.getStatus());
+          CollectionStatus.SUCCESS,
+          collectionSet.getStatus());
         CollectorTestUtils.persistCollectionSet(m_collectionSpecification, collectionSet);
 
         System.err.println("FIRST COLLECTION FINISHED");
@@ -220,8 +221,8 @@ public class SnmpCollectorTest implements InitializingBean, TestContextAware {
 
         // try collecting again
         assertEquals("collection status",
-                     ServiceCollector.COLLECTION_SUCCEEDED,
-                     m_collectionSpecification.collect(m_collectionAgent).getStatus());
+          CollectionStatus.SUCCESS,
+          m_collectionSpecification.collect(m_collectionAgent).getStatus());
 
         System.err.println("SECOND COLLECTION FINISHED");
 
@@ -232,7 +233,7 @@ public class SnmpCollectorTest implements InitializingBean, TestContextAware {
     @Test
     @Transactional
     @JUnitCollector(
-                    datacollectionConfig = "/org/opennms/netmgt/config/datacollection-persistTest-config.xml", 
+                    datacollectionConfig = "/org/opennms/netmgt/config/datacollection-persistTest-config.xml",
                     datacollectionType = "snmp",
                     anticipateFiles = {
                             "1",
@@ -290,7 +291,7 @@ public class SnmpCollectorTest implements InitializingBean, TestContextAware {
     @Test
     @Transactional
     @JUnitCollector(
-                    datacollectionConfig = "/org/opennms/netmgt/config/datacollection-config.xml", 
+                    datacollectionConfig = "/org/opennms/netmgt/config/datacollection-config.xml",
                     datacollectionType = "snmp",
                     anticipateRrds = { "test" }
             )
@@ -299,7 +300,7 @@ public class SnmpCollectorTest implements InitializingBean, TestContextAware {
         File snmpDir = (File)m_context.getAttribute("rrdDirectory");
 
         // We initialize an empty attribute map, key=e.g OID; value=e.g. datasource name
-        Map<String,String> attributeMappings = new HashMap<String, String>();
+        Map<String,String> attributeMappings = new HashMap<>();
 
         int stepSize = 1;
         int numUpdates = 2;
@@ -326,9 +327,9 @@ public class SnmpCollectorTest implements InitializingBean, TestContextAware {
     @Test
     @Transactional
     @JUnitCollector(
-                    datacollectionConfig="/org/opennms/netmgt/config/datacollection-brocade-config.xml", 
+                    datacollectionConfig="/org/opennms/netmgt/config/datacollection-brocade-config.xml",
                     datacollectionType="snmp",
-                    anticipateRrds={ 
+                    anticipateRrds={
                             "1/brocadeFCPortIndex/1/swFCPortTxWords",
                             "1/brocadeFCPortIndex/1/swFCPortRxWords",
                             "1/brocadeFCPortIndex/2/swFCPortTxWords",
@@ -345,8 +346,8 @@ public class SnmpCollectorTest implements InitializingBean, TestContextAware {
                             "1/brocadeFCPortIndex/7/swFCPortRxWords",
                             "1/brocadeFCPortIndex/8/swFCPortTxWords",
                             "1/brocadeFCPortIndex/8/swFCPortRxWords"
-                    }, 
-                    anticipateFiles={ 
+                    },
+                    anticipateFiles={
                             "1",
                             "1/brocadeFCPortIndex",
                             "1/brocadeFCPortIndex/1/strings.properties",
@@ -374,8 +375,8 @@ public class SnmpCollectorTest implements InitializingBean, TestContextAware {
         // now do the actual collection
         CollectionSet collectionSet = m_collectionSpecification.collect(m_collectionAgent);
         assertEquals("collection status",
-                     ServiceCollector.COLLECTION_SUCCEEDED,
-                     collectionSet.getStatus());
+          CollectionStatus.SUCCESS,
+          collectionSet.getStatus());
 
         CollectorTestUtils.persistCollectionSet(m_collectionSpecification, collectionSet);
 
@@ -386,8 +387,8 @@ public class SnmpCollectorTest implements InitializingBean, TestContextAware {
 
         // try collecting again
         assertEquals("collection status",
-                     ServiceCollector.COLLECTION_SUCCEEDED,
-                     m_collectionSpecification.collect(m_collectionAgent).getStatus());
+          CollectionStatus.SUCCESS,
+          m_collectionSpecification.collect(m_collectionAgent).getStatus());
 
         System.err.println("SECOND COLLECTION FINISHED");
 
@@ -398,9 +399,9 @@ public class SnmpCollectorTest implements InitializingBean, TestContextAware {
     @Test
     @Transactional
     @JUnitCollector(
-                    datacollectionConfig = "/org/opennms/netmgt/config/datacollection-brocade-no-ifaces-config.xml", 
+                    datacollectionConfig = "/org/opennms/netmgt/config/datacollection-brocade-no-ifaces-config.xml",
                     datacollectionType = "snmp",
-                    anticipateRrds={ 
+                    anticipateRrds={
                             "1/brocadeFCPortIndex/1/swFCPortTxWords",
                             "1/brocadeFCPortIndex/1/swFCPortRxWords",
                             "1/brocadeFCPortIndex/2/swFCPortTxWords",
@@ -417,8 +418,8 @@ public class SnmpCollectorTest implements InitializingBean, TestContextAware {
                             "1/brocadeFCPortIndex/7/swFCPortRxWords",
                             "1/brocadeFCPortIndex/8/swFCPortTxWords",
                             "1/brocadeFCPortIndex/8/swFCPortRxWords"
-                    }, 
-                    anticipateFiles={ 
+                    },
+                    anticipateFiles={
                             "1",
                             "1/brocadeFCPortIndex",
                             "1/brocadeFCPortIndex/1/strings.properties",
@@ -447,8 +448,8 @@ public class SnmpCollectorTest implements InitializingBean, TestContextAware {
         // now do the actual collection
         CollectionSet collectionSet = m_collectionSpecification.collect(m_collectionAgent);
         assertEquals("collection status",
-                     ServiceCollector.COLLECTION_SUCCEEDED,
-                     collectionSet.getStatus());
+          CollectionStatus.SUCCESS,
+          collectionSet.getStatus());
 
         CollectorTestUtils.persistCollectionSet(m_collectionSpecification, collectionSet);
 
@@ -459,8 +460,8 @@ public class SnmpCollectorTest implements InitializingBean, TestContextAware {
 
         // try collecting again
         assertEquals("collection status",
-                     ServiceCollector.COLLECTION_SUCCEEDED,
-                     m_collectionSpecification.collect(m_collectionAgent).getStatus());
+          CollectionStatus.SUCCESS,
+          m_collectionSpecification.collect(m_collectionAgent).getStatus());
 
         System.err.println("SECOND COLLECTION FINISHED");
 

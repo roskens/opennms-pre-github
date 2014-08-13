@@ -97,7 +97,7 @@ public class PersistRegexSelectorStrategyTest {
         Service service = new Service();
         service.setName("SNMP");
         pkg.addService(service);
-        Map<String, Object> map = new TreeMap<String, Object>();
+        Map<String, Object> map = new TreeMap<>();
         List<org.opennms.netmgt.config.collectd.Parameter> params = pkg.getService("SNMP").getParameters();
         for (org.opennms.netmgt.config.collectd.Parameter p : params) {
             map.put(p.getKey(), p.getValue());

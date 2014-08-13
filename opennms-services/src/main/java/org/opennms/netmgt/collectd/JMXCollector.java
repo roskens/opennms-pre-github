@@ -59,6 +59,7 @@ import org.opennms.netmgt.collection.api.CollectionAttribute;
 import org.opennms.netmgt.collection.api.CollectionAttributeType;
 import org.opennms.netmgt.collection.api.CollectionResource;
 import org.opennms.netmgt.collection.api.CollectionSet;
+import org.opennms.netmgt.collection.api.CollectionStatus;
 import org.opennms.netmgt.collection.api.Persister;
 import org.opennms.netmgt.collection.api.ServiceCollector;
 import org.opennms.netmgt.collection.api.ServiceParameters.ParameterName;
@@ -490,7 +491,7 @@ public abstract class JMXCollector implements ServiceCollector {
             }
         }
 
-        collectionSet.setStatus(ServiceCollector.COLLECTION_SUCCEEDED);
+        collectionSet.setStatus(CollectionStatus.SUCCESS);
         return collectionSet;
     }
 
@@ -543,11 +544,8 @@ public abstract class JMXCollector implements ServiceCollector {
      * This method is responsible for building a list of RRDDataSource objects
      * from the provided list of MBeanObject objects.
      *
-     * @param collectionName
-     *            Collection name
-     * @param oidList
-     *            List of MBeanObject objects defining the oid's to be
-     *            collected via JMX.
+     * @param collectionName Collection name
+     * @param attributeMap   List of MBeanObject objects defining the oid's to be collected via JMX.
      * @return list of RRDDataSource objects
      */
     protected static Map<String, JMXDataSource> buildDataSourceList(String collectionName, Map<String, List<Attrib>> attributeMap) {
@@ -570,7 +568,7 @@ public abstract class JMXCollector implements ServiceCollector {
         LOG.debug("attributeMap size: {}", attributeMap.size());
         Iterator<String> objNameIter = attributeMap.keySet().iterator();
         while (objNameIter.hasNext()) {
-            String objectName = objNameIter.next().toString();
+            String objectName = objNameIter.next();
             List<Attrib> list = attributeMap.get(objectName);
 
             LOG.debug("ObjectName: {}, Attributes: {}", objectName, list.size());

@@ -36,6 +36,7 @@ import java.io.File;
 import org.opennms.netmgt.collection.api.CollectionAgent;
 import org.opennms.netmgt.collection.api.CollectionException;
 import org.opennms.netmgt.collection.api.CollectionSet;
+import org.opennms.netmgt.collection.api.CollectionStatus;
 import org.opennms.netmgt.collection.api.ServiceCollector;
 import org.opennms.netmgt.collection.api.ServiceParameters;
 import org.opennms.netmgt.collection.persistence.rrd.BasePersister;
@@ -86,15 +87,15 @@ public abstract class CollectorTestUtils {
     public static void collectNTimes(CollectionSpecification spec, CollectionAgent agent, int numUpdates)
     throws InterruptedException, CollectionException {
         for(int i = 0; i < numUpdates; i++) {
-    
+
             // now do the actual collection
             CollectionSet collectionSet = spec.collect(agent);
-            assertEquals("collection status", ServiceCollector.COLLECTION_SUCCEEDED, collectionSet.getStatus());
-            
+            assertEquals("collection status", CollectionStatus.SUCCESS, collectionSet.getStatus());
+
             persistCollectionSet(spec, collectionSet);
-        
+
             System.err.println("COLLECTION "+i+" FINISHED");
-        
+
             //need a one second time elapse to update the RRD
             Thread.sleep(1010);
         }
@@ -106,7 +107,7 @@ public abstract class CollectorTestUtils {
 
             // now do the actual collection
             CollectionSet collectionSet = spec.collect(agent);
-            assertEquals("collection status", ServiceCollector.COLLECTION_FAILED, collectionSet.getStatus());
+            assertEquals("collection status", CollectionStatus.FAILED, collectionSet.getStatus());
 
             persistCollectionSet(spec, collectionSet);
 

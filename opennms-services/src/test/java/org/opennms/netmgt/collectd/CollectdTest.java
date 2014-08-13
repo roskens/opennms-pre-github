@@ -54,6 +54,7 @@ import org.opennms.netmgt.collection.api.CollectionException;
 import org.opennms.netmgt.collection.api.CollectionInitializationException;
 import org.opennms.netmgt.collection.api.CollectionSet;
 import org.opennms.netmgt.collection.api.CollectionSetVisitor;
+import org.opennms.netmgt.collection.api.CollectionStatus;
 import org.opennms.netmgt.collection.api.ServiceCollector;
 import org.opennms.netmgt.collection.api.ServiceParameters;
 import org.opennms.netmgt.collection.support.AbstractCollectionSet;
@@ -156,7 +157,7 @@ public class CollectdTest extends TestCase {
 
         // Mock the FilterDao without using EasyMockUtils so that it can be verified separately
         m_filterDao = EasyMock.createMock(FilterDao.class);
-        List<InetAddress> allIps = new ArrayList<InetAddress>();
+        List<InetAddress> allIps = new ArrayList<>();
         allIps.add(addr("192.168.1.1"));
         allIps.add(addr("192.168.1.2"));
         allIps.add(addr("192.168.1.3"));
@@ -187,7 +188,7 @@ public class CollectdTest extends TestCase {
         m_collectd.setTransactionTemplate(transTemplate);
         //m_collectd.afterPropertiesSet();
 
-        
+
         ThresholdingConfigFactory.setInstance(new ThresholdingConfigFactory(ConfigurationTestUtils.getInputStreamForConfigFile("thresholds.xml")));
     }
 
@@ -270,18 +271,18 @@ public class CollectdTest extends TestCase {
      * Test override of read community string and max repetitions in Collectd configuration parameters
      */
     public void testOverrides() {
-    	Map<String, Object> map = new HashMap<String, Object>();
+	Map<String, Object> map = new HashMap<>();
     	map.put("max-repetitions", "11");
     	map.put("read-community", "notPublic");
 		ServiceParameters params = new ServiceParameters(map);
-		
+
 		int reps = params.getSnmpMaxRepetitions(6);
 		assertEquals("Overriding max repetitions failed.", 11, reps);
 		params = new ServiceParameters(map);
 		map.remove("max-repetitions");
 		map.put("maxRepetitions", "11");
 		assertEquals("Overriding max repetitions failed.", 11, reps);
-		
+
 		String s = params.getSnmpReadCommunity("public");
 		assertEquals("Overriding read community failed.", "notPublic", s);
 		map.remove("read-community");
@@ -292,7 +293,7 @@ public class CollectdTest extends TestCase {
     }
 
     /**
-     * 
+     *
      * @throws Exception
      */
     public void testNoMatchingSpecs() throws Exception {
@@ -312,7 +313,7 @@ public class CollectdTest extends TestCase {
         assertEquals(0, m_scheduler.getEntryCount());
 
         m_collectd.stop();
-        
+
         m_easyMockUtils.verifyAll();
     }
 
@@ -322,10 +323,10 @@ public class CollectdTest extends TestCase {
         setupCollector("SNMP", true);
         setupInterface(iface);
         setupTransactionManager();
-  
+
         expect(m_collectdConfig.getPackages()).andReturn(Collections.singletonList(getCollectionPackageThatMatchesSNMP()));
         expect(m_collectdConfigFactory.interfaceInPackage(iface, getCollectionPackageThatMatchesSNMP())).andReturn(true);
-        
+
         m_easyMockUtils.replayAll();
 
         assertEquals("scheduler entry count", 0, m_scheduler.getEntryCount());
@@ -333,7 +334,7 @@ public class CollectdTest extends TestCase {
         m_collectd.afterPropertiesSet();
 
         m_collectd.start();
-        
+
         m_scheduler.next();
 
         assertEquals("scheduler entry count", 1, m_scheduler.getEntryCount());
@@ -362,7 +363,7 @@ public class CollectdTest extends TestCase {
         PlatformTransactionManager m_transactionManager = m_easyMockUtils.createMock(PlatformTransactionManager.class);
         TransactionTemplate transactionTemplate = new TransactionTemplate(m_transactionManager);
         m_collectd.setTransactionTemplate(transactionTemplate);
-        
+
         expect(m_transactionManager.getTransaction(isA(TransactionDefinition.class))).andReturn(new SimpleTransactionStatus()).anyTimes();
         m_transactionManager.rollback(isA(TransactionStatus.class));
         expectLastCall().anyTimes();
@@ -397,30 +398,30 @@ public class CollectdTest extends TestCase {
         m_collectd.setCollectdConfigFactory(m_collectdConfigFactory);
     }
 
-    
+
     public static class MockServiceCollector implements ServiceCollector {
         private static ServiceCollector s_delegate;
 
         public MockServiceCollector() {
-            
+
         }
-        
+
         public static void setDelegate(ServiceCollector delegate) {
             s_delegate = delegate;
         }
-        
+
         @Override
         public CollectionSet collect(CollectionAgent agent, EventProxy eproxy, Map<String, Object> parameters) throws CollectionException {
             return new AbstractCollectionSet() {
-                private Date m_timestamp = new Date();
+                private final Date m_timestamp = new Date();
                 @Override
-                public int getStatus() {
-                    return ServiceCollector.COLLECTION_SUCCEEDED;
+                public CollectionStatus getStatus() {
+                    return CollectionStatus.SUCCESS;
                 }
 
                 @Override
                 public void visit(CollectionSetVisitor visitor) {
-                    visitor.visitCollectionSet(this);   
+                    visitor.visitCollectionSet(this);
                     visitor.completeCollectionSet(this);
                 }
 

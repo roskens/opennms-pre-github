@@ -94,6 +94,7 @@ import org.opennms.netmgt.collection.api.CollectionInitializationException;
 import org.opennms.netmgt.collection.api.CollectionResource;
 import org.opennms.netmgt.collection.api.CollectionSet;
 import org.opennms.netmgt.collection.api.CollectionSetVisitor;
+import org.opennms.netmgt.collection.api.CollectionStatus;
 import org.opennms.netmgt.collection.api.Persister;
 import org.opennms.netmgt.collection.api.ServiceCollector;
 import org.opennms.netmgt.collection.api.ServiceParameters;
@@ -119,7 +120,7 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class HttpCollector implements ServiceCollector {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(HttpCollector.class);
 
     private static final int DEFAULT_RETRY_COUNT = 2;
@@ -158,7 +159,7 @@ public class HttpCollector implements ServiceCollector {
         private final CollectionAgent m_agent;
         private final Map<String, Object> m_parameters;
         private Uri m_uriDef;
-        private int m_status;
+        private CollectionStatus m_status;
         private List<HttpCollectionResource> m_collectionResourceList;
 		private Date m_timestamp;
 
@@ -169,7 +170,7 @@ public class HttpCollector implements ServiceCollector {
         public HttpCollectionSet(CollectionAgent agent, Map<String, Object> parameters) {
             m_agent = agent;
             m_parameters = parameters;
-            m_status=ServiceCollector.COLLECTION_SUCCEEDED;
+            m_status = CollectionStatus.SUCCESS;
         }
 
         public void collect() {
@@ -180,11 +181,11 @@ public class HttpCollector implements ServiceCollector {
             }
             if (collectionName==null) {
                 LOG.debug("no collection name found in parameters");
-            	m_status=ServiceCollector.COLLECTION_FAILED;
+                m_status = CollectionStatus.FAILED;
             	return;
             }
             HttpCollection collection = HttpCollectionConfigFactory.getInstance().getHttpCollection(collectionName);
-            m_collectionResourceList = new ArrayList<HttpCollectionResource>();
+            m_collectionResourceList = new ArrayList<>();
             List<Uri> uriDefs = collection.getUris().getUriCollection();
             for (Uri uriDef : uriDefs) {
                 m_uriDef = uriDef;
@@ -200,7 +201,7 @@ public class HttpCollector implements ServiceCollector {
                      * collection-centric.  Should probably let the exception
                      * pass through.
                      */
-                    m_status=ServiceCollector.COLLECTION_FAILED;
+                    m_status = CollectionStatus.FAILED;
                 }
             }
         }
@@ -214,7 +215,7 @@ public class HttpCollector implements ServiceCollector {
         }
 
         @Override
-        public int getStatus() {
+        public CollectionStatus getStatus() {
             return m_status;
         }
 
@@ -246,7 +247,7 @@ public class HttpCollector implements ServiceCollector {
 		        try {
 		            port = Integer.parseInt(m_parameters.get(ParameterName.PORT.toString()).toString());
 		            LOG.debug("getPort: using service provided HTTP port {}", port);
-		        } catch (Exception e) {
+                } catch (NumberFormatException e) {
 		            LOG.warn("Malformed HTTP port on service definition.");
 		        }
 		    }
@@ -257,13 +258,13 @@ public class HttpCollector implements ServiceCollector {
 
     /**
      * Performs HTTP collection.
-     * 
+     *
      * Couple of notes to make the implementation of this client library
      * less obtuse:
-     * 
+     *
      *   - HostConfiguration class is not created here because the library
      *     builds it when a URI is defined.
-     *     
+     *
      * @param collectionSet
      * @throws HttpCollectorException
      */
@@ -327,7 +328,7 @@ public class HttpCollector implements ServiceCollector {
             m_value = value;
         }
 
-        public HttpCollectionAttribute(HttpCollectionResource resource, HttpCollectionAttributeType attribType, String value) { 
+        public HttpCollectionAttribute(HttpCollectionResource resource, HttpCollectionAttributeType attribType, String value) {
             super(attribType, resource);
             m_value = value;
         }
@@ -374,7 +375,7 @@ public class HttpCollector implements ServiceCollector {
 
         @Override
         public String toString() {
-            StringBuffer buffer = new StringBuffer();
+            StringBuilder buffer = new StringBuilder();
             buffer.append("HttpAttribute: ");
             buffer.append(getName());
             buffer.append(":");
@@ -395,7 +396,7 @@ public class HttpCollector implements ServiceCollector {
         LOG.debug("processResponse:");
         LOG.debug("responseBody = {}", responseBodyAsString);
         LOG.debug("getmatches = {}", collectionSet.getUriDef().getUrl().getMatches());
-        List<HttpCollectionAttribute> butes = new LinkedList<HttpCollectionAttribute>();
+        List<HttpCollectionAttribute> butes = new LinkedList<>();
         int flags = 0;
         if (collectionSet.getUriDef().getUrl().getCanonicalEquivalence()) {
             flags |= Pattern.CANON_EQ;
@@ -431,7 +432,7 @@ public class HttpCollector implements ServiceCollector {
             final List<Attrib> attribDefs = collectionSet.getUriDef().getAttributes().getAttribCollection();
             final AttributeGroupType groupType = new AttributeGroupType(collectionSet.getUriDef().getName(), AttributeGroupType.IF_TYPE_ALL);
 
-            final List<Locale> locales = new ArrayList<Locale>();
+            final List<Locale> locales = new ArrayList<>();
             if (responseLocale != null) {
                 locales.add(responseLocale);
             }
@@ -467,10 +468,10 @@ public class HttpCollector implements ServiceCollector {
                         LOG.error("processResponse: gave up attempting to parse numeric value, skipping group {}", attribDef.getMatchGroup());
                         continue;
                     }
-                    
+
                     final HttpCollectionAttribute bute = new HttpCollectionAttribute(
                          collectionResource,
-                         new HttpCollectionAttributeType(attribDef, groupType), 
+                         new HttpCollectionAttributeType(attribDef, groupType),
                          num
                      );
                      LOG.debug("processResponse: adding found numeric attribute: {}", bute);
@@ -505,7 +506,7 @@ public class HttpCollector implements ServiceCollector {
 
         @Override
         public String toString() {
-            StringBuffer buffer = new StringBuffer();
+            StringBuilder buffer = new StringBuilder();
             buffer.append(super.toString());
             buffer.append(": client URL: ");
             return buffer.toString();
@@ -560,7 +561,7 @@ public class HttpCollector implements ServiceCollector {
             String[] streetCred = userInfo.split(":", 2);
             if (streetCred.length == 2) {
                 client.getCredentialsProvider().setCredentials(AuthScope.ANY, new UsernamePasswordCredentials(streetCred[0], streetCred[1]));
-            } else { 
+            } else {
                 LOG.warn("Illegal value found for username/password HTTP credentials: {}", userInfo);
             }
         }
@@ -578,7 +579,7 @@ public class HttpCollector implements ServiceCollector {
         String virtualHost = collectionSet.getUriDef().getUrl().getVirtualHost();
         if (virtualHost != null) {
             params.setParameter(
-                                ClientPNames.VIRTUAL_HOST, 
+                                ClientPNames.VIRTUAL_HOST,
                                 new HttpHost(virtualHost, collectionSet.getPort())
             );
         }
@@ -624,7 +625,7 @@ public class HttpCollector implements ServiceCollector {
         URI uriWithQueryString = null;
         List<NameValuePair> queryParams = buildRequestParameters(collectionSet);
         try {
-            StringBuffer query = new StringBuffer();
+            StringBuilder query = new StringBuilder();
             query.append(URLEncodedUtils.format(queryParams, "UTF-8"));
             if (uri.getQuery() != null && uri.getQuery().length() > 0) {
                 if (query.length() > 0) {
@@ -645,7 +646,7 @@ public class HttpCollector implements ServiceCollector {
     }
 
     private static List<NameValuePair> buildRequestParameters(final HttpCollectionSet collectionSet) {
-        List<NameValuePair> retval = new ArrayList<NameValuePair>();
+        List<NameValuePair> retval = new ArrayList<>();
         if (collectionSet.getUriDef().getUrl().getParameters() == null) {
             return retval;
         }
@@ -657,7 +658,7 @@ public class HttpCollector implements ServiceCollector {
     }
 
     private static URI buildUri(final HttpCollectionSet collectionSet) throws URISyntaxException {
-        HashMap<String,String> substitutions = new HashMap<String,String>();
+        HashMap<String,String> substitutions = new HashMap<>();
         substitutions.put("ipaddr", InetAddressUtils.str(collectionSet.getAgent().getAddress()));
         substitutions.put("nodeid", Integer.toString(collectionSet.getAgent().getNodeId()));
 
@@ -687,7 +688,7 @@ public class HttpCollector implements ServiceCollector {
     }
 
 
-    /** {@inheritDoc} 
+    /** {@inheritDoc}
      * @throws CollectionInitializationException */
     @Override
     public void initialize(Map<String, String> parameters) throws CollectionInitializationException {

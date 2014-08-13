@@ -50,6 +50,7 @@ import org.opennms.core.test.http.annotations.JUnitHttpServer;
 import org.opennms.core.utils.InetAddressUtils;
 import org.opennms.netmgt.collection.api.CollectionAgent;
 import org.opennms.netmgt.collection.api.CollectionSet;
+import org.opennms.netmgt.collection.api.CollectionStatus;
 import org.opennms.netmgt.collection.api.ServiceCollector;
 import org.opennms.netmgt.config.collectd.Filter;
 import org.opennms.netmgt.config.collectd.Package;
@@ -143,7 +144,7 @@ public class HttpCollectorTest implements TestContextAware, InitializingBean {
     public void setUp() throws Exception {
         MockLogAppender.setupLogging();
 
-        if (m_nodeDao.findByLabel("testnode").size() == 0) {
+        if (m_nodeDao.findByLabel("testnode").isEmpty()) {
             NetworkBuilder builder = new NetworkBuilder(m_distPoller);
             builder.addNode("testnode");
             builder.addInterface(InetAddressUtils.normalize(m_testHostName)).setIsManaged("M").setIsSnmpPrimary("P");
@@ -161,8 +162,8 @@ public class HttpCollectorTest implements TestContextAware, InitializingBean {
         Collection<OnmsIpInterface> ifaces = m_ipInterfaceDao.findByIpAddress(m_testHostName);
         assertEquals(1, ifaces.size());
         OnmsIpInterface iface = ifaces.iterator().next();
-        
-        Map<String, String> parameters = new HashMap<String, String>();
+
+        Map<String, String> parameters = new HashMap<>();
         parameters.put("collection", "default");
         m_collector.initialize(parameters);
 
@@ -179,6 +180,7 @@ public class HttpCollectorTest implements TestContextAware, InitializingBean {
     /**
      * Test method for {@link org.opennms.netmgt.collectd.HttpCollector#collect(
      *   org.opennms.netmgt.collection.api.CollectionAgent, org.opennms.netmgt.model.events.EventProxy, Map)}.
+     * @throws java.lang.Exception
      */
     @Test
     @JUnitHttpServer(port=10342, vhosts={"127.0.0.1"})
@@ -188,7 +190,7 @@ public class HttpCollectorTest implements TestContextAware, InitializingBean {
         m_collectionSpecification.initialize(m_collectionAgent);
 
         CollectionSet collectionSet = m_collectionSpecification.collect(m_collectionAgent);
-        assertEquals("collection status", ServiceCollector.COLLECTION_SUCCEEDED, collectionSet.getStatus());
+        assertEquals("collection status", CollectionStatus.SUCCESS, collectionSet.getStatus());
         CollectorTestUtils.persistCollectionSet(m_collectionSpecification, collectionSet);
 
         m_collectionSpecification.release(m_collectionAgent);
@@ -216,13 +218,13 @@ public class HttpCollectorTest implements TestContextAware, InitializingBean {
 
         int numUpdates = 2;
         int stepSizeInSecs = 1;
-        
+
         int stepSizeInMillis = stepSizeInSecs*1000;
 
         m_collectionSpecification.initialize(m_collectionAgent);
-        
+
         CollectorTestUtils.collectNTimes(m_collectionSpecification, m_collectionAgent, numUpdates);
-        
+
         // node level collection
         File nodeDir = CollectorTestUtils.anticipatePath(anticipator, snmpRrdDirectory, "1");
         File documentCountRrdFile = new File(nodeDir, CollectorTestUtils.rrd("documentCount"));
@@ -240,16 +242,16 @@ public class HttpCollectorTest implements TestContextAware, InitializingBean {
         // This is the value of greatAnswer from the second test page
         //someNumber = Gauge32: 42
         assertEquals("greatAnswer", Double.valueOf(42.0), RrdUtils.fetchLastValueInRange(greatAnswerRrdFile.getAbsolutePath(), "greatAnswer", stepSizeInMillis, stepSizeInMillis));
-        
+
         m_collectionSpecification.release(m_collectionAgent);
     }
 
     @Test
     @JUnitHttpServer(port=10342, vhosts={"127.0.0.1"})
     @JUnitCollector(
-        datacollectionConfig="/org/opennms/netmgt/config/http-datacollection-persist-apache-stats.xml", 
+        datacollectionConfig="/org/opennms/netmgt/config/http-datacollection-persist-apache-stats.xml",
         datacollectionType="http",
-        anticipateRrds={ 
+        anticipateRrds={
             "1/TotalAccesses",
             "1/TotalkBytes",
             "1/CPULoad",
@@ -295,7 +297,7 @@ public class HttpCollectorTest implements TestContextAware, InitializingBean {
     @Test
     @JUnitHttpServer(port=10342, vhosts={"127.0.0.1"})
     @JUnitCollector(
-        datacollectionConfig="/org/opennms/netmgt/config/http-datacollection-broken-regex.xml", 
+        datacollectionConfig="/org/opennms/netmgt/config/http-datacollection-broken-regex.xml",
         datacollectionType="http"
     )
     public final void testBrokenRegex() throws Exception {
@@ -311,9 +313,9 @@ public class HttpCollectorTest implements TestContextAware, InitializingBean {
     @Test
     @JUnitHttpServer(port=10342, vhosts={"127.0.0.1"})
     @JUnitCollector(
-        datacollectionConfig="/org/opennms/netmgt/config/http-datacollection-persist-apache-stats.xml", 
+        datacollectionConfig="/org/opennms/netmgt/config/http-datacollection-persist-apache-stats.xml",
         datacollectionType="http",
-        anticipateRrds={ 
+        anticipateRrds={
             "1/TotalAccesses",
             "1/TotalkBytes",
             "1/CPULoad",
@@ -342,29 +344,29 @@ public class HttpCollectorTest implements TestContextAware, InitializingBean {
 
             File snmpRrdDirectory = (File)m_context.getAttribute("rrdDirectory");
             FileAnticipator anticipator = (FileAnticipator)m_context.getAttribute("fileAnticipator");
-    
+
             int numUpdates = 2;
             int stepSizeInSecs = 1;
-            
+
             int stepSizeInMillis = stepSizeInSecs*1000;
-    
+
             m_collectionSpecification.initialize(m_collectionAgent);
-            
+
             CollectorTestUtils.collectNTimes(m_collectionSpecification, m_collectionAgent, numUpdates);
-            
+
             // node level collection
             File nodeDir = CollectorTestUtils.anticipatePath(anticipator, snmpRrdDirectory, "1");
-    
+
             File documentCountRrdFile = new File(nodeDir, CollectorTestUtils.rrd("TotalAccesses"));
             File someNumberRrdFile    = new File(nodeDir, CollectorTestUtils.rrd("IdleWorkers"));
             File cpuLoadRrdFile       = new File(nodeDir, CollectorTestUtils.rrd("CPULoad"));
-    
+
             // Total Accesses: 175483
             assertEquals("TotalAccesses", Double.valueOf(175483.0), RrdUtils.fetchLastValueInRange(documentCountRrdFile.getAbsolutePath(), "TotalAccesses", stepSizeInMillis, stepSizeInMillis));
-    
+
             // IdleWorkers: 12
             assertEquals("IdleWorkers", Double.valueOf(12.0), RrdUtils.fetchLastValueInRange(someNumberRrdFile.getAbsolutePath(), "IdleWorkers", stepSizeInMillis, stepSizeInMillis));
-    
+
             // CPU Load: .497069
             assertEquals("CPULoad", Double.valueOf(0.497069), RrdUtils.fetchLastValueInRange(cpuLoadRrdFile.getAbsolutePath(), "CPULoad", stepSizeInMillis, stepSizeInMillis));
             m_collectionSpecification.release(m_collectionAgent);
@@ -391,7 +393,7 @@ public class HttpCollectorTest implements TestContextAware, InitializingBean {
 
     public final void doTestNMS4886(String svcName) throws Exception {
         HttpCollector collector = new HttpCollector();
-        Map<String, String> parameters = new HashMap<String, String>();
+        Map<String, String> parameters = new HashMap<>();
         parameters.put("http-collection", "default");
         parameters.put("port", "10342");
         collector.initialize(parameters);
@@ -416,7 +418,7 @@ public class HttpCollectorTest implements TestContextAware, InitializingBean {
         collectionSpecification.initialize(m_collectionAgent);
 
         CollectionSet collectionSet = collectionSpecification.collect(m_collectionAgent);
-        assertEquals("collection status", ServiceCollector.COLLECTION_SUCCEEDED, collectionSet.getStatus());
+        assertEquals("collection status", CollectionStatus.SUCCESS, collectionSet.getStatus());
         CollectorTestUtils.persistCollectionSet(collectionSpecification, collectionSet);
 
         collectionSpecification.release(m_collectionAgent);

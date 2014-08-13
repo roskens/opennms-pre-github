@@ -39,6 +39,7 @@ import org.opennms.netmgt.collection.api.AttributeGroupType;
 import org.opennms.netmgt.collection.api.CollectionException;
 import org.opennms.netmgt.collection.api.CollectionResource;
 import org.opennms.netmgt.collection.api.CollectionSetVisitor;
+import org.opennms.netmgt.collection.api.CollectionStatus;
 import org.opennms.netmgt.collection.api.ServiceCollector;
 import org.opennms.netmgt.collection.support.AbstractCollectionSet;
 import org.opennms.netmgt.collection.support.ConstantTimeKeeper;
@@ -77,19 +78,19 @@ public class TcaCollectionSet extends AbstractCollectionSet {
 	public static final String TIMESYNC_STATUS = "timesyncStatus";
 
 	/** The Collection Status. */
-	private int m_status;
+    private CollectionStatus m_status;
 
 	/** The list of SNMP collection resources. */
-	private List<TcaCollectionResource> m_collectionResources;
+    private final List<TcaCollectionResource> m_collectionResources;
 
 	/** The Collection timestamp. */
 	private Date m_timestamp;
 
 	/** The Collection Agent. */
-	private SnmpCollectionAgent m_agent;
+    private final SnmpCollectionAgent m_agent;
 
 	/** The RRD Repository. */
-	private RrdRepository m_rrdRepository;
+    private final RrdRepository m_rrdRepository;
 
 	/**
 	 * Instantiates a new TCA collection set.
@@ -98,8 +99,8 @@ public class TcaCollectionSet extends AbstractCollectionSet {
 	 * @param repository the repository
 	 */
 	public TcaCollectionSet(SnmpCollectionAgent agent, RrdRepository repository) {
-		m_status = ServiceCollector.COLLECTION_FAILED;
-		m_collectionResources = new ArrayList<TcaCollectionResource>();
+        m_status = CollectionStatus.FAILED;
+		m_collectionResources = new ArrayList<>();
 		m_agent = agent;
 		m_rrdRepository = repository;
 	}
@@ -108,7 +109,7 @@ public class TcaCollectionSet extends AbstractCollectionSet {
 	 * @see org.opennms.netmgt.config.collector.CollectionSet#getStatus()
 	 */
 	@Override
-	public int getStatus() {
+    public CollectionStatus getStatus() {
 		return m_status;
 	}
 
@@ -159,7 +160,7 @@ public class TcaCollectionSet extends AbstractCollectionSet {
 			verifySuccessfulWalk(walker);
 			process(tracker);
 
-			m_status = ServiceCollector.COLLECTION_SUCCEEDED;
+            m_status = CollectionStatus.SUCCESS;
 		} catch (InterruptedException e) {
 			Thread.currentThread().interrupt();
 			throw new CollectionWarning("Collection of node TCA data for interface " + m_agent.getHostAddress() + " interrupted: " + e, e);
@@ -265,7 +266,7 @@ public class TcaCollectionSet extends AbstractCollectionSet {
 			String ts = ResourceTypeUtils.getStringProperty(resource.getResourceDir(m_rrdRepository), LAST_TIMESTAMP);
 			if (ts != null)
 				timestamp = Long.parseLong(ts);
-		} catch (Exception e) {
+        } catch (NumberFormatException e) {
 			LOG.info("getLastFilename: creating a new filename tracker on {}", file);
 		}
 		return timestamp;

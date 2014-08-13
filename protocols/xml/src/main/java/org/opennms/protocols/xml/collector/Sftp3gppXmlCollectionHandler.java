@@ -40,6 +40,7 @@ import org.joda.time.DateTime;
 import org.opennms.netmgt.collection.api.AttributeGroupType;
 import org.opennms.netmgt.collection.api.CollectionAgent;
 import org.opennms.netmgt.collection.api.CollectionException;
+import org.opennms.netmgt.collection.api.CollectionStatus;
 import org.opennms.netmgt.collection.api.ServiceCollector;
 import org.opennms.protocols.sftp.Sftp3gppUrlConnection;
 import org.opennms.protocols.sftp.Sftp3gppUrlHandler;
@@ -56,7 +57,7 @@ import org.w3c.dom.Document;
  * timestamp between files won't be taken in consideration.</p>
  * <p>The state will be persisted on disk by saving the name of the last successfully
  * processed file.</p>
- * 
+ *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 public class Sftp3gppXmlCollectionHandler extends AbstractXmlCollectionHandler {
@@ -72,7 +73,7 @@ public class Sftp3gppXmlCollectionHandler extends AbstractXmlCollectionHandler {
         // Create a new collection set.
         XmlCollectionSet collectionSet = new XmlCollectionSet();
         collectionSet.setCollectionTimestamp(new Date());
-        collectionSet.setStatus(ServiceCollector.COLLECTION_UNKNOWN);
+        collectionSet.setStatus(CollectionStatus.UNKNOWN);
 
         // TODO We could be careful when handling exceptions because parsing exceptions will be treated different from connection or retrieval exceptions
         DateTime startTime = new DateTime();
@@ -121,13 +122,13 @@ public class Sftp3gppXmlCollectionHandler extends AbstractXmlCollectionHandler {
                     }
                 }
             }
-            collectionSet.setStatus(ServiceCollector.COLLECTION_SUCCEEDED);
+            collectionSet.setStatus(CollectionStatus.SUCCESS);
             return collectionSet;
         } catch (Exception e) {
-            collectionSet.setStatus(ServiceCollector.COLLECTION_FAILED);
+            collectionSet.setStatus(CollectionStatus.FAILED);
             throw new CollectionException(e.getMessage(), e);
         } finally {
-            String status = collectionSet.getStatus() == ServiceCollector.COLLECTION_SUCCEEDED ? "finished" : "failed";
+            String status = collectionSet.getStatus() == CollectionStatus.SUCCESS ? "finished" : "failed";
             DateTime endTime = new DateTime();
             LOG.debug("collect: {} collection {}: duration: {} ms", status, collection.getName(), endTime.getMillis()-startTime.getMillis());
             UrlFactory.disconnect(connection);

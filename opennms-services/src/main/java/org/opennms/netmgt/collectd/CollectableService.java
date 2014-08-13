@@ -38,6 +38,7 @@ import org.opennms.netmgt.collection.api.CollectionAgent;
 import org.opennms.netmgt.collection.api.CollectionException;
 import org.opennms.netmgt.collection.api.CollectionInitializationException;
 import org.opennms.netmgt.collection.api.CollectionSet;
+import org.opennms.netmgt.collection.api.CollectionStatus;
 import org.opennms.netmgt.collection.api.ServiceCollector;
 import org.opennms.netmgt.collection.api.ServiceParameters;
 import org.opennms.netmgt.collection.persistence.rrd.BasePersister;
@@ -62,15 +63,15 @@ import org.springframework.transaction.PlatformTransactionManager;
  * <P>
  * The CollectableService class ...
  * </P>
- * 
+ *
  * @author <A HREF="mailto:mike@opennms.org">Mike Davidson </A>
  * @author <A HREF="http://www.opennms.org/">OpenNMS </A>
- * 
+ *
  */
 final class CollectableService implements ReadyRunnable {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(CollectableService.class);
-    
+
     /**
      * Interface's parent node identifier
      */
@@ -79,7 +80,7 @@ final class CollectableService implements ReadyRunnable {
     /**
      * Last known/current status
      */
-    private volatile int m_status;
+    private volatile CollectionStatus m_status;
 
     /**
      * The last time the collector was scheduled for collection.
@@ -97,11 +98,11 @@ final class CollectableService implements ReadyRunnable {
     private final CollectorUpdates m_updates;
 
     /**
-     * The thresholdvisitor for this collectable service; called 
+     * The thresholdvisitor for this collectable service; called
      */
     private final ThresholdingVisitor m_thresholdVisitor;
     /**
-     * 
+     *
      */
     private static final boolean ABORT_COLLECTION = true;
 
@@ -116,7 +117,7 @@ final class CollectableService implements ReadyRunnable {
     private final IpInterfaceDao m_ifaceDao;
 
     private final ServiceParameters m_params;
-    
+
     private final RrdRepository m_repository;
 
     /**
@@ -138,21 +139,21 @@ final class CollectableService implements ReadyRunnable {
         m_ifaceDao = ifaceDao;
         m_transMgr = transMgr;
 
-        m_nodeId = iface.getNode().getId().intValue();
-        m_status = ServiceCollector.COLLECTION_SUCCEEDED;
+        m_nodeId = iface.getNode().getId();
+        m_status = CollectionStatus.SUCCESS;
 
         m_updates = new CollectorUpdates();
 
         m_lastScheduledCollectionTime = 0L;
-        
+
         m_spec.initialize(m_agent);
-        
+
         m_params = m_spec.getServiceParameters();
         m_repository=m_spec.getRrdRepository(m_params.getCollectionName());
 
         m_thresholdVisitor = ThresholdingVisitor.create(m_nodeId, getHostAddress(), m_spec.getServiceName(), m_repository,  m_params);
     }
-    
+
     /**
      * <p>getAddress</p>
      *
@@ -161,7 +162,7 @@ final class CollectableService implements ReadyRunnable {
     public Object getAddress() {
     	return m_agent.getAddress();
     }
-    
+
     /**
      * <p>getSpecification</p>
      *
@@ -239,7 +240,7 @@ final class CollectableService implements ReadyRunnable {
         boolean ready = false;
 
         if (!isSchedulingComplete())
-            return false;
+            return ready;
 
         if (m_spec.getInterval() < 1) {
             ready = true;
@@ -256,7 +257,7 @@ final class CollectableService implements ReadyRunnable {
 
     /**
      * Generate event and send it to eventd via the event proxy.
-     * 
+     *
      * uei Universal event identifier of event to generate.
      */
     private void sendEvent(String uei, String reason) {
@@ -265,7 +266,7 @@ final class CollectableService implements ReadyRunnable {
         builder.setInterface(m_agent.getAddress());
         builder.setService(m_spec.getServiceName());
         builder.setHost(InetAddressUtils.getLocalHostName());
-        
+
         if (reason != null) {
             builder.addParam("reason", reason);
         }
@@ -299,7 +300,7 @@ final class CollectableService implements ReadyRunnable {
             public void run() {
                 doRun();
             }
-            
+
         });
     }
 
@@ -320,32 +321,32 @@ final class CollectableService implements ReadyRunnable {
         if (!m_spec.scheduledOutage(m_agent)) {
             try {
                 doCollection();
-                updateStatus(ServiceCollector.COLLECTION_SUCCEEDED, null);
+                updateStatus(CollectionStatus.SUCCESS, null);
             } catch (CollectionTimedOut e) {
                 LOG.info(e.getMessage());
-                updateStatus(ServiceCollector.COLLECTION_FAILED, e);
+                updateStatus(CollectionStatus.FAILED, e);
             } catch (CollectionWarning e) {
                 LOG.warn(e.getMessage(), e);
-                updateStatus(ServiceCollector.COLLECTION_FAILED, e);
+                updateStatus(CollectionStatus.FAILED, e);
             } catch (CollectionException e) {
                 LOG.error(e.getMessage(), e);
-                updateStatus(ServiceCollector.COLLECTION_FAILED, e);
+                updateStatus(CollectionStatus.FAILED, e);
             } catch (Throwable e) {
                 LOG.error(e.getMessage(), e);
-                updateStatus(ServiceCollector.COLLECTION_FAILED, new CollectionException("Collection failed unexpectedly: " + e.getClass().getSimpleName() + ": " + e.getMessage(), e));
+                updateStatus(CollectionStatus.FAILED, new CollectionException("Collection failed unexpectedly: " + e.getClass().getSimpleName() + ": " + e.getMessage(), e));
             }
         }
-        
+
     	// Reschedule the service
         m_scheduler.schedule(m_spec.getInterval(), getReadyRunnable());
     }
 
-    private void updateStatus(int status, CollectionException e) {
+    private void updateStatus(CollectionStatus status, CollectionException e) {
         // Any change in status?
         if (status != m_status) {
             // Generate data collection transition events
             LOG.debug("run: change in collection status, generating event.");
-            
+
             String reason = null;
             if (e != null) {
                 reason = e.getMessage();
@@ -353,11 +354,11 @@ final class CollectableService implements ReadyRunnable {
 
             // Send the appropriate event
             switch (status) {
-            case ServiceCollector.COLLECTION_SUCCEEDED:
+                case SUCCESS:
                 sendEvent(EventConstants.DATA_COLLECTION_SUCCEEDED_EVENT_UEI, null);
                 break;
 
-            case ServiceCollector.COLLECTION_FAILED:
+                case FAILED:
                 sendEvent(EventConstants.DATA_COLLECTION_FAILED_EVENT_UEI, reason);
                 break;
 
@@ -395,7 +396,7 @@ final class CollectableService implements ReadyRunnable {
                         } finally {
                             Collectd.instrumentation().endPersistingServiceData(m_spec.getPackageName(), m_nodeId, getHostAddress(), m_spec.getServiceName());
                         }
-                        
+
                         /*
                          * Do the thresholding; this could be made more generic (listeners being passed the collectionset), but frankly, why bother?
                          * The first person who actually needs to configure that sort of thing on the fly can code it up.
@@ -407,8 +408,8 @@ final class CollectableService implements ReadyRunnable {
                                 result.visit(m_thresholdVisitor);
                             }
                         }
-                       
-                        if (result.getStatus() != ServiceCollector.COLLECTION_SUCCEEDED) {
+
+                if (result.getStatus() != CollectionStatus.SUCCESS) {
                             throw new CollectionFailed(result.getStatus());
                         }
                     }
@@ -424,7 +425,7 @@ final class CollectableService implements ReadyRunnable {
 
 	/**
      * Process any outstanding updates.
-     * 
+     *
      * @return true if update indicates that collection should be aborted (for
      *         example due to deletion flag being set), false otherwise.
      */
@@ -576,7 +577,7 @@ final class CollectableService implements ReadyRunnable {
 
         return !ABORT_COLLECTION;
     }
-    
+
     private void reinitialize(OnmsIpInterface newIface) throws CollectionInitializationException {
         m_spec.release(m_agent);
         m_agent = DefaultCollectionAgent.create(newIface.getId(), m_ifaceDao,
@@ -589,13 +590,13 @@ final class CollectableService implements ReadyRunnable {
      */
     /*
      * TODO Re-create or merge ?
-     * 
+     *
      * The reason of doing a merge is to keep and update the threshold states.
-     * 
+     *
      * It is extremely more easy to just recreate the thresholding visitor to avoid complex
      * operations. But, the cost of doing this is that all the states will be lost, and
      * some alarms will become orphans.
-     * 
+     *
      * Other idea is to create two methods to get and set the states, and detect orphan
      * states. That way, we can decide what to do with orphans (like clear the alarm, or
      * send an auto-rearm), and also it can be used to persist the states across restarts.
@@ -606,7 +607,7 @@ final class CollectableService implements ReadyRunnable {
             m_thresholdVisitor.reload();
         }
     }
-    
+
     /**
      * <p>getReadyRunnable</p>
      *
