@@ -38,17 +38,23 @@ package org.opennms.netmgt.collection.api;
 public interface Persister {
 
     /**
-     * <p>persistNumericAttribute</p>
+     * Persists a Numeric Attribute to storage.
      *
      * @param attribute a {@link org.opennms.netmgt.collection.api.CollectionAttribute} object.
      */
     public abstract void persistNumericAttribute(CollectionAttribute attribute);
 
     /**
-     * <p>persistStringAttribute</p>
+     * Persists a String Attribute to storage.
      *
      * @param attribute a {@link org.opennms.netmgt.collection.api.CollectionAttribute} object.
      */
     public abstract void persistStringAttribute(CollectionAttribute attribute);
 
+    /**
+     * Persists a Sample object to storage.
+     * <p>
+     * @param sample a {@link org.opennms.netmgt.collection.api.Sample} object
+     */
+    public abstract void persistSample(Sample sample);
 }

@@ -33,17 +33,27 @@ import org.opennms.netmgt.collection.api.CollectionAttribute;
 import org.opennms.netmgt.collection.api.CollectionResource;
 import org.opennms.netmgt.collection.api.CollectionSet;
 import org.opennms.netmgt.collection.api.CollectionSetVisitor;
+import org.opennms.netmgt.collection.api.Sample;
 
 
 
 /**
  * <p>This AbstractCollectionSetVisitor class provides no-op implementations of
- * all of the {@link CollectionSetVisitor} methods so that you can override 
+ * all of the {@link CollectionSetVisitor} methods so that you can override
  * specific methods as needed to implement your visitor.</p>
  */
 public class AbstractCollectionSetVisitor implements CollectionSetVisitor {
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void visitSample(Sample sample) {
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void visitAttribute(CollectionAttribute attribute) {
     }
@@ -63,7 +73,16 @@ public class AbstractCollectionSetVisitor implements CollectionSetVisitor {
     public void visitResource(CollectionResource resource) {
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void completeSample(final Sample sample) {
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void completeAttribute(CollectionAttribute attribute) {
     }

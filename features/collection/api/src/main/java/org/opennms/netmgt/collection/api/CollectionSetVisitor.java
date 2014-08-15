@@ -54,16 +54,32 @@ public interface CollectionSetVisitor {
     /**
      * <p>visitGroup</p>
      *
-     * @param group a {@link org.opennms.netmgt.collectd.AttributeGroup} object.
+     * @param group a {@link org.opennms.netmgt.collection.api.AttributeGroup} object.
      */
     void visitGroup(AttributeGroup group);
 
     /**
      * <p>visitAttribute</p>
      *
-     * @param attribute a {@link org.opennms.netmgt.collection.api.collectd.CollectionAttribute} object.
+     * @param attribute a {@link org.opennms.netmgt.collection.api.CollectionAttribute} object.
      */
     void visitAttribute(CollectionAttribute attribute);
+
+    /**
+     * <p>
+     * visitSample</p>
+     *
+     * @param sample a {@link org.opennms.netmgt.collection.api.Sample} object.
+     */
+    void visitSample(Sample sample);
+
+    /**
+     * <p>
+     * completeSample</p>
+     *
+     * @param sample a {@link org.opennms.netmgt.collection.api.Sample} object.
+     */
+    void completeSample(Sample sample);
 
     /**
      * <p>completeAttribute</p>
