@@ -32,16 +32,15 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Set;
-
 import org.opennms.netmgt.collection.api.AttributeGroup;
 import org.opennms.netmgt.collection.api.CollectionAttribute;
 import org.opennms.netmgt.collection.api.CollectionAttributeType;
 import org.opennms.netmgt.collection.api.CollectionResource;
 import org.opennms.netmgt.collection.api.NumericCollectionAttributeType;
 import org.opennms.netmgt.collection.api.Persister;
+import org.opennms.netmgt.collection.api.Sample;
 import org.opennms.netmgt.collection.api.ServiceParameters;
 import org.opennms.netmgt.collection.support.AbstractCollectionSetVisitor;
 import org.opennms.netmgt.model.ResourceTypeUtils;
@@ -57,11 +56,11 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class BasePersister extends AbstractCollectionSetVisitor implements Persister {
-    
+
     protected static final Logger LOG = LoggerFactory.getLogger(BasePersister.class);
-    
+
     private boolean m_ignorePersist = false;
-    private ServiceParameters m_params;
+    private final ServiceParameters m_params;
     private RrdRepository m_repository;
     private final LinkedList<Boolean> m_stack = new LinkedList<Boolean>();
     private PersistOperationBuilder m_builder;
@@ -77,7 +76,7 @@ public class BasePersister extends AbstractCollectionSetVisitor implements Persi
         m_params = params;
         m_repository = repository;
     }
-    
+
     /**
      * <p>commitBuilder</p>
      */
@@ -90,7 +89,7 @@ public class BasePersister extends AbstractCollectionSetVisitor implements Persi
             m_builder = null;
         } catch (RrdException e) {
             LOG.error("Unable to persist data for {}", name, e);
-    
+
         }
     }
 
@@ -100,24 +99,46 @@ public class BasePersister extends AbstractCollectionSetVisitor implements Persi
                "false".equals(m_params.getParameters().get("storing-enabled"));
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     * <p>
+     * @param sample
+     */
+    @Override
+    public void completeSample(Sample sample) {
+        popShouldPersist();
+    }
+
+    /**
+     * {@inheritDoc}
+     * <p>
+     * @param attribute
+     */
     @Override
     public void completeAttribute(CollectionAttribute attribute) {
         popShouldPersist();
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     * <p>
+     * @param group
+     */
     @Override
     public void completeGroup(AttributeGroup group) {
         popShouldPersist();
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     * <p>
+     * @param resource
+     */
     @Override
     public void completeResource(CollectionResource resource) {
         popShouldPersist();
     }
-    
+
     /**
      * <p>createBuilder</p>
      *
@@ -141,8 +162,7 @@ public class BasePersister extends AbstractCollectionSetVisitor implements Persi
         if (resource.getTimeKeeper() != null) {
             m_builder.setTimeKeeper(resource.getTimeKeeper());
         }
-        for (Iterator<CollectionAttributeType> iter = attributeTypes.iterator(); iter.hasNext();) {
-            CollectionAttributeType attrType = iter.next();
+        for (CollectionAttributeType attrType : attributeTypes) {
             if (attrType instanceof NumericCollectionAttributeType) {
                 m_builder.declareAttribute(attrType);
             }
@@ -167,6 +187,14 @@ public class BasePersister extends AbstractCollectionSetVisitor implements Persi
         m_repository = repository;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void persistSample(Sample sample) {
+
+    }
+
     /** {@inheritDoc} */
     @Override
     public void persistNumericAttribute(CollectionAttribute attribute) {
@@ -182,7 +210,7 @@ public class BasePersister extends AbstractCollectionSetVisitor implements Persi
             LOG.debug("Persisting {}", attribute);
             CollectionResource resource = attribute.getResource();
             String value = attribute.getStringValue();
-            
+
             //String attrVal = (value == null ? null : value.toString());
             //if (attrVal == null) {
             if (value == null) {
@@ -210,9 +238,19 @@ public class BasePersister extends AbstractCollectionSetVisitor implements Persi
         m_stack.removeLast();
         return top;
     }
-    
+
     private void push(boolean b) {
         m_stack.addLast(Boolean.valueOf(b));
+    }
+
+    /**
+     * <p>
+     * pushShouldPersist</p>
+     *
+     * @param sample a {@link org.opennms.netmgt.collection.api.Sample} object.
+     */
+    public void pushShouldPersist(Sample sample) {
+        pushShouldPersist(sample.shouldPersist(m_params));
     }
 
     /**
@@ -267,25 +305,37 @@ public class BasePersister extends AbstractCollectionSetVisitor implements Persi
             LOG.debug("Not persisting attribute {} because shouldPersist is false", attribute);
         }
     }
-    
+
     private boolean top() {
         return m_stack.getLast();
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     * <p>
+     * @param attribute
+     */
     @Override
     public void visitAttribute(CollectionAttribute attribute) {
         pushShouldPersist(attribute);
         storeAttribute(attribute);
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     * <p>
+     * @param group
+     */
     @Override
     public void visitGroup(AttributeGroup group) {
         pushShouldPersist(group);
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     * <p>
+     * @param resource
+     */
     @Override
     public void visitResource(CollectionResource resource) {
         LOG.info("Persisting data for resource {}", resource);

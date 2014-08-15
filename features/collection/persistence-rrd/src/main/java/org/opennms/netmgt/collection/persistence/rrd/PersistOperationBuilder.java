@@ -32,13 +32,11 @@ package org.opennms.netmgt.collection.persistence.rrd;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-import org.opennms.core.utils.StringUtils;
 import org.opennms.netmgt.collection.api.ByNameComparator;
 import org.opennms.netmgt.collection.api.CollectionAttributeType;
 import org.opennms.netmgt.collection.api.NumericCollectionAttributeType;
@@ -161,7 +159,7 @@ public class PersistOperationBuilder {
      * @throws org.opennms.netmgt.rrd.RrdException if any.
      */
     public void commit() throws RrdException {
-        if (m_declarations.size() == 0) {
+        if (m_declarations.isEmpty()) {
             // Nothing to do.  In fact, we'll get an error if we try to create an RRD file with no data sources
             return;
         }
@@ -177,16 +175,14 @@ public class PersistOperationBuilder {
             }
         } catch (FileNotFoundException e) {
             LoggerFactory.getLogger(getClass()).warn("Could not get resource directory: " + e.getMessage(), e);
-            return;
         }
     }
 
     private String getValues() {
         boolean first = true;
-        StringBuffer values = new StringBuffer();
-        for (Iterator<CollectionAttributeType> iter = m_declarations.keySet().iterator(); iter.hasNext();) {
-        	CollectionAttributeType attrDef = iter.next();
-            String value = m_declarations.get(attrDef);
+        StringBuilder values = new StringBuilder();
+        for (Map.Entry<CollectionAttributeType, String> entry : m_declarations.entrySet()) {
+            String value = entry.getValue();
             if (!first) {
                 values.append(':');
             } else {
