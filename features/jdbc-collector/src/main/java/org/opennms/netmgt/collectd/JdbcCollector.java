@@ -51,6 +51,7 @@ import org.opennms.netmgt.collection.api.AttributeGroupType;
 import org.opennms.netmgt.collection.api.CollectionAgent;
 import org.opennms.netmgt.collection.api.CollectionException;
 import org.opennms.netmgt.collection.api.CollectionSet;
+import org.opennms.netmgt.collection.api.CollectionStatus;
 import org.opennms.netmgt.collection.api.ServiceCollector;
 import org.opennms.netmgt.config.jdbc.JdbcColumn;
 import org.opennms.netmgt.config.jdbc.JdbcDataCollection;
@@ -68,7 +69,7 @@ public class JdbcCollector implements ServiceCollector {
     private final Map<Integer, JdbcAgentState> m_scheduledNodes = new HashMap<Integer, JdbcAgentState>();
     private Map<String, AttributeGroupType> m_groupTypeList = new HashMap<String, AttributeGroupType>();
     private Map<String, JdbcCollectionAttributeType> m_attribTypeList = new HashMap<String, JdbcCollectionAttributeType>();
-    
+
     public JdbcDataCollectionConfigDao getJdbcCollectionDao() {
         return m_jdbcCollectionDao;
     }
@@ -76,7 +77,7 @@ public class JdbcCollector implements ServiceCollector {
     public void setJdbcCollectionDao(JdbcDataCollectionConfigDao jdbcCollectionDao) {
         m_jdbcCollectionDao = jdbcCollectionDao;
     }
-    
+
     private void loadAttributeGroupList(JdbcDataCollection collection) {
         for (JdbcQuery query : collection.getQueries()) {
             AttributeGroupType attribGroupType1 = new AttributeGroupType(query.getQueryName(), query.getIfType());
@@ -99,13 +100,13 @@ public class JdbcCollector implements ServiceCollector {
         LOG.debug("initialize: Initializing JdbcCollector.");
         // Retrieve the DAO for our configuration file.
         m_jdbcCollectionDao = BeanUtils.getBean("daoContext", "jdbcDataCollectionConfigDao", JdbcDataCollectionConfigDao.class);
-        
+
         // Clear out the node list.
         m_scheduledNodes.clear();
-        
+
         initializeRrdDirs();
     }
-    
+
     private void initializeRrdDirs() {
         /*
          * If the RRD file repository directory does NOT already exist, create
@@ -130,9 +131,9 @@ public class JdbcCollector implements ServiceCollector {
     }
 
     @Override
-    public void initialize(CollectionAgent agent, Map<String, Object> parameters) {        
+    public void initialize(CollectionAgent agent, Map<String, Object> parameters) {
         LOG.debug("initialize: Initializing JDBC collection for agent: {}", agent);
-        
+ 
         Integer scheduledNodeKey = Integer.valueOf(agent.getNodeId());
         JdbcAgentState nodeState = m_scheduledNodes.get(scheduledNodeKey);
 
@@ -169,36 +170,36 @@ public class JdbcCollector implements ServiceCollector {
         if(parameters == null) {
             LOG.error("Null parameters is now allowed in JdbcCollector!!");
         }
-        
+
         Connection con = null;
         ResultSet results = null;
         Statement stmt = null;
-        
+
         try {
             String collectionName = ParameterMap.getKeyedString(parameters, "collection", null);
             if (collectionName == null) {
                 //Look for the old configuration style:
                 collectionName = ParameterMap.getKeyedString(parameters, "jdbc-collection", null);
             }
-        
+
             JdbcDataCollection collection = m_jdbcCollectionDao.getDataCollectionByName(collectionName);
-        
+
             agentState = m_scheduledNodes.get(agent.getNodeId());
             agentState.setupDatabaseConnections(parameters);
-        
+
             // Load the attribute group types.
             loadAttributeGroupList(collection);
 
             // Load the attribute types.
             loadAttributeTypeList(collection);
-        
+
             // Create a new collection set.
             JdbcCollectionSet collectionSet = new JdbcCollectionSet();
             collectionSet.setCollectionTimestamp(new Date());
 
             // Creating a single resource object, because all node-level metric must belong to the exact same resource.
             final JdbcSingleInstanceCollectionResource nodeResource = new JdbcSingleInstanceCollectionResource(agent);
-        
+
             // Cycle through all of the queries for this collection
             for(JdbcQuery query : collection.getQueries()) {
                 // Verify if we should check for availability of a query.
@@ -209,7 +210,7 @@ public class JdbcCollector implements ServiceCollector {
                         continue;
                     }
                 }
-                
+
                 try {
                     // If the query is available, lets collect it.
                     if (agentState.groupIsAvailable(query.getQueryName())) {
@@ -221,8 +222,8 @@ public class JdbcCollector implements ServiceCollector {
                         }
                         stmt = agentState.createStatement(con);
                         results = agentState.executeJdbcQuery(stmt, query);
-                    
-                        // Determine if there were any results for this query to                    
+
+                        // Determine if there were any results for this query to
                         if (results.isBeforeFirst() && results.isAfterLast()) {
                             LOG.warn("Query '{}' returned no results.", query.getQueryName());
                             // Close the statement, but retain the connection.
@@ -230,16 +231,16 @@ public class JdbcCollector implements ServiceCollector {
                             agentState.closeStmt(stmt);
                             continue;
                         }
-                        
+
                         // Determine if there are results and how many.
                         results.last();
-                        boolean singleInstance = (results.getRow()==1)?true:false;
+                        boolean singleInstance = (results.getRow()==1);
                         results.beforeFirst();
-                        
+
                         // Iterate through each row.
                         while(results.next() ) {
                             JdbcCollectionResource resource = null;
-                            
+
                             // Create the appropriate resource container.
                             if(singleInstance) {
                                 resource = nodeResource;
@@ -248,7 +249,7 @@ public class JdbcCollector implements ServiceCollector {
                                 String instance = results.getString(query.getInstanceColumn());
                                 resource = new JdbcMultiInstanceCollectionResource(agent,instance, query.getResourceType());
                             }
-                            
+
                             for(JdbcColumn curColumn : query.getJdbcColumns()) {
                                 String columnName = null;
                                 if(curColumn.getDataSourceName() != null && curColumn.getDataSourceName().length() != 0) {
@@ -256,7 +257,7 @@ public class JdbcCollector implements ServiceCollector {
                                 } else {
                                     columnName = curColumn.getColumnName();
                                 }
-                                
+
                                 JdbcCollectionAttributeType attribType = m_attribTypeList.get(curColumn.getColumnName());
                                 resource.setAttributeValue(attribType, results.getString(columnName));
                             }
@@ -270,31 +271,29 @@ public class JdbcCollector implements ServiceCollector {
                     agentState.closeResultSet(results);
                     agentState.closeStmt(stmt);
                     agentState.closeConnection(con);
-                    continue;
                 }
             }
-            collectionSet.setStatus(ServiceCollector.COLLECTION_SUCCEEDED);
+            collectionSet.setStatus(CollectionStatus.SUCCESS);
             return collectionSet;
         } finally {
             // Make sure that when we're done we close all results, statements and connections.
-            agentState.closeResultSet(results);
-            agentState.closeStmt(stmt);
-            agentState.closeConnection(con);
-            
-            if(agentState != null) {
+            if (agentState != null) {
+                agentState.closeResultSet(results);
+                agentState.closeStmt(stmt);
+                agentState.closeConnection(con);
                 //agentState.closeAgentConnection();
             }
         }
     }
-    
-    
+
+
     // Simply check the database the query is supposed to connect to to see if it is available.
     private boolean isGroupAvailable(JdbcAgentState agentState, JdbcQuery query) {
         LOG.debug("Checking availability of group {}", query.getQueryName());
         boolean status = false;
         ResultSet resultset = null;
         Connection con = null;
-        
+
         try {
             if(agentState.getUseDataSourceName()) {
                 initDatabaseConnectionFactory(agentState.getDataSourceName());
@@ -302,7 +301,7 @@ public class JdbcCollector implements ServiceCollector {
             } else {
                 con = agentState.getJdbcConnection();
             }
-            
+
             DatabaseMetaData metadata = con.getMetaData();
             resultset = metadata.getCatalogs();
             while (resultset.next()) {
@@ -310,9 +309,7 @@ public class JdbcCollector implements ServiceCollector {
             }
 
             // The query worked, assume than the server is ok
-            if (resultset != null) {
-                status = true;
-            }
+            status = true;
         } catch(SQLException sqlEx) {
             LOG.warn("Error checking group ({}) availability", query.getQueryName(), sqlEx);
             agentState.setGroupIsAvailable(query.getQueryName(), status);
@@ -330,5 +327,5 @@ public class JdbcCollector implements ServiceCollector {
     public RrdRepository getRrdRepository(String collectionName) {
         return m_jdbcCollectionDao.getConfig().buildRrdRepository(collectionName);
     }
-    
+
 }

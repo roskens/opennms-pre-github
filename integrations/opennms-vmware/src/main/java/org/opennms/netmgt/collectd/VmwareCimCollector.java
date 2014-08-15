@@ -78,6 +78,9 @@ import org.slf4j.LoggerFactory;
 import com.vmware.vim25.HostRuntimeInfo;
 import com.vmware.vim25.HostSystemPowerState;
 import com.vmware.vim25.mo.HostSystem;
+import java.net.ConnectException;
+import org.opennms.netmgt.collection.api.CollectionStatus;
+import org.sblim.wbem.cim.CIMException;
 
 public class VmwareCimCollector implements ServiceCollector {
 
@@ -253,7 +256,7 @@ public class VmwareCimCollector implements ServiceCollector {
 
         collectionSet.setCollectionTimestamp(new Date());
 
-        collectionSet.setStatus(ServiceCollector.COLLECTION_FAILED);
+        collectionSet.setStatus(CollectionStatus.FAILED);
 
         VmwareViJavaAccess vmwareViJavaAccess = null;
 
@@ -265,23 +268,14 @@ public class VmwareCimCollector implements ServiceCollector {
                     logger.warn("Error setting connection timeout for VMware management server '{}'", vmwareManagementServer);
                 }
             }
-        } catch (MarshalException e) {
-            logger.warn("Error initialising VMware connection to '{}': '{}'", vmwareManagementServer, e.getMessage());
-            return collectionSet;
-        } catch (ValidationException e) {
-            logger.warn("Error initialising VMware connection to '{}': '{}'", vmwareManagementServer, e.getMessage());
-            return collectionSet;
-        } catch (IOException e) {
+        } catch (IOException | MarshalException | ValidationException e) {
             logger.warn("Error initialising VMware connection to '{}': '{}'", vmwareManagementServer, e.getMessage());
             return collectionSet;
         }
 
         try {
             vmwareViJavaAccess.connect();
-        } catch (MalformedURLException e) {
-            logger.warn("Error connecting VMware management server '{}': '{}' exception: {} cause: '{}'", vmwareManagementServer, e.getMessage(), e.getClass().getName(), e.getCause());
-            return collectionSet;
-        } catch (RemoteException e) {
+        } catch (MalformedURLException | RemoteException e) {
             logger.warn("Error connecting VMware management server '{}': '{}' exception: {} cause: '{}'", vmwareManagementServer, e.getMessage(), e.getClass().getName(), e.getCause());
             return collectionSet;
         }
@@ -320,7 +314,7 @@ public class VmwareCimCollector implements ServiceCollector {
                     List<CIMObject> cimList = null;
                     try {
                         cimList = vmwareViJavaAccess.queryCimObjects(hostSystem, cimClass, InetAddressUtils.str(agent.getAddress()));
-                    } catch (Exception e) {
+                    } catch (ConnectException | RemoteException | CIMException e) {
                         logger.warn("Error retrieving CIM values from host system '{}'. Error message: '{}'", vmwareManagedObjectId, e.getMessage());
                         return collectionSet;
                     } finally {
@@ -342,18 +336,12 @@ public class VmwareCimCollector implements ServiceCollector {
                 String instanceAttribute = vmwareCimGroup.getInstance();
 
                 for (CIMObject cimObject : cimList) {
-                    boolean addObject = false;
+                    boolean addObject = true;
 
                     if (keyAttribute != null && attributeValue != null) {
                         String cimObjectValue = vmwareViJavaAccess.getPropertyOfCimObject(cimObject, keyAttribute);
 
-                        if (attributeValue.equals(cimObjectValue)) {
-                            addObject = true;
-                        } else {
-                            addObject = false;
-                        }
-                    } else {
-                        addObject = true;
+                        addObject = attributeValue.equals(cimObjectValue);
                     }
 
                     if (addObject) {
@@ -369,7 +357,7 @@ public class VmwareCimCollector implements ServiceCollector {
                     }
                 }
             }
-            collectionSet.setStatus(ServiceCollector.COLLECTION_SUCCEEDED);
+            collectionSet.setStatus(CollectionStatus.SUCCESS);
         }
 
         vmwareViJavaAccess.disconnect();

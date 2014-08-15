@@ -44,8 +44,8 @@ import org.opennms.core.test.MockLogAppender;
 import org.opennms.netmgt.collection.persistence.rrd.BasePersister;
 import org.opennms.netmgt.collection.api.CollectionAgent;
 import org.opennms.netmgt.collection.persistence.rrd.GroupPersister;
-import org.opennms.netmgt.collection.api.ServiceCollector;
 import org.opennms.netmgt.collection.api.CollectionSet;
+import org.opennms.netmgt.collection.api.CollectionStatus;
 import org.opennms.netmgt.collection.api.ServiceParameters;
 import org.opennms.netmgt.rrd.RrdRepository;
 import org.opennms.netmgt.model.events.EventProxy;
@@ -152,7 +152,7 @@ public abstract class AbstractVTDXmlCollectorTest {
         collector.initialize(m_collectionAgent, parameters);
         CollectionSet collectionSet = collector.collect(m_collectionAgent, m_eventProxy, parameters);
         collector.release(m_collectionAgent);
-        Assert.assertEquals(ServiceCollector.COLLECTION_SUCCEEDED, collectionSet.getStatus());
+        Assert.assertEquals(CollectionStatus.SUCCESS, collectionSet.getStatus());
 
         ServiceParameters serviceParams = new ServiceParameters(new HashMap<String,Object>());
         BasePersister persister =  new GroupPersister(serviceParams, createRrdRepository((String)parameters.get("collection"))); // storeByGroup=true;

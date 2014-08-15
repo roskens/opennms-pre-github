@@ -46,6 +46,7 @@ import org.opennms.netmgt.collection.api.CollectionAttribute;
 import org.opennms.netmgt.collection.api.CollectionAttributeType;
 import org.opennms.netmgt.collection.api.CollectionResource;
 import org.opennms.netmgt.collection.api.CollectionSet;
+import org.opennms.netmgt.collection.api.CollectionStatus;
 import org.opennms.netmgt.collection.api.Persister;
 import org.opennms.netmgt.collection.api.ServiceCollector;
 import org.opennms.netmgt.collection.api.ServiceParameters;
@@ -75,7 +76,7 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class NSClientCollector implements ServiceCollector {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(NSClientCollector.class);
 
 
@@ -109,11 +110,11 @@ public class NSClientCollector implements ServiceCollector {
         }
 
     }
-    
+
     private static class NSClientCollectionAttribute extends AbstractCollectionAttribute {
 
         private final String m_value;
-        
+
         public NSClientCollectionAttribute(NSClientCollectionResource resource, CollectionAttributeType attribType, String value) {
             super(attribType, resource);
             m_value = value;
@@ -138,35 +139,35 @@ public class NSClientCollector implements ServiceCollector {
         public String getMetricIdentifier() {
             return "Not supported yet._" + "NSC_" + getName();
         }
-        
+
     }
-    
+
     private static class NSClientCollectionResource extends AbstractCollectionResource {
-         
-        public NSClientCollectionResource(CollectionAgent agent) { 
+
+        public NSClientCollectionResource(CollectionAgent agent) {
             super(agent);
         }
-        
+
         public void setAttributeValue(CollectionAttributeType type, String value) {
             NSClientCollectionAttribute attr = new NSClientCollectionAttribute(this, type, value);
             addAttribute(attr);
         }
-        
+
         @Override
         public String getResourceTypeName() {
             return CollectionResource.RESOURCE_TYPE_NODE; //All node resources for NSClient; nothing of interface or "indexed resource" type
         }
-        
+
         @Override
         public String getInstance() {
             return null; //For node type resources, use the default instance
         }
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public CollectionSet collect(CollectionAgent agent, EventProxy eproxy, Map<String, Object> parameters) {
-        int status = ServiceCollector.COLLECTION_FAILED;
+        CollectionStatus status = CollectionStatus.FAILED;
         final ServiceParameters serviceParams = new ServiceParameters(parameters);
         String collectionName = serviceParams.getCollectionName();
 
@@ -174,10 +175,10 @@ public class NSClientCollector implements ServiceCollector {
         // check scheduled nodes to see if that group should be collected
         NsclientCollection collection = NSClientDataCollectionConfigFactory.getInstance().getNSClientCollection(collectionName);
         NSClientAgentState agentState = m_scheduledNodes.get(agent.getNodeId());
-        
+
         NSClientCollectionResource collectionResource = new NSClientCollectionResource(agent);
         SingleResourceCollectionSet collectionSet = new SingleResourceCollectionSet(collectionResource, new Date());
-        
+
         for (Wpm wpm : collection.getWpms().getWpm()) {
             //All NSClient Perfmon counters are per node
             AttributeGroupType attribGroupType=new AttributeGroupType(wpm.getName(), AttributeGroupType.IF_TYPE_ALL);
@@ -227,7 +228,7 @@ public class NSClientCollector implements ServiceCollector {
                             } else {
                                 NSClientCollectionAttributeType attribType=new NSClientCollectionAttributeType(attrib, attribGroupType);
                                 collectionResource.setAttributeValue(attribType, result.getResponse());
-                                status = ServiceCollector.COLLECTION_SUCCEEDED;
+                                status = CollectionStatus.SUCCESS;
                             }
                         }
                     }
@@ -445,7 +446,7 @@ public class NSClientCollector implements ServiceCollector {
             this.lastChecked = lastChecked;
         }
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public RrdRepository getRrdRepository(String collectionName) {

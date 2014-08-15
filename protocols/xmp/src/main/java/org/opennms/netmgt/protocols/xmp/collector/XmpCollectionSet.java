@@ -59,6 +59,7 @@ import java.util.Set;
 import org.opennms.netmgt.collection.api.CollectionAgent;
 import org.opennms.netmgt.collection.api.CollectionSet;
 import org.opennms.netmgt.collection.api.CollectionSetVisitor;
+import org.opennms.netmgt.collection.api.CollectionStatus;
 import org.opennms.netmgt.collection.api.ServiceCollector;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -69,7 +70,7 @@ public class XmpCollectionSet implements CollectionSet {
 
 
     /* instance variables ******************************** */
-    int status;
+    CollectionStatus status;
     boolean ignorePersistVar;
     CollectionAgent agent;
     XmpCollectionResource collectionResource;
@@ -77,10 +78,10 @@ public class XmpCollectionSet implements CollectionSet {
     private Date m_timestamp;
 
     /* constructors  ************************************* */
-    XmpCollectionSet(CollectionAgent agent) 
-    {  
+    XmpCollectionSet(CollectionAgent agent)
+    {
         // default status
-        status = ServiceCollector.COLLECTION_SUCCEEDED;
+        status = CollectionStatus.SUCCESS;
         ignorePersistVar = false;
         this.agent = agent;
 
@@ -88,12 +89,10 @@ public class XmpCollectionSet implements CollectionSet {
         //collectionResource = new XmpCollectionResource(agent,"node",null);
 
         listOfResources = new HashSet<XmpCollectionResource>();
-
-        return; 
     }
 
     /* private methods *********************************** */
-    
+
 
     /* public methods ************************************ */
 
@@ -112,12 +111,12 @@ public class XmpCollectionSet implements CollectionSet {
      *
      * @return a {@link java.util.Collection} object.
      */
-    public Collection<XmpCollectionResource>getResources() 
-    { 
-        return listOfResources; 
+    public Collection<XmpCollectionResource>getResources()
+    {
+        return listOfResources;
     }
 
-    // return a ServiceCollector status value 
+    // return a ServiceCollector status value
     /**
      * <p>getCollectionAgent</p>
      *
@@ -137,22 +136,30 @@ public class XmpCollectionSet implements CollectionSet {
      * @return a int.
      */
     @Override
-    public int getStatus() { return status; }
+    public CollectionStatus getStatus() {
+        return status;
+    }
     /**
      * <p>Setter for the field <code>status</code>.</p>
      *
-     * @param status a int.
+     * @param status a {@link CollectionStatus}.
      */
-    public void setStatus(int status) { this.status = status; }
+    public void setStatus(CollectionStatus status) {
+        this.status = status;
+    }
 
     /**
      * <p>setStatusSuccess</p>
      */
-    public void setStatusSuccess() { this.status = ServiceCollector.COLLECTION_SUCCEEDED; }
+    public void setStatusSuccess() {
+        this.status = CollectionStatus.SUCCESS;
+    }
     /**
      * <p>setStatusFailed</p>
      */
-    public void setStatusFailed() { this.status = ServiceCollector.COLLECTION_FAILED; }
+    public void setStatusFailed() {
+        this.status = CollectionStatus.FAILED;
+    }
 
     // ignorePersist returns true if system has been restarted
     // that is, if sysUpTime has gone backwards, return true
@@ -175,16 +182,16 @@ public class XmpCollectionSet implements CollectionSet {
      */
     public void ignorePersistFalse() { ignorePersistVar = false; }
 
-    // Visitor design pattern 
+    // Visitor design pattern
 
     // visit is called repeatedly with a vistor and I fill in values
-    // into CollectionSetVisitor 
+    // into CollectionSetVisitor
 
     //public XmpCollectionResource getResource() { return collectionResource; }
 
     /** {@inheritDoc} */
     @Override
-    public void visit(CollectionSetVisitor visitor) 
+    public void visit(CollectionSetVisitor visitor)
     {
         LOG.debug("XmpCollectionSet: visit starting for set {}", agent);
 

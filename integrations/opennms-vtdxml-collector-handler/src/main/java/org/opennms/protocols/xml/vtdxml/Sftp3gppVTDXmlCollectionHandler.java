@@ -40,7 +40,6 @@ import org.joda.time.DateTime;
 import org.opennms.netmgt.collection.api.AttributeGroupType;
 import org.opennms.netmgt.collection.api.CollectionAgent;
 import org.opennms.netmgt.collection.api.CollectionException;
-import org.opennms.netmgt.collection.api.ServiceCollector;
 import org.opennms.protocols.sftp.Sftp3gppUrlConnection;
 import org.opennms.protocols.sftp.Sftp3gppUrlHandler;
 import org.opennms.protocols.xml.collector.Sftp3gppUtils;
@@ -54,6 +53,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.ximpleware.VTDNav;
+import org.opennms.netmgt.collection.api.CollectionStatus;
 
 /**
  * The custom implementation of the interface XmlCollectionHandler for 3GPP XML Data.
@@ -64,7 +64,7 @@ import com.ximpleware.VTDNav;
  * <p>This implementation contains basically the same implementation for the method
  * from Sftp3gppXmlCollectionHandler, but using the VTD-XML parser instead of DOM
  * parser for faster performance.</p>
- * 
+ *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 public class Sftp3gppVTDXmlCollectionHandler extends AbstractVTDXmlCollectionHandler {
@@ -80,7 +80,7 @@ public class Sftp3gppVTDXmlCollectionHandler extends AbstractVTDXmlCollectionHan
         // Create a new collection set.
         XmlCollectionSet collectionSet = new XmlCollectionSet();
         collectionSet.setCollectionTimestamp(new Date());
-        collectionSet.setStatus(ServiceCollector.COLLECTION_UNKNOWN);
+        collectionSet.setStatus(CollectionStatus.UNKNOWN);
 
         // TODO We could be careful when handling exceptions because parsing exceptions will be treated different from connection or retrieval exceptions
         DateTime startTime = new DateTime();
@@ -128,13 +128,13 @@ public class Sftp3gppVTDXmlCollectionHandler extends AbstractVTDXmlCollectionHan
                     }
                 }
             }
-            collectionSet.setStatus(ServiceCollector.COLLECTION_SUCCEEDED);
+            collectionSet.setStatus(CollectionStatus.SUCCESS);
             return collectionSet;
         } catch (Exception e) {
-            collectionSet.setStatus(ServiceCollector.COLLECTION_FAILED);
+            collectionSet.setStatus(CollectionStatus.FAILED);
             throw new CollectionException(e.getMessage(), e);
         } finally {
-            String status = collectionSet.getStatus() == ServiceCollector.COLLECTION_SUCCEEDED ? "finished" : "failed";
+            String status = collectionSet.getStatus() == CollectionStatus.SUCCESS ? "finished" : "failed";
             DateTime endTime = new DateTime();
             LOG.debug("collect: {} collection {}: duration: {} ms", status, collection.getName(), endTime.getMillis()-startTime.getMillis());
             UrlFactory.disconnect(connection);

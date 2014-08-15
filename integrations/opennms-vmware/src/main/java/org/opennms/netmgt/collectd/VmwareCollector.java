@@ -67,6 +67,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.vmware.vim25.mo.ManagedEntity;
+import org.opennms.netmgt.collection.api.CollectionStatus;
 
 /**
  * The Class VmwareCollector
@@ -208,7 +209,7 @@ public class VmwareCollector implements ServiceCollector {
 
         collectionSet.setCollectionTimestamp(new Date());
 
-        collectionSet.setStatus(ServiceCollector.COLLECTION_FAILED);
+        collectionSet.setStatus(CollectionStatus.FAILED);
 
         VmwareViJavaAccess vmwareViJavaAccess = null;
 
@@ -220,23 +221,14 @@ public class VmwareCollector implements ServiceCollector {
                     logger.warn("Error setting connection timeout for VMware management server '{}'", vmwareManagementServer);
                 }
             }
-        } catch (MarshalException e) {
-            logger.warn("Error initialising VMware connection to '{}': '{}'", vmwareManagementServer, e.getMessage());
-            return collectionSet;
-        } catch (ValidationException e) {
-            logger.warn("Error initialising VMware connection to '{}': '{}'", vmwareManagementServer, e.getMessage());
-            return collectionSet;
-        } catch (IOException e) {
+        } catch (MarshalException | ValidationException | IOException e) {
             logger.warn("Error initialising VMware connection to '{}': '{}'", vmwareManagementServer, e.getMessage());
             return collectionSet;
         }
 
         try {
             vmwareViJavaAccess.connect();
-        } catch (MalformedURLException e) {
-            logger.warn("Error connecting VMware management server '{}': '{}' exception: {} cause: '{}'", vmwareManagementServer, e.getMessage(), e.getClass().getName(), e.getCause());
-            return collectionSet;
-        } catch (RemoteException e) {
+        } catch (MalformedURLException | RemoteException e) {
             logger.warn("Error connecting VMware management server '{}': '{}' exception: {} cause: '{}'", vmwareManagementServer, e.getMessage(), e.getClass().getName(), e.getCause());
             return collectionSet;
         }
@@ -327,7 +319,7 @@ public class VmwareCollector implements ServiceCollector {
             }
         }
 
-        collectionSet.setStatus(ServiceCollector.COLLECTION_SUCCEEDED);
+        collectionSet.setStatus(CollectionStatus.SUCCESS);
 
         vmwareViJavaAccess.disconnect();
 

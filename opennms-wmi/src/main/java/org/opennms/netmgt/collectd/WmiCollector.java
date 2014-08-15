@@ -48,6 +48,7 @@ import org.opennms.netmgt.collectd.wmi.WmiSingleInstanceCollectionResource;
 import org.opennms.netmgt.collection.api.AttributeGroupType;
 import org.opennms.netmgt.collection.api.CollectionAgent;
 import org.opennms.netmgt.collection.api.CollectionSet;
+import org.opennms.netmgt.collection.api.CollectionStatus;
 import org.opennms.netmgt.collection.api.ServiceCollector;
 import org.opennms.netmgt.config.WmiDataCollectionConfigFactory;
 import org.opennms.netmgt.config.WmiPeerFactory;
@@ -77,7 +78,7 @@ import org.slf4j.LoggerFactory;
  * @author <a href="http://www.opennms.org">OpenNMS</a>
  */
 public class WmiCollector implements ServiceCollector {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(WmiCollector.class);
 
 
@@ -158,7 +159,7 @@ public class WmiCollector implements ServiceCollector {
 
 
                             for (final Attrib attrib : wpm.getAttrib()) {
-                                final OnmsWbemProperty prop = obj.getWmiProperties().getByName(attrib.getWmiObject());                                
+                                final OnmsWbemProperty prop = obj.getWmiProperties().getByName(attrib.getWmiObject());
                                 final WmiCollectionAttributeType attribType = m_attribTypeList.get(attrib.getName());
                                 resource.setAttributeValue(attribType, prop.getWmiValue().toString());
                             }
@@ -178,7 +179,7 @@ public class WmiCollector implements ServiceCollector {
                 }
             }
         }
-        collectionSet.setStatus(ServiceCollector.COLLECTION_SUCCEEDED);
+        collectionSet.setStatus(CollectionStatus.SUCCESS);
         return collectionSet;
     }
 
@@ -227,7 +228,7 @@ public class WmiCollector implements ServiceCollector {
             LOG.warn("Error checking group ({}) availability.", wpm.getName(), e);
             // Set the group as unavailable.
             agentState.setGroupIsAvailable(wpm.getName(), false);
-            
+
             // And then continue on to check the next wpm entry.
             return false;
         } finally {

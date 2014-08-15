@@ -62,11 +62,14 @@
 package org.opennms.netmgt.protocols.xmp.collector;
 
 import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.UndeclaredThrowableException;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import org.exolab.castor.xml.MarshalException;
+import org.exolab.castor.xml.ValidationException;
 
 import org.krupczak.xmp.SocketOpts;
 import org.krupczak.xmp.Xmp;
@@ -79,6 +82,7 @@ import org.opennms.netmgt.collection.api.AttributeGroup;
 import org.opennms.netmgt.collection.api.AttributeGroupType;
 import org.opennms.netmgt.collection.api.CollectionAgent;
 import org.opennms.netmgt.collection.api.CollectionSet;
+import org.opennms.netmgt.collection.api.CollectionStatus;
 import org.opennms.netmgt.collection.api.ServiceCollector;
 import org.opennms.netmgt.config.xmpConfig.XmpConfig;
 import org.opennms.netmgt.config.xmpDataCollection.Group;
@@ -92,7 +96,7 @@ import org.opennms.netmgt.rrd.RrdRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 public class XmpCollector implements ServiceCollector {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(XmpCollector.class);
 
 
@@ -111,7 +115,7 @@ public class XmpCollector implements ServiceCollector {
     /**
      * <p>Constructor for XmpCollector.</p>
      */
-    public XmpCollector() 
+    public XmpCollector()
     {
         LOG.debug("XmpCollector created");
 
@@ -122,24 +126,22 @@ public class XmpCollector implements ServiceCollector {
         // defaults
         xmpPort = Xmp.XMP_PORT;
         sockopts = new SocketOpts();
-        authenUser = new String("xmpUser"); 
+        authenUser = "xmpUser";
         timeout = 3000; /* millseconds */
-
-        return; 
     }
 
     /* private methods *********************************** */
-   
+
 
     // handle scalar query and put in a single collection resource
     // devoted to scalars; check sysUptime if its present
-    // and indicate if data should be persisted 
+    // and indicate if data should be persisted
 
     private boolean handleScalarQuery(String groupName,
             XmpCollectionSet collectionSet,
             long oldUptime,
-            XmpSession session, 
-            XmpCollectionResource scalarResource, 
+            XmpSession session,
+            XmpCollectionResource scalarResource,
             XmpVar[] queryVars)
     {
         XmpMessage reply;
@@ -189,7 +191,7 @@ public class XmpCollector implements ServiceCollector {
             ag.addAttribute(aVar);
         }
 
-        if (newUptime > oldUptime) { 
+        if (newUptime > oldUptime) {
             collectionSet.ignorePersistFalse();
         }
 
@@ -206,11 +208,11 @@ public class XmpCollector implements ServiceCollector {
 
     // handle a tabular query, save each row in its own
     // collection resource
-    private boolean handleTableQuery(String groupName, 
+    private boolean handleTableQuery(String groupName,
             String resourceType,
             XmpCollectionSet collectionSet,
             String[] tableInfo,
-            XmpSession session, 
+            XmpSession session,
             XmpVar[] queryVars)
     {
         int numColumns,numRows;
@@ -231,7 +233,7 @@ public class XmpCollector implements ServiceCollector {
 
         targetInstance = tableInfo[2];
         if ((tableInfo[2] == null) || (tableInfo[2].length() == 0)) {
-            tableInfo[2] = new String("*");
+            tableInfo[2] = "*";
             targetInstance = null;
         }
 
@@ -246,13 +248,13 @@ public class XmpCollector implements ServiceCollector {
 
         vars = reply.getMIBVars();
 
-        // we have to go through the reply and find out how 
+        // we have to go through the reply and find out how
         // many rows we have
 
         // for each row: create a CollectionResource of
         //               appropriate type, instance, etc.
-        //               create AttributeGroup to put 
-        //               the values in 
+        //               create AttributeGroup to put
+        //               the values in
 
         numRows = vars.length / numColumns;
 
@@ -280,7 +282,7 @@ public class XmpCollector implements ServiceCollector {
 
             if (targetInstance != null)
                 rowResource = new XmpCollectionResource(collectionSet.getCollectionAgent(),resourceType, tableInfo[1],targetInstance);
-            else 
+            else
                 rowResource = new XmpCollectionResource(collectionSet.getCollectionAgent(),resourceType, tableInfo[1],rowInstance);
 
             agt = new AttributeGroupType(groupName, AttributeGroupType.IF_TYPE_ALL);
@@ -292,7 +294,7 @@ public class XmpCollector implements ServiceCollector {
 
                 XmpCollectionAttributeType attribType = new XmpCollectionAttributeType(vars[i*numColumns+j],agt);
 
-                XmpCollectionAttribute aVar = 
+                XmpCollectionAttribute aVar =
                     new XmpCollectionAttribute(rowResource,
                                                attribType,
                                                vars[i*numColumns+j]);
@@ -321,7 +323,7 @@ public class XmpCollector implements ServiceCollector {
     @Override
     public void initialize(Map<String, String> parameters)
     {
-        // parameters come from collectd-configuration.xml 
+        // parameters come from collectd-configuration.xml
         // and they are the service parameters specified in xml
         // with keyname and value
         // parameter key=collection value=default
@@ -332,14 +334,14 @@ public class XmpCollector implements ServiceCollector {
 
         try {
             XmpCollectionFactory.init();
-        } catch (Throwable e) {
+        } catch (IOException | MarshalException | ValidationException e) {
             LOG.error("initialize: XmpCollectionFactory failed to initialize");
             throw new UndeclaredThrowableException(e);
         }
-        
+
         try {
             XmpPeerFactory.init();
-        } catch (Throwable e) {
+        } catch (MarshalException | ValidationException | IOException e) {
             LOG.error("initialize: XmpPeerFactory failed to initialize");
             throw new UndeclaredThrowableException(e);
         }
@@ -349,18 +351,18 @@ public class XmpCollector implements ServiceCollector {
 
         try {
             XmpConfigFactory.init();
-        } catch (Throwable e) {
+        } catch (IOException | MarshalException | ValidationException e) {
             LOG.error("initialize: config factory failed to initialize");
             throw new UndeclaredThrowableException(e);
         }
 
-        // initialize an RRD repository with various parameters 
+        // initialize an RRD repository with various parameters
         // /opt/opennms/share/rrd/snmp/
 
         File f = new File(XmpCollectionFactory.getInstance().getRrdPath());
         if (!f.isDirectory()) {
             if (!f.mkdirs()) {
-                throw new RuntimeException("Unable to create RRD file " + "repository.  Path doesn't already exist and could not make directory: " + 
+                throw new RuntimeException("Unable to create RRD file " + "repository.  Path doesn't already exist and could not make directory: " +
                                            XmpCollectionFactory.getInstance().getRrdPath());
             }
         }
@@ -381,9 +383,6 @@ public class XmpCollector implements ServiceCollector {
 
         LOG.debug("initialize: authenUser '{}' port {}", authenUser, xmpPort);
         LOG.debug("initialize: keystore found? {}", sockopts.getKeystoreFound());
-
-        return;
-
     } /* initialize() */
 
     /**
@@ -403,12 +402,9 @@ public class XmpCollector implements ServiceCollector {
         // we are using whichever CollectionAgent instantiation
         // is passed into us.
 
-        // parameters include SERVICE/service-name 
+        // parameters include SERVICE/service-name
         // superset of parameters passed in main initialize
         // ignore for now; other parameters like collection name
-
-
-        return;
     }
 
     /**
@@ -416,15 +412,13 @@ public class XmpCollector implements ServiceCollector {
      *       state associated with them *
      */
     @Override
-    public void release() 
+    public void release()
     {
         LOG.info("release()");
 
         // orphan existing set thus making them available
         // for garbage collection 
         setOfNodes = new HashSet<CollectionAgent>();
-
-        return;
     }
 
     /**
@@ -439,8 +433,6 @@ public class XmpCollector implements ServiceCollector {
 
         // remove agent from set; ignore return value
         setOfNodes.remove(agent);
-
-        return;
     }
 
     /**
@@ -462,7 +454,7 @@ public class XmpCollector implements ServiceCollector {
      *       Value passed in.  Keys come from collectd config
      */
     @Override
-    public CollectionSet collect(CollectionAgent agent, EventProxy eproxy, 
+    public CollectionSet collect(CollectionAgent agent, EventProxy eproxy,
             Map<String, Object> parameters)
     {
         XmpCollectionSet collectionSet;
@@ -475,7 +467,7 @@ public class XmpCollector implements ServiceCollector {
         LOG.debug("collect agent {}",agent);
 
         oldUptime = 0;
-        
+
         // First go to the peer factory
         XmpAgentConfig peerConfig = XmpPeerFactory.getInstance().getAgentConfig(agent.getAddress());
         authenUser = peerConfig.getAuthenUser();
@@ -489,7 +481,7 @@ public class XmpCollector implements ServiceCollector {
         if (parameters.get("timeout") != null) {
             timeout = ParameterMap.getKeyedInteger(parameters, "timeout", 3000);
         }
-        
+
         if (parameters.get("retry") != null) {
             retries = ParameterMap.getKeyedInteger(parameters, "retries", 0);
         }
@@ -505,7 +497,7 @@ public class XmpCollector implements ServiceCollector {
 
         //log().debug("XMP collection name "+collectionName);
 
-        // collectionName tells us what set of data to get 
+        // collectionName tells us what set of data to get
         // this would/will come from xmp-datacollection.xml
         if (collectionName == null) {
             // log this!
@@ -571,14 +563,14 @@ public class XmpCollector implements ServiceCollector {
             for (i=0 ; i< mibObjects.length; i++) {
 
                 vars[i] = new XmpVar(mibObjects[i].getMib(),
-                                     mibObjects[i].getVar(), 
+                                     mibObjects[i].getVar(),
                                      mibObjects[i].getInstance(),
                                      "",
                                      Xmp.SYNTAX_NULLSYNTAX);
 
             } /* for each MIB object in a particular group */
 
-            if ((mibObjects[0].getTable() != null) && 
+            if ((mibObjects[0].getTable() != null) &&
                     (mibObjects[0].getTable().length() != 0)) {
 
                 String[] tableInfo = new String[3];
@@ -586,7 +578,7 @@ public class XmpCollector implements ServiceCollector {
                 tableInfo[1] = mibObjects[0].getTable();
                 tableInfo[2] = mibObjects[0].getInstance();
 
-                // tabular query               
+                // tabular query
                 if (handleTableQuery(group.getName(),
                                      group.getResourceType(),
                                      collectionSet,
@@ -621,9 +613,9 @@ public class XmpCollector implements ServiceCollector {
         // MIB objects for sysUpTime
 
         // WARNING, EACH COLLECTION SHOULD HAVE A SCALAR QUERY THAT
-        // INCLUDES Core.sysUpTime 
+        // INCLUDES Core.sysUpTime
 
-        collectionSet.setStatus(ServiceCollector.COLLECTION_SUCCEEDED);
+        collectionSet.setStatus(CollectionStatus.SUCCESS);
 
         LOG.debug("XMP collect finished for {}, uptime for {} is {}", collectionName, agent, agent.getSavedSysUpTime());
 
@@ -639,7 +631,7 @@ public class XmpCollector implements ServiceCollector {
         // return the Rrd that I initialized but
         // I don't have to put data in it; initialize
         // it with the defaults, as example, that SNMP uses
-        // in datacollection-config.xml 
+        // in datacollection-config.xml
 
         return XmpCollectionFactory.getInstance().getRrdRepository(collectionName);
     }
