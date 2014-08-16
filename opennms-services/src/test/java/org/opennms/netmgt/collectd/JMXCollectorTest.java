@@ -55,6 +55,7 @@ import org.opennms.netmgt.collection.api.AttributeGroupType;
 import org.opennms.netmgt.collection.api.CollectionAgent;
 import org.opennms.netmgt.collection.api.CollectionAttribute;
 import org.opennms.netmgt.collection.api.CollectionSet;
+import org.opennms.netmgt.collection.api.CollectionStatus;
 import org.opennms.netmgt.collection.support.SingleResourceCollectionSet;
 import org.opennms.netmgt.config.BeanInfo;
 import org.opennms.netmgt.config.JMXDataCollectionConfigFactory;
@@ -139,7 +140,7 @@ public class JMXCollectorTest {
 //        dataSourceMap.put("org.opennms.netmgt.collectd.jmxhelper:type=JmxTest|NullString", new JMXDataSource());
         jmxNodeInfo.setDsMap(dataSourceMap);
         CollectionSet collectionSet = jmxCollector.collect(collectionAgent, null, null);
-        assertEquals("Collection of two dummy values run successfully", 1, collectionSet.getStatus());
+        assertEquals("Collection of two dummy values run successfully", CollectionStatus.SUCCESS, collectionSet.getStatus());
     }
 
     @Test
@@ -157,7 +158,7 @@ public class JMXCollectorTest {
         printDebugAttributeGroup(group);
 
         //ToDo Tak how to check if all metrics where collected?
-        assertEquals("Collection: " + collectionName + " run successfully", 1, collectionSet.getStatus());
+        assertEquals("Collection: " + collectionName + " run successfully", CollectionStatus.SUCCESS, collectionSet.getStatus());
     }
 
     /**
@@ -177,7 +178,7 @@ public class JMXCollectorTest {
         assertEquals(0, group.getAttributes().size());
         printDebugAttributeGroup(group);
 
-        assertEquals("Collection: " + collectionName + " run successfully", 1, collectionSet.getStatus());
+        assertEquals("Collection: " + collectionName + " run successfully", CollectionStatus.SUCCESS, collectionSet.getStatus());
     }
 
     @Test
@@ -194,7 +195,7 @@ public class JMXCollectorTest {
         assertEquals(1, group.getAttributes().size());
         printDebugAttributeGroup(group);
 
-        assertEquals("Collection: " + collectionName + " run successfully", 1, collectionSet.getStatus());
+        assertEquals("Collection: " + collectionName + " run successfully", CollectionStatus.SUCCESS, collectionSet.getStatus());
     }
 
     @Test
@@ -211,7 +212,7 @@ public class JMXCollectorTest {
         assertEquals(8, group.getAttributes().size());
         printDebugAttributeGroup(group);
 
-        assertEquals("Collection: " + collectionName + " run successfully", 1, collectionSet.getStatus());
+        assertEquals("Collection: " + collectionName + " run successfully", CollectionStatus.SUCCESS, collectionSet.getStatus());
     }
 
     @Test
@@ -228,7 +229,7 @@ public class JMXCollectorTest {
         assertEquals(4, group.getAttributes().size());
         printDebugAttributeGroup(group);
 
-        assertEquals("Collection: " + collectionName + " run successfully", 1, collectionSet.getStatus());
+        assertEquals("Collection: " + collectionName + " run successfully", CollectionStatus.SUCCESS, collectionSet.getStatus());
     }
 
     @Test
@@ -245,7 +246,7 @@ public class JMXCollectorTest {
         assertEquals(3, group.getAttributes().size());
         printDebugAttributeGroup(group);
 
-        assertEquals("Collection: " + collectionName + " run successfully", 1, collectionSet.getStatus());
+        assertEquals("Collection: " + collectionName + " run successfully", CollectionStatus.SUCCESS, collectionSet.getStatus());
     }
     /**
      * Check if CompositeAttributes will be collected
@@ -275,7 +276,7 @@ public class JMXCollectorTest {
 
         jmxNodeInfo.setDsMap(dataSourceMap);
         CollectionSet collectionSet = jmxCollector.collect(collectionAgent, null, null);
-        assertEquals("Collection of one Jvm default value run successfully", 1, collectionSet.getStatus());
+        assertEquals("Collection of one Jvm default value run successfully", CollectionStatus.SUCCESS, collectionSet.getStatus());
     }
 
     private Map<String, JMXDataSource> generateDataSourceMap(Map<String, List<Attrib>> attributeMap) {
