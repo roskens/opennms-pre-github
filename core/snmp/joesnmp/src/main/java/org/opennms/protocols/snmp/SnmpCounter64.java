@@ -68,7 +68,7 @@ public class SnmpCounter64 extends Object implements SnmpSyntax, Cloneable, Seri
      */
     public SnmpCounter64() {
         m_value = BigInteger.valueOf(0L);
-        (void)m_value.clearBit(65); // ensures that the 64-bits are treated as
+        m_value.clearBit(65); // ensures that the 64-bits are treated as
                                 // unsigned!
     }
 
@@ -81,7 +81,7 @@ public class SnmpCounter64 extends Object implements SnmpSyntax, Cloneable, Seri
      */
     public SnmpCounter64(long value) {
         m_value = BigInteger.valueOf(value & Long.MAX_VALUE);
-        (void)m_value.clearBit(65); // ensures that the 64-bits are treated as
+        m_value.clearBit(65); // ensures that the 64-bits are treated as
                                 // unsigned!
     }
 
@@ -94,7 +94,7 @@ public class SnmpCounter64 extends Object implements SnmpSyntax, Cloneable, Seri
      */
     public SnmpCounter64(BigInteger value) {
         m_value = new BigInteger(value.toByteArray());
-        (void)m_value.clearBit(65); // ensures that the 64-bits are treated as
+        m_value.clearBit(65); // ensures that the 64-bits are treated as
                                 // unsigned!
     }
 
@@ -108,7 +108,7 @@ public class SnmpCounter64 extends Object implements SnmpSyntax, Cloneable, Seri
      */
     public SnmpCounter64(SnmpCounter64 second) {
         m_value = new BigInteger(second.m_value.toByteArray());
-        (void)m_value.clearBit(65); // ensures that the 64-bits are treated as
+        m_value.clearBit(65); // ensures that the 64-bits are treated as
                                 // unsigned!
     }
 
@@ -158,7 +158,7 @@ public class SnmpCounter64 extends Object implements SnmpSyntax, Cloneable, Seri
      */
     public void setValue(BigInteger value) {
         m_value = new BigInteger(value.toByteArray());
-        (void)m_value.clearBit(65); // ensure 64-bit unsigned comparisions!
+        m_value.clearBit(65); // ensure 64-bit unsigned comparisions!
     }
 
     /**
