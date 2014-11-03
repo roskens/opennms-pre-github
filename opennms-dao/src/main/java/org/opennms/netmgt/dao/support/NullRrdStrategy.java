@@ -25,7 +25,6 @@
  *     http://www.opennms.org/
  *     http://www.opennms.com/
  *******************************************************************************/
-
 package org.opennms.netmgt.dao.support;
 
 import java.io.File;
@@ -41,75 +40,74 @@ import org.opennms.netmgt.rrd.RrdException;
 import org.opennms.netmgt.rrd.RrdGraphDetails;
 import org.opennms.netmgt.rrd.RrdStrategy;
 
-public class NullRrdStrategy implements RrdStrategy<Object,Object> {
-	
-	// THIS IS USED FOR TESTS SO RrdUtils can be initialized
-	// but doesn't need to do anything
+public class NullRrdStrategy implements RrdStrategy<Object, Object> {
 
+	// THIS IS USED FOR TESTS SO RrdUtils can be initialized
+    // but doesn't need to do anything
     @Override
     public void setConfigurationProperties(Properties configurationParameters) {
         // Do nothing
     }
 
     @Override
-	public void closeFile(Object rrd) throws Exception {
-	}
+    public void closeFile(Object rrd) throws Exception {
+    }
 
     @Override
-	public Object createDefinition(String creator, String directory,
-			String rrdName, int step, List<RrdDataSource> dataSources, List<String> rraList)
-			throws Exception {
-		return null;
-	}
+    public Object createDefinition(String creator, String directory,
+      String rrdName, int step, List<RrdDataSource> dataSources, List<String> rraList)
+      throws Exception {
+        return null;
+    }
 
     @Override
-	public void createFile(Object rrdDef, Map<String, String> attrMapping) throws Exception {
-	}
+    public void createFile(Object rrdDef, Map<String, String> attrMapping) throws Exception {
+    }
 
     @Override
     public InputStream createGraph(String command, File workDir)
-            throws IOException, RrdException {
+      throws IOException, RrdException {
         return null;
     }
-    
+
     @Override
     public RrdGraphDetails createGraphReturnDetails(String command, File workDir)
-            throws IOException, RrdException {
+      throws IOException, RrdException {
         return null;
     }
-    
-    @Override
-	public Double fetchLastValue(String rrdFile, String ds, int interval)
-			throws NumberFormatException, RrdException {
-		return null;
-	}
 
     @Override
-	public Double fetchLastValueInRange(String rrdFile, String ds, int interval, int range)
-			throws NumberFormatException, RrdException {
-		return null;
-	}
+    public Double fetchLastValue(String directory, String dsName, String ds, int interval)
+      throws NumberFormatException, RrdException {
+        return null;
+    }
 
     @Override
-	public String getStats() {
-		return null;
-	}
-
-	public void graphicsInitialize() throws Exception {
-	}
-
-	public void initialize() throws Exception {
-	}
+    public Double fetchLastValueInRange(String directory, String dsName, String ds, int interval, int range)
+      throws NumberFormatException, RrdException {
+        return null;
+    }
 
     @Override
-	public Object openFile(String fileName) throws Exception {
-		return null;
-	}
+    public String getStats() {
+        return null;
+    }
+
+    public void graphicsInitialize() throws Exception {
+    }
+
+    public void initialize() throws Exception {
+    }
 
     @Override
-	public void updateFile(Object rrd, String owner, String data)
-			throws Exception {
-	}
+    public Object openFile(String directory, String dsName) throws Exception {
+        return null;
+    }
+
+    @Override
+    public void updateFile(Object rrd, String owner, String data)
+      throws Exception {
+    }
 
     @Override
     public int getGraphLeftOffset() {
@@ -132,9 +130,7 @@ public class NullRrdStrategy implements RrdStrategy<Object,Object> {
     }
 
     @Override
-    public Double fetchLastValue(String rrdFile, String ds,
-            String consolidationFunction, int interval)
-            throws NumberFormatException, RrdException {
+    public Double fetchLastValue(String directory, String dsName, String ds, String consolidationFunction, int interval) throws NumberFormatException, RrdException {
         return null;
     }
 

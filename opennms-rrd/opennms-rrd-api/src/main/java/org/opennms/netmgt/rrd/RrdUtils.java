@@ -189,8 +189,7 @@ public abstract class RrdUtils {
      */
     @SuppressWarnings("unchecked")
     public static <D, F> RrdStrategy<D, F> getSpecificStrategy(StrategyName strategy) {
-        RrdStrategy<D, F> retval = null;
-        retval = (RrdStrategy<D, F>) m_context.getBean(strategy.toString());
+        RrdStrategy<D, F> retval = (RrdStrategy<D, F>) m_context.getBean(strategy.toString());
         if (retval == null) {
             throw new IllegalStateException("RrdUtils not initialized");
         }
@@ -281,10 +280,8 @@ public abstract class RrdUtils {
      * @throws org.opennms.netmgt.rrd.RrdException if any.
      */
     public static boolean createRRD(String creator, String directory, String rrdName, int step, List<RrdDataSource> dataSources, List<String> rraList, Map<String, String> attributeMappings) throws RrdException {
-        Object def = null;
-
         try {
-            def = getStrategy().createDefinition(creator, directory, rrdName, step, dataSources, rraList);
+            Object def = getStrategy().createDefinition(creator, directory, rrdName, step, dataSources, rraList);
             // def can be null if the rrd-db exists already, but doesn't have to be (see MultiOutput/QueuingRrdStrategy
             getStrategy().createFile(def, attributeMappings);
 
@@ -334,8 +331,12 @@ public abstract class RrdUtils {
 
         Object rrd = null;
         try {
-            rrd = getStrategy().openFile(rrdFile);
-            getStrategy().updateFile(rrd, owner, updateVal);
+            RrdStrategy<Object, Object> rs = getStrategy();
+            LOG.debug("RrdStrategy: rs={}", rs);
+            LOG.debug("updateRRD: getStrategy().openFile(dir='{}', rrd='{}')", repositoryDir, rrdName);
+            rrd = rs.openFile(repositoryDir, rrdName);
+            LOG.debug("updateRRD: getStrategy().updateFile(rrd='{}', owner='{}', updateVal='{}')", rrd, owner, updateVal);
+            rs.updateFile(rrd, owner, updateVal);
         } catch (Throwable e) {
             LOG.error("updateRRD: Error updating RRD file {} with values '{}'", rrdFile, updateVal, e);
             throw new org.opennms.netmgt.rrd.RrdException("Error updating RRD file " + rrdFile + " with values '" + updateVal + "': " + e, e);
@@ -361,16 +362,17 @@ public abstract class RrdUtils {
      * NOTE: This method assumes that each RRD file contains a single
      * datasource.
      *
-     * @param rrdFile RRD file from which to fetch the data.
-     * @param interval Thresholding interval (should equal RRD step size)
-     * @param ds Name of the Data Source to be used
+     * @param repositoryDir the directory the file resides in
+     * @param rrdName       the name for the rrd file.
+     * @param interval      Thresholding interval (should equal RRD step size)
+     * @param ds            Name of the Data Source to be used
      * @return Retrived datasource value as a java.lang.Double
      * @throws java.lang.NumberFormatException if the retrieved value fails to
      * convert to a double
      * @throws org.opennms.netmgt.rrd.RrdException if any.
      */
-    public static Double fetchLastValue(String rrdFile, String ds, int interval) throws NumberFormatException, RrdException {
-        return getStrategy().fetchLastValue(rrdFile, ds, interval);
+    public static Double fetchLastValue(String repositoryDir, String rrdName, String ds, int interval) throws NumberFormatException, RrdException {
+        return getStrategy().fetchLastValue(repositoryDir, rrdName, ds, interval);
     }
 
     /**
@@ -381,17 +383,18 @@ public abstract class RrdUtils {
      * but you want to retrieve the last value which is not NaN NOTE: This
      * method assumes that each RRD file contains a single datasource.
      *
-     * @param rrdFile RRD file from which to fetch the data.
-     * @param interval Thresholding interval (should equal RRD step size)
-     * @param ds Name of the Data Source to be used
+     * @param repositoryDir the directory the file resides in
+     * @param rrdName       the name for the rrd file.
+     * @param interval      Thresholding interval (should equal RRD step size)
+     * @param ds            Name of the Data Source to be used
+     * @param range         a int.
      * @return Retrived datasource value as a java.lang.Double
      * @throws java.lang.NumberFormatException if the retrieved value fails to
      * convert to a double
-     * @param range a int.
      * @throws org.opennms.netmgt.rrd.RrdException if any.
      */
-    public static Double fetchLastValueInRange(String rrdFile, String ds, int interval, int range) throws NumberFormatException, RrdException {
-        return getStrategy().fetchLastValueInRange(rrdFile, ds, interval, range);
+    public static Double fetchLastValueInRange(String repositoryDir, String rrdName, String ds, int interval, int range) throws NumberFormatException, RrdException {
+        return getStrategy().fetchLastValueInRange(repositoryDir, rrdName, ds, interval, range);
     }
 
     /**

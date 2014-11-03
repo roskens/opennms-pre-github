@@ -876,6 +876,9 @@
             <runMailTests>${runMailTests}</runMailTests>
             <runPingTests>${runPingTests}</runPingTests>
             <proxy.port>${proxy.port}</proxy.port>
+            <org.opennms.rrd.newts.keyspace>newts_test</org.opennms.rrd.newts.keyspace>
+            <org.opennms.rrd.newts.ttl>2678400</org.opennms.rrd.newts.ttl>
+            <!-- <org.opennms.rrd.strategyClass>org.opennms.netmgt.rrd.newts.NewtsRrdStrategy</org.opennms.rrd.strategyClass> -->
           </systemPropertyVariables>
           <forkCount>1</forkCount>
           <reuseForks>false</reuseForks>
@@ -2263,6 +2266,11 @@
       <dependency>
         <groupId>org.opennms</groupId>
         <artifactId>opennms-rrd-jrobin</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.opennms</groupId>
+        <artifactId>opennms-rrd-newts</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>

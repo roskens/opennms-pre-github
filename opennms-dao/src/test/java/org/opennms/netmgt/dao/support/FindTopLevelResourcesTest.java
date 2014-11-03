@@ -58,7 +58,7 @@ import org.opennms.netmgt.model.OnmsNode;
 import org.opennms.netmgt.model.OnmsResource;
 import org.opennms.netmgt.model.ResourceTypeUtils;
 import org.opennms.netmgt.rrd.RrdUtils;
-import org.opennms.netmgt.rrd.jrobin.JRobinRrdStrategy;
+import org.opennms.netmgt.rrd.newts.NewtsRrdStrategy;
 import org.opennms.test.FileAnticipator;
 import org.opennms.test.mock.EasyMockUtils;
 
@@ -101,7 +101,7 @@ public class FindTopLevelResourcesTest {
         m_resourceDao.setRrdDirectory(m_fileAnticipator.getTempDir());
         m_resourceDao.setDataCollectionConfigDao(m_dataCollectionConfigDao);
 
-        RrdUtils.setStrategy(new JRobinRrdStrategy());
+        RrdUtils.setStrategy(new NewtsRrdStrategy());
     }
 
     @After
@@ -212,8 +212,8 @@ public class FindTopLevelResourcesTest {
         expect(m_nodeDao.get(n1.getId())).andReturn(n1).times(2); // TODO ResponseTimeResourceType is the responsible for this.
         expect(m_nodeDao.get(n2.getId())).andReturn(n2).times(1); // TODO ResponseTimeResourceType is the responsible for this.
         if (storeByForeignSource) {
-            expect(m_nodeDao.findByForeignId(n1.getForeignSource(), n1.getForeignId())).andReturn(n1).times(1);            
-            expect(m_nodeDao.findByForeignId(n2.getForeignSource(), n2.getForeignId())).andReturn(n2).times(1);            
+            expect(m_nodeDao.findByForeignId(n1.getForeignSource(), n1.getForeignId())).andReturn(n1).times(1);
+            expect(m_nodeDao.findByForeignId(n2.getForeignSource(), n2.getForeignId())).andReturn(n2).times(1);
         } else {
             expect(m_locationMonitorDao.findStatusChangesForNodeForUniqueMonitorAndInterface(n1.getId())).andReturn(new ArrayList<LocationMonitorIpInterface>(0));
             expect(m_locationMonitorDao.findStatusChangesForNodeForUniqueMonitorAndInterface(n2.getId())).andReturn(new ArrayList<LocationMonitorIpInterface>(0));
@@ -381,7 +381,7 @@ public class FindTopLevelResourcesTest {
         Assert.assertEquals(2, resources.size());
 
         if (storeByForeignSource) {
-            OnmsResource r1 = resources.get(0); // parent resource for the provisioned node 
+            OnmsResource r1 = resources.get(0); // parent resource for the provisioned node
             List<OnmsResource> children1 = r1.getChildResources();
             Collections.sort(children1);
             Assert.assertEquals("nodeSource[Junit%3Anode2]", r1.getId());
@@ -397,7 +397,7 @@ public class FindTopLevelResourcesTest {
             Assert.assertEquals("node[1].nodeSnmp[]", children2.get(1).getId());
 
         } else {
-            OnmsResource r1 = resources.get(1); // parent resource for the provisioned node 
+            OnmsResource r1 = resources.get(1); // parent resource for the provisioned node
             List<OnmsResource> children1 = r1.getChildResources();
             Collections.sort(children1);
             Assert.assertEquals("node[2]", r1.getId());
@@ -433,7 +433,7 @@ public class FindTopLevelResourcesTest {
         n.addIpInterface(ip);
         return n;
     }
-    
+
     public void walkin(File dir) {
         File listFile[] = dir.listFiles();
         if (listFile != null) {

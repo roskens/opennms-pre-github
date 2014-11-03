@@ -62,6 +62,10 @@
     <!-- needed by opennms-dao runtime :( -->
     <dependency>
       <groupId>org.opennms</groupId>
+      <artifactId>opennms-rrd-newts</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.opennms</groupId>
       <artifactId>opennms-rrd-jrobin</artifactId>
     </dependency>
     <!-- test dependencies -->

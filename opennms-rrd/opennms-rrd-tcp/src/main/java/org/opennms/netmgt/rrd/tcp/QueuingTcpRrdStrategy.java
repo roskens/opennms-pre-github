@@ -45,6 +45,7 @@ import org.slf4j.LoggerFactory;
 import org.opennms.netmgt.rrd.RrdDataSource;
 import org.opennms.netmgt.rrd.RrdGraphDetails;
 import org.opennms.netmgt.rrd.RrdStrategy;
+import org.opennms.netmgt.rrd.RrdUtils;
 import org.opennms.netmgt.rrd.tcp.TcpRrdStrategy.RrdDefinition;
 
 /**
@@ -54,7 +55,7 @@ import org.opennms.netmgt.rrd.tcp.TcpRrdStrategy.RrdDefinition;
  * The receiver of this strategy is not defined in any way. This is just a fire
  * and forget strategy. There is no way to read data back into opennms.
  * </p>
- * 
+ *
  * @author ranger
  * @version $Id: $
  */
@@ -164,7 +165,8 @@ public class QueuingTcpRrdStrategy implements RrdStrategy<TcpRrdStrategy.RrdDefi
 
     /** {@inheritDoc} */
     @Override
-    public String openFile(String fileName) throws Exception {
+    public String openFile(String directory, String rrdName) throws Exception {
+        String fileName = directory + File.separator + rrdName + RrdUtils.getExtension();
         return fileName;
     }
 
@@ -194,20 +196,22 @@ public class QueuingTcpRrdStrategy implements RrdStrategy<TcpRrdStrategy.RrdDefi
 
     /** {@inheritDoc} */
     @Override
-    public Double fetchLastValue(String rrdFile, String ds, int interval) throws NumberFormatException {
-        return m_delegate.fetchLastValue(rrdFile, ds, interval);
+    public Double fetchLastValue(String directory, String rrdName, String ds, int interval) throws NumberFormatException {
+        return m_delegate.fetchLastValue(directory, rrdName, ds, interval);
     }
 
     /** {@inheritDoc} */
     @Override
-    public Double fetchLastValue(String rrdFile, String ds, String consolidationFunction, int interval) throws NumberFormatException {
-        return m_delegate.fetchLastValue(rrdFile, ds, consolidationFunction, interval);
+    public Double fetchLastValue(String directory, String rrdName, String ds, String consolidationFunction, int interval) throws NumberFormatException {
+        String fileName = directory + File.separator + rrdName + RrdUtils.getExtension();
+        return m_delegate.fetchLastValue(directory, rrdName, ds, consolidationFunction, interval);
     }
 
     /** {@inheritDoc} */
     @Override
-    public Double fetchLastValueInRange(String rrdFile, String ds, int interval, int range) throws NumberFormatException {
-        return m_delegate.fetchLastValueInRange(rrdFile, ds, interval, range);
+    public Double fetchLastValueInRange(String directory, String rrdName, String ds, int interval, int range) throws NumberFormatException {
+        String fileName = directory + File.separator + rrdName + RrdUtils.getExtension();
+        return m_delegate.fetchLastValueInRange(directory, rrdName, ds, interval, range);
     }
 
     /** {@inheritDoc} */
@@ -267,5 +271,5 @@ public class QueuingTcpRrdStrategy implements RrdStrategy<TcpRrdStrategy.RrdDefi
     public void promoteEnqueuedFiles(Collection<String> rrdFiles) {
         m_delegate.promoteEnqueuedFiles(rrdFiles);
     }
-    
+
 }

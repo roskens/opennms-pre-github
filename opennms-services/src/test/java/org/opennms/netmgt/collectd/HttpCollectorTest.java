@@ -231,15 +231,15 @@ public class HttpCollectorTest implements TestContextAware, InitializingBean {
 
         // This is the value of documentCount from the first test page
         // documentCount = Gauge32: 5
-        assertEquals("documentCount", Double.valueOf(5.0), RrdUtils.fetchLastValueInRange(documentCountRrdFile.getAbsolutePath(), "documentCount", stepSizeInMillis, stepSizeInMillis));
+        assertEquals("documentCount", Double.valueOf(5.0), RrdUtils.fetchLastValueInRange(documentCountRrdFile.getParent(), documentCountRrdFile.getName(), "documentCount", stepSizeInMillis, stepSizeInMillis));
 
         // This is the value of documentType from the first test page
         // someNumber = Gauge32: 17
-        assertEquals("documentType", Double.valueOf(17.0), RrdUtils.fetchLastValueInRange(someNumberRrdFile.getAbsolutePath(), "someNumber", stepSizeInMillis, stepSizeInMillis));
+        assertEquals("documentType", Double.valueOf(17.0), RrdUtils.fetchLastValueInRange(someNumberRrdFile.getParent(), someNumberRrdFile.getName(), "someNumber", stepSizeInMillis, stepSizeInMillis));
 
         // This is the value of greatAnswer from the second test page
         //someNumber = Gauge32: 42
-        assertEquals("greatAnswer", Double.valueOf(42.0), RrdUtils.fetchLastValueInRange(greatAnswerRrdFile.getAbsolutePath(), "greatAnswer", stepSizeInMillis, stepSizeInMillis));
+        assertEquals("greatAnswer", Double.valueOf(42.0), RrdUtils.fetchLastValueInRange(greatAnswerRrdFile.getParent(), greatAnswerRrdFile.getName(), "greatAnswer", stepSizeInMillis, stepSizeInMillis));
 
         m_collectionSpecification.release(m_collectionAgent);
     }
@@ -247,20 +247,20 @@ public class HttpCollectorTest implements TestContextAware, InitializingBean {
     @Test
     @JUnitHttpServer(port=10342, vhosts={"127.0.0.1"})
     @JUnitCollector(
-                    datacollectionConfig="/org/opennms/netmgt/config/http-datacollection-persist-apache-stats.xml", 
-                    datacollectionType="http",
-                    anticipateRrds={ 
-                            "1/TotalAccesses",
-                            "1/TotalkBytes",
-                            "1/CPULoad",
-                            "1/Uptime",
-                            "1/ReqPerSec",
-                            "1/BytesPerSec",
-                            "1/BytesPerReq",
-                            "1/BusyWorkers",
-                            "1/IdleWorkers"
-                    }
-            )
+        datacollectionConfig="/org/opennms/netmgt/config/http-datacollection-persist-apache-stats.xml",
+        datacollectionType="http",
+        anticipateRrds={
+            "1/TotalAccesses",
+            "1/TotalkBytes",
+            "1/CPULoad",
+            "1/Uptime",
+            "1/ReqPerSec",
+            "1/BytesPerSec",
+            "1/BytesPerReq",
+            "1/BusyWorkers",
+            "1/IdleWorkers"
+        }
+    )
     public final void testPersistApacheStats() throws Exception {
         File snmpRrdDirectory = (File)m_context.getAttribute("rrdDirectory");
         FileAnticipator anticipator = (FileAnticipator)m_context.getAttribute("fileAnticipator");
@@ -282,22 +282,22 @@ public class HttpCollectorTest implements TestContextAware, InitializingBean {
         File cpuLoadRrdFile       = new File(nodeDir, CollectorTestUtils.rrd("CPULoad"));
 
         // Total Accesses: 175483
-        assertEquals("TotalAccesses", Double.valueOf(175483.0), RrdUtils.fetchLastValueInRange(documentCountRrdFile.getAbsolutePath(), "TotalAccesses", stepSizeInMillis, stepSizeInMillis));
+        assertEquals("TotalAccesses", Double.valueOf(175483.0), RrdUtils.fetchLastValueInRange(documentCountRrdFile.getParent(), documentCountRrdFile.getName(), "TotalAccesses", stepSizeInMillis, stepSizeInMillis));
 
         // IdleWorkers: 12
-        assertEquals("IdleWorkers", Double.valueOf(12.0), RrdUtils.fetchLastValueInRange(someNumberRrdFile.getAbsolutePath(), "IdleWorkers", stepSizeInMillis, stepSizeInMillis));
+        assertEquals("IdleWorkers", Double.valueOf(12.0), RrdUtils.fetchLastValueInRange(someNumberRrdFile.getParent(), someNumberRrdFile.getName(), "IdleWorkers", stepSizeInMillis, stepSizeInMillis));
 
         // CPU Load: .497069
-        assertEquals("CPULoad", Double.valueOf(0.497069), RrdUtils.fetchLastValueInRange(cpuLoadRrdFile.getAbsolutePath(), "CPULoad", stepSizeInMillis, stepSizeInMillis));
+        assertEquals("CPULoad", Double.valueOf(0.497069), RrdUtils.fetchLastValueInRange(cpuLoadRrdFile.getParent(), cpuLoadRrdFile.getName(), "CPULoad", stepSizeInMillis, stepSizeInMillis));
         m_collectionSpecification.release(m_collectionAgent);
     }
 
     @Test
     @JUnitHttpServer(port=10342, vhosts={"127.0.0.1"})
     @JUnitCollector(
-                    datacollectionConfig="/org/opennms/netmgt/config/http-datacollection-broken-regex.xml", 
-                    datacollectionType="http"
-            )
+        datacollectionConfig="/org/opennms/netmgt/config/http-datacollection-broken-regex.xml",
+        datacollectionType="http"
+    )
     public final void testBrokenRegex() throws Exception {
         int numUpdates = 2;
 
@@ -311,20 +311,20 @@ public class HttpCollectorTest implements TestContextAware, InitializingBean {
     @Test
     @JUnitHttpServer(port=10342, vhosts={"127.0.0.1"})
     @JUnitCollector(
-                    datacollectionConfig="/org/opennms/netmgt/config/http-datacollection-persist-apache-stats.xml", 
-                    datacollectionType="http",
-                    anticipateRrds={ 
-                            "1/TotalAccesses",
-                            "1/TotalkBytes",
-                            "1/CPULoad",
-                            "1/Uptime",
-                            "1/ReqPerSec",
-                            "1/BytesPerSec",
-                            "1/BytesPerReq",
-                            "1/BusyWorkers",
-                            "1/IdleWorkers"
-                    }
-            )
+        datacollectionConfig="/org/opennms/netmgt/config/http-datacollection-persist-apache-stats.xml",
+        datacollectionType="http",
+        anticipateRrds={
+            "1/TotalAccesses",
+            "1/TotalkBytes",
+            "1/CPULoad",
+            "1/Uptime",
+            "1/ReqPerSec",
+            "1/BytesPerSec",
+            "1/BytesPerReq",
+            "1/BusyWorkers",
+            "1/IdleWorkers"
+        }
+    )
     public void testPersistApacheStatsViaCapsd() throws Exception {
         // Add the HTTP collector to capsd
         m_collectd.setServiceCollector("HTTP", m_collector);
@@ -360,13 +360,13 @@ public class HttpCollectorTest implements TestContextAware, InitializingBean {
             File cpuLoadRrdFile       = new File(nodeDir, CollectorTestUtils.rrd("CPULoad"));
 
             // Total Accesses: 175483
-            assertEquals("TotalAccesses", Double.valueOf(175483.0), RrdUtils.fetchLastValueInRange(documentCountRrdFile.getAbsolutePath(), "TotalAccesses", stepSizeInMillis, stepSizeInMillis));
+            assertEquals("TotalAccesses", Double.valueOf(175483.0), RrdUtils.fetchLastValueInRange(documentCountRrdFile.getParent(), documentCountRrdFile.getName(), "TotalAccesses", stepSizeInMillis, stepSizeInMillis));
 
             // IdleWorkers: 12
-            assertEquals("IdleWorkers", Double.valueOf(12.0), RrdUtils.fetchLastValueInRange(someNumberRrdFile.getAbsolutePath(), "IdleWorkers", stepSizeInMillis, stepSizeInMillis));
+            assertEquals("IdleWorkers", Double.valueOf(12.0), RrdUtils.fetchLastValueInRange(someNumberRrdFile.getParent(), someNumberRrdFile.getName(), "IdleWorkers", stepSizeInMillis, stepSizeInMillis));
 
             // CPU Load: .497069
-            assertEquals("CPULoad", Double.valueOf(0.497069), RrdUtils.fetchLastValueInRange(cpuLoadRrdFile.getAbsolutePath(), "CPULoad", stepSizeInMillis, stepSizeInMillis));
+            assertEquals("CPULoad", Double.valueOf(0.497069), RrdUtils.fetchLastValueInRange(cpuLoadRrdFile.getParent(), cpuLoadRrdFile.getName(), "CPULoad", stepSizeInMillis, stepSizeInMillis));
             m_collectionSpecification.release(m_collectionAgent);
         } finally {
             Locale.setDefault(defaultLocale);

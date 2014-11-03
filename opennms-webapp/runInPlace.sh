@@ -102,7 +102,7 @@ WEB_PORT=8080
 DEBUG=false
 DEFINES=""
 
-while getopts bcChgntp: OPT; do
+while getopts bcChgntpo: OPT; do
     case $OPT in
 	b)  WAR_INPLACE=true
 	    ;;

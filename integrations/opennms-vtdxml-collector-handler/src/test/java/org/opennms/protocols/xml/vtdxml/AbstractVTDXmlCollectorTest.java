@@ -50,7 +50,7 @@ import org.opennms.netmgt.collection.api.ServiceParameters;
 import org.opennms.netmgt.rrd.RrdRepository;
 import org.opennms.netmgt.model.events.EventProxy;
 import org.opennms.netmgt.rrd.RrdUtils;
-import org.opennms.netmgt.rrd.jrobin.JRobinRrdStrategy;
+import org.opennms.netmgt.rrd.newts.NewtsRrdStrategy;
 import org.opennms.protocols.xml.collector.XmlCollector;
 import org.opennms.protocols.xml.config.XmlRrd;
 import org.opennms.protocols.xml.dao.jaxb.XmlDataCollectionConfigDaoJaxb;
@@ -88,7 +88,7 @@ public abstract class AbstractVTDXmlCollectorTest {
 
         System.setProperty("org.opennms.rrd.usetcp", "false");
         System.setProperty("org.opennms.rrd.usequeue", "false");
-        RrdUtils.setStrategy(new JRobinRrdStrategy());
+        RrdUtils.setStrategy(new NewtsRrdStrategy());
 
         m_collectionAgent = EasyMock.createMock(CollectionAgent.class);
         EasyMock.expect(m_collectionAgent.getNodeId()).andReturn(1).anyTimes();

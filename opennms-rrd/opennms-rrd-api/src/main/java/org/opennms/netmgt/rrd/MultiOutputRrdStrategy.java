@@ -160,24 +160,22 @@ public class MultiOutputRrdStrategy implements RrdStrategy<List<Object>,List<Obj
 
     /** {@inheritDoc} */
     @Override
-    public Double fetchLastValue(String rrdFile, String ds, int interval)
-    throws NumberFormatException, RrdException {
-        return m_strategies.get(m_fetchStrategyIndex).fetchLastValue(rrdFile, ds, interval);
+    public Double fetchLastValue(String directory, String rrdName, String ds, int interval)
+      throws NumberFormatException, RrdException {
+        return m_strategies.get(m_fetchStrategyIndex).fetchLastValue(directory, rrdName, ds, interval);
     }
 
     /** {@inheritDoc} */
     @Override
-    public Double fetchLastValue(String rrdFile, String ds,
-            String consolidationFunction, int interval)
-    throws NumberFormatException, RrdException {
-        return m_strategies.get(m_fetchStrategyIndex).fetchLastValue(rrdFile, ds, consolidationFunction, interval);
+    public Double fetchLastValue(String directory, String rrdName, String ds, String consolidationFunction, int interval)
+      throws NumberFormatException, RrdException {
+        return m_strategies.get(m_fetchStrategyIndex).fetchLastValue(directory, rrdName, ds, consolidationFunction, interval);
     }
 
     /** {@inheritDoc} */
     @Override
-    public Double fetchLastValueInRange(String rrdFile, String ds,
-            int interval, int range) throws NumberFormatException, RrdException {
-        return m_strategies.get(m_fetchStrategyIndex).fetchLastValueInRange(rrdFile, ds, interval, range);
+    public Double fetchLastValueInRange(String directory, String rrdName, String ds, int interval, int range) throws NumberFormatException, RrdException {
+        return m_strategies.get(m_fetchStrategyIndex).fetchLastValueInRange(directory, rrdName, ds, interval, range);
     }
 
     /**
@@ -237,10 +235,10 @@ public class MultiOutputRrdStrategy implements RrdStrategy<List<Object>,List<Obj
 
     /** {@inheritDoc} */
     @Override
-    public List<Object> openFile(String fileName) throws Exception {
+    public List<Object> openFile(String directory, String rrdName) throws Exception {
         List<Object> retval = new ArrayList<Object>();
         for (RrdStrategy<Object, Object> strategy : m_strategies) {
-            retval.add(strategy.openFile(fileName));
+            retval.add(strategy.openFile(directory, rrdName));
         }
         return retval;
     }

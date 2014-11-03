@@ -44,7 +44,7 @@ import org.opennms.netmgt.rrd.DefaultRrdGraphDetails;
 import org.opennms.netmgt.rrd.RrdException;
 import org.opennms.netmgt.rrd.RrdStrategy;
 import org.opennms.netmgt.rrd.RrdUtils;
-import org.opennms.netmgt.rrd.jrobin.JRobinRrdStrategy;
+import org.opennms.netmgt.rrd.newts.NewtsRrdStrategy;
 import org.opennms.test.ThrowableAnticipator;
 import org.opennms.test.mock.EasyMockUtils;
 import org.springframework.dao.DataAccessResourceFailureException;
@@ -56,22 +56,22 @@ import org.springframework.util.StringUtils;
 public class DefaultRrdDaoTest extends TestCase {
     private EasyMockUtils m_mocks = new EasyMockUtils();
     private RrdStrategy<?,?> m_rrdStrategy = m_mocks.createMock(RrdStrategy.class);
-    
+
     private DefaultRrdDao m_dao;
-    
+
     @Override
     public void setUp() throws Exception {
         super.setUp();
-        
-        RrdUtils.setStrategy(new JRobinRrdStrategy());
-        
+
+        RrdUtils.setStrategy(new NewtsRrdStrategy());
+
         m_dao = new DefaultRrdDao();
         m_dao.setRrdStrategy(m_rrdStrategy);
         m_dao.setRrdBaseDirectory(new File(System.getProperty("java.io.tmpdir")));
         m_dao.setRrdBinaryPath("/bin/true");
         m_dao.afterPropertiesSet();
     }
-    
+
     public void testInit() {
         // Don't do anything... test that the setUp method works
     }
@@ -84,11 +84,11 @@ public class DefaultRrdDaoTest extends TestCase {
         m_mocks.replayAll();
         Double value = m_dao.getPrintValue(childResource.getAttributes().iterator().next(), "AVERAGE", start, end);
         m_mocks.verifyAll();
-        
+
         assertNotNull("value should not be null", value);
         assertEquals("value", 1.0, value);
     }
-    
+
     public void testPrintValueWithNaN() throws Exception {
         long end = System.currentTimeMillis();
         long start = end - (24 * 60 * 60 * 1000);
@@ -97,20 +97,20 @@ public class DefaultRrdDaoTest extends TestCase {
         m_mocks.replayAll();
         Double value = m_dao.getPrintValue(childResource.getAttributes().iterator().next(), "AVERAGE", start, end);
         m_mocks.verifyAll();
-        
+
         assertNotNull("value should not be null", value);
         assertEquals("value", Double.NaN, value);
     }
-    
+
     public void testPrintValueWithnan() throws Exception {
         long end = System.currentTimeMillis();
         long start = end - (24 * 60 * 60 * 1000);
-        OnmsResource childResource = preparePrintValueTest(start, end, "nan");   
+        OnmsResource childResource = preparePrintValueTest(start, end, "nan");
 
         m_mocks.replayAll();
         Double value = m_dao.getPrintValue(childResource.getAttributes().iterator().next(), "AVERAGE", start, end);
         m_mocks.verifyAll();
-        
+
         assertNotNull("value should not be null", value);
         assertEquals("value", Double.NaN, value);
     }
@@ -119,12 +119,12 @@ public class DefaultRrdDaoTest extends TestCase {
     public void testPrintValueWithNegativeNan() throws Exception {
         long end = System.currentTimeMillis();
         long start = end - (24 * 60 * 60 * 1000);
-        OnmsResource childResource = preparePrintValueTest(start, end, "-nan");   
+        OnmsResource childResource = preparePrintValueTest(start, end, "-nan");
 
         m_mocks.replayAll();
         Double value = m_dao.getPrintValue(childResource.getAttributes().iterator().next(), "AVERAGE", start, end);
         m_mocks.verifyAll();
-        
+
         assertNotNull("value should not be null", value);
         assertEquals("value", Double.NaN, value);
     }
@@ -133,11 +133,11 @@ public class DefaultRrdDaoTest extends TestCase {
         long end = System.currentTimeMillis();
         long start = end - (24 * 60 * 60 * 1000);
         String printLine = "blah blah blah this should be a floating point number blah blah blah";
-        
+
         OnmsResource childResource = preparePrintValueTest(start, end, printLine);
 
         m_mocks.replayAll();
-        
+
         ThrowableAnticipator ta = new ThrowableAnticipator();
         ta.anticipate(new DataAccessResourceFailureException("Value of line 1 of output from RRD is not a valid floating point number: '" + printLine + "'"));
         try {
@@ -154,7 +154,7 @@ public class DefaultRrdDaoTest extends TestCase {
     private OnmsResource preparePrintValueTest(long start, long end, String printLine) throws IOException, RrdException {
         String rrdDir = "snmp" + File.separator + "1" + File.separator + "eth0";
         String rrdFile = "ifInOctets.jrb";
-        
+
         String escapedFile = rrdDir + File.separator + rrdFile;
         if  (File.separatorChar == '\\') {
         	escapedFile = escapedFile.replace("\\", "\\\\");
@@ -176,18 +176,18 @@ public class DefaultRrdDaoTest extends TestCase {
         OnmsAttribute attribute = new RrdGraphAttribute("ifInOctets", rrdDir, rrdFile);
         HashSet<OnmsAttribute> attributeSet = new HashSet<OnmsAttribute>(1);
         attributeSet.add(attribute);
-        
+
         MockResourceType childResourceType = new MockResourceType();
         OnmsResource childResource = new OnmsResource("eth0", "Interface One: eth0", childResourceType, attributeSet);
         childResource.setParent(topResource);
-        
+
         DefaultRrdGraphDetails details = new DefaultRrdGraphDetails();
         details.setPrintLines(new String[] { printLine });
         expect(m_rrdStrategy.createGraphReturnDetails(commandString, m_dao.getRrdBaseDirectory())).andReturn(details);
 
         return childResource;
     }
-    
+
     public void testFetchLastValue() throws Exception {
         String rrdDir = "snmp" + File.separator + "1" + File.separator + "eth0";
         String rrdFile = "ifInOctets.jrb";
@@ -197,25 +197,25 @@ public class DefaultRrdDaoTest extends TestCase {
         OnmsAttribute attribute = new RrdGraphAttribute("ifInOctets", rrdDir, rrdFile);
         HashSet<OnmsAttribute> attributeSet = new HashSet<OnmsAttribute>(1);
         attributeSet.add(attribute);
-        
+
         MockResourceType childResourceType = new MockResourceType();
         OnmsResource childResource = new OnmsResource("eth0", "Interface One: eth0", childResourceType, attributeSet);
         childResource.setParent(topResource);
-        
+
         int interval = 300000;
         Double expectedValue = new Double(1.0);
-        
-        String fullRrdFilePath = m_dao.getRrdBaseDirectory().getAbsolutePath() + File.separator + rrdDir + File.separator + rrdFile;
-        expect(m_rrdStrategy.fetchLastValue(fullRrdFilePath, attribute.getName(), interval)).andReturn(expectedValue);
+
+        String directory = m_dao.getRrdBaseDirectory().getAbsolutePath() + File.separator + rrdDir;
+        expect(m_rrdStrategy.fetchLastValue(directory, rrdFile, attribute.getName(), interval)).andReturn(expectedValue);
 
         m_mocks.replayAll();
         Double value = m_dao.getLastFetchValue(attribute, interval);
         m_mocks.verifyAll();
-        
+
         assertNotNull("last fetched value must not be null, but was null", value);
         assertEquals("last fetched value", expectedValue, value);
     }
-    
+
     public void testFetchLastValueInRange() throws Exception {
         String rrdDir = "snmp" + File.separator + "1" + File.separator + "eth0";
         String rrdFile = "ifInOctets.jrb";
@@ -225,22 +225,22 @@ public class DefaultRrdDaoTest extends TestCase {
         OnmsAttribute attribute = new RrdGraphAttribute("ifInOctets", rrdDir, rrdFile);
         HashSet<OnmsAttribute> attributeSet = new HashSet<OnmsAttribute>(1);
         attributeSet.add(attribute);
-        
+
         MockResourceType childResourceType = new MockResourceType();
         OnmsResource childResource = new OnmsResource("eth0", "Interface One: eth0", childResourceType, attributeSet);
         childResource.setParent(topResource);
-        
+
         int interval = 300000;
         int range = 300000;
         Double expectedValue = new Double(1.0);
-        
-        String fullRrdFilePath = m_dao.getRrdBaseDirectory().getAbsolutePath() + File.separator + rrdDir + File.separator + rrdFile;
-        expect(m_rrdStrategy.fetchLastValueInRange(fullRrdFilePath, attribute.getName(), interval, range)).andReturn(expectedValue);
+
+        String directory = m_dao.getRrdBaseDirectory().getAbsolutePath() + File.separator + rrdDir;
+        expect(m_rrdStrategy.fetchLastValueInRange(directory, rrdFile, attribute.getName(), interval, range)).andReturn(expectedValue);
 
         m_mocks.replayAll();
         Double value = m_dao.getLastFetchValue(attribute, interval, range);
         m_mocks.verifyAll();
-        
+
         assertNotNull("last fetched value must not be null, but was null", value);
         assertEquals("last fetched value", expectedValue, value);
     }

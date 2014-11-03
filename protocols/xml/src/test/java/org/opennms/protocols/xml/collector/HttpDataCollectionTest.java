@@ -61,7 +61,7 @@ import org.opennms.netmgt.model.OnmsAssetRecord;
 import org.opennms.netmgt.model.OnmsNode;
 import org.opennms.netmgt.rrd.RrdRepository;
 import org.opennms.netmgt.rrd.RrdUtils;
-import org.opennms.netmgt.rrd.jrobin.JRobinRrdStrategy;
+import org.opennms.netmgt.rrd.newts.NewtsRrdStrategy;
 import org.opennms.protocols.http.collector.HttpCollectionHandler;
 import org.opennms.protocols.json.collector.DefaultJsonCollectionHandler;
 import org.opennms.protocols.xml.config.XmlDataCollection;
@@ -74,7 +74,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
  * The Test Class for HTTP Data Collection.
- * 
+ *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -109,7 +109,9 @@ public class HttpDataCollectionTest {
 
         System.setProperty("org.opennms.rrd.usetcp", "false");
         System.setProperty("org.opennms.rrd.usequeue", "false");
-        RrdUtils.setStrategy(new JRobinRrdStrategy());
+        System.setProperty("org.opennms.rrd.strategyClass", "org.opennms.netmgt.rrd.newts.NewtsRrdStrategy");
+        RrdUtils.setStrategy(new NewtsRrdStrategy());
+        RrdUtils.getStrategy().setConfigurationProperties(System.getProperties());
 
         m_collectionAgent = EasyMock.createMock(CollectionAgent.class);
         EasyMock.expect(m_collectionAgent.getNodeId()).andReturn(1).anyTimes();
@@ -166,12 +168,10 @@ public class HttpDataCollectionTest {
         BasePersister persister =  new GroupPersister(serviceParams, repository); // storeByGroup=true;
         collectionSet.visit(persister);
 
-        RrdDb jrb = new RrdDb(new File("target/snmp/1/count-stats.jrb"));
-        Assert.assertNotNull(jrb);
-        Assert.assertEquals(1, jrb.getDsCount());
-        Datasource ds = jrb.getDatasource("count");
-        Assert.assertNotNull(ds);
-        Assert.assertEquals(new Double(5), Double.valueOf(ds.getLastValue()));
+        File file = new File("target/snmp/1/count-stats.jrb");
+        String[] dsnames = new String[]{"count"};
+        Double[] dsvalues = new Double[]{5.0};
+        validateJrb(file, dsnames, dsvalues);
     }
 
     /**
@@ -204,12 +204,10 @@ public class HttpDataCollectionTest {
         BasePersister persister =  new GroupPersister(serviceParams, repository); // storeByGroup=true;
         collectionSet.visit(persister);
 
-        RrdDb jrb = new RrdDb(new File("target/snmp/1/market.jrb"));
-        Assert.assertNotNull(jrb);
-        Assert.assertEquals(2, jrb.getDsCount());
-        Datasource ds = jrb.getDatasource("nasdaq");
-        Assert.assertNotNull(ds);
-        Assert.assertEquals(new Double(3578.30), Double.valueOf(ds.getLastValue()));
+        File file = new File("target/snmp/1/market.jrb");
+        String[] dsnames = new String[]{"dow", "nasdaq"};
+        Double[] dsvalues = new Double[]{245.0, 3578.30};
+        validateJrb(file, dsnames, dsvalues);
     }
 
     /**
@@ -242,12 +240,10 @@ public class HttpDataCollectionTest {
         BasePersister persister =  new GroupPersister(serviceParams, repository); // storeByGroup=true;
         collectionSet.visit(persister);
 
-        RrdDb jrb = new RrdDb(new File("target/snmp/1/solarisZoneStats/global/solaris-zone-stats.jrb"));
-        Assert.assertNotNull(jrb);
-        Assert.assertEquals(6, jrb.getDsCount());
-        Datasource ds = jrb.getDatasource("nproc");
-        Assert.assertNotNull(ds);
-        Assert.assertEquals(new Double(245.0), Double.valueOf(ds.getLastValue()));
+        File file = new File("target/snmp/1/solarisZoneStats/global/solaris-zone-stats.jrb");
+        String[] dsnames = new String[]{"nproc", "nlwp", "pr_size", "pr_rssize", "pctmem", "pctcpu"};
+        Double[] dsvalues = new Double[]{245.0, 1455.0, 2646864.0, 1851072.0, 0.7, 0.24};
+        validateJrb(file, dsnames, dsvalues);
     }
 
     /**
@@ -263,5 +259,28 @@ public class HttpDataCollectionTest {
         repository.setStep(rrd.getStep());
         repository.setRraList(rrd.getXmlRras());
         return repository;
+    }
+
+    /**
+     * Validates a JRB.
+     * <p>
+     * It assumes storeByGroup=true</p>
+     *
+     * @param file     the JRB file instance
+     * @param dsnames  the array of data source names
+     * @param dsvalues the array of data source values
+     * @throws Exception the exception
+     */
+    public void validateJrb(File file, String[] dsnames, Double[] dsvalues) throws Exception {
+        Assert.assertTrue(file.exists());
+        if (System.getProperty("org.opennms.rrd.strategyClass", "org.opennms.netmgt.rrd.jrobin.JRobinRrdStrategy").equals("org.opennms.netmgt.rrd.jrobin.JRobinRrdStrategy")) {
+            RrdDb jrb = new RrdDb(file);
+            Assert.assertEquals(dsnames.length, jrb.getDsCount());
+            for (int i = 0; i < dsnames.length; i++) {
+                Datasource ds = jrb.getDatasource(dsnames[i]);
+                Assert.assertNotNull(ds);
+                Assert.assertEquals(dsvalues[i], Double.valueOf(ds.getLastValue()));
+            }
+        }
     }
 }

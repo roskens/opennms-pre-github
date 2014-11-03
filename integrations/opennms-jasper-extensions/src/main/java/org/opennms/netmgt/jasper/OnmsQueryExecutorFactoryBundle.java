@@ -77,6 +77,8 @@ public class OnmsQueryExecutorFactoryBundle implements QueryExecuterFactoryBundl
             return "rrdtool";
         } else if(rrdStrategy.equals("JRobinRrdStrategy")) {
             return "jrobin";
+        } else if(rrdStrategy.equals("NewtsRrdStrategy")) {
+            return "jrobin";
         }
         return "";
     }

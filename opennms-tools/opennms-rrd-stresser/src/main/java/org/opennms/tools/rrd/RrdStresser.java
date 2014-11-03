@@ -43,31 +43,31 @@ import org.opennms.netmgt.rrd.RrdStrategy;
 import org.opennms.netmgt.rrd.RrdUtils;
 
 public class RrdStresser {
-	
+
     static int currFileNum = 0;
 
     static int[] dataPosition = null;
 
     static final String FACTORY_NAME = System.getProperty("stresstest.factory", "FILE");
 
-    static final int FILE_COUNT = Integer.getInteger("stresstest.filecount", 10000).intValue();
+    static final int FILE_COUNT = Integer.getInteger("stresstest.filecount", 10000);
 
-    static final int ZERO_FILES = Integer.getInteger("stresstest.zerofiles", (FILE_COUNT / 2)).intValue();
+    static final int ZERO_FILES = Integer.getInteger("stresstest.zerofiles", (FILE_COUNT / 2));
 
-    static final int FILES_PER_DIR = Integer.getInteger("stresstest.filesperdir", 0).intValue();
+    static final int FILES_PER_DIR = Integer.getInteger("stresstest.filesperdir", 0);
 
     static Date firstUpdateComplete = null;
 
     static final String[] RRA_LIST = System.getProperty("rras.list", "RRA:AVERAGE:0.5:1:8928,RRA:AVERAGE:0.5:12:8784,RRA:MIN:0.5:12:8784,RRA:MAX:0.5:12:8784").split(",");
 
-    //This is the number of updates that will be performed during a run of this tool 
-    static final int MAX_UPDATES = Integer.getInteger("stresstest.maxupdates", 1000).intValue();
+    //This is the number of updates that will be performed during a run of this tool
+    static final int MAX_UPDATES = Integer.getInteger("stresstest.maxupdates", 1000);
 
     //Output interim statistics every 'stresstest.modulus' updates
-    static final int MODULUS = Integer.getInteger("stresstest.modulus", 1000).intValue();
+    static final int MODULUS = Integer.getInteger("stresstest.modulus", 1000);
 
     //Unused, but will be used to simulate store-by-group (multiple values per file)
-    static final int RRD_DATASOURCE_COUNT = Integer.getInteger("stresstest.datasourcecount", 1).intValue();
+    static final int RRD_DATASOURCE_COUNT = Integer.getInteger("stresstest.datasourcecount", 1);
 
     static final String RRD_DATASOURCE_NAME = "T";
 
@@ -75,9 +75,9 @@ public class RrdStresser {
 
     static final long RRD_START = 946710000L;
 
-    static final long RRD_STEP = Integer.getInteger("stresstest.rrdstep", 300).intValue();
+    static final long RRD_STEP = Integer.getInteger("stresstest.rrdstep", 300);
 
-    static final int THREAD_COUNT = Integer.getInteger("stresstest.threadcount", 1).intValue();
+    static final int THREAD_COUNT = Integer.getInteger("stresstest.threadcount", 1);
 
     static final long TIME_END = 1080013472L;
 
@@ -89,7 +89,7 @@ public class RrdStresser {
 
     static String[] updateData = null;
 
-    static final int UPDATES_PER_OPEN = Integer.getInteger("stresstest.updatesperopen", 1).intValue();
+    static final int UPDATES_PER_OPEN = Integer.getInteger("stresstest.updatesperopen", 1);
 
     static Date updateStart = null;
 
@@ -98,16 +98,16 @@ public class RrdStresser {
     static final boolean QUEUE_CREATES = "true".equals(System.getProperty("stresstest.queuecreates", "true"));
 
     //Effectively this is the total runtime
-    static final int UPDATE_TIME = Integer.getInteger("stresstest.updatetime", 300).intValue();
+    static final int UPDATE_TIME = Integer.getInteger("stresstest.updatetime", 300);
 
     static final String EXTENSION = ".jrb";
 
     static long filesPerZero = FILE_COUNT / ZERO_FILES;
 
-    static RrdStrategy<Object,Object> rrd = null;
+    static RrdStrategy<Object, Object> rrd = null;
 
     /**
-     * 
+     *
      */
     private static synchronized void countUpdate() {
         if (updateCount == FILE_COUNT) {
@@ -119,7 +119,7 @@ public class RrdStresser {
     }
 
     /**
-     * 
+     *
      */
     private static void printStats() {
         Date now = new Date();
@@ -160,8 +160,9 @@ public class RrdStresser {
             int colon = update.indexOf(':');
             if (colon >= 0) {
                 long initialTimeStamp = Long.parseLong(update.substring(0, colon));
-                if (initialTimeStamp == 0)
+                if (initialTimeStamp == 0) {
                     print("ZERO ERROR: created a zero update with ts=0 for file: " + getFileName(fileNum) + " data: " + update);
+                }
 
                 update = initialTimeStamp + ":0";
             }
@@ -172,12 +173,12 @@ public class RrdStresser {
     }
 
     public static void main(final String[] args) throws Exception {
-    	
+
         String strategy = System.getProperty("org.opennms.rrd.strategyClass");
         if (strategy == null) {
             System.setProperty("org.opennms.rrd.strategyClass", "org.opennms.netmgt.rrd.jrobin.JRobinRrdStrategy");
         }
-    	
+
         printHeader();
         print("Starting demo at " + new Date() + " using " + System.getProperty("org.opennms.rrd.strategyClass"));
 
@@ -185,8 +186,8 @@ public class RrdStresser {
 
         print("Loading update file");
         InputStream resourceStream = RrdStresser.class.getResourceAsStream(UPDATE_FILE);
-		BufferedReader rdr = new BufferedReader(new InputStreamReader(resourceStream));
-        List<String> dataList = new LinkedList<String>();
+        BufferedReader rdr = new BufferedReader(new InputStreamReader(resourceStream));
+        List<String> dataList = new LinkedList<>();
         String line;
         while ((line = rdr.readLine()) != null) {
             dataList.add(line);
@@ -217,12 +218,13 @@ public class RrdStresser {
         updateStart = new Date();
         firstUpdateComplete = new Date();
         for (int i = 0; i < THREAD_COUNT; i++) {
-	    final int threadid = i;
+            final int threadid = i;
             Runnable r = new Runnable() {
+                @Override
                 public void run() {
                     try {
                         RrdStresser test = new RrdStresser();
-                        test.execute(args,threadid);
+                        test.execute(args, threadid);
                     } catch (Throwable e) {
                         e.printStackTrace();
                     }
@@ -244,7 +246,7 @@ public class RrdStresser {
     }
 
     /**
-     * 
+     *
      */
     private static void printHeader() {
         System.out.println("********************************************************************");
@@ -287,7 +289,7 @@ public class RrdStresser {
             dsName = dsName.substring(0, dsName.length() - EXTENSION.length());
         }
         RrdDataSource rrdDataSource = new RrdDataSource(dsName, "GAUGE", 600, "U", "U");
-		return rrd.createDefinition("stressTest", dir, dsName, 300, Collections.singletonList(rrdDataSource), Arrays.asList(RRA_LIST));
+        return rrd.createDefinition("stressTest", dir, dsName, 300, Collections.singletonList(rrdDataSource), Arrays.asList(RRA_LIST));
     }
 
     private static void rrdCreateFile(Object rrdDef) throws Exception {
@@ -295,11 +297,11 @@ public class RrdStresser {
     }
 
     private static void rrdInitialize() throws Exception {
-    	rrd = RrdUtils.getStrategy();
+        rrd = RrdUtils.getStrategy();
     }
 
-    private static Object rrdOpenFile(String fileName) throws Exception {
-        return rrd.openFile(fileName);
+    private static Object rrdOpenFile(String directory, String fileName) throws Exception {
+        return rrd.openFile(directory, fileName);
     }
 
     private static String rrdGetStats() {
@@ -314,11 +316,12 @@ public class RrdStresser {
     public void execute(String[] args, int threadid) throws Exception {
 
         double millisPerUpdate = ((double) UPDATE_TIME * 1000) / ((double) (MAX_UPDATES));
-	System.out.println("Will perform one update every " +millisPerUpdate + "ms");
+        System.out.println("Will perform one update every " + millisPerUpdate + "ms");
         while (moreUpdates()) {
 //		System.out.println(threadid+":More updates to do");
             int fileNum = nextFileNum();
-            Object rrd = rrdOpenFile(getFileName(fileNum));
+            File f = new File(getFileName(fileNum));
+            Object rrdFile = rrdOpenFile(f.getParent(), f.getName());
 
             for (int i = 0; i < UPDATES_PER_OPEN; i++) {
                 Date now = new Date();
@@ -336,13 +339,13 @@ public class RrdStresser {
 
                 String line = getNextLine(fileNum);
                 try {
-                    rrdUpdateFile(rrd, line);
+                    rrdUpdateFile(rrdFile, line);
                     countUpdate();
                 } catch (Throwable e) {
-                    print(threadid+":RRD ERROR: " + line + " : " + e.getMessage());
+                    print(threadid + ":RRD ERROR: " + line + " : " + e.getMessage());
                 }
             }
-            rrdCloseFile(rrd);
+            rrdCloseFile(rrdFile);
         }
 
     }

@@ -382,6 +382,11 @@
     </dependency>
     <dependency>
       <groupId>org.opennms</groupId>
+      <artifactId>opennms-rrd-newts</artifactId>
+      <scope>${onmsLibScope}</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.opennms</groupId>
       <artifactId>opennms-web-dependencies</artifactId>
       <type>pom</type>
       <scope>${onmsLibScope}</scope>

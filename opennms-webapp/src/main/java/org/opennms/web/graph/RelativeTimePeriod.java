@@ -40,22 +40,28 @@ import java.util.GregorianCalendar;
  */
 public class RelativeTimePeriod {
     private static final RelativeTimePeriod[] s_defaultPeriods;
-    
+
     private String m_id = null;
     private String m_name = null;
     private int m_offsetField = Calendar.DATE;
     private int m_offsetAmount = -1;
-    
+
     static {
         s_defaultPeriods = new RelativeTimePeriod[] {
-                new RelativeTimePeriod("lastday", "Last Day", Calendar.DATE,
-                                       -1),
-                new RelativeTimePeriod("lastweek", "Last Week",
-                                       Calendar.DATE, -7),
-                new RelativeTimePeriod("lastmonth", "Last Month",
-                                       Calendar.DATE, -31),
-                new RelativeTimePeriod("lastyear", "Last Year",
-                                       Calendar.DATE, -366) };
+            new RelativeTimePeriod("1_hour", "Last Hour", Calendar.HOUR, -1),
+            new RelativeTimePeriod("2_hours", "Last 2 Hours", Calendar.HOUR, -2),
+            new RelativeTimePeriod("4_hours", "Last 4 Hours", Calendar.HOUR, -4),
+            new RelativeTimePeriod("6_hours", "Last 6 Hours", Calendar.HOUR, -6),
+            new RelativeTimePeriod("8_hours", "Last 8 Hours", Calendar.HOUR, -8),
+            new RelativeTimePeriod("12_hours", "Last 12 Hours", Calendar.HOUR, -12),
+            new RelativeTimePeriod("lastday", "Last Day", Calendar.DATE, -1),
+            new RelativeTimePeriod("2_day", "Last 2 Days", Calendar.DATE, -2),
+            new RelativeTimePeriod("lastweek", "Last Week", Calendar.DATE, -7),
+            new RelativeTimePeriod("2_weeks", "Last 2 Weeks", Calendar.DATE, -14),
+            new RelativeTimePeriod("lastmonth", "Last Month", Calendar.DATE, -31),
+            new RelativeTimePeriod("3_month", "Last 3 Months", Calendar.MONTH, -91),
+            new RelativeTimePeriod("6_month", "Last 6 Months", Calendar.MONTH, -181),
+            new RelativeTimePeriod("lastyear", "Last Year", Calendar.DATE, -366)};
     }
 
     /**
@@ -160,7 +166,7 @@ public class RelativeTimePeriod {
     public static RelativeTimePeriod[] getDefaultPeriods() {
         return s_defaultPeriods;
     }
-    
+
     /**
      * <p>getPeriodByIdOrDefault</p>
      *
@@ -184,17 +190,17 @@ public class RelativeTimePeriod {
                 RelativeTimePeriod defaultPeriod) {
         // default to the first time period
         RelativeTimePeriod chosenPeriod = defaultPeriod;
-        
+
         for (RelativeTimePeriod period : periods) {
             if (period.getId().equals(id)) {
                 chosenPeriod = period;
                 break;
             }
         }
-        
+
         return chosenPeriod;
     }
-    
+
     /**
      * <p>getStartAndEndTimes</p>
      *
@@ -204,7 +210,7 @@ public class RelativeTimePeriod {
         Calendar cal = new GregorianCalendar();
         long end = cal.getTime().getTime();
         cal.add(getOffsetField(), getOffsetAmount());
-        long start = cal.getTime().getTime();        
+        long start = cal.getTime().getTime();
 
         return new long[] { start, end };
     }

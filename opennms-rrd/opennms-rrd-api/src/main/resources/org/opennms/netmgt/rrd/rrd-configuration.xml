@@ -28,6 +28,13 @@
 				<!-- TcpRrdStrategy-specific properties, blank by default to disable this output -->
 				<prop key="org.opennms.rrd.tcp.host" />
 				<prop key="org.opennms.rrd.tcp.port">0</prop>
+
+        <!-- NewtsRrdStrategy-specific properties, blank by default to disable this output -->
+        <prop key="org.opennms.rrd.newts.keyspace">newts</prop>
+        <prop key="org.opennms.rrd.newts.hostname">localhost</prop>
+        <prop key="org.opennms.rrd.newts.port">9042</prop>
+        <prop key="org.opennms.rrd.newts.processors">32</prop>
+        <prop key="org.opennms.rrd.newts.ttl">31622400</prop>
 			</props>
 		</property>
 	</bean>

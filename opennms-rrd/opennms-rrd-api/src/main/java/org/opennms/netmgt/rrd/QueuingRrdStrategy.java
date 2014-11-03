@@ -139,7 +139,7 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
     private int m_writeThreads;
 
     private boolean m_queueCreates;
-    
+
     private boolean m_prioritizeSignificantUpdates;
 
     private long m_inSigHighWaterMark;
@@ -417,7 +417,8 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
      * This is the base class for an enqueue able operation
      */
     static abstract class Operation {
-        String fileName;
+        String directory;
+        String rrdName;
 
         int type;
 
@@ -425,8 +426,9 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
 
         boolean significant;
 
-        Operation(String fileName, int type, Object data, boolean significant) {
-            this.fileName = fileName;
+        Operation(String directory, String rrdName, int type, Object data, boolean significant) {
+            this.directory = directory;
+            this.rrdName = rrdName;
             this.type = type;
             this.data = data;
             this.significant = significant;
@@ -436,8 +438,16 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
             return 1;
         }
 
+        String getDirectory() {
+            return this.directory;
+        }
+
+        String getRRDName() {
+            return this.rrdName;
+        }
+
         String getFileName() {
-            return this.fileName;
+            return this.directory + File.separator + this.rrdName + RrdUtils.getExtension();
         }
 
         int getType() {
@@ -464,13 +474,13 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
      * This class represents an operation to create an rrd file
      */
     public class CreateOperation extends Operation {
-    	
+
     	private Map<String, String> attributeMappings;
 
-        CreateOperation(String fileName, Object rrdDef) {
-            super(fileName, CREATE, rrdDef, true);
+        CreateOperation(String directory, String rrdName, Object rrdDef) {
+            super(directory, rrdName, CREATE, rrdDef, true);
         }
-        
+
         public void setAttributeMappings(Map<String, String> attributeMappings) {
 			this.attributeMappings = attributeMappings;
 		}
@@ -502,18 +512,20 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
      */
     public class UpdateOperation extends Operation {
 
-        UpdateOperation(String fileName, String data) {
-            super(fileName, UPDATE, data, true);
+        UpdateOperation(String directory, String rrdName, String data) {
+            super(directory, rrdName, UPDATE, data, true);
         }
 
-        UpdateOperation(String fileName, String data, boolean significant) {
-            super(fileName, UPDATE, data, significant);
+        UpdateOperation(String directory, String rrdName, String data, boolean significant) {
+            super(directory, rrdName, UPDATE, data, significant);
         }
 
         @Override
         Object process(Object rrd) throws Exception {
             // open the file if we need to
-            if (rrd == null) rrd = m_delegate.openFile(getFileName());
+            if (rrd == null) {
+                rrd = m_delegate.openFile(getDirectory(), getRRDName());
+            }
 
             final String update = (String) getData();
 
@@ -550,8 +562,8 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
 
         int count;
 
-        ZeroUpdateOperation(String fileName, long intitialTimeStamp) {
-            super(fileName, "0", false);
+        ZeroUpdateOperation(String directory, String rrdName, long intitialTimeStamp) {
+            super(directory, rrdName, "0", false);
             timeStamp = intitialTimeStamp;
             count = 1;
         }
@@ -562,7 +574,7 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
             for (int i = 0; i < count; i++) {
                 // open the file if we need to
                 if (rrd == null)
-                    rrd = m_delegate.openFile(getFileName());
+                    rrd = m_delegate.openFile(getDirectory(), getRRDName());
 
                 String update = ts + ":0";
                 try {
@@ -653,8 +665,8 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
      * @param rrdDef a {@link java.lang.Object} object.
      * @return a {@link org.opennms.netmgt.rrd.QueuingRrdStrategy.Operation} object.
      */
-    public CreateOperation makeCreateOperation(String fileName, Object rrdDef) {
-        return new CreateOperation(fileName, rrdDef);
+    public CreateOperation makeCreateOperation(String directory, String rrdName, Object rrdDef) {
+        return new CreateOperation(directory, rrdName, rrdDef);
     }
 
     /**
@@ -665,23 +677,23 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
      * @param update a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.rrd.QueuingRrdStrategy.Operation} object.
      */
-    public Operation makeUpdateOperation(String fileName, String owner, String update) {
+    public Operation makeUpdateOperation(String directory, String rrdName, String owner, String update) {
         try {
             int colon = update.indexOf(':');
             if ((colon >= 0) && (Double.parseDouble(update.substring(colon + 1)) == 0.0)) {
                 long initialTimeStamp = Long.parseLong(update.substring(0, colon));
                 if (initialTimeStamp == 0)
-                    m_log.debug("ZERO ERROR: created a zero update with ts=0 for file: {}, data: {}", fileName, update);
+                    m_log.debug("ZERO ERROR: created a zero update with ts=0 for file: {}, data: {}", rrdName, update);
 
-                return new ZeroUpdateOperation(fileName, initialTimeStamp);
+                return new ZeroUpdateOperation(directory, rrdName, initialTimeStamp);
             }
         } catch (NumberFormatException e) {
 
         }
-        return new UpdateOperation(fileName, update);
+        return new UpdateOperation(directory, rrdName, update);
     }
 
-    // 
+    //
     // Queue management functions.
     //
     // TODO: Put this all in a class of its own. This is really ugly.
@@ -698,17 +710,17 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
                 m_log.error("RRD Data Queue is Full!! Discarding operation for file {}", op.getFileName());
                 return;
             }
-            
+
             if (op.isSignificant() && sigQueueIsFull()) {
                 m_log.error("RRD Data Significant Queue is Full!! Discarding operation for file {}", op.getFileName());
                 return;
             }
-            
+
             if (!op.isSignificant() && inSigQueueIsFull()) {
                 m_log.error("RRD Insignificant Data Queue is Full!! Discarding operation for file {}", op.getFileName());
                 return;
             }
-            
+
             storeAssignment(op);
 
             setTotalOperationsPending(getTotalOperationsPending() + 1);
@@ -720,7 +732,7 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
         }
     }
 
-    
+
     private boolean queueIsFull() {
         if (m_queueHighWaterMark <= 0)
             return false;
@@ -835,10 +847,10 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
     /**
      * Ensure that files with insignificant changes are getting promoted if
      * necessary
-     * 
+     *
      */
     private synchronized void promoteAgedFiles() {
-        
+
         // no need to do this is we aren't prioritizing
         if (!m_prioritizeSignificantUpdates) return;
 
@@ -868,7 +880,7 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
         }
 
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public synchronized void promoteEnqueuedFiles(Collection<String> rrdFiles) {
@@ -962,7 +974,7 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see RrdStrategy#closeFile(java.lang.Object)
      */
     /**
@@ -978,7 +990,7 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see RrdStrategy#createDefinition(java.lang.String)
      */
     /**
@@ -999,19 +1011,19 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
     public Operation createDefinition(String creator, String directory, String dsName, int step, String dsType, int dsHeartbeat, String dsMin, String dsMax, List<String> rraList) throws Exception {
         return createDefinition(creator, directory, dsName, step, Collections.singletonList(new RrdDataSource(dsName, dsType, dsHeartbeat, dsMin, dsMax)), rraList);
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public CreateOperation createDefinition(String creator, String directory, String rrdName, int step, List<RrdDataSource> dataSources, List<String> rraList) throws Exception {
         String fileName = directory + File.separator + rrdName + RrdUtils.getExtension();
         Object def = m_delegate.createDefinition(creator, directory, rrdName, step, dataSources, rraList);
-        return makeCreateOperation(fileName, def);
+        return makeCreateOperation(directory, rrdName, def);
     }
 
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see RrdStrategy#createFile(java.lang.Object)
      */
     /**
@@ -1032,51 +1044,52 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see RrdStrategy#openFile(java.lang.String)
      */
     /** {@inheritDoc} */
     @Override
-    public String openFile(String fileName) throws Exception {
-        return fileName;
+    public String openFile(String directory, String rrdName) throws Exception {
+        return directory + File.separator + rrdName;
     }
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see RrdStrategy#updateFile(java.lang.Object, java.lang.String, java.lang.String)
      */
     /** {@inheritDoc} */
     @Override
     public void updateFile(String rrdFile, String owner, String data) throws Exception {
-        addOperation(makeUpdateOperation((String) rrdFile, owner, data));
+        File f = new File(rrdFile);
+        addOperation(makeUpdateOperation(f.getParent(), f.getName(), owner, data));
     }
 
     /** {@inheritDoc} */
     @Override
-    public Double fetchLastValue(String rrdFile, String ds, int interval) throws NumberFormatException, RrdException {
+    public Double fetchLastValue(String directory, String rrdName, String ds, int interval) throws NumberFormatException, RrdException {
         // TODO: handle queued values with fetch. Fetch could pull values off
         // the queue or force
         // an immediate file update.
-        return m_delegate.fetchLastValue(rrdFile, ds, interval);
+        return m_delegate.fetchLastValue(directory, rrdName, ds, interval);
     }
-    
+
     /** {@inheritDoc} */
     @Override
-    public Double fetchLastValue(String rrdFile, String ds, String consolidationFunction, int interval) throws NumberFormatException, RrdException {
+    public Double fetchLastValue(String directory, String rrdName, String ds, String consolidationFunction, int interval) throws NumberFormatException, RrdException {
         // TODO: handle queued values with fetch. Fetch could pull values off
         // the queue or force
         // an immediate file update.
-        return m_delegate.fetchLastValue(rrdFile, ds, consolidationFunction, interval);
+        return m_delegate.fetchLastValue(directory, rrdName, ds, consolidationFunction, interval);
     }
-    
+
     /** {@inheritDoc} */
     @Override
-    public Double fetchLastValueInRange(String rrdFile, String ds, int interval, int range) throws NumberFormatException, RrdException {
+    public Double fetchLastValueInRange(String directory, String rrdName, String ds, int interval, int range) throws NumberFormatException, RrdException {
         // TODO: handle queued values with fetch. Fetch could pull values off
         // the queue or force
         // an immediate file update.
-        return m_delegate.fetchLastValueInRange(rrdFile, ds, interval, range);
+        return m_delegate.fetchLastValueInRange(directory, rrdName, ds, interval, range);
     }
 
     /** {@inheritDoc} */
@@ -1208,28 +1221,28 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
         long currentItemDequeueRate = (long) (currentDequeuedItems * 1000.0 / currentElapsedMillis);
         long overallItemDequeueRate = (long) (getDequeuedItems() * 1000.0 / totalElapsedMillis);
 
-        String stats = "\nQS:\t" + "totalOperationsPending=" + getTotalOperationsPending() + 
-        ", significantOpsPending=" + (getSignificantOpsEnqueued() - getSignificantOpsCompleted()) + 
-        ", filesWithSignificantWork=" + filesWithSignificantWork.size() + 
+        String stats = "\nQS:\t" + "totalOperationsPending=" + getTotalOperationsPending() +
+        ", significantOpsPending=" + (getSignificantOpsEnqueued() - getSignificantOpsCompleted()) +
+        ", filesWithSignificantWork=" + filesWithSignificantWork.size() +
         ", filesWithInsignificantWork=" + filesWithInsignificantWork.size()
 
-        + "\nQS:\t" + ", createsCompleted=" + getCreatesCompleted() + 
-        ", updatesCompleted=" + getUpdatesCompleted() + 
-        ", errors=" + getErrors() + 
-        ", promotionRate=" + ((double) (getPromotionCount() * 1000.0 / totalElapsedMillis)) + 
+        + "\nQS:\t" + ", createsCompleted=" + getCreatesCompleted() +
+        ", updatesCompleted=" + getUpdatesCompleted() +
+        ", errors=" + getErrors() +
+        ", promotionRate=" + ((double) (getPromotionCount() * 1000.0 / totalElapsedMillis)) +
         ", promotionCount=" + getPromotionCount()
 
-        + "\nQS:\t" + ", currentEnqueueRates=(" + currentSigEnqueueRate + "/" + currentInsigEnqueueRate + "/" + currentEnqueueRate + ")" + 
-        ", currentDequeueRate=(" + currentSigDequeueRate + "/" + currentInsigDequeueRate + "/" + currentDequeueRate + ")" + 
-        ", currentItemDequeRate=" + currentItemDequeueRate + 
-        ", currentOpsPerUpdate=" + (currentDequeuedOps / Math.max(currentDequeuedItems, 1.0)) + 
+        + "\nQS:\t" + ", currentEnqueueRates=(" + currentSigEnqueueRate + "/" + currentInsigEnqueueRate + "/" + currentEnqueueRate + ")" +
+        ", currentDequeueRate=(" + currentSigDequeueRate + "/" + currentInsigDequeueRate + "/" + currentDequeueRate + ")" +
+        ", currentItemDequeRate=" + currentItemDequeueRate +
+        ", currentOpsPerUpdate=" + (currentDequeuedOps / Math.max(currentDequeuedItems, 1.0)) +
         ", currentPrcntSignificant=" + (currentSigOpsEnqueued * 100.0 / Math.max(currentEnqueuedOps, 1.0)) + "%" + ", elapsedTime=" + ((currentElapsedMillis + 500) / 1000)
 
-        + "\nQS:\t" + ", overallEnqueueRate=(" + overallSigEnqueueRate + "/" + overallInsigEnqueueRate + "/" + overallEnqueueRate + ")" + 
-        ", overallDequeueRate=(" + overallSigDequeueRate + "/" + overallInsigDequeueRate + "/" + overallDequeueRate + ")" + 
-        ", overallItemDequeRate=" + overallItemDequeueRate + 
-        ", overallOpsPerUpdate=" + (getDequeuedOperations() / Math.max(getDequeuedItems(), 1.0)) + 
-        ", overallPrcntSignificant=" + (getSignificantOpsEnqueued() * 100.0 / Math.max(getEnqueuedOperations(), 1.0)) + "%" + 
+        + "\nQS:\t" + ", overallEnqueueRate=(" + overallSigEnqueueRate + "/" + overallInsigEnqueueRate + "/" + overallEnqueueRate + ")" +
+        ", overallDequeueRate=(" + overallSigDequeueRate + "/" + overallInsigDequeueRate + "/" + overallDequeueRate + ")" +
+        ", overallItemDequeRate=" + overallItemDequeueRate +
+        ", overallOpsPerUpdate=" + (getDequeuedOperations() / Math.max(getDequeuedItems(), 1.0)) +
+        ", overallPrcntSignificant=" + (getSignificantOpsEnqueued() * 100.0 / Math.max(getEnqueuedOperations(), 1.0)) + "%" +
         ", totalElapsedTime=" + ((totalElapsedMillis + 500) / 1000);
 
         lastStatsTime = now;
@@ -1248,7 +1261,7 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
      * <p>logStats</p>
      */
     public void logStats() {
-        // TODO: Seth 2010-05-21: Change this so that it avoids the overhead of 
+        // TODO: Seth 2010-05-21: Change this so that it avoids the overhead of
         // calling getStats() unless debug logging is enabled?
         logLapTime(getStats());
     }
@@ -1256,7 +1269,7 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
     void logLapTime(String message) {
         m_log.debug("{} {}", message, getLapTime());
     }
-    
+
     void logLapTime(String message, Throwable t) {
         m_log.debug("{} {}", message, getLapTime(), t);
     }

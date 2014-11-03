@@ -29,6 +29,8 @@
 package org.opennms.web.rest;
 
 import com.sun.jersey.spi.resource.PerRequest;
+import java.awt.Color;
+import java.awt.Font;
 import org.opennms.core.criteria.CriteriaBuilder;
 import org.opennms.core.criteria.restrictions.Restrictions;
 import org.opennms.core.utils.InetAddressUtils;
@@ -50,7 +52,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
 import javax.ws.rs.core.UriInfo;
-import java.awt.*;
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -59,6 +61,11 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.List;
+import org.opennms.netmgt.dao.api.NodeDao;
+import org.opennms.netmgt.model.OnmsNode;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Component
 @PerRequest
@@ -66,23 +73,25 @@ import java.util.GregorianCalendar;
 @Path("timeline")
 public class TimelineRestService extends OnmsRestService {
 
+    private static final Logger LOG = LoggerFactory.getLogger(TimelineRestService.class);
+
     private static class TimescaleDescriptor {
         /**
          * The divisor to use for calculating the number of labels
          */
-        private int m_divisor;
+        private final int m_divisor;
         /**
          * The calendar field type to be used
          */
-        private int m_type;
+        private final int m_type;
         /**
          * The calendar field types to be zeroed
          */
-        private int[] m_typesToZero;
+        private final int[] m_typesToZero;
         /**
          * The increment for the calendar field
          */
-        private int m_increment;
+        private final int m_increment;
         /**
          * The date format to be used
          */
@@ -284,15 +293,19 @@ public class TimelineRestService extends OnmsRestService {
             graphics2D.setColor(ONMS_RED);
             int n1 = (int) ((p1 - start) / (delta / width));
             int n2 = (int) ((p2 - start) / (delta / width));
-            StringBuffer stringBuffer = new StringBuffer();
-            stringBuffer.append("<area shape=\"rect\" coords=\"");
-            stringBuffer.append(n1);
-            stringBuffer.append(",2,");
-            stringBuffer.append(n2);
-            stringBuffer.append(",18\" ");
-            stringBuffer.append("href=\"/opennms/outage/detail.htm?id=");
-            stringBuffer.append(onmsOutage.getId());
-            stringBuffer.append("\" alt=\"Id " + onmsOutage.getId() + "\" title=\"" + onmsOutage.getServiceLostEvent().getEventCreateTime() + "\">");
+            StringBuilder stringBuffer = new StringBuilder();
+            stringBuffer.append("<area shape=\"rect\" coords=\"")
+              .append(n1)
+              .append(",2,")
+              .append(n2)
+              .append(",18\" ")
+              .append("href=\"/opennms/outage/detail.htm?id=")
+              .append(onmsOutage.getId())
+              .append("\" alt=\"Id ")
+              .append(onmsOutage.getId())
+              .append("\" title=\"")
+              .append(onmsOutage.getServiceLostEvent().getEventCreateTime())
+              .append("\">");
             return stringBuffer.toString();
         }
     }
@@ -333,6 +346,9 @@ public class TimelineRestService extends OnmsRestService {
 
     @Autowired
     private OutageDao m_outageDao;
+
+    @Autowired
+    private NodeDao m_nodeDao;
 
     @Context
     UriInfo m_uriInfo;
@@ -416,7 +432,7 @@ public class TimelineRestService extends OnmsRestService {
 
         int numLabels = TimescaleDescriptor.computeNumberOfLabels(graphics2D, delta, width);
 
-        StringBuffer htmlBuffer = new StringBuffer();
+        StringBuilder htmlBuffer = new StringBuilder();
 
         htmlBuffer.append("<img src=\"/opennms/rest/timeline/image/");
         htmlBuffer.append(nodeId);
@@ -552,5 +568,85 @@ public class TimelineRestService extends OnmsRestService {
 
         return Response.ok(imageData).build();
     }
-}
 
+    @GET
+    @Produces("image/png")
+    @Transactional
+    @Path("dashboard/{start}/{end}/{width}/{height}")
+    public Response dashboard(@PathParam("start") final long start, @PathParam("end") final long end, @PathParam("width") final int width, @PathParam("height") final int height) throws IOException {
+        LOG.debug("dashboard(start='{}', end='{}', width='{}', height='{}')", start, end, width, height);
+        BufferedImage bufferedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+
+        Graphics2D graphics2D = (Graphics2D) bufferedImage.getGraphics();
+
+        graphics2D.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 10));
+        graphics2D.setColor(Color.decode("#999999"));
+        graphics2D.setBackground(Color.BLACK);
+        graphics2D.clearRect(0, 0, width, height);
+
+        int delta = (int) end - (int) start;
+        int total_pixels = width * height;
+        LOG.debug("dashboard: total_pixels={}", total_pixels);
+
+        OnmsOutageCollection onmsOutageCollection;
+
+        readLock();
+        try {
+            List<OnmsNode> coll = m_nodeDao.findAll();
+            int num_nodes = coll.size();
+            LOG.debug("dashboard: found {} active nodes in the database.", num_nodes);
+
+            int pixels = calc_square_size(width, height, num_nodes);
+
+            LOG.debug("dashboard: can fill rectangle {}x{} with {} squares of size {}x{}",
+              width, height, num_nodes, pixels, pixels
+            );
+
+            int i = 0, j = 0;
+            int max_x = width / pixels;
+            for (OnmsNode node : coll) {
+                graphics2D.setColor(node.isDown() ? Color.RED : Color.DARK_GRAY);
+
+                graphics2D.fill3DRect(pixels * i, pixels * j, pixels, pixels, true);
+                LOG.debug("dashboard: fillRect(x='{}', y='{}', width='{}', height='{}')",
+                  pixels * i, pixels * j, pixels, pixels
+                );
+                if (i < max_x) {
+                    i++;
+                }
+                if (i == max_x) {
+                    i = 0;
+                    j++;
+                }
+            }
+
+
+        } finally {
+            readUnlock();
+        }
+
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        ImageIO.write(bufferedImage, "png", baos);
+        byte[] imageData = baos.toByteArray();
+        return Response.ok(imageData).build();
+    }
+
+    private int calc_square_size(final int x, final int y, final int n) {
+        double px = Math.ceil(Math.sqrt(n * x / y));
+        double sx, sy;
+        if (Math.floor(px * y / x) * px < n) //does not fit, y/(x/px)=px*y/x
+        {
+            sx = y / Math.ceil(px * y / x);
+        } else {
+            sx = x / px;
+        }
+        double py = Math.ceil(Math.sqrt(n * y / x));
+        if (Math.floor(py * x / y) * py < n) //does not fit
+        {
+            sy = x / Math.ceil(x * py / y);
+        } else {
+            sy = y / py;
+        }
+        return (int) Math.max(sx, sy);
+    }
+}

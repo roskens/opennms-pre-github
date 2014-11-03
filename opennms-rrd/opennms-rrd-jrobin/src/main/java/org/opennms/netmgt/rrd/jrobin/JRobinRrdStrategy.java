@@ -222,8 +222,9 @@ public class JRobinRrdStrategy implements RrdStrategy<RrdDef,RrdDb> {
      * Opens the JRobin RrdDb by name and returns it.
      */
     @Override
-    public RrdDb openFile(final String fileName) throws Exception {
-        return new RrdDb(fileName);
+    public RrdDb openFile(final String directory, final String rrdName) throws Exception {
+        String rrdFile = directory + File.separator + rrdName;
+        return new RrdDb(rrdFile);
     }
 
     /**
@@ -254,14 +255,14 @@ public class JRobinRrdStrategy implements RrdStrategy<RrdDef,RrdDb> {
      * Fetch the last value from the JRobin RrdDb file.
      */
     @Override
-    public Double fetchLastValue(final String fileName, final String ds, final int interval) throws NumberFormatException, org.opennms.netmgt.rrd.RrdException {
-        return fetchLastValue(fileName, ds, "AVERAGE", interval);
+    public Double fetchLastValue(final String directory, final String rrdName, final String ds, final int interval) throws NumberFormatException, org.opennms.netmgt.rrd.RrdException {
+        return fetchLastValue(directory, rrdName, ds, "AVERAGE", interval);
     }
 
     /** {@inheritDoc} */
     @Override
-    public Double fetchLastValue(final String fileName, final String ds, final String consolidationFunction, final int interval)
-            throws org.opennms.netmgt.rrd.RrdException {
+    public Double fetchLastValue(final String directory, final String rrdName, final String ds, final String consolidationFunction, final int interval)            throws org.opennms.netmgt.rrd.RrdException {
+        String fileName = directory + File.separator + rrdName + RrdUtils.getExtension();
         RrdDb rrd = null;
         try {
             long now = System.currentTimeMillis();
@@ -291,7 +292,8 @@ public class JRobinRrdStrategy implements RrdStrategy<RrdDef,RrdDb> {
 
     /** {@inheritDoc} */
     @Override
-    public Double fetchLastValueInRange(final String fileName, final String ds, final int interval, final int range) throws NumberFormatException, org.opennms.netmgt.rrd.RrdException {
+    public Double fetchLastValueInRange(final String directory, final String rrdName, final String ds, final int interval, final int range) throws NumberFormatException, org.opennms.netmgt.rrd.RrdException {
+        String fileName = directory + File.separator + rrdName + RrdUtils.getExtension();
         RrdDb rrd = null;
         try {
         	rrd = new RrdDb(fileName, true);

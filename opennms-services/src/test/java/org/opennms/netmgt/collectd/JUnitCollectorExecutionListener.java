@@ -40,7 +40,7 @@ import org.opennms.netmgt.config.DatabaseSchemaConfigFactory;
 import org.opennms.netmgt.config.DefaultDataCollectionConfigDao;
 import org.opennms.netmgt.config.HttpCollectionConfigFactory;
 import org.opennms.netmgt.rrd.RrdUtils;
-import org.opennms.netmgt.rrd.jrobin.JRobinRrdStrategy;
+import org.opennms.netmgt.rrd.newts.NewtsRrdStrategy;
 import org.opennms.test.FileAnticipator;
 import org.springframework.core.io.Resource;
 import org.springframework.test.context.TestContext;
@@ -70,7 +70,7 @@ public class JUnitCollectorExecutionListener extends AbstractTestExecutionListen
             return;
         }
 
-        RrdUtils.setStrategy(new JRobinRrdStrategy());
+        RrdUtils.setStrategy(new NewtsRrdStrategy());
 
         // make a fake database schema with hibernate
         InputStream is = ConfigurationTestUtils.getInputStreamForResource(testContext.getTestInstance(), config.schemaConfig());

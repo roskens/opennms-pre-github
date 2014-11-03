@@ -66,6 +66,10 @@
     </dependency>
     <dependency>
       <groupId>org.opennms</groupId>
+      <artifactId>opennms-rrd-newts</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.opennms</groupId>
       <artifactId>opennms-rrdtool-api</artifactId>
     </dependency>
     <dependency>

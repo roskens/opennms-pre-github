@@ -1,0 +1,1 @@
+* When running the RRD Stress Tester, it doesn't shutdown after the test has completed.

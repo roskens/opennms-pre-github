@@ -39,6 +39,7 @@ import java.util.Properties;
 import org.opennms.netmgt.rrd.RrdDataSource;
 import org.opennms.netmgt.rrd.RrdGraphDetails;
 import org.opennms.netmgt.rrd.RrdStrategy;
+import org.opennms.netmgt.rrd.RrdUtils;
 
 /**
  * Provides a TCP socket-based implementation of RrdStrategy that pushes update
@@ -47,12 +48,12 @@ import org.opennms.netmgt.rrd.RrdStrategy;
  * The receiver of this strategy is not defined in any way. This is just a fire
  * and forget strategy. There is no way to read data back into opennms.
  * </p>
- * 
+ *
  * @author ranger
  * @version $Id: $
  */
 public class TcpRrdStrategy implements RrdStrategy<TcpRrdStrategy.RrdDefinition,TcpRrdStrategy.RrdOutputSocketWithFilename> {
-	
+
     public static class RrdDefinition {
         private final String m_directory, m_rrdName;
         public RrdDefinition(
@@ -162,7 +163,8 @@ public class TcpRrdStrategy implements RrdStrategy<TcpRrdStrategy.RrdDefinition,
 
     /** {@inheritDoc} */
     @Override
-    public RrdOutputSocketWithFilename openFile(String fileName) throws Exception {
+    public RrdOutputSocketWithFilename openFile(String directory, String rrdName) throws Exception {
+        String fileName = directory + File.separator + rrdName + RrdUtils.getExtension();
         return new RrdOutputSocketWithFilename(new RrdOutputSocket(m_host, m_port), fileName);
     }
 
@@ -185,19 +187,19 @@ public class TcpRrdStrategy implements RrdStrategy<TcpRrdStrategy.RrdDefinition,
 
     /** {@inheritDoc} */
     @Override
-    public Double fetchLastValue(String rrdFile, String ds, int interval) throws NumberFormatException {
+    public Double fetchLastValue(String directory, String rrdName, String ds, int interval) throws NumberFormatException {
         return Double.NaN;
     }
 
     /** {@inheritDoc} */
     @Override
-    public Double fetchLastValue(String rrdFile, String ds, String consolidationFunction, int interval) throws NumberFormatException {
+    public Double fetchLastValue(String directory, String rrdName, String ds, String consolidationFunction, int interval) throws NumberFormatException {
         return Double.NaN;
     }
 
     /** {@inheritDoc} */
     @Override
-    public Double fetchLastValueInRange(String rrdFile, String ds, int interval, int range) throws NumberFormatException {
+    public Double fetchLastValueInRange(String directory, String rrdName, String ds, int interval, int range) throws NumberFormatException {
         return Double.NaN;
     }
 

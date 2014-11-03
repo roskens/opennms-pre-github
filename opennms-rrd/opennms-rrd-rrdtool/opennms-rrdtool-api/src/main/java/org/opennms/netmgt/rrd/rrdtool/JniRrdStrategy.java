@@ -64,35 +64,37 @@ import org.springframework.util.FileCopyUtils;
  * @author ranger
  * @version $Id: $
  */
-public class JniRrdStrategy implements RrdStrategy<JniRrdStrategy.CreateCommand ,StringBuffer> {
+public class JniRrdStrategy implements RrdStrategy<JniRrdStrategy.CreateCommand, StringBuffer> {
+
     private static final Logger LOG = LoggerFactory.getLogger(JniRrdStrategy.class);
-	
-	private static final String IGNORABLE_LIBART_WARNING_STRING = "*** attempt to put segment in horiz list twice";
-	private static final String IGNORABLE_LIBART_WARNING_REGEX = "\\*\\*\\* attempt to put segment in horiz list twice\r?\n?";
+
+    private static final String IGNORABLE_LIBART_WARNING_STRING = "*** attempt to put segment in horiz list twice";
+    private static final String IGNORABLE_LIBART_WARNING_REGEX = "\\*\\*\\* attempt to put segment in horiz list twice\r?\n?";
 
     private Properties m_configurationProperties;
-    
+
     public static class CreateCommand {
-    	
-    	private static final String OPERATION = "create";
-    	String filename;
-    	String parameter;
-    	
-		public CreateCommand(String filename, String parameter) {
-			super();
-			this.filename = filename;
-			this.parameter = parameter;
-		}
-		
-            @Override
-		public String toString() {
-			return OPERATION + " " + filename + " " + parameter;
-		}
-		
+
+        private static final String OPERATION = "create";
+        String filename;
+        String parameter;
+
+        public CreateCommand(String filename, String parameter) {
+            super();
+            this.filename = filename;
+            this.parameter = parameter;
+        }
+
+        @Override
+        public String toString() {
+            return OPERATION + " " + filename + " " + parameter;
+        }
+
     }
 
     /**
-     * <p>getConfigurationProperties</p>
+     * <p>
+     * getConfigurationProperties</p>
      *
      * @return a {@link java.util.Properties} object.
      */
@@ -100,8 +102,10 @@ public class JniRrdStrategy implements RrdStrategy<JniRrdStrategy.CreateCommand 
         return m_configurationProperties;
     }
 
-    /** {@inheritDoc} */
-        @Override
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public void setConfigurationProperties(Properties configurationParameters) {
         this.m_configurationProperties = configurationParameters;
     }
@@ -114,7 +118,7 @@ public class JniRrdStrategy implements RrdStrategy<JniRrdStrategy.CreateCommand 
      * @param rrd a {@link java.lang.StringBuffer} object.
      * @throws java.lang.Exception if any.
      */
-        @Override
+    @Override
     public void closeFile(StringBuffer rrd) throws Exception {
         String command = rrd.toString();
         String[] results = Interface.launch(command);
@@ -123,18 +127,20 @@ public class JniRrdStrategy implements RrdStrategy<JniRrdStrategy.CreateCommand 
         }
     }
 
-    /** {@inheritDoc} */
-        @Override
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public CreateCommand createDefinition(String creator, String directory, String rrdName, int step, List<RrdDataSource> dataSources, List<String> rraList) throws Exception {
         File f = new File(directory);
         if (!f.exists()) {
             if (!f.mkdirs()) {
-        	       LOG.warn("Could not make directory: {}", f.getPath());
+                LOG.warn("Could not make directory: {}", f.getPath());
             }
         }
 
         String fileName = directory + File.separator + rrdName + RrdUtils.getExtension();
-        
+
         if (new File(fileName).exists()) {
             LOG.debug("createDefinition: filename [{}] already exists returning null as definition", fileName);
             return null;
@@ -145,25 +151,23 @@ public class JniRrdStrategy implements RrdStrategy<JniRrdStrategy.CreateCommand 
         parameter.append(" --start=" + (System.currentTimeMillis() / 1000L - 10L));
 
         parameter.append(" --step=" + step);
-        
+
         for (RrdDataSource dataSource : dataSources) {
-        	parameter.append(" DS:");
-        	parameter.append(dataSource.getName()).append(':');
-        	parameter.append(dataSource.getType()).append(":");
-        	parameter.append(dataSource.getHeartBeat()).append(':');
-        	parameter.append(dataSource.getMin()).append(':');
-        	parameter.append(dataSource.getMax());
+            parameter.append(" DS:");
+            parameter.append(dataSource.getName()).append(':');
+            parameter.append(dataSource.getType()).append(":");
+            parameter.append(dataSource.getHeartBeat()).append(':');
+            parameter.append(dataSource.getMin()).append(':');
+            parameter.append(dataSource.getMax());
         }
 
-
         for (String rra : rraList) {
-        	parameter.append(' ');
-        	parameter.append(rra);
+            parameter.append(' ');
+            parameter.append(rra);
         }
 
         return new CreateCommand(fileName, parameter.toString());
     }
-
 
     /**
      * Creates a the rrd file from the rrdDefinition. Since this definition is
@@ -172,7 +176,7 @@ public class JniRrdStrategy implements RrdStrategy<JniRrdStrategy.CreateCommand 
      * @param createCommand a {@link java.lang.String} object.
      * @throws java.lang.Exception if any.
      */
-        @Override
+    @Override
     public void createFile(CreateCommand createCommand, Map<String, String> attributeMappings) throws Exception {
         if (createCommand == null) {
             LOG.debug("createRRD: skipping RRD file");
@@ -180,14 +184,14 @@ public class JniRrdStrategy implements RrdStrategy<JniRrdStrategy.CreateCommand 
         }
         LOG.debug("Executing: rrdtool {}", createCommand.toString());
         Interface.launch(createCommand.toString());
-        
+
         String filenameWithoutExtension = createCommand.filename.replace(RrdUtils.getExtension(), "");
         int lastIndexOfSeparator = filenameWithoutExtension.lastIndexOf(File.separator);
-        
+
         RrdUtils.createMetaDataFile(
-            filenameWithoutExtension.substring(0, lastIndexOfSeparator),
-            filenameWithoutExtension.substring(lastIndexOfSeparator),
-            attributeMappings
+          filenameWithoutExtension.substring(0, lastIndexOfSeparator),
+          filenameWithoutExtension.substring(lastIndexOfSeparator),
+          attributeMappings
         );
     }
 
@@ -198,9 +202,10 @@ public class JniRrdStrategy implements RrdStrategy<JniRrdStrategy.CreateCommand 
      * not provide files that may be open, this constructs the beginning portion
      * of the rrd command to update the file.
      */
-        @Override
-    public StringBuffer openFile(String fileName) throws Exception {
-        return new StringBuffer("update " + fileName);
+    @Override
+    public StringBuffer openFile(final String directory, final String rrdName) throws Exception {
+        String rrdFile = directory + File.separator + rrdName + RrdUtils.getExtension();
+        return new StringBuffer("update " + rrdFile);
     }
 
     /**
@@ -213,7 +218,7 @@ public class JniRrdStrategy implements RrdStrategy<JniRrdStrategy.CreateCommand 
      * possibility of getting performance benefit by doing more than one write
      * per open. The updates are all performed at once in the closeFile method.
      */
-        @Override
+    @Override
     public void updateFile(StringBuffer rrd, String owner, String data) throws Exception {
         rrd.append(' ');
         rrd.append(data);
@@ -234,27 +239,29 @@ public class JniRrdStrategy implements RrdStrategy<JniRrdStrategy.CreateCommand 
      * Fetches the last value directly from the rrd file using the JNI
      * Interface.
      */
-        @Override
-    public Double fetchLastValue(String rrdFile, String ds, int interval) throws NumberFormatException, RrdException {
-        return fetchLastValue(rrdFile, ds, "AVERAGE", interval);
+    @Override
+    public Double fetchLastValue(final String directory, final String rrdName, String ds, int interval) throws NumberFormatException, RrdException {
+        return fetchLastValue(directory, rrdName, ds, "AVERAGE", interval);
     }
 
-    /** {@inheritDoc} */
-        @Override
-    public Double fetchLastValue(String rrdFile, String ds, String consolidationFunction, int interval) {
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Double fetchLastValue(final String directory, final String rrdName, String ds, String consolidationFunction, int interval) {
         /*
          * Generate rrd_fetch() command through jrrd JNI interface in order to
          * retrieve LAST pdp for the datasource stored in the specified RRD
          * file.
          *
          * String array returned from launch() native method format:
-         *      String[0] - If success is null, otherwise contains reason
-         *                  for failure
-         *      String[1] - All data source names contained in the RRD (space
-         *                  delimited)
-         *      String[2 ... n] - RRD fetch data in the following format:
-         *                      <timestamp> <value1> <value2> ... <valueX>
-         *                  X is the total number of data sources.
+         * String[0] - If success is null, otherwise contains reason
+         * for failure
+         * String[1] - All data source names contained in the RRD (space
+         * delimited)
+         * String[2 ... n] - RRD fetch data in the following format:
+         * <timestamp> <value1> <value2> ... <valueX>
+         * X is the total number of data sources.
          *
          * NOTE: Specifying start time of 'now-<interval>' and end time of
          * 'now-<interval>' where <interval> is the configured thresholding
@@ -262,12 +269,13 @@ public class JniRrdStrategy implements RrdStrategy<JniRrdStrategy.CreateCommand 
          * guarantee that we don't get a 'NaN' value from the fetch command.
          * This is necessary because the collection is being done by collectd at
          * effectively random times and there is nothing keeping us in sync.
-         * 
+         *
          * interval argument is in milliseconds so must convert to seconds
          */
-        
+        String rrdFile = directory + File.separator + rrdName + RrdUtils.getExtension();
+
         // TODO: Combine fetchLastValueInRange and fetchLastValue
-        String fetchCmd = "fetch " + rrdFile + " "+consolidationFunction+" -s now-" + interval / 1000 + " -e now-" + interval / 1000;
+        String fetchCmd = "fetch " + rrdFile + " " + consolidationFunction + " -s now-" + interval / 1000 + " -e now-" + interval / 1000;
 
         LOG.debug("fetch: Issuing RRD command: {}", fetchCmd);
 
@@ -296,7 +304,9 @@ public class JniRrdStrategy implements RrdStrategy<JniRrdStrategy.CreateCommand 
         String[] dsNames = fetchStrings[1].split("\\s");
         int dsIndex = 0;
         for (int i = 0; i < dsNames.length; i++) {
-        	if (dsNames[i].equals(ds)) dsIndex = i;
+            if (dsNames[i].equals(ds)) {
+                dsIndex = i;
+            }
         }
         String dsName = dsNames[dsIndex].trim();
 
@@ -321,9 +331,11 @@ public class JniRrdStrategy implements RrdStrategy<JniRrdStrategy.CreateCommand 
         return dsValue;
     }
 
-    /** {@inheritDoc} */
-        @Override
-    public Double fetchLastValueInRange(String rrdFile, String ds, int interval, int range) throws NumberFormatException, RrdException {
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Double fetchLastValueInRange(final String directory, final String rrdName, String ds, int interval, int range) throws NumberFormatException, RrdException {
         // Generate rrd_fetch() command through jrrd JNI interface in order to
         // retrieve
         // LAST pdp for the datasource stored in the specified RRD file
@@ -343,18 +355,18 @@ public class JniRrdStrategy implements RrdStrategy<JniRrdStrategy.CreateCommand 
         // we don't get a 'NaN' value from the fetch command. This
         // is necessary because the collection is being done by collectd
         // and there is nothing keeping us in sync.
-        // 
+        //
         // interval argument is in milliseconds so must convert to seconds
         //
-        
+
         // TODO: Combine fetchLastValueInRange and fetchLastValue
-        
-    	long now = System.currentTimeMillis();
+        long now = System.currentTimeMillis();
         long latestUpdateTime = (now - (now % interval)) / 1000L;
         long earliestUpdateTime = ((now - (now % interval)) - range) / 1000L;
-        
+
         LOG.debug("fetchInRange: fetching data from {} to {}", earliestUpdateTime, latestUpdateTime);
-        
+        String rrdFile = directory + File.separator + rrdName + RrdUtils.getExtension();
+
         String fetchCmd = "fetch " + rrdFile + " AVERAGE -s " + earliestUpdateTime + " -e " + latestUpdateTime;
 
         String[] fetchStrings = Interface.launch(fetchCmd);
@@ -376,9 +388,9 @@ public class JniRrdStrategy implements RrdStrategy<JniRrdStrategy.CreateCommand 
             LOG.error("fetchInRange: RRD database 'fetch' failed, no data retrieved.");
             return null;
         }
-        
+
         int numFetched = fetchStrings.length;
-        
+
         LOG.debug("fetchInRange: got {} strings from RRD", numFetched);
 
         // String at index 1 contains the RRDs datasource names
@@ -386,20 +398,21 @@ public class JniRrdStrategy implements RrdStrategy<JniRrdStrategy.CreateCommand 
         String[] dsNames = fetchStrings[1].split("\\s");
         int dsIndex = 0;
         for (int i = 0; i < dsNames.length; i++) {
-        	if (dsNames[i].equals(ds)) dsIndex = i;
+            if (dsNames[i].equals(ds)) {
+                dsIndex = i;
+            }
         }
         String dsName = dsNames[dsIndex].trim();
 
         Double dsValue;
 
         // Back through the RRD output until I get something interesting
-        
-        for(int i = fetchStrings.length - 2; i > 1; i--) {
+        for (int i = fetchStrings.length - 2; i > 1; i--) {
             String[] dsValues = fetchStrings[i].split("\\s");
-        	if ( dsValues[dsIndex].trim().equalsIgnoreCase("nan") ) {
-        	    LOG.debug("fetchInRange: Got a NaN value - continuing back in time");
-        	} else {
-        		try {
+            if (dsValues[dsIndex].trim().equalsIgnoreCase("nan")) {
+                LOG.debug("fetchInRange: Got a NaN value - continuing back in time");
+            } else {
+                try {
                     dsValue = new Double(dsValues[dsIndex].trim());
                     LOG.debug("fetchInRange: fetch successful: {}= {}", dsName, dsValue);
                     return dsValue;
@@ -407,12 +420,12 @@ public class JniRrdStrategy implements RrdStrategy<JniRrdStrategy.CreateCommand 
                     LOG.warn("fetchInRange: Unable to convert fetched value ({}) to Double for data source {}", dsValues[dsIndex].trim(), dsName);
                     throw nfe;
                 }
-          	}
+            }
         }
-        
+
         return null;
     }
-    
+
     /**
      * {@inheritDoc}
      *
@@ -420,7 +433,7 @@ public class JniRrdStrategy implements RrdStrategy<JniRrdStrategy.CreateCommand 
      * directory. The output stream of the command (a PNG image) is copied to a
      * the InputStream returned from the method.
      */
-        @Override
+    @Override
     public InputStream createGraph(String command, File workDir) throws IOException, RrdException {
         byte[] byteArray = createGraphAsByteArray(command, workDir);
         return new ByteArrayInputStream(byteArray);
@@ -430,23 +443,23 @@ public class JniRrdStrategy implements RrdStrategy<JniRrdStrategy.CreateCommand 
         String[] commandArray = StringUtils.createCommandArray(command, '@');
         Process process;
         try {
-             process = Runtime.getRuntime().exec(commandArray, null, workDir);
+            process = Runtime.getRuntime().exec(commandArray, null, workDir);
         } catch (IOException e) {
             IOException newE = new IOException("IOException thrown while executing command '" + command + "' in " + workDir.getAbsolutePath() + ": " + e);
             newE.initCause(e);
             throw newE;
         }
-        
+
         // this closes the stream when its finished
         byte[] byteArray = FileCopyUtils.copyToByteArray(process.getInputStream());
-        
+
         // this close the stream when its finished
         String errors = FileCopyUtils.copyToString(new InputStreamReader(process.getErrorStream()));
-        
+
         // one particular warning message that originates in libart should be ignored
         if (errors.length() > 0 && errors.contains(IGNORABLE_LIBART_WARNING_STRING)) {
-        	LOG.debug("Ignoring libart warning message in rrdtool stderr stream: {}", IGNORABLE_LIBART_WARNING_STRING);
-        	errors = errors.replaceAll(IGNORABLE_LIBART_WARNING_REGEX, "");
+            LOG.debug("Ignoring libart warning message in rrdtool stderr stream: {}", IGNORABLE_LIBART_WARNING_STRING);
+            errors = errors.replaceAll(IGNORABLE_LIBART_WARNING_REGEX, "");
         }
         if (errors.length() > 0) {
             throw new RrdException(errors);
@@ -459,54 +472,60 @@ public class JniRrdStrategy implements RrdStrategy<JniRrdStrategy.CreateCommand 
      *
      * @return a {@link java.lang.String} object.
      */
-        @Override
+    @Override
     public String getStats() {
         return "";
     }
-    
+
     // These offsets work perfectly for ranger@ with rrdtool 1.2.23 and Firefox
     /**
-     * <p>getGraphLeftOffset</p>
+     * <p>
+     * getGraphLeftOffset</p>
      *
      * @return a int.
      */
-        @Override
+    @Override
     public int getGraphLeftOffset() {
         return 65;
     }
-    
+
     /**
-     * <p>getGraphRightOffset</p>
+     * <p>
+     * getGraphRightOffset</p>
      *
      * @return a int.
      */
-        @Override
+    @Override
     public int getGraphRightOffset() {
         return -30;
     }
 
     /**
-     * <p>getGraphTopOffsetWithText</p>
+     * <p>
+     * getGraphTopOffsetWithText</p>
      *
      * @return a int.
      */
-        @Override
+    @Override
     public int getGraphTopOffsetWithText() {
         return -75;
     }
 
     /**
-     * <p>getDefaultFileExtension</p>
+     * <p>
+     * getDefaultFileExtension</p>
      *
      * @return a {@link java.lang.String} object.
      */
-        @Override
+    @Override
     public String getDefaultFileExtension() {
         return ".rrd";
     }
-    
-    /** {@inheritDoc} */
-        @Override
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public RrdGraphDetails createGraphReturnDetails(String command, File workDir) throws IOException, org.opennms.netmgt.rrd.RrdException {
         // Creating Temp PNG File
         File pngFile = File.createTempFile("opennms.rrdtool.", ".png");
@@ -520,10 +539,10 @@ public class JniRrdStrategy implements RrdStrategy<JniRrdStrategy.CreateCommand 
         try {
             // Executing RRD Command
             InputStream is = createGraph(command, workDir);
-            
+
             // Processing Command Output
             BufferedReader reader = new BufferedReader(new InputStreamReader(is));
-            
+
             try {
                 String line = null;
                 if ((line = reader.readLine()) == null) {
@@ -532,13 +551,13 @@ public class JniRrdStrategy implements RrdStrategy<JniRrdStrategy.CreateCommand 
                 String[] s = line.split("x");
                 width = Integer.parseInt(s[0]);
                 height = Integer.parseInt(s[1]);
-                
+
                 List<String> printLinesList = new ArrayList<String>();
-                
+
                 while ((line = reader.readLine()) != null) {
                     printLinesList.add(line);
                 }
-                
+
                 printLines = printLinesList.toArray(new String[printLinesList.size()]);
 
             } finally {
@@ -552,7 +571,7 @@ public class JniRrdStrategy implements RrdStrategy<JniRrdStrategy.CreateCommand 
             throw new RrdException("Can't execute command " + command, e);
         } finally {
             if (!pngFile.delete()) {
-            	LOG.warn("Could not delete file: {}", pngFile.getPath());
+                LOG.warn("Could not delete file: {}", pngFile.getPath());
             }
         }
 
@@ -560,8 +579,10 @@ public class JniRrdStrategy implements RrdStrategy<JniRrdStrategy.CreateCommand 
         return new JniGraphDetails(width, height, printLines, pngStream);
     }
 
-    /** {@inheritDoc} */
-        @Override
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public void promoteEnqueuedFiles(Collection<String> rrdFiles) {
         // no need to do anything since this strategy doesn't queue
     }
