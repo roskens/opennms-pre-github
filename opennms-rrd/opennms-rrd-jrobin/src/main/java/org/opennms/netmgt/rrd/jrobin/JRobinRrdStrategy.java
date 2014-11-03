@@ -306,7 +306,7 @@ public class JRobinRrdStrategy extends AbstractJRobinRrdStrategy<RrdDef,RrdDb> {
     }
 
     @Override
-    public void handleDefinition(RrdGraphDef graphDef, String definition, File workDir, Map<String,List<String>> defs, List<Plottable> plots) {
+    public void handleDefinition(RrdGraphDef graphDef, String definition, File workDir, Map<String,List<String>> defs, List<Plottable> plots, long start, long end) {
         String[] def = splitDef(definition);
         String[] ds = def[0].split("=");
         // LOG.debug("ds = {}", Arrays.toString(ds));

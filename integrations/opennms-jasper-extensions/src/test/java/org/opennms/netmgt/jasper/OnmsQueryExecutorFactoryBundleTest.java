@@ -61,6 +61,15 @@ public class OnmsQueryExecutorFactoryBundleTest {
         factory = executorBundle.getQueryExecuterFactory("resourceQuery");
         assertTrue(ResourceQueryExecuterFactory.class == factory.getClass());
         
+        System.setProperty("org.opennms.rrd.strategyClass", "org.opennms.netmgt.rrd.newts.NewtsRrdStrategy");
+        factory = executorBundle.getQueryExecuterFactory("jrobin");
+        assertTrue(JRobinQueryExecutorFactory.class == factory.getClass());
+        factory = executorBundle.getQueryExecuterFactory("rrdtool");
+        assertTrue(JRobinQueryExecutorFactory.class == factory.getClass());
+        
+        factory = executorBundle.getQueryExecuterFactory("resourceQuery");
+        assertTrue(ResourceQueryExecuterFactory.class == factory.getClass());
+        
         System.setProperty("org.opennms.rrd.strategyClass", "org.opennms.netmgt.rrd.jrobin.JRobinRrdStrategy");
         factory = executorBundle.getQueryExecuterFactory("jrobin");
         assertTrue(JRobinQueryExecutorFactory.class == factory.getClass());

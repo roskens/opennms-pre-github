@@ -187,7 +187,8 @@ public class JRobinDirectoryUtil {
             return System.getProperty("org.opennms.rrd.fileExtension");
         } else {
             if (System.getProperty("org.opennms.rrd.strategyClass") != null) {
-                return System.getProperty("org.opennms.rrd.strategyClass", "UnknownStrategy").endsWith("JRobinRrdStrategy") ? ".jrb" : ".rrd";
+                String strategy = System.getProperty("org.opennms.rrd.strategyClass", "UnknownStrategy");
+                return (strategy.endsWith("JRobinRrdStrategy") || strategy.endsWith("NewtsRrdStrategy")) ? ".jrb" : ".rrd";
             }
             return ".jrb";
         }

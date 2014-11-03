@@ -377,7 +377,7 @@ public abstract class AbstractJRobinRrdStrategy<D,F> implements RrdStrategy<D,F>
 
             } else if (arg.startsWith("DEF:")) {
                 String definition = arg.substring("DEF:".length());
-                handleDefinition(graphDef, definition, workDir, defs, plots);
+                handleDefinition(graphDef, definition, workDir, defs, plots, start, end);
 
             } else if (arg.startsWith("CDEF:")) {
                 String definition = arg.substring("CDEF:".length());
@@ -830,7 +830,7 @@ public abstract class AbstractJRobinRrdStrategy<D,F> implements RrdStrategy<D,F>
         }
     }
 
-    public abstract void handleDefinition(RrdGraphDef graphDef, String definition, File workDir, Map<String,List<String>> defs, List<Plottable> plots);
+    public abstract void handleDefinition(RrdGraphDef graphDef, String definition, File workDir, Map<String,List<String>> defs, List<Plottable> plots, long start, long end);
 
     public abstract void fetchPlottables(List<Plottable> plots, int width);
 }
