@@ -42,14 +42,13 @@ import org.opennms.newts.api.SampleProcessorService;
 import org.opennms.newts.api.SampleRepository;
 import org.opennms.newts.api.Timestamp;
 import org.opennms.newts.api.query.ResultDescriptor;
+import org.opennms.newts.api.query.StandardAggregationFunctions;
 import org.opennms.newts.cassandra.CassandraSession;
+import org.opennms.newts.cassandra.Schema;
+import org.opennms.newts.cassandra.SchemaManager;
 import org.opennms.newts.persistence.cassandra.CassandraSampleRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import org.opennms.newts.api.query.StandardAggregationFunctions;
-import org.opennms.newts.cassandra.Schema;
-import org.opennms.newts.cassandra.SchemaManager;
 
 /**
  *

@@ -28,9 +28,7 @@
 package org.opennms.netmgt.rrd.newts;
 
 import java.io.File;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import org.apache.commons.configuration.PropertiesConfiguration;
 import org.opennms.netmgt.rrd.RrdDataSource;
 import org.opennms.netmgt.rrd.RrdUtils;

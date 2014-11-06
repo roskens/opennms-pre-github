@@ -30,12 +30,11 @@ package org.opennms.netmgt.rrd.newts;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
-
 import org.jrobin.graph.RrdGraph;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.opennms.netmgt.rrd.RrdException;
 import org.opennms.netmgt.rrd.RrdGraphDetails;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Container for details from a JRobin RRD graph.  Stores the same details
