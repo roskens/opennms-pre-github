@@ -35,15 +35,20 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.NavigableSet;
 import java.util.Properties;
+import java.util.TreeSet;
 import java.util.concurrent.TimeUnit;
-
-import org.jrobin.core.FetchData;
-import org.jrobin.core.RrdDb;
+import org.apache.commons.configuration.PropertiesConfiguration;
+import org.apache.commons.configuration.XMLPropertiesConfiguration;
 import org.jrobin.core.RrdException;
 import org.jrobin.data.DataProcessor;
 import org.jrobin.data.Plottable;
@@ -54,7 +59,10 @@ import org.opennms.netmgt.rrd.RrdGraphDetails;
 import org.opennms.netmgt.rrd.RrdStrategy;
 import org.opennms.netmgt.rrd.RrdUtils;
 import org.opennms.netmgt.rrd.jrobin.JRobinRrdStrategy;
-import org.opennms.newts.api.*;
+import org.opennms.newts.api.Results;
+import org.opennms.newts.api.Sample;
+import org.opennms.newts.api.Timestamp;
+import org.opennms.newts.api.ValueType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -157,10 +165,9 @@ public class NewtsRrdStrategy implements RrdStrategy<NewtsDef, NewtsResource> {
         }
         LOG.info("createFile: creating RRD file {}", def.getPath());
         File rrdFile = new File(def.getDirectory(), def.getRRDName() + getDefaultFileExtension());
-        rrdFile.createNewFile();
-        LOG.info("createFile: creating Newts metric {}/{}-newts", def.getDirectory(), def.getRRDName());
-        RrdUtils.createMetaDataFile(def.getDirectory(), def.getRRDName() + "-newts", def.getProperties());
-        LOG.info("createFile: creating Newts metric {}/{}", def.getDirectory(), def.getRRDName());
+        def.getPropertiesConfiguration().save(rrdFile);
+
+        LOG.info("createFile: creating Newts metric metadata {}/{}", def.getDirectory(), def.getRRDName());
         RrdUtils.createMetaDataFile(def.getDirectory(), def.getRRDName(), attributeMappings);
     }
 
@@ -193,7 +200,16 @@ public class NewtsRrdStrategy implements RrdStrategy<NewtsDef, NewtsResource> {
             LOG.error("updateFile: data string does not parse into two strings");
             return;
         }
-        Timestamp ts = new Timestamp(Long.parseLong(values[0]), TimeUnit.SECONDS);
+        Timestamp ts;
+        try {
+            ts = new Timestamp(Long.parseLong(values[0]), TimeUnit.SECONDS);
+        } catch (NumberFormatException e) {
+            if (values[0].equals("N")) {
+                ts = Timestamp.now();
+            } else {
+                throw new IllegalArgumentException("Illegal time value: " + values[0]);
+            }
+        }
 
         for (int i = 1; i < values.length; i++) {
             NewtsMetric metric = resource.getMetric(i - 1);
@@ -252,32 +268,32 @@ public class NewtsRrdStrategy implements RrdStrategy<NewtsDef, NewtsResource> {
     @Override
     public Double fetchLastValue(final String directory, final String rrdName, final String ds, final String consolidationFunction, final int interval)
       throws org.opennms.netmgt.rrd.RrdException {
-        String fileName = directory + File.separator + rrdName + RrdUtils.getExtension();
-        throw new UnsupportedOperationException(this.getClass().getName() + " fetchLastValue not written.");
-        /*
-        RrdDb rrd = null;
-        try {
-            long now = System.currentTimeMillis();
-            long collectTime = (now - (now % interval)) / 1000L;            rrd = new RrdDb(fileName, true);
-            FetchData data = rrd.createFetchRequest(consolidationFunction, collectTime, collectTime).fetchData();
-            LOG.debug(data.toString());
-            double[] vals = data.getValues(ds);
-            if (vals.length > 0) {
-                return vals[vals.length - 1];
-            }
-            return null;
-        } catch (IOException | RrdException e) {
-            throw new org.opennms.netmgt.rrd.RrdException("Exception occurred fetching data from " + fileName, e);
-        } finally {
-            if (rrd != null) {
-                try {
-                    rrd.close();
-                } catch (IOException e) {
-                    LOG.error("Failed to close rrd file: {}", fileName, e);
+
+        long now = System.currentTimeMillis();
+        long collectTime = (now - (now % interval)) / 1000L;
+
+        NewtsResource resource = new NewtsResource(directory, rrdName);
+        Results<Sample> results = m_newts.search(resource, collectTime, collectTime);
+        if (results != null) {
+            final NavigableSet<Results.Row<Sample>> rows = new TreeSet<>(new Comparator<Results.Row<Sample>>() {
+                @Override
+                public int compare(final Results.Row<Sample> a, final Results.Row<Sample> b) {
+                    return a.getTimestamp().compareTo(b.getTimestamp());
+                }
+
+            });
+            rows.addAll(results.getRows());
+            Iterator<Results.Row<Sample>> iterator = rows.descendingIterator();
+            while (iterator.hasNext()) {
+                Results.Row<Sample> row = iterator.next();
+                if (!iterator.hasNext()) {
+                    Sample sample = row.getElement(ds);
+                    return sample.getValue().doubleValue();
                 }
             }
         }
-         */
+
+        return null;
     }
 
     /**
@@ -285,44 +301,32 @@ public class NewtsRrdStrategy implements RrdStrategy<NewtsDef, NewtsResource> {
      */
     @Override
     public Double fetchLastValueInRange(final String directory, final String rrdName, final String ds, final int interval, final int range) throws NumberFormatException, org.opennms.netmgt.rrd.RrdException {
-        String fileName = directory + File.separator + rrdName + RrdUtils.getExtension();
-        throw new UnsupportedOperationException(this.getClass().getName() + " fetchLastValueInRange not written.");
-        /*
-        RrdDb rrd = null;
-        try {
-            rrd = new RrdDb(fileName, true);
-            long now = System.currentTimeMillis();
-            long latestUpdateTime = (now - (now % interval)) / 1000L;
-            long earliestUpdateTime = ((now - (now % interval)) - range) / 1000L;
-            LOG.debug("fetchInRange: fetching data from {} to {}", earliestUpdateTime, latestUpdateTime);
+        long now = System.currentTimeMillis();
+        long latestUpdateTime = (now - (now % interval)) / 1000L;
+        long earliestUpdateTime = ((now - (now % interval)) - range) / 1000L;
 
-            FetchData data = rrd.createFetchRequest("AVERAGE", earliestUpdateTime, latestUpdateTime).fetchData();
-
-            double[] vals = data.getValues(ds);
-            long[] times = data.getTimestamps();
-
-		    // step backwards through the array of values until we get something that's a number
-            for (int i = vals.length - 1; i >= 0; i--) {
-                if (Double.isNaN(vals[i])) {
-                    LOG.debug("fetchInRange: Got a NaN value at interval: {} continuing back in time", times[i]);
-                } else {
-                    LOG.debug("Got a non NaN value at interval: {} : {}", times[i], vals[i]);
-                    return vals[i];
+        NewtsResource resource = new NewtsResource(directory, rrdName);
+        Results<Sample> results = m_newts.search(resource, earliestUpdateTime, latestUpdateTime);
+        if (results != null) {
+            final NavigableSet<Results.Row<Sample>> rows = new TreeSet<>(new Comparator<Results.Row<Sample>>() {
+                @Override
+                public int compare(final Results.Row<Sample> a, final Results.Row<Sample> b) {
+                    return a.getTimestamp().compareTo(b.getTimestamp());
                 }
-            }
-            return null;
-        } catch (IOException | RrdException e) {
-            throw new org.opennms.netmgt.rrd.RrdException("Exception occurred fetching data from " + fileName, e);
-        } finally {
-            if (rrd != null) {
-                try {
-                    rrd.close();
-                } catch (IOException e) {
-                    LOG.error("Failed to close rrd file: {}", fileName, e);
+
+            });
+            rows.addAll(results.getRows());
+            Iterator<Results.Row<Sample>> iterator = rows.descendingIterator();
+            while (iterator.hasNext()) {
+                Results.Row<Sample> row = iterator.next();
+                if (!iterator.hasNext()) {
+                    Sample sample = row.getElement(ds);
+                    return sample.getValue().doubleValue();
                 }
             }
         }
-         */
+
+        return null;
     }
 
     private Color getColor(final String colorValue) {
@@ -953,7 +957,7 @@ public class NewtsRrdStrategy implements RrdStrategy<NewtsDef, NewtsResource> {
      */
     @Override
     public String getDefaultFileExtension() {
-        return ".jrb";
+        return ".newts";
     }
 
     protected void addVdefDs(RrdGraphDef graphDef, String sourceName, String[] rhs, double start, double end, Map<String, List<String>> defs) throws RrdException {

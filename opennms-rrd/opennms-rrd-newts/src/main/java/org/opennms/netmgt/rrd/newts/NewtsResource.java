@@ -28,7 +28,9 @@
 package org.opennms.netmgt.rrd.newts;
 
 import java.io.File;
-import java.util.Map;
+import java.util.Iterator;
+import org.apache.commons.configuration.ConfigurationException;
+import org.apache.commons.configuration.PropertiesConfiguration;
 import org.opennms.netmgt.rrd.RrdUtils;
 import org.opennms.newts.api.Resource;
 import org.slf4j.Logger;
@@ -44,7 +46,7 @@ public class NewtsResource {
 
     private final Resource m_resource;
     private final int m_step;
-    private final Map<String, String> m_properties;
+    private final PropertiesConfiguration m_properties;
 
     public NewtsResource(final String directory, final String fileName) {
         String resourceName = fileName;
@@ -52,10 +54,14 @@ public class NewtsResource {
             resourceName = resourceName.substring(0, resourceName.length() - RrdUtils.getExtension().length());
         }
         String rrdFile = directory + File.separator + resourceName;
-        //if (!rrdFile.startsWith("/")) { rrdFile = "/" + rrdFile; }
         m_resource = new Resource(rrdFile);
-        m_properties = RrdUtils.readMetaDataFile(directory, resourceName + "-newts");
-        m_step = Integer.parseInt(m_properties.get("step"));
+        try {
+            m_properties = new PropertiesConfiguration(new File(directory, fileName));
+            m_step = m_properties.getInt("step");
+        } catch (ConfigurationException ex) {
+            LOG.debug("confiiguration error", ex);
+            throw new IllegalArgumentException("invalid newts resource file: " + directory + File.separator + fileName);
+        }
     }
 
     public int getStep() {
@@ -70,14 +76,14 @@ public class NewtsResource {
         if (!m_properties.containsKey("ds." + i + ".name")) {
             throw new IllegalArgumentException("properties does not contain key ds." + i + ".name");
         }
-        String name = m_properties.get("ds." + i + ".name");
+        String name = m_properties.getString("ds." + i + ".name");
         if (name == null || name.trim().isEmpty()) {
             throw new IllegalArgumentException("name is null");
         }
         if (!m_properties.containsKey("ds." + i + ".type")) {
             throw new IllegalArgumentException("properties does not contain key ds." + i + ".type");
         }
-        String type = m_properties.get("ds." + i + ".type");
+        String type = m_properties.getString("ds." + i + ".type");
         if (type == null || type.trim().isEmpty()) {
             throw new IllegalArgumentException("type is null");
         }
@@ -86,9 +92,11 @@ public class NewtsResource {
 
     NewtsMetric getMetric(String metric) {
         int i = -1;
-        for (Map.Entry<String, String> entry : m_properties.entrySet()) {
-            if (metric.equals(entry.getValue())) {
-                i = Integer.parseInt(entry.getKey().replaceFirst("^ds\\.", "").replaceAll("\\.name$", ""));
+        Iterator<String> it = m_properties.getKeys();
+        while (it.hasNext()) {
+            String key = it.next();
+            if (metric.equals(m_properties.getString(key))) {
+                i = Integer.parseInt(key.replaceFirst("^ds\\.", "").replaceAll("\\.name$", ""));
             }
         }
         if (i == -1) {
@@ -97,7 +105,7 @@ public class NewtsResource {
         if (!m_properties.containsKey("ds." + i + ".type")) {
             throw new IllegalArgumentException("properties does not contain key ds." + i + ".type");
         }
-        String type = m_properties.get("ds." + i + ".type");
+        String type = m_properties.getString("ds." + i + ".type");
         if (type == null || type.trim().isEmpty()) {
             throw new IllegalArgumentException("type is null");
         }

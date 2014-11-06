@@ -140,5 +140,18 @@ public class NewtsClient {
         return results;
     }
 
+    Results<Sample> search(NewtsResource resource, Long start, Long end) {
+        LOG.debug("search(resource='{}', start='{}', end='{}')", resource, start, end);
+        Timestamp t_start = Timestamp.fromEpochSeconds(start);
+        Timestamp t_end = Timestamp.fromEpochSeconds(end);
+        LOG.debug("search: t_start={}", t_start);
+        LOG.debug("search: t_end={}", t_end);
+
+        LOG.debug("search: select() start");
+        Results<Sample> results = getSampleRepository().select(resource.getResource(), Optional.of(t_start), Optional.of(t_end));
+        LOG.debug("search: select() finish");
+        LOG.debug("search: returning results", results);
+        return results;
+    }
 
 }

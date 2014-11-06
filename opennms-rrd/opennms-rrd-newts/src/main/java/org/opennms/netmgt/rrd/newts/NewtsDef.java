@@ -31,6 +31,7 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.apache.commons.configuration.PropertiesConfiguration;
 import org.opennms.netmgt.rrd.RrdDataSource;
 import org.opennms.netmgt.rrd.RrdUtils;
 
@@ -77,24 +78,24 @@ public class NewtsDef {
         return m_rraList;
     }
 
-    public Map<String, String> getProperties() {
-        final Map<String, String> ret = new HashMap<>();
+    public PropertiesConfiguration getPropertiesConfiguration() {
+        PropertiesConfiguration pc = new PropertiesConfiguration();
         int ds_num = 0;
-        ret.put("step", Integer.toString(m_step));
+        pc.addProperty("step", Integer.toString(m_step));
         for (RrdDataSource rds : m_dataSources) {
-            ret.put("ds." + ds_num + ".name", rds.getName());
-            ret.put("ds." + ds_num + ".type", rds.getType());
-            ret.put("ds." + ds_num + ".heartbeat", Integer.toString(rds.getHeartBeat()));
-            ret.put("ds." + ds_num + ".min", rds.getMin());
-            ret.put("ds." + ds_num + ".max", rds.getMax());
+            pc.addProperty("ds." + ds_num + ".name", rds.getName());
+            pc.addProperty("ds." + ds_num + ".type", rds.getType());
+            pc.addProperty("ds." + ds_num + ".heartbeat", Integer.toString(rds.getHeartBeat()));
+            pc.addProperty("ds." + ds_num + ".min", rds.getMin());
+            pc.addProperty("ds." + ds_num + ".max", rds.getMax());
             ds_num++;
         }
         int rra_num = 0;
         for (String rra : m_rraList) {
-            ret.put("rra." + rra_num, rra);
+            pc.addProperty("rra." + rra_num, rra);
             rra_num++;
         }
 
-        return ret;
+        return pc;
     }
 }

@@ -73,10 +73,16 @@ public class NewtsRrdStrategyTest {
     public void setUp() throws Exception {
         // Make sure that AWT headless mode is enabled
         System.setProperty("java.awt.headless", "true");
+        System.setProperty("org.opennms.rrd.usetcp", "false");
+        System.setProperty("org.opennms.rrd.usequeue", "false");
+        System.setProperty("org.opennms.rrd.strategyClass", "org.opennms.netmgt.rrd.newts.NewtsRrdStrategy");
+        System.setProperty("org.opennms.rrd.strategyClass", "newts_test_" + System.currentTimeMillis());
 
         MockLogAppender.setupLogging(true, "DEBUG");
 
         m_strategy = new NewtsRrdStrategy();
+        m_strategy.setConfigurationProperties(System.getProperties());
+        RrdUtils.setStrategy(m_strategy);
 
         // Don't initialize by default since not all tests need it.
         m_fileAnticipator = new FileAnticipator(false);
@@ -92,7 +98,73 @@ public class NewtsRrdStrategyTest {
 
     @Test
     public void testInitialize() {
-       // Don't do anything... just check that setUp works
+        // Don't do anything... just check that setUp works
     }
 
+    @Test
+    public void testCreate() throws Exception {
+        File rrdFile = createRrdFile(null);
+
+        NewtsResource openedFile = m_strategy.openFile(rrdFile.getParent(), rrdFile.getName());
+
+        m_strategy.closeFile(openedFile);
+    }
+
+    @Test
+    public void testUpdate() throws Exception {
+        File rrdFile = createRrdFile(null);
+
+        NewtsResource openedFile = m_strategy.openFile(rrdFile.getParent(), rrdFile.getName());
+        m_strategy.updateFile(openedFile, "huh?", "N:1.234234");
+        m_strategy.closeFile(openedFile);
+    }
+
+    @Ignore
+    @Test
+    public void testFetchLastValue() throws Exception {
+        File rrdFile = createRrdFile(null);
+
+        NewtsResource openedFile = m_strategy.openFile(rrdFile.getParent(), rrdFile.getName());
+        m_strategy.updateFile(openedFile, "huh?", "N:1.234234");
+
+        Double value = m_strategy.fetchLastValue(rrdFile.getParent(), rrdFile.getName(), "bar", 300 * 1000);
+        assertNotNull("value", value);
+        assertEquals("value", 1.234234, value, 0.0000001);
+        m_strategy.closeFile(openedFile);
+    }
+
+    @Test
+    public void testFetchLastValueInRange() throws Exception {
+        File rrdFile = createRrdFile("bar");
+
+        NewtsResource openedFile = m_strategy.openFile(rrdFile.getParent(), rrdFile.getName());
+        long now = System.currentTimeMillis();
+        int interval = 300 * 1000;
+        long updateTime = (now - (now % interval)) / 1000L;
+
+        m_strategy.updateFile(openedFile, "huh?", "" + updateTime + ":1.234234");
+
+        Double value = m_strategy.fetchLastValueInRange(rrdFile.getParent(), rrdFile.getName(), "bar", interval, interval);
+        assertNotNull("value", value);
+        assertEquals("value", 1.234234, value, 0.0000001);
+        m_strategy.closeFile(openedFile);
+    }
+
+    public File createRrdFile(String rrdFileBase) throws Exception {
+        if (rrdFileBase == null) {
+            rrdFileBase = "foo";
+        }
+
+        m_fileAnticipator.initialize();
+        String rrdExtension = RrdUtils.getExtension();
+
+        List<RrdDataSource> dataSources = new ArrayList<RrdDataSource>();
+        dataSources.add(new RrdDataSource("bar", "GAUGE", 3000, "U", "U"));
+        List<String> rraList = new ArrayList<String>();
+        rraList.add("RRA:AVERAGE:0.5:1:2016");
+        NewtsDef def = m_strategy.createDefinition("hello!", m_fileAnticipator.getTempDir().getAbsolutePath(), rrdFileBase, 300, dataSources, rraList);
+        m_strategy.createFile(def, null);
+
+        return m_fileAnticipator.expecting(rrdFileBase + rrdExtension);
+    }
 }
