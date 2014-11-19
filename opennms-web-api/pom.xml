@@ -28,6 +28,10 @@
   </build>
   <dependencies>
     <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>servlet-api</artifactId>
+    </dependency>
+    <dependency>
       <groupId>org.opennms.core</groupId>
       <artifactId>org.opennms.core.lib</artifactId>
     </dependency>
@@ -37,7 +41,11 @@
     </dependency>
     <dependency>
       <groupId>org.opennms</groupId>
-      <artifactId>opennms-services</artifactId>
+      <artifactId>opennms-config-model</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.opennms</groupId>
+      <artifactId>opennms-config</artifactId>
     </dependency>
     <dependency>
       <groupId>org.opennms.dependencies</groupId>
