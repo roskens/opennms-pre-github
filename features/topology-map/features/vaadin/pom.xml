@@ -28,8 +28,8 @@
           </features>
           <bundles>
             <bundle>wrap:mvn:org.vaadin.addons/refresher/1.2.3.7</bundle>
-            <bundle>wrap:mvn:org.vaadin.addons/contextmenu/4.2.1</bundle>
-            <bundle>wrap:mvn:org.vaadin.addon/confirmdialog/2.0.4</bundle>
+            <bundle>wrap:mvn:org.vaadin.addons/contextmenu/4.5</bundle>
+            <bundle>wrap:mvn:org.vaadin.addon/confirmdialog/2.1.2</bundle>
           </bundles>
         </configuration>
       </plugin>
@@ -63,7 +63,7 @@
     <dependency>
         <groupId>com.vaadin</groupId>
         <artifactId>vaadin-shared-deps</artifactId>
-        <version>1.0.2</version>
+        <version>1.0.3</version>
     </dependency>
     <dependency>
         <groupId>org.jsoup</groupId>
@@ -83,7 +83,7 @@
     <dependency>
       <groupId>org.vaadin.addons</groupId>
       <artifactId>contextmenu</artifactId>
-      <version>4.2.1</version>
+      <version>4.5</version>
     </dependency>
     <dependency>
     	<groupId>org.vaadin.addons</groupId>
@@ -93,7 +93,7 @@
     <dependency>
       <groupId>org.vaadin.addon</groupId>
       <artifactId>confirmdialog</artifactId>
-      <version>2.0.4</version>
+      <version>2.1.2</version>
     </dependency>
     <dependency>
       <groupId>org.opennms.features.themes</groupId>
