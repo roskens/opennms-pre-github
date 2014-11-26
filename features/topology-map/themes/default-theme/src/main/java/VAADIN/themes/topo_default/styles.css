@@ -336,7 +336,7 @@ div.v-table-header-wrap {
 	border-style: inset;
 	border-color: gray;
 	background-color: white;
-	-moz-border-radius: ;
+	/* -moz-border-radius: ; */
 	text-align: right;
 }
 
@@ -346,5 +346,5 @@ div.v-table-header-wrap {
 	border-style: inset;
 	border-color: gray;
 	background-color: white;
-	-moz-border-radius: ;
+	/* -moz-border-radius: ; */
 }
