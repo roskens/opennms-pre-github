@@ -2680,7 +2680,7 @@
       <dependency>
         <groupId>geoGoogle</groupId>
         <artifactId>geoGoogle</artifactId>
-        <version>1.5.1-20110518onms1</version>
+        <version>1.5.1-ONMS-20141126-1</version>
         <exclusions>
           <exclusion>
             <groupId>commons-codec</groupId>

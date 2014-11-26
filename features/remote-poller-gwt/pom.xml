@@ -195,7 +195,7 @@
     <dependency>
       <groupId>org.gwtopenmaps.openlayers</groupId>
       <artifactId>gwt-openlayers-client</artifactId>
-      <version>0.6-20101124</version>
+      <version>1.0</version>
       <scope>provided</scope>
     </dependency>
     <dependency>

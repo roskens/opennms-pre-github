@@ -36,6 +36,7 @@ import org.opennms.features.poller.remote.gwt.client.location.LocationInfo;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
+import de.novanic.eventservice.client.event.Event;
 import de.novanic.eventservice.client.event.RemoteEventService;
 import de.novanic.eventservice.client.event.domain.Domain;
 import de.novanic.eventservice.client.event.filter.EventFilter;
@@ -76,6 +77,16 @@ public abstract class AbstractTestServer implements RemoteEventService,
             AsyncCallback<ApplicationDetails> callback) {
         throw new UnsupportedOperationException(
                 "getApplicationDetails is not implemented");
+    }
+
+    @Override
+    public void addEvent(Domain domain, Event event) {
+        throw new UnsupportedOperationException("addListener is not implemented");
+    }
+
+    @Override
+    public void addEvent(Domain domain, Event event, AsyncCallback<Void> callback) {
+        throw new UnsupportedOperationException("addListener is not implemented");
     }
 
     @Override
