@@ -29,6 +29,7 @@
 package org.opennms.features.vaadin.config;
 
 import java.io.File;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -39,8 +40,8 @@ import com.vaadin.data.util.FilesystemContainer;
 
 /**
  * The Class XmlFileContainer.
- * 
- * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a> 
+ *
+ * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 @SuppressWarnings("serial")
 public class XmlFileContainer extends FilesystemContainer {
@@ -56,6 +57,10 @@ public class XmlFileContainer extends FilesystemContainer {
      */
     public XmlFileContainer(File root, boolean recursive) {
         super(root, "xml", recursive);
+    }
+
+    public XmlFileContainer(Path root, boolean recursive) {
+        this(root.toFile(), recursive);
     }
 
     /* (non-Javadoc)

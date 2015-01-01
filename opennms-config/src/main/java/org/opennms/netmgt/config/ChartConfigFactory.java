@@ -28,14 +28,13 @@
 
 package org.opennms.netmgt.config;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.attribute.FileTime;
 
 import org.apache.commons.io.IOUtils;
 import org.exolab.castor.xml.MarshalException;
@@ -49,12 +48,12 @@ import org.opennms.core.utils.ConfigFileConstants;
  * @version $Id: $
  */
 public class ChartConfigFactory extends ChartConfigManager {
-    
+
     private static boolean m_initialized = false;
     private static ChartConfigFactory m_instance = null;
-    private static File m_chartConfigFile;
-    private static long m_lastModified;
-    
+    private static Path m_chartConfigFile;
+    private static FileTime m_lastModified;
+
     /**
      * <p>init</p>
      *
@@ -63,14 +62,14 @@ public class ChartConfigFactory extends ChartConfigManager {
      * @throws java.io.FileNotFoundException if any.
      * @throws java.io.IOException if any.
      */
-    public static synchronized void init() throws MarshalException, ValidationException, FileNotFoundException, IOException {
+    public static synchronized void init() throws MarshalException, ValidationException, IOException {
         if (!m_initialized) {
             m_instance = new ChartConfigFactory();
             reload();
             m_initialized = true;
-        }   
+        }
     }
-    
+
     /**
      * <p>reload</p>
      *
@@ -79,18 +78,12 @@ public class ChartConfigFactory extends ChartConfigManager {
      * @throws org.exolab.castor.xml.MarshalException if any.
      * @throws org.exolab.castor.xml.ValidationException if any.
      */
-    public static synchronized void reload() throws IOException, FileNotFoundException, MarshalException, ValidationException {
+    public static synchronized void reload() throws IOException, MarshalException, ValidationException {
         m_chartConfigFile = ConfigFileConstants.getFile(ConfigFileConstants.CHART_CONFIG_FILE_NAME);
 
-        InputStream configIn = null;
-        try {
-            configIn = new FileInputStream(m_chartConfigFile);
-            m_lastModified = m_chartConfigFile.lastModified();
+        try (InputStream configIn = Files.newInputStream(m_chartConfigFile);) {
+            m_lastModified = Files.getLastModifiedTime(m_chartConfigFile);
             parseXml(configIn);
-        } finally {
-            if (configIn != null) {
-                IOUtils.closeQuietly(configIn);
-            }
         }
     }
 
@@ -98,10 +91,10 @@ public class ChartConfigFactory extends ChartConfigManager {
     @Override
     protected void saveXml(String xml) throws IOException {
         if (xml != null) {
-            Writer fileWriter = new OutputStreamWriter(new FileOutputStream(m_chartConfigFile), "UTF-8");
-            fileWriter.write(xml);
-            fileWriter.flush();
-            fileWriter.close();
+            try (Writer fileWriter = new OutputStreamWriter(Files.newOutputStream(m_chartConfigFile), "UTF-8");) {
+                fileWriter.write(xml);
+                fileWriter.flush();
+            }
         }
     }
 
@@ -114,7 +107,7 @@ public class ChartConfigFactory extends ChartConfigManager {
      */
     @Override
     public void update() throws IOException, MarshalException, ValidationException {
-        if (m_lastModified != m_chartConfigFile.lastModified()) {
+        if (!m_lastModified.equals(Files.getLastModifiedTime(m_chartConfigFile))) {
             NotifdConfigFactory.getInstance().reload();
         }
     }
@@ -128,10 +121,10 @@ public class ChartConfigFactory extends ChartConfigManager {
         if (!m_initialized) {
             throw new IllegalStateException("Factory not initialized");
         }
-        
+
         return m_instance;
     }
-    
+
     /**
      * <p>setInstance</p>
      *

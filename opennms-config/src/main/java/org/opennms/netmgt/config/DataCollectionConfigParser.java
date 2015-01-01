@@ -28,8 +28,11 @@
 
 package org.opennms.netmgt.config;
 
-import java.io.File;
-import java.io.FilenameFilter;
+import java.io.IOException;
+import java.nio.file.DirectoryStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
@@ -42,7 +45,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
-import org.opennms.core.logging.Logging;
 import org.opennms.core.xml.JaxbUtils;
 import org.opennms.netmgt.config.datacollection.DatacollectionGroup;
 import org.opennms.netmgt.config.datacollection.Group;
@@ -59,7 +61,7 @@ import org.springframework.dao.DataAccessResourceFailureException;
 
 /**
  * DataCollectionConfigParser
- * 
+ *
  * @author <a href="mail:agalue@opennms.org">Alejandro Galue</a>
  */
 // FIXME How to deal with duplications outside snmp-collection boundaries? That make sense?; for example: check externalGroupsMap?
@@ -67,23 +69,29 @@ import org.springframework.dao.DataAccessResourceFailureException;
 // FIXME How to apply rules about duplicates? Just warn?, Override?, Override with priorities? Silent ignore?
 public class DataCollectionConfigParser {
     private static final Logger LOG = LoggerFactory.getLogger(DataCollectionConfigParser.class);
-    
-    private String configDirectory;
-    
+
+    private final Path configDirectory;
+
     private final Map<String,DatacollectionGroup> externalGroupsMap;
-    
-    public DataCollectionConfigParser(String configDirectory) {
+    private static final DirectoryStream.Filter<Path> XML_FILE_FILTER = new DirectoryStream.Filter<Path>() {
+        @Override
+        public boolean accept(Path path) {
+            return path.getFileName().toString().endsWith(".xml");
+        }
+    };
+
+    public DataCollectionConfigParser(Path configDirectory) {
         this.configDirectory = configDirectory;
         this.externalGroupsMap = new ConcurrentHashMap<String, DatacollectionGroup>();
     }
-    
+
     protected Map<String,DatacollectionGroup> getExternalGroupMap() {
         return Collections.unmodifiableMap(externalGroupsMap);
     }
-    
+
     /**
      * Update/Validate SNMP collection.
-     * 
+     *
      * @param collection
      */
     public void parseCollection(SnmpCollection collection) {
@@ -108,10 +116,10 @@ public class DataCollectionConfigParser {
             LOG.info("parse: SNMP collection {} doesn't have any external reference.", collection.getName());
         }
     }
-    
+
     /**
      * Get all configured resource types.
-     * 
+     *
      * @return the resource type list
      */
     public Set<ResourceType> getAllResourceTypes() {
@@ -128,7 +136,7 @@ public class DataCollectionConfigParser {
 
     /**
      * Verify the sub-groups of SNMP collection.
-     * 
+     *
      * @param collection
      */
     private void checkCollection(SnmpCollection collection) {
@@ -141,10 +149,10 @@ public class DataCollectionConfigParser {
     /**
      * Verify if the resourceTypes list contains a specific resourceType.
      * <p>One resource type will be considered the same as another one, if they have the same name.</p>
-     * 
+     *
      * @param globalContainer
      * @param resourceType
-     * 
+     *
      * @return true, if the list contains the resourceType
      */
     private boolean contains(Collection<ResourceType> resourceTypes, ResourceType resourceType) {
@@ -154,11 +162,11 @@ public class DataCollectionConfigParser {
         }
         return false;
     }
-    
+
     /**
      * Verify if the groups list contains a specific group.
      * <p>One group will be considered the same as another one, if they have the same name.</p>
-     * 
+     *
      * @param globalContainer
      * @param group
      * @return true, if the list contains the mib object group
@@ -170,14 +178,14 @@ public class DataCollectionConfigParser {
         }
         return false;
     }
-    
+
     /**
      * Verify if the systemDefs list contains a specific system definition.
      * <p>One system definition will be considered the same as another one, if they have the same name.</p>
-     * 
+     *
      * @param globalContainer
      * @param systemDef
-     * 
+     *
      * @return true, if the list contains the system definition
      */
     // TODO Include sysoid and sysoidMask on validation process
@@ -198,56 +206,59 @@ public class DataCollectionConfigParser {
             LOG.info("parseExternalResources: external data collection groups are already parsed");
             return;
         }
-        
+
         // Check configuration files repository
-        File folder = new File(configDirectory);
-        if (!folder.exists() || !folder.isDirectory()) {
-            LOG.info("parseExternalResources: directory {} does not exist or is not a folder.", folder);
+        if (!Files.exists(configDirectory) || !Files.isDirectory(configDirectory)) {
+            LOG.info("parseExternalResources: directory {} does not exist or is not a folder.", configDirectory);
             return;
         }
-        
-        // Get external configuration files
-        File[] listOfFiles = folder.listFiles(new FilenameFilter() {
-            @Override
-            public boolean accept(File file, String name) {
-                return name.endsWith(".xml");
-            }
-        });
-        
-        // Parse configuration files (populate external groups map)
-        final CountDownLatch latch = new CountDownLatch(listOfFiles.length);
-        int i = 0;
-        for (final File file : listOfFiles) {
-            Thread thread = new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        LOG.debug("parseExternalResources: parsing {}", file);
-                        DatacollectionGroup group = JaxbUtils.unmarshal(DatacollectionGroup.class, new FileSystemResource(file));
-                        // Synchronize around the map that holds the results
-                        synchronized(externalGroupsMap) {
-                            externalGroupsMap.put(group.getName(), group);
-                        }
-                    } catch (Throwable e) {
-                        throwException("Can't parse XML file " + file + "; nested exception: " + e.getMessage(), e);
-                    } finally {
-                        latch.countDown();
-                    }
-                }
-            }, "DataCollectionConfigParser-Thread-" + i++);
-            thread.start();
-        }
 
-        try {
-            latch.await();
-        } catch (InterruptedException e) {
+        LOG.debug("parseExternalResources: directory '{}'", configDirectory);
+
+        // Parse configuration files (populate external groups map)
+        List<Path> xmlFiles = new ArrayList<>();
+        try (DirectoryStream<Path> stream = Files.newDirectoryStream(configDirectory, XML_FILE_FILTER);) {
+            for (final Path path : stream) {
+                xmlFiles.add(path);
+            }
+            final CountDownLatch latch = new CountDownLatch(xmlFiles.size());
+            int i = 0;
+            for (final Path path : xmlFiles) {
+                Thread thread = new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            LOG.debug("parseExternalResources: parsing {}", path);
+                            DatacollectionGroup group = JaxbUtils.unmarshal(DatacollectionGroup.class, new FileSystemResource(path.toFile()));
+                            // Synchronize around the map that holds the results
+                            synchronized (externalGroupsMap) {
+                                externalGroupsMap.put(group.getName(), group);
+                            }
+                        } catch (Throwable e) {
+                            throwException("Can't parse XML file " + path + "; nested exception: " + e.getMessage(), e);
+                        } finally {
+                            latch.countDown();
+                        }
+                    }
+                }, "DataCollectionConfigParser-Thread-" + i++);
+                thread.start();
+            }
+
+            try {
+                latch.await();
+            } catch (InterruptedException e) {
+                throwException("Exception while waiting for XML parsing threads to complete: " + e.getMessage(), e);
+            }
+
+        } catch (IOException e) {
             throwException("Exception while waiting for XML parsing threads to complete: " + e.getMessage(), e);
         }
+
     }
 
     /**
      * Get a system definition from datacollection-group map.
-     * 
+     *
      * @param systemDefName the systemDef object name.
      * @return the systemDef object.
      */
@@ -264,7 +275,7 @@ public class DataCollectionConfigParser {
 
     /**
      * Get a MIB object group from datacollection-group map.
-     * 
+     *
      * @param groupName the group name
      * @return the group object
      */
@@ -281,7 +292,7 @@ public class DataCollectionConfigParser {
 
     /**
      * Add a specific system definition into a SNMP collection.
-     * 
+     *
      * @param collection the target SNMP collection object.
      * @param systemDefName the system definition name.
      */
@@ -317,7 +328,7 @@ public class DataCollectionConfigParser {
 
     /**
      * Add all system definitions defined on a specific data collection group, into a SNMP collection.
-     * 
+     *
      * @param collection the target SNMP collection object.
      * @param dataCollectionGroupName the data collection group name.
      * @param excludeList the list of regular expression to exclude certain system definitions.
@@ -360,7 +371,7 @@ public class DataCollectionConfigParser {
             throw new DataAccessResourceFailureException(msg);
         } else {
             LOG.error(msg, e);
-            throw new DataAccessResourceFailureException(msg, e);            
+            throw new DataAccessResourceFailureException(msg, e);
         }
     }
 }

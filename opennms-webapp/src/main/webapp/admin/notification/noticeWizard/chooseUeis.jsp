@@ -35,6 +35,8 @@
 	import="
 		java.io.*,
 		java.util.*,
+        java.nio.file.Files,
+        java.nio.charset.Charset,
 		org.opennms.web.admin.notification.noticeWizard.*,
 		org.opennms.netmgt.config.*,
 		org.opennms.netmgt.config.notifications.*,
@@ -51,7 +53,7 @@
 	public void init() throws ServletException {
 		try {
 			m_eventConfDao = new DefaultEventConfDao();
-			m_eventConfDao.setConfigResource(new FileSystemResource(ConfigFileConstants.getFile(ConfigFileConstants.EVENT_CONF_FILE_NAME)));
+			m_eventConfDao.setConfigResource(new FileSystemResource(ConfigFileConstants.getFile(ConfigFileConstants.EVENT_CONF_FILE_NAME).toFile()));
 			m_eventConfDao.afterPropertiesSet();
 		} catch (Throwable e) {
 			throw new ServletException("Cannot load configuration file", e);
@@ -228,7 +230,7 @@ $(document).ready(function() {
         List<String> excludes = new ArrayList<String>();
         
         Properties excludeProperties = new Properties();
-	excludeProperties.load( new FileInputStream( ConfigFileConstants.getFile(ConfigFileConstants.EXCLUDE_UEI_FILE_NAME )));
+    	excludeProperties.load( Files.newBufferedReader(ConfigFileConstants.getFile(ConfigFileConstants.EXCLUDE_UEI_FILE_NAME), Charset.defaultCharset()));
         String[] ueis = BundleLists.parseBundleList( excludeProperties.getProperty( "excludes" ));
         
         for (int i = 0; i < ueis.length; i++)

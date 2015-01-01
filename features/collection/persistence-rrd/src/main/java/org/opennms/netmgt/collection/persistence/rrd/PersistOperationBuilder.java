@@ -29,10 +29,9 @@
 package org.opennms.netmgt.collection.persistence.rrd;
 
 
-import java.io.File;
 import java.io.FileNotFoundException;
+import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -60,14 +59,14 @@ import org.slf4j.LoggerFactory;
  */
 public class PersistOperationBuilder {
     private static final Logger LOG = LoggerFactory.getLogger(PersistOperationBuilder.class);
-    
+
     private final RrdRepository m_repository;
     private final String m_rrdName;
     private final ResourceIdentifier m_resource;
     private final Map<CollectionAttributeType, String> m_declarations = new TreeMap<CollectionAttributeType, String>(new ByNameComparator());
     private final Map<String, String> m_metaData = new LinkedHashMap<String, String>();
     private TimeKeeper m_timeKeeper = new DefaultTimeKeeper();
-    
+
     /**
      * RRDTool defined Data Source Types NOTE: "DERIVE" and "ABSOLUTE" not
      * currently supported.
@@ -99,7 +98,7 @@ public class PersistOperationBuilder {
         return m_repository;
     }
 
-    private File getResourceDir(ResourceIdentifier resource) throws FileNotFoundException {
+    private Path getResourceDir(ResourceIdentifier resource) throws FileNotFoundException {
         return resource.getResourceDir(getRepository());
     }
 
@@ -121,7 +120,7 @@ public class PersistOperationBuilder {
     public void setAttributeValue(CollectionAttributeType attrType, String value) {
         m_declarations.put(attrType, value);
     }
-    
+
     public void setAttributeMetadata(String metricIdentifier, String name) {
         if (metricIdentifier == null) {
             if (name == null) {
@@ -163,14 +162,14 @@ public class PersistOperationBuilder {
      * @throws org.opennms.netmgt.rrd.RrdException if any.
      */
     public void commit() throws RrdException {
-        if (m_declarations.size() == 0) {
-            // Nothing to do.  In fact, we'll get an error if we try to create an RRD file with no data sources            
+        if (m_declarations.isEmpty()) {
+            // Nothing to do.  In fact, we'll get an error if we try to create an RRD file with no data sources
             return;
         }
 
         try {
             final String ownerName = m_resource.getOwnerName();
-            final String absolutePath = getResourceDir(m_resource).getAbsolutePath();
+            final Path absolutePath = getResourceDir(m_resource).toAbsolutePath();
             List<RrdDataSource> dataSources = getDataSources();
             if (dataSources != null && dataSources.size() > 0) {
                 RrdUtils.createRRD(ownerName, absolutePath, m_rrdName, getRepository().getStep(), dataSources, getRepository().getRraList(), getAttributeMappings());
@@ -179,15 +178,13 @@ public class PersistOperationBuilder {
             }
         } catch (FileNotFoundException e) {
             LoggerFactory.getLogger(getClass()).warn("Could not get resource directory: " + e.getMessage(), e);
-            return;
         }
     }
 
     private String getValues() {
         boolean first = true;
-        StringBuffer values = new StringBuffer();
-        for (Iterator<CollectionAttributeType> iter = m_declarations.keySet().iterator(); iter.hasNext();) {
-        	CollectionAttributeType attrDef = iter.next();
+        StringBuilder values = new StringBuilder();
+        for (CollectionAttributeType attrDef : m_declarations.keySet()) {
             String value = m_declarations.get(attrDef);
             if (!first) {
                 values.append(':');
@@ -202,7 +199,7 @@ public class PersistOperationBuilder {
     private Map<String, String> getAttributeMappings() {
         return null;
     }
-    
+
     private List<RrdDataSource> getDataSources() {
         List<RrdDataSource> dataSources = new ArrayList<RrdDataSource>(m_declarations.size());
         for (CollectionAttributeType attrDef : m_declarations.keySet()) {

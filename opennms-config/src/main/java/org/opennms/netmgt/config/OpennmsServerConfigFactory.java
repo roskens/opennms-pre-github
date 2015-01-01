@@ -28,10 +28,10 @@
 
 package org.opennms.netmgt.config;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 import org.opennms.core.utils.ConfigFileConstants;
 
@@ -80,11 +80,11 @@ public final class OpennmsServerConfigFactory extends OpennmsServerConfigManager
             return;
         }
 
-        File cfgFile = ConfigFileConstants.getFile(ConfigFileConstants.OPENNMS_SERVER_CONFIG_FILE_NAME);
+        Path cfgFile = ConfigFileConstants.getFile(ConfigFileConstants.OPENNMS_SERVER_CONFIG_FILE_NAME);
 
-        InputStream cfgIn = new FileInputStream(cfgFile);
-        m_singleton = new OpennmsServerConfigFactory(cfgIn);
-        cfgIn.close();
+        try (InputStream cfgIn = Files.newInputStream(cfgFile);) {
+            m_singleton = new OpennmsServerConfigFactory(cfgIn);
+        }
 
         m_loaded = true;
     }
@@ -116,7 +116,7 @@ public final class OpennmsServerConfigFactory extends OpennmsServerConfigManager
 
         return m_singleton;
     }
-    
+
     /**
      * <p>setInstance</p>
      *

@@ -28,16 +28,16 @@
 
 package org.opennms.netmgt.config;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStreamWriter;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.math.BigInteger;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Iterator;
@@ -96,7 +96,7 @@ public class WmiPeerFactory {
 
     /**
      * Private constructor
-     * 
+     *
      * @exception java.io.IOException
      *                Thrown if the specified config file cannot be read
      * @exception org.exolab.castor.xml.MarshalException
@@ -106,8 +106,8 @@ public class WmiPeerFactory {
      *
      * @param configFile the path to the config file to load in.
      */
-    private WmiPeerFactory(String configFile) throws IOException, MarshalException, ValidationException {
-        m_config = CastorUtils.unmarshal(WmiConfig.class, new FileSystemResource(configFile));
+    private WmiPeerFactory(Path configFile) throws IOException, MarshalException, ValidationException {
+        m_config = CastorUtils.unmarshal(WmiConfig.class, new FileSystemResource(configFile.toFile()));
     }
 
     /**
@@ -142,11 +142,11 @@ public class WmiPeerFactory {
             return;
         }
 
-        File cfgFile = ConfigFileConstants.getFile(ConfigFileConstants.WMI_CONFIG_FILE_NAME);
+        Path cfgFile = ConfigFileConstants.getFile(ConfigFileConstants.WMI_CONFIG_FILE_NAME);
 
-        LOG.debug("init: config file path: {}", cfgFile.getPath());
+        LOG.debug("init: config file path: {}", cfgFile);
 
-        m_singleton = new WmiPeerFactory(cfgFile.getPath());
+        m_singleton = new WmiPeerFactory(cfgFile);
 
         m_loaded = true;
     }
@@ -192,10 +192,10 @@ public class WmiPeerFactory {
         StringWriter stringWriter = new StringWriter();
         Marshaller.marshal(m_config, stringWriter);
         if (stringWriter.toString() != null) {
-            Writer fileWriter = new OutputStreamWriter(new FileOutputStream(ConfigFileConstants.getFile(ConfigFileConstants.WMI_CONFIG_FILE_NAME)), "UTF-8");
-            fileWriter.write(stringWriter.toString());
-            fileWriter.flush();
-            fileWriter.close();
+            try (Writer fileWriter = Files.newBufferedWriter(ConfigFileConstants.getFile(ConfigFileConstants.WMI_CONFIG_FILE_NAME), Charset.forName("UTF-8"));) {
+                fileWriter.write(stringWriter.toString());
+                fileWriter.flush();
+            }
         }
 
         reload();
@@ -442,12 +442,12 @@ public class WmiPeerFactory {
 
     private void setWmiAgentConfig(WmiAgentConfig agentConfig, Definition def) {
         setCommonAttributes(agentConfig, def);
-        agentConfig.setPassword(determinePassword(def));       
+        agentConfig.setPassword(determinePassword(def));
     }
 
     /**
      * This is a helper method to set all the common attributes in the agentConfig.
-     * 
+     *
      * @param agentConfig
      * @param def
      */
@@ -491,7 +491,7 @@ public class WmiPeerFactory {
     }
 
     /**
-     * Helper method to search the wmi-config 
+     * Helper method to search the wmi-config
      * @param def
      * @return a long containing the timeout, WmiAgentConfig.DEFAULT_TIMEOUT if not specified.
      */
@@ -500,7 +500,7 @@ public class WmiPeerFactory {
         return (long)(def.getTimeout() == 0 ? (m_config.getTimeout() == 0 ? timeout : m_config.getTimeout()) : def.getTimeout());
     }
 
-    private int determineRetries(Definition def) {        
+    private int determineRetries(Definition def) {
         int retries = WmiAgentConfig.DEFAULT_RETRIES;
         return (def.getRetry() == 0 ? (m_config.getRetry() == 0 ? retries : m_config.getRetry()) : def.getRetry());
     }

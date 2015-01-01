@@ -30,6 +30,9 @@ package org.opennms.netmgt.threshd;
 
 import java.io.File;
 import java.net.InetAddress;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Map;
@@ -117,7 +120,7 @@ public class LatencyInterface {
 
 	int getNodeId() throws ThresholdingException {
 	    NetworkInterface<InetAddress> iface = getNetworkInterface();
-	
+
 		int nodeId = -1;
 	    Integer tmp = iface.getAttribute(NODE_ID_KEY);
 	    if (tmp != null)
@@ -137,20 +140,20 @@ public class LatencyInterface {
 		return InetAddressUtils.str(getInetAddress());
 	}
 
-	File getLatencyDir() throws ThresholdingException {
+    Path getLatencyDir() throws ThresholdingException {
 		String repository = getNetworkInterface().getAttribute(RRD_REPOSITORY_KEY);
 	    LOG.debug("check: rrd repository=", repository);
 	    // Get File object representing the
 	    // '/opt/OpenNMS/share/rrd/<svc_name>/<ipAddress>/' directory
-	    File latencyDir = new File(repository + File.separator + getHostAddress());
-	    if (!latencyDir.exists()) {
+	    Path latencyDir = Paths.get(repository, getHostAddress());
+        if (!Files.exists(latencyDir)) {
 	        throw new ThresholdingException("Latency directory for " + getServiceName() + "/" + getHostAddress() + " does not exist. Threshold checking failed for " + getHostAddress(), ThresholdingResult.THRESHOLDING_FAILED);
 	    } else if (!RrdFileConstants.isValidRRDLatencyDir(latencyDir)) {
 	        throw new ThresholdingException("Latency directory for " + getServiceName() + "/" + getHostAddress() + " is not a valid RRD latency directory. Threshold checking failed for " + getHostAddress(), ThresholdingResult.THRESHOLDING_FAILED);
 	    }
 	    return latencyDir;
 	}
-	
+
 	/**
 	 * Creates a new threshold event from the specified parms.
 	 * @param dsValue
@@ -167,33 +170,33 @@ public class LatencyInterface {
 	 *            IP address of the affected interface
 	 * @param thresholder TODO
 	 * @return new threshold event to be sent to Eventd
-	 * @throws ThresholdingException 
+	 * @throws ThresholdingException
 	 */
 	Event createEvent(double dsValue, Threshold threshold, String uei, Date date) throws ThresholdingException {
 		int nodeId = getNodeId();
 		InetAddress ipAddr = getInetAddress();
-		
+
 		if (threshold == null)
 	        throw new IllegalArgumentException("threshold cannot be null.");
-	
+
 	    LOG.debug("createEvent: ds={} uei={}", threshold.getDsName(), uei);
-	
+
 	    // create the event to be sent
 	    EventBuilder bldr = new EventBuilder(uei, "OpenNMS.Threshd:" + threshold.getDsName(), date);
 	    bldr.setNodeid(nodeId);
 	    bldr.setInterface(ipAddr);
 	    bldr.setService(getServiceName());
-	
-	
+
+
 	    // Set event host
         bldr.setHost(InetAddressUtils.getLocalHostName());
-	    
+
 	    bldr.addParam("ds", threshold.getDsName());
 	    bldr.addParam("value", dsValue);
 	    bldr.addParam("threshold", threshold.getValue());
 	    bldr.addParam("trigger", threshold.getTrigger());
 	    bldr.addParam("rearm", threshold.getRearm());
-	
+
 	    return bldr.getEvent();
 	}
 }

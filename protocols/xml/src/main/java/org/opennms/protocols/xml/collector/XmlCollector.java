@@ -28,7 +28,9 @@
 
 package org.opennms.protocols.xml.collector;
 
-import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Map;
 
 import org.opennms.core.spring.BeanUtils;
@@ -47,7 +49,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * The Class XmlCollector.
- * 
+ *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 public class XmlCollector implements ServiceCollector {
@@ -98,10 +100,12 @@ public class XmlCollector implements ServiceCollector {
 
         // If the RRD file repository directory does NOT already exist, create it.
         LOG.debug("initialize: Initializing RRD repo from XmlCollector...");
-        File f = new File(m_xmlCollectionDao.getConfig().getRrdRepository());
-        if (!f.isDirectory()) {
-            if (!f.mkdirs()) {
-                throw new CollectionInitializationException("Unable to create RRD file repository.  Path doesn't already exist and could not make directory: " + m_xmlCollectionDao.getConfig().getRrdRepository());
+        Path path = m_xmlCollectionDao.getConfig().getRrdRepository();
+        if (!Files.isDirectory(path)) {
+            try {
+                Files.createDirectories(path);
+            } catch (IOException e) {
+                throw new CollectionInitializationException("Unable to create RRD file repository.  Path doesn't already exist and could not make directory: " + path);
             }
         }
     }

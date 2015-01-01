@@ -41,9 +41,9 @@ import org.opennms.netmgt.model.MockServiceDaemon;
 import org.opennms.netmgt.model.ServiceInfo;
 
 public class JmxDaemonStatusDaoTest extends TestCase {
-    static private MBeanServer mBeanServer;
-	static private ObjectName objectName[] = new ObjectName[4];
-	static private String[] names = {"test","test2","notifd","test3"};
+    private static MBeanServer mBeanServer;
+    private static final ObjectName objectName[] = new ObjectName[4];
+    private static final String[] names = {"test", "test2", "notifd", "test3"};
 	private JmxDaemonStatusDao jmxDaemonStatusDao;
 	static {
 		mBeanServer = MBeanServerFactory.createMBeanServer();
@@ -59,17 +59,17 @@ public class JmxDaemonStatusDaoTest extends TestCase {
 			throw new JmxObjectNameException("Null value passed to new ObjectName -param '"+objectName[i]+"'", e);
 		}
 	}
-	
+
     @Override
 	protected void setUp() throws Exception {
 		super.setUp();
 		for(int i = 0; i < 4; i++){
 		  MockServiceDaemon serviceDaemonStub = new MockServiceDaemon(names[i]);
 		  serviceDaemonStub.start();
-		  
+
 		  mBeanServer.registerMBean(serviceDaemonStub, objectName[i]);
 		}
-		
+
 		jmxDaemonStatusDao = new JmxDaemonStatusDao();
 		jmxDaemonStatusDao.setMbeanServer(mBeanServer);
 	}
@@ -97,22 +97,22 @@ public class JmxDaemonStatusDaoTest extends TestCase {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void testGetServiceHandleForValidService(){
 		// get notifd service
 		// assert the service returned is not null
 	}
-	
+
 	public void testGetServiceHandleForInvalidService(){
 		// get nottobefound service
 		// assert null return
 	}
-	
+
 	public void testGetServiceHandleForNullServiceStr(){
 		// get null service
 		// assert null service passes exception
 	}
 
-	
+
 
 }

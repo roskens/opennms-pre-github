@@ -31,6 +31,7 @@ package org.opennms.netmgt.config;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
@@ -68,20 +69,20 @@ public class EventdConfigManager implements EventdConfig {
     public EventdConfigManager() throws MarshalException, ValidationException, IOException {
         reload();
     }
-    
+
     EventdConfigManager(final InputStream stream) throws MarshalException, ValidationException, IOException {
             m_config = CastorUtils.unmarshal(EventdConfiguration.class, stream);
         }
-    
+
     private void reload() throws MarshalException, ValidationException, IOException {
-    	InputStream stream = new FileInputStream(ConfigFileConstants.getFile(ConfigFileConstants.EVENTD_CONFIG_FILE_NAME));
-    	m_config = CastorUtils.unmarshal(EventdConfiguration.class, stream);		
+        InputStream stream = Files.newInputStream(ConfigFileConstants.getFile(ConfigFileConstants.EVENTD_CONFIG_FILE_NAME));
+    	m_config = CastorUtils.unmarshal(EventdConfiguration.class, stream);
     }
 
     public Lock getReadLock() {
         return m_readLock;
     }
-    
+
     public Lock getWriteLock() {
         return m_writeLock;
     }
@@ -99,7 +100,7 @@ public class EventdConfigManager implements EventdConfig {
             getReadLock().unlock();
         }
     }
-    
+
     /**
      * Return the port on which eventd listens for TCP connections.
      *

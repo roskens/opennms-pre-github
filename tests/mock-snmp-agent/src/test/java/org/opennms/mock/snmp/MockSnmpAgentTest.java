@@ -38,10 +38,13 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import javax.crypto.Cipher;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TestName;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
@@ -76,7 +79,7 @@ import org.snmp4j.transport.DefaultUdpTransportMapping;
 
 @RunWith(Parameterized.class)
 public class MockSnmpAgentTest  {
-    @Parameters
+    @Parameters(name = "{index}: snmp-version:{0}")
     public static Collection<Object[]> versions() {
         return Arrays.asList(new Object[][] {
                 { SnmpConstants.version1 },
@@ -88,17 +91,22 @@ public class MockSnmpAgentTest  {
     private MockSnmpAgent m_agent;
     private USM m_usm;
     private ArrayList<AnticipatedRequest> m_requestedVarbinds;
-    private int m_version;
 
-    private static long DEFAULT_TIMEOUT = 5000;
+    private final int m_version;
+
+    private static final long DEFAULT_TIMEOUT = 5000;
+
+    /* erg, Rule fields must be public */
+    @Rule
+    public TestName m_testName = new TestName();
 
     public MockSnmpAgentTest(int version) {
         m_version = version;
     }
 
     private class AnticipatedRequest {
-        private String m_requestedOid;
-        private Variable m_requestedValue;
+        private final String m_requestedOid;
+        private final Variable m_requestedValue;
         private String m_expectedOid;
         private int m_expectedSyntax;
         private Variable m_expectedValue;
@@ -138,6 +146,8 @@ public class MockSnmpAgentTest  {
 
     @Before
     public void setUp() throws Exception {
+        System.err.println("------------ Begin Test " + m_testName.getMethodName() + " " + getSNMPVersion() + " --------------------------");
+
         // Create a global USM that all client calls will use
         SNMP4JSettings.setEnterpriseID(5813);
         m_usm = new USM(SecurityProtocols.getInstance(), new OctetString(MPv3.createLocalEngineID()), 0);
@@ -146,6 +156,10 @@ public class MockSnmpAgentTest  {
         m_agent = MockSnmpAgent.createAgentAndRun(classPathResource("loadSnmpDataTest.properties"), "127.0.0.1/0");
         Thread.sleep(200);
         System.err.println("Started MockSnmpAgent on port " + m_agent.getPort());
+
+        if (m_version == SnmpConstants.version3) {
+            Cipher cipher = Cipher.getInstance("DES/CBC/NoPadding");
+        }
 
         m_requestedVarbinds = new ArrayList<AnticipatedRequest>();
     }
@@ -176,7 +190,7 @@ public class MockSnmpAgentTest  {
 
     /**
      * Make sure that we can setUp() and tearDown() the agent.
-     * @throws InterruptedException 
+     * @throws InterruptedException
      */
     @Test
     public void testAgentSetup() {
@@ -188,7 +202,7 @@ public class MockSnmpAgentTest  {
      * MockSnmpAgent tears itself down properly. In particular, we want to make
      * sure that the UDP listener gets torn down so listening port is free for
      * later instances of the agent.
-     * 
+     *
      * @throws Exception
      */
     @Test
@@ -275,7 +289,7 @@ public class MockSnmpAgentTest  {
         doSet();
 
         // request new value and expect 17
-        request(oid).andExpect(oid, SMIConstants.SYNTAX_INTEGER, new Integer32(17)); 
+        request(oid).andExpect(oid, SMIConstants.SYNTAX_INTEGER, new Integer32(17));
         doGet();
 
     }
@@ -445,7 +459,7 @@ public class MockSnmpAgentTest  {
             response = e.getResponse();
         } catch (final IOException e) {
             e.printStackTrace();
-        } finally { 
+        } finally {
             if (snmp != null) {
                 try {
                     snmp.close();
@@ -494,7 +508,7 @@ public class MockSnmpAgentTest  {
             response = e.getResponse();
         } catch (final IOException e) {
             e.printStackTrace();
-        } finally { 
+        } finally {
             if (snmp != null) {
                 try {
                     snmp.close();
@@ -517,5 +531,16 @@ public class MockSnmpAgentTest  {
         return getClass().getClassLoader().getResource(path);
     }
 
-
+    private String getSNMPVersion() {
+        switch (m_version) {
+            case SnmpConstants.version1:
+                return "SNMPv1";
+            case SnmpConstants.version2c:
+                return "SNMPv2c";
+            case SnmpConstants.version3:
+                return "SNMPv3";
+            default:
+                return "SNMP vUnknown";
+        }
+    }
 }

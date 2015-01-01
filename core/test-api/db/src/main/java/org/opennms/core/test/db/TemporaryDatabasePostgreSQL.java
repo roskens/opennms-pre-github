@@ -29,16 +29,20 @@
 package org.opennms.core.test.db;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileFilter;
+import java.io.IOException;
 import java.io.PrintStream;
 import java.io.PrintWriter;
+import java.nio.file.DirectoryStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.SQLFeatureNotSupportedException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.TreeMap;
@@ -58,7 +62,7 @@ import org.springframework.jdbc.core.RowCountCallbackHandler;
 import org.springframework.util.StringUtils;
 
 /**
- * 
+ *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  */
 public class TemporaryDatabasePostgreSQL implements TemporaryDatabase {
@@ -103,7 +107,7 @@ public class TemporaryDatabasePostgreSQL implements TemporaryDatabase {
              System.getProperty(ADMIN_USER_PROPERTY, DEFAULT_ADMIN_USER),
              System.getProperty(ADMIN_PASSWORD_PROPERTY, DEFAULT_ADMIN_PASSWORD), useExisting);
     }
-    
+
     public TemporaryDatabasePostgreSQL(String testDatabase, String driver, String url,
             String adminUser, String adminPassword) throws Exception {
         this(testDatabase, driver, url, adminUser, adminPassword, false);
@@ -140,7 +144,7 @@ public class TemporaryDatabasePostgreSQL implements TemporaryDatabase {
             resetOutputStream();
             m_installerDb.setDatabaseName(getTestDatabase());
             m_installerDb.setDataSource(getDataSource());
-            
+
             m_installerDb.setAdminDataSource(getAdminDataSource());
             m_installerDb.setPostgresOpennmsUser(m_adminUser);
 
@@ -176,12 +180,12 @@ public class TemporaryDatabasePostgreSQL implements TemporaryDatabase {
 
     }
 
-    protected String getStoredProcDirectory() {
-        return ConfigurationTestUtils.getFileForConfigFile("create.sql").getParentFile().getAbsolutePath();
+    protected Path getStoredProcDirectory() {
+        return ConfigurationTestUtils.getFileForConfigFile("create.sql").getParent();
     }
 
-    protected String getCreateSqlLocation() {
-        return ConfigurationTestUtils.getFileForConfigFile("create.sql").getAbsolutePath();
+    protected Path getCreateSqlLocation() {
+        return ConfigurationTestUtils.getFileForConfigFile("create.sql");
     }
 
     public boolean isSetupIpLike() {
@@ -192,53 +196,64 @@ public class TemporaryDatabasePostgreSQL implements TemporaryDatabase {
         m_setupIpLike = setupIpLike;
     }
 
-    protected File findIpLikeLibrary() {
-        File topDir = ConfigurationTestUtils.getTopProjectDirectory();
+    protected Path findIpLikeLibrary() {
+        Path topDir = ConfigurationTestUtils.getTopProjectDirectory();
 
-        File ipLikeDir = new File(topDir, "opennms-iplike");
-        assertTrue("iplike directory exists at ../opennms-iplike: " + ipLikeDir.getAbsolutePath(), ipLikeDir.exists());
+        Path ipLikeDir = topDir.resolve("opennms-iplike");
+        assertTrue("iplike directory exists at ../opennms-iplike: " + ipLikeDir.toAbsolutePath(), Files.exists(ipLikeDir));
 
-        File[] ipLikePlatformDirs = ipLikeDir.listFiles(new FileFilter() {
+        List<Path> ipLikePlatformDirs = new ArrayList<>();
+        try (DirectoryStream<Path> stream = Files.newDirectoryStream(ipLikeDir, new DirectoryStream.Filter<Path>() {
             @Override
-            public boolean accept(File file) {
-                if (file.getName().matches("opennms-iplike-.*") && file.isDirectory()) {
+            public boolean accept(Path path) {
+                if (path.getFileName().toString().matches("opennms-iplike-.*") && Files.isDirectory(path)) {
                     return true;
                 } else {
                     return false;
                 }
             }
-        });
-        assertTrue("expecting at least one opennms iplike platform directory in " + ipLikeDir.getAbsolutePath() + "; got: " + StringUtils.arrayToDelimitedString(ipLikePlatformDirs, ", "), ipLikePlatformDirs.length > 0);
+        });) {
+            for (Path path : stream) {
+                ipLikePlatformDirs.add(path);
+            }
+        } catch (IOException e) {
 
-        File ipLikeFile = null;
-        for (File ipLikePlatformDir : ipLikePlatformDirs) {
-            assertTrue("iplike platform directory does not exist but was listed in directory listing: " + ipLikePlatformDir.getAbsolutePath(), ipLikePlatformDir.exists());
+        }
+        assertTrue("expecting at least one opennms iplike platform directory in " + ipLikeDir.toAbsolutePath() + "; got: " + StringUtils.collectionToDelimitedString(ipLikePlatformDirs, ", "), ipLikePlatformDirs.size() > 0);
 
-            File ipLikeTargetDir = new File(ipLikePlatformDir, "target");
-            if (!ipLikeTargetDir.exists() || !ipLikeTargetDir.isDirectory()) {
+        DirectoryStream.Filter<Path> fileFilter = new DirectoryStream.Filter<Path>() {
+            @Override
+            public boolean accept(Path path) {
+                return (Files.isRegularFile(path) && path.getFileName().toString().matches("opennms-iplike-.*\\.(so|dylib)"));
+            }
+        };
+        Path ipLikeFile = null;
+        for (Path ipLikePlatformDir : ipLikePlatformDirs) {
+            assertTrue("iplike platform directory does not exist but was listed in directory listing: " + ipLikePlatformDir.toAbsolutePath(), Files.exists(ipLikePlatformDir));
+
+            Path ipLikeTargetDir = ipLikePlatformDir.resolve("target");
+            if (!Files.exists(ipLikeTargetDir) || !Files.isDirectory(ipLikeTargetDir)) {
                 // Skip this one
                 continue;
             }
 
-            File[] ipLikeFiles = ipLikeTargetDir.listFiles(new FileFilter() {
-                @Override
-                public boolean accept(File file) {
-                    if (file.isFile() && file.getName().matches("opennms-iplike-.*\\.(so|dylib)")) {
-                        return true;
-                    } else {
-                        return false;
-                    }
+            List<Path> ipLikeFiles = new ArrayList<>();
+            try (DirectoryStream<Path> stream = Files.newDirectoryStream(ipLikeTargetDir, fileFilter)) {
+                for (Path path : stream) {
+                    ipLikeFiles.add(path);
                 }
-            });
-            assertFalse("expecting zero or one iplike file in " + ipLikeTargetDir.getAbsolutePath() + "; got: " + StringUtils.arrayToDelimitedString(ipLikeFiles, ", "), ipLikeFiles.length > 1);
+            } catch (IOException ex) {
+            }
 
-            if (ipLikeFiles.length == 1) {
-                ipLikeFile = ipLikeFiles[0];
+            assertFalse("expecting zero or one iplike file in " + ipLikeTargetDir.toAbsolutePath() + "; got: " + StringUtils.collectionToDelimitedString(ipLikeFiles, ", "), ipLikeFiles.size() > 1);
+
+            if (ipLikeFiles.size() == 1) {
+                ipLikeFile = ipLikeFiles.get(0);
             }
 
         }
 
-        assertNotNull("Could not find iplike shared object in a target directory in any of these directories: " + StringUtils.arrayToDelimitedString(ipLikePlatformDirs, ", "), ipLikeFile);
+        assertNotNull("Could not find iplike shared object in a target directory in any of these directories: " + StringUtils.collectionToDelimitedString(ipLikePlatformDirs, ", "), ipLikeFile);
 
         return ipLikeFile;
     }
@@ -398,7 +413,7 @@ public class TemporaryDatabasePostgreSQL implements TemporaryDatabase {
                         final String message = "Failed to drop test database on last attempt " + (dropAttempt + 1) + ": " + e;
                         System.err.println(new Date().toString() + ": " + message);
                         dumpThreads();
-                        
+
                         TemporaryDatabaseException newException = new TemporaryDatabaseException(message);
                         newException.initCause(e);
                         throw newException;
@@ -446,7 +461,7 @@ public class TemporaryDatabasePostgreSQL implements TemporaryDatabase {
 
         m_destroyed = true;
     }
-    
+
     public static void dumpThreads() {
         Map<Thread, StackTraceElement[]> threads = Thread.getAllStackTraces();
         int daemons = 0;
@@ -622,7 +637,7 @@ public class TemporaryDatabasePostgreSQL implements TemporaryDatabase {
     public String getUrl() {
         return m_url;
     }
-    
+
     @Override
     public String toString() {
         return new ToStringBuilder(this)

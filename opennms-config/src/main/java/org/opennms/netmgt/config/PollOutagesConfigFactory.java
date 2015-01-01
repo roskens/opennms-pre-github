@@ -28,12 +28,14 @@
 
 package org.opennms.netmgt.config;
 
-import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.StringWriter;
 import java.io.Writer;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 import org.exolab.castor.xml.MarshalException;
 import org.exolab.castor.xml.ValidationException;
@@ -48,7 +50,7 @@ import org.springframework.core.io.Resource;
  * this class should make sure the <em>init()</em> is called before calling
  * any other method to ensure the config is loaded before accessing other
  * convenience methods.
- * 
+ *
  * @author <a href="mailto:sowmya@opennms.org">Sowmya Nataraj </a>
  * @author <a href="http://www.opennms.org/">OpenNMS </a>
  */
@@ -65,7 +67,7 @@ public final class PollOutagesConfigFactory extends PollOutagesConfigManager {
 
     /**
      * Private constructor
-     * 
+     *
      * @exception java.io.IOException
      *                Thrown if the specified config file cannot be read
      * @exception org.exolab.castor.xml.MarshalException
@@ -73,8 +75,8 @@ public final class PollOutagesConfigFactory extends PollOutagesConfigManager {
      * @exception org.exolab.castor.xml.ValidationException
      *                Thrown if the contents do not match the required schema.
      */
-    PollOutagesConfigFactory(final String configFile) {
-        setConfigResource(new FileSystemResource(configFile));
+    PollOutagesConfigFactory(final Path configFile) {
+        setConfigResource(new FileSystemResource(configFile.toFile()));
     }
 
     /**
@@ -87,7 +89,7 @@ public final class PollOutagesConfigFactory extends PollOutagesConfigManager {
     /**
      * Load the config from the default config file and create the singleton
      * instance of this factory.
-     * 
+     *
      * @exception java.io.IOException
      *                Thrown if the specified config file cannot be read
      * @exception org.exolab.castor.xml.MarshalException
@@ -108,14 +110,14 @@ public final class PollOutagesConfigFactory extends PollOutagesConfigManager {
             return;
         }
 
-        m_singleton = new PollOutagesConfigFactory(new FileSystemResource(ConfigFileConstants.getFile(ConfigFileConstants.POLL_OUTAGES_CONFIG_FILE_NAME)));
+        m_singleton = new PollOutagesConfigFactory(ConfigFileConstants.getFile(ConfigFileConstants.POLL_OUTAGES_CONFIG_FILE_NAME));
         m_singleton.afterPropertiesSet();
         m_loaded = true;
     }
 
     /**
      * Reload the config from the default config file
-     * 
+     *
      * @exception java.io.IOException
      *                Thrown if the specified config file cannot be
      *                read/loaded
@@ -137,7 +139,7 @@ public final class PollOutagesConfigFactory extends PollOutagesConfigManager {
 
     /**
      * Return the singleton instance of this factory.
-     * 
+     *
      * @return The current factory instance.
      * @throws java.lang.IllegalStateException
      *             Thrown if the factory has not yet been initialized.
@@ -153,7 +155,7 @@ public final class PollOutagesConfigFactory extends PollOutagesConfigManager {
      * <p>
      * setInstance
      * </p>
-     * 
+     *
      * @param instance
      *            a {@link org.opennms.netmgt.config.PollOutagesConfigFactory}
      *            object.
@@ -166,7 +168,7 @@ public final class PollOutagesConfigFactory extends PollOutagesConfigManager {
 
     /**
      * Saves the current in-memory configuration to disk and reloads
-     * 
+     *
      * @throws org.exolab.castor.xml.MarshalException
      *             if any.
      * @throws java.io.IOException
@@ -199,13 +201,10 @@ public final class PollOutagesConfigFactory extends PollOutagesConfigManager {
     protected void saveXML(final String xmlString) throws IOException, MarshalException, ValidationException {
         getWriteLock().lock();
 
-        try {
-            File cfgFile = ConfigFileConstants.getFile(ConfigFileConstants.POLL_OUTAGES_CONFIG_FILE_NAME);
-
-            Writer fileWriter = new OutputStreamWriter(new FileOutputStream(cfgFile), "UTF-8");
+        Path cfgFile = ConfigFileConstants.getFile(ConfigFileConstants.POLL_OUTAGES_CONFIG_FILE_NAME);
+        try (final Writer fileWriter = Files.newBufferedWriter(cfgFile, Charset.forName("UTF-8"));) {
             fileWriter.write(xmlString);
             fileWriter.flush();
-            fileWriter.close();
         } finally {
             getWriteLock().unlock();
         }
@@ -215,7 +214,7 @@ public final class PollOutagesConfigFactory extends PollOutagesConfigManager {
      * <p>
      * update
      * </p>
-     * 
+     *
      * @throws java.io.IOException
      *             if any.
      * @throws org.exolab.castor.xml.MarshalException

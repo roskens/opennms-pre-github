@@ -28,20 +28,21 @@
 
 package org.opennms.upgrade.api;
 
-import java.io.File;
-
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import org.apache.commons.io.FileUtils;
 import org.junit.Assert;
 
 /**
  * The test implementation of AbstractOnmsUpgrade.
- * 
- * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a> 
+ *
+ * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 public class MockOnmsUpgrade extends AbstractOnmsUpgrade {
 
     /** The Constant TEST_ZIP. */
-    public final static File TEST_ZIP = new File("target/zip-test.zip");
+    public final static Path TEST_ZIP = Paths.get("target", "zip-test.zip");
 
     /**
      * Instantiates a new mock onms upgrade.
@@ -110,11 +111,11 @@ public class MockOnmsUpgrade extends AbstractOnmsUpgrade {
      * @throws Exception the exception
      */
     public void testZipAndUnzipDirectory() throws Exception {
-        zipDir(TEST_ZIP, new File("src/main/java"));
-        File output = new File("target/zip-test");
+        zipDir(TEST_ZIP, Paths.get("src", "main", "java"));
+        Path output = Paths.get("target", "zip-test");
         unzipFile(TEST_ZIP, output);
-        Assert.assertTrue(new File(output, "org/opennms/upgrade/api/OnmsUpgrade.java").exists());
-        FileUtils.deleteDirectory(output);
+        Assert.assertTrue(Files.exists(output.resolve("org/opennms/upgrade/api/OnmsUpgrade.java")));
+        FileUtils.deleteDirectory(output.toFile());
     }
 
     /**
@@ -123,17 +124,17 @@ public class MockOnmsUpgrade extends AbstractOnmsUpgrade {
      * @throws Exception the exception
      */
     public void testZipAndUnzipFile() throws Exception {
-        File output = new File("target/zip-test");
-        File srcFile = new File("src/main/java/org/opennms/upgrade/api/OnmsUpgrade.java");
-        File dstFile = new File(output, "/org/opennms/upgrade/api/OnmsUpgrade.java");
-        FileUtils.copyFile(srcFile, dstFile);
+        Path output = Paths.get("target", "zip-test");
+        Path srcFile = Paths.get("src/main/java/org/opennms/upgrade/api/OnmsUpgrade.java");
+        Path dstFile = output.resolve("/org/opennms/upgrade/api/OnmsUpgrade.java");
+        Files.copy(srcFile, dstFile);
         zipFile(dstFile);
-        File zip = new File(dstFile.getAbsoluteFile() + ".zip");
-        Assert.assertTrue(zip.exists());
-        FileUtils.deleteQuietly(dstFile);
+        Path zip = dstFile.resolveSibling(dstFile.getFileName() + ".zip");
+        Assert.assertTrue(Files.exists(zip));
+        FileUtils.deleteQuietly(dstFile.toFile());
         unzipFile(zip, output);
-        Assert.assertTrue(new File(output, "OnmsUpgrade.java").exists());
-        FileUtils.deleteDirectory(output);;
+        Assert.assertTrue(Files.exists(output.resolve("OnmsUpgrade.java")));
+        FileUtils.deleteDirectory(output.toFile());
     }
 
 }

@@ -28,11 +28,15 @@
 
 package org.opennms.netmgt.config;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.attribute.FileTime;
 import java.util.List;
 
 import org.apache.commons.io.IOUtils;
@@ -67,7 +71,7 @@ public class WmiDataCollectionConfigFactory {
      protected boolean initialized = false;
 
      /** Timestamp of the WMI collection config, used to know when to reload from disk. */
-     protected static long m_lastModified;
+    protected static FileTime m_lastModified = null;
 
      private static WmiDatacollectionConfig m_config;
 
@@ -79,16 +83,9 @@ public class WmiDataCollectionConfigFactory {
       * @throws org.exolab.castor.xml.ValidationException if any.
       * @throws java.io.IOException if any.
       */
-     public WmiDataCollectionConfigFactory(String configFile) throws MarshalException, ValidationException, IOException {
-         InputStream is = null;
-
-         try {
-             is = new FileInputStream(configFile);
+    public WmiDataCollectionConfigFactory(Path configFile) throws MarshalException, ValidationException, IOException {
+        try (InputStream is = Files.newInputStream(configFile);) {
              initialize(is);
-         } finally {
-             if (is != null) {
-                 IOUtils.closeQuietly(is);
-             }
          }
      }
 
@@ -107,7 +104,7 @@ public class WmiDataCollectionConfigFactory {
          LOG.debug("initialize: initializing WMI collection config factory.");
          m_config = CastorUtils.unmarshal(WmiDatacollectionConfig.class, stream);
      }
-     
+
      /**
       * Be sure to call this method before calling getInstance().
       *
@@ -119,9 +116,9 @@ public class WmiDataCollectionConfigFactory {
      public static synchronized void init() throws IOException, FileNotFoundException, MarshalException, ValidationException {
 
          if (m_instance == null) {
-             File cfgFile = ConfigFileConstants.getFile(ConfigFileConstants.WMI_COLLECTION_CONFIG_FILE_NAME);
-             m_instance = new WmiDataCollectionConfigFactory(cfgFile.getPath());
-             m_lastModified = cfgFile.lastModified();
+             Path cfgFile = ConfigFileConstants.getFile(ConfigFileConstants.WMI_COLLECTION_CONFIG_FILE_NAME);
+             m_instance = new WmiDataCollectionConfigFactory(cfgFile);
+             m_lastModified = Files.getLastModifiedTime(cfgFile);
              m_loadedFromFile = true;
          }
      }
@@ -175,8 +172,8 @@ public class WmiDataCollectionConfigFactory {
       */
      protected void updateFromFile() throws IOException, MarshalException, ValidationException {
          if (m_loadedFromFile) {
-             File surveillanceViewsFile = ConfigFileConstants.getFile(ConfigFileConstants.WMI_COLLECTION_CONFIG_FILE_NAME);
-             if (m_lastModified != surveillanceViewsFile.lastModified()) {
+             Path surveillanceViewsFile = ConfigFileConstants.getFile(ConfigFileConstants.WMI_COLLECTION_CONFIG_FILE_NAME);
+             if (m_lastModified == null || !m_lastModified.equals(Files.getLastModifiedTime(surveillanceViewsFile))) {
                  this.reload();
              }
          }
@@ -228,7 +225,7 @@ public class WmiDataCollectionConfigFactory {
       */
      public RrdRepository getRrdRepository(String collectionName) {
          RrdRepository repo = new RrdRepository();
-         repo.setRrdBaseDir(new File(getRrdPath()));
+         repo.setRrdBaseDir(getRrdPath());
          repo.setRraList(getRRAList(collectionName));
          repo.setStep(getStep(collectionName));
          repo.setHeartBeat((2 * getStep(collectionName)));
@@ -269,22 +266,14 @@ public class WmiDataCollectionConfigFactory {
       *
       * @return a {@link java.lang.String} object.
       */
-     public String getRrdPath() {
+    public Path getRrdPath() {
          String rrdPath = m_config.getRrdRepository();
          if (rrdPath == null) {
              throw new RuntimeException("Configuration error, failed to "
                      + "retrieve path to RRD repository.");
          }
 
-         /*
-          * TODO: make a path utils class that has the below in it strip the
-          * File.separator char off of the end of the path.
-          */
-         if (rrdPath.endsWith(File.separator)) {
-             rrdPath = rrdPath.substring(0, (rrdPath.length() - File.separator.length()));
-         }
-
-         return rrdPath;
+         return Paths.get(rrdPath);
      }
 
  }

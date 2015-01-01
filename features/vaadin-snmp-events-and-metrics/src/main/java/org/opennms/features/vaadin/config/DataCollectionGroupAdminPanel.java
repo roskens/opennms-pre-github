@@ -28,8 +28,6 @@
 
 package org.opennms.features.vaadin.config;
 
-import java.io.File;
-import java.io.FileWriter;
 import java.util.Iterator;
 
 import org.opennms.core.utils.ConfigFileConstants;
@@ -54,6 +52,10 @@ import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.VerticalLayout;
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 /**
  * The Class Data Collection Group Administration Panel.
@@ -83,17 +85,17 @@ public class DataCollectionGroupAdminPanel extends VerticalLayout {
         toolbar.addComponent(comboLabel);
         toolbar.setComponentAlignment(comboLabel, Alignment.MIDDLE_LEFT);
 
-        final File datacollectionDir = new File(ConfigFileConstants.getFilePathString(), "datacollection");
+        final Path datacollectionDir = ConfigFileConstants.getFilePathString().resolve("datacollection");
         final ComboBox dcGroupSource = new ComboBox();
         toolbar.addComponent(dcGroupSource);
         dcGroupSource.setImmediate(true);
         dcGroupSource.setNullSelectionAllowed(false);
-        dcGroupSource.setContainerDataSource(new XmlFileContainer(datacollectionDir, false));
+        dcGroupSource.setContainerDataSource(new XmlFileContainer(datacollectionDir.toFile(), false));
         dcGroupSource.setItemCaptionPropertyId(FilesystemContainer.PROPERTY_NAME);
         dcGroupSource.addValueChangeListener(new ComboBox.ValueChangeListener() {
             @Override
             public void valueChange(ValueChangeEvent event) {
-                final File file = (File) event.getProperty().getValue();
+                final Path file = (Path) event.getProperty().getValue();
                 if (file == null)
                     return;
                 try {
@@ -116,7 +118,7 @@ public class DataCollectionGroupAdminPanel extends VerticalLayout {
                 PromptWindow w = new PromptWindow("New Data Collection Group", "Group Name") {
                     @Override
                     public void textFieldChanged(String fieldValue) {
-                        File file = new File(datacollectionDir, fieldValue.replaceAll(" ", "_") + ".xml");
+                        Path file = datacollectionDir.resolve(fieldValue.replaceAll(" ", "_") + ".xml");
                         LOG.info("Adding new data collection file {}", file);
                         DatacollectionGroup dcGroup = new DatacollectionGroup();
                         dcGroup.setName(fieldValue);
@@ -136,20 +138,20 @@ public class DataCollectionGroupAdminPanel extends VerticalLayout {
                     Notification.show("Please select a data collection group configuration file.");
                     return;
                 }
-                final File file = (File) dcGroupSource.getValue();
+                final Path file = (Path) dcGroupSource.getValue();
                 ConfirmDialog.show(getUI(),
                                    "Are you sure?",
-                                   "Do you really want to remove the file " + file.getName() + "?\nThis cannot be undone and OpenNMS won't be able to collect the metrics defined on this file.",
-                                   "Yes",
+                  "Do you really want to remove the file " + file.getFileName() + "?\nThis cannot be undone and OpenNMS won't be able to collect the metrics defined on this file.",                                   "Yes",
                                    "No",
                                    new ConfirmDialog.Listener() {
                     public void onClose(ConfirmDialog dialog) {
                         if (dialog.isConfirmed()) {
                             LOG.info("deleting file {}", file);
-                            if (file.delete()) {
+                            try {
+                                Files.delete(file);
                                 try {
                                     // Updating datacollection-config.xml
-                                    File configFile = ConfigFileConstants.getFile(ConfigFileConstants.DATA_COLLECTION_CONF_FILE_NAME);
+                                    Path configFile = ConfigFileConstants.getFile(ConfigFileConstants.DATA_COLLECTION_CONF_FILE_NAME);
                                     DatacollectionConfig config = JaxbUtils.unmarshal(DatacollectionConfig.class, configFile);
                                     boolean modified = false;
                                     for (SnmpCollection collection : config.getSnmpCollections()) {
@@ -163,7 +165,7 @@ public class DataCollectionGroupAdminPanel extends VerticalLayout {
                                     }
                                     if (modified) {
                                         LOG.info("updating data colleciton configuration on {}.", configFile);
-                                        JaxbUtils.marshal(config, new FileWriter(configFile));
+                                        JaxbUtils.marshal(config, Files.newBufferedWriter(configFile, Charset.defaultCharset()));
                                     }
                                     // Updating UI Components
                                     dcGroupSource.select(null);
@@ -172,7 +174,7 @@ public class DataCollectionGroupAdminPanel extends VerticalLayout {
                                     LOG.error("an error ocurred while saving the data collection configuration: {}", e.getMessage(), e);
                                     Notification.show("Can't save data collection configuration. " + e.getMessage(), Notification.Type.ERROR_MESSAGE);
                                 }
-                            } else {
+                            } catch (IOException e) {
                                 Notification.show("Cannot delete file " + file, Notification.Type.WARNING_MESSAGE);
                             }
                         }
@@ -193,7 +195,7 @@ public class DataCollectionGroupAdminPanel extends VerticalLayout {
      * @param file data collection group file name
      * @param dcGroup the data collection group object
      */
-    private void addDataCollectionGroupPanel(final DataCollectionConfigDao dataCollectionDao, final File file, final DatacollectionGroup dcGroup) {
+    private void addDataCollectionGroupPanel(final DataCollectionConfigDao dataCollectionDao, final Path file, final DatacollectionGroup dcGroup) {
         DataCollectionGroupPanel panel = new DataCollectionGroupPanel(dataCollectionDao, dcGroup, new SimpleLogger(), file) {
             @Override
             public void cancel() {
@@ -201,16 +203,16 @@ public class DataCollectionGroupAdminPanel extends VerticalLayout {
             }
             @Override
             public void success() {
-                Notification.show("Data collection group file " + file.getName() + " has been successfuly saved.");
+                Notification.show("Data collection group file " + file + " has been successfuly saved.");
                 this.setVisible(false);
             }
             @Override
             public void failure(String reason) {
                 String msg = reason == null ? "." : ", because" + reason;
-                Notification.show("Data collection group file " + file.getName() + " cannot be saved" + msg, Notification.Type.ERROR_MESSAGE);
+                Notification.show("Data collection group file " + file + " cannot be saved" + msg, Notification.Type.ERROR_MESSAGE);
             }
         };
-        panel.setCaption("Data Collection Group from " + file.getName());
+        panel.setCaption("Data Collection Group from " + file);
         removeDataCollectionGroupPanel();
         addComponent(panel);
     }

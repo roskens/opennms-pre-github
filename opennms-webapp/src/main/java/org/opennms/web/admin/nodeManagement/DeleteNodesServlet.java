@@ -28,14 +28,18 @@
 
 package org.opennms.web.admin.nodeManagement;
 
-import java.io.File;
 import java.io.IOException;
+import java.nio.file.DirectoryStream;
+import java.nio.file.FileVisitOption;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -64,14 +68,14 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
  * @author <A HREF="http://www.opennms.org/">OpenNMS </A>
  */
 public class DeleteNodesServlet extends HttpServlet {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(DeleteNodesServlet.class);
 
     private static final long serialVersionUID = 573510937493956121L;
 
-    private File m_snmpRrdDirectory;
+    private Path m_snmpRrdDirectory;
 
-    private File m_rtRrdDirectory;
+    private Path m_rtRrdDirectory;
 
     /** {@inheritDoc} */
     @Override
@@ -79,10 +83,10 @@ public class DeleteNodesServlet extends HttpServlet {
         WebApplicationContext webAppContext = WebApplicationContextUtils.getRequiredWebApplicationContext(getServletContext());
         ResourceService resourceService = (ResourceService) webAppContext.getBean("resourceService", ResourceService.class);
 
-        m_snmpRrdDirectory = new File(resourceService.getRrdDirectory(), ResourceTypeUtils.SNMP_DIRECTORY);
+        m_snmpRrdDirectory = resourceService.getRrdDirectory().resolve(ResourceTypeUtils.SNMP_DIRECTORY);
         LOG.debug("SNMP RRD directory: {}", m_snmpRrdDirectory);
 
-        m_rtRrdDirectory = new File(resourceService.getRrdDirectory(), ResourceTypeUtils.RESPONSE_DIRECTORY);
+        m_rtRrdDirectory = resourceService.getRrdDirectory().resolve(ResourceTypeUtils.RESPONSE_DIRECTORY);
         LOG.debug("Response time RRD directory: {}", m_rtRrdDirectory);
     }
 
@@ -97,27 +101,27 @@ public class DeleteNodesServlet extends HttpServlet {
             List<String> ipAddrs = getIpAddrsForNode(nodeId);
 
             // SNMP RRD directory
-            File nodeDir = new File(m_snmpRrdDirectory, nodeId.toString());
+            Path nodeDir = m_snmpRrdDirectory.resolve(nodeId.toString());
 
-            if (nodeDir.exists() && nodeDir.isDirectory()) {
-                LOG.debug("Attempting to delete node data directory: {}", nodeDir.getAbsolutePath());
+            if (Files.exists(nodeDir) && Files.isDirectory(nodeDir)) {
+                LOG.debug("Attempting to delete node data directory: {}", nodeDir);
                 if (deleteDir(nodeDir)) {
-                    LOG.info("Node SNMP data directory deleted successfully: {}", nodeDir.getAbsolutePath());
+                    LOG.info("Node SNMP data directory deleted successfully: {}", nodeDir);
                 } else {
-                    LOG.warn("Node SNMP data directory *not* deleted successfully: {}", nodeDir.getAbsolutePath());
+                    LOG.warn("Node SNMP data directory *not* deleted successfully: {}", nodeDir);
                 }
             }
-            
+
             // Response time RRD directories
             for (String ipAddr : ipAddrs) {
-                File intfDir = new File(m_rtRrdDirectory, ipAddr);
+                Path intfDir = m_rtRrdDirectory.resolve(ipAddr);
 
-                if (intfDir.exists() && intfDir.isDirectory()) {
-                    LOG.debug("Attempting to delete node response time data directory: {}", intfDir.getAbsolutePath());
+                if (Files.exists(intfDir) && Files.isDirectory(intfDir)) {
+                    LOG.debug("Attempting to delete node response time data directory: {}", intfDir);
                     if (deleteDir(intfDir)) {
-                        LOG.info("Node response time data directory deleted successfully: {}", intfDir.getAbsolutePath());
+                        LOG.info("Node response time data directory deleted successfully: {}", intfDir);
                     } else {
-                        LOG.warn("Node response time data directory *not* deleted successfully: {}", intfDir.getAbsolutePath());
+                        LOG.warn("Node response time data directory *not* deleted successfully: {}", intfDir);
                     }
                 }
             }
@@ -162,7 +166,7 @@ public class DeleteNodesServlet extends HttpServlet {
     private void sendDeleteNodeEvent(int node) throws ServletException {
         EventBuilder bldr = new EventBuilder(EventConstants.DELETE_NODE_EVENT_UEI, "web ui");
         bldr.setNodeid(node);
-        
+
         bldr.addParam(EventConstants.PARM_TRANSACTION_NO, "webUI");
 
         sendEvent(bldr.getEvent());
@@ -180,7 +184,7 @@ public class DeleteNodesServlet extends HttpServlet {
         if (array == null) {
             return new ArrayList<Integer>(0);
         }
-        
+
         List<Integer> list = new ArrayList<Integer>(array.length);
         for (String a : array) {
             list.add(WebSecurityUtils.safeParseInt(a));
@@ -192,23 +196,30 @@ public class DeleteNodesServlet extends HttpServlet {
      * Deletes all files and sub-directories under the specified directory
      * If a deletion fails, the method stops attempting to delete and returns
      * false.
-     * 
+     *
      * @return true if all deletions were successful, false otherwise.
      */
-    private boolean deleteDir(File file) {
+    private boolean deleteDir(Path file) {
         // If this file is a directory, delete all of its children
-        if (file.isDirectory()) {
-            for (File child : file.listFiles()) {
-                if (!deleteDir(child)) {
-                    return false;
+        if (Files.isDirectory(file)) {
+            try (DirectoryStream<Path> stream = Files.newDirectoryStream(file);) {
+                for (Path child : stream) {
+                    if (!deleteDir(child)) {
+                        return false;
+                    }
                 }
+            } catch (IOException ex) {
+                LOG.error("ioexception", ex);
             }
         }
 
         // Delete the file/directory itself
-        boolean successful = file.delete();
-        if (!successful) {
-            LOG.warn("Failed to delete file: {}", file.getAbsolutePath());
+        boolean successful = false;
+        try {
+            Files.delete(file);
+            successful = true;
+        } catch (IOException e) {
+            LOG.warn("Failed to delete file: {}", file);
         }
         return successful;
     }

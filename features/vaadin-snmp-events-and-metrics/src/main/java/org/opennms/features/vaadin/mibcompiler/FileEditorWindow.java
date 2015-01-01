@@ -28,8 +28,6 @@
 
 package org.opennms.features.vaadin.mibcompiler;
 
-import java.io.File;
-
 import org.opennms.features.vaadin.api.Logger;
 
 import com.vaadin.data.util.TextFileProperty;
@@ -41,11 +39,12 @@ import com.vaadin.ui.TextArea;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
 import com.vaadin.ui.Button.ClickEvent;
+import java.nio.file.Path;
 
 /**
  * The File Editor Window.
- * 
- * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a> 
+ *
+ * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 @SuppressWarnings("serial")
 public class FileEditorWindow extends Window implements Button.ClickListener {
@@ -63,7 +62,7 @@ public class FileEditorWindow extends Window implements Button.ClickListener {
     protected final Logger logger;
 
     /** The file. */
-    protected final File file;
+    protected final Path file;
 
     /**
      * Instantiates a new file editor window.
@@ -72,7 +71,7 @@ public class FileEditorWindow extends Window implements Button.ClickListener {
      * @param logger the logger
      * @param readOnly true, if you want to display a read only window.
      */
-    public FileEditorWindow(final File file, final Logger logger, boolean readOnly) {
+    public FileEditorWindow(final Path file, final Logger logger, boolean readOnly) {
         this.file = file;
         this.logger = logger;
 
@@ -84,7 +83,7 @@ public class FileEditorWindow extends Window implements Button.ClickListener {
         setHeight("540px");
 
         editor = new TextArea();
-        editor.setPropertyDataSource(new TextFileProperty(file));
+        editor.setPropertyDataSource(new TextFileProperty(file.toFile()));
         editor.setImmediate(false);
         editor.setSizeFull();
         editor.setRows(30);

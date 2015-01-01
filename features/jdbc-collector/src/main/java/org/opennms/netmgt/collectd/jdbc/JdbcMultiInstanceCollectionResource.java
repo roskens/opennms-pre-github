@@ -28,8 +28,7 @@
 
 package org.opennms.netmgt.collectd.jdbc;
 
-import java.io.File;
-
+import java.nio.file.Path;
 import org.opennms.netmgt.collection.api.CollectionAgent;
 import org.opennms.netmgt.rrd.RrdRepository;
 import org.slf4j.Logger;
@@ -40,7 +39,7 @@ public class JdbcMultiInstanceCollectionResource extends JdbcCollectionResource 
 
     private final String m_inst;
     private final String m_name;
-    
+
     public JdbcMultiInstanceCollectionResource(CollectionAgent agent, String instance, String name) {
         super(agent);
         m_inst = instance;
@@ -48,15 +47,15 @@ public class JdbcMultiInstanceCollectionResource extends JdbcCollectionResource 
     }
 
     @Override
-    public File getResourceDir(RrdRepository repository) {
-        File rrdBaseDir = repository.getRrdBaseDir();
-        File nodeDir = new File(rrdBaseDir, getParent());
-        File typeDir = new File(nodeDir, m_name);
-        File instDir = new File(typeDir, m_inst.replaceAll("\\s+", "_").replaceAll(":", "_").replaceAll("\\\\", "_").replaceAll("[\\[\\]]", "_"));
+    public Path getResourceDir(RrdRepository repository) {
+        Path rrdBaseDir = repository.getRrdBaseDir();
+        Path nodeDir = rrdBaseDir.resolve(getParent());
+        Path typeDir = nodeDir.resolve(m_name);
+        Path instDir = typeDir.resolve(m_inst.replaceAll("\\s+", "_").replaceAll(":", "_").replaceAll("\\\\", "_").replaceAll("[\\[\\]]", "_"));
         LOG.debug("getResourceDir: {}", instDir.toString());
         return instDir;
     }
-    
+
     @Override
     public String getResourceTypeName() {
         return m_name;

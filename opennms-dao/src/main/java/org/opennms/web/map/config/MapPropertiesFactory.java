@@ -28,10 +28,12 @@
 
 package org.opennms.web.map.config;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -57,7 +59,7 @@ import org.opennms.web.map.MapsException;
  * @since 1.8.1
  */
 public class MapPropertiesFactory {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(MapPropertiesFactory.class);
 
     private boolean m_loaded = false;
@@ -76,7 +78,7 @@ public class MapPropertiesFactory {
      * The map.properties file that is read for the list of severities and
      * statuses settings for map view.
      */
-    protected File mapPropertiesFile;
+    protected Path mapPropertiesFile;
 
     protected String mapPropertiesFileString;
 
@@ -119,7 +121,7 @@ public class MapPropertiesFactory {
     protected String summaryLinkColor = "yellow";
 
     /** Constant <code>MULTILINK_BEST_STATUS="best"</code> */
-    public static final  String MULTILINK_BEST_STATUS ="best"; 
+    public static final  String MULTILINK_BEST_STATUS ="best";
 
     /** Constant <code>MULTILINK_WORST_STATUS="worst"</code> */
     public static final  String MULTILINK_WORST_STATUS ="worst";
@@ -155,7 +157,7 @@ public class MapPropertiesFactory {
 
     protected  boolean reload=false;
 
-    protected  String severityMapAs = "avg"; 
+    protected  String severityMapAs = "avg";
 
     protected  ContextMenu cmenu;
 
@@ -282,16 +284,15 @@ public class MapPropertiesFactory {
      * @throws java.io.FileNotFoundException if any.
      * @throws java.io.IOException if any.
      */
-    public synchronized void init() throws FileNotFoundException,
-    IOException {
+    public synchronized void init() throws FileNotFoundException, IOException {
 
         LOG.info("Init");
         if (mapPropertiesFileString == null) {
             mapPropertiesFile = ConfigFileConstants.getFile(ConfigFileConstants.MAP_PROPERTIES_FILE_NAME);
-            LOG.info("Using default map properties file: {}", mapPropertiesFile.getPath());
-        }else{ 		
-            mapPropertiesFile = new File(mapPropertiesFileString);
-            LOG.info("Using map properties file: {}", mapPropertiesFile.getPath());
+            LOG.info("Using default map properties file: {}", mapPropertiesFile);
+        }else{
+            mapPropertiesFile = Paths.get(mapPropertiesFileString);
+            LOG.info("Using map properties file: {}", mapPropertiesFile);
         }
 
         if (m_loaded) {
@@ -463,10 +464,12 @@ public class MapPropertiesFactory {
      * @throws java.io.FileNotFoundException if any.
      * @throws java.io.IOException if any.
      */
-    public String getProperty(String key)throws FileNotFoundException,IOException{
+    public String getProperty(String key) throws FileNotFoundException, IOException {
         // read the file
         Properties props = new Properties();
-        props.load(new FileInputStream(mapPropertiesFile));
+        try (InputStream stream = Files.newInputStream(mapPropertiesFile);) {
+            props.load(Files.newInputStream(mapPropertiesFile));
+        }
         return props.getProperty(key);
     }
 
@@ -484,8 +487,7 @@ public class MapPropertiesFactory {
      * @throws java.io.FileNotFoundException if any.
      * @throws java.io.IOException if any.
      */
-    protected void parseMapProperties() throws FileNotFoundException,
-    IOException {
+    protected void parseMapProperties() throws FileNotFoundException, IOException {
         LOG.debug("Parsing map.properties...");
         severitiesMap = new HashMap<String,Severity>();
         statusesMap = new HashMap<String,Status>();
@@ -499,13 +501,15 @@ public class MapPropertiesFactory {
 
         // read the file
         Properties props = new Properties();
-        props.load(new FileInputStream(mapPropertiesFile));
+        try (InputStream stream = Files.newInputStream(mapPropertiesFile);) {
+            props.load(Files.newInputStream(mapPropertiesFile));
+        }
 
         //load context menu flag
         String cntxtmenu = props.getProperty("enable.contextmenu");
         if(cntxtmenu!=null && cntxtmenu.equalsIgnoreCase("false"))
             contextMenuEnabled=false;
-        LOG.debug("enable.contextmenu={}", cntxtmenu);			
+        LOG.debug("enable.contextmenu={}", cntxtmenu);
         // load context menu object only if context menu is enabled
 
         cmenu = new ContextMenu();
@@ -525,7 +529,7 @@ public class MapPropertiesFactory {
                                 LOG.warn("link is null! skipping..");
                                 continue;
                             }
-                            params = props.getProperty("cmenu."+commands[j]+".params");						
+                            params = props.getProperty("cmenu."+commands[j]+".params");
                             LOG.debug("cmenu.{}.params={}", commands[j], params);
                             if(params==null) params="";
                         }
@@ -542,14 +546,14 @@ public class MapPropertiesFactory {
         String doubleclick = props.getProperty("enable.doubleclick");
         if(doubleclick!=null && doubleclick.equalsIgnoreCase("false"))
             doubleClickEnabled=false;
-        LOG.debug("enable.doubleclick={}", doubleclick);			
+        LOG.debug("enable.doubleclick={}", doubleclick);
 
         // load reload flag
         String reloadStr = props.getProperty("enable.reload");
         if(reloadStr!=null && reloadStr.equalsIgnoreCase("true"))
             reload=true;
 
-        LOG.debug("enable.reload={}", reloadStr);			
+        LOG.debug("enable.reload={}", reloadStr);
 
         // look up severities and their properties
         severityMapAs=props.getProperty("severity.map", "avg");
@@ -622,10 +626,10 @@ public class MapPropertiesFactory {
             String text = props.getProperty("link." + links[i]+ ".text");
             String speed = props.getProperty("link." + links[i]+ ".speed");
             String width = props.getProperty("link." + links[i]+ ".width");
-            String dasharray = props.getProperty("link." + links[i]+ ".dash-array");			
-            String snmptype = props.getProperty("link." + links[i]+ ".snmptype");			
+            String dasharray = props.getProperty("link." + links[i]+ ".dash-array");
+            String snmptype = props.getProperty("link." + links[i]+ ".snmptype");
             String multilinkwidth = props.getProperty("link." + links[i]+ ".multilink.width");
-            String multilinkdasharray = props.getProperty("link." + links[i]+ ".multilink.dash-array");            
+            String multilinkdasharray = props.getProperty("link." + links[i]+ ".multilink.dash-array");
             if(id==null){
                 LOG.error("param id for link cannot be null in map.properties: skipping link...");
                 continue;
@@ -685,30 +689,30 @@ public class MapPropertiesFactory {
             }
             boolean flashBool = false;
             if(flash!=null && flash.equalsIgnoreCase("false"))
-                flashBool=false;			
+                flashBool=false;
             LOG.debug("found linkstatus {} with color={}, flash={}. Adding it.", linkStatuses[i], color, flashBool);
             LinkStatus ls = new LinkStatus(linkStatuses[i],color,flashBool);
             linkStatusesMap.put(linkStatuses[i], ls);
-        }		
+        }
 
         if(props.getProperty("summarylink.id")!=null){
-            summaryLink = Integer.parseInt(props.getProperty("summarylink.id"));    
+            summaryLink = Integer.parseInt(props.getProperty("summarylink.id"));
         }
         LOG.debug("found summarylink.id: {}", summaryLink);
 
         if(props.getProperty("summarylink.color")!=null){
-            summaryLinkColor = props.getProperty("summarylink.color");    
+            summaryLinkColor = props.getProperty("summarylink.color");
         }
         LOG.debug("found summarylink.color: {}", summaryLinkColor);
 
         if(props.getProperty("max.links")!=null){
-            maxLinks = Integer.parseInt(props.getProperty("max.links"));    
+            maxLinks = Integer.parseInt(props.getProperty("max.links"));
         }
         LOG.debug("found max.links: {}", maxLinks);
 
 
         if(props.getProperty("multilink.status")!=null){
-            multilinkStatus = props.getProperty("multilink.status"); 	
+            multilinkStatus = props.getProperty("multilink.status");
         }
         if(!multilinkStatus.equals(MULTILINK_BEST_STATUS) && !multilinkStatus.equals(MULTILINK_IGNORE_STATUS) && !multilinkStatus.equals(MULTILINK_WORST_STATUS)){
             LOG.error("multilink.status property must be 'best' or 'worst' or 'ignore' ... using default ('best')");
@@ -717,7 +721,7 @@ public class MapPropertiesFactory {
         LOG.debug("found multilink.status:{}", multilinkStatus);
 
         if(props.getProperty("multilink.ignore.color")!=null){
-            multilinkIgnoreColor = props.getProperty("multilink.ignore.color");    
+            multilinkIgnoreColor = props.getProperty("multilink.ignore.color");
         }
         LOG.debug("found multilink.ignore.color:{}", multilinkIgnoreColor);
 
@@ -1149,7 +1153,7 @@ public class MapPropertiesFactory {
      * @throws org.opennms.web.map.MapsException if any.
      */
     public List<Severity> getSeverities() throws MapsException {
-        List<Severity> sevs = new ArrayList<Severity>(); 
+        List<Severity> sevs = new ArrayList<Severity>();
         sevs.addAll(getSeveritiesMap().values());
         return sevs;
     }

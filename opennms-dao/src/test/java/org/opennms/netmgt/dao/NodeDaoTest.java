@@ -45,7 +45,9 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 
 import org.apache.commons.beanutils.BeanUtils;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TestName;
 import org.junit.runner.RunWith;
 import org.opennms.core.criteria.CriteriaBuilder;
 import org.opennms.core.test.OpenNMSJUnit4ClassRunner;
@@ -85,7 +87,7 @@ import org.springframework.transaction.support.TransactionTemplate;
         "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml"
 })
 @JUnitConfigurationEnvironment
-@JUnitTemporaryDatabase(dirtiesContext=false)
+@JUnitTemporaryDatabase(dirtiesContext = false)
 public class NodeDaoTest implements InitializingBean {
 
     @Autowired
@@ -108,14 +110,19 @@ public class NodeDaoTest implements InitializingBean {
         org.opennms.core.spring.BeanUtils.assertAutowiring(this);
     }
 
+    @Rule
+    public TestName m_testName = new TestName();
+
     @BeforeTransaction
     public void setUp() {
+        System.out.println("\n\n------- Begin Test " + m_testName.getMethodName() + " --------\n\n");
         m_populator.populateDatabase();
     }
 
     @AfterTransaction
     public void tearDown() {
         m_populator.resetDatabase();
+        System.out.println("\n\n------- End Test " + m_testName.getMethodName() + " --------\n\n");
     }
 
     public OnmsNode getNode1() {
@@ -175,7 +182,7 @@ public class NodeDaoTest implements InitializingBean {
 
         getNodeDao().flush();
     }
-    
+
     @Test
     @Transactional
     public void testLldpSaveAndUpdate() throws InterruptedException {
@@ -185,7 +192,7 @@ public class NodeDaoTest implements InitializingBean {
         node.setLabel("MyFirstLldpNode");
         getNodeDao().save(node);
         getNodeDao().flush();
-        
+
         OnmsDistPoller dp = getDistPoller();
         assertSame(distPoller, dp);
         Collection<OnmsNode> nodes = getNodeDao().findNodes(dp);
@@ -197,10 +204,10 @@ public class NodeDaoTest implements InitializingBean {
                 System.out.println("nodeid: " +nodeid);
             }
         }
-        
+
         OnmsNode dbnode1 = getNodeDao().get(nodeid);
         assertNotNull(dbnode1);
-        
+
         if (dbnode1.getLldpElement() == null ) {
 	        LldpElement lldpElement = new LldpElement();
 	        lldpElement.setLldpChassisId("abc123456");
@@ -225,7 +232,7 @@ public class NodeDaoTest implements InitializingBean {
         assertEquals("prova", dbnode2.getLldpElement().getLldpSysname());
         assertNotNull(dbnode2.getLldpElement().getLldpNodeCreateTime());
         assertNotNull(dbnode2.getLldpElement().getLldpNodeLastPollTime());
-        
+
         System.out.println("---------");
         Thread.sleep(1000);
         System.out.println("---------");
@@ -255,8 +262,8 @@ public class NodeDaoTest implements InitializingBean {
         assertNotNull(dbnode3.getLldpElement().getLldpNodeCreateTime());
         assertNotNull(dbnode3.getLldpElement().getLldpNodeLastPollTime());
 
-        
-    }    
+
+    }
 
     @Test
     @Transactional
@@ -603,7 +610,7 @@ public class NodeDaoTest implements InitializingBean {
         Object actualValue = BeanUtils.getProperty(actual, name);
         assertEquals("Unexpected value for property "+name+" on object "+expected, expectedValue, actualValue);
     }
-    
+
     @Test
     @Transactional
     public void testCB() {
@@ -612,7 +619,7 @@ public class NodeDaoTest implements InitializingBean {
         List<OnmsNode> nodes = m_nodeDao.findMatching(cb.toCriteria());
         System.err.println("Nodes found: "+nodes.size());
         assertEquals(6, nodes.size());
-        
+
         cb = new CriteriaBuilder(OnmsNode.class);
         cb.alias("assetRecord", "asset").match("any").ilike("label", "%alt%").ilike("sysDescription", "%abc%").ilike("asset.comment", "%xyz%");
         nodes = m_nodeDao.findMatching(cb.toCriteria());

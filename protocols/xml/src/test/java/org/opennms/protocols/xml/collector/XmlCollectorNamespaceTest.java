@@ -28,7 +28,9 @@
 
 package org.opennms.protocols.xml.collector;
 
-import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -45,7 +47,7 @@ import org.w3c.dom.NodeList;
 
 /**
  * The Test class for XML Collector on a file with XML namespaces
- * 
+ *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  * @author <a href="mailto:david.schlenk@spanlink.com">David Schlenk</a>
  */
@@ -100,12 +102,12 @@ public class XmlCollectorNamespaceTest extends AbstractXmlCollectorTest {
         parameters.put("handler-class", "org.opennms.protocols.xml.collector.MockDefaultXmlCollectionHandler");
         // Files expected: one JRB for each zone: global, zone1 and zone2 (3 in total)
         executeCollectorTest(parameters, 1);
-        Assert.assertTrue(new File("target/snmp/1/namespace-stats.jrb").exists());
+        Assert.assertTrue(Files.exists(Paths.get("target/snmp/1/namespace-stats.jrb")));
         // Checking data from Global Zone.
-        File file = new File("target/snmp/1/namespace-stats.jrb");
+        Path file = Paths.get("target/snmp/1/namespace-stats.jrb");
         String[] dsnames = new String[] { "requests", "responses", "errors", "warnings", "hats", "pants" };
         Double[] dsvalues = new Double[] { 13.0, 12.0, 1.0, 2.0, 3.0, 4.0 };
-        validateJrb(file, dsnames, dsvalues);      
+        validateJrb(file, dsnames, dsvalues);
     }
 
 }

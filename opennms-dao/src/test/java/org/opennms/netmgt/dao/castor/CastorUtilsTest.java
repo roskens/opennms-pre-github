@@ -31,6 +31,7 @@ package org.opennms.netmgt.dao.castor;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.file.Path;
 
 import junit.framework.AssertionFailedError;
 import junit.framework.TestCase;
@@ -46,24 +47,24 @@ import org.springframework.core.io.InputStreamResource;
 
 /**
  * Test class for CastorUtils.
- * 
+ *
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  */
 public class CastorUtilsTest extends TestCase {
     @Override
     protected void setUp() throws Exception {
         super.setUp();
-        
+
         MockLogAppender.setupLogging();
     }
-    
+
     @Override
     protected void runTest() throws Throwable {
         super.runTest();
 
         MockLogAppender.assertNoWarningsOrGreater();
     }
-    
+
     public void testUnmarshalReader() throws MarshalException, ValidationException, FileNotFoundException, IOException {
         CastorUtils.unmarshal(Userinfo.class, ConfigurationTestUtils.getInputStreamForConfigFile("users.xml"));
     }
@@ -71,7 +72,7 @@ public class CastorUtilsTest extends TestCase {
     public void testUnmarshalResource() throws MarshalException, ValidationException, FileNotFoundException, IOException {
         CastorUtils.unmarshal(Userinfo.class, new InputStreamResource(ConfigurationTestUtils.getInputStreamForConfigFile("users.xml")));
     }
-    
+
     public void testExceptionContainsFileNameUnmarshalResourceWithBadResource() throws MarshalException, ValidationException, FileNotFoundException, IOException {
         /*
          * We are going to attempt to unmarshal groups.xml with the wrong
@@ -79,7 +80,7 @@ public class CastorUtilsTest extends TestCase {
          * file name is embedded in the exception.
          */
         boolean gotException = false;
-        File file = ConfigurationTestUtils.getFileForConfigFile("groups.xml");
+        File file = ConfigurationTestUtils.getFileForConfigFile("groups.xml").toFile();
         try {
             CastorUtils.unmarshal(Userinfo.class, new FileSystemResource(file));
         } catch (MarshalException e) {
@@ -92,15 +93,15 @@ public class CastorUtilsTest extends TestCase {
                 throw ae;
             }
         }
-        
+
         if (!gotException) {
             fail("Did not get a MarshalException, but we were expecting one.");
         }
     }
-    
+
     public void testUnmarshalInputStreamQuietly() throws MarshalException, ValidationException, FileNotFoundException, IOException {
         CastorUtils.unmarshal(Userinfo.class, ConfigurationTestUtils.getInputStreamForConfigFile("users.xml"));
-        
+
         /*
          * Ensure that nothing was logged.
          * In particular, we want to make sure that we don't see this message:
@@ -108,10 +109,10 @@ public class CastorUtilsTest extends TestCase {
          */
         MockLogAppender.assertNoLogging();
     }
-    
+
     public void testUnmarshalReaderQuietly() throws MarshalException, ValidationException, FileNotFoundException, IOException {
         CastorUtils.unmarshal(Userinfo.class, ConfigurationTestUtils.getInputStreamForConfigFile("users.xml"));
-        
+
         /*
          * Ensure that nothing was logged.
          * In particular, we want to make sure that we don't see this message:
@@ -119,20 +120,20 @@ public class CastorUtilsTest extends TestCase {
          */
         MockLogAppender.assertNoLogging();
     }
-    
+
     public void testUnmarshallInputStreamWithUtf8() throws MarshalException, ValidationException, IOException {
         Userinfo users = CastorUtils.unmarshal(Userinfo.class, ConfigurationTestUtils.getInputStreamForResource(this, "/users-utf8.xml"));
-        
+
         assertEquals("user count", 1, users.getUsers().getUserCount());
-        // \u00f1 is unicode for n~ 
+        // \u00f1 is unicode for n~
         assertEquals("user name", "Admi\u00f1istrator", users.getUsers().getUser(0).getFullName());
     }
-    
+
     public void testUnmarshallResourceWithUtf8() throws MarshalException, ValidationException, IOException {
         Userinfo users = CastorUtils.unmarshal(Userinfo.class, new InputStreamResource(ConfigurationTestUtils.getInputStreamForResource(this, "/users-utf8.xml")));
-        
+
         assertEquals("user count", 1, users.getUsers().getUserCount());
-        // \u00f1 is unicode for n~ 
+        // \u00f1 is unicode for n~
         assertEquals("user name", "Admi\u00f1istrator", users.getUsers().getUser(0).getFullName());
     }
 }

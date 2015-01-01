@@ -28,17 +28,18 @@
 
 package org.opennms.netmgt.config.tester;
 
+import java.io.IOException;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import java.io.File;
-import java.io.FilenameFilter;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.nio.file.DirectoryStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -279,7 +280,7 @@ public class ConfigTesterTest {
     @Test
     /**
      * FIXME: Don't know why this is ignored.
-     * 
+     *
      * See GatewayGroupLoader for the code that we'd need to call in the ConfigTester.
      */
     public void testModemConfig() {
@@ -571,7 +572,7 @@ public class ConfigTesterTest {
     @Test
     /**
      * FIXME: Configuration code is not in its own class.
-     * 
+     *
      * It's embedded in XMPPNotificationManager's constructor.
      */
     public void testXmppConfiguration() {
@@ -596,7 +597,7 @@ public class ConfigTesterTest {
     private void testConfigFile(String file) {
         /*
          * Add to the tested list first, so if we get a test failure
-         * for a specific file test, we don't also make 
+         * for a specific file test, we don't also make
          * testCheckAllDaemonXmlConfigFilesTested fail.
          */
         m_filesTested.add(file);
@@ -610,26 +611,28 @@ public class ConfigTesterTest {
 
     @Test
     public void zz002testCheckAllDaemonXmlConfigFilesTested() {
-        File someConfigFile = ConfigurationTestUtils.getFileForConfigFile("discovery-configuration.xml");
-        File configDir = someConfigFile.getParentFile();
-        assertTrue("daemon configuration directory exists at " + configDir.getAbsolutePath(), configDir.exists());
-        assertTrue("daemon configuration directory is a directory at " + configDir.getAbsolutePath(), configDir.isDirectory());
+        Path someConfigFile = ConfigurationTestUtils.getFileForConfigFile("discovery-configuration.xml");
+        Path configDir = someConfigFile.getParent();
+        assertTrue("daemon configuration directory exists at " + configDir.toAbsolutePath(), Files.exists(configDir));
+        assertTrue("daemon configuration directory is a directory at " + configDir.toAbsolutePath(), Files.isDirectory(configDir));
+        List<Path> configFiles = new ArrayList<>();
 
-        String[] configFiles = configDir.list(new FilenameFilter() {
-            @Override
-            public boolean accept(File file, String name) {
-                return name.endsWith(".xml");
-            } });
+        try (DirectoryStream<Path> stream = Files.newDirectoryStream(configDir, "*.xml");) {
+            for (Path path : stream) {
+                configFiles.add(path);
+            }
+        } catch (IOException ex) {
+        }
 
-        Set<String> allXml = new HashSet<String>(Arrays.asList(configFiles));
+        Set<Path> allXml = new HashSet<>(configFiles);
 
         allXml.removeAll(m_filesTested);
         allXml.removeAll(m_filesIgnored);
 
         if (allXml.size() > 0) {
-            List<String> files = new ArrayList<String>(allXml);
+            List<Path> files = new ArrayList<>(allXml);
             Collections.sort(files);
-            fail("These files in " + configDir.getAbsolutePath() + " were not tested: \n\t" + StringUtils.collectionToDelimitedString(files, "\n\t"));
+            fail("These files in " + configDir.toAbsolutePath() + " were not tested: \n\t" + StringUtils.collectionToDelimitedString(files, "\n\t"));
         }
     }
 }

@@ -28,8 +28,8 @@
 
 package org.opennms.netmgt.config;
 
-import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
 
 import org.opennms.core.utils.ConfigFileConstants;
 import org.opennms.core.xml.JaxbUtils;
@@ -65,7 +65,7 @@ public final class ActiondConfigFactory {
 
     /**
      * Private constructor
-     * 
+     *
      * @exception java.io.IOException
      *                Thrown if the specified config file cannot be read
      */
@@ -88,8 +88,8 @@ public final class ActiondConfigFactory {
             return;
         }
 
-        final File cfgFile = ConfigFileConstants.getFile(ConfigFileConstants.ACTIOND_CONFIG_FILE_NAME);
-        m_singleton = new ActiondConfigFactory(cfgFile.getPath());
+        final Path cfgFile = ConfigFileConstants.getFile(ConfigFileConstants.ACTIOND_CONFIG_FILE_NAME);
+        m_singleton = new ActiondConfigFactory(cfgFile.toString());
 
         m_loaded = true;
     }

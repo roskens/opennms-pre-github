@@ -28,10 +28,11 @@
 
 package org.opennms.upgrade.implementations;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -54,23 +55,23 @@ import org.springframework.core.io.FileSystemResource;
 
 /**
  * The Class RRD/JRB Migrator for SNMP Interfaces Data (Online Version)
- * 
+ *
  * <p>1.12 always add the MAC Address to the snmpinterface table if exist, which
  * is different from the 1.10 behavior. For this reason, some interfaces are going
  * to appear twice, and the data must be merged.</p>
- * 
+ *
  * <p>This tool requires that OpenNMS 1.12 is running for a while to be sure that
  * all the MAC addresses have been updated, and the directories already exist.</p>
- * 
+ *
  * <p>Issues fixed:</p>
  * <ul>
  * <li>NMS-6056</li>
  * </ul>
- * 
- * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a> 
+ *
+ * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 public class SnmpInterfaceRrdMigratorOnline extends AbstractOnmsUpgrade {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(SnmpInterfaceRrdMigratorOnline.class);
 
     /** The interfaces to merge. */
@@ -116,9 +117,9 @@ public class SnmpInterfaceRrdMigratorOnline extends AbstractOnmsUpgrade {
         }
         try {
             // Manually initialization of the DataCollectionConfigDao to avoid bootstrap Spring Framework and create a new connection pool.
-            File cfgFile = ConfigFileConstants.getFile(ConfigFileConstants.DATA_COLLECTION_CONF_FILE_NAME);
+            Path cfgFile = ConfigFileConstants.getFile(ConfigFileConstants.DATA_COLLECTION_CONF_FILE_NAME);
             DefaultDataCollectionConfigDao config = new DefaultDataCollectionConfigDao();
-            config.setConfigResource(new FileSystemResource(cfgFile));
+            config.setConfigResource(new FileSystemResource(cfgFile.toFile()));
             config.afterPropertiesSet();
             config.getConfiguredResourceTypes();
             DataCollectionConfigFactory.setInstance(config);
@@ -127,11 +128,12 @@ public class SnmpInterfaceRrdMigratorOnline extends AbstractOnmsUpgrade {
         }
         interfacesToMerge = getInterfacesToMerge();
         for (SnmpInterfaceUpgrade intf : interfacesToMerge) {
-            File[] targets = { intf.getOldInterfaceDir(), intf.getNewInterfaceDir() };
-            for (File target : targets) {
-                if (target.exists()) {
+            Path[] targets = {intf.getOldInterfaceDir(), intf.getNewInterfaceDir()};
+            for (Path target : targets) {
+                if (Files.exists(target)) {
                     log("Backing up: %s\n", target);
-                    zipDir(new File(target.getAbsolutePath() + ZIP_EXT), target);
+                    Path newTarget = target.resolveSibling(target.getFileName() + ZIP_EXT);
+                    zipDir(newTarget, target);
                 }
             }
         }
@@ -142,13 +144,15 @@ public class SnmpInterfaceRrdMigratorOnline extends AbstractOnmsUpgrade {
      */
     public void postExecute() throws OnmsUpgradeException {
         for (SnmpInterfaceUpgrade intf : interfacesToMerge) {
-            File[] targets = { intf.getOldInterfaceDir(), intf.getNewInterfaceDir() };
-            for (File target : targets) {
-                File zip = new File(target.getAbsolutePath() + ZIP_EXT);
-                if (zip.exists()) {
+            Path[] targets = {intf.getOldInterfaceDir(), intf.getNewInterfaceDir()};
+            for (Path target : targets) {
+                Path zip = target.resolveSibling(target.getFileName() + ZIP_EXT);
+                if (Files.exists(zip)) {
                     log("Removing backup: %s\n", zip);
-                    if (!zip.delete()) {
-                    	LOG.warn("Could not delete file: {}", zip.getPath());
+                    try {
+                        Files.delete(zip);
+                    } catch (IOException e) {
+                        LOG.warn("Could not delete file: {}", zip);
                     }
                 }
             }
@@ -176,20 +180,24 @@ public class SnmpInterfaceRrdMigratorOnline extends AbstractOnmsUpgrade {
                 PrintWriter p = new PrintWriter(w);
                 e.printStackTrace(p);
                 log("Error: Can't upgrade %s because %s: %s. Rolling back changes\n", intf, e.getMessage(), w.toString());
-                File[] targets = { intf.getOldInterfaceDir(), intf.getNewInterfaceDir() };
-                for (File target : targets) {
-                    File zip = new File(target.getAbsolutePath() + ZIP_EXT);
+                Path[] targets = {intf.getOldInterfaceDir(), intf.getNewInterfaceDir()};
+                for (Path target : targets) {
+                    Path zip = target.resolveSibling(target.getFileName() + ZIP_EXT);
                     try {
-                        FileUtils.deleteDirectory(target);
-                    } catch (IOException e1) {
-                        log("Warning: can't delete directory %s\n", target);
+                        Files.delete(target);
+                    } catch (IOException ex) {
+                        LOG.warn("Can't delete directory {}", target, ex);
                     }
-                    if(!target.mkdirs()) {
-                    	LOG.warn("Could not make directory: {}", target.getPath());
+                    try {
+                        Files.createDirectories(target);
+                    } catch (IOException ex) {
+                        LOG.warn("Could not make directory: {}", target);
                     }
                     unzipFile(zip, target);
-                    if(!zip.delete()) {
-                    	LOG.warn("Could not delete file: {}", zip.getPath());
+                    try {
+                        Files.delete(zip);
+                    } catch (IOException ex) {
+                        LOG.warn("Could not delete file: {}", zip, ex);
                     }
                 }
             }
@@ -244,16 +252,16 @@ public class SnmpInterfaceRrdMigratorOnline extends AbstractOnmsUpgrade {
      * @param newDir the new directory
      * @throws Exception the exception
      */
-    protected void merge(File oldDir, File newDir) throws Exception {
+    protected void merge(Path oldDir, Path newDir) throws Exception {
         log("Merging data from %s to %s\n", oldDir, newDir);
-        if (newDir.exists()) {
-            File[] rrdFiles = getFiles(oldDir, getRrdExtension());
-            if (rrdFiles == null) {
+        if (Files.exists(newDir)) {
+            List<Path> rrdFiles = getFiles(oldDir, getRrdExtension());
+            if (rrdFiles == null || rrdFiles.isEmpty()) {
                 log("Warning: there are no %s files on %s\n", getRrdExtension(), oldDir);
             } else {
-                for (File source : rrdFiles) {
-                    File dest = new File(newDir, source.getName());
-                    if (dest.exists()) {
+                for (Path source : rrdFiles) {
+                    Path dest = newDir.resolve(source.getFileName());
+                    if (Files.exists(dest)) {
                         if (isRrdToolEnabled()) {
                             mergeRrd(source, dest);
                         } else {
@@ -265,15 +273,15 @@ public class SnmpInterfaceRrdMigratorOnline extends AbstractOnmsUpgrade {
                 }
             }
             try {
-                log("  removing old directory %s\n", oldDir.getName());
-                FileUtils.deleteDirectory(oldDir);
+                log("  removing old directory %s\n", oldDir.getFileName());
+                FileUtils.deleteDirectory(oldDir.toFile());
             } catch (Exception e) {
                 log("  Warning: can't delete old directory because %s", e.getMessage());
             }
         } else {
             try {
-                log("  moving %s to %s\n", oldDir.getName(), newDir.getName());
-                FileUtils.moveDirectory(oldDir, newDir);
+                log("  moving %s to %s\n", oldDir.getFileName(), newDir.getFileName());
+                FileUtils.moveDirectory(oldDir.toFile(), newDir.toFile());
             } catch (Exception e) {
                 log("  Warning: can't rename directory because %s", e.getMessage());
             }
@@ -287,21 +295,21 @@ public class SnmpInterfaceRrdMigratorOnline extends AbstractOnmsUpgrade {
      * @param dest the destination RRD
      * @throws Exception the exception
      */
-    protected void mergeRrd(File source, File dest) throws Exception {
+    protected void mergeRrd(Path source, Path dest) throws Exception {
         log("  merging RRD %s into %s\n", source, dest);
-        RRDv3 rrdSrc = RrdConvertUtils.dumpRrd(source);
-        RRDv3 rrdDst = RrdConvertUtils.dumpRrd(dest);
+        RRDv3 rrdSrc = RrdConvertUtils.dumpRrd(source.toFile());
+        RRDv3 rrdDst = RrdConvertUtils.dumpRrd(dest.toFile());
         if (rrdSrc == null || rrdDst == null) {
             log("  Warning: can't load RRDs (ingoring merge).\n");
             return;
         }
         rrdDst.merge(rrdSrc);
-        final File outputFile = new File(dest.getCanonicalPath() + ".merged");
-        RrdConvertUtils.restoreRrd(rrdDst, outputFile);
-        if (dest.exists()) {
-            FileUtils.deleteQuietly(dest);
+        final Path outputFile = dest.resolveSibling(dest.getFileName() + ".merged");
+        RrdConvertUtils.restoreRrd(rrdDst, outputFile.toFile());
+        if (Files.exists(dest)) {
+            FileUtils.deleteQuietly(dest.toFile());
         }
-        FileUtils.moveFile(outputFile, dest);
+        Files.move(outputFile, dest);
     }
 
     /**
@@ -311,21 +319,21 @@ public class SnmpInterfaceRrdMigratorOnline extends AbstractOnmsUpgrade {
      * @param dest the destination JRB
      * @throws Exception the exception
      */
-    protected void mergeJrb(File source, File dest) throws Exception {
+    protected void mergeJrb(Path source, Path dest) throws Exception {
         log("  merging JRB %s into %s\n", source, dest);
-        RRDv1 rrdSrc = RrdConvertUtils.dumpJrb(source);
-        RRDv1 rrdDst = RrdConvertUtils.dumpJrb(dest);
+        RRDv1 rrdSrc = RrdConvertUtils.dumpJrb(source.toFile());
+        RRDv1 rrdDst = RrdConvertUtils.dumpJrb(dest.toFile());
         if (rrdSrc == null || rrdDst == null) {
             log("  Warning: can't load JRBs (ingoring merge).\n");
             return;
         }
         rrdDst.merge(rrdSrc);
-        final File outputFile = new File(dest.getCanonicalPath() + ".merged");
-        RrdConvertUtils.restoreJrb(rrdDst, outputFile);
-        if (dest.exists()) {
-            FileUtils.deleteQuietly(dest);
+        final Path outputFile = dest.resolveSibling(dest.getFileName() + ".merged");
+        RrdConvertUtils.restoreJrb(rrdDst, outputFile.toFile());
+        if (Files.exists(dest)) {
+            FileUtils.deleteQuietly(dest.toFile());
         }
-        FileUtils.moveFile(outputFile, dest);
+        Files.move(outputFile, dest);
     }
 
     /**
@@ -336,11 +344,11 @@ public class SnmpInterfaceRrdMigratorOnline extends AbstractOnmsUpgrade {
      * @param foreignId the foreign id
      * @return the node directory
      */
-    protected File getNodeDirectory(int nodeId, String foreignSource, String foreignId) {
-        File dir = new File(DataCollectionConfigFactory.getInstance().getRrdPath(), String.valueOf(nodeId));
+    protected Path getNodeDirectory(int nodeId, String foreignSource, String foreignId) {
+        Path dir = DataCollectionConfigFactory.getInstance().getRrdPath().resolve(String.valueOf(nodeId));
         if (Boolean.getBoolean("org.opennms.rrd.storeByForeignSource") && !(foreignSource == null) && !(foreignId == null)) {
-            File fsDir = new File(DataCollectionConfigFactory.getInstance().getRrdPath(), "fs" + File.separatorChar + foreignSource);
-            dir = new File(fsDir, foreignId);
+            Path fsDir = DataCollectionConfigFactory.getInstance().getRrdPath().resolve("fs").resolve(foreignSource);
+            dir = fsDir.resolve(foreignId);
         }
         return dir;
     }

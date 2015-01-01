@@ -28,6 +28,7 @@
 
 package org.opennms.web.rest.config;
 
+import java.nio.file.Path;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
@@ -95,7 +96,7 @@ public class DataCollectionConfigResourceTest {
         }
 
         @Override
-        public String getRrdPath() {
+        public Path getRrdPath() {
             throw new UnsupportedOperationException("Not yet implemented!");
         }
 
@@ -155,5 +156,5 @@ public class DataCollectionConfigResourceTest {
         assertEquals(164, config.getSnmpCollections()[0].getDataCollectionGroups()[0].getResourceTypes().length);
         assertEquals(164, config.getSnmpCollections()[1].getDataCollectionGroups()[0].getResourceTypes().length);
     }
-    
+
 }

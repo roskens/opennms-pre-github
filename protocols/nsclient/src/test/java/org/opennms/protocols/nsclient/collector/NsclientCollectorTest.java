@@ -29,6 +29,7 @@
 package org.opennms.protocols.nsclient.collector;
 
 import java.io.ByteArrayInputStream;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -108,7 +109,7 @@ public class NsclientCollectorTest extends AbstractNsclientTest {
         // Initialize NSClient Configuration
         String nsclient_config = "<nsclient-config port=\"" + getServer().getLocalPort() + "\" retry=\"1\" timeout=\"3000\" />";
         NSClientPeerFactory.setInstance(new NSClientPeerFactory(new ByteArrayInputStream(nsclient_config.getBytes())));
-        NSClientDataCollectionConfigFactory.setInstance(new NSClientDataCollectionConfigFactory("src/test/resources/nsclient-datacollection-config.xml"));
+        NSClientDataCollectionConfigFactory.setInstance(new NSClientDataCollectionConfigFactory(Paths.get("src/test/resources/nsclient-datacollection-config.xml")));
 
         // Initialize Collection Agent
         m_collectionAgent = DefaultCollectionAgent.create(1, m_ipInterfaceDao, m_transactionManager);

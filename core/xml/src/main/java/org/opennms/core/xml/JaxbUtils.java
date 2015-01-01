@@ -39,6 +39,9 @@ import java.io.StringReader;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.net.URL;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -163,18 +166,24 @@ public abstract class JaxbUtils {
     }
 
     public static <T> T unmarshal(final Class<T> clazz, final File file) {
-        return unmarshal(clazz, file, VALIDATE_IF_POSSIBLE);
+        return unmarshal(clazz, file.toPath(), VALIDATE_IF_POSSIBLE);
+    }
+
+    public static <T> T unmarshal(final Class<T> clazz, final Path path) {
+        return unmarshal(clazz, path, VALIDATE_IF_POSSIBLE);
     }
 
     public static <T> T unmarshal(final Class<T> clazz, final File file, final boolean validate) {
-        FileReader reader = null;
-        try {
-            reader = new FileReader(file);
+        return unmarshal(clazz, file.toPath(), validate);
+    }
+
+    public static <T> T unmarshal(final Class<T> clazz, final Path path, final boolean validate) {
+        try (Reader reader = Files.newBufferedReader(path, Charset.defaultCharset());) {
             return unmarshal(clazz, new InputSource(reader), null, validate);
         } catch (final FileNotFoundException e) {
-            throw EXCEPTION_TRANSLATOR.translate("reading " + file, e);
-        } finally {
-            IOUtils.closeQuietly(reader);
+            throw EXCEPTION_TRANSLATOR.translate("reading " + path, e);
+        } catch (IOException e) {
+            throw EXCEPTION_TRANSLATOR.translate("reading " + path, e);
         }
     }
 

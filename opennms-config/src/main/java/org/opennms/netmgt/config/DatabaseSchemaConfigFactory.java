@@ -28,10 +28,10 @@
 
 package org.opennms.netmgt.config;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -67,7 +67,7 @@ public final class DatabaseSchemaConfigFactory implements DatabaseSchemaConfig{
     private final ReadWriteLock m_globalLock = new ReentrantReadWriteLock();
     private final Lock m_readLock = m_globalLock.readLock();
     private final Lock m_writeLock = m_globalLock.writeLock();
-    
+
     /**
      * The singleton instance of this factory
      */
@@ -98,8 +98,8 @@ public final class DatabaseSchemaConfigFactory implements DatabaseSchemaConfig{
 
     /**
      * Private constructor
-     * @throws ValidationException 
-     * @throws MarshalException 
+     * @throws ValidationException
+     * @throws MarshalException
      *
      * @exception java.io.IOException
      *                Thrown if the specified config file cannot be read
@@ -108,14 +108,10 @@ public final class DatabaseSchemaConfigFactory implements DatabaseSchemaConfig{
      * @exception org.exolab.castor.xml.ValidationException
      *                Thrown if the contents do not match the required schema.
      */
-    private DatabaseSchemaConfigFactory(final String configFile) throws IOException, MarshalException, ValidationException {
-        InputStream cfgStream = null;
-        try {
-            cfgStream = new FileInputStream(configFile);
+    private DatabaseSchemaConfigFactory(final Path configFile) throws IOException, MarshalException, ValidationException {
+        try (InputStream cfgStream = Files.newInputStream(configFile);) {
             m_config = CastorUtils.unmarshal(DatabaseSchema.class, cfgStream);
             finishConstruction();
-        } finally {
-            IOUtils.closeQuietly(cfgStream);
         }
     }
 
@@ -134,7 +130,7 @@ public final class DatabaseSchemaConfigFactory implements DatabaseSchemaConfig{
     public Lock getReadLock() {
         return m_readLock;
     }
-    
+
     public Lock getWriteLock() {
         return m_writeLock;
     }
@@ -160,8 +156,8 @@ public final class DatabaseSchemaConfigFactory implements DatabaseSchemaConfig{
             return;
         }
 
-        final File cfgFile = ConfigFileConstants.getFile(ConfigFileConstants.DB_SCHEMA_FILE_NAME);
-        m_singleton = new DatabaseSchemaConfigFactory(cfgFile.getPath());
+        final Path cfgFile = ConfigFileConstants.getFile(ConfigFileConstants.DB_SCHEMA_FILE_NAME);
+        m_singleton = new DatabaseSchemaConfigFactory(cfgFile);
         m_loaded = true;
     }
 
@@ -367,7 +363,7 @@ public final class DatabaseSchemaConfigFactory implements DatabaseSchemaConfig{
                     }
                 }
             }
-    
+
             return joinedTables;
         } finally {
             getReadLock().unlock();
@@ -397,7 +393,7 @@ public final class DatabaseSchemaConfigFactory implements DatabaseSchemaConfig{
                 joinExpr.append(currentJoin.getTable() + "." + currentJoin.getTableColumn() + " = ");
                 joinExpr.append(joinTables.get(i) + "." + currentJoin.getColumn() + ")");
             }
-    
+
             if (joinExpr.length() > 0) return "FROM " + joinExpr.toString();
             return "";
         } finally {

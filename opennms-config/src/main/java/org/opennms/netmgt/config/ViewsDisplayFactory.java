@@ -28,11 +28,13 @@
 
 package org.opennms.netmgt.config;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.attribute.FileTime;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -55,13 +57,13 @@ public class ViewsDisplayFactory {
     private static ViewsDisplayFactory m_instance;
 
     /** File path of groups.xml. */
-    protected File m_viewsDisplayFile;
+    protected Path m_viewsDisplayFile;
 
     /** Boolean indicating if the init() method has been called. */
     protected boolean initialized = false;
 
     /** Timestamp of the viewDisplay file, used to know when to reload from disk. */
-    protected long m_lastModified;
+    protected FileTime m_lastModified = null;
 
     /** Map of view objects by name. */
     protected Map<String,View> m_viewsMap;
@@ -71,10 +73,10 @@ public class ViewsDisplayFactory {
     /**
      * Empty private constructor so this class cannot be instantiated outside
      * itself.
-     * @throws IOException 
-     * @throws FileNotFoundException 
-     * @throws ValidationException 
-     * @throws MarshalException 
+     * @throws IOException
+     * @throws FileNotFoundException
+     * @throws ValidationException
+     * @throws MarshalException
      */
     private ViewsDisplayFactory() throws MarshalException, ValidationException, FileNotFoundException, IOException {
         reload();
@@ -89,8 +91,8 @@ public class ViewsDisplayFactory {
      * @throws java.io.FileNotFoundException if any.
      * @throws java.io.IOException if any.
      */
-    public ViewsDisplayFactory(String file) throws MarshalException, ValidationException, FileNotFoundException, IOException {
-        setViewsDisplayFile(new File(file));
+    public ViewsDisplayFactory(Path file) throws MarshalException, ValidationException, FileNotFoundException, IOException {
+        setViewsDisplayFile(file);
         reload();
     }
 
@@ -133,36 +135,30 @@ public class ViewsDisplayFactory {
      * @throws org.exolab.castor.xml.ValidationException if any.
      */
     public synchronized void reload() throws IOException, FileNotFoundException, MarshalException, ValidationException {
-        InputStream stream = null;
-        try {
-            stream = getStream();
+        try (InputStream stream = getStream();) {
             unmarshal(stream);
-        } finally {
-            if (stream != null) {
-                IOUtils.closeQuietly(stream);
-            }
         }
     }
-    
+
     private void unmarshal(InputStream stream) throws MarshalException, ValidationException {
         m_viewInfo = CastorUtils.unmarshal(Viewinfo.class, stream);
         updateViewsMap();
     }
-    
+
     private void updateViewsMap() {
         Map<String, View> viewsMap = new HashMap<String,View>();
 
         for (View view : m_viewInfo.getViewCollection()) {
             viewsMap.put(view.getViewName(), view);
         }
-        
+
         m_viewsMap = viewsMap;
     }
-    
+
     private InputStream getStream() throws IOException {
-        File viewsDisplayFile = getViewsDisplayFile();
-        m_lastModified = viewsDisplayFile.lastModified();
-        return new FileInputStream(viewsDisplayFile);
+        Path viewsDisplayFile = getViewsDisplayFile();
+        m_lastModified = Files.getLastModifiedTime(viewsDisplayFile);
+        return Files.newInputStream(viewsDisplayFile);
     }
 
     /**
@@ -170,7 +166,7 @@ public class ViewsDisplayFactory {
      *
      * @param viewsDisplayFile a {@link java.io.File} object.
      */
-    public void setViewsDisplayFile(File viewsDisplayFile) {
+    public void setViewsDisplayFile(Path viewsDisplayFile) {
         m_viewsDisplayFile = viewsDisplayFile;
     }
 
@@ -180,7 +176,7 @@ public class ViewsDisplayFactory {
      * @return a {@link java.io.File} object.
      * @throws java.io.IOException if any.
      */
-    public File getViewsDisplayFile() throws IOException {
+    public Path getViewsDisplayFile() throws IOException {
         if (m_viewsDisplayFile == null) {
             m_viewsDisplayFile = ConfigFileConstants.getFile(ConfigFileConstants.VIEWS_DISPLAY_CONF_FILE_NAME);
         }
@@ -207,7 +203,7 @@ public class ViewsDisplayFactory {
 
         return view;
     }
-    
+
     /**
      * <p>getDefaultView</p>
      *
@@ -226,7 +222,7 @@ public class ViewsDisplayFactory {
      * @throws org.exolab.castor.xml.ValidationException if any.
      */
     protected void updateFromFile() throws IOException, MarshalException, ValidationException {
-        if (m_lastModified != m_viewsDisplayFile.lastModified()) {
+        if (m_lastModified == null || !m_lastModified.equals(Files.getLastModifiedTime(m_viewsDisplayFile))) {
             reload();
         }
     }

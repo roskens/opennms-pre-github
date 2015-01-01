@@ -29,8 +29,6 @@
 package org.opennms.netmgt.config;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -41,6 +39,8 @@ import java.io.Writer;
 import java.net.InetAddress;
 import java.net.URL;
 import java.net.UnknownHostException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -106,7 +106,7 @@ public class DiscoveryConfigFactory implements DiscoveryConfigurationFactory {
 
     /**
      * Private constructor
-     * 
+     *
      * @exception java.io.IOException
      *                Thrown if the specified config file cannot be read
      * @exception org.exolab.castor.xml.MarshalException
@@ -114,8 +114,8 @@ public class DiscoveryConfigFactory implements DiscoveryConfigurationFactory {
      * @exception org.exolab.castor.xml.ValidationException
      *                Thrown if the contents do not match the required schema.
      */
-    private DiscoveryConfigFactory(final String configFile) throws IOException, MarshalException, ValidationException {
-        final FileSystemResource resource = new FileSystemResource(configFile);
+    private DiscoveryConfigFactory(final Path configFile) throws IOException, MarshalException, ValidationException {
+        final FileSystemResource resource = new FileSystemResource(configFile.toFile());
         setConfig(resource);
     }
 
@@ -155,11 +155,11 @@ public class DiscoveryConfigFactory implements DiscoveryConfigurationFactory {
             return;
         }
 
-        final File cfgFile = ConfigFileConstants.getFile(ConfigFileConstants.DISCOVERY_CONFIG_FILE_NAME);
+        final Path cfgFile = ConfigFileConstants.getFile(ConfigFileConstants.DISCOVERY_CONFIG_FILE_NAME);
 
-        LOG.debug("init: config file path: {}", cfgFile.getPath());
+        LOG.debug("init: config file path: {}", cfgFile);
 
-        m_singleton = new DiscoveryConfigFactory(cfgFile.getPath());
+        m_singleton = new DiscoveryConfigFactory(cfgFile);
 
         try {
             m_singleton.getInitialSleepTime();
@@ -232,14 +232,11 @@ public class DiscoveryConfigFactory implements DiscoveryConfigurationFactory {
      */
     protected void saveXml(final String xml) throws IOException {
         if (xml != null) {
-            Writer fileWriter = null;
             getWriteLock().lock();
-            try {
-                fileWriter = new OutputStreamWriter(new FileOutputStream(ConfigFileConstants.getFile(ConfigFileConstants.DISCOVERY_CONFIG_FILE_NAME)), "UTF-8");
+            try (Writer fileWriter = new OutputStreamWriter(Files.newOutputStream(ConfigFileConstants.getFile(ConfigFileConstants.DISCOVERY_CONFIG_FILE_NAME)), "UTF-8");) {
                 fileWriter.write(xml);
                 fileWriter.flush();
             } finally {
-                if (fileWriter != null ) IOUtils.closeQuietly(fileWriter);
                 getWriteLock().unlock();
             }
         }
@@ -428,7 +425,7 @@ public class DiscoveryConfigFactory implements DiscoveryConfigurationFactory {
                 } catch (Throwable e) {
                     LOG.warn("Begin address of discovery range is invalid, discarding: {}", ir.getBegin());
                     continue;
-                } 
+                }
 
                 try {
                     InetAddressUtils.toIpAddrBytes(ir.getEnd());
@@ -538,43 +535,43 @@ public class DiscoveryConfigFactory implements DiscoveryConfigurationFactory {
         getReadLock().lock();
         try {
             LOG.debug("Looking for matching foreign source specific IP or IP range with address: {}...", address);
-    
+
             List<Specific> specificCollection = getConfiguration().getSpecificCollection();
             for (Specific specific : specificCollection) {
                 String ipAddr = specific.getContent();
-    
+
                 if (ipAddr.equals(InetAddressUtils.str(address))) {
-    
+
                     String foreignSource = specific.getForeignSource();
                     LOG.debug("Matched foreign source {} matching address: {} against specific {}.", foreignSource, address, ipAddr);
                     return foreignSource;
                 }
             }
-    
+
             final byte[] laddr = address.getAddress();
-    
+
             List<IncludeRange> includeRangeCollection = getConfiguration().getIncludeRangeCollection();
             for (IncludeRange range : includeRangeCollection) {
-    
+
                 if (InetAddressUtils.isInetAddressInRange(laddr, range.getBegin(), range.getEnd())) {
-    
+
                     String foreignSource = range.getForeignSource();
                     LOG.debug("Found foreign source {} with address {} in the range begin: {} and end: {}.", foreignSource, address, range.getBegin(), range.getEnd());
                     return foreignSource;
                 }
             }
-    
+
             List<IncludeUrl> includeUrlCollection = getConfiguration().getIncludeUrlCollection();
             for (IncludeUrl includeUrl : includeUrlCollection) {
                 String ipAddr = includeUrl.getContent();
                 if (ipAddr.equals(InetAddressUtils.str(address))) {
-    
+
                     String foreignSource = includeUrl.getForeignSource();
                     LOG.debug("Matched foreign source {} matching address: {} in specified URL.", foreignSource, address);
                     return foreignSource;
                 }
             }
-    
+
             return getConfiguration().getForeignSource();
         } finally {
             getReadLock().unlock();

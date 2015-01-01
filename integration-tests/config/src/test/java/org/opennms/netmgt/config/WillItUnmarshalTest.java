@@ -28,18 +28,22 @@
 
 package org.opennms.netmgt.config;
 
+import java.io.IOException;
+import java.nio.file.DirectoryStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 import static org.opennms.core.test.ConfigurationTestUtils.getDaemonEtcDirectory;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import junit.framework.AssertionFailedError;
 
-import org.apache.commons.io.FileUtils;
 import org.exolab.castor.util.LocalConfiguration;
 import org.junit.Before;
 import org.junit.Test;
@@ -123,18 +127,18 @@ import org.springframework.core.io.Resource;
 /**
  * This is an integration test checking if all provided example XML files can be
  * unmarshalled.
- * 
+ *
  * For each file to test, an entry in the {@link #files()} list must exist.
  * During test run, all tests methods are executed for each test.
- * 
+ *
  * To ensure, that all provided files are covered, a meta test is used
  * ({@link WillItUnmarshalMetaTest}).
- * 
+ *
  * The name of this class is a tribute to
  * <a href="http://www.willitblend.com/">www.willitblend.com</a>.
- * 
+ *
  * @author Dustin Frisch<fooker@lab.sh>
- * 
+ *
  * @see WillItUnmarshalMetaTest
  */
 @RunWith(value = Parameterized.class)
@@ -161,7 +165,7 @@ public class WillItUnmarshalTest {
 
     /**
      * A list of test parameters to execute.
-     * 
+     *
      * See {@link #files()} for detailed information.
      */
     public static final ArrayList<Object[]> FILES = new ArrayList<Object[]>();
@@ -181,7 +185,7 @@ public class WillItUnmarshalTest {
     private static void addFile(final Source source, final String file, final Class<?> clazz, final Impl impl) {
         addFile(source, file, clazz, impl, false, null);
     }
-    
+
     static {
         addFile(Source.SPRING, "eventconf-good-ordering.xml", Events.class, Impl.JAXB);
         addFile(Source.SPRING, "eventconf-bad-ordering.xml", Events.class, Impl.JAXB, true);
@@ -293,31 +297,33 @@ public class WillItUnmarshalTest {
         addFile(Source.EXAMPLE, "jvm-datacollection/jmx-datacollection/OpenNMS/1.10/OpenNMSBasic0.xml", Mbeans.class, Impl.JAXB);
         addFile(Source.EXAMPLE, "jvm-datacollection/jmx-datacollection/OpenNMS/1.10/OpenNMSLegacy.xml", Mbeans.class, Impl.JAXB);
         addFile(Source.CONFIG, "snmp-hardware-inventory-adapter-configuration.xml", HwInventoryAdapterConfiguration.class, Impl.JAXB);
+        DirectoryStream.Filter<Path> xmlFileFilter = new DirectoryStream.Filter<Path>() {
+            @Override
+            public boolean accept(Path entry) throws IOException {
+                return entry.getFileName().toString().endsWith(".xml");
+            }
+        };
 
         // Add all event files
-        for (final File file : FileUtils.listFiles(new File(getDaemonEtcDirectory(), "events"),
-                                                   new String[] { "xml" },
-                                                   true)) {
-            addFile(Source.ABSOLUTE,
-                    file.getPath(),
-                    Events.class,
-                    Impl.CASTOR);
+        try (DirectoryStream<Path> stream = Files.newDirectoryStream(getDaemonEtcDirectory().resolve("events"), xmlFileFilter);) {
+            for (Path path : stream) {
+                addFile(Source.ABSOLUTE, path.toAbsolutePath().toString(), Events.class, Impl.CASTOR);
+            }
+        } catch (IOException ex) {
         }
 
         // Add all datacollection group files
-        for (final File file : FileUtils.listFiles(new File(getDaemonEtcDirectory(), "datacollection"),
-                                                   new String[] { "xml" },
-                                                   true)) {
-            addFile(Source.ABSOLUTE,
-                    file.getPath(),
-                    DatacollectionGroup.class,
-                    Impl.JAXB);
+        try (DirectoryStream<Path> stream = Files.newDirectoryStream(getDaemonEtcDirectory().resolve("datacollection"), xmlFileFilter);) {
+            for (Path path : stream) {
+                addFile(Source.ABSOLUTE, path.toAbsolutePath().toString(), DatacollectionGroup.class, Impl.CASTOR);
+            }
+        } catch (IOException ex) {
         }
     }
 
     /**
      * The list of files to test.
-     * 
+     *
      * For each XML file to test, this method must return an entry in the list.
      * Each entry consists of the following parts:
      * <ul>
@@ -328,10 +334,10 @@ public class WillItUnmarshalTest {
      *   <li>Flag for being lenient</li>
      *   <li>An expected exception message</li>
      * </ul>
-     * 
+     *
      * The returned file list is stored in {@link #FILES} which is filled in the
      * static constructor.
-     * 
+     *
      * @return list of parameters for the test
      */
     @Parameterized.Parameters
@@ -416,18 +422,18 @@ public class WillItUnmarshalTest {
     /**
      * Create a resource for the config file to unmarshall using the configured
      * source.
-     * 
-     * @return the Resource 
+     *
+     * @return the Resource
      */
     public final Resource createResource() {
         // Create a resource for the config file to unmarshall using the
         // configured source
         switch (this.source) {
         case CONFIG:
-            return new FileSystemResource(ConfigurationTestUtils.getFileForConfigFile(file));
+                return new FileSystemResource(ConfigurationTestUtils.getFileForConfigFile(file).toFile());
 
         case EXAMPLE:
-            return new FileSystemResource(ConfigurationTestUtils.getFileForConfigFile("examples/" + file));
+                return new FileSystemResource(ConfigurationTestUtils.getFileForConfigFile("examples/" + file).toFile());
 
         case SPRING:
             return ConfigurationTestUtils.getSpringResourceForResource(this, this.file);

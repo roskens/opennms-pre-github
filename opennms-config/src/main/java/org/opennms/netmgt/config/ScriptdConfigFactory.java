@@ -28,8 +28,8 @@
 
 package org.opennms.netmgt.config;
 
-import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
 
 import org.exolab.castor.xml.MarshalException;
 import org.exolab.castor.xml.ValidationException;
@@ -75,7 +75,7 @@ public final class ScriptdConfigFactory {
 
     /**
      * Private constructor
-     * 
+     *
      * @exception java.io.IOException
      *                Thrown if the specified config file cannot be read
      * @exception org.exolab.castor.xml.MarshalException
@@ -83,8 +83,8 @@ public final class ScriptdConfigFactory {
      * @exception org.exolab.castor.xml.ValidationException
      *                Thrown if the contents do not match the required schema.
      */
-    private ScriptdConfigFactory(String configFile) throws IOException, MarshalException, ValidationException {
-        m_config = CastorUtils.unmarshal(ScriptdConfiguration.class, new FileSystemResource(configFile));
+    private ScriptdConfigFactory(Path configFile) throws IOException, MarshalException, ValidationException {
+        m_config = CastorUtils.unmarshal(ScriptdConfiguration.class, new FileSystemResource(configFile.toFile()));
     }
 
     /**
@@ -108,8 +108,8 @@ public final class ScriptdConfigFactory {
             return;
         }
 
-        File cfgFile = ConfigFileConstants.getFile(ConfigFileConstants.SCRIPTD_CONFIG_FILE_NAME);
-        m_singleton = new ScriptdConfigFactory(cfgFile.getPath());
+        Path cfgFile = ConfigFileConstants.getFile(ConfigFileConstants.SCRIPTD_CONFIG_FILE_NAME);
+        m_singleton = new ScriptdConfigFactory(cfgFile);
 
         m_loaded = true;
     }

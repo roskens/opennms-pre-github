@@ -28,14 +28,13 @@
 
 package org.opennms.netmgt.config;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.file.Files;
 import java.util.Collection;
 import java.util.List;
 
-import org.apache.commons.io.IOUtils;
 import org.opennms.core.utils.ConfigFileConstants;
 import org.opennms.core.xml.JaxbUtils;
 import org.opennms.netmgt.config.vacuumd.Action;
@@ -113,18 +112,10 @@ public final class VacuumdConfigFactory {
             return;
         }
 
-        InputStream is = null;
-
-        try {
-            is = new FileInputStream(ConfigFileConstants.getFile(ConfigFileConstants.VACUUMD_CONFIG_FILE_NAME));
+        try (InputStream is = Files.newInputStream(ConfigFileConstants.getFile(ConfigFileConstants.VACUUMD_CONFIG_FILE_NAME));) {
             setInstance(new VacuumdConfigFactory(is));
-        } finally {
-            if (is != null) {
-                IOUtils.closeQuietly(is);
-            }
+            m_loadedFromFile = true;
         }
-        
-        m_loadedFromFile = true;
     }
 
     /**
@@ -154,7 +145,7 @@ public final class VacuumdConfigFactory {
 
         return m_singleton;
     }
-    
+
     /**
      * Set the singleton instance of this factory.
      *
@@ -163,7 +154,7 @@ public final class VacuumdConfigFactory {
     public static synchronized void setInstance(VacuumdConfigFactory instance) {
         m_singleton = instance;
     }
-    
+
     /**
      * Returns a Collection of automations defined in the config
      *
@@ -172,7 +163,7 @@ public final class VacuumdConfigFactory {
     public synchronized Collection<Automation> getAutomations() {
         return m_config.getAutomations().getAutomationCollection();
     }
-    
+
 	/**
 	 * Returns a Collection of triggers defined in the config
 	 *
@@ -233,7 +224,7 @@ public final class VacuumdConfigFactory {
         }
         return null;
     }
-    
+
     /**
      * Returns an Action with a name matching the string parmater
      *
@@ -248,7 +239,7 @@ public final class VacuumdConfigFactory {
         }
         return null;
     }
-    
+
     /**
      * Returns an Automation with a name matching the string parameter
      *
@@ -263,7 +254,7 @@ public final class VacuumdConfigFactory {
         }
         return null;
     }
-    
+
     /**
      * Returns the AutoEvent associated with the auto-event-name
      *
@@ -293,7 +284,7 @@ public final class VacuumdConfigFactory {
         }
         return sql;
     }
-    
+
     /**
      * <p>getStatements</p>
      *

@@ -28,7 +28,6 @@
 
 package org.opennms.protocols.xml.vtdxml;
 
-import java.io.File;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.Date;
@@ -54,6 +53,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.ximpleware.VTDNav;
+import java.nio.file.Path;
 
 /**
  * The custom implementation of the interface XmlCollectionHandler for 3GPP XML Data.
@@ -64,7 +64,7 @@ import com.ximpleware.VTDNav;
  * <p>This implementation contains basically the same implementation for the method
  * from Sftp3gppXmlCollectionHandler, but using the VTD-XML parser instead of DOM
  * parser for faster performance.</p>
- * 
+ *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 public class Sftp3gppVTDXmlCollectionHandler extends AbstractVTDXmlCollectionHandler {
@@ -86,7 +86,7 @@ public class Sftp3gppVTDXmlCollectionHandler extends AbstractVTDXmlCollectionHan
         DateTime startTime = new DateTime();
         Sftp3gppUrlConnection connection = null;
         try {
-            File resourceDir = new File(getRrdRepository().getRrdBaseDir(), Integer.toString(agent.getNodeId()));
+            Path resourceDir = getRrdRepository().getRrdBaseDir().resolve(Integer.toString(agent.getNodeId()));
             for (XmlSource source : collection.getXmlSources()) {
                 if (!source.getUrl().startsWith(Sftp3gppUrlHandler.PROTOCOL)) {
                     throw new CollectionException("The 3GPP SFTP Collection Handler can only use the protocol " + Sftp3gppUrlHandler.PROTOCOL);
@@ -98,7 +98,7 @@ public class Sftp3gppVTDXmlCollectionHandler extends AbstractVTDXmlCollectionHan
                 connection = (Sftp3gppUrlConnection) url.openConnection();
                 if (lastFile == null) {
                     lastFile = connection.get3gppFileName();
-                    LOG.debug("collect(single): retrieving file from {}{}{} from {}", url.getPath(), File.separatorChar, lastFile, agent.getHostAddress());
+                    LOG.debug("collect(single): retrieving file from {}/{} from {}", url.getPath(), lastFile, agent.getHostAddress());
                     VTDNav doc = getVTDXmlDocument(urlStr, request);
                     fillCollectionSet(agent, collectionSet, source, doc);
                     Sftp3gppUtils.setLastFilename(getServiceName(), resourceDir, url.getPath(), lastFile);

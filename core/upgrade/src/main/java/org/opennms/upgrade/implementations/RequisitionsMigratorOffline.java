@@ -28,10 +28,10 @@
 
 package org.opennms.upgrade.implementations;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import org.apache.commons.io.FileUtils;
+import java.io.IOException;
+import java.nio.file.DirectoryStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import org.apache.commons.io.IOUtils;
 import org.opennms.core.utils.ConfigFileConstants;
 import org.opennms.core.xml.JaxbUtils;
@@ -43,24 +43,24 @@ import org.slf4j.LoggerFactory;
 
 /**
  * The Class Requisitions Migrator.
- * 
+ *
  * <p>The attributes <code>non-ip-snmp-primary</code> and <code>non-ip-interfaces</code> which are valid in 1.10 have been removed in 1.12.</p>
  * <p>This tool will parse the raw requisitions XML and remove those tags.</p>
- * 
+ *
  * <p>Issues fixed:</p>
  * <ul>
  * <li>NMS-5630</li>
  * <li>NMS-5571</li>
  * </ul>
- * 
- * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a> 
+ *
+ * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 public class RequisitionsMigratorOffline extends AbstractOnmsUpgrade {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(RequisitionsMigratorOffline.class);
 
     /** The requisition directory. */
-    private File requisitionDir;
+    private Path requisitionDir;
 
     /**
      * Instantiates a new requisitions migrator offline.
@@ -109,11 +109,13 @@ public class RequisitionsMigratorOffline extends AbstractOnmsUpgrade {
      */
     @Override
     public void postExecute() throws OnmsUpgradeException {
-        File zip = getBackupFile();
-        if (zip.exists()) {
+        Path zip = getBackupFile();
+        if (Files.exists(zip)) {
             log("Removing backup %s\n", zip);
-            if(!zip.delete()) {
-            	LOG.warn("Could not delete file: {}",zip.getPath());
+            try {
+                Files.delete(zip);
+            } catch (IOException e) {
+                LOG.warn("Could not delete file: {}", zip, e);
             }
         }
     }
@@ -123,10 +125,12 @@ public class RequisitionsMigratorOffline extends AbstractOnmsUpgrade {
      */
     @Override
     public void rollback() throws OnmsUpgradeException {
-        File zip = getBackupFile();
+        Path zip = getBackupFile();
         unzipFile(zip, getRequisitionDir());
-        if(!zip.delete()) {
-        	LOG.warn("Could not delete file: {}",zip.getPath());
+        try {
+            Files.delete(zip);
+        } catch (IOException e) {
+            LOG.warn("Could not delete file: {}", zip, e);
         }
     }
 
@@ -135,14 +139,22 @@ public class RequisitionsMigratorOffline extends AbstractOnmsUpgrade {
      */
     @Override
     public void execute() throws OnmsUpgradeException {
-        try {
-            for (File req : FileUtils.listFiles(getRequisitionDir(), new String[]{"xml"}, true)) {
+        DirectoryStream.Filter<Path> filter = new DirectoryStream.Filter<Path>() {
+            @Override
+            public boolean accept(Path path) {
+                return path.endsWith(".xml");
+            }
+        };
+
+        try (DirectoryStream<Path> stream = Files.newDirectoryStream(getRequisitionDir(), filter);) {
+            for (Path req : stream) {
                 log("Processing %s\n", req);
-                String content = IOUtils.toString(new FileInputStream(req), "UTF-8");
+
+                String content = IOUtils.toString(Files.newInputStream(req), "UTF-8");
                 String output = content.replaceAll(" non-ip-(snmp-primary|interfaces)=\"[^\"]+\"", "");
                 if (content.length() != output.length()) {
                     log("  Updating and parsing the requisition\n", req);
-                    IOUtils.write(output, new FileOutputStream(req), "UTF-8");
+                    IOUtils.write(output, Files.newOutputStream(req), "UTF-8");
                     Requisition requisition = JaxbUtils.unmarshal(Requisition.class, req, true);
                     if (requisition == null) {
                         throw new OnmsUpgradeException("Can't parse requisition " + req);
@@ -159,9 +171,9 @@ public class RequisitionsMigratorOffline extends AbstractOnmsUpgrade {
      *
      * @return the requisition directory
      */
-    private File getRequisitionDir() {
+    private Path getRequisitionDir() {
         if (requisitionDir == null) {
-            requisitionDir = new File(ConfigFileConstants.getFilePathString() + "imports");
+            requisitionDir = ConfigFileConstants.getFilePathString().resolve("imports");
         }
         return requisitionDir;
     }
@@ -171,7 +183,7 @@ public class RequisitionsMigratorOffline extends AbstractOnmsUpgrade {
      *
      * @return the backup file
      */
-    private File getBackupFile() {
-        return new File(getRequisitionDir().getAbsoluteFile() + ZIP_EXT);
+    private Path getBackupFile() {
+        return getRequisitionDir().resolveSibling(getRequisitionDir().getFileName() + ZIP_EXT);
     }
 }

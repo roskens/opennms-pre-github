@@ -28,8 +28,7 @@
 
 package org.opennms.netmgt.collectd.tca;
 
-import java.io.File;
-
+import java.nio.file.Path;
 import org.opennms.netmgt.collection.api.CollectionAgent;
 import org.opennms.netmgt.collection.api.StorageStrategy;
 import org.opennms.netmgt.collection.api.TimeKeeper;
@@ -51,7 +50,7 @@ import org.opennms.netmgt.rrd.RrdRepository;
  * &lt;/datacollection-group&gt;
  * </pre>
  * <p>Note: the persistenceSelectorStrategy and storageStrategy won't be used by the collector.</p>
- * 
+ *
  * @author Alejandro Galue <agalue@opennms.org>
  */
 public class TcaCollectionResource extends AbstractCollectionResource {
@@ -117,9 +116,9 @@ public class TcaCollectionResource extends AbstractCollectionResource {
 	 * @see org.opennms.netmgt.collectd.AbstractCollectionResource#getResourceDir(org.opennms.netmgt.model.RrdRepository)
 	 */
 	@Override
-	public File getResourceDir(RrdRepository repository) {
+    public Path getResourceDir(RrdRepository repository) {
 		String resourcePath = m_strategy.getRelativePathForAttribute(getParent(), getInterfaceLabel());
-		return new File(repository.getRrdBaseDir(), resourcePath);
+        return repository.getRrdBaseDir().resolve(resourcePath);
 	}
 
 	/* (non-Javadoc)
@@ -138,7 +137,7 @@ public class TcaCollectionResource extends AbstractCollectionResource {
 	public void setTimeKeeper(TimeKeeper timeKeeper) {
 		m_timeKeeper = timeKeeper;
 	}
-	
+
     /**
      * Sets the attribute value.
      *

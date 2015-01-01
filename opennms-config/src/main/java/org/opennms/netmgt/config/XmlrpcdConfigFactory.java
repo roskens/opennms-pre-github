@@ -28,17 +28,16 @@
 
 package org.opennms.netmgt.config;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Enumeration;
 import java.util.List;
 
-import org.apache.commons.io.IOUtils;
 import org.exolab.castor.xml.MarshalException;
 import org.exolab.castor.xml.ValidationException;
 import org.opennms.core.utils.ConfigFileConstants;
@@ -84,7 +83,7 @@ public final class XmlrpcdConfigFactory {
 
     /**
      * Private constructor
-     * 
+     *
      * @exception java.io.IOException
      *                Thrown if the specified config file cannot be read
      * @exception org.exolab.castor.xml.MarshalException
@@ -92,18 +91,12 @@ public final class XmlrpcdConfigFactory {
      * @exception org.exolab.castor.xml.ValidationException
      *                Thrown if the contents do not match the required schema.
      */
-    private XmlrpcdConfigFactory(String configFile) throws IOException, MarshalException, ValidationException {
-        InputStream is = null;
-        try {
-            is = new FileInputStream(configFile);
+    private XmlrpcdConfigFactory(Path configFile) throws IOException, MarshalException, ValidationException {
+        try (InputStream is = Files.newInputStream(configFile);) {
             unmarshal(is);
-        } finally {
-            if (is != null) {
-                IOUtils.closeQuietly(is);
-            }
         }
     }
-    
+
     /**
      * Constructor for testing
      *
@@ -166,7 +159,7 @@ public final class XmlrpcdConfigFactory {
             return;
         }
 
-        File cfgFile = ConfigFileConstants.getFile(ConfigFileConstants.XMLRPCD_CONFIG_FILE_NAME);
+        Path cfgFile = ConfigFileConstants.getFile(ConfigFileConstants.XMLRPCD_CONFIG_FILE_NAME);
 
         init(cfgFile);
     }
@@ -185,23 +178,23 @@ public final class XmlrpcdConfigFactory {
      * @throws org.exolab.castor.xml.MarshalException if any.
      * @throws org.exolab.castor.xml.ValidationException if any.
      */
-    public static synchronized void init(File cfgFile) throws IOException, MarshalException, ValidationException {
+    public static synchronized void init(Path cfgFile) throws IOException, MarshalException, ValidationException {
         if (m_loaded) {
             // init already called - return
             // to reload, reload() will need to be called
             return;
         }
 
-        LOG.debug("init: config file path: {}", cfgFile.getPath());
+        LOG.debug("init: config file path: {}", cfgFile);
 
-        setInstance(new XmlrpcdConfigFactory(cfgFile.getPath()));
+        setInstance(new XmlrpcdConfigFactory(cfgFile));
     }
 
     private void handleLegacyConfiguration() {
         String generatedSubscriptionName = null;
 
         /* Be backwards-compatible with old configurations.
-         * 
+         *
          * The old style configuration did not have a <serverSubscription> field
          * inside the <external-servers> tag, so create a default one.
          */
@@ -284,7 +277,7 @@ public final class XmlrpcdConfigFactory {
 
         return m_singleton;
     }
-    
+
     /**
      * <p>setInstance</p>
      *
@@ -329,7 +322,7 @@ public final class XmlrpcdConfigFactory {
 
             if (!foundSubscription) {
                 /*
-                 * Oops -- a serverSubscription element referenced a 
+                 * Oops -- a serverSubscription element referenced a
                  * subscription element that doesn't exist.
                  */
                 LOG.error("serverSubscription element {} references a subscription that does not exist", name);
@@ -360,7 +353,7 @@ public final class XmlrpcdConfigFactory {
     public synchronized Enumeration<Subscription> getSubscriptionEnumeration() {
     	return m_config.enumerateSubscription();
     }
-    
+
     /**
      * Retrieves configured list of xmlrpc servers and the events to which
      *  they subscribe.
@@ -380,7 +373,7 @@ public final class XmlrpcdConfigFactory {
     public synchronized Collection<Subscription> getSubscriptionCollection() {
     	return m_config.getSubscriptionCollection();
     }
-    
+
     /**
      * Retrieves the max event queue size from configuration.
      *

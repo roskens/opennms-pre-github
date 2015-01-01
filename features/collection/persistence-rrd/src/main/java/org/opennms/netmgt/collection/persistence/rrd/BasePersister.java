@@ -28,9 +28,9 @@
 
 package org.opennms.netmgt.collection.persistence.rrd;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -57,9 +57,9 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class BasePersister extends AbstractCollectionSetVisitor implements Persister {
-    
+
     protected static final Logger LOG = LoggerFactory.getLogger(BasePersister.class);
-    
+
     private boolean m_ignorePersist = false;
     private ServiceParameters m_params;
     private RrdRepository m_repository;
@@ -77,7 +77,7 @@ public class BasePersister extends AbstractCollectionSetVisitor implements Persi
         m_params = params;
         m_repository = repository;
     }
-    
+
     /**
      * <p>commitBuilder</p>
      */
@@ -90,7 +90,7 @@ public class BasePersister extends AbstractCollectionSetVisitor implements Persi
             m_builder = null;
         } catch (RrdException e) {
             LOG.error("Unable to persist data for {}", name, e);
-    
+
         }
     }
 
@@ -117,7 +117,7 @@ public class BasePersister extends AbstractCollectionSetVisitor implements Persi
     public void completeResource(CollectionResource resource) {
         popShouldPersist();
     }
-    
+
     /**
      * <p>createBuilder</p>
      *
@@ -183,7 +183,7 @@ public class BasePersister extends AbstractCollectionSetVisitor implements Persi
             LOG.debug("Persisting {}", attribute);
             CollectionResource resource = attribute.getResource();
             String value = attribute.getStringValue();
-            
+
             //String attrVal = (value == null ? null : value.toString());
             //if (attrVal == null) {
             if (value == null) {
@@ -192,7 +192,7 @@ public class BasePersister extends AbstractCollectionSetVisitor implements Persi
             }
             String attrName = attribute.getName();
             try {
-                File resourceDir = resource.getResourceDir(getRepository());
+                Path resourceDir = resource.getResourceDir(getRepository());
                 ResourceTypeUtils.updateStringProperty(resourceDir, value, attrName);
             } catch(FileNotFoundException e) {
                 LOG.error("Unable to save string attribute {}", attribute, e);
@@ -211,7 +211,7 @@ public class BasePersister extends AbstractCollectionSetVisitor implements Persi
         m_stack.removeLast();
         return top;
     }
-    
+
     private void push(boolean b) {
         m_stack.addLast(Boolean.valueOf(b));
     }
@@ -268,7 +268,7 @@ public class BasePersister extends AbstractCollectionSetVisitor implements Persi
             LOG.debug("Not persisting attribute {} because shouldPersist is false", attribute);
         }
     }
-    
+
     private boolean top() {
         return m_stack.getLast();
     }

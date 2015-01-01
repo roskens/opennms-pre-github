@@ -28,13 +28,12 @@
 
 package org.opennms.netmgt.config;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStreamWriter;
-import java.io.Writer;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 import org.apache.commons.io.IOUtils;
 import org.exolab.castor.xml.MarshalException;
@@ -55,10 +54,10 @@ public class SnmpAssetAdapterConfigFactory {
 	private final SnmpAssetAdapterConfigManager m_config;
 
 	public SnmpAssetAdapterConfigFactory() throws MarshalException, ValidationException, IOException {
-	    final File cfgFile = ConfigFileConstants.getFile(ConfigFileConstants.SNMP_ASSET_ADAPTER_CONFIG_FILE_NAME);
-		LOG.debug("init: config file path: {}", cfgFile.getPath());
-		final InputStream reader = new FileInputStream(cfgFile);
-		m_config = new SnmpAssetAdapterConfigManager(cfgFile.lastModified(), reader);
+        final Path cfgFile = ConfigFileConstants.getFile(ConfigFileConstants.SNMP_ASSET_ADAPTER_CONFIG_FILE_NAME);
+		LOG.debug("init: config file path: {}", cfgFile);
+        final InputStream reader = Files.newInputStream(cfgFile);
+        m_config = new SnmpAssetAdapterConfigManager(Files.getLastModifiedTime(cfgFile), reader);
 		IOUtils.closeQuietly(reader);
 	}
 
@@ -86,30 +85,28 @@ public class SnmpAssetAdapterConfigFactory {
 	 * @throws java.io.IOException if any.
 	 */
 	protected void save(final String xml) throws IOException {
-	    m_config.getWriteLock().lock();
-	    try {
-    		if (xml != null) {
-    		    final long timestamp = System.currentTimeMillis();
-    			final File cfgFile = ConfigFileConstants.getFile(ConfigFileConstants.SNMP_ASSET_ADAPTER_CONFIG_FILE_NAME);
-    			LOG.debug("saveXml: saving config file at {}: {}", timestamp, cfgFile.getPath());
-    			final Writer fileWriter = new OutputStreamWriter(new FileOutputStream(cfgFile), "UTF-8");
+        if (xml != null) {
+            m_config.getWriteLock().lock();
+            final long timestamp = System.currentTimeMillis();
+            final Path cfgFile = ConfigFileConstants.getFile(ConfigFileConstants.SNMP_ASSET_ADAPTER_CONFIG_FILE_NAME);
+            LOG.debug("saveXml: saving config file at {}: {}", timestamp, cfgFile);
+            try (BufferedWriter fileWriter = Files.newBufferedWriter(cfgFile, Charset.forName("UTF-8"));) {
     			fileWriter.write(xml);
     			fileWriter.flush();
-    			fileWriter.close();
-    			LOG.debug("saveXml: finished saving config file: {}", cfgFile.getPath());
-    		}
-	    } finally {
-	        m_config.getWriteLock().unlock();
-	    }
-	}
+    			LOG.debug("saveXml: finished saving config file: {}", cfgFile);
+            } finally {
+                m_config.getWriteLock().unlock();
+            }
+        }
+    }
 
 	/**
 	 * Return the singleton instance of this factory.
 	 *
 	 * @return The current factory instance.
-	 * @throws IOException 
-	 * @throws ValidationException 
-	 * @throws MarshalException 
+	 * @throws IOException
+	 * @throws ValidationException
+	 * @throws MarshalException
 	 * @throws java.lang.IllegalStateException
 	 *             Thrown if the factory has not yet been initialized.
 	 */

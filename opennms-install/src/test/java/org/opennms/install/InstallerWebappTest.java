@@ -28,37 +28,39 @@
 
 package org.opennms.install;
 
-import java.io.File;
-import java.io.FileOutputStream;
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.sql.SQLException;
 
 import junit.framework.TestCase;
 
-import org.opennms.test.FileAnticipator;
+import org.opennms.test.PathAnticipator;
 
 public class InstallerWebappTest extends TestCase {
     private Installer m_installer;
 
-    private FileAnticipator m_anticipator;
+    private PathAnticipator m_anticipator;
 
-    private File m_tomcat;
-    
-    private File m_tomcat_webapps;
+    private Path m_tomcat;
 
-    private File m_tomcat_conf_dir;
+    private Path m_tomcat_webapps;
+
+    private Path m_tomcat_conf_dir;
 
     public void setUp() throws IOException, SQLException {
-        m_anticipator = new FileAnticipator();
-        File dist = m_anticipator.tempDir("dist");
-        File dist_webapps = m_anticipator.tempDir(dist, "webapps");
-        File opennms_webapp = m_anticipator.tempDir(dist_webapps, "opennms");
-        File meta_inf = m_anticipator.tempDir(opennms_webapp, "META-INF");
+        m_anticipator = new PathAnticipator();
+        Path dist = m_anticipator.tempDir("dist");
+        Path dist_webapps = m_anticipator.tempDir(dist, "webapps");
+        Path opennms_webapp = m_anticipator.tempDir(dist_webapps, "opennms");
+        Path meta_inf = m_anticipator.tempDir(opennms_webapp, "META-INF");
         m_anticipator.tempFile(meta_inf, "context.xml");
 
-        File web_inf = m_anticipator.tempDir(opennms_webapp, "WEB-INF");
-        File lib = m_anticipator.tempDir(web_inf, "lib");
+        Path web_inf = m_anticipator.tempDir(opennms_webapp, "WEB-INF");
+        Path lib = m_anticipator.tempDir(web_inf, "lib");
         m_anticipator.tempFile(lib, "log4j.jar");
         m_anticipator.tempFile(lib, "castor-0.9.3.9.jar");
         m_anticipator.tempFile(lib, "castor-0.9.3.9-xml.jar");
@@ -69,8 +71,8 @@ public class InstallerWebappTest extends TestCase {
         m_tomcat = m_anticipator.tempDir("tomcat");
         m_tomcat_webapps = m_anticipator.tempDir(m_tomcat, "webapps");
         m_tomcat_conf_dir = m_anticipator.tempDir(m_tomcat, "conf");
-        File tomcat_server = m_anticipator.tempDir(m_tomcat, "server");
-        File tomcat_lib = m_anticipator.tempDir(tomcat_server, "lib");
+        Path tomcat_server = m_anticipator.tempDir(m_tomcat, "server");
+        Path tomcat_lib = m_anticipator.tempDir(tomcat_server, "lib");
 
         m_anticipator.expecting(m_tomcat_webapps, "opennms.xml");
         m_anticipator.expecting(tomcat_lib, "log4j.jar");
@@ -81,8 +83,8 @@ public class InstallerWebappTest extends TestCase {
         m_anticipator.expecting(tomcat_lib, "opennms_web.jar");
 
         m_installer = new Installer();
-        m_installer.m_install_servletdir = opennms_webapp.getAbsolutePath();
-        m_installer.m_webappdir = m_tomcat_webapps.getAbsolutePath();
+        m_installer.m_install_servletdir = opennms_webapp.toAbsolutePath();
+        m_installer.m_webappdir = m_tomcat_webapps.toAbsolutePath();
     }
 
     public void tearDown() throws Exception {
@@ -126,12 +128,11 @@ public class InstallerWebappTest extends TestCase {
                 + "                    homeDir=\"${OPENNMS_HOME}\"/>\n"
                 + "        </Context>\n";
 
-        File f = m_anticipator.tempFile(m_tomcat_conf_dir, "server.xml");
+        Path f = m_anticipator.tempFile(m_tomcat_conf_dir, "server.xml");
 
-        PrintWriter w = new PrintWriter(new FileOutputStream(f));
-
-        w.print(context);
-        w.close();
+        try (BufferedWriter w = Files.newBufferedWriter(f, Charset.defaultCharset())) {
+            w.write(context);
+        }
 
         try {
             m_installer.checkServerXmlOldOpennmsContext();
@@ -152,9 +153,9 @@ public class InstallerWebappTest extends TestCase {
     public void testServerXmlNoFile() throws Exception {
         m_installer.checkServerXmlOldOpennmsContext();
     }
-    
+
     public void testServerVersion41() throws IOException {
-        String readme = 
+        String readme =
             "$Id$\n"
             + "\n"
             + "                   The Tomcat 4.1 Servlet/JSP Container\n"
@@ -168,7 +169,7 @@ public class InstallerWebappTest extends TestCase {
 
         testServerVersion(readme, running, "4.1");
     }
-    
+
     public void testServerVersion5() throws IOException {
         String running =
             "$Id$\n"
@@ -179,9 +180,9 @@ public class InstallerWebappTest extends TestCase {
 
         testServerVersion(null, running, "5");
     }
-    
+
     public void testServerVersion55() throws IOException {
-        String running = 
+        String running =
             "$Id$\n"
             + "\n"
             + "                 ============================================\n"
@@ -190,7 +191,7 @@ public class InstallerWebappTest extends TestCase {
 
         testServerVersion(null, running, "5.5");
     }
-    
+
     private void testServerVersion(String readme, String running, String version)
         throws IOException {
         if (readme != null) {
@@ -199,7 +200,7 @@ public class InstallerWebappTest extends TestCase {
         if (running != null) {
             m_anticipator.tempFile(m_tomcat, "RUNNING.txt", running);
         }
-                               
+
         assertEquals("Server version", version, m_installer.checkServerVersion());
     }
 }

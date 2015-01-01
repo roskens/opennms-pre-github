@@ -28,8 +28,8 @@
 
 package org.opennms.netmgt.config;
 
-import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
 
 import org.opennms.core.spring.BeanUtils;
 import org.opennms.core.utils.ConfigFileConstants;
@@ -45,7 +45,7 @@ import org.springframework.core.io.FileSystemResource;
  * @author <a href="mailto:weave@oculan.com">Weave </a>
  */
 public abstract class DataCollectionConfigFactory {
-	
+
     /**
      * The singleton instance of this factory
      */
@@ -63,7 +63,7 @@ public abstract class DataCollectionConfigFactory {
     /**
      * Load the config from the default config file and create the singleton
      * instance of this factory.
-     * 
+     *
      * @exception java.io.IOException
      *                Thrown if the specified config file cannot be read
      * @throws java.io.IOException if any.
@@ -78,7 +78,7 @@ public abstract class DataCollectionConfigFactory {
 
     /**
      * Reload the config from the default config file
-     * 
+     *
      * @exception java.io.IOException
      *                Thrown if the specified config file cannot be read
      * @throws java.io.IOException if any.
@@ -99,14 +99,14 @@ public abstract class DataCollectionConfigFactory {
             throw new IllegalStateException("The factory has not been initialized");
         return m_singleton;
     }
-    
+
     public static void main(String[] args) {
         try {
             // Because DataCollectionConfigFactory.init() requires Spring initialization, it is better to instantiate a local copy
             // for testing the data collection configuration.
-            File cfgFile = ConfigFileConstants.getFile(ConfigFileConstants.DATA_COLLECTION_CONF_FILE_NAME);
+            Path cfgFile = ConfigFileConstants.getFile(ConfigFileConstants.DATA_COLLECTION_CONF_FILE_NAME);
             DefaultDataCollectionConfigDao config = new DefaultDataCollectionConfigDao();
-            config.setConfigResource(new FileSystemResource(cfgFile));
+            config.setConfigResource(new FileSystemResource(cfgFile.toFile()));
             config.afterPropertiesSet();
             config.getConfiguredResourceTypes();
             System.out.println("OK: no errors found");

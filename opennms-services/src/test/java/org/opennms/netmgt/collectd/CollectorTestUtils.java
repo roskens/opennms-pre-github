@@ -31,7 +31,7 @@ package org.opennms.netmgt.collectd;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import java.io.File;
+import java.nio.file.Path;
 
 import org.opennms.netmgt.collection.api.CollectionAgent;
 import org.opennms.netmgt.collection.api.CollectionException;
@@ -47,7 +47,7 @@ import org.opennms.netmgt.config.collectd.Parameter;
 import org.opennms.netmgt.config.collectd.Service;
 import org.opennms.netmgt.rrd.RrdRepository;
 import org.opennms.netmgt.rrd.RrdUtils;
-import org.opennms.test.FileAnticipator;
+import org.opennms.test.PathAnticipator;
 
 public abstract class CollectorTestUtils {
 
@@ -86,15 +86,15 @@ public abstract class CollectorTestUtils {
     public static void collectNTimes(CollectionSpecification spec, CollectionAgent agent, int numUpdates)
     throws InterruptedException, CollectionException {
         for(int i = 0; i < numUpdates; i++) {
-    
+
             // now do the actual collection
             CollectionSet collectionSet = spec.collect(agent);
             assertEquals("collection status", ServiceCollector.COLLECTION_SUCCEEDED, collectionSet.getStatus());
-            
+
             persistCollectionSet(spec, collectionSet);
-        
+
             System.err.println("COLLECTION "+i+" FINISHED");
-        
+
             //need a one second time elapse to update the RRD
             Thread.sleep(1010);
         }
@@ -117,8 +117,8 @@ public abstract class CollectorTestUtils {
         }
     }
 
-    public static File anticipatePath(FileAnticipator fa, File rootDir, String... pathElements) {
-        File parent = rootDir;
+    public static Path anticipatePath(PathAnticipator fa, Path rootDir, String... pathElements) {
+        Path parent = rootDir;
         assertTrue(pathElements.length > 0);
         for (String pathElement : pathElements) {
             parent = fa.expecting(parent, pathElement);

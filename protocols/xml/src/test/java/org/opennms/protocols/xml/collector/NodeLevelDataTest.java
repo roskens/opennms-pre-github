@@ -28,7 +28,9 @@
 
 package org.opennms.protocols.xml.collector;
 
-import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -124,8 +126,8 @@ public class NodeLevelDataTest extends AbstractXmlCollectorTest {
         collectionSet.visit(visitor);
         Assert.assertEquals(1, visitor.getResourceCount());
         Assert.assertEquals(6, visitor.getAttributeCount());
-        File file = new File("target/snmp/1/node-level-stats.jrb");
-        Assert.assertTrue(file.exists());
+        Path file = Paths.get("target", "snmp", "1", "node-level-stats.jrb");
+        Assert.assertTrue(Files.exists(file));
         String[] dsnames = new String[] { "v1", "v2", "v3", "v4", "v5", "v6" };
         Double[] dsvalues = new Double[] { 10.0, 11.0, 12.0, 13.0, 14.0, 15.0 };
         validateJrb(file, dsnames, dsvalues);

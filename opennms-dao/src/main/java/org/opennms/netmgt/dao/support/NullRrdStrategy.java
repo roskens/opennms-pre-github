@@ -28,9 +28,9 @@
 
 package org.opennms.netmgt.dao.support;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Path;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -42,7 +42,7 @@ import org.opennms.netmgt.rrd.RrdGraphDetails;
 import org.opennms.netmgt.rrd.RrdStrategy;
 
 public class NullRrdStrategy implements RrdStrategy<Object,Object> {
-	
+
 	// THIS IS USED FOR TESTS SO RrdUtils can be initialized
 	// but doesn't need to do anything
 
@@ -56,9 +56,7 @@ public class NullRrdStrategy implements RrdStrategy<Object,Object> {
 	}
 
     @Override
-	public Object createDefinition(String creator, String directory,
-			String rrdName, int step, List<RrdDataSource> dataSources, List<String> rraList)
-			throws Exception {
+    public Object createDefinition(String creator, Path directory, String rrdName, int step, List<RrdDataSource> dataSources, List<String> rraList) throws Exception {
 		return null;
 	}
 
@@ -67,26 +65,24 @@ public class NullRrdStrategy implements RrdStrategy<Object,Object> {
 	}
 
     @Override
-    public InputStream createGraph(String command, File workDir)
-            throws IOException, RrdException {
+    public InputStream createGraph(String command, Path workDir) throws IOException, RrdException {
         return null;
     }
-    
+
     @Override
-    public RrdGraphDetails createGraphReturnDetails(String command, File workDir)
-            throws IOException, RrdException {
+    public RrdGraphDetails createGraphReturnDetails(String command, Path workDir) throws IOException, RrdException {
         return null;
     }
-    
+
     @Override
-	public Double fetchLastValue(String rrdFile, String ds, int interval)
-			throws NumberFormatException, RrdException {
+    public Double fetchLastValue(Path rrdFile, String ds, int interval)
+   			throws NumberFormatException, RrdException {
 		return null;
 	}
 
     @Override
-	public Double fetchLastValueInRange(String rrdFile, String ds, int interval, int range)
-			throws NumberFormatException, RrdException {
+    public Double fetchLastValueInRange(Path rrdFile, String ds, int interval, int range)
+   			throws NumberFormatException, RrdException {
 		return null;
 	}
 
@@ -102,7 +98,7 @@ public class NullRrdStrategy implements RrdStrategy<Object,Object> {
 	}
 
     @Override
-	public Object openFile(String fileName) throws Exception {
+    public Object openFile(Path fileName) throws Exception {
 		return null;
 	}
 
@@ -132,14 +128,12 @@ public class NullRrdStrategy implements RrdStrategy<Object,Object> {
     }
 
     @Override
-    public Double fetchLastValue(String rrdFile, String ds,
-            String consolidationFunction, int interval)
-            throws NumberFormatException, RrdException {
+    public Double fetchLastValue(Path rrdFile, String ds, String consolidationFunction, int interval) throws NumberFormatException, RrdException {
         return null;
     }
 
     @Override
-    public void promoteEnqueuedFiles(Collection<String> rrdFiles) {
+    public void promoteEnqueuedFiles(Collection<Path> rrdFiles) {
     }
 
 }

@@ -28,6 +28,7 @@
 
 package org.opennms.netmgt.dao;
 
+import java.nio.file.Path;
 import org.opennms.netmgt.config.vmware.cim.VmwareCimCollection;
 import org.opennms.netmgt.config.vmware.cim.VmwareCimDatacollectionConfig;
 import org.opennms.netmgt.rrd.RrdRepository;
@@ -69,5 +70,5 @@ public interface VmwareCimDatacollectionConfigDao {
      *
      * @return the Rrd's path
      */
-    public String getRrdPath();
+    public Path getRrdPath();
 }

@@ -50,7 +50,7 @@
 
 package org.opennms.netmgt.protocols.xmp.collector;
 
-import java.io.File;
+import java.nio.file.Path;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -65,7 +65,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 
-public class XmpCollectionResource extends AbstractCollectionResource 
+public class XmpCollectionResource extends AbstractCollectionResource
 {
     /* class variables and methods *********************** */
 	private static final Logger LOG = LoggerFactory.getLogger(XmpCollectionResource.class);
@@ -78,7 +78,7 @@ public class XmpCollectionResource extends AbstractCollectionResource
     private final Set<AttributeGroup> m_listOfGroups;
 
     /* constructors  ************************************* */
-    public XmpCollectionResource(CollectionAgent agent, String resourceType, String nodeTypeName, String instance) 
+    public XmpCollectionResource(CollectionAgent agent, String resourceType, String nodeTypeName, String instance)
     {
         super(agent);
 
@@ -97,7 +97,7 @@ public class XmpCollectionResource extends AbstractCollectionResource
             this.m_resourceType = resourceType;
         }
 
-        // filter the instance so it does not have slashes (/) nor colons 
+        // filter the instance so it does not have slashes (/) nor colons
         // in it as they can munge our rrd file layout
 
         // filter so there are not spaces either just so that
@@ -119,21 +119,20 @@ public class XmpCollectionResource extends AbstractCollectionResource
     }
 
     /* private methods *********************************** */
-    
+
 
     /* public methods ************************************ */
 
     // get the location where we are supposed to write our data to
     /** {@inheritDoc} */
     @Override
-    public File getResourceDir(RrdRepository repository)
-    {
+    public Path getResourceDir(RrdRepository repository)    {
 
         // if we are a collection resource for scalars,
         // return what our super class would return
 
         if (m_nodeTypeName.equalsIgnoreCase(CollectionResource.RESOURCE_TYPE_NODE)) {
-            return new File(repository.getRrdBaseDir(), getParent());
+            return repository.getRrdBaseDir().resolve(getParent());
         }
 
         // we are a collection resource for tabular data
@@ -146,18 +145,18 @@ public class XmpCollectionResource extends AbstractCollectionResource
         // the instance/key that was used for the query; if not,
         // we will use the key returned per table row
 
-        File instDir, rtDir;
+        Path instDir, rtDir;
 
-        File rrdBaseDir = repository.getRrdBaseDir();
-        File nodeDir = new File(rrdBaseDir, getParent());
+        Path rrdBaseDir = repository.getRrdBaseDir();
+        Path nodeDir = rrdBaseDir.resolve(getParent());
 
         // if we have a resourceType, put instances under it
         if (m_resourceType != null) {
-            rtDir = new File(nodeDir,m_resourceType);
-            instDir = new File(rtDir,m_instance);
+            rtDir = nodeDir.resolve(m_resourceType);
+            instDir = rtDir.resolve(m_instance);
         }
         else {
-            instDir = new File(nodeDir,m_instance);
+            instDir = nodeDir.resolve(m_instance);
         }
 
         return instDir;
@@ -168,8 +167,8 @@ public class XmpCollectionResource extends AbstractCollectionResource
      *
      * @param aGroup a {@link org.opennms.netmgt.collection.api.AttributeGroup} object.
      */
-    public void addAttributeGroup(AttributeGroup aGroup)  
-    {  
+    public void addAttributeGroup(AttributeGroup aGroup)
+    {
         m_listOfGroups.add(aGroup);
     }
 
@@ -211,11 +210,11 @@ public class XmpCollectionResource extends AbstractCollectionResource
 
     /**
      * @deprecated This class should be changed to store its {@link AttributeGroup}
-     * collection in {@link #m_attributeGroups} like all of the other implementations do. 
+     * collection in {@link #m_attributeGroups} like all of the other implementations do.
      */
     @Override
-    public void visit(CollectionSetVisitor visitor) 
-    { 
+    public void visit(CollectionSetVisitor visitor)
+    {
         LOG.debug("XmpCollectionResource: visit starting with {} attribute groups", getGroups().size());
 
         visitor.visitResource(this);

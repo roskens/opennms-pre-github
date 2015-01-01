@@ -30,8 +30,11 @@ package org.opennms.netmgt.poller;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.net.InetAddress;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -76,7 +79,7 @@ import org.springframework.transaction.support.TransactionTemplate;
 /**
  * The Class MonitorTester.
  * <p>Execute a poller test from the command line using current settings from poller-configuration.xml</p>
- * 
+ *
  * @author Alejandro Galue <agalue@opennms.org>
  */
 public abstract class MonitorTester {
@@ -196,8 +199,10 @@ public abstract class MonitorTester {
     }
 
     private static void loadProperties(Properties properties, String fileName) throws Exception {
-        File propertiesFile = ConfigFileConstants.getConfigFileByName(fileName);
-        properties.load(new FileInputStream(propertiesFile));
+        Path propertiesFile = ConfigFileConstants.getConfigFileByName(fileName);
+        try (InputStream stream = Files.newInputStream(propertiesFile);) {
+            properties.load(stream);
+        }
     }
 
     private static void initialize() {
@@ -210,15 +215,11 @@ public abstract class MonitorTester {
             loadProperties(rrdProperties, "rrd-configuration.properties");
             registerProperties(rrdProperties);
 
-            final File cfgFile = ConfigFileConstants.getFile(ConfigFileConstants.OPENNMS_DATASOURCE_CONFIG_FILE_NAME);
+            final Path cfgFile = ConfigFileConstants.getFile(ConfigFileConstants.OPENNMS_DATASOURCE_CONFIG_FILE_NAME);
             DataSourceConfiguration dsc = null;
-            FileInputStream fileInputStream = null;
-            try {
-                fileInputStream = new FileInputStream(cfgFile);
+            try (InputStream fileInputStream = Files.newInputStream(cfgFile);) {
                 dsc = CastorUtils.unmarshal(DataSourceConfiguration.class, fileInputStream);
-            } finally {
-                IOUtils.closeQuietly(fileInputStream);
-            } 
+            }
             boolean found = false;
             for (JdbcDataSource jds : dsc.getJdbcDataSourceCollection()) {
                 if (jds.getName().equals("opennms")) {

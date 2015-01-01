@@ -51,7 +51,7 @@ import org.opennms.netmgt.xml.eventconf.Logmsg;
 import org.springframework.core.io.FileSystemResource;
 
 public class EventConfDataTest {
-    
+
     DefaultEventConfDao eventConfDao;
 
     @Before
@@ -59,7 +59,7 @@ public class EventConfDataTest {
         MockLogAppender.setupLogging(false);
 
         eventConfDao = new DefaultEventConfDao();
-        eventConfDao.setConfigResource(new FileSystemResource(ConfigurationTestUtils.getFileForResource(this, "eventconf.xml")));
+        eventConfDao.setConfigResource(new FileSystemResource(ConfigurationTestUtils.getFileForResource(this, "eventconf.xml").toFile()));
         eventConfDao.afterPropertiesSet();
     }
 
@@ -76,17 +76,17 @@ public class EventConfDataTest {
     public void testEventValuePassesMaskValueExactFail() {
         assertFalse(EventConfData.eventValuePassesMaskValue("George Clinton, father of funk", Collections.singletonList("George Clinton, teh father of funk")));
     }
-    
+
     @Test
     public void testEventValuePassesMaskValueExactPass() {
         assertTrue(EventConfData.eventValuePassesMaskValue("George Clinton, father of funk", Collections.singletonList("George Clinton, father of funk")));
     }
-    
+
     @Test
     public void testEventValuePassesMaskValueSubStringFail() {
         assertFalse(EventConfData.eventValuePassesMaskValue("George Clinton, teh father of funk", Collections.singletonList("George Clinton, father of %")));
     }
-    
+
     @Test
     public void testEventValuePassesMaskValueSubStringPass() {
         assertTrue(EventConfData.eventValuePassesMaskValue("George Clinton, father of funk", Collections.singletonList("George Clinton, father of %")));
@@ -101,12 +101,12 @@ public class EventConfDataTest {
     public void testEventValuePassesMaskValueRegexAnchoredFail() {
         assertFalse(EventConfData.eventValuePassesMaskValue("George Clinton, father of funk", Collections.singletonList("~^Bill.*Clinton.*funk$")));
     }
-    
+
     @Test
     public void testEventValuePassesMaskValueRegexAnchoredPass() {
         assertTrue(EventConfData.eventValuePassesMaskValue("George Clinton, father of funk", Collections.singletonList("~^George.*Clinton.*funk$")));
     }
-    
+
     @Test
     public void testEventValuePassesMaskValueRegexUnanchoredPass() {
         assertTrue(EventConfData.eventValuePassesMaskValue("Is FooBar On Air", Collections.singletonList("~.*Foo[Bb]ar.*")));
@@ -231,11 +231,11 @@ public class EventConfDataTest {
          * varbind into a display string formatted as a macaddress of the form
          * xx:xx:xx:xx:xx:xx per the DISPLAY-HINT in the mib. There are two problems
          * with the current method for doing this:
-         * 1.  The resulting octet value is decoded from Base64 and placed into a 
+         * 1.  The resulting octet value is decoded from Base64 and placed into a
          *     String which consequently get decodec to unicode characters and loses
          *     info.
-         * 2.  The DISPLAY-HINT  information that is encoded in the event conf file is 
-         *     lost due to the data and code structures of the matching code in 
+         * 2.  The DISPLAY-HINT  information that is encoded in the event conf file is
+         *     lost due to the data and code structures of the matching code in
          *     EventConfData.getEvent() this needs to be enhanced to use a 'wrapped' object
          *     style to allow the matching and decoding to remain close to the data
          *     that can be used to do the the decoding properly

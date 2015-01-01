@@ -28,14 +28,13 @@
 
 package org.opennms.netmgt.config;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.attribute.FileTime;
 
 import org.exolab.castor.xml.MarshalException;
 import org.exolab.castor.xml.ValidationException;
@@ -49,15 +48,15 @@ import org.opennms.core.utils.ConfigFileConstants;
  */
 public class DestinationPathFactory extends DestinationPathManager {
     /**
-     * 
+     *
      */
     private static DestinationPathFactory instance;
 
     /**
-     * 
+     *
      */
     @SuppressWarnings("unused")
-    private static File m_notifConfFile;
+    private static Path m_notifConfFile;
 
     /**
      * Boolean indicating if the init() method has been called
@@ -65,14 +64,14 @@ public class DestinationPathFactory extends DestinationPathManager {
     private static boolean initialized = false;
 
     /**
-     * 
+     *
      */
-    private static File m_pathsConfFile;
+    private static Path m_pathsConfFile;
 
     /**
-     * 
+     *
      */
-    private static long m_lastModified;
+    private static FileTime m_lastModified = null;
 
     /**
      * <p>init</p>
@@ -82,7 +81,7 @@ public class DestinationPathFactory extends DestinationPathManager {
      * @throws org.exolab.castor.xml.MarshalException if any.
      * @throws org.exolab.castor.xml.ValidationException if any.
      */
-    public static synchronized void init() throws IOException, FileNotFoundException, MarshalException, ValidationException {
+    public static synchronized void init() throws IOException, MarshalException, ValidationException {
         if (!initialized) {
             getInstance().reload();
             initialized = true;
@@ -111,24 +110,23 @@ public class DestinationPathFactory extends DestinationPathManager {
      * @throws org.exolab.castor.xml.MarshalException if any.
      * @throws org.exolab.castor.xml.ValidationException if any.
      */
-    public void reload() throws IOException, FileNotFoundException, MarshalException, ValidationException {
+    public void reload() throws IOException, MarshalException, ValidationException {
         m_pathsConfFile = ConfigFileConstants.getFile(ConfigFileConstants.DESTINATION_PATHS_CONF_FILE_NAME);
 
-        InputStream configIn = new FileInputStream(m_pathsConfFile);
-        m_lastModified = m_pathsConfFile.lastModified();
-
-        parseXML(configIn);
-        configIn.close();
+        try (InputStream configIn = Files.newInputStream(m_pathsConfFile);) {
+            parseXML(configIn);
+            m_lastModified = Files.getLastModifiedTime(m_pathsConfFile);
+        }
     }
 
     /** {@inheritDoc} */
     @Override
     protected void saveXML(String writerString) throws IOException {
         if (writerString != null) {
-            Writer fileWriter = new OutputStreamWriter(new FileOutputStream(m_pathsConfFile), "UTF-8");
-            fileWriter.write(writerString);
-            fileWriter.flush();
-            fileWriter.close();
+            try (Writer fileWriter = new OutputStreamWriter(Files.newOutputStream(m_pathsConfFile), "UTF-8");) {
+                fileWriter.write(writerString);
+                fileWriter.flush();
+            }
         }
     }
 
@@ -141,8 +139,8 @@ public class DestinationPathFactory extends DestinationPathManager {
      * @throws java.io.FileNotFoundException if any.
      */
     @Override
-    public void update() throws IOException, MarshalException, ValidationException, FileNotFoundException {
-        if (m_lastModified != m_pathsConfFile.lastModified()) {
+    public void update() throws IOException, MarshalException, ValidationException {
+        if (m_lastModified == null || m_lastModified.equals(Files.getLastModifiedTime(m_pathsConfFile))) {
             reload();
         }
     }

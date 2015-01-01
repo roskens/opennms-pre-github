@@ -76,15 +76,15 @@ public abstract class StringUtils {
         if (s == null) {
             throw new IllegalArgumentException("Cannot take null parameters.");
         }
-    
+
         if (s.indexOf(delim) != -1) {
             throw new IllegalArgumentException("String parameter cannot already contain delimiter character: " + delim);
         }
-    
+
         char[] chars = s.toCharArray();
         boolean inquote = false;
         StringBuilder buffer = new StringBuilder();
-    
+
         // append each char to a StringBuffer, but
         // leave out quote chars and replace spaces
         // inside quotes with the delim char
@@ -97,25 +97,25 @@ public abstract class StringUtils {
                 buffer.append(eachChar);
             }
         }
-    
+
         s = buffer.toString();
-    
+
         // split the new string by the whitespaces that were not in quotes
         ArrayList<String> arrayList = new ArrayList<String>();
         StringTokenizer tokenizer = new StringTokenizer(s);
-    
+
         while (tokenizer.hasMoreTokens()) {
             arrayList.add(tokenizer.nextElement().toString());
         }
-    
+
         // put the strings in the arraylist into a string[]
         String[] list = arrayList.toArray(new String[arrayList.size()]);
-    
+
         // change all the delim characters back to spaces
         for (int i = 0; i < list.length; i++) {
             list[i] = list[i].replace(delim, ' ');
         }
-    
+
         return list;
     }
 
@@ -137,7 +137,7 @@ public abstract class StringUtils {
 
     	final char colon = path.charAt(1);
     	final char slash = path.charAt(2);
-    	
+
     	if (colon != ':') return false;
     	if (slash != '\\' && slash != '/') return false;
 

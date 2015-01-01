@@ -28,8 +28,8 @@
 
 package org.opennms.features.vaadin.mibcompiler;
 
-import java.io.File;
-
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -41,13 +41,13 @@ import org.opennms.features.vaadin.mibcompiler.services.JsmiMibParser;
  * The Test Class for CISCO-VSAN-MIB
  * <p>This test was created in order to verify that jsmiparser now supports read-create
  * in ModuleComplianceAccess.</p>
- * 
- * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a> 
+ *
+ * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 public class CiscoVsanTest {
 
     /** The Constant MIB_DIR. */
-    protected static final File MIB_DIR = new File("src/test/resources");
+    protected static final Path MIB_DIR = Paths.get("src", "test", "resources");
 
     /** The parser. */
     protected MibParser parser;
@@ -68,7 +68,7 @@ public class CiscoVsanTest {
      */
     @Test
     public void testCustomParse() throws Exception {
-        if (parser.parseMib(new File(MIB_DIR, "CISCO-VSAN-MIB.my"))) {
+        if (parser.parseMib(MIB_DIR.resolve("CISCO-VSAN-MIB.my"))) {
             Assert.assertTrue(parser.getMissingDependencies().isEmpty());
             Assert.assertNull(parser.getFormattedErrors());
         } else {

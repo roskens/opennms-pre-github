@@ -28,11 +28,13 @@
 
 package org.opennms.upgrade.api;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.FilenameFilter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.nio.file.DirectoryStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -58,8 +60,8 @@ import org.slf4j.LoggerFactory;
 /**
  * The Abstract class for OpenNMS Upgrade Implementations.
  * <p>This contains the basic methods that may be required for several implementations.</p>
- * 
- * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a> 
+ *
+ * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 public abstract class AbstractOnmsUpgrade implements OnmsUpgrade {
 
@@ -103,7 +105,7 @@ public abstract class AbstractOnmsUpgrade implements OnmsUpgrade {
      *
      * @return the home directory
      */
-    protected String getHomeDirectory() {
+    protected Path getHomeDirectory() {
         return ConfigFileConstants.getHome();
     }
 
@@ -114,13 +116,21 @@ public abstract class AbstractOnmsUpgrade implements OnmsUpgrade {
      * @param ext the file extension
      * @return the files
      */
-    protected File[] getFiles(final File resourceDir, final String ext) {
-        return resourceDir.listFiles(new FilenameFilter() {
+    protected List<Path> getFiles(final Path resourceDir, final String ext) {
+        List<Path> files = new ArrayList<>();
+        try (DirectoryStream<Path> stream = Files.newDirectoryStream(resourceDir, new DirectoryStream.Filter<Path>() {
             @Override
-            public boolean accept(File dir, String name) {
-                return name.toLowerCase().endsWith(ext);
+            public boolean accept(Path path) {
+                return path.endsWith(ext);
             }
-        });
+        });) {
+            for (Path file : stream) {
+                files.add(file);
+            }
+        } catch (IOException ex) {
+            LOG.error("ioexception", ex);
+        }
+        return files;
     }
 
     /**
@@ -146,9 +156,8 @@ public abstract class AbstractOnmsUpgrade implements OnmsUpgrade {
      * @throws OnmsUpgradeException the OpenNMS upgrade exception
      */
     protected void loadProperties(Properties properties, String fileName) throws OnmsUpgradeException {
-        try {
-            File propertiesFile = ConfigFileConstants.getConfigFileByName(fileName);
-            properties.load(new FileInputStream(propertiesFile));
+        try (InputStream stream = Files.newInputStream(ConfigFileConstants.getConfigFileByName(fileName));) {
+            properties.load(stream);
         } catch (Exception e) {
             throw new OnmsUpgradeException("Can't load " + fileName);
         }
@@ -267,14 +276,10 @@ public abstract class AbstractOnmsUpgrade implements OnmsUpgrade {
             return;
         }
         try {
-            final File cfgFile = ConfigFileConstants.getFile(ConfigFileConstants.OPENNMS_DATASOURCE_CONFIG_FILE_NAME);
+            final Path cfgFile = ConfigFileConstants.getFile(ConfigFileConstants.OPENNMS_DATASOURCE_CONFIG_FILE_NAME);
             DataSourceConfiguration dsc = null;
-            FileInputStream fileInputStream = null;
-            try {
-                fileInputStream = new FileInputStream(cfgFile);
+            try (InputStream fileInputStream = Files.newInputStream(cfgFile);) {
                 dsc = CastorUtils.unmarshal(DataSourceConfiguration.class, fileInputStream);
-            } finally {
-                IOUtils.closeQuietly(fileInputStream);
             }
             for (JdbcDataSource jds : dsc.getJdbcDataSourceCollection()) {
                 if (jds.getName().equals("opennms")) {
@@ -297,11 +302,14 @@ public abstract class AbstractOnmsUpgrade implements OnmsUpgrade {
      * @param filesListInDir the list of files to populate
      * @throws IOException Signals that an I/O exception has occurred.
      */
-    private void populateFilesList(File dir, List<File> filesListInDir) throws IOException {
-        File[] files = dir.listFiles();
-        for (File file : files) {
-            if (file.isFile()) filesListInDir.add(file);
-            else populateFilesList(file, filesListInDir);
+    private void populateFilesList(Path dir, List<Path> filesListInDir) throws IOException {
+        DirectoryStream<Path> stream = Files.newDirectoryStream(dir);
+        for (Path file : stream) {
+            if (Files.isRegularFile(file)) {
+                filesListInDir.add(file);
+            } else {
+                populateFilesList(file, filesListInDir);
+            }
         }
     }
 
@@ -313,27 +321,23 @@ public abstract class AbstractOnmsUpgrade implements OnmsUpgrade {
      * @param filesToCompress the list of files to compress
      * @throws OnmsUpgradeException the OpenNMS upgrade exception
      */
-    private void zipFiles(File zipFile, File sourceFolder, List<File> filesToCompress) throws OnmsUpgradeException {
-        try {
-            FileOutputStream fos = new FileOutputStream(zipFile);
-            ZipOutputStream zos = new ZipOutputStream(fos);
-            for(File file : filesToCompress){
-                String filePath = file.getAbsolutePath();
+    private void zipFiles(Path zipFile, Path sourceFolder, List<Path> filesToCompress) throws OnmsUpgradeException {
+        try (OutputStream fos = Files.newOutputStream(zipFile); ZipOutputStream zos = new ZipOutputStream(fos);) {
+            for (Path file : filesToCompress) {
+                String filePath = file.toString();
                 log("  Zipping %s\n", filePath);
-                ZipEntry ze = new ZipEntry(filePath.substring(sourceFolder.getAbsolutePath().length() + 1, filePath.length()));
-                zos.putNextEntry(ze);
-                FileInputStream fis = new FileInputStream(file);
-                byte[] buffer = new byte[1024];
-                int len;
-                while ((len = fis.read(buffer)) > 0) {
-                    zos.write(buffer, 0, len);
+                ZipEntry ze = new ZipEntry(filePath.substring(sourceFolder.toAbsolutePath().toString().length() + 1, filePath.length()));
+                try (InputStream fis = Files.newInputStream(file);) {
+                    zos.putNextEntry(ze);
+                    byte[] buffer = new byte[1024];
+                    int len;
+                    while ((len = fis.read(buffer)) > 0) {
+                        zos.write(buffer, 0, len);
+                    }
+                    zos.closeEntry();
                 }
-                zos.closeEntry();
-                fis.close();
             }
             zos.flush();
-            zos.close();
-            fos.close();
         } catch (Exception e) {
             throw new OnmsUpgradeException("Cannot ZIP files because " + e.getMessage(), e);
         }
@@ -346,8 +350,8 @@ public abstract class AbstractOnmsUpgrade implements OnmsUpgrade {
      * @param sourceFolder the source folder
      * @throws OnmsUpgradeException the OpenNMS upgrade exception
      */
-    protected void zipDir(File zipFile, File sourceFolder) throws OnmsUpgradeException {
-        List<File> filesToCompress = new ArrayList<File>();
+    protected void zipDir(Path zipFile, Path sourceFolder) throws OnmsUpgradeException {
+        List<Path> filesToCompress = new ArrayList<Path>();
         try {
             populateFilesList(sourceFolder, filesToCompress);
         } catch (IOException e) {
@@ -358,13 +362,14 @@ public abstract class AbstractOnmsUpgrade implements OnmsUpgrade {
 
     /**
      * ZIP a file.
-     * 
+     *
      * <p>The name of the ZIP file will be the name of the source file plus ".zip"</p>
      * @param sourceFile the source file
      * @throws OnmsUpgradeException the OpenNMS upgrade exception
      */
-    protected void zipFile(File sourceFile) throws OnmsUpgradeException {
-        zipFiles(new File(sourceFile.getAbsolutePath() + ZIP_EXT), sourceFile.getParentFile(), Collections.singletonList(sourceFile));
+    protected void zipFile(Path sourceFile) throws OnmsUpgradeException {
+        Path newSource = sourceFile.resolveSibling(sourceFile.getFileName() + ZIP_EXT);
+        zipFiles(newSource, sourceFile.getParent(), Collections.singletonList(sourceFile));
     }
 
     /**
@@ -374,35 +379,36 @@ public abstract class AbstractOnmsUpgrade implements OnmsUpgrade {
      * @param outputFolder the output folder
      * @throws OnmsUpgradeException the OpenNMS upgrade exception
      */
-    protected void unzipFile(File zipFile, File outputFolder) throws OnmsUpgradeException {
+    protected void unzipFile(Path zipFile, Path outputFolder) throws OnmsUpgradeException {
         try {
-            if (!outputFolder.exists()) {
-                if (!outputFolder.mkdirs()) {
-                    LOG.warn("Could not make directory: {}", outputFolder.getPath());
+            if (!Files.exists(outputFolder)) {
+                try {
+                    Files.createDirectories(outputFolder);
+                } catch (IOException e) {
+                    LOG.warn("Could not make directory: {}", outputFolder, e);
                 }
             }
-            FileInputStream fis;
-            byte[] buffer = new byte[1024];
-            fis = new FileInputStream(zipFile);
-            ZipInputStream zis = new ZipInputStream(fis);
-            ZipEntry ze = zis.getNextEntry();
+            try (InputStream fis = Files.newInputStream(zipFile); ZipInputStream zis = new ZipInputStream(fis);) {
+                byte[] buffer = new byte[1024];
+
+                ZipEntry ze = zis.getNextEntry();
             while(ze != null){
                 String fileName = ze.getName();
-                File newFile = new File(outputFolder, fileName);
-                log("  Unzipping to %s\n", newFile.getAbsolutePath());
-                new File(newFile.getParent()).mkdirs();
-                FileOutputStream fos = new FileOutputStream(newFile);
-                int len;
-                while ((len = zis.read(buffer)) > 0) {
-                    fos.write(buffer, 0, len);
+                Path newFile = outputFolder.resolve(fileName);
+                log("  Unzipping to %s\n", newFile);
+                Files.createDirectories(newFile.getParent());
+
+                try (OutputStream fos = Files.newOutputStream(newFile);) {
+                    int len;
+                    while ((len = zis.read(buffer)) > 0) {
+                        fos.write(buffer, 0, len);
+                    }
                 }
-                fos.close();
                 zis.closeEntry();
                 ze = zis.getNextEntry();
             }
             zis.closeEntry();
-            zis.close();
-            fis.close();
+            }
         } catch (Exception e) {
             throw new OnmsUpgradeException("Cannot UNZIP file because " + e.getMessage(), e);
         }
@@ -416,10 +422,10 @@ public abstract class AbstractOnmsUpgrade implements OnmsUpgrade {
      */
     protected String getOpennmsVersion() throws OnmsUpgradeException {
         if (onmsVersion == null) {
-            File versionFile = new File(getHomeDirectory(), "jetty-webapps/opennms/WEB-INF/version.properties");
+            Path versionFile = getHomeDirectory().resolve("jetty-webapps").resolve("opennms").resolve("WEB-INF").resolve("version.properties");
             Properties properties = new Properties();
-            try {
-                properties.load(new FileInputStream(versionFile));
+            try (InputStream stream = Files.newInputStream(versionFile);) {
+                properties.load(stream);
             } catch (Exception e) {
                 throw new OnmsUpgradeException("Can't load " + versionFile);
             }

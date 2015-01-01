@@ -28,7 +28,7 @@
 
 package org.opennms.features.vaadin.mibcompiler.api;
 
-import java.io.File;
+import java.nio.file.Path;
 import java.util.List;
 
 import org.opennms.netmgt.config.datacollection.DatacollectionGroup;
@@ -37,8 +37,8 @@ import org.opennms.netmgt.xml.eventconf.Events;
 
 /**
  * The Interface MibParser.
- * 
- * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a> 
+ *
+ * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 public interface MibParser {
 
@@ -47,7 +47,7 @@ public interface MibParser {
      *
      * @param mibDirectory the MIB directory
      */
-    void setMibDirectory(File mibDirectory);
+    void setMibDirectory(Path mibDirectory);
 
     /**
      * Parses the MIB.
@@ -55,7 +55,7 @@ public interface MibParser {
      * @param mibFile the MIB file
      * @return true, if successful
      */
-    boolean parseMib(File mibFile);
+    boolean parseMib(Path mibFile);
 
     /**
      * Gets the formatted errors.
@@ -73,7 +73,7 @@ public interface MibParser {
 
     /**
      * Gets the MIB name.
-     * 
+     *
      * @return the MIB name.
      */
     String getMibName();

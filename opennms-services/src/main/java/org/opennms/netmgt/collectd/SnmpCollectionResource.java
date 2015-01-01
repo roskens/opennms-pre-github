@@ -28,8 +28,8 @@
 
 package org.opennms.netmgt.collectd;
 
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.nio.file.InvalidPathException;
+import java.nio.file.Path;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -54,9 +54,9 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public abstract class SnmpCollectionResource implements CollectionResource {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(SnmpCollectionResource.class);
-    
+
     private final ResourceType m_resourceType;
 
     private final Map<AttributeGroupType, AttributeGroup> m_groups = new HashMap<AttributeGroupType, AttributeGroup>();
@@ -69,7 +69,7 @@ public abstract class SnmpCollectionResource implements CollectionResource {
     public SnmpCollectionResource(final ResourceType def) {
         m_resourceType = def;
     }
-    
+
     /**
      * <p>getResourceType</p>
      *
@@ -78,7 +78,7 @@ public abstract class SnmpCollectionResource implements CollectionResource {
     public ResourceType getResourceType() {
         return m_resourceType;
     }
-    
+
     /**
      * <p>getCollectionAgent</p>
      *
@@ -104,17 +104,17 @@ public abstract class SnmpCollectionResource implements CollectionResource {
 
     /** {@inheritDoc} */
     @Override
-    public abstract File getResourceDir(RrdRepository repository) throws FileNotFoundException;
+    public abstract Path getResourceDir(RrdRepository repository) throws InvalidPathException;
 
     /**
      * Returns ifType; is (but not sure if it should be) -1 for non interface type collections, otherwise
-     * the SNMP type of the interface. This field is used to match the ifType field of the group from 
+     * the SNMP type of the interface. This field is used to match the ifType field of the group from
      * datacollection-config.xml.
      *
      * @return a int.
      */
     public abstract int getSnmpIfType();
-    
+
     /**
      * <p>rescanNeeded</p>
      *
@@ -124,7 +124,7 @@ public abstract class SnmpCollectionResource implements CollectionResource {
     public boolean rescanNeeded() {
     	return false;
     }
-    
+
     /**
      * <p>setAttributeValue</p>
      *
@@ -155,11 +155,11 @@ public abstract class SnmpCollectionResource implements CollectionResource {
     @Override
     public void visit(final CollectionSetVisitor visitor) {
         visitor.visitResource(this);
-        
+
         for (AttributeGroup group : getGroups()) {
             group.visit(visitor);
         }
-        
+
         visitor.completeResource(this);
     }
 

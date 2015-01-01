@@ -29,6 +29,7 @@
 package org.opennms.netmgt.collectd;
 
 import java.io.File;
+import java.nio.file.Path;
 import java.util.Collection;
 import java.util.Iterator;
 
@@ -50,9 +51,9 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class AliasedResource extends SnmpCollectionResource {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(AliasedResource.class);
-    
+
     private final IfInfo m_ifInfo;
     private final String m_ifAliasComment;
     private final String m_domain;
@@ -74,7 +75,7 @@ public class AliasedResource extends SnmpCollectionResource {
         m_ifAliasComment = ifAliasComment;
         m_ifAlias = ifAlias;
     }
-    
+
     /**
      * <p>getIfInfo</p>
      *
@@ -99,7 +100,7 @@ public class AliasedResource extends SnmpCollectionResource {
         } else if ("nodelabel".equalsIgnoreCase(m_domain)) {
             try {
                 return NodeLabelJDBCImpl.getInstance().retrieveLabel(getIfInfo().getNodeId()).getLabel();
-            } 
+            }
             catch (Throwable e) {
                 return "nodeid-" + Integer.toString(getIfInfo().getNodeId());
             }
@@ -107,12 +108,11 @@ public class AliasedResource extends SnmpCollectionResource {
         return m_domain;
         }
     }
- 
+
     /** {@inheritDoc} */
     @Override
-    public File getResourceDir(final RrdRepository repository) {
-        File domainDir = new File(repository.getRrdBaseDir(), getDomain());
-        return new File(domainDir, getAliasDir());
+    public Path getResourceDir(final RrdRepository repository) {
+        return repository.getRrdBaseDir().resolve(getDomain()).resolve(getAliasDir());
     }
 
     /**
@@ -147,7 +147,7 @@ public class AliasedResource extends SnmpCollectionResource {
     public boolean isScheduledForCollection() {
         return getIfInfo().isScheduledForCollection();
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public boolean shouldPersist(final ServiceParameters serviceParameters) {
@@ -170,12 +170,12 @@ public class AliasedResource extends SnmpCollectionResource {
     @Override
     public void visit(CollectionSetVisitor visitor) {
         visitor.visitResource(this);
-	
+
         for (Iterator<AttributeGroup> it = getGroups().iterator(); it.hasNext();) {
             AttributeGroup aliased = new AliasedGroup(this, it.next());
             aliased.visit(visitor);
         }
-	
+
         visitor.completeResource(this);
     }
 

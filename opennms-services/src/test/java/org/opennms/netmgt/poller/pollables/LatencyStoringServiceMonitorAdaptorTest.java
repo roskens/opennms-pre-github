@@ -35,9 +35,12 @@ import static org.easymock.EasyMock.expect;
 import static org.easymock.EasyMock.isA;
 import static org.opennms.core.utils.InetAddressUtils.addr;
 
-import java.io.File;
-import java.io.FileWriter;
+import java.io.Writer;
 import java.net.InetAddress;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.DateFormat;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
@@ -117,31 +120,31 @@ public class LatencyStoringServiceMonitorAdaptorTest {
     public void testUpdateRrdWithLocaleThatUsesCommasForDecimals() throws Exception {
         Locale defaultLocale = Locale.getDefault();
         Locale.setDefault(Locale.FRENCH);
-        
+
         // Make sure we actually have a valid test
         NumberFormat nf = NumberFormat.getInstance();
         Assert.assertEquals("ensure that the newly set default locale (" + Locale.getDefault() + ") uses ',' as the decimal marker", "1,5", nf.format(1.5));
-        
+
         LatencyStoringServiceMonitorAdaptor adaptor = new LatencyStoringServiceMonitorAdaptor(null, m_pollerConfig, new Package());
         LinkedHashMap<String, Number> map = new LinkedHashMap<String, Number>();
         map.put("cheese", 1.5);
-        
+
         expect(m_pollerConfig.getStep(isA(Package.class))).andReturn(0).anyTimes();
         expect(m_pollerConfig.getRRAList(isA(Package.class))).andReturn(new ArrayList<String>(0));
-        
+
         expect(m_rrdStrategy.getDefaultFileExtension()).andReturn(".rrd").anyTimes();
-        expect(m_rrdStrategy.createDefinition(isA(String.class), isA(String.class), isA(String.class), anyInt(), isAList(RrdDataSource.class), isAList(String.class))).andReturn(new Object());
+        expect(m_rrdStrategy.createDefinition(isA(String.class), isA(Path.class), isA(String.class), anyInt(), isAList(RrdDataSource.class), isAList(String.class))).andReturn(new Object());
         m_rrdStrategy.createFile(isA(Object.class), (Map<String, String>) eq(null));
-        expect(m_rrdStrategy.openFile(isA(String.class))).andReturn(new Object());
+        expect(m_rrdStrategy.openFile(isA(Path.class))).andReturn(new Object());
         m_rrdStrategy.updateFile(isA(Object.class), isA(String.class), endsWith(":1.5"));
         m_rrdStrategy.closeFile(isA(Object.class));
-        
+
         m_mocks.replayAll();
-        adaptor.updateRRD("foo", InetAddress.getLocalHost(), "baz", map);
+        adaptor.updateRRD(Paths.get("foo"), InetAddress.getLocalHost(), "baz", map);
         m_mocks.verifyAll();
         Locale.setDefault(defaultLocale);
     }
-    
+
     @Test
     public void testThresholds() throws Exception {
         EventBuilder bldr = new EventBuilder(EventConstants.HIGH_THRESHOLD_EVENT_UEI, "LatencyStoringServiceMonitorAdaptorTest");
@@ -170,29 +173,30 @@ public class LatencyStoringServiceMonitorAdaptorTest {
         sb.append("<interface address=\"match-any\"/>");
         sb.append("</outage>");
         sb.append("</outages>");
-        
-        File file = new File("target/poll-outages.xml");
-        FileWriter writer = new FileWriter(file);
-        writer.write(sb.toString());
-        writer.close();
-        
+
+        Path path = Paths.get("target", "poll-outages.xml");
+        try (Writer writer = Files.newBufferedWriter(path, Charset.defaultCharset());) {
+            writer.write(sb.toString());
+            writer.close();
+        }
+
         PollOutagesConfigFactory oldFactory = PollOutagesConfigFactory.getInstance();
-        PollOutagesConfigFactory.setInstance(new PollOutagesConfigFactory(new FileSystemResource(file)));
+        PollOutagesConfigFactory.setInstance(new PollOutagesConfigFactory(new FileSystemResource(path.toFile())));
         PollOutagesConfigFactory.getInstance().afterPropertiesSet();
-        
+
         EventAnticipator anticipator = new EventAnticipator();
         executeThresholdTest(anticipator);
         anticipator.verifyAnticipated();
-        
+
         // Reset the state of the PollOutagesConfigFactory for any subsequent tests
         PollOutagesConfigFactory.setInstance(oldFactory);
-        file.delete();
+        Files.delete(path);
     }
 
     @SuppressWarnings("unchecked")
     private void executeThresholdTest(EventAnticipator anticipator) throws Exception {
         System.setProperty("opennms.home", "src/test/resources");
-        
+
         Map<String,Object> parameters = new HashMap<String,Object>();
         parameters.put("rrd-repository", "/tmp");
         parameters.put("ds-name", "icmp");
@@ -204,7 +208,7 @@ public class LatencyStoringServiceMonitorAdaptorTest {
         filterDao.flushActiveIpAddressListCache();
         EasyMock.expectLastCall().anyTimes();
         FilterDaoFactory.setInstance(filterDao);
-        
+
         MonitoredService svc = m_mocks.createMock(MonitoredService.class);
         expect(svc.getNodeId()).andReturn(1);
         expect(svc.getIpAddr()).andReturn("127.0.0.1");
@@ -214,7 +218,7 @@ public class LatencyStoringServiceMonitorAdaptorTest {
         ServiceMonitor service = m_mocks.createMock(ServiceMonitor.class);
         PollStatus value = PollStatus.get(PollStatus.SERVICE_AVAILABLE, 100.0);
         expect(service.poll(svc, parameters)).andReturn(value);
-        
+
         int step = 300;
         List<String> rras = Collections.singletonList("RRA:AVERAGE:0.5:1:2016");
         Package pkg = new Package();
@@ -222,14 +226,14 @@ public class LatencyStoringServiceMonitorAdaptorTest {
         rrd.setStep(step);
         rrd.setRras(rras);
         pkg.setRrd(rrd);
-        
+
         expect(m_pollerConfig.getRRAList(pkg)).andReturn(rras);
         expect(m_pollerConfig.getStep(pkg)).andReturn(step).anyTimes();
-        
+
         expect(m_rrdStrategy.getDefaultFileExtension()).andReturn(".rrd").anyTimes();
-        expect(m_rrdStrategy.createDefinition(isA(String.class), isA(String.class), isA(String.class), anyInt(), isAList(RrdDataSource.class), isAList(String.class))).andReturn(new Object());
+        expect(m_rrdStrategy.createDefinition(isA(String.class), isA(Path.class), isA(String.class), anyInt(), isAList(RrdDataSource.class), isAList(String.class))).andReturn(new Object());
         m_rrdStrategy.createFile(isA(Object.class), (Map<String, String>) eq(null));
-        expect(m_rrdStrategy.openFile(isA(String.class))).andReturn(new Object());
+        expect(m_rrdStrategy.openFile(isA(Path.class))).andReturn(new Object());
         m_rrdStrategy.updateFile(isA(Object.class), isA(String.class), endsWith(":100"));
         m_rrdStrategy.closeFile(isA(Object.class));
 
@@ -250,7 +254,7 @@ public class LatencyStoringServiceMonitorAdaptorTest {
         db.populate(network);
         db.update("update snmpinterface set snmpifname=?, snmpifdescr=? where id=?", "eth0", "eth0", 1);
         DataSourceFactory.setInstance(db);
-        
+
         m_mocks.replayAll();
         LatencyStoringServiceMonitorAdaptor adaptor = new LatencyStoringServiceMonitorAdaptor(service, m_pollerConfig, pkg);
         adaptor.poll(svc, parameters);

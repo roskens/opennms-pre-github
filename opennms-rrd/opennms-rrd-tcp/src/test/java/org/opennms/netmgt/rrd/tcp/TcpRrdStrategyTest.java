@@ -30,11 +30,11 @@ package org.opennms.netmgt.rrd.tcp;
 
 import static org.junit.Assert.assertFalse;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -48,7 +48,7 @@ import org.opennms.core.test.MockLogAppender;
 import org.opennms.netmgt.rrd.RrdDataSource;
 import org.opennms.netmgt.rrd.RrdStrategy;
 import org.opennms.netmgt.rrd.RrdUtils;
-import org.opennms.test.FileAnticipator;
+import org.opennms.test.PathAnticipator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -62,16 +62,16 @@ import org.python.util.PythonInterpreter;
 
 /**
  * Unit tests for the TcpRrdStrategy.
- * 
+ *
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  */
 public class TcpRrdStrategyTest {
     private static final Logger LOG = LoggerFactory.getLogger(TcpRrdStrategyTest.class);
 
     private RrdStrategy<Object,Object> m_strategy;
-    private FileAnticipator m_fileAnticipator;
+    private PathAnticipator m_pathAnticipator;
     private static Thread m_listenerThread;
-    private static String m_tempDir;
+    private static Path m_tempDir;
 
     @BeforeClass
     public static void startListenerThread() throws Exception {
@@ -89,10 +89,10 @@ public class TcpRrdStrategyTest {
                              * This python code is not working properly under Jython. My
                              * hunch is that it would be better under the new Jython 2.5.1
                              * but that version is not easy to use under Maven, see:
-                             * 
+                             *
                              * http://bugs.jython.org/issue1512
                              * http://bugs.jython.org/issue1513
-                             * 
+                             *
                             PythonInterpreter python = new PythonInterpreter();
                             python.execfile(
                                     // Load the python path parser script from the classpath
@@ -114,10 +114,10 @@ public class TcpRrdStrategyTest {
                                     values.append(message.getValue(i));
                                 }
                                 values.append(" }");
-                                System.out.println("Message received: { " + 
-                                        "path: \"" + message.getPath() + "\", " + 
-                                        "owner: \"" + message.getOwner() + "\", " + 
-                                        "timestamp: \"" + message.getTimestamp() + "\", " + 
+                                System.out.println("Message received: { " +
+                                        "path: \"" + message.getPath() + "\", " +
+                                        "owner: \"" + message.getOwner() + "\", " +
+                                        "timestamp: \"" + message.getTimestamp() + "\", " +
                                         "values: " + values.toString() + " }");
 
                                 /*
@@ -163,15 +163,15 @@ public class TcpRrdStrategyTest {
         // ((TcpRrdStrategy)m_strategy).setPort(8999);
 
         // Don't initialize by default since not all tests need it.
-        m_fileAnticipator = new FileAnticipator(false);
+        m_pathAnticipator = new PathAnticipator(false);
     }
 
     @After
     public void tearDown() throws Exception {
-        if (m_fileAnticipator.isInitialized()) {
-            m_fileAnticipator.deleteExpected();
+        if (m_pathAnticipator.isInitialized()) {
+            m_pathAnticipator.deleteExpected();
         }
-        m_fileAnticipator.tearDown();
+        m_pathAnticipator.tearDown();
     }
 
     @AfterClass
@@ -183,14 +183,14 @@ public class TcpRrdStrategyTest {
 
     @Test
     public void testInitialize() {
-        // Don't do anything... just check that setUp works 
+        // Don't do anything... just check that setUp works
     }
 
     @Test
     public void testCreate() throws Exception {
-        File rrdFile = createRrdFile();
+        Path rrdFile = createRrdFile();
 
-        Object openedFile = m_strategy.openFile(rrdFile.getAbsolutePath());
+        Object openedFile = m_strategy.openFile(rrdFile);
         //m_strategy.updateFile(openedFile, "huh?", "N:1,234234");
 
         m_strategy.closeFile(openedFile);
@@ -198,9 +198,9 @@ public class TcpRrdStrategyTest {
 
     @Test
     public void testUpdate() throws Exception {
-        File rrdFile = createRrdFile();
+        Path rrdFile = createRrdFile();
 
-        Object openedFile = m_strategy.openFile(rrdFile.getAbsolutePath());
+        Object openedFile = m_strategy.openFile(rrdFile);
         long currentTimeInSeconds = (long)(new Date().getTime() / 100);
         m_strategy.updateFile(openedFile, "huh?", String.valueOf(currentTimeInSeconds - 9) + ":1.234234");
         m_strategy.updateFile(openedFile, "oh  ", String.valueOf(currentTimeInSeconds - 8) + ":1.234234");
@@ -216,11 +216,11 @@ public class TcpRrdStrategyTest {
         Thread.sleep(1000);
     }
 
-    public File createRrdFile() throws Exception {
+    public Path createRrdFile() throws Exception {
         String rrdFileBase = "foo";
         String rrdExtension = RrdUtils.getExtension();
 
-        m_fileAnticipator.initialize();
+        m_pathAnticipator.initialize();
 
         // This is so the RrdUtils.getExtension() call in the strategy works
         // Properties properties = new Properties();
@@ -231,14 +231,14 @@ public class TcpRrdStrategyTest {
         dataSources.add(new RrdDataSource("bar", "GAUGE", 3000, "U", "U"));
         List<String> rraList = new ArrayList<String>();
         rraList.add("RRA:AVERAGE:0.5:1:2016");
-        File tempDir = m_fileAnticipator.getTempDir(); 
-        m_tempDir = tempDir.getAbsolutePath();
+        Path tempDir = m_pathAnticipator.getTempDir();
+        m_tempDir = tempDir.toAbsolutePath();
         // Create an '/rrd/snmp/1' directory in the temp directory so that the
         // RRDs created by the test will have a realistic path
-        File rrdDir = m_fileAnticipator.tempDir(m_fileAnticipator.tempDir(m_fileAnticipator.tempDir(tempDir, "rrd"), "snmp"), "1");
-        Object def = m_strategy.createDefinition("hello!", rrdDir.getAbsolutePath(), rrdFileBase, 300, dataSources, rraList);
+        Path rrdDir = m_pathAnticipator.tempDir(m_pathAnticipator.tempDir(m_pathAnticipator.tempDir(tempDir, "rrd"), "snmp"), "1");
+        Object def = m_strategy.createDefinition("hello!", rrdDir.toAbsolutePath(), rrdFileBase, 300, dataSources, rraList);
         m_strategy.createFile(def, null);
 
-        return m_fileAnticipator.expecting(rrdDir, rrdFileBase + rrdExtension);
+        return m_pathAnticipator.expecting(rrdDir, rrdFileBase + rrdExtension);
     }
 }

@@ -28,6 +28,7 @@
 
 package org.opennms.nrtg.web.internal;
 
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -282,7 +283,7 @@ public class NrtController {
                 reqAttributes.put(attrName, attributes.get(attrName));
             }
         }
-        
+
         return reqAttributes;
     }
 
@@ -296,7 +297,7 @@ public class NrtController {
                 reqAttributes.put(attrName, attributes.get(attrName));
             }
         }
-        
+
         return reqAttributes;
     }
 
@@ -311,7 +312,7 @@ public class NrtController {
         }
         return rrdGraphAttributesToMetricIds;
     }
-    
+
     private Map<String, String> getMetaDataForReport(final Set<RrdGraphAttribute> rrdGraphAttributes) {
         Map<String, String> metaData = new HashMap<String, String>();
 
@@ -319,10 +320,11 @@ public class NrtController {
 
         //get all metaData for RrdGraphAttributes from the meta files next to the RRD/JRobin files
         for (final RrdGraphAttribute attr : rrdGraphAttributes) {
-            final String rrdRelativePath = attr.getRrdRelativePath();
-            final String rrdName = rrdRelativePath.substring(0, rrdRelativePath.lastIndexOf('.'));
+            final Path rrdRelativePath = attr.getRrdRelativePath();
+            final String rrdFileName = rrdRelativePath.getFileName().toString();
+            final String rrdName = rrdFileName.substring(0, rrdFileName.lastIndexOf('.'));
 
-            final Set<Entry<String, String>> metaDataEntrySet = RrdUtils.readMetaDataFile(m_resourceDao.getRrdDirectory().getPath(), rrdName).entrySet();
+            final Set<Entry<String, String>> metaDataEntrySet = RrdUtils.readMetaDataFile(m_resourceDao.getRrdDirectory(), rrdName).entrySet();
             if (metaDataEntrySet == null) continue;
 
             final String attrName = attr.getName();
@@ -335,13 +337,13 @@ public class NrtController {
                 }
             };
         }
-        
+
         return metaData;
     }
 
     private static final String PROTOCOLDELIMITER = "_";
     private static final String METRICID_DELIMITER = "=";
-    
+
     private String getProtocolFromMetaDataLine(String metaDataLine) {
         return metaDataLine.substring(0, metaDataLine.indexOf(PROTOCOLDELIMITER));
     }
@@ -377,7 +379,7 @@ public class NrtController {
     public void setNodeDao(NodeDao nodeDao) {
         m_nodeDao = nodeDao;
     }
-    
+
     public void setGraphDao(GraphDao graphDao) {
         m_graphDao = graphDao;
     }

@@ -30,6 +30,8 @@ package org.opennms.netmgt.threshd;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -48,19 +50,19 @@ import org.slf4j.LoggerFactory;
 
 /**
  * <p>CollectionResourceWrapper class.</p>
- * 
+ *
  * Wraps a CollectionResource with some methods and caching for the efficient application of thresholds (without
  * pulling thresholding code into CollectionResource itself)
- * 
+ *
  * A fresh instance should be created for each collection cycle (assumptions are made based on that premise)
  *
  * @author ranger
  * @version $Id: $
  */
 public class CollectionResourceWrapper {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(CollectionResourceWrapper.class);
-    
+
     private final int m_nodeId;
     private final String m_hostAddress;
     private final String m_serviceName;
@@ -70,10 +72,10 @@ public class CollectionResourceWrapper {
     private final RrdRepository m_repository;
     private final CollectionResource m_resource;
     private final Map<String, CollectionAttribute> m_attributes;
-    
+
     /**
      * Keeps track of both the Double value, and when it was collected, for the static cache of attributes
-     * 
+     *
      * This is necessary for the *correct* calculation of Counter rates, across variable collection times and possible
      * collection failures (see NMS-4244)
      */
@@ -104,19 +106,19 @@ public class CollectionResourceWrapper {
      * Holds last values for counter attributes (in order to calculate delta)
      */
     static final ConcurrentHashMap<String, CacheEntry> s_cache = new ConcurrentHashMap<String,CacheEntry>();
-    
+
     /*
      * To avoid update static cache on every call of getAttributeValue.
      * In some cases, the same DS could be needed in many thresholds definitions for same resource.
      * See Bug 3193
      */
     private final Map<String, Double> m_localCache = new HashMap<String,Double>();
-    
+
     /*
      * Holds interface ifInfo data for interface resource only. This avoid multiple calls to database for same resource.
      */
     private final Map<String, String> m_ifInfo = new HashMap<String,String>();
-    
+
     /*
 	 * Holds the timestamp of the collection being thresholded, for the calculation of counter rates
      */
@@ -268,7 +270,7 @@ public class CollectionResourceWrapper {
     /**
      * <p>getResourceId</p>
      * <p>Inspired by DefaultKscReportService</p>
-     * 
+     *
      * @return a {@link java.lang.String} object.
      */
     public String getResourceId() {
@@ -283,7 +285,7 @@ public class CollectionResourceWrapper {
         }
         String parentResourceTypeName = CollectionResource.RESOURCE_TYPE_NODE;
         String parentResourceName = Integer.toString(getNodeId());
-        // I can't find a better way to deal with this when storeByForeignSource is enabled        
+        // I can't find a better way to deal with this when storeByForeignSource is enabled
         if (m_resource != null && m_resource.getParent() != null && m_resource.getParent().startsWith(ResourceTypeUtils.FOREIGN_SOURCE_DIRECTORY)) {
             // If separatorChar is backslash (like on Windows) use a double-escaped backslash in the regex
             String[] parts = m_resource.getParent().split(File.separatorChar == '\\' ? "\\\\" : File.separator);
@@ -303,7 +305,7 @@ public class CollectionResourceWrapper {
     public String getIfLabel() {
         return m_iflabel;
     }
-    
+
     /**
      * <p>getIfIndex</p>
      *
@@ -312,7 +314,7 @@ public class CollectionResourceWrapper {
     public String getIfIndex() {
         return m_ifindex;
     }
-    
+
     /**
      * <p>getIfInfoValue</p>
      *
@@ -326,7 +328,7 @@ public class CollectionResourceWrapper {
             return null;
         }
     }
-    
+
     /**
      * <p>isAnInterfaceResource</p>
      *
@@ -411,7 +413,7 @@ public class CollectionResourceWrapper {
             if (last == null) {
                 m_localCache.put(id, Double.NaN);
                 LOG.info("getCounterValue: unknown last value for {}, ignoring current", id);
-            } else {                
+            } else {
                 Double delta = current.doubleValue() - last.m_value.doubleValue();
                 // wrapped counter handling(negative delta), rrd style
                 if (delta < 0) {
@@ -428,7 +430,7 @@ public class CollectionResourceWrapper {
                 }
                 // Get the interval between when this current collection was taken, and the last time this
                 // value was collected (and had a counter rate calculated for it).
-                // If the interval is zero, than the current rate must returned as 0.0 since there can be 
+                // If the interval is zero, than the current rate must returned as 0.0 since there can be
                 // no delta across a time interval of zero.
                 long interval = ( m_collectionTimestamp.getTime() - last.m_timestamp.getTime() ) / 1000;
                 if (interval > 0) {
@@ -474,12 +476,8 @@ public class CollectionResourceWrapper {
         } else if ("iflabel".equalsIgnoreCase(ds)) {
             return getIfLabel();
         } else if ("id".equalsIgnoreCase(ds)) {
-            try {
-                File resourceDirectory = m_resource.getResourceDir(m_repository);
-                return resourceDirectory.getName();
-            } catch (FileNotFoundException e) {
-                LOG.debug("getLabelValue: cannot find resource directory: " + e.getMessage(), e);
-            }
+            Path resourceDirectory = m_resource.getResourceDir(m_repository);
+            return resourceDirectory.getFileName().toString();
         }
 
         try {
@@ -494,13 +492,11 @@ public class CollectionResourceWrapper {
             }
 
             // Find value on saved string attributes
-            File resourceDirectory = m_resource.getResourceDir(m_repository);
+            Path resourceDirectory = m_resource.getResourceDir(m_repository);
             retval = ResourceTypeUtils.getStringProperty(resourceDirectory, ds);
             if (retval != null) {
                 return retval;
             }
-        } catch (FileNotFoundException e) {
-            LOG.debug("getFieldValue: Can't find resource directory: " + e.getMessage(), e);
         } catch (Throwable e) {
             LOG.info("getFieldValue: Can't get value for attribute {} for resource {}.", ds, m_resource, e);
         }
@@ -513,7 +509,7 @@ public class CollectionResourceWrapper {
 
         return null;
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public String toString() {

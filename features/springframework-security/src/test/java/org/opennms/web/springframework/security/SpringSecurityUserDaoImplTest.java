@@ -29,14 +29,15 @@
 package org.opennms.web.springframework.security;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.attribute.FileTime;
 import java.util.Collection;
 import java.util.Iterator;
 import junit.framework.TestCase;
@@ -53,7 +54,7 @@ import org.opennms.core.test.db.annotations.JUnitTemporaryDatabase;
 import org.opennms.netmgt.config.GroupManager;
 import org.opennms.netmgt.config.UserManager;
 import org.opennms.netmgt.model.OnmsUser;
-import org.opennms.test.FileAnticipator;
+import org.opennms.test.PathAnticipator;
 import org.opennms.test.JUnitConfigurationEnvironment;
 import org.opennms.web.api.Authentication;
 import org.springframework.beans.factory.InitializingBean;
@@ -76,15 +77,15 @@ import org.springframework.test.context.ContextConfiguration;
 @JUnitTemporaryDatabase
 public class SpringSecurityUserDaoImplTest extends TestCase implements InitializingBean {
 
-    private static final String MAGIC_USERS_FILE = "src/test/resources/org/opennms/web/springframework/security/magic-users.properties";
-    private static final String USERS_XML_FILE = "src/test/resources/org/opennms/web/springframework/security/users.xml";
+    private static final Path MAGIC_USERS_FILE = Paths.get("src", "test", "resources", "org", "opennms", "web", "springframework", "security", "magic-users.properties");
+    private static final Path USERS_XML_FILE = Paths.get("src", "test", "resources", "org", "opennms", "web", "springframework", "security", "users.xml");
 
     @Autowired
     SpringSecurityUserDao m_springSecurityDao;
 
     @Autowired
     UserManager m_userManager;
-    
+
     @Autowired
     GroupManager m_groupManager;
 
@@ -159,7 +160,7 @@ public class SpringSecurityUserDaoImplTest extends TestCase implements Initializ
         assertEquals("authorities 0 name", Authentication.ROLE_USER, authorities.iterator().next().getAuthority());
         assertNoWarningsOrGreater();
     }
-    
+
     @Test
     @DirtiesContext
     public void testGetByUsernameDashboard() throws Exception {
@@ -180,7 +181,7 @@ public class SpringSecurityUserDaoImplTest extends TestCase implements Initializ
         assertEquals("authorities 0 name", Authentication.ROLE_DASHBOARD, authorities.iterator().next().getAuthority());
         assertNoWarningsOrGreater();
     }
-    
+
     @Test
     @DirtiesContext
     public void testMagicUsersReload() throws Exception {
@@ -192,24 +193,24 @@ public class SpringSecurityUserDaoImplTest extends TestCase implements Initializ
          * We're not going to use the anticipator functionality, but it's
          * handy for handling temporary directories.
          */
-        FileAnticipator fa = new FileAnticipator();
-        
+        PathAnticipator pa = new PathAnticipator();
+
         try {
-            File users = fa.tempFile("users.xml");
-            File magicUsers = fa.tempFile("magic-users.properties");
-            
+            Path users = pa.tempFile("users.xml");
+            Path magicUsers = pa.tempFile("magic-users.properties");
+
             writeTemporaryFile(users, getUsersXmlContents());
             writeTemporaryFile(magicUsers, getMagicUsersContents());
 
-            ((SpringSecurityUserDaoImpl) m_springSecurityDao).setUsersConfigurationFile(users.getAbsolutePath());
-            ((SpringSecurityUserDaoImpl) m_springSecurityDao).setMagicUsersConfigurationFile(magicUsers.getAbsolutePath());
+            ((SpringSecurityUserDaoImpl) m_springSecurityDao).setUsersConfigurationFile(users);
+            ((SpringSecurityUserDaoImpl) m_springSecurityDao).setMagicUsersConfigurationFile(magicUsers);
 
             OnmsUser user;
             Collection<? extends GrantedAuthority> authorities;
-            
+
             user = ((SpringSecurityUserDao) m_springSecurityDao).getByUsername("dashboard");
             assertNotNull("dashboard user should exist and the object should not be null", user);
-            authorities = user.getAuthorities(); 
+            authorities = user.getAuthorities();
             assertNotNull("user GrantedAuthorities[] object should not be null", authorities);
             assertEquals("user GrantedAuthorities[] object should have only one entry", 1, authorities.size());
             assertEquals("user GrantedAuthorities[0]", Authentication.ROLE_DASHBOARD, authorities.iterator().next().getAuthority());
@@ -226,17 +227,17 @@ public class SpringSecurityUserDaoImplTest extends TestCase implements Initializ
 
             user = ((SpringSecurityUserDao) m_springSecurityDao).getByUsername("dashboard");
             assertNotNull("dashboard user should exist and the object should not be null", user);
-            authorities = user.getAuthorities(); 
+            authorities = user.getAuthorities();
             assertNotNull("user GrantedAuthorities[] object should not be null", authorities);
             assertEquals("user GrantedAuthorities[] object should have only one entry", 1, authorities.size());
             assertEquals("user GrantedAuthorities[0]", Authentication.ROLE_USER, authorities.iterator().next().getAuthority());
         } finally {
-            fa.deleteExpected();
-            fa.tearDown();
+            pa.deleteExpected();
+            pa.tearDown();
         }
         assertNoWarningsOrGreater();
     }
-    
+
     /**
      * Test for bugzilla bug #1810.  This is the case:
      * <ol>
@@ -247,7 +248,7 @@ public class SpringSecurityUserDaoImplTest extends TestCase implements Initializ
      *     last update time for the users file is stored when magic users is
      *     reloaded</li>
      * </ol>
-     * 
+     *
      * @param file
      * @param content
      * @throws IOException
@@ -263,24 +264,24 @@ public class SpringSecurityUserDaoImplTest extends TestCase implements Initializ
          * We're not going to use the anticipator functionality, but it's
          * handy for handling temporary directories.
          */
-        FileAnticipator fa = new FileAnticipator();
-        
+        PathAnticipator pa = new PathAnticipator();
+
         try {
-            File users = fa.tempFile("users.xml");
-            File magicUsers = fa.tempFile("magic-users.properties");
-            
+            Path users = pa.tempFile("users.xml");
+            Path magicUsers = pa.tempFile("magic-users.properties");
+
             writeTemporaryFile(users, getUsersXmlContents());
             writeTemporaryFile(magicUsers, getMagicUsersContents());
 
-            ((SpringSecurityUserDaoImpl) m_springSecurityDao).setUsersConfigurationFile(users.getAbsolutePath());
-            ((SpringSecurityUserDaoImpl) m_springSecurityDao).setMagicUsersConfigurationFile(magicUsers.getAbsolutePath());
+            ((SpringSecurityUserDaoImpl) m_springSecurityDao).setUsersConfigurationFile(users);
+            ((SpringSecurityUserDaoImpl) m_springSecurityDao).setMagicUsersConfigurationFile(magicUsers);
 
             OnmsUser user;
             Collection<? extends GrantedAuthority> authorities;
-            
+
             user = ((SpringSecurityUserDao) m_springSecurityDao).getByUsername("dashboard");
             assertNotNull("dashboard user should exist and the object should not be null", user);
-            authorities = user.getAuthorities(); 
+            authorities = user.getAuthorities();
             assertNotNull("user GrantedAuthorities[] object should not be null", authorities);
             assertEquals("user GrantedAuthorities[] object should have only one entry", 1, authorities.size());
             assertEquals("user GrantedAuthorities[0]", Authentication.ROLE_DASHBOARD, authorities.iterator().next().getAuthority());
@@ -297,54 +298,54 @@ public class SpringSecurityUserDaoImplTest extends TestCase implements Initializ
 
             user = ((SpringSecurityUserDao) m_springSecurityDao).getByUsername("dashboard");
             assertNotNull("dashboard user should exist and the object should not be null", user);
-            authorities = user.getAuthorities(); 
+            authorities = user.getAuthorities();
             assertNotNull("user GrantedAuthorities[] object should not be null", authorities);
             assertEquals("user GrantedAuthorities[] object should have only one entry", 1, authorities.size());
             assertEquals("user GrantedAuthorities[0]", Authentication.ROLE_USER, authorities.iterator().next().getAuthority());
 
-            long ourLastModifiedTime = magicUsers.lastModified();
-            long daoLastModifiedTime = ((SpringSecurityUserDaoImpl) m_springSecurityDao).getMagicUsersLastModified();
-            
+            FileTime ourLastModifiedTime = Files.getLastModifiedTime(magicUsers);
+            FileTime daoLastModifiedTime = ((SpringSecurityUserDaoImpl) m_springSecurityDao).getMagicUsersLastModified();
+
             assertEquals("last modified time of magic users file does not match what the DAO stored after reloading the file", ourLastModifiedTime, daoLastModifiedTime);
         } finally {
-            fa.deleteExpected();
-            fa.tearDown();
+            pa.deleteExpected();
+            pa.tearDown();
         }
         assertNoWarningsOrGreater();
     }
-    
+
     @DirtiesContext
     @Test
     public void testMissingMagicUsersProperties() {
-        ((SpringSecurityUserDaoImpl) m_springSecurityDao).setMagicUsersConfigurationFile("src/test/resources/org/opennms/web/springframework/security/magic-users-bad.properties");
+        ((SpringSecurityUserDaoImpl) m_springSecurityDao).setMagicUsersConfigurationFile(Paths.get("src", "test", "resources", "org", "opennms", "web", "springframework", "security", "magic-users-bad.properties"));
         ((SpringSecurityUserDaoImpl) m_springSecurityDao).parseMagicUsers();
         assertLogAtLevel(Level.WARN);
     }
-    
-    private void writeTemporaryFile(File file, String content) throws IOException {
-        Writer writer = new OutputStreamWriter(new FileOutputStream(file), "UTF-8");
+
+    private void writeTemporaryFile(Path file, String content) throws IOException {
+        Writer writer = Files.newBufferedWriter(file, Charset.forName("UTF-8"));
         writer.write(content);
         writer.close();
     }
-    
+
     private String getUsersXmlContents() throws IOException {
-        return getFileContents(new File(USERS_XML_FILE));
-    }
-    
-    private String getMagicUsersContents() throws IOException {
-        return getFileContents(new File(MAGIC_USERS_FILE));
+        return getFileContents(USERS_XML_FILE);
     }
 
-    private String getFileContents(File file) throws FileNotFoundException, IOException {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"));
-        
-        StringBuffer contents = new StringBuffer();
+    private String getMagicUsersContents() throws IOException {
+        return getFileContents(MAGIC_USERS_FILE);
+    }
+
+    private String getFileContents(Path file) throws IOException {
+        BufferedReader reader = Files.newBufferedReader(file, Charset.forName("UTF-8"));
+
+        StringBuilder contents = new StringBuilder();
         String line;
         while ((line = reader.readLine()) != null) {
             contents.append(line);
             contents.append("\n");
         }
-        
+
         return contents.toString();
     }
 }

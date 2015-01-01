@@ -28,7 +28,7 @@
 
 package org.opennms.netmgt.dao.support;
 
-import java.io.File;
+import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -44,16 +44,16 @@ import org.opennms.netmgt.rrd.RrdRepository;
 
 /**
  * MockCollectionResource
- * 
+ *
  * @author <a href="mail:agalue@opennms.org">Alejandro Galue</a>
  */
 public class MockCollectionResource implements CollectionResource {
-    
+
     private final String parent;
     private String instance;
     private final String type;
     private final Map<String,String> attributes = new HashMap<String,String>();
-    
+
     public MockCollectionResource(String parent, String instance, String type) {
         this.parent = parent;
         this.instance = instance;
@@ -66,7 +66,7 @@ public class MockCollectionResource implements CollectionResource {
     }
 
     @Override
-    public File getResourceDir(RrdRepository repository) {
+    public Path getResourceDir(RrdRepository repository) {
         return null;
     }
 
@@ -126,7 +126,7 @@ public class MockCollectionResource implements CollectionResource {
     public String getInstance() {
         return instance;
     }
-    
+
     public void setInstance(String instance) {
         this.instance = instance;
     }
@@ -135,7 +135,7 @@ public class MockCollectionResource implements CollectionResource {
     public String getInterfaceLabel() {
         return null;
     }
-    
+
     public Map<String,String> getAttributeMap() {
         return attributes;
     }

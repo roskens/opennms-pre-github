@@ -29,9 +29,11 @@
 package org.opennms.netmgt.config;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.attribute.FileTime;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -50,9 +52,10 @@ public class DefaultPollerConfigDao implements InitializingBean {
     private Resource m_configResource;
     private String m_localServer;
     private Boolean m_verifyServer;
-    
+    private FileTime m_lastModified;
+
     private PollerConfig m_pollerConfig;
-    
+
     /**
      * <p>Constructor for DefaultPollerConfigDao.</p>
      */
@@ -69,38 +72,35 @@ public class DefaultPollerConfigDao implements InitializingBean {
         Assert.state(m_configResource != null, "property configResource must be set to a non-null value");
         Assert.state(m_localServer != null, "property localServer must be set to a non-null value");
         Assert.state(m_verifyServer != null, "property verifyServer must be set to a non-null value");
-        
+
         loadConfig();
     }
 
     private void loadConfig() throws Exception {
-        InputStream stream = null;
-        long lastModified;
-        
-        File file = null;
-        try {
-            file = getConfigResource().getFile();
-        } catch (IOException e) {
-            LOG.info("Resource '{}' does not seem to have an underlying File object; using input stream", getConfigResource());
-        }
-        
-        try {
-            if (file != null) {
-                lastModified = file.lastModified();
-                stream = new FileInputStream(file);
-                LOG.debug("loadConfig: creating new PollerConfigFactory from file path: {}", file.getPath());
-            } else {
-                lastModified = System.currentTimeMillis();
-                stream = getConfigResource().getInputStream();
-                LOG.debug("loadConfig: creating new PollerConfigFactory from input stream");
-            }
-
-            setPollerConfig(new PollerConfigFactory(lastModified, stream, getLocalServer(), isVerifyServer()));
-        } finally {
-            if (stream != null) stream.close();
+        try (InputStream stream = getStream();) {
+            setPollerConfig(new PollerConfigFactory(m_lastModified, stream, getLocalServer(), isVerifyServer()));
         }
     }
-    
+
+    private InputStream getStream() {
+        try {
+            File file = getConfigResource().getFile();
+            if (file != null) {
+                Path path = file.toPath();
+                LOG.debug("loadConfig: creating new PollerConfigFactory from file path: {}", path);
+                m_lastModified = Files.getLastModifiedTime(path);
+                return Files.newInputStream(path);
+            } else {
+                LOG.debug("loadConfig: creating new PollerConfigFactory from input stream");
+                m_lastModified = FileTime.fromMillis(System.currentTimeMillis());
+                return getConfigResource().getInputStream();
+            }
+        } catch (IOException e) {
+            LOG.info("Resource '{}' does not seem to have an underlying File object; using input stream", getConfigResource());
+            return null;
+        }
+    }
+
     /**
      * <p>getPollerConfig</p>
      *
@@ -167,6 +167,6 @@ public class DefaultPollerConfigDao implements InitializingBean {
     public void setVerifyServer(Boolean verifyServer) {
         m_verifyServer = verifyServer;
     }
-    
-    
+
+
 }

@@ -28,7 +28,10 @@
 
 package org.opennms.netmgt.queued;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Set;
+import java.util.TreeSet;
 
 import org.opennms.netmgt.daemon.AbstractServiceDaemon;
 import org.opennms.netmgt.events.api.EventConstants;
@@ -49,12 +52,12 @@ import org.springframework.util.StringUtils;
  * @version $Id: $
  */
 public class Queued extends AbstractServiceDaemon implements EventListener {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(Queued.class);
 
     private static final String LOG4J_CATEGORY = "queued";
-    
-    private volatile EventIpcManager m_eventMgr; 
+
+    private volatile EventIpcManager m_eventMgr;
 
     /*
      * There are currently 2 possible strategies to be used here:
@@ -70,7 +73,7 @@ public class Queued extends AbstractServiceDaemon implements EventListener {
     public Queued() {
         super(LOG4J_CATEGORY);
     }
-    
+
     /**
      * <p>setEventIpcManager</p>
      *
@@ -79,7 +82,7 @@ public class Queued extends AbstractServiceDaemon implements EventListener {
     public void setEventIpcManager(EventIpcManager eventMgr) {
         m_eventMgr = eventMgr;
     }
-    
+
     /**
      * <p>getRrdStrategy</p>
      *
@@ -97,15 +100,15 @@ public class Queued extends AbstractServiceDaemon implements EventListener {
     public void setRrdStrategy(RrdStrategy<?,?> rrdStrategy) {
         m_rrdStrategy = rrdStrategy;
     }
-    
-    
+
+
     /** {@inheritDoc} */
     @Override
     protected void onInit() {
         Assert.state(m_eventMgr != null, "setEventIpcManager must be set");
         Assert.state(m_rrdStrategy != null, "rrdStrategy must be set");
-        
-        
+
+
         m_eventMgr.addEventListener(this, EventConstants.PROMOTE_QUEUE_DATA_UEI);
     }
 
@@ -113,23 +116,27 @@ public class Queued extends AbstractServiceDaemon implements EventListener {
     @Override
     public void onEvent(Event e) {
         String fileList = EventUtils.getParm(e, EventConstants.PARM_FILES_TO_PROMOTE);
-        Set<String> files = commaDelimitedListToSet(fileList);
+        Set<Path> files = commaDelimitedListToSet(fileList);
 
         logFilePromotion(files);
-        
+
         m_rrdStrategy.promoteEnqueuedFiles(files);
     }
 
-    private Set<String> commaDelimitedListToSet(String fileList) {
-        return StringUtils.commaDelimitedListToSet(fileList);
+    private Set<Path> commaDelimitedListToSet(String fileList) {
+        Set<Path> paths = new TreeSet<Path>();
+        for (String file : StringUtils.commaDelimitedListToSet(fileList)) {
+            paths.add(Paths.get(file));
+        }
+        return paths;
     }
-    
-    private void logFilePromotion(Set<String> files) {
+
+    private void logFilePromotion(Set<Path> files) {
         if (!LOG.isDebugEnabled()) {
             return;
         }
-        
-        for(String file : files) {
+
+        for (Path file : files) {
             LOG.debug("Promoting file: {}", file);
         }
     }

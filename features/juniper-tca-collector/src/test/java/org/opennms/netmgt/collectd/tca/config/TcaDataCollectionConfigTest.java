@@ -32,12 +32,14 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.StringWriter;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 import javax.xml.bind.JAXBContext;
@@ -53,12 +55,12 @@ import org.custommonkey.xmlunit.XMLUnit;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.opennms.test.FileAnticipator;
+import org.opennms.test.PathAnticipator;
 import org.xml.sax.SAXException;
 
 /**
  * The Class TcaDataCollectionConfigTest.
- * 
+ *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 public class TcaDataCollectionConfigTest {
@@ -70,7 +72,7 @@ public class TcaDataCollectionConfigTest {
 	private Unmarshaller unmarshaller;
 
 	/** The file anticipator. */
-	private FileAnticipator fileAnticipator;
+    private PathAnticipator fileAnticipator;
 
 	/** The JAXB context. */
 	private JAXBContext context;
@@ -84,23 +86,23 @@ public class TcaDataCollectionConfigTest {
 	static private class TestOutputResolver extends SchemaOutputResolver {
 
 		/** The schema file. */
-		private final File m_schemaFile;
+        private final Path m_schemaFile;
 
 		/**
 		 * Instantiates a new test output resolver.
 		 *
 		 * @param schemaFile the schema file
 		 */
-		public TestOutputResolver(File schemaFile) {
+        public TestOutputResolver(Path schemaFile) {
 			m_schemaFile = schemaFile;
 		}
 
 		/* (non-Javadoc)
 		 * @see javax.xml.bind.SchemaOutputResolver#createOutput(java.lang.String, java.lang.String)
 		 */
-                @Override
+        @Override
 		public Result createOutput(String namespaceUri, String suggestedFileName) throws IOException {
-			return new StreamResult(m_schemaFile);
+            return new StreamResult(m_schemaFile.toFile());
 		}
 	}
 
@@ -111,7 +113,7 @@ public class TcaDataCollectionConfigTest {
 	 */
 	@Before
 	public void setUp() throws Exception {
-		fileAnticipator = new FileAnticipator();
+        fileAnticipator = new PathAnticipator();
 		context = JAXBContext.newInstance(TcaDataCollectionConfig.class);
 		marshaller = context.createMarshaller();
 		unmarshaller = context.createUnmarshaller();
@@ -133,7 +135,7 @@ public class TcaDataCollectionConfigTest {
 		tcadc.setRrd(rrd);
 		tcadcc = new TcaDataCollectionConfig();
 		tcadcc.addDataCollection(tcadc);
-		tcadcc.setRrdRepository("target/snmp/");
+        tcadcc.setRrdRepository(Paths.get("target", "snmp"));
 
 		XMLUnit.setIgnoreWhitespace(true);
 		XMLUnit.setIgnoreAttributeOrder(true);
@@ -157,7 +159,7 @@ public class TcaDataCollectionConfigTest {
 	 */
 	@Test
 	public void generateSchema() throws Exception {
-		File schemaFile = fileAnticipator.expecting("tca-datacollection-config.xsd");
+        Path schemaFile = fileAnticipator.expecting("tca-datacollection-config.xsd");
 		context.generateSchema(new TestOutputResolver(schemaFile));
 		if (fileAnticipator.isInitialized()) {
 			fileAnticipator.deleteExpected();
@@ -177,9 +179,9 @@ public class TcaDataCollectionConfigTest {
 
 		// Read the example XML from src/test/resources
 		StringBuffer exampleXML = new StringBuffer();
-		File tcaCollectionConfig = getSourceFile();
-		assertTrue(TcaDataCollectionConfig.TCA_DATACOLLECTION_CONFIG_FILE + " is readable", tcaCollectionConfig.canRead());
-		BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(tcaCollectionConfig), "UTF-8"));
+        Path tcaCollectionConfig = getSourceFile();
+        assertTrue(TcaDataCollectionConfig.TCA_DATACOLLECTION_CONFIG_FILE + " is readable", Files.isReadable(tcaCollectionConfig));
+        BufferedReader reader = Files.newBufferedReader(tcaCollectionConfig, Charset.forName("UTF-8"));
 		String line;
 		while (true) {
 			line = reader.readLine();
@@ -208,17 +210,15 @@ public class TcaDataCollectionConfigTest {
 	 */
 	@Test
 	public void readXML() throws Exception {
-		File xmlCollectionConfig = getSourceFile();
-		assertTrue(TcaDataCollectionConfig.TCA_DATACOLLECTION_CONFIG_FILE + " is readable", xmlCollectionConfig.canRead());
+        Path xmlCollectionConfig = getSourceFile();
+        assertTrue(TcaDataCollectionConfig.TCA_DATACOLLECTION_CONFIG_FILE + " is readable", Files.isReadable(xmlCollectionConfig));
 
-		InputStream reader = new FileInputStream(xmlCollectionConfig);
+        try (InputStream reader = Files.newInputStream(xmlCollectionConfig);) {
+            unmarshaller.setSchema(null);
+            TcaDataCollectionConfig exampleXmldcc = (TcaDataCollectionConfig) unmarshaller.unmarshal(reader);
 
-		unmarshaller.setSchema(null);
-		TcaDataCollectionConfig exampleXmldcc = (TcaDataCollectionConfig)unmarshaller.unmarshal(reader);
-
-		assertTrue("Compare TCA Data Collection Config objects.", tcadcc.equals(exampleXmldcc));
-
-		reader.close();
+            assertTrue("Compare TCA Data Collection Config objects.", tcadcc.equals(exampleXmldcc));
+        }
 	}
 
 	/**
@@ -226,9 +226,9 @@ public class TcaDataCollectionConfigTest {
 	 *
 	 * @return the source file
 	 */
-	private File getSourceFile() {
-		File tcaCollectionConfig = new File("src/test/resources/etc/", TcaDataCollectionConfig.TCA_DATACOLLECTION_CONFIG_FILE);
-		System.err.println("Source File: " + tcaCollectionConfig.getAbsolutePath());
+    private Path getSourceFile() {
+        Path tcaCollectionConfig = Paths.get("src", "test", "resources", "etc", TcaDataCollectionConfig.TCA_DATACOLLECTION_CONFIG_FILE);
+		System.err.println("Source File: " + tcaCollectionConfig);
 		return tcaCollectionConfig;
 	}
 

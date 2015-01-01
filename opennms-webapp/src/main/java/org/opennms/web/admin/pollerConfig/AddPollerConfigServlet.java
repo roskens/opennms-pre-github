@@ -28,11 +28,10 @@
 
 package org.opennms.web.admin.pollerConfig;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStreamWriter;
 import java.io.Writer;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -83,7 +82,7 @@ public class AddPollerConfigServlet extends HttpServlet {
         org.opennms.netmgt.config.poller.Package firstPackage;
 
         try {
-            props.load(new FileInputStream(ConfigFileConstants.getFile(ConfigFileConstants.POLLER_CONF_FILE_NAME)));
+            props.load(Files.newBufferedReader(ConfigFileConstants.getFile(ConfigFileConstants.POLLER_CONF_FILE_NAME), Charset.defaultCharset()));
             PollerConfigFactory.init();
             PollerConfig pollerFactory = PollerConfigFactory.getInstance();
             pollerConfig = pollerFactory.getConfiguration();
@@ -147,10 +146,9 @@ public class AddPollerConfigServlet extends HttpServlet {
                 }
             }
 
-            props.store(new FileOutputStream(ConfigFileConstants.getFile(ConfigFileConstants.POLLER_CONF_FILE_NAME)), null);
-            Writer poller_fileWriter = new OutputStreamWriter(new FileOutputStream(ConfigFileConstants.getFile(ConfigFileConstants.POLLER_CONFIG_FILE_NAME)), "UTF-8");
-            Writer capsd_fileWriter = new OutputStreamWriter(new FileOutputStream(ConfigFileConstants.getFile(ConfigFileConstants.CAPSD_CONFIG_FILE_NAME)), "UTF-8");
-            try {
+            props.store(Files.newBufferedWriter(ConfigFileConstants.getFile(ConfigFileConstants.POLLER_CONF_FILE_NAME), Charset.defaultCharset()), null);
+            try (Writer poller_fileWriter = Files.newBufferedWriter(ConfigFileConstants.getFile(ConfigFileConstants.POLLER_CONFIG_FILE_NAME), Charset.forName("UTF-8"));
+              Writer capsd_fileWriter = Files.newBufferedWriter(ConfigFileConstants.getFile(ConfigFileConstants.CAPSD_CONFIG_FILE_NAME), Charset.forName("UTF-8"));) {
                 Marshaller.marshal(pollerConfig, poller_fileWriter);
                 Marshaller.marshal(capsdConfig, capsd_fileWriter);
             } catch (MarshalException e) {
@@ -362,7 +360,7 @@ public class AddPollerConfigServlet extends HttpServlet {
             newprop.setValue(port);
             if (port.indexOf(':') != -1) {
                 newprop.setKey("ports");
-            } else { 
+            } else {
                 newprop.setKey("port");
             }
             if (newMonitor != null && newService != null) {

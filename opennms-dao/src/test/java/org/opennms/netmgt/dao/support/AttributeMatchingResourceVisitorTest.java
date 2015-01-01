@@ -28,6 +28,7 @@
 
 package org.opennms.netmgt.dao.support;
 
+import java.nio.file.Paths;
 import java.util.Collections;
 import java.util.HashSet;
 
@@ -47,7 +48,7 @@ import org.opennms.test.mock.EasyMockUtils;
 public class AttributeMatchingResourceVisitorTest extends TestCase {
     private EasyMockUtils m_mocks = new EasyMockUtils();
     private AttributeVisitor m_attributeVisitor = m_mocks.createMock(AttributeVisitor.class);
-    
+
     public void testAfterPropertiesSet() throws Exception {
         AttributeMatchingResourceVisitor resourceVisitor = new AttributeMatchingResourceVisitor();
         resourceVisitor.setAttributeVisitor(m_attributeVisitor);
@@ -58,10 +59,10 @@ public class AttributeMatchingResourceVisitorTest extends TestCase {
 
     public void testAfterPropertiesSetNoAttributeVisitor() throws Exception {
         AttributeMatchingResourceVisitor resourceVisitor = new AttributeMatchingResourceVisitor();
-        
+
         ThrowableAnticipator ta = new ThrowableAnticipator();
         ta.anticipate(new IllegalStateException("property attributeVisitor must be set to a non-null value"));
-        
+
         resourceVisitor.setAttributeVisitor(null);
         resourceVisitor.setAttributeMatch("ifInOctets");
 
@@ -72,10 +73,10 @@ public class AttributeMatchingResourceVisitorTest extends TestCase {
         }
         ta.verifyAnticipated();
     }
-    
+
     public void testAfterPropertiesSetNoResourceTypeMatch() throws Exception {
         AttributeMatchingResourceVisitor resourceVisitor = new AttributeMatchingResourceVisitor();
-        
+
         ThrowableAnticipator ta = new ThrowableAnticipator();
         ta.anticipate(new IllegalStateException("property attributeMatch must be set to a non-null value"));
 
@@ -98,7 +99,7 @@ public class AttributeMatchingResourceVisitorTest extends TestCase {
 
         MockResourceType resourceType = new MockResourceType();
         resourceType.setName("interfaceSnmp");
-        OnmsAttribute attribute = new RrdGraphAttribute("ifInOctets", "something", "something else");
+        OnmsAttribute attribute = new RrdGraphAttribute("ifInOctets", Paths.get("something"), "something else");
         OnmsResource resource = new OnmsResource("1", "Node One", resourceType, Collections.singleton(attribute));
         m_attributeVisitor.visit(attribute);
 
@@ -106,7 +107,7 @@ public class AttributeMatchingResourceVisitorTest extends TestCase {
         resourceVisitor.visit(resource);
         m_mocks.verifyAll();
     }
-    
+
     public void testVisitWithoutMatch() throws Exception {
         AttributeMatchingResourceVisitor resourceVisitor = new AttributeMatchingResourceVisitor();
         resourceVisitor.setAttributeVisitor(m_attributeVisitor);

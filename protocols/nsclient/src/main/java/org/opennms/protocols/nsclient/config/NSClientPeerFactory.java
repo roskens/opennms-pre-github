@@ -28,8 +28,6 @@
 
 package org.opennms.protocols.nsclient.config;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStreamWriter;
@@ -38,6 +36,9 @@ import java.io.Writer;
 import java.math.BigInteger;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.TreeMap;
@@ -79,7 +80,7 @@ import org.springframework.core.io.FileSystemResource;
  * @author <a href="http://www.opennms.org/">OpenNMS </a>
  */
 public final class NSClientPeerFactory {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(NSClientPeerFactory.class);
 
     private final ReadWriteLock m_globalLock = new ReentrantReadWriteLock();
@@ -103,7 +104,7 @@ public final class NSClientPeerFactory {
 
     /**
      * Private constructor
-     * 
+     *
      * @exception java.io.IOException
      *                Thrown if the specified config file cannot be read
      * @exception org.exolab.castor.xml.MarshalException
@@ -111,8 +112,8 @@ public final class NSClientPeerFactory {
      * @exception org.exolab.castor.xml.ValidationException
      *                Thrown if the contents do not match the required schema.
      */
-    private NSClientPeerFactory(final String configFile) throws IOException, MarshalException, ValidationException {
-        m_config = CastorUtils.unmarshal(NsclientConfig.class, new FileSystemResource(configFile));
+    private NSClientPeerFactory(final Path configFile) throws IOException, MarshalException, ValidationException {
+        m_config = CastorUtils.unmarshal(NsclientConfig.class, new FileSystemResource(configFile.toFile()));
     }
 
     /**
@@ -156,10 +157,10 @@ public final class NSClientPeerFactory {
             return;
         }
 
-        final File cfgFile = ConfigFileConstants.getFile(ConfigFileConstants.NSCLIENT_CONFIG_FILE_NAME);
+        final Path cfgFile = ConfigFileConstants.getFile(ConfigFileConstants.NSCLIENT_CONFIG_FILE_NAME);
 
-        LOG.debug("init: config file path: {}", cfgFile.getPath());
-        m_singleton = new NSClientPeerFactory(cfgFile.getPath());
+        LOG.debug("init: config file path: {}", cfgFile);
+        m_singleton = new NSClientPeerFactory(cfgFile);
         m_loaded = true;
     }
 
@@ -206,10 +207,10 @@ public final class NSClientPeerFactory {
             final StringWriter stringWriter = new StringWriter();
             Marshaller.marshal(m_config, stringWriter);
             if (stringWriter.toString() != null) {
-                final Writer fileWriter = new OutputStreamWriter(new FileOutputStream(ConfigFileConstants.getFile(ConfigFileConstants.NSCLIENT_CONFIG_FILE_NAME)), "UTF-8");
-                fileWriter.write(stringWriter.toString());
-                fileWriter.flush();
-                fileWriter.close();
+                try (Writer fileWriter = Files.newBufferedWriter(ConfigFileConstants.getFile(ConfigFileConstants.NSCLIENT_CONFIG_FILE_NAME), Charset.forName("UTF-8"))) {
+                    fileWriter.write(stringWriter.toString());
+                    fileWriter.flush();
+                }
             }
 
             reload();
@@ -456,12 +457,12 @@ public final class NSClientPeerFactory {
 
     private void setNSClientAgentConfig(final NSClientAgentConfig agentConfig, final Definition def) {
         setCommonAttributes(agentConfig, def);
-        agentConfig.setPassword(determinePassword(def));       
+        agentConfig.setPassword(determinePassword(def));
     }
 
     /**
      * This is a helper method to set all the common attributes in the agentConfig.
-     * 
+     *
      * @param agentConfig
      * @param def
      * @param version
@@ -491,7 +492,7 @@ public final class NSClientPeerFactory {
     }
 
     /**
-     * Helper method to search the nsclient configuration 
+     * Helper method to search the nsclient configuration
      * @param def
      * @return
      */
@@ -499,7 +500,7 @@ public final class NSClientPeerFactory {
         return (def.getTimeout() == 0 ? (m_config.getTimeout() == 0 ? (long) NSClientAgentConfig.DEFAULT_TIMEOUT : m_config.getTimeout()) : def.getTimeout());
     }
 
-    private int determineRetries(final Definition def) {        
+    private int determineRetries(final Definition def) {
         return (def.getRetry() == 0 ? (m_config.getRetry() == 0 ? NSClientAgentConfig.DEFAULT_RETRIES : m_config.getRetry()) : def.getRetry());
     }
 

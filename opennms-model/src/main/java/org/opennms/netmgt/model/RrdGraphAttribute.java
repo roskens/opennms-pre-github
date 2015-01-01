@@ -28,7 +28,7 @@
 
 package org.opennms.netmgt.model;
 
-import java.io.File;
+import java.nio.file.Path;
 
 
 /**
@@ -37,10 +37,10 @@ import java.io.File;
 public class RrdGraphAttribute implements OnmsAttribute {
 
     private String m_name;
-    private String m_relativePath;
+    private Path m_relativePath;
     private String m_rrdFile;
     private OnmsResource m_resource;
-    
+
     /**
      * <p>Constructor for RrdGraphAttribute.</p>
      *
@@ -48,7 +48,7 @@ public class RrdGraphAttribute implements OnmsAttribute {
      * @param relativePath a {@link java.lang.String} object.
      * @param rrdFile a {@link java.lang.String} object.
      */
-    public RrdGraphAttribute(String name, String relativePath, String rrdFile) {
+    public RrdGraphAttribute(String name, Path relativePath, String rrdFile) {
         m_name = name;
         m_relativePath = relativePath;
         m_rrdFile = rrdFile;
@@ -90,10 +90,10 @@ public class RrdGraphAttribute implements OnmsAttribute {
      *
      * @return a {@link java.lang.String} object.
      */
-    public String getRrdRelativePath() {
-        return m_relativePath + File.separator + m_rrdFile;
+    public Path getRrdRelativePath() {
+        return m_relativePath.resolve(m_rrdFile);
     }
-    
+
     /** {@inheritDoc} */
     @Override
 	public String toString() {

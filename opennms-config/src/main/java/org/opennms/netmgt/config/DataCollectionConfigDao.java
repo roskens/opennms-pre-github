@@ -28,6 +28,7 @@
 
 package org.opennms.netmgt.config;
 
+import java.nio.file.Path;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -101,11 +102,11 @@ public interface DataCollectionConfigDao {
      *
      * @return a {@link java.lang.String} object.
      */
-    String getRrdPath();
+    Path getRrdPath();
 
     /**
      * <p>getRootDataCollection</p>
-     * 
+     *
      * @return a {@link org.opennms.netmgt.config.datacollection.DatacollectionConfig} object.
      */
     DatacollectionConfig getRootDataCollection();

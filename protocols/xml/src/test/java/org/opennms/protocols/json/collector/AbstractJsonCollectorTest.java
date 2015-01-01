@@ -28,8 +28,10 @@
 
 package org.opennms.protocols.json.collector;
 
-import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -57,14 +59,14 @@ import org.springframework.core.io.Resource;
 
 /**
  * The Abstract Class for Testing the JSON Collector.
- * 
+ *
  * @author <a href="mailto:ronald.roskens@gmail.com">Ronald Roskens</a>
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 public abstract class AbstractJsonCollectorTest {
 
     /** The Constant TEST_SNMP_DIRECTORY. */
-    private static final String TEST_SNMP_DIRECTORY = "target/snmp/";
+    private static final Path TEST_SNMP_DIRECTORY = Paths.get("target", "snmp");
 
     /** The collection agent. */
     private CollectionAgent m_collectionAgent;
@@ -82,7 +84,7 @@ public abstract class AbstractJsonCollectorTest {
      */
     @Before
     public void setUp() throws Exception {
-        FileUtils.deleteDirectory(new File(TEST_SNMP_DIRECTORY));
+        FileUtils.deleteDirectory(TEST_SNMP_DIRECTORY.toFile());
         MockLogAppender.setupLogging();
 
         System.setProperty("org.opennms.rrd.usetcp", "false");
@@ -92,7 +94,7 @@ public abstract class AbstractJsonCollectorTest {
         m_collectionAgent = EasyMock.createMock(CollectionAgent.class);
         EasyMock.expect(m_collectionAgent.getNodeId()).andReturn(1).anyTimes();
         EasyMock.expect(m_collectionAgent.getHostAddress()).andReturn("127.0.0.1").anyTimes();
-        EasyMock.expect(m_collectionAgent.getStorageDir()).andReturn(new File(String.valueOf(1))).anyTimes();
+        EasyMock.expect(m_collectionAgent.getStorageDir()).andReturn(Paths.get(String.valueOf(1))).anyTimes();
         m_eventProxy = EasyMock.createMock(EventProxy.class);
 
         m_xmlCollectionDao = new XmlDataCollectionConfigDaoJaxb();
@@ -156,22 +158,22 @@ public abstract class AbstractJsonCollectorTest {
         ServiceParameters serviceParams = new ServiceParameters(new HashMap<String,Object>());
         BasePersister persister =  new GroupPersister(serviceParams, createRrdRepository((String)parameters.get("collection"))); // storeByGroup=true;
         collectionSet.visit(persister);
-        
-        Assert.assertEquals(expectedFiles, FileUtils.listFiles(new File(TEST_SNMP_DIRECTORY), new String[] { "jrb" }, true).size());
+
+        Assert.assertEquals(expectedFiles, FileUtils.listFiles(TEST_SNMP_DIRECTORY.toFile(), new String[]{"jrb"}, true).size());
     }
-    
+
     /**
      * Validates a JRB.
      * <p>It assumes storeByGroup=true</p>
-     * 
+     *
      * @param file the JRB file instance
      * @param dsnames the array of data source names
      * @param dsvalues the array of data source values
      * @throws Exception the exception
      */
-    public void validateJrb(File file, String[] dsnames, Double[] dsvalues) throws Exception {
-        Assert.assertTrue(file.exists());
-        RrdDb jrb = new RrdDb(file);
+    public void validateJrb(Path file, String[] dsnames, Double[] dsvalues) throws Exception {
+        Assert.assertTrue(Files.exists(file));
+        RrdDb jrb = new RrdDb(file.toFile());
         Assert.assertEquals(dsnames.length, jrb.getDsCount());
         for (int i = 0; i < dsnames.length; i++) {
             Datasource ds = jrb.getDatasource(dsnames[i]);
@@ -190,7 +192,7 @@ public abstract class AbstractJsonCollectorTest {
     private RrdRepository createRrdRepository(String collection) throws IOException {
         XmlRrd rrd = m_xmlCollectionDao.getDataCollectionByName(collection).getXmlRrd();
         RrdRepository repository = new RrdRepository();
-        repository.setRrdBaseDir(new File(TEST_SNMP_DIRECTORY));
+        repository.setRrdBaseDir(TEST_SNMP_DIRECTORY);
         repository.setHeartBeat(rrd.getStep() * 2);
         repository.setStep(rrd.getStep());
         repository.setRraList(rrd.getXmlRras());

@@ -28,7 +28,7 @@
 
 package org.opennms.netmgt.collection.support;
 
-import java.io.File;
+import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -47,17 +47,17 @@ import org.slf4j.LoggerFactory;
 /**
  * A base class for {@link CollectionResource} objects, implementing common features (to reduce repeated code).
  * Typically used by the non-SNMP collectors (SNMP has it's own set of classes for this). Provides a basic set of attributes.
- * Provides support, via {@link #addAttribute(CollectionAttribute)} and {@link #getGroup(AttributeGroupType)} for basic 
- * "groups" of attributes. Also provides a sample "visit" implementation based on those groups, although this may well 
+ * Provides support, via {@link #addAttribute(CollectionAttribute)} and {@link #getGroup(AttributeGroupType)} for basic
+ * "groups" of attributes. Also provides a sample "visit" implementation based on those groups, although this may well
  * be overridden by subclasses.
  */
 public abstract class AbstractCollectionResource implements CollectionResource {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(AbstractCollectionResource.class);
 
     protected final CollectionAgent m_agent;
     private final Map<AttributeGroupType, AttributeGroup> m_attributeGroups = new HashMap<AttributeGroupType, AttributeGroup>();
-    
+
     /**
      * <p>Constructor for AbstractCollectionResource.</p>
      *
@@ -66,7 +66,7 @@ public abstract class AbstractCollectionResource implements CollectionResource {
     protected AbstractCollectionResource(CollectionAgent agent) {
         m_agent=agent;
     }
-    
+
     /**
      * <p>getOwnerName</p>
      *
@@ -79,8 +79,8 @@ public abstract class AbstractCollectionResource implements CollectionResource {
 
     /** {@inheritDoc} */
     @Override
-    public File getResourceDir(RrdRepository repository) {
-        return new File(repository.getRrdBaseDir(), m_agent.getStorageDir().toString());
+    public Path getResourceDir(RrdRepository repository) {
+        return repository.getRrdBaseDir().resolve(m_agent.getStorageDir().toString());
     }
 
     /**
@@ -108,7 +108,7 @@ public abstract class AbstractCollectionResource implements CollectionResource {
         }
         return group;
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public void visit(CollectionSetVisitor visitor) {
@@ -152,7 +152,7 @@ public abstract class AbstractCollectionResource implements CollectionResource {
     public String getInterfaceLabel() {
         return null;
     }
-    
+
     /**
      * @return Returns null to indicate that {@link DefaultTimeKeeper} should be used.
      */

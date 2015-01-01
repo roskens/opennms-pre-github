@@ -34,8 +34,9 @@ import static org.easymock.EasyMock.expectLastCall;
 import static org.easymock.EasyMock.isA;
 import static org.opennms.core.utils.InetAddressUtils.addr;
 
-import java.io.File;
 import java.net.InetAddress;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -109,8 +110,8 @@ public class CollectdTest extends TestCase {
         MockLogAppender.setupLogging();
 
         Resource threshdResource = new ClassPathResource("/etc/thresholds.xml");
-        File homeDir = threshdResource.getFile().getParentFile().getParentFile();
-        System.setProperty("opennms.home", homeDir.getAbsolutePath());
+        Path homeDir = threshdResource.getFile().toPath().getParent().getParent();
+        System.setProperty("opennms.home", homeDir.toAbsolutePath().toString());
 
         // Test setup
         m_eventIpcManager = m_easyMockUtils.createMock(EventIpcManager.class);
@@ -187,7 +188,7 @@ public class CollectdTest extends TestCase {
         m_collectd.setTransactionTemplate(transTemplate);
         //m_collectd.afterPropertiesSet();
 
-        
+
         ThresholdingConfigFactory.setInstance(new ThresholdingConfigFactory(ConfigurationTestUtils.getInputStreamForConfigFile("thresholds.xml")));
     }
 
@@ -274,14 +275,14 @@ public class CollectdTest extends TestCase {
     	map.put("max-repetitions", "11");
     	map.put("read-community", "notPublic");
 		ServiceParameters params = new ServiceParameters(map);
-		
+
 		int reps = params.getSnmpMaxRepetitions(6);
 		assertEquals("Overriding max repetitions failed.", 11, reps);
 		params = new ServiceParameters(map);
 		map.remove("max-repetitions");
 		map.put("maxRepetitions", "11");
 		assertEquals("Overriding max repetitions failed.", 11, reps);
-		
+
 		String s = params.getSnmpReadCommunity("public");
 		assertEquals("Overriding read community failed.", "notPublic", s);
 		map.remove("read-community");
@@ -292,7 +293,7 @@ public class CollectdTest extends TestCase {
     }
 
     /**
-     * 
+     *
      * @throws Exception
      */
     public void testNoMatchingSpecs() throws Exception {
@@ -312,7 +313,7 @@ public class CollectdTest extends TestCase {
         assertEquals(0, m_scheduler.getEntryCount());
 
         m_collectd.stop();
-        
+
         m_easyMockUtils.verifyAll();
     }
 
@@ -322,10 +323,10 @@ public class CollectdTest extends TestCase {
         setupCollector("SNMP", true);
         setupInterface(iface);
         setupTransactionManager();
-  
+
         expect(m_collectdConfig.getPackages()).andReturn(Collections.singletonList(getCollectionPackageThatMatchesSNMP()));
         expect(m_collectdConfigFactory.interfaceInPackage(iface, getCollectionPackageThatMatchesSNMP())).andReturn(true);
-        
+
         m_easyMockUtils.replayAll();
 
         assertEquals("scheduler entry count", 0, m_scheduler.getEntryCount());
@@ -333,7 +334,7 @@ public class CollectdTest extends TestCase {
         m_collectd.afterPropertiesSet();
 
         m_collectd.start();
-        
+
         m_scheduler.next();
 
         assertEquals("scheduler entry count", 1, m_scheduler.getEntryCount());
@@ -362,7 +363,7 @@ public class CollectdTest extends TestCase {
         PlatformTransactionManager m_transactionManager = m_easyMockUtils.createMock(PlatformTransactionManager.class);
         TransactionTemplate transactionTemplate = new TransactionTemplate(m_transactionManager);
         m_collectd.setTransactionTemplate(transactionTemplate);
-        
+
         expect(m_transactionManager.getTransaction(isA(TransactionDefinition.class))).andReturn(new SimpleTransactionStatus()).anyTimes();
         m_transactionManager.rollback(isA(TransactionStatus.class));
         expectLastCall().anyTimes();
@@ -397,18 +398,18 @@ public class CollectdTest extends TestCase {
         m_collectd.setCollectdConfigFactory(m_collectdConfigFactory);
     }
 
-    
+
     public static class MockServiceCollector implements ServiceCollector {
         private static ServiceCollector s_delegate;
 
         public MockServiceCollector() {
-            
+
         }
-        
+
         public static void setDelegate(ServiceCollector delegate) {
             s_delegate = delegate;
         }
-        
+
         @Override
         public CollectionSet collect(CollectionAgent agent, EventProxy eproxy, Map<String, Object> parameters) throws CollectionException {
             return new AbstractCollectionSet() {
@@ -420,7 +421,7 @@ public class CollectdTest extends TestCase {
 
                 @Override
                 public void visit(CollectionSetVisitor visitor) {
-                    visitor.visitCollectionSet(this);   
+                    visitor.visitCollectionSet(this);
                     visitor.completeCollectionSet(this);
                 }
 
@@ -454,7 +455,7 @@ public class CollectdTest extends TestCase {
         @Override
         public RrdRepository getRrdRepository(String collectionName) {
             RrdRepository repo = new RrdRepository();
-            repo.setRrdBaseDir(new File("/usr/local/opennms/share/rrd/snmp/"));
+            repo.setRrdBaseDir(Paths.get("target"));
             repo.setRraList(Collections.singletonList("RRA:AVERAGE:0.5:1:8928"));
             repo.setStep(300);
             repo.setHeartBeat(2 * 300);

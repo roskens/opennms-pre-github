@@ -30,6 +30,7 @@ package org.opennms.netmgt.notifd;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.List;
 
 import org.opennms.core.utils.ConfigFileConstants;
@@ -54,9 +55,9 @@ import twitter4j.TwitterException;
  * @author <a href="mailto:http://www.opennms.org">OpenNMS</a>
  */
 public class MicroblogNotificationStrategy implements NotificationStrategy {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(MicroblogNotificationStrategy.class);
-    
+
     private static final String UBLOG_PROFILE_NAME = "notifd";
     protected MicroblogConfigurationDao m_microblogConfigurationDao;
     protected MicroblogConfigurationDao m_configDao;
@@ -174,8 +175,8 @@ public class MicroblogNotificationStrategy implements NotificationStrategy {
      * @throws java.io.IOException if any.
      */
     protected static Resource findDefaultConfigResource() throws IOException {
-        File configFile = ConfigFileConstants.getFile(ConfigFileConstants.MICROBLOG_CONFIG_FILE_NAME);
-        return new FileSystemResource(configFile);        
+        Path configFile = ConfigFileConstants.getFile(ConfigFileConstants.MICROBLOG_CONFIG_FILE_NAME);
+        return new FileSystemResource(configFile.toFile());
     }
 
     /**

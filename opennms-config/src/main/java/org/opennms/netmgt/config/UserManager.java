@@ -32,6 +32,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringWriter;
+import java.nio.file.attribute.FileTime;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
@@ -102,7 +103,7 @@ public abstract class UserManager implements UserConfig {
     protected UserManager(final GroupManager groupManager) {
         m_groupManager = groupManager;
     }
-    
+
     /**
      * <p>parseXML</p>
      *
@@ -112,18 +113,18 @@ public abstract class UserManager implements UserConfig {
      */
     public void parseXML(final InputStream in) throws MarshalException, ValidationException {
         m_writeLock.lock();
-        
+
         try {
             final Userinfo userinfo = CastorUtils.unmarshal(Userinfo.class, in);
             final Users users = userinfo.getUsers();
             oldHeader = userinfo.getHeader();
             final List<User> usersList = users.getUserCollection();
             m_users = new TreeMap<String, User>();
-        
+
             for (final User curUser : usersList) {
                 m_users.put(curUser.getUserId(), curUser);
             }
-        
+
             _buildDutySchedules(m_users);
         } finally {
             m_writeLock.unlock();
@@ -142,7 +143,7 @@ public abstract class UserManager implements UserConfig {
         update();
 
         m_writeLock.lock();
-        
+
         try {
             _writeUser(name, details);
         } finally {
@@ -156,15 +157,15 @@ public abstract class UserManager implements UserConfig {
         } else {
             m_users.put(name, details);
         }
-      
+
         _saveCurrent();
     }
-    
+
     public void save(final OnmsUser onmsUser) throws Exception {
         update();
 
         m_writeLock.lock();
-        
+
         try {
             User castorUser = _getUser(onmsUser.getUsername());
             if (castorUser == null) {
@@ -176,16 +177,16 @@ public abstract class UserManager implements UserConfig {
 
             // Contact info
             _setContact(castorUser, ContactType.email, onmsUser.getEmail());
-            
+
             final Password pass = new Password();
             pass.setContent(onmsUser.getPassword());
             pass.setSalt(onmsUser.getPasswordSalted());
             castorUser.setPassword(pass);
-    
+
             if (onmsUser.getDutySchedule() != null) {
                 castorUser.setDutySchedule(onmsUser.getDutySchedule());
             }
-            
+
             _writeUser(onmsUser.getUsername(), castorUser);
         } finally {
             m_writeLock.unlock();
@@ -196,23 +197,23 @@ public abstract class UserManager implements UserConfig {
      * Builds a mapping between user IDs and duty schedules. These are used by
      * Notifd when determining to send a notice to a given user. This helps
      * speed up the decision process.
-     * 
+     *
      * @param users
      *            the map of users parsed from the XML configuration file
      */
     private void _buildDutySchedules(final Map<String,User> users) {
         m_dutySchedules = new HashMap<String,List<DutySchedule>>();
-        
+
         for (final Entry<String,User> entry : users.entrySet()) {
             final String key = entry.getKey();
             final User curUser = entry.getValue();
-    
+
             if (curUser.getDutyScheduleCount() > 0) {
                 final List<DutySchedule> dutyList = new ArrayList<DutySchedule>();
                 for (final String duty : curUser.getDutyScheduleCollection()) {
                 	dutyList.add(new DutySchedule(duty));
                 }
-    
+
                 m_dutySchedules.put(key, dutyList);
             }
         }
@@ -234,13 +235,13 @@ public abstract class UserManager implements UserConfig {
      */
     public boolean isUserOnDuty(final String user, final Calendar time) throws IOException, MarshalException, ValidationException {
         update();
-    
+
         m_readLock.lock();
         try {
             // if the user has no duty schedules then he is on duty
             if (!m_dutySchedules.containsKey(user))
                 return true;
-    
+
             for (final DutySchedule curSchedule : m_dutySchedules.get(user)) {
             	if (curSchedule.isInSchedule(time)) {
             		return true;
@@ -263,7 +264,7 @@ public abstract class UserManager implements UserConfig {
      */
     public Map<String, User> getUsers() throws IOException, MarshalException, ValidationException {
         update();
-    
+
         m_readLock.lock();
         try {
             return Collections.unmodifiableMap(m_users);
@@ -278,19 +279,19 @@ public abstract class UserManager implements UserConfig {
         final OnmsUserList list = new OnmsUserList();
 
         m_readLock.lock();
-        
+
         try {
             for (final String username : _getUserNames()) {
                 list.add(_getOnmsUser(username));
             }
             list.setTotalCount(list.getCount());
-    
+
             return list;
         } finally {
             m_readLock.unlock();
         }
     }
-    
+
     public OnmsUser getOnmsUser(final String username) throws MarshalException, ValidationException, IOException {
         update();
 
@@ -315,7 +316,7 @@ public abstract class UserManager implements UserConfig {
         user.setEmail(_getContactInfo(castorUser, ContactType.email));
         return user;
     }
-    
+
     private Contact _getContact(final String userId, final ContactType contactType) {
     	User user = _getUser(userId);
     	if (user != null && contactType != null) {
@@ -327,7 +328,7 @@ public abstract class UserManager implements UserConfig {
     	}
     	return null;
     }
-    
+
     /**
      * Returns a boolean indicating if the user name appears in the XML file
      *
@@ -397,7 +398,7 @@ public abstract class UserManager implements UserConfig {
     private User _getUser(final String name) {
         return m_users.get(name);
     }
-    
+
     /**
      * Get a user's telephone PIN by name
      *
@@ -409,7 +410,7 @@ public abstract class UserManager implements UserConfig {
      * @throws org.exolab.castor.xml.ValidationException if any.
      */
     public String getTuiPin(final String name) throws IOException, MarshalException, ValidationException {
-    
+
         update();
 
         m_readLock.lock();
@@ -419,7 +420,7 @@ public abstract class UserManager implements UserConfig {
             m_readLock.unlock();
         }
     }
-    
+
     /**
      * Get a user's telephone PIN by User object
      *
@@ -430,9 +431,9 @@ public abstract class UserManager implements UserConfig {
      * @throws org.exolab.castor.xml.ValidationException if any.
      */
     public String getTuiPin(final User user) throws IOException, MarshalException, ValidationException {
-    
+
         update();
-    
+
         m_readLock.lock();
         try {
             return m_users.get(user.getUserId()).getTuiPin();
@@ -440,7 +441,7 @@ public abstract class UserManager implements UserConfig {
             m_readLock.unlock();
         }
     }
-    
+
     /**
      * Get a user's microblog username by username
      *
@@ -470,11 +471,11 @@ public abstract class UserManager implements UserConfig {
     public String getMicroblogName(final User user) throws MarshalException, ValidationException, FileNotFoundException, IOException {
         return getContactInfo(user, ContactType.microblog.toString());
     }
-    
+
     public void setContactInfo(final String userId, final ContactType contactType, final String contactValue) throws Exception {
     	 update();
          m_writeLock.lock();
-         
+
          try {
              final User user = _getUser(userId);
              if (user != null) {
@@ -485,7 +486,7 @@ public abstract class UserManager implements UserConfig {
              m_writeLock.unlock();
          }
 	}
-    
+
     private void _setContact(final User user, final ContactType contactType, final String value) {
         if (user != null && !StringUtils.isEmpty(value)) {
         	Contact contact = _getContact(user.getUserId(), contactType);
@@ -499,13 +500,13 @@ public abstract class UserManager implements UserConfig {
     }
 
     /**
-     * @see {@link #getContactInfo(String, String)} 
+     * @see {@link #getContactInfo(String, String)}
      */
     public String getContactInfo(final String userId, final ContactType contactType) throws MarshalException, ValidationException, IOException {
     	if (userId == null || contactType == null) return null;
     	return getContactInfo(userId, contactType.name());
 	}
-    
+
     /**
      * Get the contact info given a command string
      *
@@ -529,7 +530,7 @@ public abstract class UserManager implements UserConfig {
             m_readLock.unlock();
         }
     }
-    
+
     /**
      * <p>getContactInfo</p>
      *
@@ -544,7 +545,7 @@ public abstract class UserManager implements UserConfig {
         update();
 
         m_readLock.lock();
-        
+
         try {
             return _getContactInfo(user, command);
         } finally {
@@ -555,10 +556,10 @@ public abstract class UserManager implements UserConfig {
     private String _getContactInfo(final User user, final ContactType contactType) {
     	return _getContactInfo(user, contactType.name());
     }
-    
+
     private String _getContactInfo(final User user, final String command) {
         if (user == null) return "";
-        
+
         for (final Contact contact : user.getContactCollection()) {
         	if (contact != null && contact.getType().equals(command)) {
         		return contact.getInfo();
@@ -590,7 +591,7 @@ public abstract class UserManager implements UserConfig {
             m_readLock.unlock();
         }
     }
-    
+
     /**
      * <p>getContactServiceProvider</p>
      *
@@ -603,7 +604,7 @@ public abstract class UserManager implements UserConfig {
      */
     public String getContactServiceProvider(final User user, final String command) throws IOException, MarshalException, ValidationException {
         update();
-        
+
         m_readLock.lock();
         try {
             return _getContactServiceProvider(user, command);
@@ -620,7 +621,7 @@ public abstract class UserManager implements UserConfig {
         		return contact.getServiceProvider();
         	}
         }
-        
+
         return "";
     }
 
@@ -637,7 +638,7 @@ public abstract class UserManager implements UserConfig {
     public String getEmail(final String userID) throws IOException, MarshalException, ValidationException {
         return getContactInfo(userID, ContactType.email.toString());
     }
-    
+
     /**
      * Get a email by user
      *
@@ -717,7 +718,7 @@ public abstract class UserManager implements UserConfig {
      */
     public String getXMPPAddress(final String userID) throws IOException, MarshalException, ValidationException {
         update();
-        
+
         m_readLock.lock();
         try {
             final User user = m_users.get(userID);
@@ -750,13 +751,13 @@ public abstract class UserManager implements UserConfig {
     private String _getXMPPAddress(final User user) {
         if (user == null)
             return "";
-        
+
         for (final Contact contact : user.getContactCollection()) {
         	if (contact != null && contact.getType().equals(ContactType.xmppAddress.toString())) {
         		return contact.getInfo();
         	}
         }
-        
+
         return "";
     }
 
@@ -773,7 +774,7 @@ public abstract class UserManager implements UserConfig {
     public String getNumericPage(final String userID) throws IOException, MarshalException, ValidationException {
         return getContactServiceProvider(userID, ContactType.numericPage.toString());
     }
-    
+
     /**
      * Get a numeric service provider
      *
@@ -800,7 +801,7 @@ public abstract class UserManager implements UserConfig {
     public String getTextPin(final String userID) throws IOException, MarshalException, ValidationException {
         return getContactInfo(userID, ContactType.textPage.toString());
     }
-    
+
     /**
      * Get a text pin
      *
@@ -827,7 +828,7 @@ public abstract class UserManager implements UserConfig {
     public String getTextPage(final String userID) throws IOException, MarshalException, ValidationException {
         return getContactServiceProvider(userID, ContactType.textPage.toString());
     }
-    
+
     /**
      * Get a Text Page Service Provider
      *
@@ -840,7 +841,7 @@ public abstract class UserManager implements UserConfig {
     public String getTextPage(final User user) throws IOException, MarshalException, ValidationException {
         return getContactServiceProvider(user, ContactType.textPage.toString());
     }
-    
+
     /**
      * Get a work phone number
      *
@@ -854,7 +855,7 @@ public abstract class UserManager implements UserConfig {
     public String getWorkPhone(final String userID) throws MarshalException, ValidationException, IOException {
         return getContactInfo(userID, ContactType.workPhone.toString());
     }
-    
+
     /**
      * Get a work phone number
      *
@@ -881,7 +882,7 @@ public abstract class UserManager implements UserConfig {
     public String getMobilePhone(final String userID) throws MarshalException, ValidationException, IOException {
         return getContactInfo(userID, ContactType.mobilePhone.toString());
     }
-    
+
     /**
      * Get a mobile phone number
      *
@@ -908,7 +909,7 @@ public abstract class UserManager implements UserConfig {
     public String getHomePhone(final String userID) throws MarshalException, ValidationException, IOException {
         return getContactInfo(userID, ContactType.homePhone.toString());
     }
-    
+
     /**
      * Get a home phone number
      *
@@ -932,11 +933,11 @@ public abstract class UserManager implements UserConfig {
         update();
 
         m_writeLock.lock();
-        
+
         try {
             // clear out the internal structure and reload it
             m_users.clear();
-        
+
             for (final User curUser : usersList) {
             	m_users.put(curUser.getUserId(), curUser);
             }
@@ -954,22 +955,22 @@ public abstract class UserManager implements UserConfig {
      */
     public void deleteUser(final String name) throws Exception {
         m_writeLock.lock();
-        
+
         try {
             // Check if the user exists
             if (m_users.containsKey(name)) {
                 // Delete the user in the user map.
                 m_users.remove(name);
-        
+
                 // Delete the user in the group.
                 m_groupManager.deleteUser(name);
-        
+
                 // Delete the user in the view.
                 // viewFactory.deleteUser(name);
             } else {
                 throw new Exception("UserFactory:delete The old user name " + name + " is not found");
             }
-        
+
             _saveCurrent();
         } finally {
             m_writeLock.unlock();
@@ -981,11 +982,11 @@ public abstract class UserManager implements UserConfig {
      */
     private void _saveCurrent() throws Exception {
         final Users users = new Users();
-        
+
         for (final User user : m_users.values()) {
             users.addUser(user);
         }
-    
+
         final Userinfo userinfo = new Userinfo();
         userinfo.setUsers(users);
 
@@ -995,7 +996,7 @@ public abstract class UserManager implements UserConfig {
             userinfo.setHeader(header);
         }
         oldHeader = header;
-    
+
         // marshal to a string first, then write the string to the file. This
         // way the original configuration
         // isn't lost if the XML from the marshal is hosed.
@@ -1025,7 +1026,7 @@ public abstract class UserManager implements UserConfig {
         update();
 
         m_writeLock.lock();
-        
+
         try {
             // Get the old data
             if (m_users.containsKey(oldName)) {
@@ -1038,17 +1039,17 @@ public abstract class UserManager implements UserConfig {
                     m_users.remove(oldName);
                     data.setUserId(newName);
                     m_users.put(newName, data);
-        
+
                     // Rename the user in the group.
                     m_groupManager.renameUser(oldName, newName);
-        
+
                     // Rename the user in the view.
                     // viewFactory.renameUser(oldName, newName);
                 }
             } else {
                 throw new Exception("UserFactory:rename the old user name " + oldName + " is not found");
             }
-        
+
             _saveCurrent();
         } finally {
             m_writeLock.unlock();
@@ -1069,7 +1070,7 @@ public abstract class UserManager implements UserConfig {
         update();
 
         m_writeLock.lock();
-        
+
         try {
             final User user = m_users.get(userID);
             if (user != null) {
@@ -1078,7 +1079,7 @@ public abstract class UserManager implements UserConfig {
                 pass.setSalt(salted);
                 user.setPassword(pass);
             }
-        
+
             _saveCurrent();
         } finally {
             m_writeLock.unlock();
@@ -1098,7 +1099,7 @@ public abstract class UserManager implements UserConfig {
         update();
 
         m_writeLock.lock();
-        
+
         try {
             final User user =  m_users.get(userID);
             if (user != null) {
@@ -1107,7 +1108,7 @@ public abstract class UserManager implements UserConfig {
                 pass.setSalt(true);
                 user.setPassword(pass);
             }
-        
+
             _saveCurrent();
         } finally {
             m_writeLock.unlock();
@@ -1130,7 +1131,7 @@ public abstract class UserManager implements UserConfig {
             // old crappy algorithm
             try {
                 final MessageDigest digest = MessageDigest.getInstance("MD5");
-        
+
                 // build the digest, get the bytes, convert to hexadecimal string
                 // and return
                 encryptedPassword = hexToString(digest.digest(aPassword.getBytes()));
@@ -1149,17 +1150,17 @@ public abstract class UserManager implements UserConfig {
     private String hexToString(final byte[] data) {
         // check to see if the byte array has an even number of elements
         if ((data.length % 2) != 0) return null;
-    
+
         // there will be two hexadecimal characters for each byte element
         final char[] buffer = new char[data.length * 2];
-    
+
         for (int i = 0; i < data.length; i++) {
             final int low = (int) (data[i] & 0x0f);
             final int high = (int) ((data[i] & 0xf0) >> 4);
             buffer[i * 2] = HEX[high];
             buffer[i * 2 + 1] = HEX[low];
         }
-    
+
         return new String(buffer);
     }
 
@@ -1175,7 +1176,7 @@ public abstract class UserManager implements UserConfig {
      */
     public boolean comparePasswords(final String userID, final String aPassword) {
         m_readLock.lock();
-        
+
         try {
             final User user = m_users.get(userID);
             if (user == null) return false;
@@ -1195,7 +1196,7 @@ public abstract class UserManager implements UserConfig {
     public boolean checkSaltedPassword(final String raw, final String encrypted) {
         return m_passwordEncryptor.checkPassword(raw, encrypted);
     }
-    
+
     /**
      * <p>update</p>
      *
@@ -1214,7 +1215,7 @@ public abstract class UserManager implements UserConfig {
             m_writeLock.unlock();
         }
     }
-    
+
     /**
      * <p>getUsersWithRole</p>
      *
@@ -1237,16 +1238,16 @@ public abstract class UserManager implements UserConfig {
 
     private String[] _getUsersWithRole(final String roleid) throws MarshalException, ValidationException, IOException {
         final List<String> usersWithRole = new ArrayList<String>();
-   
+
         for (final User user : m_users.values()) {
             if (_userHasRole(user, roleid)) {
                 usersWithRole.add(user.getUserId());
             }
         }
-        
+
         return usersWithRole.toArray(new String[usersWithRole.size()]);
     }
-    
+
     /**
      * <p>userHasRole</p>
      *
@@ -1271,10 +1272,10 @@ public abstract class UserManager implements UserConfig {
 
     private boolean _userHasRole(final User user, final String roleid) throws MarshalException, ValidationException, IOException {
         if (roleid == null) throw new NullPointerException("roleid is null");
-        
+
         return m_groupManager.userHasRole(user.getUserId(), roleid);
     }
-    
+
     /**
      * <p>isUserScheduledForRole</p>
      *
@@ -1289,7 +1290,7 @@ public abstract class UserManager implements UserConfig {
      */
     public boolean isUserScheduledForRole(final User user, final String roleid, final Date time) throws FileNotFoundException, MarshalException, ValidationException, IOException {
         update();
-        
+
         m_readLock.lock();
         try {
             return _isUserScheduledForRole(user, roleid, time);
@@ -1300,10 +1301,10 @@ public abstract class UserManager implements UserConfig {
 
     private boolean _isUserScheduledForRole(final User user, final String roleid, final Date time) throws MarshalException, ValidationException, IOException {
         if (roleid == null) throw new NullPointerException("roleid is null");
-        
+
         return m_groupManager.isUserScheduledForRole(user.getUserId(), roleid, time);
     }
-    
+
     /**
      * <p>getUsersScheduledForRole</p>
      *
@@ -1320,19 +1321,19 @@ public abstract class UserManager implements UserConfig {
         m_readLock.lock();
         try {
             final List<String> usersScheduledForRole = new ArrayList<String>();
-            
+
             for (final User user : m_users.values()) {
                 if (_isUserScheduledForRole(user, roleid, time)) {
                     usersScheduledForRole.add(user.getUserId());
                 }
             }
-            
+
             return usersScheduledForRole.toArray(new String[usersScheduledForRole.size()]);
         } finally {
             m_readLock.unlock();
         }
     }
-    
+
     /**
      * <p>hasRole</p>
      *
@@ -1352,7 +1353,7 @@ public abstract class UserManager implements UserConfig {
             m_readLock.unlock();
         }
     }
-    
+
     /**
      * <p>countUsersWithRole</p>
      *
@@ -1376,7 +1377,7 @@ public abstract class UserManager implements UserConfig {
     }
 
     public abstract boolean isUpdateNeeded();
-    public abstract long getLastModified();
+    public abstract FileTime getLastModified();
     public abstract long getFileSize();
     public abstract void reload() throws IOException, FileNotFoundException, MarshalException, ValidationException;
 }

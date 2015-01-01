@@ -28,8 +28,8 @@
 
 package org.opennms.protocols.xml.config;
 
-import java.io.File;
 import java.io.Serializable;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -47,7 +47,7 @@ import org.opennms.netmgt.rrd.RrdRepository;
 
 /**
  * The Class XmlDataCollectionConfig.
- * 
+ *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 @XmlRootElement(name="xml-datacollection-config")
@@ -70,7 +70,7 @@ public class XmlDataCollectionConfig implements Serializable, Comparable<XmlData
 
     /** The RRD Repository. */
     @XmlAttribute(name="rrdRepository")
-    private String m_rrdRepository;
+    private Path m_rrdRepository;
 
     /**
      * Instantiates a new XML data collection configuration.
@@ -102,7 +102,7 @@ public class XmlDataCollectionConfig implements Serializable, Comparable<XmlData
      *
      * @return the RRD repository
      */
-    public String getRrdRepository() {
+    public Path getRrdRepository() {
         return m_rrdRepository;
     }
 
@@ -111,7 +111,7 @@ public class XmlDataCollectionConfig implements Serializable, Comparable<XmlData
      *
      * @param rrdRepository the new RRD repository
      */
-    public void setRrdRepository(String rrdRepository) {
+    public void setRrdRepository(Path rrdRepository) {
         m_rrdRepository = rrdRepository;
     }
 
@@ -175,7 +175,7 @@ public class XmlDataCollectionConfig implements Serializable, Comparable<XmlData
             return null;
         XmlRrd rrd = collection.getXmlRrd();
         RrdRepository repo = new RrdRepository();
-        repo.setRrdBaseDir(new File(getRrdRepository()));
+        repo.setRrdBaseDir(getRrdRepository());
         repo.setRraList(rrd.getXmlRras());
         repo.setStep(rrd.getStep());
         repo.setHeartBeat((2 * rrd.getStep()));

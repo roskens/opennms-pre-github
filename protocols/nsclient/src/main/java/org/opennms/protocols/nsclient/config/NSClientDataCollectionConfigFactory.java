@@ -28,17 +28,17 @@
 
 package org.opennms.protocols.nsclient.config;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.attribute.FileTime;
 import java.util.List;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
-import org.apache.commons.io.IOUtils;
 import org.exolab.castor.xml.MarshalException;
 import org.exolab.castor.xml.ValidationException;
 import org.opennms.core.utils.ConfigFileConstants;
@@ -55,20 +55,20 @@ import org.slf4j.LoggerFactory;
  * @author <a href="mailto:cmiskell@opennms.org">Craig Miskell</a>
  */
 public class NSClientDataCollectionConfigFactory {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(NSClientDataCollectionConfigFactory.class);
 
     private final ReadWriteLock m_globalLock = new ReentrantReadWriteLock();
     private final Lock m_readLock = m_globalLock.readLock();
     private final Lock m_writeLock = m_globalLock.writeLock();
-    
+
      /** The singleton instance. */
      private static NSClientDataCollectionConfigFactory m_instance;
 
      private static boolean m_loadedFromFile = false;
 
      /** Timestamp of the nsclient collection config, used to know when to reload from disk. */
-     protected static long m_lastModified;
+    protected static FileTime m_lastModified;
 
      private NsclientDatacollectionConfig m_config;
 
@@ -80,21 +80,16 @@ public class NSClientDataCollectionConfigFactory {
       * @throws org.exolab.castor.xml.ValidationException if any.
       * @throws java.io.IOException if any.
       */
-     public NSClientDataCollectionConfigFactory(final String configFile) throws MarshalException, ValidationException, IOException {
-         InputStream is = null;
-         
-         try {
-             is = new FileInputStream(configFile);
+    public NSClientDataCollectionConfigFactory(final Path configFile) throws MarshalException, ValidationException, IOException {
+        try (InputStream is = Files.newInputStream(configFile);) {
              initialize(is);
-         } finally {
-             IOUtils.closeQuietly(is);
          }
      }
 
      public Lock getReadLock() {
          return m_readLock;
      }
-     
+
      public Lock getWriteLock() {
          return m_writeLock;
      }
@@ -112,11 +107,11 @@ public class NSClientDataCollectionConfigFactory {
       * @throws org.exolab.castor.xml.MarshalException if any.
       * @throws org.exolab.castor.xml.ValidationException if any.
       */
-     public static synchronized void init() throws IOException, FileNotFoundException, MarshalException, ValidationException {
+     public static synchronized void init() throws IOException, MarshalException, ValidationException {
          if (m_instance == null) {
-             final File cfgFile = ConfigFileConstants.getFile(ConfigFileConstants.NSCLIENT_COLLECTION_CONFIG_FILE_NAME);
-             m_instance = new NSClientDataCollectionConfigFactory(cfgFile.getPath());
-             m_lastModified = cfgFile.lastModified();
+             final Path cfgFile = ConfigFileConstants.getFile(ConfigFileConstants.NSCLIENT_COLLECTION_CONFIG_FILE_NAME);
+             m_instance = new NSClientDataCollectionConfigFactory(cfgFile);
+             m_lastModified = Files.getLastModifiedTime(cfgFile);
              m_loadedFromFile = true;
          }
      }
@@ -134,7 +129,7 @@ public class NSClientDataCollectionConfigFactory {
          }
          return m_instance;
      }
-     
+
      /**
       * <p>setInstance</p>
       *
@@ -153,7 +148,7 @@ public class NSClientDataCollectionConfigFactory {
       * @throws org.exolab.castor.xml.MarshalException if any.
       * @throws org.exolab.castor.xml.ValidationException if any.
       */
-     public synchronized void reload() throws IOException, FileNotFoundException, MarshalException, ValidationException {
+     public synchronized void reload() throws IOException, MarshalException, ValidationException {
          m_instance = null;
          init();
      }
@@ -195,7 +190,7 @@ public class NSClientDataCollectionConfigFactory {
          try {
              getReadLock().lock();
              final RrdRepository repo = new RrdRepository();
-             repo.setRrdBaseDir(new File(getRrdPath()));
+             repo.setRrdBaseDir(getRrdPath());
              repo.setRraList(getRRAList(collectionName));
              repo.setStep(getStep(collectionName));
              repo.setHeartBeat((2 * getStep(collectionName)));
@@ -204,7 +199,7 @@ public class NSClientDataCollectionConfigFactory {
              getReadLock().unlock();
          }
      }
-     
+
      /**
       * <p>getStep</p>
       *
@@ -224,7 +219,7 @@ public class NSClientDataCollectionConfigFactory {
              getReadLock().unlock();
          }
      }
-     
+
      /**
       * <p>getRRAList</p>
       *
@@ -244,29 +239,21 @@ public class NSClientDataCollectionConfigFactory {
              getReadLock().unlock();
          }
      }
-     
+
      /**
       * <p>getRrdPath</p>
       *
       * @return a {@link java.lang.String} object.
       */
-     public String getRrdPath() {
+    public Path getRrdPath() {
          try {
              getReadLock().lock();
              String rrdPath = m_config.getRrdRepository();
              if (rrdPath == null) {
                  throw new RuntimeException("Configuration error, failed to retrieve path to RRD repository.");
              }
-         
-             /*
-              * TODO: make a path utils class that has the below in it strip the
-              * File.separator char off of the end of the path.
-              */
-             if (rrdPath.endsWith(File.separator)) {
-                 rrdPath = rrdPath.substring(0, (rrdPath.length() - File.separator.length()));
-             }
-             
-             return rrdPath;
+
+             return Paths.get(rrdPath);
          } finally {
              getReadLock().unlock();
          }
@@ -284,8 +271,8 @@ public class NSClientDataCollectionConfigFactory {
          if (m_loadedFromFile) {
              try {
                  getWriteLock().lock();
-                 File surveillanceViewsFile = ConfigFileConstants.getFile(ConfigFileConstants.NSCLIENT_COLLECTION_CONFIG_FILE_NAME);
-                 if (m_lastModified != surveillanceViewsFile.lastModified()) {
+                 Path surveillanceViewsFile = ConfigFileConstants.getFile(ConfigFileConstants.NSCLIENT_COLLECTION_CONFIG_FILE_NAME);
+                 if (!Files.getLastModifiedTime(surveillanceViewsFile).equals(m_lastModified)) {
                      this.reload();
                  }
              } finally {

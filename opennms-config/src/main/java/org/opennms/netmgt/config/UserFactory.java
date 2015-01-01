@@ -28,16 +28,15 @@
 
 package org.opennms.netmgt.config;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStreamWriter;
 import java.io.Writer;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.attribute.FileTime;
 
-import org.apache.commons.io.IOUtils;
 import org.exolab.castor.xml.MarshalException;
 import org.exolab.castor.xml.ValidationException;
 import org.opennms.core.utils.ConfigFileConstants;
@@ -60,17 +59,17 @@ public class UserFactory extends UserManager {
     private static boolean initialized = false;
 
     /**
-     * 
+     *
      */
-    private File m_usersConfFile;
+    private Path m_usersConfFile;
 
     /**
-     * 
+     *
      */
-    private long m_lastModified;
+    private FileTime m_lastModified = null;
 
     /**
-     * 
+     *
      */
     private long m_fileSize;
 
@@ -96,7 +95,7 @@ public class UserFactory extends UserManager {
      * @throws org.exolab.castor.xml.ValidationException if any.
      */
     public static synchronized void init() throws IOException, FileNotFoundException, MarshalException, ValidationException {
-        
+
         if (instance == null || !initialized) {
             GroupFactory.init();
             instance = new UserFactory();
@@ -114,7 +113,7 @@ public class UserFactory extends UserManager {
     public static synchronized UserManager getInstance() {
         return instance;
     }
-    
+
     /**
      * <p>Setter for the field <code>instance</code>.</p>
      *
@@ -138,27 +137,23 @@ public class UserFactory extends UserManager {
         //
         m_usersConfFile = ConfigFileConstants.getFile(ConfigFileConstants.USERS_CONF_FILE_NAME);
 
-        InputStream configIn = new FileInputStream(m_usersConfFile);
-        m_lastModified = m_usersConfFile.lastModified();
-        m_fileSize = m_usersConfFile.length();
+        try (InputStream configIn = Files.newInputStream(m_usersConfFile);) {
+            m_lastModified = Files.getLastModifiedTime(m_usersConfFile);
+            m_fileSize = Files.size(m_usersConfFile);
 
-        parseXML(configIn);
-        
-        initialized = true;
+            parseXML(configIn);
 
+            initialized = true;
+        }
     }
 
     /** {@inheritDoc} */
     @Override
     protected void saveXML(String writerString) throws IOException {
         if (writerString != null) {
-            Writer fileWriter = null;
-            try {
-                fileWriter = new OutputStreamWriter(new FileOutputStream(m_usersConfFile), "UTF-8");
+            try (Writer fileWriter = Files.newBufferedWriter(m_usersConfFile, Charset.forName("UTF-8"));) {
                 fileWriter.write(writerString);
                 fileWriter.flush();
-            } finally {
-                IOUtils.closeQuietly(fileWriter);
             }
         }
     }
@@ -172,19 +167,21 @@ public class UserFactory extends UserManager {
     public boolean isUpdateNeeded() {
         if (m_usersConfFile == null) {
             return true;
-        } else {
-            final long fileLastModified = m_usersConfFile.lastModified();
-
+        }
+        try {
             // Check to see if the file size has changed
-            if (m_fileSize != m_usersConfFile.length()) {
+            if (m_fileSize != Files.size(m_usersConfFile)) {
                 return true;
             // Check to see if the timestamp has changed
-            } else if (m_lastModified != fileLastModified) {
+            } else if (m_lastModified == null || !m_lastModified.equals(Files.getLastModifiedTime(m_usersConfFile))) {
                 return true;
             } else {
                 return false;
             }
+        } catch (IOException e) {
+            return true;
         }
+
     }
 
     /**
@@ -203,7 +200,7 @@ public class UserFactory extends UserManager {
     }
 
     @Override
-    public long getLastModified() {
+    public FileTime getLastModified() {
         return m_lastModified;
     }
 

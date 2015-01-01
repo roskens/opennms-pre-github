@@ -63,11 +63,11 @@ public abstract class XADataSourceFactory {
 	private static final Logger LOG = LoggerFactory.getLogger(DataSourceFactory.class);
 
 	private static DataSourceConfigurationFactory m_dataSourceConfigFactory;
-	
+
 	static {
 		// Try to create a DataSourceConfigurationFactory from the default opennms-datasources.xml
 		try {
-			m_dataSourceConfigFactory = new DataSourceConfigurationFactory(ConfigFileConstants.getFile(ConfigFileConstants.OPENNMS_DATASOURCE_CONFIG_FILE_NAME));
+            m_dataSourceConfigFactory = new DataSourceConfigurationFactory(ConfigFileConstants.getFile(ConfigFileConstants.OPENNMS_DATASOURCE_CONFIG_FILE_NAME));
 		} catch (IOException e) {
 			LOG.warn("Could not parse default data source configuration", e);
 			m_dataSourceConfigFactory = null;
@@ -127,7 +127,7 @@ public abstract class XADataSourceFactory {
 	}
 
 	private static synchronized boolean isLoaded(final String dsName) {
-		return m_dataSources.containsKey(dsName);			
+		return m_dataSources.containsKey(dsName);
 	}
 
 	/**

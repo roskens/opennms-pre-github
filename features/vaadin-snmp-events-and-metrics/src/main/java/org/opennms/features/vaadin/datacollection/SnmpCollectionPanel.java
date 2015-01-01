@@ -28,10 +28,11 @@
 
 package org.opennms.features.vaadin.datacollection;
 
-import java.io.File;
-import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.List;
 
 import org.opennms.core.utils.ConfigFileConstants;
@@ -56,8 +57,8 @@ import com.vaadin.ui.VerticalLayout;
 
 /**
  * The Class SNMP Collection Panel.
- * 
- * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a> 
+ *
+ * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 @SuppressWarnings("serial")
 public class SnmpCollectionPanel extends Panel {
@@ -165,7 +166,7 @@ public class SnmpCollectionPanel extends Panel {
                     bottomToolbar.setVisible(snmpCollectionId != null);
                 }
             }
-        });   
+        });
 
         final Button add = new Button("Add SNMP Collection", new Button.ClickListener() {
             @Override
@@ -231,7 +232,7 @@ public class SnmpCollectionPanel extends Panel {
     public void saveSnmpCollections(final List<SnmpCollection> snmpCollections, Logger logger) {
         try {
             final DatacollectionConfig dataCollectionConfig = dataCollectionConfigDao.getRootDataCollection();
-            File file = ConfigFileConstants.getFile(ConfigFileConstants.DATA_COLLECTION_CONF_FILE_NAME);
+            Path file = ConfigFileConstants.getFile(ConfigFileConstants.DATA_COLLECTION_CONF_FILE_NAME);
             logger.info("Saving data colleciton configuration on " + file);
             // TODO: Normalize the SNMP Collections Content, I'm not sure why
             for (SnmpCollection snmpCollection : snmpCollections) {
@@ -239,7 +240,7 @@ public class SnmpCollectionPanel extends Panel {
                 snmpCollection.setSystems(null);
             }
             dataCollectionConfig.setSnmpCollections(snmpCollections);
-            JaxbUtils.marshal(dataCollectionConfig, new FileWriter(file));
+            JaxbUtils.marshal(dataCollectionConfig, Files.newBufferedWriter(file, Charset.defaultCharset()));
             logger.info("The data collection configuration has been saved.");
         } catch (Exception e) {
             logger.error("An error ocurred while saving the data collection configuration: " + (e.getMessage() == null ? "[No Details]" : e.getMessage()));

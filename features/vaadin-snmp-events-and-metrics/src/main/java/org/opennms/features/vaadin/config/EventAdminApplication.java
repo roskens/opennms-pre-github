@@ -28,8 +28,10 @@
 
 package org.opennms.features.vaadin.config;
 
-import java.io.File;
-import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Iterator;
 
 import org.opennms.core.utils.ConfigFileConstants;
@@ -61,8 +63,8 @@ import com.vaadin.ui.Button.ClickEvent;
 
 /**
  * The Class Event Administration Application.
- * 
- * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a> 
+ *
+ * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 @Theme("opennms")
 @Title("Events Administration")
@@ -116,7 +118,7 @@ public class EventAdminApplication extends UI {
         toolbar.addComponent(comboLabel);
         toolbar.setComponentAlignment(comboLabel, Alignment.MIDDLE_LEFT);
 
-        final File eventsDir = new File(ConfigFileConstants.getFilePathString(), "events");
+        final Path eventsDir = ConfigFileConstants.getFilePathString().resolve("events");
         final XmlFileContainer container = new XmlFileContainer(eventsDir, true);
         container.addExcludeFile("default.events.xml"); // This is a protected file, should not be updated.
         final ComboBox eventSource = new ComboBox();
@@ -128,7 +130,7 @@ public class EventAdminApplication extends UI {
         eventSource.addValueChangeListener(new ComboBox.ValueChangeListener() {
             @Override
             public void valueChange(ValueChangeEvent event) {
-                final File file = (File) event.getProperty().getValue();
+                final Path file = (Path) event.getProperty().getValue();
                 if (file == null)
                     return;
                 try {
@@ -150,7 +152,7 @@ public class EventAdminApplication extends UI {
                 PromptWindow w = new PromptWindow("New Events Configuration", "Events File Name") {
                     @Override
                     public void textFieldChanged(String fieldValue) {
-                        final File file = new File(eventsDir, normalizeFilename(fieldValue));
+                        final Path file = eventsDir.resolve(normalizeFilename(fieldValue));
                         LOG.info("Adding new events file {}", file);
                         final Events events = new Events();
                         addEventPanel(layout, file, events);
@@ -169,31 +171,32 @@ public class EventAdminApplication extends UI {
                     Notification.show("Please select an event configuration file.");
                     return;
                 }
-                final File file = (File) eventSource.getValue();
+                final Path file = (Path) eventSource.getValue();
                 ConfirmDialog.show(getUI(),
                                    "Are you sure?",
-                                   "Do you really want to remove the file " + file.getName() + "?\nThis cannot be undone and OpenNMS won't be able to handle the events configured on this file.",
+                                   "Do you really want to remove the file " + file + "?\nThis cannot be undone and OpenNMS won't be able to handle the events configured on this file.",
                                    "Yes",
                                    "No",
                                    new ConfirmDialog.Listener() {
                     public void onClose(ConfirmDialog dialog) {
                         if (dialog.isConfirmed()) {
                             LOG.info("deleting file {}", file);
-                            if (file.delete()) {
+                            try {
+                                Files.delete(file);
                                 try {
                                     // Updating eventconf.xml
                                     boolean modified = false;
-                                    File configFile = ConfigFileConstants.getFile(ConfigFileConstants.EVENT_CONF_FILE_NAME);
+                                    Path configFile = ConfigFileConstants.getFile(ConfigFileConstants.EVENT_CONF_FILE_NAME);
                                     Events config = JaxbUtils.unmarshal(Events.class, configFile);
                                     for (Iterator<String> it = config.getEventFileCollection().iterator(); it.hasNext();) {
                                         String fileName = it.next();
-                                        if (file.getAbsolutePath().contains(fileName)) {
+                                        if (file.toAbsolutePath().toString().contains(fileName)) {
                                             it.remove();
                                             modified = true;
                                         }
                                     }
                                     if (modified) {
-                                        JaxbUtils.marshal(config, new FileWriter(configFile));
+                                        JaxbUtils.marshal(config, Files.newBufferedWriter(configFile, Charset.defaultCharset()));
                                         EventBuilder eb = new EventBuilder(EventConstants.EVENTSCONFIG_CHANGED_EVENT_UEI, "WebUI");
                                         eventProxy.send(eb.getEvent());
                                     }
@@ -205,7 +208,7 @@ public class EventAdminApplication extends UI {
                                     LOG.error("an error ocurred while saving the event configuration: {}", e.getMessage(), e);
                                     Notification.show("Can't save event configuration. " + e.getMessage(), Notification.Type.ERROR_MESSAGE);
                                 }
-                            } else {
+                            } catch (IOException e) {
                                 Notification.show("Cannot delete file " + file, Notification.Type.WARNING_MESSAGE);
                             }
                         }
@@ -253,7 +256,7 @@ public class EventAdminApplication extends UI {
      * @param events the Events Object
      * @return a new Events Panel Object
      */
-    private void addEventPanel(final VerticalLayout layout, final File file, final Events events) {
+    private void addEventPanel(final VerticalLayout layout, final Path file, final Events events) {
         EventPanel eventPanel = new EventPanel(eventConfDao, eventProxy, file, events, new SimpleLogger()) {
             @Override
             public void cancel() {

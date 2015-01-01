@@ -28,12 +28,12 @@
 
 package org.opennms.upgrade.implementations;
 
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.StringWriter;
-
-import org.apache.commons.io.FileUtils;
+import java.io.Writer;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import org.opennms.core.utils.ConfigFileConstants;
 import org.opennms.core.xml.JaxbUtils;
 import org.opennms.netmgt.config.service.Attribute;
@@ -45,13 +45,13 @@ import org.xml.sax.InputSource;
 
 /**
  * The Class Service Configuration Migrator.
- * 
+ *
  * <p>Issues fixed:</p>
  * <ul>
  * <li>NMS-6970</li>
  * </ul>
- * 
- * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a> 
+ *
+ * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 public class ServiceConfigMigratorOffline extends AbstractOnmsUpgrade {
 
@@ -59,7 +59,7 @@ public class ServiceConfigMigratorOffline extends AbstractOnmsUpgrade {
     private ServiceConfiguration baseConfig;
 
     /** The services configuration file. */
-    private File configFile;
+    private Path configFile;
 
     /**
      * Instantiates a new Service Configuration migrator offline.
@@ -119,10 +119,13 @@ public class ServiceConfigMigratorOffline extends AbstractOnmsUpgrade {
      */
     @Override
     public void postExecute() throws OnmsUpgradeException {
-        File zip = new File(configFile.getAbsolutePath() + ZIP_EXT);
-        if (zip.exists()) {
+        Path zip = configFile.resolveSibling(configFile.getFileName() + ZIP_EXT);
+        if (Files.exists(zip)) {
             log("Removing backup %s\n", zip);
-            FileUtils.deleteQuietly(zip);
+            try {
+                Files.delete(zip);
+            } catch (IOException ex) {
+            }
         }
     }
 
@@ -132,9 +135,12 @@ public class ServiceConfigMigratorOffline extends AbstractOnmsUpgrade {
     @Override
     public void rollback() throws OnmsUpgradeException {
         log("Restoring backup %s\n", configFile);
-        File zip = new File(configFile.getAbsolutePath() + ZIP_EXT);
-        FileUtils.deleteQuietly(configFile);
-        unzipFile(zip, zip.getParentFile());
+        Path zip = configFile.resolveSibling(configFile.getFileName() + ZIP_EXT);
+        try {
+            Files.delete(configFile);
+        } catch (IOException ex) {
+        }
+        unzipFile(zip, zip.getParent());
     }
 
     /* (non-Javadoc)
@@ -185,9 +191,9 @@ public class ServiceConfigMigratorOffline extends AbstractOnmsUpgrade {
             sw.write("maintained\n");
             sw.write("-->\n");
             JaxbUtils.marshal(currentCfg, sw);
-            FileWriter fw = new FileWriter(configFile);
-            fw.write(sw.toString());
-            fw.close();
+            try (Writer fw = Files.newBufferedWriter(configFile, Charset.defaultCharset());) {
+                fw.write(sw.toString());
+            }
         } catch (Exception e) {
             throw new OnmsUpgradeException("Can't fix services configuration because " + e.getMessage(), e);
         }

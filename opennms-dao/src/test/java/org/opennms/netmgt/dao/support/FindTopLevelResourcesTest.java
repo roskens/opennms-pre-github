@@ -28,11 +28,14 @@
 
 package org.opennms.netmgt.dao.support;
 
+import java.io.IOException;
 import static org.easymock.EasyMock.expect;
 
-import java.io.File;
 import java.io.InputStream;
 import java.net.InetAddress;
+import java.nio.file.DirectoryStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -59,7 +62,7 @@ import org.opennms.netmgt.model.OnmsResource;
 import org.opennms.netmgt.model.ResourceTypeUtils;
 import org.opennms.netmgt.rrd.RrdUtils;
 import org.opennms.netmgt.rrd.jrobin.JRobinRrdStrategy;
-import org.opennms.test.FileAnticipator;
+import org.opennms.test.PathAnticipator;
 import org.opennms.test.mock.EasyMockUtils;
 
 public class FindTopLevelResourcesTest {
@@ -71,13 +74,13 @@ public class FindTopLevelResourcesTest {
     private DataCollectionConfigDao m_dataCollectionConfigDao;
     private DefaultResourceDao m_resourceDao;
 
-    private FileAnticipator m_fileAnticipator;
+    private PathAnticipator m_pathAnticipator;
 
     private FilterDao m_filterDao;
 
     @Before
     public void setUp() throws Exception {
-        m_fileAnticipator = new FileAnticipator();
+        m_pathAnticipator = new PathAnticipator();
 
         m_easyMockUtils = new EasyMockUtils();
         m_nodeDao = m_easyMockUtils.createMock(NodeDao.class);
@@ -98,7 +101,7 @@ public class FindTopLevelResourcesTest {
         m_resourceDao.setNodeDao(m_nodeDao);
         m_resourceDao.setLocationMonitorDao(m_locationMonitorDao);
         m_resourceDao.setCollectdConfig(m_collectdConfig);
-        m_resourceDao.setRrdDirectory(m_fileAnticipator.getTempDir());
+        m_resourceDao.setRrdDirectory(m_pathAnticipator.getTempDir());
         m_resourceDao.setDataCollectionConfigDao(m_dataCollectionConfigDao);
 
         RrdUtils.setStrategy(new JRobinRrdStrategy());
@@ -106,7 +109,7 @@ public class FindTopLevelResourcesTest {
 
     @After
     public void tearDown() {
-        m_fileAnticipator.tearDown();
+        m_pathAnticipator.tearDown();
     }
 
     private void setStoreByForeignSource(boolean storeByForeignSource) {
@@ -146,20 +149,20 @@ public class FindTopLevelResourcesTest {
         expect(m_locationMonitorDao.findStatusChangesForNodeForUniqueMonitorAndInterface(n1.getId())).andReturn(new ArrayList<LocationMonitorIpInterface>(0));
 
         // Common directories
-        File snmpDir = m_fileAnticipator.tempDir(ResourceTypeUtils.SNMP_DIRECTORY);
-        File responseDir = m_fileAnticipator.tempDir(ResourceTypeUtils.RESPONSE_DIRECTORY);
+        Path snmpDir = m_pathAnticipator.tempDir(ResourceTypeUtils.SNMP_DIRECTORY);
+        Path responseDir = m_pathAnticipator.tempDir(ResourceTypeUtils.RESPONSE_DIRECTORY);
 
         // RRD Directory for n1
-        File nodeDir = m_fileAnticipator.tempDir(snmpDir, n1.getId().toString());
-        m_fileAnticipator.tempFile(nodeDir, "data" + RrdUtils.getExtension());
+        Path nodeDir = m_pathAnticipator.tempDir(snmpDir, n1.getId().toString());
+        m_pathAnticipator.tempFile(nodeDir, "data" + RrdUtils.getExtension());
 
         // RRD Directory for an orphan node
-        File orphanDir = m_fileAnticipator.tempDir(snmpDir, "100");
-        m_fileAnticipator.tempFile(orphanDir, "data" + RrdUtils.getExtension());
+        Path orphanDir = m_pathAnticipator.tempDir(snmpDir, "100");
+        m_pathAnticipator.tempFile(orphanDir, "data" + RrdUtils.getExtension());
 
         // Response Time RRD Directory for n1
-        File ipDir = m_fileAnticipator.tempDir(responseDir, n1.getIpInterfaces().iterator().next().getIpAddress().getHostAddress());
-        m_fileAnticipator.tempFile(ipDir, "icmp" + RrdUtils.getExtension());
+        Path ipDir = m_pathAnticipator.tempDir(responseDir, n1.getIpInterfaces().iterator().next().getIpAddress().getHostAddress());
+        m_pathAnticipator.tempFile(ipDir, "icmp" + RrdUtils.getExtension());
 
         m_easyMockUtils.replayAll();
         m_resourceDao.afterPropertiesSet();
@@ -212,49 +215,49 @@ public class FindTopLevelResourcesTest {
         expect(m_nodeDao.get(n1.getId())).andReturn(n1).times(2); // TODO ResponseTimeResourceType is the responsible for this.
         expect(m_nodeDao.get(n2.getId())).andReturn(n2).times(1); // TODO ResponseTimeResourceType is the responsible for this.
         if (storeByForeignSource) {
-            expect(m_nodeDao.findByForeignId(n1.getForeignSource(), n1.getForeignId())).andReturn(n1).times(1);            
-            expect(m_nodeDao.findByForeignId(n2.getForeignSource(), n2.getForeignId())).andReturn(n2).times(1);            
+            expect(m_nodeDao.findByForeignId(n1.getForeignSource(), n1.getForeignId())).andReturn(n1).times(1);
+            expect(m_nodeDao.findByForeignId(n2.getForeignSource(), n2.getForeignId())).andReturn(n2).times(1);
         } else {
             expect(m_locationMonitorDao.findStatusChangesForNodeForUniqueMonitorAndInterface(n1.getId())).andReturn(new ArrayList<LocationMonitorIpInterface>(0));
             expect(m_locationMonitorDao.findStatusChangesForNodeForUniqueMonitorAndInterface(n2.getId())).andReturn(new ArrayList<LocationMonitorIpInterface>(0));
         }
 
         // Common directories
-        File snmpDir = m_fileAnticipator.tempDir(ResourceTypeUtils.SNMP_DIRECTORY);
-        File responseDir = m_fileAnticipator.tempDir(ResourceTypeUtils.RESPONSE_DIRECTORY);
-        File fsDir = m_fileAnticipator.tempDir(snmpDir, ResourceTypeUtils.FOREIGN_SOURCE_DIRECTORY);
-        File foreignSourceDir = m_fileAnticipator.tempDir(fsDir, foreignSource);
+        Path snmpDir = m_pathAnticipator.tempDir(ResourceTypeUtils.SNMP_DIRECTORY);
+        Path responseDir = m_pathAnticipator.tempDir(ResourceTypeUtils.RESPONSE_DIRECTORY);
+        Path fsDir = m_pathAnticipator.tempDir(snmpDir, ResourceTypeUtils.FOREIGN_SOURCE_DIRECTORY);
+        Path foreignSourceDir = m_pathAnticipator.tempDir(fsDir, foreignSource);
 
         // RRD Directory for n1
-        File nodeDir = null;
+        Path nodeDir = null;
         if (storeByForeignSource) {
-            nodeDir = m_fileAnticipator.tempDir(foreignSourceDir, n1.getForeignId());
+            nodeDir = m_pathAnticipator.tempDir(foreignSourceDir, n1.getForeignId());
         } else {
-            nodeDir = m_fileAnticipator.tempDir(snmpDir, n1.getId().toString());
+            nodeDir = m_pathAnticipator.tempDir(snmpDir, n1.getId().toString());
         }
-        m_fileAnticipator.tempFile(nodeDir, "data" + RrdUtils.getExtension());
+        m_pathAnticipator.tempFile(nodeDir, "data" + RrdUtils.getExtension());
 
         // RRD Directory for n2
         if (storeByForeignSource) {
-            nodeDir = m_fileAnticipator.tempDir(foreignSourceDir, n2.getForeignId());
+            nodeDir = m_pathAnticipator.tempDir(foreignSourceDir, n2.getForeignId());
         } else {
-            nodeDir = m_fileAnticipator.tempDir(snmpDir, n2.getId().toString());
+            nodeDir = m_pathAnticipator.tempDir(snmpDir, n2.getId().toString());
         }
-        m_fileAnticipator.tempFile(nodeDir, "data" + RrdUtils.getExtension());
+        m_pathAnticipator.tempFile(nodeDir, "data" + RrdUtils.getExtension());
 
         // RRD Directory for an orphan node
         if (storeByForeignSource) {
-            nodeDir = m_fileAnticipator.tempDir(foreignSourceDir, "orphan_node");
+            nodeDir = m_pathAnticipator.tempDir(foreignSourceDir, "orphan_node");
         } else {
-            nodeDir = m_fileAnticipator.tempDir(snmpDir, "100");
+            nodeDir = m_pathAnticipator.tempDir(snmpDir, "100");
         }
-        m_fileAnticipator.tempFile(nodeDir, "data" + RrdUtils.getExtension());
+        m_pathAnticipator.tempFile(nodeDir, "data" + RrdUtils.getExtension());
 
         // Response Time RRD Directory for n1
-        File ipDir = m_fileAnticipator.tempDir(responseDir, n1.getIpInterfaces().iterator().next().getIpAddress().getHostAddress());
-        m_fileAnticipator.tempFile(ipDir, "icmp" + RrdUtils.getExtension());
+        Path ipDir = m_pathAnticipator.tempDir(responseDir, n1.getIpInterfaces().iterator().next().getIpAddress().getHostAddress());
+        m_pathAnticipator.tempFile(ipDir, "icmp" + RrdUtils.getExtension());
 
-        walkin(m_fileAnticipator.getTempDir());
+        walkin(m_pathAnticipator.getTempDir());
         m_easyMockUtils.replayAll();
         m_resourceDao.afterPropertiesSet();
 
@@ -334,43 +337,43 @@ public class FindTopLevelResourcesTest {
         expect(m_nodeDao.get(n2.getId())).andReturn(n2).times(2); // TODO ResponseTimeResourceType is the responsible for this.
 
         // Common directories
-        File snmpDir = m_fileAnticipator.tempDir(ResourceTypeUtils.SNMP_DIRECTORY);
-        File responseDir = m_fileAnticipator.tempDir(ResourceTypeUtils.RESPONSE_DIRECTORY);
-        File featureDir = m_fileAnticipator.tempDir(snmpDir, ResourceTypeUtils.FOREIGN_SOURCE_DIRECTORY);
-        File fsDir = m_fileAnticipator.tempDir(featureDir, foreignSource);
+        Path snmpDir = m_pathAnticipator.tempDir(ResourceTypeUtils.SNMP_DIRECTORY);
+        Path responseDir = m_pathAnticipator.tempDir(ResourceTypeUtils.RESPONSE_DIRECTORY);
+        Path featureDir = m_pathAnticipator.tempDir(snmpDir, ResourceTypeUtils.FOREIGN_SOURCE_DIRECTORY);
+        Path fsDir = m_pathAnticipator.tempDir(featureDir, foreignSource);
 
         // RRD Directory for n1
-        File node1Dir = m_fileAnticipator.tempDir(snmpDir, n1.getId().toString());
-        m_fileAnticipator.tempFile(node1Dir, "data" + RrdUtils.getExtension());
+        Path node1Dir = m_pathAnticipator.tempDir(snmpDir, n1.getId().toString());
+        m_pathAnticipator.tempFile(node1Dir, "data" + RrdUtils.getExtension());
 
         // RRD Directory for n2
-        File node2Dir = null;
+        Path node2Dir = null;
         if (storeByForeignSource) {
-            node2Dir = m_fileAnticipator.tempDir(fsDir, n2.getForeignId());
+            node2Dir = m_pathAnticipator.tempDir(fsDir, n2.getForeignId());
         } else {
-            node2Dir = m_fileAnticipator.tempDir(snmpDir, n2.getId().toString());
+            node2Dir = m_pathAnticipator.tempDir(snmpDir, n2.getId().toString());
         }
-        m_fileAnticipator.tempFile(node2Dir, "data" + RrdUtils.getExtension());
+        m_pathAnticipator.tempFile(node2Dir, "data" + RrdUtils.getExtension());
 
         // RRD Directory for an orphan discovered node
-        m_fileAnticipator.tempFile(m_fileAnticipator.tempDir(snmpDir, "100"), "data" + RrdUtils.getExtension());
+        m_pathAnticipator.tempFile(m_pathAnticipator.tempDir(snmpDir, "100"), "data" + RrdUtils.getExtension());
 
         // RRD Directory for an orphan requisitioned node
-        File orphanDir = null;
+        Path orphanDir = null;
         if (storeByForeignSource) {
-            orphanDir = m_fileAnticipator.tempDir(fsDir, "orphan_node");
+            orphanDir = m_pathAnticipator.tempDir(fsDir, "orphan_node");
         } else {
-            orphanDir = m_fileAnticipator.tempDir(snmpDir, "101");
+            orphanDir = m_pathAnticipator.tempDir(snmpDir, "101");
         }
-        m_fileAnticipator.tempFile(orphanDir, "data" + RrdUtils.getExtension());
+        m_pathAnticipator.tempFile(orphanDir, "data" + RrdUtils.getExtension());
 
         // Response Time RRD Directory for n1
-        File ip1Dir = m_fileAnticipator.tempDir(responseDir, n1.getIpInterfaces().iterator().next().getIpAddress().getHostAddress());
-        m_fileAnticipator.tempFile(ip1Dir, "icmp" + RrdUtils.getExtension());
+        Path ip1Dir = m_pathAnticipator.tempDir(responseDir, n1.getIpInterfaces().iterator().next().getIpAddress().getHostAddress());
+        m_pathAnticipator.tempFile(ip1Dir, "icmp" + RrdUtils.getExtension());
 
         // Response Time RRD Directory for n2
-        File ip2Dir = m_fileAnticipator.tempDir(responseDir, n2.getIpInterfaces().iterator().next().getIpAddress().getHostAddress());
-        m_fileAnticipator.tempFile(ip2Dir, "icmp" + RrdUtils.getExtension());
+        Path ip2Dir = m_pathAnticipator.tempDir(responseDir, n2.getIpInterfaces().iterator().next().getIpAddress().getHostAddress());
+        m_pathAnticipator.tempFile(ip2Dir, "icmp" + RrdUtils.getExtension());
 
         m_easyMockUtils.replayAll();
         m_resourceDao.afterPropertiesSet();
@@ -381,7 +384,7 @@ public class FindTopLevelResourcesTest {
         Assert.assertEquals(2, resources.size());
 
         if (storeByForeignSource) {
-            OnmsResource r1 = resources.get(0); // parent resource for the provisioned node 
+            OnmsResource r1 = resources.get(0); // parent resource for the provisioned node
             List<OnmsResource> children1 = r1.getChildResources();
             Collections.sort(children1);
             Assert.assertEquals("nodeSource[Junit%3Anode2]", r1.getId());
@@ -397,7 +400,7 @@ public class FindTopLevelResourcesTest {
             Assert.assertEquals("node[1].nodeSnmp[]", children2.get(1).getId());
 
         } else {
-            OnmsResource r1 = resources.get(1); // parent resource for the provisioned node 
+            OnmsResource r1 = resources.get(1); // parent resource for the provisioned node
             List<OnmsResource> children1 = r1.getChildResources();
             Collections.sort(children1);
             Assert.assertEquals("node[2]", r1.getId());
@@ -433,17 +436,17 @@ public class FindTopLevelResourcesTest {
         n.addIpInterface(ip);
         return n;
     }
-    
-    public void walkin(File dir) {
-        File listFile[] = dir.listFiles();
-        if (listFile != null) {
-            for (int i=0; i<listFile.length; i++) {
-                if (listFile[i].isDirectory()) {
-                  walkin(listFile[i]);
+
+    public void walkin(Path dir) {
+        try (DirectoryStream<Path> stream = Files.newDirectoryStream(dir);) {
+            for (Path path : stream) {
+                if (Files.isDirectory(path)) {
+                    walkin(path);
                 } else {
-                    System.out.println(listFile[i]);
+                    System.out.println(path);
                 }
             }
+        } catch (IOException ex) {
         }
     }
 }

@@ -28,7 +28,10 @@
 
 package org.opennms.netmgt.vmmgr;
 
-import java.io.File;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.rmi.ConnectException;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -38,9 +41,9 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class SpringLoader {
-	
+
 	private ApplicationContext m_appContext;
-	
+
 	/**
 	 * <p>Constructor for SpringLoader.</p>
 	 *
@@ -49,19 +52,19 @@ public class SpringLoader {
 	 */
 	public SpringLoader(String operation) throws Throwable {
 		String startupUrl = getStartupResource();
-		
+
 		String[] paths = { "classpath:/org/opennms/netmgt/vmmgr/remote-access.xml" };
 		if ("start".equals(operation)) {
 			paths = new String[] { startupUrl, "classpath:/org/opennms/netmgt/vmmgr/local-access.xml", "classpath*:/META-INF/opennms/context.xml" } ;
 		}
-		
+
 		try {
-		
+
 			ClassPathXmlApplicationContext classPathXmlApplicationContext = new ClassPathXmlApplicationContext(paths);
 			classPathXmlApplicationContext.registerShutdownHook();
 			m_appContext = classPathXmlApplicationContext;
-			
-			
+
+
 		} catch (BeanCreationException e) {
 			e.printStackTrace();
 			Throwable rc = e.getRootCause();
@@ -71,32 +74,36 @@ public class SpringLoader {
 			else
 				throw rc;
 		}
-		
+
 		Registry.setAppContext(m_appContext);
-		
+
 	}
 
 	private String getStartupResource() {
 		String startupUrl = System.getProperty("opennms.startup.context");
 		if (startupUrl != null) return startupUrl;
-		
-		String etcDir = getEtcDir();
+
+        Path etcDir = getEtcDir();
 		if (etcDir != null) {
-			File startupFile = new File(etcDir, "startup.xml");
-			if (startupFile.exists())
-				return startupFile.toURI().toString();
+            Path startupFile = etcDir.resolve("startup.xml");
+            if (Files.exists(startupFile))
+                return startupFile.toUri().toString();
 		}
-		
+
 		return "classpath:/META-INF/opennms/default-startup.xml";
 	}
 
-	private String getEtcDir() {
+    private Path getEtcDir() {
 		String etcDir = System.getProperty("opennms.etc");
-		if (etcDir != null) return etcDir;
+        if (etcDir != null) {
+            return Paths.get(etcDir);
+        }
 
 		String homeDir = System.getProperty("opennms.home");
-		if (homeDir != null) return homeDir + File.separator + "etc";
-		
+        if (homeDir != null) {
+            return Paths.get(homeDir, "etc");
+        }
+
 		return null;
 	}
 
@@ -113,7 +120,7 @@ public class SpringLoader {
 		try {
 			return (DaemonManager)m_appContext.getBean("daemonMgr");
 		} catch (BeanCreationException e) {
-			
+
 			Throwable rc = e.getRootCause();
 			System.err.println("ROOT CAUSE is "+rc);
 			throw rc;
@@ -123,24 +130,24 @@ public class SpringLoader {
 	private void stop() throws Throwable {
 		getDaemonMgr().stop();
 	}
-	
+
 	private void pause() throws Throwable {
 		getDaemonMgr().pause();
 	}
-	
+
 	private void resume() throws Throwable {
 		getDaemonMgr().resume();
 	}
-	
+
 	private void status() throws Throwable {
-		
+
 		Map<String, String> stati = getDaemonMgr().status();
 		for(Entry<String, String> entry : stati.entrySet()) {
 			System.err.println(entry.getKey()+": "+entry.getValue());
 		}
 	}
-	
-	
+
+
 	/**
 	 * <p>main</p>
 	 *
@@ -173,7 +180,7 @@ public class SpringLoader {
 			e.printStackTrace();
 			System.exit(2);
 		}
-		
+
 	}
 
 	private static void usage() {

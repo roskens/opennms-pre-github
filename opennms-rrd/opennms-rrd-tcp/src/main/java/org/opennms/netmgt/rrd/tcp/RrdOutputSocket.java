@@ -31,6 +31,7 @@ package org.opennms.netmgt.rrd.tcp;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.Socket;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -74,14 +75,14 @@ public class RrdOutputSocket {
      * @param owner a {@link java.lang.String} object.
      * @param data a {@link java.lang.String} object.
      */
-    public void addData(String filename, String owner, String data) {
+    public void addData(Path filename, String owner, String data) {
         Long timestamp = parseRrdTimestamp(data);
         List<Double> values = parseRrdValues(data);
         m_messages.addMessage(PerformanceDataReading.newBuilder()
-                .setPath(filename)
-                .setOwner(owner)
-                .setTimestamp(timestamp).
-                addAllValue(values)
+          .setPath(filename.toString())
+          .setOwner(owner)
+          .setTimestamp(timestamp)
+          .addAllValue(values)
         );
         m_messageCount++;
     }
@@ -102,8 +103,8 @@ public class RrdOutputSocket {
             LOG.warn("Error when trying to open connection to {}:{}, dropping {} performance messages: {}", m_host, m_port, m_messageCount, e.getMessage());
         } finally {
             if (socket != null) {
-                try { 
-                    socket.close(); 
+                try {
+                    socket.close();
                 } catch (IOException e) {
                     LOG.warn("IOException when closing TCP performance data socket: {}", e.getMessage());
                 }

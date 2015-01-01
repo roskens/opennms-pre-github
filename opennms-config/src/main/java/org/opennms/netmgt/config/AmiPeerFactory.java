@@ -28,8 +28,6 @@
 
 package org.opennms.netmgt.config;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.StringWriter;
@@ -37,6 +35,8 @@ import java.io.Writer;
 import java.math.BigInteger;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.TreeMap;
@@ -76,7 +76,7 @@ public class AmiPeerFactory {
     private final ReadWriteLock m_globalLock = new ReentrantReadWriteLock();
     private final Lock m_readLock = m_globalLock.readLock();
     private final Lock m_writeLock = m_globalLock.writeLock();
-    
+
     /**
      * The singleton instance of this factory
      */
@@ -91,24 +91,24 @@ public class AmiPeerFactory {
      * This member is set to true if the configuration file has been loaded.
      */
     private static boolean m_loaded = false;
-    
+
     /**
      * Private constructor
-     * 
+     *
      * @exception java.io.IOException
      *                Thrown if the specified config file cannot be read
      *
      * @param configFile the path to the config file to load in.
      */
-    private AmiPeerFactory(final String configFile) throws IOException {
+    private AmiPeerFactory(final Path configFile) throws IOException {
         super();
-        m_config = JaxbUtils.unmarshal(AmiConfig.class, new File(configFile));
+        m_config = JaxbUtils.unmarshal(AmiConfig.class, configFile.toFile());
     }
 
     public Lock getReadLock() {
         return m_readLock;
     }
-    
+
     public Lock getWriteLock() {
         return m_writeLock;
     }
@@ -130,9 +130,9 @@ public class AmiPeerFactory {
             return;
         }
 
-        final File cfgFile = ConfigFileConstants.getFile(ConfigFileConstants.AMI_CONFIG_FILE_NAME);
-        LOG.debug("init: config file path: {}", cfgFile.getPath());
-        m_singleton = new AmiPeerFactory(cfgFile.getPath());
+        final Path cfgFile = ConfigFileConstants.getFile(ConfigFileConstants.AMI_CONFIG_FILE_NAME);
+        LOG.debug("init: config file path: {}", cfgFile);
+        m_singleton = new AmiPeerFactory(cfgFile);
         m_loaded = true;
     }
 
@@ -165,7 +165,7 @@ public class AmiPeerFactory {
 
         return m_singleton;
     }
-    
+
     /**
      * <p>setInstance</p>
      *
@@ -192,22 +192,22 @@ public class AmiPeerFactory {
      */
     public void saveCurrent() throws Exception {
         getWriteLock().lock();
-        
+
         try {
             optimize();
-    
+
             // Marshal to a string first, then write the string to the file. This
             // way the original config
             // isn't lost if the XML from the marshal is hosed.
             final StringWriter stringWriter = new StringWriter();
             JaxbUtils.marshal(m_config, stringWriter);
             if (stringWriter.toString() != null) {
-                final Writer fileWriter = new OutputStreamWriter(new FileOutputStream(ConfigFileConstants.getFile(ConfigFileConstants.AMI_CONFIG_FILE_NAME)), "UTF-8");
+                final Writer fileWriter = new OutputStreamWriter(Files.newOutputStream(ConfigFileConstants.getFile(ConfigFileConstants.AMI_CONFIG_FILE_NAME)), "UTF-8");
                 fileWriter.write(stringWriter.toString());
                 fileWriter.flush();
                 fileWriter.close();
             }
-    
+
             reload();
         } finally {
             getWriteLock().unlock();
@@ -224,7 +224,7 @@ public class AmiPeerFactory {
      */
     void optimize() throws UnknownHostException {
         getWriteLock().lock();
-        
+
         try {
             // First pass: Remove empty definition elements
             for (final Iterator<Definition> definitionsIterator = m_config.getDefinitionCollection().iterator(); definitionsIterator.hasNext();) {
@@ -235,7 +235,7 @@ public class AmiPeerFactory {
                     definitionsIterator.remove();
                 }
             }
-    
+
             // Second pass: Replace single IP range elements with specific elements
             for (Definition definition : m_config.getDefinitionCollection()) {
                 for (Iterator<Range> rangesIterator = definition.getRangeCollection().iterator(); rangesIterator.hasNext();) {
@@ -246,7 +246,7 @@ public class AmiPeerFactory {
                     }
                 }
             }
-    
+
             // Third pass: Sort specific and range elements for improved XML
             // readability and then combine them into fewer elements where possible
             for (final Definition definition : m_config.getDefinitionCollection()) {
@@ -255,13 +255,13 @@ public class AmiPeerFactory {
                 for (final String specific : definition.getSpecificCollection()) {
                     specificsMap.put(InetAddressUtils.getInetAddress(specific), specific.trim());
                 }
-    
+
                 // Sort ranges
                 final TreeMap<InetAddress,Range> rangesMap = new TreeMap<InetAddress,Range>(new InetAddressComparator());
                 for (final Range range : definition.getRangeCollection()) {
                     rangesMap.put(InetAddressUtils.getInetAddress(range.getBegin()), range);
                 }
-    
+
                 // Combine consecutive specifics into ranges
                 InetAddress priorSpecific = null;
                 Range addedRange = null;
@@ -270,7 +270,7 @@ public class AmiPeerFactory {
                         priorSpecific = specific;
                         continue;
                     }
-    
+
                     if (BigInteger.ONE.equals(InetAddressUtils.difference(specific, priorSpecific)) &&
                             InetAddressUtils.inSameScope(specific, priorSpecific)) {
                         if (addedRange == null) {
@@ -279,37 +279,37 @@ public class AmiPeerFactory {
                             rangesMap.put(priorSpecific, addedRange);
                             specificsMap.remove(priorSpecific);
                         }
-    
+
                         addedRange.setEnd(InetAddressUtils.toIpAddrString(specific));
                         specificsMap.remove(specific);
                     }
                     else {
                         addedRange = null;
                     }
-    
+
                     priorSpecific = specific;
                 }
-    
+
                 // Move specifics to ranges
                 for (final InetAddress specific : new ArrayList<InetAddress>(specificsMap.keySet())) {
                     for (final InetAddress begin : new ArrayList<InetAddress>(rangesMap.keySet())) {
-                        
+
                         if (!InetAddressUtils.inSameScope(begin, specific)) {
                             continue;
                         }
-    
+
                         if (InetAddressUtils.toInteger(begin).subtract(BigInteger.ONE).compareTo(InetAddressUtils.toInteger(specific)) > 0) {
                             continue;
                         }
-    
+
                         final Range range = rangesMap.get(begin);
-    
+
                         final InetAddress end = InetAddressUtils.getInetAddress(range.getEnd());
-    
+
                         if (InetAddressUtils.toInteger(end).add(BigInteger.ONE).compareTo(InetAddressUtils.toInteger(specific)) < 0) {
                             continue;
                         }
-    
+
                         if (
                             InetAddressUtils.toInteger(specific).compareTo(InetAddressUtils.toInteger(begin)) >= 0 &&
                             InetAddressUtils.toInteger(specific).compareTo(InetAddressUtils.toInteger(end)) <= 0
@@ -317,7 +317,7 @@ public class AmiPeerFactory {
                             specificsMap.remove(specific);
                             break;
                         }
-    
+
                         if (InetAddressUtils.toInteger(begin).subtract(BigInteger.ONE).equals(InetAddressUtils.toInteger(specific))) {
                             rangesMap.remove(begin);
                             rangesMap.put(specific, range);
@@ -325,7 +325,7 @@ public class AmiPeerFactory {
                             specificsMap.remove(specific);
                             break;
                         }
-    
+
                         if (InetAddressUtils.toInteger(end).add(BigInteger.ONE).equals(InetAddressUtils.toInteger(specific))) {
                             range.setEnd(InetAddressUtils.toIpAddrString(specific));
                             specificsMap.remove(specific);
@@ -333,7 +333,7 @@ public class AmiPeerFactory {
                         }
                     }
                 }
-    
+
                 // Combine consecutive ranges
                 Range priorRange = null;
                 InetAddress priorBegin = null;
@@ -342,24 +342,24 @@ public class AmiPeerFactory {
                     final InetAddress beginAddress = rangesIterator.next();
                     final Range range = rangesMap.get(beginAddress);
                     final InetAddress endAddress = InetAddressUtils.getInetAddress(range.getEnd());
-    
+
                     if (priorRange != null) {
                         if (InetAddressUtils.inSameScope(beginAddress, priorEnd) && InetAddressUtils.difference(beginAddress, priorEnd).compareTo(BigInteger.ONE) <= 0) {
                             priorBegin = new InetAddressComparator().compare(priorBegin, beginAddress) < 0 ? priorBegin : beginAddress;
                             priorRange.setBegin(InetAddressUtils.toIpAddrString(priorBegin));
                             priorEnd = new InetAddressComparator().compare(priorEnd, endAddress) > 0 ? priorEnd : endAddress;
                             priorRange.setEnd(InetAddressUtils.toIpAddrString(priorEnd));
-    
+
                             rangesIterator.remove();
                             continue;
                         }
                     }
-    
+
                     priorRange = range;
                     priorBegin = beginAddress;
                     priorEnd = endAddress;
                 }
-    
+
                 // Update changes made to sorted maps
                 definition.setSpecific(specificsMap.values().toArray(new String[0]));
                 definition.setRange(rangesMap.values().toArray(new Range[0]));
@@ -377,15 +377,15 @@ public class AmiPeerFactory {
      */
     public AmiAgentConfig getAgentConfig(final InetAddress agentInetAddress) {
         getReadLock().lock();
-        
+
         try {
             if (m_config == null) return new AmiAgentConfig(agentInetAddress);
-            
+
             final AmiAgentConfig agentConfig = new AmiAgentConfig(agentInetAddress);
-            
+
             //Now set the defaults from the m_config
             setAmiAgentConfig(agentConfig, new Definition());
-    
+
             // Attempt to locate the node
             DEFLOOP: for (final Definition def : m_config.getDefinitionCollection()) {
                 // check the specifics first
@@ -397,7 +397,7 @@ public class AmiPeerFactory {
                         break DEFLOOP;
                     }
                 }
-    
+
                 // check the ranges
                 for (final Range rng : def.getRangeCollection()) {
                     if (InetAddressUtils.isInetAddressInRange(InetAddressUtils.str(agentConfig.getAddress()), rng.getBegin(), rng.getEnd())) {
@@ -405,7 +405,7 @@ public class AmiPeerFactory {
                         break DEFLOOP;
                     }
                 }
-                
+
                 // check the matching IP expressions
                 for (final String ipMatch : def.getIpMatchCollection()) {
                     if (IPLike.matches(InetAddressUtils.str(agentInetAddress), ipMatch)) {
@@ -413,25 +413,25 @@ public class AmiPeerFactory {
                         break DEFLOOP;
                     }
                 }
-                
+
             } // end DEFLOOP
-    
+
             if (agentConfig == null) setAmiAgentConfig(agentConfig, new Definition());
-    
+
             return agentConfig;
         } finally {
             getReadLock().unlock();
         }
     }
-    
+
     private void setAmiAgentConfig(final AmiAgentConfig agentConfig, final Definition def) {
         setCommonAttributes(agentConfig, def);
         agentConfig.setPassword(determinePassword(def));
     }
-    
+
     /**
      * This is a helper method to set all the common attributes in the agentConfig.
-     * 
+     *
      * @param agentConfig
      * @param def
      */
@@ -461,7 +461,7 @@ public class AmiPeerFactory {
     }
 
     /**
-     * Helper method to search the ami-config 
+     * Helper method to search the ami-config
      * @param def
      * @return a long containing the timeout, AmiAgentConfig.DEFAULT_TIMEOUT if not specified.
      */
@@ -470,7 +470,7 @@ public class AmiPeerFactory {
         return (long)(def.getTimeout() == 0 ? (m_config.getTimeout() == 0 ? timeout : m_config.getTimeout()) : def.getTimeout());
     }
 
-    private int determineRetries(final Definition def) {        
+    private int determineRetries(final Definition def) {
         final int retries = AmiAgentConfig.DEFAULT_RETRIES;
         return (def.getRetry() == 0 ? (m_config.getRetry() == 0 ? retries : m_config.getRetry()) : def.getRetry());
     }

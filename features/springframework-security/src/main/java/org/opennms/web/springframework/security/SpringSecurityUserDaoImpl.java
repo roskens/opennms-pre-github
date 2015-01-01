@@ -28,10 +28,11 @@
 
 package org.opennms.web.springframework.security;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.attribute.FileTime;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
@@ -40,6 +41,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Properties;
+import java.util.logging.Level;
 
 import org.opennms.core.utils.BundleLists;
 import org.opennms.netmgt.config.GroupFactory;
@@ -73,29 +75,29 @@ public class SpringSecurityUserDaoImpl implements SpringSecurityUserDao, Initial
 
     private GroupManager m_groupManager;
 
-    private String m_usersConfigurationFile;
-    
-    private String m_groupsConfigurationFile;
-	
+    private Path m_usersConfigurationFile;
+
+    private Path m_groupsConfigurationFile;
+
     /**
      * The set of valid users from users.xml, keyed by userId
      */
     private Map<String, OnmsUser> m_users = null;
-    
-    private long m_usersLastModified;
 
-    private String m_magicUsersConfigurationFile;
-	
+    private FileTime m_usersLastModified;
+
+    private Path m_magicUsersConfigurationFile;
+
     /**
      * The set of valid users from magic-users.properties, keyed by userId
      */
     private Map<String, OnmsUser> m_magicUsers = null;
 
     private Map<String, Collection<? extends GrantedAuthority>> m_roles = null;
-    
-    private long m_magicUsersLastModified;
 
-    private long m_groupsLastModified;
+    private FileTime m_magicUsersLastModified;
+
+    private FileTime m_groupsLastModified;
 
     private boolean m_useGroups;
 
@@ -104,7 +106,7 @@ public class SpringSecurityUserDaoImpl implements SpringSecurityUserDao, Initial
      */
     public SpringSecurityUserDaoImpl() {
     }
-    
+
     /**
      * Convenience method for parsing the users.xml file.
      * <p/>
@@ -128,14 +130,18 @@ public class SpringSecurityUserDaoImpl implements SpringSecurityUserDao, Initial
         m_usersLastModified = m_userManager.getLastModified();
         m_users = users;
     }
-    
+
     /**
      * Parses the groups.xml file into mapping roles to users of that role
      * through group membership.
      */
     private Map<String, LinkedList<String>> parseGroupRoles() throws DataRetrievalFailureException {
-        long lastModified = new File(m_groupsConfigurationFile).lastModified();
-        
+        FileTime lastModified = null;
+        try {
+            lastModified = Files.getLastModifiedTime(m_groupsConfigurationFile);
+        } catch (IOException e) {
+        }
+
         final Map<String, LinkedList<String>> roleMap = new HashMap<String, LinkedList<String>>();
 
         final Collection<Role> roles = m_groupManager.getRoles();
@@ -176,14 +182,16 @@ public class SpringSecurityUserDaoImpl implements SpringSecurityUserDao, Initial
         HashMap<String, OnmsUser> magicUsers = new HashMap<String, OnmsUser>();
         Map<String, Collection<? extends GrantedAuthority>> roles = new HashMap<String, Collection<? extends GrantedAuthority>>();
 
-        long lastModified = new File(m_magicUsersConfigurationFile).lastModified();
+        FileTime lastModified = null;
+        try {
+            lastModified = Files.getLastModifiedTime(m_magicUsersConfigurationFile);
+        } catch (IOException e) {
+        }
 
         // read the file
         Properties properties = new Properties();
-        try {
-            properties.load(new FileInputStream(m_magicUsersConfigurationFile));
-        } catch (FileNotFoundException e) {
-            throw new DataRetrievalFailureException("Magic users configuration file '" + m_magicUsersConfigurationFile + "' not found: " + e.getMessage(), e);
+        try (InputStream stream = Files.newInputStream(m_magicUsersConfigurationFile);) {
+            properties.load(stream);
         } catch (IOException e) {
             throw new DataRetrievalFailureException("Error reading magic users configuration file '" + m_magicUsersConfigurationFile + "': " + e.getMessage(), e);
         }
@@ -201,7 +209,7 @@ public class SpringSecurityUserDaoImpl implements SpringSecurityUserDao, Initial
             } catch (final Exception ioe) {
                 throw new DataRetrievalFailureException("Unable to read user " + user + " from users.xml", ioe);
             }
-            
+
             if (newUser == null) {
                 newUser = new OnmsUser();
                 newUser.setUsername(username);
@@ -214,7 +222,7 @@ public class SpringSecurityUserDaoImpl implements SpringSecurityUserDao, Initial
 
         String[] configuredRoles = BundleLists.parseBundleList(properties.getProperty("roles"));
         // Use roles from the groups.xml file if specified in applicationContext-spring-security.xml
-        Map<String, LinkedList<String>> roleMap = m_useGroups ? parseGroupRoles() 
+        Map<String, LinkedList<String>> roleMap = m_useGroups ? parseGroupRoles()
                                                               : new HashMap<String, LinkedList<String>>();
         Map<String, Boolean> roleAddDefaultMap = new HashMap<String, Boolean>();
         for (String role : configuredRoles) {
@@ -242,35 +250,35 @@ public class SpringSecurityUserDaoImpl implements SpringSecurityUserDao, Initial
                 if (roleMap.get(authUser) == null) {
                     roleMap.put(authUser, new LinkedList<String>());
                 }
-                LinkedList<String> userRoleList = roleMap.get(authUser); 
+                LinkedList<String> userRoleList = roleMap.get(authUser);
                 userRoleList.add(securityRole);
             }
-            
+
             roleAddDefaultMap.put(securityRole, !notInDefaultGroup);
         }
 
         for (final Entry<String, LinkedList<String>> entry : roleMap.entrySet()) {
             roles.put(entry.getKey(), getAuthorityListFromRoleList(entry.getValue(), roleAddDefaultMap));
         }
-        
+
         LOG.debug("Loaded the magic-users.properties file with {} magic users, {} roles, and {} user roles", magicUsers.size(), configuredRoles.length, roles.size());
 
 
-        m_magicUsersLastModified = lastModified; 
+        m_magicUsersLastModified = lastModified;
         m_magicUsers = magicUsers;
         m_roles = roles;
     }
 
     private Collection<? extends GrantedAuthority> getAuthorityListFromRoleList(List<String> roleList, Map<String, Boolean> roleAddDefaultMap) {
         boolean addToDefaultGroup = false;
-        
+
         for (String role : roleList) {
             if (Boolean.TRUE.equals(roleAddDefaultMap.get(role))) {
                 addToDefaultGroup = true;
                 break;
             }
         }
-        
+
         List<GrantedAuthority> authorities = new LinkedList<GrantedAuthority>();
         if (addToDefaultGroup) {
             authorities.add(ROLE_USER);
@@ -301,7 +309,7 @@ public class SpringSecurityUserDaoImpl implements SpringSecurityUserDao, Initial
      * Checks the last modified time of the user file against
      * the last known last modified time. If the times are different, then the
      * file must be reparsed.
-     * 
+     *
      * <p>
      * Note that the <code>lastModified</code> variables are not set here.
      * This is in case there is a problem parsing either file. If we set the
@@ -317,12 +325,12 @@ public class SpringSecurityUserDaoImpl implements SpringSecurityUserDao, Initial
             return m_usersLastModified != m_userManager.getLastModified();
         }
     }
-    
+
     /**
      * Checks the last modified time of the group file against
      * the last known last modified time. If the times are different, then the
      * file must be reparsed.
-     * 
+     *
      * <p>
      * Note that the <code>lastModified</code> variables are not set here.
      * This is in case there is a problem parsing either file. If we set the
@@ -332,18 +340,19 @@ public class SpringSecurityUserDaoImpl implements SpringSecurityUserDao, Initial
      * </p>
      */
     private boolean isGroupsParseNecessary() {
-        if (m_groupsLastModified != new File(m_groupsConfigurationFile).lastModified()) {
-            return true;
-        } else {
-            return false;
+        try {
+            return !m_groupsLastModified.equals(Files.getLastModifiedTime(m_groupsConfigurationFile));
+        } catch (IOException ex) {
+            LOG.error("ioexception", ex);
         }
+        return false;
     }
 
     /**
      * Checks the last modified time of the magic-users file against
      * the last known last modified time. If the times are different, then the
      * file must be reparsed.
-     * 
+     *
      * <p>
      * Note that the <code>lastModified</code> variables are not set here.
      * This is in case there is a problem parsing either file. If we set the
@@ -355,11 +364,13 @@ public class SpringSecurityUserDaoImpl implements SpringSecurityUserDao, Initial
     private boolean isMagicUsersParseNecessary() {
         if (m_magicUsers == null) {
             return true;
-        } else if (m_magicUsersLastModified != new File(m_magicUsersConfigurationFile).lastModified()) {
-            return true;
-        } else {
-            return false;
         }
+        try {
+            return !m_magicUsersLastModified.equals(Files.getLastModifiedTime(m_magicUsersConfigurationFile));
+        } catch (IOException ex) {
+            LOG.error("ioexception", ex);
+        }
+        return false;
     }
 
     /**
@@ -367,21 +378,21 @@ public class SpringSecurityUserDaoImpl implements SpringSecurityUserDao, Initial
      *
      * @param usersConfigurationFile a {@link java.lang.String} object.
      */
-    public void setUsersConfigurationFile(String usersConfigurationFile) {
+    public void setUsersConfigurationFile(Path usersConfigurationFile) {
         m_usersConfigurationFile = usersConfigurationFile;
         UserFactory.setInstance(null);
     }
-    
+
     /**
      * <p>setGroupsConfigurationFile</p>
      *
      * @param groupsConfigurationFile a {@link java.lang.String} object.
      */
-    public void setGroupsConfigurationFile(String groupsConfigurationFile) {
+    public void setGroupsConfigurationFile(Path groupsConfigurationFile) {
         m_groupsConfigurationFile = groupsConfigurationFile;
         GroupFactory.setInstance(null);
     }
-    
+
     /**
      * <p>setUseGroups</p>
      *
@@ -396,7 +407,7 @@ public class SpringSecurityUserDaoImpl implements SpringSecurityUserDao, Initial
      *
      * @return a {@link java.lang.String} object.
      */
-    public String getUsersConfigurationFile() {
+    public Path getUsersConfigurationFile() {
         return m_usersConfigurationFile;
     }
 
@@ -405,7 +416,7 @@ public class SpringSecurityUserDaoImpl implements SpringSecurityUserDao, Initial
      *
      * @param magicUsersConfigurationFile a {@link java.lang.String} object.
      */
-    public void setMagicUsersConfigurationFile(String magicUsersConfigurationFile) {
+    public void setMagicUsersConfigurationFile(Path magicUsersConfigurationFile) {
         m_magicUsersConfigurationFile = magicUsersConfigurationFile;
     }
 
@@ -414,7 +425,7 @@ public class SpringSecurityUserDaoImpl implements SpringSecurityUserDao, Initial
      *
      * @return a {@link java.lang.String} object.
      */
-    public String getMagicUsersConfigurationFile() {
+    public Path getMagicUsersConfigurationFile() {
         return m_magicUsersConfigurationFile;
     }
 
@@ -454,7 +465,7 @@ public class SpringSecurityUserDaoImpl implements SpringSecurityUserDao, Initial
      *
      * @return a long.
      */
-    public long getMagicUsersLastModified() {
+    public FileTime getMagicUsersLastModified() {
         return m_magicUsersLastModified;
     }
 
@@ -463,19 +474,19 @@ public class SpringSecurityUserDaoImpl implements SpringSecurityUserDao, Initial
      *
      * @return a long.
      */
-    public long getUsersLastModified() {
+    public FileTime getUsersLastModified() {
         return m_usersLastModified;
     }
-    
+
     /**
      * <p>getGroupsLastModified</p>
      *
      * @return a long.
      */
-    public long getGroupsLastModified() {
+    public FileTime getGroupsLastModified() {
         return m_groupsLastModified;
     }
-    
+
     /**
      * <p>isUseGroups</p>
      *

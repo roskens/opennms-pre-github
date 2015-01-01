@@ -28,11 +28,10 @@
 
 package org.opennms.web.admin.config;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStreamWriter;
 import java.io.Writer;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -70,10 +69,10 @@ import org.opennms.netmgt.config.poller.Service;
  */
 public class PollerConfigServlet extends HttpServlet {
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = 2622622848304715121L;
-    
+
     PollerConfiguration pollerConfig = null;
 
     CapsdConfiguration capsdConfig = null;
@@ -105,7 +104,7 @@ public class PollerConfigServlet extends HttpServlet {
     public void init() throws ServletException {
         ServletConfig config = this.getServletConfig();
         try {
-            props.load(new FileInputStream(ConfigFileConstants.getFile(ConfigFileConstants.POLLER_CONF_FILE_NAME)));
+            props.load(Files.newBufferedReader(ConfigFileConstants.getFile(ConfigFileConstants.POLLER_CONF_FILE_NAME), Charset.defaultCharset()));
             PollerConfigFactory.init();
             pollerFactory = PollerConfigFactory.getInstance();
             pollerConfig = pollerFactory.getConfiguration();
@@ -139,7 +138,7 @@ public class PollerConfigServlet extends HttpServlet {
     public void reloadFiles() throws ServletException {
         ServletConfig config = this.getServletConfig();
         try {
-            props.load(new FileInputStream(ConfigFileConstants.getFile(ConfigFileConstants.POLLER_CONF_FILE_NAME)));
+            props.load(Files.newBufferedReader(ConfigFileConstants.getFile(ConfigFileConstants.POLLER_CONF_FILE_NAME), Charset.defaultCharset()));
             PollerConfigFactory.init();
             pollerFactory = PollerConfigFactory.getInstance();
             pollerConfig = pollerFactory.getConfiguration();
@@ -205,7 +204,7 @@ public class PollerConfigServlet extends HttpServlet {
             java.util.List<String> checkedList = new ArrayList<String>();
             java.util.List<String> deleteList = new ArrayList<String>();
 
-            props.store(new FileOutputStream(ConfigFileConstants.getFile(ConfigFileConstants.POLLER_CONF_FILE_NAME)), null);
+            props.store(Files.newBufferedWriter(ConfigFileConstants.getFile(ConfigFileConstants.POLLER_CONF_FILE_NAME), Charset.defaultCharset()), null);
             StringTokenizer strTok = new StringTokenizer(query, "&");
             while (strTok.hasMoreTokens()) {
                 String token = strTok.nextToken();
@@ -235,9 +234,8 @@ public class PollerConfigServlet extends HttpServlet {
             adjustNonChecked(checkedList);
             deleteThese(deleteList);
 
-            Writer poller_fileWriter = new OutputStreamWriter(new FileOutputStream(ConfigFileConstants.getFile(ConfigFileConstants.POLLER_CONFIG_FILE_NAME)), "UTF-8");
-            Writer capsd_fileWriter = new OutputStreamWriter(new FileOutputStream(ConfigFileConstants.getFile(ConfigFileConstants.CAPSD_CONFIG_FILE_NAME)), "UTF-8");
-            try {
+            try (Writer poller_fileWriter = Files.newBufferedWriter(ConfigFileConstants.getFile(ConfigFileConstants.POLLER_CONFIG_FILE_NAME), Charset.forName("UTF-8"));
+              Writer capsd_fileWriter = Files.newBufferedWriter(ConfigFileConstants.getFile(ConfigFileConstants.CAPSD_CONFIG_FILE_NAME), Charset.forName("UTF-8"));) {
                 Marshaller.marshal(pollerConfig, poller_fileWriter);
                 Marshaller.marshal(capsdConfig, capsd_fileWriter);
             } catch (MarshalException e) {
@@ -308,7 +306,7 @@ public class PollerConfigServlet extends HttpServlet {
                                 removeMonitor(svc.getName());
                                 deleteCapsdInfo(svc.getName());
                                 props.remove("service." + svc.getName() + ".protocol");
-                                props.store(new FileOutputStream(ConfigFileConstants.getFile(ConfigFileConstants.POLLER_CONF_FILE_NAME)), null);
+                                props.store(Files.newBufferedWriter(ConfigFileConstants.getFile(ConfigFileConstants.POLLER_CONF_FILE_NAME), Charset.defaultCharset()), null);
                                 break;
                             }
                         }

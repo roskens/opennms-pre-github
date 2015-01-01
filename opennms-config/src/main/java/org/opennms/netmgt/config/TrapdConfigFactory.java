@@ -28,9 +28,9 @@
 
 package org.opennms.netmgt.config;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -73,7 +73,7 @@ public final class TrapdConfigFactory implements TrapdConfig {
 
     /**
      * Private constructor
-     * 
+     *
      * @exception java.io.IOException
      *                Thrown if the specified config file cannot be read
      * @exception org.exolab.castor.xml.MarshalException
@@ -81,10 +81,10 @@ public final class TrapdConfigFactory implements TrapdConfig {
      * @exception org.exolab.castor.xml.ValidationException
      *                Thrown if the contents do not match the required schema.
      */
-    private TrapdConfigFactory(String configFile) throws IOException, MarshalException, ValidationException {
-        m_config = CastorUtils.unmarshal(TrapdConfiguration.class, new FileSystemResource(configFile));
+    private TrapdConfigFactory(Path configFile) throws IOException, MarshalException, ValidationException {
+        m_config = CastorUtils.unmarshal(TrapdConfiguration.class, new FileSystemResource(configFile.toFile()));
     }
-    
+
     /**
      * <p>Constructor for TrapdConfigFactory.</p>
      *
@@ -116,9 +116,9 @@ public final class TrapdConfigFactory implements TrapdConfig {
             // to reload, reload() will need to be called
             return;
         }
-        File cfgFile = ConfigFileConstants.getFile(ConfigFileConstants.TRAPD_CONFIG_FILE_NAME);
+        Path cfgFile = ConfigFileConstants.getFile(ConfigFileConstants.TRAPD_CONFIG_FILE_NAME);
 
-        m_singleton = new TrapdConfigFactory(cfgFile.getPath());
+        m_singleton = new TrapdConfigFactory(cfgFile);
 
         m_loaded = true;
     }
@@ -156,7 +156,7 @@ public final class TrapdConfigFactory implements TrapdConfig {
 
         return m_singleton;
     }
-    
+
     /**
      * <p>setInstance</p>
      *

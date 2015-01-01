@@ -32,6 +32,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
@@ -63,7 +66,7 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class XMPPNotificationManager {
-    
+
         private static final Logger LOG = LoggerFactory.getLogger(XMPPNotificationManager.class);
 
 	private final Properties props = new Properties();
@@ -111,7 +114,7 @@ public class XMPPNotificationManager {
             LOG.warn("XMPP reconnection failed", e);
             xmpp.disconnect();
             instance = null;
-            
+
         }
 
                 @Override
@@ -131,25 +134,21 @@ public class XMPPNotificationManager {
 
 			// Load up some properties
 
-			File config = null;
+                    Path config = null;
 			try {
 				config = ConfigFileConstants.getFile(ConfigFileConstants.XMPP_CONFIG_FILE_NAME);
 			} catch (IOException e) {
 				LOG.warn("{} not readable", ConfigFileConstants.XMPP_CONFIG_FILE_NAME, e);
 			}
-			if (Boolean.getBoolean("useSystemXMPPConfig") || !config.canRead()) {
+                    if (Boolean.getBoolean("useSystemXMPPConfig") || !Files.isReadable(config)) {
 				this.props.putAll(System.getProperties());
-			} else {
-				FileInputStream fis = null;
-				try {
-					fis = new FileInputStream(config);
-					this.props.load(fis);
+            } else {
+                try (InputStream stream = Files.newInputStream(config);) {
+                    this.props.load(stream);
 				} catch (FileNotFoundException e) {
 					LOG.warn("unable to load {}", config, e);
 				} catch (IOException e) {
 					LOG.warn("unable to load {}", config, e);
-				} finally {
-					IOUtils.closeQuietly(fis);
 				}
 			}
 
@@ -196,11 +195,11 @@ public class XMPPNotificationManager {
 			if (xmpp.isConnected()) {
 				LOG.debug("XMPP Manager successfully connected");
 				// Following requires a later version of the library
-				if (xmpp.isSecureConnection()) 
+				if (xmpp.isSecureConnection())
 					LOG.debug("XMPP Manager successfully nogotiated a secure connection");
-				if (xmpp.isUsingTLS()) 
+				if (xmpp.isUsingTLS())
 					LOG.debug("XMPP Manager successfully nogotiated a TLS connection");
-				LOG.debug("XMPP Manager Connected"); 
+				LOG.debug("XMPP Manager Connected");
 				login();
 				// Add connection listener
 				xmpp.addConnectionListener(conlistener);
@@ -214,7 +213,7 @@ public class XMPPNotificationManager {
 
     /**
      * Check if manager is logged in to xmpp server.
-     * 
+     *
      * @return true if logged in, false otherwise
      */
 
@@ -258,7 +257,7 @@ public class XMPPNotificationManager {
 
 	/**
 	 * send an xmpp message to a specified recipient.
-	 * 
+	 *
 	 * @param xmppTo
 	 *            recipient of the xmpp message
 	 * @param xmppMessage

@@ -28,10 +28,11 @@
 
 package org.opennms.netmgt.config.jdbc;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 import org.opennms.core.utils.ConfigFileConstants;
 import org.slf4j.Logger;
@@ -43,19 +44,19 @@ public class JdbcDataCollectionConfigFactory {
     private static final Logger LOG = LoggerFactory.getLogger(JdbcDataCollectionConfigFactory.class);
 
     private JdbcDataCollectionConfig m_jdbcDataCollectionConfig = null;
-    
+
     public JdbcDataCollectionConfigFactory() {
         try {
-            File cfgFile = ConfigFileConstants.getFile(ConfigFileConstants.JDBC_COLLECTION_CONFIG_FILE_NAME);
-            LOG.debug("init: config file path: {}", cfgFile.getPath());
-            InputStream reader = new FileInputStream(cfgFile);
-            unmarshall(reader);
-            reader.close();
+            Path cfgFile = ConfigFileConstants.getFile(ConfigFileConstants.JDBC_COLLECTION_CONFIG_FILE_NAME);
+            LOG.debug("init: config file path: {}", cfgFile);
+            try (InputStream reader = Files.newInputStream(cfgFile);) {
+                unmarshall(reader);
+            }
         } catch(IOException e) {
             // TODO rethrow.
         }
     }
-    
+
     public JdbcDataCollectionConfig unmarshall(InputStream configFile) {
         try {
             m_jdbcDataCollectionConfig = JaxbUtils.unmarshal(JdbcDataCollectionConfig.class, new InputSource(configFile));

@@ -36,6 +36,8 @@ import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.io.StringReader;
 import java.net.URL;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -53,7 +55,6 @@ import org.opennms.core.db.install.Constraint;
 import org.opennms.core.db.install.InstallerDb;
 import org.opennms.core.db.install.Table;
 import org.opennms.core.db.install.Trigger;
-import org.opennms.core.test.db.TemporaryDatabaseTestCase;
 import org.opennms.test.ThrowableAnticipator;
 import org.springframework.util.StringUtils;
 
@@ -68,27 +69,27 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
     @Override
     protected void setUp() throws Exception {
         super.setUp();
-        
+
         if (!isEnabled()) {
             return;
         }
-        
+
         m_installerDb = new InstallerDb();
 
         resetOutputStream();
         getInstallerDb().setDatabaseName(getTestDatabase());
         m_installerDb.setPostgresOpennmsUser("opennms");
 
-        getInstallerDb().setCreateSqlLocation("../../../opennms-base-assembly/src/main/filtered/etc/create.sql");
+        getInstallerDb().setCreateSqlLocation(Paths.get("../../../opennms-base-assembly/src/main/filtered/etc/create.sql"));
 
-        getInstallerDb().setStoredProcedureDirectory("../../../opennms-base-assembly/src/main/filtered/etc");
+        getInstallerDb().setStoredProcedureDirectory(Paths.get("../../../opennms-base-assembly/src/main/filtered/etc"));
 
         getInstallerDb().setDebug(true);
 
         getInstallerDb().readTables();
-        
+
         getInstallerDb().setDataSource(getDataSource());
-        
+
         getInstallerDb().addColumnReplacements();
 
         m_connection = getInstallerDb().getDataSource().getConnection();
@@ -153,7 +154,7 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
 
         assertNoTablesHaveChanged();
     }
-    
+
     public void testInsertCriteria() throws Exception {
         getInstallerDb().createSequences();
         getInstallerDb().updatePlPgsql();
@@ -162,7 +163,7 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
         getInstallerDb().createTables();
 
         getInstallerDb().insertData();
-        
+
         // try to insert twice
         getInstallerDb().insertData();
 
@@ -170,11 +171,11 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
     }
 
     public void testUpgradeRevision3952ToCurrent() throws Exception {
-        String newCreate = getInstallerDb().getCreateSqlLocation();
+        Path newCreate = getInstallerDb().getCreateSqlLocation();
 
         URL sql = getClass().getResource("/create.sql-revision-3952");
         assertNotNull("Could not find create.sql", sql);
-        getInstallerDb().setCreateSqlLocation(sql.getFile());
+        getInstallerDb().setCreateSqlLocation(Paths.get(sql.toURI()));
         getInstallerDb().readTables();
 
         // First pass.
@@ -195,20 +196,20 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
         getInstallerDb().createTables();
 
     }
-    
+
     public void testUpgradeRevision3952ToCurrentWithData() throws Exception {
-        String newCreate = getInstallerDb().getCreateSqlLocation();
+        Path newCreate = getInstallerDb().getCreateSqlLocation();
 
         URL sql = getClass().getResource("/create.sql-revision-3952");
         assertNotNull("Could not find create.sql", sql);
-        getInstallerDb().setCreateSqlLocation(sql.getFile());
+        getInstallerDb().setCreateSqlLocation(Paths.get(sql.toURI()));
         getInstallerDb().readTables();
 
         // First pass.
         getInstallerDb().createSequences();
         getInstallerDb().getTriggerDao().reset();
         getInstallerDb().createTables();
-                
+
         // Data
         executeSQL("INSERT INTO node ( nodeId, nodeCreateTime) VALUES ( 1, now() )");
         executeSQL("INSERT INTO snmpInterface ( nodeId, ipAddr, snmpIfIndex) VALUES ( 1, '1.2.3.4', 1 )");
@@ -232,7 +233,7 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
 //                   + "VALUES ( nextval('outageNxtId'), 1, '1.2.3.6', now(), 2 )");
         executeSQL("INSERT INTO events (eventID, eventUei, eventTime, eventSource, eventDpName, eventCreateTime, eventSeverity, eventLog, eventDisplay) "
                 + "VALUES ( nextval('eventsNxtId'), 'uei.opennms.org/foo', now(), 'somewhere', 'rainbow', now(), 0, 'Y', 'Y')");
-        
+
         int eventId = jdbcTemplate.queryForInt("select eventId from events");
         Date eventTime = jdbcTemplate.queryForObject("select eventTime from events where eventId = ?", Date.class, eventId);
 
@@ -251,7 +252,7 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
         assertEquals(localFailureMessage, eventTime, newEventTime);
 
         jdbcTemplate.execute("SET TIME ZONE 'UTC'");
-        
+
         Date utcEventTime = jdbcTemplate.queryForObject("select eventTime from events where eventId = ?", Date.class, eventId);
         String utcFailureMessage = "time for eventId " + eventId + " does not match between old and new (in UTC): " + eventTime + " (" + new Date(eventTime.getTime()) + ") -> " + utcEventTime + " (" + new Date(utcEventTime.getTime())+ ")";
         assertEquals(utcFailureMessage, eventTime, utcEventTime);
@@ -269,7 +270,7 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
         oldColumns.add(oldColumn);
         oldTable.setColumns(oldColumns);
         oldTable.setNotNullOnPrimaryKeyColumns();
-        
+
         Table newTable = new Table();
         newTable.setName("node");
         newTable.setConstraints(new LinkedList<Constraint>());
@@ -285,7 +286,7 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
 
         ThrowableAnticipator ta = new ThrowableAnticipator();
         ta.anticipate(new Exception("Column nodeid in new table has NOT NULL constraint, however this column did not have the NOT NULL constraint before and there is no change replacement for this column"));
-        try { 
+        try {
             getInstallerDb().changeTable("node", oldTable, newTable);
         } catch (Throwable t) {
             ta.throwableReceived(t);
@@ -338,7 +339,7 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
 
         ta.verifyAnticipated();
     }
-    
+
     public void setupBug931(boolean breakConstraint, boolean dropForeignTable)
         throws Exception {
         setupBug931(breakConstraint, dropForeignTable, true);
@@ -367,7 +368,7 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
                 executeSQL("UPDATE events SET nodeID = NULL WHERE nodeID IS NOT NULL");
             }
         }
-        
+
         if (useOwnCreateSql) {
             getInstallerDb().readTables(new StringReader(newSql));
         }
@@ -464,11 +465,11 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
     }
 
     public void testConstraintIpInterfaceSnmpInterfaceValidData() throws Exception {
-        String newCreate = getInstallerDb().getCreateSqlLocation();
+        Path newCreate = getInstallerDb().getCreateSqlLocation();
 
         URL sql = getClass().getResource("/create.sql-revision-3952");
         assertNotNull("Could not find create.sql", sql);
-        getInstallerDb().setCreateSqlLocation(sql.getFile());
+        getInstallerDb().setCreateSqlLocation(Paths.get(sql.toURI()));
         getInstallerDb().readTables();
 
         // First pass.
@@ -478,7 +479,7 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
         //getInstallerDb().addStoredProcedures();
 
         getInstallerDb().createTables();
-        
+
         // Data
         executeSQL("INSERT INTO node ( nodeId, nodeCreateTime) VALUES ( 1, now() )");
         executeSQL("INSERT INTO snmpInterface ( nodeId, ipAddr, snmpIfIndex) VALUES ( 1, '1.2.3.4', 1 )");
@@ -501,11 +502,11 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
         */
     }
     public void testConstraintIpInterfaceSnmpInterfaceInvalidData() throws Exception {
-        String newCreate = getInstallerDb().getCreateSqlLocation();
+        Path newCreate = getInstallerDb().getCreateSqlLocation();
 
         URL sql = getClass().getResource("/create.sql-revision-3952");
         assertNotNull("Could not find create.sql", sql);
-        getInstallerDb().setCreateSqlLocation(sql.getFile());
+        getInstallerDb().setCreateSqlLocation(Paths.get(sql.toURI()));
         getInstallerDb().readTables();
 
         // First pass.
@@ -515,7 +516,7 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
         //getInstallerDb().addStoredProcedures();
 
         getInstallerDb().createTables();
-        
+
         // Data
         executeSQL("INSERT INTO node ( nodeId, nodeCreateTime) VALUES ( 1, now() )");
         executeSQL("INSERT INTO snmpInterface ( nodeId, ipAddr, snmpIfIndex) VALUES ( 1, '1.2.3.4', 1 )");
@@ -536,7 +537,7 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
         getInstallerDb().createTables();
         */
     }
-    
+
     public void testConstraintOnBogusColumn() throws Exception {
         String s_create_sql = "            create table distPoller (\n"
                 + "                    dpName            varchar(12),\n"
@@ -627,7 +628,7 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
 
         ta.verifyAnticipated();
     }
-    
+
     public void testParseConstraintWithOnUpdateCascade() throws Exception {
         /*
          * Make sure that every table, column, and key ID listed below has
@@ -897,7 +898,7 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
                      "job_group character varying(80) NOT NULL",
                      columns.get(1).toString());
     }
-    
+
 
     public void testGetColumnsFromDBWithDefaultIntegerConstant() throws Exception {
         String command = "CREATE TABLE alarms (\n"
@@ -1322,7 +1323,7 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
          * nextval\\('opennmsNxtId'\\) NOT NULL,", "" }, new String[] {
          * "(?i)CONSTRAINT snmpinterface_pkey primary key \\(id\\),", "" } });
          */
-        
+
 
         /*
          *  No snmpInterfaceID column, and I need to kill an index that
@@ -1498,7 +1499,7 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
         // Don't care about what it is, just that it's not null
         // assertEquals("ipInterface id", expected, rs.getInt(1));
         assertFalse("too many rows: only expecting one", rs.next());
-        
+
 
         rs = st.executeQuery("SELECT id, ipInterfaceID from ifServices");
 
@@ -1509,7 +1510,7 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
         rs.getInt(2);
         assertFalse("ifServices.interfaceId should not be null",
                     rs.wasNull());
-        
+
         // Don't care about the actual values, just that they are not null
         // assertEquals("ifServices id", expected, rs.getInt(1));
         // assertEquals("ifServices ipInterfaceId", expected,
@@ -1602,9 +1603,9 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
         getInstallerDb().updatePlPgsql();
         getInstallerDb().addStoredProcedures();
 
-        
+
         //getInstallerDb().createTables();
-        
+
         getInstallerDb().addStoredProcedures();
 
         verifyTriggers(true);
@@ -1782,7 +1783,7 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
 
         getInstallerDb().createTables();
     }
-    
+
     public void testSnmpInterfaceNonUniqueKeys() throws Exception {
         getInstallerDb().createSequences();
         getInstallerDb().updatePlPgsql();
@@ -1792,7 +1793,7 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
         addTableFromSQL("node");
         addTableFromSQL("snmpinterface");
         executeSQL("drop index snmpinterface_nodeid_ifindex_unique_idx");
-        
+
         executeSQL("INSERT INTO node ( nodeId, nodeCreateTime ) "
                    + "VALUES ( 1, now() )");
 
@@ -1801,13 +1802,13 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
                    + "VALUES ( 1, 1 )");
         executeSQL("INSERT INTO snmpInterface ( nodeID, snmpIfIndex ) "
                    + "VALUES ( 1, 1 )");
-        
+
         // One with different different IPs
         executeSQL("INSERT INTO snmpInterface ( nodeID, snmpIfIndex ) "
                    + "VALUES ( 1, 1 )");
         executeSQL("INSERT INTO snmpInterface ( nodeID, snmpIfIndex ) "
                    + "VALUES ( 1, 1 )");
-        
+
         ThrowableAnticipator ta = new ThrowableAnticipator();
         ta.anticipate(new Exception("Unique index "
                                     + "'snmpinterface_nodeid_ifindex_unique_idx' "
@@ -1831,7 +1832,7 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
         }
         ta.verifyAnticipated();
     }
-    
+
     public void testIpInterfaceNonUniqueKeys() throws Exception {
         getInstallerDb().createSequences();
         getInstallerDb().updatePlPgsql();
@@ -1842,7 +1843,7 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
         addTableFromSQL("snmpinterface");
         addTableFromSQL("ipinterface");
         executeSQL("drop index ipinterface_nodeid_ipaddr_notzero_idx");
-        
+
         executeSQL("INSERT INTO node ( nodeId, nodeCreateTime ) "
                    + "VALUES ( 1, now() )");
         executeSQL("INSERT INTO node ( nodeId, nodeCreateTime ) "
@@ -1857,7 +1858,7 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
                    + "VALUES ( 3, 1 )");
         executeSQL("INSERT INTO snmpInterface ( nodeID, snmpIfIndex ) "
                    + "VALUES ( 3, 2 )");
-        
+
         // These aren't dups because their ipaddr = 0.0.0.0
         executeSQL("INSERT INTO ipInterface ( nodeID, ipAddr, ifIndex ) "
                    + "VALUES ( 1, '0.0.0.0', 1 )");
@@ -1869,14 +1870,14 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
                    + "VALUES ( 2, '1.1.1.1', null )");
         executeSQL("INSERT INTO ipInterface ( nodeID, ipAddr, ifIndex ) "
                    + "VALUES ( 2, '1.1.1.1', null )");
-        
+
         // dups with ifIndex != null (which we also don't care about)
         executeSQL("INSERT INTO ipInterface ( nodeID, ipAddr, ifIndex ) "
                    + "VALUES ( 3, '1.1.1.1', 1 )");
         executeSQL("INSERT INTO ipInterface ( nodeID, ipAddr, ifIndex ) "
                    + "VALUES ( 3, '1.1.1.1', 2 )");
 
-        
+
         ThrowableAnticipator ta = new ThrowableAnticipator();
         ta.anticipate(new Exception("Unique index "
                                     + "'ipinterface_nodeid_ipaddr_notzero_idx' "
@@ -1901,7 +1902,7 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
         ta.verifyAnticipated();
 
     }
-    
+
     public void testIfServicesNonUniqueKeys() throws Exception {
         getInstallerDb().createSequences();
         getInstallerDb().updatePlPgsql();
@@ -1915,7 +1916,7 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
         addTableFromSQL("service");
         addTableFromSQL("ifservices");
         executeSQL("drop index ifservices_nodeid_ipaddr_svc_unique");
-        
+
         executeSQL("INSERT INTO node ( nodeId, nodeCreateTime ) "
                    + "VALUES ( 1, now() )");
         executeSQL("INSERT INTO node ( nodeId, nodeCreateTime ) "
@@ -1930,7 +1931,7 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
                    + "VALUES ( 3, 1 )");
         executeSQL("INSERT INTO snmpInterface ( nodeID, snmpIfIndex ) "
                    + "VALUES ( 3, 2 )");
-        
+
         // These aren't dups because their ipaddr = 0.0.0.0
         executeSQL("INSERT INTO ipInterface ( nodeID, ipAddr, ifIndex ) "
                    + "VALUES ( 1, '0.0.0.0', 1 )");
@@ -1942,7 +1943,7 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
                    + "VALUES ( 2, '1.1.1.1', null )");
         //executeSQL("INSERT INTO ipInterface ( nodeID, ipAddr, ifIndex ) "
         //         + "VALUES ( 2, '1.1.1.1', null )");
-        
+
         // dups with ifIndex != null (which we also don't care about)
         executeSQL("INSERT INTO ipInterface ( nodeID, ipAddr, ifIndex ) "
                    + "VALUES ( 3, '1.1.1.1', 1 )");
@@ -1955,21 +1956,21 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
                    + "VALUES ( 2, 'TEA-READY' )");
         executeSQL("INSERT INTO service ( serviceID, serviceName ) "
                    + "VALUES ( 3, 'SODA-ICE-COLD' )");
-        
-        
+
+
 //        executeSQL("INSERT INTO ifServices ( nodeID, ipAddr, ifIndex, serviceID ) VALUES ( 1, '0.0.0.0', 1, 1 )");
-        
+
         executeSQL("INSERT INTO ifServices ( nodeID, ipAddr, ifIndex, serviceID ) VALUES ( 2, '1.1.1.1', null, 1 )");
         executeSQL("INSERT INTO ifServices ( nodeID, ipAddr, ifIndex, serviceID ) VALUES ( 2, '1.1.1.1', null, 2 )");
-        
+
         executeSQL("INSERT INTO ifServices ( nodeID, ipAddr, ifIndex, serviceID ) VALUES ( 2, '1.1.1.1', null, 3 )");
         executeSQL("INSERT INTO ifServices ( nodeID, ipAddr, ifIndex, serviceID ) VALUES ( 2, '1.1.1.1', null, 3 )");
-        
+
         executeSQL("INSERT INTO ifServices ( nodeID, ipAddr, ifIndex, serviceID ) VALUES ( 3, '1.1.1.1', null, 3 )");
         executeSQL("INSERT INTO ifServices ( nodeID, ipAddr, ifIndex, serviceID ) VALUES ( 3, '1.1.1.1', -100, 3 )");
 
 
-        
+
         ThrowableAnticipator ta = new ThrowableAnticipator();
         ta.anticipate(new Exception("Unique index 'ifservices_nodeid_ipaddr_svc_unique' cannot be added to table 'ifservices' because 4 rows are not unique.  See the install guide for details on how to correct this problem.  You can use the following SQL to see which rows are not unique:\n"
                                     + "SELECT * FROM ifservices WHERE ( nodeID, ipAddr, serviceId ) IN ( SELECT nodeID, ipAddr, serviceId FROM ifservices GROUP BY nodeID, ipAddr, serviceId HAVING count(nodeID) > 1 ORDER BY nodeID, ipAddr, serviceId ) ORDER BY nodeID, ipAddr, serviceId"));
@@ -1980,18 +1981,18 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
         }
         ta.verifyAnticipated();
     }
-    
+
     public void testCheckIndexUniquenessWithTableButMissingColumnBug2325() throws Exception {
         addTableFromSQL("distpoller");
-        
+
         getInstallerDb().getIndexDao().remove("node_foreign_unique_idx");
         addTableFromSQLWithReplacements("node", new String[][] { new String[] { "foreignSource\\s+varchar\\(\\d+\\),", "" } });
-        
+
         getInstallerDb().readTables();
-        
+
         getInstallerDb().checkIndexUniqueness();
     }
-    
+
     public void testBug1574() throws Exception {
         getInstallerDb().createSequences();
         getInstallerDb().updatePlPgsql();
@@ -1999,15 +2000,15 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
 
         addTableFromSQL("distpoller");
         addTableFromSQL("node");
-        
+
         addTableFromSQL("snmpinterface");
         executeSQL("drop index snmpinterface_nodeid_ifindex_unique_idx");
         executeSQL("create index snmpinterface_nodeid_ifindex_idx on snmpinterface(nodeID, snmpIfIndex)");
         getInstallerDb().addIndexesForTable("snmpinterface");
-        
+
         addTableFromSQL("ipinterface");
     }
-    
+
     public void testUpgradeExistingDoNotAddColumnBug1685() throws Exception {
         getInstallerDb().createSequences();
         getInstallerDb().updatePlPgsql();
@@ -2015,7 +2016,7 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
 
         addTableFromSQL("distpoller");
         addTableFromSQL("node");
-        
+
         // Add snmpinterface table with an arbitrary change so it gets upgraded
         addTableFromSQLWithReplacements("snmpinterface", new String[][] {
                 new String[] {
@@ -2026,9 +2027,9 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
                    + "VALUES ( 1, now() )");
         executeSQL("INSERT INTO snmpInterface ( nodeID, snmpIfIndex ) "
                    + "VALUES ( 1, 1 )");
-        
+
         int id = jdbcTemplate.queryForInt("SELECT id from snmpInterface");
-        
+
         getInstallerDb().createTables();
 
         int id2 = jdbcTemplate.queryForInt("SELECT id from snmpInterface");
@@ -2038,7 +2039,7 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
     }
 
     public void testUpgradeColumnToNotNullWithDefault() throws Exception {
-        
+
         final String[] commands = { "CREATE TABLE alarms ( id integer, x733ProbableCause integer )",
                 "INSERT INTO alarms ( id, x733ProbableCause ) VALUES ( 1, 1 )",
                 "INSERT INTO alarms ( id, x733ProbableCause ) VALUES ( 2, NULL )" };
@@ -2048,12 +2049,12 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
 
         getInstallerDb().readTables(new StringReader(newSql));
         getInstallerDb().createTables();
-        
+
         assertEquals("x733ProbableCause for id = 1 should have its original value", 1, jdbcTemplate.queryForInt("SELECT x733ProbableCause FROM alarms WHERE id = 1"));
         assertEquals("x733ProbableCause for id = 2 should have the DEFAULT value", Integer.valueOf(0), jdbcTemplate.queryForObject("SELECT x733ProbableCause FROM alarms WHERE id = 2", Integer.class));
 
     }
-    
+
    public void testColumnNoChangeWithDefault() throws Exception {
         final String sql = "CREATE TABLE alarms ( id integer, x733ProbableCause integer DEFAULT 0 NOT NULL );\n";
 
@@ -2061,7 +2062,7 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
 
         getInstallerDb().readTables(new StringReader(sql));
         getInstallerDb().createTables();
-        
+
         assertNoTablesHaveChanged();
     }
 
@@ -2071,7 +2072,7 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
         getInstallerDb().updateIplike();
         getInstallerDb().closeConnection();
     }
-    
+
     public void testCreateTableWithCheckConstraint() throws Throwable {
     	final String cname="setfilter_type_valid";
     	final String checkexpression="(((type >= 0) AND (type <= 2)))";
@@ -2085,18 +2086,18 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
     	assertTrue(cname.equals(constraint.getName()));
     	assertTrue(checkexpression.equals("("+constraint.getCheckExpression()+")"));
     }
-    
+
     public void testUpgradeAddCheckConstraint() throws Exception {
        	final String cname="setfilter_type_valid";
     	final String checkexpression="(((type >= 0) AND (type <= 2)))";
         final String sql_start = "create table setFilter ( id integer, type integer);\n";
         executeSQL(sql_start);
-        
+
         final String sql_upgrade = "create table setFilter ( id integer, type integer, " +
 						"constraint "+cname+" check "+checkexpression+");\n";
         getInstallerDb().readTables(new StringReader(sql_upgrade));
         getInstallerDb().createTables();
-        
+
         //Check created table
     	Table table=getInstallerDb().getTableFromDB("setFilter");
     	List<Constraint> constraints=table.getConstraints();
@@ -2154,15 +2155,15 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
         addTableWithSQL(tableName, partialSQL, addTriggers);
     }
 
-    
+
     private void addTableWithSQL(String table, String sql, boolean addTriggers)
     throws SQLException {
         executeSQL("CREATE TABLE " + table + " ( " + sql + " )");
-        
+
         if (!addTriggers) {
             return;
         }
-        
+
         getInstallerDb().addIndexesForTable(table);
         getInstallerDb().addTriggersForTable(table);
     }
@@ -2172,7 +2173,7 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
         Matcher m = p.matcher(str);
         return m.find();
     }
-    
+
 
     public void assertStoredProcedureForTriggerExists(Trigger trigger)
         throws Exception {
@@ -2182,7 +2183,7 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
                    getInstallerDb().functionExists(trigger.getStoredProcedure(),
                                               "", "trigger"));
     }
-    
+
     public void assertTriggerExists(Trigger trigger)
         throws Exception {
 
@@ -2214,7 +2215,7 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
                             "ipInterface",
                             "setSnmpInterfaceKeysOnUpdate", "NO SQL")
         };
-        
+
         for (Trigger trigger : triggers) {
             assertStoredProcedureForTriggerExists(trigger);
             if (!onlyStoredProcedures) {
@@ -2222,11 +2223,11 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
             }
         }
     }
-    
+
     public InstallerDb getInstallerDb() {
         return m_installerDb;
     }
-    
+
     public void resetOutputStream() {
         m_outputStream = new ByteArrayOutputStream();
         getInstallerDb().setOutputStream(new PrintStream(m_outputStream));
@@ -2260,10 +2261,10 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
             if (line.matches("- creating tables\\.\\.\\. DONE")) {
                 continue;
             }
-            
+
             unanticipatedOutput.add(line);
         }
-        
+
         if (unanticipatedOutput.size() > 0) {
             fail(unanticipatedOutput.size() + "unexpected line(s) output by createTables(): \n\t" + StringUtils.collectionToDelimitedString(unanticipatedOutput, "\n\t") + "\nAll output:\n" + m_outputStream);
         }

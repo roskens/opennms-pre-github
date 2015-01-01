@@ -98,7 +98,7 @@ public class FtpResponse {
     public void setResponse(String[] response) {
         m_response = response;
     }
-    
+
     /**
      * Search for a text string in each line of the response result.
      * Note that each line is tested individually.
@@ -112,7 +112,7 @@ public class FtpResponse {
                 return true;
             }
         }
-        
+
         return false;
     }
 
@@ -124,7 +124,7 @@ public class FtpResponse {
      */
     @Override
     public String toString() {
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         int i;
         sb.append(m_code);
 
@@ -132,12 +132,12 @@ public class FtpResponse {
             sb.append("-");
         }
         if (m_response.length > 0) {
-            sb.append(" " + m_response[0]);
+            sb.append(" ").append(m_response[0]);
         }
 
         for (i = 1; i < m_response.length; i++) {
             sb.append("\n");
-            
+
             if (i == (m_response.length - 1)) {
                 sb.append(m_code);
                 sb.append(" ");
@@ -152,7 +152,7 @@ public class FtpResponse {
 
         return sb.toString();
     }
-    
+
     /**
      * Does this response have a valid code?
      *
@@ -203,14 +203,14 @@ public class FtpResponse {
      */
     public static FtpResponse readResponse(BufferedReader in) throws IOException {
         int code;
-        List<String> response = new ArrayList<String>();
+        List<String> response = new ArrayList<>();
 
         String firstResponseLine = in.readLine();
         if (firstResponseLine == null) {
             throw new IOException("End of stream was reached before a response could be read");
-            
+
         }
-        
+
         // XXX this could use better error checking!
         String codeString = firstResponseLine.substring(0, 3);
         response.add(firstResponseLine.substring(4));
@@ -218,9 +218,7 @@ public class FtpResponse {
         try {
             code = Integer.parseInt(codeString);
         } catch (NumberFormatException e) {
-            IOException newE = new IOException("First response line returned a non-numeric result code \"" + codeString + "\": " + firstResponseLine);
-            newE.initCause(e);
-            throw newE;
+            throw new IOException("First response line returned a non-numeric result code \"" + codeString + "\": " + firstResponseLine, e);
         }
 
         // Is the fourth character a hyphen (if so, it's a continuation)?
@@ -233,12 +231,12 @@ public class FtpResponse {
                 if (subsequentResponse == null) {
                     throw new IOException("End of stream was reached before the complete multi-line response could be read.  What was read: " + StringUtils.collectionToDelimitedString(response, "\n"));
                 }
-                
+
                 if (subsequentResponse.startsWith(endMultiLine)) {
                     response.add(subsequentResponse.substring(4));
                     break;
                 }
-                
+
                 response.add(subsequentResponse);
             }
         }

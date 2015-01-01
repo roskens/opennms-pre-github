@@ -28,7 +28,7 @@
 
 package org.opennms.netmgt.rrd;
 
-import java.io.File;
+import java.nio.file.Path;
 import java.util.List;
 
 /**
@@ -39,14 +39,14 @@ public class RrdRepository {
     private List<String> m_rraList;
     private int m_step;
     private int m_heartBeat;
-    private File m_rrdBaseDir;
+    private Path m_rrdBaseDir;
 
     /**
      * <p>getRrdBaseDir</p>
      *
      * @return a {@link java.io.File} object.
      */
-    public File getRrdBaseDir() {
+    public Path getRrdBaseDir() {
         return m_rrdBaseDir;
     }
 
@@ -55,7 +55,7 @@ public class RrdRepository {
      *
      * @param rrdBaseDir a {@link java.io.File} object.
      */
-    public void setRrdBaseDir(File rrdBaseDir) {
+    public void setRrdBaseDir(Path rrdBaseDir) {
         m_rrdBaseDir = rrdBaseDir;
     }
 
@@ -67,7 +67,7 @@ public class RrdRepository {
     public List<String> getRraList() {
         return m_rraList;
     }
-    
+
     /**
      * <p>setRraList</p>
      *
@@ -85,7 +85,7 @@ public class RrdRepository {
     public int getStep() {
         return m_step;
     }
-    
+
     /**
      * <p>setStep</p>
      *

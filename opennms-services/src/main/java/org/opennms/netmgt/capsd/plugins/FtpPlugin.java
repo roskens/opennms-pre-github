@@ -94,19 +94,15 @@ public final class FtpPlugin extends AbstractTcpPlugin {
     @Override
     protected boolean checkProtocol(Socket socket, ConnectionConfig config) throws IOException {
         BufferedReader rdr = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-  
+
         FtpResponse connectResponse = FtpResponse.readResponse(rdr);
         if (!connectResponse.isCodeValid()) {
             return false;
         }
-        
+
         FtpResponse.sendCommand(socket, "QUIT");
 
         FtpResponse quitResponse = FtpResponse.readResponse(rdr);
-        if (!quitResponse.isCodeValid()) {
-            return false;
-        }
-        
-        return true;
+        return quitResponse.isCodeValid();
     }
 }

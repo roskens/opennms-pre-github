@@ -28,9 +28,9 @@
 
 package org.opennms.netmgt.rrd;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Path;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -62,7 +62,7 @@ public interface RrdStrategy<D extends Object,F extends Object> {
     /**
 	 * Create a round robin database definition from the supplied parameters.
 	 * This definition is used in the createFile call to create the actual file.
-	 * 
+	 *
 	 * @param creator
 	 *            - A string representing who is creating this file for use in
 	 *            log msgs
@@ -82,12 +82,12 @@ public interface RrdStrategy<D extends Object,F extends Object> {
 	 * @throws java.lang.Exception
 	 *             If an error occurs while creating the definition
 	 */
-    public D createDefinition(String creator, String directory, String rrdName, int step, List<RrdDataSource> dataSources, List<String> rraList) throws Exception;
+    public D createDefinition(String creator, Path directory, String rrdName, int step, List<RrdDataSource> dataSources, List<String> rraList) throws Exception;
 
     /**
 	 * Creates the round robin database defined by the supplied definition.
 	 * Should be able to handle rrdDef being null.
-	 * 
+	 *
 	 * @param rrdDef
 	 *            an round robin database definition created using the
 	 *            createDefinition call.
@@ -113,7 +113,7 @@ public interface RrdStrategy<D extends Object,F extends Object> {
      * @throws java.lang.Exception
      *             if an error occurs opening the file
      */
-    public F openFile(String fileName) throws Exception;
+    public F openFile(Path fileName) throws Exception;
 
     /**
      * Updates the supplied round robin database with the given timestamp:value
@@ -156,9 +156,9 @@ public interface RrdStrategy<D extends Object,F extends Object> {
      * @throws java.lang.NumberFormatException if any.
      * @throws org.opennms.netmgt.rrd.RrdException if any.
      */
-    public Double fetchLastValue(String rrdFile, String ds, int interval) throws NumberFormatException, RrdException;
+    public Double fetchLastValue(Path rrdFile, String ds, int interval) throws NumberFormatException, RrdException;
 
-    
+
     /**
      * Fetches the last value from the round robin database with the given name.
      * The interval passed in should be the interval associated with the round
@@ -176,7 +176,7 @@ public interface RrdStrategy<D extends Object,F extends Object> {
      * @throws org.opennms.netmgt.rrd.RrdException if any.
      * @param consolidationFunction a {@link java.lang.String} object.
      */
-    public Double fetchLastValue(String rrdFile, String ds, String consolidationFunction, int interval) throws NumberFormatException, RrdException;
+    public Double fetchLastValue(Path rrdFile, String ds, String consolidationFunction, int interval) throws NumberFormatException, RrdException;
 
     /**
      * Fetches the last value from the round robin database with the given name
@@ -198,8 +198,8 @@ public interface RrdStrategy<D extends Object,F extends Object> {
      * @throws java.lang.NumberFormatException if any.
      * @throws org.opennms.netmgt.rrd.RrdException if any.
      */
-    public Double fetchLastValueInRange(String rrdFile, String ds, int interval, int range) throws NumberFormatException, RrdException;
-    
+    public Double fetchLastValueInRange(Path rrdFile, String ds, int interval, int range) throws NumberFormatException, RrdException;
+
     /**
      * Creates an InputStream representing the bytes of a graph created from
      * round robin data. It accepts an rrdtool graph command. The underlying
@@ -216,8 +216,8 @@ public interface RrdStrategy<D extends Object,F extends Object> {
      * @throws org.opennms.netmgt.rrd.RrdException
      *             if an RRD error occurs
      */
-    public InputStream createGraph(String command, File workDir) throws IOException, RrdException;
-    
+    public InputStream createGraph(String command, Path workDir) throws IOException, RrdException;
+
     /**
      * Creates an RrdGraphDetails object representing the graph created from
      * round robin data. It accepts an rrdtool graph command. The underlying
@@ -234,9 +234,9 @@ public interface RrdStrategy<D extends Object,F extends Object> {
      * @throws org.opennms.netmgt.rrd.RrdException
      *             if an RRD error occurs
      */
-    public RrdGraphDetails createGraphReturnDetails(String command, File workDir) throws IOException, RrdException;
-    
-    
+    public RrdGraphDetails createGraphReturnDetails(String command, Path workDir) throws IOException, RrdException;
+
+
     /**
      * Returns the number of pixels that the leftt-hand side of the graph is
      * offset from the left side of the created image.  The offset should
@@ -245,7 +245,7 @@ public interface RrdStrategy<D extends Object,F extends Object> {
      * @return offset in pixels.  Should always be positive.
      */
     public int getGraphLeftOffset();
-    
+
     /**
      * Returns the number of pixels that the right-hand side of the graph is
      * offset from the right side of the created image.  The offset should
@@ -254,7 +254,7 @@ public interface RrdStrategy<D extends Object,F extends Object> {
      * @return offset in pixels.  Should always be negative.
      */
     public int getGraphRightOffset();
-    
+
     /**
      * Returns the number of pixels that the top of the graph is offset from
      * the top of the created image if there is single line of header text.
@@ -279,5 +279,5 @@ public interface RrdStrategy<D extends Object,F extends Object> {
      *
      * @param rrdFiles a {@link java.util.Collection} object.
      */
-    public void promoteEnqueuedFiles(Collection<String> rrdFiles);
+    public void promoteEnqueuedFiles(Collection<Path> rrdFiles);
 }

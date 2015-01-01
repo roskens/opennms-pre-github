@@ -28,8 +28,6 @@
 
 package org.opennms.features.vaadin.datacollection;
 
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -55,11 +53,16 @@ import com.vaadin.ui.TabSheet.SelectedTabChangeEvent;
 import com.vaadin.ui.TabSheet.Tab;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
+import java.io.Writer;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.attribute.FileTime;
 
 /**
  * The Class DataCollectionGroupPanel.
- * 
- * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a> 
+ *
+ * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 @SuppressWarnings("serial")
 public abstract class DataCollectionGroupPanel extends Panel implements TabSheet.SelectedTabChangeListener {
@@ -80,7 +83,7 @@ public abstract class DataCollectionGroupPanel extends Panel implements TabSheet
     private final SystemDefPanel systemDefs;
 
     /** The existing file. */
-    private final File existingFile;
+    private final Path existingFile;
 
     /**
      * Instantiates a new data collection group panel.
@@ -90,7 +93,7 @@ public abstract class DataCollectionGroupPanel extends Panel implements TabSheet
      * @param logger the logger object
      * @param existingFile the existing file
      */
-    public DataCollectionGroupPanel(final DataCollectionConfigDao dataCollectionConfigDao, final DatacollectionGroup group, final Logger logger, final File existingFile) {
+    public DataCollectionGroupPanel(final DataCollectionConfigDao dataCollectionConfigDao, final DatacollectionGroup group, final Logger logger, final Path existingFile) {
         this.existingFile = existingFile;
 
         setCaption("Data Collection");
@@ -158,7 +161,7 @@ public abstract class DataCollectionGroupPanel extends Panel implements TabSheet
         if (tab != null) {
             Notification.show("Selected tab: " + tab.getCaption());
         }
-    }    
+    }
 
     /**
      * Gets the OpenNMS data collection group.
@@ -197,7 +200,7 @@ public abstract class DataCollectionGroupPanel extends Panel implements TabSheet
      * @return true, if this object is associated with an existing group
      */
     private boolean isExistingGroup() {
-        return existingFile != null && existingFile.exists();
+        return existingFile != null && Files.exists(existingFile);
     }
 
     /**
@@ -225,8 +228,8 @@ public abstract class DataCollectionGroupPanel extends Panel implements TabSheet
             if (dataCollectionConfigDao.getAvailableDataCollectionGroups().contains(dcGroup.getName())) {
                 Notification.show("There is a group with the same name, please pick another one.");
             } else {
-                final File configDir = new File(ConfigFileConstants.getHome(), "etc" + File.separatorChar + "datacollection");
-                final File file = new File(configDir, dcGroup.getName().replaceAll(" ", "_") + ".xml");
+                final Path configDir = ConfigFileConstants.getHome().resolve("etc").resolve("datacollection");
+                final Path file = configDir.resolve(dcGroup.getName().replaceAll(" ", "_") + ".xml");
                 saveFile(file, dcGroup, logger);
             }
         }
@@ -239,17 +242,18 @@ public abstract class DataCollectionGroupPanel extends Panel implements TabSheet
      * @param dcGroup the datacollection-group
      * @param logger the logger
      */
-    private void saveFile(final File file, final DatacollectionGroup dcGroup, final Logger logger) {
-        try {
-            FileWriter writer = new FileWriter(file);
+    private void saveFile(final Path file, final DatacollectionGroup dcGroup, final Logger logger) {
+        try (Writer writer = Files.newBufferedWriter(file, Charset.defaultCharset());) {
             JaxbUtils.marshal(dcGroup, writer);
-            logger.info("Saving XML data into " + file.getAbsolutePath());
+            logger.info("Saving XML data into " + file);
             logger.warn("Remember to update datacollection-config.xml to include the group " + dcGroup.getName() + " into an SNMP collection.");
             // Force reload datacollection-config.xml to be able to configure SNMP collections.
             try {
-                final File configFile = ConfigFileConstants.getFile(ConfigFileConstants.DATA_COLLECTION_CONF_FILE_NAME);
-                if(!configFile.setLastModified(System.currentTimeMillis())) {
-                    LOG.warn("Could not set last modified: {}",configFile.getPath());
+                final Path configFile = ConfigFileConstants.getFile(ConfigFileConstants.DATA_COLLECTION_CONF_FILE_NAME);
+                try {
+                    Files.setLastModifiedTime(configFile, FileTime.fromMillis(System.currentTimeMillis()));
+                } catch (IOException e) {
+                    LOG.warn("Could not set last modified: {}", configFile);
                 }
             } catch (IOException e) {
                 logger.warn("Can't reach datacollection-config.xml: " + e.getMessage());

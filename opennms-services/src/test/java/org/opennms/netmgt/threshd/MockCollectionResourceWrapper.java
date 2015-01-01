@@ -28,7 +28,7 @@
 
 package org.opennms.netmgt.threshd;
 
-import java.io.File;
+import java.nio.file.Path;
 import java.util.Date;
 
 import org.opennms.netmgt.collection.api.CollectionResource;
@@ -69,7 +69,7 @@ public class MockCollectionResourceWrapper extends CollectionResourceWrapper {
                 return null;
             }
             @Override
-            public File getResourceDir(RrdRepository repository) {
+            public Path getResourceDir(RrdRepository repository) {
                 return null;
             }
             @Override

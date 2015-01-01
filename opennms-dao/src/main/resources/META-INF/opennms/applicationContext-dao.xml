@@ -460,13 +460,17 @@
   </bean>
 
   <onmsgi:service interface="org.opennms.netmgt.dao.api.TopologyDao" ref="topologyDao" />
+  
+  <bean id="rrdBaseDirectory" class="java.nio.file.Paths" factory-method="get">
+      <constructor-arg value="file:${rrd.base.dir}" />
+  </bean>
 
   <bean id="resourceDao" class="org.opennms.netmgt.dao.support.DefaultResourceDao">
     <property name="nodeDao" ref="nodeDao" />
     <property name="locationMonitorDao" ref="locationMonitorDao" />
     <property name="collectdConfig" ref="collectdConfig" />
     <property name="dataCollectionConfigDao" ref="dataCollectionConfig" />
-    <property name="rrdDirectory" value="${rrd.base.dir}" />
+    <property name="rrdDirectory" ref="rrdBaseDirectory" />
   </bean>
   
   <onmsgi:service interface="org.opennms.netmgt.dao.api.ResourceDao" ref="resourceDao" />
@@ -475,7 +479,7 @@
 
   <bean id="rrdDao" class="org.opennms.netmgt.dao.support.DefaultRrdDao">
     <property name="rrdStrategy" ref="rrdStrategy" />
-    <property name="rrdBaseDirectory" value="${rrd.base.dir}" />
+    <property name="rrdBaseDirectory" ref="rrdBaseDirectory" />
     <property name="rrdBinaryPath" value="${rrd.binary}" />
   </bean>
 

@@ -28,6 +28,7 @@
 
 package org.opennms.netmgt.dao.mock;
 
+import java.nio.file.Path;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -72,7 +73,7 @@ public class MockDataCollectionConfigDao implements DataCollectionConfigDao {
     }
 
     @Override
-    public String getRrdPath() {
+    public Path getRrdPath() {
         throw new UnsupportedOperationException("Not yet implemented!");
     }
 

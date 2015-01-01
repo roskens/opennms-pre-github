@@ -28,12 +28,13 @@
 
 package org.opennms.netmgt.collectd;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import static org.easymock.EasyMock.anyObject;
 import static org.easymock.EasyMock.eq;
 import static org.opennms.core.utils.InetAddressUtils.addr;
 import static org.opennms.core.utils.InetAddressUtils.str;
 
-import java.io.File;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
@@ -86,7 +87,7 @@ import org.springframework.core.io.Resource;
  * @author brozow
  */
 public class CollectdIntegrationTest extends TestCase {
-    
+
     private static final String TEST_KEY_PARM_NAME = "key";
 
     private static Map<String, CollectdIntegrationTest> m_tests = new HashMap<String, CollectdIntegrationTest>();
@@ -110,12 +111,12 @@ public class CollectdIntegrationTest extends TestCase {
 
         m_eventIpcManager = new MockEventIpcManager();
         EventIpcManagerFactory.setIpcManager(m_eventIpcManager);
-        
+
         m_mockUtils = new EasyMockUtils();
-        
+
         m_filterDao = m_mockUtils.createMock(FilterDao.class);
         FilterDaoFactory.setInstance(m_filterDao);
-        
+
 
         // This call will also ensure that the poll-outages.xml file can parse IPv4
         // and IPv6 addresses.
@@ -124,8 +125,8 @@ public class CollectdIntegrationTest extends TestCase {
         factory.afterPropertiesSet();
         PollOutagesConfigFactory.setInstance(factory);
 
-        File homeDir = resource.getFile().getParentFile().getParentFile();
-        System.setProperty("opennms.home", homeDir.getAbsolutePath());
+        Path homeDir = resource.getFile().toPath().getParent().getParent();
+        System.setProperty("opennms.home", homeDir.toAbsolutePath().toString());
 
         resource = new ClassPathResource("/test-thresholds.xml");
         ThresholdingConfigFactory.setInstance(new ThresholdingConfigFactory(resource.getInputStream()));
@@ -133,57 +134,57 @@ public class CollectdIntegrationTest extends TestCase {
         // set up test using a string key
         m_key = getName()+System.nanoTime();
         m_tests.put(m_key, this);
-        
+
         //create a collector definition
         Collector collector = new Collector();
         collector.setService("SNMP");
         collector.setClassName(MockServiceCollector.class.getName());
-        
+
         // pass the key to the collector definition so it can look up the associated test
         Parameter param = new Parameter();
         param.setKey(TEST_KEY_PARM_NAME);
         param.setValue(m_key);
         collector.addParameter(param);
-        
+
         m_collectdConfigFactory = m_mockUtils.createMock(CollectdConfigFactory.class);
         m_collectdConfiguration = m_mockUtils.createMock(CollectdConfiguration.class);
         EasyMock.expect(m_collectdConfigFactory.getCollectdConfig()).andReturn(m_collectdConfiguration).anyTimes();
         EasyMock.expect(m_collectdConfiguration.getCollectors()).andReturn(Collections.singletonList(collector)).anyTimes();
         EasyMock.expect(m_collectdConfiguration.getThreads()).andReturn(1).anyTimes();
-        
+
         m_ifaceDao = m_mockUtils.createMock(IpInterfaceDao.class);
         m_nodeDao = m_mockUtils.createMock(NodeDao.class);
-        
+
         m_collectd = new Collectd() {
 
             @Override
             protected void handleInsufficientInfo(InsufficientInformationException e) {
                 fail("Invalid event received: "+e.getMessage());
             }
-            
+
         };
 
         OnmsServiceType snmp = new OnmsServiceType("SNMP");
         NetworkBuilder netBuilder = new NetworkBuilder("localhost", "127.0.0.1");
         NodeBuilder nodeBuilder = netBuilder.addNode("node1").setId(1);
-        InterfaceBuilder ifaceBlder = 
+        InterfaceBuilder ifaceBlder =
             netBuilder.addInterface("192.168.1.1")
             .setId(2)
             .setIsSnmpPrimary("P");
         ifaceBlder.addSnmpInterface(1);
         OnmsMonitoredService svc = netBuilder.addService(snmp);
-        
+
         List<OnmsIpInterface> initialIfs = Collections.emptyList();
         EasyMock.expect(m_ifaceDao.findByServiceType(snmp.getName())).andReturn(initialIfs).anyTimes();
-        
+
         m_filterDao.flushActiveIpAddressListCache();
-        
+
         EasyMock.expect(m_nodeDao.load(1)).andReturn(nodeBuilder.getNode()).anyTimes();
-        
+
         createGetPackagesExpectation(svc);
-        
+
         EasyMock.expect(m_ifaceDao.load(2)).andReturn(ifaceBlder.getInterface()).anyTimes();
-        
+
         m_mockUtils.replayAll();
 
         final MockTransactionTemplate transTemplate = new MockTransactionTemplate();
@@ -195,12 +196,12 @@ public class CollectdIntegrationTest extends TestCase {
         m_collectd.setIpInterfaceDao(m_ifaceDao);
         m_collectd.setNodeDao(m_nodeDao);
         m_collectd.setFilterDao(m_filterDao);
-        
+
         // Inits the class
         m_collectd.afterPropertiesSet();
         //assertNotNull(m_serviceCollector);
     }
-    
+
     public static void setServiceCollectorInTest(String testKey, MockServiceCollector collector) {
         CollectdIntegrationTest test = m_tests.get(testKey);
         assertNotNull(test);
@@ -215,58 +216,58 @@ public class CollectdIntegrationTest extends TestCase {
     protected void tearDown() throws Exception {
         m_tests.remove(m_key);
     }
-    
+
     public void testIt() throws InterruptedException {
 
         m_collectd.start();
-        
+
         EventBuilder bldr = new EventBuilder(EventConstants.NODE_GAINED_SERVICE_EVENT_UEI, "Test");
         bldr.setNodeid(1);
         bldr.setInterface(addr("192.168.1.1"));
         bldr.setService("SNMP");
 
         m_collectd.onEvent(bldr.getEvent());
-        
+
         Thread.sleep(2000);
-        
+
         assertNotNull(m_serviceCollector);
         assertEquals(1, m_serviceCollector.getCollectCount());
-        
+
         m_mockUtils.verifyAll();
     }
 
     private void createGetPackagesExpectation(OnmsMonitoredService svc) {
         String rule = "ipaddr = '"+ str(svc.getIpAddress())+"'";
-        
+
         //EasyMock.expect(m_filterDao.getActiveIPAddressList(rule)).andReturn(Collections.singletonList(svc.getIpAddress()));
-        
+
         final Package pkg = new Package();
         pkg.setName("testPackage");
         Filter filter = new Filter();
         filter.setContent(rule);
         pkg.setFilter(filter);
-        
+
         final Service collector = new Service();
         collector.setName("SNMP");
         collector.setStatus("on");
         collector.setInterval(3000l);
-        
+
         Parameter parm = new Parameter();
         parm.setKey(TEST_KEY_PARM_NAME);
         parm.setValue(m_key);
-        
+
         collector.setParameters(Collections.singletonList(parm));
-        
+
         pkg.addService(collector);
-        
+
         EasyMock.expect(m_collectdConfiguration.getPackages()).andReturn(Collections.singletonList(pkg));
         EasyMock.expect(m_collectdConfigFactory.interfaceInPackage(anyObject(OnmsIpInterface.class), eq(pkg))).andReturn(true);
     }
 
     public static class MockServiceCollector implements ServiceCollector {
-        
+
         int m_collectCount = 0;
-        
+
         public MockServiceCollector() {
             System.err.println("Created a MockServiceCollector");
         }
@@ -284,7 +285,7 @@ public class CollectdIntegrationTest extends TestCase {
 
                 @Override
                 public void visit(CollectionSetVisitor visitor) {
-                    visitor.visitCollectionSet(this);   
+                    visitor.visitCollectionSet(this);
                     visitor.completeCollectionSet(this);
                 }
 
@@ -292,7 +293,7 @@ public class CollectdIntegrationTest extends TestCase {
                 public Date getCollectionTimestamp() {
                     return m_timestamp;
                 }
-            }; 
+            };
             return collectionSetResult;
         }
 
@@ -325,18 +326,18 @@ public class CollectdIntegrationTest extends TestCase {
         public void release(CollectionAgent agent) {
             throw new UnsupportedOperationException("MockServiceCollector.release() is not yet implemented");
         }
-        
+
         @Override
         public RrdRepository getRrdRepository(String collectionName) {
             RrdRepository repo = new RrdRepository();
-            repo.setRrdBaseDir(new File("/usr/local/opennms/share/rrd/snmp/"));
+            repo.setRrdBaseDir(Paths.get("target"));
             repo.setRraList(Collections.singletonList("RRA:AVERAGE:0.5:1:8928"));
             repo.setStep(300);
             repo.setHeartBeat(2 * 300);
             return repo;
         }
-        
+
     }
-    
+
 
 }

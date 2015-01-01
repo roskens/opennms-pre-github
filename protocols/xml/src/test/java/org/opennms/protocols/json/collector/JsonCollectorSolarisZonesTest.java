@@ -28,7 +28,9 @@
 
 package org.opennms.protocols.json.collector;
 
-import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -39,12 +41,10 @@ import org.apache.commons.jxpath.JXPathContext;
 import org.apache.commons.jxpath.Pointer;
 import org.junit.Assert;
 import org.junit.Test;
-import org.opennms.protocols.json.collector.AbstractJsonCollectorTest;
-import org.opennms.protocols.json.collector.MockDocumentBuilder;
 
 /**
  * The Test class for JSON Collector for Solaris Zones Statistics
- * 
+ *
  * @author <a href="mailto:ronald.roskens@gmail.com">Ronald Roskens</a>
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
@@ -99,21 +99,21 @@ public class JsonCollectorSolarisZonesTest extends AbstractJsonCollectorTest {
         parameters.put("handler-class", "org.opennms.protocols.json.collector.MockDefaultJsonCollectionHandler");
         // Files expected: one JRB for each zone: global, zone1 and zone2 (3 in total)
         executeCollectorTest(parameters, 3);
-        Assert.assertTrue(new File("target/snmp/1/solarisZoneStats/global/solaris-zone-stats.jrb").exists());
-        Assert.assertTrue(new File("target/snmp/1/solarisZoneStats/zone1/solaris-zone-stats.jrb").exists());
-        Assert.assertTrue(new File("target/snmp/1/solarisZoneStats/zone2/solaris-zone-stats.jrb").exists());
+        Assert.assertTrue(Files.exists(Paths.get("target/snmp/1/solarisZoneStats/global/solaris-zone-stats.jrb")));
+        Assert.assertTrue(Files.exists(Paths.get("target/snmp/1/solarisZoneStats/zone1/solaris-zone-stats.jrb")));
+        Assert.assertTrue(Files.exists(Paths.get("target/snmp/1/solarisZoneStats/zone2/solaris-zone-stats.jrb")));
         // Checking data from Global Zone.
-        File file = new File("target/snmp/1/solarisZoneStats/global/solaris-zone-stats.jrb");
+        Path file = Paths.get("target/snmp/1/solarisZoneStats/global/solaris-zone-stats.jrb");
         String[] dsnames = new String[] { "nproc", "nlwp", "pr_size", "pr_rssize", "pctmem", "pctcpu" };
         Double[] dsvalues = new Double[] { 245.0, 1455.0, 2646864.0, 1851072.0, 0.7, 0.24 };
         validateJrb(file, dsnames, dsvalues);
         // Checking data from Zone 1
-        file = new File("target/snmp/1/solarisZoneStats/zone1/solaris-zone-stats.jrb");
+        file = Paths.get("target/snmp/1/solarisZoneStats/zone1/solaris-zone-stats.jrb");
         dsnames = new String[] { "nproc", "nlwp", "pr_size", "pr_rssize", "pctmem", "pctcpu" };
         dsvalues = new Double[] { 24.0, 328.0, 1671128.0, 1193240.0, 0.4, 0.07 };
         validateJrb(file, dsnames, dsvalues);
         // Checking data from Zone 2
-        file = new File("target/snmp/1/solarisZoneStats/zone2/solaris-zone-stats.jrb");
+        file = Paths.get("target/snmp/1/solarisZoneStats/zone2/solaris-zone-stats.jrb");
         dsnames = new String[] { "nproc", "nlwp", "pr_size", "pr_rssize", "pctmem", "pctcpu" };
         dsvalues = new Double[] { 124.0, 1328.0, 1571128.0, 193240.0, 0.5, 0.06 };
         validateJrb(file, dsnames, dsvalues);

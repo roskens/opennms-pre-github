@@ -36,6 +36,8 @@ import java.lang.reflect.UndeclaredThrowableException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.ParseException;
@@ -47,6 +49,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.logging.Level;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
@@ -243,13 +246,13 @@ public class HttpCollector implements ServiceCollector {
 
     /**
      * Performs HTTP collection.
-     * 
+     *
      * Couple of notes to make the implementation of this client library
      * less obtuse:
-     * 
+     *
      *   - HostConfiguration class is not created here because the library
      *     builds it when a URI is defined.
-     *     
+     *
      * @param collectionSet
      * @throws HttpCollectorException
      */
@@ -288,7 +291,7 @@ public class HttpCollector implements ServiceCollector {
                 final String[] streetCred = userInfo.split(":", 2);
                 if (streetCred.length == 2) {
                     wrapper.addBasicCredentials(streetCred[0], streetCred[1]);
-                } else { 
+                } else {
                     LOG.warn("Illegal value found for username/password HTTP credentials: {}", userInfo);
                 }
             }
@@ -318,7 +321,7 @@ public class HttpCollector implements ServiceCollector {
             m_value = value;
         }
 
-        public HttpCollectionAttribute(HttpCollectionResource resource, HttpCollectionAttributeType attribType, String value) { 
+        public HttpCollectionAttribute(HttpCollectionResource resource, HttpCollectionAttributeType attribType, String value) {
             super(attribType, resource);
             m_value = value;
         }
@@ -461,7 +464,7 @@ public class HttpCollector implements ServiceCollector {
 
                     final HttpCollectionAttribute bute = new HttpCollectionAttribute(
                                                                                      collectionResource,
-                                                                                     new HttpCollectionAttributeType(attribDef, groupType), 
+                                                                                     new HttpCollectionAttributeType(attribDef, groupType),
                                                                                      num
                             );
                     LOG.debug("processResponse: adding found numeric attribute: {}", bute);
@@ -655,7 +658,7 @@ public class HttpCollector implements ServiceCollector {
     }
 
 
-    /** {@inheritDoc} 
+    /** {@inheritDoc}
      * @throws CollectionInitializationException */
     @Override
     public void initialize(Map<String, String> parameters) throws CollectionInitializationException {
@@ -695,11 +698,12 @@ public class HttpCollector implements ServiceCollector {
          * If the RRD file repository directory does NOT already exist, create
          * it.
          */
-        StringBuffer sb;
-        File f = new File(HttpCollectionConfigFactory.getInstance().getRrdPath());
-        if (!f.isDirectory()) {
-            if (!f.mkdirs()) {
-                sb = new StringBuffer();
+        Path path = HttpCollectionConfigFactory.getInstance().getRrdPath();
+        if (!Files.isDirectory(path)) {
+            try {
+                Files.createDirectories(path);
+            } catch (IOException ex) {
+                StringBuffer sb = new StringBuffer();
                 sb.append("initializeRrdDirs: Unable to create RRD file repository.  Path doesn't already exist and could not make directory: ");
                 sb.append(HttpCollectionConfigFactory.getInstance().getRrdPath());
                 LOG.error(sb.toString());
@@ -764,8 +768,8 @@ public class HttpCollector implements ServiceCollector {
         }
 
         @Override
-        public File getResourceDir(RrdRepository repository) {
-            return new File(repository.getRrdBaseDir(), getParent());
+        public Path getResourceDir(RrdRepository repository) {
+            return repository.getRrdBaseDir().resolve(getParent());
         }
 
         @Override

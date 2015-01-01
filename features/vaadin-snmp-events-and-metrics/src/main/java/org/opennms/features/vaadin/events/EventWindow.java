@@ -28,19 +28,18 @@
 
 package org.opennms.features.vaadin.events;
 
-import java.io.File;
-
 import org.opennms.features.vaadin.api.Logger;
 import org.opennms.netmgt.config.api.EventConfDao;
 import org.opennms.netmgt.events.api.EventProxy;
 import org.opennms.netmgt.xml.eventconf.Events;
 
 import com.vaadin.ui.Window;
+import java.nio.file.Path;
 
 /**
  * The Class Event Window.
- * 
- * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a> 
+ *
+ * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 @SuppressWarnings("serial")
 public class EventWindow extends Window {
@@ -55,8 +54,8 @@ public class EventWindow extends Window {
      * @param logger the logger object
      * @throws Exception the exception
      */
-    public EventWindow(final EventConfDao eventConfDao, final EventProxy eventProxy, final File eventFile, final Events events, final Logger logger) throws Exception {
-        super(eventFile.getAbsolutePath()); // Using fileName for as the window's name.
+    public EventWindow(final EventConfDao eventConfDao, final EventProxy eventProxy, final Path eventFile, final Events events, final Logger logger) throws Exception {
+        super(eventFile.toAbsolutePath().toString()); // Using fileName for as the window's name.
         setModal(false);
         setClosable(false);
         setDraggable(false);

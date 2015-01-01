@@ -29,6 +29,7 @@
 package org.opennms.netmgt.vmmgr;
 
 import java.io.IOException;
+import java.nio.file.Path;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -63,9 +64,9 @@ import org.springframework.core.io.FileSystemResource;
  * @author <a href="mailto:weave@oculan.com">Brian Weaver </a>
  */
 public class DatabaseChecker {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(DatabaseChecker.class);
-	
+
     private static List<String> m_required = new ArrayList<String>();
     private static List<String> m_optional = new ArrayList<String>();
     private Map<String,JdbcDataSource> m_dataSources = new HashMap<String,JdbcDataSource>();
@@ -74,7 +75,7 @@ public class DatabaseChecker {
         m_required.add("opennms");
         m_optional.add("opennms-admin");
     }
-    
+
     /**
      * Protected constructor
      *
@@ -90,8 +91,8 @@ public class DatabaseChecker {
      * @throws org.exolab.castor.xml.ValidationException if any.
      * @throws java.lang.ClassNotFoundException if any.
      */
-    protected DatabaseChecker(final String configFile) throws IOException, MarshalException, ValidationException, ClassNotFoundException {
-        final DataSourceConfiguration database = CastorUtils.unmarshal(DataSourceConfiguration.class, new FileSystemResource(configFile), false);
+    protected DatabaseChecker(final Path configFile) throws IOException, MarshalException, ValidationException, ClassNotFoundException {
+        final DataSourceConfiguration database = CastorUtils.unmarshal(DataSourceConfiguration.class, new FileSystemResource(configFile.toString()), false);
 
         for (final JdbcDataSource dataSource : database.getJdbcDataSourceCollection()) {
             m_dataSources.put(dataSource.getName(), dataSource);
@@ -114,7 +115,7 @@ public class DatabaseChecker {
      * @throws java.lang.ClassNotFoundException if any.
      */
     protected DatabaseChecker() throws IOException, MarshalException, ValidationException, ClassNotFoundException {
-    	this(ConfigFileConstants.getFile(ConfigFileConstants.OPENNMS_DATASOURCE_CONFIG_FILE_NAME).getPath());
+        this(ConfigFileConstants.getFile(ConfigFileConstants.OPENNMS_DATASOURCE_CONFIG_FILE_NAME));
     }
 
     /**
@@ -143,7 +144,7 @@ public class DatabaseChecker {
             	LOG.info("Data source '{}' is missing from opennms-datasources.xml", dataSource);
             }
         }
-        
+
         // Finally, try connecting to all data sources, and warn or error as appropriate.
         for (final JdbcDataSource dataSource : m_dataSources.values()) {
             Connection connection = null;

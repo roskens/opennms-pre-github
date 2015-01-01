@@ -33,6 +33,10 @@ import java.awt.Font;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -154,19 +158,18 @@ public class JRobinRrdStrategy implements RrdStrategy<RrdDef,RrdDb> {
     /** {@inheritDoc} */
     @Override
 	public RrdDef createDefinition(final String creator,
-			final String directory, final String rrdName, int step,
-			final List<RrdDataSource> dataSources, final List<String> rraList) throws Exception {
-        File f = new File(directory);
-        f.mkdirs();
+      final Path directory, final String rrdName, int step,
+      final List<RrdDataSource> dataSources, final List<String> rraList) throws Exception {
+        Files.createDirectories(directory);
 
-        String fileName = directory + File.separator + rrdName + RrdUtils.getExtension();
+        Path fileName = directory.resolve(rrdName + RrdUtils.getExtension());
 
-        if (new File(fileName).exists()) {
+        if (Files.exists(fileName)) {
             LOG.debug("createDefinition: filename [{}] already exists returning null as definition", fileName);
             return null;
         }
 
-        RrdDef def = new RrdDef(fileName);
+        RrdDef def = new RrdDef(fileName.toString());
 
         // def.setStartTime(System.currentTimeMillis()/1000L - 2592000L);
         def.setStartTime(1000);
@@ -207,11 +210,11 @@ public class JRobinRrdStrategy implements RrdStrategy<RrdDef,RrdDb> {
         rrd.close();
 
         String filenameWithoutExtension = rrdDef.getPath().replace(RrdUtils.getExtension(), "");
-        int lastIndexOfSeparator = filenameWithoutExtension.lastIndexOf(File.separator);
+        int lastIndexOfSeparator = filenameWithoutExtension.lastIndexOf(FileSystems.getDefault().getSeparator());
+        Path rrdDir = Paths.get(rrdDef.getPath());
 
         RrdUtils.createMetaDataFile(
-            filenameWithoutExtension.substring(0, lastIndexOfSeparator),
-            filenameWithoutExtension.substring(lastIndexOfSeparator),
+          rrdDir,            filenameWithoutExtension.substring(lastIndexOfSeparator),
             attributeMappings
         );
     }
@@ -222,8 +225,8 @@ public class JRobinRrdStrategy implements RrdStrategy<RrdDef,RrdDb> {
      * Opens the JRobin RrdDb by name and returns it.
      */
     @Override
-    public RrdDb openFile(final String fileName) throws Exception {
-        return new RrdDb(fileName);
+    public RrdDb openFile(final Path fileName) throws Exception {
+        return new RrdDb(fileName.toString());
     }
 
     /**
@@ -245,7 +248,7 @@ public class JRobinRrdStrategy implements RrdStrategy<RrdDef,RrdDb> {
      */
     public JRobinRrdStrategy() throws Exception {
         String home = System.getProperty("opennms.home");
-        System.setProperty("jrobin.fontdir", home + File.separator + "etc");
+        System.setProperty("jrobin.fontdir", home + FileSystems.getDefault().getSeparator() + "etc");
     }
 
     /**
@@ -254,19 +257,18 @@ public class JRobinRrdStrategy implements RrdStrategy<RrdDef,RrdDb> {
      * Fetch the last value from the JRobin RrdDb file.
      */
     @Override
-    public Double fetchLastValue(final String fileName, final String ds, final int interval) throws NumberFormatException, org.opennms.netmgt.rrd.RrdException {
+    public Double fetchLastValue(final Path fileName, final String ds, final int interval) throws NumberFormatException, org.opennms.netmgt.rrd.RrdException {
         return fetchLastValue(fileName, ds, "AVERAGE", interval);
     }
 
     /** {@inheritDoc} */
     @Override
-    public Double fetchLastValue(final String fileName, final String ds, final String consolidationFunction, final int interval)
-            throws org.opennms.netmgt.rrd.RrdException {
+    public Double fetchLastValue(final Path fileName, final String ds, final String consolidationFunction, final int interval)            throws org.opennms.netmgt.rrd.RrdException {
         RrdDb rrd = null;
         try {
             long now = System.currentTimeMillis();
             long collectTime = (now - (now % interval)) / 1000L;
-            rrd = new RrdDb(fileName, true);
+            rrd = new RrdDb(fileName.toFile(), true);
             FetchData data = rrd.createFetchRequest(consolidationFunction, collectTime, collectTime).fetchData();
             LOG.debug(data.toString());
             double[] vals = data.getValues(ds);
@@ -291,10 +293,10 @@ public class JRobinRrdStrategy implements RrdStrategy<RrdDef,RrdDb> {
 
     /** {@inheritDoc} */
     @Override
-    public Double fetchLastValueInRange(final String fileName, final String ds, final int interval, final int range) throws NumberFormatException, org.opennms.netmgt.rrd.RrdException {
+    public Double fetchLastValueInRange(final Path fileName, final String ds, final int interval, final int range) throws NumberFormatException, org.opennms.netmgt.rrd.RrdException {
         RrdDb rrd = null;
         try {
-        	rrd = new RrdDb(fileName, true);
+            rrd = new RrdDb(fileName.toFile(), true);
          	long now = System.currentTimeMillis();
             long latestUpdateTime = (now - (now % interval)) / 1000L;
             long earliestUpdateTime = ((now - (now % interval)) - range) / 1000L;
@@ -355,7 +357,7 @@ public class JRobinRrdStrategy implements RrdStrategy<RrdDef,RrdDb> {
 
     /** {@inheritDoc} */
     @Override
-    public InputStream createGraph(final String command, final File workDir) throws IOException, org.opennms.netmgt.rrd.RrdException {
+    public InputStream createGraph(final String command, final Path workDir) throws IOException, org.opennms.netmgt.rrd.RrdException {
         return createGraphReturnDetails(command, workDir).getInputStream();
     }
 
@@ -370,7 +372,7 @@ public class JRobinRrdStrategy implements RrdStrategy<RrdDef,RrdDb> {
      * stream returning the bytes of the PNG image is returned.
      */
     @Override
-    public RrdGraphDetails createGraphReturnDetails(final String command, final File workDir) throws IOException, org.opennms.netmgt.rrd.RrdException {
+    public RrdGraphDetails createGraphReturnDetails(final String command, final Path workDir) throws IOException, org.opennms.netmgt.rrd.RrdException {
 
         try {
             String[] commandArray = tokenize(command, " \t", false);
@@ -400,7 +402,7 @@ public class JRobinRrdStrategy implements RrdStrategy<RrdDef,RrdDb> {
 
     /** {@inheritDoc} */
     @Override
-    public void promoteEnqueuedFiles(Collection<String> rrdFiles) {
+    public void promoteEnqueuedFiles(Collection<Path> rrdFiles) {
         // no need to do anything since this strategy doesn't queue
     }
 
@@ -413,7 +415,7 @@ public class JRobinRrdStrategy implements RrdStrategy<RrdDef,RrdDb> {
      * @return a {@link org.jrobin.graph.RrdGraphDef} object.
      * @throws org.jrobin.core.RrdException if any.
      */
-    protected RrdGraphDef createGraphDef(final File workDir, final String[] inputArray) throws RrdException {
+    protected RrdGraphDef createGraphDef(final Path workDir, final String[] inputArray) throws RrdException {
         RrdGraphDef graphDef = new RrdGraphDef();
         graphDef.setImageFormat("PNG");
         long start = 0;
@@ -591,16 +593,16 @@ public class JRobinRrdStrategy implements RrdStrategy<RrdDef,RrdDb> {
                 final String replaced = ds[1].replaceAll("\\\\(.)", "$1");
                 // LOG.debug("replaced = {}", replaced);
 
-                final File dsFile;
-                File rawPathFile = new File(replaced);
+                final Path dsFile;
+                Path rawPathFile = Paths.get(replaced);
                 if (rawPathFile.isAbsolute()) {
                 	dsFile = rawPathFile;
                 } else {
-                	dsFile = new File(workDir, replaced);
+                    dsFile = workDir.resolve(replaced);
                 }
                 // LOG.debug("dsFile = {}, ds[1] = {}", dsFile, ds[1]);
 
-                final String absolutePath = (File.separatorChar == '\\')? dsFile.getAbsolutePath().replace("\\", "\\\\") : dsFile.getAbsolutePath();
+                final String absolutePath = (FileSystems.getDefault().getSeparator().equals("\\")) ? dsFile.toAbsolutePath().toString().replace("\\", "\\\\") : dsFile.toAbsolutePath().toString();
                 // LOG.debug("absolutePath = {}", absolutePath);
                 graphDef.datasource(ds[0], absolutePath, def[1], def[2]);
 
@@ -713,7 +715,7 @@ public class JRobinRrdStrategy implements RrdStrategy<RrdDef,RrdDb> {
 	private String[] splitDef(final String definition) {
 		// LOG.debug("splitDef({})", definition);
 		final String[] def;
-		if (File.separatorChar == '\\') {
+        if (FileSystems.getDefault().getSeparator().equals("\\")) {
 			// LOG.debug("windows");
 			// Windows, make sure the beginning isn't eg: C:\\foo\\bar
 			if (definition.matches("[^=]*=[a-zA-Z]:.*")) {

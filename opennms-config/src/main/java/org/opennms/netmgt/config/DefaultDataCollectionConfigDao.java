@@ -28,7 +28,8 @@
 
 package org.opennms.netmgt.config;
 
-import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -58,7 +59,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * DefaultDataCollectionConfigDao
- * 
+ *
  * <p>This class is the main repository for SNMP data collection configuration
  * information used by the SNMP service monitor. When this class is loaded it
  * reads the SNNMP data collection configuration into memory.</p>
@@ -66,10 +67,10 @@ import org.slf4j.LoggerFactory;
  * @author <a href="mail:agalue@opennms.org">Alejandro Galue</a>
  */
 public class DefaultDataCollectionConfigDao extends AbstractJaxbConfigDao<DatacollectionConfig, DatacollectionConfig> implements DataCollectionConfigDao {
-    
+
     public static final Logger LOG = LoggerFactory.getLogger(DefaultDataCollectionConfigDao.class);
-    
-    private String m_configDirectory;
+
+    private Path m_configDirectory;
 
     private List<String> dataCollectionGroups = new ArrayList<String>();
     private Map<String, ResourceType> resourceTypes = new HashMap<String, ResourceType>();
@@ -117,18 +118,16 @@ public class DefaultDataCollectionConfigDao extends AbstractJaxbConfigDao<Dataco
     }
 
     public void setConfigDirectory(String configDirectory) {
+        this.m_configDirectory = Paths.get(configDirectory);
+    }
+
+    public void setConfigDirectory(Path configDirectory) {
         this.m_configDirectory = configDirectory;
     }
 
-    public String getConfigDirectory() {
+    public Path getConfigDirectory() {
         if (m_configDirectory == null) {
-            final StringBuffer sb = new StringBuffer(ConfigFileConstants.getHome());
-            sb.append(File.separator);
-            sb.append("etc");
-            sb.append(File.separator);
-            sb.append("datacollection");
-            sb.append(File.separator);
-            m_configDirectory = sb.toString();
+            m_configDirectory = ConfigFileConstants.getHome().resolve("etc").resolve("datacollection");
         }
         return m_configDirectory;
     }
@@ -181,7 +180,7 @@ public class DefaultDataCollectionConfigDao extends AbstractJaxbConfigDao<Dataco
         // IPADDRESS MATCH
         //
         // In order to match on IP Address one of the following must be true:
-        // 
+        //
         // The SystemDef's IP address list (ipList) must contain the 'anAddress'
         // parm (must be an exact match)
         //
@@ -297,7 +296,7 @@ public class DefaultDataCollectionConfigDao extends AbstractJaxbConfigDao<Dataco
     @Override
     public RrdRepository getRrdRepository(final String collectionName) {
         final RrdRepository repo = new RrdRepository();
-        repo.setRrdBaseDir(new File(getRrdPath()));
+        repo.setRrdBaseDir(getRrdPath());
         repo.setRraList(getRRAList(collectionName));
         repo.setStep(getStep(collectionName));
         repo.setHeartBeat((2 * getStep(collectionName)));
@@ -317,20 +316,13 @@ public class DefaultDataCollectionConfigDao extends AbstractJaxbConfigDao<Dataco
     }
 
     @Override
-    public String getRrdPath() {
+    public Path getRrdPath() {
         final String rrdPath = getContainer().getObject().getRrdRepository();
         if (rrdPath == null) {
             throw new RuntimeException("Configuration error, failed to retrieve path to RRD repository.");
         }
 
-        /*
-         * TODO: make a path utils class that has the below in it strip the
-         * File.separator char off of the end of the path.
-         */
-        if (rrdPath.endsWith(File.separator)) {
-            return rrdPath.substring(0, (rrdPath.length() - File.separator.length()));
-        }
-        return rrdPath;
+        return Paths.get(rrdPath);
     }
 
     /* Private Methods */
@@ -350,7 +342,7 @@ public class DefaultDataCollectionConfigDao extends AbstractJaxbConfigDao<Dataco
      * will be called recursively for each sub-group until the entire
      * log.debug("processGroupName: adding MIB objects from group: " +
      * groupName); group is processed.
-     * 
+     *
      * @param cName
      *            Collection name
      * @param groupName
@@ -526,13 +518,13 @@ public class DefaultDataCollectionConfigDao extends AbstractJaxbConfigDao<Dataco
         //
         // CollectionGroupMap
         // collectionName -> groupMap
-        // 
+        //
         // GroupMap
         // groupMapName -> Group
         //
         // This is parsed and built at initialization for
         // faster processing at run-timne.
-        // 
+        //
         final Map<String,Map<String,Group>> collectionGroupMap = new HashMap<String,Map<String,Group>>();
 
         for (final SnmpCollection collection : container.getObject().getSnmpCollections()) {
@@ -587,7 +579,7 @@ public class DefaultDataCollectionConfigDao extends AbstractJaxbConfigDao<Dataco
     public DatacollectionConfig getRootDataCollection() {
         return getContainer().getObject();
     }
-    
+
     @Override
     public List<String> getAvailableDataCollectionGroups() {
         return dataCollectionGroups;

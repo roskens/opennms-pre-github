@@ -28,8 +28,8 @@
 
 package org.opennms.netmgt.config;
 
-import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
 
 import org.exolab.castor.xml.MarshalException;
 import org.exolab.castor.xml.ValidationException;
@@ -58,12 +58,12 @@ public final class CapsdConfigFactory {
      * The singleton instance of this factory
      */
     private static CapsdConfig s_singleton = null;
-        
+
     /**
      * This class only has static methods.
      */
     private CapsdConfigFactory() {
-        
+
     }
 
     /**
@@ -89,9 +89,9 @@ public final class CapsdConfigFactory {
             return;
         }
 
-        File cfgFile = ConfigFileConstants.getFile(ConfigFileConstants.CAPSD_CONFIG_FILE_NAME);
+        Path cfgFile = ConfigFileConstants.getFile(ConfigFileConstants.CAPSD_CONFIG_FILE_NAME);
 
-        LOG.debug("init: config file path: {}", cfgFile.getPath());
+        LOG.debug("init: config file path: {}", cfgFile);
 
         DefaultCapsdConfigManager capsdConfig = new DefaultCapsdConfigManager();
         capsdConfig.update();
@@ -133,7 +133,7 @@ public final class CapsdConfigFactory {
 
         return s_singleton;
     }
-    
+
     /**
      * <p>setInstance</p>
      *

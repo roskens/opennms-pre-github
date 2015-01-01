@@ -28,9 +28,10 @@
 
 package org.opennms.upgrade.implementations;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileWriter;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Properties;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -50,14 +51,14 @@ import org.w3c.dom.Node;
 
 /**
  * The Test Class for JettyConfigMigratorOffline.
- * 
+ *
  * @author Alejandro Galue <agalue@opennms.org>
  */
 public class JettyConfigMigratorOfflineTest {
 
     /** The factory. */
     DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-    
+
     /** The xpath. */
     XPath xpath = XPathFactory.newInstance().newXPath();
 
@@ -68,7 +69,7 @@ public class JettyConfigMigratorOfflineTest {
      */
     @Before
     public void setUp() throws Exception {
-        FileUtils.copyDirectory(new File("src/test/resources/etc"), new File("target/home/etc"));
+        FileUtils.copyDirectory(Paths.get("src/test/resources/etc").toFile(), Paths.get("target/home/etc").toFile());
         System.setProperty("opennms.home", "target/home");
     }
 
@@ -79,7 +80,7 @@ public class JettyConfigMigratorOfflineTest {
      */
     @After
     public void tearDown() throws Exception {
-        FileUtils.deleteDirectory(new File("target/home"));
+        FileUtils.deleteDirectory(Paths.get("target/home").toFile());
     }
 
     /**
@@ -89,16 +90,16 @@ public class JettyConfigMigratorOfflineTest {
      */
     @Test
     public void testSSL() throws Exception {
-        File propertiesFile = ConfigFileConstants.getConfigFileByName("opennms.properties");
+        Path propertiesFile = ConfigFileConstants.getConfigFileByName("opennms.properties");
         Properties properties = new Properties();
-        properties.load(new FileInputStream(propertiesFile));
+        properties.load(Files.newInputStream(propertiesFile));
         properties.setProperty("org.opennms.netmgt.jetty.https-port", "9999");
-        properties.store(new FileWriter(propertiesFile), "Updated!");
+        properties.store(Files.newBufferedWriter(propertiesFile, Charset.defaultCharset()), "Updated!");
         JettyConfigMigratorOffline migrator = new JettyConfigMigratorOffline();
         migrator.execute();
         verify(true, false);
     }
-    
+
     /**
      * Test AJP.
      *
@@ -106,14 +107,14 @@ public class JettyConfigMigratorOfflineTest {
      */
     @Test
     public void testAJP() throws Exception {
-        File propertiesFile = ConfigFileConstants.getConfigFileByName("opennms.properties");
+        Path propertiesFile = ConfigFileConstants.getConfigFileByName("opennms.properties");
         Properties properties = new Properties();
-        properties.load(new FileInputStream(propertiesFile));
+        properties.load(Files.newInputStream(propertiesFile));
         properties.setProperty("org.opennms.netmgt.jetty.ajp-port", "9999");
-        properties.store(new FileWriter(propertiesFile), "Updated!");
+        properties.store(Files.newBufferedWriter(propertiesFile, Charset.defaultCharset()), "Updated!");
         JettyConfigMigratorOffline migrator = new JettyConfigMigratorOffline();
         migrator.execute();
-        verify(false, true);        
+        verify(false, true);
     }
 
     /**
@@ -123,15 +124,15 @@ public class JettyConfigMigratorOfflineTest {
      */
     @Test
     public void testBoth() throws Exception {
-        File propertiesFile = ConfigFileConstants.getConfigFileByName("opennms.properties");
+        Path propertiesFile = ConfigFileConstants.getConfigFileByName("opennms.properties");
         Properties properties = new Properties();
-        properties.load(new FileInputStream(propertiesFile));
+        properties.load(Files.newInputStream(propertiesFile));
         properties.setProperty("org.opennms.netmgt.jetty.https-port", "9999");
         properties.setProperty("org.opennms.netmgt.jetty.ajp-port", "9999");
-        properties.store(new FileWriter(propertiesFile), "Updated!");
+        properties.store(Files.newBufferedWriter(propertiesFile, Charset.defaultCharset()), "Updated!");
         JettyConfigMigratorOffline migrator = new JettyConfigMigratorOffline();
         migrator.execute();
-        verify(true, true);        
+        verify(true, true);
     }
 
     /**
@@ -143,7 +144,7 @@ public class JettyConfigMigratorOfflineTest {
     public void testNone() throws Exception {
         JettyConfigMigratorOffline migrator = new JettyConfigMigratorOffline();
         migrator.execute();
-        Assert.assertFalse(new File("target/home/etc/jetty.xml").exists());
+        Assert.assertFalse(Files.exists(Paths.get("target/home/etc/jetty.xml")));
     }
 
     /**
@@ -156,7 +157,7 @@ public class JettyConfigMigratorOfflineTest {
     private void verify(boolean sslStatus, boolean ajpStatus) throws Exception {
         factory.setIgnoringComments(true);
         DocumentBuilder builder = factory.newDocumentBuilder();
-        Document doc = builder.parse(new File("target/home/etc/jetty.xml"));
+        Document doc = builder.parse(Paths.get("target/home/etc/jetty.xml").toFile());
         Node sslNode = (Node) xpath.evaluate("/Configure/Call/Arg/New[@class='org.eclipse.jetty.server.ssl.SslSelectChannelConnector']", doc, XPathConstants.NODE);
         if (sslStatus) {
             Assert.assertNotNull(sslNode);
@@ -170,5 +171,5 @@ public class JettyConfigMigratorOfflineTest {
             Assert.assertNull(ajpNode);
         }
     }
-    
+
 }

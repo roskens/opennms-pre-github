@@ -28,16 +28,15 @@
 
 package org.opennms.netmgt.config;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.io.Writer;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.attribute.FileTime;
 
-import org.apache.commons.io.IOUtils;
 import org.opennms.core.utils.ConfigFileConstants;
 import org.opennms.core.xml.JaxbUtils;
 import org.opennms.netmgt.config.poller.PollerConfiguration;
@@ -71,11 +70,11 @@ public final class PollerConfigFactory extends PollerConfigManager {
      * This member is set to true if the configuration file has been loaded.
      */
     private static boolean m_loaded = false;
-    
+
     /**
      * Loaded version
      */
-    private long m_currentVersion = -1L;
+    private FileTime m_currentVersion = null;
 
     /**
      * <p>Constructor for PollerConfigFactory.</p>
@@ -85,7 +84,7 @@ public final class PollerConfigFactory extends PollerConfigManager {
      * @param localServer a {@link java.lang.String} object.
      * @param verifyServer a boolean.
      */
-    public PollerConfigFactory(final long currentVersion, final InputStream stream, final String localServer, final boolean verifyServer) {
+    public PollerConfigFactory(final FileTime currentVersion, final InputStream stream, final String localServer, final boolean verifyServer) {
         super(stream, localServer, verifyServer);
         m_currentVersion = currentVersion;
     }
@@ -112,17 +111,13 @@ public final class PollerConfigFactory extends PollerConfigManager {
         }
         OpennmsServerConfigFactory onmsSvrConfig = OpennmsServerConfigFactory.getInstance();
 
-        final File cfgFile = ConfigFileConstants.getFile(ConfigFileConstants.POLLER_CONFIG_FILE_NAME);
+        final Path cfgFile = ConfigFileConstants.getFile(ConfigFileConstants.POLLER_CONFIG_FILE_NAME);
 
-        LOG.debug("init: config file path: {}", cfgFile.getPath());
+        LOG.debug("init: config file path: {}", cfgFile);
 
-        InputStream stream = null;
         PollerConfigFactory config = null;
-        try {
-            stream = new FileInputStream(cfgFile);
-            config = new PollerConfigFactory(cfgFile.lastModified(), stream, onmsSvrConfig.getServerName(), onmsSvrConfig.verifyServer());
-        } finally {
-            IOUtils.closeQuietly(stream);
+        try (InputStream stream = Files.newInputStream(cfgFile);) {
+            config = new PollerConfigFactory(Files.getLastModifiedTime(cfgFile), stream, onmsSvrConfig.getServerName(), onmsSvrConfig.verifyServer());
         }
 
         for (final org.opennms.netmgt.config.poller.Package pollerPackage : config.getConfiguration().getPackages()) {
@@ -168,7 +163,7 @@ public final class PollerConfigFactory extends PollerConfigManager {
 
         return m_singleton;
     }
-    
+
     /**
      * <p>setInstance</p>
      *
@@ -186,13 +181,13 @@ public final class PollerConfigFactory extends PollerConfigManager {
             getWriteLock().lock();
             try {
                 final long timestamp = System.currentTimeMillis();
-                final File cfgFile = ConfigFileConstants.getFile(ConfigFileConstants.POLLER_CONFIG_FILE_NAME);
-                LOG.debug("saveXml: saving config file at {}: {}", timestamp, cfgFile.getPath());
-                final Writer fileWriter = new OutputStreamWriter(new FileOutputStream(cfgFile), "UTF-8");
-                fileWriter.write(xml);
-                fileWriter.flush();
-                fileWriter.close();
-                LOG.debug("saveXml: finished saving config file: {}", cfgFile.getPath());
+                final Path cfgFile = ConfigFileConstants.getFile(ConfigFileConstants.POLLER_CONFIG_FILE_NAME);
+                LOG.debug("saveXml: saving config file at {}: {}", timestamp, cfgFile);
+                try (final Writer fileWriter = Files.newBufferedWriter(cfgFile, Charset.forName("UTF-8"));) {
+                    fileWriter.write(xml);
+                    fileWriter.flush();
+                }
+                LOG.debug("saveXml: finished saving config file: {}", cfgFile);
             } finally {
                 getWriteLock().unlock();
             }
@@ -208,22 +203,13 @@ public final class PollerConfigFactory extends PollerConfigManager {
     public void update() throws IOException {
         getWriteLock().lock();
         try {
-            final File cfgFile = ConfigFileConstants.getFile(ConfigFileConstants.POLLER_CONFIG_FILE_NAME);
-            if (cfgFile.lastModified() > m_currentVersion) {
-                m_currentVersion = cfgFile.lastModified();
-                LOG.debug("init: config file path: {}", cfgFile.getPath());
-                InputStream stream = null;
-                InputStreamReader sr = null;
-                try {
-                    stream = new FileInputStream(cfgFile);
-                    sr = new InputStreamReader(stream);
-                    m_config = JaxbUtils.unmarshal(PollerConfiguration.class, sr);
-                } finally {
-                    IOUtils.closeQuietly(sr);
-                    IOUtils.closeQuietly(stream);
-                }
+            final Path cfgFile = ConfigFileConstants.getFile(ConfigFileConstants.POLLER_CONFIG_FILE_NAME);
+            if (!m_currentVersion.equals(Files.getLastModifiedTime(cfgFile))) {
+                m_currentVersion = Files.getLastModifiedTime(cfgFile);
+                LOG.debug("init: config file path: {}", cfgFile);
+                m_config = JaxbUtils.unmarshal(PollerConfiguration.class, cfgFile);
                 init();
-                LOG.debug("init: finished loading config file: {}", cfgFile.getPath());
+                LOG.debug("init: finished loading config file: {}", cfgFile);
             }
         } finally {
             getWriteLock().unlock();

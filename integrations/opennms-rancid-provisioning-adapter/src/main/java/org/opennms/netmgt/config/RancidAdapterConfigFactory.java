@@ -28,13 +28,13 @@
 
 package org.opennms.netmgt.config;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStreamWriter;
-import java.io.Writer;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.attribute.FileTime;
 
 import org.exolab.castor.xml.MarshalException;
 import org.exolab.castor.xml.ValidationException;
@@ -60,13 +60,13 @@ public class RancidAdapterConfigFactory extends RancidAdapterConfigManager {
      * This member is set to true if the configuration file has been loaded.
      */
     private static boolean m_loaded = false;
-    
+
     /**
      * Loaded version
      */
-    private long m_currentVersion = -1L;
+    private FileTime m_currentVersion = null;
 
-    
+
     /**
      * constructor constructor
      *
@@ -84,7 +84,7 @@ public class RancidAdapterConfigFactory extends RancidAdapterConfigManager {
      * @throws org.exolab.castor.xml.ValidationException if any.
      * @throws java.io.IOException if any.
      */
-    public RancidAdapterConfigFactory(long currentVersion, InputStream reader, String localServer, boolean verifyServer) throws MarshalException, ValidationException, IOException {
+    public RancidAdapterConfigFactory(FileTime currentVersion, InputStream reader, String localServer, boolean verifyServer) throws MarshalException, ValidationException, IOException {
         super(reader, localServer, verifyServer);
         m_currentVersion = currentVersion;
     }
@@ -114,17 +114,17 @@ public class RancidAdapterConfigFactory extends RancidAdapterConfigManager {
         OpennmsServerConfigFactory.init();
         final OpennmsServerConfigFactory onmsSvrConfig = OpennmsServerConfigFactory.getInstance();
 
-        final File cfgFile = ConfigFileConstants.getFile(ConfigFileConstants.RANCID_CONFIG_FILE_NAME);
+        final Path cfgFile = ConfigFileConstants.getFile(ConfigFileConstants.RANCID_CONFIG_FILE_NAME);
 
-        LOG.debug("init: config file path: {}", cfgFile.getPath());
+        LOG.debug("init: config file path: {}", cfgFile);
 
-        final InputStream reader = new FileInputStream(cfgFile);
-        RancidAdapterConfigFactory config = new RancidAdapterConfigFactory(cfgFile.lastModified(), reader,onmsSvrConfig.getServerName(),onmsSvrConfig.verifyServer());
+        final InputStream reader = Files.newInputStream(cfgFile);
+        RancidAdapterConfigFactory config = new RancidAdapterConfigFactory(Files.getLastModifiedTime(cfgFile), reader, onmsSvrConfig.getServerName(), onmsSvrConfig.verifyServer());
         reader.close();
         setInstance(config);
 
     }
-    
+
     /**
      * Reload the config from the default config file
      *
@@ -142,7 +142,7 @@ public class RancidAdapterConfigFactory extends RancidAdapterConfigManager {
         init();
         getInstance().update();
     }
-        
+
     /**
      * Return the singleton instance of this factory.
      *
@@ -156,7 +156,7 @@ public class RancidAdapterConfigFactory extends RancidAdapterConfigManager {
         }
         return m_singleton;
     }
-    
+
     private static synchronized void setInstance(final RancidAdapterConfigFactory instance) {
         m_singleton = instance;
         m_loaded = true;
@@ -171,15 +171,13 @@ public class RancidAdapterConfigFactory extends RancidAdapterConfigManager {
     protected void saveXml(final String xml) throws IOException {
         if (xml != null) {
             getWriteLock().lock();
-            try {
-                long timestamp = System.currentTimeMillis();
-                File cfgFile = ConfigFileConstants.getFile(ConfigFileConstants.RANCID_CONFIG_FILE_NAME);
-                LOG.debug("saveXml: saving config file at {}: {}", timestamp, cfgFile.getPath());
-                Writer fileWriter = new OutputStreamWriter(new FileOutputStream(cfgFile), "UTF-8");
+            long timestamp = System.currentTimeMillis();
+            Path cfgFile = ConfigFileConstants.getFile(ConfigFileConstants.RANCID_CONFIG_FILE_NAME);
+            try (BufferedWriter fileWriter = Files.newBufferedWriter(cfgFile, Charset.forName("UTF-8"));) {
+                LOG.debug("saveXml: saving config file at {}: {}", timestamp, cfgFile);
                 fileWriter.write(xml);
                 fileWriter.flush();
-                fileWriter.close();
-                LOG.debug("saveXml: finished saving config file: {}", cfgFile.getPath());
+                LOG.debug("saveXml: finished saving config file: {}", cfgFile);
             } finally {
                 getWriteLock().unlock();
             }
@@ -196,12 +194,12 @@ public class RancidAdapterConfigFactory extends RancidAdapterConfigManager {
     public void update() throws IOException, MarshalException, ValidationException {
         getWriteLock().lock();
         try {
-            final File cfgFile = ConfigFileConstants.getFile(ConfigFileConstants.RANCID_CONFIG_FILE_NAME);
-            if (cfgFile.lastModified() > m_currentVersion) {
-                m_currentVersion = cfgFile.lastModified();
-                LOG.debug("init: config file path: {}", cfgFile.getPath());
-                reloadXML(new FileInputStream(cfgFile));
-                LOG.debug("init: finished loading config file: {}", cfgFile.getPath());
+            final Path cfgFile = ConfigFileConstants.getFile(ConfigFileConstants.RANCID_CONFIG_FILE_NAME);
+            if (!Files.getLastModifiedTime(cfgFile).equals(m_currentVersion)) {
+                m_currentVersion = Files.getLastModifiedTime(cfgFile);
+                LOG.debug("init: config file path: {}", cfgFile);
+                reloadXML(Files.newInputStream(cfgFile));
+                LOG.debug("init: finished loading config file: {}", cfgFile);
             }
         } finally {
             getWriteLock().unlock();

@@ -29,10 +29,16 @@
 package org.opennms.netmgt.rrd;
 
 import java.io.File;
-import java.io.FileFilter;
-import java.io.FilenameFilter;
+import java.io.IOException;
+import java.nio.file.DirectoryStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 /**
@@ -42,6 +48,8 @@ import java.util.regex.Pattern;
  * @author <a href="mailto:larry@opennms.org">Lawrence Karnowski </a>
  */
 public class RrdFileConstants extends Object {
+
+    private static final Logger LOG = LoggerFactory.getLogger(RrdFileConstants.class);
     private static final Pattern GRAPHING_ESCAPE_PATTERN;
     static {
         // IPv6: ':' and '%'
@@ -57,36 +65,36 @@ public class RrdFileConstants extends Object {
     public static final int MAX_RRD_FILENAME_LENGTH = 1024;
 
     /** Convenience filter that matches only RRD files. */
-    public static final FilenameFilter RRD_FILENAME_FILTER = new FilenameFilter() {
+    public static final DirectoryStream.Filter<Path> RRD_FILENAME_FILTER = new DirectoryStream.Filter<Path>() {
         @Override
-        public boolean accept(final File file, final String name) {
-            return name.endsWith(getRrdSuffix());
+        public boolean accept(final Path path) {
+            return path.getFileName().toString().endsWith(getRrdSuffix());
         }
     };
 
     /** Convenience filter that matches directories with RRD files in them. */
-    public static final FileFilter INTERFACE_DIRECTORY_FILTER = new FileFilter() {
+    public static final DirectoryStream.Filter<Path> INTERFACE_DIRECTORY_FILTER = new DirectoryStream.Filter<Path>() {
         @Override
-        public boolean accept(final File file) {
+        public boolean accept(final Path file) {
             return isValidRRDInterfaceDir(file);
         }
     };
 
     /** Convenience filter that matches directories with RRD files in them. */
-    public static final FileFilter DOMAIN_INTERFACE_DIRECTORY_FILTER = new FileFilter() {
+    public static final DirectoryStream.Filter<Path> DOMAIN_INTERFACE_DIRECTORY_FILTER = new DirectoryStream.Filter<Path>() {
         @Override
-        public boolean accept(final File file) {
+        public boolean accept(final Path file) {
             return isValidRRDDomainInterfaceDir(file);
         }
     };
-    
+
     /**
      * Convenience filter that matches integer-named directories that either
      * contain RRD files or directories that contain RRD files.
      */
-    public static final FileFilter NODE_DIRECTORY_FILTER = new FileFilter() {
+    public static final DirectoryStream.Filter<Path> NODE_DIRECTORY_FILTER = new DirectoryStream.Filter<Path>() {
         @Override
-        public boolean accept(File file) {
+        public boolean accept(Path file) {
             return isValidRRDNodeDir(file);
         }
     };
@@ -94,32 +102,46 @@ public class RrdFileConstants extends Object {
     /**
      * <p>isValidRRDNodeDir</p>
      *
-     * @param file a {@link java.io.File} object.
+     * @param path a {@link java.io.File} object.
      * @return a boolean.
      */
-    public static final boolean isValidRRDNodeDir(final File file) {
-        if (!file.isDirectory()) {
+    public static final boolean isValidRRDNodeDir(final Path path) {
+        if (!Files.isDirectory(path)) {
             return false;
         }
 
         try {
             // if the directory name is an integer
-            Long.valueOf(file.getName());
-        } catch (final Throwable e) {
+            Long.valueOf(path.getFileName().toString());
+        } catch (final NumberFormatException e) {
             return false;
         }
 
         // if the node dir contains RRDs, then it is queryable
-        final File[] nodeRRDs = file.listFiles(RRD_FILENAME_FILTER);
-        if (nodeRRDs != null && nodeRRDs.length > 0) {
-            return true;
+        try (DirectoryStream<Path> stream = Files.newDirectoryStream(path, RRD_FILENAME_FILTER);) {
+            List<Path> nodeRRDs = new ArrayList<>();
+            for (Path entry : stream) {
+                nodeRRDs.add(entry);
+            }
+            if (nodeRRDs.size() > 0) {
+                return true;
+            }
+        } catch (IOException ex) {
+            LOG.error("exception", ex);
         }
 
         // if the node dir contains queryable interface directories, then
         // it is queryable
-        final File[] intfDirs = file.listFiles(INTERFACE_DIRECTORY_FILTER);
-        if (intfDirs != null && intfDirs.length > 0) {
-            return true;
+        try (DirectoryStream<Path> stream = Files.newDirectoryStream(path, INTERFACE_DIRECTORY_FILTER);) {
+            List<Path> intfDirs = new ArrayList<>();
+            for (Path entry : stream) {
+                intfDirs.add(entry);
+            }
+            if (intfDirs.size() > 0) {
+                return true;
+            }
+        } catch (IOException ex) {
+            LOG.error("exception", ex);
         }
 
         return false;
@@ -129,75 +151,95 @@ public class RrdFileConstants extends Object {
      * Convenience filter that matches integer-named directories that either
      * contain RRD files or directories that contain RRD files.
      */
-     public static final FileFilter NODESOURCE_DIRECTORY_FILTER = new FileFilter() {
+    public static final DirectoryStream.Filter<Path> NODESOURCE_DIRECTORY_FILTER = new DirectoryStream.Filter<Path>() {
         @Override
-        public boolean accept(File file) {
+        public boolean accept(Path file) {
             return isValidRRDNodeSourceDir(file);
         }
     };
-    
+
     /**
      * <p>isValidRRDNodeSourceDir</p>
      *
-     * @param file a {@link java.io.File} object.
+     * @param path a {@link java.io.File} object.
      * @return a boolean.
      */
-     public static final boolean isValidRRDNodeSourceDir(final File file) {
-        if (!file.isDirectory()) {
+    public static final boolean isValidRRDNodeSourceDir(final Path path) {
+        if (!Files.isDirectory(path)) {
             return false;
         }
-    
+
         // if the nodeSource dir contains RRDs, then it is queryable
-        final File[] nodeRRDs = file.listFiles(RRD_FILENAME_FILTER);
-        if (nodeRRDs != null && nodeRRDs.length > 0) {
-            return true;
+        try (DirectoryStream<Path> stream = Files.newDirectoryStream(path, RRD_FILENAME_FILTER);) {
+            List<Path> nodeRRDs = new ArrayList<>();
+            for (Path entry : stream) {
+                nodeRRDs.add(entry);
+            }
+            if (nodeRRDs.size() > 0) {
+                return true;
+            }
+        } catch (IOException ex) {
+            LOG.error("exception", ex);
         }
 
         // if the nodeSource dir contains queryable interface directories, then
         // it is queryable
-        final File[] intfDirs = file.listFiles(INTERFACE_DIRECTORY_FILTER);
-        if (intfDirs != null && intfDirs.length > 0) {
-
-            return true;
+        try (DirectoryStream<Path> stream = Files.newDirectoryStream(path, INTERFACE_DIRECTORY_FILTER);) {
+            List<Path> intfDirs = new ArrayList<>();
+            for (Path entry : stream) {
+                intfDirs.add(entry);
+            }
+            if (intfDirs.size() > 0) {
+                return true;
+            }
+        } catch (IOException ex) {
+            LOG.error("exception", ex);
         }
 
         return false;
     }
-     
+
     /**
      * Convenience filter that matches non-integer-named directories that
      * contain directories that contain RRD files.
      */
-    public static final FileFilter DOMAIN_DIRECTORY_FILTER = new FileFilter() {
+    public static final DirectoryStream.Filter<Path> DOMAIN_DIRECTORY_FILTER = new DirectoryStream.Filter<Path>() {
         @Override
-        public boolean accept(final File file) {
-            return isValidRRDDomainDir(file);
+        public boolean accept(final Path path) {
+            return isValidRRDDomainDir(path);
         }
     };
-    
-    public static final FileFilter SOURCE_DIRECTORY_FILTER = new FileFilter() {
+
+    public static final DirectoryStream.Filter<Path> SOURCE_DIRECTORY_FILTER = new DirectoryStream.Filter<Path>() {
         @Override
-        public boolean accept(final File file) {
-            return isValidRRDSourceDir(file);
+        public boolean accept(final Path path) {
+            return isValidRRDSourceDir(path);
         }
     };
 
     // FIXME This is not working and it is not being used
-    public static final boolean isValidRRDSourceDir(final File file) {
-        if (!file.isDirectory()) {
+    public static final boolean isValidRRDSourceDir(final Path path) {
+        if (!Files.isDirectory(path)) {
             return false;
         }
 
         try {
             // if the directory name is an integer
-            Integer.parseInt(file.getName());
+            Integer.parseInt(path.getFileName().toString());
         } catch (final Throwable e) {
-           
+
             // if the source dir contains integer-named directories, then
             // it is queryable
-            final File[] idDirs = file.listFiles(NODE_DIRECTORY_FILTER);
-            if (idDirs != null && idDirs.length > 0) {
-                return true;
+            try (DirectoryStream<Path> stream = Files.newDirectoryStream(path, NODE_DIRECTORY_FILTER);) {
+                List<Path> idDirs = new ArrayList<>();
+                for (Path entry : stream) {
+                    idDirs.add(entry);
+                }
+                if (idDirs.size() > 0) {
+                    return true;
+                }
+            } catch (IOException ex) {
+                LOG.error("exception", ex);
             }
 
         }
@@ -207,34 +249,40 @@ public class RrdFileConstants extends Object {
     /**
      * <p>isValidRRDDomainDir</p>
      *
-     * @param file a {@link java.io.File} object.
+     * @param path
      * @return a boolean.
      */
-    public static final boolean isValidRRDDomainDir(final File file) {
-        if (!file.isDirectory()) {
+    public static final boolean isValidRRDDomainDir(final Path path) {
+        if (!Files.isDirectory(path)) {
             return false;
         }
 
         try {
             // if the directory name is an integer
-            Integer.parseInt(file.getName());
+            Integer.parseInt(path.getFileName().toString());
         } catch (final Throwable e) {
-        
+
             // if the domain dir contains queryable interface directories, then
             // it is queryable
-            final File[] intfDirs = file.listFiles(INTERFACE_DIRECTORY_FILTER);
-            if (intfDirs != null && intfDirs.length > 0) {
-                for (File intfDir : intfDirs) {
-                    try {
-                        // if the interface directory name is an integer (Long)
-                        Long.valueOf(intfDir.getName());
-                    } catch (final Throwable ee) {
-                        return true;
+            try (DirectoryStream<Path> stream = Files.newDirectoryStream(path, INTERFACE_DIRECTORY_FILTER);) {
+                List<Path> dirs = new ArrayList<>();
+                for (Path entry : stream) {
+                    dirs.add(entry);
+                }
+                if (!dirs.isEmpty()) {
+                    for (Path intf : dirs) {
+                        try {
+                            // if the interface directory name is an integer (Long)
+                            Long.valueOf(intf.getFileName().toString());
+                        } catch (final NumberFormatException ee) {
+                            return true;
+                        }
                     }
                 }
                 return false;
+            } catch (IOException ex) {
+                LOG.error("exception", ex);
             }
-
         }
         return false;
     }
@@ -242,42 +290,54 @@ public class RrdFileConstants extends Object {
     /**
      * <p>isValidRRDInterfaceDir</p>
      *
-     * @param file a {@link java.io.File} object.
+     * @param path
      * @return a boolean.
      */
-    public static final boolean isValidRRDInterfaceDir(final File file) {
-        if (!file.isDirectory()) {
+    public static final boolean isValidRRDInterfaceDir(final Path path) {
+        if (!Files.isDirectory(path)) {
             return false;
         }
 
-        final File[] intfRRDs = file.listFiles(RRD_FILENAME_FILTER);
-
-        if (intfRRDs != null && intfRRDs.length > 0) {
-            return true;
+        try (DirectoryStream<Path> stream = Files.newDirectoryStream(path, RRD_FILENAME_FILTER);) {
+            List<Path> intfRRDs = new ArrayList<>();
+            for (Path entry : stream) {
+                intfRRDs.add(entry);
+            }
+            if (intfRRDs.size() > 0) {
+                return true;
+            }
+        } catch (IOException ex) {
+            LOG.error("exception", ex);
         }
 
         return false;
     }
 
-    public static final boolean isValidRRDDomainInterfaceDir(final File file) {
-        if (!file.isDirectory()) {
+    public static final boolean isValidRRDDomainInterfaceDir(final Path path) {
+        if (!Files.isDirectory(path)) {
             return false;
         }
 
         try {
             // if the interface directory name is an integer (Long) its not part of a domain
-            Long.valueOf(file.getName());
-        } catch (final Throwable ee) {
-            final File[] intfRRDs = file.listFiles(RRD_FILENAME_FILTER);
-
-            if (intfRRDs != null && intfRRDs.length > 0) {
-                return true;
+            Long.valueOf(path.getFileName().toString());
+        } catch (final NumberFormatException ee) {
+            try (DirectoryStream<Path> stream = Files.newDirectoryStream(path, RRD_FILENAME_FILTER);) {
+                List<Path> nodeRRDs = new ArrayList<>();
+                for (Path entry : stream) {
+                    nodeRRDs.add(entry);
+                }
+                if (nodeRRDs.size() > 0) {
+                    return true;
+                }
+            } catch (IOException ex) {
+                LOG.error("exception", ex);
             }
         }
 
         return false;
     }
-    
+
     /**
      * Determines if the provided File object represents a valid RRD latency
      * directory.
@@ -285,15 +345,22 @@ public class RrdFileConstants extends Object {
      * @param file a {@link java.io.File} object.
      * @return a boolean.
      */
-    public static final boolean isValidRRDLatencyDir(final File file) {
-        if (!file.isDirectory()) {
+    public static final boolean isValidRRDLatencyDir(final Path path) {
+        if (!Files.isDirectory(path)) {
             return false;
         }
 
         // if the directory contains RRDs, then it is queryable
-        final File[] nodeRRDs = file.listFiles(RRD_FILENAME_FILTER);
-        if (nodeRRDs != null && nodeRRDs.length > 0) {
-            return true;
+        try (DirectoryStream<Path> stream = Files.newDirectoryStream(path, RRD_FILENAME_FILTER);) {
+            List<Path> nodeRRDs = new ArrayList<>();
+            for (Path entry : stream) {
+                nodeRRDs.add(entry);
+            }
+            if (nodeRRDs.size() > 0) {
+                return true;
+            }
+        } catch (IOException ex) {
+            LOG.error("exception", ex);
         }
 
         return false;
@@ -372,11 +439,15 @@ public class RrdFileConstants extends Object {
         return buffer.toString();
     }
 
+    public static String escapeForGraphing(final Path path) {
+        return escapeForGraphing(path.toString());
+    }
+
     public static String escapeForGraphing(final String path) {
     	final Matcher matcher = GRAPHING_ESCAPE_PATTERN.matcher(path);
     	return matcher.replaceAll("\\\\$1");
     }
-    
+
     /**
      * <p>getRrdSuffix</p>
      *
@@ -385,5 +456,5 @@ public class RrdFileConstants extends Object {
     public static String getRrdSuffix() {
         return RrdUtils.getExtension();
     }
-    
+
 }

@@ -28,9 +28,12 @@
 
 package org.opennms.netmgt.collectd;
 
-import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Method;
+import java.nio.file.DirectoryStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 import org.apache.commons.io.IOUtils;
 import org.opennms.core.test.ConfigurationTestUtils;
@@ -41,7 +44,7 @@ import org.opennms.netmgt.config.DefaultDataCollectionConfigDao;
 import org.opennms.netmgt.config.HttpCollectionConfigFactory;
 import org.opennms.netmgt.rrd.RrdUtils;
 import org.opennms.netmgt.rrd.jrobin.JRobinRrdStrategy;
-import org.opennms.test.FileAnticipator;
+import org.opennms.test.PathAnticipator;
 import org.springframework.core.io.Resource;
 import org.springframework.test.context.TestContext;
 import org.springframework.test.context.TestExecutionListener;
@@ -52,18 +55,18 @@ import org.springframework.test.context.support.AbstractTestExecutionListener;
  * and uses attributes on it to:</p>
  * <ul>
  * <li>Load configuration files for the {@link ServiceCollector}</li>
- * <li>Set up {@link FileAnticipator} checks for files created
+ * <li>Set up {@link PathAnticipator} checks for files created
  * during the unit test execution</li>
  * </ul>
  */
 public class JUnitCollectorExecutionListener extends AbstractTestExecutionListener {
 
-    private File m_snmpRrdDirectory;
-    private FileAnticipator m_fileAnticipator;
+    private Path m_snmpRrdDirectory;
+    private PathAnticipator m_pathAnticipator;
 
     @Override
     public void beforeTestMethod(TestContext testContext) throws Exception {
-        m_fileAnticipator = new FileAnticipator();
+        m_pathAnticipator = new PathAnticipator();
 
         JUnitCollector config = findCollectorAnnotation(testContext);
         if (config == null) {
@@ -78,19 +81,19 @@ public class JUnitCollectorExecutionListener extends AbstractTestExecutionListen
         is.close();
 
         // set up temporary directories for RRD files
-        m_snmpRrdDirectory = m_fileAnticipator.tempDir("snmp");
-        m_snmpRrdDirectory.mkdirs();
-        testContext.setAttribute("fileAnticipator", m_fileAnticipator);
+        m_snmpRrdDirectory = m_pathAnticipator.tempDir("snmp");
+        Files.createDirectories(m_snmpRrdDirectory);
+        testContext.setAttribute("pathAnticipator", m_pathAnticipator);
         testContext.setAttribute("rrdDirectory", m_snmpRrdDirectory);
 
         // set up the collection configuration factory
         if ("http".equalsIgnoreCase(config.datacollectionType()) || "https".equalsIgnoreCase(config.datacollectionType())) {
-            is = ConfigurationTestUtils.getInputStreamForResourceWithReplacements(testContext.getTestInstance(), config.datacollectionConfig(), new String[] { "%rrdRepository%", m_snmpRrdDirectory.getAbsolutePath() });
+            is = ConfigurationTestUtils.getInputStreamForResourceWithReplacements(testContext.getTestInstance(), config.datacollectionConfig(), new String[]{"%rrdRepository%", m_snmpRrdDirectory.toString()});
             HttpCollectionConfigFactory factory = new HttpCollectionConfigFactory(is);
             HttpCollectionConfigFactory.setInstance(factory);
             HttpCollectionConfigFactory.init();
         } else if ("snmp".equalsIgnoreCase(config.datacollectionType())) {
-            Resource r = ConfigurationTestUtils.getSpringResourceForResourceWithReplacements(testContext.getTestInstance(), config.datacollectionConfig(), new String[] { "%rrdRepository%", m_snmpRrdDirectory.getAbsolutePath() });
+            Resource r = ConfigurationTestUtils.getSpringResourceForResourceWithReplacements(testContext.getTestInstance(), config.datacollectionConfig(), new String[]{"%rrdRepository%", m_snmpRrdDirectory.toString()});
             DefaultDataCollectionConfigDao dataCollectionDao = new DefaultDataCollectionConfigDao();
             dataCollectionDao.setConfigResource(r);
             dataCollectionDao.afterPropertiesSet();
@@ -119,25 +122,25 @@ public class JUnitCollectorExecutionListener extends AbstractTestExecutionListen
 
         if (config.anticipateRrds().length > 0) {
             for (String rrdFile : config.anticipateRrds()) {
-                m_fileAnticipator.expecting(m_snmpRrdDirectory, rrdFile + RrdUtils.getExtension());
+                m_pathAnticipator.expecting(m_snmpRrdDirectory, rrdFile + RrdUtils.getExtension());
 
                 //the nrtg feature requires .meta files in parallel to the rrd/jrb files.
                 //this .meta files are expected
-                m_fileAnticipator.expecting(m_snmpRrdDirectory, rrdFile + ".meta");
+                m_pathAnticipator.expecting(m_snmpRrdDirectory, rrdFile + ".meta");
             }
         }
 
         if (config.anticipateFiles().length > 0) {
             for (String file : config.anticipateFiles()) {
-                m_fileAnticipator.expecting(m_snmpRrdDirectory, file);
+                m_pathAnticipator.expecting(m_snmpRrdDirectory, file);
             }
         }
 
         Exception e = null;
-        if (m_fileAnticipator.isInitialized()) {
+        if (m_pathAnticipator.isInitialized()) {
             final long finished = System.currentTimeMillis() + config.timeout();
             while (System.currentTimeMillis() <= finished) {
-                if (m_fileAnticipator.foundExpected()) {
+                if (m_pathAnticipator.foundExpected()) {
                     break;
                 }
                 try {
@@ -148,30 +151,38 @@ public class JUnitCollectorExecutionListener extends AbstractTestExecutionListen
             }
 
             try {
-                m_fileAnticipator.deleteExpected(shouldIgnoreNonExistent);
+                m_pathAnticipator.deleteExpected(shouldIgnoreNonExistent);
             } catch (Throwable t) {
                 e = new RuntimeException(t);
             }
         }
 
         deleteRecursively(m_snmpRrdDirectory);
-        m_fileAnticipator.tearDown();
+        m_pathAnticipator.tearDown();
 
         if (e != null) {
             throw e;
         }
     }
 
-    private static void deleteRecursively(File directory) {
-        if (!directory.exists()) return;
+    private static void deleteRecursively(Path directory) {
+        if (!Files.exists(directory)) {
+            return;
+        }
 
-        if (directory.isDirectory()) {
-            for (File f : directory.listFiles()) {
-                deleteRecursively(f);
+        if (Files.isDirectory(directory)) {
+            try (DirectoryStream<Path> stream = Files.newDirectoryStream(directory);) {
+                for (Path f : stream) {
+                    deleteRecursively(f);
+                }
+            } catch (IOException e) {
             }
         }
 
-        directory.delete();
+        try {
+            Files.delete(directory);
+        } catch (IOException ex) {
+        }
     }
 
     private static JUnitCollector findCollectorAnnotation(TestContext testContext) {

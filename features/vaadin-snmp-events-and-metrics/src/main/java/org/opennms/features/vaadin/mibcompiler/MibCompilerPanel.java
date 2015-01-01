@@ -28,7 +28,6 @@
 
 package org.opennms.features.vaadin.mibcompiler;
 
-import java.io.File;
 import java.util.List;
 
 import org.opennms.core.utils.ConfigFileConstants;
@@ -51,14 +50,18 @@ import com.vaadin.ui.Panel;
 import com.vaadin.ui.Tree;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.DirectoryStream;
 
 import org.slf4j.LoggerFactory;
 import org.vaadin.dialogs.ConfirmDialog;
 
 /**
  * The Class MIB Compiler Panel.
- * 
- * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a> 
+ *
+ * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 @SuppressWarnings("serial")
 public class MibCompilerPanel extends Panel {
@@ -77,13 +80,13 @@ public class MibCompilerPanel extends Panel {
 
     /** The Constant MIBS_ROOT_DIR. */
     // TODO Make the MIBs directory configurable
-    private static final File MIBS_ROOT_DIR = new File(ConfigFileConstants.getHome(),  "share" + File.separatorChar + "mibs");
+    private static final Path MIBS_ROOT_DIR = ConfigFileConstants.getHome().resolve("share").resolve("mibs");
 
     /** The Constant MIBS_COMPILED_DIR. */
-    private static final File MIBS_COMPILED_DIR = new File(MIBS_ROOT_DIR, COMPILED);
+    private static final Path MIBS_COMPILED_DIR = MIBS_ROOT_DIR.resolve(COMPILED);
 
     /** The Constant MIBS_PENDING_DIR. */
-    private static final File MIBS_PENDING_DIR = new File(MIBS_ROOT_DIR, PENDING);
+    private static final Path MIBS_PENDING_DIR = MIBS_ROOT_DIR.resolve(PENDING);
 
     /** The Constant ACTION_EDIT. */
     private static final Action ACTION_EDIT = new Action("Edit MIB");
@@ -121,7 +124,7 @@ public class MibCompilerPanel extends Panel {
     /**
      * Instantiates a new MIB tree panel.
      *
-     * @param dataCollectionDao the OpenNMS Data Collection Configuration DAO 
+     * @param dataCollectionDao the OpenNMS Data Collection Configuration DAO
      * @param eventsDao the OpenNMS Events Configuration DAO
      * @param eventsProxy the OpenNMS Events Proxy
      * @param mibParser the MIB parser
@@ -145,13 +148,17 @@ public class MibCompilerPanel extends Panel {
 
         // Make sure MIB directories exist
 
-        if (!MIBS_COMPILED_DIR.exists()) {
-            if (!MIBS_COMPILED_DIR.mkdirs()) {
+        if (!Files.exists(MIBS_COMPILED_DIR)) {
+            try {
+                Files.createDirectories(MIBS_COMPILED_DIR);
+            } catch (IOException e) {
                 throw new RuntimeException("Unable to create directory for compiled MIBs (" + MIBS_COMPILED_DIR + ")");
             }
         }
-        if (!MIBS_PENDING_DIR.exists()) {
-            if (!MIBS_PENDING_DIR.mkdirs()) {
+        if (!Files.exists(MIBS_PENDING_DIR)) {
+            try {
+                Files.createDirectories(MIBS_PENDING_DIR);
+            } catch (IOException e) {
                 throw new RuntimeException("Unable to create directory for pending MIBs (" + MIBS_PENDING_DIR + ")");
             }
         }
@@ -199,15 +206,17 @@ public class MibCompilerPanel extends Panel {
      * @param logger the logger
      */
     private void initMibTree(final Logger logger) {
-        File[] folders = new File[] { MIBS_COMPILED_DIR, MIBS_PENDING_DIR };
-        for (File folder : folders) {
-            addTreeItem(folder.getName(), null);
+        Path[] folders = new Path[]{MIBS_COMPILED_DIR, MIBS_PENDING_DIR};
+        for (Path folder : folders) {
+            addTreeItem(folder.getFileName().toString(), null);
         }
-        for (File folder : folders) {
-            String[] files = folder.list();
-            if (files == null) continue;
-            for (String file : files) {
-                addTreeItem(file, folder.getName());
+        for (Path folder : folders) {
+            try (DirectoryStream<Path> stream = Files.newDirectoryStream(folder);) {
+                for (Path path : stream) {
+                    addTreeItem(path.toString(), folder.getFileName().toString());
+                }
+            } catch (IOException ex) {
+                LOG.error("IOException", ex);
             }
         }
 
@@ -245,11 +254,12 @@ public class MibCompilerPanel extends Panel {
                         public void onClose(ConfirmDialog dialog) {
                             if (dialog.isConfirmed()) {
                                 String source = mibsTree.getParent(fileName).toString();
-                                File file = new File(PENDING.equals(source) ? MIBS_PENDING_DIR : MIBS_COMPILED_DIR, fileName);
-                                if (file.delete()) {
+                                Path file = (PENDING.equals(source) ? MIBS_PENDING_DIR : MIBS_COMPILED_DIR).resolve(fileName);
+                                try {
+                                    Files.delete(file);
                                     mibsTree.removeItem(fileName);
                                     logger.info("MIB " + file + " has been successfully removed.");
-                                } else {
+                                } catch (IOException ex) {
                                     Notification.show("Can't delete " + file);
                                 }
                             }
@@ -257,20 +267,20 @@ public class MibCompilerPanel extends Panel {
                     });
                 }
                 if (action == ACTION_EDIT) {
-                    Window w = new FileEditorWindow(new File(MIBS_PENDING_DIR, fileName), logger, false);
+                    Window w = new FileEditorWindow(MIBS_PENDING_DIR.resolve(fileName), logger, false);
                     getUI().addWindow(w);
                 }
                 if (action == ACTION_VIEW) {
-                    Window w = new FileEditorWindow(new File(MIBS_COMPILED_DIR, fileName), logger, true);
+                    Window w = new FileEditorWindow(MIBS_COMPILED_DIR.resolve(fileName), logger, true);
                     getUI().addWindow(w);
                 }
                 if (action == ACTION_COMPILE) {
-                    if (parseMib(logger, new File(MIBS_PENDING_DIR, fileName))) {
+                    if (parseMib(logger, MIBS_PENDING_DIR.resolve(fileName))) {
                         // Renaming the file to be sure that the target name is correct and always has a file extension.
                         final String mibFileName = mibParser.getMibName() + MIB_FILE_EXTENTION;
-                        final File currentFile = new File(MIBS_PENDING_DIR, fileName);
-                        final File suggestedFile = new File(MIBS_COMPILED_DIR, mibFileName);
-                        if (suggestedFile.exists()) {
+                        final Path currentFile = MIBS_PENDING_DIR.resolve(fileName);
+                        final Path suggestedFile = MIBS_COMPILED_DIR.resolve(mibFileName);
+                        if (Files.exists(suggestedFile)) {
                             ConfirmDialog.show(getUI(),
                                                "Are you sure?",
                                                    "The MIB " + mibFileName + " already exist on the compiled directory?<br/>Override the existing file could break other compiled mibs, so proceed with caution.<br/>This cannot be undone.",
@@ -305,12 +315,14 @@ public class MibCompilerPanel extends Panel {
      * @param currentFile the current file
      * @param suggestedFile the suggested file
      */
-    private void renameFile(Logger logger, File currentFile, File suggestedFile) {
-        logger.info("Renaming file " + currentFile.getName() + " to " + suggestedFile.getName());
-        mibsTree.removeItem(currentFile.getName());
-        addTreeItem(suggestedFile.getName(), COMPILED);
-        if(!currentFile.renameTo(suggestedFile)) {
-        	LOG.warn("Could not rename file: {}", currentFile.getPath());
+    private void renameFile(Logger logger, Path currentFile, Path suggestedFile) {
+        logger.info("Renaming file " + currentFile + " to " + suggestedFile);
+        mibsTree.removeItem(currentFile);
+        addTreeItem(suggestedFile.toString(), COMPILED);
+        try {
+            Files.move(currentFile, suggestedFile);
+        } catch (IOException ex) {
+            LOG.warn("Could not rename file: {}", currentFile, ex);
         }
     }
 
@@ -340,7 +352,7 @@ public class MibCompilerPanel extends Panel {
      * @param mibFile the MIB file
      * @return true, if successful
      */
-    private boolean parseMib(final Logger logger, final File mibFile) {
+    private boolean parseMib(final Logger logger, final Path mibFile) {
         logger.info("Parsing MIB file " + mibFile);
         if (mibParser.parseMib(mibFile)) {
             logger.info("MIB parsed successfuly.");
@@ -365,7 +377,7 @@ public class MibCompilerPanel extends Panel {
      * @param fileName the file name
      */
     private void generateEvents(final Logger logger, final String fileName) {
-        if (parseMib(logger, new File(MIBS_COMPILED_DIR, fileName))) {
+        if (parseMib(logger, MIBS_COMPILED_DIR.resolve(fileName))) {
             final EventUeiWindow w = new EventUeiWindow("uei.opennms.org/traps/" + mibParser.getMibName()) {
                 @Override
                 public void changeUeiHandler(String ueiBase) {
@@ -386,14 +398,14 @@ public class MibCompilerPanel extends Panel {
     private void showEventsWindow(final Logger logger, final String fileName, final String ueiBase) {
         final Events events =  mibParser.getEvents(ueiBase);
         if (events == null) {
-            Notification.show("The MIB couldn't be processed for events because: " + mibParser.getFormattedErrors(), Notification.Type.ERROR_MESSAGE);                
+            Notification.show("The MIB couldn't be processed for events because: " + mibParser.getFormattedErrors(), Notification.Type.ERROR_MESSAGE);
         } else {
             if (events.getEventCount() > 0) {
                 try {
                     logger.info("Found " + events.getEventCount() + " events.");
                     final String eventsFileName = fileName.replaceFirst("\\..*$", ".events.xml");
-                    final File configDir = new File(ConfigFileConstants.getHome(), "etc" + File.separatorChar + "events");
-                    final File eventFile = new File(configDir, eventsFileName);
+                    final Path configDir = ConfigFileConstants.getHome().resolve("etc").resolve("events");
+                    final Path eventFile = configDir.resolve(eventsFileName);
                     final EventWindow w = new EventWindow(eventsDao, eventsProxy, eventFile, events, logger);
                     getUI().addWindow(w);
                 } catch (Throwable t) {
@@ -412,7 +424,7 @@ public class MibCompilerPanel extends Panel {
      * @param fileName the file name
      */
     private void generateDataCollection(final Logger logger, final String fileName) {
-        if (parseMib(logger, new File(MIBS_COMPILED_DIR, fileName))) {
+        if (parseMib(logger, MIBS_COMPILED_DIR.resolve(fileName))) {
             final DatacollectionGroup dcGroup = mibParser.getDataCollection();
             if (dcGroup == null) {
                 Notification.show("The MIB couldn't be processed for data collection because: " + mibParser.getFormattedErrors(), Notification.Type.ERROR_MESSAGE);

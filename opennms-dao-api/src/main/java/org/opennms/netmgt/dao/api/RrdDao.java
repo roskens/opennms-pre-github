@@ -28,8 +28,8 @@
 
 package org.opennms.netmgt.dao.api;
 
-import java.io.File;
 import java.io.InputStream;
+import java.nio.file.Path;
 
 import org.opennms.netmgt.model.OnmsAttribute;
 import org.springframework.dao.DataAccessException;
@@ -52,7 +52,7 @@ public interface RrdDao {
      * @return value
      */
     public double getPrintValue(OnmsAttribute attribute, String cf, long start, long end);
-    
+
     /**
      * Get the value for an attribute over a period of time.
      *
@@ -63,7 +63,7 @@ public interface RrdDao {
      * @return value
      * @param printFunctions a {@link java.lang.String} object.
      */
-    public double[] getPrintValues(OnmsAttribute attribute,String rraConsolidationFunction, 
+    public double[] getPrintValues(OnmsAttribute attribute,String rraConsolidationFunction,
 			long startTimeInMillis, long endTimeInMillis, String... printFunctions);
 
     /**
@@ -73,7 +73,7 @@ public interface RrdDao {
      * @param workDir RRD files are relative to this directory
      * @return PNG graph image
      */
-    public InputStream createGraph(String command, File workDir);
+    public InputStream createGraph(String command, Path workDir);
 
     /**
      * Gets the offset of the top of the graph box from the top of the image.
@@ -112,7 +112,7 @@ public interface RrdDao {
      *             if an error occurs retrieving the last value
      */
     public Double getLastFetchValue(OnmsAttribute attribute, int interval) throws DataAccessException;
-    
+
     /**
      * This method issues an round robin fetch command to retrieve the last
      * value of the data source stored in the specified RRD file.

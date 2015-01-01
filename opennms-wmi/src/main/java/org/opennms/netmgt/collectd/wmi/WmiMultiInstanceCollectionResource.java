@@ -28,7 +28,7 @@
 
 package org.opennms.netmgt.collectd.wmi;
 
-import java.io.File;
+import java.nio.file.Path;
 
 import org.opennms.netmgt.collection.api.CollectionAgent;
 import org.opennms.netmgt.collection.api.ServiceParameters;
@@ -69,9 +69,9 @@ public class WmiMultiInstanceCollectionResource extends WmiCollectionResource {
 
     /** {@inheritDoc} */
     @Override
-    public File getResourceDir(final RrdRepository repository) {
+    public Path getResourceDir(final RrdRepository repository) {
         String resourcePath = m_resourceType.getStorageStrategy().getRelativePathForAttribute(getParent(), getInterfaceLabel());
-        File resourceDir = new File(repository.getRrdBaseDir(), resourcePath);
+        Path resourceDir = repository.getRrdBaseDir().resolve(resourcePath);
         LOG.debug("getResourceDir: {}", resourceDir);
         return resourceDir;
     }

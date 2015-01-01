@@ -28,8 +28,10 @@
 
 package org.opennms.web.rest;
 
-import java.io.File;
-import java.io.FileInputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.attribute.FileTime;
 import java.util.Collections;
 
 import javax.xml.bind.JAXBContext;
@@ -94,22 +96,16 @@ public class ScheduledOutagesRestServiceTest extends AbstractSpringJerseyRestTes
     @Override
     protected void beforeServletStart() throws Exception {
         MockLogAppender.setupLogging();
-        File etc = new File("target/test-work-dir/etc");
-        etc.mkdirs();
-        m_onmsHome = etc.getParent();
+        Path etc = Paths.get("target", "test-work-dir", "etc");
+        Files.createDirectories(etc);
+        m_onmsHome = etc.getParent().toString();
         System.setProperty("opennms.home", m_onmsHome);
         ConfigurationTestUtils.setRelativeHomeDirectory(m_onmsHome);
 
         // Setup Scheduled Outages Configuration
-        File outagesConfig = new File(etc, "poll-outages.xml");
-        FileUtils.writeStringToFile(outagesConfig, "<?xml version=\"1.0\"?>"
-                + "<outages>"
-                + "<outage name='my-junit-test' type='weekly'>"
-                + "<time day='monday' begins='13:30:00' ends='14:45:00'/>"
-                + "<interface address='match-any'/>"
-                + "</outage>"
-                + "</outages>");
-        m_pollOutagesConfigManager.setConfigResource(new FileSystemResource(outagesConfig));
+        Path outagesConfig = etc.resolve("poll-outages.xml");
+        Files.write(outagesConfig, ("<?xml version=\"1.0\"?>" + "<outages>" + "<outage name='my-junit-test' type='weekly'>" + "<time day='monday' begins='13:30:00' ends='14:45:00'/>" + "<interface address='match-any'/>" + "</outage>" + "</outages>").getBytes());
+        m_pollOutagesConfigManager.setConfigResource(new FileSystemResource(outagesConfig.toFile()));
         m_pollOutagesConfigManager.afterPropertiesSet();
 
         // Setup Filter DAO
@@ -121,9 +117,8 @@ public class ScheduledOutagesRestServiceTest extends AbstractSpringJerseyRestTes
         FilterDaoFactory.setInstance(m_filterDao);
 
         // Setup Collectd Configuration
-        File collectdConfig = new File(etc, "collectd-configuration.xml");
-        FileUtils.writeStringToFile(collectdConfig, "<?xml version=\"1.0\"?>"
-                + "<collectd-configuration threads=\"50\">"
+        Path collectdConfig = etc.resolve("collectd-configuration.xml");
+        Files.write(collectdConfig, ("<?xml version=\"1.0\"?>"                + "<collectd-configuration threads=\"50\">"
                 + "<package name=\"example1\">"
                 + "<filter>IPADDR != '0.0.0.0'</filter>"
                 + "<include-range begin=\"1.1.1.1\" end=\"254.254.254.254\"/>"
@@ -132,13 +127,12 @@ public class ScheduledOutagesRestServiceTest extends AbstractSpringJerseyRestTes
                 + "</service>"
                 + "</package>"
                 + "<collector service=\"SNMP\" class-name=\"org.opennms.netmgt.collectd.SnmpCollector\"/>"
-                + "</collectd-configuration>");
-        CollectdConfigFactory collectdConfigFactory = new CollectdConfigFactory(new FileInputStream(collectdConfig), "localhost", false);
+          + "</collectd-configuration>").getBytes());
+        CollectdConfigFactory collectdConfigFactory = new CollectdConfigFactory(Files.newInputStream(collectdConfig), "localhost", false);
 
         // Setup Pollerd Configuration
-        File pollerdConfig = new File(etc, "poller-configuration.xml");
-        FileUtils.writeStringToFile(pollerdConfig, "<?xml version=\"1.0\"?>"
-                + "<poller-configuration threads=\"10\" nextOutageId=\"SELECT nextval(\'outageNxtId\')\" serviceUnresponsiveEnabled=\"false\">"
+        Path pollerdConfig = etc.resolve("poller-configuration.xml");
+        Files.write(pollerdConfig, ("<?xml version=\"1.0\"?>"                + "<poller-configuration threads=\"10\" nextOutageId=\"SELECT nextval(\'outageNxtId\')\" serviceUnresponsiveEnabled=\"false\">"
                 + "<node-outage status=\"on\" pollAllIfNoCriticalServiceDefined=\"true\"></node-outage>"
                 + "<package name=\"example1\">"
                 + "<filter>IPADDR != '0.0.0.0'</filter>"
@@ -152,13 +146,12 @@ public class ScheduledOutagesRestServiceTest extends AbstractSpringJerseyRestTes
                 + "<downtime begin=\"0\" end=\"30000\"/>"
                 + "</package>"
                 + "<monitor service=\"ICMP\" class-name=\"org.opennms.netmgt.poller.monitors.IcmpMonitor\"/>"
-                + "</poller-configuration>");
-        PollerConfigFactory.setInstance(new PollerConfigFactory(1, new FileInputStream(pollerdConfig), "localserver", false));
+          + "</poller-configuration>").getBytes());
+        PollerConfigFactory.setInstance(new PollerConfigFactory(FileTime.fromMillis(1), Files.newInputStream(pollerdConfig), "localserver", false));
 
         // Setup Threshd Configuration
-        File threshdConfig = new File(etc, "threshd-configuration.xml");
-        FileUtils.writeStringToFile(threshdConfig, "<?xml version=\"1.0\"?>"
-                + "<threshd-configuration threads=\"5\">"
+        Path threshdConfig = etc.resolve("threshd-configuration.xml");
+        Files.write(threshdConfig, ("<?xml version=\"1.0\"?>"                + "<threshd-configuration threads=\"5\">"
                 + "<package name=\"example1\">"
                 + "<filter>IPADDR != '0.0.0.0'</filter>"
                 + "<include-range begin=\"1.1.1.1\" end=\"254.254.254.254\"/>"
@@ -166,16 +159,15 @@ public class ScheduledOutagesRestServiceTest extends AbstractSpringJerseyRestTes
                 + "<parameter key=\"thresholding-group\" value=\"mib2\"/>"
                 + "</service>"
                 + "</package>"
-                + "</threshd-configuration>");
-        ThreshdConfigFactory.setInstance(new ThreshdConfigFactory(new FileInputStream(threshdConfig), "localserver", false));
+          + "</threshd-configuration>").getBytes());
+        ThreshdConfigFactory.setInstance(new ThreshdConfigFactory(Files.newInputStream(threshdConfig), "localserver", false));
 
         // Setup Notifid Configuration
-        FileUtils.writeStringToFile(new File(etc, "notifd-configuration.xml"), "<?xml version=\"1.0\"?>"
-                + "<notifd-configuration status=\"off\" match-all=\"true\">"
+        Files.write(etc.resolve("notifd-configuration.xml"), ("<?xml version=\"1.0\"?>"                + "<notifd-configuration status=\"off\" match-all=\"true\">"
                 + "<queue><queue-id>default</queue-id><interval>20s</interval>"
                 + "<handler-class><name>org.opennms.netmgt.notifd.DefaultQueueHandler</name></handler-class>"
                 + "</queue>"
-                + "</notifd-configuration>");
+          + "</notifd-configuration>").getBytes());
         NotifdConfigFactory.init();
 
         m_jaxbContext = JaxbUtils.getContextFor(Outage.class);

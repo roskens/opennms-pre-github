@@ -28,12 +28,15 @@
 
 package org.opennms.netmgt.vmmgr;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.management.ManagementFactory;
 import java.net.URL;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.Properties;
@@ -177,8 +180,8 @@ public class Starter {
             LOG.debug("System property '{}' already set to value '{}'.", entry.getKey(), entry.getValue());
         }
 
-        File propertiesFile = getPropertiesFile();
-        if (!propertiesFile.exists()) {
+        Path propertiesPath = getPropertiesFile();
+        if (!Files.exists(propertiesPath)) {
             // don't require the file
             return;
         }
@@ -186,10 +189,10 @@ public class Starter {
         Properties props = new Properties();
         InputStream in = null;
         try {
-            in = new FileInputStream(propertiesFile);
+            in = new FileInputStream(propertiesPath.toString());
             props.load(in);
         } catch (IOException e) {
-            die("Error trying to read properties file '" + propertiesFile + "': " + e, e);
+            die("Error trying to read properties file '" + propertiesPath + "': " + e, e);
         } finally {
             IOUtils.closeQuietly(in);
         }
@@ -197,9 +200,9 @@ public class Starter {
         for (Entry<Object, Object> entry : props.entrySet()) {
             String systemValue = System.getProperty(entry.getKey().toString());
             if (systemValue != null) {
-                LOG.debug("Property '{}' from {} already exists as a system property (with value '{}').  Not overridding existing system property.", entry.getKey(), propertiesFile, systemValue);
+                LOG.debug("Property '{}' from {} already exists as a system property (with value '{}').  Not overridding existing system property.", entry.getKey(), propertiesPath, systemValue);
             } else {
-                LOG.debug("Setting system property '{}' to '{}' from {}.", entry.getKey(), entry.getValue(), propertiesFile);
+                LOG.debug("Setting system property '{}' to '{}' from {}.", entry.getKey(), entry.getValue(), propertiesPath);
                 System.setProperty(entry.getKey().toString(), entry.getValue().toString());
             }
         }
@@ -214,7 +217,7 @@ public class Starter {
     /**
      * Print out a message and stack trace and then exit.
      * This method does not return.
-     * 
+     *
      * @param message message to print to System.err
      * @param t Throwable for which to print a stack trace
      */
@@ -227,10 +230,8 @@ public class Starter {
         die(message, null);
     }
 
-    private File getPropertiesFile() {
-        String homeDir = System.getProperty("opennms.home");
-        File etcDir = new File(homeDir, "etc");
-        return new File(etcDir, "opennms.properties");
+    private Path getPropertiesFile() {
+        return Paths.get(System.getProperty("opennms.home"), "etc", "opennms.properties");
     }
 
     private void start() {

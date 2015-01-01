@@ -28,11 +28,11 @@
 
 package org.opennms.protocols.nsclient.collector;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.lang.reflect.UndeclaredThrowableException;
 import java.net.InetAddress;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -75,7 +75,7 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class NSClientCollector implements ServiceCollector {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(NSClientCollector.class);
 
 
@@ -109,11 +109,11 @@ public class NSClientCollector implements ServiceCollector {
         }
 
     }
-    
+
     private static class NSClientCollectionAttribute extends AbstractCollectionAttribute {
 
         private final String m_value;
-        
+
         public NSClientCollectionAttribute(NSClientCollectionResource resource, CollectionAttributeType attribType, String value) {
             super(attribType, resource);
             m_value = value;
@@ -138,31 +138,31 @@ public class NSClientCollector implements ServiceCollector {
         public String getMetricIdentifier() {
             return "Not supported yet._" + "NSC_" + getName();
         }
-        
+
     }
-    
+
     private static class NSClientCollectionResource extends AbstractCollectionResource {
-         
-        public NSClientCollectionResource(CollectionAgent agent) { 
+
+        public NSClientCollectionResource(CollectionAgent agent) {
             super(agent);
         }
-        
+
         public void setAttributeValue(CollectionAttributeType type, String value) {
             NSClientCollectionAttribute attr = new NSClientCollectionAttribute(this, type, value);
             addAttribute(attr);
         }
-        
+
         @Override
         public String getResourceTypeName() {
             return CollectionResource.RESOURCE_TYPE_NODE; //All node resources for NSClient; nothing of interface or "indexed resource" type
         }
-        
+
         @Override
         public String getInstance() {
             return null; //For node type resources, use the default instance
         }
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public CollectionSet collect(CollectionAgent agent, EventProxy eproxy, Map<String, Object> parameters) {
@@ -174,10 +174,10 @@ public class NSClientCollector implements ServiceCollector {
         // check scheduled nodes to see if that group should be collected
         NsclientCollection collection = NSClientDataCollectionConfigFactory.getInstance().getNSClientCollection(collectionName);
         NSClientAgentState agentState = m_scheduledNodes.get(agent.getNodeId());
-        
+
         NSClientCollectionResource collectionResource = new NSClientCollectionResource(agent);
         SingleResourceCollectionSet collectionSet = new SingleResourceCollectionSet(collectionResource, new Date());
-        
+
         for (Wpm wpm : collection.getWpms().getWpm()) {
             //All NSClient Perfmon counters are per node
             AttributeGroupType attribGroupType=new AttributeGroupType(wpm.getName(), AttributeGroupType.IF_TYPE_ALL);
@@ -279,9 +279,6 @@ public class NSClientCollector implements ServiceCollector {
         } catch (ValidationException e) {
             LOG.error("initialize: Error validating configuration.", e);
             throw new UndeclaredThrowableException(e);
-        } catch (FileNotFoundException e) {
-            LOG.error("initialize: Error locating configuration.", e);
-            throw new UndeclaredThrowableException(e);
         } catch (IOException e) {
             LOG.error("initialize: Error reading configuration", e);
             throw new UndeclaredThrowableException(e);
@@ -298,10 +295,12 @@ public class NSClientCollector implements ServiceCollector {
          * If the RRD file repository directory does NOT already exist, create
          * it.
          */
-        File f = new File(NSClientDataCollectionConfigFactory.getInstance().getRrdPath());
-        if (!f.isDirectory()) {
-            if (!f.mkdirs()) {
-                throw new RuntimeException("Unable to create RRD file " + "repository.  Path doesn't already exist and could not make directory: " + NSClientDataCollectionConfigFactory.getInstance().getRrdPath());
+        Path rrdDir = NSClientDataCollectionConfigFactory.getInstance().getRrdPath();
+        if (!Files.isDirectory(rrdDir)) {
+            try {
+                Files.createDirectories(rrdDir);
+            } catch (IOException e) {
+                throw new RuntimeException("Unable to create RRD file repository.  Path doesn't already exist and could not make directory: " + rrdDir);
             }
         }
     }
@@ -445,7 +444,7 @@ public class NSClientCollector implements ServiceCollector {
             this.lastChecked = lastChecked;
         }
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public RrdRepository getRrdRepository(String collectionName) {

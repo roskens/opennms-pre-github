@@ -28,8 +28,8 @@
 
 package org.opennms.netmgt.collection.api;
 
-import java.io.File;
 import java.net.InetAddress;
+import java.nio.file.Path;
 
 import org.opennms.netmgt.poller.NetworkInterface;
 
@@ -43,11 +43,11 @@ public interface CollectionAgent extends NetworkInterface<InetAddress> {
 
     /**
      * <p>isStoreByForeignSource</p>
-     * 
+     *
      * @return a {@link java.lang.Boolean} object.
      */
     Boolean isStoreByForeignSource();
-    
+
     /**
      * <p>getHostAddress</p>
      *
@@ -71,25 +71,25 @@ public interface CollectionAgent extends NetworkInterface<InetAddress> {
 
     /**
      * <p>getForeignSource</p>
-     * 
+     *
      * @return a {@link java.lang.String} object.
      */
     String getForeignSource();
-    
+
     /**
      * <p>getForeignId</p>
-     * 
+     *
      * @return a {@link java.lang.String} object.
      */
     String getForeignId();
-    
+
     /**
      * <p>getStorageDir</p>
-     * 
+     *
      * @return a {@link java.io.File} object.
      */
-    File getStorageDir();
-    
+    Path getStorageDir();
+
     /**
      * <p>getSysObjectId</p>
      *

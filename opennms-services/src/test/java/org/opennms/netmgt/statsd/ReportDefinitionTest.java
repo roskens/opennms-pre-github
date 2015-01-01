@@ -28,6 +28,7 @@
 
 package org.opennms.netmgt.statsd;
 
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -56,7 +57,7 @@ import org.opennms.test.ThrowableAnticipator;
 import org.opennms.test.mock.EasyMockUtils;
 
 /**
- * 
+ *
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  */
 public class ReportDefinitionTest extends TestCase {
@@ -65,11 +66,11 @@ public class ReportDefinitionTest extends TestCase {
     private ResourceDao m_resourceDao = m_mocks.createMock(ResourceDao.class);
     private RrdDao m_rrdDao = m_mocks.createMock(RrdDao.class);
     private FilterDao m_filterDao = m_mocks.createMock(FilterDao.class);
-    
+
     @Override
     protected void runTest() throws Throwable {
         super.runTest();
-        
+
         m_mocks.verifyAll();
     }
 
@@ -77,11 +78,11 @@ public class ReportDefinitionTest extends TestCase {
     public void testBogusReportClass() throws Exception {
         // Not replaying anything, but need to do it before verifyAll() happens
         m_mocks.replayAll();
-        
+
         ReportDefinition def = new ReportDefinition();
-        
+
         Class<? extends AttributeStatisticVisitorWithResults> clazz = (Class<? extends AttributeStatisticVisitorWithResults>) Class.forName("java.lang.String");
-        
+
         ThrowableAnticipator ta = new ThrowableAnticipator();
         ta.anticipate(new IllegalArgumentException(ThrowableAnticipator.IGNORE_MESSAGE));
         try {
@@ -89,27 +90,27 @@ public class ReportDefinitionTest extends TestCase {
         } catch (Throwable t) {
             ta.throwableReceived(t);
         }
-        
+
         ta.verifyAnticipated();
     }
-    
+
     public void testAfterPropertiesSet() {
         // Not replaying anything, but need to do it before verifyAll() happens
         m_mocks.replayAll();
-        
+
         createReportDefinition();
     }
-    
+
     public void testReportWalking() throws Exception {
         EasyMock.expect(m_resourceDao.findTopLevelResources()).andReturn(new ArrayList<OnmsResource>(0));
-        
+
         ReportDefinition def = createReportDefinition();
         def.setResourceAttributeKey("ifSpeed");
         def.setResourceAttributeValueMatch("100000000");
         ReportInstance report = def.createReport(m_nodeDao, m_resourceDao, m_rrdDao, m_filterDao);
 
         m_mocks.replayAll();
-        
+
         report.walk();
 
         assertEquals("results size", 0, report.getResults().size());
@@ -118,25 +119,25 @@ public class ReportDefinitionTest extends TestCase {
     public void testUnfilteredResourceAttributeFilteringWithNoMatch() throws Exception {
         MockResourceType resourceType = new MockResourceType();
         resourceType.setName("interfaceSnmp");
-        OnmsAttribute attribute = new RrdGraphAttribute("IfInOctets", "something", "something else");
+        OnmsAttribute attribute = new RrdGraphAttribute("IfInOctets", Paths.get("something"), "something else");
         OnmsResource resource = new OnmsResource("1", "Node One", resourceType, Collections.singleton(attribute));
 
         EasyMock.expect(m_resourceDao.findTopLevelResources()).andReturn(Collections.singletonList(resource));
-        
+
         ReportDefinition def = createReportDefinition();
         def.setResourceAttributeKey("ifSpeed");
         def.setResourceAttributeValueMatch("100000000");
         ReportInstance report = def.createReport(m_nodeDao, m_resourceDao, m_rrdDao, m_filterDao);
 
         m_mocks.replayAll();
-        
+
         report.walk();
-        
+
         assertEquals("results size", 0, report.getResults().size());
     }
 
     public void testUnfilteredResourceAttributeFilteringWithMatch() throws Exception {
-        OnmsAttribute rrdAttribute = new RrdGraphAttribute("IfInOctets", "something", "something else");
+        OnmsAttribute rrdAttribute = new RrdGraphAttribute("IfInOctets", Paths.get("something"), "something else");
         ExternalValueAttribute externalValueAttribute = new ExternalValueAttribute("ifSpeed", "100000000");
 
         Set<OnmsAttribute> attributes = new HashSet<OnmsAttribute>();
@@ -148,7 +149,7 @@ public class ReportDefinitionTest extends TestCase {
         OnmsResource resource = new OnmsResource("1", "Node One", resourceType, attributes);
 
         EasyMock.expect(m_resourceDao.findTopLevelResources()).andReturn(Collections.singletonList(resource));
-        
+
         ReportDefinition def = createReportDefinition();
         def.setResourceAttributeKey(externalValueAttribute.getName());
         def.setResourceAttributeValueMatch(externalValueAttribute.getValue());
@@ -157,13 +158,13 @@ public class ReportDefinitionTest extends TestCase {
         EasyMock.expect(m_rrdDao.getPrintValue(rrdAttribute, def.getConsolidationFunction(), report.getStartTime(), report.getEndTime())).andReturn(1.0);
 
         m_mocks.replayAll();
-        
+
         report.walk();
-        
+
         m_mocks.verifyAll();
 
         assertEquals("results size", 1, report.getResults().size());
-        
+
         m_mocks.replayAll();
     }
 
@@ -172,10 +173,10 @@ public class ReportDefinitionTest extends TestCase {
         node.setId(1);
         node.setLabel("Node One");
         EasyMock.expect(m_nodeDao.load(1)).andReturn(node);
-        
+
         MockResourceType resourceType = new MockResourceType();
         resourceType.setName("interfaceSnmp");
-        OnmsAttribute attribute = new RrdGraphAttribute("IfInOctets", "something", "something else");
+        OnmsAttribute attribute = new RrdGraphAttribute("IfInOctets", Paths.get("something"), "something else");
         OnmsResource resource = new OnmsResource(node.getId().toString(), node.getLabel(), resourceType, Collections.singleton(attribute));
 
         ReportDefinition def = createReportDefinition();
@@ -191,15 +192,15 @@ public class ReportDefinitionTest extends TestCase {
         EasyMock.expect(m_resourceDao.getResourceForNode(node)).andReturn(resource);
 
         m_mocks.replayAll();
-        
+
         report.walk();
-        
+
         assertEquals("results size", 0, report.getResults().size());
     }
 
 
     public void testFilteredResourceAttributeFilteringWithMatch() throws Exception {
-        OnmsAttribute rrdAttribute = new RrdGraphAttribute("IfInOctets", "something", "something else");
+        OnmsAttribute rrdAttribute = new RrdGraphAttribute("IfInOctets", Paths.get("something"), "something else");
         ExternalValueAttribute externalValueAttribute = new ExternalValueAttribute("ifSpeed", "100000000");
 
         Set<OnmsAttribute> attributes = new HashSet<OnmsAttribute>();
@@ -210,7 +211,7 @@ public class ReportDefinitionTest extends TestCase {
         node.setId(1);
         node.setLabel("Node One");
         EasyMock.expect(m_nodeDao.load(1)).andReturn(node);
-        
+
         MockResourceType resourceType = new MockResourceType();
         resourceType.setName("interfaceSnmp");
         OnmsResource resource = new OnmsResource(node.getId().toString(), node.getLabel(), resourceType, attributes);
@@ -230,9 +231,9 @@ public class ReportDefinitionTest extends TestCase {
         EasyMock.expect(m_rrdDao.getPrintValue(rrdAttribute, def.getConsolidationFunction(), report.getStartTime(), report.getEndTime())).andReturn(1.0);
 
         m_mocks.replayAll();
-        
+
         report.walk();
-        
+
         assertEquals("results size", 1, report.getResults().size());
     }
 

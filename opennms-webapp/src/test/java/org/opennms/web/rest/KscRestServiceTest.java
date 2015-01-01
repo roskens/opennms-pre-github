@@ -31,13 +31,13 @@ package org.opennms.web.rest;
 import static org.junit.Assert.assertTrue;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.Reader;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.commons.io.IOUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.opennms.core.test.MockLogAppender;
@@ -72,14 +72,14 @@ import org.springframework.test.context.web.WebAppConfiguration;
 @JUnitConfigurationEnvironment
 @JUnitTemporaryDatabase
 public class KscRestServiceTest extends AbstractSpringJerseyRestTestCase {
-    private File m_configFile = new File("target/test-classes/ksc-performance-reports.xml");
+    private Path m_configFile = Paths.get("target", "test-classes", "ksc-performance-reports.xml");
 
     @Override
     protected void beforeServletStart() throws Exception {
         KSC_PerformanceReportFactory.setConfigFile(m_configFile);
         KSC_PerformanceReportFactory.getInstance().reload();
     }
-    
+
     @Override
     protected void afterServletStart() throws Exception {
         MockLogAppender.setupLogging(true, "DEBUG");
@@ -109,32 +109,24 @@ public class KscRestServiceTest extends AbstractSpringJerseyRestTestCase {
         assertTrue(xml, xml.contains("title=\"foo\""));
     }
 
-    private static String slurp(final File file) throws Exception {
-        Reader fileReader = null;
-        BufferedReader reader = null;
-
-        try {
-            fileReader = new FileReader(file);
-            reader = new BufferedReader(fileReader);
+    private static String slurp(final Path file) throws Exception {
+        try (BufferedReader reader = Files.newBufferedReader(file, Charset.defaultCharset());) {
             final StringBuilder sb = new StringBuilder();
             while (reader.ready()) {
                 final String line = reader.readLine();
                 System.err.println(line);
                 sb.append(line).append('\n');
             }
-    
+
             return sb.toString();
-        } finally {
-            IOUtils.closeQuietly(reader);
-            IOUtils.closeQuietly(fileReader);
         }
     }
-    
+
     /*
     @Test
     public void testWriteGroup() throws Exception {
         createGroup("test");
-        
+
         String xml = sendRequest(GET, "/groups/test", 200);
         assertTrue(xml.contains("<group><name>test</name>"));
 
@@ -147,12 +139,12 @@ public class KscRestServiceTest extends AbstractSpringJerseyRestTestCase {
     @Test
     public void testDeleteGroup() throws Exception {
         createGroup("deleteMe");
-        
+
         String xml = sendRequest(GET, "/groups", 200);
         assertTrue(xml.contains("deleteMe"));
 
         sendRequest(DELETE, "/groups/idontexist", 400);
-        
+
         sendRequest(DELETE, "/groups/deleteMe", 200);
 
         sendRequest(GET, "/groups/deleteMe", 404);

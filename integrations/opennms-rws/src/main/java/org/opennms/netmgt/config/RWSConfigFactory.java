@@ -28,15 +28,14 @@
 
 package org.opennms.netmgt.config;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStreamWriter;
 import java.io.Writer;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.attribute.FileTime;
 
-import org.apache.commons.io.IOUtils;
 import org.exolab.castor.xml.MarshalException;
 import org.exolab.castor.xml.ValidationException;
 import org.opennms.core.utils.ConfigFileConstants;
@@ -71,11 +70,11 @@ public final class RWSConfigFactory extends RWSConfigManager {
      * This member is set to true if the configuration file has been loaded.
      */
     private static boolean m_loaded = false;
-    
+
     /**
      * Loaded version
      */
-    private long m_currentVersion = -1L;
+    private FileTime m_currentVersion = FileTime.fromMillis(-1L);
 
     /**
      * <p>Constructor for RWSConfigFactory.</p>
@@ -86,7 +85,7 @@ public final class RWSConfigFactory extends RWSConfigManager {
      * @throws org.exolab.castor.xml.ValidationException if any.
      * @throws java.io.IOException if any.
      */
-    public RWSConfigFactory(final long currentVersion, final InputStream stream) throws MarshalException, ValidationException, IOException {
+    public RWSConfigFactory(final FileTime currentVersion, final InputStream stream) throws MarshalException, ValidationException, IOException {
         super(stream);
         m_currentVersion = currentVersion;
     }
@@ -113,16 +112,12 @@ public final class RWSConfigFactory extends RWSConfigManager {
         }
         OpennmsServerConfigFactory.init();
 
-        final File cfgFile = ConfigFileConstants.getFile(ConfigFileConstants.RWS_CONFIG_FILE_NAME);
+        final Path cfgFile = ConfigFileConstants.getFile(ConfigFileConstants.RWS_CONFIG_FILE_NAME);
 
-        LOG.debug("init: config file path: {}", cfgFile.getPath());
+        LOG.debug("init: config file path: {}", cfgFile);
 
-        InputStream stream = null;
-        try {
-            stream = new FileInputStream(cfgFile);
-            setInstance(new RWSConfigFactory(cfgFile.lastModified(), stream));
-        } finally {
-            IOUtils.closeQuietly(stream);
+        try (InputStream stream = Files.newInputStream(cfgFile);) {
+            setInstance(new RWSConfigFactory(Files.getLastModifiedTime(cfgFile), stream));
         }
     }
 
@@ -139,7 +134,7 @@ public final class RWSConfigFactory extends RWSConfigManager {
         }
         return m_singleton;
     }
-    
+
     /**
      * <p>setInstance</p>
      *
@@ -167,13 +162,13 @@ public final class RWSConfigFactory extends RWSConfigManager {
             getWriteLock().lock();
             try {
                 final long timestamp = System.currentTimeMillis();
-                final File cfgFile = ConfigFileConstants.getFile(ConfigFileConstants.RWS_CONFIG_FILE_NAME);
-                LOG.debug("saveXml: saving config file at {}: {}", timestamp, cfgFile.getPath());
-                final Writer fileWriter = new OutputStreamWriter(new FileOutputStream(cfgFile), "UTF-8");
-                fileWriter.write(xml);
-                fileWriter.flush();
-                fileWriter.close();
-                LOG.debug("saveXml: finished saving config file: {}", cfgFile.getPath());
+                final Path cfgFile = ConfigFileConstants.getFile(ConfigFileConstants.RWS_CONFIG_FILE_NAME);
+                LOG.debug("saveXml: saving config file at {}: {}", timestamp, cfgFile);
+                try (final Writer fileWriter = Files.newBufferedWriter(cfgFile, Charset.forName("UTF-8"));) {
+                    fileWriter.write(xml);
+                    fileWriter.flush();
+                    LOG.debug("saveXml: finished saving config file: {}", cfgFile);
+                }
             } finally {
                 getWriteLock().unlock();
             }
@@ -190,18 +185,14 @@ public final class RWSConfigFactory extends RWSConfigManager {
     public void update() throws IOException, MarshalException, ValidationException {
         getWriteLock().lock();
         try {
-            final File cfgFile = ConfigFileConstants.getFile(ConfigFileConstants.RWS_CONFIG_FILE_NAME);
-            if (cfgFile.lastModified() > m_currentVersion) {
-                m_currentVersion = cfgFile.lastModified();
-                LOG.debug("init: config file path: {}", cfgFile.getPath());
-                InputStream stream = null;
-                try {
-                    stream = new FileInputStream(cfgFile);
+            final Path cfgFile = ConfigFileConstants.getFile(ConfigFileConstants.RWS_CONFIG_FILE_NAME);
+            if (!Files.getLastModifiedTime(cfgFile).equals(m_currentVersion)) {
+                m_currentVersion = Files.getLastModifiedTime(cfgFile);
+                LOG.debug("init: config file path: {}", cfgFile);
+                try (InputStream stream = Files.newInputStream(cfgFile);) {
                     reloadXML(stream);
-                } finally {
-                    IOUtils.closeQuietly(stream);
                 }
-                LOG.debug("init: finished loading config file: {}", cfgFile.getPath());
+                LOG.debug("init: finished loading config file: {}", cfgFile);
             }
         } finally {
             getWriteLock().unlock();

@@ -28,8 +28,8 @@
 
 package org.opennms.netmgt.config.dhcpd;
 
-import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
 
 import org.opennms.core.utils.ConfigFileConstants;
 import org.opennms.core.xml.JaxbUtils;
@@ -63,7 +63,7 @@ public final class DhcpdConfigFactory {
 
     /**
      * Default constructor (used by test as was as static methods)
-     * 
+     *
      * @exception java.io.IOException
      *                Thrown if the specified config file cannot be read
      * @exception org.exolab.castor.xml.MarshalException
@@ -71,7 +71,7 @@ public final class DhcpdConfigFactory {
      * @exception org.exolab.castor.xml.ValidationException
      *                Thrown if the contents do not match the required schema.
      */
-    DhcpdConfigFactory(File configFile) {
+    DhcpdConfigFactory(Path configFile) {
     	m_config = JaxbUtils.unmarshal(DhcpdConfiguration.class, configFile);
     }
 
@@ -96,7 +96,7 @@ public final class DhcpdConfigFactory {
             return;
         }
 
-        File configFile = ConfigFileConstants.getFile(ConfigFileConstants.DHCPD_CONFIG_FILE_NAME);
+        Path configFile = ConfigFileConstants.getFile(ConfigFileConstants.DHCPD_CONFIG_FILE_NAME);
         m_singleton = new DhcpdConfigFactory(configFile);
 
         m_loaded = true;

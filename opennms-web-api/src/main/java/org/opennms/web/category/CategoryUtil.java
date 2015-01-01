@@ -28,8 +28,8 @@
 
 package org.opennms.web.category;
 
-import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.text.DecimalFormat;
 
 import org.exolab.castor.xml.MarshalException;
@@ -97,7 +97,7 @@ public class CategoryUtil extends Object {
 
         return getCategoryColor(category.getNormalThreshold(), category.getWarningThreshold(), category.getValue());
     }
-    
+
     /**
      * Determine the CSS class to use for a given category value and thresholds.
      *
@@ -170,8 +170,8 @@ public class CategoryUtil extends Object {
         String m_red = null;
         CategoryColors m_colorsconfig = new CategoryColors();
 
-        File cfgFile = ConfigFileConstants.getFile(ConfigFileConstants.WEBUI_COLORS_FILE_NAME);
-        m_colorsconfig = CastorUtils.unmarshal(CategoryColors.class, new FileSystemResource(cfgFile));
+        Path cfgFile = ConfigFileConstants.getFile(ConfigFileConstants.WEBUI_COLORS_FILE_NAME);
+        m_colorsconfig = CastorUtils.unmarshal(CategoryColors.class, new FileSystemResource(cfgFile.toFile()));
 
         m_green = m_colorsconfig.getGreen();
         m_yellow = m_colorsconfig.getYellow();

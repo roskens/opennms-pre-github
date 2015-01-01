@@ -64,52 +64,53 @@ public abstract class DataSourceFactory {
        private static final Class<?> DEFAULT_FACTORY_CLASS = C3P0ConnectionFactory.class;
 
 	private static DataSourceConfigurationFactory m_dataSourceConfigFactory;
-	
+
     private static final Map<String, DataSource> m_dataSources = new ConcurrentHashMap<String, DataSource>();
-    
+
     private static final List<Runnable> m_closers = new LinkedList<Runnable>();
 
     private static ClosableDataSource parseDataSource(final String dsName) {
-        String factoryClass = null;
+        ClosableDataSource dataSource = null;
 
-        ConnectionPool connectionPool = m_dataSourceConfigFactory.getConnectionPool();
-        factoryClass = connectionPool.getFactory();
+        if (m_dataSourceConfigFactory != null) {
+            ConnectionPool connectionPool = m_dataSourceConfigFactory.getConnectionPool();
+            if (connectionPool != null) {
+                String factoryClass = connectionPool.getFactory();
 
-    	ClosableDataSource dataSource = null;
-		final String defaultClassName = DEFAULT_FACTORY_CLASS.getName();
-    	try {
-    		final Class<?> clazz = Class.forName(factoryClass);
-    		final Constructor<?> constructor = clazz.getConstructor(new Class<?>[] { JdbcDataSource.class });
-    		dataSource = (ClosableDataSource)constructor.newInstance(new Object[] { m_dataSourceConfigFactory.getJdbcDataSource(dsName) });
-    	} catch (final Throwable t) {
-    		LOG.debug("Unable to load {}, falling back to the default dataSource ({})", factoryClass, defaultClassName, t);
-    		try {
-				final Constructor<?> constructor = ((Class<?>) DEFAULT_FACTORY_CLASS).getConstructor(new Class<?>[] { JdbcDataSource.class });
-				dataSource = (ClosableDataSource)constructor.newInstance(new Object[] { m_dataSourceConfigFactory.getJdbcDataSource(dsName) });
-			} catch (final Throwable cause) {
-				LOG.error("Unable to load {}.", DEFAULT_FACTORY_CLASS.getName(), cause);
-				throw new IllegalArgumentException("Unable to load " + defaultClassName + ".", cause);
-			}
-    	}
-    	
-    	if (connectionPool != null) {
-    		dataSource.setIdleTimeout(connectionPool.getIdleTimeout());
-    		try {
-    			dataSource.setLoginTimeout(connectionPool.getLoginTimeout());
-    		} catch (SQLException e) {
-    			LOG.warn("Exception thrown while trying to set login timeout on datasource", e);
-    		}
-    		dataSource.setMinPool(connectionPool.getMinPool());
-    		dataSource.setMaxPool(connectionPool.getMaxPool());
-    		dataSource.setMaxSize(connectionPool.getMaxSize());
-    	}
-    	
+                final String defaultClassName = DEFAULT_FACTORY_CLASS.getName();
+                try {
+                    final Class<?> clazz = Class.forName(factoryClass);
+                    final Constructor<?> constructor = clazz.getConstructor(new Class<?>[]{JdbcDataSource.class});
+                    dataSource = (ClosableDataSource) constructor.newInstance(new Object[]{m_dataSourceConfigFactory.getJdbcDataSource(dsName)});
+                } catch (final Throwable t) {
+                    LOG.debug("Unable to load {}, falling back to the default dataSource ({})", factoryClass, defaultClassName, t);
+                    try {
+                        final Constructor<?> constructor = ((Class<?>) DEFAULT_FACTORY_CLASS).getConstructor(new Class<?>[]{JdbcDataSource.class});
+                        dataSource = (ClosableDataSource) constructor.newInstance(new Object[]{m_dataSourceConfigFactory.getJdbcDataSource(dsName)});
+                    } catch (final Throwable cause) {
+                        LOG.error("Unable to load {}.", DEFAULT_FACTORY_CLASS.getName(), cause);
+                        throw new IllegalArgumentException("Unable to load " + defaultClassName + ".", cause);
+                    }
+                }
+
+                dataSource.setIdleTimeout(connectionPool.getIdleTimeout());
+                try {
+                    dataSource.setLoginTimeout(connectionPool.getLoginTimeout());
+                } catch (SQLException e) {
+                    LOG.warn("Exception thrown while trying to set login timeout on datasource", e);
+                }
+                dataSource.setMinPool(connectionPool.getMinPool());
+                dataSource.setMaxPool(connectionPool.getMaxPool());
+                dataSource.setMaxSize(connectionPool.getMaxSize());
+            }
+        }
+
     	return dataSource;
     }
 
     /**
      * @deprecated This function is no longer necessary for DataSourceFactory initialization
-     * 
+     *
      * @throws IOException
      * @throws MarshalException
      * @throws ValidationException
@@ -147,7 +148,9 @@ public abstract class DataSourceFactory {
             @Override
             public void run() {
                 try {
-                    dataSource.close();
+                    if (dataSource != null) {
+                        dataSource.close();
+                    }
                 } catch (final Throwable cause) {
                 	LOG.info("Unable to close datasource {}.", dsName, cause);
                 }
@@ -158,7 +161,7 @@ public abstract class DataSourceFactory {
     }
 
     private static synchronized boolean isLoaded(final String dsName) {
-        return m_dataSources.containsKey(dsName);			
+        return m_dataSources.containsKey(dsName);
     }
 
     /**
@@ -222,11 +225,11 @@ public abstract class DataSourceFactory {
      * @throws java.sql.SQLException if any.
      */
     public static synchronized void close() {
-        
+
         for(Runnable closer : m_closers) {
             closer.run();
         }
-        
+
         m_closers.clear();
         m_dataSources.clear();
     }

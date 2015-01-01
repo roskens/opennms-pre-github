@@ -28,9 +28,10 @@
 
 package org.opennms.protocols.xml.collector;
 
-import java.io.File;
 import java.io.InputStream;
 import java.net.URL;
+import java.nio.file.FileSystems;
+import java.nio.file.Path;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -56,7 +57,7 @@ import org.w3c.dom.Document;
  * timestamp between files won't be taken in consideration.</p>
  * <p>The state will be persisted on disk by saving the name of the last successfully
  * processed file.</p>
- * 
+ *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 public class Sftp3gppXmlCollectionHandler extends AbstractXmlCollectionHandler {
@@ -78,7 +79,7 @@ public class Sftp3gppXmlCollectionHandler extends AbstractXmlCollectionHandler {
         DateTime startTime = new DateTime();
         Sftp3gppUrlConnection connection = null;
         try {
-            File resourceDir = new File(getRrdRepository().getRrdBaseDir(), Integer.toString(agent.getNodeId()));
+            Path resourceDir = getRrdRepository().getRrdBaseDir().resolve(Integer.toString(agent.getNodeId()));
             for (XmlSource source : collection.getXmlSources()) {
                 if (!source.getUrl().startsWith(Sftp3gppUrlHandler.PROTOCOL)) {
                     throw new CollectionException("The 3GPP SFTP Collection Handler can only use the protocol " + Sftp3gppUrlHandler.PROTOCOL);
@@ -90,7 +91,7 @@ public class Sftp3gppXmlCollectionHandler extends AbstractXmlCollectionHandler {
                 connection = (Sftp3gppUrlConnection) url.openConnection();
                 if (lastFile == null) {
                     lastFile = connection.get3gppFileName();
-                    LOG.debug("collect(single): retrieving file from {}{}{} from {}", url.getPath(), File.separatorChar, lastFile, agent.getHostAddress());
+                    LOG.debug("collect(single): retrieving file from {}{}{} from {}", url.getPath(), FileSystems.getDefault().getSeparator(), lastFile, agent.getHostAddress());
                     Document doc = getXmlDocument(urlStr, request);
                     fillCollectionSet(agent, collectionSet, source, doc);
                     Sftp3gppUtils.setLastFilename(getServiceName(), resourceDir, url.getPath(), lastFile);
@@ -103,13 +104,9 @@ public class Sftp3gppXmlCollectionHandler extends AbstractXmlCollectionHandler {
                     for (String fileName : files) {
                         if (connection.getTimeStampFromFile(fileName) > lastTs) {
                             LOG.debug("collect(multiple): retrieving file {} from {}", fileName, agent.getHostAddress());
-                            InputStream is = connection.getFile(fileName);
-                            try {
+                            try (InputStream is = connection.getFile(fileName);) {
                                 Document doc = getXmlDocument(is, request);
-                                IOUtils.closeQuietly(is);
                                 fillCollectionSet(agent, collectionSet, source, doc);
-                            } finally {
-                                IOUtils.closeQuietly(is);
                             }
                             Sftp3gppUtils.setLastFilename(getServiceName(), resourceDir, url.getPath(), fileName);
                             Sftp3gppUtils.deleteFile(connection, fileName);

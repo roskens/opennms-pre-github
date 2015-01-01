@@ -29,6 +29,7 @@
 package org.opennms.netmgt.collectd;
 
 import java.io.File;
+import java.nio.file.Path;
 
 import org.opennms.netmgt.collection.api.ServiceParameters;
 import org.opennms.netmgt.collection.api.StorageStrategy;
@@ -64,9 +65,9 @@ public class GenericIndexResource extends SnmpCollectionResource {
 
     /** {@inheritDoc} */
     @Override
-    public File getResourceDir(RrdRepository repository) {
+    public Path getResourceDir(RrdRepository repository) {
         String resourcePath = getStrategy().getRelativePathForAttribute(getParent(), getInterfaceLabel());
-        File resourceDir = new File(repository.getRrdBaseDir(), resourcePath);
+        Path resourceDir = repository.getRrdBaseDir().resolve(resourcePath);
         LOG.debug("getResourceDir: {}", resourceDir);
         return resourceDir;
     }
@@ -104,7 +105,7 @@ public class GenericIndexResource extends SnmpCollectionResource {
     public String getResourceTypeName() {
         return m_name;
     }
-    
+
     /**
      * <p>getInstance</p>
      *

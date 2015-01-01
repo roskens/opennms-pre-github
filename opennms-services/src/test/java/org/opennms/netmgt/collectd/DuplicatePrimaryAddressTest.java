@@ -32,6 +32,7 @@ import static org.easymock.EasyMock.anyObject;
 import static org.easymock.EasyMock.eq;
 
 import java.io.File;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -82,7 +83,7 @@ import org.springframework.core.io.Resource;
 
 /**
  * Test class for <a href="http://issues.opennms.org/browse/NMS-6226">NMS-6226</a>
- * 
+ *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  *
  */
@@ -325,7 +326,7 @@ public class DuplicatePrimaryAddressTest {
 
                 @Override
                 public void visit(CollectionSetVisitor visitor) {
-                    visitor.visitCollectionSet(this);   
+                    visitor.visitCollectionSet(this);
                     visitor.completeCollectionSet(this);
                 }
 
@@ -333,7 +334,7 @@ public class DuplicatePrimaryAddressTest {
                 public Date getCollectionTimestamp() {
                     return m_timestamp;
                 }
-            }; 
+            };
             return collectionSetResult;
         }
 
@@ -380,7 +381,7 @@ public class DuplicatePrimaryAddressTest {
         @Override
         public RrdRepository getRrdRepository(String collectionName) {
             RrdRepository repo = new RrdRepository();
-            repo.setRrdBaseDir(new File("target"));
+            repo.setRrdBaseDir(Paths.get("target"));
             repo.setRraList(Collections.singletonList("RRA:AVERAGE:0.5:1:8928"));
             repo.setStep(300);
             repo.setHeartBeat(2 * repo.getStep());

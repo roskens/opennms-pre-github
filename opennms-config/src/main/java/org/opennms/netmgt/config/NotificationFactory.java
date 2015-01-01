@@ -29,17 +29,16 @@
 package org.opennms.netmgt.config;
 
 import java.beans.PropertyVetoException;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStreamWriter;
 import java.io.Writer;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.attribute.FileTime;
 import java.sql.SQLException;
 
-import org.apache.commons.io.IOUtils;
 import org.exolab.castor.xml.MarshalException;
 import org.exolab.castor.xml.ValidationException;
 import org.opennms.core.db.DataSourceFactory;
@@ -63,17 +62,17 @@ public class NotificationFactory extends NotificationManager {
     private static boolean initialized = false;
 
     /**
-     * 
+     *
      */
-    private File m_noticeConfFile;
+    private Path m_noticeConfFile;
 
     /**
-     * 
+     *
      */
-    private long m_lastModified;
+    private FileTime m_lastModified;
 
     /**
-     * 
+     *
      */
     private NotificationFactory() {
         super(NotifdConfigFactory.getInstance(), DataSourceFactory.getInstance());
@@ -120,15 +119,9 @@ public class NotificationFactory extends NotificationManager {
     public synchronized void reload() throws IOException, MarshalException, ValidationException {
         m_noticeConfFile = ConfigFileConstants.getFile(ConfigFileConstants.NOTIFICATIONS_CONF_FILE_NAME);
 
-        InputStream configIn = null;
-        try {
-            configIn = new FileInputStream(m_noticeConfFile);
-            m_lastModified = m_noticeConfFile.lastModified();
+        try (InputStream configIn = Files.newInputStream(m_noticeConfFile);) {
+            m_lastModified = Files.getLastModifiedTime(m_noticeConfFile);
             parseXML(configIn);
-        } finally {
-            if (configIn != null) {
-                IOUtils.closeQuietly(configIn);
-            }
         }
     }
 
@@ -136,10 +129,10 @@ public class NotificationFactory extends NotificationManager {
     @Override
     protected void saveXML(String xmlString) throws IOException {
         if (xmlString != null) {
-            Writer fileWriter = new OutputStreamWriter(new FileOutputStream(m_noticeConfFile), "UTF-8");
-            fileWriter.write(xmlString);
-            fileWriter.flush();
-            fileWriter.close();
+            try (final Writer fileWriter = Files.newBufferedWriter(m_noticeConfFile, Charset.forName("UTF-8"));) {
+                fileWriter.write(xmlString);
+                fileWriter.flush();
+            }
         }
     }
 
@@ -152,7 +145,7 @@ public class NotificationFactory extends NotificationManager {
      */
     @Override
     public void update() throws IOException, MarshalException, ValidationException {
-        if (m_lastModified != m_noticeConfFile.lastModified()) {
+        if (m_lastModified == null || !m_lastModified.equals(Files.getLastModifiedTime(m_noticeConfFile))) {
             reload();
         }
     }

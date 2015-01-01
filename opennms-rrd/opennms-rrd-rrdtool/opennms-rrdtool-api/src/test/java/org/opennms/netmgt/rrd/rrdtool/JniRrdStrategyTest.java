@@ -28,9 +28,10 @@
 
 package org.opennms.netmgt.rrd.rrdtool;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-
+import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -42,13 +43,13 @@ import org.springframework.util.StringUtils;
 /**
  * Unit tests for the JniRrdStrategy.  This requires that the shared object
  * for JNI rrdtool support can be found and linked (see findJrrdLibrary).
- * 
+ *
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @TestExecutionListeners({})
 public class JniRrdStrategyTest {
-    
+
     private JniRrdStrategy m_strategy;
 
     @Before
@@ -56,11 +57,11 @@ public class JniRrdStrategyTest {
         MockLogAppender.setupLogging();
         String rrdLib = System.getProperty("opennms.library.jrrd");
         if (rrdLib != null && !rrdLib.equals("${opennms.library.jrrd}")) {
-            File libFile = new File(rrdLib);
-            if (libFile.exists()) {
+            Path libFile = Paths.get(rrdLib);
+            if (Files.exists(libFile)) {
                 m_strategy = new JniRrdStrategy();
             } else {
-                throw new FileNotFoundException(rrdLib + " does not exist");
+                throw new NoSuchFileException(rrdLib);
             }
         } else {
             System.err.println("System property 'opennms.library.jrrd' not set: skipping tests");
@@ -76,8 +77,8 @@ public class JniRrdStrategyTest {
         if (m_strategy != null) {
             String rrdtoolBin = System.getProperty("install.rrdtool.bin");
             if (rrdtoolBin != null) {
-                File rrdtoolFile = new File(rrdtoolBin);
-                if (!rrdtoolFile.exists()) {
+                Path rrdtoolFile = Paths.get(rrdtoolBin);
+                if (!Files.exists(rrdtoolFile)) {
                     System.err.println(rrdtoolBin + " does not exist");
                     return;
                 }
@@ -90,14 +91,14 @@ public class JniRrdStrategyTest {
             long start = end - (24 * 60 * 60 * 1000);
             String[] command = new String[] {
                     rrdtoolBin,
-                    "graph", 
+                    "graph",
                     "-",
                     "--start=" + start,
                     "--end=" + end,
                     "COMMENT:test"
             };
-            
-            m_strategy.createGraph(StringUtils.arrayToDelimitedString(command, " "), (new File(rrdtoolBin)).getParentFile());
+
+            m_strategy.createGraph(StringUtils.arrayToDelimitedString(command, " "), Paths.get(rrdtoolBin).getParent());
         }
     }
 }

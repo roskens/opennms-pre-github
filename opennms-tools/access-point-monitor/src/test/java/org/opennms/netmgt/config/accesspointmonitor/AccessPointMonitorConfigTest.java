@@ -32,11 +32,13 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.StringWriter;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 import javax.xml.bind.JAXBContext;
@@ -52,29 +54,29 @@ import org.junit.Before;
 import org.junit.Test;
 import org.opennms.core.utils.ParameterMap;
 import org.opennms.core.xml.JaxbUtils;
-import org.opennms.test.FileAnticipator;
+import org.opennms.test.PathAnticipator;
 import org.xml.sax.SAXException;
 
 public class AccessPointMonitorConfigTest {
-    private FileAnticipator fa;
+    private PathAnticipator fa;
     private AccessPointMonitorConfig apmc;
 
     static private class TestOutputResolver extends SchemaOutputResolver {
-        private final File m_schemaFile;
+        private final Path m_schemaFile;
 
-        public TestOutputResolver(File schemaFile) {
+        public TestOutputResolver(Path schemaFile) {
             m_schemaFile = schemaFile;
         }
 
         @Override
         public Result createOutput(String namespaceUri, String suggestedFileName) throws IOException {
-            return new StreamResult(m_schemaFile);
+            return new StreamResult(m_schemaFile.toFile());
         }
     }
 
     @Before
     public void setUp() throws Exception {
-        fa = new FileAnticipator();
+        fa = new PathAnticipator();
 
         ServiceTemplate svcTemplate = new ServiceTemplate();
         svcTemplate.setName("IsAPAdoptedOnController-Template");
@@ -123,7 +125,7 @@ public class AccessPointMonitorConfigTest {
 
     @Test
     public void generateSchema() throws Exception {
-        File schemaFile = fa.expecting("access-point-monitor-configuration.xsd");
+        Path schemaFile = fa.expecting("access-point-monitor-configuration.xsd");
         JAXBContext c = JAXBContext.newInstance(AccessPointMonitorConfig.class);
         c.generateSchema(new TestOutputResolver(schemaFile));
         if (fa.isInitialized()) {
@@ -139,9 +141,9 @@ public class AccessPointMonitorConfigTest {
 
         // Read the example XML from src/test/resources
         StringBuffer exampleXML = new StringBuffer();
-        File apmConfig = new File(ClassLoader.getSystemResource("access-point-monitor-configuration.xml").getFile());
-        assertTrue("access-point-monitor-configuration.xml is readable", apmConfig.canRead());
-        BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(apmConfig), "UTF-8"));
+        Path apmConfig = Paths.get(ClassLoader.getSystemResource("access-point-monitor-configuration.xml").toURI());
+        assertTrue("access-point-monitor-configuration.xml is readable", Files.isReadable(apmConfig));
+        BufferedReader reader = Files.newBufferedReader(apmConfig, Charset.forName("UTF-8"));
         String line;
         while (true) {
             line = reader.readLine();
@@ -166,8 +168,8 @@ public class AccessPointMonitorConfigTest {
     @Test
     public void readXML() throws Exception {
         // Retrieve the file we're parsing.
-        File apmConfig = new File(ClassLoader.getSystemResource("access-point-monitor-configuration.xml").getFile());
-        assertTrue("access-point-monitor-configuration.xml is readable", apmConfig.canRead());
+        Path apmConfig = Paths.get(ClassLoader.getSystemResource("access-point-monitor-configuration.xml").toURI());
+        assertTrue("access-point-monitor-configuration.xml is readable", Files.isReadable(apmConfig));
 
         AccessPointMonitorConfig exampleApmc = JaxbUtils.unmarshal(AccessPointMonitorConfig.class, apmConfig);
 

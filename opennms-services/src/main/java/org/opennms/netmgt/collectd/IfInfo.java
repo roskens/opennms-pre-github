@@ -32,6 +32,8 @@ package org.opennms.netmgt.collectd;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.nio.file.InvalidPathException;
+import java.nio.file.Path;
 import java.util.Map;
 
 import org.opennms.core.utils.AlphaNumeric;
@@ -53,9 +55,9 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public final class IfInfo extends SnmpCollectionResource {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(IfInfo.class);
-    
+
     private SNMPCollectorEntry m_entry;
     private String m_ifAlias;
     private final SnmpIfData m_snmpIfData;
@@ -72,7 +74,7 @@ public final class IfInfo extends SnmpCollectionResource {
         m_snmpIfData = snmpIfData;
         m_ifAlias = snmpIfData.getIfAlias();
     }
-    
+
     public int getNodeId() {
         return m_snmpIfData.getNodeId();
     }
@@ -205,7 +207,7 @@ public final class IfInfo extends SnmpCollectionResource {
         LOG.debug("selectCollectionOnly = {}", getCollection().isSelectCollectionOnly());
 
         boolean isScheduled = isCollectionEnabled() || !getCollection().isSelectCollectionOnly();
-        
+
         LOG.debug("isScheduled = {}", isScheduled);
 
         return isScheduled;
@@ -216,17 +218,17 @@ public final class IfInfo extends SnmpCollectionResource {
         return getResourceType().getCollection();
     }
 
-    /** {@inheritDoc} 
+    /** {@inheritDoc}
      * @throws FileNotFoundException */
     @Override
-    public File getResourceDir(RrdRepository repository) throws FileNotFoundException {
+    public Path getResourceDir(RrdRepository repository) throws InvalidPathException {
         String label = getInterfaceLabel();
         if (label == null || "".equals(label)) {
-            throw new FileNotFoundException("Could not construct resource directory because interface label is null or blank: nodeId: " + getNodeId() + ", rrdRepository: " + repository.toString());
+            throw new InvalidPathException(label, "Could not construct resource directory because interface label is null or blank: nodeId: " + getNodeId() + ", rrdRepository: " + repository);
         } else {
-            File rrdBaseDir = repository.getRrdBaseDir();
-            File dir = new File(rrdBaseDir, getCollectionAgent().getStorageDir().toString());
-            return new File(dir, label);
+            Path rrdBaseDir = repository.getRrdBaseDir();
+            Path dir = rrdBaseDir.resolve(getCollectionAgent().getStorageDir());
+            return dir.resolve(label);
         }
     }
 
@@ -256,7 +258,7 @@ public final class IfInfo extends SnmpCollectionResource {
         LOG.debug("shouldPersist = {}", shdprsist);
         return shdprsist;
     }
-    
+
     /**
      * <p>getResourceTypeName</p>
      *
@@ -266,7 +268,7 @@ public final class IfInfo extends SnmpCollectionResource {
     public String getResourceTypeName() {
         return CollectionResource.RESOURCE_TYPE_IF; //This is IfInfo, must be an interface
     }
-    
+
     /**
      * <p>getInstance</p>
      *

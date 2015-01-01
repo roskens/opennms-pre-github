@@ -42,11 +42,13 @@ import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.Field;
 import com.vaadin.ui.TextField;
 import com.vaadin.data.fieldgroup.FieldGroup;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 /**
  * The Test Class for EventForm.
- * 
- * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a> 
+ *
+ * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 public class EventFormTest {
 
@@ -54,10 +56,10 @@ public class EventFormTest {
 
     @Before
     public void setUp() throws Exception {
-        File config = new File(ConfigurationTestUtils.getDaemonEtcDirectory(), "events/MPLS.events.xml");
-        Assert.assertTrue(config.exists());
+        Path config = ConfigurationTestUtils.getDaemonEtcDirectory().resolve("events").resolve("MPLS.events.xml");
+        Assert.assertTrue(Files.exists(config));
         dao = new DefaultEventConfDao();
-        dao.setConfigResource(new FileSystemResource(config));
+        dao.setConfigResource(new FileSystemResource(config.toFile()));
         dao.afterPropertiesSet();
     }
 

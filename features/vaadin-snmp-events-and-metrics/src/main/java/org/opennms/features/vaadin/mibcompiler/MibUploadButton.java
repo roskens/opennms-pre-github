@@ -28,19 +28,19 @@
 
 package org.opennms.features.vaadin.mibcompiler;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.OutputStream;
 
 import org.opennms.features.vaadin.api.Logger;
 
 import com.vaadin.ui.Upload;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 /**
  * The Class MIB Upload Button.
- * 
- * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a> 
+ *
+ * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 @SuppressWarnings("serial")
 public abstract class MibUploadButton extends Upload {
@@ -52,7 +52,7 @@ public abstract class MibUploadButton extends Upload {
      * @param compiledDir the compiled directory
      * @param logger the logger
      */
-    public MibUploadButton(final File pendingDir, final File compiledDir, final Logger logger) {
+    public MibUploadButton(final Path pendingDir, final Path compiledDir, final Logger logger) {
 
         setCaption(null);
         setImmediate(true);
@@ -61,10 +61,10 @@ public abstract class MibUploadButton extends Upload {
         setReceiver(new Receiver() {
             @Override
             public OutputStream receiveUpload(String filename, String mimeType) {
-                File file = new File(pendingDir, filename);
+                Path file = pendingDir.resolve(filename);
                 try {
-                    return new FileOutputStream(file);
-                } catch (FileNotFoundException e) {
+                    return Files.newOutputStream(file);
+                } catch (IOException e) {
                     logger.warn("Unable to create file '" + file + "': " + e.getLocalizedMessage());
                     return null;
                 }
@@ -74,12 +74,12 @@ public abstract class MibUploadButton extends Upload {
         addStartedListener(new Upload.StartedListener() {
             @Override
             public void uploadStarted(StartedEvent event) {
-                File pending = new File(pendingDir, event.getFilename());
-                File compiled = new File(compiledDir, event.getFilename());
-                if (pending.exists()) {
-                    logger.warn("The file " + pending.getName() + " already exist on Pending directory.");
-                } else if (compiled.exists()){
-                    logger.warn("The file " + compiled.getName() + " already exist on Compiled directory.");
+                Path pending = pendingDir.resolve(event.getFilename());
+                Path compiled = compiledDir.resolve(event.getFilename());
+                if (Files.exists(pending)) {
+                    logger.warn("The file " + pending + " already exist on Pending directory.");
+                } else if (Files.exists(compiled)) {
+                    logger.warn("The file " + compiled + " already exist on Compiled directory.");
                 } else {
                     logger.info("Uploading " + event.getFilename());
                 }

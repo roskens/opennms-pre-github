@@ -28,6 +28,7 @@
 
 package org.opennms.netmgt.dao;
 
+import java.nio.file.Path;
 import org.opennms.netmgt.config.vmware.vijava.VmwareCollection;
 import org.opennms.netmgt.config.vmware.vijava.VmwareDatacollectionConfig;
 import org.opennms.netmgt.rrd.RrdRepository;
@@ -69,5 +70,5 @@ public interface VmwareDatacollectionConfigDao {
      *
      * @return the Rrd's path
      */
-    public String getRrdPath();
+    public Path getRrdPath();
 }

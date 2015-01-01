@@ -28,12 +28,11 @@
 
 package org.opennms.core.db;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
-import org.apache.commons.io.IOUtils;
 import org.exolab.castor.xml.MarshalException;
 import org.exolab.castor.xml.ValidationException;
 import org.opennms.core.xml.CastorUtils;
@@ -56,27 +55,19 @@ public final class DataSourceConfigurationFactory {
 
 	private final DataSourceConfiguration m_dsc;
 
-	public DataSourceConfigurationFactory(File fileName) {
-		InputStream is = null;
-		try {
-			is = new FileInputStream(fileName);
+    public DataSourceConfigurationFactory(Path path) {
+        try (InputStream is = Files.newInputStream(path);) {
 			m_dsc = CastorUtils.unmarshal(DataSourceConfiguration.class, is);
 		} catch (MarshalException e) {
 			throw new IllegalArgumentException("Could not unmarshal " + DataSourceConfiguration.class.getName(), e);
 		} catch (ValidationException e) {
 			throw new IllegalArgumentException("Could not unmarshal " + DataSourceConfiguration.class.getName(), e);
-		} catch (FileNotFoundException e) {
+        } catch (IOException e) {
 			throw new IllegalArgumentException("Could not unmarshal " + DataSourceConfiguration.class.getName(), e);
-		} finally {
-			IOUtils.closeQuietly(is);
 		}
 	}
 
-	public DataSourceConfigurationFactory(String fileName) {
-		this(new File(fileName));
-	}
-
-	public DataSourceConfigurationFactory(InputStream fileInputStream) {
+    public DataSourceConfigurationFactory(InputStream fileInputStream) {
 		try {
 			m_dsc = CastorUtils.unmarshal(DataSourceConfiguration.class, fileInputStream);
 		} catch (MarshalException e) {
@@ -89,7 +80,7 @@ public final class DataSourceConfigurationFactory {
 	public ConnectionPool getConnectionPool() {
 		return m_dsc.getConnectionPool();
 	}
-	
+
 	public JdbcDataSource getJdbcDataSource(String name) {
 		for (JdbcDataSource ds : m_dsc.getJdbcDataSource()) {
 			if (ds.getName().equals(name)) {

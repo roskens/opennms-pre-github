@@ -29,7 +29,6 @@
 package org.opennms.mock.snmp;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectOutputStream;
@@ -38,6 +37,9 @@ import java.net.InetAddress;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.UnknownHostException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -90,11 +92,11 @@ import org.snmp4j.util.ThreadPool;
  * class to provide a mock SNMP agent for SNMP-based OpenNMS tests.
  * Large chunks of code were lifted from the org.snmp4j.agent.test.TestAgent
  * class.
- * 
+ *
  * @author Jeff Gehlbach
  */
 public class MockSnmpAgent extends BaseAgent implements Runnable {
-	
+
     private static final String PROPERTY_SLEEP_ON_CREATE = "mockSnmpAgent.sleepOnCreate";
 
     // initialize Log4J logging
@@ -107,7 +109,7 @@ public class MockSnmpAgent extends BaseAgent implements Runnable {
         }
 
         // Check to see if the pseudorandom byte generator device exists
-        if (new File("/dev/urandom").exists()) {
+        if (Files.exists(Paths.get("/dev/urandom"))) {
 
             // If so, use it as the Java entropy gathering device so that we never
             // block on entropy gathering. Don't use the exact string "file:/dev/urandom"
@@ -117,6 +119,7 @@ public class MockSnmpAgent extends BaseAgent implements Runnable {
             // @see https://bugs.openjdk.java.net/browse/JDK-6202721
             //
             System.setProperty("java.security.egd", "file:/dev/./urandom");
+            System.err.println("java.security.egd: " + System.getProperty("java.security.egd"));
         }
 
         // Allow us to override default security protocols
@@ -135,47 +138,47 @@ public class MockSnmpAgent extends BaseAgent implements Runnable {
     private AtomicReference<MockSnmpMOLoader> m_moLoader = new AtomicReference<MockSnmpMOLoader>();
     private AtomicReference<IOException> m_failure = new AtomicReference<IOException>();
 
-    private static File BOOT_COUNT_FILE;
+    private static Path BOOT_COUNT_FILE;
 
     public static boolean allowSetOnMissingOid = false;
 
     static {
-        File bootCountFile;
+        Path bootCountFile;
         try {
-            bootCountFile = File.createTempFile("mockSnmpAgent", "boot");
-            ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(bootCountFile));
-            out.writeInt(0);
-            out.flush();
-            out.close();
+            bootCountFile = Files.createTempFile("mockSnmpAgent", "boot");
+            try (ObjectOutputStream out = new ObjectOutputStream(Files.newOutputStream(bootCountFile))) {
+                out.writeInt(0);
+                out.flush();
+            }
         } catch (IOException e) {
-            bootCountFile = new File("/dev/null");
+            bootCountFile = Paths.get("/dev/null");
         }
         BOOT_COUNT_FILE = bootCountFile;
     }
 
     public MockSnmpAgent(final File confFile, final URL moFile) {
-        super(BOOT_COUNT_FILE, confFile, new CommandProcessor(new OctetString(MPv3.createLocalEngineID(new OctetString("MOCKAGENT")))));
+        super(BOOT_COUNT_FILE.toFile(), confFile, new CommandProcessor(new OctetString(MPv3.createLocalEngineID(new OctetString("MOCKAGENT")))));
         m_moLoader.set(new PropertiesBackedManagedObject());
         m_moFile.set(moFile);
         agent.setWorkerPool(ThreadPool.create("RequestPool", 4));
     }
-    
+
     /**
      * Creates the mock agent with files to read and store the boot counter,
      * to read and store the agent configuration, and to read the mocked
      * managed objects (MOs), plus a string describing the address and port
      * to bind to.
-     * 
+     *
      * @param moFile
      * 		a MIB dump file describing the managed objects to be mocked.  The current implementation
      * 		expects a Java properties file, which can conveniently be generated using the Net-SNMP
      * 		utility <code>snmpwalk</code> with the <code>-One</code> option set.
      */
-    public MockSnmpAgent(final File confFile, final URL moFile, final String bindAddress) {
-        this(confFile, moFile);
+    public MockSnmpAgent(final Path path, final URL moFile, final String bindAddress) {
+        this(path.toFile(), moFile);
         m_address.set(bindAddress);
     }
-    
+
     public static MockSnmpAgent createAgentAndRun(URL moFile, String bindAddress) throws InterruptedException {
         setupLogging();
         try {
@@ -189,7 +192,7 @@ public class MockSnmpAgent extends BaseAgent implements Runnable {
             throw new RuntimeException("Got IOException while checking for existence of mock object file: " + e, e);
         }
 
-        final MockSnmpAgent agent = new MockSnmpAgent(new File("/dev/null"), moFile, bindAddress);
+        final MockSnmpAgent agent = new MockSnmpAgent(Paths.get("/dev/null"), moFile, bindAddress);
         Thread thread = new Thread(agent, agent.getClass().getSimpleName() + '-' + agent.hashCode());
         thread.start();
 
@@ -296,13 +299,13 @@ public class MockSnmpAgent extends BaseAgent implements Runnable {
         s_log.info("MockSnmpAgent: starting initMessageDispatcher()");
         try {
             dispatcher = new MessageDispatcherImpl();
-    
+
             usm = new USM(SecurityProtocols.getInstance(),
                           agent.getContextEngineID(),
                           updateEngineBoots());
-    
+
             mpv3 = new MPv3(usm);
-    
+
             SecurityProtocols.getInstance().addDefaultProtocols();
             dispatcher.addMessageProcessingModel(new MPv1());
             dispatcher.addMessageProcessingModel(new MPv2c());
@@ -362,7 +365,7 @@ public class MockSnmpAgent extends BaseAgent implements Runnable {
 
         while (!isStopped()) {
             Thread.sleep(10);
-        } 
+        }
     }
 
     /**
@@ -370,7 +373,7 @@ public class MockSnmpAgent extends BaseAgent implements Runnable {
      * <code>start</code> method of class <code>Thread</code>, but could also be
      * used to bring up a standalone mock agent.
      * @see org.snmp4j.agent.BaseAgent#run()
-     * 
+     *
      * @author Jeff Gehlbach
      */
     @Override
@@ -625,7 +628,7 @@ public class MockSnmpAgent extends BaseAgent implements Runnable {
             s_log.info("MockSnmpAgent: finished initTransportMappings()");
         }
     }
-    
+
     public static final class MockUdpTransportMapping extends DefaultUdpTransportMapping {
         public MockUdpTransportMapping(final UdpAddress udpAddress, final boolean reuseAddress) throws IOException {
             super(udpAddress, reuseAddress);
@@ -707,7 +710,7 @@ public class MockSnmpAgent extends BaseAgent implements Runnable {
         }
         return null;
     }
-    
+
     public void updateValue(OID oid, Variable value) {
         ManagedObject mo = findMOForOid(oid);
         assertNotNull("Unable to find oid in mib for mockAgent: "+oid, mo);
@@ -725,29 +728,29 @@ public class MockSnmpAgent extends BaseAgent implements Runnable {
     public void updateValue(String oid, Variable value) {
         updateValue(new OID(oid), value);
     }
-    
+
     public void updateIntValue(String oid, int val) {
         updateValue(oid, new Integer32(val));
     }
-    
+
     public void updateStringValue(String oid, String val) {
         updateValue(oid, new OctetString(val));
     }
-    
+
     public void updateCounter32Value(String oid, int val) {
         updateValue(oid, new Counter32(val));
     }
-    
+
     public void updateCounter64Value(String oid, long val) {
         updateValue(oid, new Counter64(val));
     }
-    
+
     public void updateValuesFromResource(final URL moFile) {
         unregisterManagedObjects();
         m_moFile.set(moFile);
         registerManagedObjects();
     }
-    
+
     @Override
     public String toString() {
         return "MockSnmpAgent["+m_address.get()+"]";

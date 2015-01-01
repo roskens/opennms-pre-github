@@ -28,10 +28,11 @@
 
 package org.opennms.netmgt.provision.service.vmware;
 
-import java.io.File;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.List;
 
 import org.apache.commons.cli.CommandLine;
@@ -48,7 +49,7 @@ import org.opennms.netmgt.provision.persist.requisition.Requisition;
 
 /**
  * The Class VmwareRequisitionTool
- * 
+ *
  * @author Alejandro Galue <agalue@opennms.org>
  */
 public abstract class VmwareRequisitionTool {
@@ -72,8 +73,8 @@ public abstract class VmwareRequisitionTool {
 
         // Parse vmware-config.xml and retrieve the credentials to avoid initialize Spring
         if (url.getUserInfo() == null) {
-            File cfg = new File(ConfigFileConstants.getFilePathString(), "vmware-config.xml");
-            if (cfg.exists()) {
+            Path cfg = ConfigFileConstants.getFilePathString().resolve("vmware-config.xml");
+            if (Files.exists(cfg)) {
                 String username = null;
                 String password = null;
                 VmwareConfig config = JaxbUtils.unmarshal(VmwareConfig.class, cfg);
@@ -98,8 +99,8 @@ public abstract class VmwareRequisitionTool {
             @Override
             protected Requisition getExistingRequisition() {
                 // This is not elegant but it is necessary to avoid booting Spring
-                File req = new File(ConfigFileConstants.getFilePathString(), "imports" + File.separator + m_foreignSource + ".xml");
-                if (req.exists()) {
+                Path req = ConfigFileConstants.getFilePathString().resolve("imports").resolve(m_foreignSource + ".xml");
+                if (Files.exists(req)) {
                     return JaxbUtils.unmarshal(Requisition.class, req);
                 }
                 return null;

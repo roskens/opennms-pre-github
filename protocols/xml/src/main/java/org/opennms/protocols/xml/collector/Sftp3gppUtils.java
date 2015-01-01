@@ -28,8 +28,8 @@
 
 package org.opennms.protocols.xml.collector;
 
-import java.io.File;
-import java.io.FileInputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -47,7 +47,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * The Class Sftp3gppUtils.
- * 
+ *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 public abstract class Sftp3gppUtils {
@@ -73,7 +73,7 @@ public abstract class Sftp3gppUtils {
      * @return the last filename
      * @throws Exception the exception
      */
-    public static String getLastFilename(String serviceName, File resourceDir, String targetPath) throws Exception {
+    public static String getLastFilename(String serviceName, Path resourceDir, String targetPath) throws Exception {
         String filename = null;
         try {
             filename = ResourceTypeUtils.getStringProperty(resourceDir, getCacheId(serviceName, targetPath));
@@ -92,7 +92,7 @@ public abstract class Sftp3gppUtils {
      * @param filename the filename
      * @throws Exception the exception
      */
-    public static void setLastFilename(String serviceName, File resourceDir, String targetPath, String filename) throws Exception {
+    public static void setLastFilename(String serviceName, Path resourceDir, String targetPath, String filename) throws Exception {
         ResourceTypeUtils.updateStringProperty(resourceDir, filename, getCacheId(serviceName, targetPath));
     }
 
@@ -140,14 +140,14 @@ public abstract class Sftp3gppUtils {
      *
      * @param resourceType the resource type
      * @return the 3gpp format
-     */    
+     */
     public static String get3gppFormat(String resourceType) {
         if (m_pmGroups.isEmpty()) {
             try {
-                File configFile = new File(ConfigFileConstants.getFilePathString(), PM_GROUPS_FILENAME);
-                if (configFile.exists()) {
+                Path configFile = ConfigFileConstants.getFilePathString().resolve(PM_GROUPS_FILENAME);
+                if (Files.exists(configFile)) {
                     LOG.info("Using 3GPP PM Groups format from {}", configFile);
-                    m_pmGroups.load(new FileInputStream(configFile));
+                    m_pmGroups.load(Files.newInputStream(configFile));
                 } else {
                     LOG.info("Using default 3GPP PM Groups format.");
                     m_pmGroups.load(Sftp3gppUtils.class.getResourceAsStream("/" + PM_GROUPS_FILENAME));
@@ -199,7 +199,7 @@ public abstract class Sftp3gppUtils {
             }
         }
         // If the format was not found, and the default parser couldn't extract any data then,
-        // the label must be equal to the instance (NMS-6365, to avoid blank descriptions). 
+        // the label must be equal to the instance (NMS-6365, to avoid blank descriptions).
         properties.put("label", properties.isEmpty() ? measInfoId : properties.toString().replaceAll("[{}]", ""));
         properties.put("instance", measInfoId);
         return properties;

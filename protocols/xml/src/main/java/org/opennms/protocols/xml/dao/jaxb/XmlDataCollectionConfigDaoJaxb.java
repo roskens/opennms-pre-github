@@ -28,7 +28,7 @@
 
 package org.opennms.protocols.xml.dao.jaxb;
 
-import java.io.File;
+import java.nio.file.Path;
 
 import org.opennms.core.utils.ConfigFileConstants;
 import org.opennms.core.xml.AbstractJaxbConfigDao;
@@ -44,7 +44,7 @@ import org.springframework.core.io.FileSystemResource;
 
 /**
  * The Class XmlDataCollectionConfigDaoJaxb.
- * 
+ *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 public class XmlDataCollectionConfigDaoJaxb extends AbstractJaxbConfigDao<XmlDataCollectionConfig, XmlDataCollectionConfig> implements XmlDataCollectionConfigDao {
@@ -113,9 +113,9 @@ public class XmlDataCollectionConfigDaoJaxb extends AbstractJaxbConfigDao<XmlDat
             return;
         }
         for (String importGroup : source.getImportGroupsList()) {
-            File file = new File(ConfigFileConstants.getHome(), "/etc/" + importGroup);
+            Path file = ConfigFileConstants.getHome().resolve("etc").resolve(importGroup);
             LOG.debug("parseXmlGroups: parsing {}", file);
-            XmlGroups groups = JaxbUtils.unmarshal(XmlGroups.class, new FileSystemResource(file));
+            XmlGroups groups = JaxbUtils.unmarshal(XmlGroups.class, new FileSystemResource(file.toFile()));
             source.getXmlGroups().addAll(groups.getXmlGroups());
         }
     }

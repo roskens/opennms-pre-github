@@ -28,7 +28,7 @@
 
 package org.opennms.netmgt.dao.api;
 
-import java.io.File;
+import java.nio.file.Path;
 import java.util.Collection;
 import java.util.List;
 
@@ -42,21 +42,21 @@ import org.opennms.netmgt.model.OnmsResourceType;
  * <p>ResourceDao interface.</p>
  */
 public interface ResourceDao {
-    
+
     /**
      * <p>getRrdDirectory</p>
      *
      * @return a {@link java.io.File} object.
      */
-    public File getRrdDirectory();
-    
+    public Path getRrdDirectory();
+
     /**
      * <p>getRrdDirectory</p>
      *
      * @param verify a boolean.
      * @return a {@link java.io.File} object.
      */
-    public File getRrdDirectory(boolean verify);
+    public Path getRrdDirectory(boolean verify);
 
     /**
      * <p>getResourceTypes</p>
@@ -64,7 +64,7 @@ public interface ResourceDao {
      * @return a {@link java.util.Collection} object.
      */
     public Collection<OnmsResourceType> getResourceTypes();
-    
+
     /**
      * <p>getResourceById</p>
      *
@@ -81,14 +81,14 @@ public interface ResourceDao {
      * @return Resources or null if resources cannot be found.
      */
     public List<OnmsResource> getResourceListById(String id);
-    
+
     /**
      * <p>findDomainResources</p>
      *
      * @return a {@link java.util.List} object.
      */
     public List<OnmsResource> findDomainResources();
-   
+
     /**
      * <p>findTopLevelResources</p>
      *
@@ -111,7 +111,7 @@ public interface ResourceDao {
      * @return a {@link org.opennms.netmgt.model.OnmsResource} object.
      */
     public OnmsResource getResourceForIpInterface(OnmsIpInterface ipInterface);
-    
+
     /**
      * <p>getResourceForIpInterface</p>
      *

@@ -94,7 +94,7 @@ public class DaoTestConfigBean implements InitializingBean {
         if (m_relativeHomeDirectory != null) {
             ConfigurationTestUtils.setRelativeHomeDirectory(m_relativeHomeDirectory);
         } else {
-            ConfigurationTestUtils.setAbsoluteHomeDirectory(ConfigurationTestUtils.getDaemonEtcDirectory().getParentFile().getAbsolutePath());
+            ConfigurationTestUtils.setAbsoluteHomeDirectory(ConfigurationTestUtils.getDaemonEtcDirectory().getParent().toAbsolutePath().toString());
         }
 
         ConfigurationTestUtils.setRrdBinary(m_rrdBinary);

@@ -28,8 +28,8 @@
 
 package org.opennms.netmgt.config;
 
-import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
 
 import org.exolab.castor.xml.MarshalException;
 import org.exolab.castor.xml.ValidationException;
@@ -68,7 +68,7 @@ public final class OutageManagerConfigFactory implements OutageManagerConfig {
 
     /**
      * Private constructor
-     * 
+     *
      * @exception java.io.IOException
      *                Thrown if the specified config file cannot be read
      * @exception org.exolab.castor.xml.MarshalException
@@ -76,8 +76,8 @@ public final class OutageManagerConfigFactory implements OutageManagerConfig {
      * @exception org.exolab.castor.xml.ValidationException
      *                Thrown if the contents do not match the required schema.
      */
-    private OutageManagerConfigFactory(final String configFile) throws IOException, MarshalException, ValidationException {
-        m_config = CastorUtils.unmarshal(OutageConfiguration.class, new FileSystemResource(configFile));
+    private OutageManagerConfigFactory(final Path configFile) throws IOException, MarshalException, ValidationException {
+        m_config = CastorUtils.unmarshal(OutageConfiguration.class, new FileSystemResource(configFile.toFile()));
     }
 
     /**
@@ -101,8 +101,8 @@ public final class OutageManagerConfigFactory implements OutageManagerConfig {
             return;
         }
 
-        final File cfgFile = ConfigFileConstants.getFile(ConfigFileConstants.OUTAGE_MANAGER_CONFIG_FILE_NAME);
-        m_singleton = new OutageManagerConfigFactory(cfgFile.getPath());
+        final Path cfgFile = ConfigFileConstants.getFile(ConfigFileConstants.OUTAGE_MANAGER_CONFIG_FILE_NAME);
+        m_singleton = new OutageManagerConfigFactory(cfgFile);
         m_loaded = true;
     }
 

@@ -28,8 +28,9 @@
 
 package org.opennms.protocols.xml.collector;
 
-import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -74,7 +75,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
  * The Test Class for HTTP Data Collection.
- * 
+ *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -84,7 +85,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 public class HttpDataCollectionTest {
 
     /** The Constant TEST_SNMP_DIRECTORY. */
-    private static final String TEST_SNMP_DIRECTORY = "target/snmp/";
+    private static final Path TEST_SNMP_DIRECTORY = Paths.get("target", "snmp");
 
     /** The collection agent. */
     private CollectionAgent m_collectionAgent;
@@ -99,10 +100,10 @@ public class HttpDataCollectionTest {
      */
     @Before
     public void setUp() throws Exception {
-        FileUtils.deleteDirectory(new File(TEST_SNMP_DIRECTORY));
+        FileUtils.deleteDirectory(TEST_SNMP_DIRECTORY.toFile());
         MockLogAppender.setupLogging();
         DefaultDataCollectionConfigDao dao = new DefaultDataCollectionConfigDao();
-        dao.setConfigDirectory("src/test/resources/etc/datacollection");
+        dao.setConfigDirectory(Paths.get("src/test/resources/etc/datacollection"));
         dao.setConfigResource(new FileSystemResource("src/test/resources/etc/datacollection-config.xml"));
         dao.afterPropertiesSet();
         DataCollectionConfigFactory.setInstance(dao);
@@ -114,7 +115,7 @@ public class HttpDataCollectionTest {
         m_collectionAgent = EasyMock.createMock(CollectionAgent.class);
         EasyMock.expect(m_collectionAgent.getNodeId()).andReturn(1).anyTimes();
         EasyMock.expect(m_collectionAgent.getHostAddress()).andReturn("127.0.0.1").anyTimes();
-        EasyMock.expect(m_collectionAgent.getStorageDir()).andReturn(new File("1")).anyTimes();
+        EasyMock.expect(m_collectionAgent.getStorageDir()).andReturn(Paths.get("1")).anyTimes();
 
         m_nodeDao = EasyMock.createMock(NodeDao.class);
         OnmsNode node = new OnmsNode();
@@ -146,7 +147,7 @@ public class HttpDataCollectionTest {
             @Webapp(context="/junit", path="src/test/resources/test-webapp")
     })
     public void testHttpCollection() throws Exception {
-        File configFile = new File("src/test/resources/http-datacollection-config.xml");
+        Path configFile = Paths.get("src/test/resources/http-datacollection-config.xml");
         XmlDataCollectionConfig config = JaxbUtils.unmarshal(XmlDataCollectionConfig.class, configFile);
         XmlDataCollection collection = config.getDataCollectionByName("Http-Count");
         RrdRepository repository = createRrdRepository(collection.getXmlRrd());
@@ -166,7 +167,7 @@ public class HttpDataCollectionTest {
         BasePersister persister =  new GroupPersister(serviceParams, repository); // storeByGroup=true;
         collectionSet.visit(persister);
 
-        RrdDb jrb = new RrdDb(new File("target/snmp/1/count-stats.jrb"));
+        RrdDb jrb = new RrdDb(Paths.get("target/snmp/1/count-stats.jrb").toFile());
         Assert.assertNotNull(jrb);
         Assert.assertEquals(1, jrb.getDsCount());
         Datasource ds = jrb.getDatasource("count");
@@ -184,7 +185,7 @@ public class HttpDataCollectionTest {
             @Webapp(context="/junit", path="src/test/resources/test-webapp")
     })
     public void testCssSelectorHttpCollection() throws Exception {
-        File configFile = new File("src/test/resources/http-datacollection-config.xml");
+        Path configFile = Paths.get("src/test/resources/http-datacollection-config.xml");
         XmlDataCollectionConfig config = JaxbUtils.unmarshal(XmlDataCollectionConfig.class, configFile);
         XmlDataCollection collection = config.getDataCollectionByName("Http-Market");
         RrdRepository repository = createRrdRepository(collection.getXmlRrd());
@@ -204,7 +205,7 @@ public class HttpDataCollectionTest {
         BasePersister persister =  new GroupPersister(serviceParams, repository); // storeByGroup=true;
         collectionSet.visit(persister);
 
-        RrdDb jrb = new RrdDb(new File("target/snmp/1/market.jrb"));
+        RrdDb jrb = new RrdDb(Paths.get("target/snmp/1/market.jrb").toFile());
         Assert.assertNotNull(jrb);
         Assert.assertEquals(2, jrb.getDsCount());
         Datasource ds = jrb.getDatasource("nasdaq");
@@ -222,7 +223,7 @@ public class HttpDataCollectionTest {
             @Webapp(context="/junit", path="src/test/resources/test-webapp")
     })
     public void testJsonHttpCollection() throws Exception {
-        File configFile = new File("src/test/resources/solaris-zones-datacollection-config.xml");
+        Path configFile = Paths.get("src/test/resources/solaris-zones-datacollection-config.xml");
         XmlDataCollectionConfig config = JaxbUtils.unmarshal(XmlDataCollectionConfig.class, configFile);
         XmlDataCollection collection = config.getDataCollectionByName("Solaris");
         RrdRepository repository = createRrdRepository(collection.getXmlRrd());
@@ -242,7 +243,7 @@ public class HttpDataCollectionTest {
         BasePersister persister =  new GroupPersister(serviceParams, repository); // storeByGroup=true;
         collectionSet.visit(persister);
 
-        RrdDb jrb = new RrdDb(new File("target/snmp/1/solarisZoneStats/global/solaris-zone-stats.jrb"));
+        RrdDb jrb = new RrdDb(Paths.get("target/snmp/1/solarisZoneStats/global/solaris-zone-stats.jrb").toFile());
         Assert.assertNotNull(jrb);
         Assert.assertEquals(6, jrb.getDsCount());
         Datasource ds = jrb.getDatasource("nproc");
@@ -258,7 +259,7 @@ public class HttpDataCollectionTest {
      */
     private RrdRepository createRrdRepository(XmlRrd rrd) throws IOException {
         RrdRepository repository = new RrdRepository();
-        repository.setRrdBaseDir(new File(TEST_SNMP_DIRECTORY));
+        repository.setRrdBaseDir(TEST_SNMP_DIRECTORY);
         repository.setHeartBeat(rrd.getStep() * 2);
         repository.setStep(rrd.getStep());
         repository.setRraList(rrd.getXmlRras());

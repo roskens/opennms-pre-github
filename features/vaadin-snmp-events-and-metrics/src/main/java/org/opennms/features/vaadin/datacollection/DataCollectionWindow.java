@@ -28,8 +28,10 @@
 
 package org.opennms.features.vaadin.datacollection;
 
-import java.io.File;
-import java.io.FileWriter;
+import java.io.Writer;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.List;
 
 import org.opennms.core.utils.ConfigFileConstants;
@@ -45,8 +47,8 @@ import com.vaadin.ui.Window;
 
 /**
  * The Class Data Collection Window.
- * 
- * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a> 
+ *
+ * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 //FIXME: When a different group is selected and the current one is being edited, warn about discard the changes or save them before continue
 @SuppressWarnings("serial")
@@ -106,14 +108,12 @@ public class DataCollectionWindow extends Window {
      * @param logger the logger
      */
     public void generateGraphTemplates(final MibParser parser, final Logger logger) {
-        final File configDir = new File(ConfigFileConstants.getHome(), "etc" + File.separatorChar + "snmp-graph.properties.d");
-        final File file = new File(configDir, parser.getMibName().replaceAll(" ", "_") + "-graph.properties");
-        try {
-            FileWriter writer = new FileWriter(file);
+        final Path configDir = ConfigFileConstants.getHome().resolve("etc").resolve("snmp-graph.properties.d");
+        final Path file = configDir.resolve(parser.getMibName().replaceAll(" ", "_") + "-graph.properties");
+        try (Writer writer = Files.newBufferedWriter(file, Charset.defaultCharset());) {
             List<PrefabGraph> graphs = parser.getPrefabGraphs();
             PrefabGraphDumper dumper = new PrefabGraphDumper();
             dumper.dump(graphs, writer);
-            writer.close();
             logger.info("Graph templates successfully generated on " + file);
         } catch (Exception e) {
             logger.error("Can't generate the graph templates on " + file);

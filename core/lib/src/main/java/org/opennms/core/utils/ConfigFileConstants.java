@@ -31,16 +31,21 @@ package org.opennms.core.utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.URI;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.InvalidPathException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 
 /**
  * This class holds all OpenNMS related config filenames
  */
 public abstract class ConfigFileConstants {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(ConfigFileConstants.class);
 
     private static final String[] FILE_ID_TO_NAME;
@@ -172,27 +177,27 @@ public abstract class ConfigFileConstants {
 
     /**
      * The config file specifying the JavaMailer config (ie SMTP HOST)
-     * 
+     *
      */
 
     public static final int JAVA_MAIL_CONFIG_FILE_NAME;
 
     /**
      * The config file specifying the XMPP config (host, user, password, etc.)
-     * 
+     *
      */
     public static final int XMPP_CONFIG_FILE_NAME;
-    
+
     /**
      * JFree Chart configuration file
      */
     public static final int CHART_CONFIG_FILE_NAME;
-    
+
     /**
      * JFree Chart configuration file
      */
     public static final int TRANSLATOR_CONFIG_FILE_NAME;
-    
+
     /**
      * The config file for specifying JMX MBeans
      */
@@ -321,7 +326,7 @@ public abstract class ConfigFileConstants {
      * The opennms surveillance views config file
      */
     public static final int SITE_STATUS_VIEWS_FILE_NAME;
-    
+
     /** Constant <code>HTTP_COLLECTION_CONFIG_FILE_NAME</code> */
     public static final int HTTP_COLLECTION_CONFIG_FILE_NAME;
 
@@ -367,7 +372,7 @@ public abstract class ConfigFileConstants {
      * The Linkd discovery configuration file
      */
     public static final int LINKD_CONFIG_FILE_NAME;
-    
+
     /**
      * The ENHANCED Linkd discovery configuration file
      */
@@ -377,7 +382,7 @@ public abstract class ConfigFileConstants {
      * The OpenNMS DataSourceConfiguration file
      */
     public static final int OPENNMS_DATASOURCE_CONFIG_FILE_NAME;
-    
+
     /**
      * The map properties config file
      */
@@ -406,7 +411,7 @@ public abstract class ConfigFileConstants {
      */
     public static final int NOTIFY_REPORT_DTD;
 
-    
+
     /**
      * The NSClient data collection configuration file
      */
@@ -416,7 +421,7 @@ public abstract class ConfigFileConstants {
      * The NSClient data collection configuration file
      */
     public static final int NSCLIENT_CONFIG_FILE_NAME;
-    
+
     /**
      * The WMI agent configuration file
      */
@@ -431,12 +436,12 @@ public abstract class ConfigFileConstants {
      * The XMP agent configuration file
      */
     public static final int XMP_CONFIG_FILE_NAME;
-    
+
     /**
      * The RWS (RestFul Web Service) configuration file
      * used to access Rancid
      */
-    public static final int RWS_CONFIG_FILE_NAME;   
+    public static final int RWS_CONFIG_FILE_NAME;
 
     /**
      * The Rancid Provisioning Adapter configuration file
@@ -453,7 +458,7 @@ public abstract class ConfigFileConstants {
      * The WMI collection configuration file
      */
     public static final int WMI_COLLECTION_CONFIG_FILE_NAME;
-    
+
     /**
      * The Asterisk global configuration file (for notifications, etc.)
      */
@@ -463,12 +468,12 @@ public abstract class ConfigFileConstants {
      * The AMI agent configuration file
      */
     public static final int AMI_CONFIG_FILE_NAME;
-    
+
     /**
      * The config file for microblog notifications and acks
      */
     public static final int MICROBLOG_CONFIG_FILE_NAME;
-    
+
     /**
      * The config file for the JDBC Data Collector.
      */
@@ -552,57 +557,57 @@ public abstract class ConfigFileConstants {
         VACUUMD_CONFIG_FILE_NAME = 53;
 
         XMPP_CONFIG_FILE_NAME = 54;
-        
+
         CHART_CONFIG_FILE_NAME = 55;
 
         JMX_DATA_COLLECTION_CONF_FILE_NAME = 56;
-        
+
         TRANSLATOR_CONFIG_FILE_NAME = 57;
 
         SYSLOGD_CONFIG_FILE_NAME = 58;
-        
+
         LINKD_CONFIG_FILE_NAME = 59;
-        
+
         MAP_PROPERTIES_FILE_NAME = 60;
-        
+
         SURVEILLANCE_VIEWS_FILE_NAME = 61;
-        
+
         SITE_STATUS_VIEWS_FILE_NAME = 62;
-        
+
         HTTP_COLLECTION_CONFIG_FILE_NAME = 64;
-        
+
         NSCLIENT_COLLECTION_CONFIG_FILE_NAME = 65;
-        
+
         NSCLIENT_CONFIG_FILE_NAME = 66;
-        
+
         WMI_CONFIG_FILE_NAME = 67;
 
         WMI_COLLECTION_CONFIG_FILE_NAME = 68;
-        
+
         OPENNMS_DATASOURCE_CONFIG_FILE_NAME = 69;
-        
+
         RWS_CONFIG_FILE_NAME = 70;
 
         XMP_COLLECTION_CONFIG_FILE_NAME = 71;
-        
+
         XMP_CONFIG_FILE_NAME = 72;
 
         SNMP_INTERFACE_POLLER_CONFIG_FILE_NAME = 73;
-        
+
         ASTERISK_CONFIG_FILE_NAME = 74;
-        
+
         AMI_CONFIG_FILE_NAME = 75;
-        
+
         MAPS_ADAPTER_CONFIG_FILE_NAME = 76;
-        
+
         RANCID_CONFIG_FILE_NAME = 77;
-        
+
         MICROBLOG_CONFIG_FILE_NAME = 78;
-        
+
         SNMP_ASSET_ADAPTER_CONFIG_FILE_NAME = 79;
-        
+
         JDBC_COLLECTION_CONFIG_FILE_NAME = 80;
-        
+
         ENLINKD_CONFIG_FILE_NAME = 81;
         // Allocate and build the mapping of identifiers to names
         //
@@ -745,31 +750,48 @@ public abstract class ConfigFileConstants {
      * @throws java.io.IOException
      *             Thrown if an error occurs accessing the file system.
      */
-    public static File getFile(int id) throws IOException {
+    public static Path getFile(int id) throws IOException {
+        LOG.debug("getFile(id={})", id);
         // Recover the home directory from the system properties.
-        String home = getHome();
+        Path home = getHome();
 
         // Check to make sure that the home directory exists
-        File fhome = new File(home);
-        if (!fhome.exists()) {
-        	LOG.debug("The specified home directory does not exist.");
+        if (!Files.exists(home)) {
+            LOG.debug("The specified home directory '{}' does not exist.", home);
             throw new FileNotFoundException("The OpenNMS home directory \"" + home + "\" does not exist");
         }
 
         String rfile = getFileName(id);
-        File frfile = new File(home + File.separator + "etc" + File.separator + rfile);
-        if (!frfile.exists()) {
-            File frfileNoEtc = new File(home + File.separator + rfile);
-            if (!frfileNoEtc.exists()) {
-                throw new FileNotFoundException("The requested file '" + rfile
-                                                + "' could not be found at '"
-                                                + frfile.getAbsolutePath()
-                                                + "' or '"
-                                                + frfileNoEtc.getAbsolutePath()
-                                                + "'");
+        LOG.debug("getFile: rfile='{}'", rfile);
+        Path etcDir = null;
+        Path nullFile = Paths.get("");
+        Path frfile = nullFile;
+        try {
+            etcDir = home.resolve("etc");
+            LOG.debug("etcDir: {}", etcDir);
+
+            frfile = etcDir.resolve(rfile);
+            LOG.debug("frfile: {}", frfile);
+        } catch (InvalidPathException e) {
+            LOG.error("caught invalid path exception for rfile={} in directory {}", rfile, etcDir, e);
+        }
+        if (frfile == null || !Files.exists(frfile)) {
+            try {
+                Path frfileNoEtc = home.resolve(rfile);
+                if (!Files.exists(frfileNoEtc)) {
+                    throw new FileNotFoundException("The requested file '" + rfile
+                      + "' could not be found in '"
+                      + etcDir
+                      + "' or '"
+                      + frfileNoEtc
+                      + "'");
+                }
+                frfile = frfileNoEtc;
+            } catch (InvalidPathException e) {
+                LOG.error("caught invalid path exception for rfile={} in directory {}", rfile, home, e);
             }
         }
-
+        LOG.debug("getFile: frfile='{}'", frfile);
         return frfile;
     }
 
@@ -797,25 +819,26 @@ public abstract class ConfigFileConstants {
      * @throws java.io.IOException
      *             Thrown if an error occurs accessing the file system.
      */
-    public static File getConfigFileByName(String fname) throws IOException {
+    public static Path getConfigFileByName(String fname) throws IOException {
+        LOG.debug("getFile(fname={})", fname);
         // Recover the home directory from the system properties.
         //
-        String home = getHome();
+        Path home = getHome();
 
         // Check to make sure that the home directory exists
         //
-        File fhome = new File(home);
-        if (!fhome.exists()) {
+        if (!Files.exists(home)) {
         	LOG.debug("The specified home directory does not exist.");
             throw new FileNotFoundException("The OpenNMS home directory \"" + home + "\" does not exist.");
         }
 
-        File frfile = new File(home + File.separator + "etc" + File.separator + fname);
-        if (!frfile.exists()) {
-            File frfileNoEtc = new File(home + File.separator + fname);
-            if (!frfileNoEtc.exists()) {
-                throw new FileNotFoundException(String.format("The requested file '%s' could not be found at '%s' or '%s'", fname, frfile.getAbsolutePath(), frfileNoEtc.getAbsolutePath()));
+        Path frfile = home.resolve("etc").resolve(fname);
+        if (!Files.exists(frfile)) {
+            Path frfileNoEtc = home.resolve(fname);
+            if (!Files.exists(frfileNoEtc)) {
+                throw new FileNotFoundException(String.format("The requested file '%s' could not be found at '%s' or '%s'", fname, frfile, frfileNoEtc));
             }
+            frfile = frfileNoEtc;
         }
 
         return frfile;
@@ -826,18 +849,21 @@ public abstract class ConfigFileConstants {
      *
      * @return a {@link java.lang.String} object.
      */
-    public static String getHome() {
+    public static Path getHome() {
+        LOG.debug("getHome()");
         String home = System.getProperty("opennms.home");
         if (home == null) {
         	LOG.debug("The 'opennms.home' property was not set, falling back to /opt/opennms.  This should really only happen in unit tests.");
-            home = File.separator + "opt" + File.separator + "opennms";
+            home = "/opt/opennms";
         }
         // Remove the trailing slash if necessary
         //
-        if (home.endsWith("/") || home.endsWith(File.separator))
+        if (home.endsWith("/") || home.endsWith(FileSystems.getDefault().getSeparator()))
             home = home.substring(0, home.length() - 1);
 
-        return home;
+        Path path = Paths.get(home);
+        LOG.debug("getHome: returning path: {}", path);
+        return path;
     }
 
     /**
@@ -846,8 +872,8 @@ public abstract class ConfigFileConstants {
      *
      * @return String, the file url for the include file
      */
-    public static String getIncludeFileString() {
-        return "file:" + getHome() + File.separator + "etc" + File.separator + "include";
+    public static URI getIncludeFileString() {
+        return getHome().resolve("etc").resolve("include").toUri();
     }
 
     /**
@@ -855,17 +881,8 @@ public abstract class ConfigFileConstants {
      *
      * @return String, the file url for the include file
      */
-    public static String getFilePathString() {
-        return getHome() + File.separator + "etc" + File.separator;
-    }
-
-    /**
-     * <p>getTimezoneFileDir</p>
-     *
-     * @return a {@link java.lang.String} object.
-     */
-    public static String getTimezoneFileDir() {
-        return File.separator + "usr" + File.separator + "share" + File.separator + "zoneinfo" + File.separator + "US";
+    public static Path getFilePathString() {
+        return getHome().resolve("etc");
     }
 
     /** Constant <code>RRD_DS_MAX_SIZE=19</code> */

@@ -29,6 +29,7 @@
 package org.opennms.netmgt.collection.persistence.rrd;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.nio.file.Path;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -62,21 +63,17 @@ public class GroupPersister extends BasePersister {
     public void visitGroup(AttributeGroup group) {
         pushShouldPersist(group);
         if (shouldPersist()) {
-            
+
             Map<String, String> dsNamesToRrdNames = new LinkedHashMap<String , String>();
             for (CollectionAttribute a : group.getAttributes()) {
                 if (ResourceTypeUtils.isNumericType(a.getType())) {
                     dsNamesToRrdNames.put(a.getName(), group.getName());
                 }
             }
-            
+
             createBuilder(group.getResource(), group.getName(), group.getGroupType().getAttributeTypes());
-            try {
-                File path = group.getResource().getResourceDir(getRepository());
-                ResourceTypeUtils.updateDsProperties(path, dsNamesToRrdNames);
-            } catch (FileNotFoundException e) {
-                LOG.warn("Could not update datasource properties: " + e.getMessage(), e);
-            }
+            Path path = group.getResource().getResourceDir(getRepository());
+            ResourceTypeUtils.updateDsProperties(path, dsNamesToRrdNames);
         }
     }
 

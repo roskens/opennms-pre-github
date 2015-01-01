@@ -28,8 +28,8 @@
 
 package org.opennms.netmgt.collectd.tca.config;
 
-import java.io.File;
 import java.io.Serializable;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -44,7 +44,7 @@ import org.opennms.netmgt.rrd.RrdRepository;
 
 /**
  * The Class TcaDataCollectionConfig.
- * 
+ *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 @XmlRootElement(name="tca-datacollection-config")
@@ -56,7 +56,7 @@ public class TcaDataCollectionConfig implements Serializable, Comparable<TcaData
 
     /** The RRD Repository. */
     @XmlAttribute(name="rrdRepository", required=true)
-    private String m_rrdRepository;
+    private Path m_rrdRepository;
 
     /** The Constant OF_DATA_COLLECTIONS. */
     private static final TcaDataCollection[] OF_DATA_COLLECTIONS = new TcaDataCollection[0];
@@ -77,7 +77,7 @@ public class TcaDataCollectionConfig implements Serializable, Comparable<TcaData
      * @return the RRD repository
      */
     @XmlTransient
-    public String getRrdRepository() {
+    public Path getRrdRepository() {
         return m_rrdRepository;
     }
 
@@ -86,7 +86,7 @@ public class TcaDataCollectionConfig implements Serializable, Comparable<TcaData
      *
      * @param rrdRepository the new RRD repository
      */
-    public void setRrdRepository(final String rrdRepository) {
+    public void setRrdRepository(final Path rrdRepository) {
         m_rrdRepository = rrdRepository;
     }
 
@@ -170,7 +170,7 @@ public class TcaDataCollectionConfig implements Serializable, Comparable<TcaData
         }
         final TcaRrd rrd = collection.getRrd();
         final RrdRepository repo = new RrdRepository();
-        repo.setRrdBaseDir(new File(getRrdRepository()));
+        repo.setRrdBaseDir(getRrdRepository());
         repo.setRraList(rrd.getRras());
         repo.setStep(rrd.getStep()); // Step should be 1 second
         repo.setHeartBeat(rrd.getStep()); // Heartbeat should be equal to the step.

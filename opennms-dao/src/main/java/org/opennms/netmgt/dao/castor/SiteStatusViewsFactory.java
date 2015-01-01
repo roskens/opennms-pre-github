@@ -35,6 +35,9 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.attribute.FileTime;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -48,7 +51,7 @@ import org.opennms.netmgt.config.siteStatusViews.SiteStatusViewConfiguration;
 import org.opennms.netmgt.config.siteStatusViews.View;
 
 public class SiteStatusViewsFactory {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(SiteStatusViewsFactory.class);
     /** The singleton instance. */
     private static SiteStatusViewsFactory m_instance;
@@ -59,7 +62,7 @@ public class SiteStatusViewsFactory {
     protected boolean initialized = false;
 
     /** Timestamp of the viewDisplay file, used to know when to reload from disk. */
-    protected static long m_lastModified;
+    protected static FileTime m_lastModified = null;
 
     /** Map of view objects by name. */
     protected static Map<String,View> m_viewsMap;
@@ -74,15 +77,9 @@ public class SiteStatusViewsFactory {
      * @throws org.exolab.castor.xml.ValidationException if any.
      * @throws java.io.IOException if any.
      */
-    public SiteStatusViewsFactory(String configFile) throws MarshalException, ValidationException, IOException {
-        InputStream stream = null;
-        try {
-            stream = new FileInputStream(configFile);
+    public SiteStatusViewsFactory(Path configFile) throws MarshalException, ValidationException, IOException {
+        try (InputStream stream = Files.newInputStream(configFile);) {
             initialize(stream);
-        } finally {
-            if (stream != null) {
-                IOUtils.closeQuietly(stream);
-            }
         }
     }
 
@@ -121,9 +118,9 @@ public class SiteStatusViewsFactory {
      */
     public static synchronized void init() throws IOException, FileNotFoundException, MarshalException, ValidationException {
         if (m_instance == null) {
-            File cfgFile = ConfigFileConstants.getFile(ConfigFileConstants.SITE_STATUS_VIEWS_FILE_NAME);
-            m_instance = new SiteStatusViewsFactory(cfgFile.getPath());
-            m_lastModified = cfgFile.lastModified();
+            Path cfgFile = ConfigFileConstants.getFile(ConfigFileConstants.SITE_STATUS_VIEWS_FILE_NAME);
+            m_instance = new SiteStatusViewsFactory(cfgFile);
+            m_lastModified = Files.getLastModifiedTime(cfgFile);
             m_loadedFromFile = true;
 
         }
@@ -144,7 +141,7 @@ public class SiteStatusViewsFactory {
 
         return m_instance;
     }
-    
+
     /**
      * <p>setInstance</p>
      *
@@ -199,8 +196,8 @@ public class SiteStatusViewsFactory {
      */
     protected void updateFromFile() throws IOException, MarshalException, ValidationException {
         if (m_loadedFromFile) {
-            File siteStatusViewsFile = ConfigFileConstants.getFile(ConfigFileConstants.SITE_STATUS_VIEWS_FILE_NAME);
-            if (m_lastModified != siteStatusViewsFile.lastModified()) {
+            Path siteStatusViewsFile = ConfigFileConstants.getFile(ConfigFileConstants.SITE_STATUS_VIEWS_FILE_NAME);
+            if (m_lastModified == null || !m_lastModified.equals(Files.getLastModifiedTime(siteStatusViewsFile))) {
                 this.reload();
             }
         }

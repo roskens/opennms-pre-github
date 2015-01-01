@@ -28,11 +28,8 @@
 
 package org.opennms.netmgt.config;
 
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStreamWriter;
 import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.io.Writer;
@@ -58,6 +55,10 @@ import org.springframework.core.io.Resource;
 
 import com.googlecode.concurentlocks.ReadWriteUpdateLock;
 import com.googlecode.concurentlocks.ReentrantReadWriteUpdateLock;
+import java.io.File;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 /**
  * This class is the main repository for SNMP configuration information used by
@@ -86,7 +87,7 @@ public class SnmpPeerFactory implements SnmpAgentConfigFactory {
      */
     private static SnmpPeerFactory m_singleton = null;
 
-    private static File m_configFile;
+    private static Path m_configFile;
 
     /**
      * The config class loaded from the config file
@@ -148,9 +149,9 @@ public class SnmpPeerFactory implements SnmpAgentConfigFactory {
 
     public static synchronized void init() throws IOException {
         if (!m_loaded) {
-            final File cfgFile = getFile();
-            LOG.debug("init: config file path: {}", cfgFile.getPath());
-            final FileSystemResource resource = new FileSystemResource(cfgFile);
+            final Path cfgFile = getPath();
+            LOG.debug("init: config file path: {}", cfgFile);
+            final FileSystemResource resource = new FileSystemResource(cfgFile.toFile());
 
             m_singleton = new SnmpPeerFactory(resource);
             m_loaded = true;
@@ -183,9 +184,9 @@ public class SnmpPeerFactory implements SnmpAgentConfigFactory {
         m_loaded = true;
     }
 
-    public static synchronized File getFile() throws IOException {
+    public static synchronized Path getPath() throws IOException {
         if (m_configFile == null) {
-            setFile(ConfigFileConstants.getFile(ConfigFileConstants.SNMP_CONF_FILE_NAME));
+            setPath(ConfigFileConstants.getFile(ConfigFileConstants.SNMP_CONF_FILE_NAME));
         }
         return m_configFile;
     }
@@ -195,8 +196,8 @@ public class SnmpPeerFactory implements SnmpAgentConfigFactory {
      *
      * @param configFile a {@link java.io.File} object.
      */
-    public static synchronized void setFile(final File configFile) {
-        final File oldFile = m_configFile;
+    public static synchronized void setPath(final Path configFile) {
+        final Path oldFile = m_configFile;
         m_configFile = configFile;
 
         // if the file changed then we need to reload the config
@@ -214,33 +215,25 @@ public class SnmpPeerFactory implements SnmpAgentConfigFactory {
      * @throws org.exolab.castor.xml.ValidationException if any.
      */
     public void saveCurrent() throws IOException {
-        saveToFile(getFile());
+        saveToFile(getPath());
     }
 
-    public void saveToFile(final File file) throws UnsupportedEncodingException, FileNotFoundException, IOException {
+    public void saveToFile(final Path file) throws UnsupportedEncodingException, FileNotFoundException, IOException {
         // Marshal to a string first, then write the string to the file. This
         // way the original config isn't lost if the XML from the marshal is hosed.
-        SnmpPeerFactory.getWriteLock().lock();
-
         final String marshalledConfig = getSnmpConfigAsString();
 
-        FileOutputStream out = null;
-        Writer fileWriter = null;
-        try {
-            if (marshalledConfig != null) {
-                out = new FileOutputStream(file);
-                fileWriter = new OutputStreamWriter(out, "UTF-8");
+        if (marshalledConfig != null) {
+            SnmpPeerFactory.getWriteLock().lock();
+            try (Writer fileWriter = Files.newBufferedWriter(file, Charset.forName("UTF-8"));) {
                 fileWriter.write(marshalledConfig);
                 fileWriter.flush();
-                fileWriter.close();
                 if (m_container != null) {
                     m_container.reload();
                 }
+            } finally {
+                SnmpPeerFactory.getWriteLock().unlock();
             }
-        } finally {
-            IOUtils.closeQuietly(fileWriter);
-            IOUtils.closeQuietly(out);
-            SnmpPeerFactory.getWriteLock().unlock();
         }
     }
 

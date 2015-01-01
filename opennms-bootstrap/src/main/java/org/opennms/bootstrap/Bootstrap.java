@@ -29,48 +29,53 @@
 package org.opennms.bootstrap;
 
 import java.io.File;
-import java.io.FileFilter;
-import java.io.FileInputStream;
-import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
-import java.util.Arrays;
+import java.nio.file.DirectoryStream;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.StringTokenizer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Bootstrap application for starting OpenNMS.
  */
 public abstract class Bootstrap {
+    private static final Logger LOG = LoggerFactory.getLogger(Bootstrap.class);
+
     protected static final String BOOT_PROPERTIES_NAME = "bootstrap.properties";
     protected static final String RRD_PROPERTIES_NAME = "rrd-configuration.properties";
     protected static final String LIBRARY_PROPERTIES_NAME = "libraries.properties";
     protected static final String OPENNMS_HOME_PROPERTY = "opennms.home";
-    
+
     /**
      * Matches any file that is a directory.
      */
-    private static FileFilter m_dirFilter = new FileFilter() {
+    private static DirectoryStream.Filter<Path> m_dirFilter = new DirectoryStream.Filter<Path>() {
         @Override
-        public boolean accept(File pathname) {
-            return pathname.isDirectory();
+        public boolean accept(Path pathname) {
+            return Files.isDirectory(pathname);
         }
     };
 
     /**
      * Matches any file that has a name ending in ".jar".
      */
-    private static FilenameFilter m_jarFilter = new FilenameFilter() {
+    private static DirectoryStream.Filter<Path> m_jarFilter = new DirectoryStream.Filter<Path>() {
         @Override
-        public boolean accept(File dir, String name) {
-            return name.endsWith(".jar");
+        public boolean accept(Path path) {
+            return path.endsWith(".jar");
         }
     };
 
@@ -97,10 +102,10 @@ public abstract class Bootstrap {
                 urls.add(u);
             }
         }
-        StringTokenizer toke = new StringTokenizer(dirStr, File.pathSeparator);
+        StringTokenizer toke = new StringTokenizer(dirStr, FileSystems.getDefault().getSeparator());
         while (toke.hasMoreTokens()) {
             String token = toke.nextToken();
-            loadClasses(new File(token), recursive, urls);
+            loadClasses(Paths.get(token), recursive, urls);
         }
 
         final boolean debug = Boolean.getBoolean("opennms.bootstrap.debug");
@@ -124,8 +129,7 @@ public abstract class Bootstrap {
      * @return a {@link java.lang.ClassLoader} object.
      * @throws java.net.MalformedURLException if any.
      */
-    public static ClassLoader loadClasses(File dir, boolean recursive)
-            throws MalformedURLException {
+    public static ClassLoader loadClasses(Path dir, boolean recursive) throws MalformedURLException {
         LinkedList<URL> urls = new LinkedList<URL>();
         loadClasses(dir, recursive, urls);
         return newClassLoader(urls);
@@ -157,28 +161,28 @@ public abstract class Bootstrap {
      *            LinkedList to append found JARs onto
      * @throws java.net.MalformedURLException if any.
      */
-    public static void loadClasses(File dir, boolean recursive, List<URL> urls) throws MalformedURLException {
+    public static void loadClasses(Path dir, boolean recursive, List<URL> urls) throws MalformedURLException {
         // Add the directory
-        urls.add(dir.toURI().toURL());
+        urls.add(dir.toUri().toURL());
 
         if (recursive) {
             // Descend into sub-directories
-            File[] dirlist = dir.listFiles(m_dirFilter);
-            if (dirlist != null) {
-            	Arrays.sort(dirlist);
-                for (File childDir : dirlist) {
+            try (DirectoryStream<Path> stream = Files.newDirectoryStream(dir, m_dirFilter);) {
+                for (Path childDir : stream) {
                     loadClasses(childDir, recursive, urls);
                 }
+            } catch (IOException ex) {
+                LOG.error("ioexception", ex);
             }
         }
 
         // Add individual JAR files
-        File[] children = dir.listFiles(m_jarFilter);
-        if (children != null) {
-        	Arrays.sort(children);
-            for (File childFile : children) {
-                urls.add(childFile.toURI().toURL());
+        try (DirectoryStream<Path> stream = Files.newDirectoryStream(dir, m_jarFilter);) {
+            for (Path childFile : stream) {
+                urls.add(childFile.toUri().toURL());
             }
+        } catch (IOException ex) {
+            LOG.error("ioexception", ex);
         }
     }
 
@@ -191,7 +195,7 @@ public abstract class Bootstrap {
      *
      * @return Home directory or null if it couldn't be found
      */
-    public static File findOpenNMSHome() {
+    public static Path findOpenNMSHome() {
         ClassLoader l = Thread.currentThread().getContextClassLoader();
 
         try {
@@ -202,8 +206,8 @@ public abstract class Bootstrap {
                 if (subUrl.getProtocol().equals("file")) {
                     String filePath = subUrl.getFile();
                     int i = filePath.lastIndexOf('!');
-                    File file = new File(filePath.substring(0, i));
-                    return file.getParentFile().getParentFile();
+                    Path file = Paths.get(filePath.substring(0, i));
+                    return file.getParent().getParent();
                 }
             }
         } catch (MalformedURLException e) {
@@ -216,7 +220,7 @@ public abstract class Bootstrap {
     /**
      * Copy properties from a property input stream to the system properties.
      * Specific properties are copied from the given InputStream.
-     * 
+     *
      * @param is
      *            InputStream of the properties file to load.
      */
@@ -232,27 +236,20 @@ public abstract class Bootstrap {
             }
         }
     }
-    
+
     /**
      * Copy properties from a property file to the system properties.
      */
-    protected static boolean loadProperties(File f) throws IOException {
-    	if (!f.exists()) {
+    protected static boolean loadProperties(Path path) throws IOException {
+        if (!Files.exists(path)) {
     		return false;
     	}
-    	InputStream is = null;
-    	try {
-    		is = new FileInputStream(f);
+        try (InputStream is = Files.newInputStream(path);) {
     		loadProperties(is);
     		return true;
     	}
-    	finally {
-    		if (is != null) {
-    			is.close();
-    		}
-    	}
     }
-    
+
     /**
      * Load default properties from the specified OpenNMS home into the
      * system properties.
@@ -260,20 +257,20 @@ public abstract class Bootstrap {
      * @return whether the property file was able to be loaded into the System properties
      * @throws IOException
      */
-    protected static boolean loadDefaultProperties(File opennmsHome) throws IOException {
+    protected static boolean loadDefaultProperties(Path opennmsHome) throws IOException {
 		boolean propertiesLoaded = true;
-		File etc = new File(opennmsHome, "etc");
-		File bootstrapFile = new File(etc, BOOT_PROPERTIES_NAME);
+        Path etc = opennmsHome.resolve("etc");
+        Path bootstrapFile = etc.resolve(BOOT_PROPERTIES_NAME);
 		loadProperties(bootstrapFile);
 
-		File rrdFile = new File(etc, RRD_PROPERTIES_NAME);
+        Path rrdFile = etc.resolve(RRD_PROPERTIES_NAME);
 		loadProperties(rrdFile);
-		
-		File libraryFile = new File(etc, LIBRARY_PROPERTIES_NAME);
+
+        Path libraryFile = etc.resolve(LIBRARY_PROPERTIES_NAME);
 		if (!loadProperties(libraryFile)) {
 			propertiesLoaded = false;
 		}
-		
+
 		return propertiesLoaded;
 	}
 
@@ -313,7 +310,7 @@ public abstract class Bootstrap {
      */
     public static void main(String[] args) throws Exception {
         loadDefaultProperties();
-        
+
         final String classToExec = System.getProperty("opennms.manager.class", "org.opennms.netmgt.vmmgr.Controller");
         final String classToExecMethod = System.getProperty("opennms.manager.method", "main");
         final String[] classToExecArgs = args;
@@ -328,6 +325,7 @@ public abstract class Bootstrap {
     protected static void executeClass(final String classToExec, final String classToExecMethod, final String[] classToExecArgs, boolean appendClasspath, final boolean recurse) throws MalformedURLException, ClassNotFoundException, NoSuchMethodException {
         String dir = System.getProperty("opennms.classpath");
         if (dir == null) {
+
             dir = System.getProperty(OPENNMS_HOME_PROPERTY) + File.separator
             		+ "classes" + File.pathSeparator
             		+ System.getProperty(OPENNMS_HOME_PROPERTY) + File.separator
@@ -339,13 +337,13 @@ public abstract class Bootstrap {
         if (System.getProperty("org.opennms.protocols.icmp.interfaceJar") != null) {
         	dir += File.pathSeparator + System.getProperty("org.opennms.protocols.icmp.interfaceJar");
         }
-        
+
         if (System.getProperty("org.opennms.rrd.interfaceJar") != null) {
         	dir += File.pathSeparator + System.getProperty("org.opennms.rrd.interfaceJar");
         }
 
         final boolean debug = Boolean.getBoolean("opennms.bootstrap.debug");
-        
+
         if (debug) {
             System.err.println("dir = " + dir);
         }
@@ -381,11 +379,11 @@ public abstract class Bootstrap {
         boolean propertiesLoaded = false;
         String opennmsHome = System.getProperty(OPENNMS_HOME_PROPERTY);
         if (opennmsHome != null) {
-            propertiesLoaded = loadDefaultProperties(new File(opennmsHome));
+            propertiesLoaded = loadDefaultProperties(Paths.get(opennmsHome));
         }
-        
+
         if (!propertiesLoaded) {
-            File parent = findOpenNMSHome();
+            Path parent = findOpenNMSHome();
             if (parent == null) {
                 System.err.println("Could not determine OpenNMS home "
                         + "directory.  Use \"-Dopennms.home=...\" "
@@ -395,9 +393,9 @@ public abstract class Bootstrap {
                 System.exit(1);
             }
             propertiesLoaded = loadDefaultProperties(parent);
-            System.setProperty(OPENNMS_HOME_PROPERTY, parent.getPath());
+            System.setProperty(OPENNMS_HOME_PROPERTY, parent.toString());
         }
-        
+
         if (!propertiesLoaded) {
             throw new RuntimeException("Unable to load default properties from $OPENNMS_HOME!");
         }

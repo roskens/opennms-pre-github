@@ -162,8 +162,8 @@
     <constructor-arg value="file:${opennms.home}/etc/datacollection-config.xml" />
   </bean>
 
-  <bean id="dataCollectionConfigDirectoryLocation" class="java.lang.String">
-    <constructor-arg value="${opennms.home}/etc/datacollection" />
+  <bean id="dataCollectionConfigDirectoryLocation" class="java.nio.file.Paths" factory-method="get">
+    <constructor-arg value="file:${opennms.home}/etc/datacollection" />
   </bean>
 
   <bean id="dataCollectionConfigReloadCheckInterval" class="java.lang.Long">

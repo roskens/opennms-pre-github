@@ -28,9 +28,13 @@
 
 package org.opennms.netmgt.dao.support;
 
-import java.io.File;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.nio.file.DirectoryStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -63,7 +67,7 @@ import org.springframework.orm.ObjectRetrievalFailureException;
  * values.  See bug #1703.
  */
 public class InterfaceSnmpResourceType implements OnmsResourceType {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(InterfaceSnmpResourceType.class);
 
     private ResourceDao m_resourceDao;
@@ -89,7 +93,7 @@ public class InterfaceSnmpResourceType implements OnmsResourceType {
     public String getName() {
         return "interfaceSnmp";
     }
-    
+
     /**
      * <p>getLabel</p>
      *
@@ -99,33 +103,40 @@ public class InterfaceSnmpResourceType implements OnmsResourceType {
     public String getLabel() {
         return "SNMP Interface Data";
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public boolean isResourceTypeOnNode(int nodeId) {
         return isResourceTypeOnParentResource(Integer.toString(nodeId));
     }
-    
+
     private boolean isResourceTypeOnParentResource(String parentResource) {
-        File parent = getParentResourceDirectory(parentResource, false);
-        if (!parent.isDirectory()) {
+        Path parent = getParentResourceDirectory(parentResource, false);
+        if (!Files.isDirectory(parent)) {
             return false;
         }
-        
-        return parent.listFiles(RrdFileConstants.INTERFACE_DIRECTORY_FILTER).length > 0; 
-    }
-    
-    private File getParentResourceDirectory(String parentResource, boolean verify) {
-        File snmp = new File(m_resourceDao.getRrdDirectory(verify), ResourceTypeUtils.SNMP_DIRECTORY);
-        
-        File parent = new File(snmp, parentResource);
-        if (verify && !parent.isDirectory()) {
-            throw new ObjectRetrievalFailureException(File.class, "No parent resource directory exists for " + parentResource + ": " + parent);
+        List<Path> files = new ArrayList<>();
+        try (DirectoryStream<Path> stream = Files.newDirectoryStream(parent, RrdFileConstants.INTERFACE_DIRECTORY_FILTER);) {
+            for (Path path : stream) {
+                files.add(path);
+            }
+        } catch (IOException ex) {
+            LOG.error("ioexception", ex);
         }
-        
+        return files.size() > 0;
+    }
+
+    private Path getParentResourceDirectory(String parentResource, boolean verify) {
+        Path snmp = m_resourceDao.getRrdDirectory(verify).resolve(ResourceTypeUtils.SNMP_DIRECTORY);
+
+        Path parent = snmp.resolve(parentResource);
+        if (verify && !Files.isDirectory(parent)) {
+            throw new ObjectRetrievalFailureException(Path.class, "No parent resource directory exists for " + parentResource + ": " + parent);
+        }
+
         return parent;
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public List<OnmsResource> getResourcesForNode(int nodeId) {
@@ -133,17 +144,24 @@ public class InterfaceSnmpResourceType implements OnmsResourceType {
         if (node == null) {
             throw new ObjectRetrievalFailureException(OnmsNode.class, Integer.toString(nodeId), "Could not find node with node ID " + nodeId, null);
         }
-        
-        File parent = getParentResourceDirectory(Integer.toString(nodeId), true);
+
+        Path parent = getParentResourceDirectory(Integer.toString(nodeId), true);
         return OnmsResource.sortIntoResourceList(populateResourceList(parent, null, node, false));
-        
+
     }
-    
-    private List<OnmsResource> populateResourceList(File parent, File relPath, OnmsNode node, Boolean isForeign) {
-            
+
+    private List<OnmsResource> populateResourceList(Path parent, Path relPath, OnmsNode node, Boolean isForeign) {
+
         ArrayList<OnmsResource> resources = new ArrayList<OnmsResource>();
 
-        File[] intfDirs = parent.listFiles(RrdFileConstants.INTERFACE_DIRECTORY_FILTER);
+        List<Path> intfDirs = new ArrayList<>();
+        try (DirectoryStream<Path> stream = Files.newDirectoryStream(parent, RrdFileConstants.INTERFACE_DIRECTORY_FILTER);) {
+            for (Path path : stream) {
+                intfDirs.add(path);
+            }
+        } catch (IOException ex) {
+            LOG.error("ioexception", ex);
+        }
 
         Set<OnmsSnmpInterface> snmpInterfaces = node.getSnmpInterfaces();
         Map<String, OnmsSnmpInterface> intfMap = new HashMap<String, OnmsSnmpInterface>();
@@ -151,7 +169,7 @@ public class InterfaceSnmpResourceType implements OnmsResourceType {
         for (OnmsSnmpInterface snmpInterface : snmpInterfaces) {
             /*
              * When Cisco Express Forwarding (CEF) or some ATM encapsulations
-             * (AAL5) are used on Cisco routers, an additional entry might be 
+             * (AAL5) are used on Cisco routers, an additional entry might be
              * in the ifTable for these sub-interfaces, but there is no
              * performance data available for collection.  This check excludes
              * ifTable entries where ifDescr contains "-cef".  See bug #803.
@@ -164,14 +182,14 @@ public class InterfaceSnmpResourceType implements OnmsResourceType {
 
             String replacedIfName = AlphaNumeric.parseAndReplace(snmpInterface.getIfName(), '_');
             String replacedIfDescr = AlphaNumeric.parseAndReplace(snmpInterface.getIfDescr(), '_');
-            
+
             String[] keys = new String[] {
                     replacedIfName + "-",
                     replacedIfDescr + "-",
                     replacedIfName + "-" + snmpInterface.getPhysAddr(),
                     replacedIfDescr + "-" + snmpInterface.getPhysAddr()
             };
-            
+
             for (String key : keys) {
                 if (!intfMap.containsKey(key)) {
                     intfMap.put(key, snmpInterface);
@@ -179,9 +197,9 @@ public class InterfaceSnmpResourceType implements OnmsResourceType {
             }
         }
 
-        for (File intfDir : intfDirs) {
-            String name = intfDir.getName();
-            
+        for (Path intfDir : intfDirs) {
+            String name = intfDir.getFileName().toString();
+
             String desc = name;
             String mac = "";
 
@@ -192,10 +210,10 @@ public class InterfaceSnmpResourceType implements OnmsResourceType {
                 desc = name.substring(0, dashIndex);
                 mac = name.substring(dashIndex + 1, name.length());
             }
-            
-            String key = desc + "-" + mac; 
+
+            String key = desc + "-" + mac;
             OnmsSnmpInterface snmpInterface = intfMap.get(key);
-            
+
             String label;
             Long ifSpeed = null;
             String ifSpeedFriendly = null;
@@ -253,9 +271,9 @@ public class InterfaceSnmpResourceType implements OnmsResourceType {
 
             OnmsResource resource = null;
             if (isForeign) {
-               resource = getResourceByNodeSourceAndInterface(relPath.toString(), intfDir.getName(), label, ifSpeed, ifSpeedFriendly);
+                resource = getResourceByNodeSourceAndInterface(relPath.toString(), intfDir.getFileName().toString(), label, ifSpeed, ifSpeedFriendly);
             } else {
-               resource = getResourceByNodeAndInterface(node.getId(), intfDir.getName(), label, ifSpeed, ifSpeedFriendly);
+                resource = getResourceByNodeAndInterface(node.getId(), intfDir.getFileName().toString(), label, ifSpeed, ifSpeedFriendly);
             }
             if (snmpInterface != null) {
                 Set<OnmsIpInterface> ipInterfaces = snmpInterface.getIpInterfaces();
@@ -276,8 +294,8 @@ public class InterfaceSnmpResourceType implements OnmsResourceType {
             LOG.debug("populateResourceList: adding resource toString {}", resource.toString());
             resources.add(resource);
         }
-        
-        return resources; 
+
+        return resources;
     }
 
     private OnmsResource getResourceByNodeAndInterface(int nodeId, String intf, String label, Long ifSpeed, String ifSpeedFriendly) throws DataAccessException {
@@ -289,7 +307,7 @@ public class InterfaceSnmpResourceType implements OnmsResourceType {
         Set<OnmsAttribute> set = new LazySet<OnmsAttribute>(new AttributeLoader(relPath, intf, ifSpeed, ifSpeedFriendly));
         return new OnmsResource(intf, label, this, set);
     }
-    
+
     public class AttributeLoader implements LazySet.Loader<OnmsAttribute> {
         private String m_parent;
         private String m_resource;
@@ -314,13 +332,11 @@ public class InterfaceSnmpResourceType implements OnmsResourceType {
             }
             return attributes;
         }
-        
+
     }
-    
-    private String getRelativePathForResource(String parent, String resource) {
-        return ResourceTypeUtils.SNMP_DIRECTORY
-            + File.separator + parent 
-            + File.separator + resource;
+
+    private Path getRelativePathForResource(String parent, String resource) {
+        return Paths.get(ResourceTypeUtils.SNMP_DIRECTORY, parent, resource);
     }
 
     /**
@@ -333,7 +349,7 @@ public class InterfaceSnmpResourceType implements OnmsResourceType {
     public boolean isResourceTypeOnDomain(String domain) {
         return getQueryableInterfacesForDomain(domain).size() > 0;
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public List<OnmsResource> getResourcesForDomain(String domain) {
@@ -342,7 +358,7 @@ public class InterfaceSnmpResourceType implements OnmsResourceType {
 
         List<String> ifaces = getQueryableInterfacesForDomain(domain);
         for (String iface : ifaces) {
-            OnmsResource resource = getResourceByDomainAndInterface(domain, iface); 
+            OnmsResource resource = getResourceByDomainAndInterface(domain, iface);
             try {
                 resource.setLink("element/nodeList.htm?listInterfaces=true&snmpParm=ifAlias&snmpParmMatchType=contains&snmpParmValue=" + URLEncoder.encode(iface, "UTF-8"));
             } catch (UnsupportedEncodingException e) {
@@ -353,26 +369,33 @@ public class InterfaceSnmpResourceType implements OnmsResourceType {
 
         return OnmsResource.sortIntoResourceList(resources);
     }
-    
+
     private List<String> getQueryableInterfacesForDomain(String domain) {
         if (domain == null) {
             throw new IllegalArgumentException("Cannot take null parameters.");
         }
+        Path snmp = m_resourceDao.getRrdDirectory().resolve(ResourceTypeUtils.SNMP_DIRECTORY);
+        Path domainDir = snmp.resolve(domain);
 
         ArrayList<String> intfs = new ArrayList<String>();
-        File snmp = new File(m_resourceDao.getRrdDirectory(), ResourceTypeUtils.SNMP_DIRECTORY);
-        File domainDir = new File(snmp, domain);
 
-        if (!domainDir.exists() || !domainDir.isDirectory()) {
+        if (!Files.exists(domainDir) || !Files.isDirectory(domainDir)) {
             throw new IllegalArgumentException("No such directory: " + domainDir);
         }
 
-        File[] intfDirs = domainDir.listFiles(RrdFileConstants.DOMAIN_INTERFACE_DIRECTORY_FILTER);
+        List<Path> intfDirs = new ArrayList<>();
+        try (DirectoryStream<Path> stream = Files.newDirectoryStream(domainDir, RrdFileConstants.DOMAIN_INTERFACE_DIRECTORY_FILTER);) {
+            for (Path path : stream) {
+                intfDirs.add(path);
+            }
+        } catch (IOException ex) {
+            LOG.error("ioexception", ex);
+        }
 
-        if (intfDirs != null && intfDirs.length > 0) {
-            intfs.ensureCapacity(intfDirs.length);
-            for (int i = 0; i < intfDirs.length; i++) {
-                intfs.add(intfDirs[i].getName());
+        if (intfDirs.size() > 0) {
+            intfs.ensureCapacity(intfDirs.size());
+            for (Path path : intfDirs) {
+                intfs.add(path.getFileName().toString());
             }
         }
 
@@ -389,14 +412,14 @@ public class InterfaceSnmpResourceType implements OnmsResourceType {
     public String getLinkForResource(OnmsResource resource) {
         return null;
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public boolean isResourceTypeOnNodeSource(String nodeSource, int nodeId) {
-        File parent = ResourceTypeUtils.getRelativeNodeSourceDirectory(nodeSource);
+        Path parent = ResourceTypeUtils.getRelativeNodeSourceDirectory(nodeSource);
         return isResourceTypeOnParentResource(parent.toString());
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public List<OnmsResource> getResourcesForNodeSource(String nodeSource, int nodeId) {
@@ -405,8 +428,8 @@ public class InterfaceSnmpResourceType implements OnmsResourceType {
         if (node == null) {
             throw new ObjectRetrievalFailureException(OnmsNode.class, nodeSource, "Could not find node with nodeSource " + nodeSource, null);
         }
-        File relPath = new File(ResourceTypeUtils.FOREIGN_SOURCE_DIRECTORY, ident[0] + File.separator + ident[1]);
-        File parent = getParentResourceDirectory(relPath.toString(), true);
+        Path relPath = Paths.get(ResourceTypeUtils.FOREIGN_SOURCE_DIRECTORY, ident[0], ident[1]);
+        Path parent = getParentResourceDirectory(relPath.toString(), true);
         return OnmsResource.sortIntoResourceList(populateResourceList(parent, relPath, node, true));
     }
 

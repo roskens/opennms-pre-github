@@ -28,10 +28,10 @@
 
 package org.opennms.netmgt.collectd;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.lang.reflect.UndeclaredThrowableException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -83,7 +83,7 @@ import org.slf4j.LoggerFactory;
  * @author <a href="http://www.opennms.org">OpenNMS</a>
  */
 public class WmiCollector implements ServiceCollector {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(WmiCollector.class);
 
 
@@ -164,7 +164,7 @@ public class WmiCollector implements ServiceCollector {
 
 
                             for (final Attrib attrib : wpm.getAttrib()) {
-                                final OnmsWbemProperty prop = obj.getWmiProperties().getByName(attrib.getWmiObject());                                
+                                final OnmsWbemProperty prop = obj.getWmiProperties().getByName(attrib.getWmiObject());
                                 final WmiCollectionAttributeType attribType = m_attribTypeList.get(attrib.getName());
                                 resource.setAttributeValue(attribType, prop.getWmiValue().toString());
                             }
@@ -233,7 +233,7 @@ public class WmiCollector implements ServiceCollector {
             LOG.warn("Error checking group ({}) availability.", wpm.getName(), e);
             // Set the group as unavailable.
             agentState.setGroupIsAvailable(wpm.getName(), false);
-            
+
             // And then continue on to check the next wpm entry.
             return false;
         } finally {
@@ -299,9 +299,6 @@ public class WmiCollector implements ServiceCollector {
         } catch (ValidationException e) {
             LOG.error("initialize: Error validating configuration.", e);
             throw new UndeclaredThrowableException(e);
-        } catch (FileNotFoundException e) {
-            LOG.error("initialize: Error locating configuration.", e);
-            throw new UndeclaredThrowableException(e);
         } catch (IOException e) {
             LOG.error("initialize: Error reading configuration.", e);
             throw new UndeclaredThrowableException(e);
@@ -318,10 +315,12 @@ public class WmiCollector implements ServiceCollector {
          * If the RRD file repository directory does NOT already exist, create
          * it.
          */
-        final File f = new File(WmiDataCollectionConfigFactory.getInstance().getRrdPath());
-        if (!f.isDirectory()) {
-            if (!f.mkdirs()) {
-                throw new RuntimeException("Unable to create RRD file repository.  Path doesn't already exist and could not make directory: " + WmiDataCollectionConfigFactory.getInstance().getRrdPath());
+        final Path f = WmiDataCollectionConfigFactory.getInstance().getRrdPath();
+        if (!Files.isDirectory(f)) {
+            try {
+                Files.createDirectories(f);
+            } catch (IOException e) {
+                throw new RuntimeException("Unable to create RRD file repository.  Path doesn't already exist and could not make directory: " + f);
             }
         }
     }

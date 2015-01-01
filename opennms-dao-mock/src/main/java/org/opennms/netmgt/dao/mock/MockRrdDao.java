@@ -28,8 +28,8 @@
 
 package org.opennms.netmgt.dao.mock;
 
-import java.io.File;
 import java.io.InputStream;
+import java.nio.file.Path;
 
 import org.opennms.netmgt.dao.api.RrdDao;
 import org.opennms.netmgt.model.OnmsAttribute;
@@ -48,7 +48,7 @@ public class MockRrdDao implements RrdDao {
     }
 
     @Override
-    public InputStream createGraph(String command, File workDir) {
+    public InputStream createGraph(String command, Path workDir) {
         throw new UnsupportedOperationException("Not yet implemented!");
     }
 

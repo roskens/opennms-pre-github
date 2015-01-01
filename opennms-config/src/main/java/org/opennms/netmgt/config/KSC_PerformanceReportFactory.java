@@ -28,9 +28,9 @@
 
 package org.opennms.netmgt.config;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collections;
@@ -62,7 +62,7 @@ public class KSC_PerformanceReportFactory {
     private static KSC_PerformanceReportFactory s_instance = null;
 
     /** File name of the KSC_PerformanceReport.xml */
-    private static File s_configFile = null;
+    private static Path s_configFile = null;
 
     /** An instance of the ReportsList configuration */
     private ReportsList m_config;
@@ -122,10 +122,10 @@ public class KSC_PerformanceReportFactory {
         if (isInitialized()) {
             return;
         }
-        
+
         KSC_PerformanceReportFactory newInstance = new KSC_PerformanceReportFactory();
         newInstance.reload();
-        
+
         s_instance = newInstance;
     }
 
@@ -153,17 +153,17 @@ public class KSC_PerformanceReportFactory {
     public synchronized void reload() throws IOException, FileNotFoundException, MarshalException, ValidationException {
         if (s_configFile == null) s_configFile = ConfigFileConstants.getFile(ConfigFileConstants.KSC_REPORT_FILE_NAME);
 
-        m_config = CastorUtils.unmarshal(ReportsList.class, new FileSystemResource(s_configFile));
-        
+        m_config = CastorUtils.unmarshal(ReportsList.class, new FileSystemResource(s_configFile.toFile()));
+
         setIdsOnAllReports();
-        
+
         m_reportList = createReportList();
     }
 
-    public static void setConfigFile(final File configFile) {
+    public static void setConfigFile(final Path configFile) {
         s_configFile = configFile;
     }
-    
+
     private void setIdsOnAllReports() {
         int i = 0;
 
@@ -173,7 +173,7 @@ public class KSC_PerformanceReportFactory {
                 i = report.getId() + 1;
             }
         }
-        
+
         // Set IDs for any report lacking one.
         for (Report report : m_config.getReportCollection()) {
             if (!report.hasId()) {
@@ -195,9 +195,9 @@ public class KSC_PerformanceReportFactory {
         assertInitialized();
 
         sortByTitle();
-        
-        CastorUtils.marshalViaString(m_config, s_configFile);
-        
+
+        CastorUtils.marshalViaString(m_config, s_configFile.toFile());
+
         reload();
     }
 
@@ -220,7 +220,7 @@ public class KSC_PerformanceReportFactory {
             }
         });
     }
-    
+
     /**
      * <p>getReportByIndex</p>
      *
@@ -230,7 +230,7 @@ public class KSC_PerformanceReportFactory {
     public Report getReportByIndex(int index) {
         return m_reportList.get(index);
     }
-    
+
     private Map<Integer, Report> createReportList() {
         Map<Integer, Report> reports = new LinkedHashMap<Integer, Report>(m_config.getReportCount());
 
@@ -240,7 +240,7 @@ public class KSC_PerformanceReportFactory {
             }
             reports.put(report.getId(), report);
         }
-        
+
         return reports;
     }
 
@@ -259,11 +259,11 @@ public class KSC_PerformanceReportFactory {
                 return o1.getTitle().compareTo(o2.getTitle());
             }
         });
-        
+
         for (Report report : reportList) {
             reports.put(report.getId(), report.getTitle());
         }
-        
+
         return Collections.unmodifiableMap(reports);
     }
 
@@ -297,29 +297,29 @@ public class KSC_PerformanceReportFactory {
         if (arrayIndex == -1) {
             throw new IllegalArgumentException("Could not find report with ID of " + index);
         }
-        
+
         // Make sure we preserve the existing ID, if it exists (which it should)
         if (m_config.getReport(arrayIndex).hasId()) {
             report.setId(m_config.getReport(arrayIndex).getId());
         }
-        
+
         m_config.setReport(arrayIndex, report);
         setIdsOnAllReports();
     }
-    
+
     private int getArrayIndex(int index) {
         int i = 0;
         for (Report report : m_config.getReportCollection()) {
             if (report.getId() == index) {
                 return i;
             }
-            
+
             i++;
         }
-        
+
         return -1;
     }
-    
+
     /**
      * This method requires begin time and end time to be set to the current
      * time prior to call. The start and stop times are relative to this time.

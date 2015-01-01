@@ -30,9 +30,11 @@ package org.opennms.netmgt.poller.remote.support;
 
 import static org.opennms.core.utils.InetAddressUtils.str;
 
-import java.io.File;
 import java.io.Serializable;
 import java.net.InetAddress;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -142,7 +144,7 @@ public class DefaultPollerBackEnd implements PollerBackEnd, SpringServiceDaemon 
     private int m_disconnectedTimeout;
 
     private long m_minimumConfigurationReloadInterval;
-    
+
     private final AtomicReference<Date> m_configurationTimestamp = new AtomicReference<Date>();
     private final AtomicReference<ConcurrentHashMap<String, SimplePollerConfiguration>> m_configCache = new AtomicReference<ConcurrentHashMap<String,SimplePollerConfiguration>>();
 
@@ -159,12 +161,12 @@ public class DefaultPollerBackEnd implements PollerBackEnd, SpringServiceDaemon 
         Assert.notNull(m_timeKeeper, "The timeKeeper must be set");
         Assert.notNull(m_eventIpcManager, "The eventIpcManager must be set");
         Assert.state(m_disconnectedTimeout > 0, "the disconnectedTimeout property must be set");
-        
+
         m_minimumConfigurationReloadInterval = Long.getLong("opennms.pollerBackend.minimumConfigurationReloadInterval", 300000L).longValue();
-        
+
         configurationUpdated();
     }
-    
+
     /**
      * <p>start</p>
      *
@@ -304,9 +306,9 @@ public class DefaultPollerBackEnd implements PollerBackEnd, SpringServiceDaemon 
 			    // the monitor has been deleted we'll pick this in up on the next config check
 			    return new EmptyPollerConfiguration();
 			}
-			
+
             String pollingPackageName = getPackageName(mon);
-            
+
             ConcurrentHashMap<String, SimplePollerConfiguration> cache = m_configCache.get();
             SimplePollerConfiguration pollerConfiguration = cache.get(pollingPackageName);
             if (pollerConfiguration == null) {
@@ -317,7 +319,7 @@ public class DefaultPollerBackEnd implements PollerBackEnd, SpringServiceDaemon 
                     pollerConfiguration = configInCache;
                 }
             }
-            
+
             // construct a copy so the serverTime gets updated (and avoid threading issues)
             return new SimplePollerConfiguration(pollerConfiguration);
 		} catch (final Exception e) {
@@ -329,7 +331,7 @@ public class DefaultPollerBackEnd implements PollerBackEnd, SpringServiceDaemon 
     private SimplePollerConfiguration createPollerConfiguration(
             final OnmsLocationMonitor mon, String pollingPackageName) {
         final Package pkg = getPollingPackage(pollingPackageName, mon.getDefinitionName());
-        
+
         final ServiceSelector selector = m_pollerConfig.getServiceSelectorForPackage(pkg);
         final Collection<OnmsMonitoredService> services = m_monSvcDao.findMatchingServices(selector);
         final List<PolledService> configs = new ArrayList<PolledService>(services.size());
@@ -384,7 +386,7 @@ public class DefaultPollerBackEnd implements PollerBackEnd, SpringServiceDaemon 
                     locators.add(locator);
                 }
             }
-            
+
             LOG.debug("getServiceMonitorLocators: Returning {} locators", locators.size());
             return locators;
         } catch (final Exception e) {
@@ -592,22 +594,22 @@ public class DefaultPollerBackEnd implements PollerBackEnd, SpringServiceDaemon 
     public void saveResponseTimeData(final String locationMonitor, final OnmsMonitoredService monSvc, final double responseTime, final Package pkg) {
         final String svcName = monSvc.getServiceName();
         final Service svc = m_pollerConfig.getServiceInPackage(svcName, pkg);
-        
+
         final String dsName = getServiceParameter(svc, "ds-name");
         if (dsName == null) {
             return;
         }
-        
+
         final String rrdRepository = getServiceParameter(svc, "rrd-repository");
         if (rrdRepository == null) {
             return;
         }
-        
-        final String rrdDir = rrdRepository+File.separatorChar+"distributed"+File.separatorChar+locationMonitor+File.separator+str(monSvc.getIpAddress());
+
+        final Path rrdDir = Paths.get(rrdRepository, "distributed", locationMonitor, str(monSvc.getIpAddress()));
 
         try {
-            final File rrdFile = new File(rrdDir, dsName);
-            if (!rrdFile.exists()) {
+            final Path rrdFile = rrdDir.resolve(dsName);
+            if (!Files.exists(rrdFile)) {
                 RrdUtils.createRRD(locationMonitor, rrdDir, dsName, m_pollerConfig.getStep(pkg), "GAUGE", 600, "U", "U", m_pollerConfig.getRRAList(pkg));
             }
             RrdUtils.updateRRD(locationMonitor, rrdDir, dsName, System.currentTimeMillis(), String.valueOf(responseTime));
@@ -615,7 +617,7 @@ public class DefaultPollerBackEnd implements PollerBackEnd, SpringServiceDaemon 
             throw new PermissionDeniedDataAccessException("Unable to store rrdData from "+locationMonitor+" for service "+monSvc, e);
         }
     }
-    
+
 
     private String getServiceParameter(final Service svc, final String key) {
         for(final Parameter parm : m_pollerConfig.parameters(svc)) {
@@ -747,7 +749,7 @@ public class DefaultPollerBackEnd implements PollerBackEnd, SpringServiceDaemon 
                     mon.setStatus(MonitorStatus.PAUSED);
                     return MonitorStatus.PAUSED;
 
-                case CONFIG_CHANGED: 
+                case CONFIG_CHANGED:
                     mon.setStatus(MonitorStatus.STARTED);
                     return MonitorStatus.CONFIG_CHANGED;
 

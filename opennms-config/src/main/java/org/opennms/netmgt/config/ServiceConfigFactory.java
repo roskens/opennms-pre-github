@@ -28,8 +28,8 @@
 
 package org.opennms.netmgt.config;
 
-import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,10 +60,10 @@ public final class ServiceConfigFactory implements org.opennms.netmgt.config.api
     /**
      * Private constructor. This constructor used to load the specified
      * configuration file and initialized an instance of the class.
-     * 
+     *
      * @param configFile
      *            The name of the configuration file.
-     * 
+     *
      * @exception java.io.IOException
      *                Thrown if the specified config file cannot be read
      */
@@ -81,9 +81,9 @@ public final class ServiceConfigFactory implements org.opennms.netmgt.config.api
     @Override
     public synchronized void reload() {
         try {
-            File cfgFile = ConfigFileConstants.getFile(ConfigFileConstants.SERVICE_CONF_FILE_NAME);
-            LOG.debug("ServiceConfigFactory.init: config file path {}", cfgFile.getPath());
-            m_config = JaxbUtils.unmarshal(ServiceConfiguration.class, cfgFile);
+            Path cfgFile = ConfigFileConstants.getFile(ConfigFileConstants.SERVICE_CONF_FILE_NAME);
+            LOG.debug("ServiceConfigFactory.init: config file path {}", cfgFile);
+            m_config = JaxbUtils.unmarshal(ServiceConfiguration.class, cfgFile.toFile());
         } catch (IOException e) {
             // Should never happen
             LOG.error("Could not open configuration file: " + ConfigFileConstants.SERVICE_CONF_FILE_NAME, e);

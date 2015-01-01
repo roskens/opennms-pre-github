@@ -32,12 +32,13 @@ import java.beans.PropertyEditorSupport;
 import java.beans.PropertyVetoException;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -112,24 +113,18 @@ public final class EventTranslatorConfigFactory implements EventTranslatorConfig
 
     /**
      * Private constructor
-     * 
+     *
      * @exception java.io.IOException
      *                Thrown if the specified config file cannot be read
      * @exception org.exolab.castor.xml.MarshalException
      *                Thrown if the file does not conform to the schema.
      * @exception org.exolab.castor.xml.ValidationException
      *                Thrown if the contents do not match the required schema.
-     * 
+     *
      */
-    private EventTranslatorConfigFactory(String configFile, DataSource dbConnFactory) throws IOException, MarshalException, ValidationException {
-        InputStream stream = null;
-        try {
-            stream = new FileInputStream(configFile);
+    private EventTranslatorConfigFactory(Path configFile, DataSource dbConnFactory) throws IOException, MarshalException, ValidationException {
+        try (InputStream stream = Files.newInputStream(configFile);) {
             unmarshall(stream, dbConnFactory);
-        } finally {
-            if (stream != null) {
-                IOUtils.closeQuietly(stream);
-            }
         }
     }
 
@@ -164,16 +159,9 @@ public final class EventTranslatorConfigFactory implements EventTranslatorConfig
 
         synchronized (this) {
 
-            File cfgFile = ConfigFileConstants.getFile(ConfigFileConstants.TRANSLATOR_CONFIG_FILE_NAME);
-            InputStream stream = null;
-
-            try {
-                stream = new FileInputStream(cfgFile);
+            Path cfgFile = ConfigFileConstants.getFile(ConfigFileConstants.TRANSLATOR_CONFIG_FILE_NAME);
+            try (InputStream stream = Files.newInputStream(cfgFile);) {
                 unmarshall(stream);
-            } finally {
-                if (stream != null) {
-                    IOUtils.closeQuietly(stream);
-                }
             }
 
         }
@@ -203,9 +191,9 @@ public final class EventTranslatorConfigFactory implements EventTranslatorConfig
             return;
         }
 
-        File cfgFile = ConfigFileConstants.getFile(ConfigFileConstants.TRANSLATOR_CONFIG_FILE_NAME);
+        Path cfgFile = ConfigFileConstants.getFile(ConfigFileConstants.TRANSLATOR_CONFIG_FILE_NAME);
 
-        m_singleton = new EventTranslatorConfigFactory(cfgFile.getPath(), DataSourceFactory.getInstance());
+        m_singleton = new EventTranslatorConfigFactory(cfgFile, DataSourceFactory.getInstance());
 
         m_loaded = true;
     }
@@ -259,7 +247,7 @@ public final class EventTranslatorConfigFactory implements EventTranslatorConfig
 
     /**
      * Return the PassiveStatus configuration.
-     * 
+     *
      * @return the PassiveStatus configuration
      */
     private synchronized EventTranslatorConfiguration getConfig() {
@@ -391,7 +379,7 @@ public final class EventTranslatorConfigFactory implements EventTranslatorConfig
             // uei matches to go thru the mappings
             LOG.debug("TransSpec.matches: checking mappings for spec.");
             for (TranslationMapping transMap : getTranslationMappings()) {
-                if (transMap.matches(e)) 
+                if (transMap.matches(e))
                     return true;
             }
             return false;
@@ -409,7 +397,7 @@ public final class EventTranslatorConfigFactory implements EventTranslatorConfig
     class TranslationMapping {
         Mapping m_mapping;
         List<AssignmentSpec> m_assignments;
-        TranslationMapping(Mapping mapping) { 
+        TranslationMapping(Mapping mapping) {
             m_mapping = mapping;
             m_assignments = null; // lazy init
         }
@@ -429,10 +417,10 @@ public final class EventTranslatorConfigFactory implements EventTranslatorConfig
 
         private Event cloneEvent(Event srcEvent) {
             Event clonedEvent = EventTranslatorConfigFactory.cloneEvent(srcEvent);
-            /* since alarmData and severity are computed based on translated information in 
+            /* since alarmData and severity are computed based on translated information in
              * eventd using the data from eventconf, we unset it here to eventd
              * can reset to the proper new settings.
-             */ 
+             */
             clonedEvent.setAlarmData(null);
             clonedEvent.setSeverity(null);
             /* the reasoning for alarmData and severity also applies to description (see NMS-4038). */
@@ -454,8 +442,8 @@ public final class EventTranslatorConfigFactory implements EventTranslatorConfig
             Mapping mapping = getMapping();
             List<AssignmentSpec> assignments = new ArrayList<AssignmentSpec>();
             for (Assignment assign : mapping.getAssignmentCollection()) {
-                AssignmentSpec assignSpec = 
-                        ("parameter".equals(assign.getType()) ? 
+                AssignmentSpec assignSpec =
+                        ("parameter".equals(assign.getType()) ?
                             (AssignmentSpec)new ParameterAssignmentSpec(assign) :
                                 (AssignmentSpec)new FieldAssignmentSpec(assign)
                                 );
@@ -485,7 +473,7 @@ public final class EventTranslatorConfigFactory implements EventTranslatorConfig
         private Assignment m_assignment;
         private ValueSpec m_valueSpec;
         AssignmentSpec(Assignment assignment) {
-            m_assignment = assignment; 
+            m_assignment = assignment;
             m_valueSpec = null; // lazy init
         }
 
@@ -889,6 +877,6 @@ public final class EventTranslatorConfigFactory implements EventTranslatorConfig
             LOG.error("Exception cloning event", cnfe);
         }
         return copy;
-    }	
+    }
 
 }

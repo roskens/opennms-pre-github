@@ -28,16 +28,14 @@
 
 package org.opennms.netmgt.config;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStreamWriter;
 import java.io.StringWriter;
 import java.io.Writer;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
-import org.apache.commons.io.IOUtils;
 import org.exolab.castor.xml.MarshalException;
 import org.exolab.castor.xml.Marshaller;
 import org.exolab.castor.xml.ValidationException;
@@ -61,7 +59,7 @@ import org.opennms.netmgt.config.enlinkd.EnlinkdConfiguration;
  */
 public final class EnhancedLinkdConfigFactory extends EnhancedLinkdConfigManager {
     private static final Logger LOG = LoggerFactory.getLogger(EnhancedLinkdConfigFactory.class);
-    
+
     public EnhancedLinkdConfigFactory() throws MarshalException, ValidationException, IOException {
         reload();
     }
@@ -82,13 +80,13 @@ public final class EnhancedLinkdConfigFactory extends EnhancedLinkdConfigManager
     protected synchronized void saveXml(String xml) throws IOException {
         if (xml != null) {
             long timestamp = System.currentTimeMillis();
-            final File cfgFile = ConfigFileConstants.getFile(ConfigFileConstants.ENLINKD_CONFIG_FILE_NAME);
-            LOG.debug("saveXml: saving config file at {}: {}", timestamp, cfgFile.getPath());
-            final Writer fileWriter = new OutputStreamWriter(new FileOutputStream(cfgFile), "UTF-8");
-            fileWriter.write(xml);
-            fileWriter.flush();
-            fileWriter.close();
-            LOG.debug("saveXml: finished saving config file: {}", cfgFile.getPath());
+            final Path cfgFile = ConfigFileConstants.getFile(ConfigFileConstants.ENLINKD_CONFIG_FILE_NAME);
+            LOG.debug("saveXml: saving config file at {}: {}", timestamp, cfgFile);
+            try (final Writer fileWriter = new OutputStreamWriter(Files.newOutputStream(cfgFile), "UTF-8");) {
+                fileWriter.write(xml);
+                fileWriter.flush();
+            }
+            LOG.debug("saveXml: finished saving config file: {}", cfgFile);
         }
     }
 
@@ -102,23 +100,17 @@ public final class EnhancedLinkdConfigFactory extends EnhancedLinkdConfigManager
     public void reload() throws IOException, MarshalException, ValidationException {
         getWriteLock().lock();
         try {
-            final File cfgFile = ConfigFileConstants.getFile(ConfigFileConstants.ENLINKD_CONFIG_FILE_NAME);
-           LOG.debug("init: config file path: {}", cfgFile.getPath());
-            InputStream stream = null;
-            try {
-                stream = new FileInputStream(cfgFile);
+            final Path cfgFile = ConfigFileConstants.getFile(ConfigFileConstants.ENLINKD_CONFIG_FILE_NAME);
+            LOG.debug("init: config file path: {}", cfgFile);
+            try (InputStream stream = Files.newInputStream(cfgFile);) {
                 reloadXML(stream);
-            } finally {
-                if (stream != null) {
-                    IOUtils.closeQuietly(stream);
-                }
             }
-            LOG.debug("init: finished loading config file: {}", cfgFile.getPath());
+            LOG.debug("init: finished loading config file: {}", cfgFile);
         } finally {
             getWriteLock().unlock();
         }
     }
-        
+
     /**
      * <p>reloadXML</p>
      *
@@ -144,13 +136,13 @@ public final class EnhancedLinkdConfigFactory extends EnhancedLinkdConfigManager
      */
     public void save() throws MarshalException, IOException, ValidationException {
         getWriteLock().lock();
-        
+
         try {
             // marshall to a string first, then write the string to the file. This
             // way the original config isn't lost if the xml from the marshall is hosed.
             final StringWriter stringWriter = new StringWriter();
             Marshaller.marshal(m_config, stringWriter);
-            saveXml(stringWriter.toString());        
+            saveXml(stringWriter.toString());
         } finally {
             getWriteLock().unlock();
         }

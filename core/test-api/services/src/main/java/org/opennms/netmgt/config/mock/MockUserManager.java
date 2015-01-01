@@ -32,6 +32,7 @@ import java.io.ByteArrayInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.attribute.FileTime;
 
 import org.exolab.castor.xml.MarshalException;
 import org.exolab.castor.xml.ValidationException;
@@ -42,9 +43,9 @@ public class MockUserManager extends UserManager {
 
     String m_xmlString;
     boolean updateNeeded = true;
-    private long m_lastModified;
+    private FileTime m_lastModified;
     private long m_fileSize;
-    
+
     public MockUserManager(GroupManager groupManager, String xmlString) throws MarshalException, ValidationException {
         super(groupManager);
         m_xmlString = xmlString;
@@ -55,7 +56,7 @@ public class MockUserManager extends UserManager {
         InputStream in = new ByteArrayInputStream(m_xmlString.getBytes());
         parseXML(in);
         updateNeeded = false;
-        m_lastModified = System.currentTimeMillis();
+        m_lastModified = FileTime.fromMillis(System.currentTimeMillis());
         m_fileSize = m_xmlString.getBytes().length;
     }
 
@@ -78,7 +79,7 @@ public class MockUserManager extends UserManager {
     }
 
     @Override
-    public long getLastModified() {
+    public FileTime getLastModified() {
         return m_lastModified;
     }
 

@@ -28,7 +28,6 @@
 
 package org.opennms.smoketest;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.util.ArrayList;
@@ -68,6 +67,9 @@ import org.slf4j.LoggerFactory;
 import com.thoughtworks.selenium.SeleneseTestBase;
 import com.thoughtworks.selenium.SeleniumException;
 import com.thoughtworks.selenium.webdriven.WebDriverBackedSelenium;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 public class OpenNMSSeleniumTestCase extends SeleneseTestBase {
     private static final Logger LOG = LoggerFactory.getLogger(OpenNMSSeleniumTestCase.class);
@@ -104,7 +106,7 @@ public class OpenNMSSeleniumTestCase extends SeleneseTestBase {
         // otherwise, PhantomJS if found, or fall back to Firefox
         if (m_driver == null) {
             if (usePhantomJS) {
-                final File phantomJS = findPhantomJS();
+                final Path phantomJS = findPhantomJS();
                 if (phantomJS != null) {
                     final DesiredCapabilities caps = new DesiredCapabilities();
                     caps.setCapability(PhantomJSDriverService.PHANTOMJS_EXECUTABLE_PATH_PROPERTY, phantomJS.toString());
@@ -131,27 +133,27 @@ public class OpenNMSSeleniumTestCase extends SeleneseTestBase {
         waitForPageToLoad();
     }
 
-    private File findPhantomJS() {
+    private Path findPhantomJS() {
         final String os = System.getProperty("os.name").toLowerCase();
         final String extension = (os.indexOf("win") >= 0)? ".exe" : "";
 
         final String path = System.getenv("PATH");
         if (path == null) {
             LOG.debug("findPhantomJS(): Unable to get PATH.");
-            final File phantomFile = new File("/usr/local/bin/phantomjs" + extension);
+            final Path phantomFile = Paths.get("/usr/local/bin/phantomjs" + extension);
             LOG.debug("findPhantomJS(): trying {}", phantomFile);
-            if (phantomFile.exists() && phantomFile.canExecute()) {
+            if (Files.exists(phantomFile) && Files.isExecutable(phantomFile)) {
                 return phantomFile;
             }
         } else {
-            final List<String> paths = new ArrayList<String>(Arrays.asList(path.split(File.pathSeparator)));
+            final List<String> paths = new ArrayList<String>(Arrays.asList(path.split(FileSystems.getDefault().getSeparator())));
             paths.add("/usr/local/bin");
             paths.add("/usr/local/sbin");
             LOG.debug("findPhantomJS(): paths = {}", paths);
             for (final String directory : paths) {
-                final File phantomFile = new File(directory + File.separator + "phantomjs" + extension);
+                final Path phantomFile = Paths.get(directory, "phantomjs" + extension);
                 LOG.debug("findPhantomJS(): trying {}", phantomFile);
-                if (phantomFile.exists() && phantomFile.canExecute()) {
+                if (Files.exists(phantomFile) && Files.isExecutable(phantomFile)) {
                     return phantomFile;
                 }
             }
@@ -341,7 +343,7 @@ public class OpenNMSSeleniumTestCase extends SeleneseTestBase {
     protected void deleteTestUser() throws Exception {
         doRequest(new HttpDelete(BASE_URL + "/opennms/rest/users/" + USER_NAME));
     }
-    
+
     protected void deleteTestGroup() throws Exception {
         doRequest(new HttpDelete(BASE_URL + "/opennms/rest/groups/" + GROUP_NAME));
     }

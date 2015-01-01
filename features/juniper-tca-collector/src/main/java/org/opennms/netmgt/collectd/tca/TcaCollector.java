@@ -28,9 +28,10 @@
 
 package org.opennms.netmgt.collectd.tca;
 
-import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.UndeclaredThrowableException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Date;
 import java.util.Map;
 
@@ -51,9 +52,9 @@ import org.slf4j.LoggerFactory;
 
 /**
  * The Class TcaCollector.
- * 
+ *
  * <p>A collector specialized to retrieve special SNMP data from Juniper TCA Devices.</p>
- * 
+ *
  * @author Alejandro Galue <agalue@opennms.org>
  */
 public class TcaCollector implements ServiceCollector {
@@ -101,9 +102,11 @@ public class TcaCollector implements ServiceCollector {
 
 		// If the RRD file repository directory does NOT already exist, create it.
 		LOG.debug("initialize: Initializing RRD repo from XmlCollector...");
-		File f = new File(m_configDao.getConfig().getRrdRepository());
-		if (!f.isDirectory()) {
-			if (!f.mkdirs()) {
+        Path rrdDirectory = m_configDao.getConfig().getRrdRepository();
+        if (!Files.isDirectory(rrdDirectory)) {
+            try {
+                Files.createDirectories(rrdDirectory);
+            } catch (IOException e) {
 				throw new CollectionInitializationException("Unable to create RRD file repository.  Path doesn't already exist and could not make directory: " + m_configDao.getConfig().getRrdRepository());
 			}
 		}

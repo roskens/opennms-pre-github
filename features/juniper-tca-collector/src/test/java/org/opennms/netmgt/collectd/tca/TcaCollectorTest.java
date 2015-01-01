@@ -28,7 +28,8 @@
 
 package org.opennms.netmgt.collectd.tca;
 
-import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -79,7 +80,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  * The Class TcaCollectorTest.
- * 
+ *
  * @author Alejandro Galue <agalue@opennms.org>
  */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
@@ -98,13 +99,13 @@ import org.springframework.transaction.annotation.Transactional;
 public class TcaCollectorTest implements InitializingBean {
 
 	/** The Constant TEST_NODE_IP. */
-	public final static String TEST_NODE_IP = "127.0.0.1"; 
+	public final static String TEST_NODE_IP = "127.0.0.1";
 
 	/** The Constant TEST_NODE_LABEL. */
-	public final static String TEST_NODE_LABEL = "TestNode"; 
-	
+	public final static String TEST_NODE_LABEL = "TestNode";
+
 	/** The Constant TEST_SNMP_DIR. */
-	public final static String TEST_SNMP_DIR = "target/snmp";
+    public final static Path TEST_SNMP_DIR = Paths.get("target", "snmp");
 
 	/** The collection agent. */
 	private SnmpCollectionAgent m_collectionAgent;
@@ -124,7 +125,7 @@ public class TcaCollectorTest implements InitializingBean {
 	/** The transaction manager. */
 	@Autowired
 	private PlatformTransactionManager m_transactionManager;
-	
+
 	@Autowired
 	private TcaDataCollectionConfigDao m_configDao;
 
@@ -142,7 +143,7 @@ public class TcaCollectorTest implements InitializingBean {
 	public void setUp() throws Exception {
 		MockLogAppender.setupLogging();
 
-		FileUtils.deleteDirectory(new File(TEST_SNMP_DIR));
+        FileUtils.deleteDirectory(TEST_SNMP_DIR.toFile());
 
 		RrdUtils.setStrategy(RrdUtils.getSpecificStrategy(StrategyName.basicRrdStrategy));
 
@@ -169,7 +170,7 @@ public class TcaCollectorTest implements InitializingBean {
 		SnmpPeerFactory.setInstance(m_snmpPeerFactory);
 
 		m_collectionAgent = DefaultCollectionAgent.create(iface.getId(), m_ipInterfaceDao, m_transactionManager);
-		
+
 		TcaRrd rrd = new TcaRrd();
 		rrd.addRra("RRA:AVERAGE:0.5:1:3600");
 		rrd.addRra("RRA:AVERAGE:0.5:300:288");
@@ -277,7 +278,7 @@ public class TcaCollectorTest implements InitializingBean {
 	 * Validate collection set.
 	 * <p>Each collection set must contain:<br>
 	 * 25 Samples of each of 2 peers = 50 resources</p>
-	 * 
+	 *
 	 * @param collectionSet the collection set
 	 */
 	private void validateCollectionSet(CollectionSet collectionSet) {

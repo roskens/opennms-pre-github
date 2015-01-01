@@ -28,8 +28,8 @@
 
 package org.opennms.netmgt.dao.support;
 
-import java.io.File;
 import java.io.InputStream;
+import java.nio.file.Path;
 
 import org.opennms.netmgt.dao.api.RrdDao;
 import org.opennms.netmgt.model.OnmsAttribute;
@@ -52,10 +52,10 @@ import org.springframework.util.StringUtils;
  * @version $Id: $
  */
 public class DefaultRrdDao implements RrdDao, InitializingBean {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(DefaultRrdDao.class);
     private RrdStrategy<?, ?> m_rrdStrategy;
-    private File m_rrdBaseDirectory;
+    private Path m_rrdBaseDirectory;
     private String m_rrdBinaryPath;
 
     /** {@inheritDoc} */
@@ -85,9 +85,9 @@ public class DefaultRrdDao implements RrdDao, InitializingBean {
         if (printFunctions.length < 1) {
             printFunctions = new String[] { rraConsolidationFunction };
         }
-        
+
         RrdGraphAttribute rrdAttribute = (RrdGraphAttribute) attribute;
-        
+
         String[] command = new String[] {
                 m_rrdBinaryPath,
                 "graph",
@@ -96,12 +96,12 @@ public class DefaultRrdDao implements RrdDao, InitializingBean {
                 "--end=" + (endTimeInMillis / 1000),
                 "DEF:ds=" + RrdFileConstants.escapeForGraphing(rrdAttribute.getRrdRelativePath()) + ":" + attribute.getName() + ":" + rraConsolidationFunction,
         };
-        
+
         String[] printDefs = new String[printFunctions.length];
         for (int i = 0; i < printFunctions.length; i++) {
-            printDefs[i] = "PRINT:ds:" + printFunctions[i] + ":\"%le\""; 
+            printDefs[i] = "PRINT:ds:" + printFunctions[i] + ":\"%le\"";
         }
-        
+
         String commandString = StringUtils.arrayToDelimitedString(command, " ") + ' ' + StringUtils.arrayToDelimitedString(printDefs, " ");
 
         LOG.debug("commandString: {}", commandString);
@@ -111,20 +111,20 @@ public class DefaultRrdDao implements RrdDao, InitializingBean {
         } catch (Throwable e) {
             throw new DataAccessResourceFailureException("Failure when generating graph to get data with command '" + commandString + "'", e);
         }
-        
+
         String[] printLines;
         try {
             printLines = graphDetails.getPrintLines();
         } catch (Throwable e) {
             throw new DataAccessResourceFailureException("Failure to get print lines from graph after graphing with command '" + commandString + "'", e);
         }
-      
+
         if (printLines.length != printFunctions.length) {
             throw new DataAccessResourceFailureException("Returned number of print lines should be "+printFunctions.length+", but was " + printLines.length + " from command: " + commandString);
         }
 
         double[] values = new double[printLines.length];
-        
+
         for (int i = 0; i < printLines.length; i++) {
             if (printLines[i].toLowerCase().endsWith("nan")) {
                 values[i] = Double.NaN;
@@ -136,7 +136,7 @@ public class DefaultRrdDao implements RrdDao, InitializingBean {
                 }
             }
         }
-        
+
         return values;
     }
 
@@ -175,7 +175,7 @@ public class DefaultRrdDao implements RrdDao, InitializingBean {
      *
      * @return a {@link java.io.File} object.
      */
-    public File getRrdBaseDirectory() {
+    public Path getRrdBaseDirectory() {
         return m_rrdBaseDirectory;
     }
 
@@ -184,7 +184,7 @@ public class DefaultRrdDao implements RrdDao, InitializingBean {
      *
      * @param rrdBaseDirectory a {@link java.io.File} object.
      */
-    public void setRrdBaseDirectory(File rrdBaseDirectory) {
+    public void setRrdBaseDirectory(Path rrdBaseDirectory) {
         m_rrdBaseDirectory = rrdBaseDirectory;
     }
 
@@ -213,7 +213,7 @@ public class DefaultRrdDao implements RrdDao, InitializingBean {
      * @see org.opennms.netmgt.dao.api.RrdDao#createGraph(java.lang.String, java.io.File)
      */
     @Override
-    public InputStream createGraph(String command, File workDir) throws DataRetrievalFailureException {
+    public InputStream createGraph(String command, Path workDir) throws DataRetrievalFailureException {
        try {
            return m_rrdStrategy.createGraph(command, workDir);
        } catch (Throwable e) {
@@ -260,12 +260,12 @@ public class DefaultRrdDao implements RrdDao, InitializingBean {
         Assert.notNull(attribute, "attribute argument must not be null");
         Assert.isTrue(interval > 0, "interval argument must be greater than zero");
         Assert.isAssignable(attribute.getClass(), RrdGraphAttribute.class, "attribute argument must be assignable to RrdGraphAttribute");
-        
+
         RrdGraphAttribute rrdAttribute = (RrdGraphAttribute) attribute;
 
-        File rrdFile = new File(m_rrdBaseDirectory, rrdAttribute.getRrdRelativePath());
+        Path rrdFile = m_rrdBaseDirectory.resolve(rrdAttribute.getRrdRelativePath());
         try {
-            return m_rrdStrategy.fetchLastValue(rrdFile.getAbsolutePath(), attribute.getName(), interval);
+            return m_rrdStrategy.fetchLastValue(rrdFile.toAbsolutePath(), attribute.getName(), interval);
         } catch (Throwable e) {
             throw new DataAccessResourceFailureException("Failure to fetch last value from file '" + rrdFile + "' with interval " + interval, e);
         }
@@ -278,12 +278,12 @@ public class DefaultRrdDao implements RrdDao, InitializingBean {
         Assert.isTrue(interval > 0, "interval argument must be greater than zero");
         Assert.isTrue(range > 0, "range argument must be greater than zero");
         Assert.isAssignable(attribute.getClass(), RrdGraphAttribute.class, "attribute argument must be assignable to RrdGraphAttribute");
-        
+
         RrdGraphAttribute rrdAttribute = (RrdGraphAttribute) attribute;
 
-        File rrdFile = new File(m_rrdBaseDirectory, rrdAttribute.getRrdRelativePath());
+        Path rrdFile = m_rrdBaseDirectory.resolve(rrdAttribute.getRrdRelativePath());
         try {
-            return m_rrdStrategy.fetchLastValueInRange(rrdFile.getAbsolutePath(), attribute.getName(), interval, range);
+            return m_rrdStrategy.fetchLastValueInRange(rrdFile.toAbsolutePath(), attribute.getName(), interval, range);
         } catch (Throwable e) {
             throw new DataAccessResourceFailureException("Failure to fetch last value from file '" + rrdFile + "' with interval " + interval + " and range " + range, e);
         }

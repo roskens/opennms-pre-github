@@ -28,9 +28,10 @@
 
 package org.opennms.netmgt.rrd.tcp;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -54,7 +55,7 @@ import org.opennms.netmgt.rrd.tcp.TcpRrdStrategy.RrdDefinition;
  * The receiver of this strategy is not defined in any way. This is just a fire
  * and forget strategy. There is no way to read data back into opennms.
  * </p>
- * 
+ *
  * @author ranger
  * @version $Id: $
  */
@@ -66,15 +67,15 @@ public class QueuingTcpRrdStrategy implements RrdStrategy<TcpRrdStrategy.RrdDefi
     private int m_skippedReadings = 0;
 
     private static class PerformanceDataReading {
-        private String m_filename;
+        private Path m_filename;
         private String m_owner;
         private String m_data;
-        public PerformanceDataReading(String filename, String owner, String data) {
+        public PerformanceDataReading(Path filename, String owner, String data) {
             m_filename = filename;
             m_owner = owner;
             m_data = data;
         }
-        public String getFilename() {
+        public Path getFilename() {
             return m_filename;
         }
         public String getOwner() {
@@ -146,7 +147,7 @@ public class QueuingTcpRrdStrategy implements RrdStrategy<TcpRrdStrategy.RrdDefi
 
     /** {@inheritDoc} */
     @Override
-    public TcpRrdStrategy.RrdDefinition createDefinition(String creator, String directory, String rrdName, int step, List<RrdDataSource> dataSources, List<String> rraList) throws Exception {
+    public TcpRrdStrategy.RrdDefinition createDefinition(String creator, Path directory, String rrdName, int step, List<RrdDataSource> dataSources, List<String> rraList) throws Exception {
         return new TcpRrdStrategy.RrdDefinition(directory, rrdName);
     }
 
@@ -164,14 +165,14 @@ public class QueuingTcpRrdStrategy implements RrdStrategy<TcpRrdStrategy.RrdDefi
 
     /** {@inheritDoc} */
     @Override
-    public String openFile(String fileName) throws Exception {
-        return fileName;
+    public String openFile(Path fileName) throws Exception {
+        return fileName.toString();
     }
 
     /** {@inheritDoc} */
     @Override
     public void updateFile(String fileName, String owner, String data) throws Exception {
-        if (m_queue.offer(new PerformanceDataReading(fileName, owner, data), 500, TimeUnit.MILLISECONDS)) {
+        if (m_queue.offer(new PerformanceDataReading(Paths.get(fileName), owner, data), 500, TimeUnit.MILLISECONDS)) {
             if (m_skippedReadings > 0) {
                 LOG.warn("Skipped {} performance data message(s) because of queue overflow", m_skippedReadings);
                 m_skippedReadings = 0;
@@ -194,31 +195,31 @@ public class QueuingTcpRrdStrategy implements RrdStrategy<TcpRrdStrategy.RrdDefi
 
     /** {@inheritDoc} */
     @Override
-    public Double fetchLastValue(String rrdFile, String ds, int interval) throws NumberFormatException {
+    public Double fetchLastValue(Path rrdFile, String ds, int interval) throws NumberFormatException {
         return m_delegate.fetchLastValue(rrdFile, ds, interval);
     }
 
     /** {@inheritDoc} */
     @Override
-    public Double fetchLastValue(String rrdFile, String ds, String consolidationFunction, int interval) throws NumberFormatException {
+    public Double fetchLastValue(Path rrdFile, String ds, String consolidationFunction, int interval) throws NumberFormatException {
         return m_delegate.fetchLastValue(rrdFile, ds, consolidationFunction, interval);
     }
 
     /** {@inheritDoc} */
     @Override
-    public Double fetchLastValueInRange(String rrdFile, String ds, int interval, int range) throws NumberFormatException {
+    public Double fetchLastValueInRange(Path rrdFile, String ds, int interval, int range) throws NumberFormatException {
         return m_delegate.fetchLastValueInRange(rrdFile, ds, interval, range);
     }
 
     /** {@inheritDoc} */
     @Override
-    public InputStream createGraph(String command, File workDir) throws IOException {
+    public InputStream createGraph(String command, Path workDir) throws IOException {
         return m_delegate.createGraph(command, workDir);
     }
 
     /** {@inheritDoc} */
     @Override
-    public RrdGraphDetails createGraphReturnDetails(String command, File workDir) throws IOException {
+    public RrdGraphDetails createGraphReturnDetails(String command, Path workDir) throws IOException {
         return m_delegate.createGraphReturnDetails(command, workDir);
     }
 
@@ -264,8 +265,8 @@ public class QueuingTcpRrdStrategy implements RrdStrategy<TcpRrdStrategy.RrdDefi
 
     /** {@inheritDoc} */
     @Override
-    public void promoteEnqueuedFiles(Collection<String> rrdFiles) {
+    public void promoteEnqueuedFiles(Collection<Path> rrdFiles) {
         m_delegate.promoteEnqueuedFiles(rrdFiles);
     }
-    
+
 }

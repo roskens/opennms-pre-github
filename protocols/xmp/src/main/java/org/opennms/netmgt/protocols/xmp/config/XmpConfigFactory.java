@@ -51,13 +51,14 @@
 
 package org.opennms.netmgt.protocols.xmp.config;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 import org.exolab.castor.xml.MarshalException;
 import org.exolab.castor.xml.Unmarshaller;
@@ -79,14 +80,14 @@ public class XmpConfigFactory {
      * @throws org.exolab.castor.xml.MarshalException if any.
      * @throws org.exolab.castor.xml.ValidationException if any.
      */
-    public static void init() throws IOException, FileNotFoundException, MarshalException, ValidationException 
+    public static void init() throws IOException, FileNotFoundException, MarshalException, ValidationException
     {
 
         if (instance == null) {
-            File cfgFile = ConfigFileConstants.getFile(ConfigFileConstants.XMP_CONFIG_FILE_NAME);
+            Path cfgFile = ConfigFileConstants.getFile(ConfigFileConstants.XMP_CONFIG_FILE_NAME);
             // create instance of ourselves and that causes
             // config file to be read and XmpConfig to be instantiated
-            instance = new XmpConfigFactory(cfgFile.getPath());
+            instance = new XmpConfigFactory(cfgFile);
         }
     }
 
@@ -116,15 +117,12 @@ public class XmpConfigFactory {
      * @throws org.exolab.castor.xml.ValidationException if any.
      * @throws java.io.IOException if any.
      */
-    public XmpConfigFactory(String configFile) 
-    throws MarshalException, ValidationException, IOException 
-    { 
-        InputStream cfgIn = new FileInputStream(configFile);
-
-        config = (XmpConfig)Unmarshaller.unmarshal(XmpConfig.class,
-                                                   new InputStreamReader(cfgIn, "UTF-8"));
-        cfgIn.close();
-        return; 
+    public XmpConfigFactory(Path configFile)
+      throws MarshalException, ValidationException, IOException
+    {
+        try (InputStream cfgIn = Files.newInputStream(configFile);) {
+            config = (XmpConfig) Unmarshaller.unmarshal(XmpConfig.class, new InputStreamReader(cfgIn, "UTF-8"));
+        }
     }
 
     /**
@@ -135,8 +133,8 @@ public class XmpConfigFactory {
      * @throws org.exolab.castor.xml.ValidationException if any.
      * @throws java.io.IOException if any.
      */
-    public XmpConfigFactory(Reader rdr) 
-    throws MarshalException, ValidationException, IOException 
+    public XmpConfigFactory(Reader rdr)
+    throws MarshalException, ValidationException, IOException
     {
         config = (XmpConfig)Unmarshaller.unmarshal(XmpConfig.class,rdr);
     }

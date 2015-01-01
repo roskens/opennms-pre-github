@@ -28,12 +28,14 @@
 
 package org.opennms.netmgt.collectd;
 
-import java.io.File;
+import java.nio.file.Path;
 
 import org.opennms.netmgt.collection.api.CollectionAgent;
 import org.opennms.netmgt.collection.api.CollectionResource;
 import org.opennms.netmgt.collection.api.ServiceParameters;
 import org.opennms.netmgt.rrd.RrdRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 /**
@@ -45,6 +47,8 @@ import org.opennms.netmgt.rrd.RrdRepository;
  * @author <a href="http://www.opennms.org/">OpenNMS </a>
  */
 public final class NodeInfo extends SnmpCollectionResource {
+
+    private static final Logger LOG = LoggerFactory.getLogger(NodeInfo.class);
 
 	private SNMPCollectorEntry m_entry;
     private final int m_nodeId;
@@ -61,7 +65,7 @@ public final class NodeInfo extends SnmpCollectionResource {
         m_agent = agent;
         m_nodeId = agent.getNodeId();
     }
-    
+
      /**
       * <p>getType</p>
       *
@@ -73,10 +77,12 @@ public final class NodeInfo extends SnmpCollectionResource {
     }
 
     /** {@inheritDoc} */
-        @Override
-    public File getResourceDir(RrdRepository repository) {
-        File rrdBaseDir = repository.getRrdBaseDir();
-        return new File(rrdBaseDir, getCollectionAgent().getStorageDir().toString());
+    @Override
+    public Path getResourceDir(RrdRepository repository) {
+        assert (repository != null);
+        assert (repository.getRrdBaseDir() != null);
+        assert (getCollectionAgent() != null);
+        return repository.getRrdBaseDir().resolve(getCollectionAgent().getStorageDir());
     }
 
     /**
@@ -97,7 +103,7 @@ public final class NodeInfo extends SnmpCollectionResource {
     public void setEntry(SNMPCollectorEntry nodeEntry) {
         m_entry = nodeEntry;
     }
-    
+
     /**
      * <p>getEntry</p>
      *
@@ -112,7 +118,7 @@ public final class NodeInfo extends SnmpCollectionResource {
     public boolean shouldPersist(ServiceParameters params) {
         return true;
     }
-    
+
     /**
      * <p>getResourceTypeName</p>
      *
@@ -122,8 +128,8 @@ public final class NodeInfo extends SnmpCollectionResource {
     public String getResourceTypeName() {
         return CollectionResource.RESOURCE_TYPE_NODE; //This is a nodeInfo; must be a node type resource
     }
-    
-    
+
+
     /**
      * <p>getInstance</p>
      *

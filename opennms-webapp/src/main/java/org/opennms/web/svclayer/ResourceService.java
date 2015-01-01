@@ -28,7 +28,7 @@
 
 package org.opennms.web.svclayer;
 
-import java.io.File;
+import java.nio.file.Path;
 import java.util.List;
 
 import org.opennms.netmgt.model.OnmsNode;
@@ -50,7 +50,7 @@ public interface ResourceService {
      *
      * @return a {@link java.io.File} object.
      */
-    public File getRrdDirectory();
+    public Path getRrdDirectory();
     /**
      * <p>findTopLevelResources</p>
      *

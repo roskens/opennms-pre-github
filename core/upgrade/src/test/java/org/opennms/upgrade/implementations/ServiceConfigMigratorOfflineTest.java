@@ -28,8 +28,9 @@
 
 package org.opennms.upgrade.implementations;
 
-import java.io.File;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import org.apache.commons.io.FileUtils;
 import org.junit.After;
 import org.junit.Assert;
@@ -42,7 +43,7 @@ import org.opennms.netmgt.config.service.ServiceConfiguration;
 
 /**
  * The Test Class for ServiceConfigMigratorOffline.
- * 
+ *
  * @author Alejandro Galue <agalue@opennms.org>
  */
 public class ServiceConfigMigratorOfflineTest {
@@ -54,7 +55,7 @@ public class ServiceConfigMigratorOfflineTest {
      */
     @Before
     public void setUp() throws Exception {
-        FileUtils.copyDirectory(new File("src/test/resources/etc"), new File("target/home/etc"));
+        FileUtils.copyDirectory(Paths.get("src/test/resources/etc").toFile(), Paths.get("target/home/etc").toFile());
         System.setProperty("opennms.home", "target/home");
     }
 
@@ -65,7 +66,7 @@ public class ServiceConfigMigratorOfflineTest {
      */
     @After
     public void tearDown() throws Exception {
-        FileUtils.deleteDirectory(new File("target/home"));
+        FileUtils.deleteDirectory(Paths.get("target/home").toFile());
     }
 
     /**
@@ -79,7 +80,7 @@ public class ServiceConfigMigratorOfflineTest {
         migrator.execute();
 
         // Checking parsing the fixed file (it should contain all the services)
-        File cfgFile = ConfigFileConstants.getFile(ConfigFileConstants.SERVICE_CONF_FILE_NAME);
+        Path cfgFile = ConfigFileConstants.getFile(ConfigFileConstants.SERVICE_CONF_FILE_NAME);
         ServiceConfiguration cfg = JaxbUtils.unmarshal(ServiceConfiguration.class, cfgFile);
         Assert.assertEquals(38, cfg.getServiceCount());
 

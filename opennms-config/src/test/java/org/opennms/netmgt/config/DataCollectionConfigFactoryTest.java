@@ -31,8 +31,9 @@ package org.opennms.netmgt.config;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertArrayEquals;
 
-import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 import org.exolab.castor.xml.MarshalException;
@@ -42,12 +43,12 @@ import org.opennms.test.ThrowableAnticipator;
 import org.springframework.core.io.ByteArrayResource;
 
 public class DataCollectionConfigFactoryTest {
-	private static final File m_rrdRepository = new File(System.getProperty("java.io.tmpdir") + File.separator + "wonka" + File.separator + "rrd" + File.separator + "snmp");
+    private static final Path m_rrdRepository = Paths.get(System.getProperty("java.io.tmpdir"), "wonka", "rrd", "snmp");
 
     private static final String m_xml = "<?xml version=\"1.0\"?>\n" +
             "<datacollection-config\n" +
-            "   rrdRepository = \"" + m_rrdRepository.getAbsolutePath() + File.separator + "\">\n" +
-            "   <snmp-collection name=\"default\"\n" +
+ "   rrdRepository = \"" + m_rrdRepository.toAbsolutePath() + "\">\n"
+      +            "   <snmp-collection name=\"default\"\n" +
             "       snmpStorageFlag = \"select\">\n" +
             "       <rrd step = \"300\">\n" +
             "           <rra>RRA:AVERAGE:0.5:1:8928</rra>\n" +
@@ -100,8 +101,8 @@ public class DataCollectionConfigFactoryTest {
 
     private static final String m_xml_nms6186 = "<?xml version=\"1.0\"?>\n" +
             "<datacollection-config\n" +
-            "   rrdRepository = \"" + m_rrdRepository.getAbsolutePath() + File.separator + "\">\n" +
-            "   <snmp-collection name=\"default\"\n" +
+ "   rrdRepository = \"" + m_rrdRepository.toAbsolutePath() + "\">\n"
+      +            "   <snmp-collection name=\"default\"\n" +
             "       snmpStorageFlag = \"select\">\n" +
             "       <rrd step = \"300\">\n" +
             "           <rra>RRA:AVERAGE:0.5:1:8928</rra>\n" +
@@ -162,7 +163,7 @@ public class DataCollectionConfigFactoryTest {
     @Test
     public void testSetInstance() throws MarshalException, ValidationException, IOException {
         initDataCollectionFactory(m_xml);
-        assertEquals(m_rrdRepository.getAbsolutePath(), DataCollectionConfigFactory.getInstance().getRrdPath());
+        assertEquals(m_rrdRepository.toAbsolutePath(), DataCollectionConfigFactory.getInstance().getRrdPath());
         assertEquals(0, DataCollectionConfigFactory.getInstance().getMibObjectList("default", ".1.9.9.9.9", "127.0.0.1", 0).size());
         for (MibObject object : DataCollectionConfigFactory.getInstance().getMibObjectList("default", ".1.3.6.1.4.1.200", "127.0.0.1", 0)) {
             assertEquals("Invalid MibObject: " + object, "ifIndex", object.getInstance());
@@ -187,7 +188,7 @@ public class DataCollectionConfigFactoryTest {
     public void testValidResourceType() throws MarshalException, ValidationException, IOException {
     	String modifiedXml = m_xml.replaceFirst("ifIndex", "brocadeIndex").replaceFirst("<groups", m_brocadeXmlFragment + "<groups");
         initDataCollectionFactory(modifiedXml);
-        assertEquals(m_rrdRepository.getAbsolutePath(), DataCollectionConfigFactory.getInstance().getRrdPath());
+        assertEquals(m_rrdRepository.toAbsolutePath(), DataCollectionConfigFactory.getInstance().getRrdPath());
         assertEquals(0, DataCollectionConfigFactory.getInstance().getMibObjectList("default", ".1.9.9.9.9", "127.0.0.1", 0).size());
         List<MibObject> mibObjects = DataCollectionConfigFactory.getInstance().getMibObjectList("default", ".1.3.6.1.4.1.200", "127.0.0.1", 0);
         // Make sure that the first value was edited as intended
@@ -220,7 +221,7 @@ public class DataCollectionConfigFactoryTest {
         DefaultDataCollectionConfigDao dataCollectionDao = new DefaultDataCollectionConfigDao();
         dataCollectionDao.setConfigResource(new ByteArrayResource(xmlConfig.getBytes()));
         // Set the config directory to a blank value so that it doesn't pull in any extra config files
-        dataCollectionDao.setConfigDirectory("");
+        dataCollectionDao.setConfigDirectory(Paths.get(""));
         dataCollectionDao.afterPropertiesSet();
         DataCollectionConfigFactory.setInstance(dataCollectionDao);
     }

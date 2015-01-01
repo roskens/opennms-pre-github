@@ -32,10 +32,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import java.io.IOException;
-
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -44,7 +40,7 @@ import org.opennms.core.test.OpenNMSJUnit4ClassRunner;
 import org.opennms.core.test.db.annotations.JUnitTemporaryDatabase;
 import org.opennms.netmgt.dao.DatabasePopulator;
 import org.opennms.netmgt.model.OnmsLocationMonitor.MonitorStatus;
-import org.opennms.test.FileAnticipator;
+import org.opennms.test.PathAnticipator;
 import org.opennms.test.JUnitConfigurationEnvironment;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -84,7 +80,7 @@ public class PollerFrontEndIntegrationTest implements InitializingBean {
     @Autowired
     private PollerSettings m_settings;
 
-    private static FileAnticipator m_fileAnticipator;
+    private static PathAnticipator m_pathAnticipator;
 
     @Autowired
     private JdbcTemplate m_jdbcTemplate;
@@ -96,25 +92,23 @@ public class PollerFrontEndIntegrationTest implements InitializingBean {
 
     /*
 
-    Comment this out because it triggers FileAnticipator failures if the test is
-    marked as @Ignore.
+    Comment this out because it triggers PathAnticipator failures if the test is
+     marked as @Ignore.
 
     @BeforeClass
     public static void setUpAnticipator() throws IOException {
-        m_fileAnticipator = new FileAnticipator();
+        m_pathAnticipator = new PathAnticipator();
 
-        final String filename = m_fileAnticipator.expecting("remote-poller.configuration").getCanonicalPath().replace("+", "%2B");
-        System.setProperty("opennms.poller.configuration.resource", "file://" + filename);
+        final String filename = m_pathAnticipator.expecting("remote-poller.configuration").getCanonicalPath().replace("+", "%2B");        System.setProperty("opennms.poller.configuration.resource", "file://" + filename);
     }
 
     @AfterClass
     public static void tearDownAnticipator() throws Throwable {
-        if (m_fileAnticipator.isInitialized()) {
-            m_fileAnticipator.deleteExpected();
-        }
+        if (m_pathAnticipator.isInitialized()) {
+     m_pathAnticipator.deleteExpected();        }
 
-        m_fileAnticipator.tearDown();
-    }
+        m_pathAnticipator.tearDown();
+     }
     */
 
     @BeforeTransaction

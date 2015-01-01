@@ -28,7 +28,8 @@
 
 package org.opennms.protocols.xml.collector;
 
-import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -36,7 +37,7 @@ import org.junit.Test;
 
 /**
  * The Test class for XML Collector for Node Level Statistics
- * 
+ *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 public class XmlCollectorNodeLevelTest extends AbstractXmlCollectorTest {
@@ -48,7 +49,7 @@ public class XmlCollectorNodeLevelTest extends AbstractXmlCollectorTest {
     public String getXmlConfigFileName() {
         return "src/test/resources/node-level-datacollection-config.xml";
     }
-    
+
     /* (non-Javadoc)
      * @see org.opennms.protocols.xml.collector.AbcstractXmlCollectorTest#getXmlSampleFileName()
      */
@@ -68,7 +69,7 @@ public class XmlCollectorNodeLevelTest extends AbstractXmlCollectorTest {
         parameters.put("collection", "NodeLevel");
         parameters.put("handler-class", "org.opennms.protocols.xml.collector.MockDefaultXmlCollectionHandler");
         executeCollectorTest(parameters, 1);
-        File file = new File("target/snmp/1/node-level-stats.jrb");
+        Path file = Paths.get("target/snmp/1/node-level-stats.jrb");
         String[] dsnames = new String[] { "v1", "v2", "v3", "v4", "v5", "v6" };
         Double[] dsvalues = new Double[] { 10.0, 11.0, 12.0, 13.0, 14.0, 15.0 };
         validateJrb(file, dsnames, dsvalues);

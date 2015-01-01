@@ -28,12 +28,11 @@
 
 package org.opennms.netmgt.config;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
-import org.apache.commons.io.IOUtils;
 import org.exolab.castor.xml.MarshalException;
 import org.exolab.castor.xml.ValidationException;
 import org.opennms.core.utils.ConfigFileConstants;
@@ -73,7 +72,7 @@ public final class RTCConfigFactory {
     /**
      * Parse the rolling window in the properties file in the format <xx>h <yy>m
      * <zz>s into a long value of milliseconds
-     * 
+     *
      * @return the rolling window as milliseconds
      */
     private long parseRollingWindow(String rolling) throws IllegalArgumentException {
@@ -142,7 +141,7 @@ public final class RTCConfigFactory {
 
     /**
      * Private constructor
-     * 
+     *
      * @exception java.io.IOException
      *                Thrown if the specified config file cannot be read
      * @exception org.exolab.castor.xml.MarshalException
@@ -150,18 +149,12 @@ public final class RTCConfigFactory {
      * @exception org.exolab.castor.xml.ValidationException
      *                Thrown if the contents do not match the required schema.
      */
-    private RTCConfigFactory(String configFile) throws IOException, MarshalException, ValidationException {
-        InputStream stream = null;
-        try {
-            stream = new FileInputStream(configFile);
+    private RTCConfigFactory(Path configFile) throws IOException, MarshalException, ValidationException {
+        try (InputStream stream = Files.newInputStream(configFile);) {
             marshal(stream);
-        } finally {
-            if (stream != null) {
-                IOUtils.closeQuietly(stream);
-            }
         }
     }
-    
+
     /**
      * <p>Constructor for RTCConfigFactory.</p>
      *
@@ -177,7 +170,7 @@ public final class RTCConfigFactory {
     private void marshal(InputStream stream) throws MarshalException, ValidationException {
         m_config = CastorUtils.unmarshal(RTCConfiguration.class, stream);
     }
-    
+
     /**
      * <p>setInstance</p>
      *
@@ -209,9 +202,9 @@ public final class RTCConfigFactory {
             return;
         }
 
-        File cfgFile = ConfigFileConstants.getFile(ConfigFileConstants.RTC_CONFIG_FILE_NAME);
+        Path cfgFile = ConfigFileConstants.getFile(ConfigFileConstants.RTC_CONFIG_FILE_NAME);
 
-        setInstance(new RTCConfigFactory(cfgFile.getPath()));
+        setInstance(new RTCConfigFactory(cfgFile));
     }
 
     /**

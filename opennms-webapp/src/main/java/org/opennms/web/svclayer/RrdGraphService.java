@@ -49,9 +49,8 @@ public interface RrdGraphService {
      * @param end a long.
      * @return a {@link java.io.InputStream} object.
      */
-    public InputStream getPrefabGraph(String resourceId,
-            String report, long start, long end, Integer width, Integer height);
-    
+    public InputStream getPrefabGraph(String resourceId, String report, long start, long end, Integer width, Integer height);
+
     /**
      * <p>getAdhocGraph</p>
      *

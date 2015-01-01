@@ -28,15 +28,13 @@
 
 package org.opennms.netmgt.config;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStreamWriter;
 import java.io.Writer;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
-import org.apache.commons.io.IOUtils;
 import org.exolab.castor.xml.MarshalException;
 import org.exolab.castor.xml.ValidationException;
 import org.opennms.core.utils.ConfigFileConstants;
@@ -54,7 +52,7 @@ import org.slf4j.LoggerFactory;
  * <em>init()</em> is called before calling any other method to ensure the
  * config is loaded before accessing other convenience methods.
  *
- * @author <a href="mailto:jamesz@opennms.com>James Zuo </a>
+ * @author <a href="mailto:jamesz@opennms.com">James Zuo </a>
  * @author <a href="mailto:mike@opennms.org">Mike Davidson </a>
  * @author <a href="mailto:sowmya@opennms.org">Sowmya Nataraj </a>
  * @author <a href="http://www.opennms.org/">OpenNMS </a>
@@ -106,25 +104,18 @@ public final class ThreshdConfigFactory extends ThreshdConfigManager {
             // to reload, reload() will need to be called
             return;
         }
-        
+
         OpennmsServerConfigFactory.init();
         boolean verifyServer = OpennmsServerConfigFactory.getInstance().verifyServer();
         String localServer = OpennmsServerConfigFactory.getInstance().getServerName();
 
+        Path cfgFile = ConfigFileConstants.getFile(ConfigFileConstants.THRESHD_CONFIG_FILE_NAME);
 
-        File cfgFile = ConfigFileConstants.getFile(ConfigFileConstants.THRESHD_CONFIG_FILE_NAME);
+        LOG.debug("init: config file path: {}", cfgFile);
 
-        LOG.debug("init: config file path: {}", cfgFile.getPath());
-
-        InputStream stream = null;
-        try {
-            stream = new FileInputStream(cfgFile);
+        try (InputStream stream = Files.newInputStream(cfgFile);) {
             m_singleton = new ThreshdConfigFactory(stream, localServer, verifyServer);
             m_loaded = true;
-        } finally {
-            if (stream != null) {
-                IOUtils.closeQuietly(stream);
-            }
         }
     }
 
@@ -164,15 +155,13 @@ public final class ThreshdConfigFactory extends ThreshdConfigManager {
 
         /** {@inheritDoc} */
     @Override
-        protected void saveXML(String xmlString) throws IOException {
-            File cfgFile = ConfigFileConstants.getFile(ConfigFileConstants.THRESHD_CONFIG_FILE_NAME);
-            Writer fileWriter = new OutputStreamWriter(new FileOutputStream(cfgFile), "UTF-8");
+    protected void saveXML(String xmlString) throws IOException {
+        Path cfgFile = ConfigFileConstants.getFile(ConfigFileConstants.THRESHD_CONFIG_FILE_NAME);
+        try (Writer fileWriter = Files.newBufferedWriter(cfgFile, Charset.forName("UTF-8"));) {
             fileWriter.write(xmlString);
             fileWriter.flush();
-            fileWriter.close();
         }
-         
-
+        }
 
     /**
      * Return the singleton instance of this factory.
@@ -187,7 +176,7 @@ public final class ThreshdConfigFactory extends ThreshdConfigManager {
 
         return m_singleton;
     }
-    
+
     /**
      * <p>setInstance</p>
      *

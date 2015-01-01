@@ -28,9 +28,9 @@
 
 package org.opennms.netmgt.config;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Path;
 
 import org.exolab.castor.xml.MarshalException;
 import org.exolab.castor.xml.ValidationException;
@@ -83,8 +83,8 @@ public final class SyslogdConfigFactory implements SyslogdConfig {
      * @throws org.exolab.castor.xml.ValidationException
      *                             Thrown if the contents do not match the required schema.
      */
-    private SyslogdConfigFactory(String configFile) throws IOException, MarshalException, ValidationException {
-        m_config = CastorUtils.unmarshal(SyslogdConfiguration.class, new FileSystemResource(configFile));
+    private SyslogdConfigFactory(Path configFile) throws IOException, MarshalException, ValidationException {
+        m_config = CastorUtils.unmarshal(SyslogdConfiguration.class, new FileSystemResource(configFile.toFile()));
         parseIncludedFiles();
     }
 
@@ -117,9 +117,9 @@ public final class SyslogdConfigFactory implements SyslogdConfig {
             // to reload, reload() will need to be called
             return;
         }
-        File cfgFile = ConfigFileConstants.getFile(ConfigFileConstants.SYSLOGD_CONFIG_FILE_NAME);
+        Path cfgFile = ConfigFileConstants.getFile(ConfigFileConstants.SYSLOGD_CONFIG_FILE_NAME);
 
-        m_singleton = new SyslogdConfigFactory(cfgFile.getPath());
+        m_singleton = new SyslogdConfigFactory(cfgFile);
 
         m_loaded = true;
     }
@@ -187,7 +187,7 @@ public final class SyslogdConfigFactory implements SyslogdConfig {
     public synchronized String getListenAddress() {
         return m_config.getConfiguration().getListenAddress();
     }
-    
+
     /**
      * Return whether or not a newSuspect event should be sent when a trap is
      * received from an unknown IP address.
@@ -260,7 +260,7 @@ public final class SyslogdConfigFactory implements SyslogdConfig {
     public synchronized HideMessage getHideMessages() {
         return m_config.getHideMessage();
     }
-    
+
     /**
      * <p>getDiscardUei</p>
      *
@@ -273,22 +273,22 @@ public final class SyslogdConfigFactory implements SyslogdConfig {
 
     /**
      * Parse import-file tags and add all uei-matchs and hide-messages.
-     * 
+     *
      * @throws IOException
      * @throws MarshalException
      * @throws ValidationException
      */
     private void parseIncludedFiles() throws IOException, MarshalException, ValidationException {
-        final File configDir;
+        final Path configDir;
         try {
-            configDir = ConfigFileConstants.getFile(ConfigFileConstants.SYSLOGD_CONFIG_FILE_NAME).getParentFile();
+            configDir = ConfigFileConstants.getFile(ConfigFileConstants.SYSLOGD_CONFIG_FILE_NAME).getParent();
         } catch (final Throwable t) {
             LOG.warn("Error getting default syslogd configuration location. <import-file> directives will be ignored.  This should really only happen in unit tests.");
             return;
         }
         for (final String fileName : m_config.getImportFileCollection()) {
-            final File configFile = new File(configDir, fileName);
-            final SyslogdConfigurationGroup includeCfg = CastorUtils.unmarshal(SyslogdConfigurationGroup.class, new FileSystemResource(configFile));
+            final Path configFile = configDir.resolve(fileName);
+            final SyslogdConfigurationGroup includeCfg = CastorUtils.unmarshal(SyslogdConfigurationGroup.class, new FileSystemResource(configFile.toFile()));
             if (includeCfg.getUeiList() != null) {
                 for (final UeiMatch ueiMatch : includeCfg.getUeiList().getUeiMatchCollection())  {
                     if (m_config.getUeiList() == null)

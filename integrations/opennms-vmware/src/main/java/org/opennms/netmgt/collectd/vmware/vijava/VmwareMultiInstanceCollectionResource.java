@@ -28,12 +28,11 @@
 
 package org.opennms.netmgt.collectd.vmware.vijava;
 
+import java.nio.file.Path;
 import org.opennms.netmgt.collection.api.CollectionAgent;
 import org.opennms.netmgt.rrd.RrdRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.io.File;
 
 public class VmwareMultiInstanceCollectionResource extends VmwareCollectionResource {
 
@@ -52,11 +51,11 @@ public class VmwareMultiInstanceCollectionResource extends VmwareCollectionResou
     }
 
     @Override
-    public File getResourceDir(RrdRepository repository) {
-        final File rrdBaseDir = repository.getRrdBaseDir();
-        final File nodeDir = new File(rrdBaseDir, getParent());
-        final File typeDir = new File(nodeDir, m_name);
-        final File instDir = new File(typeDir, m_inst.replaceAll("/", "_").replaceAll("\\s+", "_").replaceAll(":", "_").replaceAll("\\\\", "_").replaceAll("[\\[\\]]", "_"));
+    public Path getResourceDir(RrdRepository repository) {
+        final Path rrdBaseDir = repository.getRrdBaseDir();
+        final Path nodeDir = rrdBaseDir.resolve(getParent());
+        final Path typeDir = nodeDir.resolve(m_name);
+        final Path instDir = typeDir.resolve(m_inst.replaceAll("/", "_").replaceAll("\\s+", "_").replaceAll(":", "_").replaceAll("\\\\", "_").replaceAll("[\\[\\]]", "_"));
         logger.debug("getResourceDir: '{}'", instDir);
         return instDir;
     }

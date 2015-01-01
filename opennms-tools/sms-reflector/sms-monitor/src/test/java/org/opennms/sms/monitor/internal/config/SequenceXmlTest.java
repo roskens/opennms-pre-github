@@ -32,11 +32,12 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.StringWriter;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 import javax.xml.XMLConstants;
@@ -65,46 +66,46 @@ import org.junit.Test;
 import org.opennms.sms.monitor.internal.MobileSequenceConfigBuilder;
 import org.opennms.sms.monitor.internal.MobileSequenceConfigBuilder.MobileSequenceTransactionBuilder;
 import org.opennms.sms.monitor.session.UniqueNumber;
-import org.opennms.test.FileAnticipator;
+import org.opennms.test.PathAnticipator;
 import org.smslib.USSDSessionStatus;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
 public class SequenceXmlTest {
 
-	private FileAnticipator m_fileAnticipator;
+    private PathAnticipator m_pathAnticipator;
 	private MobileSequenceConfig m_smsSequence;
 	private JAXBContext m_context;
 	private Marshaller m_marshaller;
 	private Unmarshaller m_unmarshaller;
-	
+
     static private class TestOutputResolver extends SchemaOutputResolver {
-        private final File m_schemaFile;
-        
-        public TestOutputResolver(File schemaFile) {
+        private final Path m_schemaFile;
+
+        public TestOutputResolver(Path schemaFile) {
             m_schemaFile = schemaFile;
         }
-        
+
         @Override
         public Result createOutput(String namespaceUri, String suggestedFileName) throws IOException {
-            return new StreamResult(m_schemaFile);
+            return new StreamResult(m_schemaFile.toFile());
         }
     }
 
     @Before
     public void setUp() throws Exception {
-    	m_fileAnticipator = new FileAnticipator();
+        m_pathAnticipator = new PathAnticipator();
 
     	MobileSequenceConfigBuilder bldr = new MobileSequenceConfigBuilder();
-    	
+
     	bldr.variable("amount", UniqueNumber.class).parameter("min", 1).parameter("max", 15);
-    	
+
     	bldr.ussdRequest("req-balance-transfer", "ACM0", "*327*${recipient}*${amount}#").withTransactionLabel("ussd-transfer").withGatewayId("ACM0")
     	    .expectUssdResponse("balance-conf-resp")
     	    .onGateway("ACM0")
     	    .withSessionStatus(USSDSessionStatus.FURTHER_ACTION_REQUIRED)
     	    .matching("^Transfiere L ${amount} al ${recipient}$");
-    	
+
 
     	MobileSequenceTransactionBuilder transBldr = bldr.ussdRequest("conf-transfer", "ACM0", "1");
 
@@ -113,12 +114,12 @@ public class SequenceXmlTest {
     	    .onGateway("ACM0")
     	    .withSessionStatus(USSDSessionStatus.NO_FURTHER_ACTION_REQUIRED)
     	    .matching("^.*Su transaccion se esta procesando.*$");
-    	
+
     	transBldr.expectSmsResponse("transferred")
     	    .onGateway("ACM0")
     	    .matching("^.*le ha transferido L ${amount}.*$")
     	    .srcMatches("+3746");
-    	
+
     	m_smsSequence = bldr.getSequence();
 
     	m_context = JAXBContext.newInstance(
@@ -148,16 +149,16 @@ public class SequenceXmlTest {
 
     @After
     public void tearDown() throws Exception {
-    	m_fileAnticipator.tearDown();
+        m_pathAnticipator.tearDown();
     }
 
     @Test
     public void generateSchema() throws Exception {
-        File schemaFile = m_fileAnticipator.expecting("mobile-sequence.xsd");
+        Path schemaFile = m_pathAnticipator.expecting("mobile-sequence.xsd");
         m_context.generateSchema(new TestOutputResolver(schemaFile));
         printFile(schemaFile);
-        if (m_fileAnticipator.isInitialized()) {
-            m_fileAnticipator.deleteExpected();
+        if (m_pathAnticipator.isInitialized()) {
+            m_pathAnticipator.deleteExpected();
         }
     }
 
@@ -171,41 +172,41 @@ public class SequenceXmlTest {
 
     @Test(expected=UnmarshalException.class)
     public void readInvalidXML() throws Exception {
-    	File exampleFile = new File(ClassLoader.getSystemResource("invalid-sequence.xml").getFile());
+        Path exampleFile = Paths.get(ClassLoader.getSystemResource("invalid-sequence.xml").getFile());
     	ValidationEventHandler handler = new DefaultValidationEventHandler();
     	m_unmarshaller.setEventHandler(handler);
-    	MobileSequenceConfig s = (MobileSequenceConfig)m_unmarshaller.unmarshal(exampleFile);
+        MobileSequenceConfig s = (MobileSequenceConfig) m_unmarshaller.unmarshal(exampleFile.toFile());
     	System.err.println("sequence = " + s);
-    	
+
         assertTransactionParentsSet(s);
     }
-    
+
     @Test(expected=UnmarshalException.class)
     public void readPoorlyFormedXML() throws Exception {
-    	File exampleFile = new File(ClassLoader.getSystemResource("poorly-formed-sequence.xml").getFile());
+        Path exampleFile = Paths.get(ClassLoader.getSystemResource("poorly-formed-sequence.xml").getFile());
     	ValidationEventHandler handler = new DefaultValidationEventHandler();
     	m_unmarshaller.setEventHandler(handler);
-    	MobileSequenceConfig s = (MobileSequenceConfig)m_unmarshaller.unmarshal(exampleFile);
+        MobileSequenceConfig s = (MobileSequenceConfig) m_unmarshaller.unmarshal(exampleFile.toFile());
     	System.err.println("sequence = " + s);
         assertTransactionParentsSet(s);
     }
-    
+
     @Test
     public void readAnotherSampleXML() throws Exception {
-    	File exampleFile = new File(ClassLoader.getSystemResource("alternate-ping-sequence.xml").getFile());
+        Path exampleFile = Paths.get(ClassLoader.getSystemResource("alternate-ping-sequence.xml").getFile());
     	ValidationEventHandler handler = new DefaultValidationEventHandler();
     	m_unmarshaller.setEventHandler(handler);
-    	MobileSequenceConfig s = (MobileSequenceConfig)m_unmarshaller.unmarshal(exampleFile);
+        MobileSequenceConfig s = (MobileSequenceConfig) m_unmarshaller.unmarshal(exampleFile.toFile());
     	System.err.println("sequence = " + s);
         assertTransactionParentsSet(s);
     }
-    
+
     @Test
     public void readXML() throws Exception {
-    	File exampleFile = new File(ClassLoader.getSystemResource("ussd-balance-sequence.xml").getFile());
+        Path exampleFile = Paths.get(ClassLoader.getSystemResource("ussd-balance-sequence.xml").getFile());
     	ValidationEventHandler handler = new DefaultValidationEventHandler();
     	m_unmarshaller.setEventHandler(handler);
-    	MobileSequenceConfig s = (MobileSequenceConfig)m_unmarshaller.unmarshal(exampleFile);
+        MobileSequenceConfig s = (MobileSequenceConfig) m_unmarshaller.unmarshal(exampleFile.toFile());
     	System.err.println("sequence = " + s);
         assertTransactionParentsSet(s);
     }
@@ -215,7 +216,7 @@ public class SequenceXmlTest {
         // Marshal the test object to an XML string
         StringWriter objectXML = new StringWriter();
         m_marshaller.marshal(m_smsSequence, objectXML);
- 
+
         // Read the example XML from src/test/resources
         StringBuffer exampleXML = getXmlBuffer("ussd-balance-sequence.xml");
         System.err.println("========================================================================");
@@ -232,34 +233,34 @@ public class SequenceXmlTest {
 
     @Test
     public void validateAgainstSchema() throws Exception {
-        File schemaFile = m_fileAnticipator.expecting("mobile-sequence.xsd");
+        Path schemaFile = m_pathAnticipator.expecting("mobile-sequence.xsd");
         m_context.generateSchema(new TestOutputResolver(schemaFile));
         printFile(schemaFile);
 
         SchemaFactory factory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-        Schema schema = factory.newSchema(schemaFile);
+        Schema schema = factory.newSchema(schemaFile.toFile());
         Validator validator = schema.newValidator();
 
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
         dbFactory.setNamespaceAware(true);
         DocumentBuilder parser = dbFactory.newDocumentBuilder();
-        File sequenceFile = new File(ClassLoader.getSystemResource("ussd-balance-sequence.xml").getFile());
+        Path sequenceFile = Paths.get(ClassLoader.getSystemResource("ussd-balance-sequence.xml").getFile());
         printFile(sequenceFile);
-        Document document = parser.parse(sequenceFile);
+        Document document = parser.parse(sequenceFile.toFile());
         validator.validate(new DOMSource(document));
-        
-        if (m_fileAnticipator.isInitialized()) {
-            m_fileAnticipator.deleteExpected();
+
+        if (m_pathAnticipator.isInitialized()) {
+            m_pathAnticipator.deleteExpected();
         }
     }
 
     @Test
     public void tryFactory() throws Exception {
-    	File exampleFile = new File(ClassLoader.getSystemResource("ussd-balance-sequence.xml").getFile());
-    	MobileSequenceConfig sequence = SequenceConfigFactory.getInstance().getSequenceForFile(exampleFile);
+        Path exampleFile = Paths.get(ClassLoader.getSystemResource("ussd-balance-sequence.xml").getFile());
+        MobileSequenceConfig sequence = SequenceConfigFactory.getInstance().getSequenceForFile(exampleFile.toFile());
     	assertEquals("ussd-transfer", sequence.getTransactions().iterator().next().getLabel());
     }
-    
+
     @SuppressWarnings("unchecked")
 	private DetailedDiff getDiff(StringWriter objectXML, StringBuffer exampleXML) throws SAXException, IOException {
         DetailedDiff myDiff = new DetailedDiff(XMLUnit.compareXML(exampleXML.toString(), objectXML.toString()));
@@ -280,10 +281,10 @@ public class SequenceXmlTest {
 
     private StringBuffer getXmlBuffer(String fileName) throws IOException {
         StringBuffer xmlBuffer = new StringBuffer();
-        File xmlFile = new File(ClassLoader.getSystemResource("ussd-balance-sequence.xml").getFile());
-        assertTrue("ussd-balance-sequence.xml is readable", xmlFile.canRead());
+        Path xmlFile = Paths.get(ClassLoader.getSystemResource("ussd-balance-sequence.xml").getFile());
+        assertTrue("ussd-balance-sequence.xml is readable", Files.isReadable(xmlFile));
 
-        BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(xmlFile), "UTF-8"));
+        BufferedReader reader = Files.newBufferedReader(xmlFile, Charset.forName("UTF-8"));
         String line;
         while (true) {
             line = reader.readLine();
@@ -296,8 +297,8 @@ public class SequenceXmlTest {
         return xmlBuffer;
     }
 
-    private void printFile(File file) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"));
+    private void printFile(Path file) throws IOException {
+        BufferedReader br = Files.newBufferedReader(file, Charset.forName("UTF-8"));
         StringBuilder sb = new StringBuilder();
         String line = null;
 

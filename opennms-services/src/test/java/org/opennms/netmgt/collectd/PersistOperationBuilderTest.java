@@ -28,8 +28,8 @@
 
 package org.opennms.netmgt.collectd;
 
-import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.Collections;
 import java.util.HashMap;
 
@@ -54,17 +54,17 @@ import org.opennms.netmgt.rrd.RrdUtils;
 import org.opennms.netmgt.snmp.SnmpInstId;
 import org.opennms.netmgt.snmp.SnmpResult;
 import org.opennms.netmgt.snmp.SnmpUtils;
-import org.opennms.test.FileAnticipator;
+import org.opennms.test.PathAnticipator;
 import org.springframework.transaction.PlatformTransactionManager;
 
 /**
  * JUnit TestCase for PersistOperationBuilder.
- *  
+ *
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  */
 public class PersistOperationBuilderTest {
-    private FileAnticipator m_fileAnticipator;
-    private File m_snmpDirectory;
+    private PathAnticipator m_pathAnticipator;
+    private Path m_snmpDirectory;
     private OnmsIpInterface m_intf;
     private OnmsNode m_node;
     private PlatformTransactionManager m_transMgr = new MockPlatformTransactionManager();
@@ -75,7 +75,7 @@ public class PersistOperationBuilderTest {
     public void setUp() throws Exception {
         MockLogAppender.setupLogging();
 
-        m_fileAnticipator = new FileAnticipator();
+        m_pathAnticipator = new PathAnticipator();
 
         m_intf = new OnmsIpInterface();
         m_node = new OnmsNode();
@@ -93,8 +93,8 @@ public class PersistOperationBuilderTest {
     @After
     public void tearDown() throws Exception {
         MockLogAppender.assertNoWarningsOrGreater();
-        m_fileAnticipator.deleteExpected();
-        m_fileAnticipator.tearDown();
+        m_pathAnticipator.deleteExpected();
+        m_pathAnticipator.tearDown();
     }
 
     private SnmpCollectionAgent getCollectionAgent() {
@@ -122,9 +122,9 @@ public class PersistOperationBuilderTest {
 
     @Test
     public void testCommitWithDeclaredAttribute() throws Exception {
-        File nodeDir = m_fileAnticipator.expecting(getSnmpRrdDirectory(), m_node.getId().toString());
-        m_fileAnticipator.expecting(nodeDir, "rrdName" + RrdUtils.getExtension());
-        m_fileAnticipator.expecting(nodeDir, "rrdName" + ".meta");
+        Path nodeDir = m_pathAnticipator.expecting(getSnmpRrdDirectory(), m_node.getId().toString());
+        m_pathAnticipator.expecting(nodeDir, "rrdName" + RrdUtils.getExtension());
+        m_pathAnticipator.expecting(nodeDir, "rrdName" + ".meta");
 
         RrdRepository repository = createRrdRepository();
 
@@ -158,9 +158,9 @@ public class PersistOperationBuilderTest {
 
     @Test
     public void testCommitWithDeclaredAttributeAndValue() throws Exception {
-        File nodeDir = m_fileAnticipator.expecting(getSnmpRrdDirectory(), m_node.getId().toString());
-        m_fileAnticipator.expecting(nodeDir, "rrdName" + RrdUtils.getExtension());
-        m_fileAnticipator.expecting(nodeDir, "rrdName" + ".meta");
+        Path nodeDir = m_pathAnticipator.expecting(getSnmpRrdDirectory(), m_node.getId().toString());
+        m_pathAnticipator.expecting(nodeDir, "rrdName" + RrdUtils.getExtension());
+        m_pathAnticipator.expecting(nodeDir, "rrdName" + ".meta");
 
         RrdRepository repository = createRrdRepository();
 
@@ -237,9 +237,9 @@ public class PersistOperationBuilderTest {
         return repository;
     }
 
-    private File getSnmpRrdDirectory() throws IOException {
+    private Path getSnmpRrdDirectory() throws IOException {
         if (m_snmpDirectory == null) {
-            m_snmpDirectory = m_fileAnticipator.tempDir("snmp"); 
+            m_snmpDirectory = m_pathAnticipator.tempDir("snmp");
         }
         return m_snmpDirectory;
     }

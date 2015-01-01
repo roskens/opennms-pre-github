@@ -28,7 +28,9 @@
 
 package org.opennms.protocols.xml.collector;
 
-import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -45,7 +47,7 @@ import org.w3c.dom.NodeList;
 
 /**
  * The Test class for XML Collector for Solaris Zones Statistics
- * 
+ *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 public class XmlCollectorSolarisZonesTest extends AbstractXmlCollectorTest {
@@ -57,7 +59,7 @@ public class XmlCollectorSolarisZonesTest extends AbstractXmlCollectorTest {
     public String getXmlConfigFileName() {
         return "src/test/resources/solaris-zones-datacollection-config.xml";
     }
-    
+
     /* (non-Javadoc)
      * @see org.opennms.protocols.xml.collector.AbcstractXmlCollectorTest#getXmlSampleFileName()
      */
@@ -97,14 +99,14 @@ public class XmlCollectorSolarisZonesTest extends AbstractXmlCollectorTest {
         parameters.put("handler-class", "org.opennms.protocols.xml.collector.MockDefaultXmlCollectionHandler");
         // Files expected: one JRB for each zone: global, zone1 and zone2 (3 in total)
         executeCollectorTest(parameters, 3);
-        Assert.assertTrue(new File("target/snmp/1/solarisZoneStats/global/solaris-zone-stats.jrb").exists());
-        Assert.assertTrue(new File("target/snmp/1/solarisZoneStats/zone1/solaris-zone-stats.jrb").exists());
-        Assert.assertTrue(new File("target/snmp/1/solarisZoneStats/zone2/solaris-zone-stats.jrb").exists());
+        Assert.assertTrue(Files.exists(Paths.get("target/snmp/1/solarisZoneStats/global/solaris-zone-stats.jrb")));
+        Assert.assertTrue(Files.exists(Paths.get("target/snmp/1/solarisZoneStats/zone1/solaris-zone-stats.jrb")));
+        Assert.assertTrue(Files.exists(Paths.get("target/snmp/1/solarisZoneStats/zone2/solaris-zone-stats.jrb")));
         // Checking data from Global Zone.
-        File file = new File("target/snmp/1/solarisZoneStats/global/solaris-zone-stats.jrb");
+        Path file = Paths.get("target/snmp/1/solarisZoneStats/global/solaris-zone-stats.jrb");
         String[] dsnames = new String[] { "nproc", "nlwp", "pr_size", "pr_rssize", "pctmem", "pctcpu" };
         Double[] dsvalues = new Double[] { 245.0, 1455.0, 2646864.0, 1851072.0, 0.7, 0.24 };
-        validateJrb(file, dsnames, dsvalues);      
+        validateJrb(file, dsnames, dsvalues);
     }
 
 }

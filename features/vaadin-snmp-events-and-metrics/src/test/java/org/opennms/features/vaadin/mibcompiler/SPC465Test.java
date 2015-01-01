@@ -28,8 +28,9 @@
 
 package org.opennms.features.vaadin.mibcompiler;
 
-import java.io.File;
 import java.net.URL;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,13 +46,13 @@ import org.opennms.features.vaadin.mibcompiler.services.JsmiMibParser;
 
 /**
  * The Test Class for <a href="http://issues.opennms.org/browse/SPC-465">SPC-465</a>
- * 
- * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a> 
+ *
+ * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 public class SPC465Test {
 
     /** The Constant MIB_DIR. */
-    protected static final File MIB_DIR = new File("src/test/resources");
+    protected static final Path MIB_DIR = Paths.get("src", "test", "resources");
 
     /** The parser. */
     protected MibParser parser;
@@ -68,7 +69,7 @@ public class SPC465Test {
     /**
      * Test standard parse.
      * <p>This test is to verify that the problem is not JsmiParser.</p>
-     * 
+     *
      * @throws Exception the exception
      */
     @Test
@@ -76,9 +77,9 @@ public class SPC465Test {
         SmiDefaultParser parser = new SmiDefaultParser();
         List<URL> inputUrls = new ArrayList<URL>();
         try {
-            inputUrls.add(new File(MIB_DIR, "SNMPv2-SMI.txt").toURI().toURL());
-            inputUrls.add(new File(MIB_DIR, "JUNIPER-SMI.mib").toURI().toURL());
-            inputUrls.add(new File(MIB_DIR, "JUNIPER-JS-SMI.mib").toURI().toURL());
+            inputUrls.add(MIB_DIR.resolve("SNMPv2-SMI.txt").toUri().toURL());
+            inputUrls.add(MIB_DIR.resolve("JUNIPER-SMI.mib").toUri().toURL());
+            inputUrls.add(MIB_DIR.resolve("JUNIPER-JS-SMI.mib").toUri().toURL());
         } catch (Exception e) {
             Assert.fail();
         }
@@ -104,7 +105,7 @@ public class SPC465Test {
      */
     @Test
     public void testCustomParse() throws Exception {
-        if (parser.parseMib(new File(MIB_DIR, "JUNIPER-JS-SMI.mib"))) {
+        if (parser.parseMib(MIB_DIR.resolve("JUNIPER-JS-SMI.mib"))) {
             Assert.assertTrue(parser.getMissingDependencies().isEmpty());
             Assert.assertNull(parser.getFormattedErrors());
         } else {
@@ -119,7 +120,7 @@ public class SPC465Test {
      */
     @Test
     public void testJuniperIfMib() throws Exception {
-        if (parser.parseMib(new File(MIB_DIR, "JUNIPER-IF-MIB.mib"))) {
+        if (parser.parseMib(MIB_DIR.resolve("JUNIPER-IF-MIB.mib"))) {
             Assert.fail("The JUNIPER-IF-MIB.mib must contain problems");
         } else {
             Assert.assertFalse(parser.getMissingDependencies().isEmpty());

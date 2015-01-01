@@ -28,7 +28,6 @@
 
 package org.opennms.netmgt.collectd;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.rmi.RemoteException;
@@ -67,6 +66,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.vmware.vim25.mo.ManagedEntity;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 /**
  * The Class VmwareCollector
@@ -133,9 +134,13 @@ public class VmwareCollector implements ServiceCollector {
      * Initializes the Rrd directories.
      */
     private void initializeRrdDirs() {
-        final File f = new File(m_vmwareDatacollectionConfigDao.getRrdPath());
-        if (!f.isDirectory() && !f.mkdirs()) {
-            throw new RuntimeException("Unable to create RRD file repository.  Path doesn't already exist and could not make directory: " + m_vmwareDatacollectionConfigDao.getRrdPath());
+        final Path rrdDir = m_vmwareDatacollectionConfigDao.getRrdPath();
+        if (!Files.isDirectory(rrdDir)) {
+            try {
+                Files.createDirectories(rrdDir);
+            } catch (IOException e) {
+                throw new RuntimeException("Unable to create RRD file repository.  Path doesn't already exist and could not make directory: " + rrdDir);
+            }
         }
     }
 

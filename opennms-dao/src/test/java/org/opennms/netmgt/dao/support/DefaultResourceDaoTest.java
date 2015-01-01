@@ -30,11 +30,11 @@ package org.opennms.netmgt.dao.support;
 
 import static org.easymock.EasyMock.expect;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -44,10 +44,15 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
-import junit.framework.TestCase;
-
 import org.exolab.castor.xml.MarshalException;
 import org.exolab.castor.xml.ValidationException;
+import org.junit.After;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.TestName;
 import org.opennms.core.test.ConfigurationTestUtils;
 import org.opennms.core.utils.InetAddressUtils;
 import org.opennms.netmgt.config.CollectdConfigFactory;
@@ -64,40 +69,42 @@ import org.opennms.netmgt.model.OnmsNode;
 import org.opennms.netmgt.model.OnmsResource;
 import org.opennms.netmgt.rrd.RrdUtils;
 import org.opennms.netmgt.rrd.jrobin.JRobinRrdStrategy;
-import org.opennms.test.FileAnticipator;
+import org.opennms.test.PathAnticipator;
 import org.opennms.test.ThrowableAnticipator;
 import org.opennms.test.mock.EasyMockUtils;
 import org.springframework.orm.ObjectRetrievalFailureException;
 
-public class DefaultResourceDaoTest extends TestCase {
+public class DefaultResourceDaoTest {
     private EasyMockUtils m_easyMockUtils;
-    
+
     private NodeDao m_nodeDao;
     private LocationMonitorDao m_locationMonitorDao;
     private CollectdConfigFactory m_collectdConfig;
     private DataCollectionConfigDao m_dataCollectionConfigDao;
     private DefaultResourceDao m_resourceDao;
-    
-    private FileAnticipator m_fileAnticipator;
+
+    private PathAnticipator m_pathAnticipator;
 
     private FilterDao m_filterDao;
-    
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
-        
-        m_fileAnticipator = new FileAnticipator();
-        
+
+    @Rule
+    public TestName m_testName = new TestName();
+
+    @Before
+    public void setUp() throws Exception {
+        System.err.println("------------ Begin Test " + m_testName.getMethodName() + " --------------------------");
+        m_pathAnticipator = new PathAnticipator();
+
         m_easyMockUtils = new EasyMockUtils();
         m_nodeDao = m_easyMockUtils.createMock(NodeDao.class);
         m_locationMonitorDao = m_easyMockUtils.createMock(LocationMonitorDao.class);
         m_dataCollectionConfigDao = m_easyMockUtils.createMock(DataCollectionConfigDao.class);
         m_filterDao = m_easyMockUtils.createMock(FilterDao.class);
-        
+
         FilterDaoFactory.setInstance(m_filterDao);
-        
+
         expect(m_filterDao.getActiveIPAddressList("IPADDR IPLIKE *.*.*.*")).andReturn(new ArrayList<InetAddress>(0)).anyTimes();
-        
+
         m_easyMockUtils.replayAll();
         setUpCollectdConfigFactory();
         m_easyMockUtils.verifyAll();
@@ -106,97 +113,103 @@ public class DefaultResourceDaoTest extends TestCase {
         m_resourceDao.setNodeDao(m_nodeDao);
         m_resourceDao.setLocationMonitorDao(m_locationMonitorDao);
         m_resourceDao.setCollectdConfig(m_collectdConfig);
-        m_resourceDao.setRrdDirectory(m_fileAnticipator.getTempDir());
+        m_resourceDao.setRrdDirectory(m_pathAnticipator.getTempDir());
         m_resourceDao.setDataCollectionConfigDao(m_dataCollectionConfigDao);
-        
+
         RrdUtils.setStrategy(new JRobinRrdStrategy());
-        
+
         expect(m_dataCollectionConfigDao.getConfiguredResourceTypes()).andReturn(new HashMap<String, ResourceType>());
         expect(m_dataCollectionConfigDao.getLastUpdate()).andReturn(new Date(System.currentTimeMillis()));
-        
+
         m_easyMockUtils.replayAll();
         m_resourceDao.afterPropertiesSet();
         m_easyMockUtils.verifyAll();
     }
-    
-    @Override
-    protected void tearDown() {
-        m_fileAnticipator.tearDown();
-    }
-    
-    private void setUpCollectdConfigFactory() throws MarshalException, ValidationException, IOException {
-        InputStream stream = ConfigurationTestUtils.getInputStreamForResource(this, "/collectdconfiguration-testdata.xml");
-        m_collectdConfig = new CollectdConfigFactory(stream, "localhost", false);
-        stream.close();
+
+    @After
+    public void tearDown() {
+        m_pathAnticipator.tearDown();
+        System.err.println("------------ End Test " + m_testName.getMethodName() + " --------------------------");
     }
 
+    private void setUpCollectdConfigFactory() throws MarshalException, ValidationException, IOException {
+        try (InputStream stream = ConfigurationTestUtils.getInputStreamForResource(this, "/collectdconfiguration-testdata.xml")) {
+            m_collectdConfig = new CollectdConfigFactory(stream, "localhost", false);
+        }
+    }
+
+    @Test
     public void testGetResourceByIdNewEmpty() {
         m_easyMockUtils.replayAll();
         m_resourceDao.getResourceById("");
         m_easyMockUtils.verifyAll();
     }
-   
-    
+
+
+    @Test
     public void testGetResourceByIdNewTopLevelOnly() throws Exception {
         OnmsNode node = createNode();
         expect(m_nodeDao.get(node.getId())).andReturn(node).times(1);
         //expect(m_locationMonitorDao.findStatusChangesForNodeForUniqueMonitorAndInterface(node.getId())).andReturn(new ArrayList<LocationMonitorIpInterface>(0));
-        
-        File responseDir = m_fileAnticipator.tempDir("snmp");
-        File nodeDir = m_fileAnticipator.tempDir(responseDir, node.getId().toString());
-        m_fileAnticipator.tempFile(nodeDir, "foo" + RrdUtils.getExtension());
-        
+
+        Path responseDir = m_pathAnticipator.tempDir("snmp");
+        Path nodeDir = m_pathAnticipator.tempDir(responseDir, node.getId().toString());
+        m_pathAnticipator.tempFile(nodeDir, "foo" + RrdUtils.getExtension());
+
         m_easyMockUtils.replayAll();
         OnmsResource resource = m_resourceDao.getResourceById("node[1]");
         m_easyMockUtils.verifyAll();
-        
+
         assertNotNull("resource should not be null", resource);
     }
 
+    @Test
     public void testGetResourceByIdNewTwoLevel() throws Exception {
         OnmsIpInterface ip = createIpInterfaceOnNode();
         expect(m_nodeDao.get(ip.getNode().getId())).andReturn(ip.getNode()).times(3);
 
-        Collection<LocationMonitorIpInterface> locMons = new HashSet<LocationMonitorIpInterface>();
+        Collection<LocationMonitorIpInterface> locMons = new HashSet<>();
         expect(m_locationMonitorDao.findStatusChangesForNodeForUniqueMonitorAndInterface(1)).andReturn(locMons).times(1);
         expect(m_dataCollectionConfigDao.getLastUpdate()).andReturn(new Date(System.currentTimeMillis()-86400000l)).anyTimes();
-        
-        File response = m_fileAnticipator.tempDir("response");
-        File ipDir = m_fileAnticipator.tempDir(response, "192.168.1.1");
-        m_fileAnticipator.tempFile(ipDir, "icmp" + RrdUtils.getExtension());
-                
+
+        Path response = m_pathAnticipator.tempDir("response");
+        Path ipDir = m_pathAnticipator.tempDir(response, "192.168.1.1");
+        m_pathAnticipator.tempFile(ipDir, "icmp" + RrdUtils.getExtension());
+
         m_easyMockUtils.replayAll();
         OnmsResource resource = m_resourceDao.getResourceById("node[1].responseTime[192.168.1.1]");
         m_easyMockUtils.verifyAll();
-        
+
         assertNotNull("resource should not be null", resource);
     }
-    
+
+    @Test
     public void testGetTopLevelResourceNodeExists() throws Exception {
         OnmsNode node = createNode();
         expect(m_nodeDao.get(node.getId())).andReturn(node).times(1);
         //expect(m_locationMonitorDao.findStatusChangesForNodeForUniqueMonitorAndInterface(node.getId())).andReturn(new ArrayList<LocationMonitorIpInterface>(0));
-        
-        File responseDir = m_fileAnticipator.tempDir("snmp");
-        File nodeDir = m_fileAnticipator.tempDir(responseDir, node.getId().toString());
-        m_fileAnticipator.tempFile(nodeDir, "foo" + RrdUtils.getExtension());
+
+        Path responseDir = m_pathAnticipator.tempDir("snmp");
+        Path nodeDir = m_pathAnticipator.tempDir(responseDir, node.getId().toString());
+        m_pathAnticipator.tempFile(nodeDir, "foo" + RrdUtils.getExtension());
 
         m_easyMockUtils.replayAll();
         OnmsResource resource = m_resourceDao.getTopLevelResource("node", node.getId().toString());
         m_easyMockUtils.verifyAll();
-        
+
         assertNotNull("Resource should not be null", resource);
     }
-    
+
+    @Test
     public void testGetTopLevelResourceNodeSourceExists() throws Exception {
         OnmsNode node = createNode();
         expect(m_nodeDao.findByForeignId("source1", "123")).andReturn(node).times(1);
 
-        File responseDir = m_fileAnticipator.tempDir("snmp");
-        File forSrcDir = m_fileAnticipator.tempDir(responseDir, "fs");
-        File sourceDir = m_fileAnticipator.tempDir(forSrcDir, "source1");
-        File idDir = m_fileAnticipator.tempDir(sourceDir, "123");
-        m_fileAnticipator.tempFile(idDir, "foo" + RrdUtils.getExtension());
+        Path responseDir = m_pathAnticipator.tempDir("snmp");
+        Path forSrcDir = m_pathAnticipator.tempDir(responseDir, "fs");
+        Path sourceDir = m_pathAnticipator.tempDir(forSrcDir, "source1");
+        Path idDir = m_pathAnticipator.tempDir(sourceDir, "123");
+        m_pathAnticipator.tempFile(idDir, "foo" + RrdUtils.getExtension());
 
         m_easyMockUtils.replayAll();
         OnmsResource resource = m_resourceDao.getTopLevelResource("nodeSource", "source1:123");
@@ -204,7 +217,8 @@ public class DefaultResourceDaoTest extends TestCase {
 
         assertNotNull("Resource should not be null", resource);
     }
-    
+
+    @Test
     public void testGetTopLevelResourceNodeDoesNotExist() {
         expect(m_nodeDao.get(2)).andReturn(null);
         ThrowableAnticipator ta = new ThrowableAnticipator();
@@ -219,7 +233,8 @@ public class DefaultResourceDaoTest extends TestCase {
         m_easyMockUtils.verifyAll();
         ta.verifyAnticipated();
     }
-    
+
+    @Test
     public void testGetTopLevelResourceNodeExistsNoChildResources() throws Exception {
         OnmsNode node = createNode(2, "Node Two");
 
@@ -239,33 +254,34 @@ public class DefaultResourceDaoTest extends TestCase {
         m_easyMockUtils.verifyAll();
         ta.verifyAnticipated();
         */
-        
+
         m_easyMockUtils.replayAll();
         OnmsResource resource = m_resourceDao.getTopLevelResource("node", node.getId().toString());
         m_easyMockUtils.verifyAll();
-        
+
         assertNotNull("resource should not be null", resource);
 
     }
-    
+
+    @Test
     public void testGetTopLevelResourceDomainExists() throws IOException {
-        File snmp = m_fileAnticipator.tempDir("snmp");
-        File domain = m_fileAnticipator.tempDir(snmp, "example1");
-        File intf = m_fileAnticipator.tempDir(domain, "server1");
-        m_fileAnticipator.tempFile(intf, "ifInOctects" + RrdUtils.getExtension());
-        
-        
+        Path snmp = m_pathAnticipator.tempDir("snmp");
+        Path domain = m_pathAnticipator.tempDir(snmp, "example1");
+        Path intf = m_pathAnticipator.tempDir(domain, "server1");
+        m_pathAnticipator.tempFile(intf, "ifInOctects" + RrdUtils.getExtension());
+
         m_easyMockUtils.replayAll();
         OnmsResource resource = m_resourceDao.getTopLevelResource("domain", "example1");
         m_easyMockUtils.verifyAll();
-        
+
         assertNotNull("Resource should not be null", resource);
     }
-    
+
+    @Test
     public void testGetTopLevelResourceDomainDoesNotExistInCollectdConfig() {
         ThrowableAnticipator ta = new ThrowableAnticipator();
-        ta.anticipate(new ObjectRetrievalFailureException(OnmsResource.class, "bogus", "Domain not found due to domain RRD directory not existing or not a directory: " + m_fileAnticipator.getTempDir() + File.separator + "snmp" + File.separator + "bogus", null));
-        
+        ta.anticipate(new ObjectRetrievalFailureException(OnmsResource.class, "bogus", "Domain not found due to domain RRD directory not existing or not a directory: " + m_pathAnticipator.getTempDir().resolve("snmp").resolve("bogus"), null));
+
         m_easyMockUtils.replayAll();
         try {
             m_resourceDao.getTopLevelResource("domain", "bogus");
@@ -277,13 +293,14 @@ public class DefaultResourceDaoTest extends TestCase {
     }
 
     // We don't need to test everything that could cause the filter to fail... that's the job of a filter test case
+    @Test
     public void testGetTopLevelResourceDomainDoesNotExistNoInterfaceDirectories() throws IOException {
-        File snmp = m_fileAnticipator.tempDir("snmp");
-        m_fileAnticipator.tempDir(snmp, "example1");
+        Path snmp = m_pathAnticipator.tempDir("snmp");
+        m_pathAnticipator.tempDir(snmp, "example1");
 
         ThrowableAnticipator ta = new ThrowableAnticipator();
-        File dir = new File(new File(m_fileAnticipator.getTempDir(), "snmp"), "example1");
-        ta.anticipate(new ObjectRetrievalFailureException(OnmsResource.class, "example1", "Domain not found due to domain RRD directory not matching the domain directory filter: " + dir.getAbsolutePath(), null));
+        Path dir = m_pathAnticipator.getTempDir().resolve("snmp").resolve("example1");
+        ta.anticipate(new ObjectRetrievalFailureException(OnmsResource.class, "example1", "Domain not found due to domain RRD directory not matching the domain directory filter: " + dir.toAbsolutePath(), null));
 
         m_easyMockUtils.replayAll();
         try {
@@ -295,6 +312,7 @@ public class DefaultResourceDaoTest extends TestCase {
         ta.verifyAnticipated();
     }
 
+    @Test
     public void testGetTopLevelResourceWithInvalidResourceType() {
         ThrowableAnticipator ta = new ThrowableAnticipator();
         ta.anticipate(new ObjectRetrievalFailureException("Top-level resource type of 'bogus' is unknown", "bogus"));
@@ -308,26 +326,28 @@ public class DefaultResourceDaoTest extends TestCase {
         m_easyMockUtils.verifyAll();
         ta.verifyAnticipated();
     }
-    
+
+    @Test
     public void testGetResourceDomainInterfaceExists() throws IOException {
-        File snmp = m_fileAnticipator.tempDir("snmp");
-        File domain = m_fileAnticipator.tempDir(snmp, "example1");
-        File intf = m_fileAnticipator.tempDir(domain, "server1");
-        m_fileAnticipator.tempFile(intf, "ifInOctects" + RrdUtils.getExtension());
-        
+        Path snmp = m_pathAnticipator.tempDir("snmp");
+        Path domain = m_pathAnticipator.tempDir(snmp, "example1");
+        Path intf = m_pathAnticipator.tempDir(domain, "server1");
+        m_pathAnticipator.tempFile(intf, "ifInOctects" + RrdUtils.getExtension());
+
         expect(m_dataCollectionConfigDao.getLastUpdate()).andReturn(new Date(System.currentTimeMillis()-86400000l)).anyTimes();
         String resourceId = OnmsResource.createResourceId("domain", "example1", "interfaceSnmp", "server1");
-        
+
         m_easyMockUtils.replayAll();
         OnmsResource resource = m_resourceDao.getResourceById(resourceId);
         m_easyMockUtils.verifyAll();
-        
+
         assertNotNull("Resource should not be null", resource);
     }
-    
+
+    @Test
     public void testGetResourceNoNode() throws Exception {
         String resourceId = OnmsResource.createResourceId("node", "1", "nodeSnmp", "");
-        
+
         expect(m_nodeDao.get(1)).andReturn(null);
 
         m_easyMockUtils.replayAll();
@@ -336,30 +356,32 @@ public class DefaultResourceDaoTest extends TestCase {
         m_easyMockUtils.verifyAll();
     }
 
+    @Test
     public void testFindNodeResourcesWithResponseTime() throws Exception {
-        List<OnmsNode> nodes = new LinkedList<OnmsNode>();
+        List<OnmsNode> nodes = new LinkedList<>();
         OnmsNode node = createNode();
         OnmsIpInterface ip = createIpInterface();
         node.addIpInterface(ip);
         nodes.add(node);
-        
+
         expect(m_nodeDao.findAll()).andReturn(nodes);
 
-        File response = m_fileAnticipator.tempDir("response");
-        File ipDir = m_fileAnticipator.tempDir(response, "192.168.1.1");
-        m_fileAnticipator.tempFile(ipDir, "icmp" + RrdUtils.getExtension());
-        
+        Path response = m_pathAnticipator.tempDir("response");
+        Path ipDir = m_pathAnticipator.tempDir(response, "192.168.1.1");
+        m_pathAnticipator.tempFile(ipDir, "icmp" + RrdUtils.getExtension());
+
         m_easyMockUtils.replayAll();
         List<OnmsResource> resources = m_resourceDao.findNodeResources();
         m_easyMockUtils.verifyAll();
-        
+
         assertNotNull("resource list should not be null", resources);
         assertEquals("resource list size", 1, resources.size());
     }
 
     // XXX this is a false positive match because there isn't an entry in the DB for this distributed data
+    @Test
     public void testFindNodeResourcesWithDistributedResponseTime() throws Exception {
-        List<OnmsNode> nodes = new LinkedList<OnmsNode>();
+        List<OnmsNode> nodes = new LinkedList<>();
         OnmsNode node = createNode();
         OnmsIpInterface ip = createIpInterface();
         node.addIpInterface(ip);
@@ -367,85 +389,89 @@ public class DefaultResourceDaoTest extends TestCase {
 
         expect(m_nodeDao.findAll()).andReturn(nodes);
 
-        File response = m_fileAnticipator.tempDir("response");
-        File distributed = m_fileAnticipator.tempDir(response, "distributed");
-        File monitor = m_fileAnticipator.tempDir(distributed, "1");
-        File ipDir = m_fileAnticipator.tempDir(monitor, "192.168.1.1");
-        m_fileAnticipator.tempFile(ipDir, "icmp" + RrdUtils.getExtension());
-        
+        Path response = m_pathAnticipator.tempDir("response");
+        Path distributed = m_pathAnticipator.tempDir(response, "distributed");
+        Path monitor = m_pathAnticipator.tempDir(distributed, "1");
+        Path ipDir = m_pathAnticipator.tempDir(monitor, "192.168.1.1");
+        m_pathAnticipator.tempFile(ipDir, "icmp" + RrdUtils.getExtension());
+
         m_easyMockUtils.replayAll();
         List<OnmsResource> resources = m_resourceDao.findNodeResources();
         m_easyMockUtils.verifyAll();
-        
+
         assertNotNull("resource list should not be null", resources);
         assertEquals("resource list size", 1, resources.size());
     }
 
+    @Test
     public void testFindNodeResourcesWithNodeSnmp() throws Exception {
-        List<OnmsNode> nodes = new LinkedList<OnmsNode>();
+        List<OnmsNode> nodes = new LinkedList<>();
         OnmsNode node = createNode();
         OnmsIpInterface ip = createIpInterface();
         node.addIpInterface(ip);
         nodes.add(node);
-        
+
         expect(m_nodeDao.findAll()).andReturn(nodes);
 
-        File snmp = m_fileAnticipator.tempDir("snmp");
-        File nodeDir = m_fileAnticipator.tempDir(snmp, "1");
-        m_fileAnticipator.tempFile(nodeDir, "foo" + RrdUtils.getExtension());
-        
+        Path snmp = m_pathAnticipator.tempDir("snmp");
+        Path nodeDir = m_pathAnticipator.tempDir(snmp, "1");
+        m_pathAnticipator.tempFile(nodeDir, "foo" + RrdUtils.getExtension());
+
         m_easyMockUtils.replayAll();
         List<OnmsResource> resources = m_resourceDao.findNodeResources();
         m_easyMockUtils.verifyAll();
-        
+
         assertNotNull("resource list should not be null", resources);
         assertEquals("resource list size", 1, resources.size());
     }
 
 
+    @Test
     public void testFindNodeResourcesWithNodeInterface() throws Exception {
-        List<OnmsNode> nodes = new LinkedList<OnmsNode>();
+        List<OnmsNode> nodes = new LinkedList<>();
         OnmsNode node = createNode();
         OnmsIpInterface ip = createIpInterface();
         node.addIpInterface(ip);
         nodes.add(node);
-        
+
         expect(m_nodeDao.findAll()).andReturn(nodes);
 
-        File snmp = m_fileAnticipator.tempDir("snmp");
-        File nodeDir = m_fileAnticipator.tempDir(snmp, "1");
-        File intfDir = m_fileAnticipator.tempDir(nodeDir, "eth0");
-        m_fileAnticipator.tempFile(intfDir, "foo" + RrdUtils.getExtension());
-        
+        Path snmp = m_pathAnticipator.tempDir("snmp");
+        Path nodeDir = m_pathAnticipator.tempDir(snmp, "1");
+        Path intfDir = m_pathAnticipator.tempDir(nodeDir, "eth0");
+        m_pathAnticipator.tempFile(intfDir, "foo" + RrdUtils.getExtension());
+
         m_easyMockUtils.replayAll();
         List<OnmsResource> resources = m_resourceDao.findNodeResources();
         m_easyMockUtils.verifyAll();
-        
+
         assertNotNull("resource list should not be null", resources);
         assertEquals("resource list size", 1, resources.size());
     }
-    
+
+    @Test
     public void testGetResourceForNode() throws Exception {
         OnmsNode node = createNode();
-        
+
 //        expect(m_nodeDao.get(node.getId())).andReturn(node);
 //        expect(m_locationMonitorDao.findStatusChangesForNodeForUniqueMonitorAndInterface(node.getId())).andReturn(new ArrayList<LocationMonitorIpInterface>(0));
-        
-        File responseDir = m_fileAnticipator.tempDir("snmp");
-        File nodeDir = m_fileAnticipator.tempDir(responseDir, node.getId().toString());
-        m_fileAnticipator.tempFile(nodeDir, "foo" + RrdUtils.getExtension());
+
+        Path responseDir = m_pathAnticipator.tempDir("snmp");
+        Path nodeDir = m_pathAnticipator.tempDir(responseDir, node.getId().toString());
+        m_pathAnticipator.tempFile(nodeDir, "foo" + RrdUtils.getExtension());
 
         m_easyMockUtils.replayAll();
         OnmsResource resource = m_resourceDao.getResourceForNode(node);
         m_easyMockUtils.verifyAll();
-        
+
         assertNotNull("Resource should not be null", resource);
     }
-    
+
+    @Test
     public void testGetResourceForNodeWithNullOnmsNode() {
         ThrowableAnticipator ta = new ThrowableAnticipator();
         ta.anticipate(new IllegalArgumentException("node argument must not be null"));
-        
+
         m_easyMockUtils.replayAll();
         try {
              m_resourceDao.getResourceForNode(null);
@@ -456,14 +482,15 @@ public class DefaultResourceDaoTest extends TestCase {
         ta.verifyAnticipated();
     }
 
+    @Test
     public void testGetResourceForIpInterface() throws Exception {
         OnmsNode node = createNode();
         OnmsIpInterface ip = createIpInterface();
         node.addIpInterface(ip);
-        
-        File response = m_fileAnticipator.tempDir("response");
-        File ipDir = m_fileAnticipator.tempDir(response, "192.168.1.1");
-        m_fileAnticipator.tempFile(ipDir, "icmp" + RrdUtils.getExtension());
+
+        Path response = m_pathAnticipator.tempDir("response");
+        Path ipDir = m_pathAnticipator.tempDir(response, "192.168.1.1");
+        m_pathAnticipator.tempFile(ipDir, "icmp" + RrdUtils.getExtension());
 
         expect(m_nodeDao.get(1)).andReturn(ip.getNode()).times(2);
         expect(m_locationMonitorDao.findStatusChangesForNodeForUniqueMonitorAndInterface(1)).andReturn(new ArrayList<LocationMonitorIpInterface>());
@@ -472,14 +499,15 @@ public class DefaultResourceDaoTest extends TestCase {
         m_easyMockUtils.replayAll();
         OnmsResource resource = m_resourceDao.getResourceForIpInterface(ip);
         m_easyMockUtils.verifyAll();
-        
+
         assertNotNull("Resource should not be null", resource);
     }
-    
+
+    @Test
     public void testGetResourceForIpInterfaceWithNullOnmsIpInterface() {
         ThrowableAnticipator ta = new ThrowableAnticipator();
         ta.anticipate(new IllegalArgumentException("ipInterface argument must not be null"));
-        
+
         m_easyMockUtils.replayAll();
         try {
              m_resourceDao.getResourceForIpInterface(null);
@@ -489,14 +517,15 @@ public class DefaultResourceDaoTest extends TestCase {
         m_easyMockUtils.verifyAll();
         ta.verifyAnticipated();
     }
-    
 
+
+    @Test
     public void testGetResourceForIpInterfaceWithNullNodeOnOnmsIpInterface() throws UnknownHostException {
         OnmsIpInterface ip = createIpInterface();
-        
+
         ThrowableAnticipator ta = new ThrowableAnticipator();
         ta.anticipate(new IllegalArgumentException("getNode() on ipInterface must not return null"));
-        
+
         m_easyMockUtils.replayAll();
         try {
              m_resourceDao.getResourceForIpInterface(ip);
@@ -506,7 +535,8 @@ public class DefaultResourceDaoTest extends TestCase {
         m_easyMockUtils.verifyAll();
         ta.verifyAnticipated();
     }
-    
+
+    @Test
     public void testGetResourceForIpInterfaceWithLocationMonitor() throws Exception {
         OnmsIpInterface ip = createIpInterfaceOnNode();
 
@@ -514,13 +544,13 @@ public class DefaultResourceDaoTest extends TestCase {
         locMon.setId(12345);
 
         // Create distributed/9850/209.61.128.9
-        File response = m_fileAnticipator.tempDir("response");
-        File distributed = m_fileAnticipator.tempDir(response, "distributed");
-        File locMonDir = m_fileAnticipator.tempDir(distributed, locMon.getId().toString());
-        File ipDir = m_fileAnticipator.tempDir(locMonDir, InetAddressUtils.str(ip.getIpAddress()));
-        m_fileAnticipator.tempFile(ipDir, "http" + RrdUtils.getExtension());
-        
-        ArrayList<LocationMonitorIpInterface> locationMonitorInterfaces = new ArrayList<LocationMonitorIpInterface>();
+        Path response = m_pathAnticipator.tempDir("response");
+        Path distributed = m_pathAnticipator.tempDir(response, "distributed");
+        Path locMonDir = m_pathAnticipator.tempDir(distributed, locMon.getId().toString());
+        Path ipDir = m_pathAnticipator.tempDir(locMonDir, InetAddressUtils.str(ip.getIpAddress()));
+        m_pathAnticipator.tempFile(ipDir, "http" + RrdUtils.getExtension());
+
+        ArrayList<LocationMonitorIpInterface> locationMonitorInterfaces = new ArrayList<>();
         locationMonitorInterfaces.add(new LocationMonitorIpInterface(locMon, ip));
 
         expect(m_nodeDao.get(ip.getNode().getId())).andReturn(ip.getNode()).times(1);
@@ -530,34 +560,36 @@ public class DefaultResourceDaoTest extends TestCase {
         m_easyMockUtils.replayAll();
         OnmsResource resource = m_resourceDao.getResourceForIpInterface(ip, locMon);
         m_easyMockUtils.verifyAll();
-        
+
         assertNotNull("Resource should not be null", resource);
     }
 
+    @Test
     public void testGetResourceForNodeWithData() throws Exception {
         OnmsNode node = createNode();
-        
+
 //        expect(m_nodeDao.get(node.getId())).andReturn(node);
 //        expect(m_locationMonitorDao.findStatusChangesForNodeForUniqueMonitorAndInterface(node.getId())).andReturn(new ArrayList<LocationMonitorIpInterface>(0));
 
-        File responseDir = m_fileAnticipator.tempDir("snmp");
-        File nodeDir = m_fileAnticipator.tempDir(responseDir, node.getId().toString());
-        m_fileAnticipator.tempFile(nodeDir, "foo" + RrdUtils.getExtension());
-        
+        Path responseDir = m_pathAnticipator.tempDir("snmp");
+        Path nodeDir = m_pathAnticipator.tempDir(responseDir, node.getId().toString());
+        m_pathAnticipator.tempFile(nodeDir, "foo" + RrdUtils.getExtension());
+
         m_easyMockUtils.replayAll();
         OnmsResource resource = m_resourceDao.getResourceForNode(node);
         m_easyMockUtils.verifyAll();
-        
+
         assertNotNull("Resource should exist", resource);
     }
-    
+
+    @Test
     public void testFindNodeSourceDirectoriesExist() throws Exception {
 
-        File responseDir = m_fileAnticipator.tempDir("snmp");
-        File forSrcDir = m_fileAnticipator.tempDir(responseDir, "fs");
-        File sourceDir = m_fileAnticipator.tempDir(forSrcDir, "source1");
-        File idDir = m_fileAnticipator.tempDir(sourceDir, "123");
-        m_fileAnticipator.tempFile(idDir, "foo" + RrdUtils.getExtension());
+        Path responseDir = m_pathAnticipator.tempDir("snmp");
+        Path forSrcDir = m_pathAnticipator.tempDir(responseDir, "fs");
+        Path sourceDir = m_pathAnticipator.tempDir(forSrcDir, "source1");
+        Path idDir = m_pathAnticipator.tempDir(sourceDir, "123");
+        m_pathAnticipator.tempFile(idDir, "foo" + RrdUtils.getExtension());
 
         m_easyMockUtils.replayAll();
         Set<String> directories = m_resourceDao.findNodeSourceDirectories();
@@ -566,13 +598,14 @@ public class DefaultResourceDaoTest extends TestCase {
         assertNotNull("Directories should not be null", directories);
         assertEquals("Directories set size is 1", 1, directories.size());
     }
-    
+
+    @Test
     public void testFindNodeSourceDirectoriesNoRrdFiles() throws Exception {
-        File responseDir = m_fileAnticipator.tempDir("snmp");
-        File forSrcDir = m_fileAnticipator.tempDir(responseDir, "fs");
-        File sourceDir = m_fileAnticipator.tempDir(forSrcDir, "source1");
-        File idDir = m_fileAnticipator.tempDir(sourceDir, "123");
-        m_fileAnticipator.tempFile(idDir, "foo");
+        Path responseDir = m_pathAnticipator.tempDir("snmp");
+        Path forSrcDir = m_pathAnticipator.tempDir(responseDir, "fs");
+        Path sourceDir = m_pathAnticipator.tempDir(forSrcDir, "source1");
+        Path idDir = m_pathAnticipator.tempDir(sourceDir, "123");
+        m_pathAnticipator.tempFile(idDir, "foo");
 
         m_easyMockUtils.replayAll();
         Set<String> directories = m_resourceDao.findNodeSourceDirectories();
@@ -582,16 +615,17 @@ public class DefaultResourceDaoTest extends TestCase {
         assertEquals("Directories set size is 0", 0, directories.size());
     }
 
+    @Test
     public void testGetResourceForNodeNoData() {
         OnmsNode node = createNode();
-        
+
 //        expect(m_nodeDao.get(node.getId())).andReturn(node);
 //        expect(m_locationMonitorDao.findStatusChangesForNodeForUniqueMonitorAndInterface(node.getId())).andReturn(new ArrayList<LocationMonitorIpInterface>(0));
 
         m_easyMockUtils.replayAll();
         OnmsResource resource = m_resourceDao.getResourceForNode(node);
         m_easyMockUtils.verifyAll();
-        
+
         assertNotNull("Resource should exist", resource);
     }
 

@@ -28,9 +28,9 @@
 
 package org.opennms.netmgt.config.tester.support;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
 import java.util.Arrays;
 import java.util.Properties;
 
@@ -48,9 +48,9 @@ public class ExcludeUeisProperties {
 		m_ueis = Arrays.copyOf(ueis, ueis.length);
 	}
 
-	public ExcludeUeisProperties() throws FileNotFoundException, IOException {
+	public ExcludeUeisProperties() throws IOException {
 		Properties excludeProperties = new Properties();
-		excludeProperties.load( new FileInputStream(ConfigFileConstants.getFile(ConfigFileConstants.EXCLUDE_UEI_FILE_NAME)));
+        excludeProperties.load(Files.newBufferedReader(ConfigFileConstants.getFile(ConfigFileConstants.EXCLUDE_UEI_FILE_NAME), Charset.defaultCharset()));
 		m_ueis = BundleLists.parseBundleList(excludeProperties.getProperty("excludes"));
 	}
 }

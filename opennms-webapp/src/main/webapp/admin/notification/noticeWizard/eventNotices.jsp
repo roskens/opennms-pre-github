@@ -54,7 +54,7 @@
 
 		try {
 			m_eventconfFactory = new DefaultEventConfDao();
-			m_eventconfFactory.setConfigResource(new FileSystemResource(ConfigFileConstants.getFile(ConfigFileConstants.EVENT_CONF_FILE_NAME)));
+			m_eventconfFactory.setConfigResource(new FileSystemResource(ConfigFileConstants.getFile(ConfigFileConstants.EVENT_CONF_FILE_NAME).toFile()));
 			m_eventconfFactory.afterPropertiesSet();
 		} catch (Throwable e) {
 			throw new ServletException("Cannot load configuration file", e);

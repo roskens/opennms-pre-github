@@ -28,9 +28,10 @@
 
 package org.opennms.netmgt.rrd;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -85,6 +86,7 @@ public abstract class RrdUtils {
         ClassLoader old = null;
         try {
             old = Thread.currentThread().getContextClassLoader();
+            LOG.debug("Got old classloader: {}", old);
             Thread.currentThread().setContextClassLoader(RrdUtils.class.getClassLoader());
             m_context = new ClassPathXmlApplicationContext(new String[]{
                 // Default RRD configuration context
@@ -93,6 +95,7 @@ public abstract class RrdUtils {
                 // to the RrdUtils class package.
                 "/org/opennms/netmgt/rrd/rrd-configuration.xml"
             }, RrdUtils.class);
+            LOG.debug("Got m_context: {}", m_context);
         } finally {
             Thread.currentThread().setContextClassLoader(old);
         }
@@ -109,11 +112,11 @@ public abstract class RrdUtils {
      * @param attributeMappings a {@link Map<String, String>} that represents
      * the mapping of attributeId to rrd track names
      */
-    public static void createMetaDataFile(final String directory, final String rrdName, final Map<String, String> attributeMappings) {
-        final File metaFile = new File(directory + File.separator + rrdName + ".meta");
+    public static void createMetaDataFile(final Path directory, final String rrdName, final Map<String, String> attributeMappings) {
+        final Path metaFile = directory.resolve(rrdName + ".meta");
 
         try {
-            if (metaFile.exists()) {
+            if (Files.exists(metaFile)) {
                 s_cache.updateProperties(metaFile, attributeMappings);
             } else {
                 s_cache.saveProperties(metaFile, attributeMappings);
@@ -123,8 +126,8 @@ public abstract class RrdUtils {
         }
     }
 
-    public static Map<String,String> readMetaDataFile(final String directory, final String rrdName) {
-        final File metaFile = new File(directory + File.separator + rrdName + ".meta");
+    public static Map<String, String> readMetaDataFile(final Path directory, final String rrdName) {
+        final Path metaFile = directory.resolve(rrdName + ".meta");
 
         try {
             final Properties props = s_cache.getProperties(metaFile);
@@ -225,7 +228,7 @@ public abstract class RrdUtils {
      * @return true if the file was actually created, false otherwise
      * @throws org.opennms.netmgt.rrd.RrdException if any.
      */
-    public static boolean createRRD(String creator, String directory, String dsName, int step, String dsType, int dsHeartbeat, String dsMin, String dsMax, List<String> rraList, Map<String, String> attributeMappings) throws RrdException {
+    public static boolean createRRD(String creator, Path directory, String dsName, int step, String dsType, int dsHeartbeat, String dsMin, String dsMax, List<String> rraList, Map<String, String> attributeMappings) throws RrdException {
         return createRRD(creator, directory, dsName, step, Collections.singletonList(new RrdDataSource(dsName, dsType, dsHeartbeat, dsMin, dsMax)), rraList, attributeMappings);
     }
 
@@ -247,7 +250,7 @@ public abstract class RrdUtils {
      * @return true if the file was actually created, false otherwise
      * @throws org.opennms.netmgt.rrd.RrdException if any.
      */
-    public static boolean createRRD(String creator, String directory, String dsName, int step, String dsType, int dsHeartbeat, String dsMin, String dsMax, List<String> rraList) throws RrdException {
+    public static boolean createRRD(String creator, Path directory, String dsName, int step, String dsType, int dsHeartbeat, String dsMin, String dsMax, List<String> rraList) throws RrdException {
         return createRRD(creator, directory, dsName, step, Collections.singletonList(new RrdDataSource(dsName, dsType, dsHeartbeat, dsMin, dsMax)), rraList, null);
     }
 
@@ -263,7 +266,7 @@ public abstract class RrdUtils {
      * @return a boolean.
      * @throws org.opennms.netmgt.rrd.RrdException if any.
      */
-    public static boolean createRRD(String creator, String directory, String rrdName, int step, List<RrdDataSource> dataSources, List<String> rraList) throws RrdException {
+    public static boolean createRRD(String creator, Path directory, String rrdName, int step, List<RrdDataSource> dataSources, List<String> rraList) throws RrdException {
         return createRRD(creator, directory, rrdName, step, dataSources, rraList, null);
     }
 
@@ -280,17 +283,15 @@ public abstract class RrdUtils {
      * @return a boolean.
      * @throws org.opennms.netmgt.rrd.RrdException if any.
      */
-    public static boolean createRRD(String creator, String directory, String rrdName, int step, List<RrdDataSource> dataSources, List<String> rraList, Map<String, String> attributeMappings) throws RrdException {
-        Object def = null;
-
+    public static boolean createRRD(String creator, Path directory, String rrdName, int step, List<RrdDataSource> dataSources, List<String> rraList, Map<String, String> attributeMappings) throws RrdException {
         try {
-            def = getStrategy().createDefinition(creator, directory, rrdName, step, dataSources, rraList);
+            Object def = getStrategy().createDefinition(creator, directory, rrdName, step, dataSources, rraList);
             // def can be null if the rrd-db exists already, but doesn't have to be (see MultiOutput/QueuingRrdStrategy
             getStrategy().createFile(def, attributeMappings);
 
             return true;
         } catch (Throwable e) {
-            String path = directory + File.separator + rrdName + getStrategy().getDefaultFileExtension();
+            Path path = directory.resolve(rrdName + getStrategy().getDefaultFileExtension());
             LOG.error("createRRD: An error occurred creating rrdfile {}", path, e);
             throw new org.opennms.netmgt.rrd.RrdException("An error occurred creating rrdfile " + path + ": " + e, e);
         }
@@ -307,7 +308,7 @@ public abstract class RrdUtils {
      * datasources for this rrd
      * @throws org.opennms.netmgt.rrd.RrdException if any.
      */
-    public static void updateRRD(String owner, String repositoryDir, String rrdName, String val) throws RrdException {
+    public static void updateRRD(String owner, Path repositoryDir, String rrdName, String val) throws RrdException {
         updateRRD(owner, repositoryDir, rrdName, System.currentTimeMillis(), val);
     }
 
@@ -323,9 +324,9 @@ public abstract class RrdUtils {
      * datasources for this rrd
      * @throws org.opennms.netmgt.rrd.RrdException if any.
      */
-    public static void updateRRD(String owner, String repositoryDir, String rrdName, long timestamp, String val) throws RrdException {
+    public static void updateRRD(String owner, Path repositoryDir, String rrdName, long timestamp, String val) throws RrdException {
         // Issue the RRD update
-        String rrdFile = repositoryDir + File.separator + rrdName + getExtension();
+        final Path rrdFile = repositoryDir.resolve(rrdName + getExtension());
         long time = (timestamp + 500L) / 1000L;
 
         String updateVal = Long.toString(time) + ":" + val;
@@ -369,7 +370,7 @@ public abstract class RrdUtils {
      * convert to a double
      * @throws org.opennms.netmgt.rrd.RrdException if any.
      */
-    public static Double fetchLastValue(String rrdFile, String ds, int interval) throws NumberFormatException, RrdException {
+    public static Double fetchLastValue(Path rrdFile, String ds, int interval) throws NumberFormatException, RrdException {
         return getStrategy().fetchLastValue(rrdFile, ds, interval);
     }
 
@@ -390,7 +391,7 @@ public abstract class RrdUtils {
      * @param range a int.
      * @throws org.opennms.netmgt.rrd.RrdException if any.
      */
-    public static Double fetchLastValueInRange(String rrdFile, String ds, int interval, int range) throws NumberFormatException, RrdException {
+    public static Double fetchLastValueInRange(Path rrdFile, String ds, int interval, int range) throws NumberFormatException, RrdException {
         return getStrategy().fetchLastValueInRange(rrdFile, ds, interval, range);
     }
 
@@ -406,7 +407,7 @@ public abstract class RrdUtils {
      * @throws java.io.IOException if an IOError occurs
      * @throws org.opennms.netmgt.rrd.RrdException if an RRD error occurs
      */
-    public static InputStream createGraph(String command, File workDir) throws IOException, RrdException {
+    public static InputStream createGraph(String command, Path workDir) throws IOException, RrdException {
         return getStrategy().createGraph(command, workDir);
     }
 
@@ -428,7 +429,7 @@ public abstract class RrdUtils {
      *
      * @param files a {@link java.util.Collection} object.
      */
-    public static void promoteEnqueuedFiles(Collection<String> files) {
+    public static void promoteEnqueuedFiles(Collection<Path> files) {
         getStrategy().promoteEnqueuedFiles(files);
     }
 }

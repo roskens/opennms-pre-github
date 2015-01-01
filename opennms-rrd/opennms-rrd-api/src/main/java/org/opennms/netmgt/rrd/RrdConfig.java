@@ -28,11 +28,11 @@
 
 package org.opennms.netmgt.rrd;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Properties;
 
 import org.opennms.core.utils.ConfigFileConstants;
@@ -56,20 +56,15 @@ public abstract class RrdConfig {
     public static Properties getProperties() throws IOException {
         if (m_properties == null) {
             m_properties = new Properties(System.getProperties());
-            InputStream in = null;
-            String configFileName = null;
-            // Merge the config file contents into these properties (if the file exists)
             try {
-                configFileName = ConfigFileConstants.getFileName(ConfigFileConstants.RRD_CONFIG_FILE_NAME);
-                File configFile = ConfigFileConstants.getFile(ConfigFileConstants.RRD_CONFIG_FILE_NAME);
-                in = new FileInputStream(configFile);
-                m_properties.load(in);
-            } catch (FileNotFoundException e) {
-                LOG.info("{} not found, loading RRD configuration solely from system properties", configFileName);
-            } finally {
-                if (in != null) { 
-                    in.close(); 
+                Path configFile = ConfigFileConstants.getFile(ConfigFileConstants.RRD_CONFIG_FILE_NAME);
+                LOG.debug("RRD_CONFIG_FILE_NAME: {}", configFile);
+                try (InputStream in = Files.newInputStream(configFile);) {
+                    m_properties.load(in);
                 }
+            } catch (FileNotFoundException e) {
+                // Only in unit tests should this happen.
+                LOG.info("{} not found, loading RRD configuration solely from system properties", ConfigFileConstants.getFileName(ConfigFileConstants.RRD_CONFIG_FILE_NAME));
             }
         }
         return m_properties;

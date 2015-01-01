@@ -28,17 +28,19 @@
 
 package org.opennms.netmgt.vmmgr;
 
-import java.io.File;
+import java.nio.file.FileSystems;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Collections;
 import java.util.List;
 
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
 public class SpringBoard implements SpringBoardMBean {
-    
-    private File m_contextDir;
+
+    private Path m_contextDir;
     private FileSystemXmlApplicationContext m_context;
-    
+
     /**
      * <p>Getter for the field <code>contextDir</code>.</p>
      *
@@ -46,13 +48,13 @@ public class SpringBoard implements SpringBoardMBean {
      */
     @Override
     public String getContextDir() {
-        return (m_contextDir == null ? null : m_contextDir.getAbsolutePath());
+        return (m_contextDir == null ? null : m_contextDir.toString());
     }
 
     /** {@inheritDoc} */
     @Override
     public void setContextDir(String contextDir) {
-        m_contextDir = new File(contextDir);
+        m_contextDir = Paths.get(contextDir);
     }
 
     /**
@@ -61,9 +63,9 @@ public class SpringBoard implements SpringBoardMBean {
     @Override
     public void start() {
         String appContext = System.getProperty("opennms.appcontext", "opennms-appContext.xml");
-        File contextFile = new File(m_contextDir, appContext);
-        System.err.println(contextFile.getPath());
-        m_context = new FileSystemXmlApplicationContext(contextFile.getPath());
+        Path contextFile = m_contextDir.resolve(appContext);
+        System.err.println(contextFile);
+        m_context = new FileSystemXmlApplicationContext(contextFile.toString());
     }
 
     /**

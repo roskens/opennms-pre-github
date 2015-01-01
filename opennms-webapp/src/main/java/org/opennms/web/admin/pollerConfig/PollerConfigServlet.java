@@ -28,11 +28,10 @@
 
 package org.opennms.web.admin.pollerConfig;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStreamWriter;
 import java.io.Writer;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -73,11 +72,11 @@ import org.slf4j.LoggerFactory;
  * @author <A HREF="http://www.opennms.org/">OpenNMS </A>
  */
 public class PollerConfigServlet extends HttpServlet {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(PollerConfigServlet.class);
 
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = -4273370522387271772L;
 
@@ -109,9 +108,9 @@ public class PollerConfigServlet extends HttpServlet {
         getInitParameters();
 
         loadPollerConfProperties();
-        
+
         initPollerConfigFactory();
-        
+
         initCapsdConfigFactory();
 
         initPollerServices();
@@ -154,11 +153,11 @@ public class PollerConfigServlet extends HttpServlet {
 
     private void loadPollerConfProperties() throws ServletException {
         try {
-            m_props.load(new FileInputStream(ConfigFileConstants.getFile(ConfigFileConstants.POLLER_CONF_FILE_NAME)));
+            m_props.load(Files.newBufferedReader(ConfigFileConstants.getFile(ConfigFileConstants.POLLER_CONF_FILE_NAME), Charset.defaultCharset()));
         } catch (Throwable e) {
             throw new ServletException(e);
         }
-        
+
         //String[] protocols = BundleLists.parseBundleList(m_props.getProperty("services"));
     }
 
@@ -223,7 +222,7 @@ public class PollerConfigServlet extends HttpServlet {
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         reloadFiles();
 
-        m_props.store(new FileOutputStream(ConfigFileConstants.getFile(ConfigFileConstants.POLLER_CONF_FILE_NAME)), null);
+        m_props.store(Files.newBufferedWriter(ConfigFileConstants.getFile(ConfigFileConstants.POLLER_CONF_FILE_NAME), Charset.defaultCharset()), null);
 
         String[] requestActivate = request.getParameterValues("activate");
         String[] requestDelete = request.getParameterValues("delete");
@@ -239,9 +238,8 @@ public class PollerConfigServlet extends HttpServlet {
         	deleteThese(Arrays.asList(requestDelete));
         }
 
-        Writer poller_fileWriter = new OutputStreamWriter(new FileOutputStream(ConfigFileConstants.getFile(ConfigFileConstants.POLLER_CONFIG_FILE_NAME)), "UTF-8");
-        Writer capsd_fileWriter = new OutputStreamWriter(new FileOutputStream(ConfigFileConstants.getFile(ConfigFileConstants.CAPSD_CONFIG_FILE_NAME)), "UTF-8");
-        try {
+        try (Writer poller_fileWriter = Files.newBufferedWriter(ConfigFileConstants.getFile(ConfigFileConstants.POLLER_CONFIG_FILE_NAME), Charset.forName("UTF-8"));
+          Writer capsd_fileWriter = Files.newBufferedWriter(ConfigFileConstants.getFile(ConfigFileConstants.CAPSD_CONFIG_FILE_NAME), Charset.forName("UTF-8"));) {
             Marshaller.marshal(m_pollerConfig, poller_fileWriter);
             Marshaller.marshal(m_capsdConfig, capsd_fileWriter);
         } catch (MarshalException e) {
@@ -315,7 +313,7 @@ public class PollerConfigServlet extends HttpServlet {
                                 removeMonitor(svc.getName());
                                 deleteCapsdInfo(svc.getName());
                                 m_props.remove("service." + svc.getName() + ".protocol");
-                                m_props.store(new FileOutputStream(ConfigFileConstants.getFile(ConfigFileConstants.POLLER_CONF_FILE_NAME)), null);
+                                m_props.store(Files.newBufferedWriter(ConfigFileConstants.getFile(ConfigFileConstants.POLLER_CONF_FILE_NAME), Charset.defaultCharset()), null);
                                 break;
                             }
                         }
@@ -375,5 +373,5 @@ public class PollerConfigServlet extends HttpServlet {
     /**
      * @return logger for this servlet
      */
-    
+
 }

@@ -85,7 +85,7 @@ public class CollectorConfigDaoImplTest extends TestCase {
     }
 
     private void initialize() throws IOException, MarshalException, ValidationException, Exception {
-        System.setProperty("opennms.home", ConfigurationTestUtils.getDaemonEtcDirectory().getParentFile().getAbsolutePath());
+        System.setProperty("opennms.home", ConfigurationTestUtils.getDaemonEtcDirectory().getParent().toAbsolutePath().toString());
         RrdUtils.setStrategy(new JRobinRrdStrategy());
 
         InputStream stream = null;

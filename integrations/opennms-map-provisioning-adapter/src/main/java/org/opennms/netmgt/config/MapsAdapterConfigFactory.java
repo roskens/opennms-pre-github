@@ -28,13 +28,13 @@
 
 package org.opennms.netmgt.config;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStreamWriter;
 import java.io.Writer;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.attribute.FileTime;
 
 import org.exolab.castor.xml.MarshalException;
 import org.exolab.castor.xml.ValidationException;
@@ -60,13 +60,13 @@ public class MapsAdapterConfigFactory extends MapsAdapterConfigManager {
      * This member is set to true if the configuration file has been loaded.
      */
     private static boolean m_loaded = false;
-    
+
     /**
      * Loaded version
      */
-    private long m_currentVersion = -1L;
+    private FileTime m_currentVersion = FileTime.fromMillis(-1L);
 
-    
+
     /**
      * constructor constructor
      *
@@ -84,7 +84,7 @@ public class MapsAdapterConfigFactory extends MapsAdapterConfigManager {
      * @throws org.exolab.castor.xml.ValidationException if any.
      * @throws java.io.IOException if any.
      */
-    public MapsAdapterConfigFactory(long currentVersion, InputStream reader, String localServer, boolean verifyServer) throws MarshalException, ValidationException, IOException {
+    public MapsAdapterConfigFactory(FileTime currentVersion, InputStream reader, String localServer, boolean verifyServer) throws MarshalException, ValidationException, IOException {
         super(reader, localServer, verifyServer);
         m_currentVersion = currentVersion;
     }
@@ -113,17 +113,18 @@ public class MapsAdapterConfigFactory extends MapsAdapterConfigManager {
         OpennmsServerConfigFactory.init();
         OpennmsServerConfigFactory onmsSvrConfig = OpennmsServerConfigFactory.getInstance();
 
-        File cfgFile = ConfigFileConstants.getFile(ConfigFileConstants.MAPS_ADAPTER_CONFIG_FILE_NAME);
+        Path cfgFile = ConfigFileConstants.getFile(ConfigFileConstants.MAPS_ADAPTER_CONFIG_FILE_NAME);
 
-        LOG.debug("init: config file path: {}", cfgFile.getPath());
+        LOG.debug("init: config file path: {}", cfgFile);
 
-        InputStream reader = new FileInputStream(cfgFile);
-        MapsAdapterConfigFactory config = new MapsAdapterConfigFactory(cfgFile.lastModified(), reader,onmsSvrConfig.getServerName(),onmsSvrConfig.verifyServer());
-        reader.close();
-        setInstance(config);
+        try (InputStream reader = Files.newInputStream(cfgFile);) {
+            MapsAdapterConfigFactory config = new MapsAdapterConfigFactory(Files.getLastModifiedTime(cfgFile), reader, onmsSvrConfig.getServerName(), onmsSvrConfig.verifyServer());
+            setInstance(config);
+        } catch (IOException e) {
+        }
 
     }
-    
+
     /**
      * Reload the config from the default config file
      *
@@ -141,7 +142,7 @@ public class MapsAdapterConfigFactory extends MapsAdapterConfigManager {
         init();
         getInstance().update();
     }
-        
+
     /**
      * Return the singleton instance of this factory.
      *
@@ -155,7 +156,7 @@ public class MapsAdapterConfigFactory extends MapsAdapterConfigManager {
         }
         return m_singleton;
     }
-    
+
     private static void setInstance(final MapsAdapterConfigFactory instance) {
         m_singleton = instance;
         m_loaded = true;
@@ -170,15 +171,13 @@ public class MapsAdapterConfigFactory extends MapsAdapterConfigManager {
     protected void saveXml(final String xml) throws IOException {
         if (xml != null) {
             getWriteLock().lock();
-            try {
-                final long timestamp = System.currentTimeMillis();
-                final File cfgFile = ConfigFileConstants.getFile(ConfigFileConstants.MAPS_ADAPTER_CONFIG_FILE_NAME);
-                LOG.debug("saveXml: saving config file at {}: {}", timestamp, cfgFile.getPath());
-                final Writer fileWriter = new OutputStreamWriter(new FileOutputStream(cfgFile), "UTF-8");
+            final long timestamp = System.currentTimeMillis();
+            final Path cfgFile = ConfigFileConstants.getFile(ConfigFileConstants.MAPS_ADAPTER_CONFIG_FILE_NAME);
+            try (final Writer fileWriter = Files.newBufferedWriter(cfgFile, Charset.forName("UTF-8"));) {
+                LOG.debug("saveXml: saving config file at {}: {}", timestamp, cfgFile);
                 fileWriter.write(xml);
                 fileWriter.flush();
-                fileWriter.close();
-                LOG.debug("saveXml: finished saving config file: {}", cfgFile.getPath());
+                LOG.debug("saveXml: finished saving config file: {}", cfgFile);
             } finally {
                 getWriteLock().unlock();
             }
@@ -196,12 +195,12 @@ public class MapsAdapterConfigFactory extends MapsAdapterConfigManager {
     public void update() throws IOException, MarshalException, ValidationException {
         getWriteLock().lock();
         try {
-            final File cfgFile = ConfigFileConstants.getFile(ConfigFileConstants.MAPS_ADAPTER_CONFIG_FILE_NAME);
-            if (cfgFile.lastModified() > m_currentVersion) {
-                m_currentVersion = cfgFile.lastModified();
-                LOG.debug("init: config file path: {}", cfgFile.getPath());
-                reloadXML(new FileInputStream(cfgFile));
-                LOG.debug("init: finished loading config file: {}", cfgFile.getPath());
+            final Path cfgFile = ConfigFileConstants.getFile(ConfigFileConstants.MAPS_ADAPTER_CONFIG_FILE_NAME);
+            if (!Files.getLastModifiedTime(cfgFile).equals(m_currentVersion)) {
+                m_currentVersion = Files.getLastModifiedTime(cfgFile);
+                LOG.debug("init: config file path: {}", cfgFile);
+                reloadXML(Files.newInputStream(cfgFile));
+                LOG.debug("init: finished loading config file: {}", cfgFile);
             }
         } finally {
             getWriteLock().unlock();

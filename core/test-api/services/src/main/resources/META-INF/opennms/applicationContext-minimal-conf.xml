@@ -11,8 +11,10 @@
       <constructor-arg value="classpath:/minimal-datacollection-config.xml" />
     </bean>
 
-    <bean id="dataCollectionConfigDirectoryLocation" class="java.lang.String">
-      <constructor-arg value="src/test/resources/empty" />
+    <bean id="dataCollectionConfigDirectoryLocation" class="java.nio.file.Paths" factory-method="get">
+      <constructor-arg index="0" type="java.lang.String" value="src/test/resources/empty" />
+      <constructor-arg index="1">
+          <list></list>
+      </constructor-arg>
     </bean>
-
 </beans>

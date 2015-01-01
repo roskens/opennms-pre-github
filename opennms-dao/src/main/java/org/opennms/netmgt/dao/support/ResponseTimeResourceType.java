@@ -28,7 +28,9 @@
 
 package org.opennms.netmgt.dao.support;
 
-import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -52,12 +54,12 @@ import org.springframework.orm.ObjectRetrievalFailureException;
  * <p>ResponseTimeResourceType class.</p>
  */
 public class ResponseTimeResourceType implements OnmsResourceType {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(ResponseTimeResourceType.class);
-    
+
     private ResourceDao m_resourceDao;
     private NodeDao m_nodeDao;
-    
+
     /**
      * <p>Constructor for ResponseTimeResourceType.</p>
      *
@@ -68,7 +70,7 @@ public class ResponseTimeResourceType implements OnmsResourceType {
         m_resourceDao = resourceDao;
         m_nodeDao = nodeDao;
     }
-    
+
     /**
      * <p>getLabel</p>
      *
@@ -94,23 +96,23 @@ public class ResponseTimeResourceType implements OnmsResourceType {
     public List<OnmsResource> getResourcesForDomain(final String domain) {
         return Collections.emptyList();
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public List<OnmsResource> getResourcesForNode(final int nodeId) {
     	final LinkedList<OnmsResource> resources = new LinkedList<OnmsResource>();
-        
+
     	final OnmsNode node = m_nodeDao.get(nodeId);
         if (node == null) {
             throw new ObjectRetrievalFailureException(OnmsNode.class, nodeId, "Could not find node for node Id " + nodeId, null);
         }
-        
+
         for (final OnmsIpInterface i : node.getIpInterfaces()) {
             String ipAddr = InetAddressUtils.str(i.getIpAddress());
 
-            final File iface = getInterfaceDirectory(ipAddr, false);
-            
-            if (iface.isDirectory()) {
+            final Path iface = getInterfaceDirectory(ipAddr, false);
+
+            if (Files.isDirectory(iface)) {
                 resources.add(createResource(i));
             }
         }
@@ -118,21 +120,21 @@ public class ResponseTimeResourceType implements OnmsResourceType {
         return resources;
     }
 
-    private File getInterfaceDirectory(final String ipAddr, final boolean verify) {
-    	final File response = new File(m_resourceDao.getRrdDirectory(verify), ResourceTypeUtils.RESPONSE_DIRECTORY);
-        
-    	final File intfDir = new File(response, ipAddr);
-        if (verify && !intfDir.isDirectory()) {
-            throw new ObjectRetrievalFailureException(File.class, "No interface directory exists for " + ipAddr + ": " + intfDir);
+    private Path getInterfaceDirectory(final String ipAddr, final boolean verify) {
+        final Path response = m_resourceDao.getRrdDirectory(verify).resolve(ResourceTypeUtils.RESPONSE_DIRECTORY);
+
+        final Path intfDir = response.resolve(ipAddr);
+        if (verify && !Files.isDirectory(intfDir)) {
+            throw new ObjectRetrievalFailureException(Path.class, "No interface directory exists for " + ipAddr + ": " + intfDir);
         }
 
         return intfDir;
     }
-    
-    private String getRelativeInterfacePath(final String ipAddr) {
-        return ResourceTypeUtils.RESPONSE_DIRECTORY + File.separator + ipAddr;
+
+    private Path getRelativeInterfacePath(final String ipAddr) {
+        return Paths.get(ResourceTypeUtils.RESPONSE_DIRECTORY).resolve(ipAddr);
     }
-    
+
     private OnmsResource createResource(final OnmsIpInterface ipInterface) {
     	final String intf = InetAddressUtils.str(ipInterface.getIpAddress());
     	final String label = intf;
@@ -176,13 +178,13 @@ public class ResponseTimeResourceType implements OnmsResourceType {
     public String getLinkForResource(final OnmsResource resource) {
         return "element/interface.jsp?node=" + resource.getParent().getName() + "&intf=" + resource.getName();
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public boolean isResourceTypeOnNodeSource(String nodeSource, int nodeId) {
         return getResourcesForNodeSource(nodeSource, nodeId).size() > 0;
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public List<OnmsResource> getResourcesForNodeSource(String nodeSource, int nodeId) {

@@ -32,11 +32,13 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.StringWriter;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 import javax.xml.bind.JAXBContext;
@@ -51,18 +53,18 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.opennms.core.xml.JaxbUtils;
-import org.opennms.test.FileAnticipator;
+import org.opennms.test.PathAnticipator;
 import org.xml.sax.SAXException;
 
 /**
  * The Class XmlDataCollectionConfigTest.
- * 
+ *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 public class XmlDataCollectionConfigTest {
 
     /** The file anticipator. */
-    private FileAnticipator fileAnticipator;
+    private PathAnticipator pathAnticipator;
 
     /** The XML data collection configuration. */
     private XmlDataCollectionConfig xmldcc;
@@ -73,14 +75,14 @@ public class XmlDataCollectionConfigTest {
     static private class TestOutputResolver extends SchemaOutputResolver {
 
         /** The schema file. */
-        private final File m_schemaFile;
+        private final Path m_schemaFile;
 
         /**
          * Instantiates a new test output resolver.
          *
          * @param schemaFile the schema file
          */
-        public TestOutputResolver(File schemaFile) {
+        public TestOutputResolver(Path schemaFile) {
             m_schemaFile = schemaFile;
         }
 
@@ -89,7 +91,7 @@ public class XmlDataCollectionConfigTest {
          */
         @Override
         public Result createOutput(String namespaceUri, String suggestedFileName) throws IOException {
-            return new StreamResult(m_schemaFile);
+            return new StreamResult(m_schemaFile.toFile());
         }
     }
 
@@ -100,9 +102,9 @@ public class XmlDataCollectionConfigTest {
      */
     @Before
     public void setUp() throws Exception {
-        fileAnticipator = new FileAnticipator();
+        pathAnticipator = new PathAnticipator();
 
-        // Mock up a XmlDataCollectionConfig class.      
+        // Mock up a XmlDataCollectionConfig class.
         XmlRrd xmlRrd = new XmlRrd();
         xmlRrd.addRra("RRA:AVERAGE:0.5:1:8928");
         xmlRrd.addRra("RRA:AVERAGE:0.5:12:8784");
@@ -147,7 +149,7 @@ public class XmlDataCollectionConfigTest {
 
         xmldcc = new XmlDataCollectionConfig();
         xmldcc.addDataCollection(xmlDataCollection);
-        xmldcc.setRrdRepository("/opt/opennms/share/rrd/snmp/");
+        xmldcc.setRrdRepository(Paths.get("/opt/opennms/share/rrd/snmp"));
 
         XMLUnit.setIgnoreWhitespace(true);
         XMLUnit.setIgnoreAttributeOrder(true);
@@ -170,11 +172,11 @@ public class XmlDataCollectionConfigTest {
      */
     @Test
     public void generateSchema() throws Exception {
-        File schemaFile = fileAnticipator.expecting("xml-datacollection-config.xsd");
+        Path schemaFile = pathAnticipator.expecting("xml-datacollection-config.xsd");
         JAXBContext context = JAXBContext.newInstance(XmlDataCollectionConfig.class);
         context.generateSchema(new TestOutputResolver(schemaFile));
-        if (fileAnticipator.isInitialized()) {
-            fileAnticipator.deleteExpected();
+        if (pathAnticipator.isInitialized()) {
+            pathAnticipator.deleteExpected();
         }
     }
 
@@ -191,9 +193,9 @@ public class XmlDataCollectionConfigTest {
 
         // Read the example XML from src/test/resources
         StringBuffer exampleXML = new StringBuffer();
-        File xmlCollectionConfig = getSourceFile();
-        assertTrue(XmlDataCollectionConfig.XML_DATACOLLECTION_CONFIG_FILE + " is readable", xmlCollectionConfig.canRead());
-        BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(xmlCollectionConfig), "UTF-8"));
+        Path xmlCollectionConfig = getSourceFile();
+        assertTrue(XmlDataCollectionConfig.XML_DATACOLLECTION_CONFIG_FILE + " is readable", Files.isReadable(xmlCollectionConfig));
+        BufferedReader reader = Files.newBufferedReader(xmlCollectionConfig, Charset.forName("UTF-8"));
         String line;
         while (true) {
             line = reader.readLine();
@@ -222,8 +224,8 @@ public class XmlDataCollectionConfigTest {
      */
     @Test
     public void readXML() throws Exception {
-        File xmlCollectionConfig = getSourceFile();
-        assertTrue(XmlDataCollectionConfig.XML_DATACOLLECTION_CONFIG_FILE + " is readable", xmlCollectionConfig.canRead());
+        Path xmlCollectionConfig = getSourceFile();
+        assertTrue(XmlDataCollectionConfig.XML_DATACOLLECTION_CONFIG_FILE + " is readable", Files.isReadable(xmlCollectionConfig));
 
         XmlDataCollectionConfig exampleXmldcc = JaxbUtils.unmarshal(XmlDataCollectionConfig.class, xmlCollectionConfig);
 
@@ -235,9 +237,9 @@ public class XmlDataCollectionConfigTest {
      *
      * @return the source file
      */
-    private File getSourceFile() {
-        File xmlCollectionConfig = new File("src/test/resources/", XmlDataCollectionConfig.XML_DATACOLLECTION_CONFIG_FILE);
-        System.err.println("Source File: " + xmlCollectionConfig.getAbsolutePath());
+    private Path getSourceFile() {
+        Path xmlCollectionConfig = Paths.get("src/test/resources/", XmlDataCollectionConfig.XML_DATACOLLECTION_CONFIG_FILE);
+        System.err.println("Source File: " + xmlCollectionConfig);
         return xmlCollectionConfig;
     }
 

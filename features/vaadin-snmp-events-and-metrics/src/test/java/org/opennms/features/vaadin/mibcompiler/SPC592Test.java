@@ -31,8 +31,9 @@ package org.opennms.features.vaadin.mibcompiler;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
-import java.io.File;
 import java.net.URL;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,13 +50,13 @@ import org.opennms.netmgt.xml.eventconf.Maskelement;
 
 /**
  * The Test Class for <a href="http://issues.opennms.org/browse/SPC-592">SPC-592</a>
- * 
- * @author <a href="mailto:agalue@opennms.org">Jeff Gehlbach</a> 
+ *
+ * @author <a href="mailto:agalue@opennms.org">Jeff Gehlbach</a>
  */
 public class SPC592Test {
 
     /** The Constant MIB_DIR. */
-    protected static final File MIB_DIR = new File("src/test/resources");
+    protected static final Path MIB_DIR = Paths.get("src", "test", "resources");
 
     /** The parser. */
     protected MibParser parser;
@@ -72,7 +73,7 @@ public class SPC592Test {
     /**
      * Test standard parse.
      * <p>This test is to verify that the problem is not JsmiParser.</p>
-     * 
+     *
      * @throws Exception the exception
      */
     @Test
@@ -80,18 +81,18 @@ public class SPC592Test {
         SmiDefaultParser parser = new SmiDefaultParser();
         List<URL> inputUrls = new ArrayList<URL>();
         try {
-            inputUrls.add(new File(MIB_DIR, "SNMPv2-SMI.txt").toURI().toURL());
-            inputUrls.add(new File(MIB_DIR, "SNMPv2-TC.txt").toURI().toURL());
-            inputUrls.add(new File(MIB_DIR, "SNMPv2-CONF.txt").toURI().toURL());
-            inputUrls.add(new File(MIB_DIR, "SNMPv2-MIB.txt").toURI().toURL());
-            inputUrls.add(new File(MIB_DIR, "INET-ADDRESS-MIB.txt").toURI().toURL());
-            inputUrls.add(new File(MIB_DIR, "SNMP-FRAMEWORK-MIB.txt").toURI().toURL());
-            inputUrls.add(new File(MIB_DIR, "IANAifType-MIB.txt").toURI().toURL());
-            inputUrls.add(new File(MIB_DIR, "IF-MIB.txt").toURI().toURL());
-            inputUrls.add(new File(MIB_DIR, "INTEGRATED-SERVICES-MIB.mib").toURI().toURL());
-            inputUrls.add(new File(MIB_DIR, "DIFFSERV-DSCP-TC.mib").toURI().toURL());
-            inputUrls.add(new File(MIB_DIR, "DIFFSERV-MIB.mib").toURI().toURL());
-            inputUrls.add(new File(MIB_DIR, "ISIS-MIB.mib").toURI().toURL());
+            inputUrls.add(MIB_DIR.resolve("SNMPv2-SMI.txt").toUri().toURL());
+            inputUrls.add(MIB_DIR.resolve("SNMPv2-TC.txt").toUri().toURL());
+            inputUrls.add(MIB_DIR.resolve("SNMPv2-CONF.txt").toUri().toURL());
+            inputUrls.add(MIB_DIR.resolve("SNMPv2-MIB.txt").toUri().toURL());
+            inputUrls.add(MIB_DIR.resolve("INET-ADDRESS-MIB.txt").toUri().toURL());
+            inputUrls.add(MIB_DIR.resolve("SNMP-FRAMEWORK-MIB.txt").toUri().toURL());
+            inputUrls.add(MIB_DIR.resolve("IANAifType-MIB.txt").toUri().toURL());
+            inputUrls.add(MIB_DIR.resolve("IF-MIB.txt").toUri().toURL());
+            inputUrls.add(MIB_DIR.resolve("INTEGRATED-SERVICES-MIB.mib").toUri().toURL());
+            inputUrls.add(MIB_DIR.resolve("DIFFSERV-DSCP-TC.mib").toUri().toURL());
+            inputUrls.add(MIB_DIR.resolve("DIFFSERV-MIB.mib").toUri().toURL());
+            inputUrls.add(MIB_DIR.resolve("ISIS-MIB.mib").toUri().toURL());
         } catch (Exception e) {
             Assert.fail();
         }
@@ -117,7 +118,7 @@ public class SPC592Test {
      */
     @Test
     public void testCustomParse() throws Exception {
-        if (parser.parseMib(new File(MIB_DIR, "ISIS-MIB.mib"))) {
+        if (parser.parseMib(MIB_DIR.resolve("ISIS-MIB.mib"))) {
             Assert.assertTrue(parser.getMissingDependencies().isEmpty());
             Assert.assertNull(parser.getFormattedErrors());
         } else {
@@ -132,7 +133,7 @@ public class SPC592Test {
      */
     @Test
     public void testIsisMibTrapOids() throws Exception {
-        if (! parser.parseMib(new File(MIB_DIR, "ISIS-MIB.mib"))) {
+        if (!parser.parseMib(MIB_DIR.resolve("ISIS-MIB.mib"))) {
             Assert.fail("The ISIS-MIB.mib must parse successfully");
         } else {
             Assert.assertTrue(parser.getMissingDependencies().isEmpty());
@@ -140,7 +141,7 @@ public class SPC592Test {
         Events isisEvents = parser.getEvents("uei.opennms.org/issues/SPC592/");
         assertEquals(isisEvents.getEventCollection().size(), 18);
         assertEquals("uei.opennms.org/issues/SPC592/isisAdjacencyChange", isisEvents.getEvent(16).getUei());
-        
+
         boolean foundId = false;
         for (Maskelement me : isisEvents.getEvent(16).getMask().getMaskelementCollection()) {
             if ("id".equals(me.getMename())) {
@@ -156,7 +157,7 @@ public class SPC592Test {
         if (! foundId) {
             Assert.fail("Never found the 'id' mask-element in the isisAdjacencyChange event");
         }
-        
+
         boolean foundSpecific = false;
         for (Maskelement me : isisEvents.getEvent(16).getMask().getMaskelementCollection()) {
             if ("specific".equals(me.getMename())) {

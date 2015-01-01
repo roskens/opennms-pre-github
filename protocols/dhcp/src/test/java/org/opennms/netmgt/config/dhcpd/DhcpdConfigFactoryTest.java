@@ -30,7 +30,7 @@ package org.opennms.netmgt.config.dhcpd;
 
 import static org.junit.Assert.assertEquals;
 
-import java.io.File;
+import java.nio.file.Paths;
 
 import org.junit.Test;
 
@@ -44,12 +44,12 @@ public class DhcpdConfigFactoryTest {
 	     *    macAddress="00:06:0D:BE:9C:B2"
          *    myIpAddress="127.0.0.1"
          *    extendedMode="false"
-         *    requestIpAddress="127.0.0.1"> 
+         *    requestIpAddress="127.0.0.1">
          * </DhcpdConfiguration>
          *
 		 */
-		DhcpdConfigFactory factory = new DhcpdConfigFactory(new File("src/main/etc/dhcpd-configuration.xml"));
-		
+        DhcpdConfigFactory factory = new DhcpdConfigFactory(Paths.get("src/main/etc/dhcpd-configuration.xml"));
+
 		assertEquals(5818, factory.getPort());
 		assertEquals("00:06:0D:BE:9C:B2", factory.getMacAddress());
 		assertEquals("127.0.0.1", factory.getMyIpAddress());

@@ -28,14 +28,13 @@
 
 package org.opennms.netmgt.config;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.attribute.FileTime;
 
 import org.apache.commons.io.IOUtils;
 import org.exolab.castor.xml.MarshalException;
@@ -55,7 +54,7 @@ public class DefaultCapsdConfigManager extends CapsdConfigManager {
     /**
      * Timestamp of the file for the currently loaded configuration
      */
-    private long m_currentVersion = -1L;
+    private FileTime m_currentVersion = null;
 
     /**
      * <p>Constructor for DefaultCapsdConfigManager.</p>
@@ -63,7 +62,7 @@ public class DefaultCapsdConfigManager extends CapsdConfigManager {
     public DefaultCapsdConfigManager() {
         super();
     }
-  
+
     /**
      * <p>Constructor for DefaultCapsdConfigManager.</p>
      *
@@ -84,28 +83,19 @@ public class DefaultCapsdConfigManager extends CapsdConfigManager {
      * @throws org.exolab.castor.xml.ValidationException if any.
      */
     @Override
-    protected synchronized void update() throws IOException, FileNotFoundException, MarshalException, ValidationException {
-        File configFile = ConfigFileConstants.getFile(ConfigFileConstants.CAPSD_CONFIG_FILE_NAME);
-        
-        LOG.debug("Checking to see if capsd configuration should be reloaded from {}", configFile);
-        
-        if (m_currentVersion < configFile.lastModified()) {
-            LOG.debug("Reloading capsd configuration file");
-            
-            long lastModified = configFile.lastModified();
+    protected synchronized void update() throws IOException, MarshalException, ValidationException {
+        Path configFile = ConfigFileConstants.getFile(ConfigFileConstants.CAPSD_CONFIG_FILE_NAME);
 
-            InputStream is = null;
-            try {
-                is = new FileInputStream(configFile);
+        LOG.debug("Checking to see if capsd configuration should be reloaded from {}", configFile);
+
+        if (m_currentVersion == null || m_currentVersion.compareTo(Files.getLastModifiedTime(configFile)) < 0) {
+            LOG.debug("Reloading capsd configuration file");
+
+            try (InputStream is = Files.newInputStream(configFile);) {
                 loadXml(is);
-            } finally {
-                if (is != null) {
-                    IOUtils.closeQuietly(is);
-                }
+                // Update currentVersion after we have successfully reloaded
+                m_currentVersion = Files.getLastModifiedTime(configFile);
             }
-            
-            // Update currentVersion after we have successfully reloaded
-            m_currentVersion = lastModified; 
 
             LOG.info("Reloaded capsd configuration file");
         }
@@ -115,11 +105,10 @@ public class DefaultCapsdConfigManager extends CapsdConfigManager {
     @Override
     protected synchronized void saveXml(String xml) throws IOException {
         if (xml != null) {
-            File cfgFile = ConfigFileConstants.getFile(ConfigFileConstants.CAPSD_CONFIG_FILE_NAME);
-            Writer fileWriter = new OutputStreamWriter(new FileOutputStream(cfgFile), "UTF-8");
-            fileWriter.write(xml);
-            fileWriter.flush();
-            fileWriter.close();
+            try (Writer fileWriter = new OutputStreamWriter(Files.newOutputStream(ConfigFileConstants.getFile(ConfigFileConstants.CAPSD_CONFIG_FILE_NAME)), "UTF-8");) {
+                fileWriter.write(xml);
+                fileWriter.flush();
+            }
         }
     }
 }

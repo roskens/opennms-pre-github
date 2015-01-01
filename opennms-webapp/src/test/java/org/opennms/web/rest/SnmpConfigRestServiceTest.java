@@ -32,9 +32,11 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import javax.xml.bind.JAXBContext;
 
@@ -90,78 +92,78 @@ public class SnmpConfigRestServiceTest extends AbstractSpringJerseyRestTestCase 
 	private static final int DEFAULT_MAX_REPETITIONS = 3;
 
 	private JAXBContext m_jaxbContext;
-	private File m_snmpConfigFile;
+    private Path m_snmpConfigFile;
 
 	@Override
 	protected void beforeServletStart() throws Exception {
-		File dir = new File("target/test-work-dir");
-		dir.mkdirs();
+        Path dir = Paths.get("target", "test-work-dir");
+        Files.createDirectories(dir);
 		setSnmpConfigFile(getSnmpDefaultConfigFileForSnmpV1());
 		m_jaxbContext = JAXBContext.newInstance(SnmpInfo.class);
 	}
-	
+
 	private String getSnmpDefaultConfigFileForSnmpV1() {
 		return String.format("<?xml version=\"1.0\"?>"
 				+ "<snmp-config port=\"%s\" retry=\"%s\" timeout=\"%s\"\n"
-				+ "             read-community=\"%s\" \n" 
+				+ "             read-community=\"%s\" \n"
 				+ "				version=\"%s\" \n"
-				+ "             max-vars-per-pdu=\"%s\" max-repetitions=\"%s\"  />", 
-				DEFAULT_PORT, DEFAULT_RETRIES, DEFAULT_TIMEOUT, DEFAULT_COMMUNITY, DEFAULT_VERSION, 
+				+ "             max-vars-per-pdu=\"%s\" max-repetitions=\"%s\"  />",
+				DEFAULT_PORT, DEFAULT_RETRIES, DEFAULT_TIMEOUT, DEFAULT_COMMUNITY, DEFAULT_VERSION,
 				DEFAULT_MAX_VARS_PER_PDU, DEFAULT_MAX_REPETITIONS);
 	}
-	
+
 	private String getSnmpDefaultConfigFileForSnmpV3() {
 		return String.format("<?xml version=\"1.0\"?>"
 				+ "<snmp-config port=\"%s\" retry=\"%s\" timeout=\"%s\"\n"
 				+ "				version=\"%s\" \n"
-				+ "             max-vars-per-pdu=\"%s\" max-repetitions=\"%s\"  />", 
-				DEFAULT_PORT, DEFAULT_RETRIES, DEFAULT_TIMEOUT, "v3", 
+				+ "             max-vars-per-pdu=\"%s\" max-repetitions=\"%s\"  />",
+				DEFAULT_PORT, DEFAULT_RETRIES, DEFAULT_TIMEOUT, "v3",
 				DEFAULT_MAX_VARS_PER_PDU, DEFAULT_MAX_REPETITIONS);
 	}
-	
+
 	private void setSnmpConfigFile(final String snmpConfigContent) throws IOException {
-		m_snmpConfigFile = File.createTempFile("snmp-config-", ".xml");
-		m_snmpConfigFile.deleteOnExit();
-		FileUtils.writeStringToFile(m_snmpConfigFile, snmpConfigContent);
-		SnmpPeerFactory.setFile(m_snmpConfigFile);
+        m_snmpConfigFile = Files.createTempFile("snmp-config-", ".xml");
+        m_snmpConfigFile.toFile().deleteOnExit();
+        Files.write(m_snmpConfigFile, snmpConfigContent.getBytes());
+        SnmpPeerFactory.setPath(m_snmpConfigFile);
 		SnmpPeerFactory.init();
 	}
 
 	/**
-	 * Tests if the default values are set correctly according to the default configuration file if 
+	 * Tests if the default values are set correctly according to the default configuration file if
 	 * the SNMP version is v1.
-	 * 
+	 *
 	 * @throws Exception
 	 */
 	@Test
     public void testGetForUnknownIpSnmpV1() throws Exception {
         String url = "/snmpConfig/1.1.1.1";
-        
+
         // Testing GET Collection
         SnmpInfo config = getXmlObject(m_jaxbContext, url, 200, SnmpInfo.class);
         SnmpInfo expectedConfig = createSnmpInfoWithDefaultsForSnmpV1();
         assertConfiguration(expectedConfig, config);
         assertSnmpV3PropertiesHaveNotBeenSet(config);
     }
-	
+
 	/**
-	 * Tests if the default values are set correctly according to the default configuration file if 
+	 * Tests if the default values are set correctly according to the default configuration file if
 	 * the SNMP version is v3.
-	 * 
+	 *
 	 * @throws Exception
 	 */
 	@Test
     public void testGetForUnknownIpSnmpV3() throws Exception {
         String url = "/snmpConfig/1.1.1.1";
-        
+
         setSnmpConfigFile(getSnmpDefaultConfigFileForSnmpV3());
-        
+
         // Testing GET Collection
         SnmpInfo config = getXmlObject(m_jaxbContext, url, 200, SnmpInfo.class);
 		SnmpInfo expectedConfig = createSnmpInfoWithDefaultsForSnmpV3("1.1.1.1");
         assertConfiguration(expectedConfig, config); // check if expected defaults matches actual defaults
         assertSnmpV1PropertiesHaveNotBeenSet(config);
-        
+
     }
 
 	@Test
@@ -172,7 +174,7 @@ public class SnmpConfigRestServiceTest extends AbstractSpringJerseyRestTestCase 
 		SnmpInfo config = getXmlObject(m_jaxbContext, url, 200, SnmpInfo.class);
 		SnmpInfo expectedConfig = createSnmpInfoWithDefaultsForSnmpV3("1.1.1.1");
 		assertConfiguration(expectedConfig, config); // check if expected defaults matches actual defaults
-		
+
 		// change values
 		config.setAuthPassPhrase("authPassPhrase");
 		config.setAuthProtocol("authProtocol");
@@ -220,15 +222,15 @@ public class SnmpConfigRestServiceTest extends AbstractSpringJerseyRestTestCase 
 		expectedConfig.setProxyHost("127.0.0.1");
 		expectedConfig.setSecurityLevel(null);
 		expectedConfig.setSecurityName(null);
-		
+
 		// read via REST
 		SnmpInfo newConfig = getXmlObject(m_jaxbContext, url, 200, SnmpInfo.class);
-		
+
 		// check ...
 		assertConfiguration(expectedConfig, newConfig); // ... if Changes were made
 		dumpConfig();
 	}
-	
+
         @Test
         public void testSetNewValueForSnmpV3() throws Exception {
                 String url = "/snmpConfig/1.1.1.1";
@@ -237,7 +239,7 @@ public class SnmpConfigRestServiceTest extends AbstractSpringJerseyRestTestCase 
                 SnmpInfo changedConfig = getXmlObject(m_jaxbContext, url, 200, SnmpInfo.class);
                 SnmpInfo expectedConfig = createSnmpInfoWithDefaultsForSnmpV3("1.1.1.1");
                 assertConfiguration(expectedConfig, changedConfig); // check if expected defaults matches actual defaults
-                
+
                 // change values
                 changedConfig.setAuthPassPhrase("authPassPhrase");
                 changedConfig.setAuthProtocol("authProtocol");
@@ -262,7 +264,7 @@ public class SnmpConfigRestServiceTest extends AbstractSpringJerseyRestTestCase 
 
                 // store them via REST
                 putXmlObject(m_jaxbContext, url, 303, changedConfig, "/snmpConfig/1.1.1.1");
-                
+
                 // prepare expected Result
                 expectedConfig = new SnmpInfo();
                 expectedConfig.setAuthPassPhrase("authPassPhrase");
@@ -285,22 +287,22 @@ public class SnmpConfigRestServiceTest extends AbstractSpringJerseyRestTestCase 
                 expectedConfig.setMaxRequestSize(7000);
                 expectedConfig.setReadCommunity(null);
                 expectedConfig.setWriteCommunity(null);
-                
+
                 // read via REST
                 SnmpInfo newConfig = getXmlObject(m_jaxbContext, url, 200, SnmpInfo.class);
-                
+
                 // check ...
                 assertConfiguration(expectedConfig, newConfig); // ... if changes were made
 
                 dumpConfig();
         }
-        
+
 	@Test
 	public void testGetAddresses() throws Exception {
 	    String[] addrs = SnmpConfigRestService.getAddresses(null);
 	    assertEquals(2, addrs.length);
 	    assertEquals(null, addrs[0]);
-	    
+
 	    addrs = SnmpConfigRestService.getAddresses("   ");
 	    assertEquals(2, addrs.length);
             assertEquals(null, addrs[0]);
@@ -349,7 +351,7 @@ public class SnmpConfigRestServiceTest extends AbstractSpringJerseyRestTestCase 
 
                 // store them via REST
                 putXmlObject(m_jaxbContext, urlRange, 303, changedConfig, urlRange);
-                
+
                 // prepare expected Result
                 expectedConfig = new SnmpInfo();
                 expectedConfig.setAuthPassPhrase("authPassPhrase");
@@ -372,10 +374,10 @@ public class SnmpConfigRestServiceTest extends AbstractSpringJerseyRestTestCase 
                 expectedConfig.setMaxRequestSize(7000);
                 expectedConfig.setReadCommunity(null);
                 expectedConfig.setWriteCommunity(null);
-                
+
                 // read via REST
                 SnmpInfo newConfig = getXmlObject(m_jaxbContext, url, 200, SnmpInfo.class);
-                
+
                 // check ...
                 assertConfiguration(expectedConfig, newConfig); // ... if changes were made
 
@@ -388,16 +390,16 @@ public class SnmpConfigRestServiceTest extends AbstractSpringJerseyRestTestCase 
 
                 dumpConfig();
         }
-        
+
 	private void dumpConfig() throws Exception {
-		IOUtils.copy(new FileInputStream(m_snmpConfigFile), System.out);
+        IOUtils.copy(Files.newBufferedReader(m_snmpConfigFile, Charset.defaultCharset()), System.out);
 	}
 
 	private SnmpInfo createSnmpInfoWithDefaultsForSnmpV3(final String ipAddress) {
 		SnmpAgentConfig agentConfig = SnmpPeerFactory.getInstance().getAgentConfig(InetAddressUtils.addr(ipAddress));
 		return new SnmpInfo(agentConfig);
 	}
-	
+
 	private SnmpInfo createSnmpInfoWithDefaultsForSnmpV1() {
 		SnmpAgentConfig defaults = new SnmpAgentConfig();
 		SnmpInfo config = new SnmpInfo();
@@ -413,15 +415,15 @@ public class SnmpConfigRestServiceTest extends AbstractSpringJerseyRestTestCase 
 		config.setMaxRequestSize(defaults.getMaxRequestSize());
 		return config;
 	}
-		
+
 	private void assertConfiguration(SnmpInfo expectedConfig, SnmpInfo actualConfig) {
 		assertNotNull(expectedConfig);
 		assertNotNull(actualConfig);
 		assertEquals(expectedConfig, actualConfig);
 	}
-	
+
 	/**
-	 * Ensures that no SNMP v3 only parameter is set. This is necessary 
+	 * Ensures that no SNMP v3 only parameter is set. This is necessary
 	 * so we do not have an invalid SnmpInfo object if the default version is v1 or v2c.
 	 * @param config
 	 */
@@ -438,9 +440,9 @@ public class SnmpConfigRestServiceTest extends AbstractSpringJerseyRestTestCase 
 		assertEquals(null, config.getPrivProtocol());
 		assertEquals(null, config.getEnterpriseId());
 	}
-	
+
 	/**
-	 * Ensures that no SNMP v1 only parameter is set. This is necessary 
+	 * Ensures that no SNMP v1 only parameter is set. This is necessary
 	 * so we do not have an invalid SnmpInfo object if the default version is v3.
 	 * @param config
 	 */

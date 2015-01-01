@@ -28,7 +28,7 @@
 
 package org.opennms.protocols.xml.collector;
 
-import java.io.File;
+import java.nio.file.Path;
 
 import org.opennms.netmgt.collection.api.CollectionAgent;
 import org.opennms.netmgt.collection.api.ServiceParameters;
@@ -38,7 +38,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * The Class XmlMultiInstanceCollectionResource.
- * 
+ *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 public class XmlMultiInstanceCollectionResource extends XmlCollectionResource {
@@ -81,9 +81,9 @@ public class XmlMultiInstanceCollectionResource extends XmlCollectionResource {
      * @see org.opennms.netmgt.collectd.AbstractCollectionResource#getResourceDir(org.opennms.netmgt.model.RrdRepository)
      */
     @Override
-    public File getResourceDir(RrdRepository repository) {
+    public Path getResourceDir(RrdRepository repository) {
         String resourcePath = m_resourceType.getStorageStrategy().getRelativePathForAttribute(getParent(), getInterfaceLabel());
-        File resourceDir = new File(repository.getRrdBaseDir(), resourcePath);
+        Path resourceDir = repository.getRrdBaseDir().resolve(resourcePath);
         LOG.debug("getResourceDir: {}", resourceDir);
         return resourceDir;
     }

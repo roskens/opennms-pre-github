@@ -29,6 +29,7 @@
 package org.opennms.web.admin.nodeManagement;
 
 import java.io.IOException;
+import java.nio.file.Files;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -46,13 +47,11 @@ import org.opennms.web.snmpinfo.SnmpInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.common.base.Charsets;
 import com.google.common.base.Strings;
-import com.google.common.io.Files;
 
 /**
  * A servlet that handles configuring SNMP.
- * 
+ *
  * @author <a href="mailto:brozow@opennms.org">Matt Brozowski</a>
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
  * @author <a href="mailto:tarus@opennms.org">Tarus Balog</a>
@@ -62,13 +61,13 @@ import com.google.common.io.Files;
  * @since 1.8.1
  */
 public class SnmpConfigServlet extends HttpServlet {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(SnmpConfigServlet.class);
 
 
 	public static enum SnmpConfigServletAction {
-		Default("default"), 
-		GetConfigForIp("get"), 
+		Default("default"),
+		GetConfigForIp("get"),
 		Save("add");
 
 		private final String actionName;
@@ -81,7 +80,7 @@ public class SnmpConfigServlet extends HttpServlet {
 			return actionName;
 		}
 	}
-	
+
 	private static final long serialVersionUID = -2298118339644843598L;
 	private static final String ACTION_PARAMETER_NAME = "action";
 
@@ -133,12 +132,12 @@ public class SnmpConfigServlet extends HttpServlet {
 			case Default:
 				break;
 		}
-		request.setAttribute("snmpConfig", Files.toString(SnmpPeerFactory.getFile(), Charsets.UTF_8));
+        request.setAttribute("snmpConfig", Files.readAllBytes(SnmpPeerFactory.getPath()));
 
 		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/admin/snmpConfig.jsp");
 		dispatcher.forward(request, response);
 	}
-	
+
 	private boolean parseCheckboxValue(String parameter) {
 		if (Strings.isNullOrEmpty(parameter)) return false;
 		return "on".equalsIgnoreCase(parameter) || "true".equalsIgnoreCase(parameter) || "checked".equalsIgnoreCase(parameter);
@@ -154,14 +153,14 @@ public class SnmpConfigServlet extends HttpServlet {
 		if (eventToSend == null) return false;
 		try {
             EventProxy eventProxy = Util.createEventProxy();
-            if (eventProxy == null) throw new ServletException("Event proxy object is null, unable to send event " + eventToSend.getUei()); 
+            if (eventProxy == null) throw new ServletException("Event proxy object is null, unable to send event " + eventToSend.getUei());
            	eventProxy.send(eventToSend);
            	return true;
 		} catch (Throwable e) {
             throw new ServletException("Could not send event " + eventToSend.getUei(), e);
 		}
 	}
-	
+
 	/**
 	 * Creates an {@link SnmpInfo} object from the given request.
 	 * @param request The http request.
@@ -179,7 +178,7 @@ public class SnmpConfigServlet extends HttpServlet {
 		String maxVarsPerPdu = request.getParameter("maxVarsPerPdu");
 		String maxRepetitions = request.getParameter("maxRepetitions");
 		String proxyHost = request.getParameter("proxyHost");
-		
+
 		// v1/v2c specifics
 		String readCommunityString = request.getParameter("readCommunityString");
 		String writeCommunityString = request.getParameter("writeCommunityString");

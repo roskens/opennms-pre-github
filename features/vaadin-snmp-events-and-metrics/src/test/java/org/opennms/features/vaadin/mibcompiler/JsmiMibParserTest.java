@@ -29,9 +29,10 @@
 package org.opennms.features.vaadin.mibcompiler;
 
 import java.io.ByteArrayInputStream;
-import java.io.File;
 import java.io.StringWriter;
 import java.net.URL;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,13 +58,13 @@ import org.springframework.orm.ObjectRetrievalFailureException;
 
 /**
  * The Test Class for JsmiMibParser.
- * 
- * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a> 
+ *
+ * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 public class JsmiMibParserTest {
 
     /** The Constant MIB_DIR. */
-    protected static final File MIB_DIR = new File("src/test/resources");
+    protected static final Path MIB_DIR = Paths.get("src", "test", "resources");
 
     /** The parser. */
     protected MibParser parser;
@@ -84,7 +85,7 @@ public class JsmiMibParserTest {
      */
     @Test
     public void testGoodMib() throws Exception {
-        if (parser.parseMib(new File(MIB_DIR, "IF-MIB.txt"))) {
+        if (parser.parseMib(MIB_DIR.resolve("IF-MIB.txt"))) {
             Assert.assertTrue(parser.getMissingDependencies().isEmpty());
             Assert.assertNull(parser.getFormattedErrors());
         } else {
@@ -99,7 +100,7 @@ public class JsmiMibParserTest {
      */
     @Test
     public void testMissingDependencies() throws Exception {
-        if (parser.parseMib(new File(MIB_DIR, "SONUS-COMMON-MIB.txt"))) {
+        if (parser.parseMib(MIB_DIR.resolve("SONUS-COMMON-MIB.txt"))) {
             Assert.fail("The SONUS-COMMON-MIB.txt file contains unsatisfied dependencies, so the MIB parser must generate errors.");
         } else {
             List<String> dependencies = parser.getMissingDependencies();
@@ -116,7 +117,7 @@ public class JsmiMibParserTest {
      */
     @Test
     public void testMibWithErrors() throws Exception {
-        if (parser.parseMib(new File(MIB_DIR, "NET-SNMP-MIB.txt"))) {
+        if (parser.parseMib(MIB_DIR.resolve("NET-SNMP-MIB.txt"))) {
             Assert.fail("The NET-SNMP-MIB.txt file contains errors, so the MIB parser must generate errors.");
         } else {
             Assert.assertTrue(parser.getMissingDependencies().isEmpty());
@@ -133,7 +134,7 @@ public class JsmiMibParserTest {
      */
     @Test
     public void testNotifications() throws Exception {
-        if (parser.parseMib(new File(MIB_DIR, "IF-MIB.txt"))) {
+        if (parser.parseMib(MIB_DIR.resolve("IF-MIB.txt"))) {
             Events events = parser.getEvents("uei.opennms.org/traps/ifmib");
             Assert.assertNotNull(events);
             System.out.println(JaxbUtils.marshal(events));
@@ -175,7 +176,7 @@ public class JsmiMibParserTest {
      */
     @Test
     public void testTraps() {
-        if (parser.parseMib(new File(MIB_DIR, "RFC1269-MIB.txt"))) {
+        if (parser.parseMib(MIB_DIR.resolve("RFC1269-MIB.txt"))) {
             Assert.assertEquals("RFC1269-MIB", parser.getMibName());
             Events events = parser.getEvents("uei.opennms.org/traps/RFC1269");
             Assert.assertNotNull(events);
@@ -219,7 +220,7 @@ public class JsmiMibParserTest {
      */
     @Test
     public void testGenerateDataCollection() throws Exception {
-        if (parser.parseMib(new File(MIB_DIR, "IF-MIB.txt"))) {
+        if (parser.parseMib(MIB_DIR.resolve("IF-MIB.txt"))) {
             DatacollectionGroup dcGroup = parser.getDataCollection();
             Assert.assertNotNull(dcGroup);
             System.out.println(JaxbUtils.marshal(dcGroup));
@@ -249,7 +250,7 @@ public class JsmiMibParserTest {
      */
     @Test
     public void testNameCutter() throws Exception {
-        if (parser.parseMib(new File(MIB_DIR, "Clavister-MIB.mib"))) {
+        if (parser.parseMib(MIB_DIR.resolve("Clavister-MIB.mib"))) {
             DatacollectionGroup dcGroup = parser.getDataCollection();
             Assert.assertNotNull(dcGroup);
             System.out.println(JaxbUtils.marshal(dcGroup));
@@ -275,7 +276,7 @@ public class JsmiMibParserTest {
      */
     @Test
     public void testGenerateGraphTemplates() throws Exception {
-        if (parser.parseMib(new File(MIB_DIR, "Clavister-MIB.mib"))) {
+        if (parser.parseMib(MIB_DIR.resolve("Clavister-MIB.mib"))) {
             List<PrefabGraph> graphs = parser.getPrefabGraphs();
             StringWriter writer = new StringWriter();
             PrefabGraphDumper dumper = new PrefabGraphDumper();
@@ -314,8 +315,8 @@ public class JsmiMibParserTest {
         OnmsProblemEventHandler errorHandler = new OnmsProblemEventHandler(parser);
         List<URL> inputUrls = new ArrayList<URL>();
         try {
-            inputUrls.add(new File(MIB_DIR, "SNMPv2-SMI.txt").toURI().toURL());
-            inputUrls.add(new File(MIB_DIR, "NET-SNMP-MIB.txt").toURI().toURL());
+            inputUrls.add(MIB_DIR.resolve("SNMPv2-SMI.txt").toUri().toURL());
+            inputUrls.add(MIB_DIR.resolve("NET-SNMP-MIB.txt").toUri().toURL());
         } catch (Exception e) {
             Assert.fail();
         }
@@ -338,7 +339,7 @@ public class JsmiMibParserTest {
      */
     @Test
     public void testBadIfMib() throws Exception {
-        if (parser.parseMib(new File(MIB_DIR, "IF-MIB-BAD.txt"))) {
+        if (parser.parseMib(MIB_DIR.resolve("IF-MIB-BAD.txt"))) {
             Assert.fail();
         } else {
             Assert.assertEquals(0, parser.getMissingDependencies().size());

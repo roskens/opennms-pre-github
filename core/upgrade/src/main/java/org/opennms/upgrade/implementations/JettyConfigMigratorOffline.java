@@ -28,26 +28,27 @@
 
 package org.opennms.upgrade.implementations;
 
-import java.io.File;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.LineIterator;
 import org.opennms.upgrade.api.AbstractOnmsUpgrade;
 import org.opennms.upgrade.api.OnmsUpgradeException;
 
 /**
  * The Class Jetty Config Migrator.
- * 
+ *
  * <p>If HTTPS or AJP are enabled in opennms.properties, that requires a special version of jetty.xml on $OPENNMS_HOME/etc in order to work.</p>
- * 
+ *
  * <p>Issues fixed:</p>
  * <ul>
  * <li>NMS-6629</li>
  * </ul>
- * 
- * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a> 
+ *
+ * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 public class JettyConfigMigratorOffline extends AbstractOnmsUpgrade {
 
@@ -115,27 +116,26 @@ public class JettyConfigMigratorOffline extends AbstractOnmsUpgrade {
             log("SSL Enabled ? %s\n", jettySSL != null);
             log("AJP Enabled ? %s\n", jettyAJP != null);
             if (jettySSL != null || jettyAJP != null) {
-                File jettyXmlExample = new File(getHomeDirectory(), "etc" + File.separator + "examples" + File.separator + "jetty.xml");
-                File jettyXml = new File(getHomeDirectory(), "etc" + File.separator + "jetty.xml");
-                
-                if (!jettyXml.exists() && !jettyXmlExample.exists()) {
+                Path jettyXmlExample = getHomeDirectory().resolve("etc").resolve("examples").resolve("jetty.xml");
+                Path jettyXml = getHomeDirectory().resolve("etc").resolve("jetty.xml");
+
+                if (!Files.exists(jettyXml) && !Files.exists(jettyXmlExample)) {
                     throw new FileNotFoundException("The required file doesn't exist: " + jettyXmlExample);
                 }
-                
-                if (!jettyXml.exists()) {
-                    log("Copying %s into %s\n", jettyXmlExample, jettyXml);
-                    FileUtils.copyFile(jettyXmlExample, jettyXml);
-                }
-                    
-                log("Creating %s\n", jettyXml);
-                File tempFile = new File(jettyXml.getAbsoluteFile() + ".tmp");
-                FileWriter w = new FileWriter(tempFile);
-                LineIterator it = FileUtils.lineIterator(jettyXmlExample);
 
-                boolean startSsl = false;
-                boolean startAjp = false;
-                while (it.hasNext()) {
-                    String line = it.next();
+                if (!Files.exists(jettyXml)) {
+                    log("Copying %s into %s\n", jettyXmlExample, jettyXml);
+                    Files.copy(jettyXmlExample, jettyXml);
+                }
+
+                log("Creating %s\n", jettyXml);
+                Path tempFile = jettyXml.resolveSibling("jetty.xml.tmp");
+
+                try (BufferedWriter writer = Files.newBufferedWriter(tempFile, Charset.defaultCharset()); BufferedReader reader = Files.newBufferedReader(jettyXmlExample, Charset.defaultCharset());) {
+
+                    boolean startSsl = false;
+                    boolean startAjp = false;
+                    for (String line = reader.readLine(); line != null; line = reader.readLine()) {
                     if (startAjp) {
                         if (line.matches("^\\s+[<][!]--\\s*$")) {
                             continue;
@@ -156,7 +156,7 @@ public class JettyConfigMigratorOffline extends AbstractOnmsUpgrade {
                             continue;
                         }
                     }
-                    w.write(line + "\n");
+                        writer.write(line + "\n");
                     if (startAjp == false && line.contains("<!-- Add AJP support -->") && jettyAJP != null) {
                         startAjp = true;
                         log("Enabling AjpConnector\n");
@@ -166,10 +166,10 @@ public class JettyConfigMigratorOffline extends AbstractOnmsUpgrade {
                         log("Enabling SslSelectChannelConnector\n");
                     }
                 }
-                LineIterator.closeQuietly(it);
-                w.close();
-                FileUtils.copyFile(tempFile, jettyXml);
-                FileUtils.deleteQuietly(tempFile);
+                }
+                Files.copy(tempFile, jettyXml);
+                Files.delete(tempFile);
+
             } else {
                 log("Neither SSL nor AJP are enabled.\n");
             }

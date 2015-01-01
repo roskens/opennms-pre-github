@@ -29,6 +29,7 @@
 package org.opennms.netmgt.poller;
 
 import java.io.File;
+import java.nio.file.Path;
 
 import org.opennms.netmgt.collection.api.CollectionResource;
 import org.opennms.netmgt.collection.api.CollectionSetVisitor;
@@ -43,7 +44,7 @@ import org.opennms.netmgt.rrd.RrdRepository;
  * @version $Id: $
  */
 public class LatencyCollectionResource implements CollectionResource {
-    
+
     private final String m_serviceName;
     private final String m_ipAddress;
 
@@ -68,7 +69,7 @@ public class LatencyCollectionResource implements CollectionResource {
     public String getInstance() {
         return m_ipAddress + "[" + m_serviceName + "]";
     }
-    
+
     /**
      * <p>getServiceName</p>
      *
@@ -140,8 +141,8 @@ public class LatencyCollectionResource implements CollectionResource {
 
     /** {@inheritDoc} */
     @Override
-    public File getResourceDir(RrdRepository repository) {
-        return new File(repository.getRrdBaseDir(), m_ipAddress);
+    public Path getResourceDir(RrdRepository repository) {
+        return repository.getRrdBaseDir().resolve(m_ipAddress);
     }
 
     /** {@inheritDoc} */

@@ -28,8 +28,7 @@
 
 package org.opennms.netmgt.config;
 
-import java.io.File;
-
+import java.nio.file.Path;
 import org.opennms.core.utils.ConfigFileConstants;
 import org.opennms.core.xml.AbstractJaxbConfigDao;
 import org.opennms.core.xml.JaxbUtils;
@@ -42,13 +41,13 @@ import org.springframework.core.io.FileSystemResource;
 
 /**
  * JAXB Based JMX Data Collection Config DAO
- * 
+ *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 public class JMXDataCollectionConfigDao extends AbstractJaxbConfigDao<JmxDatacollectionConfig,JmxDatacollectionConfig> {
-    
+
     public static final Logger LOG = LoggerFactory.getLogger(JMXDataCollectionConfigDao.class);
-    
+
     public JMXDataCollectionConfigDao() {
         super(JmxDatacollectionConfig.class, "jmx-data-collection");
     }
@@ -61,9 +60,9 @@ public class JMXDataCollectionConfigDao extends AbstractJaxbConfigDao<JmxDatacol
             }
             if (collection.hasImportMbeans()) {
                 for (String importMbeans : collection.getImportGroupsList()) {
-                    File file = new File(ConfigFileConstants.getHome(), "/etc/" + importMbeans);
-                    LOG.debug("parseJmxMbeans: parsing {}", file);
-                    Mbeans mbeans = JaxbUtils.unmarshal(Mbeans.class, new FileSystemResource(file));
+                    Path path = ConfigFileConstants.getHome().resolve("etc").resolve(importMbeans);
+                    LOG.debug("parseJmxMbeans: parsing {}", path);
+                    Mbeans mbeans = JaxbUtils.unmarshal(Mbeans.class, new FileSystemResource(path.toFile()));
                     // TODO: What if there are some mbeans in the group ?
                     collection.getMbeans().getMbeanCollection().addAll(mbeans.getMbeanCollection());
                 }

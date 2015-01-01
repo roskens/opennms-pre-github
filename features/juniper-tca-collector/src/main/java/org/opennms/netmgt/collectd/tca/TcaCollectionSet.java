@@ -28,7 +28,7 @@
 
 package org.opennms.netmgt.collectd.tca;
 
-import java.io.File;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -52,10 +52,10 @@ import org.slf4j.LoggerFactory;
 
 /**
  * The Class TcaCollectionSet.
- * 
+ *
  * @author Alejandro Galue <agalue@opennms.org>
  */
-public class TcaCollectionSet extends AbstractCollectionSet {	
+public class TcaCollectionSet extends AbstractCollectionSet {
 	private static final Logger LOG = LoggerFactory.getLogger(TcaCollectionSet.class);
 
 	/** The Constant LAST_TIMESTAMP. */
@@ -179,7 +179,7 @@ public class TcaCollectionSet extends AbstractCollectionSet {
 
 	/**
 	 * Process.
-	 * 
+	 *
 	 * <p>A sample TCA Data looks like the following:</p>
 	 * <ul>
 	 * <li>OID=.1.3.6.1.4.1.27091.3.1.6.1.1.172.19.37.60.1, Type=OctetString, Value=172.19.37.60 </li>
@@ -190,7 +190,7 @@ public class TcaCollectionSet extends AbstractCollectionSet {
 	 * 1327451777,11,0,11,0,1|1327451778,11,0,11,0,1|1327451779,11,0,11,0,1|1327451780,11,0,11,0,1|1327451781,11,0,11,0,1|
 	 * 1327451782,11,0,11,0,1|1327451783,11,0,11,0,1|1327451784,11,0,11,0,1|1327451785,11,0,11,0,1|1327451786,11,0,11,0,1|</li>
 	 * </ul>
-	 * 
+	 *
 	 * <ul>
 	 * <li>timestamp (epoch)</li>
 	 * <li>delay local-remote ~ current inbound-delay</li>
@@ -258,12 +258,12 @@ public class TcaCollectionSet extends AbstractCollectionSet {
 	 * @throws Exception the exception
 	 */
 	private long getLastTimestamp(TcaCollectionResource resource) throws Exception {
-		File file = null;
+        Path file = null;
 		long timestamp = 0;
 		try {
 			file  = resource.getResourceDir(m_rrdRepository);
 			String ts = ResourceTypeUtils.getStringProperty(resource.getResourceDir(m_rrdRepository), LAST_TIMESTAMP);
-			if (ts != null)
+            if (ts != null)
 				timestamp = Long.parseLong(ts);
 		} catch (Exception e) {
 			LOG.info("getLastFilename: creating a new filename tracker on {}", file);

@@ -35,50 +35,56 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.HashMap;
 import java.util.Map;
-
-import junit.framework.TestCase;
+import org.junit.After;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import org.junit.Before;
+import org.junit.Ignore;
+import org.junit.Test;
 
 import org.opennms.core.utils.InetAddressUtils;
 
-public class FtpPluginTest extends TestCase {
-    private FtpPlugin m_plugin = new FtpPlugin();
+public class FtpPluginTest {
+    private final FtpPlugin m_plugin = new FtpPlugin();
     private ServerSocket m_serverSocket = null;
     private Thread m_serverThread = null;
-    private static int TIMEOUT = 2000;
-    
-    @Override
+    private static final int TIMEOUT = 2000;
+
+    @Before
     protected void setUp() throws Exception {
-        super.setUp();
-        
         m_serverSocket = new ServerSocket();
         m_serverSocket.bind(null); // don't care what address, just gimme a port
     }
 
-    @Override
+    @After
     protected void tearDown() throws Exception {
         if (m_serverSocket != null && !m_serverSocket.isClosed()) {
             m_serverSocket.close();
         }
-        
+
         if (m_serverThread != null) {
             m_serverThread.join(1500);
+            m_serverThread = null;
         }
-        
-        super.tearDown();
     }
-    
+
     // Let's not depend on external systems if we don't have to
-    public void SKIPtestOpennmsOrgFtpSuccess() throws Exception {
+    @Ignore
+    @Test
+    public void testOpennmsOrgFtpSuccess() throws Exception {
         assertTrue("Test for protocol FTP on ftp.opennms.org should have passed", m_plugin.isProtocolSupported(InetAddressUtils.addr("ftp.opennms.org")));
     }
-    
+
     // Let's not depend on external systems if we don't have to
-    public void SKIPtestRandomFtpFailure() throws Exception {
+    @Ignore
+    @Test
+    public void testRandomFtpFailure() throws Exception {
         assertFalse("Test for protocol FTP on 1.1.1.1 should have failed (on most networks, at least)", m_plugin.isProtocolSupported(InetAddressUtils.addr("1.1.1.1")));
     }
-    
+
+    @Test
     public void testSuccess() throws Exception {
-        Thread m_serverThread = new Thread(new Runnable() {
+        m_serverThread = new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
@@ -95,14 +101,15 @@ public class FtpPluginTest extends TestCase {
                 }
             }
         });
-        
+
         m_serverThread.start();
-        
+
         assertTrue("Test for protocol FTP should have passed", doCheck());
     }
-    
+
+    @Test
     public void testSuccessMultiLineResponse() throws Exception {
-        Thread m_serverThread = new Thread(new Runnable() {
+        m_serverThread = new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
@@ -122,14 +129,15 @@ public class FtpPluginTest extends TestCase {
                 }
             }
         });
-        
+
         m_serverThread.start();
-        
+
         assertTrue("Test for protocol FTP should have passed", doCheck());
     }
 
+    @Test
     public void testFailureWithBogusResponse() throws Exception {
-        Thread m_serverThread = new Thread(new Runnable() {
+        m_serverThread = new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
@@ -141,14 +149,15 @@ public class FtpPluginTest extends TestCase {
                 }
             }
         }, this.getClass().getSimpleName() + "-serverThread");
-        
+
         m_serverThread.start();
-        
+
         assertFalse("Test for protocol FTP should have failed", doCheck());
     }
 
+    @Test
     public void testMonitorFailureWithNoResponse() throws Exception {
-        Thread m_serverThread = new Thread(new Runnable() {
+        m_serverThread = new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
@@ -160,20 +169,21 @@ public class FtpPluginTest extends TestCase {
                 }
             }
         }, this.getClass().getSimpleName() + "-serverThread");
-        
+
         m_serverThread.start();
-        
+
         assertFalse("Test for protocol FTP should have failed", doCheck());
     }
 
+    @Test
     public void testMonitorFailureWithClosedPort() throws Exception {
         m_serverSocket.close();
-        
+
         assertFalse("Test for protocol FTP should have failed", doCheck());
     }
 
     private boolean  doCheck() {
-        Map<String, Object> m = new HashMap<String, Object>();
+        Map<String, Object> m = new HashMap<>();
         m.put("port", m_serverSocket.getLocalPort());
         m.put("retries", 0);
         m.put("timeout", TIMEOUT);

@@ -28,7 +28,8 @@
 
 package org.opennms.protocols.xml.vtdxml;
 
-import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -95,7 +96,7 @@ public class XmlCollector3GPPTest extends AbstractVTDXmlCollectorTest {
         parameters.put("handler-class", "org.opennms.protocols.xml.vtdxml.MockDefaultVTDXmlCollectionHandler");
         executeCollectorTest(parameters, 147);
         // Test a JRB.
-        File file = new File("target/snmp/1/platformSystemResource/processor_v1_frame0_shelf0_slot4_sub-slot1/platform-system-resource.jrb");
+        Path file = Paths.get("target/snmp/1/platformSystemResource/processor_v1_frame0_shelf0_slot4_sub-slot1/platform-system-resource.jrb");
         String[] dsnames = new String[] { "cpuUtilization", "memoryUtilization" };
         Double[] dsvalues = new Double[] { 1.0, 18.0 };
         validateJrb(file, dsnames, dsvalues);

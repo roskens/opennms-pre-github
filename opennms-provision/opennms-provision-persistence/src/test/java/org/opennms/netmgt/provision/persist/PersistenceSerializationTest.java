@@ -32,11 +32,13 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.StringWriter;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,7 +60,7 @@ import org.opennms.core.test.MockLogAppender;
 import org.opennms.netmgt.provision.persist.foreignsource.ForeignSource;
 import org.opennms.netmgt.provision.persist.foreignsource.ForeignSourceCollection;
 import org.opennms.netmgt.provision.persist.foreignsource.PluginConfig;
-import org.opennms.test.FileAnticipator;
+import org.opennms.test.PathAnticipator;
 import org.xml.sax.SAXException;
 
 public class PersistenceSerializationTest {
@@ -67,18 +69,18 @@ public class PersistenceSerializationTest {
     private Marshaller m;
     private JAXBContext c;
     private ForeignSource fs;
-    private FileAnticipator fa;
+    private PathAnticipator fa;
 
     static private class TestOutputResolver extends SchemaOutputResolver {
-        private final File m_schemaFile;
-        
-        public TestOutputResolver(File schemaFile) {
+        private final Path m_schemaFile;
+
+        public TestOutputResolver(Path schemaFile) {
             m_schemaFile = schemaFile;
         }
-        
+
         @Override
         public Result createOutput(String namespaceUri, String suggestedFileName) throws IOException {
-            return new StreamResult(m_schemaFile);
+            return new StreamResult(m_schemaFile.toFile());
         }
     }
 
@@ -86,7 +88,7 @@ public class PersistenceSerializationTest {
     public void setUp() throws Exception {
         MockLogAppender.setupLogging();
 
-        fa = new FileAnticipator();
+        fa = new PathAnticipator();
 
         fsr = new MockForeignSourceRepository();
         fsr.save(new ForeignSource("cheese"));
@@ -123,7 +125,7 @@ public class PersistenceSerializationTest {
         fsw = new ForeignSourceCollection(fsr.getForeignSources());
         c = JAXBContext.newInstance(ForeignSourceCollection.class, ForeignSource.class);
         m = c.createMarshaller();
-        
+
         XMLUnit.setIgnoreWhitespace(true);
         XMLUnit.setIgnoreAttributeOrder(true);
         XMLUnit.setNormalize(true);
@@ -136,13 +138,13 @@ public class PersistenceSerializationTest {
 
     @Test
     public void generateSchema() throws Exception {
-        File schemaFile = fa.expecting("foreign-sources.xsd");
+        Path schemaFile = fa.expecting("foreign-sources.xsd");
         c.generateSchema(new TestOutputResolver(schemaFile));
         if (fa.isInitialized()) {
             fa.deleteExpected();
         }
     }
-    
+
     @Test
     public void generateXML() throws Exception {
         // Marshal the test object to an XML string
@@ -151,17 +153,16 @@ public class PersistenceSerializationTest {
 
         // Read the example XML from src/test/resources
         StringBuffer exampleXML = new StringBuffer();
-        File foreignSources = new File(ClassLoader.getSystemResource("foreign-sources.xml").getFile());
-        assertTrue("foreign-sources.xml is readable", foreignSources.canRead());
-        BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(foreignSources), "UTF-8"));
-        String line;
-        while (true) {
-            line = reader.readLine();
-            if (line == null) {
-                reader.close();
-                break;
+        Path foreignSources = Paths.get(ClassLoader.getSystemResource("foreign-sources.xml").toURI());
+        assertTrue("foreign-sources.xml is readable", Files.isReadable(foreignSources));
+        try (BufferedReader reader = Files.newBufferedReader(foreignSources, Charset.forName("UTF-8"));) {
+            while (reader.ready()) {
+                String line = reader.readLine();
+                if (line == null) {
+                    break;
+                }
+                exampleXML.append(line).append("\n");
             }
-            exampleXML.append(line).append("\n");
         }
         System.err.println("========================================================================");
         System.err.println("Object XML:");

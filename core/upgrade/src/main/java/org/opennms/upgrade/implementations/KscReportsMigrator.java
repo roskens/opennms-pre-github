@@ -28,8 +28,9 @@
 
 package org.opennms.upgrade.implementations;
 
-import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -48,19 +49,19 @@ import org.opennms.upgrade.api.OnmsUpgradeException;
 
 /**
  * The Class KSC Reports Migrator.
- * 
+ *
  * <p>1.12 always add the MAC Address to the snmpinterface table if exist, which
  * is different from the 1.10 behavior. For this reason, some interfaces are going
  * to appear twice, and the data must be merged.</p>
- * 
+ *
  * <p>For this reason, the KSC reports must be updated.</p>
- * 
- * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a> 
+ *
+ * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 public class KscReportsMigrator extends AbstractOnmsUpgrade {
 
     /** The KSC Reports configuration file. */
-    private File configFile;
+    private Path configFile;
 
     /**
      * Instantiates a new KSC Reports Migrator.
@@ -116,10 +117,10 @@ public class KscReportsMigrator extends AbstractOnmsUpgrade {
      * @see org.opennms.upgrade.api.OnmsUpgrade#postExecute()
      */
     public void postExecute() throws OnmsUpgradeException {
-        File zip = new File(configFile.getAbsolutePath() + ZIP_EXT);
-        if (zip.exists()) {
+        Path zip = configFile.resolveSibling(configFile.getFileName() + ZIP_EXT);
+        if (Files.exists(zip)) {
             log("Removing backup %s\n", zip);
-            FileUtils.deleteQuietly(zip);
+            FileUtils.deleteQuietly(zip.toFile());
         }
     }
 
@@ -129,9 +130,9 @@ public class KscReportsMigrator extends AbstractOnmsUpgrade {
     @Override
     public void rollback() throws OnmsUpgradeException {
         log("Restoring backup %s\n", configFile);
-        File zip = new File(configFile.getAbsolutePath() + ZIP_EXT);
-        FileUtils.deleteQuietly(configFile);
-        unzipFile(zip, zip.getParentFile());
+        Path zip = configFile.resolveSibling(configFile.getFileName() + ZIP_EXT);
+        FileUtils.deleteQuietly(configFile.toFile());
+        unzipFile(zip, zip.getParent());
     }
 
     /* (non-Javadoc)

@@ -28,7 +28,8 @@
 
 package org.opennms.upgrade.implementations;
 
-import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -36,13 +37,13 @@ import org.opennms.netmgt.config.DataCollectionConfigFactory;
 
 /**
  * The Class SnmpInterfaceUpgrade.
- * 
- * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a> 
+ *
+ * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 public class SnmpInterfaceUpgrade extends SnmpInterface {
 
     /** The node's directory. */
-    private File nodeDir;
+    private Path nodeDir;
 
     /**
      * Instantiates a new SNMP interface upgrade.
@@ -85,7 +86,7 @@ public class SnmpInterfaceUpgrade extends SnmpInterface {
      *
      * @return the node directory
      */
-    public File getNodeDir() {
+    public Path getNodeDir() {
         return nodeDir;
     }
 
@@ -94,8 +95,8 @@ public class SnmpInterfaceUpgrade extends SnmpInterface {
      *
      * @return the old interface directory
      */
-    public File getOldInterfaceDir() {
-        return new File(getNodeDir(), getOldRrdLabel());
+    public Path getOldInterfaceDir() {
+        return getNodeDir().resolve(getOldRrdLabel());
     }
 
     /**
@@ -103,8 +104,8 @@ public class SnmpInterfaceUpgrade extends SnmpInterface {
      *
      * @return the new interface directory
      */
-    public File getNewInterfaceDir() {
-        return new File(getNodeDir(), getNewRrdLabel());
+    public Path getNewInterfaceDir() {
+        return getNodeDir().resolve(getNewRrdLabel());
     }
 
     /**
@@ -116,7 +117,7 @@ public class SnmpInterfaceUpgrade extends SnmpInterface {
         // An SnmpInterfaceUpgrade entry only exist for SNMP interfaces with MAC Address.
         // For this reason, if the old directory exist and the label of the old interface is different than the new one,
         // that means, the interface statistics must be merged.
-        return getOldInterfaceDir().exists() && !getOldRrdLabel().equals(getNewRrdLabel());
+        return Files.exists(getOldInterfaceDir()) && !getOldRrdLabel().equals(getNewRrdLabel());
     }
 
     /**
@@ -127,12 +128,12 @@ public class SnmpInterfaceUpgrade extends SnmpInterface {
      * @param foreignId the foreign id
      * @return the node directory
      */
-    protected File getNodeDirectory(int nodeId, String foreignSource, String foreignId) {
-        String rrdPath = DataCollectionConfigFactory.getInstance().getRrdPath();
-        File dir = new File(rrdPath, String.valueOf(nodeId));
+    protected Path getNodeDirectory(int nodeId, String foreignSource, String foreignId) {
+        Path rrdPath = DataCollectionConfigFactory.getInstance().getRrdPath();
+        Path dir = rrdPath.resolve(String.valueOf(nodeId));
         if (Boolean.getBoolean("org.opennms.rrd.storeByForeignSource") && !(foreignSource == null) && !(foreignId == null)) {
-            File fsDir = new File(rrdPath, "fs" + File.separatorChar + foreignSource);
-            dir = new File(fsDir, foreignId);
+            Path fsDir = rrdPath.resolve("fs").resolve(foreignSource);
+            dir = fsDir.resolve(foreignId);
         }
         return dir;
     }

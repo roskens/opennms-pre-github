@@ -33,6 +33,11 @@ import static org.mockito.Mockito.mock;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.attribute.FileTime;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.io.IOUtils;
 import org.junit.Test;
@@ -54,24 +59,25 @@ public class PollableServiceConfigTest {
         final FilterDao fd = mock(FilterDao.class);
         FilterDaoFactory.setInstance(fd);
 
-        InputStream is = new FileInputStream(new File("src/test/resources/etc/psm-poller-configuration.xml"));
-        PollerConfigFactory factory = new PollerConfigFactory(0, is, "localhost", false);
-        PollerConfigFactory.setInstance(factory);        
-        IOUtils.closeQuietly(is);
+        Path path = Paths.get("src", "test", "resources", "etc", "psm-poller-configuration.xml");
+        try (InputStream is = Files.newInputStream(path);) {
+            PollerConfigFactory factory = new PollerConfigFactory(FileTime.fromMillis(0L), is, "localhost", false);
+            PollerConfigFactory.setInstance(factory);
 
-        final PollContext context = mock(PollContext.class);
-        final PollableNetwork network = new PollableNetwork(context);
-        final PollableNode node = network.createNodeIfNecessary(1, "foo");
-        final PollableInterface iface = new PollableInterface(node, InetAddressUtils.addr("127.0.0.1"));
-        final PollableService svc = new PollableService(iface, "MQ_API_DirectRte_v2");
-        final PollOutagesConfig pollOutagesConfig = mock(PollOutagesConfig.class);
-        final Package pkg = factory.getPackage("MapQuest");
-        final Timer timer = mock(Timer.class);
-        final PollableServiceConfig psc = new PollableServiceConfig(svc, factory, pollOutagesConfig, pkg, timer);
+            final PollContext context = mock(PollContext.class);
+            final PollableNetwork network = new PollableNetwork(context);
+            final PollableNode node = network.createNodeIfNecessary(1, "foo");
+            final PollableInterface iface = new PollableInterface(node, InetAddressUtils.addr("127.0.0.1"));
+            final PollableService svc = new PollableService(iface, "MQ_API_DirectRte_v2");
+            final PollOutagesConfig pollOutagesConfig = mock(PollOutagesConfig.class);
+            final Package pkg = factory.getPackage("MapQuest");
+            final Timer timer = mock(Timer.class);
+            final PollableServiceConfig psc = new PollableServiceConfig(svc, factory, pollOutagesConfig, pkg, timer);
 
-        final ServiceMonitor sm = mock(ServiceMonitor.class);
-        psc.setServiceMonitor(sm);
+            final ServiceMonitor sm = mock(ServiceMonitor.class);
+            psc.setServiceMonitor(sm);
 
-        psc.poll();
+            psc.poll();
+        }
     }
 }

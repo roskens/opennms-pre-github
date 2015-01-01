@@ -28,9 +28,9 @@
 
 package org.opennms.netmgt.rrd;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -126,9 +126,7 @@ public class MultiOutputRrdStrategy implements RrdStrategy<List<Object>,List<Obj
 
     /** {@inheritDoc} */
     @Override
-    public List<Object> createDefinition(String creator, String directory, String rrdName,
-            int step, List<RrdDataSource> dataSources, List<String> rraList)
-            throws Exception {
+    public List<Object> createDefinition(String creator, Path directory, String rrdName, int step, List<RrdDataSource> dataSources, List<String> rraList) throws Exception {
         List<Object> retval = new ArrayList<Object>();
         for (RrdStrategy<Object, Object> strategy : m_strategies) {
             retval.add(strategy.createDefinition(creator, directory, rrdName, step, dataSources, rraList));
@@ -146,37 +144,34 @@ public class MultiOutputRrdStrategy implements RrdStrategy<List<Object>,List<Obj
 
     /** {@inheritDoc} */
     @Override
-    public InputStream createGraph(String command, File workDir)
-    throws IOException, RrdException {
+    public InputStream createGraph(String command, Path workDir)
+      throws IOException, RrdException {
         return m_strategies.get(m_graphStrategyIndex).createGraph(command, workDir);
     }
 
     /** {@inheritDoc} */
     @Override
-    public RrdGraphDetails createGraphReturnDetails(String command, File workDir)
-    throws IOException, RrdException {
+    public RrdGraphDetails createGraphReturnDetails(String command, Path workDir)
+      throws IOException, RrdException {
         return m_strategies.get(m_graphStrategyIndex).createGraphReturnDetails(command, workDir);
     }
 
     /** {@inheritDoc} */
     @Override
-    public Double fetchLastValue(String rrdFile, String ds, int interval)
-    throws NumberFormatException, RrdException {
+    public Double fetchLastValue(Path rrdFile, String ds, int interval)
+      throws NumberFormatException, RrdException {
         return m_strategies.get(m_fetchStrategyIndex).fetchLastValue(rrdFile, ds, interval);
     }
 
     /** {@inheritDoc} */
     @Override
-    public Double fetchLastValue(String rrdFile, String ds,
-            String consolidationFunction, int interval)
-    throws NumberFormatException, RrdException {
+    public Double fetchLastValue(Path rrdFile, String ds, String consolidationFunction, int interval) throws NumberFormatException, RrdException {
         return m_strategies.get(m_fetchStrategyIndex).fetchLastValue(rrdFile, ds, consolidationFunction, interval);
     }
 
     /** {@inheritDoc} */
     @Override
-    public Double fetchLastValueInRange(String rrdFile, String ds,
-            int interval, int range) throws NumberFormatException, RrdException {
+    public Double fetchLastValueInRange(Path rrdFile, String ds, int interval, int range) throws NumberFormatException, RrdException {
         return m_strategies.get(m_fetchStrategyIndex).fetchLastValueInRange(rrdFile, ds, interval, range);
     }
 
@@ -237,7 +232,7 @@ public class MultiOutputRrdStrategy implements RrdStrategy<List<Object>,List<Obj
 
     /** {@inheritDoc} */
     @Override
-    public List<Object> openFile(String fileName) throws Exception {
+    public List<Object> openFile(Path fileName) throws Exception {
         List<Object> retval = new ArrayList<Object>();
         for (RrdStrategy<Object, Object> strategy : m_strategies) {
             retval.add(strategy.openFile(fileName));
@@ -247,7 +242,7 @@ public class MultiOutputRrdStrategy implements RrdStrategy<List<Object>,List<Obj
 
     /** {@inheritDoc} */
     @Override
-    public void promoteEnqueuedFiles(Collection<String> rrdFiles) {
+    public void promoteEnqueuedFiles(Collection<Path> rrdFiles) {
         for (RrdStrategy<Object, Object> strategy : m_strategies) {
             strategy.promoteEnqueuedFiles(rrdFiles);
         }

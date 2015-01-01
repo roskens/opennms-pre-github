@@ -28,8 +28,8 @@
 
 package org.opennms.web.svclayer.support;
 
-import java.io.File;
 import java.io.InputStream;
+import java.nio.file.Path;
 import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -114,7 +114,7 @@ public class DefaultRrdGraphService implements RrdGraphService, InitializingBean
 
     private InputStream getInputStreamForCommand(String command) {
         boolean debug = true;
-        File workDir = m_resourceDao.getRrdDirectory(true);
+        Path workDir = m_resourceDao.getRrdDirectory(true);
 
         InputStream tempIn = null;
         try {
@@ -305,12 +305,12 @@ public class DefaultRrdGraphService implements RrdGraphService, InitializingBean
      * @return a {@link java.lang.String} object.
      */
 
-    protected String createPrefabCommand(Graph graph, String commandPrefix, File workDir, String reportName, Integer width, Integer height) {
+    protected String createPrefabCommand(Graph graph, String commandPrefix, Path workDir, String reportName, Integer width, Integer height) {
         PrefabGraph prefabGraph = graph.getPrefabGraph();
 
         String[] rrds = getRrdNames(graph.getResource(), graph.getPrefabGraph().getColumns());
 
-        StringBuffer buf = new StringBuffer();
+        StringBuilder buf = new StringBuilder();
         buf.append(commandPrefix);
         buf.append(" ");
         buf.append(prefabGraph.getCommand());

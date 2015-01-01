@@ -29,20 +29,24 @@
 package org.opennms.install;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.io.Reader;
 import java.net.InetAddress;
-import java.nio.channels.FileChannel;
+import java.nio.ByteBuffer;
+import java.nio.channels.SeekableByteChannel;
+import java.nio.charset.Charset;
+import java.nio.file.DirectoryStream;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Properties;
@@ -92,10 +96,10 @@ import org.springframework.util.StringUtils;
 public class Installer {
 
 	private static final Logger LOG = LoggerFactory.getLogger(Installer.class);
-	
+
     static final String LIBRARY_PROPERTY_FILE = "libraries.properties";
 
-    String m_opennms_home = null;
+    Path m_opennms_home = null;
     boolean m_update_database = false;
     boolean m_do_inserts = false;
     boolean m_skip_constraints = false;
@@ -112,11 +116,11 @@ public class Installer {
     boolean m_remove_database = false;
     boolean m_skip_upgrade_tools = false;
 
-    String m_etc_dir = "";
-    String m_tomcat_conf = null;
-    String m_webappdir = null;
-    String m_import_dir = null;
-    String m_install_servletdir = null;
+    Path m_etc_dir = null;
+    Path m_tomcat_conf = null;
+    Path m_webappdir = null;
+    Path m_import_dir = null;
+    Path m_install_servletdir = null;
     String m_library_search_path = null;
     String m_fix_constraint_name = null;
     boolean m_fix_constraint_remove_rows = false;
@@ -161,39 +165,37 @@ public class Installer {
         }
 
         if (doDatabase) {
-        	final File cfgFile = ConfigFileConstants.getFile(ConfigFileConstants.OPENNMS_DATASOURCE_CONFIG_FILE_NAME);
-            
-            InputStream is = new FileInputStream(cfgFile);
-            final JdbcDataSource adminDsConfig = new DataSourceConfigurationFactory(is).getJdbcDataSource(ADMIN_DATA_SOURCE_NAME);
-            final DataSource adminDs = new SimpleDataSource(adminDsConfig);
-            is.close();
+            final Path cfgFile = ConfigFileConstants.getFile(ConfigFileConstants.OPENNMS_DATASOURCE_CONFIG_FILE_NAME);
 
-            is = new FileInputStream(cfgFile);
-            final JdbcDataSource dsConfig = new DataSourceConfigurationFactory(is).getJdbcDataSource(OPENNMS_DATA_SOURCE_NAME);
-            final DataSource ds = new SimpleDataSource(dsConfig);
-            is.close();
+            try (InputStream is = Files.newInputStream(cfgFile);) {
+                final DataSourceConfigurationFactory dcf = new DataSourceConfigurationFactory(is);
+                final JdbcDataSource adminDsConfig = dcf.getJdbcDataSource(ADMIN_DATA_SOURCE_NAME);
+                final DataSource adminDs = new SimpleDataSource(adminDsConfig);
+                final JdbcDataSource dsConfig = dcf.getJdbcDataSource(OPENNMS_DATA_SOURCE_NAME);
+                final DataSource ds = new SimpleDataSource(dsConfig);
 
-            m_installerDb.setForce(m_force);
-            m_installerDb.setIgnoreNotNull(m_ignore_not_null);
-            m_installerDb.setNoRevert(m_do_not_revert);
-            m_installerDb.setAdminDataSource(adminDs);
-            m_installerDb.setPostgresOpennmsUser(dsConfig.getUserName());
-            m_installerDb.setPostgresOpennmsPassword(dsConfig.getPassword());
-            m_installerDb.setDataSource(ds);
-            m_installerDb.setDatabaseName(dsConfig.getDatabaseName());
-            m_installerDb.setSchemaName(dsConfig.getSchemaName());
+                m_installerDb.setForce(m_force);
+                m_installerDb.setIgnoreNotNull(m_ignore_not_null);
+                m_installerDb.setNoRevert(m_do_not_revert);
+                m_installerDb.setAdminDataSource(adminDs);
+                m_installerDb.setPostgresOpennmsUser(dsConfig.getUserName());
+                m_installerDb.setPostgresOpennmsPassword(dsConfig.getPassword());
+                m_installerDb.setDataSource(ds);
+                m_installerDb.setDatabaseName(dsConfig.getDatabaseName());
+                m_installerDb.setSchemaName(dsConfig.getSchemaName());
 
-            m_migrator.setDataSource(ds);
-            m_migrator.setAdminDataSource(adminDs);
-            m_migrator.setValidateDatabaseVersion(!m_ignore_database_version);
+                m_migrator.setDataSource(ds);
+                m_migrator.setAdminDataSource(adminDs);
+                m_migrator.setValidateDatabaseVersion(!m_ignore_database_version);
 
-            m_migration.setDatabaseName(dsConfig.getDatabaseName());
-            m_migration.setSchemaName(dsConfig.getSchemaName());
-            m_migration.setAdminUser(adminDsConfig.getUserName());
-            m_migration.setAdminPassword(adminDsConfig.getPassword());
-            m_migration.setDatabaseUser(dsConfig.getUserName());
-            m_migration.setDatabasePassword(dsConfig.getPassword());
-            m_migration.setChangeLog("changelog.xml");
+                m_migration.setDatabaseName(dsConfig.getDatabaseName());
+                m_migration.setSchemaName(dsConfig.getSchemaName());
+                m_migration.setAdminUser(adminDsConfig.getUserName());
+                m_migration.setAdminPassword(adminDsConfig.getPassword());
+                m_migration.setDatabaseUser(dsConfig.getUserName());
+                m_migration.setDatabasePassword(dsConfig.getPassword());
+                m_migration.setChangeLog("changelog.xml");
+            }
         }
 
         checkIPv6();
@@ -208,7 +210,7 @@ public class Installer {
             String jrrd_path = findLibrary("jrrd", m_library_search_path, false);
             writeLibraryConfig(icmp_path, icmp6_path, jrrd_path);
         }
-        
+
         /*
          * Everything needs to use the administrative data source until we
          * verify that the opennms database is created below (and where we
@@ -244,11 +246,11 @@ public class Installer {
         if (doDatabase) {
             m_installerDb.checkUnicode();
         }
-        
+
         handleConfigurationChanges();
 
         final GenericApplicationContext context = new GenericApplicationContext();
-        context.setClassLoader(Bootstrap.loadClasses(new File(m_opennms_home), true));
+        context.setClassLoader(Bootstrap.loadClasses(m_opennms_home, true));
 
         if (m_update_database) {
             m_installerDb.databaseSetUser();
@@ -289,7 +291,7 @@ public class Installer {
         if (doDatabase) {
             m_installerDb.disconnect();
         }
-        
+
         if (m_update_database) {
             createConfiguredFile();
         }
@@ -311,29 +313,39 @@ public class Installer {
 	}
 
     private void handleConfigurationChanges() {
-        File etcDir = new File(m_opennms_home + File.separator + "etc");
-        File importDir = new File(m_import_dir);
-        File[] files = etcDir.listFiles(getImportFileFilter());
-
-        if (!importDir.exists()) {
-            System.out.print("- Creating imports directory (" + importDir.getAbsolutePath() + "... ");
-            if (!importDir.mkdirs()) {
+        Path etcDir = m_opennms_home.resolve("etc");
+        Path importDir = m_import_dir;
+        if (!Files.exists(importDir)) {
+            System.out.print("- Creating imports directory (" + importDir.toAbsolutePath() + "... ");
+            try {
+                Files.createDirectories(importDir);
+            } catch (IOException e) {
                 System.out.println("FAILED");
                 System.exit(1);
             }
             System.out.println("OK");
         }
 
-        System.out.print("- Checking for old import files in " + etcDir.getAbsolutePath() + "... ");
-        if (files.length > 0) {
+        List<Path> files = new ArrayList<Path>();
+        try (DirectoryStream<Path> stream = Files.newDirectoryStream(etcDir, "imports-*.xml");) {
+            for (Path file : stream) {
+                files.add(file);
+            }
+        } catch (IOException e) {
+
+        }
+
+        System.out.print("- Checking for old import files in " + etcDir.toAbsolutePath() + "... ");
+        if (!files.isEmpty()) {
             System.out.println("FOUND");
-            for (File f : files) {
-                String newFileName = f.getName().replace("imports-", "");
-                File newFile = new File(importDir, newFileName);
-                System.out.print("  - moving " + f.getName() + " to " + importDir.getPath() + "... ");
-                if (f.renameTo(newFile)) {
+            for (Path f : files) {
+                String newFileName = f.getFileName().toString().replace("imports-", "");
+                Path newFile = importDir.resolve(newFileName);
+                System.out.print("  - moving " + f + " to " + importDir + "... ");
+                try {
+                    Files.move(f, newFile);
                     System.out.println("OK");
-                } else {
+                } catch (IOException e) {
                     System.out.println("FAILED");
                 }
             }
@@ -342,25 +354,17 @@ public class Installer {
         }
     }
 
-    private FilenameFilter getImportFileFilter() {
-        return new FilenameFilter() {
-
-            public boolean accept(File dir, String name) {
-                return name.matches("imports-.*\\.xml");
-            }
-            
-        };
-    }
-
     /**
      * <p>createConfiguredFile</p>
      *
      * @throws java.io.IOException if any.
      */
     public void createConfiguredFile() throws IOException {
-        File f = new File(m_opennms_home + File.separator + "etc" + File.separator + "configured");
-        if (!f.createNewFile()) {
-        	LOG.warn("Could not create file: {}", f.getPath());
+        Path f = m_opennms_home.resolve("etc").resolve("configured");
+        try {
+            Files.createFile(f);
+        } catch (IOException e) {
+        	LOG.warn("Could not create file: {}", f);
         }
     }
 
@@ -392,30 +396,31 @@ public class Installer {
         final Properties sys = System.getProperties();
         m_properties.putAll(sys);
 
-        m_opennms_home = fetchProperty("install.dir");
-        m_etc_dir = fetchProperty("install.etc.dir");
-        
+        m_opennms_home = Paths.get(fetchProperty("install.dir"));
+        m_etc_dir = Paths.get(fetchProperty("install.etc.dir"));
+
         loadEtcPropertiesFile("opennms.properties");
         loadEtcPropertiesFile("model-importer.properties");
-        
-        m_install_servletdir = fetchProperty("install.servlet.dir");
-        m_import_dir = fetchProperty("importer.requisition.dir");
+
+        m_install_servletdir = Paths.get(fetchProperty("install.servlet.dir"));
+        m_import_dir = Paths.get(fetchProperty("importer.requisition.dir"));
 
         final String pg_lib_dir = m_properties.getProperty("install.postgresql.dir");
 
         if (pg_lib_dir != null) {
-            m_installerDb.setPostgresPlPgsqlLocation(pg_lib_dir + File.separator + "plpgsql");
-            m_installerDb.setPostgresIpLikeLocation(pg_lib_dir + File.separator + "iplike");
+            Path p = Paths.get(pg_lib_dir);
+            m_installerDb.setPostgresPlPgsqlLocation(p.resolve("plpgsql"));
+            m_installerDb.setPostgresIpLikeLocation(p.resolve("iplike"));
         }
 
         m_installerDb.setStoredProcedureDirectory(m_etc_dir);
-        m_installerDb.setCreateSqlLocation(m_etc_dir + File.separator + "create.sql");
+        m_installerDb.setCreateSqlLocation(m_etc_dir.resolve("create.sql"));
     }
 
     private void loadEtcPropertiesFile(final String propertiesFile) throws IOException {
-        try {
-        	final Properties opennmsProperties = new Properties();
-        	final InputStream ois = new FileInputStream(m_etc_dir + File.separator + propertiesFile);
+        final Properties opennmsProperties = new Properties();
+        Path path = m_etc_dir.resolve(propertiesFile);
+        try (InputStream ois = Files.newInputStream(path);) {
             opennmsProperties.load(ois);
             // We only want to put() things that weren't already overridden in installer.properties
             for (final Entry<Object,Object> p : opennmsProperties.entrySet()) {
@@ -423,8 +428,8 @@ public class Installer {
                     m_properties.put(p.getKey(), p.getValue());
                 }
             }
-        } catch (final FileNotFoundException e) {
-            System.out.println("WARNING: unable to load " + m_etc_dir + File.separator + propertiesFile);
+        } catch (final IOException e) {
+            System.out.println("WARNING: unable to load " + path);
         }
     }
 
@@ -514,7 +519,7 @@ public class Installer {
         // general installation options
         options.addOption("l", "library-path", true,
                           "library search path (directories separated by '"
-                                  + File.pathSeparator + "')");
+          + FileSystems.getDefault().getSeparator() + "')");
         options.addOption("r", "rpm-install", false,
                           "RPM install (deprecated)");
 
@@ -577,10 +582,10 @@ public class Installer {
         m_ignore_database_version = m_commandLine.hasOption("Q");
         m_do_not_revert = m_commandLine.hasOption("R");
         m_update_iplike = m_commandLine.hasOption("s");
-        m_tomcat_conf = m_commandLine.getOptionValue("T", m_tomcat_conf);
+        m_tomcat_conf = Paths.get(m_commandLine.getOptionValue("T", m_tomcat_conf.toString()));
         m_update_unicode = m_commandLine.hasOption("U");
         m_do_vacuum = m_commandLine.hasOption("v");
-        m_webappdir = m_commandLine.getOptionValue("w", m_webappdir);
+        m_webappdir = Paths.get(m_commandLine.getOptionValue("w", m_webappdir.toString()));
         m_installerDb.setDebug(m_commandLine.hasOption("x"));
         if (m_commandLine.hasOption("x")) {
         	m_migrator.enableDebug();
@@ -603,11 +608,9 @@ public class Installer {
      */
     public void verifyFilesAndDirectories() throws FileNotFoundException {
         if (m_update_database) {
-            verifyFileExists(true,  m_installerDb.getStoredProcedureDirectory(),
-                             "SQL directory", "install.etc.dir property");
+            verifyFileExists(true, m_installerDb.getStoredProcedureDirectory(), "SQL directory", "install.etc.dir property");
 
-            verifyFileExists(false, m_installerDb.getCreateSqlLocation(),
-                             "create.sql", "install.etc.dir property");
+            verifyFileExists(false, m_installerDb.getCreateSqlLocation(), "create.sql", "install.etc.dir property");
         }
 
         if (m_tomcat_conf != null) {
@@ -631,41 +634,37 @@ public class Installer {
      * @param option a {@link java.lang.String} object.
      * @throws java.io.FileNotFoundException if any.
      */
-    public void verifyFileExists(boolean isDir, String file, String description, String option)
-            throws FileNotFoundException {
-        File f;
+    public void verifyFileExists(boolean isDir, Path file, String description, String option) throws FileNotFoundException {
 
         if (file == null) {
-            throw new FileNotFoundException("The user most provide the location of " + description
-                    + ", but this is not specified.  Use the " + option
+            throw new FileNotFoundException("The user most provide the location of "
+              + description                    + ", but this is not specified.  Use the " + option
                     + " to specify this file.");
         }
 
         System.out.print("- using " + description + "... ");
 
-        f = new File(file);
-
-        if (!f.exists()) {
+        if (!Files.exists(file)) {
             throw new FileNotFoundException(description
                     + " does not exist at \"" + file + "\".  Use the "
                     + option + " to specify another location.");
         }
 
         if (!isDir) {
-            if (!f.isFile()) {
+            if (!Files.isRegularFile(file)) {
                 throw new FileNotFoundException(description
                         + " not a file at \"" + file + "\".  Use the "
                         + option + " to specify another file.");
             }
         } else {
-            if (!f.isDirectory()) {
+            if (!Files.isDirectory(file)) {
                 throw new FileNotFoundException(description
                         + " not a directory at \"" + file + "\".  Use the "
                         + option + " to specify " + "another directory.");
             }
         }
 
-        System.out.println(f.getAbsolutePath());
+        System.out.println(file.toAbsolutePath());
     }
 
     /**
@@ -674,15 +673,14 @@ public class Installer {
      * @throws java.lang.Exception if any.
      */
     public void checkWebappOldOpennmsDir() throws Exception {
-        File f = new File(m_webappdir + File.separator + "opennms");
+        Path f = m_webappdir.resolve("opennms");
 
         System.out.print("- Checking for old opennms webapp directory in "
-                + f.getAbsolutePath() + "... ");
+          + f.toAbsolutePath() + "... ");
 
-        if (f.exists()) {
+        if (Files.exists(f)) {
             throw new Exception("Old OpenNMS web application exists: "
-                    + f.getAbsolutePath() + ".  You need to remove this "
-                    + "before continuing.");
+              + f.toAbsolutePath() + ".  You need to remove this before continuing.");
         }
 
         System.out.println("OK");
@@ -695,33 +693,30 @@ public class Installer {
      */
     public void checkServerXmlOldOpennmsContext() throws Exception {
         String search_regexp = "(?ms).*<Context\\s+path=\"/opennms\".*";
-        StringBuffer b = new StringBuffer();
+        StringBuilder b = new StringBuilder();
 
-        File f = new File(m_webappdir + File.separator + ".."
-                + File.separator + "conf" + File.separator + "server.xml");
+        Path f = m_webappdir.getParent().resolve("conf").resolve("server.xml");
 
         System.out.print("- Checking for old opennms context in "
-                + f.getAbsolutePath() + "... ");
+          + f.toAbsolutePath() + "... ");
 
-        if (!f.exists()) {
+        if (!Files.exists(f)) {
             System.out.println("DID NOT CHECK (file does not exist)");
             return;
         }
 
-        Reader fr = new InputStreamReader(new FileInputStream(f), "UTF-8");
-        BufferedReader r = new BufferedReader(fr);
-        String line;
+        try (BufferedReader r = Files.newBufferedReader(f, Charset.forName("UTF-8"))) {
+            String line;
 
-        while ((line = r.readLine()) != null) {
-            b.append(line);
-            b.append("\n");
+            while ((line = r.readLine()) != null) {
+                b.append(line);
+                b.append("\n");
+            }
         }
-        r.close();
-        fr.close();
 
         if (b.toString().matches(search_regexp)) {
-            throw new Exception("Old OpenNMS context found in " + f.getAbsolutePath() +
-                                ".  You must remove this context from server.xml and re-run the installer.");
+            throw new Exception("Old OpenNMS context found in " + f.toAbsolutePath()
+              + ".  You must remove this context from server.xml and re-run the installer.");
         }
 
         System.out.println("OK");
@@ -737,10 +732,8 @@ public class Installer {
     public void installWebApp() throws Exception {
         System.out.println("- Install OpenNMS webapp... ");
 
-        copyFile(m_install_servletdir + File.separator + "META-INF"
-                + File.separator + "context.xml", m_webappdir
-                + File.separator + "opennms.xml", "web application context",
-                 false);
+        copyFile(m_install_servletdir.resolve("META-INF").resolve("context.xml"),
+          m_webappdir.resolve("opennms.xml"), "web application context", false);
 
         System.out.println("- Installing OpenNMS webapp... DONE");
     }
@@ -754,57 +747,51 @@ public class Installer {
      * @param recursive a boolean.
      * @throws java.lang.Exception if any.
      */
-    public void copyFile(String source, String destination,
-            String description, boolean recursive) throws Exception {
-        File sourceFile = new File(source);
-        File destinationFile = new File(destination);
+    public void copyFile(Path source, Path destination, String description, boolean recursive) throws Exception {
 
-        if (!sourceFile.exists()) {
-            throw new Exception("source file (" + source
-                    + ") does not exist!");
+        if (!Files.exists(source)) {
+            throw new Exception("source file (" + source + ") does not exist!");
         }
-        if (!sourceFile.isFile()) {
+        if (!Files.isRegularFile(source)) {
             throw new Exception("source file (" + source + ") is not a file!");
         }
-        if (!sourceFile.canRead()) {
-            throw new Exception("source file (" + source
-                    + ") is not readable!");
+        if (!Files.isReadable(source)) {
+            throw new Exception("source file (" + source + ") is not readable!");
         }
-        if (destinationFile.exists()) {
+        if (Files.exists(destination)) {
             System.out.print("  - " + destination + " exists, removing... ");
-            if (destinationFile.delete()) {
+            try {
+                Files.delete(destination);
                 System.out.println("REMOVED");
-            } else {
+            } catch (IOException e) {
                 System.out.println("FAILED");
-                throw new Exception("unable to delete existing file: "
-                        + sourceFile);
+                throw new Exception("unable to delete existing file: " + source);
             }
         }
 
         System.out.print("  - copying " + source + " to " + destination + "... ");
-        if (!destinationFile.getParentFile().exists()) {
-            if (!destinationFile.getParentFile().mkdirs()) {
-                throw new Exception("unable to create directory: " + destinationFile.getParent());
+        if (!Files.exists(destination.getParent())) {
+            try {
+                Files.createDirectories(destination.getParent());
+            } catch (IOException e) {
+                throw new Exception("unable to create directory: " + destination.getParent());
             }
         }
-        if (!destinationFile.createNewFile()) {
-            throw new Exception("unable to create file: " + destinationFile);
-        }
-        FileChannel from = null;
-        FileChannel to = null;
         try {
-            from = new FileInputStream(sourceFile).getChannel();
-            to = new FileOutputStream(destinationFile).getChannel();
-            to.transferFrom(from, 0, from.size());
+            Files.createFile(destination);
+        } catch (IOException e) {
+            throw new Exception("unable to create file: " + destination);
+        }
+        try (SeekableByteChannel from = Files.newByteChannel(source); SeekableByteChannel to = Files.newByteChannel(destination);) {
+            ByteBuffer bf = ByteBuffer.allocate(8192);
+            int i = 0, j = 0;
+            while ((i = from.read(bf)) > 0) {
+                bf.flip();
+                j = to.write(bf);
+                bf.clear();
+            }
         } catch (FileNotFoundException e) {
-            throw new Exception("unable to copy " + sourceFile + " to " + destinationFile, e);
-        } finally {
-            if (from != null) {
-                from.close();
-            }
-            if (to != null) {
-                to.close();
-            }
+            throw new Exception("unable to copy " + source + " to " + destination, e);
         }
         System.out.println("DONE");
     }
@@ -818,13 +805,9 @@ public class Installer {
      * @param recursive a boolean.
      * @throws java.lang.Exception if any.
      */
-    public void installLink(String source, String destination,
-            String description, boolean recursive) throws Exception {
+    public void installLink(Path source, Path destination, String description, boolean recursive) throws Exception {
 
-        String[] cmd;
-        ProcessExec e = new ProcessExec(System.out, System.out);
-
-        if (new File(destination).exists()) {
+        if (Files.exists(destination)) {
             System.out.print("  - " + destination + " exists, removing... ");
             removeFile(destination, description, recursive);
             System.out.println("REMOVED");
@@ -832,15 +815,10 @@ public class Installer {
 
         System.out.print("  - creating link to " + destination + "... ");
 
-        cmd = new String[4];
-        cmd[0] = "ln";
-        cmd[1] = "-sf";
-        cmd[2] = source;
-        cmd[3] = destination;
-
-        if (e.exec(cmd) != 0) {
-            throw new Exception("Non-zero exit value returned while "
-                    + "linking " + description + ", " + source + " into "
+        try {
+            Files.createSymbolicLink(source, destination);
+        } catch (IOException e) {
+            throw new Exception("Non-zero exit value returned while linking " + description + ", " + source + " into "
                     + destination);
         }
 
@@ -853,7 +831,7 @@ public class Installer {
      * @throws java.lang.Exception if any.
      */
     public void updateTomcatConf() throws Exception {
-        File f = new File(m_tomcat_conf);
+        Path path = m_tomcat_conf.toAbsolutePath();
 
         // XXX give the user the option to set the user to something else?
         // if so, should we chown the appropriate OpenNMS files to the
@@ -864,30 +842,29 @@ public class Installer {
 
         System.out.print("- setting tomcat4 user to 'root'... ");
 
-        BufferedReader r = new BufferedReader(new InputStreamReader(new FileInputStream(f), "UTF-8"));
         StringBuffer b = new StringBuffer();
-        String line;
-
-        while ((line = r.readLine()) != null) {
-            if (line.startsWith("TOMCAT_USER=")) {
-                b.append("TOMCAT_USER=\"root\"\n");
-            } else {
-                b.append(line);
-                b.append("\n");
+        try (BufferedReader r = Files.newBufferedReader(path, Charset.forName("UTF-8"))) {
+            String line;
+            while ((line = r.readLine()) != null) {
+                if (line.startsWith("TOMCAT_USER=")) {
+                    b.append("TOMCAT_USER=\"root\"\n");
+                } else {
+                    b.append(line);
+                    b.append("\n");
+                }
             }
         }
-        r.close();
 
-        if(!f.renameTo(new File(m_tomcat_conf + ".before-opennms-"
-                + System.currentTimeMillis()))) {
-        	LOG.warn("Could not rename file: {}", f.getPath());
+        try {
+            Files.move(path, path.resolveSibling(m_tomcat_conf.getFileName().toString() + ".before-opennms-" + System.currentTimeMillis()));
+        } catch (IOException e) {
+            LOG.warn("Could not rename file: {}", path);
         }
 
-        f = new File(m_tomcat_conf);
-        PrintWriter w = new PrintWriter(new FileOutputStream(f));
-
-        w.print(b.toString());
-        w.close();
+        path = m_tomcat_conf.toAbsolutePath();
+        try (BufferedWriter w = Files.newBufferedWriter(path, Charset.defaultCharset());) {
+            w.write(b.toString());
+        }
 
         System.out.println("DONE");
     }
@@ -902,9 +879,7 @@ public class Installer {
      * @throws java.lang.InterruptedException if any.
      * @throws java.lang.Exception if any.
      */
-    public void removeFile(String destination, String description,
-            boolean recursive) throws IOException, InterruptedException,
-            Exception {
+    public void removeFile(Path destination, String description, boolean recursive) throws IOException, InterruptedException, Exception {
         String[] cmd;
         ProcessExec e = new ProcessExec(System.out, System.out);
 
@@ -912,11 +887,11 @@ public class Installer {
             cmd = new String[3];
             cmd[0] = "rm";
             cmd[1] = "-r";
-            cmd[2] = destination;
+            cmd[2] = destination.toString();
         } else {
             cmd = new String[2];
             cmd[0] = "rm";
-            cmd[1] = destination;
+            cmd[1] = destination.toString();
         }
         if (e.exec(cmd) != 0) {
             throw new Exception("Non-zero exit value returned while "
@@ -925,7 +900,7 @@ public class Installer {
                     + StringUtils.arrayToDelimitedString(cmd, " ") + "\"");
         }
 
-        if (new File(destination).exists()) {
+        if (Files.exists(destination)) {
             usage(options, m_commandLine, "Could not delete existing "
                     + description + ": " + destination, null);
             System.exit(1);
@@ -975,9 +950,9 @@ public class Installer {
      * @throws java.io.IOException if any.
      */
     public String checkServerVersion() throws IOException {
-        File catalinaHome = new File(m_webappdir).getParentFile();
-        String readmeVersion = getTomcatVersion(new File(catalinaHome, "README.txt"));
-        String runningVersion = getTomcatVersion(new File(catalinaHome, "RUNNING.txt"));
+        Path catalinaHome = m_webappdir.getParent();
+        String readmeVersion = getTomcatVersion(catalinaHome.resolve("README.txt"));
+        String runningVersion = getTomcatVersion(catalinaHome.resolve("RUNNING.txt"));
 
         if (readmeVersion == null && runningVersion == null) {
             return null;
@@ -997,26 +972,25 @@ public class Installer {
      * @return a {@link java.lang.String} object.
      * @throws java.io.IOException if any.
      */
-    public String getTomcatVersion(File file) throws IOException {
-        if (file == null || !file.exists()) {
+    public String getTomcatVersion(Path file) throws IOException {
+        if (file == null || !Files.exists(file)) {
             return null;
         }
         Pattern p = Pattern.compile("The Tomcat (\\S+) Servlet/JSP Container");
-        BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"));
-        for (int i = 0; i < 5; i++) {
-            String line = in.readLine();
-            if (line == null) { // EOF
-                in.close();
-                return null;
-            }
-            Matcher m = p.matcher(line);
-            if (m.find()) {
-                in.close();
-                return m.group(1);
+        try (BufferedReader in = Files.newBufferedReader(file, Charset.forName("UTF-8"))) {
+            for (int i = 0; i < 5; i++) {
+                String line = in.readLine();
+                if (line == null) { // EOF
+                    in.close();
+                    return null;
+                }
+                Matcher m = p.matcher(line);
+                if (m.find()) {
+                    in.close();
+                    return m.group(1);
+                }
             }
         }
-
-        in.close();
         return null;
     }
 
@@ -1032,26 +1006,27 @@ public class Installer {
     public String findLibrary(String libname, String path, boolean isRequired) throws Exception {
         String fullname = System.mapLibraryName(libname);
 
-        ArrayList<String> searchPaths = new ArrayList<String>();
+        List<Path> searchPaths = new ArrayList<Path>();
+        String separator = FileSystems.getDefault().getSeparator();
 
         if (path != null) {
             for (String entry : path.split(File.pathSeparator)) {
-                searchPaths.add(entry);
+                searchPaths.add(Paths.get(entry));
             }
         }
 
         try {
-            File confFile = new File(m_opennms_home + File.separator + "etc" + File.separator + LIBRARY_PROPERTY_FILE);
+            Path confFile = m_opennms_home.resolve("etc").resolve(LIBRARY_PROPERTY_FILE);
             final Properties p = new Properties();
-            final InputStream is = new FileInputStream(confFile);
-            p.load(is);
-            is.close();
+            try (InputStream is = Files.newInputStream(confFile)) {
+                p.load(is);
+            }
             for (final Object k : p.keySet()) {
                 String key = (String)k;
                 if (key.startsWith("opennms.library")) {
                     String value = p.getProperty(key);
-                    value = value.replaceAll(File.separator + "[^" + File.separator + "]*$", "");
-                    searchPaths.add(value);
+                    value = value.replaceAll(separator + "[^" + separator + "]*$", "");
+                    searchPaths.add(Paths.get(value));
                 }
             }
         } catch (Throwable e) {
@@ -1060,7 +1035,7 @@ public class Installer {
 
         if (System.getProperty("java.library.path") != null) {
             for (final String entry : System.getProperty("java.library.path").split(File.pathSeparator)) {
-                searchPaths.add(entry);
+                searchPaths.add(Paths.get(entry));
             }
         }
 
@@ -1075,36 +1050,36 @@ public class Installer {
                     "/opt/NMSjicmp6/lib/64"
             };
             for (final String entry : defaults) {
-                searchPaths.add(entry);
+                searchPaths.add(Paths.get(entry));
             }
         }
 
         System.out.println("- searching for " + fullname + ":");
-        for (String dirname : searchPaths) {
-            File entry = new File(dirname);
+        for (Path dirname : searchPaths) {
+            Path entry = dirname.toAbsolutePath();
 
-            if (entry.isFile()) {
+            if (Files.isRegularFile(entry)) {
                 // if they specified a file, try the parent directory instead
                 dirname = entry.getParent();
             }
 
 
 
-            String fullpath = dirname + File.separator + fullname;
+            Path fullpath = dirname.resolve(fullname);
             if (loadLibrary(fullpath)) {
-                return fullpath;
+                return fullpath.toString();
             }
 
             if (fullname.endsWith(".dylib")) {
-                final String fullPathOldExtension = fullpath.replace(".dylib", ".jnilib");
-                if (loadLibrary(fullPathOldExtension)) {
+                final String fullPathOldExtension = fullpath.toString().replace(".dylib", ".jnilib");
+                if (loadLibrary(Paths.get(fullPathOldExtension))) {
                     return fullPathOldExtension;
                 }
             }
         }
 
         if (isRequired) {
-            StringBuffer buf = new StringBuffer();
+            StringBuilder buf = new StringBuilder();
             for (final String pathEntry : System.getProperty("java.library.path").split(File.pathSeparator)) {
                 buf.append(" ");
                 buf.append(pathEntry);
@@ -1126,10 +1101,10 @@ public class Installer {
      * @param path a {@link java.lang.String} object.
      * @return a boolean.
      */
-    public boolean loadLibrary(final String path) {
+    public boolean loadLibrary(final Path path) {
         try {
             System.out.print("  - trying to load " + path + ": ");
-            System.load(path);
+            System.load(path.toString());
             System.out.println("OK");
             return true;
         } catch (final UnsatisfiedLinkError ule) {
@@ -1146,8 +1121,7 @@ public class Installer {
      * @param jrrd_path a {@link java.lang.String} object.
      * @throws java.io.IOException if any.
      */
-    public void writeLibraryConfig(final String jicmp_path, final String jicmp6_path, final String jrrd_path)
-            throws IOException {
+    public void writeLibraryConfig(final String jicmp_path, final String jicmp6_path, final String jrrd_path) throws IOException {
         Properties libraryProps = new Properties();
 
         if (jicmp_path != null && jicmp_path.length() != 0) {
@@ -1162,16 +1136,11 @@ public class Installer {
             libraryProps.put("opennms.library.jrrd", jrrd_path);
         }
 
-        File f = null;
-        try {
-            f = new File(m_opennms_home + File.separator + "etc" + File.separator + LIBRARY_PROPERTY_FILE);
-            if(!f.createNewFile()) {
-            	LOG.warn("Could not create file: {}", f.getPath());
-            }
-            FileOutputStream os = new FileOutputStream(f);
+        Path path = m_opennms_home.resolve("etc").resolve(LIBRARY_PROPERTY_FILE);
+        try (BufferedWriter os = Files.newBufferedWriter(path, Charset.defaultCharset());) {
             libraryProps.store(os, null);
         } catch (IOException e) {
-            System.out.println("unable to write to " + f.getPath());
+            System.out.println("unable to write to " + path);
             throw e;
         }
     }
@@ -1183,7 +1152,7 @@ public class Installer {
      */
     public void pingLocalhost() throws Exception {
         String host = "127.0.0.1";
-        
+
         java.net.InetAddress addr = null;
         try {
             addr = InetAddress.getByName(host);
@@ -1196,9 +1165,9 @@ public class Installer {
 
         Pinger pinger;
         try {
-       
+
             pinger = PingerFactory.getInstance();
-        
+
         } catch (UnsatisfiedLinkError e) {
             System.out.println("UnsatisfiedLinkError while creating an ICMP Pinger.  Most likely failed to load "
                     + "libjicmp.so.  Try setting the property 'opennms.library.jicmp' to point at the "
@@ -1215,19 +1184,19 @@ public class Installer {
             System.out.println("Exception while creating an Pinger.");
             throw e;
         }
-        
-        
+
+
         // using regular InetAddress toString here since is just printed for the users benefit
         System.out.print("Pinging " + host + " (" + addr + ")...");
 
         Number rtt = pinger.ping(addr);
-        
+
         if (rtt == null) {
             System.out.println("failed.!");
         } else {
             System.out.printf("successful.. round trip time: %.3f ms%n", rtt.doubleValue() / 1000.0);
         }
-        
+
     }
 
     /**

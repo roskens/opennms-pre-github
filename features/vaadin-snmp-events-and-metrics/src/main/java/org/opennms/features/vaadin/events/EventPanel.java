@@ -28,8 +28,6 @@
 
 package org.opennms.features.vaadin.events;
 
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -57,11 +55,16 @@ import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.VerticalLayout;
+import java.io.BufferedWriter;
+import java.nio.charset.Charset;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 /**
  * The Class Event Panel.
- * 
- * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a> 
+ *
+ * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 @SuppressWarnings("serial")
 public abstract class EventPanel extends Panel {
@@ -76,7 +79,7 @@ public abstract class EventPanel extends Panel {
     private EventProxy eventProxy;
 
     /** The Events File. */
-    private File eventFile;
+    private Path eventFile;
 
     /** The selected Event ID. */
     private Object selectedEventId;
@@ -96,7 +99,7 @@ public abstract class EventPanel extends Panel {
      * @param events the OpenNMS events object
      * @param logger the logger object
      */
-    public EventPanel(final EventConfDao eventConfDao, final EventProxy eventProxy, final File eventFile, final Events events, final Logger logger) {
+    public EventPanel(final EventConfDao eventConfDao, final EventProxy eventProxy, final Path eventFile, final Events events, final Logger logger) {
 
         if (eventProxy == null) {
             throw new RuntimeException("eventProxy cannot be null.");
@@ -197,7 +200,7 @@ public abstract class EventPanel extends Panel {
                     bottomToolbar.setVisible(eventId != null);
                 }
             }
-        });   
+        });
 
         final Button add = new Button("Add Event", new Button.ClickListener() {
             @Override
@@ -255,7 +258,7 @@ public abstract class EventPanel extends Panel {
      * @param logger the logger
      */
     public void processEvents(final Logger logger) {
-        if (eventFile.exists()) {
+        if (Files.exists(eventFile)) {
             ConfirmDialog.show(getUI(),
                                "Are you sure?",
                                "Do you really want to override the existig file?\nAll current information will be lost.",
@@ -279,7 +282,7 @@ public abstract class EventPanel extends Panel {
      * @param file the file
      * @param logger the logger
      */
-    private void validateFile(final File file, final Logger logger) {
+    private void validateFile(final Path file, final Logger logger) {
         int eventCount = 0;
         for (org.opennms.netmgt.xml.eventconf.Event e : eventTable.getOnmsEvents()) {
             if (eventConfDao.findByUei(e.getUei()) != null)
@@ -309,7 +312,7 @@ public abstract class EventPanel extends Panel {
      * @param file the file
      * @param logger the logger
      */
-    private void saveFile(final File file, final Logger logger) {
+    private void saveFile(final Path file, final Logger logger) {
         try {
             // Updating the base events object with the new events set.
             baseEventsObject.setEventCollection(eventTable.getOnmsEvents());
@@ -329,9 +332,10 @@ public abstract class EventPanel extends Panel {
             // Save the XML of the new events
             saveEvents(baseEventsObject, file, logger);
             // Add a reference to the new file into eventconf.xml if there are events
-            String fileName = file.getAbsolutePath().replaceFirst(".*\\" + File.separatorChar + "events\\" + File.separatorChar + "(.*)", "events" + File.separatorChar + "$1");
+            String separatorChar = FileSystems.getDefault().getSeparator();
+            String fileName = file.toAbsolutePath().toString().replaceFirst(".*\\" + separatorChar + "events\\" + separatorChar + "(.*)", "events" + separatorChar + "$1");
             final Events rootEvents = eventConfDao.getRootEvents();
-            final File rootFile = ConfigFileConstants.getFile(ConfigFileConstants.EVENT_CONF_FILE_NAME);
+            final Path rootFile = ConfigFileConstants.getFile(ConfigFileConstants.EVENT_CONF_FILE_NAME);
             if (baseEventsObject.getEventCount() > 0) {
                 if (!rootEvents.getEventFileCollection().contains(fileName)) {
                     logger.info("Adding a reference to " + fileName + " inside eventconf.xml.");
@@ -370,9 +374,10 @@ public abstract class EventPanel extends Panel {
      * @param logger the logger
      * @throws IOException Signals that an I/O exception has occurred.
      */
-    private void saveEvents(final Events events, final File eventFile, final Logger logger) throws IOException {
+    private void saveEvents(final Events events, final Path eventFile, final Logger logger) throws IOException {
         logger.info("Saving XML data into " + eventFile);
-        FileWriter writer = new FileWriter(eventFile);
+
+        BufferedWriter writer = Files.newBufferedWriter(eventFile, Charset.defaultCharset());
         JaxbUtils.marshal(events, writer);
         writer.close();
     }

@@ -33,6 +33,8 @@
 	contentType="text/html"
 	session="true"
 	import="java.util.*,
+        java.nio.file.Files,
+        java.nio.charset.Charset,
 		org.opennms.netmgt.config.poller.*,
 		org.opennms.netmgt.config.PollerConfigFactory,
 		org.opennms.netmgt.config.PollerConfig,
@@ -53,7 +55,7 @@
     throw new IllegalArgumentException( "Cannot take null parameters." );
         }
  
-        props.load( new FileInputStream( ConfigFileConstants.getFile(ConfigFileConstants.POLLER_CONF_FILE_NAME )));
+        props.load( Files.newBufferedReader(ConfigFileConstants.getFile(ConfigFileConstants.POLLER_CONF_FILE_NAME ), Charset.defaultCharset()));
 	protoMap = getQueries();
  
 	java.util.List<String> polledPlugins = new ArrayList<String>();

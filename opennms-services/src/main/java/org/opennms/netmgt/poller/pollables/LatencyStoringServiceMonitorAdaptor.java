@@ -30,6 +30,8 @@ package org.opennms.netmgt.poller.pollables;
 
 import java.io.File;
 import java.net.InetAddress;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -64,16 +66,16 @@ import org.slf4j.LoggerFactory;
  */
 public class LatencyStoringServiceMonitorAdaptor implements ServiceMonitor {
 
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(LatencyStoringServiceMonitorAdaptor.class);
-    
+
     /** Constant <code>DEFAULT_BASENAME="response-time"</code> */
     public static final String DEFAULT_BASENAME = "response-time";
 
     private ServiceMonitor m_serviceMonitor;
     private PollerConfig m_pollerConfig;
     private Package m_pkg;
-    
+
     private LatencyThresholdingSet m_thresholdingSet;
 
     /**
@@ -146,14 +148,14 @@ public class LatencyStoringServiceMonitorAdaptor implements ServiceMonitor {
             return;
         }
 
-        updateRRD(rrdPath, svc.getAddress(), rrdBaseName, entries);
+        updateRRD(Paths.get(rrdPath), svc.getAddress(), rrdBaseName, entries);
     }
 
     private void applyThresholds(String rrdPath, MonitoredService service, String dsName, Map<String, Number> entries) {
         try {
             if (m_thresholdingSet == null) {
                 RrdRepository repository = new RrdRepository();
-                repository.setRrdBaseDir(new File(rrdPath));
+                repository.setRrdBaseDir(Paths.get(rrdPath));
                 m_thresholdingSet = new LatencyThresholdingSet(service.getNodeId(), service.getIpAddr(), service.getSvcName(), repository);
             }
             LinkedHashMap<String, Double> attributes = new LinkedHashMap<String, Double>();
@@ -193,7 +195,7 @@ public class LatencyStoringServiceMonitorAdaptor implements ServiceMonitor {
      *            value to update the RRD file with
      * @param rrdBaseName a {@link java.lang.String} object.
      */
-    public void updateRRD(String repository, InetAddress addr, String rrdBaseName, String dsName, long value) {
+    public void updateRRD(Path repository, InetAddress addr, String rrdBaseName, String dsName, long value) {
         LinkedHashMap<String, Number> lhm = new LinkedHashMap<String, Number>();
         lhm.put(dsName, value);
         updateRRD(repository, addr, rrdBaseName, lhm);
@@ -210,7 +212,7 @@ public class LatencyStoringServiceMonitorAdaptor implements ServiceMonitor {
      *            the entries for the rrd, containing a Map of dsNames to values
      * @param rrdBaseName a {@link java.lang.String} object.
      */
-    public void updateRRD(String repository, InetAddress addr, String rrdBaseName, Map<String, Number> entries) {
+    public void updateRRD(Path repository, InetAddress addr, String rrdBaseName, Map<String, Number> entries) {
         try {
             // Create RRD if it doesn't already exist
             List<RrdDataSource> dsList = new ArrayList<RrdDataSource>(entries.size());
@@ -221,12 +223,14 @@ public class LatencyStoringServiceMonitorAdaptor implements ServiceMonitor {
 
             // add interface address to RRD repository path
             final String hostAddress = InetAddressUtils.str(addr);
-			String path = repository + File.separator + hostAddress;
+            Path path = repository.resolve(hostAddress);
 
-            StringBuffer value = new StringBuffer();
-            Iterator<String> i = entries.keySet().iterator();
-            while (i.hasNext()) {
-                Number num = entries.get(i.next());
+            StringBuilder value = new StringBuilder();
+            for (Map.Entry<String, Number> entry : entries.entrySet()) {
+                Number num = entry.getValue();
+                if (value.length() > 0) {
+                    value.append(":");
+                }
                 if (num == null || Double.isNaN(num.doubleValue())) {
                     value.append("U");
                 } else {
@@ -237,9 +241,6 @@ public class LatencyStoringServiceMonitorAdaptor implements ServiceMonitor {
                     nf.setMinimumIntegerDigits(0);
                     nf.setMaximumIntegerDigits(Integer.MAX_VALUE);
                     value.append(nf.format(num.doubleValue()));
-                }
-                if (i.hasNext()) {
-                    value.append(":");
                 }
             }
             RrdUtils.updateRRD(hostAddress, path, rrdBaseName, value.toString());
@@ -264,7 +265,7 @@ public class LatencyStoringServiceMonitorAdaptor implements ServiceMonitor {
      * @param rrdBaseName a {@link java.lang.String} object.
      * @throws org.opennms.netmgt.rrd.RrdException if any.
      */
-    public boolean createRRD(String repository, InetAddress addr, String rrdBaseName, String dsName) throws RrdException {
+    public boolean createRRD(Path repository, InetAddress addr, String rrdBaseName, String dsName) throws RrdException {
         List<RrdDataSource> dsList = Collections.singletonList(new RrdDataSource(dsName, "GAUGE", m_pollerConfig.getStep(m_pkg)*2, "U", "U"));
         return createRRD(repository, addr, rrdBaseName, dsList);
 
@@ -282,13 +283,13 @@ public class LatencyStoringServiceMonitorAdaptor implements ServiceMonitor {
      * @param dsList a {@link java.util.List} object.
      * @throws org.opennms.netmgt.rrd.RrdException if any.
      */
-    public boolean createRRD(String repository, InetAddress addr, String rrdBaseName, List<RrdDataSource> dsList) throws RrdException {
+    public boolean createRRD(Path repository, InetAddress addr, String rrdBaseName, List<RrdDataSource> dsList) throws RrdException {
 
         List<String> rraList = m_pollerConfig.getRRAList(m_pkg);
 
         // add interface address to RRD repository path
         final String hostAddress = InetAddressUtils.str(addr);
-		String path = repository + File.separator + hostAddress;
+        Path path = repository.resolve(hostAddress);
 
         return RrdUtils.createRRD(hostAddress, path, rrdBaseName, m_pollerConfig.getStep(m_pkg), dsList, rraList);
 

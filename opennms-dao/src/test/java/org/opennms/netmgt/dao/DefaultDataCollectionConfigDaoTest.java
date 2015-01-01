@@ -28,21 +28,37 @@
 
 package org.opennms.netmgt.dao;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileWriter;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.file.CopyOption;
+import java.nio.file.FileAlreadyExistsException;
+import java.nio.file.FileSystemLoopException;
+import java.nio.file.FileVisitOption;
+import java.nio.file.FileVisitResult;
+import static java.nio.file.FileVisitResult.*;
+import java.nio.file.FileVisitor;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import static java.nio.file.StandardCopyOption.*;
+import java.nio.file.StandardOpenOption;
+import java.nio.file.attribute.BasicFileAttributes;
+import java.nio.file.attribute.FileTime;
 import java.util.Date;
+import java.util.EnumSet;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.apache.commons.io.FileUtils;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Ignore;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TestName;
 import org.opennms.core.test.ConfigurationTestUtils;
 import org.opennms.core.test.MockLogAppender;
 import org.opennms.netmgt.config.DefaultDataCollectionConfigDao;
@@ -54,6 +70,7 @@ import org.opennms.netmgt.config.datacollection.ResourceType;
 import org.opennms.netmgt.config.datacollection.SnmpCollection;
 import org.opennms.netmgt.config.datacollection.SystemDef;
 import org.opennms.netmgt.rrd.RrdRepository;
+import org.opennms.test.mock.MockUtil;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.InputStreamResource;
 
@@ -64,16 +81,20 @@ import org.springframework.core.io.InputStreamResource;
  */
 public class DefaultDataCollectionConfigDaoTest {
 
+    @Rule
+    public TestName m_testName = new TestName();
+
     @Before
     public void setUp() {
+        MockUtil.println("------------ Begin Test " + m_testName.getMethodName() + " --------------------------");
         MockLogAppender.setupLogging();
-        System.setProperty("opennms.home", "src/test/opennms-home");
         ConfigurationTestUtils.setRelativeHomeDirectory("src/test/opennms-home");
     }
 
     @After
     public void tearDown() {
         MockLogAppender.assertNoWarningsOrGreater();
+        MockUtil.println("------------ End Test " + m_testName.getMethodName() + " --------------------------");
     }
 
     @Test
@@ -103,17 +124,17 @@ public class DefaultDataCollectionConfigDaoTest {
 
     @Test
     public void testReload() throws Exception {
-        File source = new File("src/test/opennms-home/etc");
-        File dest = new File("src/target/opennms-home-test/etc");
-        dest.mkdirs();
-        FileUtils.copyDirectory(source, dest, true);
-        File target = new File(dest, "datacollection-config.xml");
-        Date currentDate = new Date(target.lastModified());
+        Path source = Paths.get("src", "test", "opennms-home", "etc");
+        Path dest = Paths.get("target", "opennms-home-test", "etc");
+        Files.createDirectories(dest);
+        copyDirectory(source, dest);
+        Path target = dest.resolve("datacollection-config.xml");
+        Date currentDate = new Date(Files.getLastModifiedTime(target).toMillis());
 
         // Initialize the DAO with auto-reload
         DefaultDataCollectionConfigDao dao = new DefaultDataCollectionConfigDao();
-        dao.setConfigDirectory(new File(dest, "datacollection").getAbsolutePath());
-        dao.setConfigResource(new FileSystemResource(target));
+        dao.setConfigDirectory(dest.resolve("datacollection"));
+        dao.setConfigResource(new FileSystemResource(target.toFile()));
         dao.setReloadCheckInterval(1000l);
         dao.afterPropertiesSet();
 
@@ -121,16 +142,153 @@ public class DefaultDataCollectionConfigDaoTest {
         Assert.assertTrue(currentDate.after(dao.getLastUpdate()));
 
         // Modify the file to trigger the reload.
-        FileWriter w = new FileWriter(target, true);
-        w.write("<!-- Adding a comment to make it different. -->");
-        w.close();
-        currentDate = new Date(target.lastModified());
+        try (BufferedWriter w = Files.newBufferedWriter(target, Charset.defaultCharset(), StandardOpenOption.APPEND, StandardOpenOption.WRITE);) {
+            w.write("<!-- Adding a comment to make it different. -->");
+        }
+        currentDate = new Date(Files.getLastModifiedTime(target).toMillis());
 
         // Wait and check if the data was changed.
         Thread.sleep(2000l);
         Assert.assertFalse(currentDate.after(dao.getLastUpdate()));
 
-        FileUtils.deleteDirectory(dest);
+        deleteDirectory(dest);
+    }
+
+    /**
+     * A {@code FileVisitor} that removes a file-tree ("rm -r")
+     */
+    static class TreeDeleter implements FileVisitor<Path> {
+
+        TreeDeleter(Path dir) {
+        }
+
+        @Override
+        public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) {
+            MockUtil.println("TreeDeleter.preVisitDirectory: " + dir);
+            return CONTINUE;
+        }
+
+        @Override
+        public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) {
+            MockUtil.println("TreeDeleter.visitFile: " + file);
+            try {
+                Files.delete(file);
+            } catch (IOException ex) {
+                System.err.format("Unable to remove file: %s: %s%n", file, ex);
+            }
+            return CONTINUE;
+        }
+
+        @Override
+        public FileVisitResult postVisitDirectory(Path dir, IOException exc) {
+            MockUtil.println("TreeDeleter.postVisitDirectory: " + dir);
+            try {
+                Files.delete(dir);
+            } catch (IOException ex) {
+                System.err.format("Unable to remove directory: %s: %s%n", dir, ex);
+            }
+            return CONTINUE;
+        }
+
+        @Override
+        public FileVisitResult visitFileFailed(Path file, IOException exc) {
+            if (exc instanceof FileSystemLoopException) {
+                System.err.println("cycle detected: " + file);
+            } else {
+                System.err.format("Unable to copy: %s: %s%n", file, exc);
+            }
+            return CONTINUE;
+        }
+    }
+
+    private void deleteDirectory(Path dir) {
+        try {
+            EnumSet<FileVisitOption> opts = EnumSet.of(FileVisitOption.FOLLOW_LINKS);
+            TreeDeleter tc = new TreeDeleter(dir);
+            Files.walkFileTree(dir, opts, Integer.MAX_VALUE, tc);
+            Files.delete(dir);
+        } catch (IOException e) {
+
+        }
+    }
+
+    /**
+     * A {@code FileVisitor} that copies a file-tree ("cp -r")
+     */
+    static class TreeCopier implements FileVisitor<Path> {
+
+        private final Path source;
+        private final Path target;
+
+        TreeCopier(Path source, Path target) {
+            this.source = source;
+            this.target = target;
+        }
+
+        @Override
+        public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) {
+            // before visiting entries in a directory we copy the directory
+            // (okay if directory already exists).
+            CopyOption[] options = new CopyOption[]{COPY_ATTRIBUTES, REPLACE_EXISTING};
+
+            Path newdir = target.resolve(source.relativize(dir));
+            try {
+                Files.copy(dir, newdir, options);
+            } catch (FileAlreadyExistsException x) {
+                // ignore
+            } catch (IOException x) {
+                System.err.format("Unable to create: %s: %s%n", newdir, x);
+                return SKIP_SUBTREE;
+            }
+            return CONTINUE;
+        }
+
+        @Override
+        public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) {
+            try {
+                CopyOption[] options = new CopyOption[]{COPY_ATTRIBUTES, REPLACE_EXISTING};
+                Files.copy(file, target.resolve(source.relativize(file)), options);
+            } catch (IOException ex) {
+                System.err.format("Unable to copy: %s: %s%n", source, ex);
+            }
+            return CONTINUE;
+        }
+
+        @Override
+        public FileVisitResult postVisitDirectory(Path dir, IOException exc) {
+            // fix up modification time of directory when done
+            if (exc == null) {
+                Path newdir = target.resolve(source.relativize(dir));
+                try {
+                    FileTime time = Files.getLastModifiedTime(dir);
+                    Files.setLastModifiedTime(newdir, time);
+                } catch (IOException x) {
+                    System.err.format("Unable to copy all attributes to: %s: %s%n", newdir, x);
+                }
+            }
+            return CONTINUE;
+        }
+
+        @Override
+        public FileVisitResult visitFileFailed(Path file, IOException exc) {
+            if (exc instanceof FileSystemLoopException) {
+                System.err.println("cycle detected: " + file);
+            } else {
+                System.err.format("Unable to copy: %s: %s%n", file, exc);
+            }
+            return CONTINUE;
+        }
+    }
+
+    private static boolean copyDirectory(Path sourceDir, Path destDir) {
+        try {
+            EnumSet<FileVisitOption> opts = EnumSet.of(FileVisitOption.FOLLOW_LINKS);
+            TreeCopier tc = new TreeCopier(sourceDir, destDir);
+            Files.walkFileTree(sourceDir, opts, Integer.MAX_VALUE, tc);
+        } catch (IOException e) {
+
+        }
+        return true;
     }
 
     /**
@@ -177,13 +335,13 @@ public class DefaultDataCollectionConfigDaoTest {
 
     private DefaultDataCollectionConfigDao instantiateDao(String fileName, boolean setConfigDirectory) throws Exception {
         DefaultDataCollectionConfigDao dao = new DefaultDataCollectionConfigDao();
-        File configFile = new File("src/test/opennms-home/etc", fileName);
+        Path configFile = Paths.get("src/test/opennms-home/etc", fileName);
         if (setConfigDirectory) {
-            File configFolder = new File(configFile.getParentFile(), "datacollection");
-            Assert.assertTrue(configFolder.isDirectory());
-            dao.setConfigDirectory(configFolder.getAbsolutePath());
+            Path configFolder = configFile.resolveSibling("datacollection");
+            Assert.assertTrue(Files.isDirectory(configFolder));
+            dao.setConfigDirectory(configFolder.toAbsolutePath());
         }
-        dao.setConfigResource(new InputStreamResource(new FileInputStream(configFile)));
+        dao.setConfigResource(new InputStreamResource(Files.newInputStream(configFile)));
         dao.afterPropertiesSet();
         return dao;
     }

@@ -28,10 +28,10 @@
 
 package org.opennms.netmgt.asterisk.utils;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Properties;
 
 import org.opennms.core.utils.ConfigFileConstants;
@@ -56,10 +56,10 @@ public abstract class AsteriskConfig {
     public static synchronized Properties getProperties() throws IOException {
         LOG.debug("Loading Asterisk configuration properties.");
         Properties properties = new Properties();
-        File configFile = ConfigFileConstants.getFile(ConfigFileConstants.ASTERISK_CONFIG_FILE_NAME);
-        InputStream in = new FileInputStream(configFile);
-        properties.load(in);
-        in.close();
+        Path configFile = ConfigFileConstants.getFile(ConfigFileConstants.ASTERISK_CONFIG_FILE_NAME);
+        try (InputStream in = Files.newInputStream(configFile)) {
+            properties.load(in);
+        }
         return properties;
     }
 }

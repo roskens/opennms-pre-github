@@ -28,16 +28,15 @@
 
 package org.opennms.netmgt.config;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStreamWriter;
 import java.io.Writer;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.attribute.FileTime;
 
-import org.apache.commons.io.IOUtils;
 import org.exolab.castor.xml.MarshalException;
 import org.exolab.castor.xml.ValidationException;
 import org.opennms.core.utils.ConfigFileConstants;
@@ -60,14 +59,14 @@ public class GroupFactory extends GroupManager {
     private static boolean s_initialized = false;
 
     /**
-     * 
+     *
      */
-    private File m_groupsConfFile;
+    private Path m_groupsConfFile;
 
     /**
-     * 
+     *
      */
-    private long m_lastModified;
+    private FileTime m_lastModified = null;
 
     /**
      * Constructor which parses the file
@@ -108,7 +107,7 @@ public class GroupFactory extends GroupManager {
     public static synchronized GroupManager getInstance() {
         return s_instance;
     }
-    
+
     /**
      * <p>setInstance</p>
      *
@@ -128,7 +127,7 @@ public class GroupFactory extends GroupManager {
      * @throws org.exolab.castor.xml.ValidationException if any.
      */
     public synchronized void reload() throws IOException, FileNotFoundException, MarshalException, ValidationException {
-        File confFile = ConfigFileConstants.getFile(ConfigFileConstants.GROUPS_CONF_FILE_NAME);
+        Path confFile = ConfigFileConstants.getFile(ConfigFileConstants.GROUPS_CONF_FILE_NAME);
 
         reloadFromFile(confFile);
     }
@@ -139,17 +138,11 @@ public class GroupFactory extends GroupManager {
      * @throws MarshalException
      * @throws ValidationException
      */
-    private void reloadFromFile(File confFile) throws FileNotFoundException, MarshalException, ValidationException {
+    private void reloadFromFile(Path confFile) throws IOException, FileNotFoundException, MarshalException, ValidationException {
         m_groupsConfFile = confFile;
-        InputStream configIn = null;
-        try {
-            configIn = new FileInputStream(m_groupsConfFile);
-            m_lastModified = m_groupsConfFile.lastModified();
+        try (InputStream configIn = Files.newInputStream(m_groupsConfFile);) {
+            m_lastModified = Files.getLastModifiedTime(m_groupsConfFile);
             parseXml(configIn);
-        } finally {
-            if (configIn != null) {
-                IOUtils.closeQuietly(configIn);
-            }
         }
     }
 
@@ -157,10 +150,10 @@ public class GroupFactory extends GroupManager {
     @Override
     protected void saveXml(String data) throws IOException {
         if (data != null) {
-            Writer fileWriter = new OutputStreamWriter(new FileOutputStream(m_groupsConfFile), "UTF-8");
-            fileWriter.write(data);
-            fileWriter.flush();
-            fileWriter.close();
+            try (Writer fileWriter = Files.newBufferedWriter(m_groupsConfFile, Charset.forName("UTF-8"));) {
+                fileWriter.write(data);
+                fileWriter.flush();
+            }
         }
     }
 
@@ -173,7 +166,7 @@ public class GroupFactory extends GroupManager {
      */
     @Override
     public void update() throws IOException, MarshalException, ValidationException {
-        if (m_lastModified != m_groupsConfFile.lastModified()) {
+        if (m_lastModified == null || !m_lastModified.equals(Files.getLastModifiedTime(m_groupsConfFile))) {
             reload();
         }
     }

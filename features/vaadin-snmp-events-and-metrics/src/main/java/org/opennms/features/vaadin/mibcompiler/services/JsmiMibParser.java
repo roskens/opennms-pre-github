@@ -28,10 +28,14 @@
 
 package org.opennms.features.vaadin.mibcompiler.services;
 
-import java.io.File;
+import java.io.IOException;
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.net.URL;
+import java.nio.file.DirectoryStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -40,6 +44,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.SortedMap;
 import java.util.TreeMap;
+import java.util.logging.Level;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -76,8 +81,8 @@ import org.slf4j.LoggerFactory;
 
 /**
  * JSMIParser implementation of the interface MibParser.
- * 
- * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a> 
+ *
+ * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 @SuppressWarnings("serial")
 public class JsmiMibParser implements MibParser, Serializable {
@@ -92,7 +97,7 @@ public class JsmiMibParser implements MibParser, Serializable {
     private static final Pattern TRAP_OID_PATTERN = Pattern.compile("(.*)\\.(\\d+)$");
 
     /** The MIB directory. */
-    private File mibDirectory;
+    private Path mibDirectory;
 
     /** The parser. */
     private SmiDefaultParser parser;
@@ -118,7 +123,7 @@ public class JsmiMibParser implements MibParser, Serializable {
      * @see org.opennms.features.vaadin.mibcompiler.MibParser#setMibDirectory(java.io.File)
      */
     @Override
-    public void setMibDirectory(File mibDirectory) {
+    public void setMibDirectory(Path mibDirectory) {
         this.mibDirectory = mibDirectory;
     }
 
@@ -126,9 +131,9 @@ public class JsmiMibParser implements MibParser, Serializable {
      * @see org.opennms.features.vaadin.mibcompiler.MibParser#parseMib(java.io.File)
      */
     @Override
-    public boolean parseMib(File mibFile) {
+    public boolean parseMib(Path mibFile) {
         // Validate MIB Directory
-        if (mibDirectory == null || !mibDirectory.isDirectory()) {
+        if (mibDirectory == null || !Files.isDirectory(mibDirectory)) {
             errorHandler.addError("MIB directory has not been set.");
             return false;
         }
@@ -141,13 +146,17 @@ public class JsmiMibParser implements MibParser, Serializable {
         parser.getFileParserPhase().setInputUrls(queue);
 
         // Create a cache of filenames to do case-insensitive lookups
-        final Map<String,File> mibDirectoryFiles = new HashMap<String,File>();
-        for (final File file : mibDirectory.listFiles()) {
-            mibDirectoryFiles.put(file.getName().toLowerCase(), file);
+        final Map<String, Path> mibDirectoryFiles = new HashMap<String, Path>();
+        try (DirectoryStream<Path> stream = Files.newDirectoryStream(mibDirectory);) {
+            for (final Path file : stream) {
+                mibDirectoryFiles.put(file.getFileName().toString().toLowerCase(), file);
+            }
+        } catch (IOException ex) {
+            LOG.error("ioexception", ex);
         }
 
         // Parse MIB
-        LOG.debug("Parsing {}", mibFile.getAbsolutePath());
+        LOG.debug("Parsing {}", mibFile);
         SmiMib mib = null;
         addFileToQueue(queue, mibFile);
         while (true) {
@@ -174,7 +183,7 @@ public class JsmiMibParser implements MibParser, Serializable {
             return false;
 
         // Extracting the module from compiled MIB.
-        LOG.info("The MIB {} has been parsed successfully.", mibFile.getAbsolutePath());
+        LOG.info("The MIB {} has been parsed successfully.", mibFile);
         module = getModule(mib, mibFile);
         return module != null;
     }
@@ -352,15 +361,15 @@ public class JsmiMibParser implements MibParser, Serializable {
      * @param queue the queue
      * @param mibFile the MIB file
      */
-    private void addFileToQueue(List<URL> queue, File mibFile) {
+    private void addFileToQueue(List<URL> queue, Path mibFile) {
         try {
-            URL url = mibFile.toURI().toURL();
+            URL url = mibFile.toUri().toURL();
             if (!queue.contains(url)) {
                 LOG.debug("Adding {} to queue ", url);
                 queue.add(url);
             }
         } catch (Exception e) {
-            LOG.warn("Can't generate URL from {}", mibFile.getAbsolutePath());
+            LOG.warn("Can't generate URL from {}", mibFile);
         }
     }
 
@@ -371,7 +380,7 @@ public class JsmiMibParser implements MibParser, Serializable {
      * @param mibDirectoryFiles the mib directory files
      * @return true, if successful
      */
-    private boolean addDependencyToQueue(final List<URL> queue, final Map<String, File> mibDirectoryFiles) {
+    private boolean addDependencyToQueue(final List<URL> queue, final Map<String, Path> mibDirectoryFiles) {
         final List<String> dependencies = new ArrayList<String>(missingDependencies);
         boolean ok = true;
         for (String dependency : dependencies) {
@@ -379,10 +388,10 @@ public class JsmiMibParser implements MibParser, Serializable {
             for (String suffix : MIB_SUFFIXES) {
                 final String fileName = (dependency+suffix).toLowerCase();
                 if (mibDirectoryFiles.containsKey(fileName)) {
-                    File f = mibDirectoryFiles.get(fileName);
-                    LOG.debug("Checking dependency file {}", f.getAbsolutePath());
-                    if (f.exists()) {
-                        LOG.info("Adding dependency file {}", f.getAbsolutePath());
+                    Path f = mibDirectoryFiles.get(fileName);
+                    LOG.debug("Checking dependency file {}", f);
+                    if (Files.exists(f)) {
+                        LOG.info("Adding dependency file {}", f);
                         addFileToQueue(queue, f);
                         missingDependencies.remove(dependency);
                         found = true;
@@ -405,7 +414,7 @@ public class JsmiMibParser implements MibParser, Serializable {
      * @param mibFile the MIB file
      * @return the module
      */
-    private SmiModule getModule(SmiMib mibObject, File mibFile) {
+    private SmiModule getModule(SmiMib mibObject, Path mibFile) {
         for (SmiModule m : mibObject.getModules()) {
             URL source = null;
             try {
@@ -413,8 +422,8 @@ public class JsmiMibParser implements MibParser, Serializable {
             } catch (Exception e) {}
             if (source != null) {
                 try {
-                    File srcFile = new File(source.toURI());
-                    if (srcFile.getAbsolutePath().equals(mibFile.getAbsolutePath())) {
+                    Path srcFile = Paths.get(source.toURI());
+                    if (srcFile.toAbsolutePath().equals(mibFile.toAbsolutePath())) {
                         return m;
                     }
                 } catch (Exception e) {}
@@ -434,7 +443,7 @@ public class JsmiMibParser implements MibParser, Serializable {
      * <p>This should be consistent with NumericAttributeType and StringAttributeType.</p>
      * <p>For this reason the valid types are: counter, gauge, timeticks, integer, octetstring, string.</p>
      * <p>Any derivative is also valid, for example: Counter32, Integer64, etc...</p>
-     * 
+     *
      * @param type the type
      * @return the type
      */
@@ -479,7 +488,7 @@ public class JsmiMibParser implements MibParser, Serializable {
 
     /*
      * Event processing methods
-     * 
+     *
      */
 
     /**
@@ -675,13 +684,13 @@ public class JsmiMibParser implements MibParser, Serializable {
         String trapOid = getMatcherForOid(getTrapOid(trap)).group(1);
 
         /* RFC3584 sec 3.2 (1) bullet 2 sub-bullet 1 states:
-         * 
+         *
          * "If the next-to-last sub-identifier of the snmpTrapOID value
          * is zero, then the SNMPv1 enterprise SHALL be the SNMPv2
          * snmpTrapOID value with the last 2 sub-identifiers removed..."
-         * 
+         *
          * Issue SPC-592 boils down to the fact that we were not doing the above.
-         * 
+         *
          */
 
         if (trapOid.endsWith(".0")) {

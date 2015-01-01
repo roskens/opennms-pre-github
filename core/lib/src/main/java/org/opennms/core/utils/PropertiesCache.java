@@ -28,12 +28,12 @@
 
 package org.opennms.core.utils;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.attribute.FileTime;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Properties;
@@ -51,66 +51,47 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class PropertiesCache {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(PropertiesCache.class);
 
     public static final String CHECK_LAST_MODIFY_STRING = "org.opennms.utils.propertiesCache.enableCheckFileModified";
 
     private static class PropertiesHolder {
         private Properties m_properties;
-        private final File m_file;
+        private final Path m_path;
         private final Lock lock = new ReentrantLock();
-        private long m_lastModify = 0;
+        private FileTime m_lastModify = FileTime.fromMillis(0L);
         private boolean m_checkLastModify = Boolean.getBoolean(CHECK_LAST_MODIFY_STRING);
 
-        PropertiesHolder(File file) {
-            m_file = file;
+        PropertiesHolder(Path file) {
+            m_path = file;
             m_properties = null;
         }
-        
+
         private Properties read() throws IOException {
-            if (!m_file.canRead()) {
+            if (!Files.isReadable(m_path)) {
                 return null;
             }
 
-            InputStream in = null;
-            try {
-                in = new FileInputStream(m_file);
+            try (InputStream in = Files.newInputStream(m_path);) {
                 Properties prop = new Properties();
                 prop.load(in);
                 if (m_checkLastModify) {
-                    m_lastModify = m_file.lastModified();
+                    m_lastModify = (FileTime) Files.getAttribute(m_path, "basic:lastModifiedTime");
                 }
                 return prop;
-            } finally {
-                if (in != null) {
-                    try {
-                        in.close();
-                    } catch (IOException e) {
-                        // Ignore this exception
-                    }
-                }
             }
         }
-        
+
         private void write() throws IOException {
-            if(!m_file.getParentFile().mkdirs()) {
-            	if(!m_file.getParentFile().exists()) {
-            		LOG.warn("Could not make directory: {}", m_file.getParentFile().getPath());
+            if (!Files.exists(m_path.getParent())) {
+                Path parent = Files.createDirectories(m_path.getParent());
+                if (!Files.exists(parent)) {
+                    LOG.warn("Could not make directory: {}", parent);
             	}
             }
-            OutputStream out = null;
-            try {
-                out = new FileOutputStream(m_file);
+            try (OutputStream out = Files.newOutputStream(m_path);) {
                 m_properties.store(out, null);
-            } finally {
-                if (out != null) {
-                    try {
-                        out.close();
-                    } catch (IOException e) {
-                        // Ignore this exception
-                    }
-                }
             }
         }
 
@@ -120,7 +101,7 @@ public class PropertiesCache {
                 if (m_properties == null) {
                     readWithDefault(new Properties());
                 } else {
-                    if (m_checkLastModify && m_file.canRead() && m_lastModify != m_file.lastModified()) {
+                    if (m_checkLastModify && Files.isReadable(m_path) && !m_lastModify.equals((FileTime) Files.getAttribute(m_path, "basic:lastModifiedTime"))) {
                         m_properties = read();
                     }
                 }
@@ -132,20 +113,20 @@ public class PropertiesCache {
 
         private void readWithDefault(Properties deflt) throws IOException {
             // this is
-            if (deflt == null && !m_file.canRead()) {
+            if (deflt == null && !Files.isReadable(m_path)) {
                 // nothing to load so m_properties remains null no writing necessary
                 // just return to avoid getting the write lock
                 return;
             }
-            
+
             if (m_properties == null) {
                 m_properties = read();
                 if (m_properties == null) {
                     m_properties = deflt;
                 }
-            }   
+            }
         }
-        
+
         public void put(Properties properties) throws IOException {
             lock.lock();
             try {
@@ -174,7 +155,7 @@ public class PropertiesCache {
                 lock.unlock();
             }
         }
-        
+
         public void setProperty(String key, String value) throws IOException {
             lock.lock();
             try {
@@ -208,16 +189,16 @@ public class PropertiesCache {
             } finally {
                 lock.unlock();
             }
-            
+
         }
 
     }
-    
-    
+
+
     private Map<String, PropertiesHolder> m_cache = new TreeMap<String, PropertiesHolder>();
-    
-    private PropertiesHolder getHolder(File propFile) throws IOException {
-        String key = propFile.getCanonicalPath();
+
+    private PropertiesHolder getHolder(Path propFile) throws IOException {
+        String key = propFile.normalize().toString();
         synchronized (m_cache) {
             PropertiesHolder holder = m_cache.get(key);
             if (holder == null) {
@@ -227,7 +208,7 @@ public class PropertiesCache {
             return holder;
         }
     }
-    
+
     /**
      * <p>clear</p>
      */
@@ -244,10 +225,10 @@ public class PropertiesCache {
      * @throws java.io.IOException if any.
      * @return a {@link java.util.Properties} object.
      */
-    public Properties getProperties(File propFile) throws IOException {
+    public Properties getProperties(Path propFile) throws IOException {
         return getHolder(propFile).get();
     }
-    
+
     /**
      * <p>findProperties</p>
      *
@@ -255,7 +236,7 @@ public class PropertiesCache {
      * @return a {@link java.util.Properties} object.
      * @throws java.io.IOException if any.
      */
-    public Properties findProperties(File propFile) throws IOException {
+    public Properties findProperties(Path propFile) throws IOException {
         return getHolder(propFile).find();
     }
     /**
@@ -265,11 +246,11 @@ public class PropertiesCache {
      * @param properties a {@link java.util.Properties} object.
      * @throws java.io.IOException if any.
      */
-    public void saveProperties(final File propFile, final Properties properties) throws IOException {
+    public void saveProperties(final Path propFile, final Properties properties) throws IOException {
         getHolder(propFile).put(properties);
     }
 
-    public void saveProperties(final File propFile, final Map<String, String> attributeMappings) throws IOException {
+    public void saveProperties(final Path propFile, final Map<String, String> attributeMappings) throws IOException {
         if (attributeMappings == null) return;
         final Properties properties = new Properties();
         properties.putAll(attributeMappings);
@@ -283,10 +264,10 @@ public class PropertiesCache {
      * @param props a {@link java.util.Map} object.
      * @throws java.io.IOException if any.
      */
-    public void updateProperties(File propFile, Map<String, String> props) throws IOException {
+    public void updateProperties(Path propFile, Map<String, String> props) throws IOException {
         getHolder(propFile).update(props);
     }
-    
+
     /**
      * <p>setProperty</p>
      *
@@ -295,10 +276,10 @@ public class PropertiesCache {
      * @param value a {@link java.lang.String} object.
      * @throws java.io.IOException if any.
      */
-    public void setProperty(File propFile, String key, String value) throws IOException {
+    public void setProperty(Path propFile, String key, String value) throws IOException {
         getHolder(propFile).setProperty(key, value);
     }
-    
+
     /**
      * <p>getProperty</p>
      *
@@ -307,7 +288,7 @@ public class PropertiesCache {
      * @return a {@link java.lang.String} object.
      * @throws java.io.IOException if any.
      */
-    public String getProperty(File propFile, String key) throws IOException {
+    public String getProperty(Path propFile, String key) throws IOException {
         return getHolder(propFile).getProperty(key);
     }
 

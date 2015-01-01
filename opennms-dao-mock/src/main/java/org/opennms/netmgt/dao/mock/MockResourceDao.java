@@ -28,7 +28,7 @@
 
 package org.opennms.netmgt.dao.mock;
 
-import java.io.File;
+import java.nio.file.Path;
 import java.util.Collection;
 import java.util.List;
 
@@ -42,12 +42,12 @@ import org.opennms.netmgt.model.OnmsResourceType;
 public class MockResourceDao implements ResourceDao {
 
     @Override
-    public File getRrdDirectory() {
+    public Path getRrdDirectory() {
         throw new UnsupportedOperationException("Not yet implemented!");
     }
 
     @Override
-    public File getRrdDirectory(boolean verify) {
+    public Path getRrdDirectory(boolean verify) {
         throw new UnsupportedOperationException("Not yet implemented!");
     }
 

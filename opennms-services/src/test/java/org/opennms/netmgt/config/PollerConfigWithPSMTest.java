@@ -28,10 +28,11 @@
 
 package org.opennms.netmgt.config;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.InputStream;
 import java.net.InetAddress;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.attribute.FileTime;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -63,44 +64,44 @@ public class PollerConfigWithPSMTest {
         MockLogAppender.setupLogging();
 
         Resource dbConfig = new ClassPathResource("/org/opennms/netmgt/config/test-database-schema.xml");
-        InputStream s = dbConfig.getInputStream();
-        DatabaseSchemaConfigFactory dscf = new DatabaseSchemaConfigFactory(s);
-        s.close();
-        DatabaseSchemaConfigFactory.setInstance(dscf);
+        try (InputStream s = dbConfig.getInputStream();) {
+            DatabaseSchemaConfigFactory dscf = new DatabaseSchemaConfigFactory(s);
+            DatabaseSchemaConfigFactory.setInstance(dscf);
 
-        MockNetwork network = new MockNetwork();
-        network.setCriticalService("ICMP");
-        network.addNode(1, "Router");
-        network.addInterface("192.168.1.1");
-        network.addService("ICMP");
-        network.addService("SMTP");
-        network.addInterface("192.168.1.2");
-        network.addService("ICMP");
-        network.addService("SMTP");
-        network.addNode(2, "Server");
-        network.addInterface("192.168.1.3");
-        network.addService("ICMP");
-        network.addService("HTTP");
-        network.addNode(3, "Firewall");
-        network.addInterface("192.168.1.4");
-        network.addService("SMTP");
-        network.addService("HTTP");
-        network.addInterface("192.168.1.5");
-        network.addService("SMTP");
-        network.addService("HTTP");
-        network.addInterface("192.169.1.5");
-        network.addService("SMTP");
-        network.addService("HTTP");
-        network.addNode(4, "TestNode121");
-        network.addInterface("123.12.123.121");
-        network.addService("HTTP");
-        network.addNode(5, "TestNode122");
-        network.addInterface("123.12.123.122");
-        network.addService("HTTP");
+            MockNetwork network = new MockNetwork();
+            network.setCriticalService("ICMP");
+            network.addNode(1, "Router");
+            network.addInterface("192.168.1.1");
+            network.addService("ICMP");
+            network.addService("SMTP");
+            network.addInterface("192.168.1.2");
+            network.addService("ICMP");
+            network.addService("SMTP");
+            network.addNode(2, "Server");
+            network.addInterface("192.168.1.3");
+            network.addService("ICMP");
+            network.addService("HTTP");
+            network.addNode(3, "Firewall");
+            network.addInterface("192.168.1.4");
+            network.addService("SMTP");
+            network.addService("HTTP");
+            network.addInterface("192.168.1.5");
+            network.addService("SMTP");
+            network.addService("HTTP");
+            network.addInterface("192.169.1.5");
+            network.addService("SMTP");
+            network.addService("HTTP");
+            network.addNode(4, "TestNode121");
+            network.addInterface("123.12.123.121");
+            network.addService("HTTP");
+            network.addNode(5, "TestNode122");
+            network.addInterface("123.12.123.122");
+            network.addService("HTTP");
 
-        MockDatabase db = new MockDatabase();
-        db.populate(network);
-        DataSourceFactory.setInstance(db);
+            MockDatabase db = new MockDatabase();
+            db.populate(network);
+            DataSourceFactory.setInstance(db);
+        }
     }
 
     @After
@@ -110,21 +111,21 @@ public class PollerConfigWithPSMTest {
 
     @Test
     public void testPSM() throws Exception {
-        InputStream is = new FileInputStream(new File("src/test/resources/etc/psm-poller-configuration.xml"));
-        PollerConfigFactory factory = new PollerConfigFactory(0, is, "localhost", false);
-        PollerConfigFactory.setInstance(factory);        
-        IOUtils.closeQuietly(is);
-        ServiceMonitor monitor = PollerConfigFactory.getInstance().getServiceMonitor("MQ_API_DirectRte_v2");
-        Assert.assertNotNull(monitor);
-        Package pkg = PollerConfigFactory.getInstance().getPackage("MapQuest");
-        Assert.assertNotNull(pkg);
-        Service svc = PollerConfigFactory.getInstance().getServiceInPackage("MQ_API_DirectRte_v2", pkg);
-        Assert.assertNotNull(svc);
-        Map<String, Object> parameters = new HashMap<String, Object>();
-        for (Parameter p : svc.getParameters()) {
-            parameters.put(p.getKey(), p.getValue() == null ? p.getAnyObject() : p.getValue());
+        try (InputStream is = Files.newInputStream(Paths.get("src", "test", "resources", "etc", "psm-poller-configuration.xml"));) {
+            PollerConfigFactory factory = new PollerConfigFactory(FileTime.fromMillis(0L), is, "localhost", false);
+            PollerConfigFactory.setInstance(factory);
+            ServiceMonitor monitor = PollerConfigFactory.getInstance().getServiceMonitor("MQ_API_DirectRte_v2");
+            Assert.assertNotNull(monitor);
+            Package pkg = PollerConfigFactory.getInstance().getPackage("MapQuest");
+            Assert.assertNotNull(pkg);
+            Service svc = PollerConfigFactory.getInstance().getServiceInPackage("MQ_API_DirectRte_v2", pkg);
+            Assert.assertNotNull(svc);
+            Map<String, Object> parameters = new HashMap<String, Object>();
+            for (Parameter p : svc.getParameters()) {
+                parameters.put(p.getKey(), p.getValue() == null ? p.getAnyObject() : p.getValue());
+            }
+            PollStatus status = monitor.poll(new MockMonitoredService(1, "www.mapquest.com", InetAddress.getByName("www.mapquest.com"), "MQ_API_DirectRte_v2"), parameters);
+            Assert.assertEquals(PollStatus.SERVICE_AVAILABLE, status.getStatusCode());
         }
-        PollStatus status = monitor.poll(new MockMonitoredService(1, "www.mapquest.com", InetAddress.getByName("www.mapquest.com"), "MQ_API_DirectRte_v2"), parameters);
-        Assert.assertEquals(PollStatus.SERVICE_AVAILABLE, status.getStatusCode());
     }
 }

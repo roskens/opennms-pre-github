@@ -28,13 +28,14 @@
 
 package org.opennms.netmgt.dao.jaxb;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import org.opennms.core.xml.AbstractJaxbConfigDao;
 import org.opennms.netmgt.config.vmware.vijava.VmwareCollection;
 import org.opennms.netmgt.config.vmware.vijava.VmwareDatacollectionConfig;
 import org.opennms.netmgt.dao.VmwareDatacollectionConfigDao;
 import org.opennms.netmgt.rrd.RrdRepository;
 
-import java.io.File;
 import java.util.List;
 
 /**
@@ -107,7 +108,7 @@ public class VmwareDatacollectionConfigDaoJaxb extends AbstractJaxbConfigDao<Vmw
     @Override
     public RrdRepository getRrdRepository(String collectionName) {
         RrdRepository repo = new RrdRepository();
-        repo.setRrdBaseDir(new File(getRrdPath()));
+        repo.setRrdBaseDir(getRrdPath());
         repo.setRraList(getRRAList(collectionName));
         repo.setStep(getStep(collectionName));
         repo.setHeartBeat((2 * getStep(collectionName)));
@@ -151,15 +152,11 @@ public class VmwareDatacollectionConfigDaoJaxb extends AbstractJaxbConfigDao<Vmw
      * @return the Rrd's path
      */
     @Override
-    public String getRrdPath() {
-        String rrdPath = getConfig().getRrdRepository();
+    public Path getRrdPath() {
+        Path rrdPath = Paths.get(getConfig().getRrdRepository());
         if (rrdPath == null) {
             throw new RuntimeException("Configuration error, failed to "
                     + "retrieve path to RRD repository.");
-        }
-
-        if (rrdPath.endsWith(File.separator)) {
-            rrdPath = rrdPath.substring(0, (rrdPath.length() - File.separator.length()));
         }
 
         return rrdPath;

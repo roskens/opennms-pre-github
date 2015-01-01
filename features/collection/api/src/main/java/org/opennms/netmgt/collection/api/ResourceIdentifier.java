@@ -28,8 +28,8 @@
 
 package org.opennms.netmgt.collection.api;
 
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.nio.file.InvalidPathException;
+import java.nio.file.Path;
 
 import org.opennms.netmgt.rrd.RrdRepository;
 
@@ -40,20 +40,20 @@ import org.opennms.netmgt.rrd.RrdRepository;
  * @version $Id: $
  */
 public interface ResourceIdentifier {
-    
+
     /**
      * <p>getOwnerName</p>
      *
      * @return a {@link java.lang.String} object.
      */
     public String getOwnerName();
-    
+
     /**
      * <p>getResourceDir</p>
      *
      * @param repository a {@link org.opennms.netmgt.rrd.RrdRepository} object.
      * @return a {@link java.io.File} object.
      */
-    public File getResourceDir(RrdRepository repository) throws FileNotFoundException;
+    public Path getResourceDir(RrdRepository repository) throws InvalidPathException;
 
 }

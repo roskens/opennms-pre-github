@@ -29,6 +29,14 @@
 package org.opennms.netmgt.collectd;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.DirectoryStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import static java.nio.file.StandardCopyOption.ATOMIC_MOVE;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
 
 import org.opennms.core.logging.Logging;
 import org.opennms.core.utils.InetAddressUtils;
@@ -62,15 +70,15 @@ import org.springframework.transaction.PlatformTransactionManager;
  * <P>
  * The CollectableService class ...
  * </P>
- * 
+ *
  * @author <A HREF="mailto:mike@opennms.org">Mike Davidson </A>
  * @author <A HREF="http://www.opennms.org/">OpenNMS </A>
- * 
+ *
  */
 final class CollectableService implements ReadyRunnable {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(CollectableService.class);
-    
+
     /**
      * Interface's parent node identifier
      */
@@ -97,11 +105,11 @@ final class CollectableService implements ReadyRunnable {
     private final CollectorUpdates m_updates;
 
     /**
-     * The thresholdvisitor for this collectable service; called 
+     * The thresholdvisitor for this collectable service; called
      */
     private final ThresholdingVisitor m_thresholdVisitor;
     /**
-     * 
+     *
      */
     private static final boolean ABORT_COLLECTION = true;
 
@@ -116,7 +124,7 @@ final class CollectableService implements ReadyRunnable {
     private final IpInterfaceDao m_ifaceDao;
 
     private final ServiceParameters m_params;
-    
+
     private final RrdRepository m_repository;
 
     /**
@@ -144,15 +152,15 @@ final class CollectableService implements ReadyRunnable {
         m_updates = new CollectorUpdates();
 
         m_lastScheduledCollectionTime = 0L;
-        
+
         m_spec.initialize(m_agent);
-        
+
         m_params = m_spec.getServiceParameters();
         m_repository=m_spec.getRrdRepository(m_params.getCollectionName());
 
         m_thresholdVisitor = ThresholdingVisitor.create(m_nodeId, getHostAddress(), m_spec.getServiceName(), m_repository,  m_params);
     }
-    
+
     /**
      * <p>getAddress</p>
      *
@@ -161,7 +169,7 @@ final class CollectableService implements ReadyRunnable {
     public Object getAddress() {
     	return m_agent.getAddress();
     }
-    
+
     /**
      * <p>getSpecification</p>
      *
@@ -256,7 +264,7 @@ final class CollectableService implements ReadyRunnable {
 
     /**
      * Generate event and send it to eventd via the event proxy.
-     * 
+     *
      * uei Universal event identifier of event to generate.
      */
     private void sendEvent(String uei, String reason) {
@@ -265,7 +273,7 @@ final class CollectableService implements ReadyRunnable {
         builder.setInterface(m_agent.getAddress());
         builder.setService(m_spec.getServiceName());
         builder.setHost(InetAddressUtils.getLocalHostName());
-        
+
         if (reason != null) {
             builder.addParam("reason", reason);
         }
@@ -299,7 +307,7 @@ final class CollectableService implements ReadyRunnable {
             public void run() {
                 doRun();
             }
-            
+
         });
     }
 
@@ -335,7 +343,7 @@ final class CollectableService implements ReadyRunnable {
                 updateStatus(ServiceCollector.COLLECTION_FAILED, new CollectionException("Collection failed unexpectedly: " + e.getClass().getSimpleName() + ": " + e.getMessage(), e));
             }
         }
-        
+
     	// Reschedule the service
         m_scheduler.schedule(m_spec.getInterval(), getReadyRunnable());
     }
@@ -345,7 +353,7 @@ final class CollectableService implements ReadyRunnable {
         if (status != m_status) {
             // Generate data collection transition events
             LOG.debug("run: change in collection status, generating event.");
-            
+
             String reason = null;
             if (e != null) {
                 reason = e.getMessage();
@@ -395,7 +403,7 @@ final class CollectableService implements ReadyRunnable {
                         } finally {
                             Collectd.instrumentation().endPersistingServiceData(m_spec.getPackageName(), m_nodeId, getHostAddress(), m_spec.getServiceName());
                         }
-                        
+
                         /*
                          * Do the thresholding; this could be made more generic (listeners being passed the collectionset), but frankly, why bother?
                          * The first person who actually needs to configure that sort of thing on the fly can code it up.
@@ -408,7 +416,7 @@ final class CollectableService implements ReadyRunnable {
                                 result.visit(m_thresholdVisitor);
                             }
                         }
-                       
+
                         if (result.getStatus() != ServiceCollector.COLLECTION_SUCCEEDED) {
                             throw new CollectionFailed(result.getStatus());
                         }
@@ -425,7 +433,7 @@ final class CollectableService implements ReadyRunnable {
 
 	/**
      * Process any outstanding updates.
-     * 
+     *
      * @return true if update indicates that collection should be aborted (for
      *         example due to deletion flag being set), false otherwise.
      */
@@ -490,24 +498,26 @@ final class CollectableService implements ReadyRunnable {
 
                 // Get path to RRD repository
                 //
-                String rrdPath = DataCollectionConfigFactory.getInstance().getRrdPath();
+                Path rrdPath = DataCollectionConfigFactory.getInstance().getRrdPath();
 
                 // Does the <newNodeId> directory already exist?
-                File newNodeDir = new File(rrdPath + File.separator + m_updates.getReparentNewNodeId());
-                if (!newNodeDir.isDirectory()) {
+                Path newNodeDir = rrdPath.resolve(m_updates.getReparentNewNodeId());
+                if (!Files.isDirectory(newNodeDir)) {
                     // New directory does not exist yet so simply rename the old
                     // directory to
                     // the new directory.
                     //
 
                     // <oldNodeId> directory
-                    File oldNodeDir = new File(rrdPath + File.separator + m_updates.getReparentOldNodeId());
+                    Path oldNodeDir = rrdPath.resolve(m_updates.getReparentOldNodeId());
 
                     try {
                         // Rename <oldNodeId> dir to <newNodeId> dir.
                         LOG.debug("Attempting to rename {} to {}", oldNodeDir, newNodeDir);
-                        if(!oldNodeDir.renameTo(newNodeDir)) {
-                        	LOG.warn("Could not rename file: {}", oldNodeDir.getPath());
+                        try {
+                            Files.move(oldNodeDir, newNodeDir);
+                        } catch (IOException e) {
+                        	LOG.warn("Could not rename file: {}", oldNodeDir);
                         }
                         LOG.debug("Rename successful!!");
                     } catch (SecurityException se) {
@@ -522,17 +532,23 @@ final class CollectableService implements ReadyRunnable {
                     //
 
                     // Get list of files to be renamed/moved
-                    File oldNodeDir = new File(rrdPath + File.separator + m_updates.getReparentOldNodeId());
-                    String[] filesToMove = oldNodeDir.list();
+                    Path oldNodeDir = rrdPath.resolve(m_updates.getReparentOldNodeId());
+                    List<Path> filesToMove = new ArrayList<>();
+                    try (DirectoryStream<Path> stream = Files.newDirectoryStream(oldNodeDir);) {
+                        for (Path path : stream) {
+                            filesToMove.add(path);
+                        }
+                    } catch (IOException ex) {
+                        LOG.error("ioexception", ex);
+                    }
 
-                    if (filesToMove != null) {
+                    if (!filesToMove.isEmpty()) {
                         // Iterate over the file list and rename/move each one
-                        for (int i = 0; i < filesToMove.length; i++) {
-                            File srcFile = new File(oldNodeDir.toString() + File.separator + filesToMove[i]);
-                            File destFile = new File(newNodeDir.toString() + File.separator + filesToMove[i]);
+                        for (Path srcFile : filesToMove) {
+                            Path destFile = newNodeDir.resolve(srcFile);
                             try {
                                 LOG.debug("Attempting to move {} to {}", srcFile, destFile);
-                                srcFile.renameTo(destFile);
+                                Files.move(srcFile, destFile);
                             } catch (SecurityException se) {
                                 LOG.error("Insufficient authority to move RRD files.", se);
                                 break;
@@ -577,7 +593,7 @@ final class CollectableService implements ReadyRunnable {
 
         return !ABORT_COLLECTION;
     }
-    
+
     private void reinitialize(OnmsIpInterface newIface) throws CollectionInitializationException {
         m_spec.release(m_agent);
         m_agent = DefaultCollectionAgent.create(newIface.getId(), m_ifaceDao,
@@ -590,13 +606,13 @@ final class CollectableService implements ReadyRunnable {
      */
     /*
      * TODO Re-create or merge ?
-     * 
+     *
      * The reason of doing a merge is to keep and update the threshold states.
-     * 
+     *
      * It is extremely more easy to just recreate the thresholding visitor to avoid complex
      * operations. But, the cost of doing this is that all the states will be lost, and
      * some alarms will become orphans.
-     * 
+     *
      * Other idea is to create two methods to get and set the states, and detect orphan
      * states. That way, we can decide what to do with orphans (like clear the alarm, or
      * send an auto-rearm), and also it can be used to persist the states across restarts.
@@ -607,7 +623,7 @@ final class CollectableService implements ReadyRunnable {
             m_thresholdVisitor.reload();
         }
     }
-    
+
     /**
      * <p>getReadyRunnable</p>
      *

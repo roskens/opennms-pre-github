@@ -31,13 +31,13 @@ package org.opennms.netmgt.config;
 import static org.opennms.core.utils.InetAddressUtils.addr;
 import static org.opennms.core.utils.InetAddressUtils.toIpAddrBytes;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.InetAddress;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Collections;
 import java.util.List;
 
@@ -74,7 +74,7 @@ public class CollectdConfigFactory implements org.opennms.netmgt.config.api.Coll
     private CollectdConfiguration m_collectdConfig;
     private final Object m_collectdConfigMutex = new Object();
 
-    private final String m_fileName;
+    private final Path m_fileName;
     private final String m_serverName;
     private final boolean m_verifyServer;
 
@@ -88,16 +88,16 @@ public class CollectdConfigFactory implements org.opennms.netmgt.config.api.Coll
     }
 
     public CollectdConfigFactory() throws IOException {
-        m_fileName = ConfigFileConstants.getFile(ConfigFileConstants.COLLECTD_CONFIG_FILE_NAME).getPath();
+        m_fileName = ConfigFileConstants.getFile(ConfigFileConstants.COLLECTD_CONFIG_FILE_NAME);
         m_serverName = OpennmsServerConfigFactory.getInstance().getServerName();
         m_verifyServer = OpennmsServerConfigFactory.getInstance().verifyServer();
 
-        init(new FileInputStream(m_fileName), m_serverName, m_verifyServer);
+        init(Files.newInputStream(m_fileName), m_serverName, m_verifyServer);
     }
 
     /**
      * For testing purposes only.
-     * 
+     *
      * @param stream
      * @param serverName
      * @param verifyServer
@@ -117,18 +117,14 @@ public class CollectdConfigFactory implements org.opennms.netmgt.config.api.Coll
      * @param stream a {@link java.io.InputStream} object.
      * @param localServer a {@link java.lang.String} object.
      * @param verifyServer a boolean.
-     * @throws IOException 
+     * @throws IOException
      */
     private void init(final InputStream stream, final String localServer, boolean verifyServer) throws IOException {
-        InputStreamReader isr = null;
-        try {
-            isr = new InputStreamReader(stream);
+        try (InputStreamReader isr = new InputStreamReader(stream);) {
             CollectdConfiguration config = JaxbUtils.unmarshal(CollectdConfiguration.class, isr);
             synchronized (m_collectdConfigMutex) {
                 m_collectdConfig = config;
             }
-        } finally {
-            IOUtils.closeQuietly(isr);
         }
     }
 
@@ -140,7 +136,7 @@ public class CollectdConfigFactory implements org.opennms.netmgt.config.api.Coll
      * @throws java.io.IOException if any.
      */
     public void reload() throws IOException {
-        init(new FileInputStream(m_fileName), m_serverName, m_verifyServer);
+        init(Files.newInputStream(m_fileName), m_serverName, m_verifyServer);
     }
 
     /**
@@ -149,19 +145,15 @@ public class CollectdConfigFactory implements org.opennms.netmgt.config.api.Coll
      * @throws java.io.IOException if any.
      */
     public void saveCurrent() throws IOException {
-        File cfgFile = ConfigFileConstants.getFile(ConfigFileConstants.COLLECTD_CONFIG_FILE_NAME);
+        Path cfgFile = ConfigFileConstants.getFile(ConfigFileConstants.COLLECTD_CONFIG_FILE_NAME);
 
         CollectdConfiguration config = null;
         synchronized (m_collectdConfigMutex) {
             config = m_collectdConfig;
         }
 
-        FileWriter writer = null;
-        try {
-            writer = new FileWriter(cfgFile);
+        try (FileWriter writer = new FileWriter(cfgFile.toFile());) {
             JaxbUtils.marshal(config, writer);
-        } finally {
-            IOUtils.closeQuietly(writer);
         }
 
         reload();
@@ -310,7 +302,7 @@ public class CollectdConfigFactory implements org.opennms.netmgt.config.api.Coll
 
     private static String getFilterRule(String filter, String localServer, boolean verifyServer) {
         StringBuffer filterRules = new StringBuffer(filter);
-    
+
         if (verifyServer) {
             filterRules.append(" & (serverName == ");
             filterRules.append('\"');
@@ -336,7 +328,7 @@ public class CollectdConfigFactory implements org.opennms.netmgt.config.api.Coll
         // database and populate the package, IP list map.
         //
         String filterRules = getFilterRule(filter, m_serverName, m_verifyServer);
-        
+
         LOG.debug("interfaceInFilter: package is {}. filter rules are {}", pkg.getName(), filterRules);
         try {
             ipList = FilterDaoFactory.getInstance().getActiveIPAddressList(filterRules);
@@ -360,7 +352,7 @@ public class CollectdConfigFactory implements org.opennms.netmgt.config.api.Coll
      * <strong>Note: </strong>Evaluation of the interface against a package
      * filter will only work if the IP is already in the database.
      *
-     * @deprecated This function should take normal model objects instead of bare IP 
+     * @deprecated This function should take normal model objects instead of bare IP
      * addresses. Move this implementation into {@link #interfaceInPackage(OnmsIpInterface)}.
      *
      * @param iface
