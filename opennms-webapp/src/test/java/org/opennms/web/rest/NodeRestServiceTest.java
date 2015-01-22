@@ -50,6 +50,7 @@ import javax.xml.bind.Unmarshaller;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.opennms.core.test.MockLogAppender;
@@ -495,6 +496,7 @@ public class NodeRestServiceTest extends AbstractSpringJerseyRestTestCase {
 
     @Test
     @JUnitTemporaryDatabase
+    @Ignore
     public void testMetricsResource() throws Exception {
         createIpInterface();
         System.err.println("testMetricsResource(): createIpInterface()");
