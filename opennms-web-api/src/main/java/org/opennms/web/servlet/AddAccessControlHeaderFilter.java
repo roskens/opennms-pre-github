@@ -36,6 +36,7 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
@@ -44,27 +45,53 @@ import javax.servlet.http.HttpServletResponse;
  * @since 1.9.90
  */
 public class AddAccessControlHeaderFilter implements Filter {
-	private String m_origin = null;
+    private String m_methods;
+    private String m_headers;
 
-        @Override
+    @Override
     public void doFilter(final ServletRequest request, final ServletResponse response, final FilterChain chain) throws IOException, ServletException {
-    	final HttpServletResponse httpResponse = (HttpServletResponse) response;
-    	if (m_origin != null && !httpResponse.containsHeader("Access-Control-Allow-Origin")) {
-    		httpResponse.setHeader("Access-Control-Allow-Origin", m_origin);
-    	}
-        chain.doFilter(request, httpResponse);
+        final HttpServletRequest  httpRequest  = (HttpServletRequest) request;
+        final HttpServletResponse httpResponse = (HttpServletResponse) response;
+
+        final String origin = httpRequest.getHeader("Origin");
+        if (origin != null && !origin.trim().isEmpty()) {
+            httpResponse.setHeader("Access-Control-Allow-Origin", origin);
+            // if we have an origin, we're allowed to accept basic auth
+            httpResponse.setHeader("Access-Control-Allow-Credentials", "true");
+        } else {
+            httpResponse.setHeader("Access-Control-Allow-Origin", "*");
+        }
+
+        if (m_methods != null && !m_methods.trim().isEmpty()) {
+            httpResponse.setHeader("Access-Control-Allow-Methods", m_methods);
+        } else {
+            httpResponse.setHeader("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE");
+        }
+
+        if (m_headers != null && !m_headers.trim().isEmpty()) {
+            httpResponse.setHeader("Access-Control-Allow-Headers", m_headers);
+        } else {
+            httpResponse.setHeader("Access-Control-Allow-Headers", "Accept, Authorization, Content-Type, Origin, Referer, User-Agent, X-Requested-With");
+        }
+
+        if (httpRequest.getMethod().equalsIgnoreCase("OPTIONS")) {
+            httpResponse.setStatus(200);
+        } else {
+            chain.doFilter(request, httpResponse);
+        }
     }
 
     /** {@inheritDoc} */
-        @Override
+    @Override
     public void init(final FilterConfig config) {
-    	m_origin = config.getInitParameter("origin");
+        m_methods = config.getInitParameter("methods");
+        m_headers = config.getInitParameter("headers");
     }
 
     /**
      * <p>destroy</p>
      */
-        @Override
+    @Override
     public void destroy() {
     }
 

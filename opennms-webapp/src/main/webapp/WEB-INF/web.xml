@@ -82,13 +82,21 @@
 
   <filter>
     <description>Allows "cross-site scripting" for the REST services.</description>
-    <filter-name>AccessControlAllowOrigin</filter-name>
+    <filter-name>CORS</filter-name>
     <filter-class>org.opennms.web.servlet.AddAccessControlHeaderFilter</filter-class>
-    <!-- 
+    <!-- Without any changes, this filter should work for most ReST clients.  The following
+         init-params allow you to tune what is allowed through CORS.  The <param-value> tags
+         are what the filter will do by default without user intervention. -->
+    <!--
     <init-param>
-      <description>This parameter specifies what origins to allow.</description>
-      <param-name>origin</param-name>
-      <param-value>*</param-value>
+      <description>Which methods to allow as CORS requests by default.</description>
+      <param-name>methods</param-name>
+      <param-value>GET, PUT, POST, DELETE</param-value>
+    </init-param>
+    <init-param>
+      <description>Which headers to allow in CORS requests by default.</description>
+      <param-name>headers</param-name>
+      <param-value>Accept, Authorization, Content-Type, Origin, Referer, User-Agent, X-Requested-With</param-value>
     </init-param>
     -->
   </filter>
@@ -160,6 +168,11 @@
   <!-- WARMERGE: insert filter -->
 
   <filter-mapping>
+    <filter-name>CORS</filter-name>
+    <url-pattern>/rest/*</url-pattern>
+  </filter-mapping>
+
+  <filter-mapping>
     <filter-name>characterEncodingFilter</filter-name>
     <url-pattern>/*</url-pattern>
   </filter-mapping>
@@ -168,7 +181,7 @@
     <filter-name>openSessionInViewFilter</filter-name>
     <url-pattern>/*</url-pattern>
   </filter-mapping>
-  
+
   <filter-mapping>
     <filter-name>springSecurityFilterChain</filter-name>
     <url-pattern>/*</url-pattern>
@@ -179,11 +192,6 @@
     <url-pattern>/*</url-pattern>
   </filter-mapping>
 
-  <filter-mapping>
-    <filter-name>AccessControlAllowOrigin</filter-name>
-    <url-pattern>/rest/*</url-pattern>
-  </filter-mapping>
-  
   <filter-mapping>
     <filter-name>AddRefreshHeader-300</filter-name>
     <url-pattern>/index.jsp</url-pattern>
