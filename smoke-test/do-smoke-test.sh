@@ -18,6 +18,18 @@ PACKAGES="$@"; shift
 if [ -z "$PACKAGES" ]; then
 	PACKAGES="opennms opennms-plugins"
 fi
+PACKAGE_NAME=""
+for PACK in $PACKAGES; do
+	if [ `echo "$PACK" | grep -c -- -` -eq 0 ] && [ -z "$PACKAGE_NAME" ]; then
+		echo "Assuming '$PACK' is the 'main' package."
+		PACKAGE_NAME="$PACK"
+		break;
+	fi
+done
+if [ -z "$PACKAGE_NAME" ]; then
+	echo "Unable to determine main package name."
+	exit 1
+fi
 
 die() {
 	echo "exiting: $@"
@@ -48,12 +60,10 @@ get_branch_from_git() {
 }
 
 get_branch_from_rpm() {
-	PACKAGE_NAME=`echo "$PACKAGES" | awk '{ print $1 }'`
 	rpm -qi "$PACKAGE_NAME" 2>&1 | grep ' build from the' | sed -e 's,^.*build from the ,,' -e 's, branch.*$,,'
 }
 
 get_hash_from_rpm() {
-	PACKAGE_NAME=`echo "$PACKAGES" | awk '{ print $1 }'`
 	rpm -qi "$PACKAGE_NAME" 2>&1 | grep -E '(opennms.git.sourceforge.net|github.com)' | sed -e 's,^.*shortlog;h=,,'
 }
 
