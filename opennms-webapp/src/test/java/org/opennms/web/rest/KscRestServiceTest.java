@@ -49,6 +49,8 @@ import org.opennms.test.JUnitConfigurationEnvironment;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.web.WebAppConfiguration;
 
+import com.google.gwt.thirdparty.guava.common.io.Files;
+
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @WebAppConfiguration
 @ContextConfiguration(locations={
@@ -76,6 +78,9 @@ public class KscRestServiceTest extends AbstractSpringJerseyRestTestCase {
 
     @Override
     protected void beforeServletStart() throws Exception {
+        /* make sure the file is reset every time, otherwise we're reliant on test ordering */
+        final File sourceFile = new File("src/test/resources/ksc-performance-reports.xml");
+        Files.copy(sourceFile, m_configFile);
         KSC_PerformanceReportFactory.setConfigFile(m_configFile);
         KSC_PerformanceReportFactory.getInstance().reload();
     }
