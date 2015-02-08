@@ -225,7 +225,7 @@ public abstract class AbstractOnmsUpgrade implements OnmsUpgrade {
      * @throws OnmsUpgradeException the OpenNMS upgrade exception
      */
     protected boolean isRrdToolEnabled() throws OnmsUpgradeException {
-        return !getRrdStrategy().endsWith("JRobinRrdStrategy");
+        return getRrdStrategy().endsWith("JniRrdStrategy");
     }
 
     /**
