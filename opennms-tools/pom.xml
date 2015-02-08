@@ -37,7 +37,7 @@
         <module>jrobin-spike-hunter</module>
         <module>scriptd-event-proxy</module>
         <module>jrb-to-rrd-converter</module>
-        <module>jrb-to-rrd-converter</module>
+        <module>rrd-to-newts-converter</module>
         <module>csv-requisitions</module>
         <module>csv-address</module>
       </modules>
