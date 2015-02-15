@@ -66,17 +66,31 @@ public class VmwareConfigBuilder {
 
         public String getGraphDefinition(String apiVersion) {
             String resourceType = (multiInstance ? "vmware" + apiVersion + groupName : "nodeSnmp");
+            String reportName= "report.vmware"+apiVersion+"."+aliasName;
 
-            String def = "report.vmware" + apiVersion + "." + aliasName + ".name=vmware" + apiVersion + "." + humanReadableName + "\n" + "report.vmware" + apiVersion + "." + aliasName + ".columns=" + aliasName + "\n";
+            StringBuilder def = new StringBuilder();
+            def.append(reportName).append(".name=vmware").append(apiVersion).append(".").append(humanReadableName).append("\n");
+            def.append(reportName).append(".columns=").append(aliasName).append("\n");
 
             if (multiInstance) {
-                def += "report.vmware" + apiVersion + "." + aliasName + ".propertiesValues=vmware" + apiVersion + groupName + "Name\n";
+                def.append(reportName).append(".propertiesValues=vmware").append(apiVersion).append(groupName).append("Name\n");
             }
 
-            def += "report.vmware" + apiVersion + "." + aliasName + ".type=" + resourceType + "\n" + "report.vmware" + apiVersion + "." + aliasName + ".command=--title=\"VMWare" + apiVersion + " " + humanReadableName + (multiInstance ? " {" + resourceType + "Name}" : "") + "\" \\\n" + "--vertical-label=\"" + aliasName + "\" \\\n" + "DEF:xxx={rrd1}:"
-                    + "{ds1}" + ":AVERAGE \\\n" + "LINE2:xxx#0000ff:\"" + aliasName + "\" \\\n" + "GPRINT:xxx:AVERAGE:\"Avg  \\\\: %8.2lf %s\" \\\n" + "GPRINT:xxx:MIN:\"Min  \\\\: %8.2lf %s\" \\\n" + "GPRINT:xxx:MAX:\"Max  \\\\: %8.2lf %s\\\\n\" \n\n";
+            def.append(reportName).append(".type=").append(resourceType).append("\n");
+            def.append(reportName).append(".command=");
+            def.append("--title=\"VMWare").append(apiVersion).append(" ").append(humanReadableName);
+            if (multiInstance) {
+                def.append(" {").append(resourceType).append("Name}");
+            }
+            def.append("\" \\\n");
+            def.append("--vertical-label=\"").append(aliasName).append("\" \\\n");
+            def.append("DEF:xxx={rrd1}:{ds1}:AVERAGE \\\n");
+            def.append("LINE2:xxx#0000ff:\"").append(aliasName).append("\" \\\n");
+            def.append("GPRINT:xxx:AVERAGE:\"Avg  \\\\: %8.2lf %s\" \\\n");
+            def.append("GPRINT:xxx:MIN:\"Min  \\\\: %8.2lf %s\" \\\n");
+            def.append("GPRINT:xxx:MAX:\"Max  \\\\: %8.2lf %s\\\\n\" \n\n");
 
-            return def;
+            return def.toString();
         }
 
         public String getInclude(String apiVersion) {
