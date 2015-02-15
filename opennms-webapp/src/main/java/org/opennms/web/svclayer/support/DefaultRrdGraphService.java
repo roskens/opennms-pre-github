@@ -308,7 +308,8 @@ public class DefaultRrdGraphService implements RrdGraphService, InitializingBean
     protected String createPrefabCommand(Graph graph, String commandPrefix, File workDir, String reportName, Integer width, Integer height) {
         PrefabGraph prefabGraph = graph.getPrefabGraph();
 
-        String[] rrds = getRrdNames(graph.getResource(), graph.getPrefabGraph().getColumns());
+        String[] rrds = getRrdNames(graph.getResource(), prefabGraph.getColumns());
+        String[] dsNames = prefabGraph.getColumns();
 
         StringBuffer buf = new StringBuffer();
         buf.append(commandPrefix);
@@ -333,6 +334,11 @@ public class DefaultRrdGraphService implements RrdGraphService, InitializingBean
         for (int i = 0; i < rrds.length; i++) {
             String key = "{rrd" + (i + 1) + "}";
             translationMap.put(key, rrds[i]);
+        }
+
+        for (int i = 0; i < dsNames.length; i++) {
+            String key = "{ds" + (i + 1) + "}";
+            translationMap.put(key, dsNames[i]);
         }
 
         translationMap.put("{startTime}", startTimeString);
