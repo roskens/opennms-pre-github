@@ -43,7 +43,7 @@ report.$rpt.height=$height
 report.$rpt.width=$width
 report.$rpt.command=--title="{label}" \\
  --height $height --width $width \\
- DEF:v1={rrd1}:$name:AVERAGE \\
+ DEF:v1={rrd1}:{ds1}:AVERAGE \\
  LINE2:v1#$color:"$measType->{content}" \\
  COMMENT:"\\\\n" \\
  GPRINT:v1:AVERAGE:"    Avg\\\\: %8.2lf %s" \\

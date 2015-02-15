@@ -299,7 +299,7 @@ public class JsmiMibParser implements MibParser, Serializable {
                     String descr = v.getDescription().replaceAll("[\n\r]", "").replaceAll("\\s+", " ");
                     StringBuffer sb = new StringBuffer();
                     sb.append("--title=\"").append(v.getId()).append("\" \\\n");
-                    sb.append(" DEF:var={rrd1}:").append(alias).append(":AVERAGE \\\n");
+                    sb.append(" DEF:var={rrd1}:{ds1}:AVERAGE \\\n");
                     sb.append(" LINE1:var#0000ff:\"").append(v.getId()).append("\" \\\n");
                     sb.append(" GPRINT:var:AVERAGE:\"Avg\\\\: %8.2lf %s\" \\\n");
                     sb.append(" GPRINT:var:MIN:\"Min\\\\: %8.2lf %s\" \\\n");

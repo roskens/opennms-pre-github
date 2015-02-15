@@ -466,7 +466,7 @@ class SnmpGraphProperties extends PropertiesConfigurationFile {
      	put("report.${reportName}.type", "nodeSnmp")
      	def prop = put("report.${reportName}.command")
      	prop << "--title=\"${svc.serviceName} Document Count\" " 
-        prop << " DEF:cnt={rrd1}:${svc.dsName}:AVERAGE "
+        prop << " DEF:cnt={rrd1}:{ds1}:AVERAGE "
         prop << " LINE2:cnt#0000ff:\"Document Count\" "
         prop << " GPRINT:cnt:AVERAGE:\" Avg  \\\\: %8.2lf %s\" " 
         prop << " GPRINT:cnt:MIN:\"Min  \\\\: %8.2lf %s\" "
@@ -673,7 +673,7 @@ class ResponseGraphProperties extends PropertiesConfigurationFile {
      	def prop = put("report.${svc.reportName}.command")
      	prop << "--title=\"${svc.serviceName} Response Time\" " 
      	prop << " --vertical-label=\"Seconds\" "
-     	prop << " DEF:rtMills={rrd1}:${svc.dsName}:AVERAGE "
+     	prop << " DEF:rtMills={rrd1}:{ds1}:AVERAGE "
      	prop << " CDEF:rt=rtMills,1000,/ "
         prop << " LINE1:rt#0000ff:\"Response Time\" "
      	prop << " GPRINT:rt:AVERAGE:\" Avg  \\\\: %8.2lf %s\" "
