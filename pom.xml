@@ -205,7 +205,7 @@
         <executions>
           <execution>
             <id>features.xml</id>
-            <phase>process-resources</phase>
+            <phase>prepare-package</phase>
             <goals><goal>generate-features-xml</goal></goals>
           </execution>
         </executions>
