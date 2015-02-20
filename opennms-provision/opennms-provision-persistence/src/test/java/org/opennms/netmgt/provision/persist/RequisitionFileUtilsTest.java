@@ -63,6 +63,7 @@ public class RequisitionFileUtilsTest {
     @Test
     public void testCreateTemporaryRequisition() throws Exception {
         final File file = RequisitionFileUtils.createSnapshot(m_repository, "test", new Date());
+        Thread.sleep(1);
         assertNotNull(file);
         assertTrue(file.getPath().contains("target/RequisitionFileUtilsTest/imports/test"));
         assertTrue(file.getPath().matches(".*target/RequisitionFileUtilsTest/imports/test.xml.\\d+"));
@@ -71,10 +72,12 @@ public class RequisitionFileUtilsTest {
         assertNotNull(snapshots);
         assertEquals(1, snapshots.size());
         RequisitionFileUtils.createSnapshot(m_repository, "test", new Date());
+        Thread.sleep(1);
         assertEquals(2, RequisitionFileUtils.findSnapshots(m_repository, "test").size());
         
         m_repository.save(new Requisition("test2"));
         RequisitionFileUtils.createSnapshot(m_repository, "test2", new Date());
+        Thread.sleep(1);
         assertEquals(1, RequisitionFileUtils.findSnapshots(m_repository, "test2").size());
         assertEquals(2, RequisitionFileUtils.findSnapshots(m_repository, "test").size());
     }
