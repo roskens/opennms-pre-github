@@ -32,12 +32,8 @@ import org.apache.commons.cli.*;
 
 import java.io.File;
 import java.io.PrintWriter;
-import java.lang.management.ManagementFactory;
-import java.lang.management.ThreadInfo;
-import java.lang.management.ThreadMXBean;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.concurrent.ExecutorService;
@@ -363,7 +359,7 @@ public class Rrd4JToNewtsConverter {
                 System.out.println("Shutting down executor service.");
                 m_executor.shutdown();
 
-                m_rrdStrategy.getClient().shutdown();
+                m_rrdStrategy.getConnection().shutdown();
 
                 m_executor.shutdownNow();
 

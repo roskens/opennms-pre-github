@@ -85,12 +85,14 @@ public class NewtsConnection {
         String csTTL = m_properties.getProperty("org.opennms.rrd.newts.ttl", "31622400");
         Integer ttl = Integer.parseInt(csTTL);
 
+        String csCompression = m_properties.getProperty("org.opennms.rrd.newts.compression", "NONE");
+
         if (csKeyspace.contains("-")) {
             throw new IllegalArgumentException("keyspace '" + csKeyspace + "' contains illegal characters.");
         }
 
         // Create the keyspace & schema if it does not exist.
-        LOG.debug("init: keyspace='{}', host={}:{}", csKeyspace, csHost, port);
+        LOG.debug("init: keyspace='{}', host={}:{} using compression {}", csKeyspace, csHost, port, csCompression);
         try (SchemaManager m = new SchemaManager(csKeyspace, csHost, port)) {
             for (Schema s : s_schemas) {
                 m.create(s);
@@ -100,7 +102,7 @@ public class NewtsConnection {
         }
 
         // Create new Cassandra session instance
-        m_session = new CassandraSession(csKeyspace, csHost, port);
+        m_session = new CassandraSession(csKeyspace, csHost, port, csCompression);
 
         // Create an empty sample processor service
         SampleProcessorService processors = new SampleProcessorService(numProcessors, Collections.<SampleProcessor>emptySet());
@@ -125,6 +127,10 @@ public class NewtsConnection {
 
     public void insert(List<Sample> samples) {
         getSampleRepository().insert(samples);
+    }
+
+    public void insert(List<Sample> samples, boolean calcTTL) {
+        getSampleRepository().insert(samples, calcTTL);
     }
 
     public void shutdown() {

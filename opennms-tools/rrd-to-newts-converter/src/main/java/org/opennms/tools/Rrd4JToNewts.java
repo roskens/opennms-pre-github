@@ -41,12 +41,10 @@ import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.TimeUnit;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 import org.opennms.netmgt.rrd.RrdDataSource;
-import org.opennms.netmgt.rrd.newts.NewtsDef;
+import org.opennms.netmgt.rrd.newts.RRDDefinition;
 import org.opennms.netmgt.rrd.newts.NewtsMetric;
 import org.opennms.netmgt.rrd.newts.NewtsResource;
 import org.opennms.netmgt.rrd.newts.NewtsRrdStrategy;
@@ -164,7 +162,7 @@ public final class Rrd4JToNewts implements Runnable {
                 }
             }
             
-            NewtsDef ndef = m_strategy.createDefinition("", file.getParent(), file.getName(), (int) def.getStep(), dataSources, rraList);
+            RRDDefinition ndef = m_strategy.createDefinition("", file.getParent(), file.getName(), (int) def.getStep(), dataSources, rraList);
             m_strategy.createFile(ndef, null);
             NewtsResource nres = m_strategy.openFile(file.getAbsolutePath());
             List<Sample> samples = new ArrayList<>();
@@ -209,7 +207,7 @@ public final class Rrd4JToNewts implements Runnable {
                         }
                         try {
                             if (samples.size() >= 100) {
-                                m_strategy.getClient().insert(samples);
+                                m_strategy.getConnection().insert(samples, true);
                                 samples.clear();
                             }
                         } catch (Exception e) {
@@ -217,7 +215,7 @@ public final class Rrd4JToNewts implements Runnable {
                         }
                     }
                     if (!samples.isEmpty()) {
-                        m_strategy.getClient().insert(samples);
+                        m_strategy.getConnection().insert(samples, true);
                         samples.clear();
                     }
                     

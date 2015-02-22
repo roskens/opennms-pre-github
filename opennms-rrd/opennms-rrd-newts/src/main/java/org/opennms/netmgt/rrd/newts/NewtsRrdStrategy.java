@@ -38,7 +38,6 @@ import java.util.Properties;
 import java.util.TreeSet;
 import java.util.concurrent.TimeUnit;
 import org.apache.commons.configuration.ConfigurationException;
-import org.jrobin.core.RrdException;
 import org.jrobin.data.Plottable;
 import org.jrobin.graph.RrdGraph;
 import org.jrobin.graph.RrdGraphDef;
@@ -310,7 +309,7 @@ public class NewtsRrdStrategy extends AbstractJRobinRrdStrategy<RRDDefinition, N
         return ".newts";
     }
 
-    public NewtsConnection getClient() {
+    public NewtsConnection getConnection() {
         return m_newts;
     }
 

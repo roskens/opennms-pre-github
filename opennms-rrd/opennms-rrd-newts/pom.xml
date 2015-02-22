@@ -53,12 +53,12 @@
     <dependency>
       <groupId>org.opennms.newts</groupId>
       <artifactId>newts-api</artifactId>
-      <version>1.0.0</version>
+      <version>1.0.1-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>org.opennms.newts</groupId>
       <artifactId>newts-cassandra</artifactId>
-      <version>1.0.0</version>
+      <version>1.0.1-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>org.xerial.snappy</groupId>

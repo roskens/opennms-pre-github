@@ -3,11 +3,11 @@
   <parent>
     <artifactId>opennms-tools</artifactId>
     <groupId>org.opennms</groupId>
-    <version>15.0.0</version>
+    <version>15.0.1</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <artifactId>rrd-to-newts-converter</artifactId>
-  <name>RRD4J to Newts File Converter</name>
+  <name>RRD to Newts File Converter</name>
   <packaging>jar</packaging>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -44,6 +44,16 @@
         <groupId>ch.qos.logback</groupId>
         <artifactId>logback-classic</artifactId>
         <version>1.1.2</version>
+    </dependency>
+    <dependency>
+      <groupId>org.opennms.newts</groupId>
+      <artifactId>newts-api</artifactId>
+      <version>1.0.1-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <groupId>org.opennms.newts</groupId>
+      <artifactId>newts-cassandra</artifactId>
+      <version>1.0.1-SNAPSHOT</version>
     </dependency>
   </dependencies>
   <build>
