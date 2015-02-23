@@ -57,9 +57,8 @@ import org.slf4j.LoggerFactory;
  * to store the collected metrics, and JRobin 1.6 for graphing.
  *
  * @author roskens
- * @version $Id: $
  */
-public class NewtsRrdStrategy extends AbstractJRobinRrdStrategy<RRDDefinition, NewtsResource> {
+public class NewtsRrdStrategy extends AbstractJRobinRrdStrategy<NewtsRrdDefinition, NewtsRrd> {
 
     private static final Logger LOG = LoggerFactory.getLogger(NewtsRrdStrategy.class);
 
@@ -73,7 +72,7 @@ public class NewtsRrdStrategy extends AbstractJRobinRrdStrategy<RRDDefinition, N
     private NewtsConnection m_newts;
 
     /**
-     * <p>getConfigurationProperties</p>
+     * getConfigurationProperties
      *
      * @return a {@link java.util.Properties} object.
      */
@@ -81,7 +80,6 @@ public class NewtsRrdStrategy extends AbstractJRobinRrdStrategy<RRDDefinition, N
         return m_configurationProperties;
     }
 
-    /** {@inheritDoc} */
     @Override
     public void setConfigurationProperties(final Properties configurationParameters) {
         m_configurationProperties = configurationParameters;
@@ -102,12 +100,11 @@ public class NewtsRrdStrategy extends AbstractJRobinRrdStrategy<RRDDefinition, N
      * @throws java.lang.Exception if any.
      */
     @Override
-    public void closeFile(final NewtsResource resource) throws Exception {
+    public void closeFile(final NewtsRrd resource) throws Exception {
     }
 
-    /** {@inheritDoc} */
     @Override
-    public RRDDefinition createDefinition(final String creator,
+    public NewtsRrdDefinition createDefinition(final String creator,
       final String directory, final String rrdName, final int step,
       final List<RrdDataSource> dataSources, final List<String> rraList) throws Exception {
         File f = new File(directory);
@@ -120,23 +117,24 @@ public class NewtsRrdStrategy extends AbstractJRobinRrdStrategy<RRDDefinition, N
             return null;
         }
 
-        return new RRDDefinition(directory, rrdName, step, dataSources, rraList);
+        return new NewtsRrdDefinition(directory, rrdName, step, dataSources, rraList);
     }
 
     /**
      * Adds the metrics in def to the Newts database.
      *
      * @param rrdDef
+     * @param attributeMappings
      * @throws java.lang.Exception if any.
      */
     @Override
-    public void createFile(final RRDDefinition rrdDef, final Map<String, String> attributeMappings) throws Exception {
+    public void createFile(final NewtsRrdDefinition rrdDef, final Map<String, String> attributeMappings) throws Exception {
         if (rrdDef == null) {
             LOG.debug("createRRD: skipping RRD file");
             return;
         }
         LOG.info("createRRD: creating RRD file {}", rrdDef.getPath());
-        
+
         try {
             rrdDef.saveDefinition(new File(rrdDef.getPath()));
         } catch (ConfigurationException e) {
@@ -151,27 +149,36 @@ public class NewtsRrdStrategy extends AbstractJRobinRrdStrategy<RRDDefinition, N
     }
 
     /**
-     * {@inheritDoc}
-     * Opens the NewtsResource by name and returns it.
+     * Returns a {@link NewtsRrd} instance for supplied file name.
+     *
      * @param fileName
+     *          a file name
+     * @return
+     *          a {@link NewtsRrd} instance
+     * @throws java.lang.Exception
      */
     @Override
-    public NewtsResource openFile(final String fileName) throws Exception {
-        return new NewtsResource(fileName);
+    public NewtsRrd openFile(final String fileName) throws Exception {
+        return new NewtsRrd(fileName);
     }
 
     /**
-     * {@inheritDoc}
-     * Creates a sample from the NewtsResource and passes in the data provided.
+     * Updates the {@link NewtsRrd} rrd with time and values supplied via
+     * data.
+     *
+     * @param rrd
+     * @param owner
+     * @param data
+     * @throws java.lang.Exception
      */
     @Override
-    public void updateFile(final NewtsResource resource, final String owner, final String data) throws Exception {
-        LOG.debug("updateFile(resource='{}', owner='{}', data='{}')", resource, owner, data);
+    public void updateFile(final NewtsRrd rrd, final String owner, final String data) throws Exception {
+        LOG.debug("updateFile(resource='{}', owner='{}', data='{}')", rrd, owner, data);
         List<Sample> samples = new ArrayList<>();
 
         String[] values = data.split(":");
         if (values.length < 2) {
-            LOG.error("updateFile: data string does not parse into two strings");
+            LOG.error("updateFile: data string '{}' does not parse into atleast two strings.", data);
             return;
         }
         Timestamp ts;
@@ -186,16 +193,15 @@ public class NewtsRrdStrategy extends AbstractJRobinRrdStrategy<RRDDefinition, N
         }
 
         for (int i = 1; i < values.length; i++) {
-            NewtsMetric metric = resource.getMetric(i - 1);
+            NewtsMetric metric = rrd.getMetric(i - 1);
             if (metric == null) {
                 LOG.warn("updateFile: no metric found for {}", i - 1);
             } else {
                 Double value = Double.parseDouble(values[i]);
 
-                samples.add(
-                  new Sample(
+                samples.add(new Sample(
                     ts,
-                    resource.getResource(),
+                    rrd.getResource(),
                     metric.getName(),
                     metric.getType(),
                     ValueType.compose(value, metric.getType())
@@ -226,7 +232,6 @@ public class NewtsRrdStrategy extends AbstractJRobinRrdStrategy<RRDDefinition, N
         super();
     }
 
-    /** {@inheritDoc} */
     @Override
     public Double fetchLastValue(final String fileName, final String ds, final String consolidationFunction, final int interval)
       throws org.opennms.netmgt.rrd.RrdException {
@@ -234,7 +239,7 @@ public class NewtsRrdStrategy extends AbstractJRobinRrdStrategy<RRDDefinition, N
         long now = System.currentTimeMillis();
         long collectTime = (now - (now % interval)) / 1000L;
 
-        NewtsResource resource = new NewtsResource(fileName);
+        NewtsRrd resource = new NewtsRrd(fileName);
         Results<Sample> results = m_newts.search(resource, collectTime, collectTime);
         if (results != null) {
             final NavigableSet<Results.Row<Sample>> rows = new TreeSet<>(new Comparator<Results.Row<Sample>>() {
@@ -258,14 +263,13 @@ public class NewtsRrdStrategy extends AbstractJRobinRrdStrategy<RRDDefinition, N
         return null;
     }
 
-    /** {@inheritDoc} */
     @Override
     public Double fetchLastValueInRange(final String fileName, final String ds, final int interval, final int range) throws NumberFormatException, org.opennms.netmgt.rrd.RrdException {
         long now = System.currentTimeMillis();
         long latestUpdateTime = (now - (now % interval)) / 1000L;
         long earliestUpdateTime = ((now - (now % interval)) - range) / 1000L;
 
-        NewtsResource resource = new NewtsResource(fileName);
+        NewtsRrd resource = new NewtsRrd(fileName);
         Results<Sample> results = m_newts.search(resource, earliestUpdateTime, latestUpdateTime);
         if (results != null) {
             final NavigableSet<Results.Row<Sample>> rows = new TreeSet<>(new Comparator<Results.Row<Sample>>() {
@@ -309,15 +313,46 @@ public class NewtsRrdStrategy extends AbstractJRobinRrdStrategy<RRDDefinition, N
         return ".newts";
     }
 
+    /**
+     * Returns the active {@link NewtsConnection}.
+     *
+     * @return
+     *          a connection object.
+     */
     public NewtsConnection getConnection() {
         return m_newts;
     }
 
+    /**
+     * Returns a {@link RrdGraphDetails} instance.
+     *
+     * @param graph
+     * @param command
+     * @return
+     */
     @Override
     public RrdGraphDetails createGraphReturnDetails(RrdGraph graph, String command) {
         return new NewtsRrdGraphDetails(graph, command);
     }
 
+    /**
+     * Processes the RRD Graph DEF statement.
+     *
+     * @param graphDef
+     *          the RRD graph definition instance
+     * @param definition
+     *          the RRD definition
+     * @param workDir
+     *          the temporary work directory
+     * @param defs
+     *          List of unique rrd file paths for the graph.
+     * @param plots
+     *          List of {@link Plottable} instances used in the graph.
+     * @param start
+     *          the start time of the graph
+     * @param end
+     *          the end time of the graph
+     */
     @Override
     public void handleDefinition(RrdGraphDef graphDef, String definition, File workDir, Map<String, List<String>> defs, List<Plottable> plots, long start, long end) {
         String[] def = splitDef(definition);
@@ -326,10 +361,10 @@ public class NewtsRrdStrategy extends AbstractJRobinRrdStrategy<RRDDefinition, N
         File rrdFile = new File(workDir, replaced);
 
         // Default pixel count in org.jrobin.data.DataProcessor is 600.
-        NewtsResource resource = new NewtsResource(rrdFile.getAbsolutePath());
-        NewtsPlottable p = new NewtsPlottable(m_newts, resource, def[1], def[2], start, end);
-        graphDef.datasource(ds[0], p);
-        plots.add(p);
+        NewtsRrd rrd = new NewtsRrd(rrdFile.getAbsolutePath());
+        NewtsPlottable plot = new NewtsPlottable(rrd, def[1], def[2], start, end);
+        graphDef.datasource(ds[0], plot);
+        plots.add(plot);
 
         final String absolutePath = (File.separatorChar == '\\') ? rrdFile.getAbsolutePath().replace("\\", "\\\\") : rrdFile.getAbsolutePath();
 
@@ -338,12 +373,21 @@ public class NewtsRrdStrategy extends AbstractJRobinRrdStrategy<RRDDefinition, N
         defs.put(ds[0], defBits);
     }
 
+    /**
+     * Fetch data points for each {@link NewtsPlottable} instance within
+     * the list of {@link Plottable}s.
+     *
+     * @param plots
+     *          list of {@link Plottable}s
+     * @param width
+     *          number of data points
+     */
     @Override
     public void fetchPlottables(List<Plottable> plots, int width) {
         // Now fetch all the data for the graphs, passing in the graph width
         for (Plottable p : plots) {
             if (p instanceof NewtsPlottable) {
-                ((NewtsPlottable)p).fetchData(width);
+                ((NewtsPlottable)p).fetchData(getConnection(), width);
             }
         }
     }

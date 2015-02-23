@@ -38,15 +38,32 @@ public class NewtsMetric {
     private final String m_name;
     private final MetricType m_type;
 
+    /**
+     * Creates a new {@link NewtsMetric} instance with the supplied name
+     * and type.
+     *
+     * @param name
+     * @param type
+     */
     public NewtsMetric(final String name, final String type) {
         m_name = name;
         m_type = MetricType.valueOf(type);
     }
 
+    /**
+     *
+     * @return
+     *      metric name
+     */
     public String getName() {
         return m_name;
     }
 
+    /**
+     *
+     * @return
+     *      metric type
+     */
     public MetricType getType() {
         return m_type;
     }

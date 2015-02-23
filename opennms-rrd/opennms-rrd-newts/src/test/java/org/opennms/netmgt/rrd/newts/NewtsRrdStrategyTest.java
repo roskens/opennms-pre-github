@@ -51,7 +51,7 @@ import org.opennms.test.FileAnticipator;
  */
 public class NewtsRrdStrategyTest {
 
-    private RrdStrategy<RRDDefinition, NewtsResource> m_strategy;
+    private RrdStrategy<NewtsRrdDefinition, NewtsRrd> m_strategy;
     private FileAnticipator m_fileAnticipator;
 
     @Before
@@ -90,7 +90,7 @@ public class NewtsRrdStrategyTest {
     public void testCreate() throws Exception {
         File rrdFile = createRrdFile(null);
 
-        NewtsResource openedFile = m_strategy.openFile(rrdFile.getAbsolutePath());
+        NewtsRrd openedFile = m_strategy.openFile(rrdFile.getAbsolutePath());
 
         m_strategy.closeFile(openedFile);
     }
@@ -99,7 +99,7 @@ public class NewtsRrdStrategyTest {
     public void testUpdate() throws Exception {
         File rrdFile = createRrdFile(null);
 
-        NewtsResource openedFile = m_strategy.openFile(rrdFile.getAbsolutePath());
+        NewtsRrd openedFile = m_strategy.openFile(rrdFile.getAbsolutePath());
         m_strategy.updateFile(openedFile, "huh?", "N:1.234234");
         m_strategy.closeFile(openedFile);
     }
@@ -109,7 +109,7 @@ public class NewtsRrdStrategyTest {
     public void testFetchLastValue() throws Exception {
         File rrdFile = createRrdFile(null);
 
-        NewtsResource openedFile = m_strategy.openFile(rrdFile.getAbsolutePath());
+        NewtsRrd openedFile = m_strategy.openFile(rrdFile.getAbsolutePath());
         m_strategy.updateFile(openedFile, "huh?", "N:1.234234");
 
         Double value = m_strategy.fetchLastValue(rrdFile.getParent(), rrdFile.getName(), "bar", 300 * 1000);
@@ -122,7 +122,7 @@ public class NewtsRrdStrategyTest {
     public void testFetchLastValueInRange() throws Exception {
         File rrdFile = createRrdFile("bar");
 
-        NewtsResource openedFile = m_strategy.openFile(rrdFile.getAbsolutePath());
+        NewtsRrd openedFile = m_strategy.openFile(rrdFile.getAbsolutePath());
         long now = System.currentTimeMillis();
         int interval = 300 * 1000;
         long updateTime = (now - (now % interval)) / 1000L;
@@ -143,11 +143,11 @@ public class NewtsRrdStrategyTest {
         m_fileAnticipator.initialize();
         String rrdExtension = RrdUtils.getExtension();
 
-        List<RrdDataSource> dataSources = new ArrayList<RrdDataSource>();
+        List<RrdDataSource> dataSources = new ArrayList<>();
         dataSources.add(new RrdDataSource("bar", "GAUGE", 3000, "U", "U"));
-        List<String> rraList = new ArrayList<String>();
+        List<String> rraList = new ArrayList<>();
         rraList.add("RRA:AVERAGE:0.5:1:2016");
-        RRDDefinition def = m_strategy.createDefinition("hello!", m_fileAnticipator.getTempDir().getAbsolutePath(), rrdFileBase, 300, dataSources, rraList);
+        NewtsRrdDefinition def = m_strategy.createDefinition("hello!", m_fileAnticipator.getTempDir().getAbsolutePath(), rrdFileBase, 300, dataSources, rraList);
         m_strategy.createFile(def, null);
 
         return m_fileAnticipator.expecting(rrdFileBase + rrdExtension);

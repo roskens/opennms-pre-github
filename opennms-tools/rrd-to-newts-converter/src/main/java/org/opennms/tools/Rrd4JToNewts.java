@@ -44,9 +44,9 @@ import java.util.concurrent.TimeUnit;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 import org.opennms.netmgt.rrd.RrdDataSource;
-import org.opennms.netmgt.rrd.newts.RRDDefinition;
+import org.opennms.netmgt.rrd.newts.NewtsRrdDefinition;
 import org.opennms.netmgt.rrd.newts.NewtsMetric;
-import org.opennms.netmgt.rrd.newts.NewtsResource;
+import org.opennms.netmgt.rrd.newts.NewtsRrd;
 import org.opennms.netmgt.rrd.newts.NewtsRrdStrategy;
 import org.opennms.newts.api.Sample;
 import org.opennms.newts.api.Timestamp;
@@ -162,9 +162,9 @@ public final class Rrd4JToNewts implements Runnable {
                 }
             }
             
-            RRDDefinition ndef = m_strategy.createDefinition("", file.getParent(), file.getName(), (int) def.getStep(), dataSources, rraList);
+            NewtsRrdDefinition ndef = m_strategy.createDefinition("", file.getParent(), file.getName(), (int) def.getStep(), dataSources, rraList);
             m_strategy.createFile(ndef, null);
-            NewtsResource nres = m_strategy.openFile(file.getAbsolutePath());
+            NewtsRrd nres = m_strategy.openFile(file.getAbsolutePath());
             List<Sample> samples = new ArrayList<>();
             Timestamp ts;
             

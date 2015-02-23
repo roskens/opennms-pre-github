@@ -39,50 +39,70 @@ import org.slf4j.LoggerFactory;
  * @author roskens
  */
 public class NewtsPlottable extends Plottable {
-
     private static final Logger LOG = LoggerFactory.getLogger(NewtsPlottable.class);
 
-    private final NewtsConnection m_newts;
-    private final NewtsResource m_resource;
-    private final String m_dsName;
-    private final String m_consolFun;
+    private static final long DEFAULT_JROBIN_WIDTH = 400L;
+
+    private final NewtsRrd m_resource;
+    private final String m_metricName;
+    private final String m_consolidationFunction;
     private final long m_startTime;
     private final long m_endTime;
+
     private Collection<Results.Row<Measurement>> m_rows;
 
-    private long[] timestamps;
-    private double[] values;
-    private int m_count;
     private long m_step;
 
-    NewtsPlottable(NewtsConnection client, NewtsResource resource, String dsName, String consolFun, long start, long end) {
-        m_newts = client;
+    /**
+     * Creates a new {@NewtsPlottable} instance with the supplied resource,
+     * metric name, consolidation function name, starting timestamp and
+     * ending timestamp.
+     *
+     * @param resource
+     *          the resource
+     * @param metricName
+     *          the metric name
+     * @param functionName
+     *          the consolidation function name
+     * @param start
+     *          starting timestamp
+     * @param end
+     *          ending timestamp
+     */
+    public NewtsPlottable(NewtsRrd resource, String metricName, String functionName, long start, long end) {
         m_resource = resource;
-        m_dsName = dsName;
-        m_consolFun = consolFun;
+        m_metricName = metricName;
+        m_consolidationFunction = functionName;
         m_startTime = start;
         m_endTime = end;
-        m_count = 0;
         m_rows = null;
-        m_step = Math.max((end - start) / 400L, 1);
+        m_step = Math.max((end - start) / DEFAULT_JROBIN_WIDTH, 1);
     }
 
+    /**
+     * Retrieves data point value based on a given timestamp.
+     * Use this method if you only have one series of data in this class.
+     *
+     * @param timestamp
+     *          Timestamp in seconds for data point.
+     * @return
+     *          Value of the data point.
+     */
     @Override
     public double getValue(long timestamp) {
 
-        if (m_startTime <= timestamp && m_endTime >= timestamp) {
-            m_count++;
-        } else {
-            m_count = 0;
+        if (timestamp < m_startTime || timestamp > m_endTime) {
             return Double.NaN;
         }
+
         if (m_rows == null) {
             return Double.NaN;
         }
+
         long timestamp_t = timestamp - timestamp % m_step;
 
         for (Results.Row<Measurement> row : m_rows) {
-            Measurement m = row.getElement(m_dsName);
+            Measurement m = row.getElement(m_metricName);
             if (timestamp_t == m.getTimestamp().asSeconds()) {
                 Double v = m.getValue();
                 return v;
@@ -91,17 +111,21 @@ public class NewtsPlottable extends Plottable {
         return Double.NaN;
     }
 
-    void fetchData(final long max_points) {
+    /**
+     * Fetches data points from a Newts database between the start and end timestamps.
+     *
+     *
+     * @param connection
+     *          Connection to a Newts database.
+     * @param datapoints
+     *          Number of data points to find between the start and times.
+     */
+    public void fetchData(NewtsConnection connection, final long datapoints) {
         if (m_rows == null) {
-            m_step = Math.max((m_endTime - m_startTime) / max_points, m_resource.getStep());
+            m_step = Math.max((m_endTime - m_startTime) / datapoints, m_resource.getStep());
 
-            Results<Measurement> results = m_newts.search(m_resource, m_dsName, m_consolFun, m_startTime, m_endTime, max_points);
+            Results<Measurement> results = connection.search(m_resource, m_metricName, m_consolidationFunction, m_startTime, m_endTime, datapoints);
             m_rows = results.getRows();
-            if (Boolean.FALSE) {
-                for (Results.Row<Measurement> row : m_rows) {
-                    Measurement m = row.getElement(m_dsName);
-                }
-            }
         }
     }
 

@@ -43,14 +43,16 @@ import org.slf4j.LoggerFactory;
  * command string around so we can generate a detailed error if
  * getInputStream() is called, but no graph was produced.
  *
+ * Direct copy of JRobinRrdGraphDetails.
+ *
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  * @version $Id: $
  */
 public class NewtsRrdGraphDetails implements RrdGraphDetails {
     private static final Logger LOG = LoggerFactory.getLogger(NewtsRrdGraphDetails.class);
-    
-    private RrdGraph m_rrdGraph;
-    private String m_graphCommand;
+
+    private final RrdGraph m_rrdGraph;
+    private final String m_graphCommand;
 
     /**
      * <p>Constructor for NewtsRrdGraphDetails.</p>
@@ -62,7 +64,7 @@ public class NewtsRrdGraphDetails implements RrdGraphDetails {
         m_rrdGraph = rrdGraph;
         m_graphCommand = graphCommand;
     }
-    
+
     /**
      * <p>getRrdGraph</p>
      *
@@ -71,7 +73,7 @@ public class NewtsRrdGraphDetails implements RrdGraphDetails {
     public RrdGraph getRrdGraph() {
         return m_rrdGraph;
     }
-    
+
     /**
      * <p>getGraphCommand</p>
      *
@@ -80,7 +82,7 @@ public class NewtsRrdGraphDetails implements RrdGraphDetails {
     public String getGraphCommand() {
         return m_graphCommand;
     }
-    
+
     /**
      * <p>getInputStream</p>
      *
@@ -113,7 +115,7 @@ public class NewtsRrdGraphDetails implements RrdGraphDetails {
     @Override
     public int getHeight() throws RrdException {
         assertGraphProduced();
-        
+
         return m_rrdGraph.getRrdGraphInfo().getHeight();
     }
 
@@ -126,7 +128,7 @@ public class NewtsRrdGraphDetails implements RrdGraphDetails {
     @Override
     public int getWidth() throws RrdException {
         assertGraphProduced();
-        
+
         return m_rrdGraph.getRrdGraphInfo().getWidth();
     }
 

@@ -39,53 +39,83 @@ import org.slf4j.LoggerFactory;
  *
  * @author roskens
  */
-public class NewtsResource {
+public class NewtsRrd {
 
-    private static final Logger LOG = LoggerFactory.getLogger(NewtsResource.class);
+    private static final Logger LOG = LoggerFactory.getLogger(NewtsRrd.class);
 
     private final Resource m_resource;
     private final int m_step;
     private final PropertiesConfiguration m_properties;
 
-    public NewtsResource(final String rrdFile) {
-        m_resource = new Resource(rrdFile);
+    /**
+     * Creates a new {@link NewtsResource} instance with for the supplied
+     * file name. The file is expected to be a properties file
+     *
+     * @param fileName
+     *          the file name
+     */
+    public NewtsRrd(final String fileName) {
+        m_resource = new Resource(fileName);
         try {
-            final File file = new File(rrdFile);
-            LOG.debug("NewtsResource: filename={}", rrdFile);
+            final File file = new File(fileName);
+            LOG.debug("NewtsResource: filename={}", fileName);
             m_properties = new PropertiesConfiguration(file);
             m_step = m_properties.getInt("step", 300);
         } catch (ConfigurationException ex) {
             LOG.debug("confiiguration error", ex);
-            throw new IllegalArgumentException("invalid newts resource file: " + rrdFile);
+            throw new IllegalArgumentException("invalid newts resource file: " + fileName);
         }
     }
 
+    /**
+     * Returns primary RRD time step
+     *
+     * @return Primary time step in seconds
+     */
     public int getStep() {
         return m_step;
     }
 
+    /**
+     * Returns the Newts {@link Resource} instance.
+     * @return
+     */
     public Resource getResource() {
         return m_resource;
     }
 
-    public NewtsMetric getMetric(int i) {
-        if (!m_properties.containsKey("ds." + i + ".name")) {
-            throw new IllegalArgumentException("properties does not contain key ds." + i + ".name");
+    /**
+     * Returns the nth {@link NewtsMetric} instance.
+     *
+     * @param n
+     * @return
+     *      a {@link NewtsMetric} instance.
+     */
+    public NewtsMetric getMetric(int n) {
+        if (!m_properties.containsKey("ds." + n + ".name")) {
+            throw new IllegalArgumentException("properties does not contain key ds." + n + ".name");
         }
-        String name = m_properties.getString("ds." + i + ".name");
+        String name = m_properties.getString("ds." + n + ".name");
         if (name == null || name.trim().isEmpty()) {
             throw new IllegalArgumentException("name is null");
         }
-        if (!m_properties.containsKey("ds." + i + ".type")) {
-            throw new IllegalArgumentException("properties does not contain key ds." + i + ".type");
+        if (!m_properties.containsKey("ds." + n + ".type")) {
+            throw new IllegalArgumentException("properties does not contain key ds." + n + ".type");
         }
-        String type = m_properties.getString("ds." + i + ".type");
+        String type = m_properties.getString("ds." + n + ".type");
         if (type == null || type.trim().isEmpty()) {
             throw new IllegalArgumentException("type is null");
         }
         return new NewtsMetric(name, type);
     }
 
+    /**
+     * Returns the {@link NewtsMetric} instance for the given metric name.
+     *
+     * @param metric
+     * @return
+     *      a {@link NewtsMetric} instance.
+     */
     public NewtsMetric getMetric(String metric) {
         int i = -1;
         Iterator<String> it = m_properties.getKeys();

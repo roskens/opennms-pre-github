@@ -38,7 +38,7 @@ import org.opennms.netmgt.rrd.RrdUtils;
  *
  * @author roskens
  */
-public class RRDDefinition {
+public class NewtsRrdDefinition {
 
     final private String m_directory;
     final private String m_rrdName;
@@ -46,7 +46,7 @@ public class RRDDefinition {
     final List<RrdDataSource> m_dataSources;
     final List<String> m_rraList;
 
-    RRDDefinition(final String directory, final String rrdName, final int step, final List<RrdDataSource> dataSources, final List<String> rraList) {
+    NewtsRrdDefinition(final String directory, final String rrdName, final int step, final List<RrdDataSource> dataSources, final List<String> rraList) {
         m_directory = directory;
         m_rrdName = rrdName;
         m_step = step;
@@ -54,28 +54,55 @@ public class RRDDefinition {
         m_rraList = rraList;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getPath() {
         return m_directory + File.separator + m_rrdName + RrdUtils.getExtension();
     }
 
+    /**
+     *
+     * @return
+     */
     public String getDirectory() {
         return m_directory;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getRRDName() {
         return m_rrdName;
     }
 
     // unused
-    public List<RrdDataSource> getDataSources() {
+
+    /**
+     *
+     * @return
+     */
+        public List<RrdDataSource> getDataSources() {
         return m_dataSources;
     }
 
     // unused
-    public List<String> getRRAList() {
+
+    /**
+     *
+     * @return
+     */
+        public List<String> getRRAList() {
         return m_rraList;
     }
 
+    /**
+     *
+     * @param file
+     * @throws ConfigurationException
+     */
     public void saveDefinition(final File file) throws ConfigurationException {
         PropertiesConfiguration pc = new PropertiesConfiguration();
         int ds_num = 0;

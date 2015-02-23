@@ -58,14 +58,22 @@ import org.slf4j.LoggerFactory;
 public class NewtsConnection {
     private static final Logger LOG = LoggerFactory.getLogger(NewtsConnection.class);
 
+    /**
+     * The Newts schemas used to
+     */
     private static final ServiceLoader<Schema> s_schemas = ServiceLoader.load(Schema.class);
 
-    final private MetricRegistry m_registry;
-    final private Properties m_properties;
+    private final MetricRegistry m_registry;
+    private final Properties m_properties;
 
     private CassandraSession m_session;
     private SampleRepository m_repository;
 
+    /**
+     * A connection object to a Newts database.
+     *
+     * @param configurationParameters
+     */
     public NewtsConnection(final Properties configurationParameters) {
         m_properties = configurationParameters;
 
@@ -73,11 +81,15 @@ public class NewtsConnection {
         m_registry = new MetricRegistry();
     }
 
-    protected void init() {
+    /**
+     * Initialize a {@link CassandraSession} and {@link CassandraSampleRepository}
+     */
+    private void init() {
         String csKeyspace = m_properties.getProperty("org.opennms.rrd.newts.keyspace", "newts");
         String csHost = m_properties.getProperty("org.opennms.rrd.newts.hostname", "127.0.0.1");
         String csPort = m_properties.getProperty("org.opennms.rrd.newts.port", "9042");
         Integer port = Integer.parseInt(csPort);
+
         String csProcessors = m_properties.getProperty("org.opennms.rrd.newts.processors", "32");
         Integer numProcessors = Integer.parseInt(csProcessors);
 
@@ -111,13 +123,25 @@ public class NewtsConnection {
         m_repository = new CassandraSampleRepository(m_session, ttl, m_registry, processors);
     }
 
+    /**
+     * Retrieves the Newts {@link SampleRepository} object used by this connection.
+     *
+     * @return
+     *          a {@link SampleRepository} object
+     */
     public synchronized SampleRepository getSampleRepository() {
-        if (m_repository == null) {
+        if (m_session == null || m_repository == null) {
             init();
         }
         return m_repository;
     }
 
+    /**
+     * Retrieves the Newts {@link CassandraSession} object created for this connection.
+     *
+     * @return
+     *          a {@link CassandraSession} object
+     */
     public synchronized CassandraSession getSession() {
         if (m_session == null) {
             init();
@@ -125,17 +149,34 @@ public class NewtsConnection {
         return m_session;
     }
 
+    /**
+     * Adds samples to the Newts sample repository.
+     *
+     * @param samples
+     */
     public void insert(List<Sample> samples) {
         getSampleRepository().insert(samples);
     }
 
+    /**
+     * Adds samples to the Newts sample repository. If calcTTL is true,
+     * then calculate a new TTL for each value based on its timestamp.
+     *
+     * @param samples
+     * @param calcTTL
+     */
     public void insert(List<Sample> samples, boolean calcTTL) {
         getSampleRepository().insert(samples, calcTTL);
     }
 
+    /**
+     * Closes and shuts down the active Cassandra session.
+     *
+     */
     public void shutdown() {
         try {
             m_session.shutdown().get();
+            m_session = null;
         } catch (InterruptedException ex) {
             LOG.error("shutdown of cassandra session was interrupted", ex);
         } catch (ExecutionException ex) {
@@ -143,36 +184,47 @@ public class NewtsConnection {
         }
     }
 
-    Results<Measurement> search(NewtsResource resource, String dsName, String consolFun, Long start, Long end, Long max_points) {
-        LOG.debug("search(resource='{}', dsName='{}', consolFun='{}', start='{}', end='{}', max_points='{}')", resource, dsName, consolFun, start, end, max_points);
+    /**
+     * Search {@link NewtsRrd} resource and return {@link points} of
+     * {@link Measurement}s * between start and end times using consolidation
+     * function {@link consolFun}.
+     *
+     * @param resource
+     * @param metricName
+     * @param consolFun
+     * @param start
+     * @param end
+     * @param points
+     * @return
+     */
+    public Results<Measurement> search(NewtsRrd resource, String metricName, String consolFun, Long start, Long end, Long points) {
         Timestamp t_start = Timestamp.fromEpochSeconds(start);
         Timestamp t_end = Timestamp.fromEpochSeconds(end);
 
-        long step = Math.max((end - start) / max_points, resource.getStep());
-        LOG.debug("search: calculated step size: {}", step);
+        long step = Math.max((end - start) / points, resource.getStep());
 
         ResultDescriptor descriptor = new ResultDescriptor(step)
-          .datasource(dsName, dsName, Duration.seconds(step * 2), StandardAggregationFunctions.AVERAGE)
-          .export(dsName);
+          .datasource(metricName, metricName, Duration.seconds(step * 2), StandardAggregationFunctions.AVERAGE)
+          .export(metricName);
 
-        LOG.debug("search: select() start");
         Results<Measurement> results = getSampleRepository().select(resource.getResource(), Optional.of(t_start), Optional.of(t_end), descriptor, Duration.seconds(step));
-        LOG.debug("search: select() finish");
-        LOG.debug("search: returning results", results);
         return results;
     }
 
-    Results<Sample> search(NewtsResource resource, Long start, Long end) {
-        LOG.debug("search(resource='{}', start='{}', end='{}')", resource, start, end);
+    /**
+     * Search {@link NewtsRrd} resource and return the {@link Sample}s
+     * collected between start and end times.
+     *
+     * @param resource
+     * @param start
+     * @param end
+     * @return
+     */
+    public Results<Sample> search(NewtsRrd resource, Long start, Long end) {
         Timestamp t_start = Timestamp.fromEpochSeconds(start);
         Timestamp t_end = Timestamp.fromEpochSeconds(end);
-        LOG.debug("search: t_start={}", t_start);
-        LOG.debug("search: t_end={}", t_end);
 
-        LOG.debug("search: select() start");
         Results<Sample> results = getSampleRepository().select(resource.getResource(), Optional.of(t_start), Optional.of(t_end));
-        LOG.debug("search: select() finish");
-        LOG.debug("search: returning results", results);
         return results;
     }
 
