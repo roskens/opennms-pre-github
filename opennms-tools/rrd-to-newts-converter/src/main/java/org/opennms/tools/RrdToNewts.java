@@ -57,12 +57,12 @@ import org.jrobin.core.DsDef;
 import org.jrobin.core.RrdDef;
 import org.jrobin.core.RrdException;
 
-public final class Rrd4JToNewts implements Runnable {
+public final class RrdToNewts implements Runnable {
 
     /**
      * JRobin to RRD converter
      */
-    private final Rrd4JToNewtsConverter m_jrbToRrdConverter;
+    private final RrdToNewtsConverter m_jrbToRrdConverter;
     private final NewtsRrdStrategy m_strategy;
 
     /**
@@ -81,7 +81,7 @@ public final class Rrd4JToNewts implements Runnable {
      * @param jrbToRrdConverter
      * @param filename
      */
-    public Rrd4JToNewts(final Rrd4JToNewtsConverter jrbToRrdConverter, final String filename) {
+    public RrdToNewts(final RrdToNewtsConverter jrbToRrdConverter, final String filename) {
         m_jrbToRrdConverter = jrbToRrdConverter;
         m_strategy = m_jrbToRrdConverter.m_rrdStrategy;
         if (filename == null || filename.isEmpty()) {
@@ -142,7 +142,7 @@ public final class Rrd4JToNewts implements Runnable {
     public void convertToNewts(final String path) throws IOException, RrdException {
         System.out.println("Converting "+path);
         File file = new File(path);
-        RrdDb rrdDb = getRrdDbReference(path + Rrd4JToNewtsConverter.FILE_TYPE.JRB.ext());
+        RrdDb rrdDb = getRrdDbReference(path + RrdToNewtsConverter.FILE_TYPE.JRB.ext());
         RrdDef def = rrdDb.getRrdDef();
         //rrdDb.dumpXml(path+Rrd4JToNewtsConverter.FILE_TYPE.XML.ext());
 
@@ -237,9 +237,9 @@ public final class Rrd4JToNewts implements Runnable {
                 final int BUFFER = 2048;
                 try (FileOutputStream dest = new FileOutputStream(path+".zip");
                      ZipOutputStream out = new ZipOutputStream(new BufferedOutputStream(dest));
-                     FileInputStream fis = new FileInputStream(path + Rrd4JToNewtsConverter.FILE_TYPE.JRB.ext());
+                     FileInputStream fis = new FileInputStream(path + RrdToNewtsConverter.FILE_TYPE.JRB.ext());
                      BufferedInputStream bis = new BufferedInputStream(fis, BUFFER);) {
-                    ZipEntry entry = new ZipEntry(file.getName()+Rrd4JToNewtsConverter.FILE_TYPE.JRB.ext());
+                    ZipEntry entry = new ZipEntry(file.getName()+RrdToNewtsConverter.FILE_TYPE.JRB.ext());
                     out.putNextEntry(entry);
                     int count;
                     byte data[] = new byte[BUFFER];

@@ -62,7 +62,7 @@ import org.opennms.netmgt.rrd.newts.NewtsRrdStrategy;
  * @author <a href="mailto:Christian.Pape@informatik.hs-fulda.de">Christian Pape</a>
  * @author <a href="mailto:ronny@opennms.org">Ronny Trommer</a>
  */
-public class Rrd4JToNewtsConverter {
+public class RrdToNewtsConverter {
 
     /**
      * Constants for file type and corresponding extensions
@@ -162,7 +162,7 @@ public class Rrd4JToNewtsConverter {
      * @param threadCount Amount of threads to convert JRobin files
      * @param rrdStrategy
      */
-    public Rrd4JToNewtsConverter(String path, int threadCount, NewtsRrdStrategy rrdStrategy) {
+    public RrdToNewtsConverter(String path, int threadCount, NewtsRrdStrategy rrdStrategy) {
         m_path = path;
         m_threadCount = threadCount;
         m_rrdStrategy = rrdStrategy;
@@ -267,7 +267,7 @@ public class Rrd4JToNewtsConverter {
          * Initialize the JRobin to RRDtool converter for a given directory with JRB files
          * to convert, rrdtool binary path and the amount of threads.
          */
-        Rrd4JToNewtsConverter rrdConverter = new Rrd4JToNewtsConverter(path, threadCount, new NewtsRrdStrategy());
+        RrdToNewtsConverter rrdConverter = new RrdToNewtsConverter(path, threadCount, new NewtsRrdStrategy());
 
         // Run conversion starts also a monitoring thread to calculate how many JRB/s are converted
         rrdConverter.runConversion();
@@ -308,7 +308,7 @@ public class Rrd4JToNewtsConverter {
                     } else {
                         // Not converted - distribute to array of threads
                         
-                        m_executor.execute(new Rrd4JToNewts(this, filename));
+                        m_executor.execute(new RrdToNewts(this, filename));
                         m_fileCount++;
                     }
                 } else {

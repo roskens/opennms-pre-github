@@ -80,7 +80,7 @@
         <configuration>
           <archive>
             <manifest>
-              <mainClass>org.opennms.tools.Rrd4JToNewtsConverter</mainClass>
+              <mainClass>org.opennms.tools.RrdToNewtsConverter</mainClass>
             </manifest>
           </archive>
           <descriptorRefs>
