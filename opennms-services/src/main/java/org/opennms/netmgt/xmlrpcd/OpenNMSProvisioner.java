@@ -44,11 +44,19 @@ import org.opennms.netmgt.config.poller.Package;
 import org.opennms.netmgt.config.poller.Parameter;
 import org.opennms.netmgt.config.poller.Rrd;
 import org.opennms.netmgt.config.poller.Service;
+import org.opennms.netmgt.dao.api.ServiceTypeDao;
+import org.opennms.netmgt.dao.support.CreateIfNecessaryTemplate;
 import org.opennms.netmgt.events.api.EventConstants;
 import org.opennms.netmgt.events.api.EventIpcManager;
+import org.opennms.netmgt.model.OnmsServiceType;
 import org.opennms.netmgt.model.events.EventBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.support.TransactionCallbackWithoutResult;
+import org.springframework.transaction.support.TransactionTemplate;
 
 /**
  * <p>OpenNMSProvisioner class.</p>
@@ -81,6 +89,14 @@ public class OpenNMSProvisioner implements Provisioner {
     private PollerConfig m_pollerConfig;
     private EventIpcManager m_eventManager;
 
+    @Autowired
+    private ServiceTypeDao m_serviceTypeDao;
+
+    @Autowired
+    private PlatformTransactionManager m_transactionManager;
+
+    @Autowired
+    private TransactionTemplate m_transactionTemplate;
 
     private void checkRetries(final int retries) {
         if (retries < 0) throw new IllegalArgumentException("Illegal retries "+retries+". Must be >= 0");
@@ -207,7 +223,31 @@ public class OpenNMSProvisioner implements Provisioner {
         } else {
             LOG.debug("No need to add a new monitor for {}", serviceId);
         }
-        
+
+        m_transactionTemplate.execute(new TransactionCallbackWithoutResult() {
+			@Override
+			protected void doInTransactionWithoutResult(TransactionStatus arg0) {
+		        // Add the service to the database if necessary.
+		        // This code is stolen from DefaultProvisionService.loadServiceType()
+		        new CreateIfNecessaryTemplate<OnmsServiceType, ServiceTypeDao>(m_transactionManager, m_serviceTypeDao) {
+
+		            @Override
+		            protected OnmsServiceType query() {
+		                return m_serviceTypeDao.findByName(serviceId);
+		            }
+
+		            @Override
+		            public OnmsServiceType doInsert() {
+		                OnmsServiceType type = new OnmsServiceType(serviceId);
+		                m_serviceTypeDao.save(type);
+		                m_serviceTypeDao.flush();
+		                return type;
+		            }
+
+		        }.execute();
+			}
+		});
+
         saveConfigs();
         return true;
     }

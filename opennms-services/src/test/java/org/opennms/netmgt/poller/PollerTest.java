@@ -107,6 +107,7 @@ import org.springframework.transaction.support.TransactionTemplate;
         "classpath:/META-INF/opennms/applicationContext-daemon.xml",
         "classpath:/META-INF/opennms/mockEventIpcManager.xml",
         "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml",
+        "classpath:/META-INF/opennms/applicationContext-provisioner.xml",
 
         // Override the default QueryManager with the DAO version
         "classpath:/META-INF/opennms/applicationContext-pollerdTest.xml"
@@ -143,6 +144,9 @@ public class PollerTest implements TemporaryDatabaseAware<MockDatabase> {
 
     @Autowired
     private TransactionTemplate m_transactionTemplate;
+
+    @Autowired
+    private OpenNMSProvisioner m_provisioner;
 
 
     //private DemandPollDao m_demandPollDao;
@@ -206,6 +210,8 @@ public class PollerTest implements TemporaryDatabaseAware<MockDatabase> {
         m_pollerConfig.addDowntime(1000L, 0L, -1L, false);
         m_pollerConfig.setDefaultPollInterval(2000L);
         m_pollerConfig.addService(m_network.getService(2, "192.168.1.3", "HTTP"));
+
+        m_provisioner.setPollerConfig(m_pollerConfig);
 
         m_anticipator = new EventAnticipator();
         m_outageAnticipator = new OutageAnticipator(m_db);
@@ -1133,11 +1139,7 @@ public class PollerTest implements TemporaryDatabaseAware<MockDatabase> {
         CollectdConfigFactory collectdConfig = new CollectdConfigFactory(configStream, onmsSvrConfig.getServerName(), onmsSvrConfig.verifyServer());
         configStream.close();
 
-        OpenNMSProvisioner provisioner = new OpenNMSProvisioner();
-        provisioner.setPollerConfig(m_pollerConfig);
-
-        provisioner.setEventManager(m_eventMgr);
-        provisioner.addServiceDNS("MyDNS", 3, 100, 1000, 500, 3000, 53, "www.opennms.org");
+        m_provisioner.addServiceDNS("MyDNS", 3, 100, 1000, 500, 3000, 53, "www.opennms.org");
 
         assertNotNull("The service id for MyDNS is null", m_db.getServiceID("MyDNS"));
         MockUtil.println("The service id for MyDNS is: " + m_db.getServiceID("MyDNS").toString());
