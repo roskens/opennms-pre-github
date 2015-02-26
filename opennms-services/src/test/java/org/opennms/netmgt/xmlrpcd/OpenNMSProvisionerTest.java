@@ -46,12 +46,14 @@ import org.exolab.castor.xml.ValidationException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.opennms.core.db.DataSourceFactory;
 import org.opennms.core.test.ConfigurationTestUtils;
 import org.opennms.core.test.MockLogAppender;
+import org.opennms.core.test.OpenNMSJUnit4ClassRunner;
 import org.opennms.core.test.db.MockDatabase;
+import org.opennms.core.test.db.annotations.JUnitTemporaryDatabase;
 import org.opennms.core.xml.JaxbUtils;
-import org.opennms.netmgt.config.CollectdConfigFactory;
 import org.opennms.netmgt.config.DatabaseSchemaConfigFactory;
 import org.opennms.netmgt.config.OpennmsServerConfigFactory;
 import org.opennms.netmgt.config.PollerConfigFactory;
@@ -64,10 +66,28 @@ import org.opennms.netmgt.events.api.EventConstants;
 import org.opennms.netmgt.mock.MockEventUtil;
 import org.opennms.netmgt.rrd.RrdStrategy;
 import org.opennms.netmgt.rrd.RrdUtils;
+import org.opennms.test.JUnitConfigurationEnvironment;
 import org.opennms.test.mock.EasyMockUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
 
+@RunWith(OpenNMSJUnit4ClassRunner.class)
+@ContextConfiguration(locations={
+        "classpath:/META-INF/opennms/applicationContext-soa.xml",
+        "classpath:/META-INF/opennms/applicationContext-dao.xml",
+        "classpath:/META-INF/opennms/applicationContext-commonConfigs.xml",
+        "classpath*:/META-INF/opennms/component-dao.xml",
+        "classpath*:/META-INF/opennms/component-service.xml",
+        "classpath:/META-INF/opennms/applicationContext-daemon.xml",
+        "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml",
+        "classpath:/META-INF/opennms/mockEventIpcManager.xml",
+        "classpath:/META-INF/opennms/applicationContext-provisioner.xml"
+})
+@JUnitConfigurationEnvironment
+@JUnitTemporaryDatabase
 public class OpenNMSProvisionerTest {
 
+    @Autowired
     private OpenNMSProvisioner m_provisioner;
 
     private TestPollerConfigManager m_pollerConfig;
@@ -117,6 +137,7 @@ public class OpenNMSProvisionerTest {
     private EasyMockUtils m_mocks = new EasyMockUtils();
     private RrdStrategy<?,?> m_strategy = m_mocks.createMock(RrdStrategy.class);
 
+    @Autowired
     private MockEventIpcManager m_eventManager;
 
     @Before
@@ -127,9 +148,6 @@ public class OpenNMSProvisionerTest {
 
         RrdUtils.setStrategy(m_strategy);
         
-        m_provisioner = new OpenNMSProvisioner();
-        
-        m_eventManager = new MockEventIpcManager();
         m_provisioner.setEventManager(m_eventManager);
         
         m_pollerConfig = new TestPollerConfigManager(POLLER_CONFIG, "localhost", false);
@@ -144,10 +162,6 @@ public class OpenNMSProvisionerTest {
 
         configStream = ConfigurationTestUtils.getInputStreamForConfigFile("database-schema.xml");
         DatabaseSchemaConfigFactory.setInstance(new DatabaseSchemaConfigFactory(configStream));
-        configStream.close();
-
-        configStream = ConfigurationTestUtils.getInputStreamForResource(this, "/org/opennms/netmgt/capsd/collectd-configuration.xml");
-        CollectdConfigFactory collectdConfigFactory = new CollectdConfigFactory(configStream, onmsSvrConfig.getServerName(), onmsSvrConfig.verifyServer());
         configStream.close();
     }
 
