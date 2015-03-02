@@ -364,11 +364,6 @@ public abstract class ConfigFileConstants {
     public static final int NOTIFY_REPORT;
 
     /**
-     * The Linkd discovery configuration file
-     */
-    public static final int LINKD_CONFIG_FILE_NAME;
-    
-    /**
      * The ENHANCED Linkd discovery configuration file
      */
     public static final int ENLINKD_CONFIG_FILE_NAME;
@@ -561,8 +556,6 @@ public abstract class ConfigFileConstants {
 
         SYSLOGD_CONFIG_FILE_NAME = 58;
         
-        LINKD_CONFIG_FILE_NAME = 59;
-        
         MAP_PROPERTIES_FILE_NAME = 60;
         
         SURVEILLANCE_VIEWS_FILE_NAME = 61;
@@ -680,7 +673,6 @@ public abstract class ConfigFileConstants {
         FILE_ID_TO_NAME[JMX_DATA_COLLECTION_CONF_FILE_NAME] = "jmx-datacollection-config.xml";
         FILE_ID_TO_NAME[TRANSLATOR_CONFIG_FILE_NAME] = "translator-configuration.xml";
         FILE_ID_TO_NAME[SYSLOGD_CONFIG_FILE_NAME] = "syslogd-configuration.xml";
-        FILE_ID_TO_NAME[LINKD_CONFIG_FILE_NAME] = "linkd-configuration.xml";
         FILE_ID_TO_NAME[ENLINKD_CONFIG_FILE_NAME] = "enlinkd-configuration.xml";
         FILE_ID_TO_NAME[MAP_PROPERTIES_FILE_NAME] = "map.properties";
         FILE_ID_TO_NAME[SURVEILLANCE_VIEWS_FILE_NAME] = "surveillance-views.xml";

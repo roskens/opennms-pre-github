@@ -231,14 +231,6 @@ public class ConfigTesterTest {
     }
 
     @Test
-    /**
-     * FIXME: Database access.
-     */
-    public void testLinkdConfiguration() {
-        ignoreConfigFile("linkd-configuration.xml");
-    }
-
-    @Test
     public void testEnLinkdConfiguration() {
         ignoreConfigFile("enlinkd-configuration.xml");
     }

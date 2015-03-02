@@ -74,7 +74,6 @@ import org.opennms.netmgt.config.httpdatacollection.HttpDatacollectionConfig;
 import org.opennms.netmgt.config.javamail.JavamailConfiguration;
 import org.opennms.netmgt.config.jdbc.JdbcDataCollectionConfig;
 import org.opennms.netmgt.config.kscReports.ReportsList;
-import org.opennms.netmgt.config.linkd.LinkdConfiguration;
 import org.opennms.netmgt.config.mailtransporttest.MailTransportTest;
 import org.opennms.netmgt.config.map.adapter.MapsAdapterConfiguration;
 import org.opennms.netmgt.config.microblog.MicroblogConfiguration;
@@ -213,9 +212,7 @@ public class WillItUnmarshalTest {
         addFile(Source.CONFIG, "jasper-reports.xml", LocalJasperReports.class, Impl.JAXB);
         addFile(Source.CONFIG, "jmx-datacollection-config.xml", JmxDatacollectionConfig.class, Impl.CASTOR);
         addFile(Source.CONFIG, "ksc-performance-reports.xml", ReportsList.class, Impl.CASTOR);
-        addFile(Source.CONFIG, "linkd-configuration.xml", LinkdConfiguration.class, Impl.CASTOR);
         addFile(Source.CONFIG, "enlinkd-configuration.xml", EnlinkdConfiguration.class, Impl.CASTOR);
-        addFile(Source.EXAMPLE, "linkd-configuration.xml", LinkdConfiguration.class, Impl.CASTOR);
         addFile(Source.EXAMPLE, "mail-transport-test.xml", MailTransportTest.class, Impl.JAXB);
         addFile(Source.EXAMPLE, "hyperic-integration/imports-HQ.xml", Requisition.class, Impl.JAXB);
         addFile(Source.EXAMPLE, "hyperic-integration/imports-opennms-admin.xml", Requisition.class, Impl.JAXB);
