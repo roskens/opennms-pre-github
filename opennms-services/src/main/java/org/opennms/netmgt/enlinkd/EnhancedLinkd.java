@@ -41,8 +41,8 @@ import org.opennms.netmgt.config.EnhancedLinkdConfig;
 import org.opennms.netmgt.config.SnmpPeerFactory;
 import org.opennms.netmgt.daemon.AbstractServiceDaemon;
 import org.opennms.netmgt.events.api.EventForwarder;
-import org.opennms.netmgt.linkd.scheduler.ReadyRunnable;
-import org.opennms.netmgt.linkd.scheduler.Scheduler;
+import org.opennms.netmgt.enlinkd.scheduler.ReadyRunnable;
+import org.opennms.netmgt.enlinkd.scheduler.Scheduler;
 import org.opennms.netmgt.model.topology.LinkableSnmpNode;
 import org.opennms.netmgt.snmp.SnmpAgentConfig;
 import org.slf4j.Logger;
@@ -470,7 +470,7 @@ public class EnhancedLinkd extends AbstractServiceDaemon {
      * getScheduler
      * </p>
      * 
-     * @return a {@link org.opennms.netmgt.linkd.scheduler.Scheduler} object.
+     * @return a {@link org.opennms.netmgt.enlinkd.scheduler.Scheduler} object.
      */
     public Scheduler getScheduler() {
         return m_scheduler;
@@ -482,7 +482,7 @@ public class EnhancedLinkd extends AbstractServiceDaemon {
      * </p>
      * 
      * @param scheduler
-     *            a {@link org.opennms.netmgt.linkd.scheduler.Scheduler}
+     *            a {@link org.opennms.netmgt.enlinkd.scheduler.Scheduler}
      *            object.
      */
     public void setScheduler(Scheduler scheduler) {

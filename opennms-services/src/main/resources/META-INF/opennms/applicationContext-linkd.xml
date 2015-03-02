@@ -24,7 +24,7 @@
       <property name="linkd" ref="daemon" />
     </bean>
 
-    <bean id="scheduler" class="org.opennms.netmgt.linkd.scheduler.Scheduler">
+    <bean id="scheduler" class="org.opennms.netmgt.enlinkd.scheduler.Scheduler">
       <constructor-arg value="Linkd" />
       <constructor-arg>
         <util:property-path path="linkdConfig.threads" />
