@@ -33,7 +33,6 @@
         <entry key="jdbc-datacollection-config.xml" value="jdbcDataCollectionConfigDao"/>
         <entry key="jmx-datacollection-config.xml" value="jmxDataCollectionConfigFactory"/>
         <entry key="ksc-performance-reports.xml" value="kscReportFactory"/>
-        <!-- <entry key="linkd-configuration.xml" value="linkdConfigFactory"/> --><!-- database access -->
         <entry key="magic-users.properties" value="userDao"/>
         <entry key="map.properties" value="mapPropertiesFactory"/>
         <!-- <entry key="mapsadapter-configuration.xml" value="mapsAdapterConfigFactory"/> --><!--  database access -->
@@ -236,8 +235,6 @@ org.opennms.netmgt.filter.FilterParseException: SQL Exception occurred getting I
 
   <bean id="kscReportFactory" class="org.opennms.netmgt.config.KSC_PerformanceReportFactory" depends-on="kscReportFactory-init" factory-method="getInstance"/>
     
-  <bean id="linkdConfigFactory" class="org.opennms.netmgt.config.LinkdConfigFactory"/>
-
   <bean id="groupManager-init" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
     <property name="staticMethod"><value>org.opennms.netmgt.config.GroupFactory.init</value></property>
   </bean>

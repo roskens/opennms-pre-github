@@ -9,6 +9,4 @@
 
 	<context:annotation-config />
 
-	<bean id="linkdConfig" class="org.opennms.netmgt.config.mock.MockLinkdConfig" />
-
 </beans>
