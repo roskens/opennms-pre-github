@@ -100,13 +100,13 @@ public class EnhancedLinkdTopologyProviderTest {
     @Test
     public void testGetIcon() {
         Assert.assertTrue("linkd:system:snmp:1.3.6.1.4.1.5813.1.25".equals(EnhancedLinkdTopologyProvider.getIconName(m_databasePopulator.getNode1())));
-        Assert.assertTrue(LinkdTopologyProvider.SERVER_ICON_KEY.equals(EnhancedLinkdTopologyProvider.getIconName(m_databasePopulator.getNode2())));
-        Assert.assertTrue(LinkdTopologyProvider.SERVER_ICON_KEY.equals(EnhancedLinkdTopologyProvider.getIconName(m_databasePopulator.getNode3())));
-        Assert.assertTrue(LinkdTopologyProvider.SERVER_ICON_KEY.equals(EnhancedLinkdTopologyProvider.getIconName(m_databasePopulator.getNode4())));
-        Assert.assertTrue(LinkdTopologyProvider.SERVER_ICON_KEY.equals(EnhancedLinkdTopologyProvider.getIconName(m_databasePopulator.getNode5())));
-        Assert.assertTrue(LinkdTopologyProvider.SERVER_ICON_KEY.equals(EnhancedLinkdTopologyProvider.getIconName(m_databasePopulator.getNode6())));
-        Assert.assertTrue(LinkdTopologyProvider.SERVER_ICON_KEY.equals(EnhancedLinkdTopologyProvider.getIconName(m_databasePopulator.getNode7())));
-        Assert.assertTrue(LinkdTopologyProvider.SERVER_ICON_KEY.equals(EnhancedLinkdTopologyProvider.getIconName(m_databasePopulator.getNode8())));
+        Assert.assertTrue("linkd:system".equals(EnhancedLinkdTopologyProvider.getIconName(m_databasePopulator.getNode2())));
+        Assert.assertTrue("linkd:system".equals(EnhancedLinkdTopologyProvider.getIconName(m_databasePopulator.getNode3())));
+        Assert.assertTrue("linkd:system".equals(EnhancedLinkdTopologyProvider.getIconName(m_databasePopulator.getNode4())));
+        Assert.assertTrue("linkd:system".equals(EnhancedLinkdTopologyProvider.getIconName(m_databasePopulator.getNode5())));
+        Assert.assertTrue("linkd:system".equals(EnhancedLinkdTopologyProvider.getIconName(m_databasePopulator.getNode6())));
+        Assert.assertTrue("linkd:system".equals(EnhancedLinkdTopologyProvider.getIconName(m_databasePopulator.getNode7())));
+        Assert.assertTrue("linkd:system".equals(EnhancedLinkdTopologyProvider.getIconName(m_databasePopulator.getNode8())));
 
     }
 
@@ -119,7 +119,7 @@ public class EnhancedLinkdTopologyProviderTest {
 
     @Test
     public void testAddGroup() {
-        Vertex parentId = m_topologyProvider.addGroup("Linkd Group", LinkdTopologyProvider.GROUP_ICON_KEY);
+        Vertex parentId = m_topologyProvider.addGroup("Linkd Group", "linkd:group");
         Assert.assertEquals(true, m_topologyProvider.containsVertexId(parentId));
     }
 
@@ -446,13 +446,8 @@ public class EnhancedLinkdTopologyProviderTest {
      */
     @Test
     public void testAssignChildrenToParentsCorrectly() throws MalformedURLException, JAXBException {
-        LinkdTopologyProvider topologyProvider = new LinkdTopologyProvider();
+        EnhancedLinkdTopologyProvider topologyProvider = new EnhancedLinkdTopologyProvider();
 
-        DataLinkInterfaceDao datalinkIfDaoMock = EasyMock.createNiceMock(DataLinkInterfaceDao.class);
-        EasyMock.expect(datalinkIfDaoMock.findAll()).andReturn(new ArrayList<DataLinkInterface>()).anyTimes();
-        EasyMock.replay(datalinkIfDaoMock);
-
-        topologyProvider.setDataLinkInterfaceDao(datalinkIfDaoMock);
         topologyProvider.setNodeDao(m_databasePopulator.getNodeDao());
         topologyProvider.setIpInterfaceDao(m_databasePopulator.getIpInterfaceDao());
         topologyProvider.setSnmpInterfaceDao(m_databasePopulator.getSnmpInterfaceDao());
