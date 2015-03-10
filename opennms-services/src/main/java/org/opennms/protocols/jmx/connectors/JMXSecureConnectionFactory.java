@@ -28,16 +28,6 @@
 
 package org.opennms.protocols.jmx.connectors;
 
-import org.opennms.core.utils.InetAddressUtils;
-import org.opennms.core.utils.ParameterMap;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import javax.management.MBeanServerConnection;
-import javax.management.remote.JMXConnector;
-import javax.management.remote.JMXConnectorFactory;
-import javax.management.remote.JMXServiceURL;
-import javax.net.ssl.*;
 import java.net.InetAddress;
 import java.net.MalformedURLException;
 import java.security.KeyStore;
@@ -45,6 +35,22 @@ import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.management.MBeanServerConnection;
+import javax.management.remote.JMXConnector;
+import javax.management.remote.JMXConnectorFactory;
+import javax.management.remote.JMXServiceURL;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLException;
+import javax.net.ssl.SSLSocketFactory;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.TrustManagerFactory;
+import javax.net.ssl.X509TrustManager;
+
+import org.opennms.core.utils.InetAddressUtils;
+import org.opennms.core.utils.ParameterMap;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * <p>JMXSecureConnectionFactory class.</p>
@@ -110,7 +116,7 @@ public abstract class JMXSecureConnectionFactory {
                         tmf.init(ks);
                         // X509TrustManager defaultTrustManager = (X509TrustManager) tmf.getTrustManagers()[0];
                         tm = new AnyServerX509TrustManager();
-                        SSLContext ctx = SSLContext.getInstance("TLSv1");
+                        SSLContext ctx = SSLContext.getDefault();
                         ctx.init(null, new TrustManager[]{tm}, null);
                         SSLSocketFactory ssf = ctx.getSocketFactory();
                         env.put("jmx.remote.tls.socket.factory", ssf);
