@@ -592,8 +592,8 @@ public class EnhancedLinkdMockDataPopulator {
                 new AbstractEdge(EnhancedLinkdTopologyProvider.LLDP_EDGE_NAMESPACE, "10034|10043", mockVertex, mockVertex)
         };
         AbstractEdge[] edgeidsforvertex5 = {
-                new AbstractEdge(EnhancedLinkdTopologyProvider.LLDP_EDGE_NAMESPACE, "10056|10065", mockVertex, mockVertex),
-                new AbstractEdge(EnhancedLinkdTopologyProvider.LLDP_EDGE_NAMESPACE, "10045|10054", mockVertex, mockVertex)
+                new AbstractEdge(EnhancedLinkdTopologyProvider.LLDP_EDGE_NAMESPACE, "10045|10054", mockVertex, mockVertex),
+                new AbstractEdge(EnhancedLinkdTopologyProvider.LLDP_EDGE_NAMESPACE, "10056|10065", mockVertex, mockVertex)
         };
         AbstractEdge[] edgeidsforvertex6 = {
                 new AbstractEdge(EnhancedLinkdTopologyProvider.LLDP_EDGE_NAMESPACE, "10056|10065", mockVertex, mockVertex),
