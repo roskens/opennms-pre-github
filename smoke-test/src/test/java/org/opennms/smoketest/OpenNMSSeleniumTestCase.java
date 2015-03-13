@@ -101,87 +101,7 @@ public class OpenNMSSeleniumTestCase {
     protected WebDriverWait wait = null;
 
     @Rule
-    public TestWatcher m_watcher = new TestWatcher() {
-        @Override
-        protected void starting(final Description description) {
-            try {
-                m_driver = getDriver();
-                LOG.debug("Using driver: {}", m_driver);
-                m_driver.manage().timeouts().implicitlyWait(LOAD_TIMEOUT, TimeUnit.MILLISECONDS);
-                wait = new WebDriverWait(m_driver, TimeUnit.SECONDS.convert(LOAD_TIMEOUT, TimeUnit.MILLISECONDS));
-
-                m_driver.get(BASE_URL + "opennms/login.jsp");
-                wait.until(ExpectedConditions.visibilityOfElementLocated(By.name("j_username")));
-                enterText(By.name("j_username"), "admin");
-                enterText(By.name("j_password"), "admin");
-                findElementByName("Login").click();
-                wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@id='content']")));
-            } catch (final InstantiationException | IllegalAccessException | ClassNotFoundException e) {
-                LOG.debug("Failed to get driver", e);
-                throw new RuntimeException("Tests aren't going to work.  Bailing.");
-            }
-        }
-
-        @Override
-        protected void failed(final Throwable e, final Description description) {
-            final String testName = description.getMethodName();
-            LOG.debug("Test {} failed... attempting to take screenshot.", testName);
-            if (m_driver != null && m_driver instanceof TakesScreenshot) {
-                final TakesScreenshot shot = (TakesScreenshot)m_driver;
-                try {
-                    final File from = shot.getScreenshotAs(OutputType.FILE);
-                    final String screenshotFileName = "target" + File.separator + "screenshots" + File.separator + description.getClassName() + "." + testName + ".png";
-                    final File to = new File(screenshotFileName);
-                    LOG.debug("Screenshot saved to: {}", from);
-                    try {
-                        to.getParentFile().mkdirs();
-                        Files.move(from, to);
-                        LOG.debug("Screenshot moved to: {}", to);
-                    } catch (final IOException ioe) {
-                        LOG.debug("Failed to move screenshot from {} to {}", from, to, ioe);
-                    }
-                } catch (final Exception sse) {
-                    LOG.debug("Failed to take screenshot.", sse);
-                }
-            } else {
-                LOG.debug("Driver can't take screenshots.");
-            }
-            LOG.debug("Current URL: {}", m_driver.getCurrentUrl());
-            m_driver.navigate().back();
-            LOG.debug("Previous URL: {}", m_driver.getCurrentUrl());
-        }
-
-        @Override
-        protected void finished(final Description description) {
-            try {
-                deleteTestRequisition();
-                deleteTestUser();
-                deleteTestGroup();
-            } catch (final Exception e) {
-                LOG.error("Cleaning up failed. Future tests will be in an unhandled state.", e);
-            }
-
-            LOG.debug("Shutting down Selenium.");
-            if (m_driver != null) {
-                try {
-                    m_driver.get(BASE_URL + "opennms/j_spring_security_logout");
-                } catch (final SeleniumException e) {
-                    // don't worry about it, this is just for logging out
-                }
-                try {
-                    m_driver.quit();
-                } catch (final Exception e) {
-                    LOG.error("Failed while shutting down WebDriver for test {}.", description.getMethodName(), e);
-                }
-                m_driver = null;
-            }
-
-            try {
-                Thread.sleep(3000);
-            } catch (final InterruptedException e) {
-            }
-        }
-    };
+    public TestWatcher m_watcher = new OnmsTestWatcher();
 
     @BeforeClass
     public static void configureLogging() throws Exception {
@@ -562,6 +482,88 @@ public class OpenNMSSeleniumTestCase {
         }
         LOG.debug("0 database nodes found.");
         return 0;
+    }
+
+    protected final class OnmsTestWatcher extends TestWatcher {
+        @Override
+        protected void starting(final Description description) {
+            try {
+                m_driver = getDriver();
+                LOG.debug("Using driver: {}", m_driver);
+                m_driver.manage().timeouts().implicitlyWait(LOAD_TIMEOUT, TimeUnit.MILLISECONDS);
+                wait = new WebDriverWait(m_driver, TimeUnit.SECONDS.convert(LOAD_TIMEOUT, TimeUnit.MILLISECONDS));
+
+                m_driver.get(BASE_URL + "opennms/login.jsp");
+                wait.until(ExpectedConditions.visibilityOfElementLocated(By.name("j_username")));
+                enterText(By.name("j_username"), "admin");
+                enterText(By.name("j_password"), "admin");
+                findElementByName("Login").click();
+                wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@id='content']")));
+            } catch (final InstantiationException | IllegalAccessException | ClassNotFoundException e) {
+                LOG.debug("Failed to get driver", e);
+                throw new RuntimeException("Tests aren't going to work.  Bailing.");
+            }
+        }
+
+        @Override
+        protected void failed(final Throwable e, final Description description) {
+            final String testName = description.getMethodName();
+            LOG.debug("Test {} failed... attempting to take screenshot.", testName);
+            if (m_driver != null && m_driver instanceof TakesScreenshot) {
+                final TakesScreenshot shot = (TakesScreenshot)m_driver;
+                try {
+                    final File from = shot.getScreenshotAs(OutputType.FILE);
+                    final String screenshotFileName = "target" + File.separator + "screenshots" + File.separator + description.getClassName() + "." + testName + ".png";
+                    final File to = new File(screenshotFileName);
+                    LOG.debug("Screenshot saved to: {}", from);
+                    try {
+                        to.getParentFile().mkdirs();
+                        Files.move(from, to);
+                        LOG.debug("Screenshot moved to: {}", to);
+                    } catch (final IOException ioe) {
+                        LOG.debug("Failed to move screenshot from {} to {}", from, to, ioe);
+                    }
+                } catch (final Exception sse) {
+                    LOG.debug("Failed to take screenshot.", sse);
+                }
+            } else {
+                LOG.debug("Driver can't take screenshots.");
+            }
+            LOG.debug("Current URL: {}", m_driver.getCurrentUrl());
+            m_driver.navigate().back();
+            LOG.debug("Previous URL: {}", m_driver.getCurrentUrl());
+        }
+
+        @Override
+        protected void finished(final Description description) {
+            try {
+                deleteTestRequisition();
+                deleteTestUser();
+                deleteTestGroup();
+            } catch (final Exception e) {
+                LOG.error("Cleaning up failed. Future tests will be in an unhandled state.", e);
+            }
+
+            LOG.debug("Shutting down Selenium.");
+            if (m_driver != null) {
+                try {
+                    m_driver.get(BASE_URL + "opennms/j_spring_security_logout");
+                } catch (final SeleniumException e) {
+                    // don't worry about it, this is just for logging out
+                }
+                try {
+                    m_driver.quit();
+                } catch (final Exception e) {
+                    LOG.error("Failed while shutting down WebDriver for test {}.", description.getMethodName(), e);
+                }
+                m_driver = null;
+            }
+
+            try {
+                Thread.sleep(3000);
+            } catch (final InterruptedException e) {
+            }
+        }
     }
 
     protected final class WaitForNodesInDatabase implements ExpectedCondition<Boolean> {
