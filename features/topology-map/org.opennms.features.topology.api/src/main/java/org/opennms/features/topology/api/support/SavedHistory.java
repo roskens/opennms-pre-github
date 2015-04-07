@@ -1,3 +1,31 @@
+/*******************************************************************************
+ * This file is part of OpenNMS(R).
+ *
+ * Copyright (C) 2013-2014 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2014 The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published
+ * by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * OpenNMS(R) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with OpenNMS(R).  If not, see:
+ *      http://www.gnu.org/licenses/
+ *
+ * For more information contact:
+ *     OpenNMS(R) Licensing <license@opennms.org>
+ *     http://www.opennms.org/
+ *     http://www.opennms.com/
+ *******************************************************************************/
+
 package org.opennms.features.topology.api.support;
 
 import java.io.UnsupportedEncodingException;
@@ -22,7 +50,7 @@ import org.opennms.features.topology.api.GraphContainer;
 import org.opennms.features.topology.api.HistoryOperation;
 import org.opennms.features.topology.api.Layout;
 import org.opennms.features.topology.api.Point;
-import org.opennms.features.topology.api.support.VertexHopGraphProvider.VertexHopCriteria;
+import org.opennms.features.topology.api.support.VertexHopGraphProvider.FocusNodeHopCriteria;
 import org.opennms.features.topology.api.topo.Criteria;
 import org.opennms.features.topology.api.topo.Vertex;
 import org.opennms.features.topology.api.topo.VertexRef;
@@ -36,15 +64,15 @@ import org.slf4j.LoggerFactory;
 public class SavedHistory {
 
     @XmlAttribute(name="semantic-zoom-level")
-    public int m_szl;
+    private int m_szl;
 
     @XmlElement(name="bounding-box")
     @XmlJavaTypeAdapter(BoundingBoxAdapter.class)
-    public BoundingBox m_boundBox;
+    private BoundingBox m_boundBox;
 
     @XmlElement(name="locations")
     @XmlJavaTypeAdapter(VertexRefPointMapAdapter.class)
-    public Map<VertexRef, Point> m_locations = new HashMap<VertexRef, Point>();
+    private Map<VertexRef, Point> m_locations = new HashMap<VertexRef, Point>();
 
     @XmlElement(name="selection")
     @XmlJavaTypeAdapter(VertexRefSetAdapter.class)
@@ -59,7 +87,7 @@ public class SavedHistory {
      */
     @XmlElement(name="settings")
     @XmlJavaTypeAdapter(StringMapAdapter.class)
-    public final Map<String,String> m_settings = new HashMap<String,String>();
+    private final Map<String,String> m_settings = new HashMap<String,String>();
 
     protected SavedHistory() {
         // Here for JAXB support
@@ -88,17 +116,24 @@ public class SavedHistory {
             getFocusVertices(graphContainer),
             getOperationSettings(graphContainer, operations)
         );
-        // TODO Why is this here? We just called this function in the constructor call.
-        saveLocations(graphContainer.getGraph());
     }
 
     protected static Set<VertexRef> getFocusVertices(GraphContainer graphContainer) {
-        VertexHopCriteria criteria = VertexHopGraphProvider.getVertexHopCriteriaForContainer(graphContainer, false);
-        if (criteria == null) {
-            return Collections.emptySet();
-        } else {
-            return criteria.getVertices();
+        Set<VertexRef> retVal = new HashSet<VertexRef>();
+
+        Criteria[] criterias = graphContainer.getCriteria();
+        for (Criteria crit : criterias) {
+            if (crit instanceof VertexHopGraphProvider.VertexHopCriteria && crit.getNamespace().equals("nodes")) {
+                retVal.addAll(((VertexHopGraphProvider.VertexHopCriteria) crit).getVertices());
+            }
         }
+
+        FocusNodeHopCriteria criteria = VertexHopGraphProvider.getFocusNodeHopCriteriaForContainer(graphContainer, false);
+        if (criteria != null) {
+            retVal.addAll(criteria.getVertices());
+        }
+
+        return retVal;
     }
 
     SavedHistory(int szl, BoundingBox box, Map<VertexRef,Point> locations, Set<VertexRef> selectedVertices, Set<VertexRef> focusVertices, Map<String,String> operationSettings) {
@@ -119,7 +154,6 @@ public class SavedHistory {
         }
         return locations;
     }
-
 
     public int getSemanticZoomLevel() {
         return m_szl;
@@ -147,8 +181,9 @@ public class SavedHistory {
         for(Map.Entry<VertexRef, Point> entry : m_locations.entrySet()) {
             try {
                 locationsCrc.update(entry.getKey().getId().getBytes("UTF-8"));
-                locationsCrc.update(entry.getValue().getX());
-                locationsCrc.update(entry.getValue().getY());
+                //TODO cast to int for now
+                locationsCrc.update((int)entry.getValue().getX());
+                locationsCrc.update((int)entry.getValue().getY());
             } catch(UnsupportedEncodingException e) {
                 // Impossible on modern JVMs
             }
@@ -181,17 +216,17 @@ public class SavedHistory {
     }
 
     public void apply(GraphContainer graphContainer, Collection<HistoryOperation> operations) {
-        // LoggerFactory.getLogger(this.getClass()).debug("Applying " + toString());
+        LoggerFactory.getLogger(this.getClass()).debug("Applying " + toString());
 
         if (m_focusVertices.size() > 0) {
-            VertexHopCriteria criteria = VertexHopGraphProvider.getVertexHopCriteriaForContainer(graphContainer);
+            FocusNodeHopCriteria criteria = VertexHopGraphProvider.getFocusNodeHopCriteriaForContainer(graphContainer);
             // Clear existing focus nodes
             criteria.clear();
             // Add focus nodes from history
             criteria.addAll(m_focusVertices);
         } else {
             // Remove any existing VertexHopCriteria
-            VertexHopCriteria criteria = VertexHopGraphProvider.getVertexHopCriteriaForContainer(graphContainer, false);
+            FocusNodeHopCriteria criteria = VertexHopGraphProvider.getFocusNodeHopCriteriaForContainer(graphContainer, false);
             if (criteria != null) {
                 graphContainer.removeCriteria(criteria);
             }
@@ -199,7 +234,11 @@ public class SavedHistory {
 
         // Apply the history for each registered HistoryOperation
         for (HistoryOperation operation : operations) {
-            operation.applyHistory(graphContainer, m_settings);
+            try {
+                operation.applyHistory(graphContainer, m_settings);
+            } catch (Throwable e) {
+                LoggerFactory.getLogger(this.getClass()).warn("Failed to perform applyHistory() operation", e);
+            }
         }
         applySavedLocations(m_locations, graphContainer.getGraph().getLayout());
         graphContainer.setSemanticZoomLevel(getSemanticZoomLevel());
@@ -218,12 +257,29 @@ public class SavedHistory {
     
     @Override
     public String toString() {
-        StringBuffer retval = new StringBuffer().append(this.getClass().getSimpleName()).append(": ").append(getFragment());
+        StringBuffer retval = new StringBuffer().append(this.getClass().getSimpleName()).append(": ").append(getFragment()).append(": ");
+        boolean first = true;
         for (Map.Entry<String,String> entry : m_settings.entrySet()) {
-            retval.append(",[").append(entry.getKey()).append("->").append(entry.getValue()).append("]");
+            if (first) { first = false; } else { retval.append(","); }
+            retval.append(entry.getKey()).append("->").append(entry.getValue());
         }
-        for (VertexRef entry : m_selectedVertices) {
-            retval.append(",[").append(entry.getNamespace()).append(":").append(entry.getId()).append("]");
+        if (m_selectedVertices.size() > 0) {
+            first = true;
+            retval.append(",selectedVertices->{");
+            for (VertexRef entry : m_selectedVertices) {
+                if (first) { first = false; } else { retval.append(","); }
+                retval.append("[").append(entry.getNamespace()).append(":").append(entry.getId()).append("]");
+            }
+            retval.append("}");
+        }
+        if (m_focusVertices.size() > 0) {
+            first = true;
+            retval.append(",focusVertices->{");
+            for (VertexRef entry : m_focusVertices) {
+                if (first) { first = false; } else { retval.append(","); }
+                retval.append("[").append(entry.getNamespace()).append(":").append(entry.getId()).append("]");
+            }
+            retval.append("}");
         }
         return retval.toString();
     }

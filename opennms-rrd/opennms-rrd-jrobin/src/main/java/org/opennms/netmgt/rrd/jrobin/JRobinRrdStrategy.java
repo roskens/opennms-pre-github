@@ -1,22 +1,22 @@
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
- * Copyright (C) 2006-2012 The OpenNMS Group, Inc.
- * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ * Copyright (C) 2004-2014 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2014 The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published
+ * it under the terms of the GNU Affero General Public License as published
  * by the Free Software Foundation, either version 3 of the License,
  * or (at your option) any later version.
  *
  * OpenNMS(R) is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU Affero General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GNU Affero General Public License
  * along with OpenNMS(R).  If not, see:
  *      http://www.gnu.org/licenses/
  *
@@ -29,6 +29,7 @@
 package org.opennms.netmgt.rrd.jrobin;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -39,6 +40,7 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Properties;
 
 import org.jrobin.core.FetchData;
@@ -54,6 +56,7 @@ import org.opennms.netmgt.rrd.RrdDataSource;
 import org.opennms.netmgt.rrd.RrdGraphDetails;
 import org.opennms.netmgt.rrd.RrdStrategy;
 import org.opennms.netmgt.rrd.RrdUtils;
+import org.opennms.netmgt.rrd.jrobin.JRobinRrdGraphDetails;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -87,7 +90,7 @@ public class JRobinRrdStrategy implements RrdStrategy<RrdDef,RrdDb> {
      * @author jeffg
      *
      */
-    class ConstantStaticDef extends Plottable {
+    static class ConstantStaticDef extends Plottable {
         private double m_startTime = Double.NEGATIVE_INFINITY;
         private double m_endTime = Double.POSITIVE_INFINITY;
         private double m_value = Double.NaN;
@@ -684,7 +687,7 @@ public class JRobinRrdStrategy implements RrdStrategy<RrdDef,RrdDb> {
                 String[] hrule = tokenize(definition, ":", true);
                 String[] color = tokenize(hrule[0], "#", true);
                 Double value = Double.valueOf(color[0]);
-                graphDef.hrule(value, getColor(color[1]), hrule[1]);
+                graphDef.hrule(value, getColor(color[1]), (hrule.length > 1 ? hrule[1] : ""));
             } else if (arg.endsWith("/rrdtool") || arg.equals("graph") || arg.equals("-")) {
             	// ignore, this is just a leftover from the rrdtool-specific options
 
@@ -733,24 +736,71 @@ public class JRobinRrdStrategy implements RrdStrategy<RrdDef,RrdDb> {
 		return def;
 	}
 
-	private void processRrdFontArgument(RrdGraphDef graphDef, String argParm) {
-		/*
-		String[] argValue = tokenize(argParm, ":", true);
-		if (argValue[0].equals("DEFAULT")) {
-			int newPointSize = Integer.parseInt(argValue[1]);
-			graphDef.setSmallFont(graphDef.getSmallFont().deriveFont(newPointSize));
-		} else if (argValue[0].equals("TITLE")) {
-			int newPointSize = Integer.parseInt(argValue[1]);
-			graphDef.setLargeFont(graphDef.getLargeFont().deriveFont(newPointSize));
-		} else {
-			try {
-				Font font = Font.createFont(Font.TRUETYPE_FONT, new File(argValue[0]));
-			} catch (Throwable e) {
-				// oh well, fall back to existing font stuff
-				LOG.warn("unable to create font from font argument {}", argParm, e);
-			}
-		}
-		*/
+	private void processRrdFontArgument(final RrdGraphDef graphDef, final String argParm) {
+	    final String[] argValue = tokenize(argParm, ":", false);
+            if (argValue.length < 2) {
+                LOG.warn("Argument '{}' does not specify font size", argParm);
+                return;
+            }
+            if (argValue.length > 3) {
+                LOG.debug("Argument '{}' includes extra data, ignoring the extra data.", argParm);
+            }
+	    float newPointSize = 0f;
+	    try {
+	        newPointSize = Integer.parseInt(argValue[1]) * 1.5f;
+	    } catch (final NumberFormatException e) {
+	        LOG.warn("Failed to parse {} as an integer: {}", argValue[1], e.getMessage(), e);
+	    }
+	    int fontTag;
+	    Font font;
+
+	    if (argValue[0].equals("DEFAULT")) {
+	        fontTag = RrdGraphDef.FONTTAG_DEFAULT;
+	    } else if (argValue[0].equals("TITLE")) {
+	        fontTag = RrdGraphDef.FONTTAG_TITLE;
+	    } else if (argValue[0].equals("AXIS")) {
+	        fontTag = RrdGraphDef.FONTTAG_AXIS;
+	    } else if (argValue[0].equals("UNIT")) {
+	        fontTag = RrdGraphDef.FONTTAG_UNIT;
+	    } else if (argValue[0].equals("LEGEND")) {
+	        fontTag = RrdGraphDef.FONTTAG_LEGEND;
+	    } else if (argValue[0].equals("WATERMARK")) {
+	        fontTag = RrdGraphDef.FONTTAG_WATERMARK;
+	    } else {
+	        LOG.warn("invalid font tag {}", argValue[0]);
+	        return;
+	    }
+
+	    try {
+	        font = graphDef.getFont(fontTag);
+
+	        // If we have a font specified, try to get a font object for it.
+	        if (argValue.length == 3 && argValue[2] != null && argValue[2].length() > 0) {
+	            final float origPointSize = font.getSize2D();
+
+                    // Get our new font
+	            font = Font.decode(argValue[2]);
+
+	            // Font.decode() returns a 12 px font size, by default unless you specify
+	            // a font size in the font name pattern.
+	            if (newPointSize > 0) {
+	                font = font.deriveFont(newPointSize);
+	            } else {
+	                font = font.deriveFont(origPointSize);
+	            }
+	        } else {
+	            // If we don't have a font name specified, then we just adjust the font size.
+	            font = font.deriveFont(newPointSize);
+	        }
+
+	        if (fontTag == RrdGraphDef.FONTTAG_DEFAULT) {
+	            graphDef.setFont(fontTag, font, true, newPointSize == 0);
+	        } else {
+	            graphDef.setFont(fontTag, font);
+	        }
+	    } catch (final Throwable e) {
+	        LOG.warn("unable to create font from font argument {}", argParm, e);
+	    }
 	}
 
     private String[] tokenize(final String line, final String delimiters, final boolean processQuotes) {
@@ -1000,10 +1050,11 @@ public class JRobinRrdStrategy implements RrdStrategy<RrdDef,RrdDb> {
             graphDef.datasource(sourceName, rhs[0], rhs[1]);
         } else if (rhs.length == 3 && "PERCENT".equals(rhs[2])) {
             // Is there a better way to do this than with a separate DataProcessor?
-            double pctRank = Double.valueOf(rhs[1]);
-            DataProcessor dataProcessor = new DataProcessor((int)start, (int)end);
-            for (String dsName : defs.keySet()) {
-                List<String> thisDef = defs.get(dsName);
+            final double pctRank = Double.valueOf(rhs[1]);
+            final DataProcessor dataProcessor = new DataProcessor((int)start, (int)end);
+            for (final Entry<String, List<String>> entry : defs.entrySet()) {
+                final String dsName = entry.getKey();
+                final List<String> thisDef = entry.getValue();
                 if (thisDef.size() == 3) {
                     dataProcessor.addDatasource(dsName, thisDef.get(0), thisDef.get(1), thisDef.get(2));
                 } else if (thisDef.size() == 1) {

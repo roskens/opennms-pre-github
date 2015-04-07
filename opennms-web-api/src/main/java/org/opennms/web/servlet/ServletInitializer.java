@@ -1,22 +1,22 @@
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
- * Copyright (C) 2012 The OpenNMS Group, Inc.
- * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ * Copyright (C) 2002-2014 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2014 The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published
+ * it under the terms of the GNU Affero General Public License as published
  * by the Free Software Foundation, either version 3 of the License,
  * or (at your option) any later version.
  *
  * OpenNMS(R) is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU Affero General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GNU Affero General Public License
  * along with OpenNMS(R).  If not, see:
  *      http://www.gnu.org/licenses/
  *
@@ -39,7 +39,6 @@ import java.util.Properties;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 
-import org.opennms.core.db.DataSourceFactory;
 import org.opennms.core.logging.Logging;
 import org.opennms.core.resource.Vault;
 import org.slf4j.Logger;
@@ -80,7 +79,7 @@ public class ServletInitializer extends Object {
      *            servlet is running
      * @throws javax.servlet.ServletException if any.
      */
-    public synchronized static void init(ServletContext context) throws ServletException {
+    public static synchronized void init(ServletContext context) throws ServletException {
         if (context == null) {
             throw new IllegalArgumentException("Cannot take null parameters.");
         }
@@ -138,24 +137,14 @@ public class ServletInitializer extends Object {
         Vault.setProperties(properties);
         Vault.setHomeDir(homeDir);
 
-        try {
-        	DataSourceFactory.init();
-        } catch (Throwable e) {
-        	throw new ServletException("Could not initialize data source factory: " + e, e);
-        }
-
         // This is done inside "Vault.getDataSource" to ensure that "Vault" could be used by "IfLabel" - See Bug 4117
         // Vault.setDataSource(DataSourceFactory.getInstance());
     }
 
     private static void loadPropertiesFromFile(Properties opennmsProperties, String propertiesFile) throws FileNotFoundException, ServletException, IOException {
         InputStream configurationStream = new FileInputStream(propertiesFile);
-        if (configurationStream == null) {
-            throw new ServletException("Could not load properties from file '" + propertiesFile + "'");
-        } else {
-            opennmsProperties.load(configurationStream);
-            configurationStream.close();
-        }
+        opennmsProperties.load(configurationStream);
+        configurationStream.close();
     }
 
     private static void loadPropertiesFromContextResource(ServletContext context, Properties properties, String propertiesResource) throws ServletException, IOException {
@@ -183,7 +172,7 @@ public class ServletInitializer extends Object {
      *            servlet is running
      * @throws javax.servlet.ServletException if any.
      */
-    public synchronized static void destroy(ServletContext context) throws ServletException {
+    public static synchronized void destroy(ServletContext context) throws ServletException {
     }
 
     /**

@@ -1,22 +1,22 @@
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
- * Copyright (C) 2012 The OpenNMS Group, Inc.
- * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ * Copyright (C) 2012-2014 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2014 The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published
+ * it under the terms of the GNU Affero General Public License as published
  * by the Free Software Foundation, either version 3 of the License,
  * or (at your option) any later version.
  *
  * OpenNMS(R) is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU Affero General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GNU Affero General Public License
  * along with OpenNMS(R).  If not, see:
  *      http://www.gnu.org/licenses/
  *
@@ -45,8 +45,9 @@ import org.opennms.features.topology.app.internal.support.IconRepositoryManager;
 
 import java.util.*;
 import java.util.concurrent.CopyOnWriteArraySet;
+import org.slf4j.LoggerFactory;
 
-@JavaScript({"gwt/public/topologywidget/js/d3.v3.js", "gwt/public/topologywidget/js/d3.interpolate-zoom.v0.js"})
+@JavaScript({"gwt/public/topologywidget/js/d3.v3.4.13.js"})
 public class TopologyComponent extends AbstractComponent implements ChangeListener, ValueChangeListener, MapViewManagerListener {
 
     TopologyComponentServerRpc m_rpc = new TopologyComponentServerRpc(){
@@ -71,7 +72,10 @@ public class TopologyComponent extends AbstractComponent implements ChangeListen
 
         @Override
         public void backgroundClicked() {
+            m_blockSelectionEvents = true;
             m_graphContainer.getSelectionManager().deselectAll();
+            updateMenuItems();
+            m_blockSelectionEvents = false;
         }
 
         @Override
@@ -101,7 +105,7 @@ public class TopologyComponent extends AbstractComponent implements ChangeListen
                 menuTarget = getGraph().getEdgeByKey(targetKey);
             }
 
-            m_contextMenuHandler.show(menuTarget, x, y);
+            m_contextMenuHandler.showContextMenu(menuTarget, x, y);
 
         }
 
@@ -203,12 +207,11 @@ public class TopologyComponent extends AbstractComponent implements ChangeListen
 
         Graph graph = getGraph();
         //Set Status provider from the graph container because I may move it later
-        GraphVisitor painter = new GraphPainter(m_graphContainer, graph.getLayout(), m_iconRepoManager, m_graphContainer.getStatusProvider(), getState());
+        GraphVisitor painter = new GraphPainter(m_graphContainer, graph.getLayout(), m_iconRepoManager, m_graphContainer.getVertexStatusProvider(), getState());
         try {
             graph.visit(painter);
         } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            LoggerFactory.getLogger(getClass()).error(e.getMessage(), e);
         }
     }
 
@@ -298,8 +301,10 @@ public class TopologyComponent extends AbstractComponent implements ChangeListen
         Graph graph = container.getGraph();
         setGraph(graph);
 
-        getViewManager().setMapBounds(graph.getLayout().getBounds());
-        computeBoundsForSelected(m_graphContainer.getSelectionManager());
+        if(!m_blockSelectionEvents){
+            computeBoundsForSelected(m_graphContainer.getSelectionManager());
+        }
+        updateGraph();
     }
 
     /**
@@ -320,6 +325,14 @@ public class TopologyComponent extends AbstractComponent implements ChangeListen
             getState().setActiveTool(toolname);
             updateGraph();
         }
+    }
+
+    public void showAllMap(){
+        getViewManager().setBoundingBox(m_graphContainer.getGraph().getLayout().getBounds());
+    }
+
+    public void centerMapOnSelection(){
+        computeBoundsForSelected(m_graphContainer.getSelectionManager());
     }
 
     private void computeBoundsForSelected(SelectionContext selectionContext) {
@@ -358,6 +371,14 @@ public class TopologyComponent extends AbstractComponent implements ChangeListen
         for(VertexUpdateListener listener : m_vertexUpdateListeners) {
             listener.onVertexUpdate();
         }
+    }
+
+    public void blockSelectionEvents(){
+        m_blockSelectionEvents = true;
+    }
+
+    public void unblockSelectionEvents(){
+        m_blockSelectionEvents = false;
     }
 
 }

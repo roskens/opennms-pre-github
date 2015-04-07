@@ -1,22 +1,22 @@
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
- * Copyright (C) 2012 The OpenNMS Group, Inc.
- * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ * Copyright (C) 2011-2014 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2014 The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published
+ * it under the terms of the GNU Affero General Public License as published
  * by the Free Software Foundation, either version 3 of the License,
  * or (at your option) any later version.
  *
  * OpenNMS(R) is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU Affero General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GNU Affero General Public License
  * along with OpenNMS(R).  If not, see:
  *      http://www.gnu.org/licenses/
  *
@@ -30,6 +30,7 @@ package org.opennms.netmgt.config;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.net.InetAddress;
 
 import junit.framework.TestCase;
 
@@ -386,4 +387,117 @@ public class WmiPeerFactoryTest extends TestCase {
         assertEquals("192.168.0.6", factory.getConfig().getDefinition(0).getRange(0).getBegin());
         assertEquals("192.168.0.100", factory.getConfig().getDefinition(0).getRange(0).getEnd());
     }
+
+    /**
+     * @throws MarshalException
+     * @throws ValidationException
+     * @throws IOException 
+     */
+    public final void testEncodedPassDefault() throws MarshalException, ValidationException, IOException {
+
+        String amiConfigXml = "<?xml version=\"1.0\"?>\n" + 
+        "<wmi-config retry=\"3\" timeout=\"800\"\n" + 
+        "   password=\"b2JzY3VyaXR5RlRXIQ===\">\n" + 
+        "   <definition>\n" + 
+        "       <specific>192.168.0.5</specific>\n" + 
+        "   </definition>\n" + 
+        "\n" + 
+        "</wmi-config>\n" + 
+        "";
+
+        WmiPeerFactory factory = new WmiPeerFactory(new ByteArrayInputStream(amiConfigXml.getBytes("UTF-8")));
+
+        assertEquals(1, factory.getConfig().getDefinitionCount());
+
+        WmiPeerFactory.optimize();
+
+        assertEquals(1, factory.getConfig().getDefinitionCount());
+        
+        assertEquals("obscurityFTW!", WmiPeerFactory.getInstance().getAgentConfig(InetAddress.getByName("1.1.1.1")).getPassword());
+    }
+
+    /**
+     * @throws MarshalException
+     * @throws ValidationException
+     * @throws IOException 
+     */
+    public final void testEncodedPassDefinition() throws MarshalException, ValidationException, IOException {
+
+        String amiConfigXml = "<?xml version=\"1.0\"?>\n" + 
+        "<wmi-config retry=\"3\" timeout=\"800\"\n" + 
+        "   password=\"b2JzY3VyaXR5RlRXIQ===\">\n" + 
+        "   <definition password=\"b2JzY3VyZSE9c2VjdXJl===\">\n" + 
+        "       <specific>192.168.0.5</specific>\n" + 
+        "   </definition>\n" + 
+        "\n" + 
+        "</wmi-config>\n" + 
+        "";
+
+        WmiPeerFactory factory = new WmiPeerFactory(new ByteArrayInputStream(amiConfigXml.getBytes("UTF-8")));
+
+        assertEquals(1, factory.getConfig().getDefinitionCount());
+
+        WmiPeerFactory.optimize();
+
+        assertEquals(1, factory.getConfig().getDefinitionCount());
+        
+        assertEquals("obscure!=secure", WmiPeerFactory.getInstance().getAgentConfig(InetAddress.getByName("192.168.0.5")).getPassword());
+    }
+    
+    /**
+     * @throws MarshalException
+     * @throws ValidationException
+     * @throws IOException 
+     */
+    public final void testUnencodedPassDefault() throws MarshalException, ValidationException, IOException {
+
+        String amiConfigXml = "<?xml version=\"1.0\"?>\n" + 
+        "<wmi-config retry=\"3\" timeout=\"800\"\n" + 
+        "   password=\"clarityFTW!\">\n" + 
+        "   <definition>\n" + 
+        "       <specific>192.168.0.5</specific>\n" + 
+        "   </definition>\n" + 
+        "\n" + 
+        "</wmi-config>\n" + 
+        "";
+
+        WmiPeerFactory factory = new WmiPeerFactory(new ByteArrayInputStream(amiConfigXml.getBytes("UTF-8")));
+
+        assertEquals(1, factory.getConfig().getDefinitionCount());
+
+        WmiPeerFactory.optimize();
+
+        assertEquals(1, factory.getConfig().getDefinitionCount());
+        
+        assertEquals("clarityFTW!", WmiPeerFactory.getInstance().getAgentConfig(InetAddress.getByName("1.1.1.1")).getPassword());
+    }
+
+    /**
+     * @throws MarshalException
+     * @throws ValidationException
+     * @throws IOException 
+     */
+    public final void testUnencodedPassDefinition() throws MarshalException, ValidationException, IOException {
+
+        String amiConfigXml = "<?xml version=\"1.0\"?>\n" + 
+        "<wmi-config retry=\"3\" timeout=\"800\"\n" + 
+        "   password=\"clarityFTW!\">\n" + 
+        "   <definition password=\"aVerySecureOne\">\n" + 
+        "       <specific>192.168.0.5</specific>\n" + 
+        "   </definition>\n" + 
+        "\n" + 
+        "</wmi-config>\n" + 
+        "";
+
+        WmiPeerFactory factory = new WmiPeerFactory(new ByteArrayInputStream(amiConfigXml.getBytes("UTF-8")));
+
+        assertEquals(1, factory.getConfig().getDefinitionCount());
+
+        WmiPeerFactory.optimize();
+
+        assertEquals(1, factory.getConfig().getDefinitionCount());
+        
+        assertEquals("aVerySecureOne", WmiPeerFactory.getInstance().getAgentConfig(InetAddress.getByName("192.168.0.5")).getPassword());
+    }
+
 }

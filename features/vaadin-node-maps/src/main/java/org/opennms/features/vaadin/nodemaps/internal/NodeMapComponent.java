@@ -1,22 +1,22 @@
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
- * Copyright (C) 2013 The OpenNMS Group, Inc.
- * OpenNMS(R) is Copyright (C) 1999-2013 The OpenNMS Group, Inc.
+ * Copyright (C) 2013-2014 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2014 The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published
+ * it under the terms of the GNU Affero General Public License as published
  * by the Free Software Foundation, either version 3 of the License,
  * or (at your option) any later version.
  *
  * OpenNMS(R) is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU Affero General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GNU Affero General Public License
  * along with OpenNMS(R).  If not, see:
  *      http://www.gnu.org/licenses/
  *
@@ -58,6 +58,10 @@ public class NodeMapComponent extends AbstractComponent {
         public void setSelectedNodes(final List<Integer> nodeIds) {
             ((NodeMapsApplication)UI.getCurrent()).setFocusedNodes(nodeIds);
         }
+        @Override
+        public void refresh() {
+            ((NodeMapsApplication)UI.getCurrent()).refresh();
+        }
     };
 
     public NodeMapComponent() {
@@ -68,12 +72,20 @@ public class NodeMapComponent extends AbstractComponent {
         return m_rpc;
     }
 
+    public void setGroupByState(final boolean groupByState) {
+        getState().groupByState = groupByState;
+    }
+
     public void showNodes(final Map<Integer, NodeEntry> nodeEntries) {
+        LOG.info("Updating map node list: {} entries.", nodeEntries.size());
+
         final List<MapNode> nodes = new LinkedList<MapNode>();
         for (final NodeEntry node : nodeEntries.values()) {
             nodes.add(node.createNode());
         }
         getState().nodes = nodes;
+
+        LOG.info("Finished updating map node list.");
     }
 
     @Override
@@ -85,7 +97,7 @@ public class NodeMapComponent extends AbstractComponent {
         LOG.debug("setSearchString(" + searchString + ")");
         getState().searchString = searchString;
     }
-    
+
     public void setSelectedNodes(final List<Integer> nodeIds) {
         LOG.debug("setSelectedNodes(" + nodeIds + ")");
         getState().nodeIds = nodeIds;
@@ -106,6 +118,13 @@ public class NodeMapComponent extends AbstractComponent {
         private OnmsSeverity m_severity = OnmsSeverity.NORMAL;
         private List<String> m_categories = new ArrayList<String>();
         private int m_unackedCount = 0;
+
+        NodeEntry(final Integer nodeId, final String nodeLabel, final float longitude, final float latitude) {
+            m_nodeId = nodeId;
+            m_nodeLabel = nodeLabel;
+            m_longitude = longitude;
+            m_latitude = latitude;
+        }
 
         public NodeEntry(final OnmsNode node) {
             final OnmsAssetRecord assetRecord = node.getAssetRecord();
@@ -136,17 +155,24 @@ public class NodeMapComponent extends AbstractComponent {
             }
         }
 
+        public Integer getNodeId() {
+            return m_nodeId;
+        }
+
+        public String getNodeLabel() {
+            return m_nodeLabel;
+        }
+
         public void setSeverity(final OnmsSeverity severity) {
             m_severity = severity;
         }
 
         public MapNode createNode() {
-            MapNode node = new MapNode();
+            final MapNode node = new MapNode();
+
             node.setLatitude(m_latitude);
             node.setLongitude(m_longitude);
-            if (m_nodeId != null) {
-                node.setNodeId(m_nodeId.toString());
-            }
+            node.setNodeId(String.valueOf(m_nodeId));
             node.setNodeLabel(m_nodeLabel);
             node.setForeignSource(m_foreignSource);
             node.setForeignId(m_foreignId);

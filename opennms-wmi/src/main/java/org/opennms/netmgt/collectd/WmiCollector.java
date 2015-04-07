@@ -1,22 +1,22 @@
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
- * Copyright (C) 2009-2012 The OpenNMS Group, Inc.
- * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ * Copyright (C) 2009-2014 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2014 The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published
+ * it under the terms of the GNU Affero General Public License as published
  * by the Free Software Foundation, either version 3 of the License,
  * or (at your option) any later version.
  *
  * OpenNMS(R) is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU Affero General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GNU Affero General Public License
  * along with OpenNMS(R).  If not, see:
  *      http://www.gnu.org/licenses/
  *
@@ -38,24 +38,30 @@ import java.util.Map;
 
 import org.exolab.castor.xml.MarshalException;
 import org.exolab.castor.xml.ValidationException;
-import org.opennms.core.db.DataSourceFactory;
 import org.opennms.core.utils.ParameterMap;
 import org.opennms.netmgt.collectd.wmi.WmiAgentState;
 import org.opennms.netmgt.collectd.wmi.WmiCollectionAttributeType;
 import org.opennms.netmgt.collectd.wmi.WmiCollectionResource;
 import org.opennms.netmgt.collectd.wmi.WmiCollectionSet;
 import org.opennms.netmgt.collectd.wmi.WmiMultiInstanceCollectionResource;
+import org.opennms.netmgt.collectd.wmi.WmiResourceType;
 import org.opennms.netmgt.collectd.wmi.WmiSingleInstanceCollectionResource;
+import org.opennms.netmgt.collection.api.AttributeGroupType;
+import org.opennms.netmgt.collection.api.CollectionAgent;
+import org.opennms.netmgt.collection.api.CollectionSet;
+import org.opennms.netmgt.collection.api.ServiceCollector;
+import org.opennms.netmgt.collection.support.IndexStorageStrategy;
 import org.opennms.netmgt.config.DataCollectionConfigFactory;
 import org.opennms.netmgt.config.WmiDataCollectionConfigFactory;
 import org.opennms.netmgt.config.WmiPeerFactory;
-import org.opennms.netmgt.config.collector.AttributeGroupType;
-import org.opennms.netmgt.config.collector.CollectionSet;
+import org.opennms.netmgt.config.datacollection.PersistenceSelectorStrategy;
+import org.opennms.netmgt.config.datacollection.ResourceType;
+import org.opennms.netmgt.config.datacollection.StorageStrategy;
 import org.opennms.netmgt.config.wmi.Attrib;
 import org.opennms.netmgt.config.wmi.WmiCollection;
 import org.opennms.netmgt.config.wmi.Wpm;
-import org.opennms.netmgt.model.RrdRepository;
-import org.opennms.netmgt.model.events.EventProxy;
+import org.opennms.netmgt.events.api.EventProxy;
+import org.opennms.netmgt.rrd.RrdRepository;
 import org.opennms.protocols.wmi.WmiClient;
 import org.opennms.protocols.wmi.WmiException;
 import org.opennms.protocols.wmi.WmiManager;
@@ -83,9 +89,9 @@ public class WmiCollector implements ServiceCollector {
 
     // Don't make this static because each service will have its own
     // copy and the key won't require the service name as part of the key.
-    private final HashMap<Integer, WmiAgentState> m_scheduledNodes = new HashMap<Integer, WmiAgentState>();
-    private HashMap<String, AttributeGroupType> m_groupTypeList = new HashMap<String, AttributeGroupType>();
-    private HashMap<String, WmiCollectionAttributeType> m_attribTypeList = new HashMap<String, WmiCollectionAttributeType>();
+    private final Map<Integer, WmiAgentState> m_scheduledNodes = new HashMap<Integer, WmiAgentState>();
+    private Map<String, AttributeGroupType> m_groupTypeList = new HashMap<String, AttributeGroupType>();
+    private Map<String, WmiCollectionAttributeType> m_attribTypeList = new HashMap<String, WmiCollectionAttributeType>();
 
     /** {@inheritDoc} */
     @Override
@@ -104,8 +110,9 @@ public class WmiCollector implements ServiceCollector {
         loadAttributeTypeList(collection);
 
         // Create a new collection set.
-        final WmiCollectionSet collectionSet = new WmiCollectionSet(agent);        
+        final WmiCollectionSet collectionSet = new WmiCollectionSet();
         collectionSet.setCollectionTimestamp(new Date());
+        final WmiSingleInstanceCollectionResource nodeResource = new WmiSingleInstanceCollectionResource(agent);
 
         // Iterate through the WMI collection groups.
         for (final Wpm wpm : collection.getWpms().getWpm()) {
@@ -121,7 +128,7 @@ public class WmiCollector implements ServiceCollector {
                 // Collect the data
                 try {
                     // Tell the agent to connect
-                    agentState.connect();
+                    agentState.connect(wpm.getWmiNamespace());
 
                     // And retrieve the client object for working.
                     client = (WmiClient) agentState.getWmiClient();
@@ -150,9 +157,9 @@ public class WmiCollector implements ServiceCollector {
                                 } else {
                                     instance = propVal.toString();
                                 }
-                                resource = new WmiMultiInstanceCollectionResource(agent,instance,wpm.getResourceType());
+                                resource = new WmiMultiInstanceCollectionResource(agent,instance,getWmiResourceType(agent, wpm.getResourceType()));
                             } else {
-                                resource = new WmiSingleInstanceCollectionResource(agent);
+                                resource = nodeResource;
                             }
 
 
@@ -161,7 +168,7 @@ public class WmiCollector implements ServiceCollector {
                                 final WmiCollectionAttributeType attribType = m_attribTypeList.get(attrib.getName());
                                 resource.setAttributeValue(attribType, prop.getWmiValue().toString());
                             }
-                            collectionSet.getResources().add(resource);
+                            collectionSet.getCollectionResources().add(resource);
                         }
                     }
                 } catch (final WmiException e) {
@@ -180,7 +187,7 @@ public class WmiCollector implements ServiceCollector {
         collectionSet.setStatus(ServiceCollector.COLLECTION_SUCCEEDED);
         return collectionSet;
     }
-
+    
     private void loadAttributeGroupList(final WmiCollection collection) {
         for (final Wpm wpm : collection.getWpms().getWpm()) {
             final AttributeGroupType attribGroupType1 = new AttributeGroupType(wpm.getName(), wpm.getIfType());
@@ -199,7 +206,7 @@ public class WmiCollector implements ServiceCollector {
     }
 
     private boolean isGroupAvailable(final WmiAgentState agentState, final Wpm wpm) {
-        LOG.debug("Checking availability of group {}", wpm.getName());
+        LOG.debug("Checking availability of group {} via object {} of class {} in namespace {}", wpm.getName(), wpm.getKeyvalue(), wpm.getWmiClass(), wpm.getWmiNamespace());
         WmiManager manager = null;
 
         /*
@@ -211,6 +218,7 @@ public class WmiCollector implements ServiceCollector {
         try {
             // Get and initialize the WmiManager
             manager = agentState.getManager();
+            manager.setNamespace(wpm.getWmiNamespace());
             manager.init();
 
             final WmiParams params = new WmiParams(WmiParams.WMI_OPERATION_INSTANCEOF, "not-applicable", "NOOP", wpm.getWmiClass(), wpm.getKeyvalue());
@@ -240,6 +248,21 @@ public class WmiCollector implements ServiceCollector {
         return true;
     }
 
+    private WmiResourceType getWmiResourceType(CollectionAgent agent, String resourceType){
+        ResourceType rt = DataCollectionConfigFactory.getInstance().getConfiguredResourceTypes().get(resourceType);
+        if (rt == null) {
+            LOG.debug("getWmiResourceType: using default WMI resource type strategy - index / all");
+            rt = new ResourceType();
+            rt.setName(resourceType);
+            rt.setStorageStrategy(new StorageStrategy());
+            rt.getStorageStrategy().setClazz(IndexStorageStrategy.class.getName());
+            rt.setPersistenceSelectorStrategy(new PersistenceSelectorStrategy());
+            rt.getPersistenceSelectorStrategy().setClazz(PersistAllSelectorStrategy.class.getName());
+        }
+        WmiResourceType type = new WmiResourceType(agent, rt);
+        return type;
+    }
+    
     /** {@inheritDoc} */
     @Override
     public void initialize(final Map<String, String> parameters) {
@@ -247,7 +270,6 @@ public class WmiCollector implements ServiceCollector {
         m_scheduledNodes.clear();
         initWMIPeerFactory();
         initWMICollectionConfig();
-        initDatabaseConnectionFactory();
         initializeRrdRepository();
     }
 
@@ -299,17 +321,8 @@ public class WmiCollector implements ServiceCollector {
         final File f = new File(WmiDataCollectionConfigFactory.getInstance().getRrdPath());
         if (!f.isDirectory()) {
             if (!f.mkdirs()) {
-                throw new RuntimeException("Unable to create RRD file repository.  Path doesn't already exist and could not make directory: " + DataCollectionConfigFactory.getInstance().getRrdPath());
+                throw new RuntimeException("Unable to create RRD file repository.  Path doesn't already exist and could not make directory: " + WmiDataCollectionConfigFactory.getInstance().getRrdPath());
             }
-        }
-    }
-
-    private void initDatabaseConnectionFactory() {
-        try {
-            DataSourceFactory.init();
-        } catch (final Exception e) {
-            LOG.error("initDatabaseConnectionFactory: Error initializing DataSourceFactory.", e);
-            throw new UndeclaredThrowableException(e);
         }
     }
 
@@ -317,7 +330,7 @@ public class WmiCollector implements ServiceCollector {
     @Override
     public void initialize(final CollectionAgent agent, final Map<String, Object> parameters) {
         LOG.debug("initialize: Initializing WMI collection for agent: {}", agent);
-        final Integer scheduledNodeKey = new Integer(agent.getNodeId());
+        final Integer scheduledNodeKey = Integer.valueOf(agent.getNodeId());
         WmiAgentState nodeState = m_scheduledNodes.get(scheduledNodeKey);
 
         if (nodeState != null) {
@@ -331,7 +344,7 @@ public class WmiCollector implements ServiceCollector {
             LOG.debug(sb.toString());
             throw new IllegalStateException(sb.toString());
         } else {
-            nodeState = new WmiAgentState(agent.getInetAddress(), parameters);
+            nodeState = new WmiAgentState(agent.getAddress(), parameters);
             LOG.info("initialize: Scheduling interface for collection: {}", nodeState.getAddress());
             m_scheduledNodes.put(scheduledNodeKey, nodeState);
         }

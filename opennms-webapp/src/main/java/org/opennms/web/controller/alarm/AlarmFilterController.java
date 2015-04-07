@@ -1,22 +1,22 @@
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
- * Copyright (C) 2008-2012 The OpenNMS Group, Inc.
- * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ * Copyright (C) 2002-2014 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2014 The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published
+ * it under the terms of the GNU Affero General Public License as published
  * by the Free Software Foundation, either version 3 of the License,
  * or (at your option) any later version.
  *
  * OpenNMS(R) is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU Affero General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GNU Affero General Public License
  * along with OpenNMS(R).  If not, see:
  *      http://www.gnu.org/licenses/
  *
@@ -110,7 +110,7 @@ public class AlarmFilterController extends MultiActionController implements Init
     public ModelAndView index(HttpServletRequest request, HttpServletResponse response) throws Exception {
         List<OnmsFilterFavorite> userFilterList = favoriteService.getFavorites(request.getRemoteUser(), OnmsFilterFavorite.Page.ALARM);
         ModelAndView modelAndView = new ModelAndView("alarm/index");
-        modelAndView.addObject("favorites", userFilterList);
+        modelAndView.addObject("favorites", userFilterList.toArray());
         modelAndView.addObject("callback", getFilterCallback());
         return modelAndView;
     }
@@ -125,7 +125,8 @@ public class AlarmFilterController extends MultiActionController implements Init
                     OnmsFilterFavorite.Page.ALARM);
             if (favorite != null) {
                 ModelAndView successView = list(request, favorite); // success
-                AlertTag.addAlertToRequest(successView, "Favorite was created successfully", AlertType.SUCCESS);
+                //Commented out per request. Left it in, in case we wanted it back later
+                //AlertTag.addAlertToRequest(successView, "Favorite was created successfully", AlertType.SUCCESS);
                 return successView;
             }
             error = "An error occured while creating the favorite";
@@ -239,14 +240,13 @@ public class AlarmFilterController extends MultiActionController implements Init
         modelAndView.addObject("alarmCount", alarmCount);
         modelAndView.addObject("parms", new NormalizedQueryParameters(parms));
         modelAndView.addObject("callback", getFilterCallback());
-        modelAndView.addObject("favorites", favoriteService.getFavorites(request.getRemoteUser(), OnmsFilterFavorite.Page.ALARM));
+        modelAndView.addObject("favorites", favoriteService.getFavorites(request.getRemoteUser(), OnmsFilterFavorite.Page.ALARM).toArray());
         return modelAndView;
     }
 
     private OnmsFilterFavorite getFavorite(String favoriteId, String username, String[] filters) {
         if (favoriteId != null) {
-            OnmsFilterFavorite filter = favoriteService.getFavorite(favoriteId, username, getFilterCallback().toFilterString(filters));
-            return filter;
+        	return favoriteService.getFavorite(favoriteId, username, getFilterCallback().toFilterString(filters));
         }
         return null;
     }

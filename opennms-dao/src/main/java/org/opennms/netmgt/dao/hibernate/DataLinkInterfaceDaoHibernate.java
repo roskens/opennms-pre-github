@@ -1,22 +1,22 @@
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
- * Copyright (C) 2009-2012 The OpenNMS Group, Inc.
- * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ * Copyright (C) 2009-2014 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2014 The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published
+ * it under the terms of the GNU Affero General Public License as published
  * by the Free Software Foundation, either version 3 of the License,
  * or (at your option) any later version.
  *
  * OpenNMS(R) is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU Affero General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GNU Affero General Public License
  * along with OpenNMS(R).  If not, see:
  *      http://www.gnu.org/licenses/
  *
@@ -30,7 +30,6 @@ package org.opennms.netmgt.dao.hibernate;
 
 import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -87,17 +86,14 @@ public class DataLinkInterfaceDaoHibernate extends AbstractDaoHibernate<DataLink
 
     /** {@inheritDoc} */
     @Override
-    public DataLinkInterface findByNodeIdAndIfIndex(final Integer nodeId, final Integer ifIndex) {
-        final CriteriaBuilder builder = new CriteriaBuilder(DataLinkInterface.class);
-        builder.alias("node", "node", JoinType.LEFT_JOIN);
-        builder.eq("node.id", nodeId);
-        builder.eq("ifIndex", ifIndex);
+    public Collection<DataLinkInterface> findByNodeIdAndIfIndex(final Integer nodeId, final Integer ifIndex) {
+        return find("from DataLinkInterface as dli where dli.node.id = ? and dli.ifIndex = ?", nodeId,ifIndex);
+    }
 
-        final List<DataLinkInterface> interfaces = findMatching(builder.toCriteria());
-        if (interfaces.size() > 0) {
-            return interfaces.get(0);
-        }
-        return null;
+    /** {@inheritDoc} */
+    @Override
+    public Collection<DataLinkInterface> findByParentNodeIdAndIfIndex(final Integer nodeParentId, final Integer parentIfIndex) {
+        return find("from DataLinkInterface as dli where dli.nodeParentId = ? and dli.parentIfIndex = ?", nodeParentId,parentIfIndex);
     }
 
     @Override

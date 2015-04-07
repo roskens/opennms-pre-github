@@ -7,6 +7,9 @@
   
   <!-- Only use BASIC auth for the RESTful APIs -->
   <http pattern="/rest/**" realm="OpenNMS Realm">
+    <!-- Provisioning-related stuff is all allowed as long as you're in the provision, rest, or admin roles. -->
+    <intercept-url pattern="/rest/foreignSources/**" access="ROLE_PROVISION,ROLE_REST,ROLE_ADMIN"/>
+    <intercept-url pattern="/rest/requisitions/**" access="ROLE_PROVISION,ROLE_REST,ROLE_ADMIN"/>
     <!-- Restrict access to SNMP configuration to ROLE_REST and ROLE_ADMIN only -->
     <intercept-url pattern="/rest/snmpConfig/**" access="ROLE_REST,ROLE_ADMIN"/>
     <intercept-url pattern="/rest/**" method="DELETE" access="ROLE_REST,ROLE_ADMIN"/>
@@ -14,7 +17,7 @@
     <intercept-url pattern="/rest/**" method="PUT" access="ROLE_REST,ROLE_ADMIN"/>
     <intercept-url pattern="/rest/**" method="GET" access="ROLE_REST,ROLE_ADMIN,ROLE_USER"/>
     <intercept-url pattern="/rest/**" method="HEAD" access="ROLE_REST,ROLE_ADMIN,ROLE_USER"/>
-    <intercept-url pattern="/rest/**" method="OPTIONS" access="ROLE_REST,ROLE_ADMIN,ROLE_USER"/>
+    <intercept-url pattern="/rest/**" method="OPTIONS" access="ROLE_ANONYMOUS,ROLE_REST,ROLE_ADMIN,ROLE_USER"/>
 
     <http-basic />
 
@@ -34,15 +37,15 @@
   <http pattern="/webstart/**" security="none"/>
 
   <!-- Only one <http> section can match the implicit '/**' pattern -->
-  <http pattern="/**" access-denied-page="/accessDenied.jsp" realm="OpenNMS Realm">
+  <http pattern="/**" access-denied-page="/accessDenied.jsp" realm="OpenNMS Realm" auto-config="false" entry-point-ref="loginUrlAuthenticationEntryPoint">
     <intercept-url pattern="/" access="ROLE_ANONYMOUS,ROLE_USER,ROLE_DASHBOARD" />
     <intercept-url pattern="/favicon.ico" access="ROLE_ANONYMOUS,ROLE_USER,ROLE_DASHBOARD" />
     <intercept-url pattern="/logoff.jsp" access="ROLE_ANONYMOUS,ROLE_USER,ROLE_DASHBOARD" />
     <intercept-url pattern="/login.jsp*" access="ROLE_ANONYMOUS,ROLE_USER,ROLE_DASHBOARD" />
     <intercept-url pattern="/accessDenied.jsp*" access="ROLE_ANONYMOUS,ROLE_USER,ROLE_DASHBOARD" />
     <intercept-url pattern="/css/*.css" access="ROLE_ANONYMOUS,ROLE_USER,ROLE_DASHBOARD" />
-    <intercept-url pattern="/js/pngfix.js" access="ROLE_ANONYMOUS,ROLE_USER,ROLE_DASHBOARD" />
     <intercept-url pattern="/js/global.js" access="ROLE_ANONYMOUS,ROLE_USER,ROLE_DASHBOARD" />
+    <intercept-url pattern="/lib/**" access="ROLE_ANONYMOUS,ROLE_USER,ROLE_DASHBOARD" />
     <intercept-url pattern="/images/**" access="ROLE_ANONYMOUS,ROLE_USER,ROLE_DASHBOARD" />
     <intercept-url pattern="/admin/node/add.htm" access="ROLE_PROVISION, ROLE_ADMIN" />
     <intercept-url pattern="/admin/provisioningGroups.htm" access="ROLE_PROVISION, ROLE_ADMIN" />
@@ -68,10 +71,13 @@
     <!-- NrtCollection -->
     <intercept-url pattern="/amq/*" access="ROLE_ANONYMOUS,ROLE_USER,ROLE_DASHBOARD" />
     
-    <form-login login-page="/login.jsp" authentication-failure-url="/login.jsp?login_error=1" />
+    <!--Commented out for custom authentication filter<form-login login-page="/login.jsp" authentication-failure-url="/login.jsp?login_error=1" />-->
     <http-basic />
-    <logout logout-success-url="/logoff.jsp" />
-    
+    <logout logout-success-url="/" />
+
+      <!-- added for custom authentication filter -->
+    <custom-filter position="FORM_LOGIN_FILTER" ref="onmsUsernamePasswordAuthenticationFilter" />
+
     <custom-filter position="LAST" ref="authFilterEnabler"/>
   </http>
   
@@ -81,9 +87,34 @@
     <beans:property name="groupDao" ref="groupDao" />
   </beans:bean>
 
+  <!-- Custom Authentication Filter -->
+  <beans:bean id="onmsUsernamePasswordAuthenticationFilter" class="org.opennms.web.springframework.security.OnmsUsernamePasswordAuthenticationFilter">
+        <beans:property name="authenticationManager" ref="authenticationManager"/>
+        <beans:property name="authenticationFailureHandler" ref="failureHandler"/>
+        <beans:property name="authenticationSuccessHandler" ref="successHandler"/>
+  </beans:bean>
+
+    <beans:bean id="successHandler" class="org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler">
+        <beans:property name="defaultTargetUrl" value="/index.jsp"/>
+    </beans:bean>
+    <beans:bean id="failureHandler" class="org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler">
+        <beans:property name="defaultFailureUrl" value="/login.jsp?login_error=1"/>
+    </beans:bean>
+
+    <beans:bean id="loginUrlAuthenticationEntryPoint"
+                class="org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint">
+        <beans:property name="loginFormUrl" value="/login.jsp" />
+    </beans:bean>
+    <!-- END CUSTOM AUthentication Filter -->
+
   <!-- use our custom authentication provider; to use RADIUS instead, change this to "radiusAuthenticationProvider" and uncomment below -->
-  <authentication-manager>
+  <authentication-manager alias="authenticationManager">
+    <!-- Use our custom authentication provider -->
     <authentication-provider ref="hybridAuthenticationProvider" />
+    <!-- To enable external (e.g. LDAP, RADIUS) authentication, uncomment the following.
+         You must also rename and customize exactly ONE of the example files in the
+         spring-security.d subdirectory. -->
+    <!-- <authentication-provider ref="externalAuthenticationProvider" /> -->
   </authentication-manager>
 
   <!-- ===================== USER DAO AUTHENTICATION ==================== -->
@@ -104,44 +135,6 @@
     <beans:property name="userDao" ref="userDao" />
     <beans:property name="userManager" ref="userManager" />
   </beans:bean>
-
-  <!-- ====================== RADIUS AUTHENTICATION ===================== -->
-  <!--
-       To use Radius Authentication, uncomment the following section to enable
-       the radiusAuthenticationProvider
-       The first constructor argument to radiusAuthenticationProvider is the
-       Radius Server to authenticate against, the second constructor argument
-       is the Shared Secret to use during authentication. The port, timeout,
-       retries, authTypeClass, and defaultRoles properties are optional and
-       default to the values shown.
-
-       If you would like to use a Radius Attribute to assign roles to users,
-       set the rolesAttribute property to the name of the attribute. Your
-       Radius server should be configured to return a comma-separated string of
-       roles (such as "ROLE_USER, ROLE_ADMIN") in this attribute in the
-       authentication reply. To specify a locally-defined vendor-specific Radius
-       Attribute, use "Unknown-VSAttribute(<Vendor ID>:<Attribute Number>)".
-       If the reply from the radius server does not actually contain the
-       specified attribute, the user will be assigned the roles specified by
-       the defaultRoles property.
-
-       IMPORTANT: To use this feature the following package must be installed:
-       opennms-plugin-protocols-radius
-   -->
-  <!-- 
-  <beans:bean id="radiusAuthenticationProvider" class="org.opennms.protocols.radius.springsecurity.RadiusAuthenticationProvider">
-    <beans:constructor-arg value="%%% Radius Server %%%"/>
-    <beans:constructor-arg value="%%% Shared Secret %%%"/>
-  -->
-    <!--<beans:property name="port" value="1812"/>-->
-    <!--<beans:property name="timeout" value="5"/>-->
-    <!--<beans:property name="retries" value="3"/>-->
-    <!--<beans:property name="authTypeClass"><beans:bean class="net.jradius.client.auth.PAPAuthenticator"/></beans:property>-->
-    <!--<beans:property name="defaultRoles" value="ROLE_USER"/>-->
-    <!--<beans:property name="rolesAttribute" value="Unknown-VSAttribute(%%% Vendor ID %%%:%%% Attribute Number %%%)"/>-->
-  <!-- 
-  </beans:bean>
-  -->
 
   <!--  this is used to send events on login success and failure -->
   <beans:bean class="org.opennms.web.springframework.security.SecurityAuthenticationEventOnmsEventBuilder">

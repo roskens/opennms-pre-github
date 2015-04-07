@@ -1,22 +1,22 @@
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
- * Copyright (C) 2007-2012 The OpenNMS Group, Inc.
- * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ * Copyright (C) 2007-2014 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2014 The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published
+ * it under the terms of the GNU Affero General Public License as published
  * by the Free Software Foundation, either version 3 of the License,
  * or (at your option) any later version.
  *
  * OpenNMS(R) is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU Affero General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GNU Affero General Public License
  * along with OpenNMS(R).  If not, see:
  *      http://www.gnu.org/licenses/
  *
@@ -33,15 +33,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.HashMap;
 import java.util.Set;
 
+import org.opennms.core.db.DataSourceFactory;
 import org.opennms.core.logging.Logging;
-import org.opennms.core.resource.Vault;
 import org.opennms.core.resource.db.SimpleDbConnectionFactory;
 import org.opennms.web.map.MapsConstants;
 import org.slf4j.Logger;
@@ -97,7 +96,7 @@ public class ServerDataSource implements DataSourceInterface {
 	
 			try{
 				if(opennmsConn==null || opennmsConn.isClosed()){
-					opennmsConn = Vault.getDbConnection();
+					opennmsConn = DataSourceFactory.getInstance().getConnection();
 				}
 				String url=(String)params.get("url");
 				String driver=(String)params.get("driver");
@@ -139,13 +138,13 @@ public class ServerDataSource implements DataSourceInterface {
         @Override
 	protected void finalize() throws Throwable {
 		LOG.debug("Finalizing...closing db connections");
-		super.finalize();
 		if(opennmsConn!=null){
-			Vault.releaseDbConnection(opennmsConn);
+			opennmsConn.close();
 		}
 		if(externalConn!=null && !externalConn.isClosed()){
 			externalConn.close();
 		}
+		super.finalize();
 	}
 	
 

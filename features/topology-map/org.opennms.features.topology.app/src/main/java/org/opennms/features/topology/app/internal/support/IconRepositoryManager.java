@@ -1,22 +1,22 @@
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
- * Copyright (C) 2012 The OpenNMS Group, Inc.
- * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ * Copyright (C) 2012-2014 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2014 The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published
+ * it under the terms of the GNU Affero General Public License as published
  * by the Free Software Foundation, either version 3 of the License,
  * or (at your option) any later version.
  *
  * OpenNMS(R) is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU Affero General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GNU Affero General Public License
  * along with OpenNMS(R).  If not, see:
  *      http://www.gnu.org/licenses/
  *
@@ -35,7 +35,7 @@ import org.slf4j.LoggerFactory;
 
 public class IconRepositoryManager {
 
-    private class ConfigIconRepository implements IconRepository{
+    private static class ConfigIconRepository implements IconRepository{
 
         private Map<String, String> m_iconMap = new HashMap<String, String>();
 
@@ -112,7 +112,7 @@ public class IconRepositoryManager {
             int lastColon = key.lastIndexOf(':');
             if ("default".equals(key)) {
             	// we got here an no default icon was registered!!
-            	return "generic";
+            	return findSVGIconIdByKey("default");
             } else if (lastColon == -1) {
             	// no colons in key so just return 'default' icon
             	return findSVGIconIdByKey("default");

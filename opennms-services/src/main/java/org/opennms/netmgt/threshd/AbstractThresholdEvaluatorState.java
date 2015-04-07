@@ -1,22 +1,22 @@
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
- * Copyright (C) 2009-2012 The OpenNMS Group, Inc.
- * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ * Copyright (C) 2009-2014 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2014 The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published
+ * it under the terms of the GNU Affero General Public License as published
  * by the Free Software Foundation, either version 3 of the License,
  * or (at your option) any later version.
  *
  * OpenNMS(R) is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU Affero General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GNU Affero General Public License
  * along with OpenNMS(R).  If not, see:
  *      http://www.gnu.org/licenses/
  *
@@ -53,6 +53,8 @@ public abstract class AbstractThresholdEvaluatorState implements ThresholdEvalua
 
     private static final String UNKNOWN = "Unknown";
 
+    public static final String FORMATED_NAN = "NaN (the threshold definition has been changed)";
+
     /**
      * <p>createBasicEvent</p>
      *
@@ -67,7 +69,7 @@ public abstract class AbstractThresholdEvaluatorState implements ThresholdEvalua
         if (resource == null) { // Still works, mimic old code when instance value is null.
             resource = new CollectionResourceWrapper(date, 0, null, null, null, null, null);
         }
-        String dsLabelValue = resource.getLabelValue(resource.getLabel());
+        String dsLabelValue = resource.getFieldValue(resource.getDsLabel());
         if (dsLabelValue == null) dsLabelValue = UNKNOWN;
 
         // create the event to be sent
@@ -105,7 +107,13 @@ public abstract class AbstractThresholdEvaluatorState implements ThresholdEvalua
         bldr.addParam("value", formatValue(dsValue));
 
         // Add the instance name of the resource in question
-        bldr.addParam("instance", resource.getInstance() != null ? resource.getInstance() : "null");
+        bldr.addParam("instance", resource.getInstance() == null ? "null" : resource.getInstance());
+
+        // Add the instance name of the resource in question
+        bldr.addParam("instanceLabel", resource.getInstanceLabel() == null ? "null" : resource.getInstanceLabel());
+
+        // Add the resource ID required to call the Graph API.
+        bldr.addParam("resourceId",resource.getResourceId());
 
         // Add additional parameters
         if (additionalParams != null) {
@@ -125,7 +133,7 @@ public abstract class AbstractThresholdEvaluatorState implements ThresholdEvalua
      */
     protected String formatValue(double value) {
         if (Double.isNaN(value)) // When reconfiguring thresholds, the value is set to NaN.
-            return "NaN";
+            return FORMATED_NAN;
         String pattern = System.getProperty("org.opennms.threshd.value.decimalformat", "###.##");
         DecimalFormat valueFormatter = new DecimalFormat(pattern);
         return valueFormatter.format(value);

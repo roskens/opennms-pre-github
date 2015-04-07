@@ -1,22 +1,22 @@
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
- * Copyright (C) 2008-2012 The OpenNMS Group, Inc.
- * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ * Copyright (C) 2008-2014 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2014 The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published
+ * it under the terms of the GNU Affero General Public License as published
  * by the Free Software Foundation, either version 3 of the License,
  * or (at your option) any later version.
  *
  * OpenNMS(R) is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU Affero General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GNU Affero General Public License
  * along with OpenNMS(R).  If not, see:
  *      http://www.gnu.org/licenses/
  *
@@ -46,11 +46,11 @@ import java.util.Map;
 import org.opennms.core.utils.InetAddressUtils;
 import org.opennms.core.utils.ParameterMap;
 import org.opennms.core.utils.TimeoutTracker;
-import org.opennms.netmgt.model.PollStatus;
 import org.opennms.netmgt.poller.Distributable;
 import org.opennms.netmgt.poller.MonitoredService;
 import org.opennms.netmgt.poller.NetworkInterface;
 import org.opennms.netmgt.poller.NetworkInterfaceNotSupportedException;
+import org.opennms.netmgt.poller.PollStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -177,7 +177,7 @@ final public class TrivialTimeMonitor extends AbstractServiceMonitor {
     /**
      * <p>storeResult</p>
      *
-     * @param serviceStatus a {@link org.opennms.netmgt.model.PollStatus} object.
+     * @param serviceStatus a {@link org.opennms.netmgt.poller.PollStatus} object.
      * @param skew a {@link java.lang.Number} object.
      * @param responseTime a {@link java.lang.Double} object.
      * @param persistSkew a boolean.
@@ -197,13 +197,13 @@ final public class TrivialTimeMonitor extends AbstractServiceMonitor {
      *
      * @param svc a {@link org.opennms.netmgt.poller.MonitoredService} object.
      * @param parameters a {@link java.util.Map} object.
-     * @param serviceStatus a {@link org.opennms.netmgt.model.PollStatus} object.
+     * @param serviceStatus a {@link org.opennms.netmgt.poller.PollStatus} object.
      * @param tracker a {@link org.opennms.core.utils.TimeoutTracker} object.
      * @param ipv4Addr a {@link java.net.InetAddress} object.
      * @param port a int.
      * @param allowedSkew a int.
      * @param persistSkew a boolean.
-     * @return a {@link org.opennms.netmgt.model.PollStatus} object.
+     * @return a {@link org.opennms.netmgt.poller.PollStatus} object.
      */
     public PollStatus pollTimeTcp(MonitoredService svc, Map<String, Object> parameters, PollStatus serviceStatus, TimeoutTracker tracker, InetAddress ipv4Addr, int port, int allowedSkew, boolean persistSkew) {
         int localTime = 0;
@@ -280,13 +280,13 @@ final public class TrivialTimeMonitor extends AbstractServiceMonitor {
      *
      * @param svc a {@link org.opennms.netmgt.poller.MonitoredService} object.
      * @param parameters a {@link java.util.Map} object.
-     * @param serviceStatus a {@link org.opennms.netmgt.model.PollStatus} object.
+     * @param serviceStatus a {@link org.opennms.netmgt.poller.PollStatus} object.
      * @param tracker a {@link org.opennms.core.utils.TimeoutTracker} object.
      * @param ipv4Addr a {@link java.net.InetAddress} object.
      * @param port a int.
      * @param allowedSkew a int.
      * @param persistSkew a boolean.
-     * @return a {@link org.opennms.netmgt.model.PollStatus} object.
+     * @return a {@link org.opennms.netmgt.poller.PollStatus} object.
      */
     public PollStatus pollTimeUdp(MonitoredService svc, Map<String, Object> parameters, PollStatus serviceStatus, TimeoutTracker tracker, InetAddress ipv4Addr, int port, int allowedSkew, boolean persistSkew) {
         int localTime = 0;

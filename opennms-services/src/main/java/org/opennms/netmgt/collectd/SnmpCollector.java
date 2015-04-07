@@ -1,22 +1,22 @@
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
- * Copyright (C) 2006-2012 The OpenNMS Group, Inc.
- * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ * Copyright (C) 2002-2014 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2014 The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published
+ * it under the terms of the GNU Affero General Public License as published
  * by the Free Software Foundation, either version 3 of the License,
  * or (at your option) any later version.
  *
  * OpenNMS(R) is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU Affero General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GNU Affero General Public License
  * along with OpenNMS(R).  If not, see:
  *      http://www.gnu.org/licenses/
  *
@@ -28,23 +28,22 @@
 
 package org.opennms.netmgt.collectd;
 
-import java.beans.PropertyVetoException;
 import java.io.IOException;
 import java.lang.reflect.UndeclaredThrowableException;
-import java.sql.SQLException;
 import java.util.Date;
 import java.util.Map;
 
-import org.exolab.castor.xml.MarshalException;
-import org.exolab.castor.xml.ValidationException;
-import org.opennms.core.db.DataSourceFactory;
-import org.opennms.netmgt.EventConstants;
+import org.opennms.netmgt.collection.api.CollectionAgent;
+import org.opennms.netmgt.collection.api.CollectionException;
+import org.opennms.netmgt.collection.api.CollectionInitializationException;
+import org.opennms.netmgt.collection.api.CollectionSet;
+import org.opennms.netmgt.collection.api.ServiceCollector;
+import org.opennms.netmgt.collection.api.ServiceParameters;
 import org.opennms.netmgt.config.DataCollectionConfigFactory;
 import org.opennms.netmgt.config.SnmpPeerFactory;
-import org.opennms.netmgt.config.collector.CollectionSet;
-import org.opennms.netmgt.config.collector.ServiceParameters;
-import org.opennms.netmgt.model.RrdRepository;
-import org.opennms.netmgt.model.events.EventProxy;
+import org.opennms.netmgt.events.api.EventConstants;
+import org.opennms.netmgt.events.api.EventProxy;
+import org.opennms.netmgt.rrd.RrdRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -212,12 +211,6 @@ public class SnmpCollector implements ServiceCollector {
     @Override
     public void initialize(Map<String, String> parameters) {
     	initSnmpPeerFactory();
-        //initDataCollectionConfig();
-        initDatabaseConnectionFactory();
-        
-        // Get path to RRD repository
-        //initializeRrdRepository();
-
     }
 
     /*private void initializeRrdRepository() {
@@ -245,30 +238,6 @@ public class SnmpCollector implements ServiceCollector {
             throw new CollectionInitializationException("Unable to initialize RrdUtils", e);
         }
     }*/
-
-    private void initDatabaseConnectionFactory() {
-        try {
-            DataSourceFactory.init();
-        } catch (IOException e) {
-            LOG.error("initDatabaseConnectionFactory: IOException getting database connection", e);
-            throw new UndeclaredThrowableException(e);
-        } catch (MarshalException e) {
-            LOG.error("initDatabaseConnectionFactory: Marshall Exception getting database connection", e);
-            throw new UndeclaredThrowableException(e);
-        } catch (ValidationException e) {
-            LOG.error("initDatabaseConnectionFactory: Validation Exception getting database connection", e);
-            throw new UndeclaredThrowableException(e);
-        } catch (SQLException e) {
-            LOG.error("initDatabaseConnectionFactory: Failed getting connection to the database", e);
-            throw new UndeclaredThrowableException(e);
-        } catch (PropertyVetoException e) {
-            LOG.error("initDatabaseConnectionFactory: Failed getting connection to the database", e);
-            throw new UndeclaredThrowableException(e);
-        } catch (ClassNotFoundException e) {
-            LOG.error("initDatabaseConnectionFactory: Failed loading database driver", e);
-            throw new UndeclaredThrowableException(e);
-        }
-    }
 
     /*
     private void initDataCollectionConfig() {
@@ -307,7 +276,7 @@ public class SnmpCollector implements ServiceCollector {
      */
     @Override
     public void initialize(CollectionAgent agent, Map<String, Object> parameters) throws CollectionInitializationException {
-        agent.validateAgent();
+        ((SnmpCollectionAgent)agent).validateAgent();
         
         // XXX: Experimental code that creates an OnmsSnmpCollection only once
 //        ServiceParameters params = new ServiceParameters(parameters);
@@ -342,47 +311,36 @@ public class SnmpCollector implements ServiceCollector {
             // XXX: This code would be commented out in light if the experimental code above was enabled
             final ServiceParameters params = new ServiceParameters(parameters);
             params.logIfAliasConfig();
-            OnmsSnmpCollection snmpCollection = new OnmsSnmpCollection(agent, params);
+            OnmsSnmpCollection snmpCollection = new OnmsSnmpCollection((SnmpCollectionAgent)agent, params);
 
             final ForceRescanState forceRescanState = new ForceRescanState(agent, eventProxy);
 
-            SnmpCollectionSet collectionSet = snmpCollection.createCollectionSet(agent);
+            SnmpCollectionSet collectionSet = snmpCollection.createCollectionSet((SnmpCollectionAgent)agent);
             collectionSet.setCollectionTimestamp(new Date());
             if (!collectionSet.hasDataToCollect()) {
                 logNoDataToCollect(agent);
                 // should we return here?
             }
             
-            Collectd.instrumentation().beginCollectingServiceData(collectionSet.getCollectionAgent().getNodeId(), collectionSet.getCollectionAgent().getHostAddress(), serviceName());
-            try {
-                collectionSet.collect();
-                
+            collectionSet.collect();
+
+            /*
+             * FIXME: Should we even be doing this? I say we get rid of this force rescan thingie
+             * {@see http://issues.opennms.org/browse/NMS-1057}
+             */
+            if (System.getProperty("org.opennms.netmgt.collectd.SnmpCollector.forceRescan", "false").equalsIgnoreCase("true")
+                    && collectionSet.rescanNeeded()) {
                 /*
-                 * FIXME: Should we even be doing this? I say we get rid of this force rescan thingie
-                 * {@see http://issues.opennms.org/browse/NMS-1057}
+                 * TODO: the behavior of this object may have been re-factored away.
+                 * Verify that this is correct and remove this unused object if it
+                 * is no longer needed.  My gut thinks this should be investigated.
                  */
-                if (System.getProperty("org.opennms.netmgt.collectd.SnmpCollector.forceRescan", "false").equalsIgnoreCase("true")
-                        && collectionSet.rescanNeeded()) {
-                    /*
-                     * TODO: the behavior of this object may have been re-factored away.
-                     * Verify that this is correct and remove this unused object if it
-                     * is no longer needed.  My gut thinks this should be investigated.
-                     */
-                    forceRescanState.rescanIndicated();
-                }
-                /**
-                 * Persistence is now done by the BasePersister visitor
-                 * @see CollectableService#doCollection()
-                 * @see CollectionSet#visit(BasePersister visitor)
-                 */
-                //persistData(params, collectionSet);
-                return collectionSet;
-            } finally {
-                Collectd.instrumentation().endCollectingServiceData(collectionSet.getCollectionAgent().getNodeId(), collectionSet.getCollectionAgent().getHostAddress(), serviceName());
+                forceRescanState.rescanIndicated();
+            } else {
+                collectionSet.checkForSystemRestart();
             }
+            return collectionSet;
         } catch (CollectionException e) {
-            Collectd.instrumentation().reportCollectionException(agent.getNodeId(), agent.getHostAddress(), serviceName(), e);
-            
             throw e;
         } catch (Throwable t) {
             throw new CollectionException("Unexpected error during node SNMP collection for: " + agent.getHostAddress(), t);

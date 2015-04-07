@@ -1,22 +1,22 @@
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
- * Copyright (C) 2012 The OpenNMS Group, Inc.
- * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ * Copyright (C) 2002-2014 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2014 The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published
+ * it under the terms of the GNU Affero General Public License as published
  * by the Free Software Foundation, either version 3 of the License,
  * or (at your option) any later version.
  *
  * OpenNMS(R) is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU Affero General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GNU Affero General Public License
  * along with OpenNMS(R).  If not, see:
  *      http://www.gnu.org/licenses/
  *
@@ -33,7 +33,7 @@ import static org.opennms.core.utils.InetAddressUtils.toIpAddrBytes;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.StringWriter;
+import java.io.InputStreamReader;
 import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -51,14 +51,10 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
-import org.exolab.castor.xml.MarshalException;
-import org.exolab.castor.xml.Marshaller;
-import org.exolab.castor.xml.ValidationException;
+import org.apache.commons.io.IOUtils;
+import org.opennms.core.network.IpListFromUrl;
 import org.opennms.core.utils.ByteArrayComparator;
-import org.opennms.core.utils.IpListFromUrl;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.opennms.core.xml.CastorUtils;
+import org.opennms.core.xml.JaxbUtils;
 import org.opennms.core.xml.MarshallingResourceFailureException;
 import org.opennms.netmgt.config.poller.CriticalService;
 import org.opennms.netmgt.config.poller.ExcludeRange;
@@ -74,6 +70,8 @@ import org.opennms.netmgt.poller.Distributable;
 import org.opennms.netmgt.poller.DistributionContext;
 import org.opennms.netmgt.poller.ServiceMonitor;
 import org.opennms.netmgt.poller.ServiceMonitorLocator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * <p>Abstract PollerConfigManager class.</p>
@@ -93,13 +91,17 @@ abstract public class PollerConfigManager implements PollerConfig {
      * @param stream a {@link java.io.InputStream} object.
      * @param localServer a {@link java.lang.String} object.
      * @param verifyServer a boolean.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
      */
-    public PollerConfigManager(final InputStream stream, final String localServer, final boolean verifyServer) throws MarshalException, ValidationException {
+    public PollerConfigManager(final InputStream stream, final String localServer, final boolean verifyServer) {
         m_localServer = localServer;
         m_verifyServer = verifyServer;
-        m_config = CastorUtils.unmarshal(PollerConfiguration.class, stream);
+        InputStreamReader isr = null;
+        try {
+            isr = new InputStreamReader(stream);
+            m_config = JaxbUtils.unmarshal(PollerConfiguration.class, isr);
+        } finally {
+            IOUtils.closeQuietly(isr);
+        }
         setUpInternalData();
     }
 
@@ -126,11 +128,9 @@ abstract public class PollerConfigManager implements PollerConfig {
      * <p>update</p>
      *
      * @throws java.io.IOException if any.
-     * @throws org.exolab.castor.xml.MarshalException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
      */
     @Override
-    public abstract void update() throws IOException, MarshalException, ValidationException;
+    public abstract void update() throws IOException;
 
     /**
      * <p>saveXml</p>
@@ -179,7 +179,7 @@ abstract public class PollerConfigManager implements PollerConfig {
     
         for(final Package pkg : packages()) {
             for(final String url : includeURLs(pkg)) {
-                final List<String> iplist = IpListFromUrl.parse(url);
+                final List<String> iplist = IpListFromUrl.fetch(url);
                 if (iplist.size() > 0) {
                     m_urlIPMap.put(url, iplist);
                 }
@@ -190,21 +190,17 @@ abstract public class PollerConfigManager implements PollerConfig {
     /**
      * Saves the current in-memory configuration to disk and reloads
      *
-     * @throws org.exolab.castor.xml.MarshalException if any.
      * @throws java.io.IOException if any.
-     * @throws org.exolab.castor.xml.ValidationException if any.
      */
     @Override
-    public void save() throws MarshalException, IOException, ValidationException {
+    public void save() throws IOException {
         try {
             getWriteLock().lock();
             // marshal to a string first, then write the string to the file. This
             // way the original config
             // isn't lost if the XML from the marshal is hosed.
-            final StringWriter stringWriter = new StringWriter();
-            Marshaller.marshal(m_config, stringWriter);
-            saveXml(stringWriter.toString());
-        
+            saveXml(JaxbUtils.marshal(m_config));
+
             update();
         } finally {
             getWriteLock().unlock();
@@ -482,6 +478,7 @@ abstract public class PollerConfigManager implements PollerConfig {
                 filterRules.append(")");
             }
             LOG.debug("createPackageIpMap: package is {}. filter rules are {}", pkg.getName(), filterRules);
+            FilterDaoFactory.getInstance().flushActiveIpAddressListCache();
             return FilterDaoFactory.getInstance().getActiveIPAddressList(filterRules.toString());
         } finally {
             getReadLock().unlock();
@@ -536,11 +533,11 @@ abstract public class PollerConfigManager implements PollerConfig {
  
         // if there are NO include ranges then treat act as if the user include
         // the range of all valid addresses (0.0.0.0 - 255.255.255.255, ::1 - ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff)
-        has_range_include = pkg.getIncludeRangeCount() == 0 && pkg.getSpecificCount() == 0;
+        has_range_include = pkg.getIncludeRanges().size() == 0 && pkg.getSpecifics().size() == 0;
         
         final byte[] addr = toIpAddrBytes(iface);
 
-        for (final IncludeRange rng : pkg.getIncludeRangeCollection()) {
+        for (final IncludeRange rng : pkg.getIncludeRanges()) {
             int comparison = new ByteArrayComparator().compare(addr, toIpAddrBytes(rng.getBegin()));
             if (comparison > 0) {
                 int endComparison = new ByteArrayComparator().compare(addr, toIpAddrBytes(rng.getEnd()));
@@ -554,14 +551,14 @@ abstract public class PollerConfigManager implements PollerConfig {
             }
         }
 
-        for (final String spec : pkg.getSpecificCollection()) {
+        for (final String spec : pkg.getSpecifics()) {
             if (new ByteArrayComparator().compare(addr, toIpAddrBytes(spec)) == 0) {
                 has_specific = true;
                 break;
             }
         }
     
-        for (final String includeUrl : pkg.getIncludeUrlCollection()) {
+        for (final String includeUrl : pkg.getIncludeUrls()) {
             if (interfaceInUrl(iface, includeUrl)) {
                 has_specific = true;
                 break;
@@ -569,7 +566,7 @@ abstract public class PollerConfigManager implements PollerConfig {
         }
 
         if (!has_specific) {
-            for (final ExcludeRange rng : pkg.getExcludeRangeCollection()) {
+            for (final ExcludeRange rng : pkg.getExcludeRanges()) {
                 int comparison = new ByteArrayComparator().compare(addr, toIpAddrBytes(rng.getBegin()));
                 if (comparison > 0) {
                     int endComparison = new ByteArrayComparator().compare(addr, toIpAddrBytes(rng.getEnd()));
@@ -854,7 +851,7 @@ abstract public class PollerConfigManager implements PollerConfig {
     public List<String> getRRAList(final Package pkg) {
         try {
             getReadLock().lock();
-            return pkg.getRrd().getRraCollection();
+            return pkg.getRrd().getRras();
         } finally {
             getReadLock().unlock();
         }
@@ -869,7 +866,7 @@ abstract public class PollerConfigManager implements PollerConfig {
     public Enumeration<Package> enumeratePackage() {
         try {
             getReadLock().lock();
-            return getConfiguration().enumeratePackage();
+            return Collections.enumeration(getConfiguration().getPackages());
         } finally {
             getReadLock().unlock();
         }
@@ -884,7 +881,7 @@ abstract public class PollerConfigManager implements PollerConfig {
     private Iterable<Service> services(final Package pkg) {
         try {
             getReadLock().lock();
-            return pkg.getServiceCollection();
+            return pkg.getServices();
         } finally {
             getReadLock().unlock();
         }
@@ -899,7 +896,7 @@ abstract public class PollerConfigManager implements PollerConfig {
     private Iterable<String> includeURLs(final Package pkg) {
         try {
             getReadLock().lock();
-            return pkg.getIncludeUrlCollection();
+            return pkg.getIncludeUrls();
         } finally {
             getReadLock().unlock();
         }
@@ -915,7 +912,7 @@ abstract public class PollerConfigManager implements PollerConfig {
     public Iterable<Parameter> parameters(final Service svc) {
         try {
             getReadLock().lock();
-            return svc.getParameterCollection();
+            return svc.getParameters();
         } finally {
             getReadLock().unlock();
         }
@@ -929,7 +926,7 @@ abstract public class PollerConfigManager implements PollerConfig {
     private Iterable<Package> packages() {
         try {
             getReadLock().lock();
-            return getConfiguration().getPackageCollection();
+            return getConfiguration().getPackages();
         } finally {
             getReadLock().unlock();
         }
@@ -943,7 +940,7 @@ abstract public class PollerConfigManager implements PollerConfig {
     private Iterable<Monitor> monitors() {
         try {
             getReadLock().lock();
-            return getConfiguration().getMonitorCollection();
+            return getConfiguration().getMonitors();
         } finally {
             getReadLock().unlock();
         }
@@ -1026,8 +1023,9 @@ abstract public class PollerConfigManager implements PollerConfig {
                         final ServiceMonitorLocator locator = new DefaultServiceMonitorLocator(monitor.getService(), mc);
                         locators.add(locator);
                     }
+                    LOG.debug("Loaded monitor for service: {}, class-name: {}", monitor.getService(), monitor.getClassName());
                 } catch (final ClassNotFoundException e) {
-                    LOG.warn("Unable to location monitor for service: {} class-name: {}", monitor.getService(), monitor.getClassName(), e);
+                    LOG.warn("Unable to load monitor for service: {}, class-name: {}: {}", monitor.getService(), monitor.getClassName(), e.getMessage());
                 } catch (ConfigObjectRetrievalFailureException e) {
                     LOG.warn("{} {}", e.getMessage(), e.getRootCause(), e);
                 }

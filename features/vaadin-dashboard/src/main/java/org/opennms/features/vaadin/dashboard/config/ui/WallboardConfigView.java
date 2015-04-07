@@ -1,22 +1,22 @@
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
- * Copyright (C) 2006-2012 The OpenNMS Group, Inc.
- * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ * Copyright (C) 2013-2014 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2014 The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published
+ * it under the terms of the GNU Affero General Public License as published
  * by the Free Software Foundation, either version 3 of the License,
  * or (at your option) any later version.
  *
  * OpenNMS(R) is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU Affero General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GNU Affero General Public License
  * along with OpenNMS(R).  If not, see:
  *      http://www.gnu.org/licenses/
  *
@@ -25,20 +25,31 @@
  *     http://www.opennms.org/
  *     http://www.opennms.com/
  *******************************************************************************/
-package org.opennms.features.vaadin.dashboard.config.ui;
 
-import com.vaadin.data.Container;
-import com.vaadin.data.validator.AbstractStringValidator;
-import com.vaadin.event.ShortcutAction;
-import com.vaadin.ui.*;
-import org.opennms.features.vaadin.dashboard.config.DashletSelector;
-import org.opennms.features.vaadin.dashboard.model.DashletFactory;
-import org.opennms.features.vaadin.dashboard.model.Wallboard;
+package org.opennms.features.vaadin.dashboard.config.ui;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import org.opennms.features.vaadin.dashboard.config.DashletSelector;
+import org.opennms.features.vaadin.dashboard.model.DashletFactory;
+import org.opennms.features.vaadin.dashboard.model.Wallboard;
+
+import com.vaadin.data.Container;
+import com.vaadin.data.validator.AbstractStringValidator;
+import com.vaadin.event.ShortcutAction;
+import com.vaadin.ui.Alignment;
+import com.vaadin.ui.Button;
+import com.vaadin.ui.Component;
+import com.vaadin.ui.FormLayout;
+import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.TabSheet;
+import com.vaadin.ui.TabSheet.Tab;
+import com.vaadin.ui.TextField;
+import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.Window;
 
 /**
  * This class represents the base editing component for {@link Wallboard} instances.
@@ -46,10 +57,7 @@ import java.util.Map;
  * @author Christian Pape
  */
 public class WallboardConfigView extends HorizontalLayout implements TabSheet.CloseHandler, DashletSelector.ServiceListChangedListener {
-    /**
-     * The {@link TabSheet.Tab} holding the overview tab
-     */
-    private TabSheet.Tab m_overviewTab;
+
     /**
      * The {@link TabSheet} for displaying the {@link WallboardEditor} components
      */
@@ -58,10 +66,6 @@ public class WallboardConfigView extends HorizontalLayout implements TabSheet.Cl
      * The {@link DashletSelector} used for querying the configuration data
      */
     private DashletSelector m_dashletSelector;
-    /**
-     * The {@link WallboardOverview} component
-     */
-    private WallboardOverview m_dashboardOverview;
     /**
      * A map used to store {@link Wallboard} and {@link TabSheet.Tab} instances
      */
@@ -95,13 +99,13 @@ public class WallboardConfigView extends HorizontalLayout implements TabSheet.Cl
         /**
          * Adding the {@link WallboardOverview}
          */
-        m_dashboardOverview = new WallboardOverview(this);
+        WallboardOverview dashboardOverview = new WallboardOverview(this);
 
-        m_overviewTab = m_tabSheet.addTab(m_dashboardOverview, "Overview");
+        Tab overviewTab = m_tabSheet.addTab(dashboardOverview, "Overview");
 
-        m_overviewTab.setClosable(false);
+        overviewTab.setClosable(false);
 
-        m_tabSheet.setSelectedTab(m_overviewTab);
+        m_tabSheet.setSelectedTab(overviewTab);
         m_tabSheet.setCloseHandler(this);
 
         addComponent(m_tabSheet);
@@ -157,7 +161,7 @@ public class WallboardConfigView extends HorizontalLayout implements TabSheet.Cl
      * This method is used to add a new {@link TabSheet.Tab} component. It creates a new window querying the user for the name of the new {@link Wallboard}.
      */
     protected void addNewTabComponent() {
-        final Window window = new Window("New Wallboard");
+        final Window window = new Window("New Ops Board");
 
         window.setModal(true);
         window.setClosable(false);
@@ -166,7 +170,7 @@ public class WallboardConfigView extends HorizontalLayout implements TabSheet.Cl
         getUI().addWindow(window);
 
         window.setContent(new VerticalLayout() {
-            TextField name = new TextField("Wallboard Name");
+            TextField name = new TextField("Ops Board Name");
 
             {
                 addComponent(new FormLayout() {
@@ -203,6 +207,7 @@ public class WallboardConfigView extends HorizontalLayout implements TabSheet.Cl
                         setWidth("100%");
 
                         Button cancel = new Button("Cancel");
+                        cancel.setDescription("Cancel editing");
                         cancel.addClickListener(new Button.ClickListener() {
                             @Override
                             public void buttonClick(Button.ClickEvent event) {
@@ -216,7 +221,7 @@ public class WallboardConfigView extends HorizontalLayout implements TabSheet.Cl
                         setComponentAlignment(cancel, Alignment.TOP_RIGHT);
 
                         Button ok = new Button("Save");
-
+                        ok.setDescription("Save configuration");
                         ok.addClickListener(new Button.ClickListener() {
                             @Override
                             public void buttonClick(Button.ClickEvent event) {

@@ -1,22 +1,22 @@
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
- * Copyright (C) 2009-2012 The OpenNMS Group, Inc.
- * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ * Copyright (C) 2009-2014 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2014 The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published
+ * it under the terms of the GNU Affero General Public License as published
  * by the Free Software Foundation, either version 3 of the License,
  * or (at your option) any later version.
  *
  * OpenNMS(R) is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU Affero General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GNU Affero General Public License
  * along with OpenNMS(R).  If not, see:
  *      http://www.gnu.org/licenses/
  *
@@ -30,8 +30,11 @@ package org.opennms.netmgt.model;
 
 import java.io.Serializable;
 import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -52,6 +55,7 @@ import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.apache.commons.lang.builder.CompareToBuilder;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.hibernate.annotations.Type;
 import org.opennms.netmgt.model.OnmsArpInterface.StatusType;
 import org.opennms.netmgt.xml.bind.StatusTypeXmlAdapter;
@@ -60,8 +64,21 @@ import org.opennms.netmgt.xml.bind.StatusTypeXmlAdapter;
 @Entity
 @Table(name = "datalinkinterface")
 @XmlAccessorType(XmlAccessType.NONE)
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class DataLinkInterface implements Serializable, Comparable<DataLinkInterface> {
     private static final long serialVersionUID = -3336726327359373609L;
+
+    public static enum DiscoveryProtocol {
+        bridge,
+        cdp,
+        iproute,
+        lldp,
+        ospf,
+        isis,
+        wifi,
+        NA
+    }
+
     private Integer m_id;
     private OnmsNode m_node;
     private Integer m_ifIndex;
@@ -71,6 +88,9 @@ public class DataLinkInterface implements Serializable, Comparable<DataLinkInter
     private Integer m_linkTypeId;
     private Date m_lastPollTime;
     private String m_source = "linkd";
+
+    private DiscoveryProtocol m_protocol;
+    
     /**
      * work around a marshalling issue by storing the OnmsNode nodeId *
      */
@@ -117,10 +137,10 @@ public class DataLinkInterface implements Serializable, Comparable<DataLinkInter
      * Get the ID as a string.  This exists only for XML serialization.
      */
     @XmlID
-    @XmlAttribute(name = "id")
+    @XmlAttribute(name="id")
     @Transient
     public String getDataLinkInterfaceId() {
-        return getId().toString();
+        return getId() == null? null : getId().toString();
     }
 
     public void setDataLinkInterfaceId(final String id) {
@@ -128,7 +148,7 @@ public class DataLinkInterface implements Serializable, Comparable<DataLinkInter
     }
 
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = "nodeId")
+    @JoinColumn(name="nodeId")
     @XmlTransient
     public OnmsNode getNode() {
         return m_node;
@@ -198,6 +218,17 @@ public class DataLinkInterface implements Serializable, Comparable<DataLinkInter
 
     public void setLinkTypeId(final Integer linkTypeId) {
         m_linkTypeId = linkTypeId;
+    }
+
+    @Enumerated(EnumType.STRING)
+    @XmlElement(name = "protocol")
+    @Column(name = "protocol", length=31, nullable = true)
+    public DiscoveryProtocol getProtocol() {
+        return m_protocol;
+    }
+
+    public void setProtocol(DiscoveryProtocol protocol) {
+        m_protocol = protocol;
     }
 
     @XmlElement(name = "lastPollTime")

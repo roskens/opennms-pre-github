@@ -1,22 +1,22 @@
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
- * Copyright (C) 2009-2012 The OpenNMS Group, Inc.
- * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ * Copyright (C) 2009-2014 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2014 The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published
+ * it under the terms of the GNU Affero General Public License as published
  * by the Free Software Foundation, either version 3 of the License,
  * or (at your option) any later version.
  *
  * OpenNMS(R) is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU Affero General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GNU Affero General Public License
  * along with OpenNMS(R).  If not, see:
  *      http://www.gnu.org/licenses/
  *
@@ -29,20 +29,19 @@
 package org.opennms.netmgt.poller.monitors;
 
 import java.net.InetAddress;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.opennms.core.utils.InetAddressUtils;
-
 import org.opennms.core.utils.ParameterMap;
 import org.opennms.core.utils.TimeoutTracker;
 import org.opennms.netmgt.config.WmiPeerFactory;
 import org.opennms.netmgt.config.wmi.WmiAgentConfig;
-import org.opennms.netmgt.model.PollStatus;
 import org.opennms.netmgt.poller.Distributable;
 import org.opennms.netmgt.poller.MonitoredService;
 import org.opennms.netmgt.poller.NetworkInterface;
 import org.opennms.netmgt.poller.NetworkInterfaceNotSupportedException;
+import org.opennms.netmgt.poller.PollStatus;
 import org.opennms.protocols.wmi.WmiException;
 import org.opennms.protocols.wmi.WmiManager;
 import org.opennms.protocols.wmi.WmiParams;
@@ -66,12 +65,13 @@ public class WmiMonitor extends AbstractServiceMonitor {
 	private static final Logger LOG = LoggerFactory.getLogger(WmiMonitor.class);
 
 
-	private final static String DEFAULT_WMI_CLASS = "Win32_ComputerSystem";
-	private final static String DEFAULT_WMI_OBJECT = "Status";
-	private final static String DEFAULT_WMI_COMP_VAL = "OK";
-	private final static String DEFAULT_WMI_MATCH_TYPE = "all";
-	private final static String DEFAULT_WMI_COMP_OP = "EQ";
-    private final static String DEFAULT_WMI_WQL = "NOTSET";
+	private static final String DEFAULT_WMI_CLASS = "Win32_ComputerSystem";
+	private static final String DEFAULT_WMI_OBJECT = "Status";
+	private static final String DEFAULT_WMI_COMP_VAL = "OK";
+	private static final  String DEFAULT_WMI_MATCH_TYPE = "all";
+	private static final String DEFAULT_WMI_COMP_OP = "EQ";
+	private static final String DEFAULT_WMI_NAMESPACE = WmiParams.WMI_DEFAULT_NAMESPACE;
+    private static final String DEFAULT_WMI_WQL = "NOTSET";
 
 	/**
 	 * {@inheritDoc}
@@ -111,7 +111,8 @@ public class WmiMonitor extends AbstractServiceMonitor {
 		String compOp = DEFAULT_WMI_COMP_OP;
 		String wmiClass = DEFAULT_WMI_CLASS;
 		String wmiObject = DEFAULT_WMI_OBJECT;
-        String wmiWqlStr = DEFAULT_WMI_WQL;
+		String wmiWqlStr = DEFAULT_WMI_WQL;
+		String wmiNamespace = DEFAULT_WMI_NAMESPACE;
 
         if (parameters != null) {
             if (parameters.get("timeout") != null) {
@@ -137,6 +138,10 @@ public class WmiMonitor extends AbstractServiceMonitor {
             if (parameters.get("domain") != null) {
                 String domain = ParameterMap.getKeyedString(parameters, "domain", agentConfig.getDomain());
                 agentConfig.setUsername(domain);
+            }
+            
+            if (parameters.get("namespace") != null) {
+                wmiNamespace = ParameterMap.getKeyedString(parameters,  "wmiNamespace", ParameterMap.getKeyedString(parameters, "namespace", DEFAULT_WMI_NAMESPACE));
             }
             
             matchType = ParameterMap.getKeyedString(parameters, "matchType", DEFAULT_WMI_MATCH_TYPE);
@@ -165,6 +170,7 @@ public class WmiMonitor extends AbstractServiceMonitor {
 				mgr = new WmiManager(hostAddress, agentConfig.getUsername(), agentConfig.getPassword(), agentConfig.getDomain(), matchType);
 
 				mgr.setTimeout(tracker.getSoTimeout());
+				mgr.setNamespace(wmiNamespace);
 				mgr.init();
 
 				LOG.debug("Completed initializing WmiManager object.");
@@ -196,15 +202,16 @@ public class WmiMonitor extends AbstractServiceMonitor {
 					continue;
 				}
 
-				final ArrayList<Object> wmiObjects = response.getResponse();
+				final List<Object> wmiObjects = response.getResponse();
 
 				final StringBuffer reasonBuffer = new StringBuffer();
+				reasonBuffer.append("Constraint '").append(matchType).append(" ").append(clientParams.getCompareOperation()).append(" ").append(clientParams.getCompareValue()).append("' failed for value of ");
 				// If there's no WQL string then use the class\object name as the result message
 				if (DEFAULT_WMI_WQL.equals(wmiWqlStr)) {
-				    reasonBuffer.append("Result for ").append(wmiClass).append("\\").append(wmiObject);
+				    reasonBuffer.append(wmiClass).append("\\").append(wmiObject);
 				} else {
 				    // Otherwise, print the WQL statement in the result message
-				    reasonBuffer.append("Result for \"").append(wmiWqlStr).append("\"");
+				    reasonBuffer.append("\"").append(wmiWqlStr).append("\"");
 				}
 
 				if (response.getResultCode() == WmiResult.RES_STATE_OK) {

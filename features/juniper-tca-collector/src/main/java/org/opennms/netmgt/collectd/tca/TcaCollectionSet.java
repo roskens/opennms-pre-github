@@ -1,22 +1,22 @@
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
- * Copyright (C) 2012 The OpenNMS Group, Inc.
- * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ * Copyright (C) 2012-2014 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2014 The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published
+ * it under the terms of the GNU Affero General Public License as published
  * by the Free Software Foundation, either version 3 of the License,
  * or (at your option) any later version.
  *
  * OpenNMS(R) is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU Affero General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GNU Affero General Public License
  * along with OpenNMS(R).  If not, see:
  *      http://www.gnu.org/licenses/
  *
@@ -33,17 +33,17 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import org.opennms.netmgt.collectd.CollectionAgent;
-import org.opennms.netmgt.collectd.CollectionException;
 import org.opennms.netmgt.collectd.CollectionTimedOut;
 import org.opennms.netmgt.collectd.CollectionWarning;
-import org.opennms.netmgt.collectd.ServiceCollector;
-import org.opennms.netmgt.config.collector.AttributeGroupType;
-import org.opennms.netmgt.config.collector.CollectionResource;
-import org.opennms.netmgt.config.collector.CollectionSet;
-import org.opennms.netmgt.config.collector.CollectionSetVisitor;
-import org.opennms.netmgt.dao.support.ResourceTypeUtils;
-import org.opennms.netmgt.model.RrdRepository;
+import org.opennms.netmgt.collectd.SnmpCollectionAgent;
+import org.opennms.netmgt.collection.api.AttributeGroupType;
+import org.opennms.netmgt.collection.api.CollectionException;
+import org.opennms.netmgt.collection.api.CollectionResource;
+import org.opennms.netmgt.collection.api.CollectionSetVisitor;
+import org.opennms.netmgt.collection.api.ServiceCollector;
+import org.opennms.netmgt.collection.support.AbstractCollectionSet;
+import org.opennms.netmgt.model.ResourceTypeUtils;
+import org.opennms.netmgt.rrd.RrdRepository;
 import org.opennms.netmgt.snmp.SnmpObjId;
 import org.opennms.netmgt.snmp.SnmpUtils;
 import org.opennms.netmgt.snmp.SnmpWalker;
@@ -55,7 +55,7 @@ import org.slf4j.LoggerFactory;
  * 
  * @author Alejandro Galue <agalue@opennms.org>
  */
-public class TcaCollectionSet implements CollectionSet {	
+public class TcaCollectionSet extends AbstractCollectionSet {	
 	private static final Logger LOG = LoggerFactory.getLogger(TcaCollectionSet.class);
 
 	/** The Constant LAST_TIMESTAMP. */
@@ -85,8 +85,8 @@ public class TcaCollectionSet implements CollectionSet {
 	/** The Collection timestamp. */
 	private Date m_timestamp;
 
-	/** The Colelction Agent. */
-	private CollectionAgent m_agent;
+	/** The Collection Agent. */
+	private SnmpCollectionAgent m_agent;
 
 	/** The RRD Repository. */
 	private RrdRepository m_rrdRepository;
@@ -97,7 +97,7 @@ public class TcaCollectionSet implements CollectionSet {
 	 * @param agent the agent
 	 * @param repository the repository
 	 */
-	public TcaCollectionSet(CollectionAgent agent, RrdRepository repository) {
+	public TcaCollectionSet(SnmpCollectionAgent agent, RrdRepository repository) {
 		m_status = ServiceCollector.COLLECTION_FAILED;
 		m_collectionResources = new ArrayList<TcaCollectionResource>();
 		m_agent = agent;
@@ -125,14 +125,6 @@ public class TcaCollectionSet implements CollectionSet {
 	}
 
 	/* (non-Javadoc)
-	 * @see org.opennms.netmgt.config.collector.CollectionSet#ignorePersist()
-	 */
-	@Override
-	public boolean ignorePersist() {
-		return false;
-	}
-
-	/* (non-Javadoc)
 	 * @see org.opennms.netmgt.config.collector.CollectionSet#getCollectionTimestamp()
 	 */
 	@Override
@@ -156,7 +148,7 @@ public class TcaCollectionSet implements CollectionSet {
 	 */
 	protected void collect() throws CollectionException {
 		try {
-			TcaData tracker = new TcaData(m_agent.getInetAddress());
+			TcaData tracker = new TcaData(m_agent.getAddress());
 			SnmpWalker walker = SnmpUtils.createWalker(m_agent.getAgentConfig(), "TcaCollector for " + m_agent.getHostAddress(), tracker);
 			walker.start();
 			LOG.debug("collect: successfully instantiated TCA Collector for {}", m_agent.getHostAddress());
@@ -213,7 +205,7 @@ public class TcaCollectionSet implements CollectionSet {
 	 */
 	private void process(TcaData tracker) throws Exception {
 		LOG.debug("process: processing raw TCA data for {} peers.", tracker.size());
-		AttributeGroupType attribGroupType = new AttributeGroupType(TcaCollectionResource.RESOURCE_TYPE_NAME, "all"); // It will be treated like a Multi-Instance Resource
+		AttributeGroupType attribGroupType = new AttributeGroupType(TcaCollectionResource.RESOURCE_TYPE_NAME, AttributeGroupType.IF_TYPE_ALL); // It will be treated like a Multi-Instance Resource
 		long timestamp = 0;
 		for (TcaDataEntry entry : tracker.getEntries()) {
 			long lastTimestamp = getLastTimestamp(new TcaCollectionResource(m_agent, entry.getPeerAddress()));

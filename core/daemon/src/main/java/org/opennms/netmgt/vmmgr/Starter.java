@@ -1,22 +1,22 @@
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
- * Copyright (C) 2012 The OpenNMS Group, Inc.
- * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ * Copyright (C) 2007-2014 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2014 The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published
+ * it under the terms of the GNU Affero General Public License as published
  * by the Free Software Foundation, either version 3 of the License,
  * or (at your option) any later version.
  *
  * OpenNMS(R) is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU Affero General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GNU Affero General Public License
  * along with OpenNMS(R).  If not, see:
  *      http://www.gnu.org/licenses/
  *
@@ -35,14 +35,15 @@ import java.io.InputStream;
 import java.lang.management.ManagementFactory;
 import java.net.URL;
 import java.util.List;
+import java.util.Map.Entry;
 import java.util.Properties;
 import java.util.TreeMap;
-import java.util.Map.Entry;
 
 import javax.management.MBeanServer;
 
 import org.apache.commons.io.IOUtils;
 import org.opennms.core.logging.Logging;
+import org.opennms.netmgt.config.ServiceConfigFactory;
 import org.opennms.netmgt.config.service.Service;
 import org.opennms.netmgt.config.service.types.InvokeAtType;
 import org.slf4j.Logger;
@@ -50,7 +51,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * <p>
- * The Manager is reponsible for launching/starting all services in the VM
+ * The Manager is responsible for launching/starting all services in the VM
  * that it is started for. The Manager operates in two modes, normal and
  * server
  * </p>
@@ -229,8 +230,7 @@ public class Starter {
     private File getPropertiesFile() {
         String homeDir = System.getProperty("opennms.home");
         File etcDir = new File(homeDir, "etc");
-        File propertiesFile = new File(etcDir, "opennms.properties");
-        return propertiesFile;
+        return new File(etcDir, "opennms.properties");
     }
 
     private void start() {
@@ -241,7 +241,7 @@ public class Starter {
         Invoker invoker = new Invoker();
         invoker.setServer(server);
         invoker.setAtType(InvokeAtType.START);
-        List<InvokerService> services = InvokerService.createServiceList(Invoker.getDefaultServiceConfigFactory().getServices());
+        List<InvokerService> services = InvokerService.createServiceList(new ServiceConfigFactory().getServices());
         invoker.setServices(services);
         invoker.instantiateClasses();
 
@@ -257,7 +257,9 @@ public class Starter {
                         "An error occurred while attempting to start the \"" +
                                 name + "\" service (class " + className + ").  "
                                 + "Shutting down and exiting.";
+
                 LOG.error(message, result.getThrowable());
+
                 System.err.println(message);
                 result.getThrowable().printStackTrace();
 

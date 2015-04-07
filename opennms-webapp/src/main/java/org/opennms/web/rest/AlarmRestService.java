@@ -1,22 +1,22 @@
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
- * Copyright (C) 2008-2012 The OpenNMS Group, Inc.
- * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ * Copyright (C) 2008-2014 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2014 The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published
+ * it under the terms of the GNU Affero General Public License as published
  * by the Free Software Foundation, either version 3 of the License,
  * or (at your option) any later version.
  *
  * OpenNMS(R) is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU Affero General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GNU Affero General Public License
  * along with OpenNMS(R).  If not, see:
  *      http://www.gnu.org/licenses/
  *
@@ -49,7 +49,9 @@ import org.opennms.netmgt.model.AckAction;
 import org.opennms.netmgt.model.OnmsAcknowledgment;
 import org.opennms.netmgt.model.OnmsAlarm;
 import org.opennms.netmgt.model.OnmsAlarmCollection;
+import org.opennms.netmgt.model.alarm.AlarmSummaryCollection;
 import org.opennms.web.api.Authentication;
+import org.opennms.netmgt.model.alarm.AlarmSummaryCollection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -88,11 +90,14 @@ public class AlarmRestService extends AlarmRestServiceBase {
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON, MediaType.APPLICATION_ATOM_XML})
     @Path("{alarmId}")
     @Transactional
-    public OnmsAlarm getAlarm(@PathParam("alarmId")
-    final String alarmId) {
+    public Response getAlarm(@PathParam("alarmId") final String alarmId) {
         readLock();
         try {
-            return m_alarmDao.get(new Integer(alarmId));
+            if ("summaries".equals(alarmId)) {
+                return Response.ok(new AlarmSummaryCollection(m_alarmDao.getNodeAlarmSummaries())).build();
+            } else {
+                return Response.ok(m_alarmDao.get(Integer.valueOf(alarmId))).build();
+            }
         } finally {
             readUnlock();
         }
@@ -137,7 +142,7 @@ public class AlarmRestService extends AlarmRestServiceBase {
             final OnmsAlarmCollection coll = new OnmsAlarmCollection(m_alarmDao.findMatching(builder.toCriteria()));
 
             // For getting totalCount
-            coll.setTotalCount(m_alarmDao.countMatching(builder.clearOrder().limit(0).offset(0).toCriteria()));
+            coll.setTotalCount(m_alarmDao.countMatching(builder.count().toCriteria()));
 
             return coll;
         } finally {
@@ -264,7 +269,7 @@ public class AlarmRestService extends AlarmRestServiceBase {
                 }
                 m_ackDao.processAck(acknowledgement);
             }
-            
+
             if (alarms.size() == 1) {
                 return Response.seeOther(getRedirectUri(m_uriInfo, alarms.get(0).getId())).build();
             } else {

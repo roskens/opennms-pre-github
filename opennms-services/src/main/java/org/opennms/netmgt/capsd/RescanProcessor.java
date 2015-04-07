@@ -1,22 +1,22 @@
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
- * Copyright (C) 2006-2012 The OpenNMS Group, Inc.
- * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ * Copyright (C) 2002-2014 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2014 The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published
+ * it under the terms of the GNU Affero General Public License as published
  * by the Free Software Foundation, either version 3 of the License,
  * or (at your option) any later version.
  *
  * OpenNMS(R) is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU Affero General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GNU Affero General Public License
  * along with OpenNMS(R).  If not, see:
  *      http://www.gnu.org/licenses/
  *
@@ -50,7 +50,6 @@ import java.util.Set;
 import org.opennms.core.db.DataSourceFactory;
 import org.opennms.core.utils.ConfigFileConstants;
 import org.opennms.core.utils.DBUtils;
-import org.opennms.netmgt.EventConstants;
 import org.opennms.netmgt.capsd.IfCollector.SupportedProtocol;
 import org.opennms.netmgt.capsd.snmp.IfTable;
 import org.opennms.netmgt.capsd.snmp.IfTableEntry;
@@ -59,16 +58,13 @@ import org.opennms.netmgt.capsd.snmp.IpAddrTable;
 import org.opennms.netmgt.capsd.snmp.SystemGroup;
 import org.opennms.netmgt.config.CapsdConfig;
 import org.opennms.netmgt.config.CapsdConfigFactory;
-import org.opennms.netmgt.config.CollectdConfigFactory;
 import org.opennms.netmgt.config.PollerConfig;
 import org.opennms.netmgt.config.PollerConfigFactory;
-import org.opennms.netmgt.eventd.EventIpcManagerFactory;
+import org.opennms.netmgt.events.api.EventConstants;
+import org.opennms.netmgt.events.api.EventIpcManagerFactory;
+import org.opennms.netmgt.filter.FilterDaoFactory;
 import org.opennms.netmgt.model.OnmsNode.NodeLabelSource;
 import org.opennms.netmgt.model.OnmsNode.NodeType;
-import org.opennms.netmgt.model.capsd.DbIfServiceEntry;
-import org.opennms.netmgt.model.capsd.DbIpInterfaceEntry;
-import org.opennms.netmgt.model.capsd.DbNodeEntry;
-import org.opennms.netmgt.model.capsd.DbSnmpInterfaceEntry;
 import org.opennms.netmgt.model.events.EventBuilder;
 import org.opennms.netmgt.xml.event.Event;
 import org.slf4j.Logger;
@@ -455,9 +451,9 @@ public final class RescanProcessor implements Runnable {
                 // Update subtargets
                 if (collectorWithSnmp.hasAdditionalTargets()) {
                     final Map<InetAddress, List<SupportedProtocol>> subTargets = collectorWithSnmp.getAdditionalTargets();
-                    for(final InetAddress subIf : subTargets.keySet()) {
-                        updateInterface(dbc, now, node, collectorWithSnmp.getTarget(), subIf, subTargets.get(subIf), snmpCollector, doesSnmp);
-                        updatedIfList.add(subIf);
+                    for (final Map.Entry<InetAddress,List<SupportedProtocol>> entry : subTargets.entrySet()) {
+                        updateInterface(dbc, now, node, collectorWithSnmp.getTarget(), entry.getKey(), entry.getValue(), snmpCollector, doesSnmp);
+                        updatedIfList.add(entry.getKey());
                     }
                 }
 
@@ -492,9 +488,10 @@ public final class RescanProcessor implements Runnable {
             // Update subtargets
             if (ifc.hasAdditionalTargets()) {
                 final Map<InetAddress, List<SupportedProtocol>> subTargets = ifc.getAdditionalTargets();
-                for(final InetAddress subIf : subTargets.keySet()) {
+                for (final Map.Entry<InetAddress,List<SupportedProtocol>> entry : subTargets.entrySet()) {
+                    final InetAddress subIf = entry.getKey();
                     if (!updatedIfList.contains(subIf)) {
-                        updateInterface(dbc, now, node, ifc.getTarget(), subIf, subTargets.get(subIf), snmpCollector, doesSnmp);
+                        updateInterface(dbc, now, node, ifc.getTarget(), subIf, entry.getValue(), snmpCollector, doesSnmp);
                         updatedIfList.add(subIf);
                     }
                 }
@@ -1942,9 +1939,11 @@ public final class RescanProcessor implements Runnable {
             // Now go through list of sub-targets
             if (ifc.hasAdditionalTargets()) {
                 final Map<InetAddress, List<SupportedProtocol>> subTargets = ifc.getAdditionalTargets();
-                for(final InetAddress xifaddr : subTargets.keySet()) {
+                for (final Map.Entry<InetAddress, List<SupportedProtocol>> entry : subTargets.entrySet()) {
+                    final InetAddress xifaddr = entry.getKey();
+                    final List<SupportedProtocol> protocols = entry.getValue();
                     if (addresses.contains(xifaddr) == false) {
-                        if (SuspectEventProcessor.supportsSnmp(subTargets.get(xifaddr)) && SuspectEventProcessor.hasIfIndex(xifaddr, snmpc) && SuspectEventProcessor.getIfType(xifaddr, snmpc) == 24) {
+                        if (SuspectEventProcessor.supportsSnmp(protocols) && SuspectEventProcessor.hasIfIndex(xifaddr, snmpc) && SuspectEventProcessor.getIfType(xifaddr, snmpc) == 24) {
                             LOG.debug("buildLBSnmpAddressList: adding subtarget interface {} temporarily marked as primary!", str(xifaddr));
                             addresses.add(xifaddr);
                         }
@@ -1998,11 +1997,12 @@ public final class RescanProcessor implements Runnable {
             // Now go through list of sub-targets
             if (ifc.hasAdditionalTargets()) {
                 final Map<InetAddress, List<SupportedProtocol>> subTargets = ifc.getAdditionalTargets();
-
-                for(final InetAddress xifaddr : subTargets.keySet()) {
+                for (final Map.Entry<InetAddress,List<SupportedProtocol>> entry : subTargets.entrySet()) {
+                    final InetAddress xifaddr = entry.getKey();
+                    final List<SupportedProtocol> protocols = entry.getValue();
                     // Add eligible subtargets.
                     if (addresses.contains(xifaddr) == false) {
-                        if (SuspectEventProcessor.supportsSnmp(subTargets.get(xifaddr)) && SuspectEventProcessor.hasIfIndex(xifaddr, snmpc)) {
+                        if (SuspectEventProcessor.supportsSnmp(protocols) && SuspectEventProcessor.hasIfIndex(xifaddr, snmpc)) {
                             LOG.debug("buildSnmpAddressList: adding subtarget interface {} temporarily marked as primary!", str(xifaddr));
                             addresses.add(xifaddr);
                         }
@@ -2600,8 +2600,7 @@ public final class RescanProcessor implements Runnable {
 
         final boolean localHostAddress = (ifaddr.isLoopbackAddress() && dbInterfaces.length > 1);
         final boolean nonIpAddress = s_ZERO_ZERO_ZERO_ZERO.equals(ifaddrString);
-        final boolean scannable = !localHostAddress && !nonIpAddress;
-        return scannable;
+        return !localHostAddress && !nonIpAddress;
     }
 
     private int getNodeId() {
@@ -2663,7 +2662,7 @@ public final class RescanProcessor implements Runnable {
          * 
          * 4) strict = false and all eligible interfaces.
          */
-        CollectdConfigFactory.getInstance().rebuildPackageIpListMap();
+        FilterDaoFactory.getInstance().flushActiveIpAddressListCache();
         final IfSnmpCollector snmpc = findSnmpCollector(collectorMap);
         final List<InetAddress> snmpLBAddresses = buildLBSnmpAddressList(collectorMap, snmpc);
         final List<InetAddress> snmpAddresses = buildSnmpAddressList(collectorMap, snmpc);
@@ -2671,7 +2670,7 @@ public final class RescanProcessor implements Runnable {
         // first set the value of issnmpprimary for secondaries
         for (final InetAddress addr : snmpAddresses) {
             final String addrString = str(addr);
-            if (CollectdConfigFactory.getInstance().isServiceCollectionEnabled(addrString, "SNMP")) {
+            if (m_capsdDbSyncer.isServiceCollectionEnabled(addrString, "SNMP")) {
                 final DBUtils d = new DBUtils(RescanProcessor.class);
                 try {
                     final PreparedStatement stmt = dbc.prepareStatement("UPDATE ipInterface SET isSnmpPrimary='S' WHERE nodeId=? AND ipAddr=? AND isManaged!='D'");
@@ -2686,21 +2685,21 @@ public final class RescanProcessor implements Runnable {
             }
         }
 
-        InetAddress newSnmpPrimaryIf = CapsdConfigFactory.getInstance().determinePrimarySnmpInterface(snmpLBAddresses, true);
+        InetAddress newSnmpPrimaryIf = m_capsdDbSyncer.determinePrimarySnmpInterface(snmpLBAddresses, true);
         String psiType = ConfigFileConstants.getFileName(ConfigFileConstants.COLLECTD_CONFIG_FILE_NAME) + " loopback addresses";
 
         if (newSnmpPrimaryIf == null) {
-            newSnmpPrimaryIf = CapsdConfigFactory.getInstance().determinePrimarySnmpInterface(snmpAddresses, true);
+            newSnmpPrimaryIf = m_capsdDbSyncer.determinePrimarySnmpInterface(snmpAddresses, true);
             psiType = ConfigFileConstants.getFileName(ConfigFileConstants.COLLECTD_CONFIG_FILE_NAME) + " addresses";
         }
 
         if (newSnmpPrimaryIf == null) {
-            newSnmpPrimaryIf = CapsdConfigFactory.getInstance().determinePrimarySnmpInterface(snmpLBAddresses, false);
+            newSnmpPrimaryIf = m_capsdDbSyncer.determinePrimarySnmpInterface(snmpLBAddresses, false);
             psiType = "DB loopback addresses";
         }
 
         if (newSnmpPrimaryIf == null) {
-            newSnmpPrimaryIf = CapsdConfigFactory.getInstance().determinePrimarySnmpInterface(snmpAddresses, false);
+            newSnmpPrimaryIf = m_capsdDbSyncer.determinePrimarySnmpInterface(snmpAddresses, false);
             psiType = "DB addresses";
         }
 

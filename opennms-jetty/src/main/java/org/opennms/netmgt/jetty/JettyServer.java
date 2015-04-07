@@ -1,22 +1,22 @@
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
- * Copyright (C) 2007-2012 The OpenNMS Group, Inc.
- * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ * Copyright (C) 2007-2014 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2014 The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published
+ * it under the terms of the GNU Affero General Public License as published
  * by the Free Software Foundation, either version 3 of the License,
  * or (at your option) any later version.
  *
  * OpenNMS(R) is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU Affero General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GNU Affero General Public License
  * along with OpenNMS(R).  If not, see:
  *      http://www.gnu.org/licenses/
  *
@@ -29,18 +29,13 @@
 package org.opennms.netmgt.jetty;
 
 import java.io.File;
-import java.util.Properties;
+import java.io.InputStream;
 
 import org.eclipse.jetty.server.Connector;
-import org.eclipse.jetty.server.HttpConfiguration;
-import org.eclipse.jetty.server.HttpConnectionFactory;
-import org.eclipse.jetty.server.SecureRequestCustomizer;
 import org.eclipse.jetty.server.Server;
-import org.eclipse.jetty.server.ServerConnector;
-import org.eclipse.jetty.server.handler.HandlerCollection;
-import org.eclipse.jetty.server.SslConnectionFactory;
-import org.eclipse.jetty.util.ssl.SslContextFactory;
-import org.eclipse.jetty.webapp.WebAppContext;
+import org.eclipse.jetty.server.nio.SelectChannelConnector;
+import org.eclipse.jetty.server.ssl.SslSocketConnector;
+import org.eclipse.jetty.xml.XmlConfiguration;
 import org.opennms.netmgt.daemon.AbstractServiceDaemon;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -71,153 +66,26 @@ public class JettyServer extends AbstractServiceDaemon {
     /** {@inheritDoc} */
     @Override
     protected void onInit() {
-        final Properties p = System.getProperties();
+        final File jettyXml = new File(System.getProperty("opennms.home") + File.separator + "etc" + File.separator + "jetty.xml");
+        InputStream jettyXmlStream = null;
 
-        final File homeDir = new File(p.getProperty("opennms.home"));
-        final File webappsDir = new File(homeDir, "jetty-webapps");
-
-        m_server = new Server();
-
-        final HttpConfiguration http_config = new HttpConfiguration();
-
-        final Integer port = Integer.getInteger("org.opennms.netmgt.jetty.port", m_port);
-
-        final Integer outputBufferSize = Integer.getInteger("org.opennms.netmgt.jetty.outputBufferSize");
-        if(outputBufferSize != null) {
-            http_config.setOutputBufferSize(outputBufferSize);
-        }
-
-        final Integer requestHeaderSize = Integer.getInteger("org.opennms.netmgt.jetty.requestHeaderSize");
-        if(requestHeaderSize != null) {
-            http_config.setRequestHeaderSize(requestHeaderSize);
-        }
-
-        final ServerConnector http = new ServerConnector(m_server, new HttpConnectionFactory(http_config));
-        http.setPort(port);
-
-        final Integer idleTimeout = Integer.getInteger("org.opennms.netmgt.jetty.idleTimeout");
-        if(idleTimeout != null) {
-            http.setIdleTimeout(idleTimeout);
-        }
-
-        final String host = System.getProperty("org.opennms.netmgt.jetty.host");
-        if (host != null) {
-            http.setHost(host);
-        }
-
-        m_server.addConnector(http);
-
-        final Integer https_port = Integer.getInteger("org.opennms.netmgt.jetty.https-port");
-        if (https_port != null) {
-            final String keyStorePath = System.getProperty("org.opennms.netmgt.jetty.https-keystore", homeDir+File.separator+"etc"+File.separator+"examples"+File.separator+"jetty.keystore");
-            final String keyStorePassword = System.getProperty("org.opennms.netmgt.jetty.https-keystorepassword", "changeit");
-            final String keyManagerPassword = System.getProperty("org.opennms.netmgt.jetty.https-keypassword", "changeit");
-            final String certificateAlias = System.getProperty("org.opennms.netmgt.jetty.https-cert-alias", null);
-
-            final SslContextFactory contextFactory = new SslContextFactory(keyStorePath);
-            contextFactory.setKeyStorePassword(keyStorePassword);
-            contextFactory.setKeyManagerPassword(keyManagerPassword);
-            if (certificateAlias != null && !"".equals(certificateAlias.trim())) {
-                contextFactory.setCertAlias(certificateAlias);
+        try {
+            m_server = new Server();
+            if (jettyXml.exists()) {
+                jettyXmlStream = jettyXml.toURI().toURL().openStream();
+            } else {
+                jettyXmlStream = getClass().getResourceAsStream("jetty.xml");
             }
-
-            excludeCipherSuites(contextFactory, https_port);
-
-            HttpConfiguration https_config = new HttpConfiguration(http_config);
-            https_config.addCustomizer(new SecureRequestCustomizer());
-            https_config.setSecurePort(https_port);
-            https_config.setSecureScheme("https");
-
-            final ServerConnector https = new ServerConnector(m_server,
-                new SslConnectionFactory(contextFactory, "http/1.1"),
-                new HttpConnectionFactory(https_config));
-
-            final String httpsHost = System.getProperty("org.opennms.netmgt.jetty.https-host");
-            if (httpsHost != null) {
-                https.setHost(httpsHost);
+            if (jettyXmlStream == null) {
+                throw new RuntimeException("Unable to locate jetty.xml in the classpath!");
             }
-
-            m_server.addConnector(https);
+            final XmlConfiguration xmlConfiguration = new XmlConfiguration(jettyXmlStream);
+            xmlConfiguration.configure(m_server);
+        } catch (final Exception ioe) {
+            throw new RuntimeException(ioe);
         }
 
-        final HandlerCollection handlers = new HandlerCollection();
-
-        if (webappsDir.exists()) {
-            File rootDir = null;
-            for (final File file: webappsDir.listFiles()) {
-                if (file.isDirectory()) {
-                    final String contextPath;
-                    if ("ROOT".equals(file.getName())) {
-                        // Defer this to last to avoid nested context order problems
-                        rootDir = file;
-                        continue;
-                    } else {
-                        contextPath = "/" + file.getName();
-                    }
-                    addContext(handlers, file, contextPath);
-                }
-            }
-            if (rootDir != null) {
-                // If we deferred a ROOT context, handle that now
-                addContext(handlers, rootDir, "/");
-            }
-        }
-
-        m_server.setHandler(handlers);
         m_server.setStopAtShutdown(true);
-    }
-
-    /**
-     * <p>addContext</p>
-     *
-     * @param handlers a {@link org.eclipse.jetty.server.handler.HandlerCollection} object.
-     * @param name a {@link java.io.File} object.
-     * @param contextPath a {@link java.lang.String} object.
-     */
-    protected void addContext(final HandlerCollection handlers, final File name, final String contextPath) {
-        LOG.warn("adding context: {} -> {}", contextPath, name.getAbsolutePath());
-        final WebAppContext wac = new WebAppContext();
-        /*
-         * Tell jetty to scan all of the jar files in the classpath for taglibs and other resources since
-         * most of our jars are installed in ${opennms.home}/lib.  This is only required for jetty7
-         * See: http://wiki.eclipse.org/Jetty/Howto/Configure_JSP
-         */
-        wac.setAttribute("org.eclipse.jetty.server.webapp.ContainerIncludeJarPattern",".*/[^/]*\\.jar$");
-        wac.setWar(name.getAbsolutePath());
-        wac.setContextPath(contextPath);
-        handlers.addHandler(wac);
-    }
-
-    protected void excludeCipherSuites(final SslContextFactory contextFactory, final Integer port) {
-        String[] defaultExclSuites = {
-                "SSL_DHE_DSS_WITH_DES_CBC_SHA",
-                "SSL_DHE_RSA_EXPORT_WITH_DES40_CBC_SHA",
-                "SSL_DHE_DSS_EXPORT_WITH_DES40_CBC_SHA",
-                "SSL_DHE_RSA_WITH_DES_CBC_SHA",
-                "SSL_RSA_EXPORT_WITH_DES40_CBC_SHA",
-                "SSL_RSA_EXPORT_WITH_RC4_40_MD5",
-                "SSL_RSA_WITH_3DES_EDE_CBC_SHA",
-                "SSL_RSA_WITH_DES_CBC_SHA",
-                "TLS_DHE_RSA_EXPORT_WITH_DES40_CBC_SHA",
-                "TLS_RSA_EXPORT_WITH_DES40_CBC_SHA",
-                "TLS_RSA_WITH_DES_CBC_SHA"
-        };
-
-        String[] exclSuites;
-        final String exclSuitesString = System.getProperty("org.opennms.netmgt.jetty.https-exclude-cipher-suites");
-        if (exclSuitesString == null) {
-            LOG.warn("No excluded SSL/TLS cipher suites specified, using hard-coded defaults");
-            exclSuites = defaultExclSuites;
-        } else {
-            exclSuites = exclSuitesString.split("\\s*:\\s*");
-            LOG.warn("Excluding {} user-specified SSL/TLS cipher suites", exclSuites.length);
-        }
-
-        contextFactory.setExcludeCipherSuites(exclSuites);
-
-        for (final String suite : exclSuites) {
-            LOG.info("Excluded SSL/TLS cipher suite {} for connector on port {}", suite, port);
-        }
     }
 
     /** {@inheritDoc} */
@@ -243,4 +111,65 @@ public class JettyServer extends AbstractServiceDaemon {
     public static String getLoggingCategory() {
         return LOG4J_CATEGORY;
     }
+    
+    public long getHttpsConnectionsTotal() {
+        long retval = 0;
+        for (Connector conn : m_server.getConnectors()) {
+            if (conn instanceof SslSocketConnector) {
+                retval += conn.getConnections();
+            }
+        }
+        return retval;
+    }
+    
+    public long getHttpsConnectionsOpen() {
+        long retval = 0;
+        for (Connector conn : m_server.getConnectors()) {
+            if (conn instanceof SslSocketConnector) {
+                retval += conn.getConnectionsOpen();
+            }
+        }
+        return retval;
+    }
+
+    public long getHttpsConnectionsOpenMax() {
+        long retval = 0;
+        for (Connector conn : m_server.getConnectors()) {
+            if (conn instanceof SslSocketConnector) {
+                retval += conn.getConnectionsOpenMax();
+            }
+        }
+        return retval;
+    }
+    
+    public long getHttpConnectionsTotal() {
+        long retval = 0;
+        for (Connector conn : m_server.getConnectors()) {
+            if (conn instanceof SelectChannelConnector) {
+                retval += conn.getConnections();
+            }
+        }
+        return retval;
+    }
+    
+    public long getHttpConnectionsOpen() {
+        long retval = 0;
+        for (Connector conn : m_server.getConnectors()) {
+            if (conn instanceof SelectChannelConnector) {
+                retval += conn.getConnectionsOpen();
+            }
+        }
+        return retval;
+    }
+    
+    public long getHttpConnectionsOpenMax() {
+        long retval = 0;
+        for (Connector conn : m_server.getConnectors()) {
+            if (conn instanceof SelectChannelConnector) {
+                retval += conn.getConnectionsOpenMax();
+            }
+        }
+        return retval;
+    }
+
 }

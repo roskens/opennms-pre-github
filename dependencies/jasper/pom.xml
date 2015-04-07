@@ -3,7 +3,7 @@
   <parent>
     <artifactId>dependencies</artifactId>
     <groupId>org.opennms</groupId>
-    <version>1.13.0-SNAPSHOT</version>
+    <version>15.0.1</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.opennms.dependencies</groupId>
@@ -43,6 +43,10 @@
           <groupId>eclipse</groupId>
           <artifactId>jdtcore</artifactId>
         </exclusion>
+        <exclusion>
+          <groupId>commons-logging</groupId>
+          <artifactId>commons-logging</artifactId>
+        </exclusion>
       </exclusions>
     </dependency>
     <dependency>
@@ -72,7 +76,7 @@
     <dependency>
       <groupId>org.codehaus.mojo</groupId>
       <artifactId>jasperreports-maven-plugin</artifactId>
-      <version>1.0-beta-3-OPENNMS-20120424-1</version>
+      <version>1.0-beta-3-OPENNMS-20141110-1</version>
       <exclusions>
         <exclusion>
           <groupId>backport-util-concurrent</groupId>
@@ -82,7 +86,20 @@
           <groupId>log4j</groupId>
           <artifactId>log4j</artifactId>
         </exclusion>
+        <exclusion>
+          <groupId>commons-logging</groupId>
+          <artifactId>commons-logging</artifactId>
+        </exclusion>
       </exclusions>
     </dependency>
   </dependencies>
+  <repositories>
+    <repository>
+      <snapshots><enabled>false</enabled></snapshots>
+      <releases><enabled>true</enabled></releases>
+      <id>opennms-repo</id>
+      <name>OpenNMS Maven Repository</name>
+      <url>http://maven.opennms.org/content/groups/opennms.org-release</url>
+    </repository>
+  </repositories>
 </project>

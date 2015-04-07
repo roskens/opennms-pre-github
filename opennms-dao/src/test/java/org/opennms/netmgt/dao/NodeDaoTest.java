@@ -1,22 +1,22 @@
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
- * Copyright (C) 2006-2012 The OpenNMS Group, Inc.
- * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ * Copyright (C) 2006-2014 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2014 The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published
+ * it under the terms of the GNU Affero General Public License as published
  * by the Free Software Foundation, either version 3 of the License,
  * or (at your option) any later version.
  *
  * OpenNMS(R) is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU Affero General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GNU Affero General Public License
  * along with OpenNMS(R).  If not, see:
  *      http://www.gnu.org/licenses/
  *
@@ -38,6 +38,7 @@ import java.util.Collection;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.SortedSet;
@@ -46,11 +47,14 @@ import java.util.TreeSet;
 import org.apache.commons.beanutils.BeanUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.opennms.core.criteria.CriteriaBuilder;
 import org.opennms.core.test.OpenNMSJUnit4ClassRunner;
 import org.opennms.core.test.db.annotations.JUnitTemporaryDatabase;
 import org.opennms.core.utils.InetAddressUtils;
 import org.opennms.netmgt.dao.api.DistPollerDao;
 import org.opennms.netmgt.dao.api.NodeDao;
+import org.opennms.netmgt.model.LldpElement;
+import org.opennms.netmgt.model.LldpElement.LldpChassisIdSubType;
 import org.opennms.netmgt.model.OnmsDistPoller;
 import org.opennms.netmgt.model.OnmsIpInterface;
 import org.opennms.netmgt.model.OnmsMonitoredService;
@@ -73,6 +77,7 @@ import org.springframework.transaction.support.TransactionTemplate;
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations={
         "classpath:/META-INF/opennms/applicationContext-soa.xml",
+        "classpath:/META-INF/opennms/applicationContext-commonConfigs.xml",
         "classpath:/META-INF/opennms/applicationContext-dao.xml",
         "classpath*:/META-INF/opennms/component-dao.xml",
         "classpath:/META-INF/opennms/applicationContext-databasePopulator.xml",
@@ -100,7 +105,7 @@ public class NodeDaoTest implements InitializingBean {
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        org.opennms.core.utils.BeanUtils.assertAutowiring(this);
+        org.opennms.core.spring.BeanUtils.assertAutowiring(this);
     }
 
     @BeforeTransaction
@@ -170,6 +175,88 @@ public class NodeDaoTest implements InitializingBean {
 
         getNodeDao().flush();
     }
+    
+    @Test
+    @Transactional
+    public void testLldpSaveAndUpdate() throws InterruptedException {
+        OnmsDistPoller distPoller = getDistPoller();
+
+        OnmsNode node = new OnmsNode(distPoller);
+        node.setLabel("MyFirstLldpNode");
+        getNodeDao().save(node);
+        getNodeDao().flush();
+        
+        OnmsDistPoller dp = getDistPoller();
+        assertSame(distPoller, dp);
+        Collection<OnmsNode> nodes = getNodeDao().findNodes(dp);
+        assertEquals(7, nodes.size());
+        Integer nodeid = null;
+        for (OnmsNode retrieved : nodes) {
+            if (retrieved.getLabel().equals("MyFirstLldpNode")) {
+            	nodeid = retrieved.getId();
+                System.out.println("nodeid: " +nodeid);
+            }
+        }
+        
+        OnmsNode dbnode1 = getNodeDao().get(nodeid);
+        assertNotNull(dbnode1);
+        
+        if (dbnode1.getLldpElement() == null ) {
+	        LldpElement lldpElement = new LldpElement();
+	        lldpElement.setLldpChassisId("abc123456");
+	        lldpElement.setLldpChassisIdSubType(LldpChassisIdSubType.LLDP_CHASSISID_SUBTYPE_MACADDRESS);
+	        lldpElement.setLldpSysname("prova");
+	        lldpElement.setNode(node);
+	        lldpElement.setLldpNodeLastPollTime(lldpElement.getLldpNodeCreateTime());
+	        dbnode1.setLldpElement(lldpElement);
+    	}
+        getNodeDao().save(dbnode1);
+        getNodeDao().flush();
+
+        OnmsNode dbnode2 = getNodeDao().get(nodeid);
+        assertNotNull(dbnode2);
+        assertNotNull(dbnode2.getLldpElement());
+
+        System.out.println("lldp element id: " + dbnode2.getLldpElement().getId());
+        System.out.println("lldp element create time: " + dbnode2.getLldpElement().getLldpNodeCreateTime());
+        System.out.println("lldp element last poll time: " + dbnode2.getLldpElement().getLldpNodeLastPollTime());
+        assertEquals("abc123456", dbnode2.getLldpElement().getLldpChassisId());
+        assertEquals(LldpChassisIdSubType.LLDP_CHASSISID_SUBTYPE_MACADDRESS, dbnode2.getLldpElement().getLldpChassisIdSubType());
+        assertEquals("prova", dbnode2.getLldpElement().getLldpSysname());
+        assertNotNull(dbnode2.getLldpElement().getLldpNodeCreateTime());
+        assertNotNull(dbnode2.getLldpElement().getLldpNodeLastPollTime());
+        
+        System.out.println("---------");
+        Thread.sleep(1000);
+        System.out.println("---------");
+
+        LldpElement lldpUpdateElement = new LldpElement();
+        lldpUpdateElement.setLldpChassisId("abc012345");
+        lldpUpdateElement.setLldpChassisIdSubType(LldpChassisIdSubType.LLDP_CHASSISID_SUBTYPE_MACADDRESS);
+        lldpUpdateElement.setLldpSysname("prova");
+
+        LldpElement dbLldpElement = dbnode2.getLldpElement();
+        dbLldpElement.merge(lldpUpdateElement);
+        dbnode2.setLldpElement(dbLldpElement);
+
+        getNodeDao().save(dbnode2);
+        getNodeDao().flush();
+
+        OnmsNode dbnode3 = getNodeDao().get(nodeid);
+        assertNotNull(dbnode3);
+        assertNotNull(dbnode3.getLldpElement());
+
+        System.out.println("lldp element id: " + dbnode3.getLldpElement().getId());
+        System.out.println("lldp element create time: " + dbnode3.getLldpElement().getLldpNodeCreateTime());
+        System.out.println("lldp element last poll time: " + dbnode3.getLldpElement().getLldpNodeLastPollTime());
+        assertEquals("abc012345", dbnode3.getLldpElement().getLldpChassisId());
+        assertEquals(LldpChassisIdSubType.LLDP_CHASSISID_SUBTYPE_MACADDRESS, dbnode3.getLldpElement().getLldpChassisIdSubType());
+        assertEquals("prova", dbnode3.getLldpElement().getLldpSysname());
+        assertNotNull(dbnode3.getLldpElement().getLldpNodeCreateTime());
+        assertNotNull(dbnode3.getLldpElement().getLldpNodeLastPollTime());
+
+        
+    }    
 
     @Test
     @Transactional
@@ -515,6 +602,22 @@ public class NodeDaoTest implements InitializingBean {
         Object expectedValue = BeanUtils.getProperty(expected, name);
         Object actualValue = BeanUtils.getProperty(actual, name);
         assertEquals("Unexpected value for property "+name+" on object "+expected, expectedValue, actualValue);
+    }
+    
+    @Test
+    @Transactional
+    public void testCB() {
+        CriteriaBuilder cb = new CriteriaBuilder(OnmsNode.class);
+        cb.alias("assetRecord", "asset").match("any").ilike("label", "%ode%").ilike("sysDescription", "%abc%").ilike("asset.comment", "%xyz%");
+        List<OnmsNode> nodes = m_nodeDao.findMatching(cb.toCriteria());
+        System.err.println("Nodes found: "+nodes.size());
+        assertEquals(6, nodes.size());
+        
+        cb = new CriteriaBuilder(OnmsNode.class);
+        cb.alias("assetRecord", "asset").match("any").ilike("label", "%alt%").ilike("sysDescription", "%abc%").ilike("asset.comment", "%xyz%");
+        nodes = m_nodeDao.findMatching(cb.toCriteria());
+        System.err.println("Nodes found: "+nodes.size());
+        assertEquals(2, nodes.size());
     }
 
     @Test

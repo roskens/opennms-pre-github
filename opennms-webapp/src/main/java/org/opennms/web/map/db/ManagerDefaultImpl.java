@@ -1,22 +1,22 @@
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
- * Copyright (C) 2007-2012 The OpenNMS Group, Inc.
- * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ * Copyright (C) 2007-2014 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2014 The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published
+ * it under the terms of the GNU Affero General Public License as published
  * by the Free Software Foundation, either version 3 of the License,
  * or (at your option) any later version.
  *
  * OpenNMS(R) is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU Affero General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GNU Affero General Public License
  * along with OpenNMS(R).  If not, see:
  *      http://www.gnu.org/licenses/
  *
@@ -41,8 +41,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.UUID;
-import java.util.Vector;
-
 import org.opennms.core.logging.Logging;
 import org.opennms.netmgt.config.CategoryFactory;
 import org.opennms.netmgt.config.GroupDao;
@@ -80,7 +78,7 @@ public class ManagerDefaultImpl implements Manager {
 	private static final Logger LOG = LoggerFactory.getLogger(ManagerDefaultImpl.class);
 
 
-    private class AlarmInfo {
+    private static class AlarmInfo {
         int status;
         int severity;
 
@@ -129,7 +127,7 @@ public class ManagerDefaultImpl implements Manager {
 
     private List<VMapInfo> mapInfo = new ArrayList<VMapInfo>();
     
-    private HashMap<String, Command> commandmap = new HashMap<String, Command>();
+    private Map<String, Command> commandmap = new HashMap<String, Command>();
 
     /**
      * <p>Getter for the field <code>filter</code>.</p>
@@ -404,7 +402,7 @@ public class ManagerDefaultImpl implements Manager {
     private List<VElement> localRefreshElements(
             Collection<VElement> mapElements) throws MapsException {
         List<VElement> elems = new ArrayList<VElement>();
-        Vector<Integer> deletedNodeids = dbManager.getDeletedNodes();
+        List<Integer> deletedNodeids = dbManager.getDeletedNodes();
         java.util.Map<Integer, AlarmInfo> outagedNodes = getAlarmedNodes();
         java.util.Map<Integer, Double> avails = dbManager.getAvails(mapElements.toArray(new VElement[0]));
         Set<Integer> nodesBySource = new HashSet<Integer>();
@@ -772,15 +770,18 @@ public class ManagerDefaultImpl implements Manager {
             java.util.Map<String, String> iconsBySysoid = mapsPropertiesFactory.getIconsBySysoid();
             if (iconsBySysoid != null) {
                 LOG.debug("getIconBySysoid: sysoid = {}", sysoid);
-                for (String key : iconsBySysoid.keySet()) {
+                
+                for (final Map.Entry<String,String> entry : iconsBySysoid.entrySet()) {
+                    final String key = entry.getKey();
                     LOG.debug("getIconBySysoid: key = {}", key);
                     if (key.equals(sysoid)) {
-                        LOG.debug("getIconBySysoid: iconBySysoid = {}", iconsBySysoid.get(key));
-                        return iconsBySysoid.get(key);
+                        final String value = entry.getValue();
+                        LOG.debug("getIconBySysoid: iconBySysoid = {}", value);
+                        return value;
                     }
                 }
             }
-        } catch (Throwable e) {
+        } catch (final Throwable e) {
             LOG.error("Exception while getting icons by sysoid");
             throw new MapsException(e);
         }
@@ -798,10 +799,11 @@ public class ManagerDefaultImpl implements Manager {
             String iconname, int x, int y) throws MapsException {
         VElement velem = newElement(mapId, elementId, type);
         if (iconname == null ) {
-            if (type == MapsConstants.MAP_TYPE)
+            if (MapsConstants.MAP_TYPE.equals(type)) {
                 iconname = mapsPropertiesFactory.getDefaultMapIcon();
-            else 
+            } else {
                 iconname = mapsPropertiesFactory.getDefaultNodeIcon();
+            }
         }
         velem.setIcon(iconname);
         velem.setX(x);
@@ -838,7 +840,7 @@ public class ManagerDefaultImpl implements Manager {
      *             the map to delete doesn't exist.
      * @throws org.opennms.web.map.MapNotFoundException if any.
      */
-    synchronized public void deleteMap(VMap map) throws MapsException,
+    public synchronized void deleteMap(VMap map) throws MapsException,
             MapNotFoundException {
         deleteMap(map.getId());
         deleteFromMapInfo(map.getId());
@@ -860,7 +862,7 @@ public class ManagerDefaultImpl implements Manager {
      * @throws org.opennms.web.map.MapsException if any.
      * @param mapId a int.
      */
-    synchronized public void deleteMap(int mapId) throws MapsException {
+    public synchronized void deleteMap(int mapId) throws MapsException {
         if (sessionMap == null) {
             throw new MapNotFoundException("session map in null");
         }
@@ -883,7 +885,7 @@ public class ManagerDefaultImpl implements Manager {
      *            to delete
      * @throws org.opennms.web.map.MapsException if any.
      */
-    synchronized public void deleteMaps(VMap[] maps) throws MapsException {
+    public synchronized void deleteMaps(VMap[] maps) throws MapsException {
         for (VMap map : maps) {
             deleteMap(map);
         }
@@ -895,7 +897,7 @@ public class ManagerDefaultImpl implements Manager {
      * @throws org.opennms.web.map.MapsException if any.
      * @param maps an array of int.
      */
-    synchronized public void deleteMaps(int[] maps) throws MapsException {
+    public synchronized void deleteMaps(int[] maps) throws MapsException {
         for (int map : maps) {
             deleteMap(map);
         }
@@ -907,7 +909,7 @@ public class ManagerDefaultImpl implements Manager {
      * save the map in input
      */
     @Override
-    synchronized public int save(VMap map) throws MapsException {
+    public synchronized int save(VMap map) throws MapsException {
         Collection<DbElement> dbe = new ArrayList<DbElement>();
         for (VElement velem : map.getElements().values()) {
             dbe.add(new DbElement(velem));
@@ -921,7 +923,7 @@ public class ManagerDefaultImpl implements Manager {
      *
      * @throws org.opennms.web.map.MapsException if any.
      */
-    synchronized public void deleteAllNodeElements() throws MapsException {
+    public synchronized void deleteAllNodeElements() throws MapsException {
         dbManager.deleteNodeTypeElementsFromAllMaps();
     }
 
@@ -930,7 +932,7 @@ public class ManagerDefaultImpl implements Manager {
      *
      * @throws org.opennms.web.map.MapsException if any.
      */
-    synchronized public void deleteAllMapElements() throws MapsException {
+    public synchronized void deleteAllMapElements() throws MapsException {
         dbManager.deleteMapTypeElementsFromAllMaps();
     }
 
@@ -1058,7 +1060,7 @@ public class ManagerDefaultImpl implements Manager {
     }
 
     private VElement refresh(VElement mapElement, Set<Integer> nodesBySource,
-            Vector<Integer> deletedNodeids,
+            List<Integer> deletedNodeids,
             java.util.Map<Integer, AlarmInfo> outagedNodes,
             java.util.Map<Integer, Double> avails) throws MapsException {
         
@@ -1073,7 +1075,7 @@ public class ManagerDefaultImpl implements Manager {
     }
     
     private VElement refreshNodeElement(VElement ve, Set<Integer> nodesBySource,
-            Vector<Integer> deletedNodeids,
+            List<Integer> deletedNodeids,
             java.util.Map<Integer, AlarmInfo> outagedNodes,
             java.util.Map<Integer, Double> avails) throws MapsException {
     
@@ -1129,7 +1131,7 @@ public class ManagerDefaultImpl implements Manager {
 
 
     private VElement refreshMapElement(VElement ve, Set<Integer> nodesBySource,
-            Vector<Integer> deletedNodeids,
+            List<Integer> deletedNodeids,
             java.util.Map<Integer, AlarmInfo> outagedNodes,
             java.util.Map<Integer, Double> avails) throws MapsException {
 
@@ -1403,20 +1405,27 @@ public class ManagerDefaultImpl implements Manager {
         } // end linkinfo for
         // Now add the VLink to links......
         int maxlinks=mapsPropertiesFactory.getMaxLinks();
-        for (String elid : numberofsinglelinksmap.keySet()) {
-            LOG.debug("parsing link between element: {} with #links {}", elid, numberofsinglelinksmap.get(elid));
-            if (numberofsinglelinksmap.get(elid) <= maxlinks) {
-                for (String linkid : singlevlinkmap.keySet()) {
+
+        for (final Map.Entry<String,Integer> entry : numberofsinglelinksmap.entrySet()) {
+            final String elid = entry.getKey();
+            final Integer numLinks = entry.getValue();
+
+            LOG.debug("parsing link between element: {} with #links {}", elid, numLinks);
+            if (numLinks <= maxlinks) {
+                for (final Map.Entry<String,List<VLink>> vlinkEntry : singlevlinkmap.entrySet()) {
+                    final String linkid = vlinkEntry.getKey();
                     if (linkid.indexOf(elid) != -1) {
-                        LOG.debug("adding single links for {} Adding links # {}", linkid, singlevlinkmap.get(linkid).size());
-                        links.addAll(singlevlinkmap.get(linkid));
+                        final List<VLink> vlinks = vlinkEntry.getValue();
+                        LOG.debug("adding single links for {} Adding links # {}", linkid, vlinks.size());
+                        links.addAll(vlinks);
                     }
                 }
             } else {
-                for (String linkid : multivlinkmap.keySet()) {
+                for (final Map.Entry<String,VLink> vlinkEntry : multivlinkmap.entrySet()) {
+                    final String linkid = vlinkEntry.getKey();
                     if (linkid.indexOf(elid) != -1) { 
                         LOG.debug("adding multi link for : {}", linkid);
-                        links.add(multivlinkmap.get(linkid));
+                        links.add(vlinkEntry.getValue());
                     }
                 }
                 
@@ -1668,20 +1677,21 @@ public class ManagerDefaultImpl implements Manager {
 
     @Override
     public boolean checkCommandExecution() {
-        List<String> keytoremove = new ArrayList<String>();
-        for (String key: commandmap.keySet()) {
-            Command c = commandmap.get(key);
-            if (c.runned() && !c.scheduledToRemove())
-                c.scheduleToRemove();
-            if (c.runned() && c.scheduledToRemove())
-                keytoremove.add(key);
+        final Iterator<String> commands = commandmap.keySet().iterator();
+        while (commands.hasNext()) {
+            final String key = commands.next();
+            final Command c = commandmap.get(key);
+            
+            if (c.runned()) {
+                if (c.scheduledToRemove()) {
+                    commands.remove();
+                } else {
+                    c.scheduleToRemove();
+                }
+            }
         }
-        for (String key: keytoremove) {
-            commandmap.remove(key);
-        }
-        
-        if ( commandmap.size() > 5 )
-            return false;
+
+        if ( commandmap.size() > 5 ) return false;
         return true;
         
     }

@@ -1,22 +1,22 @@
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
- * Copyright (C) 2009-2012 The OpenNMS Group, Inc.
- * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ * Copyright (C) 2009-2014 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2014 The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published
+ * it under the terms of the GNU Affero General Public License as published
  * by the Free Software Foundation, either version 3 of the License,
  * or (at your option) any later version.
  *
  * OpenNMS(R) is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU Affero General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GNU Affero General Public License
  * along with OpenNMS(R).  If not, see:
  *      http://www.gnu.org/licenses/
  *
@@ -103,10 +103,12 @@ public class DefaultSchedulerService implements InitializingBean, SchedulerServi
             String[] triggerNames = m_scheduler.getTriggerNames(m_triggerGroup);
             for (int j = 0; j < triggerNames.length; j++) {
                 TriggerDescription description = new TriggerDescription();
-                description.setNextFireTime(m_scheduler.getTrigger(
-                                                                   triggerNames[j],
-                                                                   m_triggerGroup).getNextFireTime());
+                Trigger trigger = m_scheduler.getTrigger(triggerNames[j], m_triggerGroup);
+                description.setNextFireTime(trigger.getNextFireTime());
                 description.setTriggerName(triggerNames[j]);
+                description.setReportId((String)trigger.getJobDataMap().get("reportId"));
+                description.setDeliveryOptions((DeliveryOptions) trigger.getJobDataMap().get("deliveryOptions"));
+                description.setReportParameters(((ReportParameters) trigger.getJobDataMap().get("criteria")).getReportParms());
                 triggerDescriptions.add(description);
 
             }
@@ -201,9 +203,8 @@ public class DefaultSchedulerService implements InitializingBean, SchedulerServi
                     // cronExpression);
                 } catch (ParseException e) {
                     LOG.error(TRIGGER_PARSE_ERROR, e);
-                    context.getMessageContext().addMessage(
-                                                           new MessageBuilder().error().defaultText(
-                                                                                                    TRIGGER_PARSE_ERROR).build());
+                    context.getMessageContext().addMessage(new MessageBuilder().error().defaultText(TRIGGER_PARSE_ERROR).build());
+                    context.getMessageContext().addMessage(new MessageBuilder().error().defaultText(e.getMessage()).build());
                     return ERROR;
                 }
 

@@ -3,7 +3,7 @@
     <parent>
         <groupId>org.opennms</groupId>
         <artifactId>org.opennms.features</artifactId>
-        <version>1.13.0-SNAPSHOT</version>
+        <version>15.0.1</version>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
@@ -23,6 +23,9 @@
         <module>dashlet-rtc</module>
         <module>dashlet-rrd</module>
         <module>dashlet-ksc</module>
+        <module>dashlet-topology</module>
+        <module>dashlet-surveillance</module>
         <module>dashlet-features</module>
+        <module>dashlet-url</module>
     </modules>
 </project>

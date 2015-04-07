@@ -1,22 +1,22 @@
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
- * Copyright (C) 2007-2013 The OpenNMS Group, Inc.
- * OpenNMS(R) is Copyright (C) 1999-2013 The OpenNMS Group, Inc.
+ * Copyright (C) 2007-2014 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2014 The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published
+ * it under the terms of the GNU Affero General Public License as published
  * by the Free Software Foundation, either version 3 of the License,
  * or (at your option) any later version.
  *
  * OpenNMS(R) is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU Affero General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GNU Affero General Public License
  * along with OpenNMS(R).  If not, see:
  *      http://www.gnu.org/licenses/
  *
@@ -51,6 +51,8 @@ import org.opennms.netmgt.model.OnmsNode;
 import org.opennms.netmgt.model.OnmsResource;
 import org.opennms.netmgt.model.OnmsResourceType;
 import org.opennms.netmgt.model.OnmsSnmpInterface;
+import org.opennms.netmgt.model.ResourceTypeUtils;
+import org.opennms.netmgt.rrd.RrdFileConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataAccessException;
@@ -114,7 +116,7 @@ public class InterfaceSnmpResourceType implements OnmsResourceType {
     }
     
     private File getParentResourceDirectory(String parentResource, boolean verify) {
-        File snmp = new File(m_resourceDao.getRrdDirectory(verify), DefaultResourceDao.SNMP_DIRECTORY);
+        File snmp = new File(m_resourceDao.getRrdDirectory(verify), ResourceTypeUtils.SNMP_DIRECTORY);
         
         File parent = new File(snmp, parentResource);
         if (verify && !parent.isDirectory()) {
@@ -137,7 +139,7 @@ public class InterfaceSnmpResourceType implements OnmsResourceType {
         
     }
     
-    private ArrayList<OnmsResource> populateResourceList(File parent, File relPath, OnmsNode node, Boolean isForeign) {
+    private List<OnmsResource> populateResourceList(File parent, File relPath, OnmsNode node, Boolean isForeign) {
             
         ArrayList<OnmsResource> resources = new ArrayList<OnmsResource>();
 
@@ -316,7 +318,7 @@ public class InterfaceSnmpResourceType implements OnmsResourceType {
     }
     
     private String getRelativePathForResource(String parent, String resource) {
-        return DefaultResourceDao.SNMP_DIRECTORY
+        return ResourceTypeUtils.SNMP_DIRECTORY
             + File.separator + parent 
             + File.separator + resource;
     }
@@ -358,7 +360,7 @@ public class InterfaceSnmpResourceType implements OnmsResourceType {
         }
 
         ArrayList<String> intfs = new ArrayList<String>();
-        File snmp = new File(m_resourceDao.getRrdDirectory(), DefaultResourceDao.SNMP_DIRECTORY);
+        File snmp = new File(m_resourceDao.getRrdDirectory(), ResourceTypeUtils.SNMP_DIRECTORY);
         File domainDir = new File(snmp, domain);
 
         if (!domainDir.exists() || !domainDir.isDirectory()) {
@@ -403,7 +405,7 @@ public class InterfaceSnmpResourceType implements OnmsResourceType {
         if (node == null) {
             throw new ObjectRetrievalFailureException(OnmsNode.class, nodeSource, "Could not find node with nodeSource " + nodeSource, null);
         }
-        File relPath = new File(DefaultResourceDao.FOREIGN_SOURCE_DIRECTORY, ident[0] + File.separator + ident[1]);
+        File relPath = new File(ResourceTypeUtils.FOREIGN_SOURCE_DIRECTORY, ident[0] + File.separator + ident[1]);
         File parent = getParentResourceDirectory(relPath.toString(), true);
         return OnmsResource.sortIntoResourceList(populateResourceList(parent, relPath, node, true));
     }

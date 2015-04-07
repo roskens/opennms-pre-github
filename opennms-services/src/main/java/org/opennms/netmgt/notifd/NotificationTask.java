@@ -1,22 +1,22 @@
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
- * Copyright (C) 2006-2012 The OpenNMS Group, Inc.
- * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ * Copyright (C) 2002-2014 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2014 The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published
+ * it under the terms of the GNU Affero General Public License as published
  * by the Free Software Foundation, either version 3 of the License,
  * or (at your option) any later version.
  *
  * OpenNMS(R) is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU Affero General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GNU Affero General Public License
  * along with OpenNMS(R).  If not, see:
  *      http://www.gnu.org/licenses/
  *
@@ -30,6 +30,7 @@ package org.opennms.netmgt.notifd;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
@@ -55,6 +56,7 @@ import org.slf4j.LoggerFactory;
  *
  * @author <A HREF="mailto:jason@opennms.org">Jason Johns </A>
  * @author <A HREF="http://www.opennms.org/">OpenNMS </A>
+ * @author <a href="mailto:jeffg@opennms.org">Jeff Gehlbach </a>
  *
  * Modification to pick an ExecuteStrategy based on the "binary" flag in
  * notificationCommands.xml by:
@@ -208,7 +210,7 @@ public class NotificationTask extends Thread {
      *            the commands to call at the console.
      */
     public void setCommands(Command[] commands) {
-        m_commands = commands;
+        m_commands = Arrays.copyOf(commands, commands.length);
     }
     
     /**
@@ -262,10 +264,23 @@ public class NotificationTask extends Thread {
                             }
                             LOG.debug("Class created is: {}", command.getClass());
 
+                            getNotificationManager().incrementAttempted(strategy instanceof CommandExecutor);
+                            
                             int returnCode = strategy.execute(command.getExecute(), getArgumentList(command));
                             LOG.debug("command {} return code = {}", command.getName(), returnCode);
+                            
+                            if (returnCode == 0) {
+                                getNotificationManager().incrementSucceeded(strategy instanceof CommandExecutor);
+                            } else {
+                                getNotificationManager().incrementFailed(strategy instanceof CommandExecutor);
+                            }
                         } catch (Throwable e) {
                             LOG.warn("Notification command failed: {}", command.getName(), e);
+                            if (strategy == null) {
+                                getNotificationManager().incrementUnknownInterrupted();
+                            } else {
+                                getNotificationManager().incrementInterrupted(strategy instanceof CommandExecutor);
+                            }
                         }
                     }
                 } else {
@@ -304,14 +319,14 @@ public class NotificationTask extends Thread {
 
     /**
      */
-    private List<org.opennms.core.utils.Argument> getArgumentList(Command command) {
+    private List<org.opennms.netmgt.model.notifd.Argument> getArgumentList(Command command) {
         Collection<Argument> notifArgs = getArgumentsForCommand(command);
-        List<org.opennms.core.utils.Argument> commandArgs = new ArrayList<org.opennms.core.utils.Argument>();
+        List<org.opennms.netmgt.model.notifd.Argument> commandArgs = new ArrayList<org.opennms.netmgt.model.notifd.Argument>();
 
         for (Argument curArg : notifArgs) {
             LOG.debug("argument: {} {} '{}' {}", curArg.getSwitch(), curArg.getSubstitution(), getArgumentValue(curArg.getSwitch()), Boolean.valueOf(curArg.getStreamed()).booleanValue());
 
-            commandArgs.add(new org.opennms.core.utils.Argument(curArg.getSwitch(), curArg.getSubstitution(), getArgumentValue(curArg.getSwitch()), Boolean.valueOf(curArg.getStreamed()).booleanValue()));
+            commandArgs.add(new org.opennms.netmgt.model.notifd.Argument(curArg.getSwitch(), curArg.getSubstitution(), getArgumentValue(curArg.getSwitch()), Boolean.valueOf(curArg.getStreamed()).booleanValue()));
         }
 
         return commandArgs;

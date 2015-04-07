@@ -1,22 +1,22 @@
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
- * Copyright (C) 2009-2012 The OpenNMS Group, Inc.
- * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ * Copyright (C) 2009-2014 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2014 The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published
+ * it under the terms of the GNU Affero General Public License as published
  * by the Free Software Foundation, either version 3 of the License,
  * or (at your option) any later version.
  *
  * OpenNMS(R) is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU Affero General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GNU Affero General Public License
  * along with OpenNMS(R).  If not, see:
  *      http://www.gnu.org/licenses/
  *
@@ -110,7 +110,7 @@ public class PhysInterfaceTableTracker extends TableTracker {
         IF_HIGH_SPEED
     };
     
-    class PhysicalInterfaceRow extends SnmpRowResult {
+    static class PhysicalInterfaceRow extends SnmpRowResult {
 
         public PhysicalInterfaceRow(final int columnCount, final SnmpInstId instance) {
             super(columnCount, instance);
@@ -148,7 +148,20 @@ public class PhysInterfaceTableTracker extends TableTracker {
         
         private Long getSpeed() {
             final Long highSpeed = getIfHighSpeed();
-            return (highSpeed != null && highSpeed > 4294) ? (highSpeed*1000000L) : getIfSpeed();
+            final Long ifSpeed = getIfSpeed();
+            if (highSpeed != null && highSpeed > 4294L) {
+                return highSpeed * 1000000L;
+            }
+            if (ifSpeed == null) {
+                if (highSpeed != null && highSpeed > 0) {
+                    LOG.warn("the ifSpeed for ifIndex {} is null, which is a violation of the standard (this seems to be related to a broken SNMP agent). But, the ifHighSpeed is {}, so that value will be used instead.", getIfIndex(), highSpeed);
+                    return highSpeed * 1000000L;
+                } else {
+                    LOG.warn("the ifSpeed for ifIndex {} is null, which is a violation of the standard (this seems to be related to a broken SNMP agent). Returning 0 instead", getIfIndex());
+                    return 0L;
+                }
+            }
+            return ifSpeed;
         }
 
         private Integer getIfOperStatus() {
@@ -209,6 +222,7 @@ public class PhysInterfaceTableTracker extends TableTracker {
             snmpIface.setIfSpeed(getSpeed());
             snmpIface.setIfType(getIfType());
             snmpIface.setPhysAddr(getPhysAddr());
+            snmpIface.setPoll("N");
             return snmpIface;
         }
 

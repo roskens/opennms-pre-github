@@ -1,22 +1,22 @@
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
- * Copyright (C) 2006-2012 The OpenNMS Group, Inc.
- * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ * Copyright (C) 2002-2014 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2014 The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published
+ * it under the terms of the GNU Affero General Public License as published
  * by the Free Software Foundation, either version 3 of the License,
  * or (at your option) any later version.
  *
  * OpenNMS(R) is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU Affero General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GNU Affero General Public License
  * along with OpenNMS(R).  If not, see:
  *      http://www.gnu.org/licenses/
  *
@@ -40,6 +40,8 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -52,11 +54,9 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.IOUtils;
 import org.opennms.core.db.DataSourceFactory;
-import org.opennms.core.resource.Vault;
 import org.opennms.core.utils.DBUtils;
-import org.opennms.netmgt.EventConstants;
 import org.opennms.netmgt.config.NotificationFactory;
-import org.opennms.netmgt.model.capsd.DbIfServiceEntry;
+import org.opennms.netmgt.events.api.EventConstants;
 import org.opennms.netmgt.model.events.EventBuilder;
 import org.opennms.netmgt.xml.event.Event;
 import org.opennms.web.api.Util;
@@ -97,12 +97,6 @@ public class ManageNodeServlet extends HttpServlet {
     @Override
     public void init() throws ServletException {
         try {
-            DataSourceFactory.init();
-        } catch (Throwable e) {
-            throw new ServletException("Could not initialize database factory: " + e.getMessage(), e);
-        }
-
-        try {
             NotificationFactory.init();
         } catch (Throwable e) {
             throw new ServletException("Could not initialize notification factory: " + e.getMessage(), e);
@@ -116,10 +110,12 @@ public class ManageNodeServlet extends HttpServlet {
         List<ManagedInterface> allNodes = getManagedInterfacesFromSession(userSession);
 
         // the list of all interfaces marked as managed
-        List<String> interfaceList = getList(request.getParameterValues("interfaceCheck"));
+        String[] parameters = request.getParameterValues("interfaceCheck");
+        List<String> interfaceList = (parameters == null ? Collections.<String>emptyList() : Arrays.asList(parameters));
 
         // the list of all services marked as managed
-        List<String> serviceList = getList(request.getParameterValues("serviceCheck"));
+        parameters = request.getParameterValues("serviceCheck");
+        List<String> serviceList = (parameters == null ? Collections.<String>emptyList() : Arrays.asList(parameters));
 
         // the list of interfaces that need to be put into the URL file
         List<String> addToURL = new ArrayList<String>();
@@ -131,7 +127,7 @@ public class ManageNodeServlet extends HttpServlet {
 
         final DBUtils d = new DBUtils(getClass());
         try {
-            Connection connection = Vault.getDbConnection();
+            Connection connection = DataSourceFactory.getInstance().getConnection();
             d.watch(connection);
             try {
                 connection.setAutoCommit(false);
@@ -188,21 +184,20 @@ public class ManageNodeServlet extends HttpServlet {
                             // newEvent.setService(curService.getName());
                             // newEvent.setTime(curDate);
 
-                            stmt.setString(1, String.valueOf(DbIfServiceEntry.STATUS_RESUME));
+                            stmt.setString(1, String.valueOf("A"));
                             stmt.setString(2, curInterface.getAddress());
                             stmt.setInt(3, curInterface.getNodeid());
                             stmt.setInt(4, curService.getId());
                             LOG.debug("doPost: executing manage service update for {} {}", curInterface.getAddress(), curService.getName());
                             stmt.executeUpdate();
-                        } else if (!serviceList.contains(serviceKey) && curService.getStatus().equals("managed")) {
                             
-                            EventBuilder bldr = new EventBuilder(EventConstants.SERVICE_UNMANAGED_EVENT_UEI, "web ui", curDate);
+                            EventBuilder bldr = new EventBuilder(EventConstants.RESUME_POLLING_SERVICE_EVENT_UEI, "web ui", curDate);
                             bldr.setNodeid(curInterface.getNodeid());
                             bldr.setInterface(addr(curInterface.getAddress()));
                             bldr.setService(curService.getName());
                             sendEvent(bldr.getEvent());
-
-                            stmt.setString(1, String.valueOf(DbIfServiceEntry.STATUS_SUSPEND));
+                        } else if (!serviceList.contains(serviceKey) && curService.getStatus().equals("managed")) {
+                            stmt.setString(1, String.valueOf("F"));
                             stmt.setString(2, curInterface.getAddress());
                             stmt.setInt(3, curInterface.getNodeid());
                             stmt.setInt(4, curService.getId());
@@ -212,6 +207,15 @@ public class ManageNodeServlet extends HttpServlet {
                             LOG.debug("doPost: executing unmanage service update for {} {}", curInterface.getAddress(), curService.getName());
                             stmt.executeUpdate();
                             outagesstmt.executeUpdate();
+
+                            EventBuilder bldr = new EventBuilder(EventConstants.SERVICE_UNMANAGED_EVENT_UEI, "web ui", curDate);
+                            bldr.setNodeid(curInterface.getNodeid());
+                            bldr.setInterface(addr(curInterface.getAddress()));
+                            bldr.setService(curService.getName());
+                            sendEvent(bldr.getEvent());
+
+                            bldr.setUei(EventConstants.SUSPEND_POLLING_SERVICE_EVENT_UEI);
+                            sendEvent(bldr.getEvent());
                         }
                     } // end k loop
                 } // end j loop
@@ -243,7 +247,7 @@ public class ManageNodeServlet extends HttpServlet {
     }
 
     @SuppressWarnings("unchecked")
-    private List<ManagedInterface> getManagedInterfacesFromSession(HttpSession userSession) {
+    private static List<ManagedInterface> getManagedInterfacesFromSession(HttpSession userSession) {
         if (userSession == null) {
             return null;
         } else {
@@ -253,7 +257,7 @@ public class ManageNodeServlet extends HttpServlet {
 
     /**
      */
-    private void manageInterfaces(List<String> interfaces, Connection connection) throws SQLException {
+    private static void manageInterfaces(List<String> interfaces, Connection connection) throws SQLException {
         StringBuffer query = new StringBuffer("UPDATE ipinterface SET isManaged = ");
         query.append("'M'").append(" WHERE ipaddr IN (");
 
@@ -273,7 +277,7 @@ public class ManageNodeServlet extends HttpServlet {
 
     /**
      */
-    private void unmanageInterfaces(List<String> interfaces, Connection connection) throws SQLException {
+    private static void unmanageInterfaces(List<String> interfaces, Connection connection) throws SQLException {
         StringBuffer query = new StringBuffer("UPDATE ipinterface SET isManaged = ");
         query.append("'F'").append(" WHERE ipaddr IN (");
 
@@ -293,7 +297,7 @@ public class ManageNodeServlet extends HttpServlet {
 
     /**
      */
-    private void sendSCMRestartEvent() throws ServletException {
+    private static void sendSCMRestartEvent() throws ServletException {
         EventBuilder bldr = new EventBuilder("uei.opennms.org/internal/restartSCM", "web ui");
 
         sendEvent(bldr.getEvent());
@@ -302,7 +306,7 @@ public class ManageNodeServlet extends HttpServlet {
     /**
      * FIXME: This is totally the wrong place to be doing this.
      */
-    private void writeURLFile(List<String> interfaceList) throws ServletException {
+    private static void writeURLFile(List<String> interfaceList) throws ServletException {
         String path = System.getProperty("opennms.home") + File.separator + "etc" + File.separator;
 
         String fileName = path + INCLUDE_FILE_NAME;
@@ -329,21 +333,7 @@ public class ManageNodeServlet extends HttpServlet {
 
     /**
      */
-    private List<String> getList(String[] array) {
-        List<String> newList = new ArrayList<String>();
-
-        if (array != null) {
-            for (int i = 0; i < array.length; i++) {
-                newList.add(array[i]);
-            }
-        }
-
-        return newList;
-    }
-
-    /**
-     */
-    private void sendEvent(Event event) throws ServletException {
+    private static void sendEvent(Event event) throws ServletException {
         try {
             Util.createEventProxy().send(event);
         } catch (Throwable e) {

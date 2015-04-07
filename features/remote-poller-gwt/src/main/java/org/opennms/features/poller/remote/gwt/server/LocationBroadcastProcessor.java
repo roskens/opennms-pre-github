@@ -1,22 +1,22 @@
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
- * Copyright (C) 2010-2012 The OpenNMS Group, Inc.
- * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ * Copyright (C) 2010-2014 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2014 The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published
+ * it under the terms of the GNU Affero General Public License as published
  * by the Free Software Foundation, either version 3 of the License,
  * or (at your option) any later version.
  *
  * OpenNMS(R) is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU Affero General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GNU Affero General Public License
  * along with OpenNMS(R).  If not, see:
  *      http://www.gnu.org/licenses/
  *
@@ -33,23 +33,24 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import org.hibernate.criterion.Restrictions;
-import org.opennms.core.utils.BeanUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.opennms.core.criteria.Criteria;
+import org.opennms.core.criteria.restrictions.BetweenRestriction;
+import org.opennms.core.criteria.restrictions.InRestriction;
+import org.opennms.core.spring.BeanUtils;
 import org.opennms.features.poller.remote.gwt.client.ApplicationInfo;
 import org.opennms.features.poller.remote.gwt.client.location.LocationInfo;
 import org.opennms.features.poller.remote.gwt.client.remoteevents.ApplicationUpdatedRemoteEvent;
 import org.opennms.features.poller.remote.gwt.client.remoteevents.LocationUpdatedRemoteEvent;
-import org.opennms.netmgt.EventConstants;
 import org.opennms.netmgt.dao.api.EventDao;
-import org.opennms.netmgt.model.OnmsCriteria;
+import org.opennms.netmgt.events.api.EventConstants;
+import org.opennms.netmgt.events.api.EventParameterUtils;
+import org.opennms.netmgt.events.api.annotations.EventHandler;
+import org.opennms.netmgt.events.api.annotations.EventListener;
 import org.opennms.netmgt.model.OnmsEvent;
-import org.opennms.netmgt.model.events.Parameter;
-import org.opennms.netmgt.model.events.annotations.EventHandler;
-import org.opennms.netmgt.model.events.annotations.EventListener;
 import org.opennms.netmgt.xml.event.Event;
 import org.opennms.netmgt.xml.event.Parm;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -112,9 +113,9 @@ public class LocationBroadcastProcessor implements InitializingBean, DisposableB
             @Override
             public void run() {
                 final Date now = new Date();
-                final OnmsCriteria criteria = new OnmsCriteria(OnmsEvent.class)
-                    .add(Restrictions.between("eventTime", m_lastRun, now))
-                    .add(Restrictions.in("eventUei", m_events));
+                final Criteria criteria = new Criteria(OnmsEvent.class)
+                    .addRestriction(new BetweenRestriction("eventTime", m_lastRun, now))
+                    .addRestriction(new InRestriction("eventUei", m_events));
                 for (final OnmsEvent e : m_eventDao.findMatching(criteria)) {
                     handleLocationEvent(e);
                 }
@@ -229,7 +230,7 @@ public class LocationBroadcastProcessor implements InitializingBean, DisposableB
             LOG.warn("handleLocationEvent called, but no eventHandler is registered");
             return;
         }
-        handleEventParms(Parameter.decode(event.getEventParms()));
+        handleEventParms(EventParameterUtils.decode(event.getEventParms()));
     }
     private void handleLocationEvent(final Event event) {
         if (m_eventHandler == null) {

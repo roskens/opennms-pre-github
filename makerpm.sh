@@ -5,6 +5,8 @@ TOPDIR=`cd $MYDIR; pwd`
 
 WORKDIR="$TOPDIR/target/rpm"
 
+JAVA_HOME=`"$TOPDIR/bin/javahome.pl"`
+
 export PATH="$TOPDIR/maven/bin:$JAVA_HOME/bin:$PATH"
 
 cd "$TOPDIR"
@@ -47,6 +49,8 @@ function usage()
     tell "\t-d : disable downloading snapshots when doing an assembly-only build"
     tell "\t-s <password> : sign the rpm using this password for the gpg key"
     tell "\t-g <gpg_id> : signing using this gpg_id (default: opennms@opennms.org)"
+    tell "\t-n <name> : the name of the package"
+    tell "\t-x <description> : the description of the package"
     tell "\t-M <major> : default 0 (0 means a snapshot release)"
     tell "\t-m <minor> : default <datestamp> (ignored unless major is 0)"
     tell "\t-u <micro> : default 1 (ignore unless major is 0)"
@@ -109,23 +113,6 @@ function version()
     head -n 1
 }
 
-function setJavaHome()
-{
-    if [ -z "$JAVA_HOME" ]; then
-        # hehe
-        for dir in /usr/java/jdk1.{6,7,8,9}*; do
-            if [ -x "$dir/bin/java" ]; then
-                export JAVA_HOME="$dir"
-                break
-            fi
-        done
-    fi
-
-    if [ -z $JAVA_HOME ]; then
-        die "*** JAVA_HOME must be set ***"
-    fi
-}
-
 function skipCompile()
 {
     if $ASSEMBLY_ONLY; then echo 1; else echo 0; fi
@@ -144,15 +131,17 @@ function main()
     ENABLE_SNAPSHOTS=true
     SIGN=false
     SIGN_PASSWORD=
-    SIGN_ID=opennms@opennms.org
+    SIGN_ID="opennms@opennms.org"
     BUILD_RPM=true
+    PACKAGE_NAME="opennms"
+    PACKAGE_DESCRIPTION="OpenNMS"
 
     RELEASE_MAJOR=0
     local RELEASE_MINOR="$(calcMinor)"
     local RELEASE_MICRO=1
 
 
-    while getopts adhrs:g:M:m:u: OPT; do
+    while getopts adhrs:g:n:x:M:m:u: OPT; do
         case $OPT in
             a)  ASSEMBLY_ONLY=true
                 ;;
@@ -164,6 +153,10 @@ function main()
             r)  BUILD_RPM=false
                 ;;
             g)  SIGN_ID="$OPTARG"
+                ;;
+            n)  PACKAGE_NAME="$OPTARG"
+                ;;
+            x)  PACKAGE_DESCRIPTION="$OPTARG"
                 ;;
             M)  RELEASE_MAJOR="$OPTARG"
                 ;;
@@ -185,8 +178,6 @@ function main()
     EXTRA_INFO2=$(extraInfo2)
     VERSION=$(version)
 
-    setJavaHome
-
     if $BUILD_RPM; then
         echo "==== Building OpenNMS RPMs ===="
         echo
@@ -195,18 +186,22 @@ function main()
         echo
 
         echo "=== Creating Working Directories ==="
-        run install -d -m 755 "$WORKDIR/tmp/opennms-$VERSION-$RELEASE"
+        run install -d -m 755 "$WORKDIR/tmp/$PACKAGE_NAME-$VERSION-$RELEASE"
         run install -d -m 755 "$WORKDIR"/{BUILD,RPMS/{i386,i686,noarch},SOURCES,SPECS,SRPMS}
 
         echo "=== Copying Source to Source Directory ==="
-        run rsync -aqr --exclude=.git --exclude=.svn --exclude=target --delete --delete-excluded "$TOPDIR/" "$WORKDIR/tmp/opennms-$VERSION-$RELEASE/"
+        run rsync -aqr --exclude=.git --exclude=.svn --exclude=target --delete --delete-excluded "$TOPDIR/" "$WORKDIR/tmp/$PACKAGE_NAME-$VERSION-$RELEASE/"
 
         echo "=== Creating a tar.gz archive of the Source in /usr/src/redhat/SOURCES ==="
-        run tar zcf "$WORKDIR/SOURCES/opennms-source-$VERSION-$RELEASE.tar.gz" -C "$WORKDIR/tmp" "opennms-$VERSION-$RELEASE"
-        run tar zcf "$WORKDIR/SOURCES/centric-troubleticketer.tar.gz" -C "$WORKDIR/tmp/opennms-$VERSION-$RELEASE/opennms-tools" "centric-troubleticketer"
+        SPECS="tools/packages/opennms/opennms.spec"
+        run tar zcf "$WORKDIR/SOURCES/${PACKAGE_NAME}-source-$VERSION-$RELEASE.tar.gz" -C "$WORKDIR/tmp" "${PACKAGE_NAME}-$VERSION-$RELEASE"
+        if [ "$PACKAGE_NAME" = "opennms" ]; then
+                run tar zcf "$WORKDIR/SOURCES/centric-troubleticketer.tar.gz" -C "$WORKDIR/tmp/$PACKAGE_NAME-$VERSION-$RELEASE/opennms-tools" "centric-troubleticketer"
+                SPECS="$SPECS opennms-tools/centric-troubleticketer/src/main/rpm/opennms-plugin-ticketer-centric.spec"
+        fi
 
         echo "=== Building RPMs ==="
-        for spec in tools/packages/opennms/opennms.spec opennms-tools/centric-troubleticketer/src/main/rpm/opennms-plugin-ticketer-centric.spec
+        for spec in $SPECS
         do
             run rpmbuild -bb \
                 --define "skip_compile $(skipCompile)" \
@@ -217,6 +212,8 @@ function main()
                 --define "_tmppath $WORKDIR/tmp" \
                 --define "version $VERSION" \
                 --define "releasenumber $RELEASE" \
+                --define "_name $PACKAGE_NAME" \
+                --define "_descr $PACKAGE_DESCRIPTION" \
                 $spec
         done
     fi
@@ -224,9 +221,9 @@ function main()
     if $SIGN; then
 
         RPMS=$(echo "$WORKDIR"/RPMS/noarch/*.rpm)
-        #run rpm --define "_signature gpg" --define "_gpg_name $SIGN_ID" --resign "$RPMS"
+        #run rpmsign --define "_signature gpg" --define "_gpg_name $SIGN_ID" --resign "$RPMS"
 
-        run expect -c "set timeout -1; spawn rpm --define \"_signature gpg\" --define \"_gpg_name $SIGN_ID\" --resign $RPMS; match_max 100000; expect \"Enter pass phrase: \"; send -- \"${SIGN_PASSWORD}\r\"; expect eof" || \
+        run expect -c "set timeout -1; spawn rpmsign --define \"_signature gpg\" --define \"_gpg_name $SIGN_ID\" --resign $RPMS; match_max 100000; expect \"Enter pass phrase: \"; send -- \"${SIGN_PASSWORD}\r\"; expect eof" || \
             die "RPM signing failed for $(branch)"
 
     fi
@@ -238,11 +235,11 @@ function main()
 }
 
 for BIN in $BINARIES; do
-	EXECUTABLE=`which $BIN 2>/dev/null || :`
-	if [ -z "$EXECUTABLE" ] || [ ! -x "$EXECUTABLE" ]; then
-		echo "ERROR: $BIN not found"
-		exit 1
-	fi
+        EXECUTABLE=`which $BIN 2>/dev/null || :`
+        if [ -z "$EXECUTABLE" ] || [ ! -x "$EXECUTABLE" ]; then
+                echo "ERROR: $BIN not found"
+                exit 1
+        fi
 done
 
 main "$@"

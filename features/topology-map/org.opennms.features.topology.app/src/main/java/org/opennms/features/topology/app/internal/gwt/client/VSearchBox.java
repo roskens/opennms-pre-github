@@ -1,22 +1,22 @@
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
- * Copyright (C) 2012 The OpenNMS Group, Inc.
- * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ * Copyright (C) 2013-2014 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2014 The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published
+ * it under the terms of the GNU Affero General Public License as published
  * by the Free Software Foundation, either version 3 of the License,
  * or (at your option) any later version.
  *
  * OpenNMS(R) is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU Affero General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GNU Affero General Public License
  * along with OpenNMS(R).  If not, see:
  *      http://www.gnu.org/licenses/
  *
@@ -28,126 +28,58 @@
 
 package org.opennms.features.topology.app.internal.gwt.client;
 
-import com.google.common.collect.Lists;
+import java.util.List;
+import java.util.Map;
+
+import org.opennms.features.topology.app.internal.gwt.client.ui.SearchTokenField;
+import org.opennms.features.topology.app.internal.gwt.client.ui.SearchTokenField.CollapseCallback;
+
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.core.client.Scheduler;
-import com.google.gwt.dom.builder.client.DomDivBuilder;
-import com.google.gwt.dom.builder.shared.DivBuilder;
-import com.google.gwt.dom.builder.shared.HtmlDivBuilder;
+import com.google.gwt.dom.client.Style;
 import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
+import com.google.gwt.event.logical.shared.ResizeEvent;
+import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.google.gwt.event.logical.shared.SelectionEvent;
 import com.google.gwt.event.logical.shared.SelectionHandler;
+import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.user.client.DOM;
+import com.google.gwt.user.client.Element;
+import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.ui.*;
-import com.vaadin.client.ui.VFilterSelect;
-import org.opennms.features.topology.app.internal.gwt.client.ui.SearchTokenField;
-import org.opennms.features.topology.app.internal.gwt.client.ui.SuggestionMenu;
-import org.opennms.features.topology.app.internal.gwt.client.ui.SuggestionMenuItem;
-
-import java.util.*;
+import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.FlowPanel;
+import com.google.gwt.user.client.ui.HasHorizontalAlignment;
+import com.google.gwt.user.client.ui.SuggestBox;
+import com.google.gwt.user.client.ui.SuggestOracle;
+import com.google.gwt.user.client.ui.TextBox;
+import com.google.gwt.user.client.ui.TextBoxBase;
+import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.user.client.ui.Widget;
 
 public class VSearchBox extends Composite implements SelectionHandler<SuggestOracle.Suggestion>,KeyUpHandler {
 
+    private HandlerRegistration m_windowResizeRegistration;
 
-    public class CustomDisplay extends SuggestBox.SuggestionDisplay{
-
-        private final SuggestionMenu m_suggestionMenu;
-
-        private final PopupPanel m_suggestionPopup;
-        public CustomDisplay() {
-            m_suggestionMenu = new SuggestionMenu();
-            m_suggestionPopup = createPopup();
-        }
-
-        protected PopupPanel createPopup() {
-            PopupPanel p = new PopupPanel(true, false);
-            p.setStyleName("gwt-SuggestBoxPopup");
-            p.setPreviewingAllNativeEvents(true);
-            //p.setAnimationType(PopupPanel.AnimationType.ROLL_DOWN);
-            return p;
-        }
+    public class DefaultCenterOnCallback implements SearchTokenField.CenterOnSuggestionCallback{
 
         @Override
-        protected SuggestOracle.Suggestion getCurrentSelection() {
-            if (!isSuggestionListShowing()) {
-                return null;
-            }
-            SuggestionMenuItem item = m_suggestionMenu.getSelectedItem();
-            return item == null ? null : item.getSuggestion();
+        public void onCenter(SearchSuggestion searchSuggestion) {
+            m_connector.centerOnSuggestion(searchSuggestion);
         }
-
-
-        @Override
-        protected void hideSuggestions() {
-            m_suggestionPopup.hide();
-        }
-
-        @Override
-        protected void moveSelectionDown() {
-            if (isSuggestionListShowing()) {
-                m_suggestionMenu.selectItem(m_suggestionMenu.getSelectedItemIndex() + 1);
-            }
-        }
-
-        private boolean isSuggestionListShowing() {
-            return m_suggestionPopup.isShowing();
-        }
-
-        @Override
-        protected void moveSelectionUp() {
-            if (isSuggestionListShowing()) {
-
-                if (m_suggestionMenu.getSelectedItemIndex() == -1) {
-                    m_suggestionMenu.selectItem(m_suggestionMenu.getNumItems() - 1);
-                } else {
-                    m_suggestionMenu.selectItem(m_suggestionMenu.getSelectedItemIndex() - 1);
-                }
-            }
-        }
-
-        @Override
-        protected void showSuggestions(SuggestBox suggestBox, Collection<? extends SuggestOracle.Suggestion> suggestions, boolean isDisplayStringHTML, boolean isAutoSelectEnabled, final SuggestBox.SuggestionCallback callback) {
-            boolean anySuggestions = (suggestions != null && suggestions.size() > 0);
-
-            boolean hideWhenEmpty = true;
-            if (!anySuggestions && hideWhenEmpty) {
-                hideSuggestions();
-                return;
-            }
-
-            if (m_suggestionPopup.isAttached()) {
-                m_suggestionPopup.hide();
-            }
-
-            m_suggestionMenu.clearItems();
-
-            for(final SuggestOracle.Suggestion curSuggestion : suggestions) {
-                Scheduler.ScheduledCommand command = new Scheduler.ScheduledCommand() {
-                    @Override
-                    public void execute() {
-                       callback.onSuggestionSelected(curSuggestion);
-                    }
-                };
-
-                final SuggestionMenuItem menuitem = new SuggestionMenuItem(curSuggestion, isDisplayStringHTML, command);
-
-                m_suggestionMenu.addItem(menuitem);
-            }
-
-            m_suggestionPopup.addAutoHidePartner(suggestBox.getElement());
-
-            // Show the popup under the TextBox.
-            m_suggestionPopup.showRelativeTo(suggestBox);
-
-        }
-
     }
-    public class RemoteSuggestOracle extends SuggestOracle{
 
-        RemoteSuggestOracle(){
+    public class RemoteSuggestOracle extends SuggestOracle {
+        
+        private Timer m_keyTimer = new Timer() {
+            @Override
+            public void run() {
+            }
+        };
+        
+        RemoteSuggestOracle() {
         }
 
         @Override
@@ -156,8 +88,20 @@ public class VSearchBox extends Composite implements SelectionHandler<SuggestOra
         }
 
         @Override
-        public void requestSuggestions(Request request, Callback callback) {
-            m_connector.query(request, callback, m_indexFrom, m_indexTo);
+        public void requestSuggestions(final Request request, final Callback callback) {
+
+            m_keyTimer.cancel();
+            
+            m_keyTimer = new Timer() {
+                @Override
+                public void run() {
+                    m_connector.query(request, callback, m_indexFrom, m_indexTo);
+
+                }
+            };
+            
+            m_keyTimer.schedule(1500);
+            
         }
     }
 
@@ -166,15 +110,6 @@ public class VSearchBox extends Composite implements SelectionHandler<SuggestOra
     private int m_indexFrom = 0;
     private int m_indexTo = 0;
 
-    private int m_findExactMatchesTotal = 0;
-    private int m_findExactMatchesFound = 0;
-    private ArrayList<String> m_findExactMatchesNot = new ArrayList<String>();
-    private static final String DISPLAY_SEPARATOR = ", ";
-    private static final String VALUE_DELIM = ";";
-    private static final int PAGE_Size = 15;
-
-    private static final int DELAY = 1000;
-    private static final int FIND_EXACT_MATCH_QUERY_LIMIT = 20;
     private boolean m_isMultiValued = true;
     private SearchBoxConnector m_connector;
     private static VSearchComboBoxUiBinder uiBinder = GWT.create(VSearchComboBoxUiBinder.class);
@@ -182,27 +117,40 @@ public class VSearchBox extends Composite implements SelectionHandler<SuggestOra
     @UiField
     FlowPanel m_componentHolder;
 
-    VerticalPanel m_selectionContainer;
+    FlowPanel m_scrollContainer;
     VerticalPanel m_focusedContainer;
 
     SuggestBox m_suggestBox;
     public VSearchBox(){
         initWidget(uiBinder.createAndBindUi(this));
+    }
 
+    @Override
+    protected void onDetach() {
+        super.onDetach();
+        m_windowResizeRegistration.removeHandler();
     }
 
     @Override
     public void onLoad(){
-        TextBoxBase textField = new TextBox();
+        m_componentHolder.clear();
+        this.setStyleName("topology-search");
+        final TextBoxBase textField = new TextBox();
+        textField.setWidth("245px");
+        textField.setStyleName("topology-search-box");
+        textField.getElement().setAttribute("placeholder", "Search...");
+        textField.setFocus(true);
         RemoteSuggestOracle oracle = new RemoteSuggestOracle();
 
         m_suggestBox = new SuggestBox(oracle, textField);
+
 
         m_suggestBox.addSelectionHandler(new SelectionHandler<SuggestOracle.Suggestion>() {
             @Override
             public void onSelection(SelectionEvent<SuggestOracle.Suggestion> event) {
                 SearchSuggestion selectedItem = (SearchSuggestion) event.getSelectedItem();
-                m_connector.selectSuggestion(Arrays.asList(selectedItem));
+                textField.setText("");
+                m_connector.addToFocus(selectedItem);
             }
         });
 
@@ -214,15 +162,63 @@ public class VSearchBox extends Composite implements SelectionHandler<SuggestOra
         m_suggestBox.addSelectionHandler(this);
         m_suggestBox.addKeyUpHandler(this);
 
-        m_componentHolder.setSize("250px", "50px");
+        m_componentHolder.setWidth("245px");
         m_componentHolder.add(m_suggestBox);
 
-        m_selectionContainer = new VerticalPanel();
-        m_componentHolder.add(m_selectionContainer);
 
-        m_focusedContainer = new VerticalPanel();
-        m_componentHolder.add(m_focusedContainer);
+        if(m_focusedContainer == null){
+            m_focusedContainer = new VerticalPanel();
+
+            m_scrollContainer = new FlowPanel();
+            m_scrollContainer.getElement().getStyle().setBackgroundColor("#f9f9f9");
+            m_scrollContainer.add(m_focusedContainer);
+
+        }
+
+        m_focusedContainer.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
+        m_focusedContainer.setTitle("Focused Vertices");
+        m_componentHolder.add(m_scrollContainer);
+
+        Timer timer = new Timer(){
+
+            @Override
+            public void run(){
+                updateScrollPanelSize();
+            }
+        };
+
+        timer.schedule(1000);
+
+        m_windowResizeRegistration = Window.addResizeHandler(new ResizeHandler() {
+            @Override
+            public void onResize(ResizeEvent event) {
+                updateScrollPanelSize();
+            }
+        });
+
     }
+
+    private void updateScrollPanelSize() {
+        Element topologyComponent = DOM.getElementById("TopologyComponent");
+        int topoHeight = topologyComponent.getOffsetHeight();
+        int containerHeight = topoHeight - (m_focusedContainer.getElement().getOffsetTop() + 5);
+        int tableHeight = m_focusedContainer.getOffsetHeight();
+
+        if(containerHeight >= 0){
+            m_scrollContainer.setHeight("" + Math.min(containerHeight, tableHeight) + "px");
+
+            if(tableHeight > containerHeight){
+                m_scrollContainer.getElement().getStyle().setOverflowY(Style.Overflow.SCROLL);
+            } else{
+                m_scrollContainer.getElement().getStyle().setOverflowY(Style.Overflow.HIDDEN);
+            }
+        }
+
+    }
+
+    public static native void debug(Object obj) /*-{
+        $wnd.console.debug(obj);
+    }-*/;
 
     @Override
     public void onSelection(SelectionEvent<SuggestOracle.Suggestion> event) {
@@ -239,23 +235,14 @@ public class VSearchBox extends Composite implements SelectionHandler<SuggestOra
         m_connector = connector;
     }
 
-
-    public void setSelected(List<SearchSuggestion> selected) {
-        m_selectionContainer.clear();
-        for (SearchSuggestion searchSuggestion : selected) {
-            SearchTokenField field = new SearchTokenField(searchSuggestion);
-            field.setRemoveCallback(new SearchTokenField.RemoveCallback() {
-                @Override
-                public void onRemove(SearchSuggestion searchSuggestion) {
-                    m_connector.removeSelected(searchSuggestion);
-                }
-            });
-            m_selectionContainer.add(field);
-        }
-    }
-
     public void setFocused(List<SearchSuggestion> focused) {
         m_focusedContainer.clear();
+        if (focused == null) {
+            log("Focus list for searchbox is null");
+            updateScrollPanelSize();
+            return;
+        }
+        log(focused);
         for(SearchSuggestion searchSuggestion : focused){
             SearchTokenField field = new SearchTokenField(searchSuggestion);
             field.setRemoveCallback(new SearchTokenField.RemoveCallback() {
@@ -264,10 +251,27 @@ public class VSearchBox extends Composite implements SelectionHandler<SuggestOra
                     m_connector.removeFocused(searchSuggestion);
                 }
             });
+            field.setCenterOnCallback(new DefaultCenterOnCallback());
+            if (searchSuggestion.isCollapsible()) {
+                field.setCollapseCallback(new CollapseCallback() {
+                    @Override
+                    public void onCollapse(SearchSuggestion searchSuggestion) {
+                        m_connector.toggleSuggestionCollapse(searchSuggestion);
+                        // Update the state of the local object
+                        searchSuggestion.setCollapsed(!searchSuggestion.isCollapsed());
+                    }
+                });
+            }
+
             m_focusedContainer.add(field);
         }
 
+        updateScrollPanelSize();
+
     }
 
+    private static native void log(Object message) /*-{
+        $wnd.console.debug(message);
+    }-*/;
 
 }

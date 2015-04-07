@@ -1,22 +1,22 @@
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
- * Copyright (C) 2006-2012 The OpenNMS Group, Inc.
- * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ * Copyright (C) 2002-2014 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2014 The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published
+ * it under the terms of the GNU Affero General Public License as published
  * by the Free Software Foundation, either version 3 of the License,
  * or (at your option) any later version.
  *
  * OpenNMS(R) is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU Affero General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GNU Affero General Public License
  * along with OpenNMS(R).  If not, see:
  *      http://www.gnu.org/licenses/
  *
@@ -28,15 +28,13 @@
 
 package org.opennms.netmgt.poller.pollables;
 
-import java.text.ParseException;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.opennms.netmgt.xml.event.Event;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.opennms.netmgt.EventConstants;
-import org.opennms.netmgt.xml.event.Event;
 
 /**
  * Represents a PendingPollEvent
@@ -45,13 +43,14 @@ import org.opennms.netmgt.xml.event.Event;
  */
 public class PendingPollEvent extends PollEvent {
     private static final Logger LOG = LoggerFactory.getLogger(PendingPollEvent.class);
+
     // how long to wait, in milliseconds, before giving up on waiting for a poll event to get an event ID, defaults to 10 minutes
     private static final long PENDING_EVENT_TIMEOUT = Long.getLong("org.opennms.netmgt.poller.pendingEventTimeout", 1000L * 60L * 10L);
 
     private final Event m_event;
     private Date m_date;
     private long m_expirationTimeInMillis;
-    private boolean m_pending = true;
+    private volatile boolean m_pending = true;
     private List<Runnable> m_pendingOutages = new LinkedList<Runnable>();
 
     /**
@@ -62,12 +61,7 @@ public class PendingPollEvent extends PollEvent {
     public PendingPollEvent(final Event event) {
         super(Scope.fromUei(event.getUei()));
         m_event = event;
-        try {
-            m_date = EventConstants.parseToDate(m_event.getTime());
-        } catch (final ParseException e) {
-            LOG.error("Unable to convert event time to date", e);
-            m_date = new Date();
-        }
+        m_date = m_event.getTime();
         m_expirationTimeInMillis = m_date.getTime() + PENDING_EVENT_TIMEOUT;
     }
 
@@ -96,11 +90,13 @@ public class PendingPollEvent extends PollEvent {
      *
      * @param r a {@link java.lang.Runnable} object.
      */
-    public void addPending(Runnable r) {
-        if (m_pending)
+    public synchronized void addPending(Runnable r) {
+        if (m_pending) {
             m_pendingOutages.add(r);
-        else
+        }
+        else {
             r.run();
+        }
     }
     
     /**
@@ -117,7 +113,8 @@ public class PendingPollEvent extends PollEvent {
      *
      * @return a boolean.
      */
-    public boolean isPending() {
+
+    public synchronized boolean isPending() {
         if (m_pending) {
             // still pending, check if we've timed out
             if (isTimedOut()) {
@@ -136,14 +133,14 @@ public class PendingPollEvent extends PollEvent {
      *
      * @param e a {@link org.opennms.netmgt.xml.event.Event} object.
      */
-    public void complete(Event e) {
+    public synchronized void complete(Event e) {
         m_pending = false;
     }
     
     /**
      * <p>processPending</p>
      */
-    public void processPending() {
+    public synchronized void processPending() {
         for (Runnable r : m_pendingOutages) {
             r.run();
         }

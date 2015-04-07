@@ -1,22 +1,22 @@
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
- * Copyright (C) 2011-2012 The OpenNMS Group, Inc.
- * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ * Copyright (C) 2011-2014 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2014 The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published
+ * it under the terms of the GNU Affero General Public License as published
  * by the Free Software Foundation, either version 3 of the License,
  * or (at your option) any later version.
  *
  * OpenNMS(R) is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU Affero General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GNU Affero General Public License
  * along with OpenNMS(R).  If not, see:
  *      http://www.gnu.org/licenses/
  *
@@ -95,19 +95,6 @@ public class SnmpPortal extends Object {
     private volatile boolean m_isClosing;
 
     /**
-     * Set to true if it is necessary to set the socket timeout value via the
-     * Socket.setSoTimeout() method in order to keep from blocking indefinitely
-     * on a socket I/O call. This value is configurable at runtime via the
-     * system property "org.opennms.joeSNMP.vmhacks.socketSoTimeoutRequired". If
-     * this property is set to 'no', the bSocketSoTimeoutRequired variable will
-     * be set to false and the SNMP trap socket timeout will not be set. If this
-     * property is set to 'yes' or the property does not exist, the
-     * bSocketSoTimeoutRequired variable will be set to true. and the socket
-     * timeout will be set. Default value is true.
-     */
-    private boolean bSocketSoTimeoutRequired = true;
-
-    /**
      * Identifies the system property that may be used to specify whether or not
      * a timeout value is set on the SNMP trap socket. Valid values are 'yes'
      * and 'no'.
@@ -184,8 +171,19 @@ public class SnmpPortal extends Object {
         initializePortal(encoder);
     }
     
-	public void initializePortal(final AsnEncoder encoder) throws SocketException {
-		//
+    public void initializePortal(final AsnEncoder encoder) throws SocketException {
+        /*
+         * Set to true if it is necessary to set the socket timeout value via the
+         * Socket.setSoTimeout() method in order to keep from blocking indefinitely
+         * on a socket I/O call. This value is configurable at runtime via the
+         * system property "org.opennms.joeSNMP.vmhacks.socketSoTimeoutRequired". If
+         * this property is set to 'no', the bSocketSoTimeoutRequired variable will
+         * be set to false and the SNMP trap socket timeout will not be set. If this
+         * property is set to 'yes' or the property does not exist, the
+         * bSocketSoTimeoutRequired variable will be set to true. and the socket
+         * timeout will be set. Default value is true.
+         */
+        //
         // Determine whether or not it is necessary to use the
         // socket.setSoTimeout()
         // method to set the socket timeout value thereby mimic'ing non-blocking
@@ -195,7 +193,7 @@ public class SnmpPortal extends Object {
         // to keep from blocking indefinitely on any socket call that performs
         // I/O.
         //
-        bSocketSoTimeoutRequired = true; // Default is to use set the socket
+        boolean bSocketSoTimeoutRequired = true; // Default is to use set the socket
                                             // timeout
         String strSocketSoTimeoutRequired = System.getProperty(PROP_SOCKET_TIMEOUT_REQUIRED);
         String osName = System.getProperty("os.name");

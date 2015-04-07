@@ -1,22 +1,22 @@
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
- * Copyright (C) 2012 The OpenNMS Group, Inc.
- * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ * Copyright (C) 2012-2014 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2014 The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published
+ * it under the terms of the GNU Affero General Public License as published
  * by the Free Software Foundation, either version 3 of the License,
  * or (at your option) any later version.
  *
  * OpenNMS(R) is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU Affero General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GNU Affero General Public License
  * along with OpenNMS(R).  If not, see:
  *      http://www.gnu.org/licenses/
  *
@@ -30,7 +30,11 @@ package org.opennms.features.topology.api.topo;
 
 import java.net.MalformedURLException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import javax.xml.bind.JAXBException;
 
@@ -52,7 +56,7 @@ public abstract class AbstractTopologyProvider extends DelegatingVertexEdgeProvi
 	 * @author Markus von Rüden
 	 *
 	 */
-    protected static abstract class IdGenerator {
+    protected abstract static class IdGenerator {
         /** 
          * The topology provider. It is needed to initialize the counter.
          */
@@ -126,7 +130,7 @@ public abstract class AbstractTopologyProvider extends DelegatingVertexEdgeProvi
          */
         @SuppressWarnings("deprecation")
         private boolean isValid(String generatedId) {
-            return !provider.containsVertexId(new AbstractVertexRef(provider.getVertexNamespace(), generatedId));
+            return !provider.containsVertexId(new DefaultVertexRef(provider.getVertexNamespace(), generatedId));
         }
 
         public void reset() {
@@ -246,6 +250,11 @@ public abstract class AbstractTopologyProvider extends DelegatingVertexEdgeProvi
     }
 
     @Override
+    public boolean groupingSupported() {
+        return true;
+    }
+
+    @Override
     public final AbstractVertex addGroup(String groupName, String groupIconKey) {
         String nextGroupId = getNextGroupId();
         return addGroup(nextGroupId, groupIconKey, groupName);
@@ -287,16 +296,34 @@ public abstract class AbstractTopologyProvider extends DelegatingVertexEdgeProvi
     }
 
     @Override
-	public Edge connectVertices(VertexRef sourceVertextId, VertexRef targetVertextId) {
-        String nextEdgeId = getNextEdgeId();
-        return connectVertices(nextEdgeId, sourceVertextId, targetVertextId);
+    public final Map<VertexRef, Set<EdgeRef>> getEdgeIdsForVertices(VertexRef... vertices) {
+        List<Edge> edges = getEdges();
+        Map<VertexRef,Set<EdgeRef>> retval = new HashMap<VertexRef,Set<EdgeRef>>();
+        for (VertexRef vertex : vertices) {
+            if (vertex == null) continue;
+            Set<EdgeRef> edgeSet = new HashSet<EdgeRef>();
+            for (Edge edge : edges) {
+                // If the vertex is connected to the edge then add it
+                if (new RefComparator().compare(edge.getSource().getVertex(), vertex) == 0 || new RefComparator().compare(edge.getTarget().getVertex(), vertex) == 0) {
+                    edgeSet.add(edge);
+                }
+            }
+            retval.put(vertex, edgeSet);
+        }
+        return retval;
     }
 
-    protected final AbstractEdge connectVertices(String id, VertexRef sourceId, VertexRef targetId) {
-        SimpleConnector source = new SimpleConnector(getEdgeNamespace(), sourceId.getId()+"-"+id+"-connector", sourceId);
-        SimpleConnector target = new SimpleConnector(getEdgeNamespace(), targetId.getId()+"-"+id+"-connector", targetId);
+    @Override
+	public Edge connectVertices(VertexRef sourceVertextId, VertexRef targetVertextId) {
+        String nextEdgeId = getNextEdgeId();
+        return connectVertices(nextEdgeId, sourceVertextId, targetVertextId, getEdgeNamespace());
+    }
 
-        AbstractEdge edge = new AbstractEdge(getEdgeNamespace(), id, source, target);
+    protected final AbstractEdge connectVertices(String id, VertexRef sourceId, VertexRef targetId, String namespace) {
+        SimpleConnector source = new SimpleConnector(sourceId.getNamespace(), sourceId.getId()+"-"+id+"-connector", sourceId);
+        SimpleConnector target = new SimpleConnector(targetId.getNamespace(), targetId.getId()+"-"+id+"-connector", targetId);
+
+        AbstractEdge edge = new AbstractEdge(namespace, id, source, target);
 
         addEdges(edge);
         

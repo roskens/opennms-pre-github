@@ -1,22 +1,22 @@
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
- * Copyright (C) 2006-2012 The OpenNMS Group, Inc.
- * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ * Copyright (C) 2002-2014 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2014 The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published
+ * it under the terms of the GNU Affero General Public License as published
  * by the Free Software Foundation, either version 3 of the License,
  * or (at your option) any later version.
  *
  * OpenNMS(R) is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU Affero General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GNU Affero General Public License
  * along with OpenNMS(R).  If not, see:
  *      http://www.gnu.org/licenses/
  *
@@ -40,9 +40,9 @@ import java.net.NoRouteToHostException;
 import java.net.Socket;
 import java.util.Map;
 import java.util.StringTokenizer;
+import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
 
-import org.apache.regexp.RE;
-import org.apache.regexp.RESyntaxException;
 import org.opennms.core.utils.InetAddressUtils;
 import org.opennms.core.utils.ParameterMap;
 import org.slf4j.Logger;
@@ -68,9 +68,9 @@ public final class SmtpPlugin extends AbstractPlugin {
      * The regular expression test used to determine if the reply is a multi
      * line reply. A multi line reply is one that each line, but the last, is in
      * the form of "ddd-" where 'ddd' is the result code.
-     * 
+     *
      */
-    private static final RE MULTILINE_RESULT;
+    private static final Pattern MULTILINE_RESULT;
 
     /**
      * <P>
@@ -103,8 +103,8 @@ public final class SmtpPlugin extends AbstractPlugin {
 
     static {
         try {
-            MULTILINE_RESULT = new RE("^[1-5][0-9]{2}-");
-        } catch (RESyntaxException re) {
+            MULTILINE_RESULT = Pattern.compile("^[1-5][0-9]{2}-");
+        } catch (PatternSyntaxException re) {
             throw new java.lang.reflect.UndeclaredThrowableException(re);
         }
     }
@@ -116,12 +116,12 @@ public final class SmtpPlugin extends AbstractPlugin {
      * true is returned from the method. Otherwise a false value is returned to
      * the caller.
      * </P>
-     * 
+     *
      * @param host
      *            The remote host to connect to.
      * @param port
      *            The remote port on the host.
-     * 
+     *
      * @return True if server supports SMTP on the specified port, false
      *         otherwise
      */
@@ -149,7 +149,7 @@ public final class SmtpPlugin extends AbstractPlugin {
                 do {
                     result = lineRdr.readLine();
 
-                } while (result != null && result.length() > 0 && MULTILINE_RESULT.match(result));
+                } while (result != null && result.length() > 0 && MULTILINE_RESULT.matcher(result).find());
 
                 if (result == null || result.length() == 0) {
                     LOG.info("Received truncated response from SMTP server {}", InetAddressUtils.str(host));
@@ -186,7 +186,7 @@ public final class SmtpPlugin extends AbstractPlugin {
                     do {
                         result = lineRdr.readLine();
 
-                    } while (result != null && result.length() > 0 && MULTILINE_RESULT.match(result));
+                    } while (result != null && result.length() > 0 && MULTILINE_RESULT.matcher(result).find());
 
                     if (result == null || result.length() == 0) {
                         LOG.info("Received truncated response from SMTP server {}", InetAddressUtils.str(host));
@@ -222,7 +222,7 @@ public final class SmtpPlugin extends AbstractPlugin {
                         do {
                             result = lineRdr.readLine();
 
-                        } while (result != null && result.length() > 0 && MULTILINE_RESULT.match(result));
+                        } while (result != null && result.length() > 0 && MULTILINE_RESULT.matcher(result).find());
 
                         if (result == null || result.length() == 0) {
                             LOG.info("Received truncated response from SMTP server {}", InetAddressUtils.str(host));

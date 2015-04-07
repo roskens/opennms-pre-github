@@ -1,22 +1,22 @@
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
- * Copyright (C) 2011-2013 The OpenNMS Group, Inc.
- * OpenNMS(R) is Copyright (C) 1999-2013 The OpenNMS Group, Inc.
+ * Copyright (C) 2009-2014 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2014 The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published
+ * it under the terms of the GNU Affero General Public License as published
  * by the Free Software Foundation, either version 3 of the License,
  * or (at your option) any later version.
  *
  * OpenNMS(R) is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU Affero General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GNU Affero General Public License
  * along with OpenNMS(R).  If not, see:
  *      http://www.gnu.org/licenses/
  *
@@ -75,20 +75,20 @@ import org.krupczak.xmp.XmpSession;
 import org.krupczak.xmp.XmpVar;
 import org.opennms.core.utils.ParameterMap;
 
-import org.opennms.netmgt.collectd.CollectionAgent;
-import org.opennms.netmgt.collectd.ServiceCollector;
-import org.opennms.netmgt.config.collector.AttributeGroup;
-import org.opennms.netmgt.config.collector.AttributeGroupType;
-import org.opennms.netmgt.config.collector.CollectionSet;
+import org.opennms.netmgt.collection.api.AttributeGroup;
+import org.opennms.netmgt.collection.api.AttributeGroupType;
+import org.opennms.netmgt.collection.api.CollectionAgent;
+import org.opennms.netmgt.collection.api.CollectionSet;
+import org.opennms.netmgt.collection.api.ServiceCollector;
 import org.opennms.netmgt.config.xmpConfig.XmpConfig;
 import org.opennms.netmgt.config.xmpDataCollection.Group;
 import org.opennms.netmgt.config.xmpDataCollection.MibObj;
 import org.opennms.netmgt.config.xmpDataCollection.XmpCollection;
-import org.opennms.netmgt.model.RrdRepository;
-import org.opennms.netmgt.model.events.EventProxy;
+import org.opennms.netmgt.events.api.EventProxy;
 import org.opennms.netmgt.protocols.xmp.config.XmpAgentConfig;
 import org.opennms.netmgt.protocols.xmp.config.XmpConfigFactory;
 import org.opennms.netmgt.protocols.xmp.config.XmpPeerFactory;
+import org.opennms.netmgt.rrd.RrdRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 public class XmpCollector implements ServiceCollector {
@@ -159,7 +159,7 @@ public class XmpCollector implements ServiceCollector {
             return false;
         }
 
-        agt = new AttributeGroupType(groupName,"ignore");
+        agt = new AttributeGroupType(groupName, AttributeGroupType.IF_TYPE_IGNORE);
         ag = new AttributeGroup(scalarResource,agt);
 
         // for each variable in reply, store it in collectionSet
@@ -184,7 +184,6 @@ public class XmpCollector implements ServiceCollector {
             attribType = new XmpCollectionAttributeType(vars[i],agt);
             aVar = new XmpCollectionAttribute(scalarResource,
                                               attribType,
-                                              vars[i].getObjName(),
                                               vars[i]);
 
             ag.addAttribute(aVar);
@@ -284,7 +283,7 @@ public class XmpCollector implements ServiceCollector {
             else 
                 rowResource = new XmpCollectionResource(collectionSet.getCollectionAgent(),resourceType, tableInfo[1],rowInstance);
 
-            agt = new AttributeGroupType(groupName,"all");
+            agt = new AttributeGroupType(groupName, AttributeGroupType.IF_TYPE_ALL);
             ag = new AttributeGroup(rowResource,agt);
 
             LOG.debug("queryTable instance={}", rowInstance);
@@ -296,7 +295,6 @@ public class XmpCollector implements ServiceCollector {
                 XmpCollectionAttribute aVar = 
                     new XmpCollectionAttribute(rowResource,
                                                attribType,
-                                               vars[i*numColumns+j].getObjName(),
                                                vars[i*numColumns+j]);
 
                 ag.addAttribute(aVar);
@@ -479,7 +477,7 @@ public class XmpCollector implements ServiceCollector {
         oldUptime = 0;
         
         // First go to the peer factory
-        XmpAgentConfig peerConfig = XmpPeerFactory.getInstance().getAgentConfig(agent.getInetAddress());
+        XmpAgentConfig peerConfig = XmpPeerFactory.getInstance().getAgentConfig(agent.getAddress());
         authenUser = peerConfig.getAuthenUser();
         timeout = (int)peerConfig.getTimeout();
         retries = peerConfig.getRetry();
@@ -543,12 +541,12 @@ public class XmpCollector implements ServiceCollector {
 
         // open/get a session with the target agent
 
-        LOG.debug("collect: attempting to open XMP session with {}:{},{}", agent.getInetAddress(), xmpPort, authenUser);
+        LOG.debug("collect: attempting to open XMP session with {}:{},{}", agent.getAddress(), xmpPort, authenUser);
 
         // Set the SO_TIMEOUT, why don't we...
         sockopts.setConnectTimeout(timeout);
 
-        session = new XmpSession(sockopts, agent.getInetAddress(), xmpPort,authenUser);
+        session = new XmpSession(sockopts, agent.getAddress(), xmpPort,authenUser);
 
         if (session.isClosed()) {
             LOG.warn("collect unable to open XMP session with {}", agent);

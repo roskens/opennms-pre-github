@@ -1,22 +1,22 @@
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
- * Copyright (C) 2006-2012 The OpenNMS Group, Inc.
- * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ * Copyright (C) 2013-2014 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2014 The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published
+ * it under the terms of the GNU Affero General Public License as published
  * by the Free Software Foundation, either version 3 of the License,
  * or (at your option) any later version.
  *
  * OpenNMS(R) is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU Affero General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GNU Affero General Public License
  * along with OpenNMS(R).  If not, see:
  *      http://www.gnu.org/licenses/
  *
@@ -25,6 +25,7 @@
  *     http://www.opennms.org/
  *     http://www.opennms.com/
  *******************************************************************************/
+
 package org.opennms.features.vaadin.dashboard.config.ui.editors;
 
 import com.google.gwt.thirdparty.guava.common.primitives.Primitives;
@@ -52,11 +53,11 @@ public class CriteriaBuilderHelper {
     /**
      * the map of properties
      */
-    private Map<String, Class> m_entities = new LinkedHashMap<String, Class>();
+    private Map<String, Class<?>> m_entities = new LinkedHashMap<String, Class<?>>();
     /**
      * the map of parsers
      */
-    private Map<Class, CriteriaParser> m_parsers = new HashMap<Class, CriteriaParser>();
+    private Map<Class<?>, CriteriaParser<?>> m_parsers = new HashMap<Class<?>, CriteriaParser<?>>();
 
     /**
      * Constructor used to instantiate new objects.
@@ -64,7 +65,7 @@ public class CriteriaBuilderHelper {
      * @param entityType the base entity class
      * @param aliasTypes the remaining "joined" model classes
      */
-    public CriteriaBuilderHelper(Class entityType, Class... aliasTypes) {
+    public CriteriaBuilderHelper(Class<?> entityType, Class<?>... aliasTypes) {
         /**
          * adding criteria parsers
          */
@@ -166,12 +167,12 @@ public class CriteriaBuilderHelper {
          */
         populateProperties(entityType, false);
 
-        TreeMap<String, Class> sortedMap = new TreeMap<String, Class>();
+        TreeMap<String, Class<?>> sortedMap = new TreeMap<String, Class<?>>();
 
-        for(Class clazz : aliasTypes) {
+        for(Class<?> clazz : aliasTypes) {
             sortedMap.put(clazz.getSimpleName(), clazz);
         }
-        for (Map.Entry<String, Class> entry : sortedMap.entrySet()) {
+        for (Map.Entry<String, Class<?>> entry : sortedMap.entrySet()) {
             populateProperties(entry.getValue(), true);
         }
     }
@@ -183,8 +184,8 @@ public class CriteriaBuilderHelper {
      * @param value the value to be parsed
      * @return a new instance representing the value
      */
-    public Object parseCriteriaValue(Class clazz, String value) {
-        CriteriaParser criteriaParser = m_parsers.get(clazz);
+    public Object parseCriteriaValue(Class<?> clazz, String value) {
+        CriteriaParser<?> criteriaParser = m_parsers.get(clazz);
 
         if (criteriaParser == null) {
             LoggerFactory.getLogger(CriteriaBuilderHelper.class).error("No parser for class " + clazz.getSimpleName() + " found");
@@ -200,7 +201,7 @@ public class CriteriaBuilderHelper {
      * @param property the property to search for
      * @return the associated type
      */
-    public Class getTypeOfProperty(String property) {
+    public Class<?> getTypeOfProperty(String property) {
         return m_entities.get(property);
     }
 
@@ -210,7 +211,7 @@ public class CriteriaBuilderHelper {
      * @param clazz          the class to be used
      * @param criteriaParser the {@link CriteriaParser} to handle data for the class
      */
-    public void setCriteriaParser(Class clazz, CriteriaParser criteriaParser) {
+    public void setCriteriaParser(Class<?> clazz, CriteriaParser<?> criteriaParser) {
         m_parsers.put(clazz, criteriaParser);
     }
 
@@ -234,7 +235,7 @@ public class CriteriaBuilderHelper {
      * Dumps all the entities data to System.out.
      */
     public void dump() {
-        for (final Map.Entry<String, Class> entry : m_entities.entrySet()) {
+        for (final Map.Entry<String, Class<?>> entry : m_entities.entrySet()) {
             LOG.debug("{} {}", entry.getKey(), entry.getValue().getSimpleName());
         }
     }
@@ -254,8 +255,8 @@ public class CriteriaBuilderHelper {
      * @param entityClass the entity's class
      * @param alias       true, if the properties should be aliased, false otherwise
      */
-    private void populateProperties(Class entityClass, boolean alias) {
-        TreeMap<String, Class> sortedMap = new TreeMap<String, Class>(new Comparator<String>() {
+    private void populateProperties(Class<?> entityClass, boolean alias) {
+        TreeMap<String, Class<?>> sortedMap = new TreeMap<String, Class<?>>(new Comparator<String>() {
             @Override
             public int compare(String a, String b) {
                 return a.toLowerCase().compareTo(b.toLowerCase());
@@ -275,7 +276,7 @@ public class CriteriaBuilderHelper {
                 if ("javax.persistence.Column".equals(annotation.annotationType().getName())) {
                     String propertyName = Introspector.decapitalize(method.getName().replace("get", ""));
 
-                    Class clazz = Primitives.wrap(method.getReturnType());
+                    Class<?> clazz = Primitives.wrap(method.getReturnType());
 
                     if (m_parsers.containsKey(clazz)) {
                         if (aliasName != null) {
@@ -289,7 +290,7 @@ public class CriteriaBuilderHelper {
                 }
             }
         }
-        for (Map.Entry<String, Class> entry : sortedMap.entrySet()) {
+        for (Map.Entry<String, Class<?>> entry : sortedMap.entrySet()) {
             m_entities.put(entry.getKey(), entry.getValue());
         }
     }

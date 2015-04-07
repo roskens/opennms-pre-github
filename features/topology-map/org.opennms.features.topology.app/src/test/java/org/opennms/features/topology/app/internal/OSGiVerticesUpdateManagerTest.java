@@ -1,22 +1,22 @@
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
- * Copyright (C) 2012 The OpenNMS Group, Inc.
- * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ * Copyright (C) 2013-2014 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2014 The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published
+ * it under the terms of the GNU Affero General Public License as published
  * by the Free Software Foundation, either version 3 of the License,
  * or (at your option) any later version.
  *
  * OpenNMS(R) is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU Affero General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GNU Affero General Public License
  * along with OpenNMS(R).  If not, see:
  *      http://www.gnu.org/licenses/
  *
@@ -29,22 +29,31 @@
 package org.opennms.features.topology.app.internal;
 
 import com.vaadin.data.Property;
+
+import java.util.*;
+
 import org.junit.Before;
 import org.junit.Test;
-import org.opennms.features.topology.api.*;
+import org.opennms.features.topology.api.AutoRefreshSupport;
+import org.opennms.features.topology.api.Graph;
+import org.opennms.features.topology.api.GraphContainer;
+import org.opennms.features.topology.api.GraphVisitor;
+import org.opennms.features.topology.api.Layout;
+import org.opennms.features.topology.api.LayoutAlgorithm;
+import org.opennms.features.topology.api.MapViewManager;
+import org.opennms.features.topology.api.SelectionContext;
+import org.opennms.features.topology.api.SelectionManager;
+import org.opennms.features.topology.api.VerticesUpdateManager;
 import org.opennms.features.topology.api.topo.*;
-import org.opennms.osgi.*;
+import org.opennms.osgi.EventProxy;
+import org.opennms.osgi.EventRegistry;
+import org.opennms.osgi.OnmsServiceManager;
+import org.opennms.osgi.VaadinApplicationContext;
+import org.opennms.osgi.VaadinApplicationContextCreator;
 import org.osgi.framework.BundleContext;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Properties;
-import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
 
 public class OSGiVerticesUpdateManagerTest {
 
@@ -239,7 +248,7 @@ public class OSGiVerticesUpdateManagerTest {
     private List<VertexRef> createVertexRefsWithIds(int... vertIds) {
         List<VertexRef> vertices = new ArrayList<VertexRef>();
         for (int i = 0; i < vertIds.length; i++) {
-            VertexRef vRef = new AbstractVertexRef("nodes", "" + vertIds[i], "");
+            VertexRef vRef = new DefaultVertexRef("nodes", "" + vertIds[i], "");
             vertices.add(vRef);
         }
         return vertices;
@@ -307,13 +316,18 @@ public class OSGiVerticesUpdateManagerTest {
         }
 
         @Override
-        public void setCriteria(Criteria critiera) {
+        public void addCriteria(Criteria critiera) {
            
         }
 
         @Override
         public void removeCriteria(Criteria critiera) {
            
+        }
+
+        @Override
+        public void clearCriteria() {
+
         }
 
         @Override
@@ -367,23 +381,18 @@ public class OSGiVerticesUpdateManagerTest {
         }
 
         @Override
-        public StatusProvider getStatusProvider() {
+        public StatusProvider getVertexStatusProvider() {
             return null; 
         }
 
         @Override
-        public void setStatusProvider(StatusProvider statusProvider) {
+        public void setVertexStatusProvider(StatusProvider statusProvider) {
            
         }
 
         @Override
-        public String getUserName() {
-            return null; 
-        }
-
-        @Override
-        public void setUserName(String userName) {
-           
+        public Set<EdgeStatusProvider> getEdgeStatusProviders() {
+            return Collections.emptySet();
         }
 
         @Override
@@ -394,6 +403,10 @@ public class OSGiVerticesUpdateManagerTest {
         @Override
         public void setSessionId(String sessionId) {
            
+        }
+
+        @Override
+        public void setDirty(boolean dirty) {
         }
 
         @Override
@@ -428,6 +441,12 @@ public class OSGiVerticesUpdateManagerTest {
 
         @Override
         public void redoLayout() {
+        }
+
+        @Override
+        public void fireGraphChanged() {
+            // TODO Auto-generated method stub
+            
         }
     }
 }

@@ -1,22 +1,22 @@
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
- * Copyright (C) 2006-2012 The OpenNMS Group, Inc.
- * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ * Copyright (C) 2013-2014 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2014 The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published
+ * it under the terms of the GNU Affero General Public License as published
  * by the Free Software Foundation, either version 3 of the License,
  * or (at your option) any later version.
  *
  * OpenNMS(R) is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU Affero General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GNU Affero General Public License
  * along with OpenNMS(R).  If not, see:
  *      http://www.gnu.org/licenses/
  *
@@ -25,6 +25,7 @@
  *     http://www.opennms.org/
  *     http://www.opennms.com/
  *******************************************************************************/
+
 package org.opennms.features.vaadin.dashboard.dashlets;
 
 import com.vaadin.data.Property;
@@ -126,6 +127,7 @@ public class RrdDashletConfigurationWindow extends DashletConfigurationWindow {
          */
         m_columnsSelect = new NativeSelect();
         m_columnsSelect.setCaption("Columns");
+        m_columnsSelect.setDescription("Number of columns");
         m_columnsSelect.setImmediate(true);
         m_columnsSelect.setNewItemsAllowed(false);
         m_columnsSelect.setMultiSelect(false);
@@ -134,6 +136,7 @@ public class RrdDashletConfigurationWindow extends DashletConfigurationWindow {
 
         m_rowsSelect = new NativeSelect();
         m_rowsSelect.setCaption("Rows");
+        m_rowsSelect.setDescription("Number of rows");
         m_rowsSelect.setImmediate(true);
         m_rowsSelect.setNewItemsAllowed(false);
         m_rowsSelect.setMultiSelect(false);
@@ -171,16 +174,20 @@ public class RrdDashletConfigurationWindow extends DashletConfigurationWindow {
          */
         m_widthField = new TextField();
         m_widthField.setCaption("Graph Width");
+        m_widthField.setDescription("Width of graphs");
         m_widthField.setValue(m_dashletSpec.getParameters().get("width"));
 
         m_heightField = new TextField();
         m_heightField.setCaption("Graph Height");
+        m_heightField.setDescription("Height of graphs");
         m_heightField.setValue(m_dashletSpec.getParameters().get("height"));
 
         m_timeFrameValue = new TextField("Timeframe value");
+        m_timeFrameValue.setDescription("Timeframe value");
         m_timeFrameValue.setValue(m_dashletSpec.getParameters().get("timeFrameValue"));
 
         m_timeFrameType = new NativeSelect("Timeframe type");
+        m_timeFrameType.setDescription("Timeframe type");
         m_timeFrameType.setNullSelectionAllowed(false);
         m_timeFrameType.setMultiSelect(false);
         m_timeFrameType.setNewItemsAllowed(false);
@@ -256,9 +263,9 @@ public class RrdDashletConfigurationWindow extends DashletConfigurationWindow {
          * KSC import stuff
          */
         Button importButton = new Button("KSC Import");
-
+        importButton.setDescription("Import KSC-report");
         final NativeSelect selectKSCReport = new NativeSelect();
-
+        selectKSCReport.setDescription("KSC-report selection");
         selectKSCReport.setCaption("KSC Report");
         selectKSCReport.setImmediate(true);
         selectKSCReport.setNewItemsAllowed(false);
@@ -318,6 +325,7 @@ public class RrdDashletConfigurationWindow extends DashletConfigurationWindow {
          * Adding the cancel button...
          */
         Button cancel = new Button("Cancel");
+        cancel.setDescription("Cancel editing");
         cancel.addClickListener(new Button.ClickListener() {
             @Override
             public void buttonClick(Button.ClickEvent event) {
@@ -334,6 +342,7 @@ public class RrdDashletConfigurationWindow extends DashletConfigurationWindow {
          * ...and the OK button
          */
         Button ok = new Button("Save");
+        ok.setDescription("Save properties and close");
 
         ok.addClickListener(new Button.ClickListener() {
             @Override
@@ -413,8 +422,8 @@ public class RrdDashletConfigurationWindow extends DashletConfigurationWindow {
 
         String graphLabel, graphId, graphUrl, nodeId, nodeLabel, resourceId, resourceLabel, resourceTypeId, resourceTypeLabel;
 
-        String graphTypeArr[] = graph.getGraphtype().split("\\.");
-        String resourceIdArr[] = graph.getResourceId().split("\\.");
+        String[] graphTypeArr = graph.getGraphtype().split("\\.");
+        String[] resourceIdArr = graph.getResourceId().split("\\.");
 
         nodeId = resourceIdArr[0].split("[\\[\\]]")[1];
         String resourceTypeName = resourceIdArr[1].split("[\\[\\]]")[0];

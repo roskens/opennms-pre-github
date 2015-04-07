@@ -1,22 +1,22 @@
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
- * Copyright (C) 2008-2012 The OpenNMS Group, Inc.
- * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ * Copyright (C) 2008-2014 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2014 The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published
+ * it under the terms of the GNU Affero General Public License as published
  * by the Free Software Foundation, either version 3 of the License,
  * or (at your option) any later version.
  *
  * OpenNMS(R) is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU Affero General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GNU Affero General Public License
  * along with OpenNMS(R).  If not, see:
  *      http://www.gnu.org/licenses/
  *
@@ -37,14 +37,17 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
 import javax.ws.rs.core.UriInfo;
 
 import org.opennms.core.criteria.CriteriaBuilder;
+import org.opennms.core.criteria.Alias.JoinType;
 import org.opennms.core.criteria.restrictions.Restrictions;
 import org.opennms.netmgt.dao.api.OutageDao;
 import org.opennms.netmgt.model.OnmsOutage;
 import org.opennms.netmgt.model.OnmsOutageCollection;
+import org.opennms.netmgt.model.outage.OutageSummaryCollection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -96,10 +99,14 @@ public class OutageRestService extends OnmsRestService {
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON, MediaType.APPLICATION_ATOM_XML})
     @Path("{outageId}")
     @Transactional
-    public OnmsOutage getOutage(@PathParam("outageId") final String outageId) {
+    public Response getOutage(@PathParam("outageId") final String outageId) {
         readLock();
         try {
-            return m_outageDao.get(Integer.valueOf(outageId));
+            if ("summaries".equals(outageId)) {
+                return Response.ok(new OutageSummaryCollection(m_outageDao.getNodeOutageSummaries(10))).build();
+            } else {
+                return Response.ok(m_outageDao.get(Integer.valueOf(outageId))).build();
+            }
         } finally {
             readUnlock();
         }
@@ -135,6 +142,12 @@ public class OutageRestService extends OnmsRestService {
         readLock();
         try {
             final CriteriaBuilder builder = new CriteriaBuilder(OnmsOutage.class);
+            builder.alias("monitoredService", "monitoredService", JoinType.LEFT_JOIN);
+            builder.alias("monitoredService.ipInterface", "ipInterface", JoinType.LEFT_JOIN);
+            builder.alias("ipInterface.node", "node", JoinType.LEFT_JOIN);
+            builder.alias("ipInterface.snmpInterface", "snmpInterface", JoinType.LEFT_JOIN);
+            builder.alias("monitoredService.serviceType", "serviceType", JoinType.LEFT_JOIN);
+
             applyQueryFilters(m_uriInfo.getQueryParameters(), builder);
     
             final OnmsOutageCollection coll = new OnmsOutageCollection(m_outageDao.findMatching(builder.toCriteria()));

@@ -1,22 +1,22 @@
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
- * Copyright (C) 2006-2012 The OpenNMS Group, Inc.
- * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ * Copyright (C) 2005-2014 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2014 The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published
+ * it under the terms of the GNU Affero General Public License as published
  * by the Free Software Foundation, either version 3 of the License,
  * or (at your option) any later version.
  *
  * OpenNMS(R) is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU Affero General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GNU Affero General Public License
  * along with OpenNMS(R).  If not, see:
  *      http://www.gnu.org/licenses/
  *
@@ -40,6 +40,16 @@ import org.opennms.core.utils.ParameterMap;
  * @version $Id: $
  */
 public class LatencyParameters {
+
+    /**
+     * Default thresholding interval (in milliseconds).
+     */
+    static final int DEFAULT_INTERVAL = 300000; // 300s or 5m
+
+    /**
+     * Default age before which a data point is considered "out of date"
+     */
+    static final int DEFAULT_RANGE = 0;
 
 	private Map<?,?> m_parameters;
 	private String m_svcName;
@@ -77,7 +87,7 @@ public class LatencyParameters {
 
 	int getInterval() {
 		Map<?,?> parameters = getParameters();
-		return ParameterMap.getKeyedInteger(parameters, "interval", LatencyThresholder.DEFAULT_INTERVAL);
+		return ParameterMap.getKeyedInteger(parameters, "interval", DEFAULT_INTERVAL);
 	}
 
 	String getGroupName() {
@@ -87,6 +97,6 @@ public class LatencyParameters {
 
 	int getRange() {
 		Map<?,?> parameters = getParameters();
-		return ParameterMap.getKeyedInteger(parameters, "range", LatencyThresholder.DEFAULT_RANGE);
+		return ParameterMap.getKeyedInteger(parameters, "range", DEFAULT_RANGE);
 	}
 }

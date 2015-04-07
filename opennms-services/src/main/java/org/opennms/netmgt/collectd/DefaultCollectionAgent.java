@@ -2,22 +2,22 @@
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
- * Copyright (C) 2007-2012 The OpenNMS Group, Inc.
- * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ * Copyright (C) 2006-2014 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2014 The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published
+ * it under the terms of the GNU Affero General Public License as published
  * by the Free Software Foundation, either version 3 of the License,
  * or (at your option) any later version.
  *
  * OpenNMS(R) is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU Affero General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GNU Affero General Public License
  * along with OpenNMS(R).  If not, see:
  *      http://www.gnu.org/licenses/
  *
@@ -35,14 +35,15 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 import org.opennms.core.utils.InetAddressUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.opennms.netmgt.collection.api.CollectionInitializationException;
 import org.opennms.netmgt.config.SnmpPeerFactory;
 import org.opennms.netmgt.dao.api.IpInterfaceDao;
-import org.opennms.netmgt.dao.support.DefaultResourceDao;
 import org.opennms.netmgt.model.PrimaryType;
+import org.opennms.netmgt.model.ResourceTypeUtils;
 import org.opennms.netmgt.poller.InetNetworkInterface;
 import org.opennms.netmgt.snmp.SnmpAgentConfig;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.transaction.PlatformTransactionManager;
 
 /**
@@ -51,7 +52,7 @@ import org.springframework.transaction.PlatformTransactionManager;
  * @author ranger
  * @version $Id: $
  */
-public class DefaultCollectionAgent extends InetNetworkInterface implements CollectionAgent {
+public class DefaultCollectionAgent extends InetNetworkInterface implements SnmpCollectionAgent {
     private static final Logger LOG = LoggerFactory.getLogger(DefaultCollectionAgent.class);
 
     /**
@@ -65,9 +66,9 @@ public class DefaultCollectionAgent extends InetNetworkInterface implements Coll
      * @param ifaceId a {@link java.lang.Integer} object.
      * @param ifaceDao a {@link org.opennms.netmgt.dao.api.IpInterfaceDao} object.
      * @param transMgr a {@link org.springframework.transaction.PlatformTransactionManager} object.
-     * @return a {@link org.opennms.netmgt.collectd.CollectionAgent} object.
+     * @return a {@link org.opennms.netmgt.collection.api.CollectionAgent} object.
      */
-    public static CollectionAgent create(final Integer ifaceId, final IpInterfaceDao ifaceDao, final PlatformTransactionManager transMgr) {
+    public static SnmpCollectionAgent create(final Integer ifaceId, final IpInterfaceDao ifaceDao, final PlatformTransactionManager transMgr) {
         return new DefaultCollectionAgent(DefaultCollectionAgentService.create(ifaceId, ifaceDao, transMgr));
     }
 
@@ -99,12 +100,6 @@ public class DefaultCollectionAgent extends InetNetworkInterface implements Coll
     /** {@inheritDoc} */
     @Override
     public InetAddress getAddress() {
-        return getInetAddress();
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public InetAddress getInetAddress() {
         if (m_inetAddress == null) {
             m_inetAddress = m_agentService.getInetAddress();
         }
@@ -121,7 +116,7 @@ public class DefaultCollectionAgent extends InetNetworkInterface implements Coll
      */
     @Override
     public Boolean isStoreByForeignSource() {
-        return Boolean.getBoolean("org.opennms.rrd.storeByForeignSource");
+        return ResourceTypeUtils.isStoreByForeignSource();
     }
     
     /* (non-Javadoc)
@@ -134,7 +129,7 @@ public class DefaultCollectionAgent extends InetNetworkInterface implements Coll
      */
     @Override
     public String getHostAddress() {
-        return InetAddressUtils.str(getInetAddress());
+        return InetAddressUtils.str(getAddress());
     }
 
     /* (non-Javadoc)
@@ -219,7 +214,7 @@ public class DefaultCollectionAgent extends InetNetworkInterface implements Coll
     public File getStorageDir() {
        File dir = new File(String.valueOf(getNodeId()));
        if(isStoreByForeignSource() && !(getForeignSource() == null) && !(getForeignId() == null)) {
-               File fsDir = new File(DefaultResourceDao.FOREIGN_SOURCE_DIRECTORY, m_foreignSource);
+               File fsDir = new File(ResourceTypeUtils.FOREIGN_SOURCE_DIRECTORY, m_foreignSource);
                dir = new File(fsDir, m_foreignId);
        }
         LOG.debug("getStorageDir: isStoreByForeignSource = {}, foreignSource = {}, foreignId = {}, dir = {}", isStoreByForeignSource(), m_foreignSource, m_foreignId, dir);
@@ -333,7 +328,7 @@ public class DefaultCollectionAgent extends InetNetworkInterface implements Coll
      */
     @Override
     public SnmpAgentConfig getAgentConfig() {
-        return SnmpPeerFactory.getInstance().getAgentConfig(getInetAddress());
+        return SnmpPeerFactory.getInstance().getAgentConfig(getAddress());
     }
     
     private Set<SnmpIfData> getSnmpInterfaceData() {

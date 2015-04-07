@@ -1,22 +1,22 @@
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
- * Copyright (C) 2008-2012 The OpenNMS Group, Inc.
- * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ * Copyright (C) 2006-2014 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2014 The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published
+ * it under the terms of the GNU Affero General Public License as published
  * by the Free Software Foundation, either version 3 of the License,
  * or (at your option) any later version.
  *
  * OpenNMS(R) is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU Affero General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GNU Affero General Public License
  * along with OpenNMS(R).  If not, see:
  *      http://www.gnu.org/licenses/
  *
@@ -36,10 +36,13 @@ import java.util.List;
 import java.util.Map;
 
 import org.opennms.core.utils.ParameterMap;
-import org.opennms.netmgt.config.collector.AttributeDefinition;
-import org.opennms.netmgt.config.collector.CollectionResource;
-import org.opennms.netmgt.config.collector.CollectionSet;
-import org.opennms.netmgt.config.collector.CollectionSetVisitor;
+import org.opennms.netmgt.collection.api.CollectionAgent;
+import org.opennms.netmgt.collection.api.CollectionAttributeType;
+import org.opennms.netmgt.collection.api.CollectionException;
+import org.opennms.netmgt.collection.api.CollectionResource;
+import org.opennms.netmgt.collection.api.CollectionSet;
+import org.opennms.netmgt.collection.api.CollectionSetVisitor;
+import org.opennms.netmgt.collection.api.ServiceCollector;
 import org.opennms.netmgt.snmp.AggregateTracker;
 import org.opennms.netmgt.snmp.Collectable;
 import org.opennms.netmgt.snmp.CollectionTracker;
@@ -77,7 +80,7 @@ public class SnmpCollectionSet implements Collectable, CollectionSet {
 
     }
 
-    private final CollectionAgent m_agent;
+    private final SnmpCollectionAgent m_agent;
     private final OnmsSnmpCollection m_snmpCollection;
     private SnmpIfCollector m_ifCollector;
     private IfNumberTracker m_ifNumber;
@@ -126,10 +129,10 @@ public class SnmpCollectionSet implements Collectable, CollectionSet {
     /**
      * <p>Constructor for SnmpCollectionSet.</p>
      *
-     * @param agent a {@link org.opennms.netmgt.collectd.CollectionAgent} object.
+     * @param agent a {@link org.opennms.netmgt.collection.api.CollectionAgent} object.
      * @param snmpCollection a {@link org.opennms.netmgt.collectd.OnmsSnmpCollection} object.
      */
-    public SnmpCollectionSet(CollectionAgent agent, OnmsSnmpCollection snmpCollection) {
+    public SnmpCollectionSet(SnmpCollectionAgent agent, OnmsSnmpCollection snmpCollection) {
         m_agent = agent;
         m_snmpCollection = snmpCollection;
     }
@@ -185,7 +188,7 @@ public class SnmpCollectionSet implements Collectable, CollectionSet {
     private SnmpNodeCollector createNodeCollector() {
         SnmpNodeCollector nodeCollector = null;
         if (!getAttributeList().isEmpty()) {
-            nodeCollector = new SnmpNodeCollector(m_agent.getInetAddress(), getAttributeList(), this);
+            nodeCollector = new SnmpNodeCollector(m_agent.getAddress(), getAttributeList(), this);
         }
         return nodeCollector;
     }
@@ -199,18 +202,15 @@ public class SnmpCollectionSet implements Collectable, CollectionSet {
     }
 
     private SysUpTimeTracker createSysUpTimeTracker() {
-        SysUpTimeTracker sysUpTime = null;
-        if (hasInterfaceDataToCollect()) {
-            sysUpTime = new SysUpTimeTracker();
-        }
-        return sysUpTime;
+        // It seems like it is not necessary to check if hasInterfaceDataToCollect() returns true to create the tracker.
+        return new SysUpTimeTracker();
     }
 
     private SnmpIfCollector createIfCollector() {
         SnmpIfCollector ifCollector = null;
         // construct the ifCollector
         if (hasInterfaceDataToCollect() || hasGenericIndexResourceDataToCollect()) {
-            ifCollector = new SnmpIfCollector(m_agent.getInetAddress(), getCombinedIndexedAttributes(), this);
+            ifCollector = new SnmpIfCollector(m_agent.getAddress(), getCombinedIndexedAttributes(), this);
         }
         return ifCollector;
     }
@@ -239,9 +239,9 @@ public class SnmpCollectionSet implements Collectable, CollectionSet {
     /**
      * <p>getCollectionAgent</p>
      *
-     * @return a {@link org.opennms.netmgt.collectd.CollectionAgent} object.
+     * @return a {@link org.opennms.netmgt.collection.api.CollectionAgent} object.
      */
-    public CollectionAgent getCollectionAgent() {
+    public SnmpCollectionAgent getCollectionAgent() {
        return m_agent;
     }
 
@@ -433,12 +433,17 @@ public class SnmpCollectionSet implements Collectable, CollectionSet {
             return;
         }
 
-        logSysUpTime();
-
-    	m_ignorePersist = false;
-        if (getSysUpTime().isChanged(getCollectionAgent().getSavedSysUpTime())) {
+        checkForSystemRestart();
+        if (m_ignorePersist) {
             LOG.info("Sending rescan event because sysUpTime has changed on primary SNMP interface {}, generating 'ForceRescan' event.", getCollectionAgent().getHostAddress());
             rescanNeeded.rescanIndicated();
+        }
+    }
+
+    void checkForSystemRestart() {
+        logSysUpTime();
+        m_ignorePersist = false;
+        if (getSysUpTime().isChanged(getCollectionAgent().getSavedSysUpTime())) {
             /*
              * Only on sysUpTime change (i.e. SNMP Agent Restart) we must ignore collected data
              * to avoid spikes on RRD/JRB files
@@ -452,14 +457,14 @@ public class SnmpCollectionSet implements Collectable, CollectionSet {
 
     private void logIfCounts() {
         if (LOG.isDebugEnabled()) {
-            CollectionAgent agent = getCollectionAgent();
+            SnmpCollectionAgent agent = getCollectionAgent();
             LOG.debug("collect: nodeId: {} interface: {} ifCount: {} savedIfCount: {}", agent.getNodeId(), agent.getHostAddress(), getIfNumber().getIntValue(), agent.getSavedIfCount());
         }
     }
 
     private void logSysUpTime() {
         if (LOG.isDebugEnabled()) {
-            CollectionAgent agent = getCollectionAgent();
+            SnmpCollectionAgent agent = getCollectionAgent();
             LOG.debug("collect: nodeId: {} interface: {} sysUpTime: {} savedSysUpTime: {}", agent.getNodeId(), agent.getHostAddress(), getSysUpTime().getLongValue(), agent.getSavedSysUpTime());
         }
     }
@@ -519,10 +524,10 @@ public class SnmpCollectionSet implements Collectable, CollectionSet {
     /**
      * <p>notifyIfNotFound</p>
      *
-     * @param attrType a {@link org.opennms.netmgt.config.collector.AttributeDefinition} object.
+     * @param attrType a {@link org.opennms.netmgt.collection.api.CollectionAttributeType} object.
      * @param res a {@link org.opennms.netmgt.snmp.SnmpResult} object.
      */
-    public void notifyIfNotFound(AttributeDefinition attrType, SnmpResult res) {
+    public void notifyIfNotFound(CollectionAttributeType attrType, SnmpResult res) {
         // Don't bother sending a rescan event in this case since localhost is not going to be there anyway
         //triggerRescan();
         LOG.info("Unable to locate resource for agent {} with instance id {} while collecting attribute {}", getCollectionAgent(), res.getInstance(), attrType);

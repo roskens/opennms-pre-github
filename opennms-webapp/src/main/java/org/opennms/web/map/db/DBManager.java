@@ -1,22 +1,22 @@
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
- * Copyright (C) 2007-2012 The OpenNMS Group, Inc.
- * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ * Copyright (C) 2007-2014 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2014 The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published
+ * it under the terms of the GNU Affero General Public License as published
  * by the Free Software Foundation, either version 3 of the License,
  * or (at your option) any later version.
  *
  * OpenNMS(R) is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU Affero General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GNU Affero General Public License
  * along with OpenNMS(R).  If not, see:
  *      http://www.gnu.org/licenses/
  *
@@ -34,7 +34,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
-
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
@@ -50,16 +49,13 @@ import java.util.Vector;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-
+import org.opennms.core.db.DataSourceFactory;
 import org.opennms.core.logging.Logging;
-import org.opennms.core.resource.Vault;
 import org.opennms.core.resource.db.DbConnectionFactory;
 import org.opennms.core.resource.db.SimpleDbConnectionFactory;
 import org.opennms.core.utils.InetAddressUtils;
-
 import org.opennms.web.map.MapsConstants;
 import org.opennms.web.map.MapsException;
-
 import org.opennms.web.map.view.VElementInfo;
 import org.opennms.web.map.view.VMapInfo;
 import org.slf4j.Logger;
@@ -153,7 +149,7 @@ public class DBManager extends Manager {
             }
         } else {
             try {
-                return Vault.getDbConnection();
+                return DataSourceFactory.getInstance().getConnection();
             } catch (SQLException e) {
                 LOG.error("Exception while creating connection");
                 throw new MapsException(e);
@@ -164,11 +160,7 @@ public class DBManager extends Manager {
     void releaseConnection(Connection conn) throws MapsException {
         try {
             if (conn != null && !conn.isClosed()) {
-                if (m_factory != null) {
-                    conn.close();
-                } else {
-                    Vault.releaseDbConnection(conn);
-                }
+                conn.close();
             }
         } catch (Throwable e) {
             LOG.error("Exception while releasing connection");
@@ -762,7 +754,7 @@ public class DBManager extends Manager {
 
             statement = conn.createStatement();
             rs = statement.executeQuery(sqlQuery);
-            Vector<DbElement> elements = rs2ElementVector(rs);
+            List<DbElement> elements = rs2ElementVector(rs);
             rs.close();
             statement.close();
 
@@ -794,7 +786,7 @@ public class DBManager extends Manager {
             statement = conn.prepareStatement(sqlQuery);
             statement.setInt(1, mapid);
             rs = statement.executeQuery();
-            Vector<DbElement> elements = rs2ElementVector(rs);
+            List<DbElement> elements = rs2ElementVector(rs);
             DbElement[] el = null;
             if (elements != null) {
                 el = new DbElement[elements.size()];
@@ -823,7 +815,7 @@ public class DBManager extends Manager {
             statement = conn.prepareStatement(sqlQuery);
             statement.setInt(1, mapid);
             rs = statement.executeQuery();
-            Vector<DbElement> elements = rs2ElementVector(rs);
+            List<DbElement> elements = rs2ElementVector(rs);
             DbElement[] el = null;
             if (elements != null) {
                 el = new DbElement[elements.size()];
@@ -853,7 +845,7 @@ public class DBManager extends Manager {
             statement = conn.prepareStatement(sqlQuery);
             statement.setInt(1, mapid);
             rs = statement.executeQuery();
-            Vector<DbElement> elements = rs2ElementVector(rs);
+            List<DbElement> elements = rs2ElementVector(rs);
             DbElement[] el = null;
             if (elements != null) {
                 el = new DbElement[elements.size()];
@@ -885,7 +877,7 @@ public class DBManager extends Manager {
             elementLabel = "%" + elementLabel + "%";
             statement.setString(1, elementLabel);
             rs = statement.executeQuery();
-            Vector<DbElement> elements = rs2ElementVector(rs);
+            List<DbElement> elements = rs2ElementVector(rs);
             DbElement[] el = new DbElement[elements.size()];
             el = elements.toArray(el);
             return el;
@@ -1563,7 +1555,7 @@ public class DBManager extends Manager {
      * @throws org.opennms.web.map.MapsException if any.
      */
     @Override
-    public Vector<Integer> getDeletedNodes() throws MapsException {
+    public List<Integer> getDeletedNodes() throws MapsException {
         Connection conn = createConnection();
         Statement statement = null;
         ResultSet rs = null;
@@ -1718,7 +1710,7 @@ public class DBManager extends Manager {
         return element;
     }
 
-    private Vector<DbElement> rs2ElementVector(ResultSet rs)
+    private List<DbElement> rs2ElementVector(ResultSet rs)
             throws SQLException, MapsException {
         Vector<DbElement> vecElem = null;
         boolean firstTime = true;

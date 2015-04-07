@@ -1,22 +1,22 @@
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
- * Copyright (C) 2006-2012 The OpenNMS Group, Inc.
- * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ * Copyright (C) 2004-2014 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2014 The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published
+ * it under the terms of the GNU Affero General Public License as published
  * by the Free Software Foundation, either version 3 of the License,
  * or (at your option) any later version.
  *
  * OpenNMS(R) is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU Affero General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GNU Affero General Public License
  * along with OpenNMS(R).  If not, see:
  *      http://www.gnu.org/licenses/
  *
@@ -38,9 +38,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
+import org.opennms.core.utils.PropertiesCache;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.opennms.core.utils.PropertiesCache;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -74,10 +74,29 @@ public abstract class RrdUtils {
 
     private static RrdStrategy<?, ?> m_rrdStrategy = null;
 
-    private static BeanFactory m_context = new ClassPathXmlApplicationContext(new String[]{
-            // Default RRD configuration context
-            "org/opennms/netmgt/rrd/rrd-configuration.xml"
-    });
+    /**
+     * Use the {@link ClassPathXmlApplicationContext#ClassPathXmlApplicationContext(String[], Class)}
+     * constructor so that we make sure to load the XML resources from the same classloader as the
+     * class itself so that classloading works under OSGi.
+     */
+    private static final BeanFactory m_context;
+
+    static {
+        ClassLoader old = null;
+        try {
+            old = Thread.currentThread().getContextClassLoader();
+            Thread.currentThread().setContextClassLoader(RrdUtils.class.getClassLoader());
+            m_context = new ClassPathXmlApplicationContext(new String[]{
+                // Default RRD configuration context
+                //
+                // Use an absolute path, otherwise Spring will try to resolve the resource relative
+                // to the RrdUtils class package.
+                "/org/opennms/netmgt/rrd/rrd-configuration.xml"
+            }, RrdUtils.class);
+        } finally {
+            Thread.currentThread().setContextClassLoader(old);
+        }
+    }
 
     /**
      * Writes a file with the attribute to rrd track mapping next to the rrd file.
@@ -272,8 +291,8 @@ public abstract class RrdUtils {
             return true;
         } catch (Throwable e) {
             String path = directory + File.separator + rrdName + getStrategy().getDefaultFileExtension();
-            LOG.error("createRRD: An error occured creating rrdfile {}", path, e);
-            throw new org.opennms.netmgt.rrd.RrdException("An error occured creating rrdfile " + path + ": " + e, e);
+            LOG.error("createRRD: An error occurred creating rrdfile {}", path, e);
+            throw new org.opennms.netmgt.rrd.RrdException("An error occurred creating rrdfile " + path + ": " + e, e);
         }
     }
 

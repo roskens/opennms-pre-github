@@ -1,22 +1,22 @@
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
- * Copyright (C) 2012 The OpenNMS Group, Inc.
- * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ * Copyright (C) 2012-2014 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2014 The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published
+ * it under the terms of the GNU Affero General Public License as published
  * by the Free Software Foundation, either version 3 of the License,
  * or (at your option) any later version.
  *
  * OpenNMS(R) is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU Affero General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GNU Affero General Public License
  * along with OpenNMS(R).  If not, see:
  *      http://www.gnu.org/licenses/
  *
@@ -80,7 +80,6 @@ import com.vaadin.client.MouseEventDetailsBuilder;
 import com.vaadin.shared.MouseEventDetails;
 
 public class VTopologyComponent extends Composite implements SVGTopologyMap, TopologyView.Presenter<VTopologyComponent.TopologyViewRenderer> {
-
     private HandlerRegistration m_windowResizeRegistration;
 
     public interface TopologyViewRenderer{
@@ -204,54 +203,59 @@ public class VTopologyComponent extends Composite implements SVGTopologyMap, Top
                 @Override
 		public void draw(GWTGraph graph, final TopologyView<TopologyViewRenderer> topologyView, GWTBoundingBox oldBBox) {
 			D3 edgeSelection = getEdgeSelection(graph, topologyView);
-
 			D3 vertexSelection = getVertexSelection(graph, topologyView);
-			
-			vertexSelection.enter().create(GWTVertex.create()).call(setupEventHandlers())
-			.attr("transform", new Func<String, GWTVertex>() {
 
-                                @Override
-				public String call(GWTVertex vertex, int index) {
-					return "translate(" + vertex.getInitialX() + "," +  vertex.getInitialY() + ")";
-				}
+            vertexSelection
+                    .enter()
+                    .create(GWTVertex.create())
+                    .call(setupEventHandlers())
+                    .attr("transform", new Func<String, GWTVertex>() {
+                            @Override
+                            public String call(GWTVertex vertex, int index) {
+                                return "translate(" + vertex.getInitialX() + "," +  vertex.getInitialY() + ")";
+                            }
+                        })
+                    .attr("opacity", 1);
 
-			}).attr("opacity", 1);
+            //Exits
+            edgeSelection.exit().remove();
+            vertexSelection
+                    .exit()
+                    .with(new D3Behavior() {
+                            @Override
+                            public D3 run(D3 selection) {
+                                return selection.transition().delay(0).duration(500);
+                            }
+                        })
+                    .attr("transform", new Func<String, GWTVertex>(){
+                            @Override
+                            public String call(GWTVertex vertex, int index) {
+                                    return "translate(" + vertex.getInitialX() + "," +  vertex.getInitialY() + ")";
+                            }
+                        })
+                    .attr("opacity", 0).remove();
 
-			
-			//Exits
-			edgeSelection.exit().remove();
-			vertexSelection.exit().with(new D3Behavior() {
+            //Updates
+            edgeSelection.call(GWTEdge.draw()).attr("opacity", 1);
 
-				@Override
-				public D3 run(D3 selection) {
-					return selection.transition().delay(0).duration(500);
-				}
-			}).attr("transform", new Func<String, GWTVertex>(){
+            vertexSelection.with(updateTransition()).call(GWTVertex.draw()).attr("opacity", 1);
 
-                                @Override
-				public String call(GWTVertex vertex, int index) {
-					return "translate(" + vertex.getInitialX() + "," +  vertex.getInitialY() + ")";
-				}
+            //Enters
+            edgeSelection.enter().create(GWTEdge.create()).call(setupEdgeEventHandlers());
 
-			}).attr("opacity", 0).remove();
-
-
-			//Updates
-			edgeSelection.call(GWTEdge.draw()).attr("opacity", 1);
-			
-			vertexSelection.with(updateTransition()).call(GWTVertex.draw()).attr("opacity", 1);
-
-			//Enters
-			edgeSelection.enter().create(GWTEdge.create()).call(setupEdgeEventHandlers());
-			
             //Scaling and Fit to Zoom transitions
-			SVGMatrix transform = topologyView.calculateNewTransform(graph.getBoundingBox());
-            
-			int width = topologyView.getPhysicalWidth();
-			int height = topologyView.getPhysicalHeight();
-			D3 selection = D3.d3().select(topologyView.getSVGViewPort());
-			D3Transform tform = D3.getTransform(selection.attr("transform"));
-			
+            SVGMatrix transform = topologyView.calculateNewTransform(graph.getBoundingBox());
+
+            int width = topologyView.getPhysicalWidth();
+            int height = topologyView.getPhysicalHeight();
+            D3 selection = D3.d3().select(topologyView.getSVGViewPort());
+            String attr = selection.attr("transform");
+            // Ugly hack; what is going on here?  Can't figure out how the viewport is ending up with NaN
+            if (attr.contains("NaN")) {
+                attr = "translate(0,0)";
+            }
+            D3Transform tform = D3.getTransform(attr);
+
             JsArrayInteger p0 = (JsArrayInteger) JsArrayInteger.createArray();
             int x = tform.getX();
             int oldCenterX = (int) Math.round(((width/2 - x) / tform.getScaleX()));
@@ -261,7 +265,7 @@ public class VTopologyComponent extends Composite implements SVGTopologyMap, Top
             p0.push( oldCenterY );
             p0.push((int) (width / tform.getScaleX()));
             p0.push((int) (height / tform.getScaleY()));
-            
+
             JsArrayInteger p1 = (JsArrayInteger) JsArrayInteger.createArray();
             int newCenterX = graph.getBoundingBox().getX() + graph.getBoundingBox().getWidth()/2;
             int newCenterY = graph.getBoundingBox().getY() + graph.getBoundingBox().getHeight()/2;
@@ -269,11 +273,16 @@ public class VTopologyComponent extends Composite implements SVGTopologyMap, Top
             p1.push(newCenterY);
             p1.push(graph.getBoundingBox().getWidth());
             p1.push(graph.getBoundingBox().getHeight());
-            
-			D3.d3().zoomTransition(selection, width, height, p0, p1);
-            
-            D3.d3().selectAll(GWTEdge.SVG_EDGE_ELEMENT).style("stroke-width", GWTEdge.EDGE_WIDTH/transform.getA() + "px").transition().delay(750).duration(500).attr("opacity", "1").transition();
-            
+
+            D3.d3().zoomTransition(selection, width, height, p0, p1);
+
+            D3.d3().selectAll(GWTEdge.SVG_EDGE_ELEMENT)
+                    .style("stroke-width", GWTEdge.EDGE_WIDTH/transform.getA() + "px")
+                    .transition()
+                    .delay(750)
+                    .duration(500)
+                    .attr("opacity", "1")
+                    .transition();
 		}
 		
 		protected D3Behavior enterTransition() {
@@ -564,8 +573,7 @@ public class VTopologyComponent extends Composite implements SVGTopologyMap, Top
 			public void call(GWTVertex t, int index) {
 				if(m_client != null) {
 					Event event = (Event) D3.getEvent();
-					// TODO: Figure out how to do this in the new GWT
-                    m_client.getVTooltip().setPopupPosition(event.getClientX(), event.getClientY());
+                    m_client.getVTooltip().setPopupPosition(event.getClientX() + 20, event.getClientY() + 20);
                     m_client.getVTooltip().show();
 					event.stopPropagation();
 					event.preventDefault();
@@ -759,6 +767,8 @@ public class VTopologyComponent extends Composite implements SVGTopologyMap, Top
 
             vertex.setTooltipText(sharedVertex.getTooltipText());
 
+            vertex.setStyleName(sharedVertex.getStyleName());
+
             graph.addVertex(vertex);
 		}
 
@@ -776,6 +786,7 @@ public class VTopologyComponent extends Composite implements SVGTopologyMap, Top
             edge.setCssClass(cssClass);
             String ttText = sharedEdge.getTooltipText();
             edge.setTooltipText(ttText);
+            edge.setStatus(sharedEdge.getStatus());
             graph.addEdge(edge);
 		}
 		

@@ -1,22 +1,22 @@
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
- * Copyright (C) 2011-2013 The OpenNMS Group, Inc.
- * OpenNMS(R) is Copyright (C) 1999-2013 The OpenNMS Group, Inc.
+ * Copyright (C) 2002-2014 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2014 The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published
+ * it under the terms of the GNU Affero General Public License as published
  * by the Free Software Foundation, either version 3 of the License,
  * or (at your option) any later version.
  *
  * OpenNMS(R) is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU Affero General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GNU Affero General Public License
  * along with OpenNMS(R).  If not, see:
  *      http://www.gnu.org/licenses/
  *
@@ -211,7 +211,7 @@ public class SiteStatusViewsFactory {
      *
      * @return a {@link org.opennms.netmgt.config.siteStatusViews.SiteStatusViewConfiguration} object.
      */
-    public synchronized static SiteStatusViewConfiguration getConfig() {
+    public static synchronized SiteStatusViewConfiguration getConfig() {
         return m_config;
     }
 
@@ -220,7 +220,7 @@ public class SiteStatusViewsFactory {
      *
      * @param m_config a {@link org.opennms.netmgt.config.siteStatusViews.SiteStatusViewConfiguration} object.
      */
-    public synchronized static void setConfig(SiteStatusViewConfiguration m_config) {
+    public static synchronized void setConfig(SiteStatusViewConfiguration m_config) {
         SiteStatusViewsFactory.m_config = m_config;
     }
 
@@ -229,7 +229,7 @@ public class SiteStatusViewsFactory {
      *
      * @return a {@link java.util.Map} object.
      */
-    public synchronized static Map<String, View> getViewsMap() {
+    public static synchronized Map<String, View> getViewsMap() {
         return Collections.unmodifiableMap(m_viewsMap);
     }
 
@@ -238,7 +238,7 @@ public class SiteStatusViewsFactory {
      *
      * @param map a {@link java.util.Map} object.
      */
-    public synchronized static void setViewsMap(Map<String, View> map) {
+    public static synchronized void setViewsMap(Map<String, View> map) {
         m_viewsMap = map;
     }
 }

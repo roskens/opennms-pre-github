@@ -1,22 +1,22 @@
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
- * Copyright (C) 2006-2012 The OpenNMS Group, Inc.
- * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ * Copyright (C) 2013-2014 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2014 The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published
+ * it under the terms of the GNU Affero General Public License as published
  * by the Free Software Foundation, either version 3 of the License,
  * or (at your option) any later version.
  *
  * OpenNMS(R) is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU Affero General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GNU Affero General Public License
  * along with OpenNMS(R).  If not, see:
  *      http://www.gnu.org/licenses/
  *
@@ -25,6 +25,7 @@
  *     http://www.opennms.org/
  *     http://www.opennms.com/
  *******************************************************************************/
+
 package org.opennms.features.vaadin.events;
 
 import java.io.File;
@@ -68,13 +69,13 @@ public class EventFormTest {
     @Test
     public void testGroupField() throws Exception {
         EventForm form = new EventForm();
-        FieldGroup group = form.getFieldGroup();
+        FieldGroup group = form.eventEditor;
 
         Field<?> uei = group.getField("uei");
         Assert.assertTrue(uei instanceof TextField);
         Assert.assertEquals("uei.opennms.org/newEvent", uei.getValue());
 
-        Field<?> logMsgDest = group.getField("logMsgDest");
+        Field<?> logMsgDest = group.getField("logmsg.dest");
         Assert.assertNotNull(logMsgDest);
         Assert.assertTrue(logMsgDest instanceof ComboBox);
         Assert.assertEquals("logndisplay", logMsgDest.getValue());
@@ -84,7 +85,7 @@ public class EventFormTest {
         Assert.assertNotNull(event);
 
         form.setEvent(event);
-        logMsgDest = group.getField("logMsgDest");
+        logMsgDest = group.getField("logmsg.dest");
         Assert.assertNotNull(logMsgDest);
         Assert.assertTrue(logMsgDest instanceof ComboBox);
         Assert.assertEquals(event.getLogmsg().getDest(), logMsgDest.getValue());

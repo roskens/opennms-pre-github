@@ -1,22 +1,22 @@
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
- * Copyright (C) 2009-2012 The OpenNMS Group, Inc.
- * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ * Copyright (C) 2013-2014 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2014 The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published
+ * it under the terms of the GNU Affero General Public License as published
  * by the Free Software Foundation, either version 3 of the License,
  * or (at your option) any later version.
  *
  * OpenNMS(R) is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU Affero General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GNU Affero General Public License
  * along with OpenNMS(R).  If not, see:
  *      http://www.gnu.org/licenses/
  *
@@ -147,7 +147,7 @@ public class EventController extends MultiActionController implements Initializi
     public ModelAndView index(HttpServletRequest request, HttpServletResponse response) throws Exception {
     	List<OnmsFilterFavorite> userFilterList = favoriteService.getFavorites(request.getRemoteUser(), OnmsFilterFavorite.Page.EVENT);
         ModelAndView modelAndView = new ModelAndView("event/index");
-        modelAndView.addObject("favorites", userFilterList);
+        modelAndView.addObject("favorites", userFilterList.toArray());
         modelAndView.addObject("callback", getFilterCallback());
         return modelAndView;
     }
@@ -162,7 +162,8 @@ public class EventController extends MultiActionController implements Initializi
                     OnmsFilterFavorite.Page.EVENT);
             if (favorite != null) {
                 ModelAndView successView = list(request, favorite); // success
-                AlertTag.addAlertToRequest(successView, "Favorite was created successfully", AlertType.SUCCESS);
+                //Comment out as per request
+                //AlertTag.addAlertToRequest(successView, "Favorite was created successfully", AlertType.SUCCESS);
                 return successView;
             }
             error = "An error occured while creating the favorite";
@@ -364,7 +365,7 @@ public class EventController extends MultiActionController implements Initializi
         modelAndView.addObject("events", events);
         modelAndView.addObject("parms", new NormalizedQueryParameters(parms));
         modelAndView.addObject("callback", getFilterCallback());
-        modelAndView.addObject("favorites", favoriteService.getFavorites(request.getRemoteUser(), OnmsFilterFavorite.Page.EVENT));
+        modelAndView.addObject("favorites", favoriteService.getFavorites(request.getRemoteUser(), OnmsFilterFavorite.Page.EVENT).toArray());
 
         if (m_showEventCount) {
             EventCriteria countCriteria = new EventCriteria(filterList, ackType);
@@ -377,8 +378,7 @@ public class EventController extends MultiActionController implements Initializi
 
     private OnmsFilterFavorite getFavorite(String favoriteId, String username, String[] filters) {
         if (favoriteId != null) {
-            OnmsFilterFavorite filter = favoriteService.getFavorite(favoriteId, username, getFilterCallback().toFilterString(filters));
-            return filter;
+        	return favoriteService.getFavorite(favoriteId, username, getFilterCallback().toFilterString(filters));
         }
         return null;
     }

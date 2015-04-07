@@ -69,7 +69,7 @@
     <bean id="eventConfDao" class="org.opennms.netmgt.dao.mock.MockEventConfDao">
         <property name="resource" value="classpath:minimal-eventconf.xml" />
     </bean>
-    <onmsgi:service interface="org.opennms.netmgt.config.EventConfDao" ref="eventConfDao" />
+    <onmsgi:service interface="org.opennms.netmgt.config.api.EventConfDao" ref="eventConfDao" />
 
     <bean id="eventDao" class="org.opennms.netmgt.dao.mock.MockEventDao" />
     <onmsgi:service interface="org.opennms.netmgt.dao.api.EventDao" ref="eventDao" />
@@ -139,7 +139,7 @@
         <property name="staticMethod"><value>org.opennms.netmgt.config.SnmpPeerFactory.init</value></property>
     </bean>
     <bean id="snmpPeerFactory" class="org.opennms.netmgt.config.SnmpPeerFactory" depends-on="init-snmpPeerFactory" factory-method="getInstance"/>
-    <onmsgi:service interface="org.opennms.netmgt.config.SnmpAgentConfigFactory" ref="snmpPeerFactory"/>
+    <onmsgi:service interface="org.opennms.netmgt.config.api.SnmpAgentConfigFactory" ref="snmpPeerFactory"/>
 
     <bean id="statisticsReportDao" class="org.opennms.netmgt.dao.mock.MockStatisticsReportDao" />
     <onmsgi:service interface="org.opennms.netmgt.dao.api.StatisticsReportDao" ref="statisticsReportDao"/>
@@ -158,6 +158,9 @@
     <bean id="nodeDao" class="org.opennms.netmgt.dao.mock.MockNodeDao" />
     <onmsgi:service interface="org.opennms.netmgt.dao.api.NodeDao" ref="nodeDao" />
 
+    <bean id="requisitionedCategoryAssociationDao" class="org.opennms.netmgt.dao.mock.MockRequisitionedCategoryAssociationDao" />
+    <onmsgi:service interface="org.opennms.netmgt.dao.api.RequisitionedCategoryAssociationDao" ref="requisitionedCategoryAssociationDao" />
+
     <bean id="vlanDao" class="org.opennms.netmgt.dao.mock.MockVlanDao" />
     <onmsgi:service interface="org.opennms.netmgt.dao.api.VlanDao" ref="vlanDao" />
 
@@ -171,10 +174,7 @@
     </bean>
     <onmsgi:service interface="org.opennms.netmgt.dao.api.ResourceDao" ref="resourceDao" />
 
-    <bean id="collectdConfig-init" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
-        <property name="staticMethod"><value>org.opennms.netmgt.config.CollectdConfigFactory.init</value></property>
-    </bean>
-    <bean id="collectdConfig" class="org.opennms.netmgt.config.CollectdConfigFactory" depends-on="collectdConfig-init" factory-method="getInstance"/>
+    <bean id="collectdConfig" class="org.opennms.netmgt.config.CollectdConfigFactory"/>
     -->
 
     <bean id="dataCollectionConfigDao" class="org.opennms.netmgt.dao.mock.MockDataCollectionConfigDao" />
@@ -224,6 +224,6 @@
         <property name="dataLinkInterfaceDao" ref="dataLinkInterfaceDao" />
     </bean>
 
-    <bean id="timeKeeper" class="org.opennms.core.utils.DefaultTimeKeeper" />
+    <bean id="timeKeeper" class="org.opennms.netmgt.collection.support.DefaultTimeKeeper" />
 
 </beans>

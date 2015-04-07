@@ -1,22 +1,22 @@
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
- * Copyright (C) 2011-2012 The OpenNMS Group, Inc.
- * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ * Copyright (C) 2011-2014 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2014 The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published
+ * it under the terms of the GNU Affero General Public License as published
  * by the Free Software Foundation, either version 3 of the License,
  * or (at your option) any later version.
  *
  * OpenNMS(R) is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU Affero General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GNU Affero General Public License
  * along with OpenNMS(R).  If not, see:
  *      http://www.gnu.org/licenses/
  *
@@ -86,7 +86,7 @@ public class IPAddressTableTracker extends TableTracker {
         IP_ADDRESS_TYPE_INDEX
     };
     
-    class IPAddressRow extends SnmpRowResult {
+    static class IPAddressRow extends SnmpRowResult {
 
         public IPAddressRow(final int columnCount, final SnmpInstId instance) {
             super(columnCount, instance);
@@ -208,15 +208,20 @@ public class IPAddressTableTracker extends TableTracker {
                 return null;
             }
 
-            final OnmsSnmpInterface snmpIface = new OnmsSnmpInterface(null, ifIndex);
-            snmpIface.setNetMask(netMask);
-            snmpIface.setCollectionEnabled(true);
+            final InetAddress inetAddress = InetAddressUtils.addr(ipAddr);
+            final OnmsIpInterface iface = new OnmsIpInterface(inetAddress, null);
 
-            final OnmsIpInterface iface = new OnmsIpInterface(ipAddr, null);
-            iface.setSnmpInterface(snmpIface);
+            if (ifIndex != null) {
+                final OnmsSnmpInterface snmpIface = new OnmsSnmpInterface(null, ifIndex);
+                snmpIface.setNetMask(netMask);
+                snmpIface.setCollectionEnabled(true);
+                iface.setSnmpInterface(snmpIface);
+                iface.setIfIndex(ifIndex);
+            }
 
-            iface.setIfIndex(ifIndex);
-            final String hostName = normalize(ipAddr);
+            String hostName = null;
+            if (inetAddress != null) hostName = inetAddress.getHostName();
+            if (hostName == null) hostName = normalize(ipAddr);
             LOG.debug("setIpHostName: {}", hostName);
             iface.setIpHostName(hostName == null? ipAddr : hostName);
 

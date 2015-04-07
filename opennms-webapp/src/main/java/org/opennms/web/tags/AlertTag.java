@@ -1,22 +1,22 @@
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
- * Copyright (C) 2006-2013 The OpenNMS Group, Inc.
- * OpenNMS(R) is Copyright (C) 1999-2013 The OpenNMS Group, Inc.
+ * Copyright (C) 2013-2014 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2014 The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published
+ * it under the terms of the GNU Affero General Public License as published
  * by the Free Software Foundation, either version 3 of the License,
  * or (at your option) any later version.
  *
  * OpenNMS(R) is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU Affero General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GNU Affero General Public License
  * along with OpenNMS(R).  If not, see:
  *      http://www.gnu.org/licenses/
  *
@@ -28,20 +28,17 @@
 
 package org.opennms.web.tags;
 
-import org.opennms.web.alert.Alert;
-import org.opennms.web.alert.AlertType;
-import org.springframework.web.servlet.ModelAndView;
-
-import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.JspTagException;
-import javax.servlet.jsp.tagext.SimpleTagSupport;
-import javax.servlet.jsp.tagext.TagSupport;
 import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+
+import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.tagext.SimpleTagSupport;
+
+import org.opennms.web.alert.Alert;
+import org.opennms.web.alert.AlertType;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  * Is used to render messages from any controller in the ui.
@@ -86,7 +83,11 @@ public class AlertTag extends SimpleTagSupport {
      * Performs an type to css-class mapping.
      */
     private static String getStyle(AlertType type) {
-        return "alert-" + type.name().toLowerCase();
+        switch (type) {
+        case INFO: return "alert-info";
+        case SUCCESS: return "alert-success";
+        default: return "alert-danger";
+        }
     }
 
     @Override
@@ -94,7 +95,7 @@ public class AlertTag extends SimpleTagSupport {
         Object alertsObject = getJspContext().findAttribute(REQUEST_PARAMETER_NAME);
         if (alertsObject == null) return;
         if (!(alertsObject instanceof Collection)) return;
-        Collection<Alert> alerts = (Collection)alertsObject;
+        Collection<Alert> alerts = (Collection<Alert>)alertsObject;
         for (Alert eachAlert : alerts) {
             String alertOutput = MessageFormat.format(
                     TEMPLATE,

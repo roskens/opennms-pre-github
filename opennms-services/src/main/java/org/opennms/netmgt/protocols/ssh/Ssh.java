@@ -1,22 +1,22 @@
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
- * Copyright (C) 2007-2012 The OpenNMS Group, Inc.
- * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ * Copyright (C) 2007-2014 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2014 The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published
+ * it under the terms of the GNU Affero General Public License as published
  * by the Free Software Foundation, either version 3 of the License,
  * or (at your option) any later version.
  *
  * OpenNMS(R) is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU Affero General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GNU Affero General Public License
  * along with OpenNMS(R).  If not, see:
  *      http://www.gnu.org/licenses/
  *
@@ -39,7 +39,7 @@ import java.net.Socket;
 import java.util.regex.Pattern;
 
 import org.opennms.core.utils.TimeoutTracker;
-import org.opennms.netmgt.model.PollStatus;
+import org.opennms.netmgt.poller.PollStatus;
 import org.opennms.netmgt.protocols.InsufficientParametersException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -332,17 +332,17 @@ public class Ssh extends org.opennms.netmgt.protocols.AbstractPoll {
 
         if (isAvailable) {
             ps = PollStatus.available(responseTime);
-        } else if (SSH_AUTHENTICATION_PATTERN.matcher(errorMessage).matches()) {
+        } else if (SSH_AUTHENTICATION_PATTERN.matcher(errorMessage).find()) {
             ps = PollStatus.unavailable("authentication failed");
-        } else if (SSH_NOROUTETOHOST_PATTERN.matcher(errorMessage).matches()) {
+        } else if (SSH_NOROUTETOHOST_PATTERN.matcher(errorMessage).find()) {
             ps = PollStatus.unavailable("no route to host");
-        } else if (SSH_SOCKETERROR_PATTERN.matcher(errorMessage).matches()) {
+        } else if (SSH_SOCKETERROR_PATTERN.matcher(errorMessage).find()) {
             ps = PollStatus.unavailable("connection timed out");
-        } else if (SSH_CONNECTIONERROR_PATTERN.matcher(errorMessage).matches()) {
+        } else if (SSH_CONNECTIONERROR_PATTERN.matcher(errorMessage).find()) {
             ps = PollStatus.unavailable("connection exception");
-        } else if (SSH_NUMBERFORMAT_PATTERN.matcher(errorMessage).matches()) {
+        } else if (SSH_NUMBERFORMAT_PATTERN.matcher(errorMessage).find()) {
             ps = PollStatus.unavailable("an error occurred parsing the server version number");
-        } else if (SSH_IOEXCEPTION_PATTERN.matcher(errorMessage).matches()) {
+        } else if (SSH_IOEXCEPTION_PATTERN.matcher(errorMessage).find()) {
             ps = PollStatus.unavailable("I/O exception");
         }
         

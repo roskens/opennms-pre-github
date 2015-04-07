@@ -1,22 +1,22 @@
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
- * Copyright (C) 2006-2012 The OpenNMS Group, Inc.
- * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ * Copyright (C) 2002-2014 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2014 The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published
+ * it under the terms of the GNU Affero General Public License as published
  * by the Free Software Foundation, either version 3 of the License,
  * or (at your option) any later version.
  *
  * OpenNMS(R) is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU Affero General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GNU Affero General Public License
  * along with OpenNMS(R).  If not, see:
  *      http://www.gnu.org/licenses/
  *
@@ -38,7 +38,7 @@ import java.util.Vector;
 
 import javax.servlet.ServletContext;
 
-import org.opennms.core.resource.Vault;
+import org.opennms.core.db.DataSourceFactory;
 import org.opennms.core.utils.DBUtils;
 import org.opennms.netmgt.model.OnmsSeverity;
 import org.opennms.web.event.filter.IfIndexFilter;
@@ -83,7 +83,7 @@ public class EventFactory {
         }
 
         int eventCount = 0;
-        final Connection conn = Vault.getDbConnection();
+        final Connection conn = DataSourceFactory.getInstance().getConnection();
         final DBUtils d = new DBUtils(EventFactory.class, conn);
         try {
             StringBuffer select = new StringBuffer("SELECT COUNT(EVENTID) AS EVENTCOUNT FROM EVENTS LEFT OUTER JOIN NODE USING (NODEID) LEFT OUTER JOIN SERVICE USING (SERVICEID) WHERE ");
@@ -134,7 +134,7 @@ public class EventFactory {
         }
 
         int[] eventCounts = new int[8];
-        final Connection conn = Vault.getDbConnection();
+        final Connection conn = DataSourceFactory.getInstance().getConnection();
         final DBUtils d = new DBUtils(EventFactory.class, conn);
 
         try {
@@ -182,7 +182,7 @@ public class EventFactory {
      */
     public static Event getEvent(int eventId) throws SQLException {
         Event event = null;
-        final Connection conn = Vault.getDbConnection();
+        final Connection conn = DataSourceFactory.getInstance().getConnection();
         final DBUtils d = new DBUtils(EventFactory.class, conn);
 
         try {
@@ -313,7 +313,7 @@ public class EventFactory {
         }
 
         Event[] events = null;
-        final Connection conn = Vault.getDbConnection();
+        final Connection conn = DataSourceFactory.getInstance().getConnection();
         final DBUtils d = new DBUtils(EventFactory.class, conn);
 
         try {
@@ -446,7 +446,7 @@ public class EventFactory {
         }
 
         int eventCount = 0;
-        final Connection conn = Vault.getDbConnection();
+        final Connection conn = DataSourceFactory.getInstance().getConnection();
         final DBUtils d = new DBUtils(EventFactory.class, conn);
 
         try {
@@ -868,7 +868,7 @@ public class EventFactory {
         }
 
         Event[] events = null;
-        final Connection conn = Vault.getDbConnection();
+        final Connection conn = DataSourceFactory.getInstance().getConnection();
         final DBUtils d = new DBUtils(EventFactory.class, conn);
 
         try {
@@ -968,7 +968,7 @@ public class EventFactory {
             update.append(")");
             update.append(" AND EVENTACKUSER IS NULL");
 
-            final Connection conn = Vault.getDbConnection();
+            final Connection conn = DataSourceFactory.getInstance().getConnection();
             final DBUtils d = new DBUtils(EventFactory.class, conn);
 
             try {
@@ -1021,7 +1021,7 @@ public class EventFactory {
 
         final DBUtils d = new DBUtils(EventFactory.class);
         try {
-            Connection conn = Vault.getDbConnection();
+            Connection conn = DataSourceFactory.getInstance().getConnection();
             d.watch(conn);
 
             PreparedStatement stmt = conn.prepareStatement(update.toString());
@@ -1066,7 +1066,7 @@ public class EventFactory {
 
         final DBUtils d = new DBUtils(EventFactory.class);
         try {
-            Connection conn = Vault.getDbConnection();
+            Connection conn = DataSourceFactory.getInstance().getConnection();
             d.watch(conn);
 
             PreparedStatement stmt = conn.prepareStatement("UPDATE EVENTS SET EVENTACKUSER=?, EVENTACKTIME=? WHERE EVENTACKUSER IS NULL");
@@ -1126,7 +1126,7 @@ public class EventFactory {
 
             DBUtils d = new DBUtils(EventFactory.class);
             try {
-                Connection conn = Vault.getDbConnection();
+                Connection conn = DataSourceFactory.getInstance().getConnection();
                 d.watch(conn);
 
                 PreparedStatement stmt = conn.prepareStatement(update.toString());
@@ -1160,7 +1160,7 @@ public class EventFactory {
 
         final DBUtils d = new DBUtils(EventFactory.class);
         try {
-            Connection conn = Vault.getDbConnection();
+            Connection conn = DataSourceFactory.getInstance().getConnection();
             d.watch(conn);
 
             PreparedStatement stmt = conn.prepareStatement(update.toString());
@@ -1186,7 +1186,7 @@ public class EventFactory {
         final DBUtils d = new DBUtils(EventFactory.class);
 
         try {
-            Connection conn = Vault.getDbConnection();
+            Connection conn = DataSourceFactory.getInstance().getConnection();
             d.watch(conn);
 
             PreparedStatement stmt = conn.prepareStatement("UPDATE EVENTS SET EVENTACKUSER=NULL, EVENTACKTIME=NULL WHERE EVENTACKUSER IS NOT NULL");

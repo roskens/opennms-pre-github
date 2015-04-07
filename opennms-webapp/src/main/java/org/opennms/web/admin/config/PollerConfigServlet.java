@@ -1,22 +1,22 @@
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
- * Copyright (C) 2006-2012 The OpenNMS Group, Inc.
- * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ * Copyright (C) 2002-2014 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2014 The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published
+ * it under the terms of the GNU Affero General Public License as published
  * by the Free Software Foundation, either version 3 of the License,
  * or (at your option) any later version.
  *
  * OpenNMS(R) is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU Affero General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GNU Affero General Public License
  * along with OpenNMS(R).  If not, see:
  *      http://www.gnu.org/licenses/
  *
@@ -37,6 +37,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.Properties;
 import java.util.StringTokenizer;
 
@@ -79,9 +80,9 @@ public class PollerConfigServlet extends HttpServlet {
 
     protected String redirectSuccess;
 
-    HashMap<String, Service> pollerServices = new HashMap<String, Service>();
+    Map<String, Service> pollerServices = new HashMap<String, Service>();
 
-    HashMap<String, ProtocolPlugin> capsdProtocols = new HashMap<String, ProtocolPlugin>();
+    Map<String, ProtocolPlugin> capsdProtocols = new HashMap<String, ProtocolPlugin>();
 
     java.util.List<ProtocolPlugin> capsdColl = new ArrayList<ProtocolPlugin>();
 
@@ -181,12 +182,12 @@ public class PollerConfigServlet extends HttpServlet {
      * <p>initPollerServices</p>
      */
     public void initPollerServices() {
-        Collection<org.opennms.netmgt.config.poller.Package> packageColl = pollerConfig.getPackageCollection();
+        Collection<org.opennms.netmgt.config.poller.Package> packageColl = pollerConfig.getPackages();
         if (packageColl != null) {
             Iterator<org.opennms.netmgt.config.poller.Package> pkgiter = packageColl.iterator();
             if (pkgiter.hasNext()) {
                 pkg = pkgiter.next();
-                Collection<Service> svcColl = pkg.getServiceCollection();
+                Collection<Service> svcColl = pkg.getServices();
                 for (Service svcProp : svcColl) {
                     pollerServices.put(svcProp.getName(), svcProp);
                 }
@@ -273,7 +274,7 @@ public class PollerConfigServlet extends HttpServlet {
      */
     public void adjustNonChecked(java.util.List<String> checkedList) {
         if (pkg != null) {
-            Collection<Service> svcColl = pkg.getServiceCollection();
+            Collection<Service> svcColl = pkg.getServices();
             if (svcColl != null) {
                 for (Service svc : svcColl) {
                     if (svc != null) {
@@ -298,7 +299,7 @@ public class PollerConfigServlet extends HttpServlet {
         for (String svcname : deleteServices) {
             if (pkg != null) {
                 boolean flag = false;
-                Collection<Service> svcColl = pkg.getServiceCollection();
+                Collection<Service> svcColl = pkg.getServices();
                 if (svcColl != null) {
                     for (Service svc : svcColl) {
                         if (svc != null) {
@@ -324,7 +325,7 @@ public class PollerConfigServlet extends HttpServlet {
      */
     public void removeMonitor(String service) {
         // Add the new monitor with the protocol.
-        Collection<Monitor> monitorColl = pollerConfig.getMonitorCollection();
+        Collection<Monitor> monitorColl = pollerConfig.getMonitors();
         Monitor newMonitor = new Monitor();
         if (monitorColl != null) {
             for (Monitor mon : monitorColl) {
@@ -332,7 +333,7 @@ public class PollerConfigServlet extends HttpServlet {
                     if (mon.getService().equals(service)) {
                         newMonitor.setService(service);
                         newMonitor.setClassName(mon.getClassName());
-                        newMonitor.setParameterCollection(mon.getParameterCollection());
+                        newMonitor.setParameters(mon.getParameters());
                         break;
                     }
                 }
@@ -349,7 +350,7 @@ public class PollerConfigServlet extends HttpServlet {
      */
     public void modifyPollerInfo(String bPolled, String protocol) {
         if (pkg != null) {
-            Collection<Service> svcColl = pkg.getServiceCollection();
+            Collection<Service> svcColl = pkg.getServices();
             if (svcColl != null) {
                 for (Service svc : svcColl) {
                     if (svc != null) {

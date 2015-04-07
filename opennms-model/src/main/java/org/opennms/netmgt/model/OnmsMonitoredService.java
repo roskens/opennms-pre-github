@@ -1,22 +1,22 @@
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
- * Copyright (C) 2006-2012 The OpenNMS Group, Inc.
- * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ * Copyright (C) 2006-2014 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2014 The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published
+ * it under the terms of the GNU Affero General Public License as published
  * by the Free Software Foundation, either version 3 of the License,
  * or (at your option) any later version.
  *
  * OpenNMS(R) is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU Affero General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GNU Affero General Public License
  * along with OpenNMS(R).  If not, see:
  *      http://www.gnu.org/licenses/
  *
@@ -57,23 +57,24 @@ import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlID;
 import javax.xml.bind.annotation.XmlIDREF;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+import org.codehaus.jackson.annotate.JsonManagedReference;
 import org.hibernate.annotations.Where;
 import org.springframework.core.style.ToStringCreator;
 
 @XmlRootElement(name = "service")
 @Entity
 @Table(name="ifServices")
-public class OnmsMonitoredService extends OnmsEntity implements Serializable,
-Comparable<OnmsMonitoredService> {
-
-    /**
-     * 
-     */
-    private static final long serialVersionUID = -7106081378757872886L;
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+public class OnmsMonitoredService extends OnmsEntity implements Serializable, Comparable<OnmsMonitoredService> {
+    private static final long serialVersionUID = 7899180234592272274L;
 
     private Integer m_id;
 
@@ -148,9 +149,9 @@ Comparable<OnmsMonitoredService> {
      */
     @Id
     @Column(nullable=false)
-    @XmlAttribute(name="id")
     @SequenceGenerator(name="opennmsSequence", sequenceName="opennmsNxtId")
-    @GeneratedValue(generator="opennmsSequence")    
+    @GeneratedValue(generator="opennmsSequence")
+    @XmlTransient
     public Integer getId() {
         return m_id;
     }
@@ -165,12 +166,28 @@ Comparable<OnmsMonitoredService> {
     }
 
     /**
+     * This id is used for the serialized representation such as json, xml etc.
+     */
+    @XmlID
+    @XmlAttribute(name="id")
+    @Transient
+    @JsonIgnore
+    public String getXmlId() {
+        return getId() == null? null : getId().toString();
+    }
+
+    public void setXmlId(final String id) {
+        setId(Integer.valueOf(id));
+    }
+
+    /**
      * <p>getIpAddress</p>
      *
      * @return a {@link java.lang.String} object.
      */
     @XmlTransient
     @Transient
+    @JsonIgnore
     public InetAddress getIpAddress() {
         return m_ipInterface.getIpAddress();
     }
@@ -184,6 +201,7 @@ Comparable<OnmsMonitoredService> {
      */
     @XmlTransient
     @Transient
+    @JsonIgnore
     public String getIpAddressAsString() {
         return m_ipInterface.getIpAddressAsString();
     }
@@ -195,6 +213,7 @@ Comparable<OnmsMonitoredService> {
      */
     @XmlTransient
     @Transient
+    @JsonIgnore
     public Integer getIfIndex() {
         return m_ipInterface.getIfIndex();
     }
@@ -279,6 +298,7 @@ Comparable<OnmsMonitoredService> {
     }
     
     @Transient
+    @XmlAttribute
     public String getStatusLong() {
     	return STATUS_MAP.get(getStatus());
     }
@@ -328,6 +348,7 @@ Comparable<OnmsMonitoredService> {
      * @return a {@link org.opennms.netmgt.model.OnmsIpInterface} object.
      */
     @XmlIDREF
+    @JsonIgnore
     @XmlElement(name="ipInterfaceId")
     @ManyToOne(optional=false, fetch=FetchType.LAZY)
     @JoinColumn(name="ipInterfaceId")
@@ -351,6 +372,7 @@ Comparable<OnmsMonitoredService> {
      */
     @XmlTransient
     @Transient
+    @JsonIgnore
     public Integer getNodeId() {
         return m_ipInterface.getNode().getId();
     }
@@ -404,11 +426,10 @@ Comparable<OnmsMonitoredService> {
      * @return a {@link java.lang.Integer} object.
      */
     @Transient
+    @JsonIgnore
     public Integer getServiceId() {
         return getServiceType().getId();
     }
-
-
 
     /** {@inheritDoc} */
     @Override
@@ -423,6 +444,7 @@ Comparable<OnmsMonitoredService> {
      * @return a {@link java.lang.String} object.
      */
     @Transient
+    @JsonIgnore
     public String getServiceName() {
         return getServiceType().getName();
     }
@@ -433,6 +455,7 @@ Comparable<OnmsMonitoredService> {
      * @return a boolean.
      */
     @Transient
+    @XmlAttribute(name="down")
     public boolean isDown() {
         boolean down = true;
         if (!"A".equals(getStatus()) || m_currentOutages.isEmpty()) {
@@ -450,6 +473,7 @@ Comparable<OnmsMonitoredService> {
     @XmlTransient
     @OneToMany(mappedBy="monitoredService", fetch=FetchType.LAZY)
     @Where(clause="ifRegainedService is null")
+    @JsonIgnore
     public Set<OnmsOutage> getCurrentOutages() {
         return m_currentOutages;
     }
@@ -476,6 +500,9 @@ Comparable<OnmsMonitoredService> {
                joinColumns={@JoinColumn(name="ifserviceid")},
                inverseJoinColumns={@JoinColumn(name="appid")}
     )
+    @XmlElementWrapper(name="applications")
+    @XmlElement(name="application")
+    @JsonManagedReference
     public Set<OnmsApplication> getApplications() {
         return m_applications;
     }
@@ -567,4 +594,24 @@ Comparable<OnmsMonitoredService> {
 		 */
 		return !"N".equals(oldStatus) && newStatus != null && !newStatus.equals(oldStatus);
 	}
+
+    @Transient
+    @XmlTransient
+    @JsonIgnore
+    public String getForeignSource() {
+        if (getIpInterface() != null) {
+            return getIpInterface().getForeignSource();
+        }
+        return null;
+    }
+
+    @Transient
+    @XmlTransient
+    @JsonIgnore
+    public String getForeignId() {
+        if (getIpInterface() != null) {
+            return getIpInterface().getForeignId();
+        }
+        return null;
+    }
 }

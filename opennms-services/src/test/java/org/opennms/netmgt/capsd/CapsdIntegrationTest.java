@@ -1,22 +1,22 @@
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
- * Copyright (C) 2007-2012 The OpenNMS Group, Inc.
- * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ * Copyright (C) 2007-2014 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2014 The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published
+ * it under the terms of the GNU Affero General Public License as published
  * by the Free Software Foundation, either version 3 of the License,
  * or (at your option) any later version.
  *
  * OpenNMS(R) is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU Affero General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GNU Affero General Public License
  * along with OpenNMS(R).  If not, see:
  *      http://www.gnu.org/licenses/
  *
@@ -37,13 +37,13 @@ import org.exolab.castor.xml.ValidationException;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.opennms.core.spring.BeanUtils;
 import org.opennms.core.test.OpenNMSJUnit4ClassRunner;
 import org.opennms.core.test.db.MockDatabase;
 import org.opennms.core.test.db.TemporaryDatabaseAware;
 import org.opennms.core.test.db.annotations.JUnitTemporaryDatabase;
 import org.opennms.core.test.snmp.annotations.JUnitSnmpAgent;
 import org.opennms.core.test.snmp.annotations.JUnitSnmpAgents;
-import org.opennms.core.utils.BeanUtils;
 import org.opennms.netmgt.config.CapsdConfig;
 import org.opennms.netmgt.mock.MockNetwork;
 import org.opennms.test.JUnitConfigurationEnvironment;
@@ -73,7 +73,7 @@ import org.springframework.test.context.ContextConfiguration;
 public class CapsdIntegrationTest implements TemporaryDatabaseAware<MockDatabase>, InitializingBean {
 
     private static final int FOREIGN_NODEID = 77;
-    private static final String FOREIGN_NODE_IP_ADDRESS = "172.20.1.201";
+    private static final String FOREIGN_NODE_IP_ADDRESS = "192.0.2.201";
 
     private MockNetwork m_mockNetwork = new MockNetwork();
 
@@ -112,9 +112,9 @@ public class CapsdIntegrationTest implements TemporaryDatabaseAware<MockDatabase
 
     @Test
     @JUnitSnmpAgents(value={
-    	    @JUnitSnmpAgent(host="172.20.1.201", resource="classpath:org/opennms/netmgt/snmp/snmpTestData1.properties"),
-    	    @JUnitSnmpAgent(host="172.20.1.204", resource="classpath:org/opennms/netmgt/snmp/snmpTestData1.properties"),
-    	    @JUnitSnmpAgent(host="172.20.1.205", resource="classpath:org/opennms/netmgt/snmp/snmpTestData1.properties")
+    	    @JUnitSnmpAgent(host="192.0.2.201", resource="classpath:org/opennms/netmgt/capsd/snmpTestData1.properties"),
+    	    @JUnitSnmpAgent(host="192.0.2.204", resource="classpath:org/opennms/netmgt/capsd/snmpTestData1.properties"),
+    	    @JUnitSnmpAgent(host="192.0.2.205", resource="classpath:org/opennms/netmgt/capsd/snmpTestData1.properties")
     })
     @JUnitTemporaryDatabase(tempDbClass=MockDatabase.class)
     public final void testRescan() throws Exception {
@@ -126,7 +126,7 @@ public class CapsdIntegrationTest implements TemporaryDatabaseAware<MockDatabase
 
         m_capsd.rescanInterfaceParent(FOREIGN_NODEID);
 
-        Thread.sleep(15000);
+        Thread.sleep(30000);
 
         m_capsd.stop();
 
@@ -138,9 +138,9 @@ public class CapsdIntegrationTest implements TemporaryDatabaseAware<MockDatabase
      */
     @Test
     @JUnitSnmpAgents(value={
-    	    @JUnitSnmpAgent(host="172.20.1.201", resource="classpath:org/opennms/netmgt/snmp/snmpTestData1.properties"),
-    	    @JUnitSnmpAgent(host="172.20.1.204", resource="classpath:org/opennms/netmgt/snmp/snmpTestData1.properties"),
-    	    @JUnitSnmpAgent(host="172.20.1.205", resource="classpath:org/opennms/netmgt/snmp/snmpTestData1.properties")
+    	    @JUnitSnmpAgent(host="192.0.2.201", resource="classpath:org/opennms/netmgt/snmp/snmpTestData1.properties"),
+    	    @JUnitSnmpAgent(host="192.0.2.204", resource="classpath:org/opennms/netmgt/snmp/snmpTestData1.properties"),
+    	    @JUnitSnmpAgent(host="192.0.2.205", resource="classpath:org/opennms/netmgt/snmp/snmpTestData1.properties")
     })
     @JUnitTemporaryDatabase(tempDbClass=MockDatabase.class)
     public final void testRescanOfForeignNode() throws Exception {
@@ -154,7 +154,7 @@ public class CapsdIntegrationTest implements TemporaryDatabaseAware<MockDatabase
 
         m_capsd.rescanInterfaceParent(FOREIGN_NODEID);
 
-        Thread.sleep(10000);
+        Thread.sleep(30000);
 
         m_capsd.stop();
 

@@ -1,22 +1,22 @@
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
- * Copyright (C) 2006-2012 The OpenNMS Group, Inc.
- * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ * Copyright (C) 2002-2014 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2014 The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published
+ * it under the terms of the GNU Affero General Public License as published
  * by the Free Software Foundation, either version 3 of the License,
  * or (at your option) any later version.
  *
  * OpenNMS(R) is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU Affero General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GNU Affero General Public License
  * along with OpenNMS(R).  If not, see:
  *      http://www.gnu.org/licenses/
  *
@@ -28,7 +28,6 @@
 
 package org.opennms.netmgt.rtc;
 
-import java.beans.PropertyVetoException;
 import java.io.IOException;
 import java.lang.reflect.UndeclaredThrowableException;
 import java.net.InetAddress;
@@ -52,10 +51,10 @@ import org.exolab.castor.xml.MarshalException;
 import org.exolab.castor.xml.ValidationException;
 import org.opennms.core.db.DataSourceFactory;
 import org.opennms.core.utils.InetAddressUtils;
-import org.opennms.netmgt.EventConstants;
 import org.opennms.netmgt.config.CategoryFactory;
 import org.opennms.netmgt.config.categories.CatFactory;
 import org.opennms.netmgt.config.categories.Categorygroup;
+import org.opennms.netmgt.events.api.EventConstants;
 import org.opennms.netmgt.filter.FilterDaoFactory;
 import org.opennms.netmgt.filter.FilterParseException;
 import org.opennms.netmgt.rtc.datablock.RTCCategory;
@@ -86,7 +85,7 @@ import org.xml.sax.SAXException;
  * @author <A HREF="mailto:sowmya@opennms.org">Sowmya Nataraj </A>
  * @author <A HREF="http://www.opennms.org">OpenNMS.org </A>
  */
-public class DataManager extends Object {
+public class DataManager {
     
     private static final Logger LOG = LoggerFactory.getLogger(DataManager.class);
     
@@ -114,7 +113,7 @@ public class DataManager extends Object {
 		}
 
 		// This is called exactly once for each unique (node ID, IP address, service name) tuple
-		public void processIfService(RTCNodeKey key) {
+		public synchronized void processIfService(RTCNodeKey key) {
 		    for (RTCCategory cat : m_categories.values()) {
 				if (catContainsIfService(cat, key)) {
 					RTCNode rtcN = getRTCNode(key);
@@ -384,30 +383,7 @@ public class DataManager extends Object {
     }
 
 	private DataSource getConnectionFactory() {
-		DataSource connFactory;
-		try {
-		    DataSourceFactory.init();
-		    connFactory = DataSourceFactory.getInstance();
-		} catch (IOException ex) {
-		    LOG.warn("Failed to load database config", ex);
-		    throw new UndeclaredThrowableException(ex);
-		} catch (MarshalException ex) {
-		    LOG.warn("Failed to unmarshall database config", ex);
-		    throw new UndeclaredThrowableException(ex);
-		} catch (ValidationException ex) {
-		    LOG.warn("Failed to unmarshall database config", ex);
-		    throw new UndeclaredThrowableException(ex);
-        } catch (ClassNotFoundException ex) {
-            LOG.warn("Failed to get database connection", ex);
-            throw new UndeclaredThrowableException(ex);
-        } catch (SQLException ex) {
-            LOG.warn("Failed to get database connection", ex);
-            throw new UndeclaredThrowableException(ex);
-        } catch (PropertyVetoException ex) {
-            LOG.warn("Failed to get database connection", ex);
-            throw new UndeclaredThrowableException(ex);
-        }
-		return connFactory;
+		return DataSourceFactory.getInstance();
 	}
 
     /**

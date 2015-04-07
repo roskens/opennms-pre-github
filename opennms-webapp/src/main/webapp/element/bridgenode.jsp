@@ -2,22 +2,22 @@
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
- * Copyright (C) 2006-2012 The OpenNMS Group, Inc.
- * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ * Copyright (C) 2006-2014 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2014 The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published
+ * it under the terms of the GNU Affero General Public License as published
  * by the Free Software Foundation, either version 3 of the License,
  * or (at your option) any later version.
  *
  * OpenNMS(R) is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU Affero General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GNU Affero General Public License
  * along with OpenNMS(R).  If not, see:
  *      http://www.gnu.org/licenses/
  *
@@ -38,11 +38,10 @@
 				org.opennms.core.utils.WebSecurityUtils,
 				java.util.*,
 				java.net.*,
-				java.util.regex.Pattern,
-                org.opennms.core.utils.InetAddressUtils,
-                org.opennms.web.svclayer.ResourceService,
-                org.springframework.web.context.WebApplicationContext,
-                org.springframework.web.context.support.WebApplicationContextUtils
+        org.opennms.core.utils.InetAddressUtils,
+        org.opennms.web.svclayer.ResourceService,
+        org.springframework.web.context.WebApplicationContext,
+        org.springframework.web.context.support.WebApplicationContextUtils
         "
 %>
 
@@ -88,6 +87,12 @@
         //handle this WAY better, very awful
         throw new ServletException( "No such node in database" );
     }
+    String parentRes = Integer.toString(nodeId);
+    String parentResType = "node";
+    if (!(node_db.getForeignSource() == null) && !(node_db.getForeignId() == null)) {
+        parentRes = node_db.getForeignSource() + ":" + node_db.getForeignId();
+        parentResType = "nodeSource";
+    }
 
     //find the telnet interfaces, if any
     String telnetIp = null;
@@ -129,7 +134,7 @@
 <% pageContext.setAttribute("nodeId", nodeId); %>
 <% pageContext.setAttribute("nodeLabel", node_db.getLabel()); %>
 
-<jsp:include page="/includes/header.jsp" flush="false" >
+<jsp:include page="/includes/bootstrap.jsp" flush="false" >
   <jsp:param name="headTitle" value="${nodeLabel}" />
   <jsp:param name="headTitle" value="Bridge Node Info" />
   <jsp:param name="title" value="Bridge Node Info" />
@@ -138,77 +143,78 @@
   <jsp:param name="breadcrumb" value="Bridge Info" />
 </jsp:include>
 
-     <h2>Node: <%=node_db.getLabel()%></h2>
-
-      <div id="linkbar">
-      <ul>
-        <li>
-        	<a href="event/list.htm?filter=node%3D<%=nodeId%>">View Events</a>
-        </li>
-        <li>
-        	<a href="asset/modify.jsp?node=<%=nodeId%>">Asset Info</a>
-        </li>
-        <% if( telnetIp != null ) { %>
-       	<li>
-       		<a href="telnet://<%=telnetIp%>">Telnet</a>
-        </li>
-        <% } %>        
-        <% if( httpIp != null ) { %>
-        <li>
-          <a href="http://<%=httpIp%>">HTTP</a>
-        </li>
-        <% } %>
-        
-        <% if (m_resourceService.findNodeChildResources(nodeId).size() > 0) { %>
-          <li>
-            <c:url var="resourceGraphsUrl" value="graph/chooseresource.htm">
-              <c:param name="parentResourceType" value="node"/>
-              <c:param name="parentResource" value="<%= Integer.toString(nodeId) %>"/>
-              <c:param name="reports" value="all"/>
-            </c:url>
-            <a href="${resourceGraphsUrl}">Resource Graphs</a>
-	      </li>
-        <% } %>
-        
-        <li>
-	        <a href="element/rescan.jsp?node=<%=nodeId%>">Rescan</a>    
-        </li>
-      </ul>
-      </div>
-
-	<div class="TwoColLeft">
-            <!-- general info box -->
-			<h3>General (Status: <%=(node_db == null ? "Unknown" : ElementUtil.getNodeStatusString(node_db))%>)</h3>
-
-			<div class="boxWrapper">
-			     <ul class="plain">
-		         
-		            <% if( isRouteIP ) { %>
-		            <li>
-						<a href="element/routeipnode.jsp?node=<%=nodeId%>">View Node IP Route Info</a>
-					</li>
-		            <% }%>				     
-		            <li>
-		            	<a href="element/linkednode.jsp?node=<%=nodeId%>">View Node Link Detailed Info</a>
-		            </li>
-		         </ul>	     
-			</div>
-	</div>
 <!-- Body -->
 
-<hr />
+<h4>Node: <%=node_db.getLabel()%></h4>
 
-	
-		    <jsp:include page="/includes/nodeBridge-box.jsp" flush="false" >
-              <jsp:param name="node" value="<%=nodeId%>" />
-			</jsp:include>
+<ul class="list-inline">
+  <li>
+    <a href="event/list.htm?filter=node%3D<%=nodeId%>">View Events</a>
+  </li>
+  <li>
+    <a href="asset/modify.jsp?node=<%=nodeId%>">Asset Info</a>
+  </li>
+  <% if( telnetIp != null ) { %>
+  <li>
+    <a href="telnet://<%=telnetIp%>">Telnet</a>
+  </li>
+  <% } %>
+  <% if( httpIp != null ) { %>
+  <li>
+    <a href="http://<%=httpIp%>">HTTP</a>
+  </li>
+  <% } %>
+  <% if (m_resourceService.findNodeChildResources(node_db).size() > 0) { %>
+    <li>
+      <c:url var="resourceGraphsUrl" value="graph/chooseresource.htm">
+        <c:param name="parentResourceType" value="<%=parentResType%>"/>
+        <c:param name="parentResource" value="<%=parentRes%>"/>
+        <c:param name="reports" value="all"/>
+      </c:url>
+      <a href="${resourceGraphsUrl}">Resource Graphs</a>
+    </li>
+  <% } %>
+  <li>
+    <a href="element/rescan.jsp?node=<%=nodeId%>">Rescan</a>
+  </li>
+</ul>
 
+<div class="row">
+  <div class="col-md-6">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">General (Status: <%=(node_db == null ? "Unknown" : ElementUtil.getNodeStatusString(node_db))%>)</h3>
+      </div>
+      <div class="panel-body">
+        <ul class="list-unstyled">
+          <% if( isRouteIP ) { %>
+          <li>
+            <a href="element/routeipnode.jsp?node=<%=nodeId%>">View Node IP Route Info</a>
+          </li>
+          <% }%>
+          <li>
+            <a href="element/linkednode.jsp?node=<%=nodeId%>">View Node Link Detailed Info</a>
+          </li>
+        </ul>
+      </div> <!-- panel-body -->
+    </div> <!-- panel -->
+  </div> <!-- column -->
+</div> <!-- row -->
 
+<div class="row">
+  <div class="col-md-12">
+    <jsp:include page="/includes/nodeBridge-box.jsp" flush="false" >
+      <jsp:param name="node" value="<%=nodeId%>" />
+    </jsp:include>
+  </div> <!-- column -->
+</div> <!-- row -->
 
-            <jsp:include page="/includes/nodeSTPint-box.jsp" flush="false" >
-              <jsp:param name="node" value="<%=nodeId%>" />
-			</jsp:include>		
+<div class="row">
+  <div class="col-md-12">
+    <jsp:include page="/includes/nodeSTPint-box.jsp" flush="false" >
+      <jsp:param name="node" value="<%=nodeId%>" />
+    </jsp:include>
+  </div> <!-- column -->
+</div> <!-- row -->
 
-
-
-<jsp:include page="/includes/footer.jsp" flush="false" />
+<jsp:include page="/includes/bootstrap-footer.jsp" flush="false" />

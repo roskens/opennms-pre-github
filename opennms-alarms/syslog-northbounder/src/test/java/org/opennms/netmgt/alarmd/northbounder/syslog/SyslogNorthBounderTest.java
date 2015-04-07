@@ -1,22 +1,22 @@
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
- * Copyright (C) 2013 The OpenNMS Group, Inc.
- * OpenNMS(R) is Copyright (C) 1999-2013 The OpenNMS Group, Inc.
+ * Copyright (C) 2013-2014 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2014 The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published
+ * it under the terms of the GNU Affero General Public License as published
  * by the Free Software Foundation, either version 3 of the License,
  * or (at your option) any later version.
  *
  * OpenNMS(R) is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU Affero General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GNU Affero General Public License
  * along with OpenNMS(R).  If not, see:
  *      http://www.gnu.org/licenses/
  *
@@ -163,6 +163,7 @@ public class SyslogNorthBounderTest {
     @After
     public void stopServer() throws InterruptedException {
         m_server.shutdown();
+        MockLogAppender.assertNoWarningsOrGreater();
     }
 
     
@@ -237,9 +238,11 @@ public class SyslogNorthBounderTest {
                 onmsAlarm.setLogMsg("Node Down");
                 onmsAlarm.setX733AlarmType(NorthboundAlarm.x733AlarmType.get(i).name());
                 onmsAlarm.setX733ProbableCause(NorthboundAlarm.x733ProbableCause.get(i).getId());
-                String eventparms = "foreignSource=fabric(string,text);foreignId=space-0256012012000038(string,text);reason=Aborting node scan : Agent timed out while scanning the system table(string,text);" +
-                        ".1.3.6.1.4.1.2636.3.18.1.7.1.2.732=207795895(TimeTicks,text)";
-                onmsAlarm.setEventParms(eventparms );
+                if (i < j) { // Do not add parameters to the last alarm for testing NMS-6383
+                    String eventparms = "foreignSource=fabric(string,text);foreignId=space-0256012012000038(string,text);reason=Aborting node scan : Agent timed out while scanning the system table(string,text);" +
+                            ".1.3.6.1.4.1.2636.3.18.1.7.1.2.732=207795895(TimeTicks,text)";
+                    onmsAlarm.setEventParms(eventparms );
+                }
                 NorthboundAlarm a = new NorthboundAlarm(onmsAlarm);
 
                 Assert.assertFalse(nbi.accepts(a));
@@ -306,7 +309,7 @@ public class SyslogNorthBounderTest {
         }
 
     }
-    
+
     private String generateConfigXml() {
         return "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n" + 
                 "<syslog-northbounder-config>\n" + 

@@ -1,22 +1,22 @@
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
- * Copyright (C) 2006-2012 The OpenNMS Group, Inc.
- * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ * Copyright (C) 2005-2014 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2014 The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published
+ * it under the terms of the GNU Affero General Public License as published
  * by the Free Software Foundation, either version 3 of the License,
  * or (at your option) any later version.
  *
  * OpenNMS(R) is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU Affero General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GNU Affero General Public License
  * along with OpenNMS(R).  If not, see:
  *      http://www.gnu.org/licenses/
  *
@@ -50,24 +50,30 @@ import javax.management.ObjectName;
 import javax.management.openmbean.CompositeData;
 
 import org.opennms.core.db.DataSourceFactory;
+import org.opennms.core.utils.AlphaNumeric;
 import org.opennms.core.utils.InetAddressUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.opennms.core.utils.ParameterMap;
+import org.opennms.netmgt.collection.api.AttributeGroupType;
+import org.opennms.netmgt.collection.api.CollectionAgent;
+import org.opennms.netmgt.collection.api.CollectionAttribute;
+import org.opennms.netmgt.collection.api.CollectionAttributeType;
+import org.opennms.netmgt.collection.api.CollectionResource;
+import org.opennms.netmgt.collection.api.CollectionSet;
+import org.opennms.netmgt.collection.api.Persister;
+import org.opennms.netmgt.collection.api.ServiceCollector;
+import org.opennms.netmgt.collection.api.ServiceParameters.ParameterName;
+import org.opennms.netmgt.collection.support.AbstractCollectionAttribute;
+import org.opennms.netmgt.collection.support.AbstractCollectionAttributeType;
+import org.opennms.netmgt.collection.support.AbstractCollectionResource;
+import org.opennms.netmgt.collection.support.SingleResourceCollectionSet;
 import org.opennms.netmgt.config.BeanInfo;
 import org.opennms.netmgt.config.JMXDataCollectionConfigFactory;
 import org.opennms.netmgt.config.collectd.jmx.Attrib;
-import org.opennms.netmgt.config.collector.AttributeGroupType;
-import org.opennms.netmgt.config.collector.CollectionAttribute;
-import org.opennms.netmgt.config.collector.CollectionAttributeType;
-import org.opennms.netmgt.config.collector.CollectionResource;
-import org.opennms.netmgt.config.collector.CollectionSet;
-import org.opennms.netmgt.config.collector.CollectionSetVisitor;
-import org.opennms.netmgt.config.collector.Persister;
-import org.opennms.netmgt.config.collector.ServiceParameters;
-import org.opennms.netmgt.model.RrdRepository;
-import org.opennms.netmgt.model.events.EventProxy;
+import org.opennms.netmgt.events.api.EventProxy;
+import org.opennms.netmgt.rrd.RrdRepository;
 import org.opennms.protocols.jmx.connectors.ConnectionWrapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This class performs the collection and storage of data. The derived class
@@ -200,7 +206,6 @@ public abstract class JMXCollector implements ServiceCollector {
         // Make sure we can connect to the database
         java.sql.Connection ctest = null;
         try {
-            DataSourceFactory.init();
             ctest = DataSourceFactory.getInstance().getConnection();
         } catch (final Exception e) {
             LOG.error("initialize: failed to get a database connection", e);
@@ -240,7 +245,7 @@ public abstract class JMXCollector implements ServiceCollector {
         int nodeID = agent.getNodeId();
 
         // Retrieve the name of the JMX data collector
-        String collectionName = ParameterMap.getKeyedString(parameters, "collection", serviceName);
+        String collectionName = ParameterMap.getKeyedString(parameters, ParameterName.COLLECTION.toString(), serviceName);
 
         final String hostAddress = InetAddressUtils.str(ipAddr);
         LOG.debug("initialize: InetAddress={}, collectionName={}", hostAddress, collectionName);
@@ -298,21 +303,20 @@ public abstract class JMXCollector implements ServiceCollector {
         JMXNodeInfo nodeInfo = agent.getAttribute(NODE_INFO_KEY);
         Map<String, BeanInfo> mbeans = nodeInfo.getMBeans();
         String collDir = serviceName;
-        
 
-        String port = ParameterMap.getKeyedString(map, "port", null);
-        String friendlyName = ParameterMap.getKeyedString(map,"friendly-name", port);
+        boolean useMbeanForRrds = ParameterMap.getKeyedBoolean(map, ParameterName.USE_MBEAN_NAME_FOR_RRDS.toString(), false);
+        String port = ParameterMap.getKeyedString(map, ParameterName.PORT.toString(), null);
+        String friendlyName = ParameterMap.getKeyedString(map, ParameterName.FRIENDLY_NAME.toString(), port);
         if (useFriendlyName) {
             collDir = friendlyName;
         }
-        
-        JMXCollectionSet collectionSet=new JMXCollectionSet(agent,collDir);
-        collectionSet.setCollectionTimestamp(new Date());
-        JMXCollectionResource collectionResource=collectionSet.getResource();
+
+        JMXCollectionResource collectionResource = new JMXCollectionResource(agent, collDir);
+        SingleResourceCollectionSet collectionSet = new SingleResourceCollectionSet(collectionResource, new Date());
         
         ConnectionWrapper connection = null;
 
-        LOG.debug("collecting {} on node ID {}", InetAddressUtils.str(ipaddr), nodeInfo.getNodeId());
+        LOG.debug("connecting to {} on node ID {}", InetAddressUtils.str(ipaddr), nodeInfo.getNodeId());
 
         try {
             connection = getMBeanServerConnection(map, ipaddr);
@@ -323,8 +327,9 @@ public abstract class JMXCollector implements ServiceCollector {
 
             MBeanServerConnection mbeanServer = connection.getMBeanServer();
 
-            int retry = ParameterMap.getKeyedInteger(map, "retry", 3);
+            int retry = ParameterMap.getKeyedInteger(map, ParameterName.RETRY.toString(), 3);
             for (int attempts = 0; attempts <= retry; attempts++) {
+                LOG.debug("collecting {} on node ID {}, attempt number {}", InetAddressUtils.str(ipaddr), nodeInfo.getNodeId(), attempts + 1);
                 try {
                     /*
                      * Iterate over the mbeans, for each object name perform a
@@ -333,10 +338,12 @@ public abstract class JMXCollector implements ServiceCollector {
 
                     for (Iterator<BeanInfo> iter = mbeans.values().iterator(); iter.hasNext();) {
                         BeanInfo beanInfo = iter.next();
+                        String mbeanName = beanInfo.getMbeanName();
                         String objectName = beanInfo.getObjectName();
                         String excludeList = beanInfo.getExcludes();
                         //All JMX collected values are per node
-                        AttributeGroupType attribGroupType=new AttributeGroupType(fixGroupName(objectName),"all");
+                        String obj = useMbeanForRrds ? mbeanName : objectName;
+                        AttributeGroupType attribGroupType=new AttributeGroupType(fixGroupName(obj), AttributeGroupType.IF_TYPE_ALL);
                         
                         List<String> attribNames = beanInfo.getAttributeNames();
                         List<String> compAttribNames = beanInfo.getCompositeAttributeNames();
@@ -493,7 +500,7 @@ public abstract class JMXCollector implements ServiceCollector {
         return collectionSet;
     }
 
-    private Set<ObjectName> getObjectNames(MBeanServerConnection mbeanServer, String objectName) throws IOException,
+    private static Set<ObjectName> getObjectNames(MBeanServerConnection mbeanServer, String objectName) throws IOException,
             MalformedObjectNameException {
         return mbeanServer.queryNames(new ObjectName(objectName), null);
     }
@@ -507,11 +514,11 @@ public abstract class JMXCollector implements ServiceCollector {
      * @param objectName
      * @return
      */
-    private String fixGroupName(String objectName) {
+    private static String fixGroupName(String objectName) {
         if (objectName == null) {
             return "NULL";
         }
-        return objectName.replaceAll("[.:=,\\s]", "_");
+        return AlphaNumeric.parseAndReplace(objectName, '_');
     }
     
     /*
@@ -520,7 +527,7 @@ public abstract class JMXCollector implements ServiceCollector {
      * character cannot be in the name since it is an illegal character in
      * file names.
      */
-    private String fixKey(String key, String attrName, String substitutions) {
+    private static String fixKey(String key, String attrName, String substitutions) {
         String newKey = key;
         if (key.startsWith(File.separator)) {
             newKey = key.substring(1);
@@ -539,26 +546,6 @@ public abstract class JMXCollector implements ServiceCollector {
     }
 
     /**
-     * <p>getRRDValue_isthis_used_</p>
-     *
-     * @param ds
-     * @param collectorEntry a {@link org.opennms.netmgt.collectd.JMXCollectorEntry} object.
-     * @throws java.lang.IllegalArgumentException if any.
-     * @return a {@link java.lang.String} object.
-     */
-    public String getRRDValue_isthis_used_(JMXDataSource ds,
-            JMXCollectorEntry collectorEntry) throws IllegalArgumentException {
-
-        LOG.debug("getRRDValue: {}", ds.getName());
-
-        // Make sure we have an actual object id value.
-        if (ds.getOid() == null) {
-            return null;
-        }
-
-        return collectorEntry.get(collectorEntry + "|" + ds.getOid());
-    }
-    /**
      * This method is responsible for building a list of RRDDataSource objects
      * from the provided list of MBeanObject objects.
      *
@@ -569,7 +556,7 @@ public abstract class JMXCollector implements ServiceCollector {
      *            collected via JMX.
      * @return list of RRDDataSource objects
      */
-    protected Map<String, JMXDataSource> buildDataSourceList(String collectionName, Map<String, List<Attrib>> attributeMap) {
+    protected static Map<String, JMXDataSource> buildDataSourceList(String collectionName, Map<String, List<Attrib>> attributeMap) {
         LOG.debug("buildDataSourceList - ***");
 
         /*
@@ -678,13 +665,12 @@ public abstract class JMXCollector implements ServiceCollector {
         this.useFriendlyName = useFriendlyName;
     }
     
-    class JMXCollectionAttributeType implements CollectionAttributeType {
-        JMXDataSource m_dataSource;
-        AttributeGroupType m_groupType;
-        String m_name;
+    private static class JMXCollectionAttributeType extends AbstractCollectionAttributeType {
+    	private final JMXDataSource m_dataSource;
+    	private final String m_name;
 
-        protected JMXCollectionAttributeType(JMXDataSource dataSource, String key, String substitutions,  AttributeGroupType groupType) {
-            m_groupType=groupType;
+        public JMXCollectionAttributeType(JMXDataSource dataSource, String key, String substitutions,  AttributeGroupType groupType) {
+            super(groupType);
             m_dataSource=dataSource;
             m_name=createName(key,substitutions);
         }
@@ -695,11 +681,6 @@ public abstract class JMXCollector implements ServiceCollector {
                 name=fixKey(key, m_dataSource.getName(),substitutions)+"_"+name;
             }
             return name;
-        }
-
-        @Override
-        public AttributeGroupType getGroupType() {
-            return m_groupType;
         }
 
         @Override
@@ -720,29 +701,13 @@ public abstract class JMXCollector implements ServiceCollector {
 
     }
     
-    class JMXCollectionAttribute extends AbstractCollectionAttribute implements CollectionAttribute {
+    private static class JMXCollectionAttribute extends AbstractCollectionAttribute {
 
-        String m_alias;
-        String m_value;
-        JMXCollectionResource m_resource;
-        CollectionAttributeType m_attribType;
+        private final String m_value;
         
-        JMXCollectionAttribute(JMXCollectionResource resource, CollectionAttributeType attribType, String alias, String value) {
-            super();
-            m_resource=resource;
-            m_attribType=attribType;
-            m_alias = alias;
+        JMXCollectionAttribute(JMXCollectionResource resource, CollectionAttributeType attribType, String value) {
+            super(attribType, resource);
             m_value = value;
-        }
-
-        @Override
-        public CollectionAttributeType getAttributeType() {
-            return m_attribType;
-        }
-
-        @Override
-        public String getName() {
-            return m_alias;
         }
 
         @Override
@@ -751,28 +716,13 @@ public abstract class JMXCollector implements ServiceCollector {
         }
 
         @Override
-        public CollectionResource getResource() {
-            return m_resource;
-        }
-
-        @Override
         public String getStringValue() {
             return m_value;
         }
 
         @Override
-        public boolean shouldPersist(ServiceParameters params) {
-            return true;
-        }
-
-        @Override
-        public String getType() {
-            return m_attribType.getType();
-        }
-
-        @Override
         public String toString() {
-             return "alias " + m_alias + ", value " + m_value + ", resource "
+             return "alias " + getName() + ", value " + m_value + ", resource "
                  + m_resource + ", attributeType " + m_attribType;
         }
 
@@ -790,11 +740,11 @@ public abstract class JMXCollector implements ServiceCollector {
     }
  
     
-    class JMXCollectionResource extends AbstractCollectionResource {
-        String m_resourceName;
-        private int m_nodeId;
+    public static class JMXCollectionResource extends AbstractCollectionResource {
+        private final String m_resourceName;
+        private final int m_nodeId;
         
-        JMXCollectionResource(CollectionAgent agent, String resourceName) { 
+        public JMXCollectionResource(CollectionAgent agent, String resourceName) { 
             super(agent);
             m_resourceName=resourceName;
             m_nodeId = agent.getNodeId();
@@ -805,23 +755,8 @@ public abstract class JMXCollector implements ServiceCollector {
             return "node["+m_nodeId+']';
         }
         
-        @Override
-        public int getType() {
-            return -1; //Is this correct?
-        }
-
-        @Override
-        public boolean rescanNeeded() {
-            return false;
-        }
-
-        @Override
-        public boolean shouldPersist(ServiceParameters params) {
-            return true;
-        }
-
         public void setAttributeValue(CollectionAttributeType type, String value) {
-            JMXCollectionAttribute attr = new JMXCollectionAttribute(this, type, type.getName(), value);
+            JMXCollectionAttribute attr = new JMXCollectionAttribute(this, type, value);
             addAttribute(attr);
         }
 
@@ -832,63 +767,13 @@ public abstract class JMXCollector implements ServiceCollector {
         
         @Override
         public String getResourceTypeName() {
-            return "node"; //All node resources for JMX; nothing of interface or "indexed resource" type
+            return CollectionResource.RESOURCE_TYPE_NODE; //All node resources for JMX; nothing of interface or "indexed resource" type
         }
         
         @Override
         public String getInstance() {
             return null; //For node type resources, use the default instance
         }
-
-        @Override
-        public String getParent() {
-            return m_agent.getStorageDir().toString();
-        }
-    }
-    
-    class JMXCollectionSet implements CollectionSet {
-        private int m_status;
-        private Date m_timestamp;
-        private JMXCollectionResource m_collectionResource;
-        
-        JMXCollectionSet(CollectionAgent agent, String resourceName) {
-            m_status=ServiceCollector.COLLECTION_FAILED;
-            m_collectionResource=new JMXCollectionResource(agent, resourceName);
-        }
-        
-        public JMXCollectionResource getResource() {
-            return m_collectionResource;
-        }
-
-        public void setStatus(int status) {
-            m_status=status;
-        }
-        
-        @Override
-        public int getStatus() {
-            return m_status;
-        }
-
-        @Override
-        public void visit(CollectionSetVisitor visitor) {
-            visitor.visitCollectionSet(this);
-            m_collectionResource.visit(visitor);
-            visitor.completeCollectionSet(this);
-        }
-
-        @Override
-		public boolean ignorePersist() {
-			return false;
-		}        
-		
-		@Override
-		public Date getCollectionTimestamp() {
-			return m_timestamp;
-		}
-        public void setCollectionTimestamp(Date timestamp) {
-        	this.m_timestamp = timestamp;
-		}
-
     }
     
     /** {@inheritDoc} */

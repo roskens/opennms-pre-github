@@ -1,22 +1,22 @@
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
- * Copyright (C) 2006-2012 The OpenNMS Group, Inc.
- * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ * Copyright (C) 2013-2014 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2014 The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published
+ * it under the terms of the GNU Affero General Public License as published
  * by the Free Software Foundation, either version 3 of the License,
  * or (at your option) any later version.
  *
  * OpenNMS(R) is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU Affero General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GNU Affero General Public License
  * along with OpenNMS(R).  If not, see:
  *      http://www.gnu.org/licenses/
  *
@@ -25,6 +25,7 @@
  *     http://www.opennms.org/
  *     http://www.opennms.com/
  *******************************************************************************/
+
 package org.opennms.features.vaadin.dashboard.dashlets;
 
 import com.vaadin.data.Property;
@@ -72,7 +73,7 @@ public class ChartsConfigurationWindow extends DashletConfigurationWindow {
          * Setting up the base layouts
          */
 
-        setHeight(310, Unit.PIXELS);
+        setHeight(410, Unit.PIXELS);
         setWidth(40, Unit.PERCENTAGE);
 
         HorizontalLayout horizontalLayout = new HorizontalLayout();
@@ -90,9 +91,11 @@ public class ChartsConfigurationWindow extends DashletConfigurationWindow {
          */
         m_maximizeWidth = new CheckBox();
         m_maximizeWidth.setCaption("Maximize width");
+        m_maximizeWidth.setDescription("Maximize width");
 
         m_maximizeHeight = new CheckBox();
         m_maximizeHeight.setCaption("Maximize height");
+        m_maximizeHeight.setDescription("Maximize height");
 
         String maximizeWidthString = m_dashletSpec.getParameters().get("maximizeWidth");
         String maximizeHeightString = m_dashletSpec.getParameters().get("maximizeHeight");
@@ -104,6 +107,7 @@ public class ChartsConfigurationWindow extends DashletConfigurationWindow {
         m_maximizeHeight.setValue(maximizeHeight);
 
         m_chartSelect = new NativeSelect();
+        m_chartSelect.setDescription("Select chart to be displayed");
         m_chartSelect.setCaption("Chart");
         m_chartSelect.setNullSelectionAllowed(false);
         m_chartSelect.setInvalidAllowed(false);
@@ -175,6 +179,7 @@ public class ChartsConfigurationWindow extends DashletConfigurationWindow {
          * Adding the cancel button...
          */
         Button cancel = new Button("Cancel");
+        cancel.setDescription("Cancel editing");
         cancel.addClickListener(new Button.ClickListener() {
             @Override
             public void buttonClick(Button.ClickEvent event) {
@@ -191,7 +196,7 @@ public class ChartsConfigurationWindow extends DashletConfigurationWindow {
          * ...and the OK button
          */
         Button ok = new Button("Save");
-
+        ok.setDescription("Save properties and close");
         ok.addClickListener(new Button.ClickListener() {
             @Override
             public void buttonClick(Button.ClickEvent event) {

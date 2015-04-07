@@ -1,22 +1,22 @@
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
- * Copyright (C) 2012 The OpenNMS Group, Inc.
- * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ * Copyright (C) 2012-2014 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2014 The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published
+ * it under the terms of the GNU Affero General Public License as published
  * by the Free Software Foundation, either version 3 of the License,
  * or (at your option) any later version.
  *
  * OpenNMS(R) is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU Affero General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GNU Affero General Public License
  * along with OpenNMS(R).  If not, see:
  *      http://www.gnu.org/licenses/
  *
@@ -28,18 +28,16 @@
 
 package org.opennms.features.topology.app.internal.gwt.client;
 
-import com.google.gwt.dom.client.NativeEvent;
 import org.opennms.features.topology.app.internal.gwt.client.d3.D3;
 import org.opennms.features.topology.app.internal.gwt.client.d3.D3Behavior;
 import org.opennms.features.topology.app.internal.gwt.client.d3.D3Events;
 import org.opennms.features.topology.app.internal.gwt.client.d3.Func;
-
-import com.google.gwt.core.client.JavaScriptObject;
-import com.google.gwt.core.client.JsArray;
-import com.google.gwt.core.client.JsArrayNumber;
-
 import org.opennms.features.topology.app.internal.gwt.client.svg.SVGGElement;
 import org.opennms.features.topology.app.internal.gwt.client.svg.SVGRect;
+
+import com.google.gwt.core.client.JavaScriptObject;
+import com.google.gwt.core.client.JsArrayNumber;
+import com.google.gwt.dom.client.NativeEvent;
 
 public class GWTVertex extends JavaScriptObject {
     
@@ -56,10 +54,10 @@ public class GWTVertex extends JavaScriptObject {
     protected GWTVertex() {};
 
     public static native GWTVertex create(String id, int x, int y) /*-{
-    	return {"id":id, "x":x, "y":y, "initialX":0, "initialY":0, "selected":false,
+    	return {"id":id, "x":x, "y":y, "initialX":-1000, "initialY":-1000, "selected":false,
     	        "iconUrl":"", "svgIconId":"", "semanticZoomLevel":0, "group":null,
     	        "status":"", "statusCount":"", "iconHeight":48, "iconWidth":48, "tooltipText":"", 
-    	        "severityArray":[], "total": 0, "isGroup": true};
+    	        "severityArray":[], "total": 0, "isGroup": true, "stylename":"vertex", "isIconNormalized": false};
 	}-*/;
 
     public final native String getId()/*-{
@@ -210,6 +208,14 @@ public class GWTVertex extends JavaScriptObject {
     public final native void setIsGroup(boolean group) /*-{
     	this.isGroup = group;
     }-*/;
+
+    public final native void setIconNormalized(boolean bool) /*-{
+        this.isIconNormalized = bool;
+    }-*/;
+
+    public final native boolean isIconNormalized() /*-{
+        return this.isIconNormalized;
+    }-*/;
     
     public final String[] getClassArray() {
     	return classArray;
@@ -221,6 +227,14 @@ public class GWTVertex extends JavaScriptObject {
     
     public final native void setTotal(int newTotal) /*-{
     	this.total = newTotal;
+    }-*/;
+
+    public final native void setStyleName(String stylename) /*-{
+        this.stylename = stylename;
+    }-*/;
+
+    public final native String getStyleName() /*-{
+        return this.stylename;
     }-*/;
     
     
@@ -288,7 +302,8 @@ public class GWTVertex extends JavaScriptObject {
 
             @Override
             public String call(GWTVertex datum, int index) {
-                return datum.isSelected() ? "vertex selected" : "vertex";
+                return datum.getStyleName();
+                //return datum.isSelected() ? "vertex selected" : "vertex";
             }};
     }
 
@@ -358,17 +373,19 @@ public class GWTVertex extends JavaScriptObject {
                 final int width = iconRect.getWidth();
                 final int height = iconRect.getHeight();
                 double primeLength = width >= height ? width : height;
-                double scaleFactor = 48 / primeLength;
+                double scaleFactor = primeLength == 0? 0.001 : (48 / primeLength);
                 double newX = (scaleFactor * width) / 2;
                 double newY = (scaleFactor * height) / 2;
                 double iconHeight = scaleFactor * height;
                 vertex.setIconHeight(iconHeight);
                 vertex.setIconWidth(scaleFactor * width);
+                if(scaleFactor != Double.POSITIVE_INFINITY){
+                    vertex.setIconNormalized(true);
+                }
                 return "translate(-" + newX +" , -" + newY +") scale(" + scaleFactor + ")";
             }
         };
     }
-
 
     static native SVGRect getHiddenIconElement(String iconId) /*-{
         var existingUseElem = $wnd.d3.select("#hiddenIconContainer #" + iconId + "-icon");
@@ -447,13 +464,31 @@ public class GWTVertex extends JavaScriptObject {
         };
     }
 
+    protected static Func<String, GWTVertex> getVertexOpacity(){
+        return new Func<String, GWTVertex>() {
+            @Override
+            public String call(GWTVertex vertex, int index) {
+                return vertex.isIconNormalized() ? "1" : "0";
+            }
+        };
+    }
+
+    protected static Func<String, GWTVertex> getVertexVisibility(){
+        return new Func<String, GWTVertex>() {
+            @Override
+            public String call(GWTVertex vertex, int index) {
+                return vertex.isIconNormalized() ? "visible" : "hidden";
+            }
+        };
+    }
+
     public static D3Behavior draw() {
         return new D3Behavior() {
 
             @Override
             public D3 run(D3 selection) {
                 final D3 iconContainer = selection.select(".icon-container");
-                iconContainer.attr("transform", normalizeSVGIcon()).attr("opacity", 1);
+                iconContainer.attr("transform", normalizeSVGIcon()).attr("opacity", getVertexOpacity());
                 iconContainer.select(".vertex .activeIcon").attr("opacity", selectionFilter());
 
                 selection.select(".svgIconOverlay").attr("width", calculateOverlayWidth()).attr("height", calculateOverlayHeight())
@@ -484,7 +519,7 @@ public class GWTVertex extends JavaScriptObject {
                 vertex.attr("opacity",1e-6).style("cursor", "pointer");
                 vertex.append("svg:rect").attr("class", "status").attr("fill", "none").attr("stroke-width", 5).attr("stroke-location", "outside").attr("stroke", "blue").attr("opacity", 0);
 
-                D3 svgIconContainer         = vertex.append("g").attr("class", "icon-container");
+                D3 svgIconContainer         = vertex.append("g").attr("class", "icon-container").attr("opacity", 0);
                 D3 svgIcon                  = svgIconContainer.append("use");
                 D3 svgIconRollover          = svgIconContainer.append("use");
                 D3 svgIconActive            = svgIconContainer.append("use");
@@ -518,7 +553,7 @@ public class GWTVertex extends JavaScriptObject {
                     }
                 });
 
-                svgIconContainer.attr("opacity", 0);
+
                 svgIcon.attr("xlink:href", svgIconId("")).attr("class", "upIcon");
                 svgIconRollover.attr("xlink:href", svgIconId("_rollover")).attr("class", "overIcon").attr("opacity", 0);
                 svgIconActive.attr("xlink:href", svgIconId("_active")).attr("class", "activeIcon").attr("opacity", 0);
@@ -544,12 +579,12 @@ public class GWTVertex extends JavaScriptObject {
         };
     }
     public static final native void logDocument(Object doc)/*-{
-        $wnd.console.log(doc)
+        $wnd.console.debug(doc);
     }-*/;
     
     //support for creating a node-chart
     //segmentWidth defines how thick the donut ring will be (in pixels)
-    final static String makeChart(final double cx, final double cy, final double r, final double segmentWidth, final JsArrayNumber dataArray, final String[] classArray, final double total){
+    static final String makeChart(final double cx, final double cy, final double r, final double segmentWidth, final JsArrayNumber dataArray, final String[] classArray, final double total){
 				
 				String svg = "<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\">";
 				
@@ -621,7 +656,7 @@ public class GWTVertex extends JavaScriptObject {
 			    return svg;
     		
     }
-    
-    
+
+
 
 }

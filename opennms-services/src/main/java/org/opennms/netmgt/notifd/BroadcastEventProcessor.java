@@ -1,22 +1,22 @@
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
- * Copyright (C) 2006-2012 The OpenNMS Group, Inc.
- * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ * Copyright (C) 2002-2014 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2014 The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published
+ * it under the terms of the GNU Affero General Public License as published
  * by the Free Software Foundation, either version 3 of the License,
  * or (at your option) any later version.
  *
  * OpenNMS(R) is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU Affero General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GNU Affero General Public License
  * along with OpenNMS(R).  If not, see:
  *      http://www.gnu.org/licenses/
  *
@@ -39,12 +39,12 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.exolab.castor.xml.MarshalException;
 import org.exolab.castor.xml.ValidationException;
 import org.opennms.core.utils.RowProcessor;
 import org.opennms.core.utils.TimeConverter;
-import org.opennms.netmgt.EventConstants;
 import org.opennms.netmgt.config.DestinationPathManager;
 import org.opennms.netmgt.config.GroupManager;
 import org.opennms.netmgt.config.NotifdConfigManager;
@@ -57,35 +57,36 @@ import org.opennms.netmgt.config.destinationPaths.Path;
 import org.opennms.netmgt.config.destinationPaths.Target;
 import org.opennms.netmgt.config.groups.Group;
 import org.opennms.netmgt.config.notifd.AutoAcknowledge;
+import org.opennms.netmgt.config.notifd.AutoAcknowledgeAlarm;
 import org.opennms.netmgt.config.notificationCommands.Command;
 import org.opennms.netmgt.config.notifications.Notification;
 import org.opennms.netmgt.config.users.Contact;
 import org.opennms.netmgt.config.users.User;
-import org.opennms.netmgt.eventd.EventIpcManagerFactory;
-import org.opennms.netmgt.eventd.datablock.EventUtil;
+import org.opennms.netmgt.eventd.EventUtil;
+import org.opennms.netmgt.events.api.EventConstants;
+import org.opennms.netmgt.events.api.EventIpcManager;
+import org.opennms.netmgt.events.api.EventIpcManagerFactory;
+import org.opennms.netmgt.events.api.EventListener;
 import org.opennms.netmgt.model.events.EventBuilder;
-import org.opennms.netmgt.model.events.EventIpcManager;
-import org.opennms.netmgt.model.events.EventListener;
 import org.opennms.netmgt.model.events.EventUtils;
 import org.opennms.netmgt.xml.event.Event;
 import org.opennms.netmgt.xml.event.Parm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * <p>BroadcastEventProcessor class.</p>
  *
  * @author <a href="mailto:weave@oculan.com">Brian Weaver </a>
  * @author <a href="http://www.opennms.org/">OpenNMS </a>
+ * @author <a href="mailto:jeffg@opennms.org">Jeff Gehlbach </a>
  */
 public final class BroadcastEventProcessor implements EventListener {
     
     private static final Logger LOG = LoggerFactory.getLogger(BroadcastEventProcessor.class);
-    
-    /**
-     */
+
     private volatile Map<String, NoticeQueue> m_noticeQueues;
-    private volatile EventIpcManager m_eventManager;
     private volatile PollOutagesConfigManager m_pollOutagesConfigManager;
     private volatile NotificationManager m_notificationManager;
     private volatile NotifdConfigManager m_notifdConfigManager;
@@ -93,6 +94,12 @@ public final class BroadcastEventProcessor implements EventListener {
     private volatile UserManager m_userManager;
     private volatile GroupManager m_groupManager;
     private volatile NotificationCommandManager m_notificationCommandManager;
+
+    @Autowired
+    private volatile EventIpcManager m_eventManager;
+
+    @Autowired
+    private volatile EventUtil m_eventUtil;
 
     /**
      * <p>Constructor for BroadcastEventProcessor.</p>
@@ -140,7 +147,9 @@ public final class BroadcastEventProcessor implements EventListener {
         if (m_notificationCommandManager == null) {
             throw new IllegalStateException("property notificationCommandManager not set");
         }
-
+        if (m_eventUtil == null) {
+            throw new IllegalStateException("property eventUtil not set");
+        }
     }
 
     /**
@@ -180,6 +189,15 @@ public final class BroadcastEventProcessor implements EventListener {
             }
             m_eventManager.sendNow(ebldr.getEvent());
             LOG.info("onEvent: reload configuration event handled.");
+            return;
+        }
+
+        if (event.getLogmsg() != null && event.getLogmsg().getDest().equalsIgnoreCase("donotpersist")) {
+            LOG.debug("discarding event {}, the event has been configured as 'doNotPersist'.", event.getUei());
+            return;
+        }
+        if (event.getAlarmData() != null && event.getAlarmData().isAutoClean()) {
+            LOG.debug("discarding event {}, the event has been configured with autoClean=true on its alarmData.", event.getUei());
             return;
         }
 
@@ -278,16 +296,18 @@ public final class BroadcastEventProcessor implements EventListener {
             Collection<AutoAcknowledge> autoAcks = getNotifdConfigManager().getAutoAcknowledges();
 
             // see if this event has an auto acknowledge for a notice
+            boolean processed = false;
             for (AutoAcknowledge curAck : autoAcks) {
                 if (curAck.getUei().equals(event.getUei())) {
                     try {
                         LOG.debug("Acknowledging event {} {}:{}:{}", curAck.getAcknowledge(), event.getNodeid(), event.getInterface(), event.getService());
                         
                         Collection<Integer> notifIDs = getNotificationManager().acknowledgeNotice(event, curAck.getAcknowledge(), curAck.getMatch());
+                        processed = true;
                         try {
                             // only send resolution notifications if notifications are globally turned on
                             if (curAck.getNotify() && notifsOn) {
-                                sendResolvedNotifications(notifIDs, event, curAck.getAcknowledge(), curAck.getMatch(), curAck.getResolutionPrefix(), getNotifdConfigManager().getConfiguration().isNumericSkipResolutionPrefix());
+                                sendResolvedNotifications(notifIDs, event, curAck.getResolutionPrefix(), getNotifdConfigManager().getConfiguration().isNumericSkipResolutionPrefix());
                             }
                         } catch (Throwable e) {
                             LOG.error("Failed to send resolution notifications.", e);
@@ -296,15 +316,35 @@ public final class BroadcastEventProcessor implements EventListener {
                         LOG.error("Failed to auto acknowledge notice.", e);
                     }
                 }
+            }
 
+            // see if this event has an auto acknowledge alarm for a notice
+            if (processed) {
+                return;
+            }
+            final AutoAcknowledgeAlarm autoAck = getNotifdConfigManager().getConfiguration().getAutoAcknowledgeAlarm();
+            if (autoAck == null) {
+                return;
+            }
+            if (!autoAck.getUeiCollection().isEmpty() && !autoAck.getUeiCollection().contains(event.getUei())) {
+                return;
+            }
+            Collection<Integer> notifIDs = getNotificationManager().acknowledgeNoticeBasedOnAlarms(event);
+            try {
+                // only send resolution notifications if notifications are globally turned on
+                if (autoAck.getNotify() && !notifIDs.isEmpty() && notifsOn) {
+                    sendResolvedNotifications(notifIDs, event, autoAck.getResolutionPrefix(), getNotifdConfigManager().getConfiguration().isNumericSkipResolutionPrefix());
+                }
+            } catch (Throwable e) {
+                LOG.error("Failed to send resolution notifications.", e);
             }
         } catch (Throwable e) {
             LOG.error("Unable to auto acknowledge notice due to exception.", e);
         }
     }
 
-    private void sendResolvedNotifications(Collection<Integer> notifIDs, Event event, String acknowledge, 
-            String[] match, String resolutionPrefix, boolean skipNumericPrefix) throws Exception {
+    private void sendResolvedNotifications(Collection<Integer> notifIDs, Event event, 
+            String resolutionPrefix, boolean skipNumericPrefix) throws Exception {
         for (int notifId : notifIDs) {
             boolean wa = false;
             if(notifId < 0) {
@@ -315,7 +355,7 @@ public final class BroadcastEventProcessor implements EventListener {
             final boolean wasAcked = wa;
             final Map<String, String> parmMap = rebuildParameterMap(notifId, resolutionPrefix, skipNumericPrefix);
             
-            NotificationManager.expandMapValues(parmMap, 
+            m_eventUtil.expandMapValues(parmMap,
                     getNotificationManager().getEvent(Integer.parseInt(parmMap.get("eventID"))));
             
             String queueID = getNotificationManager().getQueueForNotification(notifId);
@@ -346,9 +386,10 @@ public final class BroadcastEventProcessor implements EventListener {
             };
             getNotificationManager().forEachUserNotification(notifId, ackNotifProcessor);
 
-            for (String userID : userNotifications.keySet()) {
-                List<String> cmdList = userNotifications.get(userID);
-                String[] cmds = cmdList.toArray(new String[cmdList.size()]);
+            for (final Entry<String,List<String>> entry : userNotifications.entrySet()) {
+                final String userID = entry.getKey();
+                final List<String> cmdList = entry.getValue();
+                final String[] cmds = cmdList.toArray(new String[cmdList.size()]);
                 LOG.debug("Sending {} notification to userID = {} for notice ID {}", resolutionPrefix, userID, notifId);
                 sendResolvedNotificationsToUser(queueID, userID, cmds, parmMap);
             }
@@ -539,7 +580,7 @@ public final class BroadcastEventProcessor implements EventListener {
                         }
 
                         try {
-                            LOG.info(String.format("Inserting notification #{} into database: {}", noticeId, paramMap.get(NotificationManager.PARAM_SUBJECT)));
+                            LOG.info("Inserting notification #{} into database: {}", noticeId, paramMap.get(NotificationManager.PARAM_SUBJECT));
                             getNotificationManager().insertNotice(noticeId, paramMap, queueID, notification);
                         } catch (SQLException e) {
                             LOG.error("Failed to enter notification into database, exiting this notification", e);
@@ -663,7 +704,7 @@ public final class BroadcastEventProcessor implements EventListener {
     /**
      * 
      */
-    static Map<String, String> buildParameterMap(Notification notification, Event event, int noticeId) {
+    protected Map<String, String> buildParameterMap(Notification notification, Event event, int noticeId) {
         Map<String, String> paramMap = new HashMap<String, String>();
         
         NotificationManager.addNotificationParams(paramMap, notification);
@@ -688,14 +729,13 @@ public final class BroadcastEventProcessor implements EventListener {
         paramMap.put("eventID", String.valueOf(event.getDbid()));
         paramMap.put("eventUEI", event.getUei());
 
-        NotificationManager.expandMapValues(paramMap, event);
+        m_eventUtil.expandMapValues(paramMap, event);
 
         return Collections.unmodifiableMap(paramMap);
-        
     }
 
-    private static void nullSafeExpandedPut(final String key, final String value, final Event event, Map<String, String> paramMap) {
-        String result = EventUtil.expandParms(value, event);
+    private void nullSafeExpandedPut(final String key, final String value, final Event event, Map<String, String> paramMap) {
+        String result = m_eventUtil.expandParms(value, event);
         paramMap.put(key, (result == null ? value : result));
     }
 
@@ -756,6 +796,7 @@ public final class BroadcastEventProcessor implements EventListener {
                         synchronized(noticeQueue) {
                             noticeQueue.putItem(task.getSendTime(), task);
                         }
+                        getNotificationManager().incrementTasksQueued();
                         targetSiblings.add(task);
                     }
                 }
@@ -841,9 +882,14 @@ public final class BroadcastEventProcessor implements EventListener {
 
         User user = getUserManager().getUser(targetName);
 
-        Command commands[] = new Command[commandList.length];
+        Command[] commands = new Command[commandList.length];
         for (int i = 0; i < commandList.length; i++) {
             commands[i] = getNotificationCommandManager().getCommand(commandList[i]);
+            if (commands[i] != null && commands[i].getContactType() != null) {
+                if (! userHasContactType(user, commands[i].getContactType())) {
+                    LOG.warn("User {} lacks contact of type {} which is required for notification command {} on notice #{}. Scheduling task anyway.", user.getUserId(), commands[i].getContactType(), commands[i].getName(), noticeId);
+                }
+            }
         }
 
         // if either piece of information is missing don't add the task to
@@ -877,7 +923,7 @@ public final class BroadcastEventProcessor implements EventListener {
         contact.setInfo(address);
         user.addContact(contact);
 
-        Command commands[] = new Command[commandList.length];
+        Command[] commands = new Command[commandList.length];
         for (int i = 0; i < commandList.length; i++) {
             commands[i] = getNotificationCommandManager().getCommand(commandList[i]);
         }
@@ -888,6 +934,22 @@ public final class BroadcastEventProcessor implements EventListener {
         task.setAutoNotify(autoNotify);
 
         return task;
+    }
+    
+    boolean userHasContactType(User user, String contactType) {
+        return userHasContactType(user, contactType, false);
+    }
+    
+    boolean userHasContactType(User user, String contactType, boolean allowEmpty) {
+        boolean retVal = false;
+        for (Contact c : user.getContactCollection()) {
+            if (contactType.equalsIgnoreCase(c.getType())) {
+                if (allowEmpty || ! "".equals(c.getInfo())) {
+                    retVal = true;
+                }
+            }
+        }
+        return retVal;
     }
 
     /**
@@ -1008,7 +1070,7 @@ public final class BroadcastEventProcessor implements EventListener {
     /**
      * <p>getEventManager</p>
      *
-     * @return a {@link org.opennms.netmgt.model.events.EventIpcManager} object.
+     * @return a {@link org.opennms.netmgt.events.api.EventIpcManager} object.
      */
     public EventIpcManager getEventManager() {
         return m_eventManager;
@@ -1017,7 +1079,7 @@ public final class BroadcastEventProcessor implements EventListener {
     /**
      * <p>setEventManager</p>
      *
-     * @param eventManager a {@link org.opennms.netmgt.model.events.EventIpcManager} object.
+     * @param eventManager a {@link org.opennms.netmgt.events.api.EventIpcManager} object.
      */
     public void setEventManager(EventIpcManager eventManager) {
         m_eventManager = eventManager;
@@ -1151,4 +1213,11 @@ public final class BroadcastEventProcessor implements EventListener {
         m_noticeQueues = noticeQueues;
     }
 
+    public void setEventUtil(EventUtil eventUtil) {
+        m_eventUtil = eventUtil;
+    }
+
+    public EventUtil getEventUtil() {
+        return m_eventUtil;
+    }
 } // end class

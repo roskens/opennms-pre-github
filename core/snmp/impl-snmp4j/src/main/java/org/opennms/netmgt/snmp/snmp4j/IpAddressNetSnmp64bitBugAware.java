@@ -1,22 +1,22 @@
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
- * Copyright (C) 2011-2012 The OpenNMS Group, Inc.
- * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ * Copyright (C) 2011-2014 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2014 The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published
+ * it under the terms of the GNU Affero General Public License as published
  * by the Free Software Foundation, either version 3 of the License,
  * or (at your option) any later version.
  *
  * OpenNMS(R) is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU Affero General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GNU Affero General Public License
  * along with OpenNMS(R).  If not, see:
  *      http://www.gnu.org/licenses/
  *
@@ -38,7 +38,7 @@ import org.snmp4j.asn1.BERInputStream;
 import org.snmp4j.smi.IpAddress;
 
 /**
- * @author Jeff Gehlbach <jeffg@opennms.org>
+ * @author Jeff Gehlbach &lt;jeffg@opennms.org&gt;
  * 
  * This class exists solely to work around a bug in the Net-SNMP BER library
  * that causes Net-SNMP agents prior to version 5.4.1 on 64-bit platforms to
@@ -87,10 +87,8 @@ public class IpAddressNetSnmp64bitBugAware extends IpAddress {
 		}
 		if (value.length != 4) {
 			if ( (value.length == 8) && Boolean.getBoolean("org.opennms.snmp.workarounds.allow64BitIpAddress") ) {
-	            byte[] tempValue = { 0,0,0,0 };
-	            for (int i = 0; i < 4; i++) {
-	            	tempValue[i] = value[i];
-	            }
+	            byte[] tempValue = new byte[4];
+	            System.arraycopy(value, 0, tempValue, 0, 4);
 	            value = tempValue;
 	             LOG.debug("Working around misencoded IpAddress (8 bytes, truncating to 4); likely dealing with a buggy Net-SNMP agent");
 			} else {

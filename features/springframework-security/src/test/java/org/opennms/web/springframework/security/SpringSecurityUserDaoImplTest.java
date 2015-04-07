@@ -1,22 +1,22 @@
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
- * Copyright (C) 2011-2012 The OpenNMS Group, Inc.
- * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ * Copyright (C) 2006-2014 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2014 The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published
+ * it under the terms of the GNU Affero General Public License as published
  * by the Free Software Foundation, either version 3 of the License,
  * or (at your option) any later version.
  *
  * OpenNMS(R) is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU Affero General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GNU Affero General Public License
  * along with OpenNMS(R).  If not, see:
  *      http://www.gnu.org/licenses/
  *
@@ -39,16 +39,17 @@ import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.util.Collection;
 import java.util.Iterator;
-
 import junit.framework.TestCase;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.opennms.core.spring.BeanUtils;
+import org.opennms.core.test.Level;
 import org.opennms.core.test.MockLogAppender;
+import static org.opennms.core.test.MockLogAppender.assertLogAtLevel;
+import static org.opennms.core.test.MockLogAppender.assertNoWarningsOrGreater;
 import org.opennms.core.test.OpenNMSJUnit4ClassRunner;
 import org.opennms.core.test.db.annotations.JUnitTemporaryDatabase;
-import org.opennms.core.utils.BeanUtils;
 import org.opennms.netmgt.config.GroupManager;
 import org.opennms.netmgt.config.UserManager;
 import org.opennms.netmgt.model.OnmsUser;
@@ -63,11 +64,10 @@ import org.springframework.test.context.ContextConfiguration;
 
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations={
+		"classpath:/META-INF/opennms/applicationContext-commonConfigs.xml",
         "classpath:/META-INF/opennms/applicationContext-soa.xml",
         "classpath:/META-INF/opennms/applicationContext-dao.xml",
         "classpath*:/META-INF/opennms/component-dao.xml",
-        "classpath:/META-INF/opennms/applicationContext-daemon.xml",
-        "classpath:/META-INF/opennms/mockEventIpcManager.xml",
         "classpath:/META-INF/opennms/applicationContext-mock-usergroup.xml",
         "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml",
         "classpath:/org/opennms/web/springframework/security/AuthenticationIntegrationTest-context.xml"
@@ -114,11 +114,13 @@ public class SpringSecurityUserDaoImplTest extends TestCase implements Initializ
         Iterator<? extends GrantedAuthority> itr = authorities.iterator();
         assertEquals("authorities 0 name", Authentication.ROLE_USER, itr.next().getAuthority());
         assertEquals("authorities 2 name", Authentication.ROLE_ADMIN, itr.next().getAuthority());
+        assertNoWarningsOrGreater();
     }
 
     @Test
     public void testGetByUsernameBogus() {
         assertNull("user object should be null", m_springSecurityDao.getByUsername("bogus"));
+        assertNoWarningsOrGreater();
     }
 
     @Test
@@ -134,6 +136,7 @@ public class SpringSecurityUserDaoImplTest extends TestCase implements Initializ
         assertNotNull("authorities should not be null", authorities);
         assertEquals("authorities size", 1, authorities.size());
         assertEquals("authorities 0 name", Authentication.ROLE_RTC, authorities.iterator().next().getAuthority());
+        assertNoWarningsOrGreater();
     }
 
     @Test
@@ -154,6 +157,7 @@ public class SpringSecurityUserDaoImplTest extends TestCase implements Initializ
         assertNotNull("authorities should not be null", authorities);
         assertEquals("authorities size", 1, authorities.size());
         assertEquals("authorities 0 name", Authentication.ROLE_USER, authorities.iterator().next().getAuthority());
+        assertNoWarningsOrGreater();
     }
     
     @Test
@@ -174,6 +178,7 @@ public class SpringSecurityUserDaoImplTest extends TestCase implements Initializ
         assertNotNull("authorities should not be null", authorities);
         assertEquals("authorities size", 1, authorities.size());
         assertEquals("authorities 0 name", Authentication.ROLE_DASHBOARD, authorities.iterator().next().getAuthority());
+        assertNoWarningsOrGreater();
     }
     
     @Test
@@ -229,6 +234,7 @@ public class SpringSecurityUserDaoImplTest extends TestCase implements Initializ
             fa.deleteExpected();
             fa.tearDown();
         }
+        assertNoWarningsOrGreater();
     }
     
     /**
@@ -304,7 +310,17 @@ public class SpringSecurityUserDaoImplTest extends TestCase implements Initializ
             fa.deleteExpected();
             fa.tearDown();
         }
+        assertNoWarningsOrGreater();
     }
+    
+    @DirtiesContext
+    @Test
+    public void testMissingMagicUsersProperties() {
+        ((SpringSecurityUserDaoImpl) m_springSecurityDao).setMagicUsersConfigurationFile("src/test/resources/org/opennms/web/springframework/security/magic-users-bad.properties");
+        ((SpringSecurityUserDaoImpl) m_springSecurityDao).parseMagicUsers();
+        assertLogAtLevel(Level.WARN);
+    }
+    
     private void writeTemporaryFile(File file, String content) throws IOException {
         Writer writer = new OutputStreamWriter(new FileOutputStream(file), "UTF-8");
         writer.write(content);

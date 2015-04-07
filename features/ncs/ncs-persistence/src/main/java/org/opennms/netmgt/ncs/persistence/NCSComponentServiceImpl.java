@@ -1,22 +1,22 @@
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
- * Copyright (C) 2012 The OpenNMS Group, Inc.
- * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ * Copyright (C) 2012-2014 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2014 The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published
+ * it under the terms of the GNU Affero General Public License as published
  * by the Free Software Foundation, either version 3 of the License,
  * or (at your option) any later version.
  *
  * OpenNMS(R) is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU Affero General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GNU Affero General Public License
  * along with OpenNMS(R).  If not, see:
  *      http://www.gnu.org/licenses/
  *
@@ -37,15 +37,15 @@ import java.util.Set;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response.Status;
 
-import org.hibernate.criterion.Restrictions;
+import org.opennms.core.criteria.Criteria;
+import org.opennms.core.criteria.restrictions.LikeRestriction;
 import org.opennms.netmgt.dao.api.AlarmDao;
 import org.opennms.netmgt.dao.api.EventDao;
 import org.opennms.netmgt.dao.support.UpsertTemplate;
+import org.opennms.netmgt.events.api.EventProxy;
+import org.opennms.netmgt.events.api.EventProxyException;
 import org.opennms.netmgt.model.OnmsAlarm;
-import org.opennms.netmgt.model.OnmsCriteria;
 import org.opennms.netmgt.model.OnmsEvent;
-import org.opennms.netmgt.model.events.EventProxy;
-import org.opennms.netmgt.model.events.EventProxyException;
 import org.opennms.netmgt.model.ncs.NCSComponent;
 import org.opennms.netmgt.ncs.rest.NCSRestService.ComponentList;
 import org.slf4j.Logger;
@@ -309,9 +309,9 @@ public class NCSComponentServiceImpl implements NCSComponentService {
 	}
 
 	private void deleteAlarms(final String foreignSource, final String foreignId) {
-		final OnmsCriteria alarmCriteria = new OnmsCriteria(OnmsAlarm.class)
-        .add(Restrictions.like("eventParms", "%componentForeignSource=" + foreignSource +"%"))
-        .add(Restrictions.like("eventParms", "%componentForeignId=" + foreignId +"%"));
+		final Criteria alarmCriteria = new Criteria(OnmsAlarm.class)
+            .addRestriction(new LikeRestriction("eventParms", "%componentForeignSource=" + foreignSource +"%"))
+            .addRestriction(new LikeRestriction("eventParms", "%componentForeignId=" + foreignId +"%"));
 
         for(final OnmsAlarm alarm : m_alarmDao.findMatching(alarmCriteria)) {
             m_alarmDao.delete(alarm);
@@ -319,9 +319,9 @@ public class NCSComponentServiceImpl implements NCSComponentService {
 	}
 
 	private void deleteEvents(final String foreignSource, final String foreignId) {
-		final OnmsCriteria eventCriteria = new OnmsCriteria(OnmsEvent.class)
-        .add(Restrictions.like("eventParms", "%componentForeignSource=" + foreignSource +"%"))
-        .add(Restrictions.like("eventParms", "%componentForeignId=" + foreignId +"%"));
+		final Criteria eventCriteria = new Criteria(OnmsEvent.class)
+            .addRestriction(new LikeRestriction("eventParms", "%componentForeignSource=" + foreignSource +"%"))
+            .addRestriction(new LikeRestriction("eventParms", "%componentForeignId=" + foreignId +"%"));
 
         for(final OnmsEvent event : m_eventDao.findMatching(eventCriteria)) {
             m_eventDao.delete(event);

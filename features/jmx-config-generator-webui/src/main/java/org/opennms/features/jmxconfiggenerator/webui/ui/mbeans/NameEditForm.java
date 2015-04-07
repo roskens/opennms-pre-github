@@ -1,22 +1,22 @@
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
- * Copyright (C) 2013 The OpenNMS Group, Inc.
- * OpenNMS(R) is Copyright (C) 1999-2013 The OpenNMS Group, Inc.
+ * Copyright (C) 2013-2014 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2014 The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published
+ * it under the terms of the GNU Affero General Public License as published
  * by the Free Software Foundation, either version 3 of the License,
  * or (at your option) any later version.
  *
  * OpenNMS(R) is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU Affero General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GNU Affero General Public License
  * along with OpenNMS(R).  If not, see:
  *      http://www.gnu.org/licenses/
  *
@@ -37,6 +37,7 @@ import org.opennms.features.jmxconfiggenerator.webui.ui.validators.NameValidator
 
 import com.vaadin.data.Item;
 import com.vaadin.data.Validator;
+import com.vaadin.server.Sizeable.Unit;
 import com.vaadin.ui.CheckBox;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.Field;
@@ -50,9 +51,9 @@ import com.vaadin.ui.TextField;
  * @author Markus von Rüden
  */
 public class NameEditForm extends Form implements ModelChangeListener<Item>, ViewStateChangedListener,
-		EditControls.Callback {
+		EditControls.Callback<Component> {
 
-	private final EditControls footer = new EditControls(this);
+	private final EditControls<Component> footer = new EditControls<Component>(this);
 	private final MBeansController controller;
 	private final Validator nameValidator = new NameValidator();
 	private final FormParameter parameter;
@@ -62,7 +63,7 @@ public class NameEditForm extends Form implements ModelChangeListener<Item>, Vie
 		this.parameter = parameter;
 		setFormFieldFactory(new FormFieldFactory() {
 			@Override
-			public Field createField(Item item, Object propertyId, Component uiContext) {
+			public Field<?> createField(Item item, Object propertyId, Component uiContext) {
 				if (propertyId.toString().equals(MetaMBeanItem.SELECTED)) {
 					CheckBox c = new CheckBox(MetaMBeanItem.SELECTED);
 					return c;
@@ -89,8 +90,8 @@ public class NameEditForm extends Form implements ModelChangeListener<Item>, Vie
 				return null;
 			}
 		});
-		setWidth(100, UNITS_PERCENTAGE);
-		setHeight(Config.NAME_EDIT_FORM_HEIGHT + (parameter.hasFooter() ? 0 : -60), UNITS_PIXELS);
+		setWidth(100, Unit.PERCENTAGE);
+		setHeight(Config.NAME_EDIT_FORM_HEIGHT + (parameter.hasFooter() ? 0 : -60), Unit.PIXELS);
 		setReadOnly(true);
 		setImmediate(true);
 		setBuffered(true);

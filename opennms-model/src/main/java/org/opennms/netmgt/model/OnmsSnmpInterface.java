@@ -1,22 +1,22 @@
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
- * Copyright (C) 2006-2012 The OpenNMS Group, Inc.
- * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ * Copyright (C) 2006-2014 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2014 The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published
+ * it under the terms of the GNU Affero General Public License as published
  * by the Free Software Foundation, either version 3 of the License,
  * or (at your option) any later version.
  *
  * OpenNMS(R) is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU Affero General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GNU Affero General Public License
  * along with OpenNMS(R).  If not, see:
  *      http://www.gnu.org/licenses/
  *
@@ -49,15 +49,16 @@ import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlIDREF;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.hibernate.annotations.Type;
+import org.opennms.core.network.InetAddressXmlAdapter;
 import org.opennms.core.utils.AlphaNumeric;
 import org.opennms.core.utils.RrdLabelUtils;
-import org.opennms.core.xml.bind.InetAddressXmlAdapter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.style.ToStringCreator;
@@ -68,15 +69,10 @@ import org.springframework.core.style.ToStringCreator;
 @XmlRootElement(name = "snmpInterface")
 @Entity
 @Table(name = "snmpInterface")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class OnmsSnmpInterface extends OnmsEntity implements Serializable {
-	
-	private static final Logger LOG = LoggerFactory.getLogger(OnmsSnmpInterface.class);
-
-    
-    /**
-     * 
-     */
-    private static final long serialVersionUID = -5396189389666285305L;
+    private static final long serialVersionUID = -963873273243372864L;
+    private static final Logger LOG = LoggerFactory.getLogger(OnmsSnmpInterface.class);
 
     private Integer m_id;
 
@@ -114,7 +110,7 @@ public class OnmsSnmpInterface extends OnmsEntity implements Serializable {
 
     private String m_collect = "N";
     
-    private String m_poll = "N";
+    private String m_poll;
 
     private Date m_lastSnmpPoll;
 
@@ -128,7 +124,7 @@ public class OnmsSnmpInterface extends OnmsEntity implements Serializable {
      * @param ifIndex a int.
      */
     public OnmsSnmpInterface(OnmsNode node, int ifIndex) {
-        this(node, new Integer(ifIndex));
+        this(node, Integer.valueOf(ifIndex));
     }
 
     /**
@@ -506,10 +502,11 @@ public class OnmsSnmpInterface extends OnmsEntity implements Serializable {
      *
      * @return a {@link org.opennms.netmgt.model.OnmsNode} object.
      */
-    @XmlIDREF
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "nodeId")
     @XmlElement(name="nodeId")
+    //@XmlIDREF
+    @XmlJavaTypeAdapter(NodeIdAdapter.class)
     public OnmsNode getNode() {
         return m_node;
     }
@@ -521,6 +518,16 @@ public class OnmsSnmpInterface extends OnmsEntity implements Serializable {
      */
     public void setNode(OnmsNode node) {
         m_node = node;
+    }
+
+    @Transient
+    @XmlTransient
+    @JsonIgnore
+    public Integer getNodeId() {
+        if (m_node != null) {
+            return m_node.getId();
+        }
+        return null;
     }
 
     /**
@@ -561,8 +568,9 @@ public class OnmsSnmpInterface extends OnmsEntity implements Serializable {
      *
      * @return a {@link java.util.Set} object.
      */
-    @XmlIDREF
     @OneToMany(mappedBy = "snmpInterface", fetch = FetchType.LAZY)
+    //@XmlIDREF
+    @XmlJavaTypeAdapter(SnmpInterfaceIdAdapter.class)
     public Set<OnmsIpInterface> getIpInterfaces() {
         return m_ipInterfaces;
     }

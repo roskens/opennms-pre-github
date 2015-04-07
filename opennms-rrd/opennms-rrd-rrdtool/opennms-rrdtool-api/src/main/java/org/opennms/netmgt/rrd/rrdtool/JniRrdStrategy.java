@@ -1,22 +1,22 @@
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
- * Copyright (C) 2006-2012 The OpenNMS Group, Inc.
- * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ * Copyright (C) 2004-2014 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2014 The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published
+ * it under the terms of the GNU Affero General Public License as published
  * by the Free Software Foundation, either version 3 of the License,
  * or (at your option) any later version.
  *
  * OpenNMS(R) is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU Affero General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GNU Affero General Public License
  * along with OpenNMS(R).  If not, see:
  *      http://www.gnu.org/licenses/
  *
@@ -52,7 +52,7 @@ import org.springframework.util.FileCopyUtils;
 
 /**
  * Provides an rrdtool based implementation of RrdStrategy. It uses the existing
- * JNI based single-threaded interface to write the rrdtool compatibile RRD
+ * JNI based single-threaded interface to write the rrdtool compatible RRD
  * files.
  *
  * The JNI interface takes command-like arguments and doesn't provide open files
@@ -67,8 +67,8 @@ import org.springframework.util.FileCopyUtils;
 public class JniRrdStrategy implements RrdStrategy<JniRrdStrategy.CreateCommand ,StringBuffer> {
     private static final Logger LOG = LoggerFactory.getLogger(JniRrdStrategy.class);
 	
-	private final static String IGNORABLE_LIBART_WARNING_STRING = "*** attempt to put segment in horiz list twice";
-	private final static String IGNORABLE_LIBART_WARNING_REGEX = "\\*\\*\\* attempt to put segment in horiz list twice\r?\n?";
+	private static final String IGNORABLE_LIBART_WARNING_STRING = "*** attempt to put segment in horiz list twice";
+	private static final String IGNORABLE_LIBART_WARNING_REGEX = "\\*\\*\\* attempt to put segment in horiz list twice\r?\n?";
 
     private Properties m_configurationProperties;
     
@@ -127,7 +127,11 @@ public class JniRrdStrategy implements RrdStrategy<JniRrdStrategy.CreateCommand 
         @Override
     public CreateCommand createDefinition(String creator, String directory, String rrdName, int step, List<RrdDataSource> dataSources, List<String> rraList) throws Exception {
         File f = new File(directory);
-        f.mkdirs();
+        if (!f.exists()) {
+            if (!f.mkdirs()) {
+        	       LOG.warn("Could not make directory: {}", f.getPath());
+            }
+        }
 
         String fileName = directory + File.separator + rrdName + RrdUtils.getExtension();
         
@@ -301,7 +305,7 @@ public class JniRrdStrategy implements RrdStrategy<JniRrdStrategy.CreateCommand 
         //
         String[] dsValues = fetchStrings[2].split("\\s");
         Double dsValue = null;
-        if (dsValues[dsIndex].trim().equalsIgnoreCase("nan")) {
+        if (dsValues[dsIndex].trim().toLowerCase().endsWith("nan")) {
             dsValue = new Double(Double.NaN);
         } else {
             try {
@@ -392,7 +396,7 @@ public class JniRrdStrategy implements RrdStrategy<JniRrdStrategy.CreateCommand 
         
         for(int i = fetchStrings.length - 2; i > 1; i--) {
             String[] dsValues = fetchStrings[i].split("\\s");
-        	if ( dsValues[dsIndex].trim().equalsIgnoreCase("nan") ) {
+            if (dsValues[dsIndex].trim().toLowerCase().endsWith("nan")) {
         	    LOG.debug("fetchInRange: Got a NaN value - continuing back in time");
         	} else {
         		try {
@@ -547,7 +551,9 @@ public class JniRrdStrategy implements RrdStrategy<JniRrdStrategy.CreateCommand 
         } catch (Throwable e) {
             throw new RrdException("Can't execute command " + command, e);
         } finally {
-            pngFile.delete();
+            if (!pngFile.delete()) {
+            	LOG.warn("Could not delete file: {}", pngFile.getPath());
+            }
         }
 
         // Creating Graph Details

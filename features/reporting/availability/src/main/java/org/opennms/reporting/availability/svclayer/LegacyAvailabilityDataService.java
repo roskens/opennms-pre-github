@@ -1,22 +1,22 @@
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
- * Copyright (C) 2010-2012 The OpenNMS Group, Inc.
- * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ * Copyright (C) 2009-2014 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2014 The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published
+ * it under the terms of the GNU Affero General Public License as published
  * by the Free Software Foundation, either version 3 of the License,
  * or (at your option) any later version.
  *
  * OpenNMS(R) is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU Affero General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GNU Affero General Public License
  * along with OpenNMS(R).  If not, see:
  *      http://www.gnu.org/licenses/
  *
@@ -30,9 +30,6 @@ package org.opennms.reporting.availability.svclayer;
 
 import static org.opennms.core.utils.InetAddressUtils.str;
 
-import java.beans.PropertyVetoException;
-import java.io.IOException;
-import java.lang.reflect.UndeclaredThrowableException;
 import java.net.InetAddress;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -45,8 +42,6 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.concurrent.Callable;
 
-import org.exolab.castor.xml.MarshalException;
-import org.exolab.castor.xml.ValidationException;
 import org.opennms.core.db.DataSourceFactory;
 import org.opennms.core.logging.Logging;
 import org.opennms.core.utils.DBUtils;
@@ -107,6 +102,7 @@ public class LegacyAvailabilityDataService implements AvailabilityDataService {
                     try {
                         String commonRule = m_catFactory.getEffectiveRule(categoryName);
 
+                        FilterDaoFactory.getInstance().flushActiveIpAddressListCache();
                         final List<InetAddress> nodeIPs = FilterDaoFactory.getInstance().getActiveIPAddressList(commonRule);
                         LOG.debug("Number of IPs satisfying rule: {}", nodeIPs.size());
 
@@ -352,43 +348,10 @@ public class LegacyAvailabilityDataService implements AvailabilityDataService {
         // Initialize the DataCollectionConfigFactory
         //
         try {
-            DataSourceFactory.init();
             m_availConn = DataSourceFactory.getInstance().getConnection();
-        } catch (MarshalException e) {
-            LOG.error("initialize: Failed to load data collection configuration", e);
-            throw new AvailabilityDataServiceException("failed to load data collection configuration");
-        } catch (ValidationException e) {
-            LOG.error("initialize: Failed to load data collection configuration", e);
-            throw new AvailabilityDataServiceException("failed to load data collection configuration");
-        } catch (IOException e) {
-            LOG.error("initialize: Failed to load data collection configuration", e);
-            throw new UndeclaredThrowableException(e);
-        } catch (ClassNotFoundException e) {
-            LOG.error("initialize: Failed loading database driver.", e);
-            throw new AvailabilityDataServiceException("failed to load data collection configuration");
         } catch (SQLException e) {
             LOG.error("initialize: Failed getting connection to the database.", e);
             throw new AvailabilityDataServiceException("failed to load data collection configuration");
-        } catch (PropertyVetoException e) {
-            LOG.error("initialize: Failed getting connection to the database.", e);
-            throw new AvailabilityDataServiceException("initialize: Failed getting connection to the database");
         }
     }
-
-    /**
-     * Closes the database connection.
-     */
-    private void closeConnection() {
-        if (m_availConn != null) {
-            try {
-                m_availConn.close();
-                m_availConn = null;
-            } catch (Throwable t) {
-                LOG.warn("initialize: an exception occured while closing the JDBC connection", t);
-            }
-        }
-    }
-
-
-
 }

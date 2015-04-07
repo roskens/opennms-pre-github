@@ -1,22 +1,22 @@
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
- * Copyright (C) 2006-2012 The OpenNMS Group, Inc.
- * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ * Copyright (C) 2013-2014 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2014 The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published
+ * it under the terms of the GNU Affero General Public License as published
  * by the Free Software Foundation, either version 3 of the License,
  * or (at your option) any later version.
  *
  * OpenNMS(R) is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU Affero General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GNU Affero General Public License
  * along with OpenNMS(R).  If not, see:
  *      http://www.gnu.org/licenses/
  *
@@ -25,6 +25,7 @@
  *     http://www.opennms.org/
  *     http://www.opennms.com/
  *******************************************************************************/
+
 package org.opennms.features.vaadin.dashboard.config.ui;
 
 import com.vaadin.data.validator.AbstractStringValidator;
@@ -35,6 +36,7 @@ import org.opennms.features.vaadin.dashboard.model.DashletFactory;
 import org.opennms.features.vaadin.dashboard.model.DashletSpec;
 import org.opennms.features.vaadin.dashboard.model.Wallboard;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -92,12 +94,14 @@ public class WallboardEditor extends VerticalLayout {
         setMargin(true);
 
         HorizontalLayout upperHorizontalLayout = new HorizontalLayout();
-        Label label = new Label("Wallboard configuration");
+        Label label = new Label("Ops Board configuration");
         label.addStyleName("configuration-title");
         upperHorizontalLayout.addComponent(label);
 
         upperHorizontalLayout.addComponent(label);
         Button helpButton = new Button("Help");
+        helpButton.setDescription("Display help and usage");
+
         helpButton.setStyleName("small");
         helpButton.addClickListener(new HelpClickListener(this, m_dashletSelector));
 
@@ -114,7 +118,7 @@ public class WallboardEditor extends VerticalLayout {
         final Button addButton = new Button("Add dashlet");
 
         addButton.setStyleName("small");
-
+        addButton.setDescription("Add a new dashlet instance");
         addButton.addClickListener(new Button.ClickListener() {
             public void buttonClick(Button.ClickEvent clickEvent) {
                 addDashletSpec(new DashletSpec());
@@ -122,6 +126,7 @@ public class WallboardEditor extends VerticalLayout {
         });
 
         final TextField titleField = new TextField();
+        titleField.setDescription("Title for this Ops Board configuration");
         titleField.setValue(wallboard.getTitle());
         titleField.setImmediate(true);
         titleField.addValidator(new AbstractStringValidator("Title must be unique") {
@@ -147,6 +152,7 @@ public class WallboardEditor extends VerticalLayout {
         titleField.setCaption("Title");
 
         final Button previewButton = new Button("Preview");
+        previewButton.setDescription("Preview this Ops Board configuration");
         previewButton.setStyleName("small");
         previewButton.addClickListener(new PreviewClickListener(this, m_wallboard));
 
@@ -167,6 +173,16 @@ public class WallboardEditor extends VerticalLayout {
 
         addComponent(horizontalLayout);
         addComponent(m_verticalLayout);
+    }
+
+    public void swapDashletSpec(DashletSpec dashletSpec, int direction) {
+        int index = m_wallboard.getDashletSpecs().indexOf(dashletSpec);
+
+        if (index + direction >= 0 && index + direction < m_wallboard.getDashletSpecs().size()) {
+            Collections.swap(m_wallboard.getDashletSpecs(), index, index + direction);
+            updateDashletSpecs();
+            WallboardProvider.getInstance().save();
+        }
     }
 
     /**
@@ -200,6 +216,17 @@ public class WallboardEditor extends VerticalLayout {
     }
 
     /**
+     * Updates the vertical layout to reflect ordering changes
+     */
+    public void updateDashletSpecs() {
+        m_verticalLayout.removeAllComponents();
+
+        for (DashletSpec dashletSpec : m_wallboard.getDashletSpecs()) {
+            m_verticalLayout.addComponent(m_dashletSpecEditorMap.get(dashletSpec));
+        }
+    }
+
+    /**
      * This method removes the given {@link DashletSpecEditor}.
      *
      * @param dashletSpecEditor the {@link DashletSpecEditor} to be removed
@@ -221,6 +248,7 @@ public class WallboardEditor extends VerticalLayout {
         DashletSpecEditor dashletSpecEditor = new DashletSpecEditor(this, m_dashletSelector, dashletSpec);
 
         m_dashletSpecEditorMap.put(dashletSpec, dashletSpecEditor);
+
         m_verticalLayout.addComponent(dashletSpecEditor);
 
         if (!m_wallboard.getDashletSpecs().contains(dashletSpec)) {

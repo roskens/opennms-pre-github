@@ -1,22 +1,22 @@
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
- * Copyright (C) 2012-2013 The OpenNMS Group, Inc.
- * OpenNMS(R) is Copyright (C) 1999-2013 The OpenNMS Group, Inc.
+ * Copyright (C) 2007-2014 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2014 The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published
+ * it under the terms of the GNU Affero General Public License as published
  * by the Free Software Foundation, either version 3 of the License,
  * or (at your option) any later version.
  *
  * OpenNMS(R) is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU Affero General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GNU Affero General Public License
  * along with OpenNMS(R).  If not, see:
  *      http://www.gnu.org/licenses/
  *
@@ -39,6 +39,7 @@ import org.opennms.core.utils.LazyList;
 import org.opennms.netmgt.dao.api.NodeDao;
 import org.opennms.netmgt.dao.api.ResourceDao;
 import org.opennms.netmgt.model.OnmsAttribute;
+import org.opennms.netmgt.model.OnmsNode;
 import org.opennms.netmgt.model.OnmsResource;
 import org.opennms.netmgt.model.OnmsResourceType;
 import org.slf4j.Logger;
@@ -48,9 +49,9 @@ import org.slf4j.LoggerFactory;
  * <p>NodeSourceResourceType class.</p>
  */
 public class NodeSourceResourceType implements OnmsResourceType {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(NodeSourceResourceType.class);
-    
+
     private static final Set<OnmsAttribute> s_emptyAttributeSet = Collections.unmodifiableSet(new HashSet<OnmsAttribute>());
     private ResourceDao m_resourceDao;
     private NodeDao m_nodeDao;
@@ -97,7 +98,7 @@ public class NodeSourceResourceType implements OnmsResourceType {
     public List<OnmsResource> getResourcesForNode(int nodeId) {
         return null;
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public List<OnmsResource> getResourcesForDomain(String domain) {
@@ -115,20 +116,18 @@ public class NodeSourceResourceType implements OnmsResourceType {
     public boolean isResourceTypeOnNode(int nodeId) {
         return false;
     }
-    
+
     /** {@inheritDoc} */
     @Override
-        public boolean isResourceTypeOnDomain(String domain) {
-                return false;
-        }
+    public boolean isResourceTypeOnDomain(String domain) {
+        return false;
+    }
 
 
     /** {@inheritDoc} */
     @Override
     public String getLinkForResource(OnmsResource resource) {
-        String[] ident = resource.getName().split(":");
-        int nodeId = m_nodeDao.findByForeignId(ident[0], ident[1]).getId();
-        return "element/node.jsp?node=" + nodeId;
+        return "element/node.jsp?node=" + resource.getName();
     }
 
     /**
@@ -137,29 +136,43 @@ public class NodeSourceResourceType implements OnmsResourceType {
      * @param nodeSource a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.model.OnmsResource} object.
      */
-    public OnmsResource createChildResource(String nodeSource) {
-        String[] ident = nodeSource.split(":");
-        String label = ident[0] + ":" + m_nodeDao.findByForeignId(ident[0], ident[1]).getLabel();
-        NodeSourceChildResourceLoader loader = new NodeSourceChildResourceLoader(nodeSource);
+    public OnmsResource createChildResource(final String nodeSource) {
+        if (!nodeSource.contains(":")) {
+            LOG.warn("'%s' is not in the format foreignSource:foreignId.", nodeSource);
+            throw new IllegalArgumentException("Node definition '" + nodeSource + "' is invalid, it should be in the format: 'foreignSource:foreignId'.");
+        }
+
+        final String[] ident = nodeSource.split(":", 2);
+        if (!(ident.length == 2)) {
+            LOG.warn("'%s' is not in the format foreignSource:foreignId.", nodeSource);
+            throw new IllegalArgumentException("Node definition '" + nodeSource + "' is invalid, it should be in the format: 'foreignSource:foreignId'.");
+        }
+
+        final OnmsNode node = m_nodeDao.findByForeignId(ident[0], ident[1]);
+
+        if (node == null) {
+            LOG.debug("Failed to locate node by foreign ID '%s:%s'", ident[0], ident[1]);
+            return null;
+        }
+
+        final String label = ident[0] + ":" + node.getLabel();
+        NodeSourceChildResourceLoader loader = new NodeSourceChildResourceLoader(nodeSource, node.getId());
         OnmsResource resource = new OnmsResource(nodeSource, label, this, s_emptyAttributeSet, new LazyList<OnmsResource>(loader));
         loader.setParent(resource);
-        
+
         return resource;
     }
 
     public class NodeSourceChildResourceLoader implements LazyList.Loader<OnmsResource> {
         private String m_nodeSource;
+        private int m_nodeId;
         private OnmsResource m_parent;
-        
-        private int nodeSourceToNodeId() {
-                String[] ident = m_nodeSource.split(":");
-            return m_nodeDao.findByForeignId(ident[0], ident[1]).getId();
-        }
-        
-        public NodeSourceChildResourceLoader(String nodeSource) {
+
+        public NodeSourceChildResourceLoader(String nodeSource, int nodeId) {
             m_nodeSource = nodeSource;
+            m_nodeId = nodeId;
         }
-        
+
         public void setParent(OnmsResource parent) {
             m_parent = parent;
         }
@@ -169,7 +182,7 @@ public class NodeSourceResourceType implements OnmsResourceType {
             List<OnmsResource> children = new LinkedList<OnmsResource>();
 
             for (OnmsResourceType resourceType : getResourceTypesForNodeSource(m_nodeSource)) {
-                for (OnmsResource resource : resourceType.getResourcesForNodeSource(m_nodeSource, nodeSourceToNodeId())) {
+                for (OnmsResource resource : resourceType.getResourcesForNodeSource(m_nodeSource, m_nodeId)) {
                     resource.setParent(m_parent);
                     children.add(resource);
                     LOG.debug("load: adding resource {}", resource.toString());
@@ -178,11 +191,11 @@ public class NodeSourceResourceType implements OnmsResourceType {
 
             return children;
         }
-        
+
         private Collection<OnmsResourceType> getResourceTypesForNodeSource(String nodeSource) {
             Collection<OnmsResourceType> resourceTypes = new LinkedList<OnmsResourceType>();
             for (OnmsResourceType resourceType : m_resourceDao.getResourceTypes()) {
-                if (resourceType.isResourceTypeOnNodeSource(nodeSource, nodeSourceToNodeId())) {
+                if (resourceType.isResourceTypeOnNodeSource(nodeSource, m_nodeId)) {
                     resourceTypes.add(resourceType);
                     LOG.debug("getResourceTypesForNodeSource: adding type {}", resourceType.getName());
                 }

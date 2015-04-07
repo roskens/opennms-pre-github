@@ -1,22 +1,22 @@
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
- * Copyright (C) 2012 The OpenNMS Group, Inc.
- * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ * Copyright (C) 2013-2014 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2014 The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published
+ * it under the terms of the GNU Affero General Public License as published
  * by the Free Software Foundation, either version 3 of the License,
  * or (at your option) any later version.
  *
  * OpenNMS(R) is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU Affero General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GNU Affero General Public License
  * along with OpenNMS(R).  If not, see:
  *      http://www.gnu.org/licenses/
  *
@@ -47,7 +47,7 @@ public class OnmsServiceManagerImpl implements OnmsServiceManager {
     private static final Logger LOG = LoggerFactory.getLogger(OnmsServiceManagerImpl.class);
 
     // key: Service
-    private final Map<Object, ServiceRegistration> serviceRegistrations = Collections.synchronizedMap(new HashMap<Object, ServiceRegistration>());
+    private final Map<Object, ServiceRegistration<?>> serviceRegistrations = Collections.synchronizedMap(new HashMap<Object, ServiceRegistration<?>>());
     private final BundleContext bundleContext;
 
     public OnmsServiceManagerImpl(BundleContext bundleContext) {
@@ -62,7 +62,7 @@ public class OnmsServiceManagerImpl implements OnmsServiceManager {
     @Override
     public <T> void registerAsService(Class<T> serviceClass, T serviceBean, VaadinApplicationContext applicationContext, Properties properties) {
         if (serviceBean == null || serviceClass == null) return;
-        ServiceRegistration serviceRegistration = bundleContext.registerService(serviceClass, serviceBean, (Dictionary) getProperties(applicationContext, properties));
+        ServiceRegistration<T> serviceRegistration = bundleContext.registerService(serviceClass, serviceBean, (Dictionary) getProperties(applicationContext, properties));
         serviceRegistrations.put(serviceBean, serviceRegistration);
     }
 
@@ -85,12 +85,12 @@ public class OnmsServiceManagerImpl implements OnmsServiceManager {
         }
         List<T> services = new ArrayList<T>();
         try {
-            ServiceReference[] serviceReferences = bundleContext.getServiceReferences(clazz.getName(), getFilter(applicationContext, additionalProperties));
+            Collection<ServiceReference<T>> serviceReferences = bundleContext.getServiceReferences(clazz, getFilter(applicationContext, additionalProperties));
             if (serviceReferences != null) {
-                for (ServiceReference eachServiceReference : serviceReferences) {
-                    Object service = bundleContext.getService(eachServiceReference);
+                for (ServiceReference<T> eachServiceReference : serviceReferences) {
+                    T service = bundleContext.getService(eachServiceReference);
                     if (service == null) continue;
-                    services.add((T)service);
+                    services.add(service);
                 }
             }
         } catch (InvalidSyntaxException e) {
@@ -111,9 +111,9 @@ public class OnmsServiceManagerImpl implements OnmsServiceManager {
     public void sessionDestroyed(String sessionId) {
         final String sessionIdFilter = "(sessionId=%s)";
         try {
-            ServiceReference[] allServiceReferences = bundleContext.getAllServiceReferences(null, String.format(sessionIdFilter, sessionId));
+            ServiceReference<?>[] allServiceReferences = bundleContext.getAllServiceReferences(null, String.format(sessionIdFilter, sessionId));
             if (allServiceReferences != null) {
-                for (ServiceReference eachReference : allServiceReferences) {
+                for (ServiceReference<?> eachReference : allServiceReferences) {
                     Object service = bundleContext.getService(eachReference);
                     if (service == null) continue;
                     if (serviceRegistrations.get(service) == null) continue; // wrong bundleContext/OnmsServiceManager

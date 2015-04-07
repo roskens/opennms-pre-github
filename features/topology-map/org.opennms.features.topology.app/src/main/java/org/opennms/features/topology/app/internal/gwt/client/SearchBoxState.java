@@ -1,22 +1,22 @@
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
- * Copyright (C) 2012 The OpenNMS Group, Inc.
- * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ * Copyright (C) 2006-2014 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2014 The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published
+ * it under the terms of the GNU Affero General Public License as published
  * by the Free Software Foundation, either version 3 of the License,
  * or (at your option) any later version.
  *
  * OpenNMS(R) is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU Affero General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GNU Affero General Public License
  * along with OpenNMS(R).  If not, see:
  *      http://www.gnu.org/licenses/
  *
@@ -28,19 +28,22 @@
 
 package org.opennms.features.topology.app.internal.gwt.client;
 
-import com.vaadin.shared.AbstractComponentState;
-
-import java.util.Collection;
+import java.util.ArrayList;
 import java.util.List;
+
+import com.vaadin.shared.AbstractComponentState;
 
 public class SearchBoxState extends AbstractComponentState {
 
-    List<SearchSuggestion> m_suggestions;
-    List<SearchSuggestion> m_selected;
-    List<SearchSuggestion> m_focused;
+    List<SearchSuggestion> m_suggestions = new ArrayList<SearchSuggestion>();
+    List<SearchSuggestion> m_selected = new ArrayList<SearchSuggestion>();
+    List<SearchSuggestion> m_focused = new ArrayList<SearchSuggestion>();
+    int m_triggerCount = 0;
 
     public void setSuggestions(List<SearchSuggestion> suggestions){
         m_suggestions = suggestions;
+        //This is a stupid hack to get VAADIN state to push all changes all the time
+        m_triggerCount += 1;
     }
 
     public List<SearchSuggestion> getSuggestions(){
@@ -51,6 +54,15 @@ public class SearchBoxState extends AbstractComponentState {
         m_selected = selected;
     }
 
+    //Needed to have this method so that triggerCount would trigger a push to client
+    public void setTriggerCount(int count){
+        m_triggerCount = count;
+    }
+    public int getTriggerCount(){
+        return m_triggerCount;
+    }
+
+
     public List<SearchSuggestion> getSelected(){
         return m_selected;
     }
@@ -60,7 +72,7 @@ public class SearchBoxState extends AbstractComponentState {
     }
 
     public List<SearchSuggestion> getFocused() {
-        return m_selected;
+        return m_focused;
     }
 
 }

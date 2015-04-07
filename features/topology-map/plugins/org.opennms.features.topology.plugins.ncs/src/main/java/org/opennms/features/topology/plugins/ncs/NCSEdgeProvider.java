@@ -1,22 +1,22 @@
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
- * Copyright (C) 2012 The OpenNMS Group, Inc.
- * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ * Copyright (C) 2012-2014 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2014 The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published
+ * it under the terms of the GNU Affero General Public License as published
  * by the Free Software Foundation, either version 3 of the License,
  * or (at your option) any later version.
  *
  * OpenNMS(R) is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU Affero General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GNU Affero General Public License
  * along with OpenNMS(R).  If not, see:
  *      http://www.gnu.org/licenses/
  *
@@ -30,6 +30,7 @@ package org.opennms.features.topology.plugins.ncs;
 
 import java.util.*;
 
+import com.google.common.collect.Lists;
 import org.opennms.features.topology.api.topo.AbstractEdge;
 import org.opennms.features.topology.api.topo.AbstractVertex;
 import org.opennms.features.topology.api.topo.Criteria;
@@ -54,11 +55,16 @@ public class NCSEdgeProvider implements EdgeProvider {
 
 	public static class NCSEdge extends AbstractEdge {
 		private final String m_serviceName;
+        private final String m_sourceElementName;
+        private final String m_targetElementName;
+        private String m_status = "";
 		
-		public NCSEdge(String serviceId, String serviceName, NCSVertex source, NCSVertex target) {
+		public NCSEdge(String serviceId, String serviceName, String sourceElementName, String targetElementName, NCSVertex source, NCSVertex target) {
 			super("ncs", serviceId + "::" + source.getId() + ":::" + target.getId(), source, target);
 			m_serviceName = serviceName;
-			setStyleName("ncs edge");
+            m_sourceElementName = sourceElementName;
+            m_targetElementName = targetElementName;
+            setStyleName("ncs edge");
 		}
 
 		@Override
@@ -68,6 +74,13 @@ public class NCSEdgeProvider implements EdgeProvider {
 			toolTip.append(HTML_TOOLTIP_TAG_OPEN);
 			toolTip.append("Service: " + m_serviceName);
 			toolTip.append(HTML_TOOLTIP_TAG_END);
+
+            if (m_status != null) {
+                toolTip.append(HTML_TOOLTIP_TAG_OPEN);
+                toolTip.append("Status: " + m_status);
+                toolTip.append(HTML_TOOLTIP_TAG_END);
+                m_status = null;
+            }
 
 			toolTip.append(HTML_TOOLTIP_TAG_OPEN);
 			toolTip.append("Source: " + getSource().getVertex().getLabel());
@@ -84,6 +97,18 @@ public class NCSEdgeProvider implements EdgeProvider {
 		public Item getItem() {
 			return new BeanItem<NCSEdge>(this);
 		}
+
+        public String getTargetElementName() {
+            return m_targetElementName;
+        }
+
+        public String getSourceElementName() {
+            return m_sourceElementName;
+        }
+
+        public void setStatus(String status) {
+            m_status = status;
+        }
 
 	}
 
@@ -179,8 +204,12 @@ public class NCSEdgeProvider implements EdgeProvider {
 										targetLabel = targetNode.getLabel();
 									}
 								}
-
-								retval.add(new NCSEdge(subs[i].getForeignId(), service.getName(), new NCSVertex(String.valueOf(sourceNode.getId()), sourceLabel), new NCSVertex(String.valueOf(targetNode.getId()), targetLabel)));
+                                String sourceElementName = subs[i].getForeignSource() + "::" + subs[i].getForeignId();
+                                String targetElementName = subs[j].getForeignSource() + "::" + subs[j].getForeignId();
+								retval.add(new NCSEdge(subs[i].getForeignId(), service.getName(),
+                                        sourceElementName, targetElementName,
+                                        new NCSVertex(String.valueOf(sourceNode.getId()), sourceLabel),
+                                        new NCSVertex(String.valueOf(targetNode.getId()), targetLabel)));
 							}
 						}
 					}
@@ -222,24 +251,53 @@ public class NCSEdgeProvider implements EdgeProvider {
 		// TODO: Implement me
 	}
 
-	public static class NCSServiceCriteria extends ArrayList<Long> implements Criteria {
+	public static class NCSServiceCriteria extends Criteria implements Iterable<Long> {
 		
 		private static final long serialVersionUID = 5833460704861282509L;
+        private List<Long> m_ncsServiceList;
 		
 		public NCSServiceCriteria(Collection<Long> serviceIds) {
-			super(serviceIds);
-		}
+            m_ncsServiceList = Lists.newArrayList(serviceIds);
+        }
 
 		@Override
 		public String getNamespace() {
 			return "ncs";
 		}
 
-		@Override
+        @Override
+        public int hashCode() {
+            return m_ncsServiceList.hashCode();
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if(obj instanceof NCSServiceCriteria){
+                NCSServiceCriteria c = (NCSServiceCriteria) obj;
+                return c.m_ncsServiceList.equals(m_ncsServiceList);
+            }
+
+            return false;
+        }
+
+        @Override
 		public ElementType getType() {
 			return ElementType.EDGE;
 		}
-	}
+
+        @Override
+        public Iterator<Long> iterator() {
+            return m_ncsServiceList.iterator();
+        }
+
+        public int getServiceCount() {
+            return m_ncsServiceList.size();
+        }
+
+        public List<Long> getServiceIds() {
+            return m_ncsServiceList;
+        }
+    }
 	
 	public static Criteria createCriteria(Collection<Long> selectedIds) {
 		return new NCSServiceCriteria(selectedIds);

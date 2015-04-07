@@ -1,22 +1,22 @@
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
- * Copyright (C) 2013 The OpenNMS Group, Inc.
- * OpenNMS(R) is Copyright (C) 1999-2013 The OpenNMS Group, Inc.
+ * Copyright (C) 2013-2014 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2014 The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published
+ * it under the terms of the GNU Affero General Public License as published
  * by the Free Software Foundation, either version 3 of the License,
  * or (at your option) any later version.
  *
  * OpenNMS(R) is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU Affero General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GNU Affero General Public License
  * along with OpenNMS(R).  If not, see:
  *      http://www.gnu.org/licenses/
  *
@@ -31,16 +31,16 @@ package org.opennms.features.vaadin.nodemaps.internal;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.apache.commons.io.IOUtils;
 import org.opennms.features.topology.api.HasExtraComponents;
 import org.opennms.features.topology.api.VerticesUpdateManager;
 import org.opennms.features.topology.api.VerticesUpdateManager.VerticesUpdateEvent;
-import org.opennms.features.topology.api.topo.AbstractVertexRef;
+import org.opennms.features.topology.api.topo.DefaultVertexRef;
 import org.opennms.features.topology.api.topo.VertexRef;
 import org.opennms.features.topology.plugins.browsers.AlarmTable;
 import org.opennms.features.topology.plugins.browsers.NodeTable;
@@ -57,6 +57,7 @@ import com.vaadin.annotations.JavaScript;
 import com.vaadin.annotations.StyleSheet;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.Title;
+import com.vaadin.server.Page;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.ui.AbsoluteLayout;
 import com.vaadin.ui.Alignment;
@@ -110,8 +111,8 @@ import com.vaadin.ui.VerticalSplitPanel;
 @Title("OpenNMS Node Maps")
 @Theme("opennms")
 @JavaScript({
-    "http://maps.google.com/maps/api/js?sensor=false",
-    "http://cdn.leafletjs.com/leaflet-0.5.1/leaflet-src.js",
+    "//maps.google.com/maps/api/js?sensor=false",
+    "gwt/public/leaflet-0.5.1/leaflet-src.js",
     "gwt/public/openlayers/OpenLayers.js",
     "gwt/public/markercluster/leaflet.markercluster-src.js"
 
@@ -123,7 +124,8 @@ import com.vaadin.ui.VerticalSplitPanel;
 })
 public class NodeMapsApplication extends UI {
     private static final Logger LOG = LoggerFactory.getLogger(NodeMapsApplication.class);
-    private static final int REFRESH_INTERVAL = 5 * 60 * 1000;
+    // private static final int REFRESH_INTERVAL = 5 * 60 * 1000;
+    private static final int REFRESH_INTERVAL = 10 * 1000;
     private VerticalLayout m_rootLayout;
     private VerticalLayout m_layout;
 
@@ -144,11 +146,6 @@ public class NodeMapsApplication extends UI {
 
     public void setHeaderHtml(final String headerHtml) {
         m_headerHtml = headerHtml;
-
-        /**
-         * Added some magic to hide search controls and header if displayed inside an iframe
-         */
-        m_headerHtml += "<script type='text/javascript'>if (window.location != window.parent.location) { document.getElementById('header').style.display = 'none'; var style = document.createElement(\"style\"); style.type = 'text/css'; style.innerHTML = '.leaflet-control-container { display: none; }'; document.body.appendChild(style); }</script>";
     }
 
     public void setAlarmTable(final AlarmTable table) {
@@ -172,7 +169,6 @@ public class NodeMapsApplication extends UI {
                 bottomLayoutBar.setSizeFull();
                 bottomLayoutBar.setSecondComponent(getTabSheet());
                 m_layout.addComponent(bottomLayoutBar);
-
                 m_layout.markAsDirty();
             }
         } else {
@@ -299,6 +295,7 @@ public class NodeMapsApplication extends UI {
     private void createRootLayout() {
         m_rootLayout = new VerticalLayout();
         m_rootLayout.setSizeFull();
+        m_rootLayout.addStyleName("root-layout");
         setContent(m_rootLayout);
         addHeader();
 
@@ -317,10 +314,10 @@ public class NodeMapsApplication extends UI {
     private void addHeader() {
         if (m_headerProvider != null) {
             try {
-                setHeaderHtml(m_headerProvider.getHeaderHtml(new HttpServletRequestVaadinImpl(m_request)));
+                URL pageUrl = Page.getCurrent().getLocation().toURL();
+                setHeaderHtml(m_headerProvider.getHeaderHtml(new HttpServletRequestVaadinImpl(m_request, pageUrl)));
             } catch (final Exception e) {
-                LOG.warn("failed to get header HTML for request " + m_request.getPathInfo(), e.getCause());
-
+                LOG.error("failed to get header HTML for request " + m_request.getPathInfo(), e.getCause());
             }
         }
         if (m_headerHtml != null) {
@@ -332,8 +329,18 @@ public class NodeMapsApplication extends UI {
                 headerLayout.addStyleName("onmsheader");
                 m_rootLayout.addComponent(headerLayout);
             } catch (final IOException e) {
-                IOUtils.closeQuietly(is);
+                closeQuietly(is);
                 LOG.debug("failed to get header layout data", e);
+            }
+        }
+    }
+
+    private void closeQuietly(InputStream is) {
+        if (is != null) {
+            try {
+                is.close();
+            } catch (final IOException closeE) {
+                LOG.debug("failed to close HTML input stream", closeE);
             }
         }
     }
@@ -344,6 +351,10 @@ public class NodeMapsApplication extends UI {
         addExtension(refresher);
     }
 
+    public void refresh() {
+        m_mapWidgetComponent.refresh();
+    }
+
     public void setFocusedNodes(final List<Integer> nodeIds) {
         for (final SelectionAwareTable view : new SelectionAwareTable[] { m_alarmTable, m_nodeTable }) {
             if (view instanceof VerticesUpdateManager.VerticesUpdateListener) {
@@ -351,7 +362,7 @@ public class NodeMapsApplication extends UI {
 
                 final Set<VertexRef> nodeSet = new HashSet<VertexRef>();
                 for (final Integer nodeId : nodeIds) {
-                    nodeSet.add(new AbstractVertexRef("nodes", nodeId.toString(), null));
+                    nodeSet.add(new DefaultVertexRef("nodes", nodeId.toString(), null));
                 }
 
                 listener.verticesUpdated(new VerticesUpdateEvent(nodeSet));

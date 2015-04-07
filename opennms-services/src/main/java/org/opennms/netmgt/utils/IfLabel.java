@@ -1,22 +1,22 @@
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
- * Copyright (C) 2006-2012 The OpenNMS Group, Inc.
- * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ * Copyright (C) 2002-2014 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2014 The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published
+ * it under the terms of the GNU Affero General Public License as published
  * by the Free Software Foundation, either version 3 of the License,
  * or (at your option) any later version.
  *
  * OpenNMS(R) is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU Affero General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GNU Affero General Public License
  * along with OpenNMS(R).  If not, see:
  *      http://www.gnu.org/licenses/
  *
@@ -36,7 +36,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
 
-import org.opennms.core.resource.Vault;
+import org.opennms.core.db.DataSourceFactory;
 import org.opennms.core.utils.AlphaNumeric;
 import org.opennms.core.utils.Querier;
 import org.opennms.core.utils.RowProcessor;
@@ -51,7 +51,7 @@ import org.slf4j.LoggerFactory;
  * @author <a href="mailto:larry@opennms.org">Lawrence Karnowski </a>
  * @author <a href="mailto:seth@opennms.org">Seth Leger </a>
  */
-public class IfLabel {
+public abstract class IfLabel {
 
 	private static final Logger LOG = LoggerFactory.getLogger(IfLabel.class);
 	
@@ -103,7 +103,7 @@ public class IfLabel {
                 "    OR snmpifname ilike '"+queryDesc+"')";
         LOG.debug("getInterfaceInfoFromLabel: query is: {}", query);
         
-        Querier q = new Querier(Vault.getDataSource(), query, new RowProcessor() {
+        Querier q = new Querier(DataSourceFactory.getInstance(), query, new RowProcessor() {
 
             @Override
             public void processRow(ResultSet rs) throws SQLException {
@@ -164,7 +164,7 @@ public class IfLabel {
         
         final ArrayList<String> list = new ArrayList<String>();
         
-        Querier q = new Querier(Vault.getDataSource(), query, new RowProcessor() {
+        Querier q = new Querier(DataSourceFactory.getInstance(), query, new RowProcessor() {
             @Override
             public void processRow(ResultSet rs) throws SQLException {
                 String name = rs.getString("snmpifname");
@@ -176,8 +176,7 @@ public class IfLabel {
             
         });
         q.execute();
-        String[] labels = list.toArray(new String[list.size()]);
-        return labels;
+        return list.toArray(new String[list.size()]);
     }
 
     /**
@@ -217,7 +216,7 @@ public class IfLabel {
         		"   AND ipinterface.nodeid = "+nodeId+
         		"   AND ipinterface.ipaddr = '"+inetAddr+"'";
         
-        Querier q = new Querier(Vault.getDataSource(), query, new RowProcessor() {
+        Querier q = new Querier(DataSourceFactory.getInstance(), query, new RowProcessor() {
             @Override
             public void processRow(ResultSet rs) throws SQLException {
                 String name = rs.getString("snmpifname");
@@ -281,7 +280,7 @@ public class IfLabel {
         		"   AND ipinterface.ifindex= "+ifIndex;
         
         
-        Querier q = new Querier(Vault.getDataSource(), query, new RowProcessor() {
+        Querier q = new Querier(DataSourceFactory.getInstance(), query, new RowProcessor() {
 
             @Override
             public void processRow(ResultSet rs) throws SQLException {
@@ -334,7 +333,7 @@ public class IfLabel {
                 "   AND snmpifindex= "+ifIndex;
         
         
-        Querier q = new Querier(Vault.getDataSource(), query, new RowProcessor() {
+        Querier q = new Querier(DataSourceFactory.getInstance(), query, new RowProcessor() {
 
             @Override
             public void processRow(ResultSet rs) throws SQLException {

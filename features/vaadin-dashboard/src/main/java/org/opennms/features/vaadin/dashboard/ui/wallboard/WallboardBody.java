@@ -1,10 +1,35 @@
+/*******************************************************************************
+ * This file is part of OpenNMS(R).
+ *
+ * Copyright (C) 2013-2014 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2014 The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published
+ * by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * OpenNMS(R) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with OpenNMS(R).  If not, see:
+ *      http://www.gnu.org/licenses/
+ *
+ * For more information contact:
+ *     OpenNMS(R) Licensing <license@opennms.org>
+ *     http://www.opennms.org/
+ *     http://www.opennms.com/
+ *******************************************************************************/
+
 package org.opennms.features.vaadin.dashboard.ui.wallboard;
 
 import com.vaadin.server.VaadinSession;
-import com.vaadin.ui.CssLayout;
-import com.vaadin.ui.Label;
-import com.vaadin.ui.ProgressIndicator;
-import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.*;
 import org.opennms.features.vaadin.dashboard.config.DashletSelector;
 import org.opennms.features.vaadin.dashboard.model.Dashlet;
 import org.opennms.features.vaadin.dashboard.model.DashletSelectorAccess;
@@ -112,7 +137,7 @@ public class WallboardBody extends VerticalLayout {
     public Dashlet getDashletInstance(DashletSpec dashletSpec) {
         DashletSelector dashletSelector = ((DashletSelectorAccess) getUI()).getDashletSelector();
         Dashlet dashlet = dashletSelector.getDashletFactoryForName(dashletSpec.getDashletName()).newDashletInstance(dashletSpec);
-        dashlet.setCaption(null);
+        dashlet.getWallboardComponent().getComponent().setCaption(null);
         return dashlet;
     }
 
@@ -158,11 +183,11 @@ public class WallboardBody extends VerticalLayout {
 
             if (!priorityMap.containsKey(index)) {
                 Dashlet dashlet = getDashletInstance(dashletSpecs.get(index));
-                dashlet.addStyleName("wallboard");
+                dashlet.getWallboardComponent().getComponent().addStyleName("wallboard");
 
                 dashlets.put(index, dashlet);
 
-                dashlets.get(index).update();
+                dashlets.get(index).getWallboardComponent().refresh();
 
                 if (dashlets.get(index).isBoosted()) {
                     priorityMap.put(index, Math.max(0, dashletSpecs.get(index).getPriority() - dashletSpecs.get(index).getBoostPriority()));
@@ -178,7 +203,7 @@ public class WallboardBody extends VerticalLayout {
 
             if (priorityMap.get(index) <= 0) {
 
-                dashlets.get(index).update();
+                dashlets.get(index).getWallboardComponent().refresh();
 
                 if (dashlets.get(index).isBoosted()) {
                     priorityMap.put(index, Math.max(0, dashletSpecs.get(index).getPriority() - dashletSpecs.get(index).getBoostPriority()));
@@ -220,7 +245,28 @@ public class WallboardBody extends VerticalLayout {
                         dashlets.put(next, getDashletInstance(dashletSpecs.get(next)));
                     }
 
-                    contentLayout.addComponent(dashlets.get(next));
+                    Panel panel = new Panel();
+                    panel.setSizeFull();
+
+                    String caption = dashlets.get(next).getName();
+
+                    if (dashlets.get(next).getDashletSpec().getTitle() != null) {
+                        if (!"".equals(dashlets.get(next).getDashletSpec().getTitle())) {
+                            caption += ": " + "" + dashlets.get(next).getDashletSpec().getTitle();
+                        }
+                    }
+
+                    panel.setCaption(caption);
+
+                    Component component = dashlets.get(next).getWallboardComponent().getComponent();
+
+                    VerticalLayout verticalLayout = new VerticalLayout(component);
+                    verticalLayout.setSizeFull();
+                    verticalLayout.setMargin(true);
+
+                    panel.setContent(verticalLayout);
+
+                    contentLayout.addComponent(panel);
 
                     if (!progressIndicator.isVisible()) {
                         progressIndicator.setVisible(true);

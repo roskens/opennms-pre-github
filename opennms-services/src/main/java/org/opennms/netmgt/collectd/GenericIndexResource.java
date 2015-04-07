@@ -1,22 +1,22 @@
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
- * Copyright (C) 2006-2012 The OpenNMS Group, Inc.
- * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ * Copyright (C) 2006-2014 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2014 The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published
+ * it under the terms of the GNU Affero General Public License as published
  * by the Free Software Foundation, either version 3 of the License,
  * or (at your option) any later version.
  *
  * OpenNMS(R) is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU Affero General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GNU Affero General Public License
  * along with OpenNMS(R).  If not, see:
  *      http://www.gnu.org/licenses/
  *
@@ -30,9 +30,9 @@ package org.opennms.netmgt.collectd;
 
 import java.io.File;
 
-import org.opennms.netmgt.config.StorageStrategy;
-import org.opennms.netmgt.config.collector.ServiceParameters;
-import org.opennms.netmgt.model.RrdRepository;
+import org.opennms.netmgt.collection.api.ServiceParameters;
+import org.opennms.netmgt.collection.api.StorageStrategy;
+import org.opennms.netmgt.rrd.RrdRepository;
 import org.opennms.netmgt.snmp.SnmpInstId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,8 +45,8 @@ import org.slf4j.LoggerFactory;
  */
 public class GenericIndexResource extends SnmpCollectionResource {
     private static final Logger LOG = LoggerFactory.getLogger(GenericIndexResource.class);
-    private SnmpInstId m_inst;
-    private String m_name;
+    private final SnmpInstId m_inst;
+    private final String m_name;
     private String m_resourceLabel;
 
     /**
@@ -65,7 +65,7 @@ public class GenericIndexResource extends SnmpCollectionResource {
     /** {@inheritDoc} */
     @Override
     public File getResourceDir(RrdRepository repository) {
-        String resourcePath = getStrategy().getRelativePathForAttribute(getParent(), getLabel(), null);
+        String resourcePath = getStrategy().getRelativePathForAttribute(getParent(), getInterfaceLabel());
         File resourceDir = new File(repository.getRrdBaseDir(), resourcePath);
         LOG.debug("getResourceDir: {}", resourceDir);
         return resourceDir;
@@ -85,7 +85,7 @@ public class GenericIndexResource extends SnmpCollectionResource {
 
     /** {@inheritDoc} */
     @Override
-    public int getType() {
+    public int getSnmpIfType() {
         return -1;	// XXX is this right?
     }
 
@@ -134,7 +134,7 @@ public class GenericIndexResource extends SnmpCollectionResource {
      * @return a {@link java.lang.String} object.
      */
     @Override
-    public String getLabel() {
+    public String getInterfaceLabel() {
         if (m_resourceLabel == null) {
             m_resourceLabel = getStrategy().getResourceNameFromIndex(this);
         }

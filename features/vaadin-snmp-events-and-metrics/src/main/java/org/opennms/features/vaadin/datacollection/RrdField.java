@@ -1,22 +1,22 @@
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
- * Copyright (C) 2006-2012 The OpenNMS Group, Inc.
- * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ * Copyright (C) 2012-2014 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2014 The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published
+ * it under the terms of the GNU Affero General Public License as published
  * by the Free Software Foundation, either version 3 of the License,
  * or (at your option) any later version.
  *
  * OpenNMS(R) is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU Affero General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GNU Affero General Public License
  * along with OpenNMS(R).  If not, see:
  *      http://www.gnu.org/licenses/
  *
@@ -25,9 +25,8 @@
  *     http://www.opennms.org/
  *     http://www.opennms.com/
  *******************************************************************************/
-package org.opennms.features.vaadin.datacollection;
 
-import java.util.ArrayList;
+package org.opennms.features.vaadin.datacollection;
 
 import org.opennms.features.vaadin.api.OnmsBeanContainer;
 import org.opennms.netmgt.config.datacollection.Rrd;
@@ -169,18 +168,16 @@ public class RrdField extends CustomField<Rrd> implements Button.ClickListener {
      */
     @Override
     protected void setInternalValue(Rrd rrd) {
-        super.setInternalValue(rrd); // TODO Is this required ?
         boolean stepState = step.isReadOnly();
         step.setReadOnly(false);
         step.setValue(rrd.getStep().toString());
-        if (stepState)
+        if (stepState) {
             step.setReadOnly(true);
-        ArrayList<RRA> rras = new ArrayList<RRA>();
-        for (String rra : rrd.getRraCollection()) {
-            rras.add(new RRA(rra));
         }
         container.removeAllItems();
-        container.addAll(rras);
+        for (String rra : rrd.getRras()) {
+            container.addOnmsBean(new RRA(rra));
+        }
     }
 
     /* (non-Javadoc)
@@ -190,12 +187,12 @@ public class RrdField extends CustomField<Rrd> implements Button.ClickListener {
     protected Rrd getInternalValue() {
         Rrd rrd = new Rrd();
         try {
-            rrd.setStep(new Integer((String) step.getValue()));
+            rrd.setStep(Integer.valueOf((String) step.getValue()));
         } catch (NumberFormatException e) {
             rrd.setStep(null);
         }
-        for (Object itemId: container.getItemIds()) {
-            rrd.addRra(container.getItem(itemId).getBean().getRra());
+        for (RRA rra: container.getOnmsBeans()) {
+            rrd.addRra(rra.getRra());
         }
         return rrd;
     }
@@ -260,4 +257,13 @@ public class RrdField extends CustomField<Rrd> implements Button.ClickListener {
         }
     }
 
+    /**
+     * Gets the step value.
+     *
+     * @return the step value
+     */
+    public Integer getStepValue() {
+        final String value = step.getValue();
+        return value == null ? null : Integer.valueOf(value);
+    }
 }

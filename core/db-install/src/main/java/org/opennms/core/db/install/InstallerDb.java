@@ -1,22 +1,22 @@
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
- * Copyright (C) 2012 The OpenNMS Group, Inc.
- * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ * Copyright (C) 2004-2014 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2014 The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published
+ * it under the terms of the GNU Affero General Public License as published
  * by the Free Software Foundation, either version 3 of the License,
  * or (at your option) any later version.
  *
  * OpenNMS(R) is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU Affero General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GNU Affero General Public License
  * along with OpenNMS(R).  If not, see:
  *      http://www.gnu.org/licenses/
  *
@@ -54,6 +54,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 import java.util.TreeMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -118,19 +119,19 @@ public class InstallerDb {
 
     private String m_sql;
 
-    private LinkedList<String> m_tables = null;
+    private List<String> m_tables = null;
 
-    private LinkedList<String> m_sequences = null;
+    private List<String> m_sequences = null;
 
-    private final HashMap<String, List<Insert>> m_inserts = new HashMap<String, List<Insert>>();
+    private final Map<String, List<Insert>> m_inserts = new HashMap<String, List<Insert>>();
 
-    private final HashSet<String> m_drops = new HashSet<String>();
+    private final Set<String> m_drops = new HashSet<String>();
 
-    private final HashSet<String> m_changed = new HashSet<String>();
+    private final Set<String> m_changed = new HashSet<String>();
     
     private Map<String, Integer> m_dbtypes = null;
     
-    private HashMap<String, String[]> m_seqmapping = null;
+    private Map<String, String[]> m_seqmapping = null;
     private Connection m_connection;
     private Connection m_adminConnection;
     private String m_user;
@@ -177,9 +178,9 @@ public class InstallerDb {
 
 	private final SimpleDateFormat m_dateFormatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-	private final char m_spins[] = { '/', '-', '\\', '|' };
+	private final char[] m_spins = { '/', '-', '\\', '|' };
 
-	private LinkedList<Constraint> m_constraints;
+	private List<Constraint> m_constraints;
 
     /**
      * <p>Constructor for InstallerDb.</p>
@@ -1459,7 +1460,7 @@ public class InstallerDb {
      * @throws java.text.ParseException if any.
      * @throws java.lang.Exception if any.
      */
-    public void transformData(final String table, final String oldTable, final TreeMap<String, ColumnChange> columnChanges, final String[] oldColumnNames) throws SQLException, ParseException,
+    public void transformData(final String table, final String oldTable, final Map<String, ColumnChange> columnChanges, final String[] oldColumnNames) throws SQLException, ParseException,
             Exception {
         final Statement st = getConnection().createStatement();
         int i;
@@ -2010,7 +2011,8 @@ public class InstallerDb {
      * @throws java.sql.SQLException if any.
      */
     public void databaseSetUser() throws SQLException {
-    	final ResultSet rs = getAdminConnection().getMetaData().getTables(null, "public", "%", null);
+    	final String[] tableTypes = {"TABLE"};
+    	final ResultSet rs = getAdminConnection().getMetaData().getTables(null, "public", "%", tableTypes);
         final HashSet<String> objects = new HashSet<String>();
         while (rs.next()) {
             objects.add(rs.getString("TABLE_NAME"));

@@ -1,22 +1,22 @@
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
- * Copyright (C) 2012 The OpenNMS Group, Inc.
- * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ * Copyright (C) 2012-2014 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2014 The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published
+ * it under the terms of the GNU Affero General Public License as published
  * by the Free Software Foundation, either version 3 of the License,
  * or (at your option) any later version.
  *
  * OpenNMS(R) is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU Affero General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GNU Affero General Public License
  * along with OpenNMS(R).  If not, see:
  *      http://www.gnu.org/licenses/
  *
@@ -29,35 +29,37 @@
 package org.opennms.features.topology.app.internal;
 
 import com.github.wolfie.refresher.Refresher;
-import com.vaadin.annotations.JavaScript;
 import com.vaadin.annotations.PreserveOnRefresh;
 import com.vaadin.annotations.Theme;
 import com.vaadin.data.Property;
-import com.vaadin.server.DefaultErrorHandler;
-import com.vaadin.server.Page;
+import com.vaadin.event.FieldEvents;
+import com.vaadin.server.*;
 import com.vaadin.server.Page.UriFragmentChangedEvent;
 import com.vaadin.server.Page.UriFragmentChangedListener;
-import com.vaadin.server.ThemeResource;
-import com.vaadin.server.VaadinRequest;
-import com.vaadin.shared.ui.MarginInfo;
 import com.vaadin.shared.ui.slider.SliderOrientation;
 import com.vaadin.ui.*;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
-import com.vaadin.ui.Layout;
 import com.vaadin.ui.MenuBar.MenuItem;
 import com.vaadin.ui.TabSheet.SelectedTabChangeEvent;
 import com.vaadin.ui.TabSheet.SelectedTabChangeListener;
+
 import org.opennms.features.topology.api.*;
+import org.opennms.features.topology.api.OperationContext.DisplayLocation;
 import org.opennms.features.topology.api.support.VertexHopGraphProvider;
-import org.opennms.features.topology.api.support.VertexHopGraphProvider.VertexHopCriteria;
-import org.opennms.features.topology.api.topo.AbstractVertexRef;
+import org.opennms.features.topology.api.support.VertexHopGraphProvider.FocusNodeHopCriteria;
+import org.opennms.features.topology.api.topo.Criteria;
+import org.opennms.features.topology.api.topo.DefaultVertexRef;
 import org.opennms.features.topology.api.topo.VertexRef;
-import org.opennms.features.topology.app.internal.TopoContextMenu.TopoContextMenuItem;
+import org.opennms.features.topology.app.internal.CommandManager.DefaultOperationContext;
 import org.opennms.features.topology.app.internal.TopologyComponent.VertexUpdateListener;
-import org.opennms.features.topology.app.internal.jung.FRLayoutAlgorithm;
+import org.opennms.features.topology.app.internal.jung.TopoFRLayoutAlgorithm;
+import org.opennms.features.topology.app.internal.support.CategoryHopCriteria;
 import org.opennms.features.topology.app.internal.support.FontAwesomeIcons;
 import org.opennms.features.topology.app.internal.support.IconRepositoryManager;
+import org.opennms.features.topology.app.internal.ui.HudDisplay;
+import org.opennms.features.topology.app.internal.ui.LastUpdatedLabel;
+import org.opennms.features.topology.app.internal.ui.NoContentAvailableWindow;
 import org.opennms.features.topology.app.internal.ui.SearchBox;
 import org.opennms.osgi.*;
 import org.opennms.osgi.locator.OnmsServiceManagerLocator;
@@ -67,77 +69,83 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
+
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
 import java.util.*;
 
 @SuppressWarnings("serial")
 @Theme("topo_default")
-@JavaScript({
-	"http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js",
-	"chromeFrameCheck.js"
-})
 @PreserveOnRefresh
 public class TopologyUI extends UI implements CommandUpdateListener, MenuItemUpdateListener, ContextMenuHandler, WidgetUpdateListener, WidgetContext, UriFragmentChangedListener, GraphContainer.ChangeListener, MapViewManagerListener, VertexUpdateListener, SelectionListener, VerticesUpdateManager.VerticesUpdateListener {
 
     public static final String PARAMETER_FOCUS_NODES = "focusNodes";
+    private static final String PARAMETER_SEMANTIC_ZOOM_LEVEL = "szl";
+    private static final String PARAMETER_GRAPH_PROVIDER = "provider";
 
     private class DynamicUpdateRefresher implements Refresher.RefreshListener {
-        private final Object lockObject = "lockObject";
-        private boolean refreshInProgress = false;
-        private long lastUpdateTime;
+        private final Object lockObject = new Object();
+        private boolean m_refreshInProgress = false;
+        private long m_lastUpdateTime = 0;
+
 
         @Override
         public void refresh(Refresher refresher) {
-            if (needsRefresh()) {
-                synchronized (lockObject) {
-                    refreshInProgress = true;
+             if (needsRefresh()) {
+                refreshUI();
+            }
+        }
 
-                    m_log.debug("Refresh UI");
-                    getGraphContainer().getBaseTopology().refresh();
-                    getGraphContainer().redoLayout();
-                    TopologyUI.this.markAsDirtyRecursive();
+        private void refreshUI() {
+            synchronized (lockObject) {
+                m_refreshInProgress = true;
+                m_topologyComponent.blockSelectionEvents();
 
-                    lastUpdateTime = System.currentTimeMillis();
+                getGraphContainer().getBaseTopology().refresh();
+                getGraphContainer().setDirty(true);
+                getGraphContainer().redoLayout();
+                TopologyUI.this.markAsDirtyRecursive();
 
-                    refreshInProgress = false;
-                }
+                m_lastUpdateTime = System.currentTimeMillis();
+                updateTimestamp(m_lastUpdateTime);
+
+                m_topologyComponent.unblockSelectionEvents();
+                m_refreshInProgress = false;
             }
         }
 
         private boolean needsRefresh() {
-            if (refreshInProgress) {
+            if (m_refreshInProgress) {
                 return false;
             }
+
             if (!m_graphContainer.getAutoRefreshSupport().isEnabled()) {
                 return false;
             }
 
-            long updateDiff = System.currentTimeMillis() - lastUpdateTime;
-            return updateDiff >= m_graphContainer.getAutoRefreshSupport().getInterval()*1000; // update or not
+            return true;
         }
+
     }
 
-	private static final long serialVersionUID = 6837501987137310938L;
+    private static final long serialVersionUID = 6837501987137310938L;
+    private static final Logger LOG = LoggerFactory.getLogger(TopologyUI.class);
 
-    private static Logger m_log = LoggerFactory.getLogger(TopologyUI.class);
-	private static final String LABEL_PROPERTY = "label";
-	private TopologyComponent m_topologyComponent;
-	private VertexSelectionTree m_tree;
-	private final GraphContainer m_graphContainer;
+    private TopologyComponent m_topologyComponent;
+    private Window m_noContentWindow;
+    private final GraphContainer m_graphContainer;
     private SelectionManager m_selectionManager;
     private final CommandManager m_commandManager;
-	private MenuBar m_menuBar;
-	private TopoContextMenu m_contextMenu;
-	private VerticalLayout m_layout;
-	private VerticalLayout m_rootLayout;
-	private final IconRepositoryManager m_iconRepositoryManager;
-	private WidgetManager m_widgetManager;
-	private WidgetManager m_treeWidgetManager;
-	private Accordion m_treeAccordion;
-    private HorizontalSplitPanel m_treeMapSplitPanel;
-    private final Label m_zoomLevelLabel = new Label("0");
+    private MenuBar m_menuBar;
+    private TopoContextMenu m_contextMenu;
+    private VerticalLayout m_layout;
+    private VerticalLayout m_rootLayout;
+    private final IconRepositoryManager m_iconRepositoryManager;
+    private WidgetManager m_widgetManager;
+    private AbsoluteLayout m_treeMapSplitPanel;
+    private final TextField m_zoomLevelLabel = new TextField();
     private final HistoryManager m_historyManager;
     private String m_headerHtml;
     private boolean m_showHeader = true;
@@ -146,8 +154,15 @@ public class TopologyUI extends UI implements CommandUpdateListener, MenuItemUpd
     private OnmsServiceManager m_serviceManager;
     private VaadinApplicationContext m_applicationContext;
     private VerticesUpdateManager m_verticesUpdateManager;
+    private Button m_panBtn;
+    private Button m_selectBtn;
+    private Button m_szlOutBtn;
+    private LastUpdatedLabel m_lastUpdatedTimeLabel;
+    private HudDisplay m_hudDisplay;
+    int m_settingFragment = 0;
+    private SearchBox m_searchBox;
 
-    private String getHeader(HttpServletRequest request) {
+    private String getHeader(HttpServletRequest request) throws Exception {
         if(m_headerProvider == null) {
             return "";
         } else {
@@ -171,8 +186,12 @@ public class TopologyUI extends UI implements CommandUpdateListener, MenuItemUpd
     protected void init(final VaadinRequest request) {
         FontAwesomeIcons.load(new ThemeResource("font-awesome/css/font-awesome.min.css"));
 
-        m_headerHtml =  getHeader(new HttpServletRequestVaadinImpl(request));
-        m_graphContainer.setLayoutAlgorithm(new FRLayoutAlgorithm());
+        try {
+            URL pageUrl = Page.getCurrent().getLocation().toURL();
+            m_headerHtml = getHeader(new HttpServletRequestVaadinImpl(request, pageUrl));
+        } catch (final Exception e) {
+            LOG.error("failed to get header HTML for request " + request.getPathInfo(), e.getCause());
+        }
 
         //create VaadinApplicationContext
         m_applicationContext = m_serviceManager.createApplicationContext(new VaadinApplicationContextCreator() {
@@ -185,20 +204,44 @@ public class TopologyUI extends UI implements CommandUpdateListener, MenuItemUpd
                 return context;
             }
         });
-        VerticesUpdateManager verticesUpdateManager = new OsgiVerticesUpdateManager(m_serviceManager, m_applicationContext);
+        m_verticesUpdateManager = new OsgiVerticesUpdateManager(m_serviceManager, m_applicationContext);
+
+        // Add a request handler that parses incoming focusNode and szl query parameters
+        getSession().addRequestHandler(new RequestHandler() {
+            @Override
+            public boolean handleRequest(VaadinSession session, VaadinRequest request, VaadinResponse response) throws IOException {
+                loadGraphProvider(request);
+                loadVertexHopCriteria(request, m_graphContainer);
+                loadSemanticZoomLevel(request, m_graphContainer);
+                m_graphContainer.redoLayout();
+                return false; // No response was written
+            }
+        });
+
+        // Set the algorithm last so that the criteria and SZLs are
+        // in place before we run the layout algorithm.
+        m_graphContainer.setLayoutAlgorithm(new TopoFRLayoutAlgorithm());
 
         loadUserSettings(m_applicationContext);
-        loadVertexHopCriteria(request, m_graphContainer);
+
         setupListeners();
         createLayouts();
+        // Set up an error handler for UI-level exceptions
         setupErrorHandler();
+        // Add an auto refresh handler to the GraphContainer
         setupAutoRefresher();
 
-        // notifiy osgi-listeners, otherwise initialization would not work
-        m_graphContainer.addChangeListener(verticesUpdateManager);
-        m_selectionManager.addSelectionListener(verticesUpdateManager);
-        verticesUpdateManager.selectionChanged(m_selectionManager);
-        verticesUpdateManager.graphChanged(m_graphContainer);
+        // the layout must be created BEFORE loading the hop criteria and the semantic zoom level
+        loadGraphProvider(request);
+        loadVertexHopCriteria(request, m_graphContainer);
+        loadSemanticZoomLevel(request, m_graphContainer);
+        m_graphContainer.redoLayout();
+
+        // notify OSGi listeners, otherwise initialization would not work
+        m_graphContainer.addChangeListener(m_verticesUpdateManager);
+        m_selectionManager.addSelectionListener(m_verticesUpdateManager);
+        m_verticesUpdateManager.selectionChanged(m_selectionManager);
+        m_verticesUpdateManager.graphChanged(m_graphContainer);
 
         m_serviceManager.getEventRegistry().addPossibleEventConsumer(this, m_applicationContext);
     }
@@ -214,35 +257,104 @@ public class TopologyUI extends UI implements CommandUpdateListener, MenuItemUpd
 
     private static void loadVertexHopCriteria(VaadinRequest request, GraphContainer graphContainer) {
         String nodeIds = request.getParameter(PARAMETER_FOCUS_NODES);
-        if (nodeIds == null) {
-            return;
+        FocusNodeHopCriteria criteria = VertexHopGraphProvider.getFocusNodeHopCriteriaForContainer(graphContainer);
+
+        if (nodeIds != null) {
+            Collection<Integer> refs = new TreeSet<Integer>();
+            for (String nodeId : nodeIds.split(",")) {
+                try {
+                    refs.add(Integer.parseInt(nodeId));
+                } catch (NumberFormatException e) {
+                    LOG.warn("Invalid node ID found in {} parameter: {}", PARAMETER_FOCUS_NODES, nodeId);
+                }
+            }
+            // If we found valid node IDs in the list...
+            if (refs.size() > 0) {
+                if (criteria.size() == refs.size()) {
+                    boolean criteriaChanged = false;
+                    for (Integer ref : refs) {
+                        if (!criteria.contains(new DefaultVertexRef("nodes", String.valueOf(ref)))) {
+                            criteriaChanged = true;
+                        }
+                    }
+                    // If all of the refs in the query string are already in the filter, then
+                    // just return without altering it
+                    if (!criteriaChanged) {
+                        return;
+                    }
+                }
+
+                // Clear the exiting focus node list
+                criteria.clear();
+                for (Integer ref : refs) {
+                    // Add a new focus node reference to the VertexHopCriteria
+                    criteria.add(new DefaultVertexRef("nodes", String.valueOf(ref)));
+                }
+                // Set the semantic zoom level to 1 by default
+                graphContainer.setSemanticZoomLevel(1);
+            } else {
+                // Don't do anything... we didn't find any focus nodes in the parameter so don't alter
+                // any existing VertexHopCriteria
+            }
         }
-        Collection<Integer> refs = new TreeSet<Integer>();
-        for (String nodeId : nodeIds.split(",")) {
+
+        // check if we have a criteria set
+        if (criteria.isEmpty() && noAdditionalFocusCriteria(graphContainer)) { // no criteria or nodes in focus, load defaults
+            graphContainer.removeCriteria(criteria); // it is empty, so we don't need it
+            graphContainer.addCriteria(graphContainer.getBaseTopology().getDefaultCriteria()); // set default
+        }
+    }
+
+    private static boolean noAdditionalFocusCriteria(GraphContainer graphContainer) {
+        Criteria[] crits = graphContainer.getCriteria();
+        for(Criteria criteria : crits){
+            try{
+                CategoryHopCriteria catCrit = (CategoryHopCriteria) criteria;
+                return false;
+            } catch(ClassCastException e){}
+
+        }
+        return true;
+    }
+
+    private static void loadSemanticZoomLevel(VaadinRequest request, GraphContainer graphContainer) {
+        String szl = request.getParameter(PARAMETER_SEMANTIC_ZOOM_LEVEL);
+        if (szl != null) {
             try {
-                refs.add(Integer.parseInt(nodeId));
+                graphContainer.setSemanticZoomLevel(Integer.parseInt(szl));
             } catch (NumberFormatException e) {
-                m_log.warn("Invalid node ID found in {} parameter: {}", PARAMETER_FOCUS_NODES, nodeId);
+                LOG.warn("Invalid SZL found in {} parameter: {}", PARAMETER_SEMANTIC_ZOOM_LEVEL, szl);
             }
         }
-        // If we found valid node IDs in the list...
-        if (refs.size() > 0) {
-            VertexHopCriteria criteria = VertexHopGraphProvider.getVertexHopCriteriaForContainer(graphContainer);
-            // Clear the exiting focus node list
-            criteria.clear();
-            for (Integer ref : refs) {
-                // Add a new focus node reference to the VertexHopCriteria
-                criteria.add(new AbstractVertexRef("nodes", String.valueOf(ref)));
+    }
+
+    private void loadGraphProvider(VaadinRequest request) {
+        String providerName = request.getParameter(PARAMETER_GRAPH_PROVIDER);
+        if (providerName != null) {
+            List<HistoryOperation> operations = m_historyManager.getHistoryOperations();
+            for (HistoryOperation operation : operations) {
+                try {
+                    // We have to cast to CheckedOperation here since that is the 
+                    // interface that is used in the OSGi proxies
+                    CheckedOperation selectOp = (CheckedOperation)operation;
+                    if (providerName.equals(selectOp.getId())) {
+                        selectOp.execute(Collections.<VertexRef>emptyList(), new DefaultOperationContext(this, m_graphContainer, DisplayLocation.MENUBAR));
+                        // Updated the checked state of the menu items
+                        updateMenuItems();
+                        return;
+                    }
+                } catch (ClassCastException e) {}
             }
-        } else {
-            // Don't do anything... we didn't find any focus nodes in the parameter so don't alter
-            // any existing VertexHopCriteria
         }
+        //Initialize the Base Topology provider just in case
+        getGraphContainer().getBaseTopology().refresh();
     }
 
     private void createLayouts() {
         m_rootLayout = new VerticalLayout();
         m_rootLayout.setSizeFull();
+        m_rootLayout.addStyleName("root-layout");
+        m_rootLayout.addStyleName("topo-root-layout");
         setContent(m_rootLayout);
 
         addHeader();
@@ -251,14 +363,13 @@ public class TopologyUI extends UI implements CommandUpdateListener, MenuItemUpd
     }
 
     private void setupErrorHandler() {
-        
-        UI.getCurrent().setErrorHandler(new DefaultErrorHandler(){
+        setErrorHandler(new DefaultErrorHandler() {
 
             @Override
             public void error(com.vaadin.server.ErrorEvent event) {
                 Notification.show("An Exception Occurred: see karaf.log", Notification.Type.TRAY_NOTIFICATION);
-                LoggerFactory.getLogger(this.getClass()).warn("An Exception Occured: in the TopologyUI", event.getThrowable());
-                super.error(event);
+                LOG.warn("An Exception Occured: in the TopologyUI", event.getThrowable());
+
             }
         });
     }
@@ -266,7 +377,7 @@ public class TopologyUI extends UI implements CommandUpdateListener, MenuItemUpd
     private void setupAutoRefresher() {
         if (m_graphContainer.hasAutoRefreshSupport()) {
             Refresher refresher = new Refresher();
-            refresher.setRefreshInterval(5000); // ask every 5 seconds for changes
+            refresher.setRefreshInterval((int)m_graphContainer.getAutoRefreshSupport().getInterval() * 1000); // ask every 1 seconds for changes
             refresher.addListener(new DynamicUpdateRefresher());
             addExtension(refresher);
         }
@@ -285,9 +396,9 @@ public class TopologyUI extends UI implements CommandUpdateListener, MenuItemUpd
                 try {
                     is.close();
                 } catch (final IOException closeE) {
-                    m_log.debug("failed to close HTML input stream", closeE);
+                    LOG.debug("failed to close HTML input stream", closeE);
                 }
-                m_log.debug("failed to get header layout data", e);
+                LOG.debug("failed to get header layout data", e);
             }
         }
     }
@@ -301,10 +412,8 @@ public class TopologyUI extends UI implements CommandUpdateListener, MenuItemUpd
         m_rootLayout.setExpandRatio(m_layout, 1);
 
         //TODO: Don't create a horizontal Split container here, no need. Remove and use the absolute
-        m_treeMapSplitPanel = new HorizontalSplitPanel();
-        m_treeMapSplitPanel.setFirstComponent(createWestLayout());
-        m_treeMapSplitPanel.setSecondComponent(createMapLayout());
-        m_treeMapSplitPanel.setSplitPosition(0, Unit.PIXELS);
+        m_treeMapSplitPanel = new AbsoluteLayout();
+        m_treeMapSplitPanel.addComponent(createMapLayout(), "top: 0px; left: 0px; right: 0px; bottom: 0px;");
         m_treeMapSplitPanel.setSizeFull();
 
         menuBarUpdated(m_commandManager);
@@ -313,16 +422,32 @@ public class TopologyUI extends UI implements CommandUpdateListener, MenuItemUpd
         }else {
             m_layout.addComponent(m_treeMapSplitPanel);
         }
-
-        if(m_treeWidgetManager.widgetCount() != 0) {
-            updateAccordionView(m_treeWidgetManager);
-        }
     }
 
     private AbsoluteLayout createMapLayout() {
         final Property<Double> scale = m_graphContainer.getScaleProperty();
 
+        m_lastUpdatedTimeLabel = new LastUpdatedLabel();
+        m_lastUpdatedTimeLabel.setImmediate(true);
+
+        m_hudDisplay = new HudDisplay();
+        m_hudDisplay.setImmediate(true);
+
         m_zoomLevelLabel.setHeight(20, Unit.PIXELS);
+        m_zoomLevelLabel.setWidth(22, Unit.PIXELS);
+        m_zoomLevelLabel.addStyleName("center-text");
+        m_zoomLevelLabel.addTextChangeListener(new FieldEvents.TextChangeListener() {
+            @Override
+            public void textChange(FieldEvents.TextChangeEvent event) {
+                try{
+                    int zoomLevel = Integer.parseInt(event.getText());
+                    setSemanticZoomLevel(zoomLevel);
+                } catch(NumberFormatException e){
+                    setSemanticZoomLevel(m_graphContainer.getSemanticZoomLevel());
+                }
+
+            }
+        });
 
         m_topologyComponent = new TopologyComponent(m_graphContainer, m_iconRepositoryManager, this);
         m_topologyComponent.setSizeFull();
@@ -336,6 +461,22 @@ public class TopologyUI extends UI implements CommandUpdateListener, MenuItemUpd
         slider.setOrientation(SliderOrientation.VERTICAL);
 
         slider.setImmediate(true);
+
+        final NativeButton showFocusVerticesBtn = new NativeButton(FontAwesomeIcons.Icon.eye_open.variant());
+        showFocusVerticesBtn.setDescription("Toggle Highlight Focus Nodes");
+        showFocusVerticesBtn.setHtmlContentAllowed(true);
+        showFocusVerticesBtn.addClickListener(new ClickListener() {
+            @Override
+            public void buttonClick(ClickEvent event) {
+                if(showFocusVerticesBtn.getCaption().equals(FontAwesomeIcons.Icon.eye_close.variant())){
+                    showFocusVerticesBtn.setCaption(FontAwesomeIcons.Icon.eye_open.variant());
+                } else {
+                    showFocusVerticesBtn.setCaption(FontAwesomeIcons.Icon.eye_close.variant());
+                }
+                m_topologyComponent.getState().setHighlightFocus(!m_topologyComponent.getState().isHighlightFocus());
+                m_topologyComponent.updateGraph();
+            }
+        });
 
         final NativeButton magnifyBtn = new NativeButton();
         magnifyBtn.setHtmlContentAllowed(true);
@@ -369,23 +510,20 @@ public class TopologyUI extends UI implements CommandUpdateListener, MenuItemUpd
         sliderLayout.addComponent(slider);
         sliderLayout.addComponent(demagnifyBtn);
 
-        final Button szlOutBtn = new Button();
-        szlOutBtn.setHtmlContentAllowed(true);
-        szlOutBtn.setCaption(FontAwesomeIcons.Icon.arrow_down.variant());
-        szlOutBtn.setDescription("Collapse Semantic Zoom Level");
-        szlOutBtn.addClickListener(new ClickListener() {
+        m_szlOutBtn = new Button();
+        m_szlOutBtn.setHtmlContentAllowed(true);
+        m_szlOutBtn.setCaption(FontAwesomeIcons.Icon.arrow_down.variant());
+        m_szlOutBtn.setDescription("Collapse Semantic Zoom Level");
+        m_szlOutBtn.setEnabled(m_graphContainer.getSemanticZoomLevel() > 0);
+        m_szlOutBtn.addClickListener(new ClickListener() {
             @Override
             public void buttonClick(ClickEvent event) {
-                int szl = (Integer) m_graphContainer.getSemanticZoomLevel();
+                int szl = m_graphContainer.getSemanticZoomLevel();
                 if (szl > 0) {
                     szl--;
-                    m_graphContainer.setSemanticZoomLevel(szl);
                     setSemanticZoomLevel(szl);
                     saveHistory();
-                } else if(szl == 0){
-                    szlOutBtn.setEnabled(false);
                 }
-
             }
         });
 
@@ -397,43 +535,39 @@ public class TopologyUI extends UI implements CommandUpdateListener, MenuItemUpd
 
             @Override
             public void buttonClick(ClickEvent event) {
-                int szl = (Integer) m_graphContainer.getSemanticZoomLevel();
+                int szl = m_graphContainer.getSemanticZoomLevel();
                 szl++;
-                m_graphContainer.setSemanticZoomLevel(szl);
                 setSemanticZoomLevel(szl);
                 saveHistory();
-                if(szl > 0) {
-                    szlOutBtn.setEnabled(true);
-                }
             }
         });
 
 
-        final Button panBtn = new Button();
-        panBtn.setIcon(new ThemeResource("images/cursor_drag_arrow.png"));
-        panBtn.setDescription("Pan Tool");
-        panBtn.setStyleName("toolbar-button down");
+        m_panBtn = new Button();
+        m_panBtn.setIcon(new ThemeResource("images/cursor_drag_arrow.png"));
+        m_panBtn.setDescription("Pan Tool");
+        m_panBtn.setStyleName("toolbar-button down");
 
-        final Button selectBtn = new Button();
-        selectBtn.setIcon(new ThemeResource("images/selection.png"));
-        selectBtn.setDescription("Selection Tool");
-        selectBtn.setStyleName("toolbar-button");
-        selectBtn.addClickListener(new ClickListener() {
+        m_selectBtn = new Button();
+        m_selectBtn.setIcon(new ThemeResource("images/selection.png"));
+        m_selectBtn.setDescription("Selection Tool");
+        m_selectBtn.setStyleName("toolbar-button");
+        m_selectBtn.addClickListener(new ClickListener() {
 
             @Override
             public void buttonClick(ClickEvent event) {
-                selectBtn.setStyleName("toolbar-button down");
-                panBtn.setStyleName("toolbar-button");
+                m_selectBtn.setStyleName("toolbar-button down");
+                m_panBtn.setStyleName("toolbar-button");
                 m_topologyComponent.setActiveTool("select");
             }
         });
 
-        panBtn.addClickListener(new ClickListener() {
+        m_panBtn.addClickListener(new ClickListener() {
 
             @Override
             public void buttonClick(ClickEvent event) {
-                panBtn.setStyleName("toolbar-button down");
-                selectBtn.setStyleName("toolbar-button");
+                m_panBtn.setStyleName("toolbar-button down");
+                m_selectBtn.setStyleName("toolbar-button");
                 m_topologyComponent.setActiveTool("pan");
             }
         });
@@ -458,10 +592,9 @@ public class TopologyUI extends UI implements CommandUpdateListener, MenuItemUpd
             }
         });
 
-
-        SearchBox searchBox = new SearchBox(m_serviceManager, new CommandManager.DefaultOperationContext(this, m_graphContainer, OperationContext.DisplayLocation.SEARCH));
-        m_selectionManager.addSelectionListener(searchBox);
-        m_graphContainer.addChangeListener(searchBox);
+        m_searchBox = new SearchBox(m_serviceManager, new CommandManager.DefaultOperationContext(this, m_graphContainer, OperationContext.DisplayLocation.SEARCH));
+        m_selectionManager.addSelectionListener(m_searchBox);
+        m_graphContainer.addChangeListener(m_searchBox);
 
         //History Button Layout
         HorizontalLayout historyButtonLayout = new HorizontalLayout();
@@ -474,30 +607,32 @@ public class TopologyUI extends UI implements CommandUpdateListener, MenuItemUpd
         semanticLayout.setSpacing(true);
         semanticLayout.addComponent(szlInBtn);
         semanticLayout.addComponent(m_zoomLevelLabel);
-        semanticLayout.addComponent(szlOutBtn);
+        semanticLayout.addComponent(m_szlOutBtn);
         semanticLayout.setComponentAlignment(m_zoomLevelLabel, Alignment.MIDDLE_CENTER);
 
-        Label historyLabel = new Label("History");
         VerticalLayout historyCtrlLayout = new VerticalLayout();
         historyCtrlLayout.setDefaultComponentAlignment(Alignment.MIDDLE_CENTER);
-        historyCtrlLayout.addComponent(historyLabel);
         historyCtrlLayout.addComponent(historyButtonLayout);
 
-        VerticalLayout controlLayout = new VerticalLayout();
+        HorizontalLayout controlLayout = new HorizontalLayout();
         controlLayout.setDefaultComponentAlignment(Alignment.MIDDLE_CENTER);
-        controlLayout.addComponent(panBtn);
-        controlLayout.addComponent(selectBtn);
+        controlLayout.addComponent(m_panBtn);
+        controlLayout.addComponent(m_selectBtn);
 
         VerticalLayout semanticCtrlLayout = new VerticalLayout();
         semanticCtrlLayout.setDefaultComponentAlignment(Alignment.MIDDLE_CENTER);
-        semanticCtrlLayout.addComponent(new Label("Semantic Level"));
         semanticCtrlLayout.addComponent(semanticLayout);
+
+        HorizontalLayout locationToolLayout = createLocationToolLayout();
 
         //Vertical Layout for all tools on right side
         VerticalLayout toolbar = new VerticalLayout();
         toolbar.setDefaultComponentAlignment(Alignment.MIDDLE_CENTER);
         toolbar.setSpacing(true);
+
         toolbar.addComponent(historyCtrlLayout);
+        toolbar.addComponent(locationToolLayout);
+        toolbar.addComponent(showFocusVerticesBtn);
         toolbar.addComponent(sliderLayout);
         toolbar.addComponent(controlLayout);
         toolbar.addComponent(semanticCtrlLayout);
@@ -505,21 +640,55 @@ public class TopologyUI extends UI implements CommandUpdateListener, MenuItemUpd
 
         AbsoluteLayout mapLayout = new AbsoluteLayout();
 
+
         mapLayout.addComponent(m_topologyComponent, "top:0px; left: 0px; right: 0px; bottom: 0px;");
-        //mapLayout.addComponent(sliderLayout, "top: 50px; right: 20px;");
-        mapLayout.addComponent(toolbar, "top: 10px; right: 10px;");
-        //mapLayout.addComponent(semanticLayout, "top: 420px; right: 5px;");
-        //mapLayout.addComponent(historyButtonLayout, "top: 5px; right: 10px;");
-        mapLayout.addComponent(searchBox, "top:5px; left:5px;");
+        mapLayout.addComponent(m_lastUpdatedTimeLabel, "top: 5px; right: 10px;");
+        mapLayout.addComponent(m_hudDisplay, "top: 445px; right: 10px");
+        mapLayout.addComponent(toolbar, "top: 25px; right: 10px;");
+        mapLayout.addComponent(m_searchBox, "top:5px; left:5px;");
+        //mapLayout.addComponent(locationToolLayout, "top: 5px; left: 50%");
         mapLayout.setSizeFull();
 
-        return mapLayout;
+        m_noContentWindow = new NoContentAvailableWindow(m_graphContainer);
+        m_noContentWindow.setVisible(true);
+        addWindow(m_noContentWindow);
 
+        return mapLayout;
+    }
+
+    private HorizontalLayout createLocationToolLayout() {
+        HorizontalLayout layout = new HorizontalLayout();
+        layout.setSpacing(true);
+        layout.setDefaultComponentAlignment(Alignment.MIDDLE_CENTER);
+
+        Button showAllMapBtn = new Button(FontAwesomeIcons.Icon.globe.variant());
+        showAllMapBtn.setHtmlContentAllowed(true);
+        showAllMapBtn.setDescription("Show Entire Map");
+        showAllMapBtn.addClickListener(new ClickListener() {
+            @Override
+            public void buttonClick(ClickEvent event) {
+                m_topologyComponent.showAllMap();
+            }
+        });
+
+        Button centerSelectionBtn = new Button(FontAwesomeIcons.Icon.location_arrow.variant());
+        centerSelectionBtn.setHtmlContentAllowed(true);
+        centerSelectionBtn.setDescription("Center On Selection");
+        centerSelectionBtn.addClickListener(new ClickListener() {
+            @Override
+            public void buttonClick(ClickEvent event) {
+                m_topologyComponent.centerMapOnSelection();
+            }
+        });
+
+        layout.addComponent(centerSelectionBtn);
+        layout.addComponent(showAllMapBtn);
+
+        return layout;
     }
 
     private void loadUserSettings(VaadinApplicationContext context) {
         m_userName = context.getUsername();
-        m_graphContainer.setUserName(m_userName);
         m_graphContainer.setSessionId(context.getSessionId());
 
         // See if the history manager has an existing fragment stored for
@@ -530,27 +699,11 @@ public class TopologyUI extends UI implements CommandUpdateListener, MenuItemUpd
         // If there was existing history, then restore that history snapshot.
         if (fragment != null) {
             LoggerFactory.getLogger(this.getClass()).info("Restoring history for user {}: {}", m_userName, fragment);
-            Page.getCurrent().setUriFragment(fragment);
-            m_historyManager.applyHistory(m_userName, fragment, m_graphContainer);
-        }
-    }
-
-    /**
-     * Update the Accordion View with installed widgets
-     * @param treeWidgetManager
-     */
-    private void updateAccordionView(WidgetManager treeWidgetManager) {
-        if (m_treeAccordion != null) {
-            m_treeAccordion.removeAllComponents();
-            
-            m_treeAccordion.addTab(m_tree, m_tree.getTitle());
-            for(IViewContribution widget : treeWidgetManager.getWidgets()) {
-                if(widget.getIcon() != null) {
-                    m_treeAccordion.addTab(widget.getView(m_applicationContext, this), widget.getTitle(), widget.getIcon());
-                }else {
-                    m_treeAccordion.addTab(widget.getView(m_applicationContext, this), widget.getTitle());
-                }
+            Page page = Page.getCurrent();
+            if (page != null) {
+                page.setUriFragment(fragment);
             }
+            m_historyManager.applyHistory(m_userName, fragment, m_graphContainer);
         }
     }
 
@@ -560,7 +713,7 @@ public class TopologyUI extends UI implements CommandUpdateListener, MenuItemUpd
      * Any widget with the service property of 'location=bottom' are
      * included.
      * 
-     * @param widgetManager
+     * @param widgetManager The WidgetManager.
      */
     private void updateWidgetView(WidgetManager widgetManager) {
         if (m_layout != null) {
@@ -577,12 +730,8 @@ public class TopologyUI extends UI implements CommandUpdateListener, MenuItemUpd
                     bottomLayoutBar.setSecondComponent(getTabSheet(widgetManager, this));
                     m_layout.addComponent(bottomLayoutBar);
                 }
-                m_layout.requestRepaint();
+                m_layout.markAsDirty();
             }
-        }
-        // TODO: Integrate contextmenu with the Connector/Extension pattern
-        if(m_contextMenu != null && m_contextMenu.getParent() == null) {
-            //getMainWindow().addComponent(m_contextMenu);
         }
     }
 
@@ -662,63 +811,15 @@ public class TopologyUI extends UI implements CommandUpdateListener, MenuItemUpd
 
         return bottomLayout;
     }
-    
 
-    /**
-     * Creates the west area layout including the
-     * accordion and tree views.
-     * 
-     * @return
-     */
-	private Layout createWestLayout() {
-        m_tree = createTree();
-        
-
-        
-        m_treeAccordion = new Accordion();
-        m_treeAccordion.addTab(m_tree, m_tree.getTitle());
-        m_treeAccordion.setWidth("100%");
-        m_treeAccordion.setHeight("100%");
-        
-        AbsoluteLayout absLayout = new AbsoluteLayout();
-        absLayout.setWidth("100%");
-        absLayout.setHeight("100%");
-        absLayout.addComponent(m_treeAccordion, "top: 25px; left: 15px; right: 15px; bottom:25px;");
-        
-        return absLayout;
+    public void updateTimestamp(long updateTime) {
+        m_lastUpdatedTimeLabel.setUpdateTime(updateTime);
     }
-
-    private VertexSelectionTree createTree() {
-		VertexSelectionTree tree = new VertexSelectionTree("Nodes", m_graphContainer);
-		tree.setMultiSelect(true);
-		tree.setImmediate(true);
-		tree.setItemCaptionPropertyId(LABEL_PROPERTY);
-
-		for (Iterator<?> it = tree.rootItemIds().iterator(); it.hasNext();) {
-			Object item = it.next();
-			tree.expandItemsRecursively(item);
-		}
-		
-		m_graphContainer.getSelectionManager().addSelectionListener(tree);
-
-		return tree;
-	}
 
 	@Override
 	public void updateMenuItems() {
 		updateMenuItems(m_menuBar.getItems());
 	}
-
-	private void updateContextMenuItems(Object target, List<TopoContextMenuItem> items) {
-		for(TopoContextMenuItem contextItem : items) {
-			if(contextItem.hasChildren()) {
-				updateContextMenuItems(target, contextItem.getChildren());
-			} else {
-				m_commandManager.updateContextMenuItem(target, contextItem, m_graphContainer, this);
-			}
-		}
-	}
-
 
 	private void updateMenuItems(List<MenuItem> menuItems) {
 		for(MenuItem menuItem : menuItems) {
@@ -749,23 +850,23 @@ public class TopologyUI extends UI implements CommandUpdateListener, MenuItemUpd
             m_rootLayout.addComponent(m_menuBar, 0);
         }
 
-
-		m_contextMenu = commandManager.getContextMenu(m_graphContainer, this);
+		m_contextMenu = commandManager.getContextMenu(new DefaultOperationContext(this, m_graphContainer, DisplayLocation.CONTEXTMENU));
 		m_contextMenu.setAsContextMenuOf(this);
 		updateMenuItems();
 	}
-	
-        @Override
-	public void show(Object target, int left, int top) {
-		updateContextMenuItems(target, m_contextMenu.getItems());
+
+	@Override
+	public void showContextMenu(Object target, int left, int top) {
+		// The target must be set before we update the operation context because the op context
+		// operations are dependent on the target of the right-click
 		m_contextMenu.setTarget(target);
+		m_contextMenu.updateOperationContext(new DefaultOperationContext(this, m_graphContainer, DisplayLocation.CONTEXTMENU));
 		m_contextMenu.open(left, top);
 	}
 
     public WidgetManager getWidgetManager() {
         return m_widgetManager;
     }
-
 
     public void setWidgetManager(WidgetManager widgetManager) {
         if(m_widgetManager != null) {
@@ -775,76 +876,104 @@ public class TopologyUI extends UI implements CommandUpdateListener, MenuItemUpd
         m_widgetManager.addUpdateListener(this);
     }
 
-
     @Override
     public void widgetListUpdated(WidgetManager widgetManager) {
         if(!isClosing()) {
             if(widgetManager == m_widgetManager) {
                 updateWidgetView(widgetManager);
-            }else if(widgetManager == m_treeWidgetManager) {
-                updateAccordionView(widgetManager);
             }
         }
     }
-
-
-    public WidgetManager getTreeWidgetManager() {
-        return m_treeWidgetManager;
-    }
-
-
-    public void setTreeWidgetManager(WidgetManager treeWidgetManager) {
-        if(m_treeWidgetManager != null) {
-            m_treeWidgetManager.removeUpdateListener(this);
-        }
-        
-        m_treeWidgetManager = treeWidgetManager;
-        m_treeWidgetManager.addUpdateListener(this);
-    }
-
 
     @Override
     public GraphContainer getGraphContainer() {
         return m_graphContainer;
     }
 
-
-    int m_settingFragment = 0;
-    
     @Override
     public void uriFragmentChanged(UriFragmentChangedEvent event) {
         m_settingFragment++;
         String fragment = event.getUriFragment();
         m_historyManager.applyHistory(m_userName, fragment, m_graphContainer);
+
+        // This is a hack to fix issue SPC-796 so that the display states of the 
+        // TopologyComponent and NoContentAvailableWindow are reset correctly 
+        // after a history operation
+        graphChanged(m_graphContainer);
+
+        //Manually trigger the searchbox to refresh
+        m_searchBox.graphChanged(m_graphContainer);
+
         m_settingFragment--;
     }
-
 
     private void saveHistory() {
         if (m_settingFragment == 0) {
             String fragment = m_historyManager.createHistory(m_userName, m_graphContainer);
-            Page.getCurrent().setUriFragment(fragment, false);
+            Page page = Page.getCurrent();
+            if (page != null) {
+                page.setUriFragment(fragment, false);
+            }
         }
     }
 
-
     @Override
     public void graphChanged(GraphContainer graphContainer) {
-        m_zoomLevelLabel.setValue("" + graphContainer.getSemanticZoomLevel());
+        // are there any vertices to display?
+        boolean verticesAvailable = !graphContainer.getGraph().getDisplayVertices().isEmpty();
+
+        // toggle view
+        if (verticesAvailable) {
+            m_noContentWindow.setVisible(false);
+            removeWindow(m_noContentWindow);
+            m_topologyComponent.setEnabled(true);
+        } else {
+            m_topologyComponent.setEnabled(false);
+            m_noContentWindow.setVisible(true);
+            if(!m_noContentWindow.isAttached()){
+                addWindow(m_noContentWindow);
+            }
+
+        }
+        m_hudDisplay.setProvider(graphContainer.getBaseTopology().getVertexNamespace().equals("nodes") ? "Linkd" : graphContainer.getBaseTopology().getVertexNamespace());
+        m_hudDisplay.setVertexFocusCount(getFocusVertices(graphContainer));
+        m_hudDisplay.setEdgeFocusCount(0);
+        m_hudDisplay.setVertexSelectionCount(graphContainer.getSelectionManager().getSelectedVertexRefs().size());
+        m_hudDisplay.setEdgeSelectionCount(graphContainer.getSelectionManager().getSelectedEdgeRefs().size());
+        m_hudDisplay.setVertexContextCount(graphContainer.getGraph().getDisplayVertices().size());
+        m_hudDisplay.setEdgeContextCount(graphContainer.getGraph().getDisplayEdges().size());
+        m_hudDisplay.setVertexTotalCount(graphContainer.getBaseTopology().getVertexTotalCount());
+        m_hudDisplay.setEdgeTotalCount(graphContainer.getBaseTopology().getEdges().size());
+
+        m_zoomLevelLabel.setValue(String.valueOf(graphContainer.getSemanticZoomLevel()));
+        m_szlOutBtn.setEnabled(graphContainer.getSemanticZoomLevel() > 0);
+        updateTimestamp(System.currentTimeMillis());
     }
 
+    private int getFocusVertices(GraphContainer graphContainer) {
+        int count = 0;
+        Criteria[] crits = graphContainer.getCriteria();
+        for(Criteria criteria : crits){
+            try{
+                VertexHopGraphProvider.VertexHopCriteria catCrit = (VertexHopGraphProvider.VertexHopCriteria) criteria;
+                count += catCrit.getVertices().size();
+            } catch(ClassCastException e){}
 
-    private void setSemanticZoomLevel(int szl) {
-        m_zoomLevelLabel.setValue(String.valueOf(szl));
+        }
+        return count;
+    }
+
+    private void setSemanticZoomLevel(int semanticZoomLevel) {
+        m_zoomLevelLabel.setValue(String.valueOf(semanticZoomLevel));
+        m_szlOutBtn.setEnabled(semanticZoomLevel > 0);
+        m_graphContainer.setSemanticZoomLevel(semanticZoomLevel);
         m_graphContainer.redoLayout();
     }
-
 
     @Override
     public void boundingBoxChanged(MapViewManager viewManager) {
         saveHistory();
     }
-
 
     @Override
     public void onVertexUpdate() {
@@ -861,11 +990,22 @@ public class TopologyUI extends UI implements CommandUpdateListener, MenuItemUpd
      */
     //@Override
     public void setShowHeader(String boolVal) {
-        m_showHeader = "true".equals(boolVal);
+        m_showHeader = Boolean.valueOf(boolVal);
     }
 
     @Override
     public void selectionChanged(SelectionContext selectionContext) {
+        m_hudDisplay.setVertexSelectionCount(selectionContext.getSelectedVertexRefs().size());
+        m_hudDisplay.setEdgeSelectionCount(selectionContext.getSelectedEdgeRefs().size());
+
+        //After selection always set the pantool back to active tool
+        if(m_panBtn != null && !m_panBtn.getStyleName().equals("toolbar-button down")){
+            m_panBtn.setStyleName("toolbar-button down");
+        }
+        if(m_selectBtn != null && m_selectBtn.getStyleName().equals("toolbar-button down")){
+            m_selectBtn.setStyleName("toolbar-button");
+        }
+        if(m_topologyComponent != null) m_topologyComponent.setActiveTool("pan");
         saveHistory();
     }
 
@@ -887,13 +1027,10 @@ public class TopologyUI extends UI implements CommandUpdateListener, MenuItemUpd
     @Override
     @EventConsumer
     public void verticesUpdated(VerticesUpdateManager.VerticesUpdateEvent event) {
-
         Collection<VertexRef> selectedVertexRefs = m_selectionManager.getSelectedVertexRefs();
         Set<VertexRef> vertexRefs = event.getVertexRefs();
-        if(!selectedVertexRefs.equals(vertexRefs) && !event.allVerticesSelected()){
+        if(!selectedVertexRefs.equals(vertexRefs) && !event.allVerticesSelected()) {
             m_selectionManager.setSelectedVertexRefs(vertexRefs);
         }
-
-
     }
 }

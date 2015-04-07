@@ -1,22 +1,22 @@
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
- * Copyright (C) 2012 The OpenNMS Group, Inc.
- * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ * Copyright (C) 2012-2014 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2014 The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published
+ * it under the terms of the GNU Affero General Public License as published
  * by the Free Software Foundation, either version 3 of the License,
  * or (at your option) any later version.
  *
  * OpenNMS(R) is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU Affero General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GNU Affero General Public License
  * along with OpenNMS(R).  If not, see:
  *      http://www.gnu.org/licenses/
  *
@@ -34,6 +34,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.hibernate.FetchMode;
+import org.hibernate.LockMode;
 import org.hibernate.Session;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.DetachedCriteria;
@@ -44,6 +45,7 @@ import org.hibernate.type.StringType;
 import org.opennms.core.criteria.AbstractCriteriaVisitor;
 import org.opennms.core.criteria.Alias;
 import org.opennms.core.criteria.Criteria;
+import org.opennms.core.criteria.Criteria.LockType;
 import org.opennms.core.criteria.Fetch;
 import org.opennms.core.criteria.Order;
 import org.opennms.core.criteria.Order.OrderVisitor;
@@ -216,6 +218,41 @@ public class HibernateCriteriaConverter implements CriteriaConverter<DetachedCri
                 break;
             default:
                 m_criteria.setFetchMode(fetch.getAttribute(), FetchMode.DEFAULT);
+                break;
+            }
+        }
+
+        @Override
+        public void visitLockType(final LockType lock) {
+            if (lock == null) return;
+
+            switch (lock) {
+            case NONE:
+                m_criteria.setLockMode(LockMode.NONE);
+                break;
+            case OPTIMISTIC:
+                m_criteria.setLockMode(LockMode.OPTIMISTIC);
+                break;
+            case OPTIMISTIC_FORCE_INCREMENT:
+                m_criteria.setLockMode(LockMode.OPTIMISTIC_FORCE_INCREMENT);
+                break;
+            case PESSIMISTIC_FORCE_INCREMENT:
+                m_criteria.setLockMode(LockMode.PESSIMISTIC_FORCE_INCREMENT);
+                break;
+            case PESSIMISTIC_READ:
+                m_criteria.setLockMode(LockMode.PESSIMISTIC_READ);
+                break;
+            case PESSIMISTIC_WRITE:
+                m_criteria.setLockMode(LockMode.PESSIMISTIC_WRITE);
+                break;
+            case READ:
+                m_criteria.setLockMode(LockMode.READ);
+                break;
+            case UPGRADE_NOWAIT:
+                m_criteria.setLockMode(LockMode.UPGRADE_NOWAIT);
+                break;
+            case WRITE:
+                m_criteria.setLockMode(LockMode.WRITE);
                 break;
             }
         }

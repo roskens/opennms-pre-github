@@ -1,22 +1,22 @@
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
- * Copyright (C) 2012 The OpenNMS Group, Inc.
- * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ * Copyright (C) 2012-2014 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2014 The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published
+ * it under the terms of the GNU Affero General Public License as published
  * by the Free Software Foundation, either version 3 of the License,
  * or (at your option) any later version.
  *
  * OpenNMS(R) is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU Affero General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GNU Affero General Public License
  * along with OpenNMS(R).  If not, see:
  *      http://www.gnu.org/licenses/
  *
@@ -48,11 +48,11 @@ import com.vaadin.data.util.PropertysetItem;
 import com.vaadin.data.validator.AbstractValidator;
 import com.vaadin.data.validator.StringLengthValidator;
 import com.vaadin.ui.Button;
+import com.vaadin.ui.Button.ClickEvent;
+import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.Form;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.Window;
-import com.vaadin.ui.Button.ClickEvent;
-import com.vaadin.ui.Button.ClickListener;
 
 public class RenameGroupOperation implements Constants, Operation {
 
@@ -95,7 +95,7 @@ public class RenameGroupOperation implements Constants, Operation {
 				//Object parentKey = targets.get(0);
 				//Object parentId = graphContainer.getVertexItemIdForVertexKey(parentKey);
 				VertexRef parentId = targets.get(0);
-				Vertex parentVertex = parentId == null ? null : graphContainer.getBaseTopology().getVertex(parentId);
+				Vertex parentVertex = parentId == null ? null : graphContainer.getBaseTopology().getVertex(parentId, graphContainer.getCriteria());
 				Item parentItem = parentVertex == null ? null : parentVertex.getItem();
 
 				if (parentItem != null) {
@@ -190,10 +190,14 @@ public class RenameGroupOperation implements Constants, Operation {
 
 	@Override
 	public boolean display(List<VertexRef> targets, OperationContext operationContext) {
-		return targets != null && 
-		targets.size() == 1 && 
-		targets.get(0) != null 
-		;
+		if (operationContext.getGraphContainer().getBaseTopology().groupingSupported()) {
+			return targets != null && 
+					targets.size() == 1 && 
+					targets.get(0) != null 
+					;
+		} else {
+			return false;
+		}
 	}
 
 	@Override
@@ -202,7 +206,8 @@ public class RenameGroupOperation implements Constants, Operation {
 		return targets != null && 
 		targets.size() == 1 && 
 		targets.get(0) != null && 
-		operationContext.getGraphContainer().getBaseTopology().getVertex(targets.get(0)).isGroup()
+		operationContext.getGraphContainer().getBaseTopology().getVertex(targets.get(0), operationContext.getGraphContainer().getCriteria()) != null &&
+		operationContext.getGraphContainer().getBaseTopology().getVertex(targets.get(0), operationContext.getGraphContainer().getCriteria()).isGroup()
 		;
 	}
 

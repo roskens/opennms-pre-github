@@ -1,22 +1,22 @@
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
- * Copyright (C) 2009-2012 The OpenNMS Group, Inc.
- * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ * Copyright (C) 2009-2014 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2014 The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published
+ * it under the terms of the GNU Affero General Public License as published
  * by the Free Software Foundation, either version 3 of the License,
  * or (at your option) any later version.
  *
  * OpenNMS(R) is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU Affero General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GNU Affero General Public License
  * along with OpenNMS(R).  If not, see:
  *      http://www.gnu.org/licenses/
  *
@@ -33,12 +33,11 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import org.opennms.core.utils.ParameterMap;
 import org.opennms.netmgt.collectd.AliasedResource;
-import org.opennms.netmgt.collectd.IfInfo;
-import org.opennms.netmgt.config.collector.CollectionAttribute;
-import org.opennms.netmgt.config.collector.CollectionResource;
-import org.opennms.netmgt.model.RrdRepository;
+import org.opennms.netmgt.collection.api.CollectionAttribute;
+import org.opennms.netmgt.collection.api.CollectionResource;
+import org.opennms.netmgt.collection.api.ServiceParameters;
+import org.opennms.netmgt.rrd.RrdRepository;
 import org.opennms.netmgt.xml.event.Event;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -54,35 +53,36 @@ public class CollectorThresholdingSet extends ThresholdingSet {
 
     // CollectionSpecification parameters
     boolean storeByIfAlias = false;
-    boolean storeByForeignSource = false;
-    
+    boolean counterReset = false;
+    ServiceParameters svcParams;
+
     /**
      * <p>Constructor for CollectorThresholdingSet.</p>
      *
      * @param nodeId a int.
      * @param hostAddress a {@link java.lang.String} object.
      * @param serviceName a {@link java.lang.String} object.
-     * @param repository a {@link org.opennms.netmgt.model.RrdRepository} object.
+     * @param repository a {@link org.opennms.netmgt.rrd.RrdRepository} object.
+     * @param svcParams a {@link org.opennms.netmgt.collection.api.ServiceParameters} object.
      */
-    public CollectorThresholdingSet(int nodeId, String hostAddress, String serviceName, RrdRepository repository, Map<String, Object> roProps) {
+    public CollectorThresholdingSet(int nodeId, String hostAddress, String serviceName, RrdRepository repository, ServiceParameters svcParams) {
         super(nodeId, hostAddress, serviceName, repository);
-        String storeByIfAliasString = ParameterMap.getKeyedString(roProps, "storeByIfAlias", null);
-        storeByIfAlias = storeByIfAliasString != null && storeByIfAliasString.equalsIgnoreCase("true");
-        storeByForeignSource = isStoreByForeignSource();
-        LOG.debug("storeByForeignSource = {}", storeByForeignSource);
+        String storeByIfAliasString = svcParams.getStoreByIfAlias();
+        storeByIfAlias = storeByIfAliasString != null && "true".equalsIgnoreCase(storeByIfAliasString);
+        this.svcParams = svcParams;
     }
-    
-    public static boolean isStoreByForeignSource() {
-       return Boolean.getBoolean("org.opennms.rrd.storeByForeignSource");
+
+    public void setCounterReset(boolean counterReset) {
+        this.counterReset = counterReset;
     }
-    
+
     /*
      * Returns true if the specified attribute is involved in any of defined thresholds for node/address/service
      */
     /**
      * <p>hasThresholds</p>
      *
-     * @param attribute a {@link org.opennms.netmgt.config.collector.CollectionAttribute} object.
+     * @param attribute a {@link org.opennms.netmgt.collection.api.CollectionAttribute} object.
      * @return a boolean.
      */
     public boolean hasThresholds(CollectionAttribute attribute) {
@@ -107,6 +107,7 @@ public class CollectorThresholdingSet extends ThresholdingSet {
 		CollectionResourceWrapper resourceWrapper = new CollectionResourceWrapper(
 				collectionTimestamp, m_nodeId, m_hostAddress, m_serviceName,
 				m_repository, resource, attributesMap);
+		resourceWrapper.setCounterReset(counterReset);
         return applyThresholds(resourceWrapper, attributesMap);
     }
 
@@ -124,10 +125,7 @@ public class CollectorThresholdingSet extends ThresholdingSet {
     }
     
     protected boolean isCollectionEnabled(CollectionResource resource) {
-        if (resource instanceof IfInfo) {
-            return ((IfInfo) resource).isScheduledForCollection();
-        }
-        return true;
+        return resource.shouldPersist(svcParams);
     }
 
 }

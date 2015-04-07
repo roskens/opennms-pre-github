@@ -1,22 +1,22 @@
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
- * Copyright (C) 2007-2012 The OpenNMS Group, Inc.
- * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ * Copyright (C) 2007-2014 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2014 The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published
+ * it under the terms of the GNU Affero General Public License as published
  * by the Free Software Foundation, either version 3 of the License,
  * or (at your option) any later version.
  *
  * OpenNMS(R) is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU Affero General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GNU Affero General Public License
  * along with OpenNMS(R).  If not, see:
  *      http://www.gnu.org/licenses/
  *
@@ -28,13 +28,16 @@
 
 package org.opennms.netmgt.threshd;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.opennms.netmgt.config.threshd.Basethresholddef;
 import org.opennms.netmgt.config.threshd.Expression;
+import org.opennms.netmgt.config.threshd.ResourceFilter;
 import org.opennms.netmgt.config.threshd.Threshold;
 
 /**
@@ -69,6 +72,19 @@ public abstract class BaseThresholdDefConfigWrapper {
             return new ExpressionConfigWrapper((Expression)baseDef);
         }
         return null;
+    }
+    
+    /**
+     * Returns the names of the datasources required from the resource filters
+     *
+     * @return Collection of the names of datasources
+     */
+    public List<String> getFilterDatasources() {
+        final List<String> dataSources = new ArrayList<String>();
+        for (ResourceFilter s : getBasethresholddef().getResourceFilterCollection()) {
+            dataSources.add(s.getField());
+        }
+        return dataSources;
     }
     
     /**
@@ -218,6 +234,7 @@ public abstract class BaseThresholdDefConfigWrapper {
         && getRearm() == o.getRearm()
         && getTrigger() == o.getTrigger()
         && getBasethresholddef().getFilterOperator().equals(o.getBasethresholddef().getFilterOperator())
+        && getBasethresholddef().isRelaxed() == o.getBasethresholddef().isRelaxed()
         && Arrays.equals(getBasethresholddef().getResourceFilter(), o.getBasethresholddef().getResourceFilter());
     }
     

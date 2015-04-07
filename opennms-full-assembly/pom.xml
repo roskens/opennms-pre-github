@@ -4,7 +4,7 @@
   <parent>
     <groupId>org.opennms</groupId>
     <artifactId>opennms</artifactId>
-    <version>1.13.0-SNAPSHOT</version>
+    <version>15.0.1</version>
     <relativePath>../pom.xml</relativePath>
   </parent>
   <groupId>org.opennms</groupId>
@@ -197,11 +197,11 @@
             <configuration>
               <karafVersion>DONT_USE_STANDARD_FEATURES</karafVersion>
               <descriptors>
-                <descriptor>mvn:org.opennms.osgi/all/${project.version}/xml/features</descriptor>
+                <descriptor>mvn:org.opennms.karaf/opennms/${project.version}/xml/features</descriptor>
               </descriptors>
               <features>
                 <feature>http-whiteboard</feature>
-                <feature>opennms-all</feature>
+                <feature>opennms-${project.version}</feature>
               </features>
               <repository>target/features-repo</repository>
             </configuration>
@@ -280,11 +280,11 @@
       <version>${project.version}</version>
     </dependency>
     <dependency>
-      <groupId>org.opennms</groupId>
-      <artifactId>opennms-doc</artifactId>
-      <type>tar.gz</type>
+      <groupId>org.opennms.doc</groupId>
+      <artifactId>guide-all</artifactId>
+      <type>zip</type>
       <version>${project.version}</version>
-      <classifier>daemon</classifier>
+      <classifier>docs</classifier>
     </dependency>
     <dependency>
       <groupId>org.opennms</groupId>
@@ -321,6 +321,13 @@
     </dependency>
     <dependency>
       <groupId>org.opennms</groupId>
+      <artifactId>opennms-jetty</artifactId>
+      <version>${project.version}</version>
+      <type>tar.gz</type>
+      <classifier>etc</classifier>
+    </dependency>
+    <dependency>
+      <groupId>org.opennms</groupId>
       <artifactId>opennms-link-provisioning-adapter</artifactId>
       <version>${project.version}</version>
     </dependency>
@@ -334,7 +341,6 @@
     <dependency>
       <groupId>org.opennms</groupId>
       <artifactId>opennms-map-provisioning-adapter</artifactId>
-      <version>${project.version}</version>
     </dependency>
     <dependency>
       <groupId>org.opennms</groupId>
@@ -346,12 +352,14 @@
     <dependency>
       <groupId>org.opennms</groupId>
       <artifactId>opennms-snmp-asset-provisioning-adapter</artifactId>
-      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.opennms</groupId>
+      <artifactId>opennms-snmp-hardware-inventory-provisioning-adapter</artifactId>
     </dependency>
     <dependency>
       <groupId>org.opennms</groupId>
       <artifactId>opennms-rancid-provisioning-adapter</artifactId>
-      <version>${project.version}</version>
     </dependency>
     <dependency>
       <groupId>org.opennms.protocols</groupId>
@@ -414,6 +422,11 @@
       <classifier>contrib</classifier>
     </dependency>
     <dependency>
+      <groupId>org.opennms</groupId>
+      <artifactId>opennms-vtdxml-collector-handler</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
       <groupId>org.opennms.protocols</groupId>
       <artifactId>org.opennms.protocols.xmp</artifactId>
       <version>${project.version}</version>
@@ -459,12 +472,10 @@
     <dependency>
       <groupId>org.opennms.features.ncs</groupId>
       <artifactId>ncs-persistence</artifactId>
-      <version>${project.version}</version>
     </dependency>
     <dependency>
       <groupId>org.opennms.features.ncs</groupId>
       <artifactId>ncs-drools</artifactId>
-      <version>${project.version}</version>
     </dependency>
     <dependency>
       <groupId>org.opennms.features.ncs</groupId>
@@ -476,7 +487,6 @@
     <dependency>
       <groupId>org.opennms.features.ncs</groupId>
       <artifactId>ncs-northbounder</artifactId>
-      <version>${project.version}</version>
     </dependency>
     <dependency>
       <groupId>org.opennms.features.ncs</groupId>
@@ -498,15 +508,35 @@
       <classifier>etc</classifier>
     </dependency>
     <dependency>
-      <groupId>org.opennms.osgi</groupId>
-      <artifactId>all</artifactId>
+      <groupId>org.opennms.karaf</groupId>
+      <artifactId>opennms</artifactId>
       <version>${project.version}</version>
       <type>xml</type>
       <classifier>features</classifier>
     </dependency>
   </dependencies>
 
+  <!-- 
+    You need to have all Maven repos here that contain artifacts that you need installed
+    into the Karaf system folder.
+  -->
+  <pluginRepositories>
+    <pluginRepository>
+      <snapshots><enabled>false</enabled></snapshots>
+      <releases><enabled>true</enabled></releases>
+      <id>opennms-repo</id>
+      <name>OpenNMS Repository</name>
+      <url>http://maven.opennms.org/content/groups/opennms.org-release</url>
+    </pluginRepository>
+  </pluginRepositories>
   <repositories>
+    <repository>
+      <snapshots><enabled>false</enabled></snapshots>
+      <releases><enabled>true</enabled></releases>
+      <id>opennms-repo</id>
+      <name>OpenNMS Repository</name>
+      <url>http://maven.opennms.org/content/groups/opennms.org-release</url>
+    </repository>
     <repository>
       <snapshots><enabled>true</enabled></snapshots>
       <releases><enabled>false</enabled></releases>
@@ -523,6 +553,10 @@
        <id>vaadin-addons</id>
        <url>http://maven.opennms.org/content/groups/vaadin.com-addons/</url>
     </repository>
+    <repository>
+      <id>sonatype-public-repo</id>
+      <name>Sonatype Public Maven Repository</name>
+      <url>http://maven.opennms.org/content/groups/sonatype.org-release</url>
+    </repository>
   </repositories>
-
 </project>

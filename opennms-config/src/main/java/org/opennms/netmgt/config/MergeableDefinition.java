@@ -1,22 +1,22 @@
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
- * Copyright (C) 2012 The OpenNMS Group, Inc.
- * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ * Copyright (C) 2007-2014 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2014 The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published
+ * it under the terms of the GNU Affero General Public License as published
  * by the Free Software Foundation, either version 3 of the License,
  * or (at your option) any later version.
  *
  * OpenNMS(R) is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU Affero General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GNU Affero General Public License
  * along with OpenNMS(R).  If not, see:
  *      http://www.gnu.org/licenses/
  *
@@ -28,10 +28,12 @@
 
 package org.opennms.netmgt.config;
 
+import java.util.ArrayList;
+
+import org.opennms.core.network.IPAddressRange;
+import org.opennms.core.network.IPAddressRangeSet;
 import org.opennms.netmgt.config.snmp.Definition;
 import org.opennms.netmgt.config.snmp.Range;
-import org.opennms.netmgt.model.discovery.IPAddressRange;
-import org.opennms.netmgt.model.discovery.IPAddressRangeSet;
 
 /**
  * This is a wrapper class for the Definition class from the config package.  Has the logic for 
@@ -58,11 +60,11 @@ final class MergeableDefinition {
     public MergeableDefinition(Definition def) {
         m_snmpConfigDef = def;
         
-        for (Range r : def.getRangeCollection()) {
+        for (Range r : def.getRanges()) {
             m_configRanges.add(new IPAddressRange(r.getBegin(), r.getEnd()));
         }
         
-        for(String s : def.getSpecificCollection()) {
+        for(String s : def.getSpecifics()) {
             m_configRanges.add(new IPAddressRange(s));
         }
     }
@@ -82,8 +84,8 @@ final class MergeableDefinition {
         
         m_configRanges.addAll(eventDefinition.getAddressRanges());
         
-        getConfigDef().removeAllRange();
-        getConfigDef().removeAllSpecific();
+        getConfigDef().setRanges(new ArrayList<Range>());
+        getConfigDef().setSpecifics(new ArrayList<String>());
         
         for(IPAddressRange range : m_configRanges) {
             if (range.isSingleton()) {
@@ -103,11 +105,11 @@ final class MergeableDefinition {
      *
      * @return a {@link org.opennms.netmgt.config.snmp.Definition} object.
      */
-    final public Definition getConfigDef() {
+    public final Definition getConfigDef() {
         return m_snmpConfigDef;
     }
     
-    final private <T> boolean areEquals(T object1, T object2) {
+    private final <T> boolean areEquals(T object1, T object2) {
     	return SnmpConfigManager.areEquals(object1, object2);
     }
 
@@ -172,8 +174,8 @@ final class MergeableDefinition {
         
         m_configRanges.removeAll(eventDefinition.getAddressRanges());
 
-        getConfigDef().removeAllRange();
-        getConfigDef().removeAllSpecific();
+        getConfigDef().setRanges(new ArrayList<Range>());
+        getConfigDef().setSpecifics(new ArrayList<String>());
         
         for(IPAddressRange r : m_configRanges) {
             if (r.isSingleton()) {
@@ -193,7 +195,7 @@ final class MergeableDefinition {
      * @return true if the range count and specific count is 0.
      */
     boolean isEmpty() {
-        return getConfigDef().getRangeCount() < 1 && getConfigDef().getSpecificCount() < 1;
+        return getConfigDef().getRanges().size() < 1 && getConfigDef().getSpecifics().size() < 1;
     }
 
 }

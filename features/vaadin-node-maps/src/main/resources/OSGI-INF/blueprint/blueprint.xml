@@ -1,7 +1,9 @@
 <blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:cm="http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.1.0"
 	xsi:schemaLocation="
 	http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd
+	http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.1.0 https://svn.apache.org/repos/asf/aries/tags/blueprint-0.3.1/blueprint-cm/src/main/resources/org/apache/aries/blueprint/compendium/cm/blueprint-cm-1.1.0.xsd
 ">
 
 	<reference id="transactionTemplate" interface="org.springframework.transaction.support.TransactionOperations" availability="mandatory" />
@@ -19,6 +21,7 @@
 	<bean id="severityGenerator" class="org.opennms.features.topology.plugins.browsers.SeverityGenerator" />
 	<bean id="nodeIdSelectionLinkGenerator" class="org.opennms.features.topology.plugins.browsers.NodeSelectionLinkGenerator">
 		<argument value="nodeId" />
+		<argument value="nodeLabel" />
 	</bean>
 	<bean id="alarmIdColumnLinkGenerator" class="org.opennms.features.topology.plugins.browsers.AlarmIdColumnLinkGenerator">
 		<argument ref="alarmDao" />
@@ -96,6 +99,7 @@
 
 	<bean id="nodeTableSelectionLinkGenerator" class="org.opennms.features.topology.plugins.browsers.NodeSelectionLinkGenerator">
 		<argument value="id" />
+		<argument value="label" />
 	</bean>
 	<bean id="ipInterfaceGenerator" class="org.opennms.features.topology.plugins.browsers.OnmsIpInterfaceGenerator" />
 
@@ -154,12 +158,19 @@
 		</property>
 	</bean>
 
+	<cm:property-placeholder id="mapWidgetConfig" persistent-id="org.opennms.features.vaadin.nodemaps" update-strategy="reload">
+		<cm:default-properties>
+			<cm:property name="groupByState" value="true" />
+		</cm:default-properties>
+	</cm:property-placeholder>
+
 	<bean id="mapWidget" class="org.opennms.features.vaadin.nodemaps.internal.MapWidgetComponent" scope="prototype" init-method="init">
 		<property name="nodeDao" ref="nodeDao" />
 		<property name="assetRecordDao" ref="assetDao" />
 		<property name="alarmDao" ref="alarmDao" />
 		<property name="geocoderService" ref="geocoderService" />
 		<property name="transactionOperations" ref="transactionTemplate" />
+		<property name="groupByState" value="${groupByState}" />
 	</bean>
 
 	<bean id="nodeMapsApplication" class="org.opennms.features.vaadin.nodemaps.internal.NodeMapsApplication" scope="prototype">
@@ -176,10 +187,10 @@
 		<argument value="nodeMapsApplication" />
 	</bean>
 
-	<service id="nodeMapsService" interface="org.ops4j.pax.vaadin.ApplicationFactory" ref="nodeMapsApplicationFactory">
+	<service id="nodeMapsService" interface="org.opennms.vaadin.extender.ApplicationFactory" ref="nodeMapsApplicationFactory">
 		<service-properties>
 			<entry key="alias" value="/node-maps" />
-			<entry key="widgetset" value="org.opennms.features.vaadin.nodemaps.internal.gwt.NodeMapsWidgetset" />
+			<entry key="init.widgetset" value="org.opennms.features.vaadin.nodemaps.internal.gwt.NodeMapsWidgetset" />
 		</service-properties>
 	</service>
 
@@ -195,7 +206,9 @@
 		</service-properties>
 	</service>
 
-	<bean id="nodeMapsQueryLink" class="org.opennms.features.vaadin.nodemaps.internal.NodeMapQueryLink" />
+	<bean id="nodeMapsQueryLink" class="org.opennms.features.vaadin.nodemaps.internal.NodeMapQueryLink">
+		<property name="geoAssetProvider" ref="mapWidget" />
+	</bean>
 
 	<service id="nodeMapsQueryLinkService" interface="org.opennms.features.topology.api.Operation" ref="nodeMapsQueryLink">
 		<service-properties>
@@ -205,4 +218,5 @@
 		</service-properties>
 	</service>
 
+	<service id="geoAssetProvider" interface="org.opennms.features.topology.api.geo.GeoAssetProvider" ref="mapWidget" />
 </blueprint>
