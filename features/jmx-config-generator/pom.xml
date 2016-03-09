@@ -22,7 +22,7 @@
         <commons.lang.version>2.6</commons.lang.version>
         <commons.lang3.version>3.1</commons.lang3.version>
         <velocity.version>1.7</velocity.version>
-        <commons.collections.version>3.2.1</commons.collections.version>
+        <commons.collections.version>3.2.2</commons.collections.version>
         <slf4j.version>1.6.6</slf4j.version>
     </properties>
 
